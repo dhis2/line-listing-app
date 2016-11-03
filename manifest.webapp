@@ -1,0 +1,19 @@
+{
+  "version": "26.0.0",
+  "name": "DHIS 2 Event Reports",
+  "description": "DHIS2 event reports app",
+  "icons": {},
+  "developer": {
+    "url": "http://www.dhis2.org",
+    "name": "Jan Henrik Øverland"
+  },
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "..",
+      "auth": "admin:district",
+      "devHref": "http://localhost:8080"
+    }
+  }
+}

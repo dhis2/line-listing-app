@@ -1,0 +1,52 @@
+{
+  "name": "event-reports-app",
+  "version": "26.0.0",
+  "description": "DHIS 2 event reports app",
+  "main": "index.html",
+  "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js src `git diff --cached --name-only | grep \\.js$`",
+    "validate": "npm ls --depth 0",
+    "start": "webpack-dev-server",
+    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./index.html build && cp ./jquery.min.js build && cp ./manifest.webapp build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhis2/event-reports-app.git"
+  },
+  "keywords": [
+    "DHIS 2",
+    "HISP",
+    "Pivot"
+  ],
+  "author": "Jan Henrik Øverland",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/dhis2/event-reports-app/issues"
+  },
+  "homepage": "https://github.com/dhis2/event-reports-app#readme",
+  "dependencies": {
+    "d2-utilizr": "^0.2.11",
+    "d2-analysis": "^25.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "babel-eslint": "5.0.0-beta6",
+    "babel-polyfill": "^6.3.14",
+    "babel-loader": "^6.2.0",
+    "css-loader": "0.18.0",
+    "eslint": "1.3.1",
+    "eslint-config-dhis2": "0.0.5",
+    "eslint-plugin-react": "3.3.1",
+    "file-loader": "0.8.5",
+    "img-loader": "^1.2.2",
+    "node-sass": "3.4.2",
+    "sass-loader": "2.0.1",
+    "style-loader": "0.12.3",
+    "susy": "2.2.5",
+    "url-loader": "^0.5.7",
+    "webpack": "1.12.9",
+    "webpack-dev-server": "1.14.0"
+  }
+}
