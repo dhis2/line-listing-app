@@ -1,0 +1,349 @@
+/*----------------------------------------------------------------------
+ * Meringue theme
+ *--------------------------------------------------------------------*/
+
+.meringue,
+.meringue * {
+	font-family: 'arial' !important;
+	color: #555;
+}
+.meringue {
+	font-weight: 400 !important;
+}
+
+.meringue-light {
+	font-weight: 300 !important;
+}
+.meringue-regular {
+	font-weight: 400 !important;
+}
+.meringue-medium {
+	font-weight: 500 !important;
+}
+.meringue-bold {
+	font-weight: 700 !important;
+}
+
+
+/*----------------------------------------------------------------------
+ * Meringue NorthToolbar
+ *--------------------------------------------------------------------*/
+
+/* General toolbar */
+.meringue.toolbar-north {
+	border: 0 none;
+	background: #fff !important;
+	height: 36px;
+	padding: 0;
+}
+
+	/* Items (all text) */
+	.meringue.toolbar-north .x-toolbar-text {
+		margin: 0;
+		height: 36px;
+		font-size: 13px;
+		font-weight: 400;
+		color: #444 !important;
+		line-height: 37px;
+	}
+
+	/* Logo item */
+	.meringue.toolbar-north .x-toolbar-text.logo {
+		color: #333 !important;
+		padding-left: 8px;
+	}
+		.meringue.toolbar-north .x-toolbar-text.logo .brand {
+			color: #444;
+			font-weight: 700;
+		}
+
+	/* Title item */
+	.meringue.toolbar-north .x-toolbar-text.title {
+		border-left: 1px solid #e1e1e1;
+		padding-left: 10px;
+	}
+		.meringue.toolbar-north .x-toolbar-text.title.unsaved {
+			color: #888 !important;
+			border-left-color: #ddd;
+		}
+
+		.meringue.toolbar-north .x-toolbar-text.title.unsaved::before {
+			content: "* ";
+		}
+
+		.meringue.toolbar-north .x-toolbar-text.title.untitled {
+            color: #777 !important;
+            font-style: italic;
+        }
+
+		.meringue.toolbar-north .x-toolbar-text.title .appendix {
+            padding-left: 8px;
+            color: #111;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+	/* About/home items */
+	.meringue.toolbar-north .x-toolbar-text.about {
+		color: #444;
+        text-transform: capitalize;
+		padding: 0 7px;
+		border-bottom: 1px solid transparent;
+	}
+		.meringue.toolbar-north .x-toolbar-text.about.hover {
+			color: #111 !important;
+			border-bottom-color: #2382ed;
+			cursor: pointer;
+		}
+
+
+/*----------------------------------------------------------------------
+ * Meringue Window
+ *--------------------------------------------------------------------*/
+
+/* General window */
+.meringue.x-window {
+	padding: 0;
+	border: 0 none;
+	background-color: #fff;
+	box-shadow: 0 0 7px #aaa;
+	border-radius: 2px;
+}
+
+	/* Header */
+	.meringue.x-window .x-window-header {
+		background-color: #fff;
+		border-color: #fff;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+
+		/* Header text */
+		.meringue.x-window .x-window-header .x-window-header-text {
+			padding: 17px 0 10px 17px;
+			font-size: 22px;
+			color: #444;
+			text-align: center;
+		}
+
+		/* Header tool */
+		.meringue.x-window .x-window-header .x-tool {
+			top: 1px !important;
+		}
+
+			/* Header tool img normal */
+			.meringue.x-window .x-window-header .x-tool img.x-tool-close {
+				background-image: url('../images/tool-close.png');
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: 0 0;
+			}
+
+			/* Header tool img onmouseover */
+			.meringue.x-window .x-window-header .x-tool-over img.x-tool-close {
+				background-image: url('../images/tool-close.png');
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: -15px 0;
+			}
+
+	/* Body */
+	.meringue.x-window .x-window-body {
+		background-color: #fff;
+		border-color: #fff;
+		padding: 15px;
+		font-size: 13px;
+		font-weight: 400;
+		color: #444;
+	}
+
+
+	/*----------------------------------------------------------------------
+	 * Window > Toolbar + Ghost
+	 *--------------------------------------------------------------------*/
+
+	/* Toolbars that are window items + ghost */
+	.meringue.x-window .x-toolbar.x-window-item,
+	.x-window .meringue.x-toolbar {
+		height: 40px;
+		border: 0 none;
+		border-top: 1px solid #ddd;
+		padding: 0;
+		background: #edeef0;
+	}
+
+		/* Top border on inner toolbar div + ghost */
+		.meringue.x-window .x-toolbar.x-window-item .x-box-inner,
+		.meringue.x-window .meringue.x-toolbar .x-box-inner {
+			border-top: 1px solid #e1e1e1;
+			line-height: 0;
+		}
+
+			/* Tb-fill flat + ghost */
+			.meringue.x-window .x-toolbar.x-window-item .x-box-inner .x-component.x-box-item.x-toolbar-item.x-component-default,
+			.x-window .meringue.x-toolbar .x-box-inner .x-component.x-box-item.x-toolbar-item.x-component-default {
+				height: 0;
+			}
+
+			/* Remove button onmouseover style + ghost */
+			.meringue.x-window .x-toolbar.x-window-item .x-btn-over,
+			.x-window .meringue.x-toolbar .x-btn-over {
+				border-color: transparent;
+				background: transparent;
+			}
+
+				/* Button text + ghost */
+				.meringue.x-window .x-toolbar.x-window-item .x-btn .x-btn-inner,
+				.x-window .meringue.x-toolbar .x-btn .x-btn-inner {
+					font-weight: 500;
+					text-transform: uppercase;
+					color: #666;
+				}
+
+				/* Button text (main) + ghost */
+				.meringue.x-window .x-toolbar.x-window-item .x-btn.main .x-btn-inner,
+				.x-window .meringue.x-toolbar .x-btn.main .x-btn-inner {
+					font-weight: 700;
+					margin-right: 4px;
+				}
+
+				/* Button text onmouseover + ghost */
+				.meringue.x-window .x-toolbar.x-window-item .x-btn-over .x-btn-inner,
+				.x-window .meringue.x-toolbar .x-btn-over .x-btn-inner {
+					color: #333;
+				}
+
+
+/*----------------------------------------------------------------------
+ * Form
+ *--------------------------------------------------------------------*/
+
+/* Form h2 */
+.meringue.x-window .h2.x-window-item .x-panel-body {
+	margin: 0;
+	padding: 12px 0 9px 1px;
+	border: 0 none;
+	font-size: 13px;
+	font-weight: 500;
+	color: #444;
+}
+
+/* Form h2 (first) */
+.meringue.x-window .h2.x-window-item .first.x-panel-body {
+	padding-top: 0;
+}
+
+
+/*----------------------------------------------------------------------
+ * Meringue Boundlist
+ *--------------------------------------------------------------------*/
+
+/* Boundlist general */
+.meringue.x-boundlist {
+    padding: 0;
+}
+
+	/* List items */
+	.meringue.x-boundlist .x-boundlist-item {
+		font-size: 11px;
+		color: #222;
+	}
+
+
+/*----------------------------------------------------------------------
+ * Meringue ComboBox
+ *--------------------------------------------------------------------*/
+
+/* ComboBox label */
+.meringue.combobox {
+	margin: 0;
+	padding-top: 2px;
+	padding-bottom: 1px;
+}
+
+/* Add separation space */
+.meringue.combobox.separator {
+	padding-top: 6px;
+}
+
+	/* Label */
+	.meringue.combobox label.x-form-item-label {
+		line-height: 13px;
+		font-size: 13px;
+	}
+
+    /* Field */
+	.meringue.combobox input {
+		height: 24px;
+		font-size: 11px;
+		color: #222;
+		padding-left: 5px;
+	}
+
+	/* Trigger */
+	.meringue.combobox .x-form-trigger {
+		height: 24px;
+	}
+
+
+/*----------------------------------------------------------------------
+ * Meringue Checkbox
+ *--------------------------------------------------------------------*/
+
+/* Checkbox */
+.meringue.checkbox {
+	margin: 0;
+	padding-bottom: 2px;
+}
+
+	/* Label after */
+	.meringue.checkbox .x-form-cb-label-after {
+		font-size: 13px;
+		line-height: 13px;
+	}
+
+/* Add separation space */
+.meringue.checkbox.separator {
+	padding-top: 6px;
+}
+
+
+/*----------------------------------------------------------------------
+ * Meringue Multiselect
+ *--------------------------------------------------------------------*/
+
+/* General multiselect */
+.meringue.multiselect {
+    margin: 0;
+}
+
+    /* Toolbar */
+    .meringue.multiselect .x-toolbar-item {
+        padding-left: 3px;
+        line-height: 13px;
+        font-size: 11px;
+        color: #555;
+    }
+
+
+/*----------------------------------------------------------------------
+ * Meringue Grid
+ *--------------------------------------------------------------------*/
+
+/* General grid */
+.meringue.x-grid {
+
+}
+
+	/* Cell normal/alt */
+	.meringue.x-grid .x-grid-row .x-grid-cell,
+	.meringue.x-grid .x-grid-row-alt .x-grid-cell {
+		border: 1px solid transparent;
+	}
+
+		/* Text */
+		.meringue.x-grid .x-grid-row .x-grid-cell * {
+			font-size: 13px;
+		}
+
+
