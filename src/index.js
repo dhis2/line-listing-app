@@ -217,7 +217,9 @@ function initialize() {
     // windows
     uiManager.reg(LayoutWindow(refs), 'layoutWindow').hide();
 
-    uiManager.reg(OptionsWindow(refs), 'optionsWindow').hide();
+    uiManager.reg(AggregateOptionsWindow(refs), 'aggregateOptionsWindow').hide();
+
+    uiManager.reg(QueryOptionsWindow(refs), 'queryOptionsWindow').hide();
 
     uiManager.reg(ui.FavoriteWindow(refs), 'favoriteWindow').hide();
 
@@ -256,7 +258,7 @@ function initialize() {
     uiManager.reg(ui.Viewport(refs, {
         northRegion: northRegion,
         eastRegion: eastRegion,
-        westRegionItems: ui.WestRegionAggregateItems(refs),
+        westRegionItems: ui.WestRegionTrackerItems(refs),
         integrationButtons: [
             defaultIntegrationButton,
             chartIntegrationButton,
