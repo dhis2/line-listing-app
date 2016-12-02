@@ -3,9 +3,9 @@ import isArray from 'd2-utilizr/lib/isArray';
 import arrayContains from 'd2-utilizr/lib/arrayContains';
 import clone from 'd2-utilizr/lib/clone';
 
-export var LayoutWindow;
+export var AggregateLayoutWindow;
 
-LayoutWindow = function(c) {
+AggregateLayoutWindow = function(c) {
     var t = this,
 
         uiManager = c.uiManager,

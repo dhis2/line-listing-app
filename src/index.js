@@ -9,8 +9,10 @@ import { api, pivot, manager, config, ui, init, override } from 'd2-analysis';
 
 import { Layout } from './api/Layout';
 
-import { LayoutWindow } from './ui/LayoutWindow';
-import { OptionsWindow } from './ui/OptionsWindow';
+import { AggregateLayoutWindow } from './ui/AggregateLayoutWindow';
+import { QueryLayoutWindow } from './ui/QueryLayoutWindow';
+import { AggregateOptionsWindow } from './ui/AggregateOptionsWindow';
+import { QueryOptionsWindow } from './ui/QueryOptionsWindow';
 import { DownloadButtonItems } from './ui/DownloadButtonItems';
 
 // override
@@ -215,7 +217,9 @@ function initialize() {
     }());
 
     // windows
-    uiManager.reg(LayoutWindow(refs), 'layoutWindow').hide();
+    uiManager.reg(AggregateLayoutWindow(refs), 'aggregateLayoutWindow').hide();
+
+    uiManager.reg(QueryLayoutWindow(refs), 'queryLayoutWindow').hide();
 
     uiManager.reg(AggregateOptionsWindow(refs), 'aggregateOptionsWindow').hide();
 

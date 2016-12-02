@@ -1,8 +1,8 @@
 import {isString, isNumber, isBoolean, isObject} from 'd2-utilizr';
 
-export var OptionsWindow;
+export var QueryOptionsWindow;
 
-OptionsWindow = function(c) {
+QueryOptionsWindow = function(c) {
     var t = this,
 
         appManager = c.appManager,
