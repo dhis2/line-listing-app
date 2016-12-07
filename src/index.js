@@ -148,6 +148,9 @@ function initialize() {
 
     var i18n = i18nManager.get();
 
+    // ui config
+    uiConfig.checkout('tracker');
+
     // app manager
     appManager.appName = 'Event Reports';
     appManager.sessionName = 'eventreport';
