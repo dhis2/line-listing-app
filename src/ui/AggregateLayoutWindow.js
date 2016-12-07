@@ -16,6 +16,7 @@ AggregateLayoutWindow = function(c) {
         instanceManager = c.instanceManager,
         i18n = c.i18nManager.get(),
         dimensionConfig = c.dimensionConfig,
+        optionConfig = c.optionConfig,
 
         confData = dimensionConfig.get('data'),
         confPeriod = dimensionConfig.get('period'),
@@ -23,49 +24,14 @@ AggregateLayoutWindow = function(c) {
         confCategory = dimensionConfig.get('category'),
 
         dimensionStoreMap = {},
-        margin = 1,
-        defaultWidth = 200,
-        defaultHeight = 220;
-
-    // components
-
-    var row,
-        rowStore,
-        col,
-        colStore,
-        fixedFilter,
-        fixedFilterStore,
-        filter,
-        filterStore,
-        onValueSelect,
-        value,
-        val,
-        onCollapseDataDimensionsChange,
-        collapseDataDimensions,
-        aggregationType,
-
-        getStore,
-        getStoreKeys,
-        addDimension,
-        removeDimension,
-        hasDimension,
-        saveState,
-        resetData,
-        reset,
-        dimensionStoreMap = {},
-
-        dimensionPanel,
-        selectPanel,
-        window,
 
         margin = 1,
         defaultWidth = 210,
         defaultHeight = 220,
-        maxHeight = (uiManager.get('viewport').getHeight() - 100) / 2,
 
         defaultValueId = 'default';
 
-    getStore = function(applyConfig) {
+    var getStore = function(applyConfig) {
         var config = {},
             store;
 
@@ -88,7 +54,7 @@ AggregateLayoutWindow = function(c) {
         return store;
     };
 
-    getStoreKeys = function(store) {
+    var getStoreKeys = function(store) {
         var keys = [],
             items = store.data.items;
 
@@ -101,11 +67,11 @@ AggregateLayoutWindow = function(c) {
         return keys;
     };
 
-    colStore = getStore({name: 'colStore'});
-    rowStore = getStore({name: 'rowStore'});
-    fixedFilterStore = getStore({name: 'fixedFilterStore'});
-    filterStore = getStore({name: 'filterStore'});
-    valueStore = getStore({name: 'valueStore'});
+    var colStore = getStore({name: 'colStore'});
+    var rowStore = getStore({name: 'rowStore'});
+    var fixedFilterStore = getStore({name: 'fixedFilterStore'});
+    var filterStore = getStore({name: 'filterStore'});
+    var valueStore = getStore({name: 'valueStore'});
 
     // store functions
     valueStore.addDefaultData = function() {
@@ -124,7 +90,7 @@ AggregateLayoutWindow = function(c) {
     };
 
     // gui
-    col = Ext.create('Ext.ux.form.MultiSelect', {
+    var col = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright',
         width: defaultWidth,
         height: defaultHeight,
@@ -158,7 +124,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    row = Ext.create('Ext.ux.form.MultiSelect', {
+    var row = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright',
         width: defaultWidth,
         height: defaultHeight,
@@ -192,7 +158,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    fixedFilter = Ext.create('Ext.ux.form.MultiSelect', {
+    var fixedFilter = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright ns-multiselect-fixed',
         width: defaultWidth,
         height: 26,
@@ -217,7 +183,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    filter = Ext.create('Ext.ux.form.MultiSelect', {
+    var filter = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright ns-multiselect-dynamic',
         width: defaultWidth,
         height: defaultHeight - 26,
@@ -239,7 +205,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    aggregationType = Ext.create('Ext.form.field.ComboBox', {
+    var aggregationType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo h22',
         width: 80,
         height: 22,
@@ -269,7 +235,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    onValueSelect = function(id) {
+    var onValueSelect = function(id) {
         id = id || value.getValue();
 
         if (id === defaultValueId) {
@@ -289,7 +255,7 @@ AggregateLayoutWindow = function(c) {
         }
     };
 
-    value = Ext.create('Ext.form.field.ComboBox', {
+    var value = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo h24',
         width: defaultWidth - 4,
         height: 24,
@@ -322,7 +288,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    val = Ext.create('Ext.panel.Panel', {
+    var val = Ext.create('Ext.panel.Panel', {
         bodyStyle: 'padding: 1px',
         width: defaultWidth,
         height: 220,
@@ -343,12 +309,12 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    onCollapseDataDimensionsChange = function(value) {
+    var onCollapseDataDimensionsChange = function(value) {
         toggleDataItems(value);
         toggleValueGui(value);
     };
 
-    collapseDataDimensions = Ext.create('Ext.form.field.Checkbox', {
+    var collapseDataDimensions = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.collapse_data_dimensions,
         style: 'margin-left: 3px',
         listeners: {
@@ -358,7 +324,7 @@ AggregateLayoutWindow = function(c) {
         }
     });
 
-    selectPanel = Ext.create('Ext.panel.Panel', {
+    var selectPanel = Ext.create('Ext.panel.Panel', {
         bodyStyle: 'border:0 none',
         items: [
             {
@@ -389,7 +355,7 @@ AggregateLayoutWindow = function(c) {
         ]
     });
 
-    addDimension = function(record, store, excludedStores, force) {
+    var addDimension = function(record, store, excludedStores, force) {
         if (record.isProgramIndicator) {
             return;
         }
@@ -411,7 +377,7 @@ AggregateLayoutWindow = function(c) {
         onCollapseDataDimensionsChange(collapseDataDimensions.getValue());
     };
 
-    removeDimension = function(id, excludedStores) {
+    var removeDimension = function(id, excludedStores) {
         var stores = arrayDifference([colStore, rowStore, filterStore, fixedFilterStore, valueStore], arrayFrom(excludedStores));
 
         for (var i = 0, store, index; i < stores.length; i++) {
@@ -425,7 +391,7 @@ AggregateLayoutWindow = function(c) {
         }
     };
 
-    hasDimension = function(id, excludedStores) {
+    var hasDimension = function(id, excludedStores) {
         var stores = arrayDifference([colStore, rowStore, filterStore, fixedFilterStore, valueStore], arrayFrom(excludedStores));
 
         for (var i = 0, store, index; i < stores.length; i++) {
@@ -440,7 +406,7 @@ AggregateLayoutWindow = function(c) {
         return false;
     };
 
-    saveState = function(map) {
+    var saveState = function(map) {
         map = map || dimensionStoreMap;
 
         colStore.each(function(record) {
@@ -466,7 +432,7 @@ AggregateLayoutWindow = function(c) {
         return map;
     };
 
-    resetData = function() {
+    var resetData = function() {
         var map = saveState({}),
             keys = ['ou', 'pe', 'dates'];
 
@@ -477,7 +443,7 @@ AggregateLayoutWindow = function(c) {
         }
     };
 
-    reset = function(isAll, skipValueStore) {
+    var reset = function(isAll, skipValueStore) {
         colStore.removeAll();
         rowStore.removeAll();
         fixedFilterStore.removeAll();
@@ -491,14 +457,14 @@ AggregateLayoutWindow = function(c) {
         value.clearValue();
 
         if (!isAll) {
-            colStore.add({id: dimConf.organisationUnit.dimensionName, name: dimConf.organisationUnit.name});
-            colStore.add({id: dimConf.period.dimensionName, name: dimConf.period.name});
+            colStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
+            colStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
         }
 
         fixedFilterStore.setListHeight();
     };
 
-    toggleDataItems = function(param) {
+    var toggleDataItems = function(param) {
         var stores = [colStore, rowStore, filterStore, fixedFilterStore],
             collapse = isObject(param) && isDefined(param.collapseDataItems) ? param.collapseDataItems : param,
             keys = ['ou', 'pe', 'dates'],
@@ -545,13 +511,13 @@ AggregateLayoutWindow = function(c) {
         }
     };
 
-    toggleValueGui = function(param) {
+    var toggleValueGui = function(param) {
         var collapse = isObject(param) && param.collapseDataItems ? param.collapseDataItems : param;
 
         val.setDisabled(collapse);
     };
 
-    window = Ext.create('Ext.window.Window', {
+    var window = Ext.create('Ext.window.Window', {
         title: i18n.table_layout,
         bodyStyle: 'background-color:#fff; padding:' + margin + 'px',
         closeAction: 'hide',
