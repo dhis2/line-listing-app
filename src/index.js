@@ -93,7 +93,7 @@ uiManager.applyTo(arrayTo(api));
 dimensionConfig.applyTo(arrayTo(pivot));
 optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
 
-    // ux
+    // init ux
 Object.keys(ux).forEach(key => ux[key](refs));
 
 // requests

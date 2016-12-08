@@ -5,6 +5,7 @@ import arrayPluck from 'd2-utilizr/lib/arrayPluck';
 import clone from 'd2-utilizr/lib/clone';
 import isArray from 'd2-utilizr/lib/isArray';
 import isDefined from 'd2-utilizr/lib/isDefined';
+import isObject from 'd2-utilizr/lib/isObject';
 import isString from 'd2-utilizr/lib/isString';
 
 export var AggregateLayoutWindow;
