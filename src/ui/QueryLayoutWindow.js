@@ -19,40 +19,14 @@ QueryLayoutWindow = function(c) {
         confCategory = dimensionConfig.get('category'),
 
         dimensionStoreMap = {},
-        margin = 1,
-        defaultWidth = 200,
-        defaultHeight = 220;
-
-    // components
-
-    var dimension,
-        dimensionStore,
-        col,
-        colStore,
-
-        getStore,
-        getStoreKeys,
-        getCmpHeight,
-        getSetup,
-        addDimension,
-        removeDimension,
-        hasDimension,
-        saveState,
-        resetData,
-        reset,
-        dimensionStoreMap = {},
-
-        dimensionPanel,
-        window,
 
         margin = 1,
         defaultWidth = 210,
         defaultHeight = 158,
-        maxHeight = (ns.app.viewport.getHeight() - 100) / 2,
 
         dataType = dimensionConfig.dataType['individual_cases'];
 
-    getStore = function(data) {
+    var getStore = function(data) {
         var config = {};
 
         config.fields = ['id', 'name'];
@@ -74,7 +48,7 @@ QueryLayoutWindow = function(c) {
         return Ext.create('Ext.data.Store', config);
     };
 
-    getStoreKeys = function(store) {
+    var getStoreKeys = function(store) {
         var keys = [],
             items = store.data.items;
 
@@ -87,17 +61,18 @@ QueryLayoutWindow = function(c) {
         return keys;
     };
 
-    dimensionStore = getStore();
+    var dimensionStore = getStore();
     dimensionStore.reset = function(all) {
         dimensionStore.removeAll();
     };
 
-    colStore = getStore();
+    var colStore = getStore();
 
-    getCmpHeight = function() {
+    var getCmpHeight = function() {
         var size = dimensionStore.totalCount,
             expansion = 10,
             height = defaultHeight,
+            maxHeight = (uiManager.get('viewport').getHeight() - 100) / 2
             diff;
 
         if (size > 10) {
@@ -110,10 +85,10 @@ QueryLayoutWindow = function(c) {
         return height;
     };
 
-    dimension = Ext.create('Ext.ux.form.MultiSelect', {
+    var dimension = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright',
         width: defaultWidth - 50,
-        height: (getCmpHeight() * 2) + margin,
+        height: defaultHeight,
         style: 'margin-right:' + margin + 'px; margin-bottom:0px',
         valueField: 'id',
         displayField: 'name',
@@ -145,10 +120,10 @@ QueryLayoutWindow = function(c) {
         }
     });
 
-    col = Ext.create('Ext.ux.form.MultiSelect', {
+    var col = Ext.create('Ext.ux.form.MultiSelect', {
         cls: 'ns-toolbar-multiselect-leftright',
         width: defaultWidth,
-        height: (getCmpHeight() * 2) + margin,
+        height: defaultHeight,
         style: 'margin-bottom: 0px',
         valueField: 'id',
         displayField: 'name',
@@ -179,13 +154,13 @@ QueryLayoutWindow = function(c) {
         }
     });
 
-    getSetup = function() {
+    var getSetup = function() {
         return {
             col: getStoreKeys(colStore)
         };
     };
 
-    addDimension = function(record, store) {
+    var addDimension = function(record, store) {
         var store = dimensionStoreMap[record.id] || store || dimensionStore;
 
         if (!hasDimension(record.id)) {
@@ -193,7 +168,7 @@ QueryLayoutWindow = function(c) {
         }
     };
 
-    removeDimension = function(dataElementId) {
+    var removeDimension = function(dataElementId) {
         var stores = [dimensionStore, colStore];
 
         for (var i = 0, store, index; i < stores.length; i++) {
@@ -207,7 +182,7 @@ QueryLayoutWindow = function(c) {
         }
     };
 
-    hasDimension = function(id) {
+    var hasDimension = function(id) {
         var stores = [colStore, dimensionStore];
 
         for (var i = 0, store, index; i < stores.length; i++) {
@@ -222,7 +197,7 @@ QueryLayoutWindow = function(c) {
         return false;
     };
 
-    saveState = function(map) {
+    var saveState = function(map) {
         map = map || dimensionStoreMap;
 
         dimensionStore.each(function(record) {
@@ -236,7 +211,7 @@ QueryLayoutWindow = function(c) {
         return map;
     };
 
-    resetData = function() {
+    var resetData = function() {
         var map = saveState({}),
             keys = ['pe', 'latitude', 'longitude', 'ou'];
 
@@ -247,7 +222,7 @@ QueryLayoutWindow = function(c) {
         }
     };
 
-    reset = function() {
+    var reset = function() {
         colStore.removeAll();
         dimensionStore.removeAll();
 
@@ -258,7 +233,7 @@ QueryLayoutWindow = function(c) {
         dimensionStore.add({id: 'latitude', name: 'Latitude'});
     };
 
-    window = Ext.create('Ext.window.Window', {
+    var window = Ext.create('Ext.window.Window', {
         title: i18n.table_layout,
         layout: 'column',
         bodyStyle: 'background-color:#fff; padding:' + margin + 'px',
@@ -322,11 +297,13 @@ QueryLayoutWindow = function(c) {
         ],
         listeners: {
             show: function(w) {
-                if (ns.app.layoutButton.rendered) {
-                    ns.core.web.window.setAnchorPosition(w, ns.app.layoutButton);
+                var layoutButton = uiManager.get('layoutButton') || {};
+
+                if (layoutButton.rendered) {
+                    c.uiManager.setAnchorPosition(w, layoutButton);
 
                     if (!w.hasHideOnBlurHandler) {
-                        ns.core.web.window.addHideOnBlurHandler(w);
+                        c.uiManager.addHideOnBlurHandler(w);
                     }
                 }
             },
