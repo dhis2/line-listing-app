@@ -14,81 +14,58 @@ AggregateOptionsWindow = function(c) {
         i18n = c.i18nManager.get(),
         optionConfig = c.optionConfig;
 
-    var showColTotals,
-        showRowTotals,
-        showColSubTotals,
-        showRowSubTotals,
-        showDimensionLabels,
-        hideEmptyRows,
-        hideNaData,
-        completedOnly,
-        limit,
-        outputType,
-        aggregationType,
-        showHierarchy,
-        digitGroupSeparator,
-        displayDensity,
-        fontSize,
-        reportingPeriod,
-        organisationUnit,
-        parentOrganisationUnit,
-
-        data,
-        style,
-        parameters,
-
-        comboboxWidth = 280,
+    var comboboxWidth = 280,
         comboBottomMargin = 1,
         checkboxBottomMargin = 2,
         separatorTopMargin = 10,
         window;
 
-    showColTotals = Ext.create('Ext.form.field.Checkbox', {
+    var showColTotals = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_col_totals,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    showColSubTotals = Ext.create('Ext.form.field.Checkbox', {
+    var showColSubTotals = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_col_subtotals,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    showRowTotals = Ext.create('Ext.form.field.Checkbox', {
+    var showRowTotals = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_row_totals,
         style: 'margin-top:' + separatorTopMargin + 'px; margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    showRowSubTotals = Ext.create('Ext.form.field.Checkbox', {
+    var showRowSubTotals = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_row_subtotals,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    showDimensionLabels = Ext.create('Ext.form.field.Checkbox', {
+    var showDimensionLabels = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_dimension_labels,
         style: 'margin-top:' + separatorTopMargin + 'px; margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
+    var hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.hide_empty_rows,
         style: 'margin-top:' + separatorTopMargin + 'px; margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    hideNaData = Ext.create('Ext.form.field.Checkbox', {
+    var hideNaData = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.hide_na_data,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    completedOnly = Ext.create('Ext.form.field.Checkbox', {
+    var completedOnly = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.include_only_completed_events_only,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    limit = Ext.create('Ext.ux.container.LimitContainer', {
+    var limit = Ext.create('Ext.ux.container.LimitContainer', {
         boxLabel: i18n.limit,
         sortOrder: 1,
         topLimit: 10,
@@ -97,7 +74,7 @@ AggregateOptionsWindow = function(c) {
         style: 'margin-top:' + separatorTopMargin + 'px'
     });
 
-    outputType = Ext.create('Ext.form.field.ComboBox', {
+    var outputType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: comboboxWidth,
@@ -118,12 +95,12 @@ AggregateOptionsWindow = function(c) {
         })
     });
 
-    showHierarchy = Ext.create('Ext.form.field.Checkbox', {
+    var showHierarchy = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_hierarchy,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    displayDensity = Ext.create('Ext.form.field.ComboBox', {
+    var displayDensity = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: comboboxWidth,
@@ -133,18 +110,14 @@ AggregateOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.normal,
+        value: optionConfig.getDisplayDensity('normal').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.compact, text: i18n.compact},
-                {id: finalsStyleConf.normal, text: i18n.normal},
-                {id: finalsStyleConf.comfortable, text: i18n.comfortable}
-            ]
+            data: optionConfig.getDisplayDensityRecords()
         })
     });
 
-    fontSize = Ext.create('Ext.form.field.ComboBox', {
+    var fontSize = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: comboboxWidth,
@@ -154,18 +127,14 @@ AggregateOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.normal,
+        value: optionConfig.getFontSize('normal').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.large, text: i18n.large},
-                {id: finalsStyleConf.normal, text: i18n.normal},
-                {id: finalsStyleConf.small, text: i18n.small_}
-            ]
+            data: optionConfig.getFontSizeRecords()
         })
     });
 
-    digitGroupSeparator = Ext.create('Ext.form.field.ComboBox', {
+    var digitGroupSeparator = Ext.create('Ext.form.field.ComboBox', {
         labelStyle: 'color:#333',
         cls: 'ns-combo',
         style: 'margin-bottom:0',
@@ -175,18 +144,14 @@ AggregateOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.space,
+        value: optionConfig.getDigitGroupSeparator('space').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.none, text: i18n.none},
-                {id: finalsStyleConf.comma, text: i18n.comma},
-                {id: finalsStyleConf.space, text: i18n.space}
-            ]
+            data: optionConfig.getDigitGroupSeparatorRecords()
         })
     });
 
-    data = {
+    var data = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -204,7 +169,7 @@ AggregateOptionsWindow = function(c) {
         ]
     };
 
-    organisationUnits = {
+    var organisationUnits = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -212,7 +177,7 @@ AggregateOptionsWindow = function(c) {
         ]
     };
 
-    style = {
+    var style = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -223,7 +188,7 @@ AggregateOptionsWindow = function(c) {
         ]
     };
 
-    window = Ext.create('Ext.window.Window', {
+    var window = Ext.create('Ext.window.Window', {
         title: i18n.table_options,
         bodyStyle: 'background-color:#fff; padding:2px',
         closeAction: 'hide',
@@ -265,9 +230,9 @@ AggregateOptionsWindow = function(c) {
             limit.setValues(layout.sortOrder, layout.topLimit);
             //aggregationType.setValue(isString(layout.aggregationType) ? layout.aggregationType : 'default');
             showHierarchy.setValue(isBoolean(layout.showHierarchy) ? layout.showHierarchy : false);
-            displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : finalsStyleConf.normal);
-            fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : finalsStyleConf.normal);
-            digitGroupSeparator.setValue(isString(layout.digitGroupSeparator) ? layout.digitGroupSeparator : finalsStyleConf.space);
+            displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);
+            fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : optionConfig.getFontSize('normal').id);
+            digitGroupSeparator.setValue(isString(layout.digitGroupSeparator) ? layout.digitGroupSeparator : optionConfig.getDigitGroupSeparator('space').id);
             //legendSet.setValue(isObject(layout.legendSet) && isString(layout.legendSet.id) ? layout.legendSet.id : 0);
             //reportingPeriod.setValue(isBoolean(layout.reportingPeriod) ? layout.reportingPeriod : false);
             //organisationUnit.setValue(isBoolean(layout.organisationUnit) ? layout.organisationUnit : false);

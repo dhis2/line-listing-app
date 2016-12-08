@@ -887,6 +887,35 @@ table.pivot.fontsize-SMALL td {
 	background: url('../images/map_14.png') no-repeat;
 }
 
+.ns-button-icon-arrowleft {
+	background: url('../images/arrowleft.png') no-repeat;
+}
+.ns-button-icon-arrowleftdouble {
+	background: url('../images/arrowleftdouble.png') no-repeat;
+}
+.ns-button-icon-arrowlefttriple {
+	background: url('../images/arrowlefttriple.png') no-repeat;
+    width: 26px !important;
+}
+.ns-button-icon-arrowright {
+	background: url('../images/arrowright.png') no-repeat;
+}
+.ns-button-icon-arrowrightdouble {
+	background: url('../images/arrowrightdouble.png') no-repeat;
+}
+.ns-button-icon-arrowrighttriple {
+	background: url('../images/arrowrighttriple.png') no-repeat;
+    width: 26px !important;
+}
+
+.ns-button-icon-search {
+	background: url('../images/search_14.png') 1px 1px no-repeat;
+}
+
+.ns-button-icon-nodeselectchild {
+	background: url('../images/node-select-child.png') 1px 1px no-repeat;
+}
+
 .ns-button-organisationunitselection .x-btn-center {
 	width: 18px !important;
 }

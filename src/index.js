@@ -5,7 +5,7 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
-import { api, pivot, manager, config, ui, init, override } from 'd2-analysis';
+import { api, pivot, manager, config, ui, init, override, ux } from 'd2-analysis';
 
 import { Layout } from './api/Layout';
 
@@ -92,6 +92,9 @@ instanceManager.applyTo(arrayTo(api));
 uiManager.applyTo(arrayTo(api));
 dimensionConfig.applyTo(arrayTo(pivot));
 optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
+
+    // ux
+Object.keys(ux).forEach(key => ux[key](refs));
 
 // requests
 var manifestReq = $.ajax({

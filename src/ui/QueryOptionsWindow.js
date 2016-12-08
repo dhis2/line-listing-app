@@ -40,14 +40,10 @@ QueryOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.normal,
+        value: optionConfig.getDisplayDensity('normal').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.compact, text: i18n.compact},
-                {id: finalsStyleConf.normal, text: i18n.normal},
-                {id: finalsStyleConf.comfortable, text: i18n.comfortable}
-            ]
+            data: optionConfig.getDisplayDensityRecords()
         })
     });
 
@@ -61,14 +57,10 @@ QueryOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.normal,
+        value: optionConfig.getFontSize('normal').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.large, text: i18n.large},
-                {id: finalsStyleConf.normal, text: i18n.normal},
-                {id: finalsStyleConf.small, text: i18n.small_}
-            ]
+            data: optionConfig.getFontSizeRecords()
         })
     });
 
@@ -82,14 +74,10 @@ QueryOptionsWindow = function(c) {
         queryMode: 'local',
         valueField: 'id',
         editable: false,
-        value: finalsStyleConf.space,
+        value: optionConfig.getDigitGroupSeparator('space').id,
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'text'],
-            data: [
-                {id: finalsStyleConf.none, text: i18n.none},
-                {id: finalsStyleConf.space, text: i18n.space},
-                {id: finalsStyleConf.comma, text: i18n.comma}
-            ]
+            data: optionConfig.getDigitGroupSeparatorRecords()
         })
     });
 
@@ -140,9 +128,9 @@ QueryOptionsWindow = function(c) {
         },
         setOptions: function(layout) {
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
-            displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : finalsStyleConf.normal);
-            fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : finalsStyleConf.normal);
-            digitGroupSeparator.setValue(isString(layout.digitGroupSeparator) ? layout.digitGroupSeparator : finalsStyleConf.space);
+            displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);
+            fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : optionConfig.getFontSize('normal').id);
+            digitGroupSeparator.setValue(isString(layout.digitGroupSeparator) ? layout.digitGroupSeparator : optionConfig.getDisplayDensity('space').id);
         },
         items: [
             {
@@ -192,11 +180,13 @@ QueryOptionsWindow = function(c) {
         ],
         listeners: {
             show: function(w) {
-                if (uiManager.get('optionsButton').rendered) {
-                    ns.core.web.window.setAnchorPosition(w, uiManager.get('optionsButton'));
+                var optionsButton = uiManager.get('optionsButton') || {};
+
+                if (optionsButton.rendered) {
+                    c.uiManager.setAnchorPosition(w, optionsButton);
 
                     if (!w.hasHideOnBlurHandler) {
-                        ns.core.web.window.addHideOnBlurHandler(w);
+                        c.uiManager.addHideOnBlurHandler(w);
                     }
                 }
 
