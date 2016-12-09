@@ -13,6 +13,7 @@ export var AggregateLayoutWindow;
 AggregateLayoutWindow = function(c) {
     var t = this,
 
+        appManager = c.appManager,
         uiManager = c.uiManager,
         instanceManager = c.instanceManager,
         i18n = c.i18nManager.get(),
@@ -469,7 +470,7 @@ AggregateLayoutWindow = function(c) {
         var stores = [colStore, rowStore, filterStore, fixedFilterStore],
             collapse = isObject(param) && isDefined(param.collapseDataItems) ? param.collapseDataItems : param,
             keys = ['ou', 'pe', 'dates'],
-            dimensionKeys = arrayPluck(ns.core.init.dimensions || [], 'id'),
+            dimensionKeys = arrayPluck(appManager.dimensions || [], 'id'),
             dy = ['dy'],
             keys;
 

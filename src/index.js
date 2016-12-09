@@ -14,6 +14,7 @@ import { QueryLayoutWindow } from './ui/QueryLayoutWindow';
 import { AggregateOptionsWindow } from './ui/AggregateOptionsWindow';
 import { QueryOptionsWindow } from './ui/QueryOptionsWindow';
 import { DownloadButtonItems } from './ui/DownloadButtonItems';
+import { DataTypeToolbar } from './ui/DataTypeToolbar';
 
 // override
 override.extOverrides();
@@ -139,7 +140,7 @@ requestManager.add(new api.Request(init.authViewUnapprovedDataInit(refs)));
 requestManager.add(new api.Request(init.rootNodesInit(refs)));
 requestManager.add(new api.Request(init.organisationUnitLevelsInit(refs)));
 requestManager.add(new api.Request(init.legendSetsInit(refs)));
-requestManager.add(new api.Request(init.dimensionsInit(refs)));
+requestManager.add(new api.Request(init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
 requestManager.add(new api.Request(init.dataApprovalLevelsInit(refs)));
 
 requestManager.set(initialize);
@@ -238,6 +239,8 @@ function initialize() {
 
     var eastRegion = uiManager.reg(ui.EastRegion(refs), 'eastRegion');
 
+    var dataTypeToolbar = uiManager.reg(DataTypeToolbar(refs), 'dataTypeToolbar');
+
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
         isDefaultButton: true,
         btnText: i18n.table,
@@ -269,6 +272,7 @@ function initialize() {
         northRegion: northRegion,
         eastRegion: eastRegion,
         westRegionItems: ui.WestRegionTrackerItems(refs),
+        dataTypeToolbar: dataTypeToolbar,
         integrationButtons: [
             defaultIntegrationButton,
             chartIntegrationButton,
