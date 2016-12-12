@@ -8,6 +8,8 @@ DataTypeToolbar = function(refs) {
 
     var dataTypeButtonParamMap = {};
 
+    var caseTypeButtonWidth = 224;
+
     var onTypeClick = function(button) {
         if (!button.pressed) {
             button.toggle();
@@ -34,7 +36,7 @@ DataTypeToolbar = function(refs) {
     dataTypeButtonParamMap[aggregateTypeButton.param] = aggregateTypeButton;
 
     var caseTypeButton = Ext.create('Ext.button.Button', {
-        width: 224,
+        width: caseTypeButtonWidth,
         param: dimensionConfig.dataType['individual_cases'],
         text: '<b>Events</b><br/>Show individual event overview',
         style: 'margin-right:1px',
@@ -48,8 +50,8 @@ DataTypeToolbar = function(refs) {
     dataTypeButtonParamMap[caseTypeButton.param] = caseTypeButton;
 
     var dataTypeToolbar = Ext.create('Ext.toolbar.Toolbar', {
-        style: 'padding:1px; background:#fbfbfb; border:0 none',
-        height: 41,
+        style: 'padding:1px; background:#fbfbfb; border:0 none; border-top:1px solid #d0d0d0',
+        height: 42,
         getType: function() {
             return aggregateTypeButton.pressed ? aggregateTypeButton.param : caseTypeButton.param;
         },
@@ -59,6 +61,9 @@ DataTypeToolbar = function(refs) {
             if (button) {
                 button.toggle(true);
             }
+        },
+        setButtonWidth: function(value, append) {
+            caseTypeButton.setWidth(value + (append ? caseTypeButtonWidth : 0));
         },
         defaults: {
             height: 40,

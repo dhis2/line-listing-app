@@ -278,7 +278,34 @@ function initialize() {
             chartIntegrationButton,
             mapIntegrationButton
         ],
-        DownloadButtonItems: DownloadButtonItems
+        DownloadButtonItems: DownloadButtonItems,
+    }, {
+        getLayoutWindow: function() {
+            var type = uiManager.get('dataTypeToolbar').getType(),
+                window;
+
+            if (type === dimensionConfig.dataType['aggregated_values']) {
+                window = uiManager.get('aggregateLayoutWindow');
+            }
+            else if (type === dimensionConfig.dataType['individual_cases']) {
+                window = uiManager.get('queryLayoutWindow');
+            }
+
+            return window;
+        },
+        getOptionsWindow: function() {
+            var type = uiManager.get('dataTypeToolbar').getType(),
+                window;
+
+            if (type === dimensionConfig.dataType['aggregated_values']) {
+                window = uiManager.get('aggregateOptionsWindow');
+            }
+            else if (type === dimensionConfig.dataType['individual_cases']) {
+                window = uiManager.get('queryOptionsWindow');
+            }
+
+            return window;
+        }
     }), 'viewport');
 }
 
