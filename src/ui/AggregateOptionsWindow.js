@@ -5,14 +5,14 @@ import isString from 'd2-utilizr/lib/isString';
 
 export var AggregateOptionsWindow;
 
-AggregateOptionsWindow = function(c) {
+AggregateOptionsWindow = function(refs) {
     var t = this,
 
-        appManager = c.appManager,
-        uiManager = c.uiManager,
-        instanceManager = c.instanceManager,
-        i18n = c.i18nManager.get(),
-        optionConfig = c.optionConfig;
+        appManager = refs.appManager,
+        uiManager = refs.uiManager,
+        instanceManager = refs.instanceManager,
+        i18n = refs.i18nManager.get(),
+        optionConfig = refs.optionConfig;
 
     var comboboxWidth = 280,
         comboBottomMargin = 1,
@@ -109,10 +109,11 @@ AggregateOptionsWindow = function(c) {
         labelStyle: 'color:#333',
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getDisplayDensity('normal').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getDisplayDensityRecords()
         })
     });
@@ -126,10 +127,11 @@ AggregateOptionsWindow = function(c) {
         labelStyle: 'color:#333',
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getFontSize('normal').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getFontSizeRecords()
         })
     });
@@ -143,10 +145,11 @@ AggregateOptionsWindow = function(c) {
         fieldLabel: i18n.digit_group_separator,
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getDigitGroupSeparator('space').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getDigitGroupSeparatorRecords()
         })
     });
@@ -228,19 +231,10 @@ AggregateOptionsWindow = function(c) {
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
             outputType.setValue(isString(layout.outputType) ? layout.outputType : 'EVENT');
             limit.setValues(layout.sortOrder, layout.topLimit);
-            //aggregationType.setValue(isString(layout.aggregationType) ? layout.aggregationType : 'default');
             showHierarchy.setValue(isBoolean(layout.showHierarchy) ? layout.showHierarchy : false);
             displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);
             fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : optionConfig.getFontSize('normal').id);
             digitGroupSeparator.setValue(isString(layout.digitGroupSeparator) ? layout.digitGroupSeparator : optionConfig.getDigitGroupSeparator('space').id);
-            //legendSet.setValue(isObject(layout.legendSet) && isString(layout.legendSet.id) ? layout.legendSet.id : 0);
-            //reportingPeriod.setValue(isBoolean(layout.reportingPeriod) ? layout.reportingPeriod : false);
-            //organisationUnit.setValue(isBoolean(layout.organisationUnit) ? layout.organisationUnit : false);
-            //parentOrganisationUnit.setValue(isBoolean(layout.parentOrganisationUnit) ? layout.parentOrganisationUnit : false);
-            //regression.setValue(isBoolean(layout.regression) ? layout.regression : false);
-            //cumulative.setValue(isBoolean(layout.cumulative) ? layout.cumulative : false);
-            //sortOrder.setValue(isNumber(layout.sortOrder) ? layout.sortOrder : 0);
-            //topLimit.setValue(isNumber(layout.topLimit) ? layout.topLimit : 0);
         },
         items: [
             {
@@ -290,16 +284,12 @@ AggregateOptionsWindow = function(c) {
                 var optionsButton = uiManager.get('optionsButton') || {};
 
                 if (optionsButton.rendered) {
-                    c.uiManager.setAnchorPosition(w, optionsButton);
+                    uiManager.setAnchorPosition(w, optionsButton);
 
                     if (!w.hasHideOnBlurHandler) {
-                        c.uiManager.addHideOnBlurHandler(w);
+                        uiManager.addHideOnBlurHandler(w);
                     }
                 }
-
-                //if (!legendSet.store.isLoaded) {
-                    //legendSet.store.load();
-                //}
 
                 // cmp
                 w.showColTotals = showColTotals;

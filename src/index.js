@@ -248,23 +248,13 @@ function initialize() {
     }), 'defaultIntegrationButton');
 
     var chartIntegrationButton = ui.IntegrationButton(refs, {
-        objectName: 'chart',
-        moduleName: 'dhis-web-visualizer',
+        objectName: 'event-chart',
+        moduleName: 'dhis-web-event-visualizer',
         btnIconCls: 'ns-button-icon-chart',
         btnText: i18n.chart,
-        menuItem1Text: i18n.go_to_charts,
+        menuItem1Text: i18n.go_to_event_charts,
         menuItem2Text: i18n.open_this_table_as_chart,
         menuItem3Text: i18n.open_last_chart
-    });
-
-    var mapIntegrationButton = ui.IntegrationButton(refs, {
-        objectName: 'map',
-        moduleName: 'dhis-web-mapping',
-        btnIconCls: 'ns-button-icon-map',
-        btnText: i18n.map,
-        menuItem1Text: i18n.go_to_maps,
-        menuItem2Text: i18n.open_this_table_as_map,
-        menuItem3Text: i18n.open_last_map
     });
 
     // viewport
@@ -275,8 +265,7 @@ function initialize() {
         dataTypeToolbar: dataTypeToolbar,
         integrationButtons: [
             defaultIntegrationButton,
-            chartIntegrationButton,
-            mapIntegrationButton
+            chartIntegrationButton
         ],
         DownloadButtonItems: DownloadButtonItems,
     }, {
