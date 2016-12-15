@@ -97,6 +97,15 @@ optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
     // init ux
 Object.keys(ux).forEach(key => ux[key](refs));
 
+// dhis2 store
+dhis2.util.namespace('dhis2.er');
+
+dhis2.er.store = dhis2.er.store || new dhis2.storage.Store({
+    name: 'dhis2',
+    adapters: [dhis2.storage.IndexedDBAdapter, dhis2.storage.DomSessionStorageAdapter, dhis2.storage.InMemoryAdapter],
+    objectStores: ['optionSets']
+});
+
 // requests
 var manifestReq = $.ajax({
     url: 'manifest.webapp',
@@ -140,6 +149,7 @@ requestManager.add(new api.Request(init.authViewUnapprovedDataInit(refs)));
 requestManager.add(new api.Request(init.rootNodesInit(refs)));
 requestManager.add(new api.Request(init.organisationUnitLevelsInit(refs)));
 requestManager.add(new api.Request(init.legendSetsInit(refs)));
+requestManager.add(new api.Request(init.optionSetsInit(refs, dhis2.er.store)));
 requestManager.add(new api.Request(init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
 requestManager.add(new api.Request(init.dataApprovalLevelsInit(refs)));
 
