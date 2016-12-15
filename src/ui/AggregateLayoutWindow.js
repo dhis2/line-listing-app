@@ -248,7 +248,7 @@ AggregateLayoutWindow = function(c) {
 
             // remove ux and layout item
             if (hasDimension(id, valueStore)) {
-                var uxArray = ns.app.accordion.getUxArray(id);
+                var uxArray = uiManager.get('accordion').getUxArray(id);
 
                 for (var i = 0; i < uxArray.length; i++) {
                     uxArray[i].removeDataElement();

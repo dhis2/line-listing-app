@@ -257,6 +257,20 @@ function initialize() {
         menuItem3Text: i18n.open_last_chart
     });
 
+    var getWindowByType = function(aggName, queryName) {
+        var type = uiManager.get('dataTypeToolbar').getType(),
+            window;
+
+        if (type === dimensionConfig.dataType['aggregated_values']) {
+            window = uiManager.get(aggName);
+        }
+        else if (type === dimensionConfig.dataType['individual_cases']) {
+            window = uiManager.get(queryName);
+        }
+
+        return window;
+    };
+
     // viewport
     uiManager.reg(ui.Viewport(refs, {
         northRegion: northRegion,
@@ -270,31 +284,11 @@ function initialize() {
         DownloadButtonItems: DownloadButtonItems,
     }, {
         getLayoutWindow: function() {
-            var type = uiManager.get('dataTypeToolbar').getType(),
-                window;
-
-            if (type === dimensionConfig.dataType['aggregated_values']) {
-                window = uiManager.get('aggregateLayoutWindow');
-            }
-            else if (type === dimensionConfig.dataType['individual_cases']) {
-                window = uiManager.get('queryLayoutWindow');
-            }
-
-            return window;
+            return getWindowByType('aggregateLayoutWindow', 'queryLayoutWindow');
         },
         getOptionsWindow: function() {
-            var type = uiManager.get('dataTypeToolbar').getType(),
-                window;
-
-            if (type === dimensionConfig.dataType['aggregated_values']) {
-                window = uiManager.get('aggregateOptionsWindow');
-            }
-            else if (type === dimensionConfig.dataType['individual_cases']) {
-                window = uiManager.get('queryOptionsWindow');
-            }
-
-            return window;
-        }
+            return getWindowByType('aggregateOptionsWindow', 'queryOptionsWindow');
+        },
     }), 'viewport');
 }
 
