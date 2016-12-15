@@ -52,10 +52,10 @@ DataTypeToolbar = function(refs) {
     var dataTypeToolbar = Ext.create('Ext.toolbar.Toolbar', {
         style: 'padding:1px; background:#fbfbfb; border:0 none; border-top:1px solid #d0d0d0',
         height: 42,
-        getType: function() {
+        getDataType: function() {
             return aggregateTypeButton.pressed ? aggregateTypeButton.param : caseTypeButton.param;
         },
-        setType: function(dataType) {
+        setDataType: function(dataType) {
             var button = dataTypeButtonParamMap[dataType];
 
             if (button) {

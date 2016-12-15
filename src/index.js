@@ -249,6 +249,8 @@ function initialize() {
 
     var eastRegion = uiManager.reg(ui.EastRegion(refs), 'eastRegion');
 
+    var westRegionItems = uiManager.reg(ui.WestRegionTrackerItems(refs), 'accordion');
+console.log("index", uiManager.get('accordion'));
     var dataTypeToolbar = uiManager.reg(DataTypeToolbar(refs), 'dataTypeToolbar');
 
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
@@ -267,14 +269,14 @@ function initialize() {
         menuItem3Text: i18n.open_last_chart
     });
 
-    var getWindowByType = function(aggName, queryName) {
-        var type = uiManager.get('dataTypeToolbar').getType(),
+    var getWindowByDataType = function(aggName, queryName) {
+        var dataType = uiManager.get('dataTypeToolbar').getDataType(),
             window;
 
-        if (type === dimensionConfig.dataType['aggregated_values']) {
+        if (dataType === dimensionConfig.dataType['aggregated_values']) {
             window = uiManager.get(aggName);
         }
-        else if (type === dimensionConfig.dataType['individual_cases']) {
+        else if (dataType === dimensionConfig.dataType['individual_cases']) {
             window = uiManager.get(queryName);
         }
 
@@ -285,7 +287,7 @@ function initialize() {
     uiManager.reg(ui.Viewport(refs, {
         northRegion: northRegion,
         eastRegion: eastRegion,
-        westRegionItems: ui.WestRegionTrackerItems(refs),
+        westRegionItems: westRegionItems,
         dataTypeToolbar: dataTypeToolbar,
         integrationButtons: [
             defaultIntegrationButton,
@@ -294,10 +296,10 @@ function initialize() {
         DownloadButtonItems: DownloadButtonItems,
     }, {
         getLayoutWindow: function() {
-            return getWindowByType('aggregateLayoutWindow', 'queryLayoutWindow');
+            return getWindowByDataType('aggregateLayoutWindow', 'queryLayoutWindow');
         },
         getOptionsWindow: function() {
-            return getWindowByType('aggregateOptionsWindow', 'queryOptionsWindow');
+            return getWindowByDataType('aggregateOptionsWindow', 'queryOptionsWindow');
         },
     }), 'viewport');
 }
