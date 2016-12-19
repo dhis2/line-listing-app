@@ -7,6 +7,7 @@ import arrayTo from 'd2-utilizr/lib/arrayTo';
 
 import { api, pivot, manager, config, ui, init, override, ux } from 'd2-analysis';
 
+import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
 
 import { AggregateLayoutWindow } from './ui/AggregateLayoutWindow';
@@ -20,7 +21,10 @@ import { DataTypeToolbar } from './ui/DataTypeToolbar';
 override.extOverrides();
 
 // extend
+api.Dimension = Dimension;
 api.Layout = Layout;
+
+Object.keys(api).forEach(key => api[key].api = api);
 
 // references
 var refs = {
@@ -250,7 +254,7 @@ function initialize() {
     var eastRegion = uiManager.reg(ui.EastRegion(refs), 'eastRegion');
 
     var westRegionItems = uiManager.reg(ui.WestRegionTrackerItems(refs), 'accordion');
-console.log("index", uiManager.get('accordion'));
+
     var dataTypeToolbar = uiManager.reg(DataTypeToolbar(refs), 'dataTypeToolbar');
 
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
