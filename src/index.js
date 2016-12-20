@@ -172,6 +172,7 @@ function initialize() {
     instanceManager.apiResource = 'eventReport';
     instanceManager.apiEndpoint = 'eventReports';
     instanceManager.apiModule = 'dhis-web-event-reports';
+    instanceManager.analyticsEndpoint = '/analytics/events';
     instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
 
     instanceManager.setFn(function(layout) {

@@ -1,3 +1,4 @@
+import arrayUnique from 'd2-utilizr/lib/arrayUnique';
 import isString from 'd2-utilizr/lib/isString';
 import isBoolean from 'd2-utilizr/lib/isBoolean';
 import isObject from 'd2-utilizr/lib/isObject';
@@ -38,7 +39,10 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
 Dimension.prototype = d2aDimension.prototype;
 
 Dimension.prototype.url = function(isSorted, response, isFilter) {
-    var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension;
+    var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension,
+        records = arrayUnique(this.getRecordIds(isSorted, response, true));
+
+    url += records.length ? (':' + records.join(';')) : '';
 
     if (isObject(this.legendSet)) {
         url += '-' + this.legendSet.id;
