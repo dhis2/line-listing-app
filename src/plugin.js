@@ -8,7 +8,7 @@ import { api, config, init, manager, pivot, util } from 'd2-analysis';
 import { Layout } from './api/Layout';
 
 // version
-const VERSION = '25';
+const VERSION = '26';
 
 // extend
 api.Layout = Layout;

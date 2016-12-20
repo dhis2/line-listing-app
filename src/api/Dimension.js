@@ -15,8 +15,6 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     Object.assign(t, new d2aDimension(refs, c, applyConfig));
 
     // props
-    t.dimension = c.dimension;
-
     if (isString(c.filter)) {
         t.filter = c.filter;
     }

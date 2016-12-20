@@ -24,8 +24,6 @@ override.extOverrides();
 api.Dimension = Dimension;
 api.Layout = Layout;
 
-Object.keys(api).forEach(key => api[key].api = api);
-
 // references
 var refs = {
     api,
@@ -91,15 +89,12 @@ optionConfig.setI18nManager(i18nManager);
 periodConfig.setI18nManager(i18nManager);
 uiManager.setI18nManager(i18nManager);
 
-    // static
-appManager.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
-instanceManager.applyTo(arrayTo(api));
-uiManager.applyTo(arrayTo(api));
-dimensionConfig.applyTo(arrayTo(pivot));
-optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
-
     // init ux
 Object.keys(ux).forEach(key => ux[key](refs));
+
+    // klass
+Object.keys(api).forEach(key => api[key].refs = refs);
+Object.keys(api).forEach(key => api[key].refs = refs);
 
 // dhis2 store
 dhis2.util.namespace('dhis2.er');
@@ -148,14 +143,14 @@ userAccountReq.done(function(userAccount) {
     calendarManager.setDateFormat(appManager.getDateFormat());
     calendarManager.init(appManager.systemSettings.keyCalendar);
 
-requestManager.add(new api.Request(init.i18nInit(refs)));
-requestManager.add(new api.Request(init.authViewUnapprovedDataInit(refs)));
-requestManager.add(new api.Request(init.rootNodesInit(refs)));
-requestManager.add(new api.Request(init.organisationUnitLevelsInit(refs)));
-requestManager.add(new api.Request(init.legendSetsInit(refs)));
-requestManager.add(new api.Request(init.optionSetsInit(refs, dhis2.er.store)));
-requestManager.add(new api.Request(init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
-requestManager.add(new api.Request(init.dataApprovalLevelsInit(refs)));
+requestManager.add(new api.Request(refs, init.i18nInit(refs)));
+requestManager.add(new api.Request(refs, init.authViewUnapprovedDataInit(refs)));
+requestManager.add(new api.Request(refs, init.rootNodesInit(refs)));
+requestManager.add(new api.Request(refs, init.organisationUnitLevelsInit(refs)));
+requestManager.add(new api.Request(refs, init.legendSetsInit(refs)));
+requestManager.add(new api.Request(refs, init.optionSetsInit(refs, dhis2.er.store)));
+requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
+requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
 
 requestManager.set(initialize);
 requestManager.run();
@@ -186,9 +181,9 @@ function initialize() {
         // get table
         var getTable = function() {
             var response = layout.getResponse();
-            var colAxis = new pivot.TableAxis(layout, response, 'col');
-            var rowAxis = new pivot.TableAxis(layout, response, 'row');
-            return new pivot.Table(layout, response, colAxis, rowAxis);
+            var colAxis = new pivot.TableAxis(refs, layout, response, 'col');
+            var rowAxis = new pivot.TableAxis(refs, layout, response, 'row');
+            return new pivot.Table(refs, layout, response, colAxis, rowAxis);
         };
 
         // pre-sort if id

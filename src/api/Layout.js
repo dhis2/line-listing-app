@@ -32,7 +32,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.displayDensity = isString(c.displayDensity) && !isEmpty(c.displayDensity) ? c.displayDensity : refs.optionConfig.getDisplayDensity('normal').id;
     t.fontSize = isString(c.fontSize) && !isEmpty(c.fontSize) ? c.fontSize : refs.optionConfig.getFontSize('normal').id;
     t.digitGroupSeparator = isString(c.digitGroupSeparator) && !isEmpty(c.digitGroupSeparator) ? c.digitGroupSeparator : refs.optionConfig.getDigitGroupSeparator('space').id;
-    t.legendSet = (new Record(c.legendSet)).val(true);
+    t.legendSet = isObject(c.legendSet) ? c.legendSet : null;
 
     // value, aggregation type
     if (isObject(c.value) && isString(c.value.id)) {
@@ -65,7 +65,9 @@ Layout.prototype.clone = function() {
     var t = this,
         refs = this.getRefs();
 
-    var layout = new refs.api.Layout(refs, JSON.parse(JSON.stringify(t)));
+    var { Layout } = refs.api;
+
+    var layout = new Layout(refs, JSON.parse(JSON.stringify(t)));
 
     layout.setResponse(t.getResponse());
     layout.setAccess(t.getAccess());
