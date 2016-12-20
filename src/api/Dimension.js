@@ -1,3 +1,4 @@
+import arrayContains from 'd2-utilizr/lib/arrayContains';
 import arrayUnique from 'd2-utilizr/lib/arrayUnique';
 import isString from 'd2-utilizr/lib/isString';
 import isBoolean from 'd2-utilizr/lib/isBoolean';
@@ -8,7 +9,8 @@ import { Dimension as d2aDimension } from 'd2-analysis';
 
 export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     var t = this;
-    t.klass = Dimension;
+
+    var _ignoreDimensions = ['dy'];
 
     c = isObject(c) ? c : {};
 
@@ -31,6 +33,10 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     // force apply
     Object.assign(t, forceApplyConfig);
 
+    t.getIgnoreDimensions = function() {
+        return _ignoreDimensions;
+    };
+
     t.getRefs = function() {
         return refs;
     };
@@ -38,7 +44,15 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
 
 Dimension.prototype = d2aDimension.prototype;
 
+Dimension.prototype.isIgnoreDimension = function() {
+    return arrayContains(this.getIgnoreDimensions(), this.dimension);
+};
+
 Dimension.prototype.url = function(isSorted, response, isFilter) {
+    if (this.isIgnoreDimension()) {
+        return;
+    }
+
     var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension,
         records = arrayUnique(this.getRecordIds(isSorted, response, true));
 
