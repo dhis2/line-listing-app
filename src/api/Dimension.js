@@ -64,6 +64,6 @@ Dimension.prototype.url = function(isSorted, response, isFilter) {
     else if (isString(this.filter)) {
         url += ':' + this.filter;
     }
-console.log("url", url);
+
     return url;
 };

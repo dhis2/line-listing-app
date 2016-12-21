@@ -220,3 +220,29 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     return request;
 };
 
+// dep 2
+
+Layout.prototype.data = function(source, format) {
+    var t = this,
+        refs = this.getRefs();
+
+    var uiManager = refs.uiManager;
+
+    var request = t.req(source, format);
+
+    request.setType(t.getDefaultFormat());
+
+    request.setError(function(r) {
+
+        // 409
+        if (isObject(r) && r.status == 409) {
+            uiManager.unmask();
+
+            if (isString(r.responseText)) {
+                uiManager.alert(JSON.parse(r.responseText));
+            }
+        }
+    });
+
+    return request.run();
+};

@@ -9,6 +9,7 @@ import { api, pivot, manager, config, ui, init, override, ux } from 'd2-analysis
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
+import { InstanceManager } from './manager/InstanceManager';
 
 import { AggregateLayoutWindow } from './ui/AggregateLayoutWindow';
 import { QueryLayoutWindow } from './ui/QueryLayoutWindow';
@@ -23,6 +24,7 @@ override.extOverrides();
 // extend
 api.Dimension = Dimension;
 api.Layout = Layout;
+manager.InstanceManager = InstanceManager;
 
 // references
 var refs = {
