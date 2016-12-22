@@ -10,7 +10,7 @@ import { Dimension as d2aDimension } from 'd2-analysis';
 export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     var t = this;
 
-    var _ignoreDimensions = ['dy'];
+    var _ignoreUrlDimensions = ['dy', 'longitude', 'latitude'];
 
     c = isObject(c) ? c : {};
 
@@ -33,8 +33,8 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     // force apply
     Object.assign(t, forceApplyConfig);
 
-    t.getIgnoreDimensions = function() {
-        return _ignoreDimensions;
+    t.getIgnoreUrlDimensions = function() {
+        return _ignoreUrlDimensions;
     };
 
     t.getRefs = function() {
@@ -45,12 +45,14 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
 Dimension.prototype = d2aDimension.prototype;
 
 Dimension.prototype.isIgnoreDimension = function() {
-    return arrayContains(this.getIgnoreDimensions(), this.dimension);
+    return arrayContains(this.getIgnoreUrlDimensions(), this.dimension);
 };
+
+// dep 1
 
 Dimension.prototype.url = function(isSorted, response, isFilter) {
     if (this.isIgnoreDimension()) {
-        return;
+        return '';
     }
 
     var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension,
