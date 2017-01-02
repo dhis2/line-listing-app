@@ -183,7 +183,6 @@ function initialize() {
 
         // get table
         var getTable = function() {
-console.log("layout, response", layout, response);return;
             var response = layout.getResponse();
             var colAxis = new pivot.TableAxis(refs, layout, response, 'col');
             var rowAxis = new pivot.TableAxis(refs, layout, response, 'row');
