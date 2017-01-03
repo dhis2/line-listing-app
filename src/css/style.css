@@ -252,32 +252,53 @@ table.pivot {
 	border-collapse: collapse;
 	border-spacing: 0px;
 	border: 0 none;
-
-	-webkit-touch-callout: text;
-	-webkit-user-select: text;
-	-khtml-user-select: text;
-	-moz-user-select: text;
-	-ms-user-select: text;
-	user-select: text;
 }
 
 table.pivot.displaydensity-COMFORTABLE td {
-	padding: 7px;
+	padding-top: 7px !important;
+	padding-right: 7px;
+	padding-bottom: 7px !important;
+	padding-left: 7px !important;
+}
+table.pivot.displaydensity-NORMAL td {
+	padding-top: 5px !important;
+	padding-right: 5px;
+	padding-bottom: 5px !important;
+	padding-left: 5px !important;
 }
 table.pivot.displaydensity-COMPACT td {
-	padding: 3px;
+	padding-top: 4px !important;
+	padding-right: 4px;
+	padding-bottom: 4px !important;
+	padding-left: 4px !important;
 }
-
 table.pivot.fontsize-LARGE td {
-	font-size: 13px;
+	font-size: 13px !important;
+}
+table.pivot.fontsize-NORMAL td {
+	font-size: 11px !important;
 }
 table.pivot.fontsize-SMALL td {
-	font-size: 10px;
+	font-size: 10px !important;
 }
 
 .pivot td {
 	padding: 5px;
 	border: 1px solid #b2b2b2;
+}
+
+.pivot-filter {
+    background-color: #c7d5e9;
+    text-align: center;
+    padding: 7px!important;
+    color: #222;
+    font-weight: 600;
+}
+table.pivot.displaydensity-COMFORTABLE td.pivot-filter {
+	padding: 9px !important;
+}
+table.pivot.displaydensity-COMPACT td.pivot-filter {
+	padding: 5px !important;
 }
 
 .pivot-dim {

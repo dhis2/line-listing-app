@@ -20,7 +20,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.programStage = isObject(c.programStage) ? c.programStage : null;
 
     // data type
-    t.dataType = isString(c.dataType) ? c.dataType :
+    t.dataType = isString(c.dataType) ? c.dataType : null;
 
     // options
     t.showColTotals = isBoolean(c.colTotals) ? c.colTotals : (isBoolean(c.showColTotals) ? c.showColTotals : true);

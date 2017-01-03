@@ -201,9 +201,9 @@ AggregateOptionsWindow = function(refs) {
         hideOnBlur: true,
         getOptions: function() {
             return {
-                showRowTotals: showRowTotals.getValue(),
                 showColTotals: showColTotals.getValue(),
                 showColSubTotals: showColSubTotals.getValue(),
+                showRowTotals: showRowTotals.getValue(),
                 showRowSubTotals: showRowSubTotals.getValue(),
                 showDimensionLabels: showDimensionLabels.getValue(),
                 hideEmptyRows: hideEmptyRows.getValue(),
@@ -221,9 +221,9 @@ AggregateOptionsWindow = function(refs) {
             };
         },
         setOptions: function(layout) {
-            showRowTotals.setValue(isBoolean(layout.showRowTotals) ? layout.showRowTotals : true);
             showColTotals.setValue(isBoolean(layout.showColTotals) ? layout.showColTotals : true);
             showColSubTotals.setValue(isBoolean(layout.showColSubTotals) ? layout.showColSubTotals : true);
+            showRowTotals.setValue(isBoolean(layout.showRowTotals) ? layout.showRowTotals : true);
             showRowSubTotals.setValue(isBoolean(layout.showRowSubTotals) ? layout.showRowSubTotals : true);
             showDimensionLabels.setValue(isBoolean(layout.showDimensionLabels) ? layout.showDimensionLabels : true);
             hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);

@@ -96,7 +96,6 @@ Object.keys(ux).forEach(key => ux[key](refs));
 
     // klass
 Object.keys(api).forEach(key => api[key].refs = refs);
-Object.keys(api).forEach(key => api[key].refs = refs);
 
 // dhis2 store
 dhis2.util.namespace('dhis2.er');
