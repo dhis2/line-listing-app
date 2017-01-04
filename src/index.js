@@ -253,6 +253,15 @@ function initialize() {
 
     var dataTypeToolbar = uiManager.reg(DataTypeToolbar(refs), 'dataTypeToolbar');
 
+    var statusBar = uiManager.reg(Ext.create('Ext.ux.toolbar.StatusBar', {
+        height: 27,
+        listeners: {
+            render: function() {
+                this.reset();
+            }
+        }
+    }), 'statusBar');
+
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
         isDefaultButton: true,
         btnText: i18n.table,
@@ -289,6 +298,7 @@ function initialize() {
         eastRegion: eastRegion,
         westRegionItems: westRegionItems,
         dataTypeToolbar: dataTypeToolbar,
+        statusBar: statusBar,
         integrationButtons: [
             defaultIntegrationButton,
             chartIntegrationButton

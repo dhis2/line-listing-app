@@ -32,7 +32,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : false;
     t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
     t.collapseDataDimensions = isBoolean(c.collapseDataDimensions) ? c.collapseDataDimensions : false;
-    t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getAggregationType('event').id;
+    t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getOutputType('event').id;
 
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.showHierarchy = isBoolean(c.showHierarchy) ? c.showHierarchy : false;
