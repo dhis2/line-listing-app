@@ -10,6 +10,8 @@ DataTypeToolbar = function(refs) {
 
     var caseTypeButtonWidth = 224;
 
+    var scrollbarWidth = uiManager.getScrollbarSize().width;
+
     var onTypeClick = function(button) {
         if (!button.pressed) {
             button.toggle();
@@ -21,7 +23,7 @@ DataTypeToolbar = function(refs) {
     };
 
     var aggregateTypeButton = Ext.create('Ext.button.Button', {
-        width: 223,
+        width: caseTypeButtonWidth,
         param: dimensionConfig.dataType['aggregated_values'],
         text: '<b>' + i18n.aggregated_values + '</b><br/>' + i18n.show_aggregated_event_report,
         style: 'margin-right:1px',
@@ -36,7 +38,7 @@ DataTypeToolbar = function(refs) {
     dataTypeButtonParamMap[aggregateTypeButton.param] = aggregateTypeButton;
 
     var caseTypeButton = Ext.create('Ext.button.Button', {
-        width: caseTypeButtonWidth,
+        width: caseTypeButtonWidth + 1 + scrollbarWidth,
         param: dimensionConfig.dataType['individual_cases'],
         text: '<b>Events</b><br/>Show individual event overview',
         style: 'margin-right:1px',
