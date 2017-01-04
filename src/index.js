@@ -68,6 +68,10 @@ refs.i18nManager = i18nManager;
 var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
+    // indexeddb manager
+var indexedDbManager = new manager.IndexedDbManager(refs);
+refs.indexedDbManager = indexedDbManager;
+
     // ui manager
 var uiManager = new manager.UiManager(refs);
 refs.uiManager = uiManager;
@@ -96,15 +100,6 @@ Object.keys(ux).forEach(key => ux[key](refs));
 
     // klass
 Object.keys(api).forEach(key => api[key].refs = refs);
-
-// dhis2 store
-dhis2.util.namespace('dhis2.er');
-
-dhis2.er.store = dhis2.er.store || new dhis2.storage.Store({
-    name: 'dhis2',
-    adapters: [dhis2.storage.IndexedDBAdapter, dhis2.storage.DomSessionStorageAdapter, dhis2.storage.InMemoryAdapter],
-    objectStores: ['optionSets']
-});
 
 // requests
 var manifestReq = $.ajax({
@@ -149,7 +144,7 @@ requestManager.add(new api.Request(refs, init.authViewUnapprovedDataInit(refs)))
 requestManager.add(new api.Request(refs, init.rootNodesInit(refs)));
 requestManager.add(new api.Request(refs, init.organisationUnitLevelsInit(refs)));
 requestManager.add(new api.Request(refs, init.legendSetsInit(refs)));
-requestManager.add(new api.Request(refs, init.optionSetsInit(refs, dhis2.er.store)));
+requestManager.add(new api.Request(refs, init.optionSetsInit(refs, indexedDbManager)));
 requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
 requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
 
