@@ -185,7 +185,7 @@ function initialize() {
             var response = layout.getResponse();
             var colAxis = new pivot.TableAxis(refs, layout, response, 'col');
             var rowAxis = new pivot.TableAxis(refs, layout, response, 'row');
-            return new pivot.Table(refs, layout, response, colAxis, rowAxis);
+            return new pivot.Table(refs, layout, response, colAxis, rowAxis, { unclickable: true });
         };
 
         // pre-sort if id
@@ -207,7 +207,6 @@ function initialize() {
 
         // events
         tableManager.setColumnHeaderMouseHandlers(layout, table);
-        tableManager.setValueMouseHandlers(layout, table);
 
         // mask
         uiManager.unmask();

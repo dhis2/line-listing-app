@@ -15,7 +15,7 @@ DataTypeToolbar = function(refs) {
             button.toggle();
         }
 
-        uiManager.get('accordion').onTypeClick(dataTypeToolbar.getType());
+        uiManager.get('accordion').onTypeClick(dataTypeToolbar.getDataType());
 
         instaceManager.getReport();
     };
