@@ -6,6 +6,8 @@ InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, fo
     var t = this,
         refs = t.getRefs();
 
+    var { indexedDbManager } = refs;
+
     var { Response } = refs.api;
 
     var _fn = function() {
@@ -35,10 +37,22 @@ InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, fo
        _fn();
     }
     else {
-        layout.data().done(function(response) {
-            layout.setResponse(new Response(refs, response));
+        layout.data().done(function(res) {
+            var optionSetIds = res.headers.filter(h => !!h.optionSet).map(h => h.optionSet);
 
-            _fn();
+            var fn = function() {
+                layout.setResponse(new Response(refs, res));
+
+                _fn();
+            };
+
+            // init
+            if (optionSetIds.length) {
+                indexedDbManager.getOptionSets(optionSetIds, fn);
+            }
+            else {
+                fn();
+            }
         });
     }
 };

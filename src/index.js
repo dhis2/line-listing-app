@@ -154,7 +154,6 @@ requestManager.run();
 });});});});
 
 function initialize() {
-
     var i18n = i18nManager.get();
 
     // ui config
