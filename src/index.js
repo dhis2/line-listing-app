@@ -144,7 +144,7 @@ requestManager.add(new api.Request(refs, init.authViewUnapprovedDataInit(refs)))
 requestManager.add(new api.Request(refs, init.rootNodesInit(refs)));
 requestManager.add(new api.Request(refs, init.organisationUnitLevelsInit(refs)));
 requestManager.add(new api.Request(refs, init.legendSetsInit(refs)));
-requestManager.add(new api.Request(refs, init.optionSetsInit(refs, indexedDbManager)));
+requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
 requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
 requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
 
