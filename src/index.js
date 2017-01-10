@@ -5,7 +5,7 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
-import { api, pivot, manager, config, ui, init, override, ux } from 'd2-analysis';
+import { api, table, manager, config, ui, init, override, ux } from 'd2-analysis';
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
@@ -29,7 +29,7 @@ manager.InstanceManager = InstanceManager;
 // references
 var refs = {
     api,
-    pivot
+    table
 };
 
     // dimension config
@@ -171,36 +171,62 @@ function initialize() {
     instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
 
     instanceManager.setFn(function(layout) {
-        var sortingId = layout.sorting ? layout.sorting.id : null,
-            table;
+        var response = layout.getResponse();
 
-        // get table
-        var getTable = function() {
-            var response = layout.getResponse();
-            var colAxis = new pivot.TableAxis(refs, layout, response, 'col');
-            var rowAxis = new pivot.TableAxis(refs, layout, response, 'row');
-            return new pivot.Table(refs, layout, response, colAxis, rowAxis, { unclickable: true });
+        var getPivotTable = function(layout, response) {
+            var sortingId = layout.sorting ? layout.sorting.id : null,
+                _table;
+
+            var getTable = function() {
+                var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
+                var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
+                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true });
+            };
+
+            // pre-sort if id
+            if (sortingId && sortingId !== 'total') {
+                layout.sort();
+            }
+
+            // table
+            _table = getTable();
+
+            // validate
+            if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
+                alert('Table has too many cells. Please reduce the table and try again.');
+                return;
+            }
+
+            // sort if total
+            if (sortingId && sortingId === 'total') {
+                layout.sort(_table);
+                _table = getTable();
+            }
+
+            return _table;
         };
 
-        // pre-sort if id
-        if (sortingId && sortingId !== 'total') {
-            layout.sort();
+        var getDataTable = function(layout, response) {
+            return new table.EventDataTable(layout, response);
+        };
+
+        var _table;
+
+        if (layout.dataType === 'AGGREGATED_VALUES') {
+            _table = getPivotTable(layout, response);
         }
-
-        // table
-        table = getTable();
-
-        // sort if total
-        if (sortingId && sortingId === 'total') {
-            layout.sort(table);
-            table = getTable();
+        else if (layout.dataType === 'INDIVIDUAL_EVENTS') {
+            _table = getDataTable(layout, response);
         }
+console.log("_table", _table);
+        if (_table) {
 
-        // render
-        uiManager.update(table.html);
+            // render
+            uiManager.update(_table.html);
 
-        // events
-        tableManager.setColumnHeaderMouseHandlers(layout, table);
+            // events
+            tableManager.setColumnHeaderMouseHandlers(layout, _table);
+        }
 
         // mask
         uiManager.unmask();
