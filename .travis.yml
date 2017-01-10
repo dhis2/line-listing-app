@@ -1,10 +1,10 @@
 language: node_js
 node_js:
 - '6'
-cache:
-  yarn: true
-  directories:
-  - node_modules
+#cache:
+#  yarn: true
+#  directories:
+#  - node_modules
 script:
 - npm run build
 after_success:
