@@ -50,6 +50,8 @@ refs.uiConfig = uiConfig;
 
     // app manager
 var appManager = new manager.AppManager();
+appManager.sessionName = 'eventreport';
+appManager.apiVersion = 26;
 refs.appManager = appManager;
 
     // calendar manager
@@ -82,14 +84,14 @@ refs.instanceManager = instanceManager;
 
     // table manager
 var tableManager = new manager.TableManager(refs);
-refs.tableManager = tableManager;
+instanceManager.apiResource = 'eventReport';
+instanceManager.apiEndpoint = 'eventReports';
+instanceManager.apiModule = 'dhis-web-event-reports';
+instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
+refs.instanceManager = instanceManager;
 
 // dependencies
-
-    // instance manager
 uiManager.setInstanceManager(instanceManager);
-
-    // i18n manager
 dimensionConfig.setI18nManager(i18nManager);
 optionConfig.setI18nManager(i18nManager);
 periodConfig.setI18nManager(i18nManager);
@@ -114,24 +116,24 @@ var systemInfoUrl = '/system/info.json';
 var systemSettingsUrl = '/systemSettings.json?key=keyCalendar&key=keyDateFormat&key=keyAnalysisRelativePeriod&key=keyHideUnapprovedDataInAnalytics&key=keyAnalysisDigitGroupSeparator';
 var userAccountUrl = '/api/me/user-account.json';
 
-var systemInfoReq;
-var systemSettingsReq;
-var userAccountReq;
-
 manifestReq.done(function(text) {
     appManager.manifest = JSON.parse(text);
     appManager.env = process.env.NODE_ENV;
     appManager.setAuth();
-    systemInfoReq = $.getJSON(appManager.getApiPath() + systemInfoUrl);
+    //appManager.logVersion();
+
+    var systemInfoReq = $.getJSON(appManager.getApiPath() + systemInfoUrl);
 
 systemInfoReq.done(function(systemInfo) {
     appManager.systemInfo = systemInfo;
     appManager.path = systemInfo.contextPath;
-    systemSettingsReq = $.getJSON(appManager.getApiPath() + systemSettingsUrl);
+
+    var systemSettingsReq = $.getJSON(appManager.getApiPath() + systemSettingsUrl);
 
 systemSettingsReq.done(function(systemSettings) {
     appManager.systemSettings = systemSettings;
-    userAccountReq = $.getJSON(appManager.getPath() + userAccountUrl);
+
+    var userAccountReq = $.getJSON(appManager.getPath() + userAccountUrl);
 
 userAccountReq.done(function(userAccount) {
     appManager.userAccount = userAccount;
@@ -154,22 +156,21 @@ requestManager.run();
 });});});});
 
 function initialize() {
+
+    // i18n init
     var i18n = i18nManager.get();
+
+    //optionConfig.init();
+    //dimensionConfig.init();
+    //periodConfig.init();
 
     // ui config
     uiConfig.checkout('tracker');
 
     // app manager
-    appManager.appName = 'Event Reports';
-    appManager.sessionName = 'eventreport';
+    appManager.appName = i18n.event_reports || 'Event Reports';
 
     // instance manager
-    instanceManager.apiResource = 'eventReport';
-    instanceManager.apiEndpoint = 'eventReports';
-    instanceManager.apiModule = 'dhis-web-event-reports';
-    instanceManager.analyticsEndpoint = '/analytics/events';
-    instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
-
     instanceManager.setFn(function(layout) {
         var response = layout.getResponse();
 
@@ -239,6 +240,18 @@ console.log("_table", _table);
     uiManager.disableRightClick();
 
     uiManager.enableConfirmUnload();
+
+    //uiManager.setIntroFn(function() {
+        //if (appManager.userFavorites.length) {
+            //setTimeout(function() {
+                //appManager.userFavorites.forEach(function(favorite) {
+                    //Ext.get('favorite-' + favorite.id).addListener('click', function() {
+                        //instanceManager.getById(favorite.id, null, true);
+                    //});
+                //});
+            //}, 0);
+        //}
+    //});
 
     uiManager.setIntroHtml(function() {
         return '<div class="ns-viewport-text" style="padding:20px">' +
