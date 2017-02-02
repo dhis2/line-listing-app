@@ -92,7 +92,7 @@ Layout.prototype.getDataTypeUrl = function() {
 
     var url = dimensionConfig.dataTypeUrl[this.dataType];
 
-    return url ? ('/' + url) : '';
+    return url || '';
 };
 
 Layout.prototype.getProgramUrl = function() {
