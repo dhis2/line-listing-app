@@ -208,15 +208,15 @@ function initialize() {
         };
 
         var getDataTable = function(layout, response) {
-            return new table.EventDataTable(layout, response);
+            return new table.EventDataTable(refs, layout, response);
         };
 
         var _table;
-
+console.log(layout.dataType);
         if (layout.dataType === 'AGGREGATED_VALUES') {
             _table = getPivotTable(layout, response);
         }
-        else if (layout.dataType === 'INDIVIDUAL_EVENTS') {
+        else if (layout.dataType === 'EVENTS') {
             _table = getDataTable(layout, response);
         }
 console.log("_table", _table);
