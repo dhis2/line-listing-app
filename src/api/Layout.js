@@ -2,6 +2,7 @@ import isArray from 'd2-utilizr/lib/isArray';
 import isBoolean from 'd2-utilizr/lib/isBoolean';
 import isEmpty from 'd2-utilizr/lib/isEmpty';
 import isNumber from 'd2-utilizr/lib/isNumber';
+import isNumeric from 'd2-utilizr/lib/isNumeric';
 import isObject from 'd2-utilizr/lib/isObject';
 import isString from 'd2-utilizr/lib/isString';
 
@@ -49,6 +50,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
         if (isString(c.aggregationType)) {
             t.aggregationType = c.aggregationType;
         }
+    }
+
+    // paging
+    if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
+        t.paging = c.paging;
     }
 
     // graph map
@@ -202,11 +208,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             }
         }
 
-        //// paging
-        //if (view.dataType === conf.finals.dataType.individual_cases && view.paging && !skipPaging) {
-            //paramString += view.paging.pageSize ? '&pageSize=' + view.paging.pageSize : '';
-            //paramString += view.paging.page ? '&page=' + view.paging.page : '';
-        //}
+        // paging
+        if (this.dataType === dimensionConfig.dataType['individual_cases'] && isObject(this.paging)) {
+            request.add('pageSize=' + this.paging.pageSize);
+            request.add('page=' + this.paging.page);
+        }
     }
 
     // relative orgunits / user
