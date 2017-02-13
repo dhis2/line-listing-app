@@ -160,9 +160,9 @@ function initialize() {
     // i18n init
     var i18n = i18nManager.get();
 
-    //optionConfig.init();
-    //dimensionConfig.init();
-    //periodConfig.init();
+    optionConfig.init();
+    dimensionConfig.init();
+    periodConfig.init();
 
     // ui config
     uiConfig.checkout('tracker');
@@ -212,14 +212,14 @@ function initialize() {
         };
 
         var _table;
-console.log(layout.dataType);
+
         if (layout.dataType === 'AGGREGATED_VALUES') {
             _table = getPivotTable(layout, response);
         }
         else if (layout.dataType === 'EVENTS') {
             _table = getDataTable(layout, response);
         }
-console.log("_table", _table);
+
         if (_table) {
 
             // render

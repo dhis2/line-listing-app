@@ -202,7 +202,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // sorting
-        if (isObject(this.sorting) && this.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (isObject(this.sorting) && this.dataType === dimensionConfig.dataType['individual_cases']) {
             if (isString(this.sorting.direction) && isString(this.sorting.id)) {
                 request.add(this.sorting.direction.toLowerCase() + '=' + this.sorting.id);
             }

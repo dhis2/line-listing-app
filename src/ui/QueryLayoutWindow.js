@@ -276,20 +276,9 @@ QueryLayoutWindow = function(c) {
                 listeners: {
                     added: function(b) {
                         b.on('click', function() {
-                            var config = ns.core.web.report.getLayoutConfig();
-
-                            if (!config) {
-                                return;
-                            }
-
-                            // keep sorting
-                            if (ns.app.layout && ns.app.layout.sorting) {
-                                config.sorting = Ext.clone(ns.app.layout.sorting);
-                            }
-
                             window.hide();
 
-                            ns.core.web.report.getData(config, false);
+                            instanceManager.getReport();
                         });
                     }
                 }

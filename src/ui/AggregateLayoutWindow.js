@@ -215,6 +215,7 @@ AggregateLayoutWindow = function(c) {
         fieldStyle: 'height: 22px',
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         disabled: true,
         value: 'COUNT',
@@ -229,7 +230,7 @@ AggregateLayoutWindow = function(c) {
             this.enable();
         },
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name'],
             data: optionConfig.getAggregationTypeRecords()
         }),
         resetData: function() {
