@@ -833,6 +833,48 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	margin-top: 2px;
 }
 
+/* Favorite */
+
+.ns-menu-item-favorite-new {
+    background-image:url('../images/fav-new.png');
+}
+
+.ns-menu-item-favorite-open {
+    background-image:url('../images/fav-open.png');
+}
+
+.ns-menu-item-favorite-save {
+    background-image:url('../images/fav-save.png');
+}
+
+.ns-menu-item-favorite-restore {
+    background-image:url('../images/fav-restore.png');
+}
+
+.ns-menu-item-favorite-rename {
+    background-image:url('../images/fav-rename.png');
+}
+
+.ns-menu-item-favorite-share {
+    background-image:url('../images/fav-share.png');
+}
+
+.ns-menu-item-favorite-interpretation {
+    background-image:url('../images/fav-interpretation.png');
+}
+
+.ns-menu-item-favorite-link {
+    background-image:url('../images/fav-link.png');
+}
+
+.ns-menu-item-favorite-delete {
+    background-image:url('../images/fav-delete.png');
+}
+
+.ns-menu-item-favorite-translate{
+	background-image:url('../images/fav-translate.png');
+}
+
 /*----------------------------------------------------------------------------
  * Button
  *--------------------------------------------------------------------------*/
