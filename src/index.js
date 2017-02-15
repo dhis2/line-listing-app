@@ -174,7 +174,16 @@ function initialize() {
     instanceManager.setFn(function(layout) {
         var response = layout.getResponse();
 
-        var getPivotTable = function(layout, response) {
+        var afterLoad = function() {
+
+            // mask
+            uiManager.unmask();
+
+            // statistics
+            instanceManager.postDataStatistics();
+        };
+
+        var createPivotTable = function(layout, response) {
             var sortingId = layout.sorting ? layout.sorting.id : null,
                 _table;
 
@@ -204,36 +213,40 @@ function initialize() {
                 _table = getTable();
             }
 
-            return _table;
-        };
-
-        var getDataTable = function(layout, response) {
-            return new table.EventDataTable(refs, layout, response);
-        };
-
-        var _table;
-
-        if (layout.dataType === 'AGGREGATED_VALUES') {
-            _table = getPivotTable(layout, response);
-        }
-        else if (layout.dataType === 'EVENTS') {
-            _table = getDataTable(layout, response);
-        }
-
-        if (_table) {
-
             // render
             uiManager.update(_table.html);
 
             // events
             tableManager.setColumnHeaderMouseHandlers(layout, _table);
+
+            afterLoad();
+        };
+
+        var createEventDataTable = function(layout, response) {
+            var _table = new table.EventDataTable(refs, layout, response);
+
+            if (_table) {
+
+                // render
+                uiManager.update(_table.html);
+
+                var _layout = refs.instanceManager.getStateCurrent();
+
+                _layout.setResponse(null);
+
+                // events
+                tableManager.setColumnHeaderMouseHandlers(_layout, _table);
+
+                afterLoad();
+            }
+        };
+
+        if (layout.dataType === 'AGGREGATED_VALUES') {
+            createPivotTable(layout, response);
         }
-
-        // mask
-        uiManager.unmask();
-
-        // statistics
-        instanceManager.postDataStatistics();
+        else if (layout.dataType === 'EVENTS') {
+            createEventDataTable(layout, response);
+        }
     });
 
     // ui manager
