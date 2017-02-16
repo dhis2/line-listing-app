@@ -231,7 +231,7 @@ function initialize() {
                 uiManager.update(_table.html);
 
                 var _layout = refs.instanceManager.getStateCurrent();
-
+                _layout.sorting = layout.sorting;
                 _layout.setResponse(null);
 
                 // events
