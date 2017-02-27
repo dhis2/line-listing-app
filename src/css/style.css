@@ -805,28 +805,38 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	padding-left: 10px;
 }
 
+.ns-menu-item-image,
+.ns-menu-item-tablelayout,
+.ns-menu-item-datasource,
+.ns-menu-item-advanced,
+.ns-menu-item-scheme,
+.ns-menu-item-selected,
+.ns-menu-item-unselected {
+    padding-left: 18px;
+}
+
 .ns-menu-item-image {
     background-image:url('../images/dl_image.png');
-    padding-left: 18px;
 }
 .ns-menu-item-tablelayout {
     background-image:url('../images/dl_tablelayout.png');
-    padding-left: 18px;
 }
 .ns-menu-item-datasource {
     background-image:url('../images/dl_datasource.png');
-    padding-left: 18px;
+}
+.ns-menu-item-advanced {
+    background-image:url('../images/dl_advanced.png');
+}
+.ns-menu-item-scheme {
+    background-image:url('../images/dl_scheme.png');
 }
 
 .ns-menu-item-selected {
     background-image:url('../images/check.png');
-    padding-left: 18px;
 }
 .ns-menu-item-unselected {
     background-image:url('../images/check-un.png');
-    padding-left: 18px;
 }
-
 
 	/* Menu align */
 .ns-btn-menu {
