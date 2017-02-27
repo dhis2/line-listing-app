@@ -193,31 +193,37 @@ function initialize() {
                 return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true });
             };
 
-            // pre-sort if id
-            if (sortingId && sortingId !== 'total') {
-                layout.sort();
-            }
+            if (response && response.rows.length) {
 
-            // table
-            _table = getTable();
+                // pre-sort if id
+                if (sortingId && sortingId !== 'total') {
+                    layout.sort();
+                }
 
-            // validate
-            if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
-                alert('Table has too many cells. Please reduce the table and try again.');
-                return;
-            }
-
-            // sort if total
-            if (sortingId && sortingId === 'total') {
-                layout.sort(_table);
+                // table
                 _table = getTable();
+
+                // validate
+                if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
+                    alert('Table has too many cells. Please reduce the table and try again.');
+                    return;
+                }
+
+                // sort if total
+                if (sortingId && sortingId === 'total') {
+                    layout.sort(_table);
+                    _table = getTable();
+                }
+
+                // render
+                uiManager.update(_table.html);
+
+                // events
+                tableManager.setColumnHeaderMouseHandlers(layout, _table);
             }
-
-            // render
-            uiManager.update(_table.html);
-
-            // events
-            tableManager.setColumnHeaderMouseHandlers(layout, _table);
+            else {
+                uiManager.update('<div style="margin:20px; color:#666">No data to display</div>'); // TODO improve
+            }
 
             afterLoad();
         };
