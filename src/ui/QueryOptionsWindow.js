@@ -11,26 +11,16 @@ QueryOptionsWindow = function(c) {
         i18n = c.i18nManager.get(),
         optionConfig = c.optionConfig;
 
-    var completedOnly,
-        digitGroupSeparator,
-        displayDensity,
-        fontSize,
-
-        data,
-        style,
-        parameters,
-
-        comboboxWidth = 280,
+    var comboboxWidth = 280,
         comboBottomMargin = 1,
-        checkboxBottomMargin = 2,
-        window;
+        checkboxBottomMargin = 2;
 
-    completedOnly = Ext.create('Ext.form.field.Checkbox', {
+    var completedOnly = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.include_only_completed_events_only,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    displayDensity = Ext.create('Ext.form.field.ComboBox', {
+    var displayDensity = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: comboboxWidth,
@@ -39,15 +29,16 @@ QueryOptionsWindow = function(c) {
         labelStyle: 'color:#333',
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getDisplayDensity('normal').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getDisplayDensityRecords()
         })
     });
 
-    fontSize = Ext.create('Ext.form.field.ComboBox', {
+    var fontSize = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: comboboxWidth,
@@ -56,15 +47,16 @@ QueryOptionsWindow = function(c) {
         labelStyle: 'color:#333',
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getFontSize('normal').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getFontSizeRecords()
         })
     });
 
-    digitGroupSeparator = Ext.create('Ext.form.field.ComboBox', {
+    var digitGroupSeparator = Ext.create('Ext.form.field.ComboBox', {
         labelStyle: 'color:#333',
         cls: 'ns-combo',
         style: 'margin-bottom:0',
@@ -73,15 +65,16 @@ QueryOptionsWindow = function(c) {
         fieldLabel: i18n.digit_group_separator,
         queryMode: 'local',
         valueField: 'id',
+        displayField: 'name',
         editable: false,
         value: optionConfig.getDigitGroupSeparator('space').id,
         store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
+            fields: ['id', 'name', 'index'],
             data: optionConfig.getDigitGroupSeparatorRecords()
         })
     });
 
-    data = {
+    var data = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -89,7 +82,7 @@ QueryOptionsWindow = function(c) {
         ]
     };
 
-    style = {
+    var style = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -99,7 +92,7 @@ QueryOptionsWindow = function(c) {
         ]
     };
 
-    window = Ext.create('Ext.window.Window', {
+    var window = Ext.create('Ext.window.Window', {
         title: i18n.table_options,
         bodyStyle: 'background-color:#fff; padding:3px',
         closeAction: 'hide',
@@ -160,21 +153,9 @@ QueryOptionsWindow = function(c) {
             {
                 text: '<b>' + i18n.update + '</b>',
                 handler: function() {
-                    var config = ns.core.web.report.getLayoutConfig();
-                        //layout = ns.core.api.layout.Layout(config);
-
-                    if (!config) {
-                        return;
-                    }
-
-                    // keep sorting
-                    if (ns.app.layout && ns.app.layout.sorting) {
-                        config.sorting = Ext.clone(ns.app.layout.sorting);
-                    }
-
                     window.hide();
 
-                    ns.core.web.report.getData(config, false);
+                    instanceManager.getReport();
                 }
             }
         ],
