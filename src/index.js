@@ -120,7 +120,7 @@ manifestReq.done(function(text) {
     appManager.manifest = JSON.parse(text);
     appManager.env = process.env.NODE_ENV;
     appManager.setAuth();
-    //appManager.logVersion();
+    appManager.logVersion();
 
     var systemInfoReq = $.getJSON(appManager.getApiPath() + systemInfoUrl);
 
@@ -230,6 +230,7 @@ function initialize() {
 
         var createEventDataTable = function(layout, response) {
             var _table = new table.EventDataTable(refs, layout, response);
+            var statusBar = uiManager.get('statusBar');
 
             if (_table) {
 
@@ -242,6 +243,10 @@ function initialize() {
 
                 // events
                 tableManager.setColumnHeaderMouseHandlers(_layout, _table);
+
+                if (statusBar) {
+                    statusBar.setStatus(layout, response);
+                }
 
                 afterLoad();
             }

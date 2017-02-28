@@ -1,6 +1,6 @@
-import {InstanceManager} from 'd2-analysis';
+import { InstanceManager } from 'd2-analysis';
 
-export {InstanceManager};
+export { InstanceManager };
 
 InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, forceUiState, fn) {
     var t = this,

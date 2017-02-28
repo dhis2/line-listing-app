@@ -209,9 +209,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // paging
-        if (this.dataType === dimensionConfig.dataType['individual_cases'] && isObject(this.paging)) {
-            request.add('pageSize=' + this.paging.pageSize);
-            request.add('page=' + this.paging.page);
+        if (this.dataType === dimensionConfig.dataType['individual_cases']) {
+            var paging = this.paging || {};
+
+            request.add('pageSize=' + (paging.pageSize || 100));
+            request.add('page=' + (paging.page || 1));
         }
     }
 
