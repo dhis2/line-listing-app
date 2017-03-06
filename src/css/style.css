@@ -730,26 +730,9 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 
 	/* Background */
 .x-toolbar-default {
-    border-color: #D0D0D0;
+    border-color: #dadada;
     background-image: none;
-    background-color: #f3f3f3;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f1f1f1), color-stop(100%, #f5f5f5));
-    background-image: -webkit-linear-gradient(top, #f1f1f1,#f5f5f5);
-    background-image: -moz-linear-gradient(top, #f1f1f1,#f5f5f5);
-    background-image: -o-linear-gradient(top, #f1f1f1,#f5f5f5);
-    background-image: -ms-linear-gradient(top, #f1f1f1,#f5f5f5);
-    background-image: linear-gradient(top, #f1f1f1,#f5f5f5);
-}
-.ns-toolbar-main {
-    border-color: #D0D0D0;
-    background-image: none;
-    background-color: #f1f1f1;
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e3e3e3), color-stop(100%, #eaeaea));
-    background-image: -webkit-linear-gradient(top, #e3e3e3,#eaeaea);
-    background-image: -moz-linear-gradient(top, #e3e3e3,#eaeaea);
-    background-image: -o-linear-gradient(top, #e3e3e3,#eaeaea);
-    background-image: -ms-linear-gradient(top, #e3e3e3,#eaeaea);
-    background-image: linear-gradient(top, #e3e3e3,#eaeaea);
+    background-color: #f6f6f6;
 }
 
 
@@ -761,6 +744,7 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 .ns-toolbar-btn-menu {
 	margin-top: 4px;
 }
+
 
 /*----------------------------------------------------------------------------
  * Menu
@@ -795,6 +779,7 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 .x-menu-item-text {
     color: #111;
 }
+
 
 /*----------------------------------------------------------------------------
  * PT Menu
@@ -940,6 +925,7 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
     background-image: linear-gradient(top, #d1d1d1,#e5e5e5);
 }
 
+
 /*----------------------------------------------------------------------------
  * PT Button
  *--------------------------------------------------------------------------*/
@@ -1068,6 +1054,15 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	opacity: 0.65;
 }
 
+/*----------------------------------------------------------------------------
+ * Grid
+ *--------------------------------------------------------------------------*/
+
+.x-grid-row-selected .x-grid-cell {
+    background-color: #eaeaea !important;
+    border-style: solid;
+    border-color: transparent;
+}
 
 /*----------------------------------------------------------------------------
  * PT Grid
@@ -1090,7 +1085,7 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	margin-left: 4px;
 }
 .ns-grid-row-icon-sharing {
-	background: url('../images/grid-sharing_16.png') no-repeat;
+	background: url('../images/grid-sharing-2_16.png') no-repeat;
 	margin-left: 4px;
 }
 .ns-grid-row-icon-dashboard {
@@ -1109,7 +1104,7 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 
 .ns-grid .x-grid-cell-inner,
 .ns-grid .x-grid-cell-inner * {
-	font-size: 10px !important;
+	font-size: 11px !important;
 }
 .ns-grid .x-grid-cell-inner {
 	padding-top: 3px;
@@ -1121,10 +1116,10 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 }
 .ns-grid .x-grid-header-ct {
 	border-bottom-width: 1px !important;
-	border-bottom-color: #d0d0d0;
+	border-bottom-color: #d6d6d6;
 }
 .ns-grid .x-grid-body {
-	border: 1px solid #d0d0d0;
+	border: 1px solid #d6d6d6;
 	border-top: 0 none !important;
 }
 
@@ -1142,13 +1137,26 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 .ns-grid .link * {
 	cursor: pointer;
 	cursor: hand;
-	color: blue;
+	color: #001EFF;
 	text-decoration: underline;
 }
 
 
 /*----------------------------------------------------------------------------
- * PT Window
+ * Window
+ *--------------------------------------------------------------------------*/
+
+.x-window .x-window-header-text-default {
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #444;
+    padding-left: 8px;
+    padding-top: 1px;
+}
+
+/*----------------------------------------------------------------------------
+ * DV Window
  *--------------------------------------------------------------------------*/
 
 .ns-window-title-favorite {
@@ -1370,6 +1378,11 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	padding: 4px 0 0;
 }
 
+    /* IE11 title fix */
+.ns-accordion .x-component.x-panel-header-text-container.x-box-item.x-component-default {
+    width: 100% !important;
+}
+
 
 /*----------------------------------------------------------------------------
  * PT Textarea
@@ -1377,10 +1390,159 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 
 .ns-textarea .x-form-field {
 	font-size: 11px;
+    line-height: 14px !important;
 }
 
 .ns-textarea.monospaced textarea {
 	font-family: monospace, consolas, courier new;
 	padding: 4px;
 	border: 0 none;
+}
+
+
+/*----------------------------------------------------------------------------
+ * DV Favorites list
+ *--------------------------------------------------------------------------*/
+
+.favorite-li {
+    padding: 0;
+}
+
+.favorite-li:hover {
+    color: #222;
+}
+
+
+/*----------------------------------------------------------------------------
+ * DV Tips
+ *--------------------------------------------------------------------------*/
+
+.ns-chart-tips {
+    border-radius: 2px;
+    padding: 1px 4px 2px;
+    border: 2px solid #777;
+    background-color: #f1f1f1;
+}
+
+.ns-chart-tips .x-tip-body {
+    background-color: #f1f1f1;
+    font-size: 13px;
+    font-weight: normal;
+    color: #444;
+	-webkit-text-stroke: 0;
+}
+
+.legend3Lines .x-legend .x-legend-items {
+     display:inline-block !important;
+}
+
+.legend3Lines .x-legend .x-legend-item {
+     float: left !important;
+     width:205px !important;
+     overflow: hidden;
+}
+
+.legend3Lines .x-legend {
+     height:110px !important;
+     width:400px !important;
+}
+
+/*----------------------------------------------------------------------------
+ * East Panel
+ *--------------------------------------------------------------------------*/
+
+.x-tip {
+    width: auto !important;
+    background-color: grey !important;
+    border: 0px;
+}
+.x-tip-body {
+    width: auto !important;
+    background-color: grey !important;
+    border: 0px;
+}
+.x-tip-body span {
+    width: auto !important;
+    background-color: grey !important;
+    border: 0px;
+}
+
+.eastPanel .clickable,
+.eastPanel .clickable div,
+.eastPanel .clickable label{
+	cursor: pointer !important;
+}
+
+.eastPanel .thumbs_up {
+	background-image: url('../images/thumbs_up.png');
+	background-position: 5px 5px;
+	padding: 7px 25px;
+	background-repeat: no-repeat;
+}
+
+.eastPanel .greyBackground,
+.eastPanel .greyBackground div {
+	background-color: #efefef;
+}
+
+.eastPanel .comment {
+	padding: 5px;
+	margin-top: 1px;
+}
+
+
+.eastPanel .eastPanelLink {
+	cursor: pointer;
+	color: #3162C5;
+}
+.eastPanel .eastPanelLink:hover {
+    color: #1c3974;
+}
+
+.eastPanel .bold {
+	font-weight: bold;
+}
+.eastPanel .interpretationActions {
+    line-height: 16px;
+}
+
+.eastPanel .interpretationDetailsField {
+    white-space: nowrap;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.eastPanel .avatar {
+	height: 30px;
+	width: 30px;
+	border-radius:50%;
+	display:inline-block;
+	background-color:#bdbdbd;
+	text-align:center;
+	line-height:30px;
+	font-size:14px;
+	color:black;
+	font-weight:bold;
+}
+.eastPanel .commentArea textarea{
+    margin-bottom:5px;
+    font-size:12px;
+}
+
+.ns-panel-title-east-default .x-panel-header {
+    background: #e6e6e6;
+    border-top-width: 0;
+    border-left-width: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    padding-top: 8px;
+    padding-bottom: 7px;
+    padding-left: 7px;
+}
+.ns-panel-title-east-default.first .x-panel-header {
+    border-top-width: 1px;
+}
+
+.ns-panel-title-east-default .x-panel-body {
+    border-left: 0;
 }

@@ -10,15 +10,15 @@ import isString from 'd2-utilizr/lib/isString';
 
 export var AggregateLayoutWindow;
 
-AggregateLayoutWindow = function(c) {
+AggregateLayoutWindow = function(refs) {
     var t = this,
 
-        appManager = c.appManager,
-        uiManager = c.uiManager,
-        instanceManager = c.instanceManager,
-        i18n = c.i18nManager.get(),
-        dimensionConfig = c.dimensionConfig,
-        optionConfig = c.optionConfig,
+        appManager = refs.appManager,
+        uiManager = refs.uiManager,
+        instanceManager = refs.instanceManager,
+        i18n = refs.i18nManager.get(),
+        dimensionConfig = refs.dimensionConfig,
+        optionConfig = refs.optionConfig,
 
         confData = dimensionConfig.get('data'),
         confPeriod = dimensionConfig.get('period'),
@@ -600,10 +600,10 @@ AggregateLayoutWindow = function(c) {
                 var layoutButton = uiManager.get('layoutButton') || {};
 
                 if (layoutButton.rendered) {
-                    c.uiManager.setAnchorPosition(w, layoutButton);
+                    uiManager.setAnchorPosition(w, layoutButton);
 
                     if (!w.hasHideOnBlurHandler) {
-                        c.uiManager.addHideOnBlurHandler(w);
+                        uiManager.addHideOnBlurHandler(w);
                     }
                 }
 
