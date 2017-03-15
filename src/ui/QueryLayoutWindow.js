@@ -251,6 +251,9 @@ QueryLayoutWindow = function(c) {
         saveState: saveState,
         resetData: resetData,
         reset: reset,
+        getDefaultStore: function() {
+            return colStore;
+        },
         getValueConfig: function() {
             return {};
         },

@@ -545,6 +545,9 @@ AggregateLayoutWindow = function(refs) {
         collapseDataDimensions: collapseDataDimensions,
         toggleDataItems: toggleDataItems,
         toggleValueGui: toggleValueGui,
+        getDefaultStore: function() {
+            return rowStore;
+        },
         getValueConfig: function() {
             var config = {},
                 valueId = value.getValue();
