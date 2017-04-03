@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plugin test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1"/>
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="./build/eventreport.js"></script>
+    <style>div {margin-bottom:10px;}</style>
+</head>
+<body>
+
+<div class="r" id="r1"></div>
+<div class="r" id="r2"></div>
+<div class="r" id="r3"></div>
+
+<script>
+    var r1 = { id: "aDrb9UMVxt0", el: "r1" };
+    //var r2 = { id: "SEMVWsnVblY", el: "r2" };
+    //var r3 = { id: "KJFbpIymTAo", el: "r3" };
+
+    eventReportPlugin.url = '//localhost:8080';
+    eventReportPlugin.username = 'admin';
+    eventReportPlugin.password = 'district';
+    eventReportPlugin.loadingIndicator = true;
+
+    eventReportPlugin.load(r1);
+</script>
+
+</body>
+</html>

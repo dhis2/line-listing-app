@@ -5,7 +5,9 @@ import arrayTo from 'd2-utilizr/lib/arrayTo';
 
 import { api, table, manager, config, init, util } from 'd2-analysis';
 
+import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
+import { InstanceManager } from './manager/InstanceManager';
 
 // extend
 api.Dimension = Dimension;
@@ -15,6 +17,7 @@ manager.InstanceManager = InstanceManager;
 // references
 var refs = {
     api,
+    init,
     table
 };
 
@@ -52,6 +55,10 @@ refs.i18nManager = i18nManager;
 var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
+// session storage manager
+var indexedDbManager = new manager.IndexedDbManager(refs);
+refs.indexedDbManager = indexedDbManager;
+
 // dependencies
 dimensionConfig.setI18nManager(i18nManager);
 dimensionConfig.init();
@@ -63,6 +70,12 @@ periodConfig.init();
 appManager.applyTo([].concat(arrayTo(api), arrayTo(table)));
 dimensionConfig.applyTo(arrayTo(table));
 optionConfig.applyTo([].concat(arrayTo(api), arrayTo(table)));
+
+// initialize
+requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
+
+requestManager.set(initialize);
+requestManager.run();
 
 // plugin
 function render(plugin, layout) {
@@ -76,11 +89,11 @@ function render(plugin, layout) {
     // instance manager
     var instanceManager = new manager.InstanceManager(instanceRefs);
     instanceRefs.instanceManager = instanceManager;
-    instanceManager.apiResource = 'reportTable';
-    instanceManager.apiEndpoint = 'reportTables';
-    instanceManager.apiModule = 'dhis-web-pivot';
+    instanceManager.apiResource = 'eventReport';
+    instanceManager.apiEndpoint = 'eventReports';
+    instanceManager.apiModule = 'dhis-web-event-reports';
     instanceManager.plugin = true;
-    instanceManager.dashboard = reportTablePlugin.dashboard;
+    instanceManager.dashboard = eventReportPlugin.dashboard;
     instanceManager.applyTo(arrayTo(api));
 
     // table manager
@@ -117,7 +130,7 @@ function render(plugin, layout) {
             table = getTable();
         }
 
-        html += reportTablePlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
+        html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
         html += table.html;
 
         uiManager.update(html, _layout.el);
@@ -145,4 +158,6 @@ function render(plugin, layout) {
     }
 };
 
-global.reportTablePlugin = new util.Plugin({ refs, renderFn: render });
+function initialize() {
+    global.eventReportPlugin = new util.Plugin({ refs, renderFn: render });
+};
