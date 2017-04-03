@@ -3,21 +3,19 @@ import './css/style.css';
 import objectApplyIf from 'd2-utilizr/lib/objectApplyIf';
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
-import { api, config, init, manager, pivot, util } from 'd2-analysis';
+import { api, table, manager, config, init, util } from 'd2-analysis';
 
 import { Layout } from './api/Layout';
 
-// version
-const VERSION = '26';
-
 // extend
+api.Dimension = Dimension;
 api.Layout = Layout;
+manager.InstanceManager = InstanceManager;
 
 // references
 var refs = {
     api,
-    init,
-    pivot
+    table
 };
 
 // dimension config
@@ -34,6 +32,8 @@ refs.periodConfig = periodConfig;
 
 // app manager
 var appManager = new manager.AppManager(refs);
+appManager.sessionName = 'eventreport';
+appManager.apiVersion = 26;
 refs.appManager = appManager;
 
 // calendar manager
@@ -53,33 +53,25 @@ var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
 // dependencies
-
 dimensionConfig.setI18nManager(i18nManager);
+dimensionConfig.init();
 optionConfig.setI18nManager(i18nManager);
+optionConfig.init();
 periodConfig.setI18nManager(i18nManager);
+periodConfig.init();
 
-appManager.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
-dimensionConfig.applyTo(arrayTo(pivot));
-optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
+appManager.applyTo([].concat(arrayTo(api), arrayTo(table)));
+dimensionConfig.applyTo(arrayTo(table));
+optionConfig.applyTo([].concat(arrayTo(api), arrayTo(table)));
 
 // plugin
 function render(plugin, layout) {
-    var instanceRefs = {
-        dimensionConfig,
-        optionConfig,
-        periodConfig,
-        api,
-        pivot,
-        appManager,
-        calendarManager,
-        requestManager,
-        sessionStorageManager
-    };
+    var instanceRefs = Object.assign({}, refs);
 
     // ui manager
     var uiManager = new manager.UiManager(instanceRefs);
     instanceRefs.uiManager = uiManager;
-    uiManager.applyTo(arrayTo(api));
+    uiManager.applyTo([].concat(arrayTo(api), arrayTo(table)));
 
     // instance manager
     var instanceManager = new manager.InstanceManager(instanceRefs);
@@ -106,9 +98,9 @@ function render(plugin, layout) {
         // get table
         var getTable = function() {
             var response = _layout.getResponse();
-            var colAxis = new pivot.TableAxis(_layout, response, 'col');
-            var rowAxis = new pivot.TableAxis(_layout, response, 'row');
-            return new pivot.Table(_layout, response, colAxis, rowAxis, {skipTitle: true});
+            var colAxis = new pivot.PivotTableAxis(instanceRefs, _layout, response, 'col');
+            var rowAxis = new pivot.PivotTableAxis(instanceRefs, _layout, response, 'row');
+            return new pivot.PivotTable(instanceRefs, _layout, response, colAxis, rowAxis, {skipTitle: true});
         };
 
         // pre-sort if id
@@ -153,4 +145,4 @@ function render(plugin, layout) {
     }
 };
 
-global.reportTablePlugin = new util.Plugin({ refs, VERSION, renderFn: render });
+global.reportTablePlugin = new util.Plugin({ refs, renderFn: render });

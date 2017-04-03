@@ -5,7 +5,7 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
-import { api, table, manager, config, ui, init, override, ux } from 'd2-analysis';
+import { api, table, manager, config, init, ui, override, ux } from 'd2-analysis';
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
@@ -49,7 +49,7 @@ var uiConfig = new config.UiConfig();
 refs.uiConfig = uiConfig;
 
     // app manager
-var appManager = new manager.AppManager();
+var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventreport';
 appManager.apiVersion = 26;
 refs.appManager = appManager;
@@ -99,9 +99,6 @@ uiManager.setI18nManager(i18nManager);
 
     // init ux
 Object.keys(ux).forEach(key => ux[key](refs));
-
-    // klass
-Object.keys(api).forEach(key => api[key].refs = refs);
 
 // requests
 var manifestReq = $.ajax({
