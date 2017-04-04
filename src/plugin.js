@@ -21,6 +21,13 @@ var refs = {
     table
 };
 
+// inits
+var inits = [
+    init.legendSetsInit,
+    init.dimensionsInit,
+    init.optionSetsInit
+];
+
 // dimension config
 var dimensionConfig = new config.DimensionConfig();
 refs.dimensionConfig = dimensionConfig;
@@ -71,12 +78,6 @@ appManager.applyTo([].concat(arrayTo(api), arrayTo(table)));
 dimensionConfig.applyTo(arrayTo(table));
 optionConfig.applyTo([].concat(arrayTo(api), arrayTo(table)));
 
-// initialize
-requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
-
-requestManager.set(initialize);
-requestManager.run();
-
 // plugin
 function render(plugin, layout) {
     var instanceRefs = Object.assign({}, refs);
@@ -106,14 +107,14 @@ function render(plugin, layout) {
     instanceManager.setFn(function(_layout) {
         var sortingId = _layout.sorting ? _layout.sorting.id : null,
             html = '',
-            table;
+            tableObject;
 
         // get table
         var getTable = function() {
             var response = _layout.getResponse();
-            var colAxis = new pivot.PivotTableAxis(instanceRefs, _layout, response, 'col');
-            var rowAxis = new pivot.PivotTableAxis(instanceRefs, _layout, response, 'row');
-            return new pivot.PivotTable(instanceRefs, _layout, response, colAxis, rowAxis, {skipTitle: true});
+            var colAxis = new table.PivotTableAxis(instanceRefs, _layout, response, 'col');
+            var rowAxis = new table.PivotTableAxis(instanceRefs, _layout, response, 'row');
+            return new table.PivotTable(instanceRefs, _layout, response, colAxis, rowAxis, {skipTitle: true});
         };
 
         // pre-sort if id
@@ -122,21 +123,21 @@ function render(plugin, layout) {
         }
 
         // table
-        table = getTable();
+        tableObject = getTable();
 
         // sort if total
         if (sortingId && sortingId === 'total') {
-            _layout.sort(table);
-            table = getTable();
+            _layout.sort(tableObject);
+            tableObject = getTable();
         }
 
         html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
-        html += table.html;
+        html += tableObject.html;
 
         uiManager.update(html, _layout.el);
 
         // events
-        tableManager.setColumnHeaderMouseHandlers(_layout, table);
+        tableManager.setColumnHeaderMouseHandlers(_layout, tableObject);
 
         // mask
         uiManager.unmask();
@@ -158,6 +159,4 @@ function render(plugin, layout) {
     }
 };
 
-function initialize() {
-    global.eventReportPlugin = new util.Plugin({ refs, renderFn: render });
-};
+global.eventReportPlugin = new util.Plugin({ refs, inits, renderFn: render });
