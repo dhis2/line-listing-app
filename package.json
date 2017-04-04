@@ -1,6 +1,6 @@
 {
   "name": "event-reports-app",
-  "version": "26.0.1",
+  "version": "26.0.2",
   "description": "DHIS 2 event reports app",
   "main": "index.html",
   "scripts": {
