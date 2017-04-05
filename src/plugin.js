@@ -62,7 +62,7 @@ refs.i18nManager = i18nManager;
 var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
-// session storage manager
+// indexed db manager
 var indexedDbManager = new manager.IndexedDbManager(refs);
 refs.indexedDbManager = indexedDbManager;
 

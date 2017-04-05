@@ -967,6 +967,14 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
     width: 26px !important;
 }
 
+.ns-button-icon-arrowupdouble {
+	background: url('../images/arrowupdouble.png') no-repeat;
+    width: 26px !important;
+}
+.ns-button-icon-arrowdown {
+	background: url('../images/arrowdown.png') no-repeat;
+}
+
 .ns-button-icon-search {
 	background: url('../images/search_14.png') 1px 1px no-repeat;
 }
