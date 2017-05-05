@@ -80,15 +80,15 @@ refs.uiManager = uiManager;
 
     // instance manager
 var instanceManager = new manager.InstanceManager(refs);
-refs.instanceManager = instanceManager;
-
-    // table manager
-var tableManager = new manager.TableManager(refs);
 instanceManager.apiResource = 'eventReport';
 instanceManager.apiEndpoint = 'eventReports';
 instanceManager.apiModule = 'dhis-web-event-reports';
 instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
 refs.instanceManager = instanceManager;
+
+    // table manager
+var tableManager = new manager.TableManager(refs);
+refs.tableManager = tableManager;
 
 // dependencies
 uiManager.setInstanceManager(instanceManager);
@@ -110,6 +110,7 @@ appManager.init(() => {
     requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
     requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
     requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
+    requestManager.add(new api.Request(refs, init.categoryOptionGroupSetsInit(refs)));
 
     requestManager.set(initialize);
     requestManager.run();
