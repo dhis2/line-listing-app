@@ -16,10 +16,6 @@ DataTypeToolbar = function(refs) {
         if (!button.pressed) {
             button.toggle();
         }
-
-        uiManager.get('accordion').onTypeClick(dataTypeToolbar.getDataType());
-
-        //instanceManager.getReport();
     };
 
     var aggregateTypeButton = Ext.create('Ext.button.Button', {
