@@ -361,6 +361,11 @@ AggregateLayoutWindow = function(refs) {
     var addDimension = function(record, store, excludedStores, force) {
         store = store && force ? store : dimensionStoreMap[record.id] || store || filterStore;
 
+        // do not allow program indicators for aggregated values
+        if (record.isProgramIndicator) {
+            return;
+        }
+
         if (hasDimension(record.id, excludedStores)) {
             if (force) {
                 removeDimension(record.id);
