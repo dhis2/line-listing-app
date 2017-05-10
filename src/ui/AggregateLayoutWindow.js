@@ -359,10 +359,6 @@ AggregateLayoutWindow = function(refs) {
     });
 
     var addDimension = function(record, store, excludedStores, force) {
-        if (record.isProgramIndicator) {
-            return;
-        }
-
         store = store && force ? store : dimensionStoreMap[record.id] || store || filterStore;
 
         if (hasDimension(record.id, excludedStores)) {
