@@ -3,6 +3,9 @@ import isNumber from 'd2-utilizr/lib/isNumber';
 import isObject from 'd2-utilizr/lib/isObject';
 import isString from 'd2-utilizr/lib/isString';
 
+import { ProgramStatusSelect } from 'd2-analysis/lib/ui/options/ProgramStatus';
+import { EventStatusSelect } from 'd2-analysis/lib/ui/options/EventStatus';
+
 export var AggregateOptionsWindow;
 
 AggregateOptionsWindow = function(refs) {
@@ -15,7 +18,8 @@ AggregateOptionsWindow = function(refs) {
         optionConfig = refs.optionConfig;
 
     var comboboxWidth = 280,
-        comboBottomMargin = 1,
+        comboboxLabelWidth = 130,
+        comboboxBottomMargin = 1,
         checkboxBottomMargin = 2,
         separatorTopMargin = 10,
         window;
@@ -70,15 +74,15 @@ AggregateOptionsWindow = function(refs) {
         sortOrder: 1,
         topLimit: 10,
         comboboxWidth: comboboxWidth,
-        comboBottomMargin: comboBottomMargin,
+        comboboxBottomMargin: comboboxBottomMargin,
         style: 'margin-top:' + separatorTopMargin + 'px'
     });
 
     var outputType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
+        style: 'margin-bottom:' + comboboxBottomMargin + 'px',
         width: comboboxWidth,
-        labelWidth: 130,
+        labelWidth: comboboxLabelWidth,
         fieldLabel: i18n.output_type,
         labelStyle: 'color:#333',
         queryMode: 'local',
@@ -95,6 +99,16 @@ AggregateOptionsWindow = function(refs) {
         })
     });
 
+    var programStatus = ProgramStatusSelect(refs, {
+        labelWidth: comboboxLabelWidth,
+        width: comboboxWidth
+    });
+
+    var eventStatus = EventStatusSelect(refs, {
+        labelWidth: comboboxLabelWidth,
+        width: comboboxWidth
+    });
+
     var showHierarchy = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_hierarchy,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
@@ -102,9 +116,9 @@ AggregateOptionsWindow = function(refs) {
 
     var displayDensity = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
+        style: 'margin-bottom:' + comboboxBottomMargin + 'px',
         width: comboboxWidth,
-        labelWidth: 130,
+        labelWidth: comboboxLabelWidth,
         fieldLabel: i18n.display_density,
         labelStyle: 'color:#333',
         queryMode: 'local',
@@ -120,9 +134,9 @@ AggregateOptionsWindow = function(refs) {
 
     var fontSize = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
+        style: 'margin-bottom:' + comboboxBottomMargin + 'px',
         width: comboboxWidth,
-        labelWidth: 130,
+        labelWidth: comboboxLabelWidth,
         fieldLabel: i18n.font_size,
         labelStyle: 'color:#333',
         queryMode: 'local',
@@ -141,7 +155,7 @@ AggregateOptionsWindow = function(refs) {
         cls: 'ns-combo',
         style: 'margin-bottom:0',
         width: comboboxWidth,
-        labelWidth: 130,
+        labelWidth: comboboxLabelWidth,
         fieldLabel: i18n.digit_group_separator,
         queryMode: 'local',
         valueField: 'id',
@@ -167,7 +181,9 @@ AggregateOptionsWindow = function(refs) {
             hideNaData,
             completedOnly,
             limit,
-            outputType
+            outputType,
+            programStatus,
+            eventStatus
             //aggregationType
         ]
     };
@@ -210,6 +226,8 @@ AggregateOptionsWindow = function(refs) {
                 hideNaData: hideNaData.getValue(),
                 completedOnly: completedOnly.getValue(),
                 outputType: outputType.getValue(),
+                programStatus: programStatus.getValue(),
+                eventStatus: eventStatus.getValue(),
                 sortOrder: limit.getSortOrder(),
                 topLimit: limit.getTopLimit(),
                 showHierarchy: showHierarchy.getValue(),
@@ -229,7 +247,8 @@ AggregateOptionsWindow = function(refs) {
             hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
-            outputType.setValue(isString(layout.outputType) ? layout.outputType : 'EVENT');
+            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event'));
+            programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);            eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
             limit.setValues(layout.sortOrder, layout.topLimit);
             showHierarchy.setValue(isBoolean(layout.showHierarchy) ? layout.showHierarchy : false);
             displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);
