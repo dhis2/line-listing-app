@@ -239,6 +239,8 @@ AggregateOptionsWindow = function(refs) {
             };
         },
         setOptions: function(layout) {
+            layout = layout || {};
+
             showColTotals.setValue(isBoolean(layout.showColTotals) ? layout.showColTotals : true);
             showColSubTotals.setValue(isBoolean(layout.showColSubTotals) ? layout.showColSubTotals : true);
             showRowTotals.setValue(isBoolean(layout.showRowTotals) ? layout.showRowTotals : true);
