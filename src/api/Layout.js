@@ -92,6 +92,23 @@ Layout.prototype.clone = function() {
     return layout;
 };
 
+Layout.prototype.toPost = function() {
+    var t = this,
+        refs = t.getRefs();
+
+    var optionConfig = refs.optionConfig;
+
+    t.toPostSuper();
+
+    if (t.programStatus === optionConfig.getProgramStatus('def').id) {
+        delete t.programStatus;
+    }
+
+    if (t.eventStatus === optionConfig.getEventStatus('def').id) {
+        delete t.eventStatus;
+    }
+};
+
 Layout.prototype.getDataTypeUrl = function() {
     var t = this,
         refs = t.getRefs();

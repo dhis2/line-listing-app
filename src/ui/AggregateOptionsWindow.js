@@ -248,7 +248,8 @@ AggregateOptionsWindow = function(refs) {
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
             outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event'));
-            programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);            eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
+            programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);
+            eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
             limit.setValues(layout.sortOrder, layout.topLimit);
             showHierarchy.setValue(isBoolean(layout.showHierarchy) ? layout.showHierarchy : false);
             displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);

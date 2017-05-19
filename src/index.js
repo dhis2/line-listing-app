@@ -111,6 +111,7 @@ appManager.init(() => {
     requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
     requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
     requestManager.add(new api.Request(refs, init.categoryOptionGroupSetsInit(refs)));
+    requestManager.add(new api.Request(refs, init.userFavoritesInit(refs)));
 
     requestManager.set(initialize);
     requestManager.run();
@@ -226,30 +227,42 @@ function initialize() {
 
     uiManager.enableConfirmUnload();
 
-    //uiManager.setIntroFn(function() {
-        //if (appManager.userFavorites.length) {
-            //setTimeout(function() {
-                //appManager.userFavorites.forEach(function(favorite) {
-                    //Ext.get('favorite-' + favorite.id).addListener('click', function() {
-                        //instanceManager.getById(favorite.id, null, true);
-                    //});
-                //});
-            //}, 0);
-        //}
-    //});
+    // intro
+    uiManager.introHtmlIsAsync = true;
 
-    uiManager.setIntroHtml(function() {
-        return '<div class="ns-viewport-text" style="padding:20px">' +
-            '<h3>' + i18nManager.get('example1') + '</h3>' +
+    const introHtml = function() {
+        var html = '<div class="ns-viewport-text" style="padding:20px">';
+
+        html += '<h3>' + i18nManager.get('example1') + '</h3>' +
             '<div>- ' + i18nManager.get('example2') + '</div>' +
             '<div>- ' + i18nManager.get('example3') + '</div>' +
             '<div>- ' + i18nManager.get('example4') + '</div>' +
             '<h3 style="padding-top:20px">' + i18nManager.get('example5') + '</h3>' +
             '<div>- ' + i18nManager.get('example6') + '</div>' +
             '<div>- ' + i18nManager.get('example7') + '</div>' +
-            '<div>- ' + i18nManager.get('example8') + '</div>' +
-            '</div>';
-    }());
+            '<div>- ' + i18nManager.get('example8') + '</div>';
+
+        if (appManager.userFavorites.length > 0) {
+            html += '<div id="top-favorites" style="margin-top: 20px; padding: 0">';
+            html += `<h3>${ i18nManager.get('example9') }</h3>`;
+
+
+            appManager.userFavorites.forEach(function(favorite) {
+                html += '<div>- <a href="javascript:void(0)" class="favorite favorite-li" id="favorite-' + favorite.id + '">' + favorite.name + '</a></div>';
+            });
+
+            html += '</div>';
+        }
+
+        return html;
+    };
+
+    uiManager.setIntroHtml(introHtml());
+
+    uiManager.setUpdateIntroHtmlFn(function() {
+        return new api.Request(refs, init.userFavoritesInit(refs)).run()
+            .then(() => uiManager.setIntroHtml(introHtml()));
+    });
 
     // windows
     uiManager.reg(AggregateLayoutWindow(refs), 'aggregateLayoutWindow').hide();
@@ -330,6 +343,19 @@ function initialize() {
             return getWindowByDataType('aggregateOptionsWindow', 'queryOptionsWindow');
         },
     }), 'viewport');
+
+    // subscribe functions to viewport regions to update ui on renew
+    uiManager.subscribe('centerRegion', () => {
+        if (appManager.userFavorites.length) {
+            appManager.userFavorites.forEach(function(favorite) {
+                Ext.get('favorite-' + favorite.id).addListener('click', function() {
+                    instanceManager.getById(favorite.id, null, true);
+                });
+            });
+        }
+    });
+
+    uiManager.update();
 }
 
 global.refs = refs;
