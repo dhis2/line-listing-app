@@ -55,15 +55,19 @@ Dimension.prototype.url = function(isSorted, response, isFilter) {
         return '';
     }
 
-    var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension,
-        records = arrayUnique(this.getRecordIds(isSorted, response, true));
-
-    url += records.length ? (':' + records.join(';')) : '';
+    var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension;
 
     if (isObject(this.legendSet)) {
         url += '-' + this.legendSet.id;
     }
-    else if (isString(this.filter)) {
+
+    var records = arrayUnique(this.getRecordIds(isSorted, response, true));
+
+    if (records.length) {
+        url += ':' + records.join(';');
+    }
+
+    if (isString(this.filter)) {
         url += ':' + this.filter;
     }
 
