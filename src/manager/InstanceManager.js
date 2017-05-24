@@ -1,3 +1,5 @@
+import isFunction from 'd2-utilizr/lib/isFunction';
+
 import { InstanceManager } from 'd2-analysis';
 
 export { InstanceManager };
@@ -25,6 +27,11 @@ InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, fo
         if (!layout) {
             return;
         }
+    }
+
+    // validation
+    if (isFunction(layout.val) && !layout.val()) {
+        return;
     }
 
     t.uiManager.mask();

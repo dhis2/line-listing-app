@@ -77,6 +77,12 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
 Layout.prototype = d2aLayout.prototype;
 
+Layout.prototype.val = function() {
+    var t = this;
+
+    return t.program && t.programStage && (t.columns || t.rows);
+};
+
 Layout.prototype.clone = function() {
     var t = this,
         refs = this.getRefs();
