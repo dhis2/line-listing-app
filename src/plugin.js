@@ -106,41 +106,81 @@ function render(plugin, layout) {
 
     instanceManager.setFn(function(_layout) {
         var sortingId = _layout.sorting ? _layout.sorting.id : null,
-            html = '',
             tableObject;
 
-        // get table
-        var getTable = function() {
-            var response = _layout.getResponse();
-            var colAxis = new table.PivotTableAxis(instanceRefs, _layout, response, 'col');
-            var rowAxis = new table.PivotTableAxis(instanceRefs, _layout, response, 'row');
-            return new table.PivotTable(instanceRefs, _layout, response, colAxis, rowAxis, {skipTitle: true});
+        var getHtml = function(title, _tableObject) {
+            return (eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '') + tableObject.html;
         };
 
-        // pre-sort if id
-        if (sortingId && sortingId !== 'total') {
-            _layout.sort();
-        }
+        var createPivotTable = function(__layout) {
 
-        // table
-        tableObject = getTable();
+            // get table
+            var getTable = function() {
+                var _response = __layout.getResponse();
+                var colAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'col');
+                var rowAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'row');
+                return new table.PivotTable(instanceRefs, __layout, _response, colAxis, rowAxis, {skipTitle: true});
+            };
 
-        // sort if total
-        if (sortingId && sortingId === 'total') {
-            _layout.sort(tableObject);
+            // pre-sort if id
+            if (sortingId && sortingId !== 'total') {
+                __layout.sort();
+            }
+
+            // table
             tableObject = getTable();
+
+            // sort if total
+            if (sortingId && sortingId === 'total') {
+                __layout.sort(tableObject);
+                tableObject = getTable();
+            }
+
+            var html = getHtml(__layout.title || __layout.name, tableObject);
+
+            uiManager.update(html, __layout.el);
+
+            // events
+            tableManager.setColumnHeaderMouseHandlers(__layout, tableObject);
+
+            // mask
+            uiManager.unmask();
+        };
+
+        var createEventDataTable = function(__layout) {
+            var _response = __layout.getResponse();
+            var statusBar = uiManager.get('statusBar');
+
+            tableObject = new table.EventDataTable(refs, __layout, _response);
+
+            if (tableObject) {
+
+                var html = getHtml(__layout.title || __layout.name, tableObject);
+
+                // render
+                uiManager.update(tableObject.html, __layout.el);
+
+                __layout.sorting = layout.sorting;
+                __layout.setResponse(null);
+
+                // events
+                tableManager.setColumnHeaderMouseHandlers(__layout, tableObject);
+
+                if (statusBar) {
+                    statusBar.setStatus(__layout, _response);
+                }
+
+                // mask
+                uiManager.unmask();
+            }
+        };
+
+        if (layout.dataType === optionConfig.dataType['aggregated_values']) {
+            createPivotTable(_layout);
         }
-
-        html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
-        html += tableObject.html;
-
-        uiManager.update(html, _layout.el);
-
-        // events
-        tableManager.setColumnHeaderMouseHandlers(_layout, tableObject);
-
-        // mask
-        uiManager.unmask();
+        else if (layout.dataType === optionConfig.dataType['individual_cases']) {
+            createEventDataTable(_layout);
+        }
     });
 
     if (plugin.loadingIndicator) {

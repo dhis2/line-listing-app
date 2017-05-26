@@ -120,6 +120,8 @@ QueryOptionsWindow = function(c) {
             };
         },
         setOptions: function(layout) {
+            layout = layout || {};
+
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
             displayDensity.setValue(isString(layout.displayDensity) ? layout.displayDensity : optionConfig.getDisplayDensity('normal').id);
             fontSize.setValue(isString(layout.fontSize) ? layout.fontSize : optionConfig.getFontSize('normal').id);
