@@ -1,6 +1,7 @@
 import '../extjs/resources/css/ext-all-gray.css';
 import './css/style.css';
 import './css/meringue.css';
+import './css/jquery.calendars.picker.css';
 import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
