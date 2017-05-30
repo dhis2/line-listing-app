@@ -215,6 +215,9 @@ AggregateOptionsWindow = function(refs) {
         modal: true,
         resizable: false,
         hideOnBlur: true,
+        reset: function() {
+            this.setOptions();
+        },
         getOptions: function() {
             return {
                 showColTotals: showColTotals.getValue(),

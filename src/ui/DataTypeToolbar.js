@@ -56,7 +56,7 @@ DataTypeToolbar = function(refs) {
             return aggregateTypeButton.pressed ? aggregateTypeButton.param : caseTypeButton.param;
         },
         setDataType: function(dataType) {
-            var button = dataTypeButtonParamMap[dataType];
+            var button = dataTypeButtonParamMap[dataType] || aggregateTypeButton;
 
             if (button) {
                 button.toggle(true);
