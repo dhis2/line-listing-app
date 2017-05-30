@@ -1308,9 +1308,9 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@27.0.47:
-  version "27.0.47"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.47.tgz#eccf6780882e406abafebb5366ea5ad7c0ec458c"
+d2-analysis@27.0.48:
+  version "27.0.48"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.48.tgz#11d6f49970422c8cdb465dc8a66453bbfed7cb95"
   dependencies:
     d2-utilizr "0.2.13"
     jquery "2.1.4"
