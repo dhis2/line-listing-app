@@ -252,7 +252,7 @@ AggregateOptionsWindow = function(refs) {
             hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
-            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event'));
+            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event').id);
             programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);
             eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
             limit.setValues(layout.sortOrder, layout.topLimit);
