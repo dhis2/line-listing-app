@@ -1,7 +1,7 @@
 {
   "name": "event-reports-app",
   "version": "28.0.1",
-  "description": "DHIS 2 event reports app",
+  "description": "Event reports app",
   "main": "index.html",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js src `git diff --cached --name-only | grep \\.js$`",
