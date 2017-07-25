@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var webpackBaseConfig = require('./webpack-base-config');
 
-webpackBaseConfig.plugins = [
+webpackBaseConfig.plugins = webpackBaseConfig.plugins.concat([
     // Replace any occurance of process.env.NODE_ENV with the string 'production'
     new webpack.DefinePlugin({
         'process.env': {
@@ -14,6 +14,6 @@ webpackBaseConfig.plugins = [
         minimize: true,
         sourceMap: true,
     }),
-];
+]);
 
 module.exports = webpackBaseConfig;

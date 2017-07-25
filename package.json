@@ -8,7 +8,7 @@
     "validate": "npm ls --depth 0",
     "prestart": "d2-manifest package.json manifest.webapp",
     "start": "webpack-dev-server",
-    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./index.html build && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && npm run manifest",
+    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && npm run manifest",
     "manifest": "d2-manifest package.json build/manifest.webapp"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "babel-core": "^6.3.13",
     "babel-eslint": "5.0.0-beta6",
     "babel-loader": "^6.2.0",
-    "babel-polyfill": "^6.3.14",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
     "css-loader": "0.18.0",
@@ -43,6 +43,7 @@
     "eslint-config-dhis2": "0.0.5",
     "eslint-plugin-react": "3.3.1",
     "file-loader": "0.8.5",
+    "html-webpack-plugin": "^2.29.0",
     "img-loader": "^1.2.2",
     "node-sass": "3.4.2",
     "sass-loader": "2.0.1",
