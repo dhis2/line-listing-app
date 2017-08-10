@@ -278,7 +278,8 @@ Layout.prototype.data = function(source, format) {
     request.setError(function(r) {
 
         // 409
-        if (isObject(r) && r.status == 409) {
+        // DHIS2-2020: 503 error (perhaps analytics maintenance mode)
+        if (isObject(r) && (r.status == 409 || r.status == 503)) {
             uiManager.unmask();
 
             if (isString(r.responseText)) {
