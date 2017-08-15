@@ -80,7 +80,7 @@ Layout.prototype = d2aLayout.prototype;
 Layout.prototype.val = function() {
     var t = this;
 
-    return t.program && t.programStage && (t.columns || t.rows);
+    return (t.program && t.programStage && (t.columns || t.rows)) ? this : null;
 };
 
 Layout.prototype.clone = function() {
