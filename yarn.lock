@@ -172,6 +172,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+author-regex@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/author-regex/-/author-regex-0.2.1.tgz#8bdefaac6065a931799bec07eeef51b940e08f3c"
+
 autoprefixer@^6.3.1:
   version "6.7.7"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.7.tgz#1dbd1c835658e35ce3f9984099db00585c782014"
@@ -629,6 +633,12 @@ babel-plugin-transform-exponentiation-operator@^6.22.0:
     babel-plugin-syntax-exponentiation-operator "^6.8.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-object-assign@^6.22.0:
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-assign/-/babel-plugin-transform-object-assign-6.22.0.tgz#f99d2f66f1a0b0d498e346c5359684740caa20ba"
+  dependencies:
+    babel-runtime "^6.22.0"
+
 babel-plugin-transform-object-rest-spread@^6.22.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.23.0.tgz#875d6bc9be761c58a2ae3feee5dc4895d8c7f921"
@@ -648,14 +658,6 @@ babel-plugin-transform-strict-mode@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
     babel-types "^6.22.0"
-
-babel-polyfill@^6.3.14:
-  version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
-  dependencies:
-    babel-runtime "^6.22.0"
-    core-js "^2.4.0"
-    regenerator-runtime "^0.10.0"
 
 babel-preset-es2015@^6.3.13:
   version "6.24.0"
@@ -1083,7 +1085,7 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@~1.1.2:
+colors@^1.0.3, colors@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
@@ -1308,12 +1310,23 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@27.0.56:
-  version "27.0.56"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.56.tgz#5df0b31e0459ea93380fd6a67600a8a9f2845bde"
+d2-analysis@28.0.21:
+  version "28.0.21"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-28.0.21.tgz#eb4bd5a44dc99fc369698cacbac87ede17779819"
   dependencies:
     d2-utilizr "0.2.13"
     jquery "2.1.4"
+
+d2-manifest@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/d2-manifest/-/d2-manifest-1.0.0.tgz#19d4a4c4e8151442ab730e932c9c2170be9ebcc9"
+  dependencies:
+    author-regex "^0.2.1"
+    colors "^1.0.3"
+    lodash.isplainobject "^4.0.3"
+    loglevel "^1.4.0"
+    minimist "^1.1.0"
+    readline-sync "^1.4.1"
 
 d2-utilizr@0.2.13:
   version "0.2.13"
@@ -3088,6 +3101,10 @@ lodash.isplainobject@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.keysin "^3.0.0"
 
+lodash.isplainobject@^4.0.3:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+
 lodash.isset@^4.3.0:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.isset/-/lodash.isset-4.4.2.tgz#d5eecc56b7a97ab588509e4795b3541b1cdb67bb"
@@ -3212,6 +3229,10 @@ logalot@^2.0.0:
   dependencies:
     figures "^1.3.5"
     squeak "^1.0.0"
+
+loglevel@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.4.1.tgz#95b383f91a3c2756fd4ab093667e4309161f2bcd"
 
 longest@^1.0.0, longest@^1.0.1:
   version "1.0.1"
@@ -4205,6 +4226,10 @@ readdirp@^2.0.0:
     minimatch "^3.0.2"
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
+
+readline-sync@^1.4.1:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/readline-sync/-/readline-sync-1.4.7.tgz#001bfdd4c06110c3c084c63bf7c6a56022213f30"
 
 readline2@^0.1.1:
   version "0.1.1"
