@@ -37,6 +37,9 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.programStatus = isString(c.programStatus) ? c.programStatus : refs.optionConfig.getProgramStatus('def').id;
     t.eventStatus = isString(c.eventStatus) ? c.eventStatus : refs.optionConfig.getEventStatus('def').id;
 
+    t.topLimit = isNumeric(c.topLimit) ? c.topLimit : 0;
+    t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
+
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.showHierarchy = isBoolean(c.showHierarchy) ? c.showHierarchy : false;
 
@@ -198,7 +201,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // limit, sortOrder
-        if (isNumber(this.topLimit) && this.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (isNumber(this.topLimit) && this.topLimit && this.dataType === dimensionConfig.dataType['aggregated_values']) {
             request.add('limit=' + this.topLimit);
 
             var sortOrder = isNumber(this.sortOrder) ? this.sortOrder : 1;
@@ -206,7 +209,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('sortOrder=' + (sortOrder < 0 ? 'ASC' : 'DESC'));
         }
 
-        // value, aggregrationType
+        // value, aggregationType
         if (this.value) {
             request.add('value=' + (isString(this.value) ? this.value : isObject(this.value) ? this.value.id : null));
 
