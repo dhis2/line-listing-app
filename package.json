@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-reports-app#readme",
   "dependencies": {
-    "d2-analysis": "28.0.27",
+    "d2-analysis": "28.0.28",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
