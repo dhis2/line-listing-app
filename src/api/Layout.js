@@ -254,6 +254,31 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('page=' + (paging.page || 1));
         }
     }
+    else {
+        // table layout
+        request.add('tableLayout=true');
+
+        // columns
+        request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+
+        // rows
+        request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+
+        // hide empty columns
+        if (this.hideEmptyColumns) {
+            request.add('hideEmptyColumns=true');
+        }
+
+        // hide empty rows
+        if (this.hideEmptyRows) {
+            request.add('hideEmptyRows=true');
+        }
+
+        // show hierarchy
+        if (this.showHierarchy) {
+            request.add('showHierarchy=true');
+        }
+    }
 
     // relative orgunits / user
     if (this.hasRecordIds(appManager.userIdDestroyCacheKeys, true)) {
