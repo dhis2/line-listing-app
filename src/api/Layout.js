@@ -37,6 +37,9 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.programStatus = isString(c.programStatus) ? c.programStatus : refs.optionConfig.getProgramStatus('def').id;
     t.eventStatus = isString(c.eventStatus) ? c.eventStatus : refs.optionConfig.getEventStatus('def').id;
 
+    t.topLimit = isNumeric(c.topLimit) ? c.topLimit : 0;
+    t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
+
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.showHierarchy = isBoolean(c.showHierarchy) ? c.showHierarchy : false;
 
@@ -80,7 +83,7 @@ Layout.prototype = d2aLayout.prototype;
 Layout.prototype.val = function() {
     var t = this;
 
-    return t.program && t.programStage && (t.columns || t.rows);
+    return (t.program && t.programStage && (t.columns || t.rows)) ? this : null;
 };
 
 Layout.prototype.clone = function() {
@@ -198,7 +201,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // limit, sortOrder
-        if (isNumber(this.topLimit) && this.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (isNumber(this.topLimit) && this.topLimit && this.dataType === dimensionConfig.dataType['aggregated_values']) {
             request.add('limit=' + this.topLimit);
 
             var sortOrder = isNumber(this.sortOrder) ? this.sortOrder : 1;
@@ -206,7 +209,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('sortOrder=' + (sortOrder < 0 ? 'ASC' : 'DESC'));
         }
 
-        // value, aggregrationType
+        // value, aggregationType
         if (this.value) {
             request.add('value=' + (isString(this.value) ? this.value : isObject(this.value) ? this.value.id : null));
 
@@ -251,6 +254,31 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('page=' + (paging.page || 1));
         }
     }
+    else {
+        // table layout
+        request.add('tableLayout=true');
+
+        // columns
+        request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+
+        // rows
+        request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+
+        // hide empty columns
+        if (this.hideEmptyColumns) {
+            request.add('hideEmptyColumns=true');
+        }
+
+        // hide empty rows
+        if (this.hideEmptyRows) {
+            request.add('hideEmptyRows=true');
+        }
+
+        // show hierarchy
+        if (this.showHierarchy) {
+            request.add('showHierarchy=true');
+        }
+    }
 
     // relative orgunits / user
     if (this.hasRecordIds(appManager.userIdDestroyCacheKeys, true)) {
@@ -278,7 +306,8 @@ Layout.prototype.data = function(source, format) {
     request.setError(function(r) {
 
         // 409
-        if (isObject(r) && r.status == 409) {
+        // DHIS2-2020: 503 error (perhaps analytics maintenance mode)
+        if (isObject(r) && (r.status == 409 || r.status == 503)) {
             uiManager.unmask();
 
             if (isString(r.responseText)) {
