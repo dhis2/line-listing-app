@@ -8,7 +8,7 @@ InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, fo
     var t = this,
         refs = t.getRefs();
 
-    var { indexedDbManager } = refs;
+    // var { indexedDbManager } = refs;
 
     var { Response } = refs.api;
 
@@ -45,21 +45,27 @@ InstanceManager.prototype.getReport = function(layout, isFavorite, skipState, fo
     }
     else {
         layout.data().done(function(res) {
-            var optionSetIds = res.headers.filter(h => !!h.optionSet).map(h => h.optionSet);
+            layout.setResponse(new Response(refs, res));
 
-            var fn = function() {
-                layout.setResponse(new Response(refs, res));
+            _fn();
 
-                _fn();
-            };
+            // (NO LONGER USING INDEXEDDB)
+
+            // var optionSetIds = res.headers.filter(h => !!h.optionSet).map(h => h.optionSet);
+
+            // var fn = function() {
+                // layout.setResponse(new Response(refs, res));
+
+                // _fn();
+            // };
 
             // init
-            if (optionSetIds.length) {
-                indexedDbManager.getOptionSets(optionSetIds, fn);
-            }
-            else {
-                fn();
-            }
+            // if (optionSetIds.length) {
+            //     indexedDbManager.getOptionSets(optionSetIds, fn);
+            // }
+            // else {
+            //     fn();
+            // }
         });
     }
 };
