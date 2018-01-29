@@ -199,4 +199,4 @@ function render(plugin, layout) {
     }
 };
 
-global.eventReportPlugin = new util.Plugin({ refs, inits, renderFn: render });
+global.eventReportPlugin = new util.Plugin({ refs, inits, renderFn: render, type: 'EVENT_REPORT' });
