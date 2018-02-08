@@ -25,7 +25,7 @@ var refs = {
 var inits = [
     init.legendSetsInit,
     init.dimensionsInit,
-    init.optionSetsInit
+    // init.optionSetsInit
 ];
 
 // dimension config
@@ -63,8 +63,8 @@ var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
 // indexed db manager
-var indexedDbManager = new manager.IndexedDbManager(refs);
-refs.indexedDbManager = indexedDbManager;
+// var indexedDbManager = new manager.IndexedDbManager(refs);
+// refs.indexedDbManager = indexedDbManager;
 
 // dependencies
 dimensionConfig.setI18nManager(i18nManager);
@@ -199,4 +199,4 @@ function render(plugin, layout) {
     }
 };
 
-global.eventReportPlugin = new util.Plugin({ refs, inits, renderFn: render });
+global.eventReportPlugin = new util.Plugin({ refs, inits, renderFn: render, type: 'EVENT_REPORT' });

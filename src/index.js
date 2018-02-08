@@ -72,8 +72,8 @@ var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
     // indexeddb manager
-var indexedDbManager = new manager.IndexedDbManager(refs);
-refs.indexedDbManager = indexedDbManager;
+// var indexedDbManager = new manager.IndexedDbManager(refs);
+// refs.indexedDbManager = indexedDbManager;
 
     // ui manager
 var uiManager = new manager.UiManager(refs);
@@ -108,7 +108,7 @@ appManager.init(() => {
     requestManager.add(new api.Request(refs, init.rootNodesInit(refs)));
     requestManager.add(new api.Request(refs, init.organisationUnitLevelsInit(refs)));
     requestManager.add(new api.Request(refs, init.legendSetsInit(refs)));
-    requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
+    // requestManager.add(new api.Request(refs, init.optionSetsInit(refs)));
     requestManager.add(new api.Request(refs, init.dimensionsInit(refs, ['filter=dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'])));
     requestManager.add(new api.Request(refs, init.dataApprovalLevelsInit(refs)));
     requestManager.add(new api.Request(refs, init.categoryOptionGroupSetsInit(refs)));
