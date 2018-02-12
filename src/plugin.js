@@ -175,10 +175,10 @@ function render(plugin, layout) {
             }
         };
 
-        if (layout.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (_layout.dataType === dimensionConfig.dataType['aggregated_values']) {
             createPivotTable(_layout);
         }
-        else if (layout.dataType === dimensionConfig.dataType['individual_cases']) {
+        else if (_layout.dataType === dimensionConfig.dataType['individual_cases']) {
             createEventDataTable(_layout);
         }
     });
