@@ -21,7 +21,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.programStage = isObject(c.programStage) ? c.programStage : null;
 
     // data type
-    t.dataType = isString(c.dataType) ? c.dataType : null;
+    t.dataType = isString(c.dataType) ? c.dataType : refs.dimensionConfig.getDefaultDataType();
 
     // options
     t.showColTotals = isBoolean(c.colTotals) ? c.colTotals : (isBoolean(c.showColTotals) ? c.showColTotals : true);
@@ -124,7 +124,9 @@ Layout.prototype.getDataTypeUrl = function() {
 
     var { dimensionConfig } = refs;
 
-    var url = dimensionConfig.dataTypeUrl[this.dataType];
+    var defaultDataTypeUrl = dimensionConfig.dataTypeUrl[dimensionConfig.getDefaultDataType()]
+
+    var url = dimensionConfig.dataTypeUrl[this.dataType] || defaultDataTypeUrl;
 
     return url || '';
 };
