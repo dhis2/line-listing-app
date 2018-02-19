@@ -38,15 +38,6 @@
  * General
  *--------------------------------------------------------------------------*/
 
-body {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
 body,
 .x-body,
 .x-btn-default-small .x-btn-inner,
@@ -777,6 +768,14 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 }
 .x-menu-body {
 	padding: 0;
+}
+.x-box-inner {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .x-menu-body .x-box-inner {
 	background-color: #fafafa;
