@@ -261,10 +261,18 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         request.add('tableLayout=true');
 
         // columns
-        request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+        //request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+        request.add('columns=' + this.getDimensions(false, false, this.columns)
+			.filter(function(dim) { return dim !== 'dy' })
+			.map(function(dim) { return dim.dimension; })
+			.join(';'));
 
         // rows
-        request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+        //request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+        request.add('rows=' + this.getDimensions(false, false, this.rows)
+			.filter(function(dim) { return dim !== 'dy' })
+			.map(function(dim) { return dim.dimension; })
+			.join(';'));
 
         // hide empty columns
         if (this.hideEmptyColumns) {
