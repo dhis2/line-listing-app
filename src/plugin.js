@@ -136,7 +136,11 @@ function render(plugin, layout) {
                 tableObject = getTable();
             }
 
-            var html = getHtml(__layout.title || __layout.name, tableObject);
+            tableObject.initialize();
+            tableObject.build();
+
+            html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '';
+            html += tableObject.render();
 
             uiManager.update(html, __layout.el);
 
