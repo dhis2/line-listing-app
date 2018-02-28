@@ -574,7 +574,7 @@ AggregateLayoutWindow = function(refs) {
         hideOnBlur: true,
         items: selectPanel,
         bbar: [
-            collapseDataDimensions,
+            //collapseDataDimensions,
             '->',
             {
                 text: i18n.hide,

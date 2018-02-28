@@ -1,6 +1,6 @@
 {
   "name": "event-reports-app",
-  "version": "28.0.34",
+  "version": "29.0.9",
   "description": "Event reports app",
   "main": "index.html",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-reports-app#readme",
   "dependencies": {
-    "d2-analysis": "28.0.46",
+    "d2-analysis": "^29.0.6",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
@@ -64,7 +64,7 @@
     "activities": {
       "dhis": {
         "href": "..",
-        "auth": "admin:district",
+        "auth": "system:System123",
         "devHref": "http://localhost:8080"
       }
     }
