@@ -106,6 +106,7 @@ function render(plugin, layout) {
 
     instanceManager.setFn(function(_layout) {
         var sortingId = _layout.sorting ? _layout.sorting.id : null,
+            html = '',
             tableObject;
 
         var getHtml = function(title, _tableObject) {
