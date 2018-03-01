@@ -243,7 +243,6 @@ function initialize() {
 
         // events
         tableManager.setColumnHeaderMouseHandlers(layout, _table);
-        tableManager.setValueMouseHandlers(layout, _table);
 
         // mask
         uiManager.unmask();
