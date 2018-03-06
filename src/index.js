@@ -150,6 +150,12 @@ function initialize() {
             var sortingId = layout.sorting ? layout.sorting.id : null,
                 _table;
 
+            var statusBar = uiManager.get('statusBar');
+
+            if (statusBar) {
+                statusBar.reset();
+            }
+
             var getTable = function() {
                 var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
                 var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
