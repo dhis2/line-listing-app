@@ -213,16 +213,16 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     // display property
     request.add('displayProperty=' + displayProperty.toUpperCase());
 
+    // completed only
+    if (this.completedOnly) {
+        request.add('completedOnly=true');
+    }
+
     // normal request only
     if (!isTableLayout) {
         // hierarchy
         if (this.showHierarchy) {
             request.add('hierarchyMeta=true');
-        }
-
-        // completed only
-        if (this.completedOnly) {
-            request.add('completedOnly=true');
         }
 
         // outputType type
