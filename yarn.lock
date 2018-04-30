@@ -1310,11 +1310,11 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@29.0.1:
-  version "29.0.1"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-29.0.1.tgz#eaa922dadafc49fa7296d043b715530c4e10c6ba"
+d2-analysis@29.0.22:
+  version "29.0.22"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-29.0.22.tgz#a1c1fc7f2c3871afa059a65c75f1ab67f59045aa"
   dependencies:
-    d2-utilizr "0.2.13"
+    d2-utilizr v0.2.15
     jquery "2.1.4"
 
 d2-manifest@1.0.0:
@@ -1331,6 +1331,18 @@ d2-manifest@1.0.0:
 d2-utilizr@0.2.13:
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/d2-utilizr/-/d2-utilizr-0.2.13.tgz#aff6dfb054f92e2c974cf69f38f4fdc13699a6d3"
+  dependencies:
+    lodash.isboolean "^3.0.3"
+    lodash.isfunction "^3.0.8"
+    lodash.ismap "^4.3.0"
+    lodash.isnumber "^3.0.3"
+    lodash.isobject "^3.0.2"
+    lodash.isset "^4.3.0"
+    lodash.isstring "^4.0.1"
+
+d2-utilizr@v0.2.15:
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/d2-utilizr/-/d2-utilizr-0.2.15.tgz#377fba849edf03f927ca7bd9e0fdd6339c293e0d"
   dependencies:
     lodash.isboolean "^3.0.3"
     lodash.isfunction "^3.0.8"

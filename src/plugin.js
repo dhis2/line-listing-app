@@ -43,7 +43,7 @@ refs.periodConfig = periodConfig;
 // app manager
 var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventreport';
-appManager.apiVersion = 26;
+appManager.apiVersion = 29;
 refs.appManager = appManager;
 
 // calendar manager
@@ -106,6 +106,7 @@ function render(plugin, layout) {
 
     instanceManager.setFn(function(_layout) {
         var sortingId = _layout.sorting ? _layout.sorting.id : null,
+            html = '',
             tableObject;
 
         var getHtml = function(title, _tableObject) {
@@ -119,7 +120,7 @@ function render(plugin, layout) {
                 var _response = __layout.getResponse();
                 var colAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'col');
                 var rowAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'row');
-                return new table.PivotTable(instanceRefs, __layout, _response, colAxis, rowAxis, {skipTitle: true});
+                return new table.PivotTable(instanceRefs, __layout, _response, colAxis, rowAxis, {skipTitle: true, trueTotals: false});
             };
 
             // pre-sort if id
@@ -136,7 +137,11 @@ function render(plugin, layout) {
                 tableObject = getTable();
             }
 
-            var html = getHtml(__layout.title || __layout.name, tableObject);
+            tableObject.initialize();
+            tableObject.build();
+
+            html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '';
+            html += tableObject.render();
 
             uiManager.update(html, __layout.el);
 
@@ -175,10 +180,10 @@ function render(plugin, layout) {
             }
         };
 
-        if (layout.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (_layout.dataType === dimensionConfig.dataType['aggregated_values']) {
             createPivotTable(_layout);
         }
-        else if (layout.dataType === dimensionConfig.dataType['individual_cases']) {
+        else if (_layout.dataType === dimensionConfig.dataType['individual_cases']) {
             createEventDataTable(_layout);
         }
     });

@@ -52,7 +52,7 @@ refs.uiConfig = uiConfig;
     // app manager
 var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventreport';
-appManager.apiVersion = 26;
+appManager.apiVersion = 29;
 refs.appManager = appManager;
 
     // calendar manager
@@ -150,10 +150,17 @@ function initialize() {
             var sortingId = layout.sorting ? layout.sorting.id : null,
                 _table;
 
+            var statusBar = uiManager.get('statusBar');
+
+            if (statusBar) {
+                statusBar.reset();
+            }
+
             var getTable = function() {
                 var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
                 var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
-                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true });
+                
+                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true, trueTotals: false });
             };
 
             if (response && response.rows.length) {
@@ -166,23 +173,21 @@ function initialize() {
                 // table
                 _table = getTable();
 
-                // validate
-                if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
-                    alert('Table has too many cells. Please reduce the table and try again.');
-                    return;
-                }
-
                 // sort if total
                 if (sortingId && sortingId === 'total') {
                     layout.sort(_table);
                     _table = getTable();
                 }
 
-                // render
-                uiManager.update(_table.html);
-
-                // events
-                tableManager.setColumnHeaderMouseHandlers(layout, _table);
+                if (_table.doRender()) {
+                    uiManager.confirmRender(
+                        `Table size warning`,
+                        () => renderTable(_table, layout),
+                        () => renderIntro()
+                    );
+                } else {
+                    renderTable(_table, layout)
+                }
             }
             else {
                 uiManager.update('<div style="margin:20px; color:#666">No data to display</div>'); // TODO improve
@@ -223,6 +228,77 @@ function initialize() {
         }
     });
 
+    function renderIntro() {
+        uiManager.update()
+        uiManager.unmask();
+    }
+
+    function renderTable(_table, layout) {
+
+        _table.initialize();
+
+        _table.setViewportSize(
+            uiManager.get('centerRegion').getWidth(),
+            uiManager.get('centerRegion').getHeight()
+        );
+
+        _table.build();
+
+        // render
+        uiManager.update(_table.render());
+
+        // events
+        tableManager.setColumnHeaderMouseHandlers(layout, _table);
+
+        // mask
+        uiManager.unmask();
+
+        // statistics
+        instanceManager.postDataStatistics();
+
+        if (_table.doDynamicRendering()) {
+
+            uiManager.setScrollFn('centerRegion', (event) => {
+    
+                // calculate number of rows and columns to render
+                let rowLength = Math.floor(event.target.scrollTop / _table.cellHeight),
+                    columnLength = Math.floor(event.target.scrollLeft / _table.cellWidth);
+
+                let offset = rowLength === 0 ?
+                    0 : 1;
+
+                // only update if row/column has gone off screen
+                if (_table.rowStart + offset !== rowLength || _table.columnStart !== columnLength) {
+                    uiManager.update(_table.update(columnLength, rowLength));
+                    tableManager.setColumnHeaderMouseHandlers(layout, _table);
+                    tableManager.setValueMouseHandlers(layout, _table);
+                }
+            });
+
+            //TODO: Enable this to get on resize event
+            uiManager.setOnResizeFn('centerRegion', e => {
+
+                let rowLength = Math.floor(uiManager.get('centerRegion').getHeight() / _table.cellHeight),
+                    columnLength = Math.floor(uiManager.get('centerRegion').getWidth() / _table.cellWidth);
+
+                let offset = rowLength === 0 ? 0 : 1;
+                
+                if (_table.rowEnd - _table.rowStart !== rowLength + offset|| _table.columnEnd - _table.columnStart !== columnLength + offset) {
+                    _table.setViewportWidth(uiManager.get('centerRegion').getWidth());
+                    _table.setViewportHeight(uiManager.get('centerRegion').getHeight());    
+                    uiManager.update(_table.update(_table.columnStart, _table.rowStart));
+                    tableManager.setColumnHeaderMouseHandlers(layout, _table);
+                    tableManager.setValueMouseHandlers(layout, _table);
+                }
+            });
+        } else {
+            uiManager.removeScrollFn('centerRegion');
+            uiManager.removeResizeFn('centerRegion');
+        }
+
+        uiManager.scrollTo("centerRegion", 0, 0);
+    }
+    
     // ui manager
     uiManager.disableRightClick();
 
