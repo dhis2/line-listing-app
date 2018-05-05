@@ -24,18 +24,38 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.dataType = isString(c.dataType) ? c.dataType : refs.dimensionConfig.getDefaultDataType();
 
     // options
-    t.showColTotals = isBoolean(c.colTotals) ? c.colTotals : (isBoolean(c.showColTotals) ? c.showColTotals : true);
-    t.showRowTotals = isBoolean(c.rowTotals) ? c.rowTotals : (isBoolean(c.showRowTotals) ? c.showRowTotals : true);
-    t.showColSubTotals = isBoolean(c.colSubTotals) ? c.colSubTotals : (isBoolean(c.showColSubTotals) ? c.showColSubTotals : true);
-    t.showRowSubTotals = isBoolean(c.rowSubTotals) ? c.rowSubTotals : (isBoolean(c.showRowSubTotals) ? c.showRowSubTotals : true);
-    t.showDimensionLabels = isBoolean(c.showDimensionLabels) ? c.showDimensionLabels : (isBoolean(c.showDimensionLabels) ? c.showDimensionLabels : true);
-    t.showDataItemPrefix = isBoolean(c.showDataItemPrefix) ? c.showDataItemPrefix : (isBoolean(c.showDataItemPrefix) ? c.showDataItemPrefix : true);
+    t.showColTotals = isBoolean(c.colTotals)
+        ? c.colTotals
+        : isBoolean(c.showColTotals) ? c.showColTotals : true;
+    t.showRowTotals = isBoolean(c.rowTotals)
+        ? c.rowTotals
+        : isBoolean(c.showRowTotals) ? c.showRowTotals : true;
+    t.showColSubTotals = isBoolean(c.colSubTotals)
+        ? c.colSubTotals
+        : isBoolean(c.showColSubTotals) ? c.showColSubTotals : true;
+    t.showRowSubTotals = isBoolean(c.rowSubTotals)
+        ? c.rowSubTotals
+        : isBoolean(c.showRowSubTotals) ? c.showRowSubTotals : true;
+    t.showDimensionLabels = isBoolean(c.showDimensionLabels)
+        ? c.showDimensionLabels
+        : isBoolean(c.showDimensionLabels) ? c.showDimensionLabels : true;
+    t.showDataItemPrefix = isBoolean(c.showDataItemPrefix)
+        ? c.showDataItemPrefix
+        : isBoolean(c.showDataItemPrefix) ? c.showDataItemPrefix : true;
     t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : false;
     t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
-    t.collapseDataDimensions = isBoolean(c.collapseDataDimensions) ? c.collapseDataDimensions : false;
-    t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getOutputType('event').id;
-    t.programStatus = isString(c.programStatus) ? c.programStatus : refs.optionConfig.getProgramStatus('def').id;
-    t.eventStatus = isString(c.eventStatus) ? c.eventStatus : refs.optionConfig.getEventStatus('def').id;
+    t.collapseDataDimensions = isBoolean(c.collapseDataDimensions)
+        ? c.collapseDataDimensions
+        : false;
+    t.outputType = isString(c.outputType)
+        ? c.outputType
+        : refs.optionConfig.getOutputType('event').id;
+    t.programStatus = isString(c.programStatus)
+        ? c.programStatus
+        : refs.optionConfig.getProgramStatus('def').id;
+    t.eventStatus = isString(c.eventStatus)
+        ? c.eventStatus
+        : refs.optionConfig.getEventStatus('def').id;
 
     t.topLimit = isNumeric(c.topLimit) ? c.topLimit : 0;
     t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
@@ -43,9 +63,18 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.showHierarchy = isBoolean(c.showHierarchy) ? c.showHierarchy : false;
 
-    t.displayDensity = isString(c.displayDensity) && !isEmpty(c.displayDensity) ? c.displayDensity : refs.optionConfig.getDisplayDensity('normal').id;
-    t.fontSize = isString(c.fontSize) && !isEmpty(c.fontSize) ? c.fontSize : refs.optionConfig.getFontSize('normal').id;
-    t.digitGroupSeparator = isString(c.digitGroupSeparator) && !isEmpty(c.digitGroupSeparator) ? c.digitGroupSeparator : refs.optionConfig.getDigitGroupSeparator('space').id;
+    t.displayDensity =
+        isString(c.displayDensity) && !isEmpty(c.displayDensity)
+            ? c.displayDensity
+            : refs.optionConfig.getDisplayDensity('normal').id;
+    t.fontSize =
+        isString(c.fontSize) && !isEmpty(c.fontSize)
+            ? c.fontSize
+            : refs.optionConfig.getFontSize('normal').id;
+    t.digitGroupSeparator =
+        isString(c.digitGroupSeparator) && !isEmpty(c.digitGroupSeparator)
+            ? c.digitGroupSeparator
+            : refs.optionConfig.getDigitGroupSeparator('space').id;
     t.legendSet = isObject(c.legendSet) ? c.legendSet : null;
 
     // value, aggregation type
@@ -58,7 +87,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     }
 
     // paging
-    if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
+    if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
         t.paging = c.paging;
     }
 
@@ -66,14 +95,23 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.parentGraphMap = isObject(c.parentGraphMap) ? c.parentGraphMap : null;
 
     // report table
-    t.reportingPeriod = isObject(c.reportParams) && isBoolean(c.reportParams.paramReportingPeriod) ? c.reportParams.paramReportingPeriod : (isBoolean(c.reportingPeriod) ? c.reportingPeriod : false);
-    t.organisationUnit =  isObject(c.reportParams) && isBoolean(c.reportParams.paramOrganisationUnit) ? c.reportParams.paramOrganisationUnit : (isBoolean(c.organisationUnit) ? c.organisationUnit : false);
-    t.parentOrganisationUnit = isObject(c.reportParams) && isBoolean(c.reportParams.paramParentOrganisationUnit) ? c.reportParams.paramParentOrganisationUnit : (isBoolean(c.parentOrganisationUnit) ? c.parentOrganisationUnit : false);
+    t.reportingPeriod =
+        isObject(c.reportParams) && isBoolean(c.reportParams.paramReportingPeriod)
+            ? c.reportParams.paramReportingPeriod
+            : isBoolean(c.reportingPeriod) ? c.reportingPeriod : false;
+    t.organisationUnit =
+        isObject(c.reportParams) && isBoolean(c.reportParams.paramOrganisationUnit)
+            ? c.reportParams.paramOrganisationUnit
+            : isBoolean(c.organisationUnit) ? c.organisationUnit : false;
+    t.parentOrganisationUnit =
+        isObject(c.reportParams) && isBoolean(c.reportParams.paramParentOrganisationUnit)
+            ? c.reportParams.paramParentOrganisationUnit
+            : isBoolean(c.parentOrganisationUnit) ? c.parentOrganisationUnit : false;
 
     // force apply
     Object.assign(t, forceApplyConfig);
 
-    t.getRefs = function() {
+    t.getRefs = function() {
         return refs;
     };
 };
@@ -83,10 +121,10 @@ Layout.prototype = d2aLayout.prototype;
 Layout.prototype.val = function() {
     var t = this;
 
-    return (t.program && t.programStage && (t.columns || t.rows)) ? this : null;
+    return t.program && t.programStage && (t.columns || t.rows) ? this : null;
 };
 
-Layout.prototype.clone = function() {
+Layout.prototype.clone = function() {
     var t = this,
         refs = this.getRefs();
 
@@ -101,7 +139,7 @@ Layout.prototype.clone = function() {
     return layout;
 };
 
-Layout.prototype.toPost = function() {
+Layout.prototype.toPost = function() {
     var t = this,
         refs = t.getRefs();
 
@@ -118,21 +156,21 @@ Layout.prototype.toPost = function() {
     }
 };
 
-Layout.prototype.getDataTypeUrl = function() {
+Layout.prototype.getDataTypeUrl = function() {
     var t = this,
         refs = t.getRefs();
 
     var { dimensionConfig } = refs;
 
-    var defaultDataTypeUrl = dimensionConfig.dataTypeUrl[dimensionConfig.getDefaultDataType()]
+    var defaultDataTypeUrl = dimensionConfig.dataTypeUrl[dimensionConfig.getDefaultDataType()];
 
     var url = dimensionConfig.dataTypeUrl[this.dataType] || defaultDataTypeUrl;
 
     return url || '';
 };
 
-Layout.prototype.getProgramUrl = function() {
-    return isObject(this.program) ? ('/' + this.program.id) : '';
+Layout.prototype.getProgramUrl = function() {
+    return isObject(this.program) ? '/' + this.program.id : '';
 };
 
 // dep 1
@@ -150,7 +188,8 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     var defAggTypeId = optionConfig.getAggregationType('def').id,
         displayProperty = this.displayProperty || appManager.getAnalyticsDisplayProperty();
 
-    source = source || instanceManager.analyticsEndpoint + this.getDataTypeUrl() + this.getProgramUrl();
+    source =
+        source || instanceManager.analyticsEndpoint + this.getDataTypeUrl() + this.getProgramUrl();
 
     // dimensions
     this.getDimensions(false, isSorted).forEach(function(dimension) {
@@ -167,24 +206,23 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     }
 
     // stage
-    if (isObject(this.programStage)) {
+    if (isObject(this.programStage)) {
         request.add('stage=' + this.programStage.id);
     }
 
     // display property
     request.add('displayProperty=' + displayProperty.toUpperCase());
 
-    // normal request only
-    if (!isTableLayout) {
+    // completed only
+    if (this.completedOnly) {
+        request.add('completedOnly=true');
+    }
 
+    // normal request only
+    if (!isTableLayout) {
         // hierarchy
         if (this.showHierarchy) {
             request.add('hierarchyMeta=true');
-        }
-
-        // completed only
-        if (this.completedOnly) {
-            request.add('completedOnly=true');
         }
 
         // outputType type
@@ -193,17 +231,27 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // program status
-        if (isString(this.programStatus) && this.programStatus !== optionConfig.getProgramStatus('def').id) {
+        if (
+            isString(this.programStatus) &&
+            this.programStatus !== optionConfig.getProgramStatus('def').id
+        ) {
             request.add('programStatus=' + this.programStatus);
         }
 
         // event status
-        if (isString(this.eventStatus) && this.eventStatus !== optionConfig.getEventStatus('def').id) {
+        if (
+            isString(this.eventStatus) &&
+            this.eventStatus !== optionConfig.getEventStatus('def').id
+        ) {
             request.add('eventStatus=' + this.eventStatus);
         }
 
         // limit, sortOrder
-        if (isNumber(this.topLimit) && this.topLimit && this.dataType === dimensionConfig.dataType['aggregated_values']) {
+        if (
+            isNumber(this.topLimit) &&
+            this.topLimit &&
+            this.dataType === dimensionConfig.dataType['aggregated_values']
+        ) {
             request.add('limit=' + this.topLimit);
 
             var sortOrder = isNumber(this.sortOrder) ? this.sortOrder : 1;
@@ -212,21 +260,26 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // value, aggregationType
-        if (this.value) {
-            request.add('value=' + (isString(this.value) ? this.value : isObject(this.value) ? this.value.id : null));
+        if (this.value) {
+            request.add(
+                'value=' +
+                    (isString(this.value)
+                        ? this.value
+                        : isObject(this.value) ? this.value.id : null)
+            );
 
-            if (isString(this.aggregationType)) {
+            if (isString(this.aggregationType)) {
                 request.add('aggregationType=' + this.aggregationType);
             }
         }
 
         // collapse data items
-        if (this.collapseDataDimensions) {
+        if (this.collapseDataDimensions) {
             request.add('collapseDataDimensions=true');
         }
 
         // dates
-        if (isString(this.startDate) && isString(this.endDate)) {
+        if (isString(this.startDate) && isString(this.endDate)) {
             request.add('startDate=' + this.startDate);
             request.add('endDate=' + this.endDate);
         }
@@ -242,37 +295,53 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // sorting
-        if (isObject(this.sorting) && this.dataType === dimensionConfig.dataType['individual_cases']) {
-            if (isString(this.sorting.direction) && isString(this.sorting.id)) {
+        if (
+            isObject(this.sorting) &&
+            this.dataType === dimensionConfig.dataType['individual_cases']
+        ) {
+            if (isString(this.sorting.direction) && isString(this.sorting.id)) {
                 request.add(this.sorting.direction.toLowerCase() + '=' + this.sorting.id);
             }
         }
 
         // paging
-        if (this.dataType === dimensionConfig.dataType['individual_cases']) {
+        if (this.dataType === dimensionConfig.dataType['individual_cases']) {
             var paging = this.paging || {};
 
             request.add('pageSize=' + (paging.pageSize || 100));
             request.add('page=' + (paging.page || 1));
         }
-    }
-    else {
+    } else {
         // table layout
         request.add('tableLayout=true');
 
         // columns
         //request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
-        request.add('columns=' + this.getDimensions(false, false, this.columns)
-			.filter(function(dim) { return dim.dimension !== 'dy' })
-			.map(function(dim) { return dim.dimension; })
-			.join(';'));
+        request.add(
+            'columns=' +
+                this.getDimensions(false, false, this.columns)
+                    .filter(function(dim) {
+                        return dim.dimension !== 'dy';
+                    })
+                    .map(function(dim) {
+                        return dim.dimension;
+                    })
+                    .join(';')
+        );
 
         // rows
         //request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
-        request.add('rows=' + this.getDimensions(false, false, this.rows)
-			.filter(function(dim) { return dim.dimension !== 'dy'; })
-			.map(function(dim) { return dim.dimension; })
-			.join(';'));
+        request.add(
+            'rows=' +
+                this.getDimensions(false, false, this.rows)
+                    .filter(function(dim) {
+                        return dim.dimension !== 'dy';
+                    })
+                    .map(function(dim) {
+                        return dim.dimension;
+                    })
+                    .join(';')
+        );
 
         // hide empty columns
         if (this.hideEmptyColumns) {
@@ -291,7 +360,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     }
 
     // relative orgunits / user
-    if (this.hasRecordIds(appManager.userIdDestroyCacheKeys, true)) {
+    if (this.hasRecordIds(appManager.userIdDestroyCacheKeys, true)) {
         request.add('user=' + appManager.userAccount.id);
     }
 
@@ -313,14 +382,13 @@ Layout.prototype.data = function(source, format) {
 
     request.setType(t.getDefaultFormat());
 
-    request.setError(function(r) {
-
+    request.setError(function(r) {
         // 409
         // DHIS2-2020: 503 error (perhaps analytics maintenance mode)
-        if (isObject(r) && (r.status == 409 || r.status == 503)) {
+        if (isObject(r) && (r.status == 409 || r.status == 503)) {
             uiManager.unmask();
 
-            if (isString(r.responseText)) {
+            if (isString(r.responseText)) {
                 uiManager.alert(JSON.parse(r.responseText));
             }
         }

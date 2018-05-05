@@ -1,6 +1,6 @@
 {
   "name": "event-reports-app",
-  "version": "29.0.20",
+  "version": "29.0.26",
   "description": "Event reports app",
   "main": "index.html",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-reports-app#readme",
   "dependencies": {
-    "d2-analysis": "29.0.17",
+    "d2-analysis": "29.0.22",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
