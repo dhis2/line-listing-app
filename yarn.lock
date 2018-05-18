@@ -1310,11 +1310,11 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@29.0.27:
-  version "29.0.27"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-29.0.27.tgz#5148325fb6e72b2fac08848f7b54faedd5b838e3"
+d2-analysis@29.0.29:
+  version "29.0.29"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-29.0.29.tgz#988b0610c6fae9f74b15c75705048ec848346db2"
   dependencies:
-    d2-utilizr "0.2.16"
+    d2-utilizr "^0.2.16"
     jquery "2.1.4"
 
 d2-manifest@1.0.0:
@@ -1340,7 +1340,7 @@ d2-utilizr@0.2.13:
     lodash.isset "^4.3.0"
     lodash.isstring "^4.0.1"
 
-d2-utilizr@0.2.16:
+d2-utilizr@^0.2.16:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/d2-utilizr/-/d2-utilizr-0.2.16.tgz#b71df7ca8c7ab5125ca8bdb4899611bc6782a754"
   dependencies:
