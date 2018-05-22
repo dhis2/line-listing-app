@@ -147,46 +147,21 @@ function initialize() {
         };
 
         var createPivotTable = function(layout, response) {
-            var sortingId = layout.sorting ? layout.sorting.id : null,
-                _table;
-
             var statusBar = uiManager.get('statusBar');
 
             if (statusBar) {
                 statusBar.reset();
             }
 
-            var getTable = function() {
-                var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
-                var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
-                
-                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true, trueTotals: false });
-            };
-
             if (response && response.rows.length) {
-
-                // pre-sort if id
-                if (sortingId && sortingId !== 'total') {
-                    layout.sort();
-                }
-
-                // table
-                _table = getTable();
-
-                // sort if total
-                if (sortingId && sortingId === 'total') {
-                    layout.sort(_table);
-                    _table = getTable();
-                }
-
-                if (_table.doRender()) {
+                if (response.getSize(layout) > 100000) {
                     uiManager.confirmRender(
                         `Table size warning`,
-                        () => renderTable(_table, layout),
+                        () => renderTable(layout, response),
                         () => renderIntro()
                     );
                 } else {
-                    renderTable(_table, layout)
+                    renderTable(layout, response)
                 }
             }
             else {
@@ -233,7 +208,31 @@ function initialize() {
         uiManager.unmask();
     }
 
-    function renderTable(_table, layout) {
+    function renderTable(layout, response) {
+
+        var sortingId = layout.sorting ? layout.sorting.id : null,
+            _table;
+
+        var getTable = function() {
+            var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
+            var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
+            
+            return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true, trueTotals: false });
+        };
+
+        // pre-sort if id
+        if (sortingId && sortingId !== 'total') {
+            layout.sort();
+        }
+
+        // table
+        _table = getTable();
+
+        // sort if total
+        if (sortingId && sortingId === 'total') {
+            layout.sort(_table);
+            _table = getTable();
+        }
 
         _table.initialize();
 
