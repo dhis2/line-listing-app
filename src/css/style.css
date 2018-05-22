@@ -1572,3 +1572,41 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 .ns-panel-title-east-default .x-panel-body {
     border-left: 0;
 }
+
+.mentions {
+	background-color: white;
+	padding: 2px;
+	max-height: 220px;
+	box-shadow: rgb(136, 136, 136) -1px -1px 4px 0px;
+}
+
+.mentions > div {
+	max-height: 220px;
+}
+.mentions, .mentions div {
+	border: none;
+}
+
+.mentions td:hover {
+	color: #1C3974;
+	background-color: #efefef;
+}
+
+.mentions td {
+	color: #3162C5;
+	padding: 1px;
+}
+
+.mentions td label {
+	cursor: pointer;
+}
+.mentions .mentionsTitle{
+	font-weight: bold;
+	width: 300px;
+}
+
+.mentions table{
+	overflow-y: auto;
+	display: block;
+	max-height: 295px;
+}
