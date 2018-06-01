@@ -1,5 +1,27 @@
 var path = require('path');
 var webpack = require('webpack');
+var HTMLWebpackPlugin = require('html-webpack-plugin');
+
+var btoa = function(s) { return new Buffer(s).toString('base64'); }
+var dhisConfigPath = process.env.DHIS2_HOME && `${process.env.DHIS2_HOME}/config`;
+var dhisConfig;
+
+try {
+    console.log(dhisConfigPath)
+    dhisConfig = require(dhisConfigPath);
+    console.log(dhisConfig);
+} catch (e) {
+    console.warn(`\nWARNING! Failed to load DHIS config:`, e.message);
+    console.info('Using default config');
+    dhisConfig = {
+        baseUrl: 'http://localhost:8080',
+        authorization: btoa("admin:district")
+    };
+}
+
+var isDevBuild = process.argv[1].indexOf('webpack-dev-server') !== -1;
+var scriptPrefix = isDevBuild ? dhisConfig.baseUrl : '..';
+var ckeditorBasePath = `${scriptPrefix}/dhis-web-core-resource/ckeditor/4.6.1`;
 
 module.exports = {
     context: __dirname,
@@ -49,5 +71,13 @@ module.exports = {
             //jQuery: "jquery",
             //"window.jQuery": "jquery"
         //}),
+        new HTMLWebpackPlugin({
+            template: './index.ejs',
+            inject: false,
+            vendorScripts: [
+                `<script type="text/javascript">window.CKEDITOR_BASEPATH = '${ckeditorBasePath}/';</script>`,
+                `<script src="${ckeditorBasePath}/ckeditor.js"></script>`,
+            ].join("\n"),
+        }),
     ],
 };
