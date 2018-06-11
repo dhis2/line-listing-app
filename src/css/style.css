@@ -1650,10 +1650,14 @@ a.cke_button_off.active {
 
 .eastPanel .favorite-enabled {
     background-image: url(../images/favorite-enabled.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
 }
 
 .eastPanel .favorite-disabled {
     background-image: url(../images/favorite-disabled.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
 }
 
 /* Subscriptions */
@@ -1677,10 +1681,14 @@ a.cke_button_off.active {
 
 .eastPanel .subscriber-enabled {
     background-image: url(../images/subscriber-enabled.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
 }
 
 .eastPanel .subscriber-disabled {
     background-image: url(../images/subscriber-disabled.png);
+	background-repeat: no-repeat;
+	background-position: 2px 2px;
 }
 
 /* Mentions */
