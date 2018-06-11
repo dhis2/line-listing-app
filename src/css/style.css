@@ -842,6 +842,62 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	margin-top: 2px;
 }
 
+/* CKEditor */
+
+.x-body .cke_top {
+    padding: 0 !important;
+}
+
+.x-body .cke_toolgroup {
+    margin: 0;
+}
+
+.x-body .cke_dialog {
+    z-index: 20000 !important;
+}
+
+.x-body .cke_smiley .cke_dialog_footer {
+    display: none;
+}
+
+.x-body .cke_smiley .cke_dialog_title,
+.x-body .cke_smiley .cke_dialog_close_button {
+    display: none;
+}
+
+.literal img {
+    width: 1.3em;
+    height: 1.3em;
+}
+
+.literal strong {
+    font-weight: bold;
+}
+
+.literal em {
+    font-style: italic;
+}
+
+.cke_dialog_background_cover {
+    opacity: 0 !important;
+    z-index: 19500 !important;
+}
+
+a.cke_button_off.active {
+    background: #e5e5e5;
+    border: 1px #bcbcbc solid;
+    padding: 3px 5px;
+}
+
+.cke_dialog_contents_body {
+    padding: 9px 10px 9px 10px !important;
+    height: auto !important;
+}
+
+.cke_smiley .cke_dialog_contents_body {
+    width: 150px !important;
+}
+
 /* Favorite */
 
 .ns-menu-item-favorite-new {
