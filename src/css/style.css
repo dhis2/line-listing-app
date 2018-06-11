@@ -1629,6 +1629,62 @@ a.cke_button_off.active {
     border-left: 0;
 }
 
+/* Favorite */
+
+.eastPanel .favorite-icon button {
+    padding: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: #FFF;
+}
+
+.eastPanel .favorite-inner {
+    display: none;
+}
+
+.eastPanel .favorite-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.eastPanel .favorite-enabled {
+    background-image: url(../images/favorite-enabled.png);
+}
+
+.eastPanel .favorite-disabled {
+    background-image: url(../images/favorite-disabled.png);
+}
+
+/* Subscriptions */
+
+.eastPanel .subscriber-icon button {
+    padding: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: #FFF;
+}
+
+.eastPanel .subscriber-inner {
+    display: none;
+}
+
+.eastPanel .subscriber-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.eastPanel .subscriber-enabled {
+    background-image: url(../images/subscriber-enabled.png);
+}
+
+.eastPanel .subscriber-disabled {
+    background-image: url(../images/subscriber-disabled.png);
+}
+
+/* Mentions */
+
 .mentions {
 	background-color: white;
 	padding: 2px;
