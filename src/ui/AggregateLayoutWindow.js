@@ -26,7 +26,8 @@ AggregateLayoutWindow = function(refs) {
         margin = 1,
         defaultWidth = 210,
         defaultHeight = 220,
-        defaultValueId = 'default';
+        defaultValueId = 'default',
+        defaultTimeFieldId = 'EVENT_DATE';
 
     var getStore = function(applyConfig) {
         var config = {},
@@ -288,8 +289,8 @@ AggregateLayoutWindow = function(refs) {
     var val = Ext.create('Ext.panel.Panel', {
         bodyStyle: 'padding: 1px',
         width: defaultWidth,
-        height: 220,
-        items: value,
+        height: 110, // 220
+        items: [aggregationType, value],
         tbar: {
             height: 25,
             style: 'padding: 1px',
@@ -300,8 +301,60 @@ AggregateLayoutWindow = function(refs) {
                     style: 'padding-left: 6px; line-height: 22px',
                     text: i18n.value,
                 },
-                '->',
-                aggregationType,
+            ],
+        },
+    });
+
+    var timeFieldStore = getStore({ name: 'timeFieldStore' });
+
+    timeFieldStore.addDefaultData = function() {
+        if (!this.getById(defaultTimeFieldId)) {
+            this.add(optionConfig.getTimeFieldRecords());
+        }
+    };
+
+    var timeField = Ext.create('Ext.form.field.ComboBox', {
+        cls: 'ns-combo h24',
+        width: defaultWidth - 4,
+        height: 24,
+        fieldStyle: 'height: 24px',
+        queryMode: 'local',
+        valueField: 'id',
+        displayField: 'name',
+        editable: false,
+        store: timeFieldStore,
+        value: defaultTimeFieldId,
+        setDefaultData: function() {
+            timeFieldStore.addDefaultData();
+            this.setValue(defaultTimeFieldId);
+        },
+        setDefaultDataIf: function() {
+            if (!timeField.getValue()) {
+                this.setDefaultData();
+            }
+        },
+        resetData: function() {
+            timeFieldStore.removeAll();
+            this.clearValue();
+            this.setDefaultData();
+        },
+    });
+
+    var timeFieldPanel = Ext.create('Ext.panel.Panel', {
+        bodyStyle: 'padding: 1px',
+        width: defaultWidth,
+        height: 110,
+        items: timeField,
+        tbar: {
+            height: 25,
+            style: 'padding 1px',
+            items: [
+                {
+                    xtype: 'label',
+                    height: 22,
+                    style: 'padding-left: 6px; line-height: 22px',
+                    text: i18n.time_field,
+                },
             ],
         },
     });
@@ -341,7 +394,14 @@ AggregateLayoutWindow = function(refs) {
                 xtype: 'container',
                 layout: 'column',
                 bodyStyle: 'border:0 none',
-                items: [row, val],
+                items: [
+                    row,
+                    {
+                        xtype: 'container',
+                        bodyStyle: 'border:0 none',
+                        items: [val, timeFieldPanel],
+                    },
+                ],
             },
         ],
     });
@@ -370,7 +430,7 @@ AggregateLayoutWindow = function(refs) {
 
     var removeDimension = function(id, excludedStores) {
         var stores = arrayDifference(
-            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore, timeFieldStore],
             arrayFrom(excludedStores)
         );
 
@@ -387,7 +447,7 @@ AggregateLayoutWindow = function(refs) {
 
     var hasDimension = function(id, excludedStores) {
         var stores = arrayDifference(
-            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore, timeFieldStore],
             arrayFrom(excludedStores)
         );
 
@@ -445,6 +505,11 @@ AggregateLayoutWindow = function(refs) {
         rowStore.removeAll();
         fixedFilterStore.removeAll();
         filterStore.removeAll();
+
+        timeFieldStore.removeAll();
+        timeFieldStore.addDefaultData();
+
+        timeField.clearValue();
 
         if (!skipValueStore) {
             valueStore.removeAll();
@@ -536,7 +601,9 @@ AggregateLayoutWindow = function(refs) {
         fixedFilterStore: fixedFilterStore,
         filterStore: filterStore,
         valueStore: valueStore,
+        timeFieldStore: timeFieldStore,
         value: value,
+        timeField: timeField,
         addDimension: addDimension,
         removeDimension: removeDimension,
         hasDimension: hasDimension,
@@ -553,11 +620,16 @@ AggregateLayoutWindow = function(refs) {
         },
         getValueConfig: function() {
             var config = {},
-                valueId = value.getValue();
+                valueId = value.getValue(),
+                timeFieldId = timeField.getValue();
 
             if (valueId && valueId !== defaultValueId) {
                 config.value = { id: valueId };
                 config.aggregationType = aggregationType.getValue();
+            }
+
+            if (timeFieldId && timeFieldId !== defaultTimeFieldId) {
+                config.timeField = timeFieldId;
             }
 
             return config;
@@ -615,6 +687,9 @@ AggregateLayoutWindow = function(refs) {
 
                 // value
                 value.setDefaultDataIf();
+
+                // timeField
+                timeField.setDefaultDataIf();
             },
             render: function() {
                 reset();
