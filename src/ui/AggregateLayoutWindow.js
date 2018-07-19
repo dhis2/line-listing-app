@@ -70,6 +70,7 @@ AggregateLayoutWindow = function(refs) {
     var fixedFilterStore = getStore({ name: 'fixedFilterStore' });
     var filterStore = getStore({ name: 'filterStore' });
     var valueStore = getStore({ name: 'valueStore' });
+    var timeFieldStore = getStore({ name: 'timeFieldStore' });
 
     // store functions
     valueStore.addDefaultData = function() {
@@ -85,6 +86,12 @@ AggregateLayoutWindow = function(refs) {
         var fixedFilterHeight = 26 + this.getRange().length * 21 + 1;
         fixedFilter.setHeight(fixedFilterHeight);
         filter.setHeight(defaultHeight - fixedFilterHeight);
+    };
+
+    timeFieldStore.addDefaultData = function() {
+        if (!this.getById(defaultTimeFieldId)) {
+            this.add(optionConfig.getTimeFieldRecords());
+        }
     };
 
     // gui
@@ -286,33 +293,6 @@ AggregateLayoutWindow = function(refs) {
         },
     });
 
-    var val = Ext.create('Ext.panel.Panel', {
-        bodyStyle: 'padding: 1px',
-        width: defaultWidth,
-        height: 110, // 220
-        items: [aggregationType, value],
-        tbar: {
-            height: 25,
-            style: 'padding: 1px',
-            items: [
-                {
-                    xtype: 'label',
-                    height: 22,
-                    style: 'padding-left: 6px; line-height: 22px',
-                    text: i18n.value,
-                },
-            ],
-        },
-    });
-
-    var timeFieldStore = getStore({ name: 'timeFieldStore' });
-
-    timeFieldStore.addDefaultData = function() {
-        if (!this.getById(defaultTimeFieldId)) {
-            this.add(optionConfig.getTimeFieldRecords());
-        }
-    };
-
     var timeField = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo h24',
         width: defaultWidth - 4,
@@ -340,20 +320,48 @@ AggregateLayoutWindow = function(refs) {
         },
     });
 
-    var timeFieldPanel = Ext.create('Ext.panel.Panel', {
+    var val = Ext.create('Ext.panel.Panel', {
         bodyStyle: 'padding: 1px',
         width: defaultWidth,
-        height: 110,
-        items: timeField,
+        height: 220,
+        items: [
+            {
+                xtype: 'container',
+                bodyStyle: 'border:0 none',
+                items: [
+                    {
+                        xtype: 'label',
+                        height: 22,
+                        style: 'padding-left: 6px; line-height: 22px; font-weight: bold',
+                        text: i18n.aggregation || 'Aggregation',
+                    },
+                    value,
+                    aggregationType,
+                ],
+            },
+            {
+                xtype: 'container',
+                bodyStyle: 'border:0 none',
+                items: [
+                    {
+                        xtype: 'label',
+                        height: 22,
+                        style: 'padding-left: 6px; line-height: 22px; font-weight: bold',
+                        text: i18n.time_field || 'Time field',
+                    },
+                    timeField,
+                ],
+            },
+        ],
         tbar: {
             height: 25,
-            style: 'padding 1px',
+            style: 'padding: 1px',
             items: [
                 {
                     xtype: 'label',
                     height: 22,
                     style: 'padding-left: 6px; line-height: 22px',
-                    text: i18n.time_field,
+                    text: i18n.value,
                 },
             ],
         },
@@ -394,14 +402,7 @@ AggregateLayoutWindow = function(refs) {
                 xtype: 'container',
                 layout: 'column',
                 bodyStyle: 'border:0 none',
-                items: [
-                    row,
-                    {
-                        xtype: 'container',
-                        bodyStyle: 'border:0 none',
-                        items: [val, timeFieldPanel],
-                    },
-                ],
+                items: [row, val],
             },
         ],
     });
