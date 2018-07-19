@@ -12,25 +12,20 @@ export var AggregateLayoutWindow;
 
 AggregateLayoutWindow = function(refs) {
     var t = this,
-
         appManager = refs.appManager,
         uiManager = refs.uiManager,
         instanceManager = refs.instanceManager,
         i18n = refs.i18nManager.get(),
         dimensionConfig = refs.dimensionConfig,
         optionConfig = refs.optionConfig,
-
         confData = dimensionConfig.get('data'),
         confPeriod = dimensionConfig.get('period'),
         confOrganisationUnit = dimensionConfig.get('organisationUnit'),
         confCategory = dimensionConfig.get('category'),
-
         dimensionStoreMap = {},
-
         margin = 1,
         defaultWidth = 210,
         defaultHeight = 220,
-
         defaultValueId = 'default';
 
     var getStore = function(applyConfig) {
@@ -69,24 +64,24 @@ AggregateLayoutWindow = function(refs) {
         return keys;
     };
 
-    var colStore = getStore({name: 'colStore'});
-    var rowStore = getStore({name: 'rowStore'});
-    var fixedFilterStore = getStore({name: 'fixedFilterStore'});
-    var filterStore = getStore({name: 'filterStore'});
-    var valueStore = getStore({name: 'valueStore'});
+    var colStore = getStore({ name: 'colStore' });
+    var rowStore = getStore({ name: 'rowStore' });
+    var fixedFilterStore = getStore({ name: 'fixedFilterStore' });
+    var filterStore = getStore({ name: 'filterStore' });
+    var valueStore = getStore({ name: 'valueStore' });
 
     // store functions
     valueStore.addDefaultData = function() {
         if (!this.getById(defaultValueId)) {
             this.insert(0, {
                 id: defaultValueId,
-                name: i18n.number_of_events
+                name: i18n.number_of_events,
             });
         }
     };
 
     fixedFilterStore.setListHeight = function() {
-        var fixedFilterHeight = 26 + (this.getRange().length * 21) + 1;
+        var fixedFilterHeight = 26 + this.getRange().length * 21 + 1;
         fixedFilter.setHeight(fixedFilterHeight);
         filter.setHeight(defaultHeight - fixedFilterHeight);
     };
@@ -107,8 +102,8 @@ AggregateLayoutWindow = function(refs) {
             items: {
                 xtype: 'label',
                 text: i18n.column_dimensions,
-                cls: 'ns-toolbar-multiselect-leftright-label'
-            }
+                cls: 'ns-toolbar-multiselect-leftright-label',
+            },
         },
         listeners: {
             afterrender: function(ms) {
@@ -118,12 +113,12 @@ AggregateLayoutWindow = function(refs) {
                 });
 
                 ms.store.on('add', function() {
-                    Ext.defer( function() {
+                    Ext.defer(function() {
                         ms.boundList.getSelectionModel().deselectAll();
                     }, 10);
                 });
-            }
-        }
+            },
+        },
     });
 
     var row = Ext.create('Ext.ux.form.MultiSelect', {
@@ -141,8 +136,8 @@ AggregateLayoutWindow = function(refs) {
             items: {
                 xtype: 'label',
                 text: i18n.row_dimensions,
-                cls: 'ns-toolbar-multiselect-leftright-label'
-            }
+                cls: 'ns-toolbar-multiselect-leftright-label',
+            },
         },
         listeners: {
             afterrender: function(ms) {
@@ -152,12 +147,12 @@ AggregateLayoutWindow = function(refs) {
                 });
 
                 ms.store.on('add', function() {
-                    Ext.defer( function() {
+                    Ext.defer(function() {
                         ms.boundList.getSelectionModel().deselectAll();
                     }, 10);
                 });
-            }
-        }
+            },
+        },
     });
 
     var fixedFilter = Ext.create('Ext.ux.form.MultiSelect', {
@@ -173,16 +168,16 @@ AggregateLayoutWindow = function(refs) {
             items: {
                 xtype: 'label',
                 text: i18n.report_filter,
-                cls: 'ns-toolbar-multiselect-leftright-label'
-            }
+                cls: 'ns-toolbar-multiselect-leftright-label',
+            },
         },
         listeners: {
             afterrender: function(ms) {
                 ms.on('change', function() {
                     ms.boundList.getSelectionModel().deselectAll();
                 });
-            }
-        }
+            },
+        },
     });
 
     var filter = Ext.create('Ext.ux.form.MultiSelect', {
@@ -199,12 +194,12 @@ AggregateLayoutWindow = function(refs) {
         listeners: {
             afterrender: function(ms) {
                 ms.store.on('add', function() {
-                    Ext.defer( function() {
+                    Ext.defer(function() {
                         ms.boundList.getSelectionModel().deselectAll();
                     }, 10);
                 });
-            }
-        }
+            },
+        },
     });
 
     var aggregationType = Ext.create('Ext.form.field.ComboBox', {
@@ -231,11 +226,11 @@ AggregateLayoutWindow = function(refs) {
         },
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'name'],
-            data: optionConfig.getAggregationTypeRecords()
+            data: optionConfig.getAggregationTypeRecords(),
         }),
         resetData: function() {
             this.setDisabled();
-        }
+        },
     });
 
     var onValueSelect = function(id) {
@@ -243,8 +238,7 @@ AggregateLayoutWindow = function(refs) {
 
         if (id === defaultValueId) {
             aggregationType.setDisabled();
-        }
-        else {
+        } else {
             aggregationType.setEnabled();
 
             // remove ux and layout item
@@ -287,8 +281,8 @@ AggregateLayoutWindow = function(refs) {
         listeners: {
             select: function(cb, r) {
                 onValueSelect(r[0].data.id);
-            }
-        }
+            },
+        },
     });
 
     var val = Ext.create('Ext.panel.Panel', {
@@ -304,12 +298,12 @@ AggregateLayoutWindow = function(refs) {
                     xtype: 'label',
                     height: 22,
                     style: 'padding-left: 6px; line-height: 22px',
-                    text: i18n.value
+                    text: i18n.value,
                 },
                 '->',
-                aggregationType
-            ]
-        }
+                aggregationType,
+            ],
+        },
     });
 
     var onCollapseDataDimensionsChange = function(value) {
@@ -323,8 +317,8 @@ AggregateLayoutWindow = function(refs) {
         listeners: {
             change: function(chb, value) {
                 onCollapseDataDimensionsChange(value);
-            }
-        }
+            },
+        },
     });
 
     var selectPanel = Ext.create('Ext.panel.Panel', {
@@ -338,24 +332,18 @@ AggregateLayoutWindow = function(refs) {
                     {
                         xtype: 'container',
                         bodyStyle: 'border:0 none',
-                        items: [
-                            fixedFilter,
-                            filter
-                        ]
+                        items: [fixedFilter, filter],
                     },
-                    col
-                ]
+                    col,
+                ],
             },
             {
                 xtype: 'container',
                 layout: 'column',
                 bodyStyle: 'border:0 none',
-                items: [
-                    row,
-                    val
-                ]
-            }
-        ]
+                items: [row, val],
+            },
+        ],
     });
 
     var addDimension = function(record, store, excludedStores, force) {
@@ -371,8 +359,7 @@ AggregateLayoutWindow = function(refs) {
                 removeDimension(record.id);
                 store.add(record);
             }
-        }
-        else {
+        } else {
             if (record.id !== value.getValue()) {
                 store.add(record);
             }
@@ -382,7 +369,10 @@ AggregateLayoutWindow = function(refs) {
     };
 
     var removeDimension = function(id, excludedStores) {
-        var stores = arrayDifference([colStore, rowStore, filterStore, fixedFilterStore, valueStore], arrayFrom(excludedStores));
+        var stores = arrayDifference(
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
+            arrayFrom(excludedStores)
+        );
 
         for (var i = 0, store, index; i < stores.length; i++) {
             store = stores[i];
@@ -396,7 +386,10 @@ AggregateLayoutWindow = function(refs) {
     };
 
     var hasDimension = function(id, excludedStores) {
-        var stores = arrayDifference([colStore, rowStore, filterStore, fixedFilterStore, valueStore], arrayFrom(excludedStores));
+        var stores = arrayDifference(
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
+            arrayFrom(excludedStores)
+        );
 
         for (var i = 0, store, index; i < stores.length; i++) {
             store = stores[i];
@@ -430,7 +423,7 @@ AggregateLayoutWindow = function(refs) {
         });
 
         //valueStore.each(function(record) {
-            //map[record.data.id] = valueStore;
+        //map[record.data.id] = valueStore;
         //});
 
         return map;
@@ -461,8 +454,11 @@ AggregateLayoutWindow = function(refs) {
         value.clearValue();
 
         if (!isAll) {
-            colStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
-            colStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
+            colStore.add({
+                id: confOrganisationUnit.dimensionName,
+                name: confOrganisationUnit.name,
+            });
+            colStore.add({ id: confPeriod.dimensionName, name: confPeriod.name });
         }
 
         fixedFilterStore.setListHeight();
@@ -470,7 +466,10 @@ AggregateLayoutWindow = function(refs) {
 
     var toggleDataItems = function(param) {
         var stores = [colStore, rowStore, filterStore, fixedFilterStore],
-            collapse = isObject(param) && isDefined(param.collapseDataItems) ? param.collapseDataItems : param,
+            collapse =
+                isObject(param) && isDefined(param.collapseDataItems)
+                    ? param.collapseDataItems
+                    : param,
             keys = ['ou', 'pe', 'dates'],
             dimensionKeys = arrayPluck(appManager.dimensions || [], 'id'),
             dy = ['dy'],
@@ -483,18 +482,22 @@ AggregateLayoutWindow = function(refs) {
 
         // add dy if it does not exist
         if (!hasDimension('dy')) {
-            addDimension({
-                id: 'dy',
-                dimension: 'dy',
-                name: i18n.data
-            }, rowStore);
+            addDimension(
+                {
+                    id: 'dy',
+                    dimension: 'dy',
+                    name: i18n.data,
+                },
+                rowStore
+            );
         }
 
         // keys
-        if (collapse) { // included keys
+        if (collapse) {
+            // included keys
             keys = ['ou', 'pe', 'dates', 'dy'].concat(dimensionKeys);
-        }
-        else { // excluded keys
+        } else {
+            // excluded keys
             keys = ['dy'];
         }
 
@@ -506,8 +509,7 @@ AggregateLayoutWindow = function(refs) {
                 store.filterBy(function(record, id) {
                     return arrayContains(keys, record.data.id);
                 });
-            }
-            else {
+            } else {
                 store.filterBy(function(record, id) {
                     return !arrayContains(keys, record.data.id);
                 });
@@ -546,7 +548,7 @@ AggregateLayoutWindow = function(refs) {
         collapseDataDimensions: collapseDataDimensions,
         toggleDataItems: toggleDataItems,
         toggleValueGui: toggleValueGui,
-        getDefaultStore: function() {
+        getDefaultStore: function() {
             return rowStore;
         },
         getValueConfig: function() {
@@ -554,7 +556,7 @@ AggregateLayoutWindow = function(refs) {
                 valueId = value.getValue();
 
             if (valueId && valueId !== defaultValueId) {
-                config.value = {id: valueId};
+                config.value = { id: valueId };
                 config.aggregationType = aggregationType.getValue();
             }
 
@@ -568,7 +570,7 @@ AggregateLayoutWindow = function(refs) {
         },
         getOptions: function() {
             return {
-                collapseDataDimensions: collapseDataDimensions.getValue()
+                collapseDataDimensions: collapseDataDimensions.getValue(),
             };
         },
         hideOnBlur: true,
@@ -583,8 +585,8 @@ AggregateLayoutWindow = function(refs) {
                         b.on('click', function() {
                             window.hide();
                         });
-                    }
-                }
+                    },
+                },
             },
             {
                 text: '<b>' + i18n.update + '</b>',
@@ -595,9 +597,9 @@ AggregateLayoutWindow = function(refs) {
 
                             window.hide();
                         });
-                    }
-                }
-            }
+                    },
+                },
+            },
         ],
         listeners: {
             show: function(w) {
@@ -623,8 +625,8 @@ AggregateLayoutWindow = function(refs) {
                 fixedFilterStore.on('remove', function() {
                     this.setListHeight();
                 });
-            }
-        }
+            },
+        },
     });
 
     return window;
