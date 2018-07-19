@@ -86,6 +86,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
         }
     }
 
+    // timeField
+    if (isString(c.timeField)) {
+        t.timeField = c.timeField;
+    }
+
     // paging
     if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
         t.paging = c.paging;
@@ -271,6 +276,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             if (isString(this.aggregationType)) {
                 request.add('aggregationType=' + this.aggregationType);
             }
+        }
+
+        // timeField
+        if (this.timeField) {
+            request.add('timeField=' + this.timeField);
         }
 
         // collapse data items
