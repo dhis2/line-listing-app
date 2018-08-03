@@ -71,7 +71,7 @@ AggregateLayoutWindow = function(refs) {
     var filterStore = getStore({ name: 'filterStore' });
     var valueStore = getStore({ name: 'valueStore' });
     var timeFieldStore = getStore({ name: 'timeFieldStore' });
-
+global.fixedFilterStore = fixedFilterStore;
     // store functions
     valueStore.addDefaultData = function() {
         if (!this.getById(defaultValueId)) {
@@ -212,7 +212,7 @@ AggregateLayoutWindow = function(refs) {
 
     var aggregationType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo h22',
-        width: 80,
+        width: defaultWidth - 4,
         height: 22,
         style: 'margin: 0',
         fieldStyle: 'height: 22px',
@@ -265,6 +265,7 @@ AggregateLayoutWindow = function(refs) {
         width: defaultWidth - 4,
         height: 24,
         fieldStyle: 'height: 24px',
+        style: 'margin-bottom: 1px',
         queryMode: 'local',
         valueField: 'id',
         displayField: 'name',
@@ -328,11 +329,12 @@ AggregateLayoutWindow = function(refs) {
             {
                 xtype: 'container',
                 bodyStyle: 'border:0 none',
+                style: 'margin-top:3px',
                 items: [
                     {
                         xtype: 'label',
                         height: 22,
-                        style: 'padding-left: 6px; line-height: 22px; font-weight: bold',
+                        style: 'padding-left: 4px; line-height: 18px; font-weight: bold',
                         text: i18n.aggregation || 'Aggregation',
                     },
                     value,
@@ -342,11 +344,12 @@ AggregateLayoutWindow = function(refs) {
             {
                 xtype: 'container',
                 bodyStyle: 'border:0 none',
+                style: 'margin-top:8px',
                 items: [
                     {
                         xtype: 'label',
                         height: 22,
-                        style: 'padding-left: 6px; line-height: 22px; font-weight: bold',
+                        style: 'padding-left: 4px; line-height: 18px; font-weight: bold',
                         text: i18n.time_field || 'Time field',
                     },
                     timeField,
@@ -409,7 +412,6 @@ AggregateLayoutWindow = function(refs) {
 
     var addDimension = function(record, store, excludedStores, force) {
         store = store && force ? store : dimensionStoreMap[record.id] || store || rowStore;
-
         // do not allow program indicators for aggregated values
         if (record.isProgramIndicator) {
             return;
@@ -425,13 +427,12 @@ AggregateLayoutWindow = function(refs) {
                 store.add(record);
             }
         }
-
         onCollapseDataDimensionsChange(collapseDataDimensions.getValue());
     };
 
     var removeDimension = function(id, excludedStores) {
         var stores = arrayDifference(
-            [colStore, rowStore, filterStore, fixedFilterStore, valueStore, timeFieldStore],
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
             arrayFrom(excludedStores)
         );
 
@@ -448,7 +449,7 @@ AggregateLayoutWindow = function(refs) {
 
     var hasDimension = function(id, excludedStores) {
         var stores = arrayDifference(
-            [colStore, rowStore, filterStore, fixedFilterStore, valueStore, timeFieldStore],
+            [colStore, rowStore, filterStore, fixedFilterStore, valueStore],
             arrayFrom(excludedStores)
         );
 
