@@ -71,7 +71,7 @@ AggregateLayoutWindow = function(refs) {
     var filterStore = getStore({ name: 'filterStore' });
     var valueStore = getStore({ name: 'valueStore' });
     var timeFieldStore = getStore({ name: 'timeFieldStore' });
-global.fixedFilterStore = fixedFilterStore;
+
     // store functions
     valueStore.addDefaultData = function() {
         if (!this.getById(defaultValueId)) {
