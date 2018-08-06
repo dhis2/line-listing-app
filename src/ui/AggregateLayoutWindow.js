@@ -642,6 +642,9 @@ AggregateLayoutWindow = function(refs) {
 
             aggregationType.setValue(aggType);
         },
+        setTimeField: function(id) {
+            this.timeField.setValue(id);
+        },
         getOptions: function() {
             return {
                 collapseDataDimensions: collapseDataDimensions.getValue(),
