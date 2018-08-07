@@ -502,23 +502,22 @@ AggregateLayoutWindow = function(refs) {
         }
     };
 
-    var reset = function(isAll, skipValueStore) {
+    var reset = function(isAll, skipValueStores) {
         colStore.removeAll();
         rowStore.removeAll();
         fixedFilterStore.removeAll();
         filterStore.removeAll();
 
-        timeFieldStore.removeAll();
-        timeFieldStore.addDefaultData();
-
-        timeField.clearValue();
-
-        if (!skipValueStore) {
+        if (!skipValueStores) {
             valueStore.removeAll();
             valueStore.addDefaultData();
+
+            timeFieldStore.removeAll();
+            timeFieldStore.addDefaultData();
         }
 
         value.clearValue();
+        timeField.clearValue();
 
         if (!isAll) {
             colStore.add({
