@@ -7,7 +7,6 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
 import { api, table, manager, config, init, ui, override, ux } from 'd2-analysis';
-import { CKEditor } from 'd2-analysis/lib/ux/CKEditor';
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
@@ -55,9 +54,6 @@ var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventreport';
 appManager.apiVersion = 29;
 refs.appManager = appManager;
-
-    // CKEditor
-CKEditor(refs);
 
     // calendar manager
 var calendarManager = new manager.CalendarManager(refs);

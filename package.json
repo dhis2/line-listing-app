@@ -1,6 +1,6 @@
 {
   "name": "event-reports-app",
-  "version": "30.0.2",
+  "version": "30.0.10",
   "description": "Event reports app",
   "main": "index.html",
   "scripts": {
@@ -8,7 +8,7 @@
     "validate": "npm ls --depth 0",
     "prestart": "d2-manifest package.json manifest.webapp",
     "start": "webpack-dev-server",
-    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && npm run manifest",
+    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./index.html build && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && npm run manifest",
     "manifest": "d2-manifest package.json build/manifest.webapp"
   },
   "repository": {
@@ -27,9 +27,8 @@
   },
   "homepage": "https://github.com/dhis2/event-reports-app#readme",
   "dependencies": {
-    "d2-analysis": "30.0.3",
-    "d2-utilizr": "0.2.13",
-    "html-webpack-plugin": "2.26.0"
+    "d2-analysis": "30.0.9",
+    "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
     "babel-core": "^6.3.13",
