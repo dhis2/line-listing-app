@@ -218,10 +218,7 @@ function initialize() {
             _table;
 
         var getTable = function() {
-            var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
-            var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
-            
-            return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true, trueTotals: false });
+            return new table.PivotTable(refs, layout, response, { unclickable: true, trueTotals: false });
         };
 
         // pre-sort if id
