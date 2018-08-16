@@ -257,8 +257,8 @@ function initialize() {
             uiManager.setScrollFn('centerRegion', (event) => {
     
                 // calculate number of rows and columns to render
-                let rowLength = Math.floor(event.target.scrollTop / _table.cellHeight),
-                    columnLength = Math.floor(event.target.scrollLeft / _table.cellWidth);
+                let rowLength = Math.floor(event.target.scrollTop / _table.options.cellHeight);
+                let columnLength = Math.floor(event.target.scrollLeft / _table.options.cellWidth);
 
                 let offset = rowLength === 0 ?
                     0 : 1;
@@ -274,8 +274,8 @@ function initialize() {
             //TODO: Enable this to get on resize event
             uiManager.setOnResizeFn('centerRegion', e => {
 
-                let rowLength = Math.floor(uiManager.get('centerRegion').getHeight() / _table.cellHeight),
-                    columnLength = Math.floor(uiManager.get('centerRegion').getWidth() / _table.cellWidth);
+                let rowLength = Math.floor(uiManager.get('centerRegion').getHeight() / _table.options.cellHeight),
+                    columnLength = Math.floor(uiManager.get('centerRegion').getWidth() / _table.options.cellWidth);
 
                 let offset = rowLength === 0 ? 0 : 1;
                 
