@@ -126,9 +126,7 @@ function render(plugin, layout) {
             // get table
             var getTable = function() {
                 var _response = __layout.getResponse();
-                var colAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'col');
-                var rowAxis = new table.PivotTableAxis(instanceRefs, __layout, _response, 'row');
-                return new table.PivotTable(instanceRefs, __layout, _response, colAxis, rowAxis, {skipTitle: true, trueTotals: false});
+                return new table.PivotTable(instanceRefs, __layout, _response, {skipTitle: true, trueTotals: false});
             };
 
             // pre-sort if id
