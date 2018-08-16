@@ -252,7 +252,7 @@ function initialize() {
         // statistics
         instanceManager.postDataStatistics();
 
-        if (_table.doDynamicRendering()) {
+        if (_table.doClipping()) {
 
             uiManager.setScrollFn('centerRegion', (event) => {
     
