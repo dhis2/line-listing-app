@@ -109,24 +109,28 @@ function render(plugin, layout) {
     uiManager.setInstanceManager(instanceManager);
 
     instanceManager.setFn(function(_layout) {
+
         if (!util.dom.validateTargetDiv(_layout.el)) {
             return;
         }
 
-        var sortingId = _layout.sorting ? _layout.sorting.id : null,
-            html = '',
-            tableObject;
+        let sortingId = _layout.sorting ? _layout.sorting.id : null;
+        let html = '';
+        let tableObject;
 
         var getHtml = function(title, _tableObject) {
-            return (eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '') + tableObject.html;
+            return (eventReportPlugin.showTitles ? 
+                uiManager.getTitleHtml(title) : '') + tableObject.html;
         };
 
         var createPivotTable = function(__layout) {
 
             // get table
             var getTable = function() {
-                var _response = __layout.getResponse();
-                return new table.PivotTable(instanceRefs, __layout, _response, {skipTitle: true, trueTotals: false});
+                let tableOptions = { skipTitle: true, trueTotals: false };
+                let _response = __layout.getResponse();
+
+                return new table.PivotTable(instanceRefs, __layout, _response, tableOptions);
             };
 
             // pre-sort if id
@@ -136,15 +140,14 @@ function render(plugin, layout) {
 
             // table
             tableObject = getTable();
+            tableObject.build();
 
             // sort if total
             if (sortingId && sortingId === 'total') {
                 __layout.sort(tableObject);
                 tableObject = getTable();
+                tableObject.build();
             }
-
-            tableObject.initialize();
-            tableObject.build();
 
             html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '';
             html += tableObject.render();

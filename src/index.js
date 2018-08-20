@@ -210,11 +210,19 @@ function initialize() {
 
     function renderTable(layout, response) {
 
-        var sortingId = layout.sorting ? layout.sorting.id : null,
-            _table;
+        let sortingId = layout.sorting ? layout.sorting.id : null;
+        let _table;
 
-        var getTable = function() {
-            return new table.PivotTable(refs, layout, response, { unclickable: true, trueTotals: false });
+        let getTable = function() {
+            let tableOptions = { unclickable: true, trueTotals: false };
+            let eventTable = new table.PivotTable(refs, layout, response, tableOptions);
+
+            eventTable.setViewportSize(
+                uiManager.get('centerRegion').getWidth(),
+                uiManager.get('centerRegion').getHeight()
+            );
+            
+            return eventTable;
         };
 
         // pre-sort if id
@@ -224,21 +232,15 @@ function initialize() {
 
         // table
         _table = getTable();
+        _table.build();
 
         // sort if total
         if (sortingId && sortingId === 'total') {
             layout.sort(_table);
             _table = getTable();
+            _table.build();
         }
 
-        _table.initialize();
-
-        _table.setViewportSize(
-            uiManager.get('centerRegion').getWidth(),
-            uiManager.get('centerRegion').getHeight()
-        );
-
-        _table.build();
 
         // render
         uiManager.update(_table.render());
