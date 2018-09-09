@@ -135,9 +135,12 @@ function initialize() {
 
     // instance manager
     instanceManager.setFn(function(layout) {
-        var response = layout.getResponse();
+        
+        let tableOptions = { renderLimit: 100000 }
+        let sortingId = layout.sorting ? layout.sorting.id : null;
+        let response = layout.getResponse();
 
-        var afterLoad = function() {
+        let afterLoad = function() {
 
             // mask
             uiManager.unmask();
@@ -146,26 +149,35 @@ function initialize() {
             instanceManager.postDataStatistics();
         };
 
-        var createPivotTable = function(layout, response) {
-            var statusBar = uiManager.get('statusBar');
+        let createPivotTable = function(layout, response) {
+
+            let statusBar = uiManager.get('statusBar');
+            
+            let tableOptions = { renderLimit: 100000, unclickable: true }
+            let sortingId = layout.sorting ? layout.sorting.id : null;
 
             if (statusBar) {
                 statusBar.reset();
             }
-
-            if (response && response.rows.length) {
-                if (response.getSize(layout) > 100000) {
-                    uiManager.confirmRender(
-                        `Table size warning`,
-                        () => renderTable(layout, response),
-                        () => renderIntro()
-                    );
-                } else {
-                    renderTable(layout, response)
-                }
+            
+            // pre-sort if id
+            if (sortingId && sortingId !== 'total') {
+                layout.sort();
             }
-            else {
-                uiManager.update('<div style="margin:20px; color:#666">No data to display</div>'); // TODO improve
+
+            let _table = new table.PivotTable(refs, layout, response, tableOptions);
+
+            if (_table.doClipping()) {
+                uiManager.confirmRender(
+                    `Table size warning`,
+                    () => renderTable(_table, layout, sortingId),
+                    () =>  {
+                        uiManager.update();
+                        uiManager.unmask();
+                    }
+                );
+            } else {
+                renderTable(_table, layout, sortingId);
             }
 
             afterLoad();
@@ -203,50 +215,40 @@ function initialize() {
         }
     });
 
-    function renderIntro() {
-        uiManager.update()
-        uiManager.unmask();
-    }
+    function renderTable(_table, layout, sortingId) {
 
-    function renderTable(layout, response) {
-
-        let sortingId = layout.sorting ? layout.sorting.id : null;
-        let _table;
-
-        let getTable = function() {
-            let tableOptions = { unclickable: true, trueTotals: false };
-            let eventTable = new table.PivotTable(refs, layout, response, tableOptions);
-
-            eventTable.setViewportSize(
-                uiManager.get('centerRegion').getWidth(),
-                uiManager.get('centerRegion').getHeight()
-            );
-            
-            return eventTable;
-        };
-
-        // pre-sort if id
-        if (sortingId && sortingId !== 'total') {
-            layout.sort();
+        // initialize table values
+        _table.initialize();
+        
+        // bind mouse events
+        let bindMouseHandlers = () => {
+            tableManager.setColumnHeaderMouseHandlers(layout, _table);
         }
 
-        // table
-        _table = getTable();
+       // sort if total
+       if (sortingId && sortingId === 'total') {
+
+            // sort pivot table based on totals
+            layout.sort(pivotTable);
+
+            // reinitialize pivot table values due to sorting
+            _table.initialize();
+        }
+
+        // set viewport dimensions (used for clipping)
+        _table.setViewportSize(
+            uiManager.get('centerRegion').getWidth(),
+            uiManager.get('centerRegion').getHeight()
+        );
+
+        // build table
         _table.build();
-
-        // sort if total
-        if (sortingId && sortingId === 'total') {
-            layout.sort(_table);
-            _table = getTable();
-            _table.build();
-        }
-
 
         // render
         uiManager.update(_table.render());
 
         // events
-        tableManager.setColumnHeaderMouseHandlers(layout, _table);
+        bindMouseHandlers();
 
         // mask
         uiManager.unmask();
@@ -255,40 +257,19 @@ function initialize() {
         instanceManager.postDataStatistics();
 
         if (_table.doClipping()) {
-
-            uiManager.setScrollFn('centerRegion', (event) => {
-    
-                // calculate number of rows and columns to render
-                let rowLength = Math.floor(event.target.scrollTop / _table.options.cellHeight);
-                let columnLength = Math.floor(event.target.scrollLeft / _table.options.cellWidth);
-
-                let offset = rowLength === 0 ?
-                    0 : 1;
-
-                // only update if row/column has gone off screen
-                if (_table.rowStart + offset !== rowLength || _table.columnStart !== columnLength) {
-                    uiManager.update(_table.update(columnLength, rowLength));
-                    tableManager.setColumnHeaderMouseHandlers(layout, _table);
-                    tableManager.setValueMouseHandlers(layout, _table);
-                }
+            
+            uiManager.setScrollFn('centerRegion', ({ target: { scrollTop, scrollLeft } }) => { 
+                _table.scrollHandler(uiManager.update, scrollTop, scrollLeft, () => {
+                    bindMouseHandlers();
+                });
             });
 
-            //TODO: Enable this to get on resize event
-            uiManager.setOnResizeFn('centerRegion', e => {
-
-                let rowLength = Math.floor(uiManager.get('centerRegion').getHeight() / _table.options.cellHeight),
-                    columnLength = Math.floor(uiManager.get('centerRegion').getWidth() / _table.options.cellWidth);
-
-                let offset = rowLength === 0 ? 0 : 1;
-                
-                if (_table.rowEnd - _table.rowStart !== rowLength + offset|| _table.columnEnd - _table.columnStart !== columnLength + offset) {
-                    _table.setViewportWidth(uiManager.get('centerRegion').getWidth());
-                    _table.setViewportHeight(uiManager.get('centerRegion').getHeight());    
-                    uiManager.update(_table.update(_table.columnStart, _table.rowStart));
-                    tableManager.setColumnHeaderMouseHandlers(layout, _table);
-                    tableManager.setValueMouseHandlers(layout, _table);
-                }
+            uiManager.setResizeFn('centerRegion', (newWidth, newHeight) => {
+                _table.resizeHandler(uiManager.update, newWidth, newHeight, () => {
+                    bindMouseHandlers();
+                });
             });
+
         } else {
             uiManager.removeScrollFn('centerRegion');
             uiManager.removeResizeFn('centerRegion');
@@ -299,7 +280,6 @@ function initialize() {
     
     // ui manager
     uiManager.disableRightClick();
-
     uiManager.enableConfirmUnload();
 
     // intro

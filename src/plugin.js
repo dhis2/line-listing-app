@@ -114,24 +114,16 @@ function render(plugin, layout) {
             return;
         }
 
-        let sortingId = _layout.sorting ? _layout.sorting.id : null;
-        let html = '';
-        let tableObject;
+        let tableOptions = { renderLimit: 100000, trueTotals: false }
+        let sortingId = layout.sorting ? layout.sorting.id : null;
+        let _response = layout.getResponse();
 
         var getHtml = function(title, _tableObject) {
             return (eventReportPlugin.showTitles ? 
-                uiManager.getTitleHtml(title) : '') + tableObject.html;
+                uiManager.getTitleHtml(title) : '') + _tableObject.html;
         };
 
         var createPivotTable = function(__layout) {
-
-            // get table
-            var getTable = function() {
-                let tableOptions = { skipTitle: true, trueTotals: false };
-                let _response = __layout.getResponse();
-
-                return new table.PivotTable(instanceRefs, __layout, _response, tableOptions);
-            };
 
             // pre-sort if id
             if (sortingId && sortingId !== 'total') {
@@ -139,46 +131,47 @@ function render(plugin, layout) {
             }
 
             // table
-            tableObject = getTable();
-            tableObject.build();
+            let pivotTable = new table.PivotTable(refs, layout, response, tableOptions);
 
             // sort if total
             if (sortingId && sortingId === 'total') {
-                __layout.sort(tableObject);
-                tableObject = getTable();
-                tableObject.build();
+                __layout.sort(pivotTable);
+                pivotTable.initialize();
             }
 
+            pivotTable.build();
+
+            let html = '';
+
             html += eventReportPlugin.showTitles ? uiManager.getTitleHtml(title) : '';
-            html += tableObject.render();
+            html += pivotTable.render();
 
             uiManager.update(html, __layout.el);
 
             // events
-            tableManager.setColumnHeaderMouseHandlers(__layout, tableObject);
+            tableManager.setColumnHeaderMouseHandlers(__layout, pivotTable);
 
             // mask
             uiManager.unmask();
         };
 
         var createEventDataTable = function(__layout) {
-            var _response = __layout.getResponse();
-            var statusBar = uiManager.get('statusBar');
+            let statusBar = uiManager.get('statusBar');
 
-            tableObject = new table.EventDataTable(refs, __layout, _response);
+            let eventTable = new table.EventDataTable(refs, __layout, _response);
 
-            if (tableObject) {
+            if (eventTable) {
 
-                var html = getHtml(__layout.title || __layout.name, tableObject);
+                var html = getHtml(__layout.title || __layout.name, eventTable);
 
                 // render
-                uiManager.update(tableObject.html, __layout.el);
+                uiManager.update(eventTable.html, __layout.el);
 
                 __layout.sorting = layout.sorting;
                 __layout.setResponse(null);
 
                 // events
-                tableManager.setColumnHeaderMouseHandlers(__layout, tableObject);
+                tableManager.setColumnHeaderMouseHandlers(__layout, eventTable);
 
                 if (statusBar) {
                     statusBar.setStatus(__layout, _response);
