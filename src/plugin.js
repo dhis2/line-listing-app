@@ -131,7 +131,7 @@ function render(plugin, layout) {
             }
 
             // table
-            let pivotTable = new table.PivotTable(refs, layout, response, tableOptions);
+            let pivotTable = new table.PivotTable(refs, layout, _response, tableOptions);
 
             // sort if total
             if (sortingId && sortingId === 'total') {
