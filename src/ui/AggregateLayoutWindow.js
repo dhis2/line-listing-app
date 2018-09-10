@@ -95,7 +95,7 @@ AggregateLayoutWindow = function(refs) {
             if (programType === 'WITH_REGISTRATION') {
                 this.add(timeFieldOptions);
             } else {
-                this.add(timeFieldOptions.filter(r => r.id === 'EVENT_DATE'));
+                this.add(timeFieldOptions.filter(r => r.id.match(/^(EVENT_DATE|CREATED|LAST_UPDATED)$/)));
             }
         }
     };
