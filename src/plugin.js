@@ -115,8 +115,8 @@ function render(plugin, layout) {
         }
 
         let tableOptions = { renderLimit: 100000, trueTotals: false }
-        let sortingId = layout.sorting ? layout.sorting.id : null;
-        let _response = layout.getResponse();
+        let sortingId = _layout.sorting ? _layout.sorting.id : null;
+        let _response = _layout.getResponse();
 
         var getHtml = function(title, _tableObject) {
             return (eventReportPlugin.showTitles ? 
@@ -131,14 +131,18 @@ function render(plugin, layout) {
             }
 
             // table
-            let pivotTable = new table.PivotTable(refs, layout, _response, tableOptions);
+            let pivotTable = new table.PivotTable(refs, __layout, _response, tableOptions);
 
+            // initialzie table
+            pivotTable.initialize();
+            
             // sort if total
             if (sortingId && sortingId === 'total') {
                 __layout.sort(pivotTable);
                 pivotTable.initialize();
             }
 
+            // build table
             pivotTable.build();
 
             let html = '';
