@@ -1324,9 +1324,9 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@30.0.23:
-  version "30.0.23"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-30.0.23.tgz#be4dd0ba2094aa03659fb31c95a874fb40ee956d"
+d2-analysis@30.0.24:
+  version "30.0.24"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-30.0.24.tgz#5d25ecb5a8f3bd10658903d5d40f119598010868"
   dependencies:
     d2-utilizr "^0.2.16"
     jquery "2.1.4"
@@ -1389,8 +1389,6 @@ dateformat@^2.0.0:
 debug@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
-  dependencies:
-    ms "0.7.2"
 
 debug@2.6.3, debug@^2.1.1, debug@^2.2.0:
   version "2.6.3"
