@@ -1674,3 +1674,16 @@ table.pivot.displaydensity-COMPACT td.pivot-filter {
 	display: block;
 	max-height: 295px;
 }
+
+.markdown {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.markdown strong {
+  font-weight: bold;
+}
+
+.markdown em {
+  font-style: italic;
+}

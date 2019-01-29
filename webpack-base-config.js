@@ -18,6 +18,7 @@ module.exports = {
                 test: /\.js$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
+                    /@dhis2\/d2-ui-rich-text/,
                 ],
                 loader: 'babel',
                 query: {
@@ -34,6 +35,10 @@ module.exports = {
                 loaders: [
                     'url-loader?limit=8192'
                 ]
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
             },
         ],
     },
