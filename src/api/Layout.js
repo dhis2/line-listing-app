@@ -313,7 +313,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             ) {
                 request.add(this.sorting.direction.toLowerCase() + '=' + this.sorting.id);
             } else {
-                request.add('asc=eventdate'); // default sort by event date
+                request.add('desc=eventdate'); // default sort by event date
             }
         }
 
