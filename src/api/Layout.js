@@ -91,6 +91,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
         t.timeField = c.timeField;
     }
 
+    // orgUnitField
+    if (isString(c.orgUnitField)) {
+        t.orgUnitField = c.orgUnitField;
+    }
+
     // paging
     if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
         t.paging = c.paging;
@@ -281,6 +286,10 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         // timeField
         if (this.timeField) {
             request.add('timeField=' + this.timeField);
+        }
+
+        if (this.orgUnitField) {
+            request.add('orgUnitField=' + this.orgUnitField);
         }
 
         // collapse data items

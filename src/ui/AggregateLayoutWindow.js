@@ -27,7 +27,9 @@ AggregateLayoutWindow = function(refs) {
         defaultWidth = 210,
         defaultHeight = 220,
         defaultValueId = 'default',
-        defaultTimeFieldId = 'EVENT_DATE';
+        defaultTimeFieldId = 'EVENT_DATE',
+        defaultOrgUnitFieldId = 'EVENT_ORG_UNIT',
+        ORGANISATION_UNIT_TYPE = 'ORGANISATION_UNIT';
 
     var getStore = function(applyConfig) {
         var config = {},
@@ -71,6 +73,7 @@ AggregateLayoutWindow = function(refs) {
     var filterStore = getStore({ name: 'filterStore' });
     var valueStore = getStore({ name: 'valueStore' });
     var timeFieldStore = getStore({ name: 'timeFieldStore' });
+    var orgUnitFieldStore = getStore({ name: 'orgUnitFieldStore '});
 
     // store functions
     valueStore.addDefaultData = function() {
@@ -97,6 +100,14 @@ AggregateLayoutWindow = function(refs) {
             } else {
                 this.add(timeFieldOptions.filter(r => r.id.match(/^(EVENT_DATE|CREATED|LAST_UPDATED)$/)));
             }
+        }
+    };
+
+    orgUnitFieldStore.addDefaultData = function() {
+        if (!this.getById(defaultOrgUnitFieldId)) {
+            const orgUnitFieldOptions = optionConfig.getOrgUnitFieldRecords();
+
+            this.add(orgUnitFieldOptions);
         }
     };
 
@@ -327,6 +338,61 @@ AggregateLayoutWindow = function(refs) {
         },
     });
 
+    var orgUnitField = Ext.create('Ext.form.field.ComboBox', {
+        cls: 'ns-combo h24',
+        width: defaultWidth - 4,
+        height: 24,
+        fieldStyle: 'height: 24px',
+        queryMode: 'local',
+        valueField: 'id',
+        displayField: 'name',
+        editable: false,
+        store: orgUnitFieldStore,
+        value: defaultOrgUnitFieldId,
+        setDefaultData: function() {
+            orgUnitFieldStore.addDefaultData();
+            this.setValue(defaultOrgUnitFieldId);
+        },
+        setDefaultDataIf: function() {
+            if (!orgUnitField.getValue()) {
+                this.setDefaultData();
+            }
+        },
+        resetValue: function() {
+            if (!this.store.getById(this.getValue())) {
+                this.setValue(defaultOrgUnitFieldId);
+            }
+        },
+        resetProgramAttributes: function(programAttributes) {
+            const orgUnitProgramAttributes = programAttributes
+                .filter(record =>
+                    record.trackedEntityAttribute &&
+                    record.trackedEntityAttribute.valueType === ORGANISATION_UNIT_TYPE
+                )
+                .map(({ trackedEntityAttribute }) => ({
+                    id: trackedEntityAttribute.id,
+                    name: trackedEntityAttribute.name,
+                }));
+
+            orgUnitFieldStore.removeAll();
+            orgUnitFieldStore.addDefaultData();
+            orgUnitFieldStore.add(orgUnitProgramAttributes);
+
+            this.resetValue();
+        },
+        resetDataElements: function(dataElements) {
+            orgUnitFieldStore.filterBy(function(record) {
+                return !record.data.name.startsWith('[DE]');
+            });
+
+            orgUnitFieldStore.add(dataElements.filter(function(record) {
+                return record.valueType === ORGANISATION_UNIT_TYPE;
+            }));
+
+            this.resetValue();
+        }
+    });
+
     var val = Ext.create('Ext.panel.Panel', {
         bodyStyle: 'padding: 1px',
         width: defaultWidth,
@@ -361,6 +427,20 @@ AggregateLayoutWindow = function(refs) {
                     timeField,
                 ],
             },
+            {
+                xtype: 'container',
+                bodyStyle: 'border:0 none',
+                style: 'margin-top:8px',
+                items: [
+                    {
+                        xtype: 'label',
+                        height: 22,
+                        style: 'padding-left: 4px; line-height: 18px; font-weight: bold',
+                        text: i18n.org_unit_field || 'Org unit field',
+                    },
+                    orgUnitField,
+                ]
+            }
         ],
         tbar: {
             height: 25,
@@ -524,6 +604,7 @@ AggregateLayoutWindow = function(refs) {
 
         value.clearValue();
         timeField.clearValue();
+        orgUnitField.clearValue();
 
         if (!isAll) {
             colStore.add({
@@ -611,6 +692,7 @@ AggregateLayoutWindow = function(refs) {
         timeFieldStore: timeFieldStore,
         value: value,
         timeField: timeField,
+        orgUnitField: orgUnitField,
         addDimension: addDimension,
         removeDimension: removeDimension,
         hasDimension: hasDimension,
@@ -628,7 +710,8 @@ AggregateLayoutWindow = function(refs) {
         getValueConfig: function() {
             var config = {},
                 valueId = value.getValue(),
-                timeFieldId = timeField.getValue();
+                timeFieldId = timeField.getValue(),
+                orgUnitFieldId = orgUnitField.getValue();
 
             if (valueId && valueId !== defaultValueId) {
                 config.value = { id: valueId };
@@ -637,6 +720,13 @@ AggregateLayoutWindow = function(refs) {
 
             if (timeFieldId && timeFieldId !== defaultTimeFieldId) {
                 config.timeField = timeFieldId;
+            }
+
+            if (
+                orgUnitFieldId &&
+                orgUnitFieldId !== defaultOrgUnitFieldId
+            ) {
+                config.orgUnitField = orgUnitFieldId;
             }
 
             return config;
@@ -649,6 +739,9 @@ AggregateLayoutWindow = function(refs) {
         },
         setTimeField: function(id) {
             this.timeField.setValue(id);
+        },
+        setOrgUnitField: function(id) {
+            this.orgUnitField.setValue(id);
         },
         getOptions: function() {
             return {
@@ -700,6 +793,9 @@ AggregateLayoutWindow = function(refs) {
 
                 // timeField
                 timeField.setDefaultDataIf();
+
+                // orgunitField
+                orgUnitField.setDefaultDataIf();
             },
             render: function() {
                 reset();
