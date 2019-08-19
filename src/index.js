@@ -4,13 +4,12 @@ import './css/meringue.css';
 import './css/jquery.calendars.picker.css';
 import 'd2-analysis/css/ui/GridHeaders.css';
 
-import arrayTo from 'd2-utilizr/lib/arrayTo';
-
 import { api, table, manager, config, init, ui, override, ux } from 'd2-analysis';
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
 import { InstanceManager } from './manager/InstanceManager';
+import { AppManager } from './manager/AppManager';
 
 import { AggregateLayoutWindow } from './ui/AggregateLayoutWindow';
 import { QueryLayoutWindow } from './ui/QueryLayoutWindow';
@@ -26,6 +25,7 @@ override.extOverrides();
 api.Dimension = Dimension;
 api.Layout = Layout;
 manager.InstanceManager = InstanceManager;
+manager.AppManager = AppManager;
 
 // references
 var refs = {
@@ -135,7 +135,7 @@ function initialize() {
 
     // instance manager
     instanceManager.setFn(function(layout) {
-        
+
         let tableOptions = { renderLimit: 100000 }
         let sortingId = layout.sorting ? layout.sorting.id : null;
         let response = layout.getResponse();
@@ -152,14 +152,14 @@ function initialize() {
         let createPivotTable = function(layout, response) {
 
             let statusBar = uiManager.get('statusBar');
-            
+
             let tableOptions = { renderLimit: 100000, unclickable: true }
             let sortingId = layout.sorting ? layout.sorting.id : null;
 
             if (statusBar) {
                 statusBar.reset();
             }
-            
+
             // pre-sort if id
             if (sortingId && sortingId !== 'total') {
                 layout.sort();
@@ -219,7 +219,7 @@ function initialize() {
 
         // initialize table values
         _table.initialize();
-        
+
         // bind mouse events
         let bindMouseHandlers = () => {
             tableManager.setColumnHeaderMouseHandlers(layout, _table);
@@ -257,8 +257,8 @@ function initialize() {
         instanceManager.postDataStatistics();
 
         if (_table.doClipping()) {
-            
-            uiManager.setScrollFn('centerRegion', ({ target: { scrollTop, scrollLeft } }) => { 
+
+            uiManager.setScrollFn('centerRegion', ({ target: { scrollTop, scrollLeft } }) => {
                 _table.scrollHandler(uiManager.update, scrollTop, scrollLeft, () => {
                     bindMouseHandlers();
                 });
@@ -277,7 +277,7 @@ function initialize() {
 
         uiManager.scrollTo("centerRegion", 0, 0);
     }
-    
+
     // ui manager
     uiManager.disableRightClick();
     uiManager.enableConfirmUnload();

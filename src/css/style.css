@@ -38,6 +38,10 @@
  * General
  *--------------------------------------------------------------------------*/
 
+body * {
+	font-family: 'Helvetica Neue','Helvetica','Arial','sans-serif' !important;
+}
+
 body,
 .x-body,
 .x-btn-default-small .x-btn-inner,
@@ -48,7 +52,6 @@ body,
 .x-form-item-label,
 .x-window-header-text-default {
 	font-size: 11px;
-	font-family: 'Helvetica Neue','Helvetica','Arial','sans-serif' !important;
 }
 
 #init {
@@ -180,8 +183,11 @@ body,
 	float: none;
 	clear: none;
 	display: block;
-	margin-bottom: 2px !important;
-    color: #333;
+	margin-bottom: 3px !important;
+    color: #222;
+}
+.ns-form-item-label-top.bold {
+	font-weight: 600;
 }
 .ns-form-item-label-top-padding {
     padding-top: 3px;

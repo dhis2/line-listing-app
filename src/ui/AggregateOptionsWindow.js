@@ -78,27 +78,6 @@ AggregateOptionsWindow = function(refs) {
         style: 'margin-top:' + separatorTopMargin + 'px'
     });
 
-    var outputType = Ext.create('Ext.form.field.ComboBox', {
-        cls: 'ns-combo',
-        style: 'margin-bottom:' + comboboxBottomMargin + 'px',
-        width: comboboxWidth,
-        labelWidth: comboboxLabelWidth,
-        fieldLabel: i18n.output_type,
-        labelStyle: 'color:#333',
-        queryMode: 'local',
-        valueField: 'id',
-        editable: false,
-        value: 'EVENT',
-        store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
-            data: [
-                {id: 'EVENT', text: i18n.event},
-                {id: 'ENROLLMENT', text: i18n.enrollment},
-                {id: 'TRACKED_ENTITY_INSTANCE', text: i18n.tracked_entity_instance}
-            ]
-        })
-    });
-
     var programStatus = ProgramStatusSelect(refs, {
         labelWidth: comboboxLabelWidth,
         width: comboboxWidth
@@ -181,7 +160,6 @@ AggregateOptionsWindow = function(refs) {
             hideNaData,
             completedOnly,
             limit,
-            outputType,
             programStatus,
             eventStatus
             //aggregationType
@@ -228,7 +206,6 @@ AggregateOptionsWindow = function(refs) {
                 hideEmptyRows: hideEmptyRows.getValue(),
                 hideNaData: hideNaData.getValue(),
                 completedOnly: completedOnly.getValue(),
-                outputType: outputType.getValue(),
                 programStatus: programStatus.getValue(),
                 eventStatus: eventStatus.getValue(),
                 sortOrder: limit.getSortOrder(),
@@ -252,7 +229,6 @@ AggregateOptionsWindow = function(refs) {
             hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
-            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event').id);
             programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);
             eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
             limit.setValues(layout.sortOrder, layout.topLimit);
@@ -326,7 +302,6 @@ AggregateOptionsWindow = function(refs) {
                 w.hideNaData = hideNaData;
                 w.completedOnly = completedOnly;
                 w.limit = limit;
-                w.outputType = outputType;
                 w.showHierarchy = showHierarchy;
                 w.displayDensity = displayDensity;
                 w.fontSize = fontSize;

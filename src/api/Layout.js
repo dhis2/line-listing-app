@@ -118,6 +118,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
             ? c.reportParams.paramParentOrganisationUnit
             : isBoolean(c.parentOrganisationUnit) ? c.parentOrganisationUnit : false;
 
+    // data element dimensions
+    if (c.dataElementDimensions) {
+        t.dataElementDimensions = c.dataElementDimensions;
+    }
+
     // force apply
     Object.assign(t, forceApplyConfig);
 
@@ -170,18 +175,40 @@ Layout.prototype.getDataTypeUrl = function() {
     var t = this,
         refs = t.getRefs();
 
-    var { dimensionConfig } = refs;
+    var { dimensionConfig, optionConfig } = refs;
 
-    var defaultDataTypeUrl = dimensionConfig.dataTypeUrl[dimensionConfig.getDefaultDataType()];
+    var DATA_TYPE_AGG = dimensionConfig.dataType['aggregated_values'];
+    var DATA_TYPE_EVENT = dimensionConfig.dataType['individual_cases'];
+    var OUTPUT_TYPE_EVENT = optionConfig.getOutputType('event').id;
+    var OUTPUT_TYPE_ENROLLMENT = optionConfig.getOutputType('enrollment').id;
 
-    var url = dimensionConfig.dataTypeUrl[this.dataType] || defaultDataTypeUrl;
+    var url = this.dataType === DATA_TYPE_AGG ? '/events/aggregate' :
+              this.outputType === OUTPUT_TYPE_EVENT ? '/events/query' :
+              '/enrollments/query';
 
-    return url || '';
+    return url || dimensionConfig.dataTypeUrl[dimensionConfig.getDefaultDataType()] || '';
 };
+
+Layout.prototype.getDefaultSortParam = function() {
+    var { optionConfig } = refs;
+
+    var OUTPUT_TYPE_EVENT = optionConfig.getOutputType('event').id;
+    var OUTPUT_TYPE_ENROLLMENT = optionConfig.getOutputType('enrollment').id;
+
+    return 'desc=' + (this.outputType === OUTPUT_TYPE_EVENT ?
+        'eventdate' : this.outputType === OUTPUT_TYPE_ENROLLMENT ?
+        'enrollmentdate' : ''
+    );
+}
 
 Layout.prototype.getProgramUrl = function() {
     return isObject(this.program) ? '/' + this.program.id : '';
 };
+
+Layout.prototype.getDataElementName = function(dataElementId) {
+    return isArray(this.dataElementDimensions) ?
+        this.dataElementDimensions.find(obj => obj.dataElement.id === dataElementId).dataElement.name : null;
+}
 
 // dep 1
 
@@ -322,7 +349,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             ) {
                 request.add(this.sorting.direction.toLowerCase() + '=' + this.sorting.id);
             } else {
-                request.add('desc=eventdate'); // default sort by event date
+                request.add(this.getDefaultSortParam()); // default sort by event date
             }
         }
 

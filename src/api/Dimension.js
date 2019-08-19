@@ -18,6 +18,10 @@ export var Dimension = function(refs, c, applyConfig, forceApplyConfig) {
     Object.assign(t, new d2aDimension(refs, c, applyConfig));
 
     // props
+    if (isObject(c.programStage)) {
+        t.programStage = c.programStage;
+    }
+
     if (isString(c.filter)) {
         t.filter = c.filter;
     }
@@ -50,12 +54,14 @@ Dimension.prototype.isIgnoreDimension = function() {
 
 // dep 1
 
+const getFullId = dim => (dim.programStage ? dim.programStage.id + '.' : '') + dim.dimension;
+
 Dimension.prototype.url = function(isSorted, response, isFilter) {
     if (this.isIgnoreDimension()) {
         return '';
     }
 
-    var url = (isFilter ? 'filter' : 'dimension') + '=' + this.dimension;
+    var url = (isFilter ? 'filter' : 'dimension') + '=' + getFullId(this);
 
     if (isObject(this.legendSet)) {
         url += '-' + this.legendSet.id;
