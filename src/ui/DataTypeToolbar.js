@@ -8,6 +8,9 @@ DataTypeToolbar = function(refs) {
 
     var i18n = i18nManager.get();
 
+    var DATA_TYPE_ID = 'dataType'
+    var OUTPUT_TYPE_ID = 'outputType'
+
     var DATA_TYPE_PIVOT_ID = dimensionConfig.dataType['aggregated_values'];
     var DATA_TYPE_LIST_ID = dimensionConfig.dataType['individual_cases'];
 
@@ -28,7 +31,7 @@ DataTypeToolbar = function(refs) {
         uiManager.get('accordion').onOutputTypeSelect(value || outputType.getValue());
     };
 
-    var getCombobox = function(data, value, labelText, onSelect) {
+    var getCombobox = function(data, value, propName, labelText, onSelect) {
         return Ext.create('Ext.form.field.ComboBox', {
             editable: false,
             valueField: 'id',
@@ -43,6 +46,7 @@ DataTypeToolbar = function(refs) {
             listConfig: { loadMask: false },
             style: 'margin:1px 1px 1px 0; padding-bottom:1px;',
             value: value,
+            propName: propName,
             store: {
                 fields: ['id', 'name'],
                 data: data,
@@ -56,14 +60,14 @@ DataTypeToolbar = function(refs) {
     var dataType = getCombobox([
         { id: DATA_TYPE_PIVOT_ID, name: i18n.pivot_table },
         { id: DATA_TYPE_LIST_ID, name: i18n.line_list },
-    ], DATA_TYPE_PIVOT_ID, i18n.table_style, cmp => onDataTypeSelect(cmp.getValue()));
+    ], DATA_TYPE_PIVOT_ID, DATA_TYPE_ID, i18n.table_style, cmp => onDataTypeSelect(cmp.getValue()));
 
     uiManager.reg(dataType, 'dataType');
 
     var outputType = getCombobox([
         { id: OUTPUT_TYPE_EVENT_ID, name: i18n.event },
         { id: OUTPUT_TYPE_ENROLLMENT_ID, name: i18n.enrollment },
-    ], OUTPUT_TYPE_EVENT_ID, i18n.output_type, cmp => onOutputTypeSelect(cmp.getValue()));
+    ], OUTPUT_TYPE_EVENT_ID, OUTPUT_TYPE_ID, i18n.output_type, cmp => onOutputTypeSelect(cmp.getValue()));
 
     uiManager.reg(outputType, 'outputType');
 
@@ -93,7 +97,11 @@ DataTypeToolbar = function(refs) {
         items: [
             dataType,
             outputType
-        ]
+        ],
+        cmp: {
+            dataType: dataType,
+            outputType: outputType,
+        }
     });
 
     return dataTypeToolbar;
