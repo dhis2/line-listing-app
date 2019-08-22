@@ -190,6 +190,9 @@ Layout.prototype.getDataTypeUrl = function() {
 };
 
 Layout.prototype.getDefaultSortParam = function() {
+    var t = this,
+        refs = t.getRefs();
+
     var { optionConfig } = refs;
 
     var OUTPUT_TYPE_EVENT = optionConfig.getOutputType('event').id;
