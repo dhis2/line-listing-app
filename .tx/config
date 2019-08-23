@@ -1,0 +1,10 @@
+[main]
+host = https://www.transifex.com
+lang_map = fa_AF: prs
+
+[app-event-reports.i18n-app-properties--master]
+file_filter = i18n/i18n_app_<lang>.properties
+minimum_perc = 0
+source_file = i18n/i18n_app.properties
+source_lang = en
+type = PROPERTIES
