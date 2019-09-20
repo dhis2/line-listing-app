@@ -4,7 +4,7 @@ import { AppManager } from 'd2-analysis';
 export { AppManager };
 
 const analysisFields = [
-    'dataElementDimensions[dataElement[id,name]]',
+    'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
 ];
 
 AppManager.prototype.getAnalysisFields = function() {
