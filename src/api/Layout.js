@@ -13,6 +13,10 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
     c = isObject(c) ? c : {};
 
+    // TMP: remove 'dy' dimension
+    isArray(c.columns) && (c.columns = c.columns.filter(dim => dim.dimension !== 'dy'));
+    isArray(c.rows) && (c.rows = c.rows.filter(dim => dim.dimension !== 'dy'));
+
     // inherit
     Object.assign(t, new d2aLayout(refs, c, applyConfig));
 
