@@ -232,8 +232,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     var defAggTypeId = optionConfig.getAggregationType('def').id,
         displayProperty = this.displayProperty || appManager.getAnalyticsDisplayProperty();
 
-    source =
+    var src =
         source || instanceManager.analyticsEndpoint + this.getDataTypeUrl() + this.getProgramUrl();
+
+    var isPivotTable = t.dataType === dimensionConfig.dataType['aggregated_values'];
+    var isLineList = t.dataType === dimensionConfig.dataType['individual_cases'];
 
     // dimensions
     this.getDimensions(false, isSorted).forEach(function(dimension) {
@@ -252,6 +255,12 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     // stage
     if (isObject(this.programStage)) {
         request.add('stage=' + this.programStage.id);
+    }
+
+    // dates
+    if (isString(this.startDate) && isString(this.endDate)) {
+        request.add('startDate=' + this.startDate);
+        request.add('endDate=' + this.endDate);
     }
 
     // display property
@@ -294,7 +303,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         if (
             isNumber(this.topLimit) &&
             this.topLimit &&
-            this.dataType === dimensionConfig.dataType['aggregated_values']
+            isPivotTable
         ) {
             request.add('limit=' + this.topLimit);
 
@@ -331,12 +340,6 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('collapseDataDimensions=true');
         }
 
-        // dates
-        if (isString(this.startDate) && isString(this.endDate)) {
-            request.add('startDate=' + this.startDate);
-            request.add('endDate=' + this.endDate);
-        }
-
         // user org unit
         if (isArray(this.userOrgUnit) && this.userOrgUnit.length) {
             request.add(this.getUserOrgUnitUrl());
@@ -348,7 +351,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // sorting
-        if (this.dataType === dimensionConfig.dataType['individual_cases']) {
+        if (isLineList) {
             if (
                 isObject(this.sorting) &&
                 isString(this.sorting.direction) &&
@@ -361,7 +364,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         }
 
         // paging
-        if (this.dataType === dimensionConfig.dataType['individual_cases']) {
+        if (isLineList) {
             var paging = this.paging || {};
 
             request.add('pageSize=' + (paging.pageSize || 100));
@@ -413,6 +416,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         if (this.showHierarchy) {
             request.add('showHierarchy=true');
         }
+
+        // paging
+        if (isLineList) {
+            request.add('paging=false');
+        }
     }
 
     // relative orgunits / user
@@ -421,7 +429,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     }
 
     // base
-    request.setBaseUrl(this.getRequestPath(source, format));
+    request.setBaseUrl(this.getRequestPath(src, format));
 
     return request;
 };
