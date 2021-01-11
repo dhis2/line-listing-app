@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-reports-app#readme",
   "dependencies": {
-    "d2-analysis": "^33.2.17",
+    "d2-analysis": "^33.2.18",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
@@ -65,8 +65,8 @@
     "activities": {
       "dhis": {
         "href": "..",
-        "auth": "system:System123",
-        "devHref": "http://localhost:8080"
+        "auth": "admin:district",
+        "devHref": "https://debug.dhis2.org/dev"
       }
     }
   }
