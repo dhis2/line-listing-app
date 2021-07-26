@@ -1,3 +1,10 @@
+## [33.2.20](https://github.com/dhis2/event-reports-app/compare/v33.2.19...v33.2.20) (2021-07-26)
+
+
+### Bug Fixes
+
+* d2-analysis@33.2.24 ([44feb2e](https://github.com/dhis2/event-reports-app/commit/44feb2edd8c7244cf0cf1584b057ed59606c6a80))
+
 ## [33.2.19](https://github.com/dhis2/event-reports-app/compare/v33.2.18...v33.2.19) (2021-06-29)
 
 
