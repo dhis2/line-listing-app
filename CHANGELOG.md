@@ -1,3 +1,10 @@
+## [33.2.22](https://github.com/dhis2/event-reports-app/compare/v33.2.21...v33.2.22) (2021-09-20)
+
+
+### Bug Fixes
+
+* avoid global css ([237786a](https://github.com/dhis2/event-reports-app/commit/237786ad010cf08e625d38d27b008f8186114834))
+
 ## [33.2.21](https://github.com/dhis2/event-reports-app/compare/v33.2.20...v33.2.21) (2021-08-10)
 
 
