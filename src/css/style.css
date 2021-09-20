@@ -109,7 +109,7 @@ body,
 }
 
 	/* Disabled icons */
-.disabled {
+.x-body .disabled {
 	opacity: 0.4;
 	cursor: default !important;
 }
