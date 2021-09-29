@@ -1,7 +1,5 @@
-*.iml
-*.log
-.idea
-target/
-node_modules/
-build/
-manifest.webapp
+# DHIS2 Platform
+node_modules
+.d2
+src/locales
+build
