@@ -1,19 +1,20 @@
 {
-  "name": "event-reports-app",
-  "version": "100.0.0",
-  "description": "",
-  "license": "BSD-3-Clause",
-  "private": true,
-  "scripts": {
-    "build": "d2-app-scripts build",
-    "start": "d2-app-scripts start",
-    "test": "d2-app-scripts test",
-    "deploy": "d2-app-scripts deploy"
-  },
-  "devDependencies": {
-    "@dhis2/cli-app-scripts": "^8.1.1"
-  },
-  "dependencies": {
-    "@dhis2/app-runtime": "^3.2.2"
-  }
+    "name": "event-reports-app",
+    "version": "100.0.0",
+    "description": "",
+    "license": "BSD-3-Clause",
+    "private": true,
+    "scripts": {
+        "build": "d2-app-scripts build",
+        "start": "d2-app-scripts start",
+        "test": "d2-app-scripts test",
+        "deploy": "d2-app-scripts deploy"
+    },
+    "devDependencies": {
+        "@dhis2/cli-app-scripts": "^8.1.1",
+        "@dhis2/cli-style": "^9.3.0"
+    },
+    "dependencies": {
+        "@dhis2/app-runtime": "^3.2.2"
+    }
 }
