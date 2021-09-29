@@ -1,35 +1,37 @@
-import { DataQuery } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import classes from './App.module.css'
 
-const query = {
-    me: {
-        resource: 'me',
-    },
-}
-
 const MyApp = () => (
-    <div className={classes.container}>
-        <DataQuery query={query}>
-            {({ error, loading, data }) => {
-                if (error) {
-                    return <span>ERROR</span>
-                }
-                if (loading) {
-                    return <span>...</span>
-                }
-                return (
-                    <>
-                        <h1>
-                            {i18n.t('Hello {{name}}', { name: data.me.name })}
-                        </h1>
-                        <h3>{i18n.t('Welcome to DHIS2!')}</h3>
-                    </>
-                )
-            }}
-        </DataQuery>
-    </div>
+    <>
+        <div className={`${classes.eventReportsApp} flex-ct flex-dir-col`}>
+            <div className={`${classes.sectionToolbar} ${classes.flexCt}`}>
+                <div className={classes.toolbarType}>{'vis type selector'}</div>
+                <div
+                    className={`${classes.toolbarMenubar} ${classes.flexGrow1}`}
+                >
+                    {'menubar'}
+                </div>
+            </div>
+            <div
+                className={`${classes.sectionMain} ${classes.flexGrow1} ${classes.flexCt}`}
+            >
+                <div className={classes.mainLeft}>{'dimension panel'}</div>
+                <div
+                    className={`${classes.mainCenter} ${classes.flexGrow1} ${classes.flexBasis0} ${classes.flexCt} ${classes.flexDirCol}`}
+                >
+                    <div className={classes.mainCenterLayout}>{'layout'}</div>
+                    <div className={classes.mainCenterTitlebar}>
+                        {'titlebar'}
+                    </div>
+                    <div
+                        className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
+                    >
+                        {'visualization'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </>
 )
 
 export default MyApp
