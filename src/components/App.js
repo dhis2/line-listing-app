@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './App.module.css'
+import VisualizationOptionsManager from './VisualizationOptions/VisualizationOptionsManager'
 
 const MyApp = () => (
     <>
@@ -10,6 +11,7 @@ const MyApp = () => (
                     className={`${classes.toolbarMenubar} ${classes.flexGrow1}`}
                 >
                     {'menubar'}
+                    <VisualizationOptionsManager />
                 </div>
             </div>
             <div

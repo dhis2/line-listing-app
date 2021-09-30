@@ -12,9 +12,23 @@
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^8.1.1",
-        "@dhis2/cli-style": "^9.3.0"
+        "@dhis2/cli-style": "^9.3.0",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.6",
+        "jest-enzyme": "^7.1.2"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^3.2.2"
+        "@dhis2/analytics": "^20.4.10",
+        "@dhis2/app-runtime": "^3.2.2",
+        "@dhis2/app-runtime-adapter-d2": "^1.1.0",
+        "@dhis2/ui": "^7.2.1",
+        "history": "^5.0.1",
+        "react": "^16.14",
+        "react-redux": "^7.2.5",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0"
+    },
+    "resolutions": {
+        "@dhis2/prop-types": "^1.6.4"
     }
 }
