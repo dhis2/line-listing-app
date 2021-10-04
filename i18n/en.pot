@@ -5,11 +5,149 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-29T07:38:11.355Z\n"
-"PO-Revision-Date: 2021-09-29T07:38:11.355Z\n"
+"POT-Creation-Date: 2021-10-04T11:38:34.227Z\n"
+"PO-Revision-Date: 2021-10-04T11:38:34.227Z\n"
 
-msgid "Hello {{name}}"
-msgstr "Hello {{name}}"
+msgid "Column sub-totals"
+msgstr "Column sub-totals"
 
-msgid "Welcome to DHIS2!"
-msgstr "Welcome to DHIS2!"
+msgid "Columns totals"
+msgstr "Columns totals"
+
+msgid "Event data"
+msgstr "Event data"
+
+msgid "Only include completed events"
+msgstr "Only include completed events"
+
+msgid "Digit group separator"
+msgstr "Digit group separator"
+
+msgid "None"
+msgstr "None"
+
+msgid "Space"
+msgstr "Space"
+
+msgid "Comma"
+msgstr "Comma"
+
+msgid "Display density"
+msgstr "Display density"
+
+msgid "Comfortable"
+msgstr "Comfortable"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Compact"
+msgstr "Compact"
+
+msgid "Font size"
+msgstr "Font size"
+
+msgid "Large"
+msgstr "Large"
+
+msgid "Small"
+msgstr "Small"
+
+msgid "Hide empty rows"
+msgstr "Hide empty rows"
+
+msgid "Use legend for chart colors"
+msgstr "Use legend for chart colors"
+
+msgid "Legend style"
+msgstr "Legend style"
+
+msgid "Legend type"
+msgstr "Legend type"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Use pre-defined legend per data item"
+
+msgid "Select a single legend for the entire visualization"
+msgstr "Select a single legend for the entire visualization"
+
+msgid "Legend changes background color"
+msgstr "Legend changes background color"
+
+msgid "Legend changes text color"
+msgstr "Legend changes text color"
+
+msgid "Legend"
+msgstr "Legend"
+
+msgid "Select from legends"
+msgstr "Select from legends"
+
+msgid "Loading legends"
+msgstr "Loading legends"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+
+msgid "Minimum data value"
+msgstr "Minimum data value"
+
+msgid "Maximum data value"
+msgstr "Maximum data value"
+
+msgid "Clear min/max limits"
+msgstr "Clear min/max limits"
+
+msgid "Row sub-totals"
+msgstr "Row sub-totals"
+
+msgid "Row totals"
+msgstr "Row totals"
+
+msgid "Dimension labels"
+msgstr "Dimension labels"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Display organisation unit hierarchy"
+
+msgid "Show legend key"
+msgstr "Show legend key"
+
+msgid "Add a title"
+msgstr "Add a title"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Table title"
+msgstr "Table title"
+
+msgid "Display"
+msgstr "Display"
+
+msgid "Empty data"
+msgstr "Empty data"
+
+msgid "Totals"
+msgstr "Totals"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Limit values"
+msgstr "Limit values"
+
+msgid "Limit number of values"
+msgstr "Limit number of values"
+
+msgid "Limit minimum/maximum values"
+msgstr "Limit minimum/maximum values"
+
+msgid "Style"
+msgstr "Style"
