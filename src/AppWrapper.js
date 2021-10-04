@@ -43,9 +43,8 @@ const AppWrapper = () => {
         doFetch()
     }, [])
 
-    const schemas = ['eventReport', 'organisationUnit', 'userGroup']
     const d2Config = {
-        schemas,
+        schemas: [],
     }
 
     return (
