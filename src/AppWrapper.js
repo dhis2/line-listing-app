@@ -17,7 +17,7 @@ const AppWrapper = () => {
     const { baseUrl } = useConfig()
     const engine = useDataEngine()
     const store = configureStore([
-        thunk.withExtraArgument(engine),
+        thunk.withExtraArgument(engine), // FIXME: Not needed for ER? Pointed out by @edoardo
         metadataMiddleware,
     ])
 
