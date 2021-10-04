@@ -28,6 +28,14 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0"
     },
+    "jest": {
+        "transformIgnorePatterns": [
+            "node_modules/(?!(lodash-es|@dhis2/d2-ui-[a-z-]+)/)"
+        ],
+        "setupFilesAfterEnv": [
+            "./config/testSetup.js"
+        ]
+    },
     "resolutions": {
         "@dhis2/prop-types": "^1.6.4"
     }

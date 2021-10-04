@@ -1,8 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import classes from './App.module.css'
 import VisualizationOptionsManager from './VisualizationOptions/VisualizationOptionsManager'
 
-const MyApp = () => (
+const App = () => (
     <>
         <div className={`${classes.eventReportsApp} flex-ct flex-dir-col`}>
             <div className={`${classes.sectionToolbar} ${classes.flexCt}`}>
@@ -36,4 +37,14 @@ const MyApp = () => (
     </>
 )
 
-export default MyApp
+const mapStateToProps = () => ({})
+
+const mapDispatchToProps = {}
+
+App.contextTypes = {}
+
+App.childContextTypes = {}
+
+App.propTypes = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
