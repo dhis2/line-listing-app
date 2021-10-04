@@ -5,14 +5,20 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-30T12:51:57.188Z\n"
-"PO-Revision-Date: 2021-09-30T12:51:57.188Z\n"
+"POT-Creation-Date: 2021-10-04T11:38:34.227Z\n"
+"PO-Revision-Date: 2021-10-04T11:38:34.227Z\n"
 
 msgid "Column sub-totals"
 msgstr "Column sub-totals"
 
 msgid "Columns totals"
 msgstr "Columns totals"
+
+msgid "Event data"
+msgstr "Event data"
+
+msgid "Only include completed events"
+msgstr "Only include completed events"
 
 msgid "Digit group separator"
 msgstr "Digit group separator"
