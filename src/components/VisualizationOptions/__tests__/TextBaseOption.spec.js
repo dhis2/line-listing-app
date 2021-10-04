@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import { TextBaseOption } from '../Options/TextBaseOption'
 
-describe('DV > Options > TextBaseOption', () => {
+describe('ER > Options > TextBaseOption', () => {
     let props
     let shallowTextBaseOption
     let onChange

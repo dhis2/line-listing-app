@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import { CheckboxBaseOption } from '../Options/CheckboxBaseOption'
 
-describe('DV > Options > CheckboxBaseOption', () => {
+describe('ER > Options > CheckboxBaseOption', () => {
     let props
     let shallowCheckboxBaseOption
     let onChange

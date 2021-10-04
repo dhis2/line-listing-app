@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import React from 'react'
 import { SelectBaseOption } from '../Options/SelectBaseOption'
 
-describe('DV > Options > SelectBaseOption', () => {
+describe('ER > Options > SelectBaseOption', () => {
     let props
     let shallowSelectBaseOption
     const onChange = jest.fn()
