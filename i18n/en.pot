@@ -5,8 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-04T11:38:34.227Z\n"
-"PO-Revision-Date: 2021-10-04T11:38:34.227Z\n"
+"POT-Creation-Date: 2021-10-05T12:48:13.893Z\n"
+"PO-Revision-Date: 2021-10-05T12:48:13.893Z\n"
+
+msgid "Getting started"
+msgstr "Getting started"
+
+msgid "TEXT"
+msgstr "TEXT"
+
+msgid "Your most viewed TEXT"
+msgstr "Your most viewed TEXT"
 
 msgid "Column sub-totals"
 msgstr "Column sub-totals"
@@ -124,6 +133,35 @@ msgstr "Add a title"
 
 msgid "Options"
 msgstr "Options"
+
+msgid "There is a problem with this visualization."
+msgstr "There is a problem with this visualization."
+
+msgid "There was a problem getting the data from the server."
+msgstr "There was a problem getting the data from the server."
+
+msgid "No data available"
+msgstr "No data available"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or "
+"you may not have access to it."
+msgstr ""
+"The selected dimensions didn’t return any data. There may be no data, or "
+"you may not have access to it."
+
+msgid "Visualization not found"
+msgstr "Visualization not found"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could "
+"be incorrect or it could have been deleted."
+msgstr ""
+"The visualization you are trying to view could not be found, the ID could "
+"be incorrect or it could have been deleted."
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
 
 msgid "Table title"
 msgstr "Table title"

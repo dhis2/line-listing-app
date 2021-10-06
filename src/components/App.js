@@ -1,17 +1,24 @@
-import { useDataQuery } from '@dhis2/app-runtime'
+import { useDataQuery, useDataMutation } from '@dhis2/app-runtime'
+import { useD2 } from '@dhis2/app-runtime-adapter-d2'
+import { CssVariables } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
+import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
     acSetVisualization,
 } from '../actions/visualization'
+import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetVisualization } from '../reducers/visualization'
 import classes from './App.module.css'
+import { default as TitleBar } from './TitleBar/TitleBar'
 import { Toolbar } from './Toolbar/Toolbar'
+import StartScreen from './Visualization/StartScreen'
+import { Visualization } from './Visualization/Visualization'
 
 const visualizationQuery = {
     eventReport: {
@@ -24,6 +31,15 @@ const visualizationQuery = {
     },
 }
 
+const dataStatisticsMutation = {
+    resource: 'dataStatistics',
+    params: ({ id }) => ({
+        favorite: id,
+        eventType: EVENT_TYPE,
+    }),
+    type: 'create',
+}
+
 const App = ({
     location,
     visualization,
@@ -31,12 +47,15 @@ const App = ({
     clearVisualization,
     setCurrent,
     setVisualization,
+    setUser,
 }) => {
     const [previousLocation, setPreviousLocation] = useState(null)
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const { data, refetch } = useDataQuery(visualizationQuery, {
         lazy: true,
     })
+    const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
+    const { d2 } = useD2()
 
     const needsRefetch = location => {
         if (!previousLocation) {
@@ -80,6 +99,7 @@ const App = ({
     }
 
     useEffect(() => {
+        setUser(d2.currentUser)
         loadVisualization(location)
 
         const unlisten = history.listen(({ location }) => {
@@ -99,9 +119,11 @@ const App = ({
     }, [])
 
     useEffect(() => {
-        if (data?.eventReport) {
-            setVisualization(data.eventReport)
-            setCurrent(data.eventReport)
+        const visualization = data?.eventReport
+        if (visualization) {
+            setVisualization(visualization)
+            setCurrent(visualization)
+            postDataStatistics({ id: visualization.id })
         }
     }, [data])
 
@@ -117,19 +139,25 @@ const App = ({
                 >
                     <div className={classes.mainCenterLayout}>{'layout'}</div>
                     <div className={classes.mainCenterTitlebar}>
-                        {'titlebar'}
+                        <TitleBar />
                     </div>
                     <div
                         className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
                     >
-                        {initialLoadIsComplete
-                            ? visualization
-                                ? visualization.name
-                                : 'start screen'
-                            : 'loading...'}
+                        {initialLoadIsComplete ? (
+                            visualization ? (
+                                <Visualization visualization={visualization} />
+                            ) : (
+                                <StartScreen />
+                            )
+                        ) : (
+                            'loading... (TODO)'
+                            // TODO: add loading spinner
+                        )}
                     </div>
                 </div>
             </div>
+            <CssVariables colors spacers />
         </div>
     )
 }
@@ -144,6 +172,7 @@ const mapDispatchToProps = {
     clearCurrent: acClearCurrent,
     setCurrent: acSetCurrent,
     setVisualization: acSetVisualization,
+    setUser: acSetUser,
 }
 
 App.propTypes = {
@@ -151,6 +180,7 @@ App.propTypes = {
     clearVisualization: PropTypes.func,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
+    setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
 }

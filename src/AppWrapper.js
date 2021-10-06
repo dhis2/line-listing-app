@@ -1,5 +1,5 @@
 import { apiFetchOrganisationUnitLevels } from '@dhis2/analytics'
-import { useConfig, useDataEngine } from '@dhis2/app-runtime'
+import { useDataEngine } from '@dhis2/app-runtime'
 import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
 import React, { useState, useEffect, useCallback } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
@@ -14,7 +14,6 @@ import history from './modules/history'
 import './locales'
 
 const AppWrapper = () => {
-    const { baseUrl } = useConfig()
     const engine = useDataEngine()
     const store = configureStore([
         thunk.withExtraArgument(engine), // FIXME: Not needed for ER? Pointed out by @edoardo
@@ -65,10 +64,7 @@ const AppWrapper = () => {
                                     } else {
                                         return (
                                             <App
-                                                d2={d2}
                                                 location={history.location}
-                                                baseUrl={baseUrl}
-                                                dataEngine={engine}
                                                 ouLevels={ouLevels}
                                                 userSettings={userSettings}
                                             />
