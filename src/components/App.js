@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
+import { acAddMetadata } from '../actions/metadata'
 import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
@@ -43,6 +44,7 @@ const dataStatisticsMutation = {
 const App = ({
     location,
     visualization,
+    addMetadata,
     clearCurrent,
     clearVisualization,
     setCurrent,
@@ -98,6 +100,24 @@ const App = ({
         setPreviousLocation(location.pathname)
     }
 
+    const onResponseReceived = response => {
+        const metadata = Object.entries(response.metaData.items).reduce(
+            (obj, [id, item]) => {
+                obj[id] = {
+                    id,
+                    name: item.name || item.displayName,
+                    displayName: item.displayName,
+                    dimensionItemType: item.dimensionItemType, // TODO needed?
+                }
+
+                return obj
+            },
+            {}
+        )
+
+        addMetadata(metadata)
+    }
+
     useEffect(() => {
         setUser(d2.currentUser)
         loadVisualization(location)
@@ -146,7 +166,10 @@ const App = ({
                     >
                         {initialLoadIsComplete ? (
                             visualization ? (
-                                <Visualization visualization={visualization} />
+                                <Visualization
+                                    visualization={visualization}
+                                    onResponseReceived={onResponseReceived}
+                                />
                             ) : (
                                 <StartScreen />
                             )
@@ -168,6 +191,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+    addMetadata: acAddMetadata,
     clearVisualization: acClearVisualization,
     clearCurrent: acClearCurrent,
     setCurrent: acSetCurrent,
@@ -176,6 +200,7 @@ const mapDispatchToProps = {
 }
 
 App.propTypes = {
+    addMetadata: PropTypes.func,
     clearCurrent: PropTypes.func,
     clearVisualization: PropTypes.func,
     location: PropTypes.object,

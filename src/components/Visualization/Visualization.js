@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './styles/Visualization.module.css'
 
-export const Visualization = ({ visualization }) => {
+export const Visualization = ({ visualization, onResponseReceived }) => {
     const dataEngine = useDataEngine()
     const [analyticsResponse, setAnalyticsResponse] = useState(null)
     const [headers, setHeaders] = useState([])
@@ -73,9 +73,11 @@ export const Visualization = ({ visualization }) => {
 
     useEffect(() => {
         if (analyticsResponse) {
+            onResponseReceived(analyticsResponse)
+
             // extract headers
             const headers = visualization.columns.reduce((headers, column) => {
-                headers.push(analyticsResponse.getHeader(column.dimension)) // TODO
+                headers.push(analyticsResponse.getHeader(column.dimension)) // TODO figure out what to do when no header match the column (ie. pe)
                 return headers
             }, [])
 
@@ -86,9 +88,20 @@ export const Visualization = ({ visualization }) => {
                 analyticsResponse.rows.reduce((filteredRows, row) => {
                     filteredRows.push(
                         headers.reduce((filteredRow, header) => {
-                            filteredRow.push(
-                                header ? row[header.getIndex()] : '-'
-                            ) // FIXME solve the case of visualization.column not mapping to any response.header (ie. "pe")
+                            if (header) {
+                                const rowValue = row[header.index]
+                                const itemKey = header.isPrefix
+                                    ? `${header.name}_${rowValue}` // TODO underscore or space? check in AnalyticsResponse
+                                    : rowValue
+
+                                filteredRow.push(
+                                    analyticsResponse.metaData.items[itemKey]
+                                        ?.name || rowValue
+                                )
+                            } else {
+                                // FIXME solve the case of visualization.column not mapping to any response.header (ie. "pe")
+                                filteredRow.push('-')
+                            }
                             return filteredRow
                         }, [])
                     )
@@ -164,6 +177,11 @@ export const Visualization = ({ visualization }) => {
     )
 }
 
+Visualization.defaultProps = {
+    onResponseReceived: Function.prototype,
+}
+
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
+    onResponseReceived: PropTypes.func,
 }
