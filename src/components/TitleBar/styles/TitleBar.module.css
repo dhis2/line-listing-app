@@ -1,0 +1,30 @@
+.titleBar {
+    display: flex;
+    justify-content: center;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    background-color: var(--colors-white);
+    padding: 6px;
+    border-radius: 5px;
+    margin: 4px;
+}
+
+.title {
+    font-size: 14px;
+}
+
+.suffix {
+    padding-left: 4px;
+}
+
+.titleUnsaved {
+    color: var(--colors-grey500);
+    font-style: italic;
+}
+
+.titleDirty {
+    color: var(--colors-grey700);
+}

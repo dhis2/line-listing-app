@@ -117,7 +117,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
 
     return (
         <>
-            <DataTable scrollHeight="500px">
+            <DataTable scrollHeight="500px" scrollWidth="1000px" width="1000px">
                 <TableHead>
                     <DataTableRow>
                         {headers.map((header, index) =>
