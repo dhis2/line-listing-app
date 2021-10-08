@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-07T09:14:52.884Z\n"
-"PO-Revision-Date: 2021-10-07T09:14:52.884Z\n"
+"POT-Creation-Date: 2021-10-08T11:40:32.967Z\n"
+"PO-Revision-Date: 2021-10-08T11:40:32.967Z\n"
 
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
@@ -22,6 +22,9 @@ msgstr "TEXT"
 
 msgid "Your most viewed TEXT"
 msgstr "Your most viewed TEXT"
+
+msgid "Cases per page"
+msgstr "Cases per page"
 
 msgid "Column sub-totals"
 msgstr "Column sub-totals"
