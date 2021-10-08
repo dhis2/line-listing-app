@@ -5,8 +5,35 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-07T09:14:52.884Z\n"
-"PO-Revision-Date: 2021-10-07T09:14:52.884Z\n"
+"POT-Creation-Date: 2021-10-08T12:14:23.034Z\n"
+"PO-Revision-Date: 2021-10-08T12:14:23.034Z\n"
+
+msgid "{{total}} selected"
+msgstr "{{total}} selected"
+
+msgid "None selected"
+msgstr "None selected"
+
+msgid "Only '{{- name}}' in use"
+msgstr "Only '{{- name}}' in use"
+
+msgid "Only '{{number}}' in use"
+msgstr "Only '{{number}}' in use"
+
+msgid "All items are selected"
+msgstr "All items are selected"
+
+msgid "Levels"
+msgstr "Levels"
+
+msgid "Groups"
+msgstr "Groups"
+
+msgid "And 1 other..."
+msgstr "And 1 other..."
+
+msgid "And {{numberOfItems}} others..."
+msgstr "And {{numberOfItems}} others..."
 
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
