@@ -125,10 +125,14 @@ const App = ({
         const unlisten = history.listen(({ location }) => {
             const isSaving = location.state?.isSaving
             const isOpening = location.state?.isOpening
+            const isResetting = location.state?.isResetting
+
+            // TODO navigation confirm dialog
 
             if (
                 isSaving ||
                 isOpening ||
+                isResetting ||
                 previousLocation !== location.pathname
             ) {
                 loadVisualization(location)
