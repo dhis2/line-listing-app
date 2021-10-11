@@ -16,6 +16,7 @@ export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 const DEFAULT_UI = {
     options: getOptionsForUi(),
     layout: {
+        // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_DATA],
         filters: [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PERIOD],
     },

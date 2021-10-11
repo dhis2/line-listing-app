@@ -34,6 +34,9 @@ class Axis extends React.Component {
                 onDragOver={this.onDragOver}
             >
                 <div style={styles.label}>
+                    {
+                        // TODO: Falls back to the 'default' case in getAxisNameByLayoutType, add a new layout type in Analytics?
+                    }
                     {this.props.label ||
                         getAxisNameByLayoutType(
                             axisId,
