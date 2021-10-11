@@ -1,32 +1,35 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { acAddUiLayoutDimensions, acSetUiLayout } from '../actions/ui'
 import { SOURCE_DIMENSIONS } from '../modules/layout'
 import { sGetUiLayout, sGetUiItems } from '../reducers/ui'
 
-class DndContext extends Component {
-    rearrangeLayoutDimensions = ({
+const DndContext = ({
+    children,
+    layout,
+    onAddDimensions,
+    onReorderDimensions,
+}) => {
+    const rearrangeLayoutDimensions = ({
         sourceAxisId,
         sourceIndex,
         destinationAxisId,
         destinationIndex,
     }) => {
-        const layout = this.props.layout
-
         const sourceList = Array.from(layout[sourceAxisId])
         const [moved] = sourceList.splice(sourceIndex, 1)
 
         if (sourceAxisId === destinationAxisId) {
             sourceList.splice(destinationIndex, 0, moved)
 
-            this.props.onReorderDimensions({
+            onReorderDimensions({
                 ...layout,
                 [sourceAxisId]: sourceList,
             })
         } else {
-            this.props.onAddDimensions({
+            onAddDimensions({
                 [moved]: {
                     axisId: destinationAxisId,
                     index: destinationIndex,
@@ -35,12 +38,12 @@ class DndContext extends Component {
         }
     }
 
-    addDimensionToLayout = ({ axisId, index, dimensionId }) => {
-        this.props.onAddDimensions({ [dimensionId]: { axisId, index } })
+    const addDimensionToLayout = ({ axisId, index, dimensionId }) => {
+        onAddDimensions({ [dimensionId]: { axisId, index } })
         //TODO: Add onDropWithoutItems
     }
 
-    onDragEnd = result => {
+    const onDragEnd = result => {
         const { source, destination, draggableId } = result
 
         if (!destination) {
@@ -48,13 +51,13 @@ class DndContext extends Component {
         }
 
         if (source.droppableId === SOURCE_DIMENSIONS) {
-            this.addDimensionToLayout({
+            addDimensionToLayout({
                 axisId: destination.droppableId,
                 index: destination.index,
                 dimensionId: draggableId,
             })
         } else {
-            this.rearrangeLayoutDimensions({
+            rearrangeLayoutDimensions({
                 sourceAxisId: source.droppableId,
                 sourceIndex: source.index,
                 destinationAxisId: destination.droppableId,
@@ -63,13 +66,7 @@ class DndContext extends Component {
         }
     }
 
-    render() {
-        return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                {this.props.children}
-            </DragDropContext>
-        )
-    }
+    return <DragDropContext onDragEnd={onDragEnd}>{children}</DragDropContext>
 }
 
 DndContext.propTypes = {
