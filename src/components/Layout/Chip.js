@@ -14,7 +14,7 @@ import { sGetDimensions } from '../../reducers/dimensions'
 // import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import { styles } from './styles/Chip.style'
-import TooltipContent from './TooltipContent'
+import { default as TooltipContent } from './TooltipContent'
 
 const Chip = ({
     dimensionId,
