@@ -50,6 +50,9 @@ msgstr "TEXT"
 msgid "Your most viewed TEXT"
 msgstr "Your most viewed TEXT"
 
+msgid "Cases per page"
+msgstr "Cases per page"
+
 msgid "Column sub-totals"
 msgstr "Column sub-totals"
 

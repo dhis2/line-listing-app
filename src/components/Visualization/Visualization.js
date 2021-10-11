@@ -1,5 +1,6 @@
 import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
     DataTableRow,
@@ -170,6 +171,24 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                         total={analyticsResponse.metaData.pager.total}
                         onPageChange={setPage}
                         onPageSizeChange={setPageSize}
+                        pageSizeSelectText={i18n.t('Cases per page')}
+                        pageSummaryText={({ firstItem, lastItem, total }) =>
+                            i18n.t(
+                                '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                {
+                                    firstCaseIndex: firstItem,
+                                    lastCaseIndex: lastItem,
+                                    count: total,
+                                    // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
+                                    // not sure is possible to have empty string for singular with i18n
+                                    // TODO also, this string for some reason is not extracted
+                                    defaultValue:
+                                        '{{firstCaseIndex}} of {{count}} case',
+                                    defaultValue_plural:
+                                        '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                }
+                            )
+                        }
                     />
                 </div>
             </DataTableToolbar>
