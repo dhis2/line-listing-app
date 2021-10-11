@@ -20,15 +20,16 @@ const UserSettingsProvider = ({ children }) => {
             const { userSettings } = await engine.query({
                 userSettings: userSettingsQuery,
             })
-
+            const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
+                userSettings
             setSettings({
-                ...userSettings,
-                displayProperty: userSettings.keyAnalysisDisplayProperty,
-                displayPropertyName:
-                    userSettings.keyAnalysisDisplayProperty === 'name'
+                ...rest,
+                displayProperty: keyAnalysisDisplayProperty,
+                displayNameProperty:
+                    keyAnalysisDisplayProperty === 'name'
                         ? 'displayName'
                         : 'displayShortName',
-                uiLocale: userSettings.keyUiLocale,
+                uiLocale: keyUiLocale,
             })
         }
         fetchData()

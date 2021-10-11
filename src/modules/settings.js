@@ -9,3 +9,5 @@ export const SYSTEM_SETTINGS = [
     'keyHideWeeklyPeriods',
     'keyHideBiWeeklyPeriods',
 ]
+
+// TODO: Remove unused settings props
