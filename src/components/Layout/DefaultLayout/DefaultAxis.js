@@ -9,6 +9,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
 import Chip from '../Chip'
+import ChipMenu from '../ChipMenu'
 import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({
@@ -70,7 +71,15 @@ const DefaultAxis = ({
                                                 axisId={axisId}
                                                 dimensionId={dimensionId}
                                                 items={items}
-                                                // TODO: implement the chip menu with contextMenu
+                                                contextMenu={
+                                                    <ChipMenu
+                                                        dimensionId={
+                                                            dimensionId
+                                                        }
+                                                        currentAxisId={axisId}
+                                                        visType={type}
+                                                    />
+                                                }
                                             />
                                         </div>
                                     )}
@@ -92,7 +101,7 @@ DefaultAxis.propTypes = {
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     layout: PropTypes.object,
-    type: PropTypes.string,
+    type: PropTypes.string, // TODO: This is never passed in. Remove prop or add a new visType for LL?
 }
 
 const mapStateToProps = state => ({

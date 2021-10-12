@@ -11,6 +11,7 @@ export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
+export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 
 const DEFAULT_UI = {
@@ -69,6 +70,12 @@ export default (state = DEFAULT_UI, action) => {
             return {
                 ...state,
                 layout: newLayout,
+            }
+        }
+        case REMOVE_UI_LAYOUT_DIMENSIONS: {
+            return {
+                ...state,
+                layout: getFilteredLayout(state.layout, action.value),
             }
         }
         case SET_UI_LAYOUT: {
