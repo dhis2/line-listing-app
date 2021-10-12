@@ -10,8 +10,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setDataTransfer } from '../../modules/dnd'
 import { sGetDimensions } from '../../reducers/dimensions'
-//import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon'
-// import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import { styles } from './styles/Chip.style'
 import { default as TooltipContent } from './TooltipContent'
@@ -53,6 +51,7 @@ const Chip = ({
         return items.length > 0 ? `: ${itemsLabel}` : ''
     }
 
+    // TODO: Add the chip icons once they've been spec'ed properly
     // const renderChipIcon = () => {
     //     const Icon = getPredefinedDimensionProp(dimensionId, 'icon')
     //     return Icon ? (
