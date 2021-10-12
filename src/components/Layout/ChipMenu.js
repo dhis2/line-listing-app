@@ -1,5 +1,5 @@
 import { DimensionMenu, VIS_TYPE_PIE } from '@dhis2/analytics'
-import { Layer, Popper } from '@dhis2/ui'
+import { Layer, Popper, IconMore24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
@@ -7,7 +7,6 @@ import {
     acAddUiLayoutDimensions,
     acRemoveUiLayoutDimensions,
 } from '../../actions/ui'
-import MoreHorizontalIcon from '../../assets/MoreHorizontalIcon'
 import IconButton from '../IconButton/IconButton'
 import { styles } from './styles/Menu.style'
 
@@ -35,7 +34,7 @@ const ChipMenu = ({
                     style={styles.icon}
                     dataTest={`layout-chip-menu-button-${dimensionId}`}
                 >
-                    <MoreHorizontalIcon style={styles.icon} />
+                    <IconMore24 style={styles.icon} />
                 </IconButton>
             </div>
             {menuIsOpen && (
