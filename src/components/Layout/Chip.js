@@ -8,9 +8,9 @@ import { Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
+import { setDataTransfer } from '../../modules/dnd'
 import { sGetDimensions } from '../../reducers/dimensions'
 //import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon'
-// import { setDataTransfer } from '../../modules/dnd'
 // import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import { styles } from './styles/Chip.style'
@@ -19,7 +19,7 @@ import { default as TooltipContent } from './TooltipContent'
 const Chip = ({
     dimensionId,
     dimensionName,
-    //axisId,
+    axisId,
     items,
     onClick,
     contextMenu,
@@ -35,7 +35,7 @@ const Chip = ({
     }
 
     const getDragStartHandler = () => event => {
-        console.log(event) //setDataTransfer(event, axisId)
+        setDataTransfer(event, axisId)
     }
 
     const getWrapperStyles = () => ({
@@ -103,7 +103,7 @@ const Chip = ({
 }
 
 Chip.propTypes = {
-    //axisId: PropTypes.string.isRequired,
+    axisId: PropTypes.string.isRequired,
     dimensionId: PropTypes.string.isRequired,
     dimensionName: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

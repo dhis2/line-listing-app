@@ -102,7 +102,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = () => ({
-    getOpenHandler: () => {},
+    getOpenHandler: () => () => alert('getOpenHandler'),
+    // TODO: Trigger the dimensions modal to open on click
 })
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
