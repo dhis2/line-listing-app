@@ -1,0 +1,33 @@
+.tooltip {
+    font-family: 'roboto';
+    padding: 7px 9px;
+    color: var(--colors-white);
+    font-size: 12px;
+    background-color: var(--colors-grey900);
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    top: 5px;
+    max-width: 300px;
+}
+.list {
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: -3px;
+    padding: 0;
+}
+.item {
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.label {
+    white-space: normal;
+    margin-left: 6px;
+}

@@ -5,7 +5,9 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
+import { tSetDimensions } from '../actions/dimensions'
 import { acAddMetadata } from '../actions/metadata'
+import { tAddSettings } from '../actions/settings'
 import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
@@ -16,6 +18,8 @@ import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetVisualization } from '../reducers/visualization'
 import classes from './App.module.css'
+import DndContext from './DndContext'
+import Layout from './Layout/Layout'
 import { default as TitleBar } from './TitleBar/TitleBar'
 import { Toolbar } from './Toolbar/Toolbar'
 import StartScreen from './Visualization/StartScreen'
@@ -45,11 +49,14 @@ const App = ({
     location,
     visualization,
     addMetadata,
+    addSettings,
     clearCurrent,
     clearVisualization,
     setCurrent,
+    setDimensions,
     setVisualization,
     setUser,
+    userSettings,
 }) => {
     const [previousLocation, setPreviousLocation] = useState(null)
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
@@ -119,7 +126,13 @@ const App = ({
     }
 
     useEffect(() => {
-        setUser(d2.currentUser)
+        const prepare = async () => {
+            await addSettings(userSettings)
+            setUser(d2.currentUser)
+            await setDimensions()
+        }
+        prepare()
+
         loadVisualization(location)
 
         const unlisten = history.listen(({ location }) => {
@@ -157,32 +170,42 @@ const App = ({
             <div
                 className={`${classes.sectionMain} ${classes.flexGrow1} ${classes.flexCt}`}
             >
-                <div className={classes.mainLeft}>{'dimension panel'}</div>
-                <div
-                    className={`${classes.mainCenter} ${classes.flexGrow1} ${classes.flexBasis0} ${classes.flexCt} ${classes.flexDirCol}`}
-                >
-                    <div className={classes.mainCenterLayout}>{'layout'}</div>
-                    <div className={classes.mainCenterTitlebar}>
-                        <TitleBar />
+                <DndContext>
+                    <div className={classes.mainLeft}>
+                        <span style={{ color: 'red' }}>
+                            {'dimension panel'}
+                        </span>
                     </div>
                     <div
-                        className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
+                        className={`${classes.mainCenter} ${classes.flexGrow1} ${classes.flexBasis0} ${classes.flexCt} ${classes.flexDirCol}`}
                     >
-                        {initialLoadIsComplete ? (
-                            visualization ? (
-                                <Visualization
-                                    visualization={visualization}
-                                    onResponseReceived={onResponseReceived}
-                                />
+                        <div className={classes.mainCenterLayout}>
+                            <Layout />
+                        </div>
+                        <div className={classes.mainCenterTitlebar}>
+                            <TitleBar />
+                        </div>
+                        <div
+                            className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
+                        >
+                            {initialLoadIsComplete ? (
+                                visualization ? (
+                                    <Visualization
+                                        visualization={visualization}
+                                        onResponseReceived={onResponseReceived}
+                                    />
+                                ) : (
+                                    <StartScreen />
+                                )
                             ) : (
-                                <StartScreen />
-                            )
-                        ) : (
-                            'loading... (TODO)'
-                            // TODO: add loading spinner
-                        )}
+                                <span style={{ color: 'red' }}>
+                                    loading... TODO
+                                </span>
+                                // TODO: add loading spinner
+                            )}
+                        </div>
                     </div>
-                </div>
+                </DndContext>
             </div>
             <CssVariables colors spacers />
         </div>
@@ -196,21 +219,26 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addMetadata: acAddMetadata,
+    addSettings: tAddSettings,
     clearVisualization: acClearVisualization,
     clearCurrent: acClearCurrent,
     setCurrent: acSetCurrent,
+    setDimensions: tSetDimensions,
     setVisualization: acSetVisualization,
     setUser: acSetUser,
 }
 
 App.propTypes = {
     addMetadata: PropTypes.func,
+    addSettings: PropTypes.func,
     clearCurrent: PropTypes.func,
     clearVisualization: PropTypes.func,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
+    setDimensions: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
+    userSettings: PropTypes.object,
     visualization: PropTypes.object,
 }
 
