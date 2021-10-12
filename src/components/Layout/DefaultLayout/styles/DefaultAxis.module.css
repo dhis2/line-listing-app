@@ -10,3 +10,26 @@
 .content > div {
     cursor: pointer;
 }
+
+.axisContainer {
+    display: flex;
+    background-color: var(--colors-white);
+    border-color: var(--colors-grey300);
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    padding: 4px 4px 2px 6px;
+}
+
+.axisContainerLeft {
+    border-left-width: 0;
+}
+
+.label {
+    min-width: 55px;
+    max-width: 55px;
+    padding: 2px 0 0 0;
+    font-size: 11px;
+    color: var(--colors-grey700);
+    user-select: none;
+    letter-spacing: 0.2px;
+}

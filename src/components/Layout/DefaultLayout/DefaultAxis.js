@@ -2,21 +2,21 @@ import {
     getAxisNameByLayoutType,
     getLayoutTypeByVisType,
 } from '@dhis2/analytics'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
 import Chip from '../Chip'
-import stylesModule from './styles/DefaultAxis.module.css'
-import styles from './styles/DefaultAxis.style'
+import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({
     axis,
     axisId,
     getItemsByDimension,
     getOpenHandler,
-    style,
+    className,
     type,
 }) => {
     const onDragOver = e => {
@@ -27,10 +27,10 @@ const DefaultAxis = ({
         <div
             id={axisId}
             data-test={`${axisId}-axis`}
-            style={{ ...styles.axisContainer, ...style }}
+            className={cx(styles.axisContainer, className)}
             onDragOver={onDragOver}
         >
-            <div style={styles.label}>
+            <div className={styles.label}>
                 {
                     // TODO: Falls back to the 'default' case in getAxisNameByLayoutType, add a new layout type in Analytics?
                     getAxisNameByLayoutType(
@@ -42,7 +42,7 @@ const DefaultAxis = ({
             <Droppable droppableId={axisId} direction="horizontal">
                 {provided => (
                     <div
-                        className={stylesModule.content}
+                        className={styles.content}
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
@@ -88,10 +88,10 @@ const DefaultAxis = ({
 DefaultAxis.propTypes = {
     axis: PropTypes.array,
     axisId: PropTypes.string,
+    className: PropTypes.object,
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     layout: PropTypes.object,
-    style: PropTypes.object,
     type: PropTypes.string,
 }
 

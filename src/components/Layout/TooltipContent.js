@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { sGetMetadata } from '../../reducers/metadata'
-import { styles } from './styles/Tooltip.style'
+import styles from './styles/Tooltip.module.css'
 
 const labels = {
     noneSelected: () => i18n.t('None selected'),
@@ -75,10 +75,10 @@ export const TooltipContent = ({
     }
 
     const renderWarningLabel = warningLabel => (
-        <li style={styles.item}>
-            <div style={styles.iconWrapper}>
+        <li className={styles.item}>
+            <div className={styles.iconWrapper}>
                 <IconWarningFilled16 />
-                <span style={styles.label}>{warningLabel}</span>
+                <span className={styles.label}>{warningLabel}</span>
             </div>
         </li>
     )
@@ -89,14 +89,14 @@ export const TooltipContent = ({
         const itemsToRender = itemDisplayNames
             .slice(0, renderLimit)
             .map(name => (
-                <li key={`${dimensionId}-${name}`} style={styles.item}>
+                <li key={`${dimensionId}-${name}`} className={styles.item}>
                     {name}
                 </li>
             ))
 
         if (itemDisplayNames.length > renderLimit) {
             itemsToRender.push(
-                <li key={`${dimensionId}-render-limit`} style={styles.item}>
+                <li key={`${dimensionId}-render-limit`} className={styles.item}>
                     {itemDisplayNames.length - renderLimit === 1
                         ? i18n.t('And 1 other...')
                         : i18n.t('And {{numberOfItems}} others...', {
@@ -111,22 +111,25 @@ export const TooltipContent = ({
     }
 
     const renderLockedLabel = () => (
-        <li style={styles.item}>
-            <div style={styles.iconWrapper}>
+        <li className={styles.item}>
+            <div className={styles.iconWrapper}>
                 <IconLock16 />
-                <span style={styles.label}>{lockedLabel}</span>
+                <span className={styles.label}>{lockedLabel}</span>
             </div>
         </li>
     )
 
     const renderNoItemsLabel = () => (
-        <li key={`${dimensionId}-${labels.noneSelected()}`} style={styles.item}>
+        <li
+            key={`${dimensionId}-${labels.noneSelected()}`}
+            className={styles.item}
+        >
             {labels.noneSelected()}
         </li>
     )
 
     const renderAllItemsLabel = () => (
-        <li key={`${dimensionId}-${labels.allItems()}`} style={styles.item}>
+        <li key={`${dimensionId}-${labels.allItems()}`} className={styles.item}>
             {labels.allItems()}
         </li>
     )
@@ -137,7 +140,7 @@ export const TooltipContent = ({
         !itemDisplayNames.length && !warningLabel && !hasAllItemsSelected
 
     return (
-        <ul style={styles.list}>
+        <ul className={styles.list}>
             {warningLabel && renderWarningLabel(warningLabel)}
             {lockedLabel && renderLockedLabel()}
             {hasAllItemsSelected && renderAllItemsLabel()}

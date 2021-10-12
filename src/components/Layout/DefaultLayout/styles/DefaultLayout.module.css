@@ -1,0 +1,23 @@
+.ct {
+    display: flex;
+    min-height: 78px;
+}
+.axisGroup {
+    display: flex;
+    flex-direction: column;
+}
+.axisGroupLeft {
+    flex-basis: 50%;
+}
+.axisGroupRight {
+    flex-basis: 50%;
+}
+.columns {
+    flex-basis: 50%;
+}
+.rows {
+    flex-basis: 50%;
+}
+.filters {
+    flex-basis: 100%;
+}
