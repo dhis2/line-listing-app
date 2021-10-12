@@ -17,6 +17,7 @@ import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetVisualization } from '../reducers/visualization'
+import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
@@ -207,6 +208,7 @@ const App = ({
                     </div>
                 </DndContext>
             </div>
+            <AlertBar />
             <CssVariables colors spacers />
         </div>
     )

@@ -5,11 +5,14 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
+import { acSetAlertBar } from '../../actions/alertbar'
 import { acSetCurrent } from '../../actions/current'
 import { acSetVisualization } from '../../actions/visualization'
+import { getAlertTypeByStatusCode } from '../../modules/error'
 import history from '../../modules/history'
 import { sGetCurrent } from '../../reducers/current'
 import { sGetVisualization } from '../../reducers/visualization'
+import { ALERT_TYPE_SUCCESS } from '../AlertBar/AlertBar'
 import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager'
 import classes from './styles/MenuBar.module.css'
 
@@ -39,6 +42,7 @@ export const MenuBar = ({
     current,
     visualization,
     apiObjectName,
+    setAlertBar,
     setCurrent,
     setVisualization,
 }) => {
@@ -66,8 +70,13 @@ export const MenuBar = ({
 
         history.push('/')
 
-        // TODO snackbar message
-        console.log('Deleted:', deletedVisualization)
+        setAlertBar({
+            type: ALERT_TYPE_SUCCESS,
+            message: i18n.t('"{{deletedObject}}" successfully deleted.', {
+                deletedObject: deletedVisualization,
+            }),
+            duration: 2000,
+        })
     }
 
     const onRename = ({ name, description }) => {
@@ -94,7 +103,11 @@ export const MenuBar = ({
             setCurrent(updatedCurrent)
         }
 
-        // TODO snackbar
+        setAlertBar({
+            type: ALERT_TYPE_SUCCESS,
+            message: i18n.t('Rename successful'),
+            duration: 2000,
+        })
     }
 
     const onSave = (details = {}, copy = false) => {
@@ -147,11 +160,20 @@ export const MenuBar = ({
     }
 
     const onError = error => {
+        // TODO remove once tested
         console.log('Error:', error)
 
-        // TODO handle errors
+        const message =
+            error.errorCode === 'E4030'
+                ? i18n.t(
+                      "This visualization can't be deleted because it is used on one or more dashboards"
+                  )
+                : error.message
 
-        // TODO snackbar message
+        acSetAlertBar({
+            type: getAlertTypeByStatusCode(error.httpStatusCode),
+            message,
+        })
     }
 
     const [postVisualization] = useDataMutation(visualizationSaveMutation, {
@@ -186,6 +208,7 @@ MenuBar.propTypes = {
     apiObjectName: PropTypes.string,
     current: PropTypes.object,
     dataTest: PropTypes.string,
+    setAlertBar: PropTypes.func,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
@@ -197,6 +220,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+    setAlertBar: acSetAlertBar,
     setCurrent: acSetCurrent,
     setVisualization: acSetVisualization,
 }
