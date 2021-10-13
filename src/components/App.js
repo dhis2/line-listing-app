@@ -8,6 +8,7 @@ import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
 import { acAddMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
+import { acSetUiFromVisualization } from '../actions/ui'
 import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
@@ -56,6 +57,7 @@ const App = ({
     setCurrent,
     setDimensions,
     setVisualization,
+    setUiFromVisualization,
     setUser,
     userSettings,
 }) => {
@@ -161,6 +163,7 @@ const App = ({
         if (visualization) {
             setVisualization(visualization)
             setCurrent(visualization)
+            setUiFromVisualization(visualization)
             postDataStatistics({ id: visualization.id })
         }
     }, [data])
@@ -228,6 +231,7 @@ const mapDispatchToProps = {
     setDimensions: tSetDimensions,
     setVisualization: acSetVisualization,
     setUser: acSetUser,
+    setUiFromVisualization: acSetUiFromVisualization,
 }
 
 App.propTypes = {
@@ -238,6 +242,7 @@ App.propTypes = {
     location: PropTypes.object,
     setCurrent: PropTypes.func,
     setDimensions: PropTypes.func,
+    setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     userSettings: PropTypes.object,

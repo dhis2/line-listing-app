@@ -4,6 +4,7 @@ import {
     SET_UI_LAYOUT,
     SET_UI_OPTION,
     SET_UI_OPTIONS,
+    SET_UI_FROM_VISUALIZATION,
 } from '../reducers/ui'
 
 export const acSetUiOptions = value => ({
@@ -28,5 +29,10 @@ export const acRemoveUiLayoutDimensions = value => ({
 
 export const acSetUiLayout = value => ({
     type: SET_UI_LAYOUT,
+    value,
+})
+
+export const acSetUiFromVisualization = value => ({
+    type: SET_UI_FROM_VISUALIZATION,
     value,
 })

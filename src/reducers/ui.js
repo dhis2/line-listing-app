@@ -6,6 +6,7 @@ import {
 } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout'
 import { getOptionsForUi } from '../modules/options'
+import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
 
 export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -13,6 +14,7 @@ export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
+export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 
 const DEFAULT_UI = {
     options: getOptionsForUi(),
@@ -77,6 +79,11 @@ export default (state = DEFAULT_UI, action) => {
                 ...state,
                 layout: getFilteredLayout(state.layout, action.value),
             }
+        }
+        case SET_UI_FROM_VISUALIZATION: {
+            return getAdaptedUiByType(
+                getUiFromVisualization(action.value, state)
+            )
         }
         case SET_UI_LAYOUT: {
             return {
