@@ -5,8 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-13T07:39:49.177Z\n"
-"PO-Revision-Date: 2021-10-13T07:39:49.177Z\n"
+"POT-Creation-Date: 2021-10-14T12:52:58.548Z\n"
+"PO-Revision-Date: 2021-10-14T12:52:58.548Z\n"
+
+msgid "Move to {{axisName}}"
+msgstr "Move to {{axisName}}"
+
+msgid "Add to {{axisName}}"
+msgstr "Add to {{axisName}}"
+
+msgid "Remove"
+msgstr "Remove"
 
 msgid "{{total}} selected"
 msgstr "{{total}} selected"
@@ -186,6 +195,15 @@ msgstr "Add a title"
 msgid "Options"
 msgstr "Options"
 
+msgid "Columns"
+msgstr "Columns"
+
+msgid "Rows"
+msgstr "Rows"
+
+msgid "Filter"
+msgstr "Filter"
+
 msgid "There is a problem with this visualization."
 msgstr "There is a problem with this visualization."
 
@@ -241,3 +259,9 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
+
+msgid "Pivot table"
+msgstr "Pivot table"
+
+msgid "Line list"
+msgstr "Line list"

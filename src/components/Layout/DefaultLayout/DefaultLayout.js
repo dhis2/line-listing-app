@@ -5,6 +5,7 @@ import {
 } from '@dhis2/analytics'
 import cx from 'classnames'
 import React from 'react'
+import { VIS_TYPE_PIVOT_TABLE } from '../../../modules/visualization'
 import DefaultAxis from './DefaultAxis'
 import defaultAxisStyles from './styles/DefaultAxis.module.css'
 import defaultLayoutStyles from './styles/DefaultLayout.module.css'
@@ -24,6 +25,7 @@ const Layout = () => (
                     defaultLayoutStyles.columns,
                     defaultAxisStyles.axisContainerLeft
                 )}
+                visType={VIS_TYPE_PIVOT_TABLE}
             />
             <DefaultAxis
                 axisId={AXIS_ID_ROWS}
@@ -31,6 +33,7 @@ const Layout = () => (
                     defaultLayoutStyles.rows,
                     defaultAxisStyles.axisContainerLeft
                 )}
+                visType={VIS_TYPE_PIVOT_TABLE}
             />
         </div>
         <div
@@ -43,6 +46,7 @@ const Layout = () => (
             <DefaultAxis
                 axisId={AXIS_ID_FILTERS}
                 className={defaultLayoutStyles.filters}
+                visType={VIS_TYPE_PIVOT_TABLE}
             />
         </div>
     </div>

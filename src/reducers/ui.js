@@ -7,6 +7,7 @@ import {
 import { getFilteredLayout } from '../modules/layout'
 import { getOptionsForUi } from '../modules/options'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
+import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
 
 export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -17,6 +18,7 @@ export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 
 const DEFAULT_UI = {
+    type: VIS_TYPE_LINE_LIST,
     options: getOptionsForUi(),
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing

@@ -1,23 +1,22 @@
 import {
-    getAdaptedUiLayoutByType,
-    VIS_TYPE_PIVOT_TABLE,
-    VIS_TYPE_PIE,
     layoutGetAxisIdDimensionIdsObject,
     layoutGetDimensionIdItemIdsObject,
 } from '@dhis2/analytics'
+import { getAdaptedUiLayoutByType } from './layout'
+import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization'
 
-const defaultUiAdapter = ui => ({
+const lineListUiAdapter = ui => ({
     ...ui,
-    layout: getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_PIE), // TODO: Change this once LL has its own type (temp fix since pie has same axes as LL)),
-    // FIXME: Note that using VIS_TYPE_PIE means all but 1 items will be moved to filter
+    layout: getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
 })
 
 export const getAdaptedUiByType = ui => {
     switch (ui.type) {
+        case VIS_TYPE_LINE_LIST:
+            return lineListUiAdapter(ui)
         case VIS_TYPE_PIVOT_TABLE:
-            return ui
         default:
-            return defaultUiAdapter(ui)
+            return ui
     }
 }
 

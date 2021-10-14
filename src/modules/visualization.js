@@ -1,6 +1,25 @@
+import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization'
 import { default as options } from './options'
+
+export const VIS_TYPE_PIVOT_TABLE = 'VIS_TYPE_PIVOT_TABLE'
+export const VIS_TYPE_LINE_LIST = 'VIS_TYPE_LINE_LIST'
+
+export const visTypeDisplayNames = {
+    [VIS_TYPE_PIVOT_TABLE]: i18n.t('Pivot table'),
+    [VIS_TYPE_LINE_LIST]: i18n.t('Line list'),
+}
+
+export const getDisplayNameByVisType = visType => {
+    const displayName = visTypeDisplayNames[visType]
+
+    if (!displayName) {
+        throw new Error(`${visType} is not a valid visualization type`)
+    }
+
+    return displayName
+}
 
 export const getVisualizationFromCurrent = current => {
     const visualization = Object.assign({}, current)

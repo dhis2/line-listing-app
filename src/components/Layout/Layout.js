@@ -1,7 +1,6 @@
 import React from 'react'
+import { LAYOUT_TYPE_LINE_LIST } from '../../modules/layout'
 import LineListLayout from './LineListLayout/LineListLayout'
-
-const LAYOUT_TYPE_LINE_LIST = 'LAYOUT_TYPE_LINE_LIST'
 
 const componentMap = {
     [LAYOUT_TYPE_LINE_LIST]: LineListLayout,
