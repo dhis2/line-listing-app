@@ -6,6 +6,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon'
 import { setDataTransfer } from '../../modules/dnd'
+import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import styles from './styles/Chip.module.css'
 import { default as TooltipContent } from './TooltipContent'
@@ -98,7 +99,9 @@ Chip.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    dimensionName: (sGetMetadata(state)[ownProps.dimensionId] || {}).name,
+    dimensionName:
+        (sGetMetadata(state)[ownProps.dimensionId] || {}).name ||
+        (sGetDimensions(state)[ownProps.dimensionId] || {}).name,
 })
 
 export default connect(mapStateToProps)(Chip)
