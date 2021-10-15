@@ -86,7 +86,7 @@ const DefaultAxis = ({
 DefaultAxis.propTypes = {
     axis: PropTypes.array,
     axisId: PropTypes.string,
-    className: PropTypes.object,
+    className: PropTypes.string,
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     layout: PropTypes.object,

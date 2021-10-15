@@ -6,9 +6,9 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
-import { acAddMetadata } from '../actions/metadata'
+import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
-import { acSetUiFromVisualization } from '../actions/ui'
+import { tClearUi, acSetUiFromVisualization } from '../actions/ui'
 import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
@@ -54,8 +54,10 @@ const App = ({
     addSettings,
     clearCurrent,
     clearVisualization,
+    clearUi,
     setCurrent,
     setDimensions,
+    setInitMetadata,
     setVisualization,
     setUiFromVisualization,
     setUser,
@@ -104,6 +106,8 @@ const App = ({
         } else {
             clearCurrent()
             clearVisualization()
+            //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
+            clearUi()
         }
 
         setInitialLoadIsComplete(true)
@@ -129,33 +133,36 @@ const App = ({
     }
 
     useEffect(() => {
-        const prepare = async () => {
+        const onMount = async () => {
             await addSettings(userSettings)
             setUser(d2.currentUser)
             await setDimensions()
+
+            setInitMetadata()
+
+            loadVisualization(location)
+
+            const unlisten = history.listen(({ location }) => {
+                const isSaving = location.state?.isSaving
+                const isOpening = location.state?.isOpening
+                const isResetting = location.state?.isResetting
+
+                // TODO navigation confirm dialog
+
+                if (
+                    isSaving ||
+                    isOpening ||
+                    isResetting ||
+                    previousLocation !== location.pathname
+                ) {
+                    loadVisualization(location)
+                }
+            })
+
+            return () => unlisten && unlisten()
         }
-        prepare()
 
-        loadVisualization(location)
-
-        const unlisten = history.listen(({ location }) => {
-            const isSaving = location.state?.isSaving
-            const isOpening = location.state?.isOpening
-            const isResetting = location.state?.isResetting
-
-            // TODO navigation confirm dialog
-
-            if (
-                isSaving ||
-                isOpening ||
-                isResetting ||
-                previousLocation !== location.pathname
-            ) {
-                loadVisualization(location)
-            }
-        })
-
-        return () => unlisten && unlisten()
+        onMount()
     }, [])
 
     useEffect(() => {
@@ -227,8 +234,10 @@ const mapDispatchToProps = {
     addSettings: tAddSettings,
     clearVisualization: acClearVisualization,
     clearCurrent: acClearCurrent,
+    clearUi: tClearUi,
     setCurrent: acSetCurrent,
     setDimensions: tSetDimensions,
+    setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
     setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
@@ -238,10 +247,12 @@ App.propTypes = {
     addMetadata: PropTypes.func,
     addSettings: PropTypes.func,
     clearCurrent: PropTypes.func,
+    clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
     setDimensions: PropTypes.func,
+    setInitMetadata: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
