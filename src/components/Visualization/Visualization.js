@@ -117,7 +117,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
     }
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <DataTable scrollHeight="500px" scrollWidth="1000px" width="1000px">
                 <TableHead>
                     <DataTableRow>
@@ -192,7 +192,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                     />
                 </div>
             </DataTableToolbar>
-        </>
+        </div>
     )
 }
 

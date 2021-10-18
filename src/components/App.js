@@ -1,6 +1,7 @@
 import { useDataQuery, useDataMutation } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { CssVariables } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
@@ -22,6 +23,7 @@ import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
+import LoadingMask from './LoadingMask/LoadingMask'
 import { default as TitleBar } from './TitleBar/TitleBar'
 import { Toolbar } from './Toolbar/Toolbar'
 import StartScreen from './Visualization/StartScreen'
@@ -176,10 +178,20 @@ const App = ({
     }, [data])
 
     return (
-        <div className={`${classes.eventReportsApp} flex-ct flex-dir-col`}>
+        <div
+            className={cx(
+                classes.eventReportsApp,
+                classes.flexCt,
+                classes.flexDirCol
+            )}
+        >
             <Toolbar />
             <div
-                className={`${classes.sectionMain} ${classes.flexGrow1} ${classes.flexCt}`}
+                className={cx(
+                    classes.sectionMain,
+                    classes.flexGrow1,
+                    classes.flexCt
+                )}
             >
                 <DndContext>
                     <div className={classes.mainLeft}>
@@ -188,7 +200,13 @@ const App = ({
                         </span>
                     </div>
                     <div
-                        className={`${classes.mainCenter} ${classes.flexGrow1} ${classes.flexBasis0} ${classes.flexCt} ${classes.flexDirCol}`}
+                        className={cx(
+                            classes.mainCenter,
+                            classes.flexGrow1,
+                            classes.flexBasis0,
+                            classes.flexCt,
+                            classes.flexDirCol
+                        )}
                     >
                         <div className={classes.mainCenterLayout}>
                             <Layout />
@@ -197,23 +215,30 @@ const App = ({
                             <TitleBar />
                         </div>
                         <div
-                            className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
+                            className={cx(
+                                classes.mainCenterCanvas,
+                                classes.flexGrow1
+                            )}
                         >
-                            {initialLoadIsComplete ? (
-                                visualization ? (
-                                    <Visualization
-                                        visualization={visualization}
-                                        onResponseReceived={onResponseReceived}
-                                    />
+                            {initialLoadIsComplete &&
+                                (visualization ? (
+                                    <>
+                                        <div className={classes.loadingCover}>
+                                            <LoadingMask />
+                                        </div>
+                                        {
+                                            // TODO: The start screen is flashing by for a split second when visualization has been loaded
+                                        }
+                                        <Visualization
+                                            visualization={visualization}
+                                            onResponseReceived={
+                                                onResponseReceived
+                                            }
+                                        />
+                                    </>
                                 ) : (
                                     <StartScreen />
-                                )
-                            ) : (
-                                <span style={{ color: 'red' }}>
-                                    loading... TODO
-                                </span>
-                                // TODO: add loading spinner
-                            )}
+                                ))}
                         </div>
                     </div>
                 </DndContext>
