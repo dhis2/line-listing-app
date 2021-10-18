@@ -1,11 +1,9 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
-import {
-    DIMENSION_ID_DATA,
-    DIMENSION_ID_ORGUNIT,
-    DIMENSION_ID_PERIOD,
-} from '@dhis2/analytics'
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout'
 import { getOptionsForUi } from '../modules/options'
+import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
+import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
 
 export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -13,18 +11,46 @@ export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
+export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
+export const CLEAR_UI = 'CLEAR_UI'
 
 const DEFAULT_UI = {
+    type: VIS_TYPE_LINE_LIST,
     options: getOptionsForUi(),
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
-        columns: [DIMENSION_ID_DATA],
-        filters: [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PERIOD],
+        columns: [DIMENSION_ID_ORGUNIT],
+        filters: [],
     },
     itemsByDimension: {
         [DIMENSION_ID_ORGUNIT]: [],
-        [DIMENSION_ID_PERIOD]: [],
     },
+}
+
+const getPreselectedUi = options => {
+    const { rootOrgUnit } = options
+
+    const rootOrgUnits = []
+    const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
+
+    if (rootOrgUnit && rootOrgUnit.id) {
+        rootOrgUnits.push(rootOrgUnit.id)
+
+        parentGraphMap[rootOrgUnit.id] = ''
+    }
+
+    return {
+        ...DEFAULT_UI,
+        options: {
+            ...DEFAULT_UI.options,
+            //digitGroupSeparator,
+        },
+        itemsByDimension: {
+            ...DEFAULT_UI.itemsByDimension,
+            [DIMENSION_ID_ORGUNIT]: rootOrgUnits,
+        },
+        // parentGraphMap,
+    }
 }
 
 export default (state = DEFAULT_UI, action) => {
@@ -78,6 +104,11 @@ export default (state = DEFAULT_UI, action) => {
                 layout: getFilteredLayout(state.layout, action.value),
             }
         }
+        case SET_UI_FROM_VISUALIZATION: {
+            return getAdaptedUiByType(
+                getUiFromVisualization(action.value, state)
+            )
+        }
         case SET_UI_LAYOUT: {
             return {
                 ...state,
@@ -85,6 +116,9 @@ export default (state = DEFAULT_UI, action) => {
                     ...action.value,
                 },
             }
+        }
+        case CLEAR_UI: {
+            return getPreselectedUi(action.value)
         }
         default:
             return state

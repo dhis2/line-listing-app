@@ -1,12 +1,9 @@
-import {
-    getAxisNameByLayoutType,
-    getLayoutTypeByVisType,
-} from '@dhis2/analytics'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import { getAxisName } from '../../../modules/axis'
 import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
 import Chip from '../Chip'
 import ChipMenu from '../ChipMenu'
@@ -18,7 +15,7 @@ const DefaultAxis = ({
     getItemsByDimension,
     getOpenHandler,
     className,
-    type,
+    visType,
 }) => {
     const onDragOver = e => {
         e.preventDefault()
@@ -31,15 +28,7 @@ const DefaultAxis = ({
             className={cx(styles.axisContainer, className)}
             onDragOver={onDragOver}
         >
-            <div className={styles.label}>
-                {
-                    // TODO: Falls back to the 'default' case in getAxisNameByLayoutType, add a new layout type in Analytics?
-                    getAxisNameByLayoutType(
-                        axisId,
-                        getLayoutTypeByVisType(type)
-                    )
-                }
-            </div>
+            <div className={styles.label}>{getAxisName(axisId)}</div>
             <Droppable droppableId={axisId} direction="horizontal">
                 {provided => (
                     <div
@@ -77,7 +66,7 @@ const DefaultAxis = ({
                                                             dimensionId
                                                         }
                                                         currentAxisId={axisId}
-                                                        visType={type}
+                                                        visType={visType}
                                                     />
                                                 }
                                             />
@@ -97,11 +86,11 @@ const DefaultAxis = ({
 DefaultAxis.propTypes = {
     axis: PropTypes.array,
     axisId: PropTypes.string,
-    className: PropTypes.object,
+    className: PropTypes.string,
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     layout: PropTypes.object,
-    type: PropTypes.string, // TODO: This is never passed in. Remove prop or add a new visType for LL?
+    visType: PropTypes.string,
 }
 
 const mapStateToProps = state => ({

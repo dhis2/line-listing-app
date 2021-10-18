@@ -5,8 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-08T12:14:23.034Z\n"
-"PO-Revision-Date: 2021-10-08T12:14:23.034Z\n"
+"POT-Creation-Date: 2021-10-18T09:10:52.978Z\n"
+"PO-Revision-Date: 2021-10-18T09:10:52.978Z\n"
+
+msgid "Move to {{axisName}}"
+msgstr "Move to {{axisName}}"
+
+msgid "Add to {{axisName}}"
+msgstr "Add to {{axisName}}"
+
+msgid "Remove"
+msgstr "Remove"
 
 msgid "{{total}} selected"
 msgstr "{{total}} selected"
@@ -40,6 +49,22 @@ msgstr "Unsaved visualization"
 
 msgid "Edited"
 msgstr "Edited"
+
+msgid "\"{{deletedObject}}\" successfully deleted."
+msgstr "\"{{deletedObject}}\" successfully deleted."
+
+msgid "Rename successful"
+msgstr "Rename successful"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Untitled {{visualizationType}} visualization, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
 
 msgid "Getting started"
 msgstr "Getting started"
@@ -170,6 +195,15 @@ msgstr "Add a title"
 msgid "Options"
 msgstr "Options"
 
+msgid "Columns"
+msgstr "Columns"
+
+msgid "Rows"
+msgstr "Rows"
+
+msgid "Filter"
+msgstr "Filter"
+
 msgid "There is a problem with this visualization."
 msgstr "There is a problem with this visualization."
 
@@ -225,3 +259,9 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
+
+msgid "Pivot table"
+msgstr "Pivot table"
+
+msgid "Line list"
+msgstr "Line list"

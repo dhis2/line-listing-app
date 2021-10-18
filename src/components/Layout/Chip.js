@@ -99,8 +99,9 @@ Chip.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    dimensionName: (sGetDimensions(state)[ownProps.dimensionId] || {}).name,
-    metadata: sGetMetadata(state),
+    dimensionName:
+        (sGetMetadata(state)[ownProps.dimensionId] || {}).name ||
+        (sGetDimensions(state)[ownProps.dimensionId] || {}).name,
 })
 
 export default connect(mapStateToProps)(Chip)

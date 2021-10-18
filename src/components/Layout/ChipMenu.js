@@ -1,4 +1,3 @@
-import { DimensionMenu, VIS_TYPE_PIE } from '@dhis2/analytics'
 import { Layer, Popper, IconMore24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
@@ -7,6 +6,7 @@ import {
     acAddUiLayoutDimensions,
     acRemoveUiLayoutDimensions,
 } from '../../actions/ui'
+import DimensionMenu from '../DimensionMenu/DimensionMenu'
 import IconButton from '../IconButton/IconButton'
 import { styles } from './styles/Menu.style'
 
@@ -43,7 +43,7 @@ const ChipMenu = ({
                         <DimensionMenu
                             dimensionId={dimensionId}
                             currentAxisId={currentAxisId}
-                            visType={visType || VIS_TYPE_PIE} // TODO: Change this once LL has its own type (temp fix since pie has same axes as LL)
+                            visType={visType}
                             axisItemHandler={axisItemHandler}
                             removeItemHandler={removeItemHandler}
                             onClose={toggleMenu}
