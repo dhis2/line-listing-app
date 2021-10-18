@@ -1,9 +1,13 @@
+import pick from 'lodash-es/pick'
+
 export const OPTION_LEGEND_DISPLAY_STRATEGY = 'legendDisplayStrategy'
 export const OPTION_LEGEND_DISPLAY_STYLE = 'legendDisplayStyle'
 export const OPTION_LEGEND_SET = 'legendSet'
 export const OPTION_SHOW_LEGEND_KEY = 'showLegendKey'
 
 export const options = {
+    /*
+    TODO: PIVOT TABLE OPTIONS:
     showHierarchy: { defaultValue: false, requestable: true, savable: true },
     showDimensionLabels: {
         defaultValue: false,
@@ -27,7 +31,8 @@ export const options = {
         requestable: false,
         savable: true,
     },
-    title: { defaultValue: undefined, requestable: false, savable: true },
+    title: { defaultValue: undefined, requestable: false, savable: true },*/
+    completedOnly: { defaultValue: false, requestable: true, savable: true },
     displayDensity: {
         defaultValue: 'NORMAL',
         requestable: false,
@@ -50,4 +55,13 @@ export const getOptionsForUi = () => {
         map[option] = props.defaultValue
         return map
     }, {})
+}
+
+export const getOptionsFromVisualization = visualization => {
+    const optionsFromVisualization = {
+        ...getOptionsForUi(),
+        ...pick(visualization, Object.keys(options)),
+    }
+
+    return optionsFromVisualization
 }
