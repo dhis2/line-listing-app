@@ -15,7 +15,11 @@ import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './styles/Visualization.module.css'
 
-export const Visualization = ({ visualization, onResponseReceived }) => {
+export const Visualization = ({
+    visualization,
+    onResponseReceived,
+    setVisualizationLoading,
+}) => {
     const dataEngine = useDataEngine()
     const [analyticsResponse, setAnalyticsResponse] = useState(null)
     const [headers, setHeaders] = useState([])
@@ -109,6 +113,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                     return filteredRows
                 }, [])
             )
+            setVisualizationLoading(false)
         }
     }, [analyticsResponse])
 
@@ -202,5 +207,6 @@ Visualization.defaultProps = {
 
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
+    setVisualizationLoading: PropTypes.func,
     onResponseReceived: PropTypes.func,
 }

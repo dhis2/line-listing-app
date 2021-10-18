@@ -1,8 +1,7 @@
 import {
     SET_LOAD_ERROR,
     CLEAR_LOAD_ERROR,
-    SET_LOADING,
-    SET_PLUGIN_LOADING,
+    SET_VISUALIZATION_LOADING,
 } from '../reducers/loader'
 
 export const acSetLoadError = value => ({
@@ -12,12 +11,7 @@ export const acSetLoadError = value => ({
 
 export const acClearLoadError = () => ({ type: CLEAR_LOAD_ERROR })
 
-export const acSetLoading = value => ({
-    type: SET_LOADING,
-    value,
-})
-
-export const acSetPluginLoading = value => ({
-    type: SET_PLUGIN_LOADING,
+export const acSetVisualizationLoading = value => ({
+    type: SET_VISUALIZATION_LOADING,
     value,
 })

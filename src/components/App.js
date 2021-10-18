@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
+import { acSetVisualizationLoading } from '../actions/loader'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
 import { tClearUi, acSetUiFromVisualization } from '../actions/ui'
@@ -18,6 +19,7 @@ import {
 import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
+import { sGetIsVisualizationLoading } from '../reducers/loader'
 import { sGetVisualization } from '../reducers/visualization'
 import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
@@ -57,10 +59,12 @@ const App = ({
     clearCurrent,
     clearVisualization,
     clearUi,
+    isLoading,
     setCurrent,
     setDimensions,
     setInitMetadata,
     setVisualization,
+    setVisualizationLoading,
     setUiFromVisualization,
     setUser,
     userSettings,
@@ -96,6 +100,7 @@ const App = ({
     }
 
     const loadVisualization = location => {
+        setVisualizationLoading(true)
         if (location.pathname.length > 1) {
             // /currentAnalyticalObject
             // /${id}/
@@ -110,6 +115,7 @@ const App = ({
             clearVisualization()
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
             clearUi()
+            setVisualizationLoading(false)
         }
 
         setInitialLoadIsComplete(true)
@@ -221,23 +227,29 @@ const App = ({
                             )}
                         >
                             {initialLoadIsComplete &&
-                                (visualization ? (
-                                    <>
-                                        <div className={classes.loadingCover}>
-                                            <LoadingMask />
-                                        </div>
-                                        {
-                                            // TODO: The start screen is flashing by for a split second when visualization has been loaded
-                                        }
-                                        <Visualization
-                                            visualization={visualization}
-                                            onResponseReceived={
-                                                onResponseReceived
-                                            }
-                                        />
-                                    </>
-                                ) : (
+                                (!visualization && !isLoading ? (
                                     <StartScreen />
+                                ) : (
+                                    <>
+                                        {isLoading && (
+                                            <div
+                                                className={classes.loadingCover}
+                                            >
+                                                <LoadingMask />
+                                            </div>
+                                        )}
+                                        {visualization && (
+                                            <Visualization
+                                                visualization={visualization}
+                                                onResponseReceived={
+                                                    onResponseReceived
+                                                }
+                                                setVisualizationLoading={
+                                                    setVisualizationLoading
+                                                }
+                                            />
+                                        )}
+                                    </>
                                 ))}
                         </div>
                     </div>
@@ -252,6 +264,7 @@ const App = ({
 const mapStateToProps = state => ({
     current: sGetCurrent(state),
     visualization: sGetVisualization(state),
+    isLoading: sGetIsVisualizationLoading(state),
 })
 
 const mapDispatchToProps = {
@@ -266,6 +279,7 @@ const mapDispatchToProps = {
     setVisualization: acSetVisualization,
     setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
+    setVisualizationLoading: acSetVisualizationLoading,
 }
 
 App.propTypes = {
@@ -274,6 +288,7 @@ App.propTypes = {
     clearCurrent: PropTypes.func,
     clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
+    isLoading: PropTypes.bool,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
     setDimensions: PropTypes.func,
@@ -281,6 +296,7 @@ App.propTypes = {
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
+    setVisualizationLoading: PropTypes.func,
     userSettings: PropTypes.object,
     visualization: PropTypes.object,
 }
