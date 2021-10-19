@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 import alertbar from './alertbar'
 import current from './current'
-import dimensions, { sGetDimensions } from './dimensions'
+import dimensions from './dimensions'
 import loader from './loader'
-import metadata, { sGetMetadata } from './metadata'
+import metadata from './metadata'
 import settings from './settings'
-import ui, { sGetUiLayout } from './ui'
+import ui from './ui'
 import user from './user'
 import visualization from './visualization'
 
@@ -22,13 +22,3 @@ export default combineReducers({
     user,
     visualization,
 })
-
-export const sAllLayoutItemsHaveData = state => {
-    const layoutItems = Object.values(sGetUiLayout(state) || {}).flat()
-    const dataObjects = [
-        ...Object.values(sGetMetadata(state) || {}),
-        ...Object.values(sGetDimensions(state) || {}),
-    ]
-
-    return layoutItems.every(item => dataObjects.some(data => data.id === item))
-}

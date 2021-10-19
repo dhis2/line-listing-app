@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import { getAxisName } from '../../../modules/axis'
-import { sAllLayoutItemsHaveData } from '../../../reducers'
+import { sGetDimensions } from '../../../reducers/dimensions'
+import { sGetMetadata } from '../../../reducers/metadata'
 import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
 import Chip from '../Chip'
 import ChipMenu from '../ChipMenu'
@@ -99,11 +101,27 @@ DefaultAxis.propTypes = {
     visType: PropTypes.string,
 }
 
+export const renderChipsSelector = createSelector(
+    // only render chips when all have names (from metadata or dimensions) available
+    [sGetUiLayout, sGetMetadata, sGetDimensions],
+    (layout, metadata, dimensions) => {
+        const layoutItems = Object.values(layout || {}).flat()
+        const dataObjects = [
+            ...Object.values(metadata || {}),
+            ...Object.values(dimensions || {}),
+        ]
+
+        return layoutItems.every(item =>
+            dataObjects.some(data => data.id === item)
+        )
+    }
+)
+
 const mapStateToProps = state => ({
     layout: sGetUiLayout(state),
     getItemsByDimension: dimensionId =>
         sGetUiItemsByDimension(state, dimensionId) || [],
-    renderChips: sAllLayoutItemsHaveData(state), // only render chips when all have names (from metadata or dimensions) available
+    renderChips: renderChipsSelector(state),
 })
 
 const mapDispatchToProps = () => ({
