@@ -123,6 +123,7 @@ const App = ({
     }
 
     const onResponseReceived = response => {
+        setVisualizationLoading(false)
         const metadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
@@ -243,9 +244,6 @@ const App = ({
                                                 visualization={visualization}
                                                 onResponseReceived={
                                                     onResponseReceived
-                                                }
-                                                setVisualizationLoading={
-                                                    setVisualizationLoading
                                                 }
                                             />
                                         )}

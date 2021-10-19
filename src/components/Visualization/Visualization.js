@@ -15,11 +15,7 @@ import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './styles/Visualization.module.css'
 
-export const Visualization = ({
-    visualization,
-    onResponseReceived,
-    setVisualizationLoading,
-}) => {
+export const Visualization = ({ visualization, onResponseReceived }) => {
     const dataEngine = useDataEngine()
     const [analyticsResponse, setAnalyticsResponse] = useState(null)
     const [headers, setHeaders] = useState([])
@@ -78,8 +74,6 @@ export const Visualization = ({
 
     useEffect(() => {
         if (analyticsResponse) {
-            onResponseReceived(analyticsResponse)
-
             // extract headers
             const headers = visualization.columns.reduce((headers, column) => {
                 headers.push(analyticsResponse.getHeader(column.dimension)) // TODO figure out what to do when no header match the column (ie. pe)
@@ -113,7 +107,7 @@ export const Visualization = ({
                     return filteredRows
                 }, [])
             )
-            setVisualizationLoading(false)
+            onResponseReceived(analyticsResponse)
         }
     }, [analyticsResponse])
 
@@ -207,6 +201,5 @@ Visualization.defaultProps = {
 
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
-    setVisualizationLoading: PropTypes.func,
     onResponseReceived: PropTypes.func,
 }
