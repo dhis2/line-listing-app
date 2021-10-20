@@ -74,8 +74,6 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
 
     useEffect(() => {
         if (analyticsResponse) {
-            onResponseReceived(analyticsResponse)
-
             // extract headers
             const headers = visualization.columns.reduce((headers, column) => {
                 headers.push(analyticsResponse.getHeader(column.dimension)) // TODO figure out what to do when no header match the column (ie. pe)
@@ -109,6 +107,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                     return filteredRows
                 }, [])
             )
+            onResponseReceived(analyticsResponse)
         }
     }, [analyticsResponse])
 
@@ -117,7 +116,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
     }
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <DataTable scrollHeight="500px" scrollWidth="1000px" width="1000px">
                 <TableHead>
                     <DataTableRow>
@@ -192,7 +191,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                     />
                 </div>
             </DataTableToolbar>
-        </>
+        </div>
     )
 }
 

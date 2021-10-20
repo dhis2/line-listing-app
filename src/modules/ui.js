@@ -3,6 +3,7 @@ import {
     layoutGetDimensionIdItemIdsObject,
 } from '@dhis2/analytics'
 import { getAdaptedUiLayoutByType } from './layout'
+import { getOptionsFromVisualization } from './options'
 import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization'
 
 const lineListUiAdapter = ui => ({
@@ -22,8 +23,7 @@ export const getAdaptedUiByType = ui => {
 
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
-    // type: vis.type || defaultVisType,
-    // options: getOptionsFromVisualization(vis),
+    options: getOptionsFromVisualization(vis),
     layout: layoutGetAxisIdDimensionIdsObject(vis),
     itemsByDimension: layoutGetDimensionIdItemIdsObject(vis),
     // parentGraphMap:

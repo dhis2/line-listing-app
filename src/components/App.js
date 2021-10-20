@@ -1,11 +1,13 @@
 import { useDataQuery, useDataMutation } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { CssVariables } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
+import { acSetVisualizationLoading } from '../actions/loader'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
 import { tClearUi, acSetUiFromVisualization } from '../actions/ui'
@@ -17,11 +19,13 @@ import {
 import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
+import { sGetIsVisualizationLoading } from '../reducers/loader'
 import { sGetVisualization } from '../reducers/visualization'
 import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
+import LoadingMask from './LoadingMask/LoadingMask'
 import { default as TitleBar } from './TitleBar/TitleBar'
 import { Toolbar } from './Toolbar/Toolbar'
 import StartScreen from './Visualization/StartScreen'
@@ -55,10 +59,12 @@ const App = ({
     clearCurrent,
     clearVisualization,
     clearUi,
+    isLoading,
     setCurrent,
     setDimensions,
     setInitMetadata,
     setVisualization,
+    setVisualizationLoading,
     setUiFromVisualization,
     setUser,
     userSettings,
@@ -94,6 +100,7 @@ const App = ({
     }
 
     const loadVisualization = location => {
+        setVisualizationLoading(true)
         if (location.pathname.length > 1) {
             // /currentAnalyticalObject
             // /${id}/
@@ -108,6 +115,7 @@ const App = ({
             clearVisualization()
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
             clearUi()
+            setVisualizationLoading(false)
         }
 
         setInitialLoadIsComplete(true)
@@ -115,6 +123,7 @@ const App = ({
     }
 
     const onResponseReceived = response => {
+        setVisualizationLoading(false)
         const metadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
@@ -176,10 +185,20 @@ const App = ({
     }, [data])
 
     return (
-        <div className={`${classes.eventReportsApp} flex-ct flex-dir-col`}>
+        <div
+            className={cx(
+                classes.eventReportsApp,
+                classes.flexCt,
+                classes.flexDirCol
+            )}
+        >
             <Toolbar />
             <div
-                className={`${classes.sectionMain} ${classes.flexGrow1} ${classes.flexCt}`}
+                className={cx(
+                    classes.sectionMain,
+                    classes.flexGrow1,
+                    classes.flexCt
+                )}
             >
                 <DndContext>
                     <div className={classes.mainLeft}>
@@ -188,7 +207,13 @@ const App = ({
                         </span>
                     </div>
                     <div
-                        className={`${classes.mainCenter} ${classes.flexGrow1} ${classes.flexBasis0} ${classes.flexCt} ${classes.flexDirCol}`}
+                        className={cx(
+                            classes.mainCenter,
+                            classes.flexGrow1,
+                            classes.flexBasis0,
+                            classes.flexCt,
+                            classes.flexDirCol
+                        )}
                     >
                         <div className={classes.mainCenterLayout}>
                             <Layout />
@@ -197,23 +222,33 @@ const App = ({
                             <TitleBar />
                         </div>
                         <div
-                            className={`${classes.mainCenterCanvas} ${classes.flexGrow1}`}
-                        >
-                            {initialLoadIsComplete ? (
-                                visualization ? (
-                                    <Visualization
-                                        visualization={visualization}
-                                        onResponseReceived={onResponseReceived}
-                                    />
-                                ) : (
-                                    <StartScreen />
-                                )
-                            ) : (
-                                <span style={{ color: 'red' }}>
-                                    loading... TODO
-                                </span>
-                                // TODO: add loading spinner
+                            className={cx(
+                                classes.mainCenterCanvas,
+                                classes.flexGrow1
                             )}
+                        >
+                            {initialLoadIsComplete &&
+                                (!visualization && !isLoading ? (
+                                    <StartScreen />
+                                ) : (
+                                    <>
+                                        {isLoading && (
+                                            <div
+                                                className={classes.loadingCover}
+                                            >
+                                                <LoadingMask />
+                                            </div>
+                                        )}
+                                        {visualization && (
+                                            <Visualization
+                                                visualization={visualization}
+                                                onResponseReceived={
+                                                    onResponseReceived
+                                                }
+                                            />
+                                        )}
+                                    </>
+                                ))}
                         </div>
                     </div>
                 </DndContext>
@@ -227,6 +262,7 @@ const App = ({
 const mapStateToProps = state => ({
     current: sGetCurrent(state),
     visualization: sGetVisualization(state),
+    isLoading: sGetIsVisualizationLoading(state),
 })
 
 const mapDispatchToProps = {
@@ -241,6 +277,7 @@ const mapDispatchToProps = {
     setVisualization: acSetVisualization,
     setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
+    setVisualizationLoading: acSetVisualizationLoading,
 }
 
 App.propTypes = {
@@ -249,6 +286,7 @@ App.propTypes = {
     clearCurrent: PropTypes.func,
     clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
+    isLoading: PropTypes.bool,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
     setDimensions: PropTypes.func,
@@ -256,6 +294,7 @@ App.propTypes = {
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
+    setVisualizationLoading: PropTypes.func,
     userSettings: PropTypes.object,
     visualization: PropTypes.object,
 }

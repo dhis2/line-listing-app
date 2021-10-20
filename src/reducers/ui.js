@@ -14,6 +14,14 @@ export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 
+const EMPTY_UI = {
+    layout: {
+        columns: [],
+        filters: [],
+    },
+    itemsByDimension: {},
+}
+
 const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
     options: getOptionsForUi(),
@@ -53,7 +61,7 @@ const getPreselectedUi = options => {
     }
 }
 
-export default (state = DEFAULT_UI, action) => {
+export default (state = EMPTY_UI, action) => {
     switch (action.type) {
         case SET_UI: {
             return {
