@@ -21,6 +21,7 @@ const EMPTY_UI = {
         filters: [],
     },
     itemsByDimension: {},
+    options: {},
 }
 
 const DEFAULT_UI = {

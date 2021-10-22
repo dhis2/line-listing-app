@@ -1,25 +1,26 @@
 import { VisualizationOptions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { tSetCurrentFromUi } from '../../actions/current'
 import { getOptionsByType } from '../../modules/options/config'
 import MenuButton from '../Toolbar/MenuBar/MenuButton'
 //import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer'
 
-const VisualizationOptionsManager = () => {
+const VisualizationOptionsManager = ({ onUpdate }) => {
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
     const onClick = () => {
-        // TODO: update vis
-        onClose()
-    }
-
-    const onClose = () => {
-        toggleVisualizationOptionsDialog()
-    }
-
-    const toggleVisualizationOptionsDialog = () => {
-        setDialogIsOpen(!dialogIsOpen)
+        setDialogIsOpen(false)
+        // try {
+        //     validateLayout(getCurrentFromUi())
+        //     acClearLoadError()
+        // } catch (error) {
+        //     acSetLoadError(error || new GenericClientError())
+        // }
+        //onLoadingStart()
+        onUpdate()
     }
 
     const optionsConfig = getOptionsByType()
@@ -28,7 +29,7 @@ const VisualizationOptionsManager = () => {
         <>
             <MenuButton
                 data-test={'app-menubar-options-button'}
-                onClick={toggleVisualizationOptionsDialog}
+                onClick={() => setDialogIsOpen(true)}
             >
                 {i18n.t('Options')}
             </MenuButton>
@@ -36,15 +37,24 @@ const VisualizationOptionsManager = () => {
                 <VisualizationOptions
                     optionsConfig={optionsConfig}
                     onUpdate={onClick}
-                    onClose={onClose}
+                    onClose={() => setDialogIsOpen(false)}
                 />
             )}
         </>
     )
 }
 
-VisualizationOptionsManager.propTypes = {}
+VisualizationOptionsManager.propTypes = {
+    onUpdate: PropTypes.func,
+}
 
 const mapStateToProps = () => ({})
 
-export default connect(mapStateToProps)(VisualizationOptionsManager)
+const mapDispatchToProps = {
+    onUpdate: tSetCurrentFromUi,
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(VisualizationOptionsManager)

@@ -1,6 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
-import SelectBaseOption from './SelectBaseOption'
+import {
+    DISPLAY_DENSITY_COMFORTABLE,
+    DISPLAY_DENSITY_NORMAL,
+    DISPLAY_DENSITY_COMPACT,
+} from '../../../modules/options'
+import { default as SelectBaseOption } from './SelectBaseOption'
 
 const DisplayDensity = () => (
     <SelectBaseOption
@@ -8,9 +13,12 @@ const DisplayDensity = () => (
         option={{
             name: 'displayDensity',
             items: [
-                { value: 'COMFORTABLE', label: i18n.t('Comfortable') },
-                { value: 'NORMAL', label: i18n.t('Normal') },
-                { value: 'COMPACT', label: i18n.t('Compact') },
+                {
+                    value: DISPLAY_DENSITY_COMFORTABLE,
+                    label: i18n.t('Comfortable'),
+                },
+                { value: DISPLAY_DENSITY_NORMAL, label: i18n.t('Normal') },
+                { value: DISPLAY_DENSITY_COMPACT, label: i18n.t('Compact') },
             ],
         }}
     />

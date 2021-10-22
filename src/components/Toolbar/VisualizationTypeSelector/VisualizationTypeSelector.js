@@ -38,6 +38,7 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
                     {getVisTypes().map(type =>
                         visTypeMap[type].disabled ? (
                             <Tooltip
+                                key={`${type}-tooltip`}
                                 placement="bottom"
                                 content={visTypeMap[type].disabledText}
                             >

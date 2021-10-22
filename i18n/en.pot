@@ -66,6 +66,9 @@ msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 
+msgid "Update"
+msgstr "Update"
+
 msgid "Getting started"
 msgstr "Getting started"
 

@@ -34,6 +34,7 @@
 
 .sectionToolbar {
     height: 39px;
+    border-bottom: 1px solid #e0e2e4;
 }
 
 /* Main */

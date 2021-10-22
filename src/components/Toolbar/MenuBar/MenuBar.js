@@ -2,11 +2,12 @@ import { FileMenu } from '@dhis2/analytics'
 import { useDataMutation } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
+import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { acSetAlertBar } from '../../../actions/alertbar'
-import { acSetCurrent } from '../../../actions/current'
+import { acSetCurrent, tSetCurrentFromUi } from '../../../actions/current'
 import { acSetVisualization } from '../../../actions/visualization'
 import { getAlertTypeByStatusCode } from '../../../modules/error'
 import history from '../../../modules/history'
@@ -45,6 +46,7 @@ export const MenuBar = ({
     setAlertBar,
     setCurrent,
     setVisualization,
+    onUpdate,
 }) => {
     const { d2 } = useD2()
 
@@ -185,8 +187,22 @@ export const MenuBar = ({
         onError,
     })
 
+    const onUpdateClick = () => {
+        // TODO: More things to be added here later (validation, error handling etc). Should be in line with the onClick in VisualizationsOptionsManager
+        onUpdate()
+    }
+
     return (
         <div className={classes.menuBar} data-test={dataTest}>
+            <Button
+                className={classes.updateButton}
+                onClick={onUpdateClick}
+                type="button"
+                primary
+                small
+            >
+                {i18n.t('Update')}
+            </Button>
             <FileMenu
                 d2={d2}
                 fileType={apiObjectName}
@@ -212,6 +228,7 @@ MenuBar.propTypes = {
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
+    onUpdate: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
@@ -223,6 +240,7 @@ const mapDispatchToProps = {
     setAlertBar: acSetAlertBar,
     setCurrent: acSetCurrent,
     setVisualization: acSetVisualization,
+    onUpdate: tSetCurrentFromUi,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

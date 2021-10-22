@@ -4,6 +4,9 @@ export const OPTION_LEGEND_DISPLAY_STRATEGY = 'legendDisplayStrategy'
 export const OPTION_LEGEND_DISPLAY_STYLE = 'legendDisplayStyle'
 export const OPTION_LEGEND_SET = 'legendSet'
 export const OPTION_SHOW_LEGEND_KEY = 'showLegendKey'
+export const DISPLAY_DENSITY_COMFORTABLE = 'COMFORTABLE'
+export const DISPLAY_DENSITY_NORMAL = 'NORMAL'
+export const DISPLAY_DENSITY_COMPACT = 'COMPACT'
 
 export const options = {
     /*
@@ -34,7 +37,7 @@ export const options = {
     title: { defaultValue: undefined, requestable: false, savable: true },*/
     completedOnly: { defaultValue: false, requestable: true, savable: true },
     displayDensity: {
-        defaultValue: 'NORMAL',
+        defaultValue: DISPLAY_DENSITY_NORMAL,
         requestable: false,
         savable: true,
     },
