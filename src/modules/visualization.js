@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import PivotTableIcon from '../assets/PivotTableIcon'
 import { DEFAULT_CURRENT } from '../reducers/current'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization'
 import { default as options } from './options'
@@ -6,19 +7,20 @@ import { default as options } from './options'
 export const VIS_TYPE_PIVOT_TABLE = 'VIS_TYPE_PIVOT_TABLE'
 export const VIS_TYPE_LINE_LIST = 'VIS_TYPE_LINE_LIST'
 
-export const visTypeDisplayNames = {
-    [VIS_TYPE_PIVOT_TABLE]: i18n.t('Pivot table'),
-    [VIS_TYPE_LINE_LIST]: i18n.t('Line list'),
-}
-
-export const getDisplayNameByVisType = visType => {
-    const displayName = visTypeDisplayNames[visType]
-
-    if (!displayName) {
-        throw new Error(`${visType} is not a valid visualization type`)
-    }
-
-    return displayName
+export const visTypeMap = {
+    [VIS_TYPE_LINE_LIST]: {
+        name: i18n.t('Line list'),
+        description: 'TEXT description for Line list',
+        icon: PivotTableIcon,
+        disabled: false,
+    },
+    [VIS_TYPE_PIVOT_TABLE]: {
+        name: i18n.t('Pivot table'),
+        description: 'TEXT description for Pivot table',
+        icon: PivotTableIcon,
+        disabled: true,
+        disabledText: i18n.t('Pivot tables are not supported by this app yet'),
+    },
 }
 
 export const getVisualizationFromCurrent = current => {

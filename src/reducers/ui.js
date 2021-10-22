@@ -15,6 +15,7 @@ export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 
 const EMPTY_UI = {
+    type: VIS_TYPE_LINE_LIST,
     layout: {
         columns: [],
         filters: [],
@@ -140,6 +141,7 @@ export const sGetUiOptions = state => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = state => sGetUi(state).itemsByDimension
 export const sGetUiLayout = state => sGetUi(state).layout
+export const sGetUiType = state => sGetUi(state).type
 
 // Selectors level 2
 
