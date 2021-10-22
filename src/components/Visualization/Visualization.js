@@ -40,7 +40,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
             .withStage(visualization.programStage.id)
             .withDisplayProperty('NAME') // TODO from settings ?!
             .withOutputType(visualization.outputType)
-            //.withDesc('eventdate') TODO see above/below
+            .withParameters({ completedOnly: visualization.completedOnly })
             .withPageSize(pageSize)
             .withPage(page)
 

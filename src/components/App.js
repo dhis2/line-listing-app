@@ -20,7 +20,6 @@ import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetIsVisualizationLoading } from '../reducers/loader'
-import { sGetVisualization } from '../reducers/visualization'
 import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
 import DndContext from './DndContext'
@@ -53,7 +52,7 @@ const dataStatisticsMutation = {
 
 const App = ({
     location,
-    visualization,
+    current,
     addMetadata,
     addSettings,
     clearCurrent,
@@ -228,7 +227,7 @@ const App = ({
                             )}
                         >
                             {initialLoadIsComplete &&
-                                (!visualization && !isLoading ? (
+                                (!current && !isLoading ? (
                                     <StartScreen />
                                 ) : (
                                     <>
@@ -239,9 +238,9 @@ const App = ({
                                                 <LoadingMask />
                                             </div>
                                         )}
-                                        {visualization && (
+                                        {current && (
                                             <Visualization
-                                                visualization={visualization}
+                                                visualization={current}
                                                 onResponseReceived={
                                                     onResponseReceived
                                                 }
@@ -261,7 +260,6 @@ const App = ({
 
 const mapStateToProps = state => ({
     current: sGetCurrent(state),
-    visualization: sGetVisualization(state),
     isLoading: sGetIsVisualizationLoading(state),
 })
 
@@ -286,6 +284,7 @@ App.propTypes = {
     clearCurrent: PropTypes.func,
     clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
+    current: PropTypes.object,
     isLoading: PropTypes.bool,
     location: PropTypes.object,
     setCurrent: PropTypes.func,
@@ -296,7 +295,6 @@ App.propTypes = {
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
     userSettings: PropTypes.object,
-    visualization: PropTypes.object,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
