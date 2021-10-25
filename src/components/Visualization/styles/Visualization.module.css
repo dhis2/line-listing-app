@@ -9,3 +9,15 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.fontSizeLarge {
+    font-size: 13px !important;
+}
+
+.fontSizeNormal {
+    font-size: 11px !important;
+}
+
+.fontSizeSmall {
+    font-size: 10px !important;
+}
