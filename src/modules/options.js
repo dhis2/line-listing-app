@@ -7,6 +7,9 @@ export const OPTION_SHOW_LEGEND_KEY = 'showLegendKey'
 export const DISPLAY_DENSITY_COMFORTABLE = 'COMFORTABLE'
 export const DISPLAY_DENSITY_NORMAL = 'NORMAL'
 export const DISPLAY_DENSITY_COMPACT = 'COMPACT'
+export const FONT_SIZE_LARGE = 'LARGE'
+export const FONT_SIZE_NORMAL = 'NORMAL'
+export const FONT_SIZE_SMALL = 'SMALL'
 
 export const options = {
     /*
@@ -41,7 +44,11 @@ export const options = {
         requestable: false,
         savable: true,
     },
-    fontSize: { defaultValue: 'NORMAL', requestable: false, savable: true },
+    fontSize: {
+        defaultValue: FONT_SIZE_NORMAL,
+        requestable: false,
+        savable: true,
+    },
     digitGroupSeparator: {
         defaultValue: 'SPACE',
         requestable: false,

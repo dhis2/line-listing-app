@@ -16,8 +16,23 @@ import React, { useCallback, useEffect, useState } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
+    FONT_SIZE_LARGE,
+    FONT_SIZE_NORMAL,
+    FONT_SIZE_SMALL,
 } from '../../modules/options'
 import styles from './styles/Visualization.module.css'
+
+const getFontSizeClass = fontSize => {
+    switch (fontSize) {
+        case FONT_SIZE_LARGE:
+            return styles.fontSizeLarge
+        case FONT_SIZE_SMALL:
+            return styles.fontSizeSmall
+        case FONT_SIZE_NORMAL:
+        default:
+            return styles.fontSizeNormal
+    }
+}
 
 export const Visualization = ({ visualization, onResponseReceived }) => {
     const dataEngine = useDataEngine()
@@ -122,6 +137,8 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
     const large = visualization.displayDensity === DISPLAY_DENSITY_COMFORTABLE
     const small = visualization.displayDensity === DISPLAY_DENSITY_COMPACT
 
+    const fontSizeClass = getFontSizeClass(visualization.fontSize)
+
     return (
         <div className={styles.wrapper}>
             <DataTable scrollHeight="500px" scrollWidth="1000px" width="1000px">
@@ -145,6 +162,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                                     )}
                                     large={large}
                                     small={small}
+                                    className={fontSizeClass}
                                 >
                                     {header.column}
                                 </DataTableColumnHeader>
@@ -155,6 +173,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                                     key={`undefined_${index}`} // FIXME this is due to pe not being present in headers, needs special handling
                                     large={large}
                                     small={small}
+                                    className={fontSizeClass}
                                 />
                             )
                         )}
@@ -168,6 +187,7 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                                     key={index}
                                     large={large}
                                     small={small}
+                                    className={fontSizeClass}
                                 >
                                     {value}
                                 </DataTableCell>
