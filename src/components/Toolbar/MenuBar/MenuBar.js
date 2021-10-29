@@ -15,6 +15,7 @@ import { sGetCurrent } from '../../../reducers/current'
 import { sGetVisualization } from '../../../reducers/visualization'
 import { ALERT_TYPE_SUCCESS } from '../../AlertBar/AlertBar'
 import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager'
+import { default as InterpretationsButton } from './InterpretationsButton'
 import classes from './styles/MenuBar.module.css'
 
 const visualizationSaveMutation = {
@@ -216,6 +217,8 @@ export const MenuBar = ({
                 onError={onError}
             />
             <VisualizationOptionsManager />
+            <div className={classes.flexGrow} />
+            <InterpretationsButton />
         </div>
     )
 }

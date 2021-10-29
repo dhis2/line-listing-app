@@ -50,6 +50,9 @@ msgstr "Unsaved visualization"
 msgid "Edited"
 msgstr "Edited"
 
+msgid "Interpretations"
+msgstr "Interpretations"
+
 msgid "\"{{deletedObject}}\" successfully deleted."
 msgstr "\"{{deletedObject}}\" successfully deleted."
 

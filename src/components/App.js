@@ -20,8 +20,10 @@ import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetIsVisualizationLoading } from '../reducers/loader'
+import { sGetUiShowRightSidebar } from '../reducers/ui'
 import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
+import { DetailsPanel } from './DetailsPanel/DetailsPanel'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
 import LoadingMask from './LoadingMask/LoadingMask'
@@ -66,6 +68,7 @@ const App = ({
     setVisualizationLoading,
     setUiFromVisualization,
     setUser,
+    showRightSidebar,
     userSettings,
 }) => {
     const [previousLocation, setPreviousLocation] = useState(null)
@@ -251,6 +254,11 @@ const App = ({
                         </div>
                     </div>
                 </DndContext>
+                {showRightSidebar && current && (
+                    <div className={classes.mainRight}>
+                        <DetailsPanel />
+                    </div>
+                )}
             </div>
             <AlertBar />
             <CssVariables colors spacers />
@@ -261,6 +269,7 @@ const App = ({
 const mapStateToProps = state => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
+    showRightSidebar: sGetUiShowRightSidebar(state),
 })
 
 const mapDispatchToProps = {
@@ -294,6 +303,7 @@ App.propTypes = {
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
+    showRightSidebar: PropTypes.bool,
     userSettings: PropTypes.object,
 }
 

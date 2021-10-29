@@ -13,6 +13,7 @@ export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
+export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
@@ -26,7 +27,6 @@ const EMPTY_UI = {
 
 const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
-    options: getOptionsForUi(),
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -35,6 +35,8 @@ const DEFAULT_UI = {
     itemsByDimension: {
         [DIMENSION_ID_ORGUNIT]: [],
     },
+    options: getOptionsForUi(),
+    showRightSidebar: false,
 }
 
 const getPreselectedUi = options => {
@@ -127,6 +129,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case TOGGLE_UI_RIGHT_SIDEBAR: {
+            return {
+                ...state,
+                showRightSidebar: !state.showRightSidebar,
+            }
+        }
         case CLEAR_UI: {
             return getPreselectedUi(action.value)
         }
@@ -142,6 +150,7 @@ export const sGetUiOptions = state => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = state => sGetUi(state).itemsByDimension
 export const sGetUiLayout = state => sGetUi(state).layout
+export const sGetUiShowRightSidebar = state => sGetUi(state).showRightSidebar
 export const sGetUiType = state => sGetUi(state).type
 
 // Selectors level 2
