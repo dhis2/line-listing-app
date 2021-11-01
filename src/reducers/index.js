@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import alertbar from './alertbar'
 import current from './current'
 import dimensions from './dimensions'
 import loader from './loader'
@@ -12,7 +11,6 @@ import visualization from './visualization'
 // Reducers
 
 export default combineReducers({
-    alertbar,
     current,
     dimensions,
     loader,

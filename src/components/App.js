@@ -21,7 +21,6 @@ import history from '../modules/history'
 import { sGetCurrent } from '../reducers/current'
 import { sGetIsVisualizationLoading } from '../reducers/loader'
 import { sGetUiShowRightSidebar } from '../reducers/ui'
-import { default as AlertBar } from './AlertBar/AlertBar'
 import classes from './App.module.css'
 import { DetailsPanel } from './DetailsPanel/DetailsPanel'
 import DndContext from './DndContext'
@@ -260,7 +259,6 @@ const App = ({
                     </div>
                 )}
             </div>
-            <AlertBar />
             <CssVariables colors spacers />
         </div>
     )
