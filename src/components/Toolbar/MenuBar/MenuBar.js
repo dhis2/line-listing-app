@@ -1,19 +1,17 @@
 import { FileMenu } from '@dhis2/analytics'
-import { useDataMutation } from '@dhis2/app-runtime'
+import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetAlertBar } from '../../../actions/alertbar'
 import { acSetCurrent, tSetCurrentFromUi } from '../../../actions/current'
 import { acSetVisualization } from '../../../actions/visualization'
 import { getAlertTypeByStatusCode } from '../../../modules/error'
 import history from '../../../modules/history'
 import { sGetCurrent } from '../../../reducers/current'
 import { sGetVisualization } from '../../../reducers/visualization'
-import { ALERT_TYPE_SUCCESS } from '../../AlertBar/AlertBar'
 import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager'
 import { default as InterpretationsButton } from './InterpretationsButton'
 import classes from './styles/MenuBar.module.css'
@@ -44,12 +42,15 @@ export const MenuBar = ({
     current,
     visualization,
     apiObjectName,
-    setAlertBar,
     setCurrent,
     setVisualization,
     onUpdate,
 }) => {
     const { d2 } = useD2()
+    const { show: showAlert } = useAlert(
+        ({ message }) => message,
+        ({ options }) => options
+    )
 
     const onOpen = id => {
         const path = `/${id}`
@@ -73,12 +74,14 @@ export const MenuBar = ({
 
         history.push('/')
 
-        setAlertBar({
-            type: ALERT_TYPE_SUCCESS,
+        showAlert({
             message: i18n.t('"{{deletedObject}}" successfully deleted.', {
                 deletedObject: deletedVisualization,
             }),
-            duration: 2000,
+            options: {
+                success: true,
+                duration: 2000,
+            },
         })
     }
 
@@ -106,10 +109,12 @@ export const MenuBar = ({
             setCurrent(updatedCurrent)
         }
 
-        setAlertBar({
-            type: ALERT_TYPE_SUCCESS,
+        showAlert({
             message: i18n.t('Rename successful'),
-            duration: 2000,
+            options: {
+                success: true,
+                duration: 2000,
+            },
         })
     }
 
@@ -173,9 +178,11 @@ export const MenuBar = ({
                   )
                 : error.message
 
-        acSetAlertBar({
-            type: getAlertTypeByStatusCode(error.httpStatusCode),
+        showAlert({
             message,
+            options: {
+                [getAlertTypeByStatusCode(error.httpStatusCode)]: true,
+            },
         })
     }
 
@@ -192,6 +199,8 @@ export const MenuBar = ({
         // TODO: More things to be added here later (validation, error handling etc). Should be in line with the onClick in VisualizationsOptionsManager
         onUpdate()
     }
+
+    console.log('I am the menu bar')
 
     return (
         <div className={classes.menuBar} data-test={dataTest}>
@@ -227,7 +236,6 @@ MenuBar.propTypes = {
     apiObjectName: PropTypes.string,
     current: PropTypes.object,
     dataTest: PropTypes.string,
-    setAlertBar: PropTypes.func,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
@@ -240,7 +248,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    setAlertBar: acSetAlertBar,
     setCurrent: acSetCurrent,
     setVisualization: acSetVisualization,
     onUpdate: tSetCurrentFromUi,
