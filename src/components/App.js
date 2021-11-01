@@ -30,6 +30,7 @@ import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel'
 import { default as DialogManager } from './Dialogs/DialogManager'
 import DndContext from './DndContext'
+import { InterpretationsModal } from './Interpretations/InterpretationsModal'
 import Layout from './Layout/Layout'
 import LoadingMask from './LoadingMask/LoadingMask'
 import { default as TitleBar } from './TitleBar/TitleBar'
@@ -256,6 +257,11 @@ const App = ({
                                                 onResponseReceived={
                                                     onResponseReceived
                                                 }
+                                            />
+                                        )}
+                                        {current && (
+                                            <InterpretationsModal
+                                                visualization={current}
                                             />
                                         )}
                                     </>
