@@ -200,8 +200,6 @@ export const MenuBar = ({
         onUpdate()
     }
 
-    console.log('I am the menu bar')
-
     return (
         <div className={classes.menuBar} data-test={dataTest}>
             <Button
