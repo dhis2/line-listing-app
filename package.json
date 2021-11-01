@@ -29,6 +29,7 @@
         "@dhis2/ui": "^7.7.3",
         "history": "^5.0.1",
         "lodash-es": "^4.17.21",
+        "prop-types": "^15.7.2",
         "react": "^16.14",
         "react-beautiful-dnd": "^13.1.0",
         "react-redux": "^7.2.5",
