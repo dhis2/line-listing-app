@@ -52,11 +52,11 @@
     overflow-x: hidden;
 }
 
-/* Main center */
+/* Main canvas */
 
 .mainCenterCanvas {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100%;
     overflow: hidden;
     position: relative;

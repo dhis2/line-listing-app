@@ -6,9 +6,9 @@ import {
     DataTableRow,
     DataTableCell,
     DataTableColumnHeader,
-    DataTableToolbar,
-    TableHead,
-    TableBody,
+    DataTableHead,
+    DataTableBody,
+    DataTableFoot,
     Pagination,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -34,7 +34,11 @@ const getFontSizeClass = fontSize => {
     }
 }
 
-export const Visualization = ({ visualization, onResponseReceived }) => {
+export const Visualization = ({
+    visualization,
+    onResponseReceived,
+    relativePeriodDate,
+}) => {
     const dataEngine = useDataEngine()
     const [analyticsResponse, setAnalyticsResponse] = useState(null)
     const [headers, setHeaders] = useState([])
@@ -52,7 +56,6 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
     // analytics
     const fetchAnalyticsData = useCallback(async () => {
         const analyticsEngine = Analytics.getAnalytics(dataEngine)
-
         const req = new analyticsEngine.request()
             .fromVisualization(visualization)
             .withProgram(visualization.program.id)
@@ -62,6 +65,10 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
             .withParameters({ completedOnly: visualization.completedOnly })
             .withPageSize(pageSize)
             .withPage(page)
+
+        if (relativePeriodDate) {
+            req.withRelativePeriodDate(relativePeriodDate)
+        }
 
         if (sortField) {
             switch (sortDirection) {
@@ -89,7 +96,14 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
         }
 
         doFetch()
-    }, [visualization, page, pageSize, sortField, sortDirection])
+    }, [
+        visualization,
+        page,
+        pageSize,
+        sortField,
+        sortDirection,
+        relativePeriodDate,
+    ])
 
     useEffect(() => {
         if (analyticsResponse) {
@@ -139,10 +153,12 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
 
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
 
+    const colSpan = String(Math.max(headers.length, 1))
+
     return (
         <div className={styles.wrapper}>
-            <DataTable scrollHeight="500px" scrollWidth="1000px" width="1000px">
-                <TableHead>
+            <DataTable scrollHeight="500px" width="auto">
+                <DataTableHead>
                     <DataTableRow>
                         {headers.map((header, index) =>
                             header ? (
@@ -178,8 +194,8 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                             )
                         )}
                     </DataTableRow>
-                </TableHead>
-                <TableBody>
+                </DataTableHead>
+                <DataTableBody>
                     {rows.map((row, index) => (
                         <DataTableRow key={index}>
                             {row.map((value, index) => (
@@ -194,38 +210,46 @@ export const Visualization = ({ visualization, onResponseReceived }) => {
                             ))}
                         </DataTableRow>
                     ))}
-                </TableBody>
-            </DataTable>
-            <DataTableToolbar position="bottom">
-                <div className={styles.paginationControls}>
-                    <Pagination
-                        page={page}
-                        pageCount={analyticsResponse.metaData.pager.pageCount}
-                        pageSize={pageSize}
-                        total={analyticsResponse.metaData.pager.total}
-                        onPageChange={setPage}
-                        onPageSizeChange={setPageSize}
-                        pageSizeSelectText={i18n.t('Cases per page')}
-                        pageSummaryText={({ firstItem, lastItem, total }) =>
-                            i18n.t(
-                                '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
-                                {
-                                    firstCaseIndex: firstItem,
-                                    lastCaseIndex: lastItem,
-                                    count: total,
-                                    // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
-                                    // not sure is possible to have empty string for singular with i18n
-                                    // TODO also, this string for some reason is not extracted
-                                    defaultValue:
-                                        '{{firstCaseIndex}} of {{count}} case',
-                                    defaultValue_plural:
-                                        '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                </DataTableBody>
+                <DataTableFoot className={styles.stickyFooter}>
+                    <DataTableRow>
+                        <DataTableCell colSpan={colSpan} staticStyle>
+                            <Pagination
+                                page={page}
+                                pageCount={
+                                    analyticsResponse.metaData.pager.pageCount
                                 }
-                            )
-                        }
-                    />
-                </div>
-            </DataTableToolbar>
+                                pageSize={pageSize}
+                                total={analyticsResponse.metaData.pager.total}
+                                onPageChange={setPage}
+                                onPageSizeChange={setPageSize}
+                                pageSizeSelectText={i18n.t('Cases per page')}
+                                pageSummaryText={({
+                                    firstItem,
+                                    lastItem,
+                                    total,
+                                }) =>
+                                    i18n.t(
+                                        '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                        {
+                                            firstCaseIndex: firstItem,
+                                            lastCaseIndex: lastItem,
+                                            count: total,
+                                            // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
+                                            // not sure is possible to have empty string for singular with i18n
+                                            // TODO also, this string for some reason is not extracted
+                                            defaultValue:
+                                                '{{firstCaseIndex}} of {{count}} case',
+                                            defaultValue_plural:
+                                                '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                        }
+                                    )
+                                }
+                            />
+                        </DataTableCell>
+                    </DataTableRow>
+                </DataTableFoot>
+            </DataTable>
         </div>
     )
 }
@@ -236,5 +260,6 @@ Visualization.defaultProps = {
 
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
-    onResponseReceived: PropTypes.func,
+    onResponseReceived: PropTypes.func.isRequired,
+    relativePeriodDate: PropTypes.string,
 }

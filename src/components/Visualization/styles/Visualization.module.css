@@ -1,13 +1,14 @@
 .wrapper {
     display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    flex-direction: row;
+    flex-grow: 0;
+    align-items: flex-start;
 }
 
-.paginationControls {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+.stickyFooter {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
 }
 
 .fontSizeLarge {
