@@ -56,21 +56,19 @@ export const Visualization = ({
     // analytics
     const fetchAnalyticsData = useCallback(async () => {
         const analyticsEngine = Analytics.getAnalytics(dataEngine)
-        const params = { completedOnly: visualization.completedOnly }
-
-        if (relativePeriodDate) {
-            params.relativePeriodDate = relativePeriodDate
-        }
-
         const req = new analyticsEngine.request()
             .fromVisualization(visualization)
             .withProgram(visualization.program.id)
             .withStage(visualization.programStage.id)
             .withDisplayProperty('NAME') // TODO from settings ?!
             .withOutputType(visualization.outputType)
-            .withParameters(params)
+            .withParameters({ completedOnly: visualization.completedOnly })
             .withPageSize(pageSize)
             .withPage(page)
+
+        if (relativePeriodDate) {
+            req.withRelativePeriodDate(relativePeriodDate)
+        }
 
         if (sortField) {
             switch (sortDirection) {
