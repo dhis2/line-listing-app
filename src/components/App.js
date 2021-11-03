@@ -262,6 +262,9 @@ const App = ({
                                         {current && (
                                             <InterpretationsModal
                                                 visualization={current}
+                                                onResponseReceived={
+                                                    onResponseReceived
+                                                }
                                             />
                                         )}
                                     </>

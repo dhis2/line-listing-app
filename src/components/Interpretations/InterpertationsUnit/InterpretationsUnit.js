@@ -87,7 +87,7 @@ export const InterpretationsUnit = ({
                                     data.interpretations.interpretations
                                 }
                                 onInterpretationClick={onInterpretationClick}
-                                onLikeToggle={onCompleteAction}
+                                refresh={onCompleteAction}
                             />
                             <InterpretationForm
                                 currentUser={currentUser}

@@ -9,7 +9,7 @@ export const InterpretationList = ({
     currentUser,
     interpretations,
     onInterpretationClick,
-    onLikeToggle,
+    refresh,
 }) => {
     const interpretationsByDate = interpretations.reduce(
         (groupedInterpretations, interpretation) => {
@@ -64,7 +64,7 @@ export const InterpretationList = ({
                                         interpretation={interpretation}
                                         currentUser={currentUser}
                                         onClick={onInterpretationClick}
-                                        onLikeToggle={onLikeToggle}
+                                        refresh={refresh}
                                     />
                                 ))}
                         </ol>
@@ -78,5 +78,5 @@ InterpretationList.propTypes = {
     currentUser: PropTypes.object.isRequired,
     interpretations: PropTypes.array.isRequired,
     onInterpretationClick: PropTypes.func.isRequired,
-    onLikeToggle: PropTypes.func.isRequired,
+    refresh: PropTypes.func.isRequired,
 }

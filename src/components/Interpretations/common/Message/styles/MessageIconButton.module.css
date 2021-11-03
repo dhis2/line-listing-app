@@ -1,0 +1,16 @@
+.actionButton {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: row;
+    gap: var(--spacers-dp4);
+    align-items: center;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--colors-grey700);
+}
+
+.actionButton.selected {
+    color: var(--colors-teal600);
+    font-weight: 500;
+}

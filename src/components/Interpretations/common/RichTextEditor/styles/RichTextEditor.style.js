@@ -58,6 +58,7 @@ export const toolbarClasses = css`
         display: flex;
         align-items: center;
         padding: ${spacers.dp4};
+        flex-wrap: wrap;
     }
 
     .mainActions {

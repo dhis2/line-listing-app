@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    gap: var(--spacers-dp8);
+    margin-top: var(--spacers-dp12);
+}
+.avatar {
+    flex-grow: 0;
+}
+.editor {
+    flex-grow: 1;
+}

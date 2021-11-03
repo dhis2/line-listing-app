@@ -1,0 +1,26 @@
+.container {
+    overflow: hidden;
+    /* Modal whitespaceTop + whitespaceBottom + modalHeader + modalFooter = 285px ¯\_(ツ)_/¯ */
+    max-height: calc(100vh - 285px);
+    display: flex;
+    flex-direction: column;
+}
+.scrollbox {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+.title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    color: var(--colors-grey900);
+    font-size: 14px;
+    line-height: 18px;
+}
+.comments {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--spacers-dp4);
+    gap: var(--spacers-dp4);
+}

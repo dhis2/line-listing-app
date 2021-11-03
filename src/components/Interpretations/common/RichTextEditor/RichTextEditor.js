@@ -13,7 +13,7 @@ import {
     colors,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { forwardRef, useRef, useEffect, useState } from 'react'
 import {
     convertCtrlKey,
     insertMarkdown,
@@ -189,59 +189,63 @@ Toolbar.propTypes = {
     disabled: PropTypes.bool,
 }
 
-export const RichTextEditor = ({
-    value,
-    disabled,
-    inputPlaceholder,
-    onChange,
-    errorText,
-}) => {
-    const [previewMode, setPreviewMode] = useState(false)
-    const textareaRef = useRef()
+export const RichTextEditor = forwardRef(
+    (
+        { value, disabled, inputPlaceholder, onChange, errorText },
+        externalRef
+    ) => {
+        const [previewMode, setPreviewMode] = useState(false)
+        const internalRef = useRef()
+        const textareaRef = externalRef || internalRef
 
-    useEffect(() => textareaRef.current.focus(), [textareaRef.current])
+        useEffect(() => textareaRef.current.focus(), [textareaRef.current])
 
-    return (
-        <div className="container">
-            <Toolbar
-                onInsertMarkdown={markdown => {
-                    insertMarkdown(
-                        markdown,
-                        textareaRef.current,
-                        (text, caretPos) => {
-                            onChange(text)
-                            textareaRef.current.focus()
-                            textareaRef.current.selectionEnd = caretPos
-                        }
-                    )
-                }}
-                onTogglePreview={() => setPreviewMode(!previewMode)}
-                previewMode={previewMode}
-                previewButtonDisabled={!value}
-                disabled={disabled}
-            />
-            {previewMode ? (
-                <div className="preview">
-                    <RichTextParser>{value}</RichTextParser>
-                </div>
-            ) : (
-                <Field error={!!errorText} validationText={errorText}>
-                    <div onKeyDown={event => convertCtrlKey(event, onChange)}>
-                        <textarea
-                            className="textarea"
-                            ref={textareaRef}
-                            placeholder={inputPlaceholder}
-                            disabled={disabled}
-                            value={value}
-                            onChange={event => onChange(event.target.value)}
-                        />
+        return (
+            <div className="container">
+                <Toolbar
+                    onInsertMarkdown={markdown => {
+                        insertMarkdown(
+                            markdown,
+                            textareaRef.current,
+                            (text, caretPos) => {
+                                onChange(text)
+                                textareaRef.current.focus()
+                                textareaRef.current.selectionEnd = caretPos
+                            }
+                        )
+                    }}
+                    onTogglePreview={() => setPreviewMode(!previewMode)}
+                    previewMode={previewMode}
+                    previewButtonDisabled={!value}
+                    disabled={disabled}
+                />
+                {previewMode ? (
+                    <div className="preview">
+                        <RichTextParser>{value}</RichTextParser>
                     </div>
-                </Field>
-            )}
-            <style jsx>{mainClasses}</style>
-        </div>
-    )
-}
+                ) : (
+                    <Field error={!!errorText} validationText={errorText}>
+                        <div
+                            onKeyDown={event => convertCtrlKey(event, onChange)}
+                        >
+                            <textarea
+                                className="textarea"
+                                ref={textareaRef}
+                                placeholder={inputPlaceholder}
+                                disabled={disabled}
+                                value={value}
+                                onChange={event => onChange(event.target.value)}
+                            />
+                        </div>
+                    </Field>
+                )}
+                <style jsx>{mainClasses}</style>
+            </div>
+        )
+    }
+)
+
+RichTextEditor.displayName = 'RichTextEditor'
 
 RichTextEditor.propTypes = {
     value: PropTypes.string.isRequired,

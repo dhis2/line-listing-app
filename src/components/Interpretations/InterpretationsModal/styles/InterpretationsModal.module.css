@@ -1,0 +1,40 @@
+/* TODO: remove once modal supports custom dimensions */
+.modal {
+    min-width: 600px;
+    min-height: 600px;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modalContent {
+    overflow-x: hidden;
+}
+
+.title {
+    color: var(--colors-grey900);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0px;
+    padding: var(--spacers-dp24) var(--spacers-dp24) 0;
+}
+
+.ellipsis {
+    display: inline-block;
+    line-height: 20px;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,10 +1,13 @@
 import { useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { Button, Input, UserAvatar } from '@dhis2/ui'
+import { Button, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
-import { RichTextEditor } from './RichTextEditor/RichTextEditor'
-import classes from './styles/InterpretationForm.module.css'
+import {
+    RichTextEditor,
+    MessageEditorContainer,
+    MessageButtonStrip,
+} from '../common/index.js'
 
 export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
     const [showRichTextEditor, setShowRichTextEditor] = useState(false)
@@ -31,17 +34,16 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
     const inputPlaceholder = i18n.t('Write an interpretation')
 
     return (
-        <div className={classes.container}>
-            <UserAvatar name={currentUser?.name} medium />
+        <MessageEditorContainer currentUser={currentUser}>
             {showRichTextEditor ? (
-                <div className={classes.input}>
+                <div>
                     <RichTextEditor
                         disabled={saveMutationInProgress}
                         inputPlaceholder={inputPlaceholder}
                         onChange={setInterpretationText}
                         value={interpretationText}
                     />
-                    <div className={classes.buttonsWrap}>
+                    <MessageButtonStrip>
                         <Button
                             primary
                             small
@@ -61,7 +63,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
                         >
                             {i18n.t('Cancel')}
                         </Button>
-                    </div>
+                    </MessageButtonStrip>
                 </div>
             ) : (
                 <Input
@@ -69,7 +71,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
                     placeholder={inputPlaceholder}
                 />
             )}
-        </div>
+        </MessageEditorContainer>
     )
 }
 
