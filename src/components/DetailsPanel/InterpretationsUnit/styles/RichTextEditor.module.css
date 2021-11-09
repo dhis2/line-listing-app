@@ -12,6 +12,12 @@
     margin-bottom: var(--spacers-dp4);
 }
 
+.preview {
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--colors-grey900);
+}
+
 .previewWrap {
     margin-bottom: var(--spacers-dp4);
     text-align: right;
@@ -29,10 +35,4 @@
 .sideActions {
     flex-shrink: 0;
     margin-left: auto;
-}
-
-.buttonsWrap {
-    display: flex;
-    gap: var(--spacers-dp8);
-    margin-top: var(--spacers-dp8);
 }

@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n'
 import { Parser as RichTextParser } from '@dhis2/d2-ui-rich-text'
 import {
     Button,
-    Input,
     TextArea,
     Tooltip,
     IconAt24,
@@ -70,67 +69,43 @@ const Toolbar = ({ onInsertMarkup, onTogglePreview, previewMode }) => (
     </div>
 )
 
-export const RichTextEditor = ({
-    text,
-    inputPlaceholder,
-    saveButtonLabel = i18n.t('Save'),
-    onSave,
-}) => {
-    const [hasFocus, setHasFocus] = useState(false)
-    const [previewMode, setPreviewMode] = useState(false)
-    const [newText, setNewText] = useState(text)
+Toolbar.propTypes = {
+    previewMode: PropTypes.bool,
+    onInsertMarkup: PropTypes.func,
+    onTogglePreview: PropTypes.func,
+}
 
-    return hasFocus ? (
+export const RichTextEditor = ({ value, inputPlaceholder, onChange }) => {
+    const [previewMode, setPreviewMode] = useState(false)
+
+    return (
         <div className={classes.container}>
             <Toolbar
                 onInsertMarkup={markup => {
                     // TODO handle markdown highlights etc...
-                    setNewText(newText ? newText + markup : markup)
+                    onChange(value ? value + markup : markup)
                 }}
                 onTogglePreview={() => setPreviewMode(!previewMode)}
                 previewMode={previewMode}
             />
             {previewMode ? (
-                <div>
-                    <RichTextParser>{newText}</RichTextParser>
+                <div className={classes.preview}>
+                    <RichTextParser>{value}</RichTextParser>
                 </div>
             ) : (
-                <>
-                    <TextArea
-                        initialFocus
-                        placeholder={inputPlaceholder}
-                        value={newText}
-                        onChange={({ value }) => setNewText(value)}
-                    />
-                    <div className={classes.buttonsWrap}>
-                        <Button primary small onClick={() => onSave(newText)}>
-                            {saveButtonLabel}
-                        </Button>
-                        <Button
-                            secondary
-                            small
-                            onClick={() => {
-                                setHasFocus(false)
-                                setNewText(null)
-                            }}
-                        >
-                            {i18n.t('Cancel')}
-                        </Button>
-                    </div>
-                </>
+                <TextArea
+                    initialFocus
+                    placeholder={inputPlaceholder}
+                    value={value}
+                    onChange={({ value }) => onChange(value)}
+                />
             )}
         </div>
-    ) : (
-        <Input
-            onFocus={() => setHasFocus(true)}
-            placeholder={inputPlaceholder}
-        />
     )
 }
 
 RichTextEditor.propTypes = {
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
     inputPlaceholder: PropTypes.string,
-    saveButtonLabel: PropTypes.string,
-    text: PropTypes.string,
-    onSave: PropTypes.func,
 }
