@@ -30,3 +30,9 @@
     flex-shrink: 0;
     margin-left: auto;
 }
+
+.buttonsWrap {
+    display: flex;
+    gap: var(--spacers-dp8);
+    margin-top: var(--spacers-dp8);
+}

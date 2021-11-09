@@ -102,19 +102,21 @@ export const RichTextEditor = ({
                         value={newText}
                         onChange={({ value }) => setNewText(value)}
                     />
-                    <Button primary small onClick={() => onSave(newText)}>
-                        {saveButtonLabel}
-                    </Button>
-                    <Button
-                        secondary
-                        small
-                        onClick={() => {
-                            setHasFocus(false)
-                            setNewText(null)
-                        }}
-                    >
-                        {i18n.t('Cancel')}
-                    </Button>
+                    <div className={classes.buttonsWrap}>
+                        <Button primary small onClick={() => onSave(newText)}>
+                            {saveButtonLabel}
+                        </Button>
+                        <Button
+                            secondary
+                            small
+                            onClick={() => {
+                                setHasFocus(false)
+                                setNewText(null)
+                            }}
+                        >
+                            {i18n.t('Cancel')}
+                        </Button>
+                    </div>
                 </>
             )}
         </div>
