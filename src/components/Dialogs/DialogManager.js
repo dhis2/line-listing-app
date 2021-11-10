@@ -15,6 +15,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { tSetCurrentFromUi } from '../../actions/current'
 import { acAddMetadata } from '../../actions/metadata'
 import {
     acSetUiActiveModalDialog,
@@ -136,8 +137,8 @@ export class DialogManager extends Component {
         return <>{this.renderPersistedContent(dimensionProps)}</>
     }
 
-    getPrimaryOnClick = handler => () => {
-        handler()
+    primaryOnClick = () => {
+        this.props.onUpdate()
         this.closeDialog()
     }
 
@@ -176,7 +177,7 @@ export class DialogManager extends Component {
                                     dialogId
                                 ) ? (
                                     <Button
-                                        onClick={() => alert('update')}
+                                        onClick={this.primaryOnClick}
                                         type="button"
                                         primary
                                         dataTest={
@@ -214,6 +215,7 @@ DialogManager.propTypes = {
     parentGraphMap: PropTypes.object,
     rootOrgUnits: PropTypes.array,
     setUiItems: PropTypes.func,
+    onUpdate: PropTypes.func,
 }
 
 DialogManager.defaultProps = {
@@ -236,4 +238,5 @@ export default connect(mapStateToProps, {
     setUiItems: acSetUiItems,
     addMetadata: acAddMetadata,
     addParentGraphMap: acAddParentGraphMap,
+    onUpdate: tSetCurrentFromUi,
 })(DialogManager)
