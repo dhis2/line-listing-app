@@ -14,7 +14,12 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import classes from './styles/RichTextEditor.module.css'
 
-const Toolbar = ({ onInsertMarkup, onTogglePreview, previewMode }) => (
+const Toolbar = ({
+    onInsertMarkup,
+    onTogglePreview,
+    previewButtonDisabled,
+    previewMode,
+}) => (
     <div className={classes.toolbar}>
         {!previewMode ? (
             <div className={classes.actionsWrap}>
@@ -54,7 +59,12 @@ const Toolbar = ({ onInsertMarkup, onTogglePreview, previewMode }) => (
                 </div>
 
                 <div className={classes.sideActions}>
-                    <Button secondary small onClick={onTogglePreview}>
+                    <Button
+                        secondary
+                        small
+                        disabled={previewButtonDisabled}
+                        onClick={onTogglePreview}
+                    >
                         {i18n.t('Preview')}
                     </Button>
                 </div>
@@ -70,6 +80,7 @@ const Toolbar = ({ onInsertMarkup, onTogglePreview, previewMode }) => (
 )
 
 Toolbar.propTypes = {
+    previewButtonDisabled: PropTypes.bool,
     previewMode: PropTypes.bool,
     onInsertMarkup: PropTypes.func,
     onTogglePreview: PropTypes.func,
@@ -87,6 +98,7 @@ export const RichTextEditor = ({ value, inputPlaceholder, onChange }) => {
                 }}
                 onTogglePreview={() => setPreviewMode(!previewMode)}
                 previewMode={previewMode}
+                previewButtonDisabled={!value}
             />
             {previewMode ? (
                 <div className={classes.preview}>
