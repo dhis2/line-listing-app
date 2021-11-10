@@ -5,8 +5,50 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-22T10:17:00.048Z\n"
-"PO-Revision-Date: 2021-10-22T10:17:00.048Z\n"
+"POT-Creation-Date: 2021-11-10T12:12:20.397Z\n"
+"PO-Revision-Date: 2021-11-10T12:12:20.397Z\n"
+
+msgid "Like"
+msgstr "Like"
+
+msgid "Reply"
+msgstr "Reply"
+
+msgid "See interpretation"
+msgstr "See interpretation"
+
+msgid "Write an interpretation"
+msgstr "Write an interpretation"
+
+msgid "Save interpretation"
+msgstr "Save interpretation"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Interpretations"
+msgstr "Interpretations"
+
+msgid "Bold text"
+msgstr "Bold text"
+
+msgid "Italic text"
+msgstr "Italic text"
+
+msgid "Link to a URL"
+msgstr "Link to a URL"
+
+msgid "Mention a user"
+msgstr "Mention a user"
+
+msgid "Add an emoji"
+msgstr "Add an emoji"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid "Back to write mode"
+msgstr "Back to write mode"
 
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
@@ -49,9 +91,6 @@ msgstr "Unsaved visualization"
 
 msgid "Edited"
 msgstr "Edited"
-
-msgid "Interpretations"
-msgstr "Interpretations"
 
 msgid "\"{{deletedObject}}\" successfully deleted."
 msgstr "\"{{deletedObject}}\" successfully deleted."
