@@ -10,7 +10,11 @@ import { tSetDimensions } from '../actions/dimensions'
 import { acSetVisualizationLoading } from '../actions/loader'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
-import { tClearUi, acSetUiFromVisualization } from '../actions/ui'
+import {
+    tClearUi,
+    acSetUiFromVisualization,
+    acAddParentGraphMap,
+} from '../actions/ui'
 import { acSetUser } from '../actions/user'
 import {
     acClearVisualization,
@@ -18,11 +22,13 @@ import {
 } from '../actions/visualization'
 import { EVENT_TYPE } from '../modules/dataStatistics'
 import history from '../modules/history'
+import { getParentGraphMapFromVisualization } from '../modules/ui'
 import { sGetCurrent } from '../reducers/current'
 import { sGetIsVisualizationLoading } from '../reducers/loader'
 import { sGetUiShowRightSidebar } from '../reducers/ui'
 import classes from './App.module.css'
 import { DetailsPanel } from './DetailsPanel/DetailsPanel'
+import { default as DialogManager } from './Dialogs/DialogManager'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
 import LoadingMask from './LoadingMask/LoadingMask'
@@ -55,6 +61,7 @@ const App = ({
     location,
     current,
     addMetadata,
+    addParentGraphMap,
     addSettings,
     clearCurrent,
     clearVisualization,
@@ -177,7 +184,9 @@ const App = ({
 
     useEffect(() => {
         const visualization = data?.eventReport
+
         if (visualization) {
+            addParentGraphMap(getParentGraphMapFromVisualization(visualization))
             setVisualization(visualization)
             setCurrent(visualization)
             setUiFromVisualization(visualization)
@@ -206,6 +215,7 @@ const App = ({
                         <span style={{ color: 'red' }}>
                             {'dimension panel'}
                         </span>
+                        <DialogManager />
                     </div>
                     <div
                         className={cx(
@@ -272,6 +282,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     addMetadata: acAddMetadata,
+    addParentGraphMap: acAddParentGraphMap,
     addSettings: tAddSettings,
     clearVisualization: acClearVisualization,
     clearCurrent: acClearCurrent,
@@ -287,6 +298,7 @@ const mapDispatchToProps = {
 
 App.propTypes = {
     addMetadata: PropTypes.func,
+    addParentGraphMap: PropTypes.func,
     addSettings: PropTypes.func,
     clearCurrent: PropTypes.func,
     clearUi: PropTypes.func,

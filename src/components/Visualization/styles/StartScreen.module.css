@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     height: 100%;
+    flex-grow: 1;
 }
 .inner {
     padding: var(--spacers-dp16) var(--spacers-dp24);

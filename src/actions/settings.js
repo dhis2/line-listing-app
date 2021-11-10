@@ -35,7 +35,7 @@ export const tAddSettings =
 
             return onSuccess({
                 ...systemSettings,
-                rootOrgUnit: orgUnitRoots[0],
+                rootOrgUnits: orgUnitRoots,
             })
         } catch (err) {
             return onError(err)

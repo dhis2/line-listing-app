@@ -1,4 +1,4 @@
-import { sGetRootOrgUnit } from '../reducers/settings'
+import { sGetRootOrgUnits } from '../reducers/settings'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
@@ -8,6 +8,9 @@ import {
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
     TOGGLE_UI_RIGHT_SIDEBAR,
+    SET_UI_ACTIVE_MODAL_DIALOG,
+    SET_UI_ITEMS,
+    ADD_UI_PARENT_GRAPH_MAP,
 } from '../reducers/ui'
 
 export const acSetUiOptions = value => ({
@@ -50,11 +53,26 @@ export const acToggleUiRightSidebar = () => ({
 })
 
 export const tClearUi = () => (dispatch, getState) => {
-    const rootOrgUnit = sGetRootOrgUnit(getState())
+    const rootOrgUnits = sGetRootOrgUnits(getState())
 
     dispatch(
         acClearUi({
-            rootOrgUnit,
+            rootOrgUnits,
         })
     )
 }
+
+export const acSetUiActiveModalDialog = value => ({
+    type: SET_UI_ACTIVE_MODAL_DIALOG,
+    value,
+})
+
+export const acSetUiItems = value => ({
+    type: SET_UI_ITEMS,
+    value,
+})
+
+export const acAddParentGraphMap = value => ({
+    type: ADD_UI_PARENT_GRAPH_MAP,
+    value,
+})

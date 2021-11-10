@@ -47,3 +47,18 @@ const getLineListLayout = layout => {
         [AXIS_ID_FILTERS]: [...layout[AXIS_ID_FILTERS]],
     }
 }
+
+// Accepts layout: { columns: ['dx'] }
+// Returns inverse layout: { dx: 'columns' }
+export const getInverseLayout = layout => {
+    const entries = Object.entries(layout)
+    const map = {}
+
+    entries.forEach(([axisId, dimensionIds]) => {
+        dimensionIds.forEach(id => {
+            map[id] = axisId
+        })
+    })
+
+    return map
+}

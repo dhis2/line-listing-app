@@ -14,6 +14,9 @@ export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
+export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
+export const SET_UI_ITEMS = 'SET_UI_ITEMS'
+export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
@@ -23,6 +26,7 @@ const EMPTY_UI = {
     },
     itemsByDimension: {},
     options: {},
+    parentGraphMap: {},
 }
 
 const DEFAULT_UI = {
@@ -37,19 +41,19 @@ const DEFAULT_UI = {
     },
     options: getOptionsForUi(),
     showRightSidebar: false,
+    activeModalDialog: null,
+    parentGraphMap: {},
 }
 
 const getPreselectedUi = options => {
-    const { rootOrgUnit } = options
-
-    const rootOrgUnits = []
+    const rootOrgUnitIds = options.rootOrgUnits
+        .filter(root => root.id)
+        .map(root => root.id)
     const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
 
-    if (rootOrgUnit && rootOrgUnit.id) {
-        rootOrgUnits.push(rootOrgUnit.id)
-
-        parentGraphMap[rootOrgUnit.id] = ''
-    }
+    rootOrgUnitIds.forEach(id => {
+        parentGraphMap[id] = ''
+    })
 
     return {
         ...DEFAULT_UI,
@@ -59,9 +63,9 @@ const getPreselectedUi = options => {
         },
         itemsByDimension: {
             ...DEFAULT_UI.itemsByDimension,
-            [DIMENSION_ID_ORGUNIT]: rootOrgUnits,
+            [DIMENSION_ID_ORGUNIT]: rootOrgUnitIds,
         },
-        // parentGraphMap,
+        parentGraphMap,
     }
 }
 
@@ -138,6 +142,32 @@ export default (state = EMPTY_UI, action) => {
         case CLEAR_UI: {
             return getPreselectedUi(action.value)
         }
+        case SET_UI_ACTIVE_MODAL_DIALOG: {
+            return {
+                ...state,
+                activeModalDialog: action.value || DEFAULT_UI.activeModalDialog,
+            }
+        }
+        case SET_UI_ITEMS: {
+            const { dimensionId, itemIds } = action.value
+
+            return {
+                ...state,
+                itemsByDimension: {
+                    ...state.itemsByDimension,
+                    [dimensionId]: itemIds,
+                },
+            }
+        }
+        case ADD_UI_PARENT_GRAPH_MAP: {
+            return {
+                ...state,
+                parentGraphMap: {
+                    ...state.parentGraphMap,
+                    ...action.value,
+                },
+            }
+        }
         default:
             return state
     }
@@ -152,8 +182,16 @@ export const sGetUiItems = state => sGetUi(state).itemsByDimension
 export const sGetUiLayout = state => sGetUi(state).layout
 export const sGetUiShowRightSidebar = state => sGetUi(state).showRightSidebar
 export const sGetUiType = state => sGetUi(state).type
+export const sGetUiActiveModalDialog = state => sGetUi(state).activeModalDialog
+export const sGetUiParentGraphMap = state => sGetUi(state).parentGraphMap
 
 // Selectors level 2
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
+
+export const sGetDimensionIdsFromLayout = state =>
+    Object.values(sGetUiLayout(state)).reduce(
+        (ids, axisDimensionIds) => ids.concat(axisDimensionIds),
+        []
+    )
