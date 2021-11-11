@@ -3,6 +3,7 @@ export const SET_USER = 'SET_USER'
 export const DEFAULT_USER = {
     id: '',
     username: '',
+    name: '',
     uiLocale: '',
     isSuperuser: false,
     authorities: {},
@@ -22,6 +23,7 @@ function fromD2ToUserObj(d2Object) {
     return {
         id: d2Object.id,
         username: d2Object.username,
+        name: d2Object.name,
         uiLocale: d2Object.settings.keyUiLocale,
         isSuperuser: d2Object.authorities.has('ALL'),
     }

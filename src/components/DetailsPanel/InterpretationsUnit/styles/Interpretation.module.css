@@ -1,0 +1,56 @@
+.interpretationSection {
+    padding: var(--spacers-dp8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+    background-color: var(--colors-grey100);
+}
+
+.interpretationHeader {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--colors-grey900);
+}
+
+.interpretationHeader time {
+    font-size: var(--spacers-dp12);
+    line-height: 15px;
+    color: var(--colors-grey600);
+}
+
+.interpretationContent {
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--colors-grey900);
+}
+
+.interpretationContent p:first-child {
+    margin: 0;
+}
+
+.interpretationStats {
+    display: flex;
+    gap: var(--spacers-dp12);
+    align-items: center;
+    font-size: var(--spacers-dp12);
+    line-height: 14px;
+    color: var(--colors-grey700);
+}
+
+.interpretationStats span {
+    display: flex;
+    gap: var(--spacers-dp4);
+    align-items: center;
+}
+
+.actionButton {
+    all: unset;
+}
+
+.isLiked {
+    color: var(--colors-teal600);
+    font-weight: 500;
+}

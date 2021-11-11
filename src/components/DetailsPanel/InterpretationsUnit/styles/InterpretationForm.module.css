@@ -1,0 +1,17 @@
+.container {
+    margin-top: var(--spacers-dp12);
+    display: flex;
+    gap: var(--spacers-dp8);
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.buttonsWrap {
+    display: flex;
+    gap: var(--spacers-dp8);
+    margin-top: var(--spacers-dp8);
+}

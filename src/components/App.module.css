@@ -38,6 +38,9 @@
 }
 
 /* Main */
+.sectionMain {
+    overflow: hidden;
+}
 
 .mainLeft {
     min-width: 260px;

@@ -27,8 +27,8 @@ import { sGetCurrent } from '../reducers/current'
 import { sGetIsVisualizationLoading } from '../reducers/loader'
 import { sGetUiShowRightSidebar } from '../reducers/ui'
 import classes from './App.module.css'
-import { DetailsPanel } from './DetailsPanel/DetailsPanel'
 import { default as DialogManager } from './Dialogs/DialogManager'
+import { default as DetailsPanel } from './DetailsPanel/DetailsPanel'
 import DndContext from './DndContext'
 import Layout from './Layout/Layout'
 import LoadingMask from './LoadingMask/LoadingMask'
@@ -43,7 +43,7 @@ const visualizationQuery = {
         id: ({ id }) => id,
         // TODO check if this list is what we need/want (copied from old ER)
         params: {
-            fields: '*,interpretations[*,user[id,displayName,userCredentials[username]],likedBy[id,displayName],comments[id,lastUpdated,text,user[id,displayName,userCredentials[username]]]],columns[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],rows[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],filters[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],program[id,displayName~rename(name),enrollmentDateLabel,incidentDateLabel],programStage[id,displayName~rename(name),executionDateLabel],access,userGroupAccesses,publicAccess,displayDescription,user[displayName,userCredentials[username]],href,!rewindRelativePeriods,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren,!externalAccess,!relativePeriods,!columnDimensions,!rowDimensions,!filterDimensions,!organisationUnitGroups,!itemOrganisationUnitGroups,!indicators,!dataElements,!dataElementOperands,!dataElementGroups,!dataSets,!periods,!organisationUnitLevels,!organisationUnits,dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
+            fields: '*,columns[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],rows[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],filters[dimension,filter,programStage[id],legendSet[id],items[dimensionItem~rename(id)]],program[id,displayName~rename(name),enrollmentDateLabel,incidentDateLabel],programStage[id,displayName~rename(name),executionDateLabel],access,user[displayName,userCredentials[username]],href,!interpretations,!userGroupAccesses,!publicAccess,!displayDescription,!rewindRelativePeriods,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren,!externalAccess,!relativePeriods,!columnDimensions,!rowDimensions,!filterDimensions,!organisationUnitGroups,!itemOrganisationUnitGroups,!indicators,!dataElements,!dataElementOperands,!dataElementGroups,!dataSets,!periods,!organisationUnitLevels,!organisationUnits,dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
         },
     },
 }
