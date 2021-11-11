@@ -1908,10 +1908,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^20.6.0":
-  version "20.6.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-20.6.0.tgz#7e1e3d4e98751cbe3093b8126dc40fc50c52b620"
-  integrity sha512-NgsShcgX6+ja8xjJ3vYq03xTaT38yIFmhdMsasoiy7B86iqdlwLGttc2A25DGSelEwIuVuGJ6xpfE46eZW/gBA==
+"@dhis2/analytics@^20.7.0":
+  version "20.7.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-20.7.0.tgz#02a814b419652403d137edec7b4bb426f86a5bc9"
+  integrity sha512-9pSSerG/uOYe4v6529+MhJFXCff24lS1o9LkvFN2XQmVMdjX2QL5YdIEJbpkpyTYh2uLnT/QELwvzpWkr1si4w==
   dependencies:
     "@dhis2/d2-ui-org-unit-dialog" "^7.3.0"
     "@dhis2/d2-ui-translation-dialog" "^7.3.1"
