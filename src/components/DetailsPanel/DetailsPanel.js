@@ -1,4 +1,4 @@
-import { AboutVisualizationUnit } from '@dhis2/analytics'
+import { AboutAOUnit } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import classes from './styles/DetailsPanel.module.css'
 
 export const DetailsPanel = ({ currentUser, visualization }) => (
     <div className={classes.panel}>
-        <AboutVisualizationUnit type="eventReports" id={visualization.id} />
+        <AboutAOUnit type="eventReports" id={visualization.id} />
         <InterpretationsUnit
             type="eventReport"
             id={visualization.id}

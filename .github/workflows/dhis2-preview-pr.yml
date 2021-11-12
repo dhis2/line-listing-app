@@ -47,6 +47,7 @@ jobs:
                   alias: pr-${{ github.event.number }}
                   # customize according to project needs
                   publish-dir: 'build/app'
+                  fails-without-credentials: true
               env:
                   # org secret
                   NETLIFY_AUTH_TOKEN: ${{ secrets.DHIS2_BOT_NETLIFY_TOKEN }}
