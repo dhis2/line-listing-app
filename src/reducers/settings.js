@@ -9,7 +9,7 @@ export const DEFAULT_SETTINGS = {
     // keyIgnoreAnalyticsApprovalYearThreshold: -1,
     displayNameProperty: 'displayName',
     // uiLocale: 'en',
-    rootOrgUnits: {},
+    rootOrgUnits: [],
 }
 
 export default (state = DEFAULT_SETTINGS, action) => {
