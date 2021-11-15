@@ -19,17 +19,21 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
 
     const getVisTypes = () => Object.keys(visTypeMap).sort()
 
-    const renderVisualizationTypeListItem = type => (
-        <VisualizationTypeListItem
-            key={type}
-            visType={type}
-            label={visTypeMap[type].name}
-            description={visTypeMap[type].description}
-            isSelected={type === visualizationType}
-            onClick={handleListItemClick(type)}
-            disabled={visTypeMap[type].disabled}
-        />
-    )
+    const renderVisualizationTypeListItem = type => {
+        const isDisabled = visTypeMap[type].disabled
+
+        return (
+            <VisualizationTypeListItem
+                key={type}
+                visType={type}
+                label={visTypeMap[type].name}
+                description={visTypeMap[type].description}
+                isSelected={type === visualizationType}
+                onClick={isDisabled ? null : handleListItemClick(type)}
+                disabled={isDisabled}
+            />
+        )
+    }
 
     const VisTypesList = (
         <Card dataTest={'visualization-type-selector-card'}>
