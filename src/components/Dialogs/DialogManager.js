@@ -134,7 +134,7 @@ export class DialogManager extends Component {
             onSelect: this.selectUiItems,
         }
 
-        return <>{this.renderPersistedContent(dimensionProps)}</>
+        this.renderPersistedContent(dimensionProps)
     }
 
     primaryOnClick = () => {
