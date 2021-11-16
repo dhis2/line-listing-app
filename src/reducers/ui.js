@@ -1,5 +1,5 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout'
 import { getOptionsForUi } from '../modules/options'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
@@ -63,7 +63,7 @@ const getPreselectedUi = options => {
         },
         itemsByDimension: {
             ...DEFAULT_UI.itemsByDimension,
-            [DIMENSION_ID_ORGUNIT]: rootOrgUnitIds,
+            [DIMENSION_ID_ORGUNIT]: [USER_ORG_UNIT],
         },
         parentGraphMap,
     }
