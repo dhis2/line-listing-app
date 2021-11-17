@@ -1,4 +1,4 @@
-import { ALL_DYNAMIC_DIMENSION_ITEMS, ouIdHelper } from '@dhis2/analytics'
+import { ouIdHelper } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { IconWarningFilled16, IconLock16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -22,7 +22,6 @@ export const TooltipContent = ({
     displayLimitedAmount,
     lockedLabel,
 }) => {
-    const hasAllItemsSelected = itemIds.includes(ALL_DYNAMIC_DIMENSION_ITEMS)
     const getWarningLabel = () => {
         const warningLabel =
             itemIds.length === 1
@@ -49,7 +48,7 @@ export const TooltipContent = ({
         const groupIds = []
         const itemDisplayNames = []
 
-        if (!displayLimitedAmount && !hasAllItemsSelected) {
+        if (!displayLimitedAmount) {
             itemIds.forEach(id => {
                 if (ouIdHelper.hasLevelPrefix(id)) {
                     levelIds.push(ouIdHelper.removePrefix(id))
@@ -128,22 +127,14 @@ export const TooltipContent = ({
         </li>
     )
 
-    const renderAllItemsLabel = () => (
-        <li key={`${dimensionId}-${labels.allItems()}`} className={styles.item}>
-            {labels.allItems()}
-        </li>
-    )
-
     const itemDisplayNames = getItemDisplayNames()
     const warningLabel = getWarningLabel()
-    const hasNoItemsLabel =
-        !itemDisplayNames.length && !warningLabel && !hasAllItemsSelected
+    const hasNoItemsLabel = !itemDisplayNames.length && !warningLabel
 
     return (
         <ul className={styles.list}>
             {warningLabel && renderWarningLabel(warningLabel)}
             {lockedLabel && renderLockedLabel()}
-            {hasAllItemsSelected && renderAllItemsLabel()}
             {itemDisplayNames && renderItems(itemDisplayNames)}
             {hasNoItemsLabel && renderNoItemsLabel()}
         </ul>

@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -35,7 +36,7 @@ const getCustomTitleClasses = titleState =>
 const getSuffix = titleState =>
     titleState === STATE_DIRTY ? (
         <div
-            classes={`${classes.suffix} ${classes.titleDirty}`}
+            className={cx(classes.titleDirty, classes.suffix)}
             data-test="AO-title-dirty"
         >{`- ${getTitleDirty()}`}</div>
     ) : (

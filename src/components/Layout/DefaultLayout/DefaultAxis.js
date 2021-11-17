@@ -4,6 +4,7 @@ import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
+import { acSetUiActiveModalDialog } from '../../../actions/ui'
 import { getAxisName } from '../../../modules/axis'
 import { sGetDimensions } from '../../../reducers/dimensions'
 import { sGetMetadata } from '../../../reducers/metadata'
@@ -124,9 +125,9 @@ const mapStateToProps = state => ({
     renderChips: renderChipsSelector(state),
 })
 
-const mapDispatchToProps = () => ({
-    getOpenHandler: () => () => alert('getOpenHandler'),
-    // TODO: Trigger the dimensions modal to open on click
+const mapDispatchToProps = dispatch => ({
+    getOpenHandler: dimensionId => () =>
+        dispatch(acSetUiActiveModalDialog(dimensionId)),
 })
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-11T11:23:03.062Z\n"
-"PO-Revision-Date: 2021-11-11T11:23:03.062Z\n"
+"POT-Creation-Date: 2021-11-16T13:55:05.692Z\n"
+"PO-Revision-Date: 2021-11-16T13:55:05.692Z\n"
 
 msgid "Unlike"
 msgstr "Unlike"
@@ -53,11 +53,17 @@ msgstr "Preview"
 msgid "Back to write mode"
 msgstr "Back to write mode"
 
-msgid "Move to {{axisName}}"
-msgstr "Move to {{axisName}}"
-
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
+
+msgid "Hide"
+msgstr "Hide"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Move to {{axisName}}"
+msgstr "Move to {{axisName}}"
 
 msgid "Remove"
 msgstr "Remove"
@@ -110,9 +116,6 @@ msgid ""
 msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Getting started"
 msgstr "Getting started"
@@ -280,6 +283,15 @@ msgstr ""
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "User sub-units"
+msgstr "User sub-units"
+
+msgid "User sub-x2-units"
+msgstr "User sub-x2-units"
 
 msgid "Table title"
 msgstr "Table title"
