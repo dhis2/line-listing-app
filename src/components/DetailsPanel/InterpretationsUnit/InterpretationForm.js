@@ -8,7 +8,7 @@ import classes from './styles/InterpretationForm.module.css'
 
 export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
     const [showRichTextEditor, setShowRichTextEditor] = useState(false)
-    const [interpretationText, setInterpretationText] = useState(null)
+    const [interpretationText, setInterpretationText] = useState('')
 
     const saveMutationRef = useRef({
         resource: `interpretations/${type}/${id}`,
@@ -16,16 +16,17 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
         data: ({ interpretationText }) => interpretationText,
     })
 
-    const [save] = useDataMutation(saveMutationRef.current, {
-        onComplete: res => {
-            if (res.status === 'OK') {
+    const [save, { loading: saveMutationInProgress }] = useDataMutation(
+        saveMutationRef.current,
+        {
+            onComplete: () => {
                 setShowRichTextEditor(false)
-                setInterpretationText(null)
+                setInterpretationText('')
 
                 onSave()
-            }
-        },
-    })
+            },
+        }
+    )
 
     const inputPlaceholder = i18n.t('Write an interpretation')
 
@@ -35,6 +36,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
             {showRichTextEditor ? (
                 <div className={classes.input}>
                     <RichTextEditor
+                        disabled={saveMutationInProgress}
                         inputPlaceholder={inputPlaceholder}
                         onChange={setInterpretationText}
                         value={interpretationText}
@@ -43,6 +45,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
                         <Button
                             primary
                             small
+                            disabled={saveMutationInProgress}
                             onClick={() => save({ interpretationText })}
                         >
                             {i18n.t('Save interpretation')}
@@ -50,8 +53,9 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
                         <Button
                             secondary
                             small
+                            disabled={saveMutationInProgress}
                             onClick={() => {
-                                setInterpretationText(null)
+                                setInterpretationText('')
                                 setShowRichTextEditor(false)
                             }}
                         >
