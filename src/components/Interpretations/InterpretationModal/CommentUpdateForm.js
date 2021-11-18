@@ -29,7 +29,6 @@ export const CommentUpdateForm = ({
         updateMutationRef.current,
         {
             onComplete: () => {
-                console.log('onComplete')
                 onComplete()
                 close()
             },
