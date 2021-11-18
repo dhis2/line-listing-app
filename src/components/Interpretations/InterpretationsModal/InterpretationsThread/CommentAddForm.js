@@ -26,7 +26,7 @@ export const CommentAddForm = ({
         data: ({ commentText }) => commentText,
     })
 
-    const [save] = useDataMutation(saveMutationRef.current, {
+    const [save, { loading }] = useDataMutation(saveMutationRef.current, {
         onComplete: () => {
             setIsActive(false)
             setCommentText('')
@@ -45,18 +45,21 @@ export const CommentAddForm = ({
                         onChange={setCommentText}
                         value={commentText}
                         ref={focusRef}
+                        disabled={loading}
                     />
                     <MessageButtonStrip>
                         <Button
                             primary
                             small
                             onClick={() => save({ commentText })}
+                            loading={loading}
                         >
                             {i18n.t('Save comment')}
                         </Button>
                         <Button
                             secondary
                             small
+                            disabled={loading}
                             onClick={() => {
                                 setCommentText('')
                                 setIsActive(false)
