@@ -1,5 +1,5 @@
 import { parse, stringify } from 'query-string'
-import history from '../../../modules/history'
+import history from '../../modules/history.js'
 
 const useInterpretationIdQueryParam = () => {
     const { interpretationId } = parse(history.location.search)

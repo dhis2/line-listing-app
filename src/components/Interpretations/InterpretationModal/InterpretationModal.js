@@ -4,11 +4,6 @@ import { Modal, ModalActions, ModalContent, Button } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import {
-    useInterpretationIdQueryParam,
-    removeInterpretationIdQueryParam,
-} from './interpretationIdQueryParam.js'
 import { InterpretationModalContent } from './InterpretationModalContent.js'
 import styles from './styles/InterpretationModal.module.css'
 
@@ -102,10 +97,7 @@ const InterpretationModal = ({
                 </div>
             </ModalContent>
             <ModalActions>
-                <Button
-                    disabled={fetching}
-                    onClick={removeInterpretationIdQueryParam}
-                >
+                <Button disabled={fetching} onClick={onClose}>
                     {i18n.t('Hide interpretation')}
                 </Button>
             </ModalActions>
@@ -122,36 +114,4 @@ InterpretationModal.propTypes = {
     interpretationId: PropTypes.string,
 }
 
-/**
- * TODO: When the interpretation modal is moved to analytics,
- * this component needs to remain in the app
- */
-//
-const ConnectedInterpretationModal = ({
-    visualization,
-    onResponseReceived,
-}) => {
-    const interpretationId = useInterpretationIdQueryParam()
-    const isVisualizationLoading = useSelector(
-        state => state.loader.isVisualizationLoading
-    )
-    const currentUser = useSelector(state => state.user)
-
-    return (
-        <InterpretationModal
-            visualization={visualization}
-            onResponseReceived={onResponseReceived}
-            interpretationId={interpretationId}
-            isVisualizationLoading={isVisualizationLoading}
-            currentUser={currentUser}
-            onClose={removeInterpretationIdQueryParam}
-        />
-    )
-}
-
-ConnectedInterpretationModal.propTypes = {
-    visualization: PropTypes.object.isRequired,
-    onResponseReceived: PropTypes.func,
-}
-
-export { ConnectedInterpretationModal as InterpretationModal }
+export { InterpretationModal }
