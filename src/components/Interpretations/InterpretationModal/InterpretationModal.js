@@ -120,6 +120,11 @@ InterpretationModal.propTypes = {
     interpretationId: PropTypes.string,
 }
 
+/**
+ * TODO: When the interpretation modal is moved to analytics,
+ * this component needs to remain in the app
+ */
+//
 const ConnectedInterpretationModal = ({
     visualization,
     onResponseReceived,
