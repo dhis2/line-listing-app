@@ -9,7 +9,6 @@ import {
     MessageButtonStrip,
     MessageInput,
 } from '../common/index.js'
-import styles from './styles/CommentAddForm.module.css'
 
 export const CommentAddForm = ({
     interpretationId,
@@ -39,7 +38,7 @@ export const CommentAddForm = ({
     return (
         <MessageEditorContainer currentUser={currentUser}>
             {isActive ? (
-                <div className={styles.input}>
+                <>
                     <RichTextEditor
                         inputPlaceholder={inputPlaceholder}
                         onChange={setCommentText}
@@ -68,7 +67,7 @@ export const CommentAddForm = ({
                             {i18n.t('Cancel')}
                         </Button>
                     </MessageButtonStrip>
-                </div>
+                </>
             ) : (
                 <MessageInput
                     onFocus={() => setIsActive(true)}
