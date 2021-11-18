@@ -13,7 +13,7 @@ const mutation = {
 }
 
 const CommentDeleteButton = ({ commentId, interpretationId, refresh }) => {
-    const [remove] = useDataMutation(mutation, {
+    const [remove, { loading }] = useDataMutation(mutation, {
         onComplete: refresh,
         variables: { commentId, interpretationId },
     })
@@ -22,6 +22,7 @@ const CommentDeleteButton = ({ commentId, interpretationId, refresh }) => {
             tooltipContent={i18n.t('Delete')}
             iconComponent={IconDelete16}
             onClick={remove}
+            disabled={loading}
         />
     )
 }
