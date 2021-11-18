@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-17T15:33:29.687Z\n"
-"PO-Revision-Date: 2021-11-17T15:33:29.687Z\n"
+"POT-Creation-Date: 2021-11-18T14:28:10.242Z\n"
+"PO-Revision-Date: 2021-11-18T14:28:10.242Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -23,6 +23,27 @@ msgstr "Move to {{axisName}}"
 msgid "Remove"
 msgstr "Remove"
 
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Add a comment"
+msgstr "Add a comment"
+
+msgid "Save comment"
+msgstr "Save comment"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Could not update comment"
+msgstr "Could not update comment"
+
+msgid "Enter comment text"
+msgstr "Enter comment text"
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -31,21 +52,6 @@ msgstr "Like"
 
 msgid "Reply"
 msgstr "Reply"
-
-msgid "See interpretation"
-msgstr "See interpretation"
-
-msgid "Write an interpretation"
-msgstr "Write an interpretation"
-
-msgid "Save interpretation"
-msgstr "Save interpretation"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Interpretations"
-msgstr "Interpretations"
 
 msgid "Viewing interpretation: {{visualisationName}}"
 msgstr "Viewing interpretation: {{visualisationName}}"
@@ -63,23 +69,17 @@ msgstr ""
 "The interpretation couldn’t be displayed. Try again or contact your system "
 "administrator."
 
-msgid "Edit"
-msgstr "Edit"
+msgid "See interpretation"
+msgstr "See interpretation"
 
-msgid "Add a comment"
-msgstr "Add a comment"
+msgid "Write an interpretation"
+msgstr "Write an interpretation"
 
-msgid "Save comment"
-msgstr "Save comment"
+msgid "Save interpretation"
+msgstr "Save interpretation"
 
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Could not update comment"
-msgstr "Could not update comment"
-
-msgid "Enter comment text"
-msgstr "Enter comment text"
+msgid "Interpretations"
+msgstr "Interpretations"
 
 msgid "Bold text"
 msgstr "Bold text"
