@@ -16,7 +16,7 @@ export const CommentAddForm = ({
     onSave,
     focusRef,
 }) => {
-    const [isActive, setIsActive] = useState(false)
+    const [showRichTextEditor, setShowRichTextEditor] = useState(false)
     const [commentText, setCommentText] = useState('')
 
     const saveMutationRef = useRef({
@@ -27,7 +27,7 @@ export const CommentAddForm = ({
 
     const [save, { loading }] = useDataMutation(saveMutationRef.current, {
         onComplete: () => {
-            setIsActive(false)
+            setShowRichTextEditor(false)
             setCommentText('')
             onSave()
         },
@@ -37,7 +37,7 @@ export const CommentAddForm = ({
 
     return (
         <MessageEditorContainer currentUser={currentUser}>
-            {isActive ? (
+            {showRichTextEditor ? (
                 <>
                     <RichTextEditor
                         inputPlaceholder={inputPlaceholder}
@@ -61,7 +61,7 @@ export const CommentAddForm = ({
                             disabled={loading}
                             onClick={() => {
                                 setCommentText('')
-                                setIsActive(false)
+                                setShowRichTextEditor(false)
                             }}
                         >
                             {i18n.t('Cancel')}
@@ -70,7 +70,7 @@ export const CommentAddForm = ({
                 </>
             ) : (
                 <MessageInput
-                    onFocus={() => setIsActive(true)}
+                    onFocus={() => setShowRichTextEditor(true)}
                     placeholder={inputPlaceholder}
                     ref={focusRef}
                 />
