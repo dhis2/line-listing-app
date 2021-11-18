@@ -1,4 +1,5 @@
 import { IconClock16, colors } from '@dhis2/ui'
+import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
@@ -16,7 +17,7 @@ const InterpretationThread = ({
     const focusRef = useRef()
 
     return (
-        <div className={styles.container}>
+        <div className={cx(styles.container, { [styles.fetching]: fetching })}>
             <div className={styles.scrollbox}>
                 {fetching && <div>FETCHING</div>}
                 <div className={styles.title}>
