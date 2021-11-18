@@ -77,6 +77,6 @@ export const InterpretationList = ({
 InterpretationList.propTypes = {
     currentUser: PropTypes.object.isRequired,
     interpretations: PropTypes.array.isRequired,
-    onInterpretationClick: PropTypes.func.isRequired,
     refresh: PropTypes.func.isRequired,
+    onInterpretationClick: PropTypes.func.isRequired,
 }
