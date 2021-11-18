@@ -3,10 +3,10 @@ import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Visualization } from '../../Visualization/Visualization.js'
-import { InterpretationThread } from './InterpretationsThread/index.js'
-import styles from './styles/InterpretationsModalContent.module.css'
+import { InterpretationThread } from './InterpretationThread.js'
+import styles from './styles/InterpretationModalContent.module.css'
 
-const InterpretationsModalContent = ({
+const InterpretationModalContent = ({
     currentUser,
     refetchInterpretation,
     visualization,
@@ -51,7 +51,7 @@ const InterpretationsModalContent = ({
     )
 }
 
-InterpretationsModalContent.propTypes = {
+InterpretationModalContent.propTypes = {
     currentUser: PropTypes.object.isRequired,
     refetchInterpretation: PropTypes.func.isRequired,
     visualization: PropTypes.object.isRequired,
@@ -61,4 +61,4 @@ InterpretationsModalContent.propTypes = {
     interpretation: PropTypes.object,
 }
 
-export { InterpretationsModalContent }
+export { InterpretationModalContent }

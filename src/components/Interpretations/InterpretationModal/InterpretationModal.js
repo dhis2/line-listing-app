@@ -9,8 +9,8 @@ import {
     useInterpretationIdQueryParam,
     removeInterpretationIdQueryParam,
 } from './interpretationIdQueryParam.js'
-import { InterpretationsModalContent } from './InterpretationsModalContent.js'
-import styles from './styles/InterpretationsModal.module.css'
+import { InterpretationModalContent } from './InterpretationModalContent.js'
+import styles from './styles/InterpretationModal.module.css'
 
 const query = {
     interpretation: {
@@ -49,7 +49,7 @@ const useInterpretationModalState = interpretationId => {
     }
 }
 
-const InterpretationsModal = ({
+const InterpretationModal = ({
     currentUser,
     isVisualizationLoading,
     visualization,
@@ -89,7 +89,7 @@ const InterpretationsModal = ({
             </h1>
             <ModalContent className={styles.modalContent}>
                 <div className={styles.container}>
-                    <InterpretationsModalContent
+                    <InterpretationModalContent
                         error={error}
                         fetching={fetching}
                         interpretation={interpretation}
@@ -112,7 +112,7 @@ const InterpretationsModal = ({
     )
 }
 
-InterpretationsModal.propTypes = {
+InterpretationModal.propTypes = {
     currentUser: PropTypes.object.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
@@ -120,7 +120,7 @@ InterpretationsModal.propTypes = {
     interpretationId: PropTypes.string,
 }
 
-const ConnectedInterpretationsModal = ({
+const ConnectedInterpretationModal = ({
     visualization,
     onResponseReceived,
 }) => {
@@ -131,7 +131,7 @@ const ConnectedInterpretationsModal = ({
     const currentUser = useSelector(state => state.user)
 
     return (
-        <InterpretationsModal
+        <InterpretationModal
             visualization={visualization}
             onResponseReceived={onResponseReceived}
             interpretationId={interpretationId}
@@ -141,9 +141,9 @@ const ConnectedInterpretationsModal = ({
     )
 }
 
-ConnectedInterpretationsModal.propTypes = {
+ConnectedInterpretationModal.propTypes = {
     visualization: PropTypes.object.isRequired,
     onResponseReceived: PropTypes.func,
 }
 
-export { ConnectedInterpretationsModal as InterpretationsModal }
+export { ConnectedInterpretationModal as InterpretationModal }

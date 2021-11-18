@@ -7,7 +7,7 @@ import {
     MessageStatsBar,
     MessageIconButton,
     useLike,
-} from '../../common/index.js'
+} from '../common/index.js'
 
 export const Interpretation = ({
     interpretation,

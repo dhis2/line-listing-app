@@ -7,7 +7,7 @@ import {
     MessageEditorContainer,
     RichTextEditor,
     MessageButtonStrip,
-} from '../../common/index.js'
+} from '../common/index.js'
 import styles from './styles/CommentUpdateForm.module.css'
 
 export const CommentUpdateForm = ({

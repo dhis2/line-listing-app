@@ -8,7 +8,7 @@ import {
     MessageEditorContainer,
     MessageButtonStrip,
     MessageInput,
-} from '../../common/index.js'
+} from '../common/index.js'
 import styles from './styles/CommentAddForm.module.css'
 
 export const CommentAddForm = ({
