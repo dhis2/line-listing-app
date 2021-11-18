@@ -19,7 +19,6 @@ const InterpretationThread = ({
     return (
         <div className={cx(styles.container, { [styles.fetching]: fetching })}>
             <div className={styles.scrollbox}>
-                {fetching && <div>FETCHING</div>}
                 <div className={styles.title}>
                     <IconClock16 color={colors.grey700} />
                     {moment(interpretation.created).format('LLL')}
