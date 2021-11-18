@@ -30,7 +30,6 @@ const Comment = ({ comment, currentUser, interpretationId, refresh }) => {
                     <MessageIconButton
                         iconComponent={IconEdit16}
                         tooltipContent={i18n.t('Edit')}
-                        disabled={false}
                         onClick={() => setIsUpdateMode(true)}
                     />
                 )}
