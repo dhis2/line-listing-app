@@ -54,6 +54,7 @@ const InterpretationModal = ({
     isVisualizationLoading,
     visualization,
     onResponseReceived,
+    onClose,
     interpretationId,
 }) => {
     const {
@@ -74,7 +75,7 @@ const InterpretationModal = ({
     return (
         <Modal
             position="middle"
-            onClose={removeInterpretationIdQueryParam}
+            onClose={onClose}
             className={cx(styles.modal, {
                 [styles.hidden]: shouldCssHideModal,
             })}
@@ -116,6 +117,7 @@ InterpretationModal.propTypes = {
     currentUser: PropTypes.object.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
     interpretationId: PropTypes.string,
 }
@@ -142,6 +144,7 @@ const ConnectedInterpretationModal = ({
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
             currentUser={currentUser}
+            onClose={removeInterpretationIdQueryParam}
         />
     )
 }
