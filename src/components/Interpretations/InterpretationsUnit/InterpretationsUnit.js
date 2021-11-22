@@ -5,13 +5,13 @@ import {
     IconChevronDown24,
     IconChevronUp24,
     colors,
+    spacers,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { InterpretationForm } from './InterpretationForm'
 import { InterpretationList } from './InterpretationList'
-import classes from './styles/InterpretationsUnit.module.css'
 
 const interpretationsQuery = {
     interpretations: {
@@ -54,18 +54,9 @@ export const InterpretationsUnit = ({
     }
 
     return (
-        <div
-            className={cx(classes.container, {
-                [classes.expanded]: isExpanded,
-            })}
-        >
-            <div
-                className={classes.header}
-                onClick={() => setIsExpanded(!isExpanded)}
-            >
-                <span className={classes.title}>
-                    {i18n.t('Interpretations')}
-                </span>
+        <div className={cx('container', { expanded: isExpanded })}>
+            <div className="header" onClick={() => setIsExpanded(!isExpanded)}>
+                <span className="title">{i18n.t('Interpretations')}</span>
                 {isExpanded ? (
                     <IconChevronUp24 color={colors.grey700} />
                 ) : (
@@ -75,7 +66,7 @@ export const InterpretationsUnit = ({
             {isExpanded && (
                 <>
                     {loading && (
-                        <div className={classes.loader}>
+                        <div className="loader">
                             <CircularLoader small />
                         </div>
                     )}
@@ -87,7 +78,7 @@ export const InterpretationsUnit = ({
                                     data.interpretations.interpretations
                                 }
                                 onInterpretationClick={onInterpretationClick}
-                                onLikeToggle={onCompleteAction}
+                                refresh={onCompleteAction}
                             />
                             <InterpretationForm
                                 currentUser={currentUser}
@@ -99,6 +90,34 @@ export const InterpretationsUnit = ({
                     )}
                 </>
             )}
+            <style jsx>{`
+                .container {
+                    padding: ${spacers.dp16};
+                    border-bottom: 1px solid ${colors.grey400};
+                    background-color: ${colors.white};
+                }
+
+                .expanded {
+                    padding-bottom: ${spacers.dp32};
+                }
+
+                .loader {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .title {
+                    font-size: ${spacers.dp16};
+                    font-weight: 500;
+                    line-height: 21px;
+                    color: ${colors.grey900};
+                }
+            `}</style>
         </div>
     )
 }

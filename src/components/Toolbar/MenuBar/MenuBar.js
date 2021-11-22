@@ -150,7 +150,7 @@ export const MenuBar = ({
     }
 
     const onSaveComplete = (res, copy = false) => {
-        if (res.status === 'OK' && res.response.uid) {
+        if (res.response.uid) {
             const historyEntry = {
                 pathname: `/${res.response.uid}`,
                 state: { isSaving: true },

@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import history from '../../modules/history'
 import { sGetCurrent } from '../../reducers/current'
 import { sGetUser } from '../../reducers/user'
-import { InterpretationsUnit } from './InterpretationsUnit/InterpretationsUnit'
+import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/index.js'
 import classes from './styles/DetailsPanel.module.css'
 
 export const DetailsPanel = ({ currentUser, visualization }) => (
