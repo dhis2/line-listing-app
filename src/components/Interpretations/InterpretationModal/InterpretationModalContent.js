@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Visualization } from '../../Visualization/Visualization.js'
 import { InterpretationThread } from './InterpretationThread.js'
-import styles from './styles/InterpretationModalContent.module.css'
 
 const InterpretationModalContent = ({
     currentUser,
@@ -31,15 +30,15 @@ const InterpretationModalContent = ({
     }
 
     return (
-        <div className={styles.flexRow}>
-            <div className={styles.visualisationWrap}>
+        <div className="row">
+            <div className="visualisation-wrap">
                 <Visualization
                     relativePeriodDate={interpretation.created}
                     visualization={visualization}
                     onResponseReceived={onResponseReceived}
                 />
             </div>
-            <div className={styles.interpretationThreadWrap}>
+            <div className="thread-wrap">
                 <InterpretationThread
                     interpretation={interpretation}
                     refetchInterpretation={refetchInterpretation}
@@ -47,6 +46,21 @@ const InterpretationModalContent = ({
                     currentUser={currentUser}
                 />
             </div>
+            <style jsx>{`
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 16px;
+                }
+                .visualisation-wrap {
+                    flex-grow: 1;
+                }
+                .thread-wrap {
+                    flex-basis: 300px;
+                    flex-shrink: 0;
+                    overflow-y: auto;
+                }
+            `}</style>
         </div>
     )
 }

@@ -1,11 +1,32 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { Modal, ModalActions, ModalContent, Button } from '@dhis2/ui'
+import {
+    Modal,
+    ModalActions,
+    ModalContent,
+    Button,
+    spacers,
+    colors,
+} from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import css from 'styled-jsx/css'
 import { InterpretationModalContent } from './InterpretationModalContent.js'
-import styles from './styles/InterpretationModal.module.css'
+
+const modalCSS = css.resolve`
+    aside {
+        min-width: 600px;
+        min-height: 600px;
+        max-width: 90vw !important;
+        max-height: 90vh !important;
+        width: auto !important;
+        height: auto !important;
+    }
+    aside.hidden {
+        display: none;
+    }
+`
 
 const query = {
     interpretation: {
@@ -25,25 +46,6 @@ const query = {
     },
 }
 
-const useInterpretationModalState = interpretationId => {
-    const { data, error, loading, fetching, refetch } = useDataQuery(query, {
-        lazy: true,
-    })
-
-    useEffect(() => {
-        refetch({ id: interpretationId })
-    }, [interpretationId])
-
-    return {
-        interpretation: data?.interpretation,
-        error,
-        loading,
-        fetching,
-        show: !!interpretationId,
-        refetchInterpretation: refetch,
-    }
-}
-
 const InterpretationModal = ({
     currentUser,
     isVisualizationLoading,
@@ -52,18 +54,16 @@ const InterpretationModal = ({
     onClose,
     interpretationId,
 }) => {
-    const {
-        interpretation,
-        error,
-        loading,
-        fetching,
-        show,
-        refetchInterpretation,
-    } = useInterpretationModalState(interpretationId)
-
+    const { data, error, loading, fetching, refetch } = useDataQuery(query, {
+        lazy: true,
+    })
     const shouldCssHideModal = loading || isVisualizationLoading
 
-    if (!show) {
+    useEffect(() => {
+        refetch({ id: interpretationId })
+    }, [interpretationId])
+
+    if (!interpretationId) {
         return null
     }
 
@@ -71,26 +71,26 @@ const InterpretationModal = ({
         <Modal
             position="middle"
             onClose={onClose}
-            className={cx(styles.modal, {
-                [styles.hidden]: shouldCssHideModal,
+            className={cx(modalCSS.className, {
+                hidden: shouldCssHideModal,
             })}
         >
-            <h1 className={styles.title}>
-                <span className={styles.ellipsis}>
+            <h1 className="title">
+                <span className="ellipsis">
                     {i18n.t('Viewing interpretation: {{visualisationName}}', {
                         visualisationName: visualization.displayName,
                         nsSeparator: '^^',
                     })}
                 </span>
             </h1>
-            <ModalContent className={styles.modalContent}>
-                <div className={styles.container}>
+            <ModalContent className="modalContent">
+                <div className="container">
                     <InterpretationModalContent
                         error={error}
                         fetching={fetching}
-                        interpretation={interpretation}
+                        interpretation={data?.interpretation}
                         onResponseReceived={onResponseReceived}
-                        refetchInterpretation={refetchInterpretation}
+                        refetchInterpretation={refetch}
                         visualization={visualization}
                         currentUser={currentUser}
                     />
@@ -101,6 +101,31 @@ const InterpretationModal = ({
                     {i18n.t('Hide interpretation')}
                 </Button>
             </ModalActions>
+            {modalCSS.styles}
+            <style jsx>{`
+                .title {
+                    color: ${colors.grey900};
+                    font-size: 20px;
+                    font-weight: 500;
+                    line-height: 24px;
+                    margin: 0px;
+                    padding: ${spacers.dp24} ${spacers.dp24} 0;
+                }
+
+                .ellipsis {
+                    display: inline-block;
+                    line-height: 20px;
+                    white-space: nowrap;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .container {
+                    display: flex;
+                    flex-direction: column;
+                }
+            `}</style>
         </Modal>
     )
 }

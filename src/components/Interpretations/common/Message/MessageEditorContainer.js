@@ -1,14 +1,26 @@
-import { UserAvatar } from '@dhis2/ui'
+import { UserAvatar, spacers } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import classes from './styles/MessageEditorContainer.module.css'
 
 const MessageEditorContainer = ({ children, currentUser }) => (
-    <div className={classes.container}>
-        <div className={classes.avatar}>
+    <div className="container">
+        <div className="avatar">
             <UserAvatar name={currentUser.name} medium />
         </div>
-        <div className={classes.editor}>{children}</div>
+        <div className="editor">{children}</div>
+        <style jsx>{`
+            .container {
+                display: flex;
+                gap: ${spacers.dp8};
+                margin-top: ${spacers.dp12};
+            }
+            .avatar {
+                flex-grow: 0;
+            }
+            .editor {
+                flex-grow: 1;
+            }
+        `}</style>
     </div>
 )
 

@@ -1,6 +1,6 @@
 import { useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { Button } from '@dhis2/ui'
+import { Button, spacers, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import {
@@ -8,7 +8,6 @@ import {
     RichTextEditor,
     MessageButtonStrip,
 } from '../common/index.js'
-import styles from './styles/CommentUpdateForm.module.css'
 
 export const CommentUpdateForm = ({
     interpretationId,
@@ -39,7 +38,7 @@ export const CommentUpdateForm = ({
         : ''
 
     return (
-        <div className={styles.message}>
+        <div className="message">
             <MessageEditorContainer currentUser={currentUser}>
                 <RichTextEditor
                     inputPlaceholder={i18n.t('Enter comment text')}
@@ -62,6 +61,13 @@ export const CommentUpdateForm = ({
                     </Button>
                 </MessageButtonStrip>
             </MessageEditorContainer>
+            <style jsx>{`
+                .message {
+                    padding: 0 ${spacers.dp8} ${spacers.dp8};
+                    background-color: ${colors.grey100};
+                    border-radius: 5px;
+                }
+            `}</style>
         </div>
     )
 }
