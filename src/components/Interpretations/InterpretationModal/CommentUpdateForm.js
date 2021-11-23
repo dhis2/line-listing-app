@@ -17,12 +17,12 @@ export const CommentUpdateForm = ({
     close,
     onComplete,
 }) => {
-    const [interpretationText, setInterpretationText] = useState(text || '')
+    const [commentText, setCommentText] = useState(text || '')
     const updateMutationRef = useRef({
         resource: `interpretations/${interpretationId}/comments/${commentId}`,
         type: 'update',
         partial: false,
-        data: ({ interpretationText }) => interpretationText,
+        data: ({ commentText }) => commentText,
     })
     const [update, { loading, error }] = useDataMutation(
         updateMutationRef.current,
@@ -42,8 +42,8 @@ export const CommentUpdateForm = ({
             <MessageEditorContainer currentUser={currentUser}>
                 <RichTextEditor
                     inputPlaceholder={i18n.t('Enter comment text')}
-                    onChange={setInterpretationText}
-                    value={interpretationText}
+                    onChange={setCommentText}
+                    value={commentText}
                     disabled={loading}
                     errorText={errorText}
                 />
@@ -52,7 +52,7 @@ export const CommentUpdateForm = ({
                         loading={loading}
                         primary
                         small
-                        onClick={() => update({ interpretationText })}
+                        onClick={() => update({ commentText })}
                     >
                         {i18n.t('Update')}
                     </Button>
