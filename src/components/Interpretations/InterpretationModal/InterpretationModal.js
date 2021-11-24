@@ -4,6 +4,7 @@ import {
     Modal,
     ModalActions,
     ModalContent,
+    NoticeBox,
     Button,
     spacers,
     colors,
@@ -12,7 +13,9 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import css from 'styled-jsx/css'
-import { InterpretationModalContent } from './InterpretationModalContent.js'
+// import { InterpretationModalContent } from './InterpretationModalContent.js'
+import { Visualization } from '../../Visualization/Visualization.js'
+import { InterpretationThread } from './InterpretationThread.js'
 
 const modalCSS = css.resolve`
     aside {
@@ -58,10 +61,14 @@ const InterpretationModal = ({
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
     })
+    const interpretation = data?.interpretation
+    const shouldRenderModalContent = !error && interpretation
     const shouldCssHideModal = loading || isVisualizationLoading
 
     useEffect(() => {
-        refetch({ id: interpretationId })
+        if (interpretationId) {
+            refetch({ id: interpretationId })
+        }
     }, [interpretationId])
 
     if (!interpretationId) {
@@ -86,15 +93,36 @@ const InterpretationModal = ({
             </h1>
             <ModalContent className="modalContent">
                 <div className="container">
-                    <InterpretationModalContent
-                        error={error}
-                        fetching={fetching}
-                        interpretation={data?.interpretation}
-                        onResponseReceived={onResponseReceived}
-                        refetchInterpretation={refetch}
-                        visualization={visualization}
-                        currentUser={currentUser}
-                    />
+                    {error && (
+                        <NoticeBox
+                            error
+                            title={i18n.t('Could not load interpretation')}
+                        >
+                            {error.message ||
+                                i18n.t(
+                                    'The interpretation couldn’t be displayed. Try again or contact your system administrator.'
+                                )}
+                        </NoticeBox>
+                    )}
+                    {shouldRenderModalContent && (
+                        <div className="row">
+                            <div className="visualisation-wrap">
+                                <Visualization
+                                    relativePeriodDate={interpretation.created}
+                                    visualization={visualization}
+                                    onResponseReceived={onResponseReceived}
+                                />
+                            </div>
+                            <div className="thread-wrap">
+                                <InterpretationThread
+                                    interpretation={interpretation}
+                                    refetchInterpretation={refetch}
+                                    fetching={fetching}
+                                    currentUser={currentUser}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </ModalContent>
             <ModalActions>
@@ -125,6 +153,22 @@ const InterpretationModal = ({
                 .container {
                     display: flex;
                     flex-direction: column;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 16px;
+                }
+
+                .visualisation-wrap {
+                    flex-grow: 1;
+                }
+
+                .thread-wrap {
+                    flex-basis: 300px;
+                    flex-shrink: 0;
+                    overflow-y: auto;
                 }
             `}</style>
         </Modal>
