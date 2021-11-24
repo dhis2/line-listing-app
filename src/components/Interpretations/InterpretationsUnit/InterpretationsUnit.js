@@ -41,9 +41,12 @@ export const InterpretationsUnit = forwardRef(
     ({ currentUser, type, id, onInterpretationClick }, ref) => {
         const [isExpanded, setIsExpanded] = useState(true)
 
-        const { data, loading, refetch } = useDataQuery(interpretationsQuery, {
-            lazy: true,
-        })
+        const { data, loading, fetching, refetch } = useDataQuery(
+            interpretationsQuery,
+            {
+                lazy: true,
+            }
+        )
 
         const onCompleteAction = () => {
             refetch({ type, id })
@@ -64,7 +67,12 @@ export const InterpretationsUnit = forwardRef(
         }, [type, id])
 
         return (
-            <div className={cx('container', { expanded: isExpanded })}>
+            <div
+                className={cx('container', {
+                    expanded: isExpanded,
+                    fetching,
+                })}
+            >
                 <div
                     className="header"
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -107,9 +115,44 @@ export const InterpretationsUnit = forwardRef(
                 )}
                 <style jsx>{`
                     .container {
+                        position: relative;
                         padding: ${spacers.dp16};
                         border-bottom: 1px solid ${colors.grey400};
                         background-color: ${colors.white};
+                    }
+
+                    .container.fetching::before {
+                        content: '';
+                        position: absolute;
+                        inset: 0px;
+                        background-color: rgba(255, 255, 255, 0.8);
+                    }
+
+                    .container.fetching::after {
+                        content: '';
+                        position: absolute;
+                        top: calc(50% - 24px);
+                        left: calc(50% - 24px);
+                        width: 48px;
+                        height: 48px;
+                        border-width: 6px;
+                        border-style: solid;
+                        border-color: rgba(110, 122, 138, 0.15)
+                            rgba(110, 122, 138, 0.15) rgb(20, 124, 215);
+                        border-image: initial;
+                        border-radius: 50%;
+                        animation: 1s linear 0s infinite normal none running
+                            rotation;
+                    }
+
+                    @keyframes rotation {
+                        0% {
+                            transform: rotate(0);
+                        }
+
+                        100% {
+                            transform: rotate(360deg);
+                        }
                     }
 
                     .expanded {
