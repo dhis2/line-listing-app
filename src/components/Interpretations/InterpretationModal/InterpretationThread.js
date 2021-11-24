@@ -11,7 +11,8 @@ const InterpretationThread = ({
     currentUser,
     fetching,
     interpretation,
-    refetchInterpretation,
+    onInterpretationDeleted,
+    onThreadUpdated,
 }) => {
     const focusRef = useRef()
 
@@ -27,7 +28,8 @@ const InterpretationThread = ({
                     currentUser={currentUser}
                     interpretation={interpretation}
                     reply={() => focusRef.current?.focus()}
-                    refresh={refetchInterpretation}
+                    onUpdated={() => onThreadUpdated(true)}
+                    onDeleted={onInterpretationDeleted}
                 />
                 <div className={'comments'}>
                     {interpretation.comments.map(comment => (
@@ -36,14 +38,14 @@ const InterpretationThread = ({
                             comment={comment}
                             currentUser={currentUser}
                             interpretationId={interpretation.id}
-                            refresh={refetchInterpretation}
+                            onThreadUpdated={onThreadUpdated}
                         />
                     ))}
                 </div>
                 <CommentAddForm
                     currentUser={currentUser}
                     interpretationId={interpretation.id}
-                    onSave={refetchInterpretation}
+                    onSave={() => onThreadUpdated(true)}
                     focusRef={focusRef}
                 />
             </div>
@@ -120,7 +122,8 @@ InterpretationThread.propTypes = {
     currentUser: PropTypes.object.isRequired,
     fetching: PropTypes.bool.isRequired,
     interpretation: PropTypes.object.isRequired,
-    refetchInterpretation: PropTypes.func.isRequired,
+    onInterpretationDeleted: PropTypes.func.isRequired,
+    onThreadUpdated: PropTypes.func,
 }
 
 export { InterpretationThread }

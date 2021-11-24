@@ -11,19 +11,16 @@ const mutation = {
     type: 'delete',
 }
 
-const InterpretationDeleteButton = ({ id, refresh }) => {
+const InterpretationDeleteButton = ({ id, onComplete }) => {
     const [remove, { loading }] = useDataMutation(mutation, {
-        onComplete: refresh,
+        onComplete,
         variables: { id },
     })
     return (
         <MessageIconButton
             tooltipContent={i18n.t('Delete')}
             iconComponent={IconDelete16}
-            onClick={event => {
-                event.stopPropagation()
-                remove()
-            }}
+            onClick={remove}
             disabled={loading}
         />
     )
@@ -31,7 +28,7 @@ const InterpretationDeleteButton = ({ id, refresh }) => {
 
 InterpretationDeleteButton.propTypes = {
     id: PropTypes.string.isRequired,
-    refresh: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
 }
 
 export { InterpretationDeleteButton }

@@ -14,8 +14,7 @@ const useLike = ({ interpretation, currentUser, onComplete }) => {
         { onComplete }
     )
     const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(false)
-    const toggleLike = e => {
-        e.stopPropagation()
+    const toggleLike = () => {
         isLikedByCurrentUser ? unlike() : like()
     }
 

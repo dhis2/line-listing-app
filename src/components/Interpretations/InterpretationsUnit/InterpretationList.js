@@ -60,7 +60,8 @@ export const InterpretationList = ({
                                         interpretation={interpretation}
                                         currentUser={currentUser}
                                         reply={onInterpretationClick}
-                                        refresh={refresh}
+                                        onDeleted={refresh}
+                                        onUpdated={refresh}
                                         isModalOpener
                                     />
                                 ))}

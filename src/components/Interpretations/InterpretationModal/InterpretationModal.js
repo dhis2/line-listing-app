@@ -11,9 +11,8 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import css from 'styled-jsx/css'
-// import { InterpretationModalContent } from './InterpretationModalContent.js'
 import { Visualization } from '../../Visualization/Visualization.js'
 import { InterpretationThread } from './InterpretationThread.js'
 
@@ -56,14 +55,34 @@ const InterpretationModal = ({
     visualization,
     onResponseReceived,
     onClose,
+    handleInterpretationUpdate,
     interpretationId,
 }) => {
+    const [isDirty, setIsDirty] = useState(false)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
     })
     const interpretation = data?.interpretation
     const shouldRenderModalContent = !error && interpretation
     const shouldCssHideModal = loading || isVisualizationLoading
+    const handleClose = () => {
+        if (isDirty) {
+            handleInterpretationUpdate()
+            setIsDirty(false)
+        }
+        onClose()
+    }
+    const onThreadUpdated = affectsInterpretation => {
+        if (affectsInterpretation) {
+            setIsDirty(true)
+        }
+        refetch({ id: interpretationId })
+    }
+    const onInterpretationDeleted = () => {
+        setIsDirty(false)
+        handleInterpretationUpdate()
+        onClose()
+    }
 
     useEffect(() => {
         if (interpretationId) {
@@ -78,7 +97,7 @@ const InterpretationModal = ({
     return (
         <Modal
             position="middle"
-            onClose={onClose}
+            onClose={handleClose}
             className={cx(modalCSS.className, {
                 hidden: shouldCssHideModal,
             })}
@@ -115,10 +134,13 @@ const InterpretationModal = ({
                             </div>
                             <div className="thread-wrap">
                                 <InterpretationThread
-                                    interpretation={interpretation}
-                                    refetchInterpretation={refetch}
-                                    fetching={fetching}
                                     currentUser={currentUser}
+                                    fetching={fetching}
+                                    interpretation={interpretation}
+                                    onInterpretationDeleted={
+                                        onInterpretationDeleted
+                                    }
+                                    onThreadUpdated={onThreadUpdated}
                                 />
                             </div>
                         </div>
@@ -126,7 +148,7 @@ const InterpretationModal = ({
                 </div>
             </ModalContent>
             <ModalActions>
-                <Button disabled={fetching} onClick={onClose}>
+                <Button disabled={fetching} onClick={handleClose}>
                     {i18n.t('Hide interpretation')}
                 </Button>
             </ModalActions>
@@ -181,6 +203,7 @@ InterpretationModal.propTypes = {
     visualization: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
+    handleInterpretationUpdate: PropTypes.func,
     interpretationId: PropTypes.string,
 }
 

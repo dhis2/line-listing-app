@@ -12,9 +12,9 @@ const mutation = {
     type: 'delete',
 }
 
-const CommentDeleteButton = ({ commentId, interpretationId, refresh }) => {
+const CommentDeleteButton = ({ commentId, interpretationId, onComplete }) => {
     const [remove, { loading }] = useDataMutation(mutation, {
-        onComplete: refresh,
+        onComplete,
         variables: { commentId, interpretationId },
     })
     return (
@@ -30,7 +30,7 @@ const CommentDeleteButton = ({ commentId, interpretationId, refresh }) => {
 CommentDeleteButton.propTypes = {
     commentId: PropTypes.string.isRequired,
     interpretationId: PropTypes.string.isRequired,
-    refresh: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
 }
 
 export { CommentDeleteButton }

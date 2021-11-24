@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-23T11:01:37.418Z\n"
-"PO-Revision-Date: 2021-11-23T11:01:37.418Z\n"
+"POT-Creation-Date: 2021-11-24T12:39:24.115Z\n"
+"PO-Revision-Date: 2021-11-24T12:39:24.115Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -44,20 +44,8 @@ msgstr "Could not update comment"
 msgid "Enter comment text"
 msgstr "Enter comment text"
 
-msgid "Unlike"
-msgstr "Unlike"
-
-msgid "Like"
-msgstr "Like"
-
-msgid "Reply"
-msgstr "Reply"
-
 msgid "Viewing interpretation: {{visualisationName}}"
 msgstr "Viewing interpretation: {{visualisationName}}"
-
-msgid "Hide interpretation"
-msgstr "Hide interpretation"
 
 msgid "Could not load interpretation"
 msgstr "Could not load interpretation"
@@ -69,8 +57,8 @@ msgstr ""
 "The interpretation couldn’t be displayed. Try again or contact your system "
 "administrator."
 
-msgid "See interpretation"
-msgstr "See interpretation"
+msgid "Hide interpretation"
+msgstr "Hide interpretation"
 
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
@@ -80,6 +68,18 @@ msgstr "Save interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
+
+msgid "Unlike"
+msgstr "Unlike"
+
+msgid "Like"
+msgstr "Like"
+
+msgid "Reply"
+msgstr "Reply"
+
+msgid "See interpretation"
+msgstr "See interpretation"
 
 msgid "Could not update interpretation"
 msgstr "Could not update interpretation"

@@ -14,19 +14,13 @@ import {
 const InterpretationModal = ({
     visualization,
     onResponseReceived,
-    onInterpretationUpdated,
+    handleInterpretationUpdate,
 }) => {
     const interpretationId = useInterpretationIdQueryParam()
     const isVisualizationLoading = useSelector(
         state => state.loader.isVisualizationLoading
     )
     const currentUser = useSelector(state => state.user)
-    const onClose = () => {
-        // This will cause the interpretation to refresh whenever the modal is closed
-        // We probably want more fine grained control but this is OK for a POC
-        onInterpretationUpdated()
-        removeInterpretationIdQueryParam()
-    }
 
     return (
         <AnalyticsInterpretationModal
@@ -35,13 +29,14 @@ const InterpretationModal = ({
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
             currentUser={currentUser}
-            onClose={onClose}
+            onClose={removeInterpretationIdQueryParam}
+            handleInterpretationUpdate={handleInterpretationUpdate}
         />
     )
 }
 InterpretationModal.propTypes = {
+    handleInterpretationUpdate: PropTypes.func.isRequired,
     visualization: PropTypes.object.isRequired,
-    onInterpretationUpdated: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func,
 }
 export { InterpretationModal }

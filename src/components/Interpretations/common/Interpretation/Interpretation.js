@@ -2,34 +2,31 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, IconReply16, IconThumbUp16, IconEdit16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import {
-    Message,
-    MessageStatsBar,
-    MessageIconButton,
-    useLike,
-} from '../index.js'
+import { Message, MessageStatsBar, MessageIconButton } from '../index.js'
 import { InterpretationDeleteButton } from './InterpretationDeleteButton.js'
 import { InterpretationUpdateForm } from './InterpretationUpdateForm.js'
+import { useLike } from './useLike.js'
 
 export const Interpretation = ({
     interpretation,
     currentUser,
     reply,
-    refresh,
+    onUpdated,
+    onDeleted,
     isModalOpener,
 }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
     const { toggleLike, isLikedByCurrentUser, toggleLikeInProgress } = useLike({
         interpretation,
         currentUser,
-        onComplete: refresh,
+        onComplete: onUpdated,
     })
 
     return isUpdateMode ? (
         <InterpretationUpdateForm
             close={() => setIsUpdateMode(false)}
             id={interpretation.id}
-            onComplete={refresh}
+            onComplete={onUpdated}
             text={interpretation.text}
             currentUser={currentUser}
         />
@@ -47,10 +44,7 @@ export const Interpretation = ({
                         isLikedByCurrentUser ? i18n.t('Unlike') : i18n.t('Like')
                     }
                     iconComponent={IconThumbUp16}
-                    onClick={event => {
-                        event.stopPropagation()
-                        toggleLike()
-                    }}
+                    onClick={toggleLike}
                     selected={isLikedByCurrentUser}
                     count={interpretation.likes}
                     disabled={toggleLikeInProgress}
@@ -58,26 +52,20 @@ export const Interpretation = ({
                 <MessageIconButton
                     tooltipContent={i18n.t('Reply')}
                     iconComponent={IconReply16}
-                    onClick={event => {
-                        event.stopPropagation()
-                        reply(interpretation.id)
-                    }}
+                    onClick={() => reply(interpretation.id)}
                     count={interpretation.comments.length}
                 />
                 {interpretation.access.update && (
                     <MessageIconButton
                         iconComponent={IconEdit16}
                         tooltipContent={i18n.t('Edit')}
-                        onClick={event => {
-                            event.stopPropagation()
-                            setIsUpdateMode(true)
-                        }}
+                        onClick={() => setIsUpdateMode(true)}
                     />
                 )}
                 {interpretation.access.delete && (
                     <InterpretationDeleteButton
                         id={interpretation.id}
-                        refresh={refresh}
+                        onComplete={onDeleted}
                     />
                 )}
             </MessageStatsBar>
@@ -98,7 +86,8 @@ Interpretation.defaultProps = {
 Interpretation.propTypes = {
     currentUser: PropTypes.object.isRequired,
     interpretation: PropTypes.object.isRequired,
-    refresh: PropTypes.func.isRequired,
     reply: PropTypes.func.isRequired,
+    onDeleted: PropTypes.func.isRequired,
+    onUpdated: PropTypes.func.isRequired,
     isModalOpener: PropTypes.bool,
 }
