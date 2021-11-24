@@ -3,9 +3,9 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
+import { Interpretation } from '../common/index.js'
 import { Comment } from './Comment.js'
 import { CommentAddForm } from './CommentAddForm.js'
-import { Interpretation } from './Interpretation.js'
 
 const InterpretationThread = ({
     currentUser,

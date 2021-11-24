@@ -2,7 +2,7 @@ import { IconCalendar24, colors, spacers } from '@dhis2/ui'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Interpretation } from './Interpretation'
+import { Interpretation } from '../common/index.js'
 
 const sortByDateProp = (a, b) => {
     const dateA = a.created
@@ -59,8 +59,9 @@ export const InterpretationList = ({
                                         key={interpretation.id}
                                         interpretation={interpretation}
                                         currentUser={currentUser}
-                                        onClick={onInterpretationClick}
+                                        reply={onInterpretationClick}
                                         refresh={refresh}
+                                        isModalOpener
                                     />
                                 ))}
                         </ol>

@@ -18,6 +18,7 @@ const interpretationsQuery = {
         resource: 'interpretations',
         params: ({ type, id }) => ({
             fields: [
+                'access',
                 'id',
                 'user[displayName]',
                 'created',
