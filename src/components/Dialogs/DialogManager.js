@@ -23,7 +23,6 @@ import {
     acAddParentGraphMap,
 } from '../../actions/ui'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit'
-import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import { sGetRootOrgUnits } from '../../reducers/settings'
 import {
@@ -36,7 +35,6 @@ import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton'
 
 export const DialogManager = ({
     dialogId,
-    dimensions,
     metadata,
     parentGraphMap,
     ouIds,
@@ -86,32 +84,57 @@ export const DialogManager = ({
     const closeDialog = () => changeDialog(null)
 
     const renderDialogContent = () => {
-        const dimensionProps = {
-            onSelect: selectUiItems,
-        }
-
-        const selected = ouIds
-            .filter(id => metadata[ouIdHelper.removePrefix(id)] !== undefined)
-            .map(id => {
-                const ouUid = ouIdHelper.removePrefix(id)
-                return {
-                    id,
-                    name: metadata[ouUid].displayName || metadata[ouUid].name,
-                    path: getOuPath(ouUid, metadata, parentGraphMap),
+        switch (dialogId) {
+            case DIMENSION_ID_ORGUNIT: {
+                const dimensionProps = {
+                    onSelect: selectUiItems,
                 }
-            })
 
-        const display = DIMENSION_ID_ORGUNIT === dialogId ? 'block' : 'none'
+                const selected = ouIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
+                    .filter(
+                        id =>
+                            metadata[ouIdHelper.removePrefix(id)] !== undefined
+                    )
+                    .map(id => {
+                        const ouUid = ouIdHelper.removePrefix(id)
+                        return {
+                            id,
+                            name:
+                                metadata[ouUid].displayName ||
+                                metadata[ouUid].name,
+                            path: getOuPath(ouUid, metadata, parentGraphMap),
+                        }
+                    })
 
-        return (
-            <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
-                <OrgUnitDimension
-                    selected={selected}
-                    roots={rootOrgUnits.map(rootOrgUnit => rootOrgUnit.id)}
-                    {...dimensionProps}
-                />
-            </div>
-        )
+                const display =
+                    DIMENSION_ID_ORGUNIT === dialogId ? 'block' : 'none'
+
+                return (
+                    <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
+                        <OrgUnitDimension
+                            selected={selected}
+                            roots={rootOrgUnits.map(
+                                rootOrgUnit => rootOrgUnit.id
+                            )}
+                            {...dimensionProps}
+                        />
+                    </div>
+                )
+            }
+            // TODO: case DIMENSION_ID_PERIOD:
+            default: {
+                return (
+                    <div>
+                        {i18n.t(
+                            'Show items where {{dimensionName}} meets the following conditions:',
+                            {
+                                dimensionName: dimension.name,
+                            }
+                        )}
+                    </div>
+                )
+            }
+        }
     }
 
     const primaryOnClick = () => {
@@ -119,7 +142,7 @@ export const DialogManager = ({
         closeDialog()
     }
 
-    const dimension = dimensions[dialogId]
+    const dimension = metadata[dialogId]
 
     return (
         <>
@@ -180,7 +203,6 @@ DialogManager.propTypes = {
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
     dialogId: PropTypes.string,
-    dimensions: PropTypes.object,
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
     rootOrgUnits: PropTypes.array,
@@ -191,12 +213,10 @@ DialogManager.propTypes = {
 DialogManager.defaultProps = {
     dialogId: null,
     rootOrgUnits: [],
-    dimensions: {},
 }
 
 const mapStateToProps = state => ({
     dialogId: sGetUiActiveModalDialog(state),
-    dimensions: sGetDimensions(state),
     metadata: sGetMetadata(state),
     parentGraphMap: sGetUiParentGraphMap(state),
     ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),

@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import { acSetUiActiveModalDialog } from '../../../actions/ui'
 import { getAxisName } from '../../../modules/axis'
-import { sGetDimensions } from '../../../reducers/dimensions'
 import { sGetMetadata } from '../../../reducers/metadata'
 import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
 import Chip from '../Chip'
@@ -103,14 +102,11 @@ DefaultAxis.propTypes = {
 }
 
 export const renderChipsSelector = createSelector(
-    // only render chips when all have names (from metadata or dimensions) available
-    [sGetUiLayout, sGetMetadata, sGetDimensions],
-    (layout, metadata, dimensions) => {
+    // only render chips when all have names (from metadata) available
+    [sGetUiLayout, sGetMetadata],
+    (layout, metadata) => {
         const layoutItems = Object.values(layout || {}).flat()
-        const dataObjects = [
-            ...Object.values(metadata || {}),
-            ...Object.values(dimensions || {}),
-        ]
+        const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
 
         return layoutItems.every(item =>
             dataObjects.some(data => data.id === item)
