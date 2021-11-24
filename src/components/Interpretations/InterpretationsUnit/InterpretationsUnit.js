@@ -9,7 +9,12 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, {
+    useEffect,
+    useState,
+    useImperativeHandle,
+    forwardRef,
+} from 'react'
 import { InterpretationForm } from './InterpretationForm'
 import { InterpretationList } from './InterpretationList'
 
@@ -32,96 +37,108 @@ const interpretationsQuery = {
     },
 }
 
-export const InterpretationsUnit = ({
-    currentUser,
-    type,
-    id,
-    onInterpretationClick,
-}) => {
-    const [isExpanded, setIsExpanded] = useState(true)
+export const InterpretationsUnit = forwardRef(
+    ({ currentUser, type, id, onInterpretationClick }, ref) => {
+        const [isExpanded, setIsExpanded] = useState(true)
 
-    const { data, loading, refetch } = useDataQuery(interpretationsQuery, {
-        lazy: true,
-    })
+        const { data, loading, refetch } = useDataQuery(interpretationsQuery, {
+            lazy: true,
+        })
 
-    useEffect(() => {
-        if (id) {
+        const onCompleteAction = () => {
             refetch({ type, id })
         }
-    }, [type, id])
 
-    const onCompleteAction = () => {
-        refetch({ type, id })
-    }
+        useImperativeHandle(
+            ref,
+            () => ({
+                refresh: onCompleteAction,
+            }),
+            []
+        )
 
-    return (
-        <div className={cx('container', { expanded: isExpanded })}>
-            <div className="header" onClick={() => setIsExpanded(!isExpanded)}>
-                <span className="title">{i18n.t('Interpretations')}</span>
-                {isExpanded ? (
-                    <IconChevronUp24 color={colors.grey700} />
-                ) : (
-                    <IconChevronDown24 color={colors.grey700} />
+        useEffect(() => {
+            if (id) {
+                refetch({ type, id })
+            }
+        }, [type, id])
+
+        return (
+            <div className={cx('container', { expanded: isExpanded })}>
+                <div
+                    className="header"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                >
+                    <span className="title">{i18n.t('Interpretations')}</span>
+                    {isExpanded ? (
+                        <IconChevronUp24 color={colors.grey700} />
+                    ) : (
+                        <IconChevronDown24 color={colors.grey700} />
+                    )}
+                </div>
+                {isExpanded && (
+                    <>
+                        {loading && (
+                            <div className="loader">
+                                <CircularLoader small />
+                            </div>
+                        )}
+                        {data && (
+                            <>
+                                <InterpretationList
+                                    currentUser={currentUser}
+                                    interpretations={
+                                        data.interpretations.interpretations
+                                    }
+                                    onInterpretationClick={
+                                        onInterpretationClick
+                                    }
+                                    refresh={onCompleteAction}
+                                />
+                                <InterpretationForm
+                                    currentUser={currentUser}
+                                    type={type}
+                                    id={id}
+                                    onSave={onCompleteAction}
+                                />
+                            </>
+                        )}
+                    </>
                 )}
+                <style jsx>{`
+                    .container {
+                        padding: ${spacers.dp16};
+                        border-bottom: 1px solid ${colors.grey400};
+                        background-color: ${colors.white};
+                    }
+
+                    .expanded {
+                        padding-bottom: ${spacers.dp32};
+                    }
+
+                    .loader {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .header {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    .title {
+                        font-size: ${spacers.dp16};
+                        font-weight: 500;
+                        line-height: 21px;
+                        color: ${colors.grey900};
+                    }
+                `}</style>
             </div>
-            {isExpanded && (
-                <>
-                    {loading && (
-                        <div className="loader">
-                            <CircularLoader small />
-                        </div>
-                    )}
-                    {data && (
-                        <>
-                            <InterpretationList
-                                currentUser={currentUser}
-                                interpretations={
-                                    data.interpretations.interpretations
-                                }
-                                onInterpretationClick={onInterpretationClick}
-                                refresh={onCompleteAction}
-                            />
-                            <InterpretationForm
-                                currentUser={currentUser}
-                                type={type}
-                                id={id}
-                                onSave={onCompleteAction}
-                            />
-                        </>
-                    )}
-                </>
-            )}
-            <style jsx>{`
-                .container {
-                    padding: ${spacers.dp16};
-                    border-bottom: 1px solid ${colors.grey400};
-                    background-color: ${colors.white};
-                }
+        )
+    }
+)
 
-                .expanded {
-                    padding-bottom: ${spacers.dp32};
-                }
-
-                .loader {
-                    display: flex;
-                    justify-content: center;
-                }
-
-                .header {
-                    display: flex;
-                    justify-content: space-between;
-                }
-
-                .title {
-                    font-size: ${spacers.dp16};
-                    font-weight: 500;
-                    line-height: 21px;
-                    color: ${colors.grey900};
-                }
-            `}</style>
-        </div>
-    )
-}
+InterpretationsUnit.displayName = 'InterpretationsUnit'
 
 InterpretationsUnit.defaultProps = {
     onInterpretationClick: Function.prototype,

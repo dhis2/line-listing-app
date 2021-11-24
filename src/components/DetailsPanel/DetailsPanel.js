@@ -8,10 +8,15 @@ import { sGetUser } from '../../reducers/user'
 import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/index.js'
 import classes from './styles/DetailsPanel.module.css'
 
-export const DetailsPanel = ({ currentUser, visualization }) => (
+export const DetailsPanel = ({
+    currentUser,
+    interpretationsUnitRef,
+    visualization,
+}) => (
     <div className={classes.panel}>
         <AboutAOUnit type="eventReports" id={visualization.id} />
         <InterpretationsUnit
+            ref={interpretationsUnitRef}
             type="eventReport"
             id={visualization.id}
             currentUser={currentUser}
@@ -26,6 +31,7 @@ export const DetailsPanel = ({ currentUser, visualization }) => (
 
 DetailsPanel.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    interpretationsUnitRef: PropTypes.object.isRequired,
     visualization: PropTypes.object.isRequired,
 }
 
