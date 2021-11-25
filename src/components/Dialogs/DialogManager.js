@@ -2,6 +2,7 @@ import {
     OrgUnitDimension,
     ouIdHelper,
     DIMENSION_ID_ORGUNIT,
+    DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -32,6 +33,7 @@ import {
     sGetDimensionIdsFromLayout,
 } from '../../reducers/ui'
 import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton'
+import ConditionsManager from './Conditions/ConditionsManager'
 
 export const DialogManager = ({
     dialogId,
@@ -83,7 +85,7 @@ export const DialogManager = ({
 
     const closeDialog = () => changeDialog(null)
 
-    const renderDialogContent = () => {
+    const renderModalContent = () => {
         switch (dialogId) {
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
@@ -123,16 +125,7 @@ export const DialogManager = ({
             }
             // TODO: case DIMENSION_ID_PERIOD:
             default: {
-                return (
-                    <div>
-                        {i18n.t(
-                            'Show items where {{dimensionName}} meets the following conditions:',
-                            {
-                                dimensionName: dimension.name,
-                            }
-                        )}
-                    </div>
-                )
+                return <ConditionsManager />
             }
         }
     }
@@ -141,6 +134,22 @@ export const DialogManager = ({
         onUpdate()
         closeDialog()
     }
+
+    const renderModalTitle = () =>
+        [DIMENSION_ID_PERIOD, DIMENSION_ID_ORGUNIT].includes(
+            // TODO: How do we handle Period?
+            dialogId
+        )
+            ? dimension.name
+            : dimensionIdsInLayout.includes(dialogId)
+            ? i18n.t('Edit dimension: {{dimensionName}}', {
+                  dimensionName: dimension.name,
+                  nsSeparator: '^^',
+              })
+            : i18n.t('Add dimension: {{dimensionName}}', {
+                  dimensionName: dimension.name,
+                  nsSeparator: '^^',
+              })
 
     const dimension = metadata[dialogId]
 
@@ -154,10 +163,10 @@ export const DialogManager = ({
                     large
                 >
                     <ModalTitle dataTest={'dialog-manager-modal-title'}>
-                        {dimension.name}
+                        {renderModalTitle()}
                     </ModalTitle>
                     <ModalContent dataTest={'dialog-manager-modal-content'}>
-                        {renderDialogContent()}
+                        {renderModalContent()}
                     </ModalContent>
                     <ModalActions dataTest={'dialog-manager-modal-actions'}>
                         <ButtonStrip>

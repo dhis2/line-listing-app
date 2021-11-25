@@ -5,11 +5,39 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-11-18T14:28:10.242Z\n"
-"PO-Revision-Date: 2021-11-18T14:28:10.242Z\n"
+"POT-Creation-Date: 2021-11-25T09:53:25.228Z\n"
+"PO-Revision-Date: 2021-11-25T09:53:25.228Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to "
+"filter results."
+msgstr ""
+"No conditions yet, so all values will be included. Add a condition to "
+"filter results."
+
+msgid "and"
+msgstr "and"
+
+msgid "Add another condition"
+msgstr "Add another condition"
+
+msgid "Add a condition"
+msgstr "Add a condition"
+
+msgid "Choose a condition type"
+msgstr "Choose a condition type"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Edit dimension: {{dimensionName}}"
+msgstr "Edit dimension: {{dimensionName}}"
+
+msgid "Add dimension: {{dimensionName}}"
+msgstr "Add dimension: {{dimensionName}}"
 
 msgid "Hide"
 msgstr "Hide"
@@ -19,9 +47,6 @@ msgstr "Update"
 
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
-
-msgid "Remove"
-msgstr "Remove"
 
 msgid "Edit"
 msgstr "Edit"
