@@ -1,17 +1,18 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelectField, SingleSelectOption, Button } from '@dhis2/ui'
+import { SingleSelectField, SingleSelectOption, Button, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import classes from './styles/Condition.module.css'
 
+const NULL_VALUE = 'NV'
 export const OPERATOR_EQUAL = 'EQ'
 export const OPERATOR_GREATER = 'GT'
 export const OPERATOR_GREATER_OR_EQUAL = 'GE'
 export const OPERATOR_LESS = 'LT'
 export const OPERATOR_LESS_OR_EQUAL = 'LE'
 export const OPERATOR_NOT_EQUAL = '!EQ'
-export const OPERATOR_EMPTY = 'EQ:NV' // TODO: special case, should use operator EQ with NV as value?
-export const OPERATOR_NOT_EMPTY = 'NE:NV'
+export const OPERATOR_EMPTY = `EQ:${NULL_VALUE}`
+export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
 
 const operators = {
     [OPERATOR_EQUAL]: 'equal to (=)',
@@ -25,9 +26,18 @@ const operators = {
 }
 
 const NumericCondition = ({ condition, onChange, onRemove }) => {
-    const setOperator = operator => onChange(`${operator}:${value || ''}`)
+    const setOperator = input => {
+        if (input.includes(NULL_VALUE)) {
+            onChange(`${input}`)
+        } else {
+            onChange(`${input}:${value || ''}`)
+        }
+    }
+    const setValue = input => onChange(`${operator}:${input || ''}`)
 
-    const [operator, value] = condition.split(':')
+    const [operator, value] = condition.includes(NULL_VALUE)
+        ? [condition]
+        : condition.split(':')
 
     return (
         <div className={classes.container}>
@@ -46,6 +56,15 @@ const NumericCondition = ({ condition, onChange, onRemove }) => {
                     />
                 ))}
             </SingleSelectField>
+            {operator && !operator.includes(NULL_VALUE) && (
+                <Input
+                    value={value}
+                    type="number"
+                    onChange={({ value }) => setValue(value)}
+                    width="150px"
+                    dense
+                />
+            )}
             <Button
                 type="button"
                 small
