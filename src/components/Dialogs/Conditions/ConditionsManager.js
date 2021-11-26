@@ -1,21 +1,19 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconInfo16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import NumericCondition from './NumericCondition'
 import classes from './styles/ConditionsManager.module.css'
 
-const ConditionsManager = ({}) => {
-    const [conditions, setConditions] = useState([])
-
-    const addCondition = () => setConditions([...conditions, ''])
+const ConditionsManager = ({ conditions, onChange }) => {
+    const addCondition = () => onChange([...conditions, ''])
 
     const removeCondition = id =>
-        setConditions(conditions.filter((_, index) => index !== id))
+        onChange(conditions.filter((_, index) => index !== id))
 
     const setCondition = (id, value) =>
-        setConditions(
+        onChange(
             conditions.map((condition, index) =>
                 index === id ? value : condition
             )
@@ -74,7 +72,8 @@ const ConditionsManager = ({}) => {
 }
 
 ConditionsManager.propTypes = {
-    //dimensionName: PropTypes.string.isRequired,
+    conditions: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

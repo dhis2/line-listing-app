@@ -7,7 +7,11 @@ import { createSelector } from 'reselect'
 import { acSetUiActiveModalDialog } from '../../../actions/ui'
 import { getAxisName } from '../../../modules/axis'
 import { sGetMetadata } from '../../../reducers/metadata'
-import { sGetUiItemsByDimension, sGetUiLayout } from '../../../reducers/ui'
+import {
+    sGetUiItemsByDimension,
+    sGetUiLayout,
+    sGetUiConditionsByDimension,
+} from '../../../reducers/ui'
 import Chip from '../Chip'
 import ChipMenu from '../ChipMenu'
 import styles from './styles/DefaultAxis.module.css'
@@ -15,6 +19,7 @@ import styles from './styles/DefaultAxis.module.css'
 const DefaultAxis = ({
     axis,
     axisId,
+    getConditionsByDimension,
     getItemsByDimension,
     getOpenHandler,
     className,
@@ -45,6 +50,8 @@ const DefaultAxis = ({
                                 const key = `${axisId}-${dimensionId}`
 
                                 const items = getItemsByDimension(dimensionId)
+                                const conditions =
+                                    getConditionsByDimension(dimensionId)
 
                                 return (
                                     <Draggable
@@ -65,6 +72,7 @@ const DefaultAxis = ({
                                                     axisId={axisId}
                                                     dimensionId={dimensionId}
                                                     items={items}
+                                                    conditions={conditions}
                                                     contextMenu={
                                                         <ChipMenu
                                                             dimensionId={
@@ -94,6 +102,7 @@ DefaultAxis.propTypes = {
     axis: PropTypes.array,
     axisId: PropTypes.string,
     className: PropTypes.string,
+    getConditionsByDimension: PropTypes.func,
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     layout: PropTypes.object,
@@ -116,6 +125,8 @@ export const renderChipsSelector = createSelector(
 
 const mapStateToProps = state => ({
     layout: sGetUiLayout(state),
+    getConditionsByDimension: dimensionId =>
+        sGetUiConditionsByDimension(state, dimensionId) || [],
     getItemsByDimension: dimensionId =>
         sGetUiItemsByDimension(state, dimensionId) || [],
     renderChips: renderChipsSelector(state),

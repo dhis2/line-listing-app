@@ -22,6 +22,7 @@ import {
     acSetUiActiveModalDialog,
     acSetUiItems,
     acAddParentGraphMap,
+    tSetUiConditionsByDimension,
 } from '../../actions/ui'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit'
 import { sGetMetadata } from '../../reducers/metadata'
@@ -31,22 +32,25 @@ import {
     sGetUiActiveModalDialog,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
+    sGetUiConditionsByDimension,
 } from '../../reducers/ui'
 import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton'
 import ConditionsManager from './Conditions/ConditionsManager'
 
 export const DialogManager = ({
-    dialogId,
-    metadata,
-    parentGraphMap,
-    ouIds,
-    rootOrgUnits,
-    dimensionIdsInLayout,
-    changeDialog,
-    setUiItems,
     addMetadata,
     addParentGraphMap,
+    changeDialog,
+    dialogId,
+    dimensionIdsInLayout,
+    getConditionsByDimension,
+    metadata,
     onUpdate,
+    ouIds,
+    parentGraphMap,
+    rootOrgUnits,
+    setConditionsByDimension,
+    setUiItems,
 }) => {
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
@@ -125,7 +129,18 @@ export const DialogManager = ({
             }
             // TODO: case DIMENSION_ID_PERIOD:
             default: {
-                return <ConditionsManager />
+                const conditions = getConditionsByDimension(dialogId).map(
+                    item => item.condition
+                )
+                const onChange = cnds => {
+                    setConditionsByDimension(cnds, dialogId)
+                }
+                return (
+                    <ConditionsManager
+                        conditions={conditions}
+                        onChange={onChange}
+                    />
+                )
             }
         }
     }
@@ -208,6 +223,7 @@ export const DialogManager = ({
 DialogManager.propTypes = {
     changeDialog: PropTypes.func.isRequired,
     dimensionIdsInLayout: PropTypes.array.isRequired,
+    getConditionsByDimension: PropTypes.func.isRequired,
     ouIds: PropTypes.array.isRequired,
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
@@ -215,6 +231,7 @@ DialogManager.propTypes = {
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
     rootOrgUnits: PropTypes.array,
+    setConditionsByDimension: PropTypes.func,
     setUiItems: PropTypes.func,
     onUpdate: PropTypes.func,
 }
@@ -226,15 +243,18 @@ DialogManager.defaultProps = {
 
 const mapStateToProps = state => ({
     dialogId: sGetUiActiveModalDialog(state),
-    metadata: sGetMetadata(state),
-    parentGraphMap: sGetUiParentGraphMap(state),
-    ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
-    rootOrgUnits: sGetRootOrgUnits(state),
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
+    getConditionsByDimension: dimensionId =>
+        sGetUiConditionsByDimension(state, dimensionId) || [],
+    metadata: sGetMetadata(state),
+    ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
+    parentGraphMap: sGetUiParentGraphMap(state),
+    rootOrgUnits: sGetRootOrgUnits(state),
 })
 
 export default connect(mapStateToProps, {
     changeDialog: acSetUiActiveModalDialog,
+    setConditionsByDimension: tSetUiConditionsByDimension,
     setUiItems: acSetUiItems,
     addMetadata: acAddMetadata,
     addParentGraphMap: acAddParentGraphMap,

@@ -11,6 +11,8 @@ import {
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
+    SET_UI_CONDITIONS,
+    sGetUiConditions,
 } from '../reducers/ui'
 
 export const acSetUiOptions = value => ({
@@ -76,3 +78,21 @@ export const acAddParentGraphMap = value => ({
     type: ADD_UI_PARENT_GRAPH_MAP,
     value,
 })
+
+export const acSetUiConditions = value => ({
+    type: SET_UI_CONDITIONS,
+    value,
+})
+
+export const tSetUiConditionsByDimension =
+    (inputConditions, dimension) => (dispatch, getState) => {
+        const filteredConditions = sGetUiConditions(getState()).filter(
+            item => item.dimension !== dimension
+        )
+        const newConditions = inputConditions.map(condition => ({
+            dimension: dimension,
+            condition,
+        }))
+
+        dispatch(acSetUiConditions([...filteredConditions, ...newConditions]))
+    }

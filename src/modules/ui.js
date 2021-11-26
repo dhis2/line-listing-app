@@ -28,6 +28,7 @@ export const getUiFromVisualization = (vis, currentState = {}) => ({
     options: getOptionsFromVisualization(vis),
     layout: layoutGetAxisIdDimensionIdsObject(vis),
     itemsByDimension: layoutGetDimensionIdItemIdsObject(vis),
+    conditions: getConditionsFromVisualization(vis),
     parentGraphMap:
         vis.parentGraphMap ||
         getParentGraphMapFromVisualization(vis) ||
@@ -62,4 +63,11 @@ export const getParentGraphMapFromVisualization = vis => {
         })
 
     return parentGraphMap
+}
+
+const getConditionsFromVisualization = vis => {
+    const itemsWithConditions = [...vis.columns, ...vis.rows, ...vis.filters]
+        .filter(item => item.filter)
+        .map(item => ({ dimension: item.dimension, condition: item.filter }))
+    return itemsWithConditions
 }
