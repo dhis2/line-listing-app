@@ -3,6 +3,7 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
+import { ModalDownloadDropdown } from '../../DownloadMenu/index.js'
 import { Interpretation } from '../common/index.js'
 import { Comment } from './Comment.js'
 import { CommentAddForm } from './CommentAddForm.js'
@@ -32,7 +33,7 @@ const InterpretationThread = ({
                     <IconClock16 color={colors.grey700} />
                     {moment(interpretation.created).format('LLL')}
                 </div>
-                <div style={{ color: 'red' }}>Download btn placeholder</div>
+                <ModalDownloadDropdown />
                 <Interpretation
                     currentUser={currentUser}
                     interpretation={interpretation}
