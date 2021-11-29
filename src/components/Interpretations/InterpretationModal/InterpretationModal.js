@@ -90,10 +90,6 @@ const InterpretationModal = ({
         }
     }, [interpretationId])
 
-    if (!interpretationId) {
-        return null
-    }
-
     return (
         <Modal
             position="middle"
@@ -199,12 +195,12 @@ const InterpretationModal = ({
 
 InterpretationModal.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    interpretationId: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
     handleInterpretationUpdate: PropTypes.func,
-    interpretationId: PropTypes.string,
 }
 
 export { InterpretationModal }

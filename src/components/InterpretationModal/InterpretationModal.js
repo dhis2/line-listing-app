@@ -22,6 +22,10 @@ const InterpretationModal = ({
     )
     const currentUser = useSelector(state => state.user)
 
+    if (!interpretationId) {
+        return null
+    }
+
     return (
         <AnalyticsInterpretationModal
             visualization={visualization}
