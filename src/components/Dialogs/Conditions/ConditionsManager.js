@@ -140,6 +140,7 @@ const ConditionsManager = ({
 ConditionsManager.propTypes = {
     conditions: PropTypes.string.isRequired,
     dimension: PropTypes.object.isRequired,
+    /* eslint-disable-next-line react/no-unused-prop-types */
     dimensionId: PropTypes.string.isRequired,
     isInLayout: PropTypes.bool.isRequired,
     setConditionsByDimension: PropTypes.func,
