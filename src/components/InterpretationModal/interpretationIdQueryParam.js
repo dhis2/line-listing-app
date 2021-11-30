@@ -1,18 +1,23 @@
 import { parse, stringify } from 'query-string'
 import history from '../../modules/history.js'
 
-const useInterpretationIdQueryParam = () => {
-    const { interpretationId } = parse(history.location.search)
+const options = { parseBooleans: true }
 
-    return interpretationId || null
+const useInterpretationQueryParams = () => {
+    const { interpretationId, initialFocus } = parse(
+        history.location.search,
+        options
+    )
+
+    return { interpretationId, initialFocus }
 }
 
-const removeInterpretationIdQueryParam = () => {
-    const parsed = parse(history.location.search)
+const removeInterpretationQueryParams = () => {
+    const parsed = parse(history.location.search, options)
     // Keep all other query params in tact
     const parsedWithoutInterpretationId = Object.entries(parsed).reduce(
         (acc, [key, value]) => {
-            if (key !== 'interpretationId') {
+            if (key !== 'interpretationId' && key !== 'initialFocus') {
                 acc[key] = value
             }
             return acc
@@ -27,4 +32,4 @@ const removeInterpretationIdQueryParam = () => {
     })
 }
 
-export { useInterpretationIdQueryParam, removeInterpretationIdQueryParam }
+export { useInterpretationQueryParams, removeInterpretationQueryParams }

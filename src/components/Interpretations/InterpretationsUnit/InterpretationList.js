@@ -2,7 +2,7 @@ import { IconCalendar24, colors, spacers } from '@dhis2/ui'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Interpretation } from './Interpretation'
+import { Interpretation } from '../common/index.js'
 
 const sortByDateProp = (a, b) => {
     const dateA = a.created
@@ -21,6 +21,7 @@ export const InterpretationList = ({
     currentUser,
     interpretations,
     onInterpretationClick,
+    onReplyIconClick,
     refresh,
 }) => {
     const interpretationsByDate = interpretations.reduce(
@@ -60,7 +61,9 @@ export const InterpretationList = ({
                                         interpretation={interpretation}
                                         currentUser={currentUser}
                                         onClick={onInterpretationClick}
-                                        refresh={refresh}
+                                        onReplyIconClick={onReplyIconClick}
+                                        onDeleted={refresh}
+                                        onUpdated={refresh}
                                     />
                                 ))}
                         </ol>
@@ -109,4 +112,5 @@ InterpretationList.propTypes = {
     interpretations: PropTypes.array.isRequired,
     refresh: PropTypes.func.isRequired,
     onInterpretationClick: PropTypes.func.isRequired,
+    onReplyIconClick: PropTypes.func.isRequired,
 }

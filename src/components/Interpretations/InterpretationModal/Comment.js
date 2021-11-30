@@ -6,7 +6,12 @@ import { Message, MessageIconButton, MessageStatsBar } from '../common/index.js'
 import { CommentDeleteButton } from './CommentDeleteButton.js'
 import { CommentUpdateForm } from './CommentUpdateForm'
 
-const Comment = ({ comment, currentUser, interpretationId, refresh }) => {
+const Comment = ({
+    comment,
+    currentUser,
+    interpretationId,
+    onThreadUpdated,
+}) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
 
     return isUpdateMode ? (
@@ -14,7 +19,7 @@ const Comment = ({ comment, currentUser, interpretationId, refresh }) => {
             close={() => setIsUpdateMode(false)}
             commentId={comment.id}
             interpretationId={interpretationId}
-            onComplete={refresh}
+            onComplete={() => onThreadUpdated(false)}
             text={comment.text}
             currentUser={currentUser}
         />
@@ -37,7 +42,7 @@ const Comment = ({ comment, currentUser, interpretationId, refresh }) => {
                     <CommentDeleteButton
                         commentId={comment.id}
                         interpretationId={interpretationId}
-                        refresh={refresh}
+                        onComplete={() => onThreadUpdated(true)}
                     />
                 )}
             </MessageStatsBar>
@@ -49,7 +54,7 @@ Comment.propTypes = {
     comment: PropTypes.object.isRequired,
     currentUser: PropTypes.object.isRequired,
     interpretationId: PropTypes.string.isRequired,
-    refresh: PropTypes.func,
+    onThreadUpdated: PropTypes.func.isRequired,
 }
 
 export { Comment }

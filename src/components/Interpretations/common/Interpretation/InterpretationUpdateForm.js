@@ -2,48 +2,48 @@ import { useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button, spacers, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import {
     MessageEditorContainer,
     RichTextEditor,
     MessageButtonStrip,
-} from '../common/index.js'
+} from '../index.js'
 
-export const CommentUpdateForm = ({
-    interpretationId,
-    commentId,
-    currentUser,
-    text,
+const mutation = {
+    resource: 'interpretations',
+    type: 'update',
+    partial: false,
+    id: ({ id }) => id,
+    data: ({ interpretationText }) => interpretationText,
+}
+
+export const InterpretationUpdateForm = ({
     close,
+    currentUser,
+    id,
     onComplete,
+    text,
 }) => {
-    const [commentText, setCommentText] = useState(text || '')
-    const updateMutationRef = useRef({
-        resource: `interpretations/${interpretationId}/comments/${commentId}`,
-        type: 'update',
-        partial: false,
-        data: ({ commentText }) => commentText,
+    const [interpretationText, setInterpretationText] = useState(text || '')
+    const [update, { loading, error }] = useDataMutation(mutation, {
+        onComplete: () => {
+            onComplete()
+            close()
+        },
+        variables: { id },
     })
-    const [update, { loading, error }] = useDataMutation(
-        updateMutationRef.current,
-        {
-            onComplete: () => {
-                onComplete()
-                close()
-            },
-        }
-    )
+
     const errorText = error
-        ? error.message || i18n.t('Could not update comment')
+        ? error.message || i18n.t('Could not update interpretation')
         : ''
 
     return (
         <div className="message">
             <MessageEditorContainer currentUser={currentUser}>
                 <RichTextEditor
-                    inputPlaceholder={i18n.t('Enter comment text')}
-                    onChange={setCommentText}
-                    value={commentText}
+                    inputPlaceholder={i18n.t('Enter interpretation text')}
+                    onChange={setInterpretationText}
+                    value={interpretationText}
                     disabled={loading}
                     errorText={errorText}
                 />
@@ -52,7 +52,7 @@ export const CommentUpdateForm = ({
                         loading={loading}
                         primary
                         small
-                        onClick={() => update({ commentText })}
+                        onClick={() => update({ interpretationText })}
                     >
                         {i18n.t('Update')}
                     </Button>
@@ -71,11 +71,10 @@ export const CommentUpdateForm = ({
         </div>
     )
 }
-CommentUpdateForm.propTypes = {
+InterpretationUpdateForm.propTypes = {
     close: PropTypes.func.isRequired,
-    commentId: PropTypes.string.isRequired,
     currentUser: PropTypes.object.isRequired,
-    interpretationId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
     text: PropTypes.string,
 }
