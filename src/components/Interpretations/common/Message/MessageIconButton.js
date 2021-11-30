@@ -13,7 +13,10 @@ const MessageIconButton = ({
 }) => (
     <Tooltip closeDelay={200} content={tooltipContent}>
         <button
-            onClick={onClick}
+            onClick={event => {
+                event.stopPropagation()
+                onClick()
+            }}
             className={cx('button', { selected })}
             disabled={disabled}
         >

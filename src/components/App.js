@@ -3,7 +3,7 @@ import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
@@ -87,6 +87,10 @@ const App = ({
     })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const { d2 } = useD2()
+    const interpretationsUnitRef = useRef()
+    const onInterpretationUpdate = () => {
+        interpretationsUnitRef.current.refresh()
+    }
 
     const needsRefetch = location => {
         if (!previousLocation) {
@@ -265,6 +269,9 @@ const App = ({
                                         {current && (
                                             <InterpretationModal
                                                 visualization={current}
+                                                onInterpretationUpdate={
+                                                    onInterpretationUpdate
+                                                }
                                                 onResponseReceived={
                                                     onResponseReceived
                                                 }
@@ -277,7 +284,9 @@ const App = ({
                 </DndContext>
                 {showRightSidebar && current && (
                     <div className={classes.mainRight}>
-                        <DetailsPanel />
+                        <DetailsPanel
+                            interpretationsUnitRef={interpretationsUnitRef}
+                        />
                     </div>
                 )}
             </div>

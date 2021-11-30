@@ -2,18 +2,28 @@ import { IconClock16, colors } from '@dhis2/ui'
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
+import { Interpretation } from '../common/index.js'
 import { Comment } from './Comment.js'
 import { CommentAddForm } from './CommentAddForm.js'
-import { Interpretation } from './Interpretation.js'
 
 const InterpretationThread = ({
     currentUser,
     fetching,
     interpretation,
-    refetchInterpretation,
+    onInterpretationDeleted,
+    initialFocus,
+    onThreadUpdated,
 }) => {
     const focusRef = useRef()
+
+    useEffect(() => {
+        if (initialFocus && focusRef.current) {
+            window.requestAnimationFrame(() => {
+                focusRef.current.focus()
+            })
+        }
+    }, [initialFocus, focusRef.current])
 
     return (
         <div className={cx('container', { fetching })}>
@@ -26,8 +36,9 @@ const InterpretationThread = ({
                 <Interpretation
                     currentUser={currentUser}
                     interpretation={interpretation}
-                    reply={() => focusRef.current?.focus()}
-                    refresh={refetchInterpretation}
+                    onReplyIconClick={() => focusRef.current?.focus()}
+                    onUpdated={() => onThreadUpdated(true)}
+                    onDeleted={onInterpretationDeleted}
                 />
                 <div className={'comments'}>
                     {interpretation.comments.map(comment => (
@@ -36,14 +47,14 @@ const InterpretationThread = ({
                             comment={comment}
                             currentUser={currentUser}
                             interpretationId={interpretation.id}
-                            refresh={refetchInterpretation}
+                            onThreadUpdated={onThreadUpdated}
                         />
                     ))}
                 </div>
                 <CommentAddForm
                     currentUser={currentUser}
                     interpretationId={interpretation.id}
-                    onSave={refetchInterpretation}
+                    onSave={() => onThreadUpdated(true)}
                     focusRef={focusRef}
                 />
             </div>
@@ -120,7 +131,9 @@ InterpretationThread.propTypes = {
     currentUser: PropTypes.object.isRequired,
     fetching: PropTypes.bool.isRequired,
     interpretation: PropTypes.object.isRequired,
-    refetchInterpretation: PropTypes.func.isRequired,
+    onInterpretationDeleted: PropTypes.func.isRequired,
+    initialFocus: PropTypes.bool,
+    onThreadUpdated: PropTypes.func,
 }
 
 export { InterpretationThread }

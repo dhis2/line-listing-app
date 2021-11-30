@@ -3,19 +3,18 @@ import i18n from '@dhis2/d2-i18n'
 import { IconDelete16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { MessageIconButton } from '../common/index.js'
+import { MessageIconButton } from '../index.js'
 
 const mutation = {
     resource: 'interpretations',
-    id: ({ interpretationId, commentId }) =>
-        `${interpretationId}/comments/${commentId}`,
+    id: ({ id }) => id,
     type: 'delete',
 }
 
-const CommentDeleteButton = ({ commentId, interpretationId, onComplete }) => {
+const InterpretationDeleteButton = ({ id, onComplete }) => {
     const [remove, { loading }] = useDataMutation(mutation, {
         onComplete,
-        variables: { commentId, interpretationId },
+        variables: { id },
     })
     return (
         <MessageIconButton
@@ -27,10 +26,9 @@ const CommentDeleteButton = ({ commentId, interpretationId, onComplete }) => {
     )
 }
 
-CommentDeleteButton.propTypes = {
-    commentId: PropTypes.string.isRequired,
-    interpretationId: PropTypes.string.isRequired,
+InterpretationDeleteButton.propTypes = {
+    id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
 }
 
-export { CommentDeleteButton }
+export { InterpretationDeleteButton }

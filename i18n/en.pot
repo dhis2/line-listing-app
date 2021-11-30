@@ -69,20 +69,8 @@ msgstr "Could not update comment"
 msgid "Enter comment text"
 msgstr "Enter comment text"
 
-msgid "Unlike"
-msgstr "Unlike"
-
-msgid "Like"
-msgstr "Like"
-
-msgid "Reply"
-msgstr "Reply"
-
 msgid "Viewing interpretation: {{visualisationName}}"
 msgstr "Viewing interpretation: {{visualisationName}}"
-
-msgid "Hide interpretation"
-msgstr "Hide interpretation"
 
 msgid "Could not load interpretation"
 msgstr "Could not load interpretation"
@@ -94,8 +82,8 @@ msgstr ""
 "The interpretation couldn’t be displayed. Try again or contact your system "
 "administrator."
 
-msgid "See interpretation"
-msgstr "See interpretation"
+msgid "Hide interpretation"
+msgstr "Hide interpretation"
 
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
@@ -105,6 +93,24 @@ msgstr "Save interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
+
+msgid "Unlike"
+msgstr "Unlike"
+
+msgid "Like"
+msgstr "Like"
+
+msgid "Reply"
+msgstr "Reply"
+
+msgid "See interpretation"
+msgstr "See interpretation"
+
+msgid "Could not update interpretation"
+msgstr "Could not update interpretation"
+
+msgid "Enter interpretation text"
+msgstr "Enter interpretation text"
 
 msgid "Bold text"
 msgstr "Bold text"

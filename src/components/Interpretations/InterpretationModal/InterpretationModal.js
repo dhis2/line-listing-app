@@ -4,15 +4,17 @@ import {
     Modal,
     ModalActions,
     ModalContent,
+    NoticeBox,
     Button,
     spacers,
     colors,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import css from 'styled-jsx/css'
-import { InterpretationModalContent } from './InterpretationModalContent.js'
+import { Visualization } from '../../Visualization/Visualization.js'
+import { InterpretationThread } from './InterpretationThread.js'
 
 const modalCSS = css.resolve`
     aside {
@@ -34,10 +36,11 @@ const query = {
         id: ({ id }) => id,
         params: {
             fields: [
+                'access',
                 'id',
                 'text',
                 'created',
-                'createdBy[id,displayName]',
+                'user[id,displayName]',
                 'likes',
                 'likedBy',
                 'comments[access,id,text,created,createdBy[id,displayName]]',
@@ -52,25 +55,46 @@ const InterpretationModal = ({
     visualization,
     onResponseReceived,
     onClose,
+    onInterpretationUpdate,
     interpretationId,
+    initialFocus,
 }) => {
+    const [isDirty, setIsDirty] = useState(false)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
     })
+    const interpretation = data?.interpretation
+    const shouldRenderModalContent = !error && interpretation
     const shouldCssHideModal = loading || isVisualizationLoading
+    const handleClose = () => {
+        if (isDirty) {
+            onInterpretationUpdate()
+            setIsDirty(false)
+        }
+        onClose()
+    }
+    const onThreadUpdated = affectsInterpretation => {
+        if (affectsInterpretation) {
+            setIsDirty(true)
+        }
+        refetch({ id: interpretationId })
+    }
+    const onInterpretationDeleted = () => {
+        setIsDirty(false)
+        onInterpretationUpdate()
+        onClose()
+    }
 
     useEffect(() => {
-        refetch({ id: interpretationId })
+        if (interpretationId) {
+            refetch({ id: interpretationId })
+        }
     }, [interpretationId])
-
-    if (!interpretationId) {
-        return null
-    }
 
     return (
         <Modal
             position="middle"
-            onClose={onClose}
+            onClose={handleClose}
             className={cx(modalCSS.className, {
                 hidden: shouldCssHideModal,
             })}
@@ -85,19 +109,44 @@ const InterpretationModal = ({
             </h1>
             <ModalContent className="modalContent">
                 <div className="container">
-                    <InterpretationModalContent
-                        error={error}
-                        fetching={fetching}
-                        interpretation={data?.interpretation}
-                        onResponseReceived={onResponseReceived}
-                        refetchInterpretation={refetch}
-                        visualization={visualization}
-                        currentUser={currentUser}
-                    />
+                    {error && (
+                        <NoticeBox
+                            error
+                            title={i18n.t('Could not load interpretation')}
+                        >
+                            {error.message ||
+                                i18n.t(
+                                    'The interpretation couldn’t be displayed. Try again or contact your system administrator.'
+                                )}
+                        </NoticeBox>
+                    )}
+                    {shouldRenderModalContent && (
+                        <div className="row">
+                            <div className="visualisation-wrap">
+                                <Visualization
+                                    relativePeriodDate={interpretation.created}
+                                    visualization={visualization}
+                                    onResponseReceived={onResponseReceived}
+                                />
+                            </div>
+                            <div className="thread-wrap">
+                                <InterpretationThread
+                                    currentUser={currentUser}
+                                    fetching={fetching}
+                                    interpretation={interpretation}
+                                    onInterpretationDeleted={
+                                        onInterpretationDeleted
+                                    }
+                                    onThreadUpdated={onThreadUpdated}
+                                    initialFocus={initialFocus}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </ModalContent>
             <ModalActions>
-                <Button disabled={fetching} onClick={onClose}>
+                <Button disabled={fetching} onClick={handleClose}>
                     {i18n.t('Hide interpretation')}
                 </Button>
             </ModalActions>
@@ -125,6 +174,22 @@ const InterpretationModal = ({
                     display: flex;
                     flex-direction: column;
                 }
+
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 16px;
+                }
+
+                .visualisation-wrap {
+                    flex-grow: 1;
+                }
+
+                .thread-wrap {
+                    flex-basis: 300px;
+                    flex-shrink: 0;
+                    overflow-y: auto;
+                }
             `}</style>
         </Modal>
     )
@@ -132,11 +197,13 @@ const InterpretationModal = ({
 
 InterpretationModal.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    interpretationId: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
-    interpretationId: PropTypes.string,
+    initialFocus: PropTypes.bool,
+    onInterpretationUpdate: PropTypes.func,
 }
 
 export { InterpretationModal }
