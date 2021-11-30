@@ -21,6 +21,7 @@ export const InterpretationList = ({
     currentUser,
     interpretations,
     onInterpretationClick,
+    onReplyIconClick,
     refresh,
 }) => {
     const interpretationsByDate = interpretations.reduce(
@@ -59,10 +60,10 @@ export const InterpretationList = ({
                                         key={interpretation.id}
                                         interpretation={interpretation}
                                         currentUser={currentUser}
-                                        reply={onInterpretationClick}
+                                        onClick={onInterpretationClick}
+                                        onReplyIconClick={onReplyIconClick}
                                         onDeleted={refresh}
                                         onUpdated={refresh}
-                                        isModalOpener
                                     />
                                 ))}
                         </ol>
@@ -111,4 +112,5 @@ InterpretationList.propTypes = {
     interpretations: PropTypes.array.isRequired,
     refresh: PropTypes.func.isRequired,
     onInterpretationClick: PropTypes.func.isRequired,
+    onReplyIconClick: PropTypes.func.isRequired,
 }

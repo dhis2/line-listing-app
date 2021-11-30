@@ -38,7 +38,10 @@ const interpretationsQuery = {
 }
 
 export const InterpretationsUnit = forwardRef(
-    ({ currentUser, type, id, onInterpretationClick }, ref) => {
+    (
+        { currentUser, type, id, onInterpretationClick, onReplyIconClick },
+        ref
+    ) => {
         const [isExpanded, setIsExpanded] = useState(true)
 
         const { data, loading, fetching, refetch } = useDataQuery(
@@ -101,6 +104,7 @@ export const InterpretationsUnit = forwardRef(
                                     onInterpretationClick={
                                         onInterpretationClick
                                     }
+                                    onReplyIconClick={onReplyIconClick}
                                     refresh={onCompleteAction}
                                 />
                                 <InterpretationForm
@@ -192,4 +196,5 @@ InterpretationsUnit.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     onInterpretationClick: PropTypes.func,
+    onReplyIconClick: PropTypes.func,
 }

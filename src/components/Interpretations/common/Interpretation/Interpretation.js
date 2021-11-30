@@ -10,10 +10,10 @@ import { useLike } from './useLike.js'
 export const Interpretation = ({
     interpretation,
     currentUser,
-    reply,
+    onClick,
     onUpdated,
     onDeleted,
-    isModalOpener,
+    onReplyIconClick,
 }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
     const { toggleLike, isLikedByCurrentUser, toggleLikeInProgress } = useLike({
@@ -36,7 +36,7 @@ export const Interpretation = ({
             created={interpretation.created}
             id={interpretation.id}
             username={interpretation.user.displayName}
-            onClick={isModalOpener ? reply : undefined}
+            onClick={onClick}
         >
             <MessageStatsBar>
                 <MessageIconButton
@@ -52,7 +52,7 @@ export const Interpretation = ({
                 <MessageIconButton
                     tooltipContent={i18n.t('Reply')}
                     iconComponent={IconReply16}
-                    onClick={() => reply(interpretation.id)}
+                    onClick={() => onReplyIconClick(interpretation.id)}
                     count={interpretation.comments.length}
                 />
                 {interpretation.access.update && (
@@ -69,8 +69,8 @@ export const Interpretation = ({
                     />
                 )}
             </MessageStatsBar>
-            {isModalOpener && (
-                <Button secondary small onClick={reply}>
+            {!!onClick && (
+                <Button secondary small onClick={onClick}>
                     {i18n.t('See interpretation')}
                 </Button>
             )}
@@ -78,16 +78,11 @@ export const Interpretation = ({
     )
 }
 
-Interpretation.defaultProps = {
-    onClick: Function.prototype,
-    refresh: Function.prototype,
-}
-
 Interpretation.propTypes = {
     currentUser: PropTypes.object.isRequired,
     interpretation: PropTypes.object.isRequired,
-    reply: PropTypes.func.isRequired,
     onDeleted: PropTypes.func.isRequired,
+    onReplyIconClick: PropTypes.func.isRequired,
     onUpdated: PropTypes.func.isRequired,
-    isModalOpener: PropTypes.bool,
+    onClick: PropTypes.func,
 }

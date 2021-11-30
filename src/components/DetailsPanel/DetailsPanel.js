@@ -25,6 +25,11 @@ export const DetailsPanel = ({
                     `/${visualization.id}?interpretationId=${interpretationId}`
                 )
             }
+            onReplyIconClick={interpretationId =>
+                history.push(
+                    `/${visualization.id}?interpretationId=${interpretationId}&initialFocus=true`
+                )
+            }
         />
     </div>
 )

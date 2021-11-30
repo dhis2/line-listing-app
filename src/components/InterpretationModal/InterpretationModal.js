@@ -3,20 +3,16 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
-    useInterpretationIdQueryParam,
-    removeInterpretationIdQueryParam,
+    useInterpretationQueryParams,
+    removeInterpretationQueryParams,
 } from './interpretationIdQueryParam.js'
-/**
- * TODO: When the interpretation modal is moved to analytics,
- * this component needs to remain in the app
- */
-//
+
 const InterpretationModal = ({
     visualization,
     onResponseReceived,
     handleInterpretationUpdate,
 }) => {
-    const interpretationId = useInterpretationIdQueryParam()
+    const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const isVisualizationLoading = useSelector(
         state => state.loader.isVisualizationLoading
     )
@@ -28,13 +24,14 @@ const InterpretationModal = ({
 
     return (
         <AnalyticsInterpretationModal
-            visualization={visualization}
-            onResponseReceived={onResponseReceived}
+            currentUser={currentUser}
+            handleInterpretationUpdate={handleInterpretationUpdate}
+            initialFocus={initialFocus}
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
-            currentUser={currentUser}
-            onClose={removeInterpretationIdQueryParam}
-            handleInterpretationUpdate={handleInterpretationUpdate}
+            onClose={removeInterpretationQueryParams}
+            onResponseReceived={onResponseReceived}
+            visualization={visualization}
         />
     )
 }

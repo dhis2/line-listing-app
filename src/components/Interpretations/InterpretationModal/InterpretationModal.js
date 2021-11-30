@@ -57,6 +57,7 @@ const InterpretationModal = ({
     onClose,
     handleInterpretationUpdate,
     interpretationId,
+    initialFocus,
 }) => {
     const [isDirty, setIsDirty] = useState(false)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
@@ -137,6 +138,7 @@ const InterpretationModal = ({
                                         onInterpretationDeleted
                                     }
                                     onThreadUpdated={onThreadUpdated}
+                                    initialFocus={initialFocus}
                                 />
                             </div>
                         </div>
@@ -201,6 +203,7 @@ InterpretationModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
     handleInterpretationUpdate: PropTypes.func,
+    initialFocus: PropTypes.bool,
 }
 
 export { InterpretationModal }
