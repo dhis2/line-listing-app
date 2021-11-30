@@ -3,7 +3,6 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
-import { ModalDownloadDropdown } from '../../DownloadMenu/index.js'
 import { Interpretation } from '../common/index.js'
 import { Comment } from './Comment.js'
 import { CommentAddForm } from './CommentAddForm.js'
@@ -15,6 +14,7 @@ const InterpretationThread = ({
     onInterpretationDeleted,
     initialFocus,
     onThreadUpdated,
+    downloadMenuComponent: DownloadMenu,
 }) => {
     const focusRef = useRef()
 
@@ -33,7 +33,7 @@ const InterpretationThread = ({
                     <IconClock16 color={colors.grey700} />
                     {moment(interpretation.created).format('LLL')}
                 </div>
-                <ModalDownloadDropdown />
+                <DownloadMenu relativePeriodDate={interpretation.created} />
                 <Interpretation
                     currentUser={currentUser}
                     interpretation={interpretation}
@@ -130,6 +130,10 @@ const InterpretationThread = ({
 
 InterpretationThread.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    downloadMenuComponent: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func,
+    ]).isRequired,
     fetching: PropTypes.bool.isRequired,
     interpretation: PropTypes.object.isRequired,
     onInterpretationDeleted: PropTypes.func.isRequired,

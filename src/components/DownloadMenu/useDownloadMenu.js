@@ -12,7 +12,7 @@ import {
     FILE_FORMAT_XLS,
 } from './constants'
 
-const useDownloadMenu = () => {
+const useDownloadMenu = relativePeriodDate => {
     const current = useSelector(sGetCurrent)
     const { baseUrl } = useConfig()
     const dataEngine = useDataEngine()
@@ -113,6 +113,10 @@ const useDownloadMenu = () => {
                 completedOnly: current.completedOnly,
             })
 
+            if (relativePeriodDate) {
+                req = req.withRelativePeriodDate(relativePeriodDate)
+            }
+
             const url = new URL(
                 `${baseUrl}/api/${req.buildUrl()}`,
                 `${window.location.origin}${window.location.pathname}`
@@ -125,7 +129,7 @@ const useDownloadMenu = () => {
             window.open(url, target)
             setIsOpen(false)
         },
-        [current]
+        [current, relativePeriodDate]
     )
 
     return {

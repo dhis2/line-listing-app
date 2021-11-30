@@ -1,12 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { DropdownButton } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { DownloadMenu } from './DownloadMenu.js'
 import styles from './ModalDownloadDropdown.module.css'
 import { useDownloadMenu } from './useDownloadMenu.js'
 
-const ModalDownloadDropdown = () => {
-    const { isOpen, toggleOpen, disabled, download } = useDownloadMenu()
+const ModalDownloadDropdown = ({ relativePeriodDate }) => {
+    const { isOpen, toggleOpen, disabled, download } =
+        useDownloadMenu(relativePeriodDate)
 
     return (
         <div className={styles.container}>
@@ -22,6 +24,10 @@ const ModalDownloadDropdown = () => {
             </DropdownButton>
         </div>
     )
+}
+
+ModalDownloadDropdown.propTypes = {
+    relativePeriodDate: PropTypes.string,
 }
 
 export { ModalDownloadDropdown }
