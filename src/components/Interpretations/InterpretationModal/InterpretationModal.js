@@ -202,8 +202,8 @@ InterpretationModal.propTypes = {
     visualization: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
-    onInterpretationUpdate: PropTypes.func,
     initialFocus: PropTypes.bool,
+    onInterpretationUpdate: PropTypes.func,
 }
 
 export { InterpretationModal }
