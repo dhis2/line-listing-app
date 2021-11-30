@@ -65,9 +65,7 @@ export const getParentGraphMapFromVisualization = vis => {
     return parentGraphMap
 }
 
-const getConditionsFromVisualization = vis => {
-    const itemsWithConditions = [...vis.columns, ...vis.rows, ...vis.filters]
+const getConditionsFromVisualization = vis =>
+    [...vis.columns, ...vis.rows, ...vis.filters]
         .filter(item => item.filter)
-        .map(item => ({ dimension: item.dimension, condition: item.filter }))
-    return itemsWithConditions
-}
+        .reduce((acc, key) => ({ ...acc, [key.dimension]: key.filter }), {})

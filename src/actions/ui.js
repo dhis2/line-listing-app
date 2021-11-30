@@ -85,14 +85,11 @@ export const acSetUiConditions = value => ({
 })
 
 export const tSetUiConditionsByDimension =
-    (inputConditions, dimension) => (dispatch, getState) => {
-        const filteredConditions = sGetUiConditions(getState()).filter(
-            item => item.dimension !== dimension
+    (inputCondition, dimension) => (dispatch, getState) => {
+        dispatch(
+            acSetUiConditions({
+                ...sGetUiConditions(getState()),
+                [dimension]: inputCondition,
+            })
         )
-        const newConditions = inputConditions.map(condition => ({
-            dimension: dimension,
-            condition,
-        }))
-
-        dispatch(acSetUiConditions([...filteredConditions, ...newConditions]))
     }

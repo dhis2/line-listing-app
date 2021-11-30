@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
 import { acSetUiActiveModalDialog } from '../../../actions/ui'
 import { getAxisName } from '../../../modules/axis'
+import { parseConditionsStringToArray } from '../../../modules/conditions'
 import { sGetMetadata } from '../../../reducers/metadata'
 import {
     sGetUiItemsByDimension,
@@ -50,8 +51,9 @@ const DefaultAxis = ({
                                 const key = `${axisId}-${dimensionId}`
 
                                 const items = getItemsByDimension(dimensionId)
-                                const conditions =
+                                const conditions = parseConditionsStringToArray(
                                     getConditionsByDimension(dimensionId)
+                                )
 
                                 return (
                                     <Draggable
@@ -126,7 +128,7 @@ export const renderChipsSelector = createSelector(
 const mapStateToProps = state => ({
     layout: sGetUiLayout(state),
     getConditionsByDimension: dimensionId =>
-        sGetUiConditionsByDimension(state, dimensionId) || [],
+        sGetUiConditionsByDimension(state, dimensionId) || '',
     getItemsByDimension: dimensionId =>
         sGetUiItemsByDimension(state, dimensionId) || [],
     renderChips: renderChipsSelector(state),

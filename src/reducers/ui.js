@@ -5,7 +5,6 @@ import { getOptionsForUi } from '../modules/options'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
 import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
 
-export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -72,11 +71,6 @@ const getPreselectedUi = options => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
-        case SET_UI: {
-            return {
-                ...action.value,
-            }
-        }
         case SET_UI_OPTIONS: {
             return {
                 ...state,
@@ -172,7 +166,7 @@ export default (state = EMPTY_UI, action) => {
         case SET_UI_CONDITIONS: {
             return {
                 ...state,
-                conditions: [...action.value],
+                conditions: { ...action.value },
             }
         }
         default:
@@ -191,7 +185,7 @@ export const sGetUiShowRightSidebar = state => sGetUi(state).showRightSidebar
 export const sGetUiType = state => sGetUi(state).type
 export const sGetUiActiveModalDialog = state => sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = state => sGetUi(state).parentGraphMap
-export const sGetUiConditions = state => sGetUi(state).conditions || []
+export const sGetUiConditions = state => sGetUi(state).conditions || {}
 
 // Selectors level 2
 
@@ -205,4 +199,4 @@ export const sGetDimensionIdsFromLayout = state =>
     )
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
-    sGetUiConditions(state).filter(item => item.dimension === dimension) || []
+    sGetUiConditions(state)[dimension] || ''

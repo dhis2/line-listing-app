@@ -35,7 +35,8 @@ export const getAxesFromUi = ui =>
                 .map(dimensionId =>
                     dimensionCreate(
                         dimensionId,
-                        ui.itemsByDimension[dimensionId]
+                        ui.itemsByDimension[dimensionId],
+                        { filter: ui.conditions[dimensionId] }
                     )
                 )
                 .filter(dim => dim !== null),
