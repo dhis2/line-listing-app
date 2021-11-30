@@ -10,7 +10,7 @@ import {
 const InterpretationModal = ({
     visualization,
     onResponseReceived,
-    handleInterpretationUpdate,
+    onInterpretationUpdate,
 }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const isVisualizationLoading = useSelector(
@@ -25,7 +25,7 @@ const InterpretationModal = ({
     return (
         <AnalyticsInterpretationModal
             currentUser={currentUser}
-            handleInterpretationUpdate={handleInterpretationUpdate}
+            onInterpretationUpdate={onInterpretationUpdate}
             initialFocus={initialFocus}
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
@@ -36,8 +36,8 @@ const InterpretationModal = ({
     )
 }
 InterpretationModal.propTypes = {
-    handleInterpretationUpdate: PropTypes.func.isRequired,
     visualization: PropTypes.object.isRequired,
+    onInterpretationUpdate: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func,
 }
 export { InterpretationModal }

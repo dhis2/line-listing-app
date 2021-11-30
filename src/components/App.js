@@ -86,7 +86,7 @@ const App = ({
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const { d2 } = useD2()
     const interpretationsUnitRef = useRef()
-    const handleInterpretationUpdate = () => {
+    const onInterpretationUpdate = () => {
         interpretationsUnitRef.current.refresh()
     }
 
@@ -266,8 +266,8 @@ const App = ({
                                         {current && (
                                             <InterpretationModal
                                                 visualization={current}
-                                                handleInterpretationUpdate={
-                                                    handleInterpretationUpdate
+                                                onInterpretationUpdate={
+                                                    onInterpretationUpdate
                                                 }
                                                 onResponseReceived={
                                                     onResponseReceived

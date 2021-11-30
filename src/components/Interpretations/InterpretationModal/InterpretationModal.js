@@ -55,7 +55,7 @@ const InterpretationModal = ({
     visualization,
     onResponseReceived,
     onClose,
-    handleInterpretationUpdate,
+    onInterpretationUpdate,
     interpretationId,
     initialFocus,
 }) => {
@@ -68,7 +68,7 @@ const InterpretationModal = ({
     const shouldCssHideModal = loading || isVisualizationLoading
     const handleClose = () => {
         if (isDirty) {
-            handleInterpretationUpdate()
+            onInterpretationUpdate()
             setIsDirty(false)
         }
         onClose()
@@ -81,7 +81,7 @@ const InterpretationModal = ({
     }
     const onInterpretationDeleted = () => {
         setIsDirty(false)
-        handleInterpretationUpdate()
+        onInterpretationUpdate()
         onClose()
     }
 
@@ -202,7 +202,7 @@ InterpretationModal.propTypes = {
     visualization: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
     onResponseReceived: PropTypes.func.isRequired,
-    handleInterpretationUpdate: PropTypes.func,
+    onInterpretationUpdate: PropTypes.func,
     initialFocus: PropTypes.bool,
 }
 
