@@ -12,7 +12,7 @@ import React from 'react'
 import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton'
 
 const DimensionModal = ({
-    content,
+    children,
     dataTest,
     isInLayout,
     onClose,
@@ -21,7 +21,7 @@ const DimensionModal = ({
 }) => (
     <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
         <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
-        <ModalContent dataTest={`${dataTest}-content`}>{content}</ModalContent>
+        <ModalContent dataTest={`${dataTest}-content`}>{children}</ModalContent>
         <ModalActions dataTest={`${dataTest}-actions`}>
             <ButtonStrip>
                 <Button
@@ -55,7 +55,7 @@ const DimensionModal = ({
 DimensionModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    content: PropTypes.node,
+    children: PropTypes.node,
     dataTest: PropTypes.string,
     isInLayout: PropTypes.bool,
     title: PropTypes.node,

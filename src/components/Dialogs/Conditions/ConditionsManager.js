@@ -44,19 +44,41 @@ const ConditionsManager = ({
             )
         )
 
-    const renderModalTitle = () =>
-        isInLayout
-            ? i18n.t('Edit dimension: {{dimensionName}}', {
-                  dimensionName: dimension.name,
-                  nsSeparator: '^^',
-              })
-            : i18n.t('Add dimension: {{dimensionName}}', {
-                  dimensionName: dimension.name,
-                  nsSeparator: '^^',
-              })
+    const storeConditions = () =>
+        setConditionsByDimension(
+            parseConditionsArrayToString(conditionsList),
+            dimension.id
+        )
 
-    const renderModalContent = () => (
-        <>
+    const primaryOnClick = () => {
+        storeConditions()
+        onUpdate()
+        onClose()
+    }
+
+    const closeModal = () => {
+        storeConditions()
+        onClose()
+    }
+
+    return dimension ? (
+        <DimensionModal
+            dataTest={'dialog-manager-modal'}
+            isInLayout={isInLayout}
+            onClose={closeModal}
+            onUpdate={primaryOnClick}
+            title={
+                isInLayout
+                    ? i18n.t('Edit dimension: {{dimensionName}}', {
+                          dimensionName: dimension.name,
+                          nsSeparator: '^^',
+                      })
+                    : i18n.t('Add dimension: {{dimensionName}}', {
+                          dimensionName: dimension.name,
+                          nsSeparator: '^^',
+                      })
+            }
+        >
             <div>
                 <p className={classes.paragraph}>
                     {i18n.t(
@@ -103,35 +125,7 @@ const ConditionsManager = ({
                         : i18n.t('Add a condition')}
                 </Button>
             </div>
-        </>
-    )
-
-    const storeConditions = () =>
-        setConditionsByDimension(
-            parseConditionsArrayToString(conditionsList),
-            dimension.id
-        )
-
-    const primaryOnClick = () => {
-        storeConditions()
-        onUpdate()
-        onClose()
-    }
-
-    const closeModal = () => {
-        storeConditions()
-        onClose()
-    }
-
-    return dimension ? (
-        <DimensionModal
-            content={renderModalContent()}
-            dataTest={'dialog-manager-modal'}
-            isInLayout={isInLayout}
-            onClose={closeModal}
-            onUpdate={primaryOnClick}
-            title={renderModalTitle()}
-        />
+        </DimensionModal>
     ) : null
 }
 

@@ -119,20 +119,17 @@ export const FixedDimension = ({
 
     const dimension = metadata[dimensionId]
 
-    return (
-        <>
-            {dimension && (
-                <DimensionModal
-                    content={renderModalContent()}
-                    dataTest={'dialog-manager-modal'}
-                    isInLayout={isInLayout}
-                    onClose={closeModal}
-                    onUpdate={primaryOnClick}
-                    title={dimension.name}
-                />
-            )}
-        </>
-    )
+    return dimension ? (
+        <DimensionModal
+            dataTest={'dialog-manager-modal'}
+            isInLayout={isInLayout}
+            onClose={closeModal}
+            onUpdate={primaryOnClick}
+            title={dimension.name}
+        >
+            {renderModalContent()}
+        </DimensionModal>
+    ) : null
 }
 
 FixedDimension.propTypes = {
