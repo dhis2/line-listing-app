@@ -18,43 +18,39 @@ const DimensionModal = ({
     onClose,
     onUpdate,
     title,
-}) => {
-    return (
-        <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
-            <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
-            <ModalContent dataTest={`${dataTest}-content`}>
-                {content}
-            </ModalContent>
-            <ModalActions dataTest={`${dataTest}-actions`}>
-                <ButtonStrip>
+}) => (
+    <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
+        <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
+        <ModalContent dataTest={`${dataTest}-content`}>{content}</ModalContent>
+        <ModalActions dataTest={`${dataTest}-actions`}>
+            <ButtonStrip>
+                <Button
+                    type="button"
+                    secondary
+                    onClick={onClose}
+                    dataTest={`${dataTest}-action-cancel`}
+                >
+                    {i18n.t('Hide')}
+                </Button>
+                {isInLayout ? (
                     <Button
+                        onClick={onUpdate}
                         type="button"
-                        secondary
-                        onClick={onClose}
-                        dataTest={`${dataTest}-action-cancel`}
+                        primary
+                        dataTest={`${dataTest}-action-confirm`}
                     >
-                        {i18n.t('Hide')}
+                        {i18n.t('Update')}
                     </Button>
-                    {isInLayout ? (
-                        <Button
-                            onClick={onUpdate}
-                            type="button"
-                            primary
-                            dataTest={`${dataTest}-action-confirm`}
-                        >
-                            {i18n.t('Update')}
-                        </Button>
-                    ) : (
-                        <AddToLayoutButton
-                            onClick={() => alert('add to layout')}
-                            dataTest={`${dataTest}-action-confirm`}
-                        />
-                    )}
-                </ButtonStrip>
-            </ModalActions>
-        </Modal>
-    )
-}
+                ) : (
+                    <AddToLayoutButton
+                        onClick={() => alert('add to layout')}
+                        dataTest={`${dataTest}-action-confirm`}
+                    />
+                )}
+            </ButtonStrip>
+        </ModalActions>
+    </Modal>
+)
 
 DimensionModal.propTypes = {
     onClose: PropTypes.func.isRequired,
