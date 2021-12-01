@@ -67,17 +67,7 @@ const ConditionsManager = ({
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={
-                isInLayout
-                    ? i18n.t('Edit dimension: {{dimensionName}}', {
-                          dimensionName: dimension.name,
-                          nsSeparator: '^^',
-                      })
-                    : i18n.t('Add dimension: {{dimensionName}}', {
-                          dimensionName: dimension.name,
-                          nsSeparator: '^^',
-                      })
-            }
+            title={dimension.name}
         >
             <div>
                 <p className={classes.paragraph}>
