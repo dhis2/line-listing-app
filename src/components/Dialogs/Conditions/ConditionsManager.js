@@ -32,13 +32,15 @@ const ConditionsManager = ({
 
     const addCondition = () => setConditionsList([...conditionsList, ''])
 
-    const removeCondition = id =>
-        setConditionsList(conditionsList.filter((_, index) => index !== id))
+    const removeCondition = conditionIndex =>
+        setConditionsList(
+            conditionsList.filter((_, index) => index !== conditionIndex)
+        )
 
-    const setCondition = (id, value) =>
+    const setCondition = (conditionIndex, value) =>
         setConditionsList(
             conditionsList.map((condition, index) =>
-                index === id ? value : condition
+                index === conditionIndex ? value : condition
             )
         )
 
