@@ -117,8 +117,6 @@ export const FixedDimension = ({
         closeModal()
     }
 
-    const renderModalTitle = () => dimension.name
-
     const dimension = metadata[dimensionId]
 
     return (
@@ -130,7 +128,7 @@ export const FixedDimension = ({
                     isInLayout={isInLayout}
                     onClose={closeModal}
                     onUpdate={primaryOnClick}
-                    title={renderModalTitle()}
+                    title={dimension.name}
                 />
             )}
         </>
