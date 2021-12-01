@@ -121,20 +121,16 @@ const ConditionsManager = ({
         onClose()
     }
 
-    return (
-        <>
-            {dimension && (
-                <DimensionModal
-                    content={renderModalContent()}
-                    dataTest={'dialog-manager-modal'}
-                    isInLayout={isInLayout}
-                    onClose={closeModal}
-                    onUpdate={primaryOnClick}
-                    title={renderModalTitle()}
-                />
-            )}
-        </>
-    )
+    return dimension ? (
+        <DimensionModal
+            content={renderModalContent()}
+            dataTest={'dialog-manager-modal'}
+            isInLayout={isInLayout}
+            onClose={closeModal}
+            onUpdate={primaryOnClick}
+            title={renderModalTitle()}
+        />
+    ) : null
 }
 
 ConditionsManager.propTypes = {
