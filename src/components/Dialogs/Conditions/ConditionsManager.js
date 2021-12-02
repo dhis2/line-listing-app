@@ -46,7 +46,11 @@ const ConditionsManager = ({
 
     const storeConditions = () =>
         setConditionsByDimension(
-            parseConditionsArrayToString(conditionsList),
+            parseConditionsArrayToString(
+                conditionsList.filter(
+                    cnd => cnd.length && cnd.slice(-1) !== ':'
+                )
+            ),
             dimension.id
         )
 
