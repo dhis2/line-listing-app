@@ -26,6 +26,10 @@ const operators = {
 }
 
 const NumericCondition = ({ condition, onChange, onRemove }) => {
+    const [operator, value] = condition.includes(NULL_VALUE)
+        ? [condition]
+        : condition.split(':')
+
     const setOperator = input => {
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
@@ -33,11 +37,8 @@ const NumericCondition = ({ condition, onChange, onRemove }) => {
             onChange(`${input}:${value || ''}`)
         }
     }
-    const setValue = input => onChange(`${operator}:${input || ''}`)
 
-    const [operator, value] = condition.includes(NULL_VALUE)
-        ? [condition]
-        : condition.split(':')
+    const setValue = input => onChange(`${operator}:${input || ''}`)
 
     return (
         <div className={classes.container}>
