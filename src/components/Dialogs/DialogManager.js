@@ -1,213 +1,50 @@
-import {
-    OrgUnitDimension,
-    ouIdHelper,
-    DIMENSION_ID_ORGUNIT,
-} from '@dhis2/analytics'
-import i18n from '@dhis2/d2-i18n'
-import {
-    Modal,
-    ModalContent,
-    ModalActions,
-    ButtonStrip,
-    ModalTitle,
-    Button,
-} from '@dhis2/ui'
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current'
-import { acAddMetadata } from '../../actions/metadata'
-import {
-    acSetUiActiveModalDialog,
-    acSetUiItems,
-    acAddParentGraphMap,
-} from '../../actions/ui'
-import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit'
-import { sGetDimensions } from '../../reducers/dimensions'
-import { sGetMetadata } from '../../reducers/metadata'
-import { sGetRootOrgUnits } from '../../reducers/settings'
-import {
-    sGetUiItemsByDimension,
-    sGetUiActiveModalDialog,
-    sGetUiParentGraphMap,
-    sGetDimensionIdsFromLayout,
-} from '../../reducers/ui'
-import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton'
+import { acSetUiActiveModalDialog } from '../../actions/ui'
+import { sGetUiActiveModalDialog } from '../../reducers/ui'
+import ConditionsManager from './Conditions/ConditionsManager'
+import FixedDimension from './FixedDimension'
 
-export const DialogManager = ({
-    dialogId,
-    dimensions,
-    metadata,
-    parentGraphMap,
-    ouIds,
-    rootOrgUnits,
-    dimensionIdsInLayout,
-    changeDialog,
-    setUiItems,
-    addMetadata,
-    addParentGraphMap,
-    onUpdate,
-}) => {
-    const selectUiItems = ({ dimensionId, items }) => {
-        setUiItems({
-            dimensionId,
-            itemIds: items.map(item => item.id),
-        })
-
-        switch (dimensionId) {
-            case DIMENSION_ID_ORGUNIT: {
-                const forMetadata = {}
-                const forParentGraphMap = {}
-
-                items.forEach(ou => {
-                    const id = ouIdHelper.removePrefix(ou.id)
-                    forMetadata[id] = {
-                        id,
-                        name: ou.name || ou.displayName,
-                        displayName: ou.displayName,
-                    }
-
-                    if (ou.path) {
-                        const path = removeLastPathSegment(ou.path)
-
-                        forParentGraphMap[ou.id] =
-                            path === `/${ou.id}` ? '' : path.replace(/^\//, '')
-                    }
-                })
-
-                addMetadata(forMetadata)
-                addParentGraphMap(forParentGraphMap)
-
-                break
-            }
-        }
-    }
-
-    const closeDialog = () => changeDialog(null)
-
-    const renderDialogContent = () => {
-        const dimensionProps = {
-            onSelect: selectUiItems,
-        }
-
-        const selected = ouIds
-            .filter(id => metadata[ouIdHelper.removePrefix(id)] !== undefined)
-            .map(id => {
-                const ouUid = ouIdHelper.removePrefix(id)
-                return {
-                    id,
-                    name: metadata[ouUid].displayName || metadata[ouUid].name,
-                    path: getOuPath(ouUid, metadata, parentGraphMap),
-                }
-            })
-
-        const display = DIMENSION_ID_ORGUNIT === dialogId ? 'block' : 'none'
-
-        return (
-            <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
-                <OrgUnitDimension
-                    selected={selected}
-                    roots={rootOrgUnits.map(rootOrgUnit => rootOrgUnit.id)}
-                    {...dimensionProps}
+export const DialogManager = ({ dialogId, changeDialog }) => {
+    switch (dialogId) {
+        case DIMENSION_ID_ORGUNIT: {
+            return (
+                <FixedDimension
+                    dimensionId={dialogId}
+                    onClose={() => changeDialog(null)}
                 />
-            </div>
-        )
+            )
+        }
+        // TODO: case DIMENSION_ID_PERIOD:
+        default: {
+            return (
+                dialogId && (
+                    <ConditionsManager
+                        dimensionId={dialogId}
+                        onClose={() => changeDialog(null)}
+                    />
+                )
+            )
+        }
     }
-
-    const primaryOnClick = () => {
-        onUpdate()
-        closeDialog()
-    }
-
-    const dimension = dimensions[dialogId]
-
-    return (
-        <>
-            {dimension && (
-                <Modal
-                    onClose={closeDialog}
-                    dataTest={`dialog-manager-${dimension.id}`}
-                    position="top"
-                    large
-                >
-                    <ModalTitle dataTest={'dialog-manager-modal-title'}>
-                        {dimension.name}
-                    </ModalTitle>
-                    <ModalContent dataTest={'dialog-manager-modal-content'}>
-                        {renderDialogContent()}
-                    </ModalContent>
-                    <ModalActions dataTest={'dialog-manager-modal-actions'}>
-                        <ButtonStrip>
-                            <Button
-                                type="button"
-                                secondary
-                                onClick={closeDialog}
-                                dataTest={'dialog-manager-modal-action-cancel'}
-                            >
-                                {i18n.t('Hide')}
-                            </Button>
-                            {dimensionIdsInLayout.includes(dialogId) ? (
-                                <Button
-                                    onClick={primaryOnClick}
-                                    type="button"
-                                    primary
-                                    dataTest={
-                                        'dialog-manager-modal-action-confirm'
-                                    }
-                                >
-                                    {i18n.t('Update')}
-                                </Button>
-                            ) : (
-                                <AddToLayoutButton
-                                    onClick={() => alert('add to layout')}
-                                    dataTest={
-                                        'dialog-manager-modal-action-confirm'
-                                    }
-                                />
-                            )}
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
-            )}
-        </>
-    )
 }
 
 DialogManager.propTypes = {
     changeDialog: PropTypes.func.isRequired,
-    dimensionIdsInLayout: PropTypes.array.isRequired,
-    ouIds: PropTypes.array.isRequired,
-    addMetadata: PropTypes.func,
-    addParentGraphMap: PropTypes.func,
     dialogId: PropTypes.string,
-    dimensions: PropTypes.object,
-    metadata: PropTypes.object,
-    parentGraphMap: PropTypes.object,
-    rootOrgUnits: PropTypes.array,
-    setUiItems: PropTypes.func,
-    onUpdate: PropTypes.func,
 }
 
 DialogManager.defaultProps = {
     dialogId: null,
     rootOrgUnits: [],
-    dimensions: {},
 }
 
 const mapStateToProps = state => ({
     dialogId: sGetUiActiveModalDialog(state),
-    dimensions: sGetDimensions(state),
-    metadata: sGetMetadata(state),
-    parentGraphMap: sGetUiParentGraphMap(state),
-    ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
-    rootOrgUnits: sGetRootOrgUnits(state),
-    dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
 })
 
 export default connect(mapStateToProps, {
     changeDialog: acSetUiActiveModalDialog,
-    setUiItems: acSetUiItems,
-    addMetadata: acAddMetadata,
-    addParentGraphMap: acAddParentGraphMap,
-    onUpdate: tSetCurrentFromUi,
 })(DialogManager)

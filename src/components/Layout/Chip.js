@@ -6,12 +6,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon'
 import { setDataTransfer } from '../../modules/dnd'
-import { sGetDimensions } from '../../reducers/dimensions'
 import { sGetMetadata } from '../../reducers/metadata'
 import styles from './styles/Chip.module.css'
 import { default as TooltipContent } from './TooltipContent'
 
 const Chip = ({
+    conditions,
     dimensionId,
     dimensionName,
     axisId,
@@ -28,10 +28,19 @@ const Chip = ({
     }
 
     const renderChipLabelSuffix = () => {
-        const itemsLabel = i18n.t('{{total}} selected', {
-            total: items.length,
-        })
-        return items.length > 0 ? `: ${itemsLabel}` : ''
+        let itemsLabel = ''
+        if (items.length) {
+            itemsLabel = i18n.t('{{count}} selected', {
+                count: items.length,
+            })
+        } else if (conditions.length) {
+            itemsLabel = i18n.t('{{count}} conditions', {
+                count: conditions.length,
+                defaultValue: '{{count}} condition',
+                defaultValue_plural: '{{count}} conditions',
+            })
+        }
+        return itemsLabel ? `: ${itemsLabel}` : ''
     }
 
     const renderChipIcon = () => {
@@ -54,7 +63,7 @@ const Chip = ({
     return (
         <div
             className={cx(styles.chipWrapper, {
-                [styles.chipEmpty]: !items.length,
+                [styles.chipEmpty]: !items.length && !conditions.length,
             })}
             data-dimensionid={dimensionId}
             onDragStart={getDragStartHandler()}
@@ -90,18 +99,18 @@ Chip.propTypes = {
     dimensionId: PropTypes.string.isRequired,
     dimensionName: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
+    conditions: PropTypes.array,
     contextMenu: PropTypes.object,
     items: PropTypes.array,
 }
 
 Chip.defaultProps = {
+    conditions: [],
     items: [],
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    dimensionName:
-        (sGetMetadata(state)[ownProps.dimensionId] || {}).name ||
-        (sGetDimensions(state)[ownProps.dimensionId] || {}).name,
+    dimensionName: (sGetMetadata(state)[ownProps.dimensionId] || {}).name,
 })
 
 export default connect(mapStateToProps)(Chip)

@@ -65,7 +65,7 @@ const AppWrapper = () => {
                                         return (
                                             <App
                                                 location={history.location}
-                                                ouLevels={ouLevels}
+                                                ouLevels={ouLevels} // TODO: Unused by App.js?
                                                 userSettings={userSettings}
                                             />
                                         )

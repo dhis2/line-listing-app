@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current'
 import { tSetDimensions } from '../actions/dimensions'
+import { tSetLegendSets } from '../actions/legendSets'
 import { acSetVisualizationLoading } from '../actions/loader'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
 import { tAddSettings } from '../actions/settings'
@@ -71,6 +72,7 @@ const App = ({
     setCurrent,
     setDimensions,
     setInitMetadata,
+    setLegendSets,
     setVisualization,
     setVisualizationLoading,
     setUiFromVisualization,
@@ -158,6 +160,7 @@ const App = ({
         const onMount = async () => {
             await addSettings(userSettings)
             setUser(d2.currentUser)
+            await setLegendSets()
             await setDimensions()
 
             setInitMetadata()
@@ -308,6 +311,7 @@ const mapDispatchToProps = {
     setCurrent: acSetCurrent,
     setDimensions: tSetDimensions,
     setInitMetadata: tSetInitMetadata,
+    setLegendSets: tSetLegendSets,
     setVisualization: acSetVisualization,
     setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
@@ -327,6 +331,7 @@ App.propTypes = {
     setCurrent: PropTypes.func,
     setDimensions: PropTypes.func,
     setInitMetadata: PropTypes.func,
+    setLegendSets: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,

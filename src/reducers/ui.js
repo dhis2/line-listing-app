@@ -5,7 +5,6 @@ import { getOptionsForUi } from '../modules/options'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
 import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
 
-export const SET_UI = 'SET_UI'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -17,6 +16,7 @@ export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
+export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
@@ -71,11 +71,6 @@ const getPreselectedUi = options => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
-        case SET_UI: {
-            return {
-                ...action.value,
-            }
-        }
         case SET_UI_OPTIONS: {
             return {
                 ...state,
@@ -168,6 +163,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case SET_UI_CONDITIONS: {
+            return {
+                ...state,
+                conditions: { ...action.value },
+            }
+        }
         default:
             return state
     }
@@ -184,6 +185,7 @@ export const sGetUiShowRightSidebar = state => sGetUi(state).showRightSidebar
 export const sGetUiType = state => sGetUi(state).type
 export const sGetUiActiveModalDialog = state => sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = state => sGetUi(state).parentGraphMap
+export const sGetUiConditions = state => sGetUi(state).conditions || {}
 
 // Selectors level 2
 
@@ -195,3 +197,6 @@ export const sGetDimensionIdsFromLayout = state =>
         (ids, axisDimensionIds) => ids.concat(axisDimensionIds),
         []
     )
+
+export const sGetUiConditionsByDimension = (state, dimension) =>
+    sGetUiConditions(state)[dimension] || ''

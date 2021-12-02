@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import current from './current'
 import dimensions from './dimensions'
+import legendSets from './legendSets'
 import loader from './loader'
 import metadata from './metadata'
 import settings from './settings'
@@ -13,6 +14,7 @@ import visualization from './visualization'
 export default combineReducers({
     current,
     dimensions,
+    legendSets,
     loader,
     metadata,
     settings,
