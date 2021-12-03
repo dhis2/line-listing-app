@@ -9,6 +9,8 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions'
+import { sGetLegendSetIdByDimensionId } from '../../../reducers/current'
+import { sGetLegendSetById } from '../../../reducers/legendSets'
 import { sGetMetadata } from '../../../reducers/metadata'
 import {
     sGetDimensionIdsFromLayout,
@@ -25,6 +27,7 @@ const ConditionsManager = ({
     dimension,
     onClose,
     setConditionsByDimension,
+    legendSet,
 }) => {
     const [conditionsList, setConditionsList] = useState(
         parseConditionsStringToArray(conditions)
@@ -97,6 +100,7 @@ const ConditionsManager = ({
                                 condition={condition}
                                 onChange={value => setCondition(index, value)}
                                 onRemove={() => removeCondition(index)}
+                                legendSet={legendSet}
                             />
                             {conditionsList.length > 1 &&
                                 index < conditionsList.length - 1 && (
@@ -129,6 +133,7 @@ ConditionsManager.propTypes = {
     /* eslint-disable-next-line react/no-unused-prop-types */
     dimensionId: PropTypes.string.isRequired,
     isInLayout: PropTypes.bool.isRequired,
+    legendSet: PropTypes.object,
     setConditionsByDimension: PropTypes.func,
     onClose: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -141,6 +146,10 @@ const mapStateToProps = (state, ownProps) => ({
     ),
     conditions: sGetUiConditionsByDimension(state, ownProps.dimensionId) || '',
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
+    legendSet: sGetLegendSetById(
+        state,
+        sGetLegendSetIdByDimensionId(state, ownProps.dimensionId)
+    ),
 })
 
 const mapDispatchToProps = {

@@ -13,6 +13,7 @@ export const OPERATOR_LESS_OR_EQUAL = 'LE'
 export const OPERATOR_NOT_EQUAL = '!EQ'
 export const OPERATOR_EMPTY = `EQ:${NULL_VALUE}`
 export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
+export const OPERATOR_RANGESET = 'IN'
 
 const operators = {
     [OPERATOR_EQUAL]: 'equal to (=)',
@@ -25,7 +26,7 @@ const operators = {
     [OPERATOR_NOT_EMPTY]: 'is not empty / not null',
 }
 
-const NumericCondition = ({ condition, onChange, onRemove }) => {
+const NumericCondition = ({ condition, onChange, onRemove, legendSet }) => {
     const [operator, value] = condition.includes(NULL_VALUE)
         ? [condition]
         : condition.split(':')
@@ -37,6 +38,8 @@ const NumericCondition = ({ condition, onChange, onRemove }) => {
             onChange(`${input}:${value || ''}`)
         }
     }
+
+    // TODO: Look for 'IN:', which is a rangeset. Should be combined with the new legendSet prop
 
     const setValue = input => onChange(`${operator}:${input || ''}`)
 
@@ -56,15 +59,30 @@ const NumericCondition = ({ condition, onChange, onRemove }) => {
                         label={operators[key]}
                     />
                 ))}
+                {
+                    // TODO: Add a divider here
+                }
+                {legendSet && (
+                    <SingleSelectOption
+                        key={OPERATOR_RANGESET}
+                        value={OPERATOR_RANGESET}
+                        label={i18n.t('is one of preset options')}
+                    />
+                )}
             </SingleSelectField>
-            {operator && !operator.includes(NULL_VALUE) && (
-                <Input
-                    value={value}
-                    type="number"
-                    onChange={({ value }) => setValue(value)}
-                    width="150px"
-                    dense
-                />
+            {operator &&
+                !operator.includes(NULL_VALUE) &&
+                operator !== OPERATOR_RANGESET && (
+                    <Input
+                        value={value}
+                        type="number"
+                        onChange={({ value }) => setValue(value)}
+                        width="150px"
+                        dense
+                    />
+                )}
+            {operator && operator === OPERATOR_RANGESET && (
+                <p>{legendSet.name}</p>
             )}
             <Button
                 type="button"
@@ -83,6 +101,7 @@ NumericCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    legendSet: PropTypes.object,
 }
 
 export default NumericCondition
