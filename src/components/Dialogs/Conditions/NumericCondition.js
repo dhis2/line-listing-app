@@ -82,7 +82,7 @@ const NumericCondition = ({ condition, onChange, onRemove, legendSet }) => {
                     />
                 )}
             {operator && operator === OPERATOR_RANGESET && (
-                <p>{legendSet.name}</p>
+                <span>{legendSet.name}</span>
             )}
             <Button
                 type="button"
