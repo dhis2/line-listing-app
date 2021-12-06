@@ -76,6 +76,8 @@ export const Visualization = ({
         loading,
         '\nfetching: ',
         fetching,
+        '\ninModal: ',
+        !!relativePeriodDate,
         '\n------------'
     )
 
