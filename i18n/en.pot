@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-01T12:53:09.293Z\n"
-"PO-Revision-Date: 2021-12-01T12:53:09.293Z\n"
+"POT-Creation-Date: 2021-12-06T15:51:12.920Z\n"
+"PO-Revision-Date: 2021-12-06T15:51:12.920Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -205,6 +205,16 @@ msgstr "TEXT"
 
 msgid "Your most viewed TEXT"
 msgstr "Your most viewed TEXT"
+
+msgid "Could not load visualization"
+msgstr "Could not load visualization"
+
+msgid ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
+msgstr ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
 
 msgid "Cases per page"
 msgstr "Cases per page"

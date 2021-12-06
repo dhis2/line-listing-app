@@ -22,7 +22,7 @@ import {
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 
-const getFontSizeClass = (fontSize) => {
+const getFontSizeClass = fontSize => {
     switch (fontSize) {
         case FONT_SIZE_LARGE:
             return styles.fontSizeLarge
@@ -45,7 +45,7 @@ export const Visualization = ({
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
-    const { fetching, error, data } = useAnalyticsData({
+    const { loading, fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
@@ -68,8 +68,29 @@ export const Visualization = ({
         )
     }
 
+    console.log(
+        '++++ Visualization ++++',
+        '\ndata: ',
+        data,
+        '\nloading: ',
+        loading,
+        '\nfetching: ',
+        fetching,
+        '\n------------'
+    )
+
     if (!data) {
-        return null
+        return (
+            <div
+                style={{
+                    width: 600,
+                    height: 400,
+                    backgroundColor: 'red',
+                }}
+            >
+                Should not be seen in the modal!
+            </div>
+        )
     }
 
     const large = visualization.displayDensity === DISPLAY_DENSITY_COMFORTABLE

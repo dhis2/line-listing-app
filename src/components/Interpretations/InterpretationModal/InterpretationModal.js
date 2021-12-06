@@ -74,7 +74,7 @@ const InterpretationModal = ({
         }
         onClose()
     }
-    const onThreadUpdated = (affectsInterpretation) => {
+    const onThreadUpdated = affectsInterpretation => {
         if (affectsInterpretation) {
             setIsDirty(true)
         }
@@ -91,6 +91,15 @@ const InterpretationModal = ({
             refetch({ id: interpretationId })
         }
     }, [interpretationId])
+
+    console.log(
+        '++++ InterpretationModal ++++',
+        '\nloading: ',
+        loading,
+        '\nisVisualizationLoading: ',
+        isVisualizationLoading,
+        '\n---------------'
+    )
 
     return (
         <Modal
