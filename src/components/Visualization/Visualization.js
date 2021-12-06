@@ -1,5 +1,3 @@
-import { Analytics } from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -10,9 +8,10 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
+    NoticeBox,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -21,8 +20,9 @@ import {
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
 import styles from './styles/Visualization.module.css'
+import { useAnalyticsData } from './useAnalyticsData'
 
-const getFontSizeClass = (fontSize) => {
+const getFontSizeClass = fontSize => {
     switch (fontSize) {
         case FONT_SIZE_LARGE:
             return styles.fontSizeLarge
@@ -39,128 +39,50 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
-    const dataEngine = useDataEngine()
-    const [analyticsResponse, setAnalyticsResponse] = useState(null)
-    const [headers, setHeaders] = useState([])
-    const [rows, setRows] = useState([])
     const [{ sortField, sortDirection }, setSorting] = useState({
         sortField: 'eventdate', // TODO get field name corresponding to visualization.sortOrder ?!
         sortDirection: 'desc',
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
-
-    const getSortDirection = (column) =>
-        column === sortField ? sortDirection : 'default'
-
-    // analytics
-    const fetchAnalyticsData = useCallback(async () => {
-        const analyticsEngine = Analytics.getAnalytics(dataEngine)
-        let req = new analyticsEngine.request()
-            .fromVisualization(visualization)
-            .withProgram(visualization.program.id)
-            .withStage(visualization.programStage.id)
-            .withDisplayProperty('NAME') // TODO from settings ?!
-            .withOutputType(visualization.outputType)
-            .withParameters({ completedOnly: visualization.completedOnly })
-            .withPageSize(pageSize)
-            .withPage(page)
-
-        if (relativePeriodDate) {
-            req = req.withRelativePeriodDate(relativePeriodDate)
-        }
-
-        if (sortField) {
-            switch (sortDirection) {
-                case 'asc':
-                    req = req.withAsc(sortField)
-                    break
-                case 'desc':
-                    req = req.withDesc(sortField)
-                    break
-            }
-        }
-
-        const rawResponse = await analyticsEngine.events.getQuery(req)
-
-        return new analyticsEngine.response(rawResponse)
-    }, [dataEngine, visualization, page, pageSize, sortField, sortDirection])
-
-    useEffect(() => {
-        setAnalyticsResponse(null)
-
-        const doFetch = async () => {
-            const analyticsResponse = await fetchAnalyticsData()
-
-            setAnalyticsResponse(analyticsResponse)
-        }
-
-        doFetch()
-    }, [
+    const { fetching, error, data } = useAnalyticsData({
         visualization,
-        page,
-        pageSize,
+        relativePeriodDate,
+        onResponseReceived,
         sortField,
         sortDirection,
-        relativePeriodDate,
-    ])
+        page,
+        pageSize,
+    })
 
-    useEffect(() => {
-        if (analyticsResponse) {
-            // extract headers
-            const headers = visualization.columns.reduce((headers, column) => {
-                headers.push(analyticsResponse.getHeader(column.dimension)) // TODO figure out what to do when no header match the column (ie. pe)
-                return headers
-            }, [])
+    if (error) {
+        return (
+            <div className={styles.error}>
+                <NoticeBox error title={i18n.t('Could not load visualization')}>
+                    {error?.message ||
+                        i18n.t(
+                            'The visualization couldn’t be displayed. Try again or contact your system administrator.'
+                        )}
+                </NoticeBox>
+            </div>
+        )
+    }
 
-            setHeaders(headers)
-
-            // extract rows
-            setRows(
-                analyticsResponse.rows.reduce((filteredRows, row) => {
-                    filteredRows.push(
-                        headers.reduce((filteredRow, header) => {
-                            if (header) {
-                                const rowValue = row[header.index]
-                                const itemKey = header.isPrefix
-                                    ? `${header.name}_${rowValue}` // TODO underscore or space? check in AnalyticsResponse
-                                    : rowValue
-
-                                filteredRow.push(
-                                    analyticsResponse.metaData.items[itemKey]
-                                        ?.name || rowValue
-                                )
-                            } else {
-                                // FIXME solve the case of visualization.column not mapping to any response.header (ie. "pe")
-                                filteredRow.push('-')
-                            }
-                            return filteredRow
-                        }, [])
-                    )
-                    return filteredRows
-                }, [])
-            )
-            onResponseReceived(analyticsResponse)
-        }
-    }, [analyticsResponse])
-
-    if (!analyticsResponse) {
+    if (!data) {
         return null
     }
 
     const large = visualization.displayDensity === DISPLAY_DENSITY_COMFORTABLE
     const small = visualization.displayDensity === DISPLAY_DENSITY_COMPACT
-
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
-
-    const colSpan = String(Math.max(headers.length, 1))
+    const colSpan = String(Math.max(data.headers.length, 1))
 
     return (
         <div className={styles.wrapper}>
             <DataTable scrollHeight="500px" width="auto">
                 <DataTableHead>
                     <DataTableRow>
-                        {headers.map((header, index) =>
+                        {data.headers.map((header, index) =>
                             header ? (
                                 <DataTableColumnHeader
                                     fixed
@@ -173,9 +95,11 @@ export const Visualization = ({
                                             sortDirection: direction,
                                         })
                                     }
-                                    sortDirection={getSortDirection(
-                                        header.name
-                                    )}
+                                    sortDirection={
+                                        header.name === sortField
+                                            ? sortDirection
+                                            : 'default'
+                                    }
                                     large={large}
                                     small={small}
                                     className={fontSizeClass}
@@ -195,8 +119,9 @@ export const Visualization = ({
                         )}
                     </DataTableRow>
                 </DataTableHead>
-                <DataTableBody>
-                    {rows.map((row, index) => (
+                {/* https://jira.dhis2.org/browse/LIBS-278 */}
+                <DataTableBody loading={fetching}>
+                    {data.rows.map((row, index) => (
                         <DataTableRow key={index}>
                             {row.map((value, index) => (
                                 <DataTableCell
@@ -216,11 +141,9 @@ export const Visualization = ({
                         <DataTableCell colSpan={colSpan} staticStyle>
                             <Pagination
                                 page={page}
-                                pageCount={
-                                    analyticsResponse.metaData.pager.pageCount
-                                }
+                                pageCount={data.pageCount}
                                 pageSize={pageSize}
-                                total={analyticsResponse.metaData.pager.total}
+                                total={data.total}
                                 onPageChange={setPage}
                                 onPageSizeChange={setPageSize}
                                 pageSizeSelectText={i18n.t('Cases per page')}
