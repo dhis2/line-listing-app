@@ -1,4 +1,4 @@
-import { acAddMetadata } from '../actions/metadata'
+import { acAddMetadata } from '../actions/metadata.js'
 
 export default ({ dispatch }) =>
     (next) =>

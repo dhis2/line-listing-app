@@ -2,7 +2,7 @@ import {
     SET_LOAD_ERROR,
     CLEAR_LOAD_ERROR,
     SET_VISUALIZATION_LOADING,
-} from '../reducers/loader'
+} from '../reducers/loader.js'
 
 export const acSetLoadError = (value) => ({
     type: SET_LOAD_ERROR,

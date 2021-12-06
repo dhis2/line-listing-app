@@ -8,8 +8,8 @@ import { SplitButton, FlyoutMenu, MenuItem, Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acAddUiLayoutDimensions } from '../../../actions/ui'
-import { sGetUiActiveModalDialog, sGetUiType } from '../../../reducers/ui'
+import { acAddUiLayoutDimensions } from '../../../actions/ui.js'
+import { sGetUiActiveModalDialog, sGetUiType } from '../../../reducers/ui.js'
 
 export const AddToLayoutButton = ({
     dialogId,

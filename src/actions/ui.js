@@ -1,4 +1,4 @@
-import { sGetRootOrgUnits } from '../reducers/settings'
+import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
@@ -13,7 +13,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     sGetUiConditions,
-} from '../reducers/ui'
+} from '../reducers/ui.js'
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,

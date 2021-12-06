@@ -2,10 +2,10 @@ import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetUiActiveModalDialog } from '../../actions/ui'
-import { sGetUiActiveModalDialog } from '../../reducers/ui'
-import ConditionsManager from './Conditions/ConditionsManager'
-import FixedDimension from './FixedDimension'
+import { acSetUiActiveModalDialog } from '../../actions/ui.js'
+import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
+import ConditionsManager from './Conditions/ConditionsManager.js'
+import FixedDimension from './FixedDimension.js'
 
 export const DialogManager = ({ dialogId, changeDialog }) => {
     switch (dialogId) {

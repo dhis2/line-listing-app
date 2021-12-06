@@ -8,9 +8,9 @@ import {
     STATE_SAVED,
     STATE_DIRTY,
     getVisualizationState,
-} from '../../modules/visualization'
-import { sGetCurrent } from '../../reducers/current'
-import { sGetVisualization } from '../../reducers/visualization'
+} from '../../modules/visualization.js'
+import { sGetCurrent } from '../../reducers/current.js'
+import { sGetVisualization } from '../../reducers/visualization.js'
 import classes from './styles/TitleBar.module.css'
 
 export const getTitleUnsaved = () => i18n.t('Unsaved visualization')

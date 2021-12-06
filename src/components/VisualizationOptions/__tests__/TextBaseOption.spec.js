@@ -1,7 +1,7 @@
 import { InputField } from '@dhis2/ui'
 import { shallow } from 'enzyme'
 import React from 'react'
-import { TextBaseOption } from '../Options/TextBaseOption'
+import { TextBaseOption } from '../Options/TextBaseOption.js'
 
 describe('ER > Options > TextBaseOption', () => {
     let props

@@ -4,17 +4,17 @@ import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { acSetUiActiveModalDialog } from '../../../actions/ui'
-import { getAxisName } from '../../../modules/axis'
-import { parseConditionsStringToArray } from '../../../modules/conditions'
-import { sGetMetadata } from '../../../reducers/metadata'
+import { acSetUiActiveModalDialog } from '../../../actions/ui.js'
+import { getAxisName } from '../../../modules/axis.js'
+import { parseConditionsStringToArray } from '../../../modules/conditions.js'
+import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
     sGetUiLayout,
     sGetUiConditionsByDimension,
-} from '../../../reducers/ui'
-import Chip from '../Chip'
-import ChipMenu from '../ChipMenu'
+} from '../../../reducers/ui.js'
+import Chip from '../Chip.js'
+import ChipMenu from '../ChipMenu.js'
 import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({

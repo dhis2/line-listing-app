@@ -4,7 +4,7 @@ import { IconWarningFilled16, IconLock16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { sGetMetadata } from '../../reducers/metadata'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import styles from './styles/Tooltip.module.css'
 
 const labels = {

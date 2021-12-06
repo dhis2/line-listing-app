@@ -3,10 +3,10 @@ import {
     layoutGetAxisIdDimensionIdsObject,
     layoutGetDimensionIdItemIdsObject,
 } from '@dhis2/analytics'
-import { getAdaptedUiLayoutByType, getInverseLayout } from './layout'
-import { getOptionsFromVisualization } from './options'
-import { removeLastPathSegment } from './orgUnit'
-import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization'
+import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
+import { getOptionsFromVisualization } from './options.js'
+import { removeLastPathSegment } from './orgUnit.js'
+import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,

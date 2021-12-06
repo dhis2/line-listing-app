@@ -1,4 +1,4 @@
-import { getDefaultFromUi } from '../modules/current'
+import { getDefaultFromUi } from '../modules/current.js'
 
 export const SET_CURRENT = 'SET_CURRENT'
 export const SET_CURRENT_FROM_UI = 'SET_CURRENT_FROM_UI'

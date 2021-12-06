@@ -9,8 +9,8 @@ import {
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOptions } from '../../../actions/ui'
-import { sGetUiOptions } from '../../../reducers/ui'
+import { acSetUiOptions } from '../../../actions/ui.js'
+import { sGetUiOptions } from '../../../reducers/ui.js'
 import {
     tabSectionOption,
     tabSectionOptionText,

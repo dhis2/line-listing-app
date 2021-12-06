@@ -2,8 +2,8 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     SET_CURRENT_FROM_UI,
-} from '../reducers/current'
-import { sGetUi } from '../reducers/ui'
+} from '../reducers/current.js'
+import { sGetUi } from '../reducers/ui.js'
 
 export const acSetCurrent = (value) => ({
     type: SET_CURRENT,

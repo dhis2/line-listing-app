@@ -2,8 +2,8 @@ import { InputField } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOptions } from '../../../actions/ui'
-import { sGetUiOptions } from '../../../reducers/ui'
+import { acSetUiOptions } from '../../../actions/ui.js'
+import { sGetUiOptions } from '../../../reducers/ui.js'
 import { tabSectionOption } from '../styles/VisualizationOptions.style.js'
 
 export const TextBaseOption = ({

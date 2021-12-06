@@ -22,7 +22,7 @@ import {
     EMOJI_SAD_FACE,
     EMOJI_THUMBS_UP,
     EMOJI_THUMBS_DOWN,
-} from './markdownHandler'
+} from './markdownHandler.js'
 import {
     mainClasses,
     toolbarClasses,

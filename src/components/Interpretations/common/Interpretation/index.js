@@ -1,1 +1,1 @@
-export { Interpretation } from './Interpretation'
+export { Interpretation } from './Interpretation.js'

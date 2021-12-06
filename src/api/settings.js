@@ -1,4 +1,4 @@
-import { SYSTEM_SETTINGS } from '../modules/settings'
+import { SYSTEM_SETTINGS } from '../modules/settings.js'
 
 const systemSettingsQuery = {
     resource: 'systemSettings',

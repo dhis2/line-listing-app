@@ -1,9 +1,9 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
-import { getFilteredLayout } from '../modules/layout'
-import { getOptionsForUi } from '../modules/options'
-import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
-import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
+import { getFilteredLayout } from '../modules/layout.js'
+import { getOptionsForUi } from '../modules/options.js'
+import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
+import { VIS_TYPE_LINE_LIST } from '../modules/visualization.js'
 
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'

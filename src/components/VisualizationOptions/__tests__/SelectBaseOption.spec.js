@@ -1,7 +1,7 @@
 import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import { shallow } from 'enzyme'
 import React from 'react'
-import { SelectBaseOption } from '../Options/SelectBaseOption'
+import { SelectBaseOption } from '../Options/SelectBaseOption.js'
 
 describe('ER > Options > SelectBaseOption', () => {
     let props

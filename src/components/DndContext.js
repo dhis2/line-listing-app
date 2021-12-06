@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { acAddUiLayoutDimensions, acSetUiLayout } from '../actions/ui'
-import { SOURCE_DIMENSIONS } from '../modules/layout'
-import { sGetUiLayout, sGetUiItems } from '../reducers/ui'
+import { acAddUiLayoutDimensions, acSetUiLayout } from '../actions/ui.js'
+import { SOURCE_DIMENSIONS } from '../modules/layout.js'
+import { sGetUiLayout, sGetUiItems } from '../reducers/ui.js'
 
 const DndContext = ({
     children,

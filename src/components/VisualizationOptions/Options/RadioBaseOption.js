@@ -2,8 +2,8 @@ import { Field, Radio } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOption, acSetUiOptions } from '../../../actions/ui'
-import { sGetUiOption, sGetUiOptions } from '../../../reducers/ui'
+import { acSetUiOption, acSetUiOptions } from '../../../actions/ui.js'
+import { sGetUiOption, sGetUiOptions } from '../../../reducers/ui.js'
 
 export const RadioBaseOption = ({
     option,

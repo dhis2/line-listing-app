@@ -5,10 +5,10 @@ import { connect } from 'react-redux'
 import {
     acAddUiLayoutDimensions,
     acRemoveUiLayoutDimensions,
-} from '../../actions/ui'
-import DimensionMenu from '../DimensionMenu/DimensionMenu'
-import IconButton from '../IconButton/IconButton'
-import { styles } from './styles/Menu.style'
+} from '../../actions/ui.js'
+import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
+import IconButton from '../IconButton/IconButton.js'
+import { styles } from './styles/Menu.style.js'
 
 const ChipMenu = ({
     axisItemHandler,

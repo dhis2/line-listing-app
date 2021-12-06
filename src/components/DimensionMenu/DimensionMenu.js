@@ -7,8 +7,8 @@ import i18n from '@dhis2/d2-i18n'
 import { MenuDivider, FlyoutMenu, MenuItem } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getAxisName } from '../../modules/axis'
-import { VIS_TYPE_LINE_LIST } from '../../modules/visualization'
+import { getAxisName } from '../../modules/axis.js'
+import { VIS_TYPE_LINE_LIST } from '../../modules/visualization.js'
 
 const getAxisItemLabel = (axisName, isDimensionInLayout) =>
     isDimensionInLayout

@@ -1,5 +1,5 @@
-import { apiFetchLegendSets } from '../api/legendSets'
-import { SET_LEGEND_SETS } from '../reducers/legendSets'
+import { apiFetchLegendSets } from '../api/legendSets.js'
+import { SET_LEGEND_SETS } from '../reducers/legendSets.js'
 
 export const acSetLegendSets = (value) => ({
     type: SET_LEGEND_SETS,

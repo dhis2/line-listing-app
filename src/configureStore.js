@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger'
-import reducer from './reducers'
+import reducer from './reducers/index.js'
 
 const configureStore = (middleware) => {
     // Enable Redux devtools if extension is installed instead of redux-logger

@@ -4,9 +4,9 @@ import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOption } from '../../../actions/ui'
-import { OPTION_LEGEND_SET } from '../../../modules/options'
-import { sGetUiOption } from '../../../reducers/ui'
+import { acSetUiOption } from '../../../actions/ui.js'
+import { OPTION_LEGEND_SET } from '../../../modules/options.js'
+import { sGetUiOption } from '../../../reducers/ui.js'
 
 const query = {
     legendSets: {

@@ -1,8 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
-import PivotTableIcon from '../assets/PivotTableIcon'
-import { DEFAULT_CURRENT } from '../reducers/current'
-import { DEFAULT_VISUALIZATION } from '../reducers/visualization'
-import { default as options } from './options'
+import PivotTableIcon from '../assets/PivotTableIcon.js'
+import { DEFAULT_CURRENT } from '../reducers/current.js'
+import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
+import { default as options } from './options.js'
 
 export const VIS_TYPE_PIVOT_TABLE = 'VIS_TYPE_PIVOT_TABLE'
 export const VIS_TYPE_LINE_LIST = 'VIS_TYPE_LINE_LIST'

@@ -19,7 +19,7 @@ import {
     FONT_SIZE_LARGE,
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
-} from '../../modules/options'
+} from '../../modules/options.js'
 import styles from './styles/Visualization.module.css'
 
 const getFontSizeClass = (fontSize) => {

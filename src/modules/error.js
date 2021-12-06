@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { EmptyBox, GenericError } from '../assets/ErrorIcons'
+import { EmptyBox, GenericError } from '../assets/ErrorIcons.js'
 
 export class VisualizationError {
     constructor(icon, title, description) {

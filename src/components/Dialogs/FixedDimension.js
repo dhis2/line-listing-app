@@ -6,18 +6,18 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current'
-import { acAddMetadata } from '../../actions/metadata'
-import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui'
-import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit'
-import { sGetMetadata } from '../../reducers/metadata'
-import { sGetRootOrgUnits } from '../../reducers/settings'
+import { tSetCurrentFromUi } from '../../actions/current.js'
+import { acAddMetadata } from '../../actions/metadata.js'
+import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
+import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
+import { sGetRootOrgUnits } from '../../reducers/settings.js'
 import {
     sGetUiItemsByDimension,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
-} from '../../reducers/ui'
-import DimensionModal from './DimensionModal'
+} from '../../reducers/ui.js'
+import DimensionModal from './DimensionModal.js'
 
 export const FixedDimension = ({
     addMetadata,

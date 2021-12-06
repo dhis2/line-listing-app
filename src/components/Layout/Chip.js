@@ -4,11 +4,11 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon'
-import { setDataTransfer } from '../../modules/dnd'
-import { sGetMetadata } from '../../reducers/metadata'
+import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon.js'
+import { setDataTransfer } from '../../modules/dnd.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import styles from './styles/Chip.module.css'
-import { default as TooltipContent } from './TooltipContent'
+import { default as TooltipContent } from './TooltipContent.js'
 
 const Chip = ({
     conditions,

@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import ListItemIcon from './ListItemIcon'
+import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
 
 const VisualizationTypeListItem = ({

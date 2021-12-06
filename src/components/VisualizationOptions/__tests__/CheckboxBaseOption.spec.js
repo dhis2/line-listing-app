@@ -1,7 +1,7 @@
 import { Checkbox } from '@dhis2/ui'
 import { shallow } from 'enzyme'
 import React from 'react'
-import { CheckboxBaseOption } from '../Options/CheckboxBaseOption'
+import { CheckboxBaseOption } from '../Options/CheckboxBaseOption.js'
 
 describe('ER > Options > CheckboxBaseOption', () => {
     let props
