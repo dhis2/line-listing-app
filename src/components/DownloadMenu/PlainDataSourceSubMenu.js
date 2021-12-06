@@ -7,7 +7,7 @@ import {
     ID_SCHEME_UID,
     ID_SCHEME_CODE,
     ID_SCHEME_NAME,
-} from './constants'
+} from './constants.js'
 
 export const PlainDataSourceSubMenu = ({
     download,

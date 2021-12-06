@@ -9,8 +9,8 @@ import {
     FILE_FORMAT_XLS,
     FILE_FORMAT_JSON,
     FILE_FORMAT_XML,
-} from './constants'
-import { PlainDataSourceSubMenu } from './PlainDataSourceSubMenu'
+} from './constants.js'
+import { PlainDataSourceSubMenu } from './PlainDataSourceSubMenu.js'
 
 const DownloadMenu = ({ download }) => (
     <FlyoutMenu>

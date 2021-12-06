@@ -2,7 +2,7 @@ import { Analytics } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { sGetCurrent } from '../../reducers/current'
+import { sGetCurrent } from '../../reducers/current.js'
 import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_NAME,
@@ -10,9 +10,9 @@ import {
     FILE_FORMAT_HTML_CSS,
     FILE_FORMAT_CSV,
     FILE_FORMAT_XLS,
-} from './constants'
+} from './constants.js'
 
-const useDownloadMenu = relativePeriodDate => {
+const useDownloadMenu = (relativePeriodDate) => {
     const current = useSelector(sGetCurrent)
     const { baseUrl } = useConfig()
     const dataEngine = useDataEngine()
@@ -39,14 +39,14 @@ const useDownloadMenu = relativePeriodDate => {
                         .withTableLayout()
                         .withColumns(
                             current.columns
-                                .filter(column => column.dimension !== 'dy')
-                                .map(column => column.dimension)
+                                .filter((column) => column.dimension !== 'dy')
+                                .map((column) => column.dimension)
                                 .join(';')
                         )
                         .withRows(
                             current.rows
-                                .filter(row => row.dimension !== 'dy')
-                                .map(row => row.dimension)
+                                .filter((row) => row.dimension !== 'dy')
+                                .map((row) => row.dimension)
                                 .join(';')
                         )
                         .withParameters({
