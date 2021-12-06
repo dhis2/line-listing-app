@@ -11,7 +11,7 @@ const getAxisNames = () => ({
     [AXIS_ID_FILTERS]: i18n.t('Filter'),
 })
 
-export const getAxisName = axisId => {
+export const getAxisName = (axisId) => {
     const name = getAxisNames()[axisId]
     if (!name) {
         throw new Error(`${axisId} is not a valid axis id`)

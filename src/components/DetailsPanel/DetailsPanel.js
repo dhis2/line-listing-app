@@ -2,9 +2,9 @@ import { AboutAOUnit } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import history from '../../modules/history'
-import { sGetCurrent } from '../../reducers/current'
-import { sGetUser } from '../../reducers/user'
+import history from '../../modules/history.js'
+import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUser } from '../../reducers/user.js'
 import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/index.js'
 import classes from './styles/DetailsPanel.module.css'
 
@@ -20,12 +20,12 @@ export const DetailsPanel = ({
             type="eventReport"
             id={visualization.id}
             currentUser={currentUser}
-            onInterpretationClick={interpretationId =>
+            onInterpretationClick={(interpretationId) =>
                 history.push(
                     `/${visualization.id}?interpretationId=${interpretationId}`
                 )
             }
-            onReplyIconClick={interpretationId =>
+            onReplyIconClick={(interpretationId) =>
                 history.push(
                     `/${visualization.id}?interpretationId=${interpretationId}&initialFocus=true`
                 )
@@ -40,7 +40,7 @@ DetailsPanel.propTypes = {
     visualization: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     currentUser: sGetUser(state),
     visualization: sGetCurrent(state),
 })

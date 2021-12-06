@@ -2,8 +2,8 @@ import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOptions } from '../../../actions/ui'
-import { sGetUiOptions } from '../../../reducers/ui'
+import { acSetUiOptions } from '../../../actions/ui.js'
+import { sGetUiOptions } from '../../../reducers/ui.js'
 import { tabSectionOption } from '../styles/VisualizationOptions.style.js'
 
 export const SelectBaseOption = ({
@@ -13,7 +13,7 @@ export const SelectBaseOption = ({
     onChange,
     dataTest,
 }) => {
-    const selected = option.items.find(item => item.value === value)?.value
+    const selected = option.items.find((item) => item.value === value)?.value
 
     return (
         <div className={tabSectionOption.className}>
@@ -52,7 +52,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onChange: value =>
+    onChange: (value) =>
         dispatch(acSetUiOptions({ [ownProps.option.name]: value })),
 })
 

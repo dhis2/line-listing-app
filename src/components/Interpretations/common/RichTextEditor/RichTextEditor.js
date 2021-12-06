@@ -22,7 +22,7 @@ import {
     EMOJI_SAD_FACE,
     EMOJI_THUMBS_UP,
     EMOJI_THUMBS_DOWN,
-} from './markdownHandler'
+} from './markdownHandler.js'
 import {
     mainClasses,
     toolbarClasses,
@@ -143,7 +143,7 @@ const Toolbar = ({
                                     onClose={() =>
                                         setEmojisPopoverIsOpen(false)
                                     }
-                                    onInsertMarkdown={markup => {
+                                    onInsertMarkdown={(markup) => {
                                         onInsertMarkdown(markup)
                                         setEmojisPopoverIsOpen(false)
                                     }}
@@ -203,7 +203,7 @@ export const RichTextEditor = forwardRef(
         return (
             <div className="container">
                 <Toolbar
-                    onInsertMarkdown={markdown => {
+                    onInsertMarkdown={(markdown) => {
                         insertMarkdown(
                             markdown,
                             textareaRef.current,
@@ -226,7 +226,9 @@ export const RichTextEditor = forwardRef(
                 ) : (
                     <Field error={!!errorText} validationText={errorText}>
                         <div
-                            onKeyDown={event => convertCtrlKey(event, onChange)}
+                            onKeyDown={(event) =>
+                                convertCtrlKey(event, onChange)
+                            }
                         >
                             <textarea
                                 className="textarea"
@@ -234,7 +236,9 @@ export const RichTextEditor = forwardRef(
                                 placeholder={inputPlaceholder}
                                 disabled={disabled}
                                 value={value}
-                                onChange={event => onChange(event.target.value)}
+                                onChange={(event) =>
+                                    onChange(event.target.value)
+                                }
                             />
                         </div>
                     </Field>

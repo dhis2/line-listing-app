@@ -1,4 +1,4 @@
-import { getDefaultFromUi } from '../modules/current'
+import { getDefaultFromUi } from '../modules/current.js'
 
 export const SET_CURRENT = 'SET_CURRENT'
 export const SET_CURRENT_FROM_UI = 'SET_CURRENT_FROM_UI'
@@ -27,7 +27,7 @@ export default (state = DEFAULT_CURRENT, action) => {
 
 // Selectors
 
-export const sGetCurrent = state => state.current
+export const sGetCurrent = (state) => state.current
 
 // FIXME: Won't work when creating a new AO (before Update has been clicked). This should be stored on ui instead so its always available
 export const sGetLegendSetIdByDimensionId = (state, dimensionId) =>
@@ -35,4 +35,4 @@ export const sGetLegendSetIdByDimensionId = (state, dimensionId) =>
         ...(sGetCurrent(state).columns || []),
         ...(sGetCurrent(state).rows || []),
         ...(sGetCurrent(state).filters || []),
-    ].find(dim => dim.dimension === dimensionId)?.legendSet?.id
+    ].find((dim) => dim.dimension === dimensionId)?.legendSet?.id

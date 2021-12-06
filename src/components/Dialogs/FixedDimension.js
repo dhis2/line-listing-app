@@ -6,18 +6,18 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current'
-import { acAddMetadata } from '../../actions/metadata'
-import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui'
-import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit'
-import { sGetMetadata } from '../../reducers/metadata'
-import { sGetRootOrgUnits } from '../../reducers/settings'
+import { tSetCurrentFromUi } from '../../actions/current.js'
+import { acAddMetadata } from '../../actions/metadata.js'
+import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
+import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
+import { sGetRootOrgUnits } from '../../reducers/settings.js'
 import {
     sGetUiItemsByDimension,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
-} from '../../reducers/ui'
-import DimensionModal from './DimensionModal'
+} from '../../reducers/ui.js'
+import DimensionModal from './DimensionModal.js'
 
 export const FixedDimension = ({
     addMetadata,
@@ -35,7 +35,7 @@ export const FixedDimension = ({
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
             dimensionId,
-            itemIds: items.map(item => item.id),
+            itemIds: items.map((item) => item.id),
         })
 
         switch (dimensionId) {
@@ -43,7 +43,7 @@ export const FixedDimension = ({
                 const forMetadata = {}
                 const forParentGraphMap = {}
 
-                items.forEach(ou => {
+                items.forEach((ou) => {
                     const id = ouIdHelper.removePrefix(ou.id)
                     forMetadata[id] = {
                         id,
@@ -79,10 +79,10 @@ export const FixedDimension = ({
 
                 const selected = ouIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
                     .filter(
-                        id =>
+                        (id) =>
                             metadata[ouIdHelper.removePrefix(id)] !== undefined
                     )
-                    .map(id => {
+                    .map((id) => {
                         const ouUid = ouIdHelper.removePrefix(id)
                         return {
                             id,
@@ -101,7 +101,7 @@ export const FixedDimension = ({
                         <OrgUnitDimension
                             selected={selected}
                             roots={rootOrgUnits.map(
-                                rootOrgUnit => rootOrgUnit.id
+                                (rootOrgUnit) => rootOrgUnit.id
                             )}
                             {...dimensionProps}
                         />

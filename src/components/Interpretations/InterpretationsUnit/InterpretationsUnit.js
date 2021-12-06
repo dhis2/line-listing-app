@@ -15,8 +15,8 @@ import React, {
     useImperativeHandle,
     forwardRef,
 } from 'react'
-import { InterpretationForm } from './InterpretationForm'
-import { InterpretationList } from './InterpretationList'
+import { InterpretationForm } from './InterpretationForm.js'
+import { InterpretationList } from './InterpretationList.js'
 
 const interpretationsQuery = {
     interpretations: {

@@ -5,39 +5,39 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import { acClearCurrent, acSetCurrent } from '../actions/current'
-import { tSetDimensions } from '../actions/dimensions'
-import { tSetLegendSets } from '../actions/legendSets'
-import { acSetVisualizationLoading } from '../actions/loader'
-import { acAddMetadata, tSetInitMetadata } from '../actions/metadata'
-import { tAddSettings } from '../actions/settings'
+import { acClearCurrent, acSetCurrent } from '../actions/current.js'
+import { tSetDimensions } from '../actions/dimensions.js'
+import { tSetLegendSets } from '../actions/legendSets.js'
+import { acSetVisualizationLoading } from '../actions/loader.js'
+import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
+import { tAddSettings } from '../actions/settings.js'
 import {
     tClearUi,
     acSetUiFromVisualization,
     acAddParentGraphMap,
-} from '../actions/ui'
-import { acSetUser } from '../actions/user'
+} from '../actions/ui.js'
+import { acSetUser } from '../actions/user.js'
 import {
     acClearVisualization,
     acSetVisualization,
-} from '../actions/visualization'
-import { EVENT_TYPE } from '../modules/dataStatistics'
-import history from '../modules/history'
-import { getParentGraphMapFromVisualization } from '../modules/ui'
-import { sGetCurrent } from '../reducers/current'
-import { sGetIsVisualizationLoading } from '../reducers/loader'
-import { sGetUiShowRightSidebar } from '../reducers/ui'
+} from '../actions/visualization.js'
+import { EVENT_TYPE } from '../modules/dataStatistics.js'
+import history from '../modules/history.js'
+import { getParentGraphMapFromVisualization } from '../modules/ui.js'
+import { sGetCurrent } from '../reducers/current.js'
+import { sGetIsVisualizationLoading } from '../reducers/loader.js'
+import { sGetUiShowRightSidebar } from '../reducers/ui.js'
 import classes from './App.module.css'
-import { default as DetailsPanel } from './DetailsPanel/DetailsPanel'
-import { default as DialogManager } from './Dialogs/DialogManager'
-import DndContext from './DndContext'
+import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
+import { default as DialogManager } from './Dialogs/DialogManager.js'
+import DndContext from './DndContext.js'
 import { InterpretationModal } from './InterpretationModal/index.js'
-import Layout from './Layout/Layout'
-import LoadingMask from './LoadingMask/LoadingMask'
-import { default as TitleBar } from './TitleBar/TitleBar'
-import { Toolbar } from './Toolbar/Toolbar'
-import StartScreen from './Visualization/StartScreen'
-import { Visualization } from './Visualization/Visualization'
+import Layout from './Layout/Layout.js'
+import LoadingMask from './LoadingMask/LoadingMask.js'
+import { default as TitleBar } from './TitleBar/TitleBar.js'
+import { Toolbar } from './Toolbar/Toolbar.js'
+import StartScreen from './Visualization/StartScreen.js'
+import { Visualization } from './Visualization/Visualization.js'
 
 const visualizationQuery = {
     eventReport: {
@@ -92,7 +92,7 @@ const App = ({
         interpretationsUnitRef.current.refresh()
     }
 
-    const needsRefetch = location => {
+    const needsRefetch = (location) => {
         if (!previousLocation) {
             return true
         }
@@ -107,14 +107,14 @@ const App = ({
         return false
     }
 
-    const parseLocation = location => {
+    const parseLocation = (location) => {
         const pathParts = location.pathname.slice(1).split('/')
         const id = pathParts[0]
         const interpretationId = pathParts[2]
         return { id, interpretationId }
     }
 
-    const loadVisualization = location => {
+    const loadVisualization = (location) => {
         setVisualizationLoading(true)
         if (location.pathname.length > 1) {
             // /currentAnalyticalObject
@@ -137,7 +137,7 @@ const App = ({
         setPreviousLocation(location.pathname)
     }
 
-    const onResponseReceived = response => {
+    const onResponseReceived = (response) => {
         setVisualizationLoading(false)
         const metadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
@@ -295,7 +295,7 @@ const App = ({
     )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
     showRightSidebar: sGetUiShowRightSidebar(state),

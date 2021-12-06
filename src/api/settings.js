@@ -1,4 +1,4 @@
-import { SYSTEM_SETTINGS } from '../modules/settings'
+import { SYSTEM_SETTINGS } from '../modules/settings.js'
 
 const systemSettingsQuery = {
     resource: 'systemSettings',
@@ -7,7 +7,7 @@ const systemSettingsQuery = {
     },
 }
 
-export const apiFetchSystemSettings = async dataEngine => {
+export const apiFetchSystemSettings = async (dataEngine) => {
     const systemSettingsData = await dataEngine.query(
         { systemSettings: systemSettingsQuery },
         {}

@@ -3,17 +3,17 @@ import {
     layoutGetAxisIdDimensionIdsObject,
     layoutGetDimensionIdItemIdsObject,
 } from '@dhis2/analytics'
-import { getAdaptedUiLayoutByType, getInverseLayout } from './layout'
-import { getOptionsFromVisualization } from './options'
-import { removeLastPathSegment } from './orgUnit'
-import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization'
+import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
+import { getOptionsFromVisualization } from './options.js'
+import { removeLastPathSegment } from './orgUnit.js'
+import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization.js'
 
-const lineListUiAdapter = ui => ({
+const lineListUiAdapter = (ui) => ({
     ...ui,
     layout: getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
 })
 
-export const getAdaptedUiByType = ui => {
+export const getAdaptedUiByType = (ui) => {
     switch (ui.type) {
         case VIS_TYPE_LINE_LIST:
             return lineListUiAdapter(ui)
@@ -35,7 +35,7 @@ export const getUiFromVisualization = (vis, currentState = {}) => ({
         currentState.parentGraphMap,
 })
 
-export const getParentGraphMapFromVisualization = vis => {
+export const getParentGraphMapFromVisualization = (vis) => {
     const dimensionIdsByAxis = layoutGetAxisIdDimensionIdsObject(vis)
     const inverseLayout = getInverseLayout(dimensionIdsByAxis)
     const ouAxis = inverseLayout[DIMENSION_ID_ORGUNIT]
@@ -46,12 +46,12 @@ export const getParentGraphMapFromVisualization = vis => {
 
     const parentGraphMap = {}
     const ouDimension = vis[ouAxis].find(
-        dimension => dimension.dimension === DIMENSION_ID_ORGUNIT
+        (dimension) => dimension.dimension === DIMENSION_ID_ORGUNIT
     )
 
     ouDimension.items
-        .filter(orgUnit => orgUnit.path)
-        .forEach(orgUnit => {
+        .filter((orgUnit) => orgUnit.path)
+        .forEach((orgUnit) => {
             if ('/' + orgUnit.id === orgUnit.path) {
                 // root org unit case
                 parentGraphMap[orgUnit.id] = ''
@@ -65,7 +65,7 @@ export const getParentGraphMapFromVisualization = vis => {
     return parentGraphMap
 }
 
-const getConditionsFromVisualization = vis =>
+const getConditionsFromVisualization = (vis) =>
     [...vis.columns, ...vis.rows, ...vis.filters]
-        .filter(item => item.filter)
+        .filter((item) => item.filter)
         .reduce((acc, key) => ({ ...acc, [key.dimension]: key.filter }), {})

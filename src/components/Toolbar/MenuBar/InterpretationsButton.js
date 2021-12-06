@@ -3,10 +3,10 @@ import { IconChevronRight24, IconChevronLeft24 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acToggleUiRightSidebar } from '../../../actions/ui'
-import { sGetCurrent } from '../../../reducers/current'
-import { sGetUiShowRightSidebar } from '../../../reducers/ui'
-import MenuButton from './MenuButton'
+import { acToggleUiRightSidebar } from '../../../actions/ui.js'
+import { sGetCurrent } from '../../../reducers/current.js'
+import { sGetUiShowRightSidebar } from '../../../reducers/ui.js'
+import MenuButton from './MenuButton.js'
 import styles from './styles/InterpretationsButton.module.css'
 
 export const InterpretationsButton = ({ showRightSidebar, id, onClick }) => (
@@ -24,7 +24,7 @@ InterpretationsButton.propTypes = {
     onClick: PropTypes.func,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showRightSidebar: sGetUiShowRightSidebar(state),
     id: sGetCurrent(state)?.id,
 })

@@ -12,7 +12,7 @@ const legendSetsQuery = {
     },
 }
 
-export const apiFetchLegendSets = async dataEngine => {
+export const apiFetchLegendSets = async (dataEngine) => {
     const legendSetsData = await dataEngine.query(legendSetsQuery)
 
     return legendSetsData.legendSets.legendSets

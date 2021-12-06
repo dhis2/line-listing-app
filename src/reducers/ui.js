@@ -1,9 +1,9 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
-import { getFilteredLayout } from '../modules/layout'
-import { getOptionsForUi } from '../modules/options'
-import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui'
-import { VIS_TYPE_LINE_LIST } from '../modules/visualization'
+import { getFilteredLayout } from '../modules/layout.js'
+import { getOptionsForUi } from '../modules/options.js'
+import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
+import { VIS_TYPE_LINE_LIST } from '../modules/visualization.js'
 
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
@@ -45,13 +45,13 @@ const DEFAULT_UI = {
     parentGraphMap: {},
 }
 
-const getPreselectedUi = options => {
+const getPreselectedUi = (options) => {
     const rootOrgUnitIds = options.rootOrgUnits
-        .filter(root => root.id)
-        .map(root => root.id)
+        .filter((root) => root.id)
+        .map((root) => root.id)
     const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
 
-    rootOrgUnitIds.forEach(id => {
+    rootOrgUnitIds.forEach((id) => {
         parentGraphMap[id] = ''
     })
 
@@ -176,23 +176,24 @@ export default (state = EMPTY_UI, action) => {
 
 // Selectors
 
-export const sGetUi = state => state.ui
-export const sGetUiOptions = state => sGetUi(state).options
+export const sGetUi = (state) => state.ui
+export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
-export const sGetUiItems = state => sGetUi(state).itemsByDimension
-export const sGetUiLayout = state => sGetUi(state).layout
-export const sGetUiShowRightSidebar = state => sGetUi(state).showRightSidebar
-export const sGetUiType = state => sGetUi(state).type
-export const sGetUiActiveModalDialog = state => sGetUi(state).activeModalDialog
-export const sGetUiParentGraphMap = state => sGetUi(state).parentGraphMap
-export const sGetUiConditions = state => sGetUi(state).conditions || {}
+export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
+export const sGetUiLayout = (state) => sGetUi(state).layout
+export const sGetUiShowRightSidebar = (state) => sGetUi(state).showRightSidebar
+export const sGetUiType = (state) => sGetUi(state).type
+export const sGetUiActiveModalDialog = (state) =>
+    sGetUi(state).activeModalDialog
+export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
+export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 
 // Selectors level 2
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
 
-export const sGetDimensionIdsFromLayout = state =>
+export const sGetDimensionIdsFromLayout = (state) =>
     Object.values(sGetUiLayout(state)).reduce(
         (ids, axisDimensionIds) => ids.concat(axisDimensionIds),
         []

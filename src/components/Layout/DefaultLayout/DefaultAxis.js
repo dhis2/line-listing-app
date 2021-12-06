@@ -4,17 +4,17 @@ import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { acSetUiActiveModalDialog } from '../../../actions/ui'
-import { getAxisName } from '../../../modules/axis'
-import { parseConditionsStringToArray } from '../../../modules/conditions'
-import { sGetMetadata } from '../../../reducers/metadata'
+import { acSetUiActiveModalDialog } from '../../../actions/ui.js'
+import { getAxisName } from '../../../modules/axis.js'
+import { parseConditionsStringToArray } from '../../../modules/conditions.js'
+import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
     sGetUiLayout,
     sGetUiConditionsByDimension,
-} from '../../../reducers/ui'
-import Chip from '../Chip'
-import ChipMenu from '../ChipMenu'
+} from '../../../reducers/ui.js'
+import Chip from '../Chip.js'
+import ChipMenu from '../ChipMenu.js'
 import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({
@@ -27,7 +27,7 @@ const DefaultAxis = ({
     renderChips,
     visType,
 }) => {
-    const onDragOver = e => {
+    const onDragOver = (e) => {
         e.preventDefault()
     }
 
@@ -40,7 +40,7 @@ const DefaultAxis = ({
         >
             <div className={styles.label}>{getAxisName(axisId)}</div>
             <Droppable droppableId={axisId} direction="horizontal">
-                {provided => (
+                {(provided) => (
                     <div
                         className={styles.content}
                         ref={provided.innerRef}
@@ -61,7 +61,7 @@ const DefaultAxis = ({
                                         draggableId={key}
                                         index={index}
                                     >
-                                        {provided => (
+                                        {(provided) => (
                                             <div
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
@@ -119,23 +119,23 @@ export const renderChipsSelector = createSelector(
         const layoutItems = Object.values(layout || {}).flat()
         const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
 
-        return layoutItems.every(item =>
-            dataObjects.some(data => data.id === item)
+        return layoutItems.every((item) =>
+            dataObjects.some((data) => data.id === item)
         )
     }
 )
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     layout: sGetUiLayout(state),
-    getConditionsByDimension: dimensionId =>
+    getConditionsByDimension: (dimensionId) =>
         sGetUiConditionsByDimension(state, dimensionId) || '',
-    getItemsByDimension: dimensionId =>
+    getItemsByDimension: (dimensionId) =>
         sGetUiItemsByDimension(state, dimensionId) || [],
     renderChips: renderChipsSelector(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-    getOpenHandler: dimensionId => () =>
+const mapDispatchToProps = (dispatch) => ({
+    getOpenHandler: (dimensionId) => () =>
         dispatch(acSetUiActiveModalDialog(dimensionId)),
 })
 

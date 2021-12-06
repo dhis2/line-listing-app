@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { visTypeMap } from '../../../modules/visualization'
+import { visTypeMap } from '../../../modules/visualization.js'
 
 const ListItemIcon = ({ visType, style }) => {
     const Icon = visTypeMap[visType].icon

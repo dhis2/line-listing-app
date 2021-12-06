@@ -3,10 +3,10 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current'
-import { getOptionsByType } from '../../modules/options/config'
-import MenuButton from '../Toolbar/MenuBar/MenuButton'
-//import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer'
+import { tSetCurrentFromUi } from '../../actions/current.js'
+import { getOptionsByType } from '../../modules/options/config.js'
+import MenuButton from '../Toolbar/MenuBar/MenuButton.js'
+//import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
 const VisualizationOptionsManager = ({ onUpdate }) => {
     const [dialogIsOpen, setDialogIsOpen] = useState(false)

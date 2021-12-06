@@ -31,7 +31,7 @@ const NumericCondition = ({ condition, onChange, onRemove, legendSet }) => {
         ? [condition]
         : condition.split(':')
 
-    const setOperator = input => {
+    const setOperator = (input) => {
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
         } else {
@@ -41,7 +41,7 @@ const NumericCondition = ({ condition, onChange, onRemove, legendSet }) => {
 
     // TODO: Look for 'IN:', which is a rangeset. Should be combined with the new legendSet prop
 
-    const setValue = input => onChange(`${operator}:${input || ''}`)
+    const setValue = (input) => onChange(`${operator}:${input || ''}`)
 
     return (
         <div className={classes.container}>
@@ -52,7 +52,7 @@ const NumericCondition = ({ condition, onChange, onRemove, legendSet }) => {
                 dense
                 onChange={({ selected }) => setOperator(selected)}
             >
-                {Object.keys(operators).map(key => (
+                {Object.keys(operators).map((key) => (
                     <SingleSelectOption
                         key={key}
                         value={key}

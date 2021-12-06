@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Message, MessageIconButton, MessageStatsBar } from '../common/index.js'
 import { CommentDeleteButton } from './CommentDeleteButton.js'
-import { CommentUpdateForm } from './CommentUpdateForm'
+import { CommentUpdateForm } from './CommentUpdateForm.js'
 
 const Comment = ({
     comment,

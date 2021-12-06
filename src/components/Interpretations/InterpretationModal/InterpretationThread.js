@@ -41,7 +41,7 @@ const InterpretationThread = ({
                     onDeleted={onInterpretationDeleted}
                 />
                 <div className={'comments'}>
-                    {interpretation.comments.map(comment => (
+                    {interpretation.comments.map((comment) => (
                         <Comment
                             key={comment.id}
                             comment={comment}

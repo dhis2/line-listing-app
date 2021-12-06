@@ -67,7 +67,7 @@ export const getOptionsForUi = () => {
     }, {})
 }
 
-export const getOptionsFromVisualization = visualization => {
+export const getOptionsFromVisualization = (visualization) => {
     const optionsFromVisualization = {
         ...getOptionsForUi(),
         ...pick(visualization, Object.keys(options)),

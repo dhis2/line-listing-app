@@ -1,8 +1,8 @@
 import cx from 'classnames'
 import React from 'react'
 import classes from '../App.module.css'
-import { default as MenuBar } from './MenuBar/MenuBar'
-import { default as VisualizationTypeSelector } from './VisualizationTypeSelector/VisualizationTypeSelector'
+import { default as MenuBar } from './MenuBar/MenuBar.js'
+import { default as VisualizationTypeSelector } from './VisualizationTypeSelector/VisualizationTypeSelector.js'
 
 const apiObjectName = 'eventReport' // TODO move to App?
 
