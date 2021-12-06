@@ -18,4 +18,4 @@ export default (state = DEFAULT_DIMENSIONS, action) => {
     }
 }
 
-export const sGetDimensions = state => state.dimensions
+export const sGetDimensions = (state) => state.dimensions

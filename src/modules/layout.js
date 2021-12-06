@@ -3,7 +3,7 @@ import {
     AXIS_ID_FILTERS,
     AXIS_ID_ROWS,
 } from '@dhis2/analytics'
-import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization'
+import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization.js'
 
 // Names for dnd sources
 export const SOURCE_DIMENSIONS = 'dimensions'
@@ -14,11 +14,11 @@ export const getFilteredLayout = (layout, excludedIds) => {
 
     return {
         [AXIS_ID_COLUMNS]:
-            layout[AXIS_ID_COLUMNS]?.filter(dim => !ids.includes(dim)) || [],
+            layout[AXIS_ID_COLUMNS]?.filter((dim) => !ids.includes(dim)) || [],
         [AXIS_ID_ROWS]:
-            layout[AXIS_ID_ROWS]?.filter(dim => !ids.includes(dim)) || [],
+            layout[AXIS_ID_ROWS]?.filter((dim) => !ids.includes(dim)) || [],
         [AXIS_ID_FILTERS]:
-            layout[AXIS_ID_FILTERS]?.filter(dim => !ids.includes(dim)) || [],
+            layout[AXIS_ID_FILTERS]?.filter((dim) => !ids.includes(dim)) || [],
     }
 }
 
@@ -37,7 +37,7 @@ export const getAdaptedUiLayoutByType = (layout, type) => {
 }
 
 // Transform from ui.layout to line list layout format
-const getLineListLayout = layout => {
+const getLineListLayout = (layout) => {
     const columns = layout[AXIS_ID_COLUMNS].slice()
     const rows = layout[AXIS_ID_ROWS].slice()
 
@@ -50,12 +50,12 @@ const getLineListLayout = layout => {
 
 // Accepts layout: { columns: ['dx'] }
 // Returns inverse layout: { dx: 'columns' }
-export const getInverseLayout = layout => {
+export const getInverseLayout = (layout) => {
     const entries = Object.entries(layout)
     const map = {}
 
     entries.forEach(([axisId, dimensionIds]) => {
-        dimensionIds.forEach(id => {
+        dimensionIds.forEach((id) => {
             map[id] = axisId
         })
     })

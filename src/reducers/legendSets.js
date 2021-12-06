@@ -12,4 +12,4 @@ export default (state = DEFAULT_LEGEND_SETS, action) => {
     }
 }
 
-export const sGetLegendSets = state => state.legendSets
+export const sGetLegendSets = (state) => state.legendSets

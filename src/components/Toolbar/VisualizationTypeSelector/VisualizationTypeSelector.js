@@ -2,12 +2,12 @@ import { Card, Popper, Layer, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, createRef } from 'react'
 import { connect } from 'react-redux'
-import ArrowDown from '../../../assets/ArrowDown'
-import { visTypeMap } from '../../../modules/visualization'
-import { sGetUi, sGetUiType } from '../../../reducers/ui'
-import ListItemIcon from './ListItemIcon'
+import ArrowDown from '../../../assets/ArrowDown.js'
+import { visTypeMap } from '../../../modules/visualization.js'
+import { sGetUi, sGetUiType } from '../../../reducers/ui.js'
+import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
-import VisualizationTypeListItem from './VisualizationTypeListItem'
+import VisualizationTypeListItem from './VisualizationTypeListItem.js'
 
 export const VisualizationTypeSelector = ({ visualizationType }) => {
     const [listIsOpen, setListIsOpen] = useState(false)
@@ -19,7 +19,7 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
 
     const getVisTypes = () => Object.keys(visTypeMap).sort()
 
-    const renderVisualizationTypeListItem = type => {
+    const renderVisualizationTypeListItem = (type) => {
         const isDisabled = visTypeMap[type].disabled
 
         return (
@@ -39,7 +39,7 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
         <Card dataTest={'visualization-type-selector-card'}>
             <div className={classes.listContainer}>
                 <div className={classes.listSection}>
-                    {getVisTypes().map(type =>
+                    {getVisTypes().map((type) =>
                         visTypeMap[type].disabled ? (
                             <Tooltip
                                 key={`${type}-tooltip`}
@@ -92,7 +92,7 @@ VisualizationTypeSelector.propTypes = {
     visualizationType: PropTypes.oneOf(Object.keys(visTypeMap)),
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     visualizationType: sGetUiType(state),
     ui: sGetUi(state),
 })

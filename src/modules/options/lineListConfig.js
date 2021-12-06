@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-key */
 import React from 'react'
-import CompletedOnly from '../../components/VisualizationOptions/Options/CompletedOnly'
-import DigitGroupSeparator from '../../components/VisualizationOptions/Options/DigitGroupSeparator'
-import DisplayDensity from '../../components/VisualizationOptions/Options/DisplayDensity'
-import FontSize from '../../components/VisualizationOptions/Options/FontSize'
-import getDisplayTemplate from './sections/templates/display'
-import getDataTab from './tabs/data'
-import getStyleTab from './tabs/style'
+import CompletedOnly from '../../components/VisualizationOptions/Options/CompletedOnly.js'
+import DigitGroupSeparator from '../../components/VisualizationOptions/Options/DigitGroupSeparator.js'
+import DisplayDensity from '../../components/VisualizationOptions/Options/DisplayDensity.js'
+import FontSize from '../../components/VisualizationOptions/Options/FontSize.js'
+import getDisplayTemplate from './sections/templates/display.js'
+import getDataTab from './tabs/data.js'
+import getStyleTab from './tabs/style.js'
 
 export default () => [
     getDataTab([

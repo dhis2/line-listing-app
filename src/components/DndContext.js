@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
-import { acAddUiLayoutDimensions, acSetUiLayout } from '../actions/ui'
-import { SOURCE_DIMENSIONS } from '../modules/layout'
-import { sGetUiLayout, sGetUiItems } from '../reducers/ui'
+import { acAddUiLayoutDimensions, acSetUiLayout } from '../actions/ui.js'
+import { SOURCE_DIMENSIONS } from '../modules/layout.js'
+import { sGetUiLayout, sGetUiItems } from '../reducers/ui.js'
 
 const DndContext = ({
     children,
@@ -43,7 +43,7 @@ const DndContext = ({
         //TODO: Add onDropWithoutItems
     }
 
-    const onDragEnd = result => {
+    const onDragEnd = (result) => {
         const { source, destination, draggableId } = result
 
         if (!destination) {
@@ -76,14 +76,14 @@ DndContext.propTypes = {
     onReorderDimensions: PropTypes.func,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     layout: sGetUiLayout(state),
     itemsByDimension: sGetUiItems(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-    onAddDimensions: map => dispatch(acAddUiLayoutDimensions(map)),
-    onReorderDimensions: layout => dispatch(acSetUiLayout(layout)),
+const mapDispatchToProps = (dispatch) => ({
+    onAddDimensions: (map) => dispatch(acAddUiLayoutDimensions(map)),
+    onReorderDimensions: (layout) => dispatch(acSetUiLayout(layout)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DndContext)

@@ -1,8 +1,8 @@
-import defaultMetadata from '../modules/metadata'
-import { ADD_METADATA } from '../reducers/metadata'
-import { sGetRootOrgUnits } from '../reducers/settings'
+import defaultMetadata from '../modules/metadata.js'
+import { ADD_METADATA } from '../reducers/metadata.js'
+import { sGetRootOrgUnits } from '../reducers/settings.js'
 
-export const acAddMetadata = value => ({
+export const acAddMetadata = (value) => ({
     type: ADD_METADATA,
     value,
 })
@@ -11,7 +11,7 @@ export const tSetInitMetadata = () => (dispatch, getState) => {
     const metaData = { ...defaultMetadata() }
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
-    rootOrgUnits.forEach(rootOrgUnit => {
+    rootOrgUnits.forEach((rootOrgUnit) => {
         if (rootOrgUnit.id) {
             metaData[rootOrgUnit.id] = {
                 ...rootOrgUnit,

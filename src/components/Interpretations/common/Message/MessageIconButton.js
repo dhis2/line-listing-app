@@ -13,7 +13,7 @@ const MessageIconButton = ({
 }) => (
     <Tooltip closeDelay={200} content={tooltipContent}>
         <button
-            onClick={event => {
+            onClick={(event) => {
                 event.stopPropagation()
                 onClick()
             }}

@@ -3,19 +3,19 @@ import { Button, IconInfo16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../../actions/current'
-import { tSetUiConditionsByDimension } from '../../../actions/ui'
+import { tSetCurrentFromUi } from '../../../actions/current.js'
+import { tSetUiConditionsByDimension } from '../../../actions/ui.js'
 import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
-} from '../../../modules/conditions'
-import { sGetMetadata } from '../../../reducers/metadata'
+} from '../../../modules/conditions.js'
+import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
-} from '../../../reducers/ui'
-import DimensionModal from '../DimensionModal'
-import NumericCondition from './NumericCondition'
+} from '../../../reducers/ui.js'
+import DimensionModal from '../DimensionModal.js'
+import NumericCondition from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const ConditionsManager = ({
@@ -32,7 +32,7 @@ const ConditionsManager = ({
 
     const addCondition = () => setConditionsList([...conditionsList, ''])
 
-    const removeCondition = conditionIndex =>
+    const removeCondition = (conditionIndex) =>
         setConditionsList(
             conditionsList.filter((_, index) => index !== conditionIndex)
         )
@@ -48,7 +48,7 @@ const ConditionsManager = ({
         setConditionsByDimension(
             parseConditionsArrayToString(
                 conditionsList.filter(
-                    cnd => cnd.length && cnd.slice(-1) !== ':'
+                    (cnd) => cnd.length && cnd.slice(-1) !== ':'
                 )
             ),
             dimension.id
@@ -95,7 +95,7 @@ const ConditionsManager = ({
                         <div key={index}>
                             <NumericCondition
                                 condition={condition}
-                                onChange={value => setCondition(index, value)}
+                                onChange={(value) => setCondition(index, value)}
                                 onRemove={() => removeCondition(index)}
                             />
                             {conditionsList.length > 1 &&

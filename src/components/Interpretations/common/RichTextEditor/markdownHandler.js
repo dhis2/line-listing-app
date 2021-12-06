@@ -40,7 +40,7 @@ const markdownMap = {
     },
 }
 
-const trim = str => {
+const trim = (str) => {
     const leftSpaces = /^\s+/
     const rightSpaces = /\s+$/
 
@@ -57,7 +57,7 @@ export const insertMarkdown = (markdown, target, cb) => {
     let newValue
     let caretPos = end + 1
 
-    const padMarkers = text => {
+    const padMarkers = (text) => {
         // is caret between two markers (i.e., "**" or "__")? Then do not add padding
         if (start === end && value.length && start > 0) {
             if (

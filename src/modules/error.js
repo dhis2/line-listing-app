@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { EmptyBox, GenericError } from '../assets/ErrorIcons'
+import { EmptyBox, GenericError } from '../assets/ErrorIcons.js'
 
 export class VisualizationError {
     constructor(icon, title, description) {
@@ -53,6 +53,6 @@ export class VisualizationNotFoundError extends VisualizationError {
     }
 }
 
-export const getAlertTypeByStatusCode = statusCode =>
+export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 export const genericErrorTitle = i18n.t('Something went wrong')

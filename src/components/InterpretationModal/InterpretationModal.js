@@ -14,9 +14,9 @@ const InterpretationModal = ({
 }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const isVisualizationLoading = useSelector(
-        state => state.loader.isVisualizationLoading
+        (state) => state.loader.isVisualizationLoading
     )
-    const currentUser = useSelector(state => state.user)
+    const currentUser = useSelector((state) => state.user)
 
     if (!interpretationId) {
         return null

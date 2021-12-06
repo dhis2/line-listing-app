@@ -7,15 +7,15 @@ import i18n from '@dhis2/d2-i18n'
 import { MenuDivider, FlyoutMenu, MenuItem } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getAxisName } from '../../modules/axis'
-import { VIS_TYPE_LINE_LIST } from '../../modules/visualization'
+import { getAxisName } from '../../modules/axis.js'
+import { VIS_TYPE_LINE_LIST } from '../../modules/visualization.js'
 
 const getAxisItemLabel = (axisName, isDimensionInLayout) =>
     isDimensionInLayout
         ? i18n.t('Move to {{axisName}}', { axisName })
         : i18n.t('Add to {{axisName}}', { axisName })
 
-const getDividerItem = key => <MenuDivider dense key={key} />
+const getDividerItem = (key) => <MenuDivider dense key={key} />
 
 const DimensionMenu = ({
     dimensionId,
@@ -37,10 +37,10 @@ const DimensionMenu = ({
             : [AXIS_ID_COLUMNS, AXIS_ID_ROWS, AXIS_ID_FILTERS]
 
     const applicableAxisIds = availableAxisIds.filter(
-        axisId => axisId !== currentAxisId
+        (axisId) => axisId !== currentAxisId
     )
 
-    const getRemoveMenuItem = onClick => (
+    const getRemoveMenuItem = (onClick) => (
         <MenuItem
             key="remove-menu-item"
             onClick={onClick}
@@ -50,7 +50,7 @@ const DimensionMenu = ({
     )
 
     menuItems.push(
-        ...applicableAxisIds.map(axisId => (
+        ...applicableAxisIds.map((axisId) => (
             <MenuItem
                 key={`${dimensionId}-to-${axisId}`}
                 onClick={() => {

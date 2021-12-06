@@ -44,7 +44,7 @@ export const InterpretationList = ({
             {Object.keys(interpretationsByDate)
                 .sort()
                 .reverse()
-                .map(date => (
+                .map((date) => (
                     <li key={date}>
                         <div className="date-section">
                             <IconCalendar24 color={colors.grey600} />
@@ -55,7 +55,7 @@ export const InterpretationList = ({
                         <ol className="interpretation-list">
                             {interpretationsByDate[date]
                                 .sort(sortByDateProp)
-                                .map(interpretation => (
+                                .map((interpretation) => (
                                     <Interpretation
                                         key={interpretation.id}
                                         interpretation={interpretation}
