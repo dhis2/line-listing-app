@@ -22,7 +22,7 @@ import {
 } from '../../modules/options'
 import styles from './styles/Visualization.module.css'
 
-const getFontSizeClass = fontSize => {
+const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
         case FONT_SIZE_LARGE:
             return styles.fontSizeLarge
@@ -50,7 +50,7 @@ export const Visualization = ({
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
 
-    const getSortDirection = column =>
+    const getSortDirection = (column) =>
         column === sortField ? sortDirection : 'default'
 
     // analytics

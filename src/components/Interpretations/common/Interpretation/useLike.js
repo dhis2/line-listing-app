@@ -21,7 +21,7 @@ const useLike = ({ interpretation, currentUser, onComplete }) => {
     useEffect(() => {
         setIsLikedByCurrentUser(
             interpretation.likedBy.some(
-                likedBy => likedBy.id === currentUser.id
+                (likedBy) => likedBy.id === currentUser.id
             )
         )
     }, [currentUser, interpretation])

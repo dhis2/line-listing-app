@@ -32,7 +32,7 @@ const ConditionsManager = ({
 
     const addCondition = () => setConditionsList([...conditionsList, ''])
 
-    const removeCondition = conditionIndex =>
+    const removeCondition = (conditionIndex) =>
         setConditionsList(
             conditionsList.filter((_, index) => index !== conditionIndex)
         )
@@ -48,7 +48,7 @@ const ConditionsManager = ({
         setConditionsByDimension(
             parseConditionsArrayToString(
                 conditionsList.filter(
-                    cnd => cnd.length && cnd.slice(-1) !== ':'
+                    (cnd) => cnd.length && cnd.slice(-1) !== ':'
                 )
             ),
             dimension.id
@@ -95,7 +95,7 @@ const ConditionsManager = ({
                         <div key={index}>
                             <NumericCondition
                                 condition={condition}
-                                onChange={value => setCondition(index, value)}
+                                onChange={(value) => setCondition(index, value)}
                                 onRemove={() => removeCondition(index)}
                             />
                             {conditionsList.length > 1 &&

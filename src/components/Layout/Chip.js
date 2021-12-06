@@ -23,7 +23,7 @@ const Chip = ({
 
     const dataTest = `layout-chip-${dimensionId}`
 
-    const getDragStartHandler = () => event => {
+    const getDragStartHandler = () => (event) => {
         setDataTransfer(event, axisId)
     }
 

@@ -64,11 +64,11 @@ ChipMenu.propTypes = {
     visType: PropTypes.string,
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     axisItemHandler: ({ dimensionId, axisId }) => {
         dispatch(acAddUiLayoutDimensions({ [dimensionId]: { axisId } }))
     },
-    removeItemHandler: dimensionId => {
+    removeItemHandler: (dimensionId) => {
         dispatch(acRemoveUiLayoutDimensions(dimensionId))
     },
 })

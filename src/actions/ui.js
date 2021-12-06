@@ -15,37 +15,37 @@ import {
     sGetUiConditions,
 } from '../reducers/ui'
 
-export const acSetUiOptions = value => ({
+export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,
     value,
 })
 
-export const acSetUiOption = value => ({
+export const acSetUiOption = (value) => ({
     type: SET_UI_OPTION,
     value,
 })
 
-export const acAddUiLayoutDimensions = value => ({
+export const acAddUiLayoutDimensions = (value) => ({
     type: ADD_UI_LAYOUT_DIMENSIONS,
     value,
 })
 
-export const acRemoveUiLayoutDimensions = value => ({
+export const acRemoveUiLayoutDimensions = (value) => ({
     type: REMOVE_UI_LAYOUT_DIMENSIONS,
     value,
 })
 
-export const acSetUiLayout = value => ({
+export const acSetUiLayout = (value) => ({
     type: SET_UI_LAYOUT,
     value,
 })
 
-export const acSetUiFromVisualization = value => ({
+export const acSetUiFromVisualization = (value) => ({
     type: SET_UI_FROM_VISUALIZATION,
     value,
 })
 
-export const acClearUi = value => ({
+export const acClearUi = (value) => ({
     type: CLEAR_UI,
     value,
 })
@@ -64,22 +64,22 @@ export const tClearUi = () => (dispatch, getState) => {
     )
 }
 
-export const acSetUiActiveModalDialog = value => ({
+export const acSetUiActiveModalDialog = (value) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
     value,
 })
 
-export const acSetUiItems = value => ({
+export const acSetUiItems = (value) => ({
     type: SET_UI_ITEMS,
     value,
 })
 
-export const acAddParentGraphMap = value => ({
+export const acAddParentGraphMap = (value) => ({
     type: ADD_UI_PARENT_GRAPH_MAP,
     value,
 })
 
-export const acSetUiConditions = value => ({
+export const acSetUiConditions = (value) => ({
     type: SET_UI_CONDITIONS,
     value,
 })

@@ -19,7 +19,7 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
 
     const getVisTypes = () => Object.keys(visTypeMap).sort()
 
-    const renderVisualizationTypeListItem = type => {
+    const renderVisualizationTypeListItem = (type) => {
         const isDisabled = visTypeMap[type].disabled
 
         return (
@@ -39,7 +39,7 @@ export const VisualizationTypeSelector = ({ visualizationType }) => {
         <Card dataTest={'visualization-type-selector-card'}>
             <div className={classes.listContainer}>
                 <div className={classes.listSection}>
-                    {getVisTypes().map(type =>
+                    {getVisTypes().map((type) =>
                         visTypeMap[type].disabled ? (
                             <Tooltip
                                 key={`${type}-tooltip`}
@@ -92,7 +92,7 @@ VisualizationTypeSelector.propTypes = {
     visualizationType: PropTypes.oneOf(Object.keys(visTypeMap)),
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     visualizationType: sGetUiType(state),
     ui: sGetUi(state),
 })

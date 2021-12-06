@@ -53,6 +53,6 @@ export class VisualizationNotFoundError extends VisualizationError {
     }
 }
 
-export const getAlertTypeByStatusCode = statusCode =>
+export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 export const genericErrorTitle = i18n.t('Something went wrong')

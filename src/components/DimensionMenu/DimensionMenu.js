@@ -15,7 +15,7 @@ const getAxisItemLabel = (axisName, isDimensionInLayout) =>
         ? i18n.t('Move to {{axisName}}', { axisName })
         : i18n.t('Add to {{axisName}}', { axisName })
 
-const getDividerItem = key => <MenuDivider dense key={key} />
+const getDividerItem = (key) => <MenuDivider dense key={key} />
 
 const DimensionMenu = ({
     dimensionId,
@@ -37,10 +37,10 @@ const DimensionMenu = ({
             : [AXIS_ID_COLUMNS, AXIS_ID_ROWS, AXIS_ID_FILTERS]
 
     const applicableAxisIds = availableAxisIds.filter(
-        axisId => axisId !== currentAxisId
+        (axisId) => axisId !== currentAxisId
     )
 
-    const getRemoveMenuItem = onClick => (
+    const getRemoveMenuItem = (onClick) => (
         <MenuItem
             key="remove-menu-item"
             onClick={onClick}
@@ -50,7 +50,7 @@ const DimensionMenu = ({
     )
 
     menuItems.push(
-        ...applicableAxisIds.map(axisId => (
+        ...applicableAxisIds.map((axisId) => (
             <MenuItem
                 key={`${dimensionId}-to-${axisId}`}
                 onClick={() => {

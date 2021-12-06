@@ -54,7 +54,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onChange: value =>
+    onChange: (value) =>
         dispatch(acSetUiOptions({ [ownProps.option.name]: value })),
 })
 

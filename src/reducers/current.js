@@ -27,4 +27,4 @@ export default (state = DEFAULT_CURRENT, action) => {
 
 // Selectors
 
-export const sGetCurrent = state => state.current
+export const sGetCurrent = (state) => state.current

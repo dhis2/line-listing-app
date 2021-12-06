@@ -52,7 +52,7 @@ export const MenuBar = ({
         ({ options }) => options
     )
 
-    const onOpen = id => {
+    const onOpen = (id) => {
         const path = `/${id}`
         if (history.location.pathname === path) {
             history.replace({ pathname: path, state: { isOpening: true } })
@@ -167,7 +167,7 @@ export const MenuBar = ({
         }
     }
 
-    const onError = error => {
+    const onError = (error) => {
         // TODO remove once tested
         console.log('Error:', error)
 
@@ -191,7 +191,7 @@ export const MenuBar = ({
         onError,
     })
     const [putVisualization] = useDataMutation(visualizationSaveAsMutation, {
-        onComplete: () => res => onSaveComplete(res, true),
+        onComplete: () => (res) => onSaveComplete(res, true),
         onError,
     })
 
@@ -219,7 +219,7 @@ export const MenuBar = ({
                 onNew={onNew}
                 onRename={onRename}
                 onSave={onSave}
-                onSaveAs={details => onSave(details, true)}
+                onSaveAs={(details) => onSave(details, true)}
                 onDelete={onDelete}
                 onError={onError}
             />
@@ -240,7 +240,7 @@ MenuBar.propTypes = {
     onUpdate: PropTypes.func,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     visualization: sGetVisualization(state),
 })

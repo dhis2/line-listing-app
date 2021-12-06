@@ -20,12 +20,12 @@ export const DetailsPanel = ({
             type="eventReport"
             id={visualization.id}
             currentUser={currentUser}
-            onInterpretationClick={interpretationId =>
+            onInterpretationClick={(interpretationId) =>
                 history.push(
                     `/${visualization.id}?interpretationId=${interpretationId}`
                 )
             }
-            onReplyIconClick={interpretationId =>
+            onReplyIconClick={(interpretationId) =>
                 history.push(
                     `/${visualization.id}?interpretationId=${interpretationId}&initialFocus=true`
                 )
@@ -40,7 +40,7 @@ DetailsPanel.propTypes = {
     visualization: PropTypes.object.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     currentUser: sGetUser(state),
     visualization: sGetCurrent(state),
 })

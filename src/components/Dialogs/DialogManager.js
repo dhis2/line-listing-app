@@ -41,7 +41,7 @@ DialogManager.defaultProps = {
     rootOrgUnits: [],
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     dialogId: sGetUiActiveModalDialog(state),
 })
 

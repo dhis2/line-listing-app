@@ -24,7 +24,7 @@ InterpretationsButton.propTypes = {
     onClick: PropTypes.func,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     showRightSidebar: sGetUiShowRightSidebar(state),
     id: sGetCurrent(state)?.id,
 })

@@ -73,7 +73,7 @@ const InterpretationModal = ({
         }
         onClose()
     }
-    const onThreadUpdated = affectsInterpretation => {
+    const onThreadUpdated = (affectsInterpretation) => {
         if (affectsInterpretation) {
             setIsDirty(true)
         }

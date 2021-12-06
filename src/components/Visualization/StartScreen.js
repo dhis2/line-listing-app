@@ -111,7 +111,7 @@ StartScreen.propTypes = {
     username: PropTypes.string,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     // TODO: Implement set and get load error in the store and on the visualization
     error: null, //sGetLoadError(state),
     username: sGetUsername(state),

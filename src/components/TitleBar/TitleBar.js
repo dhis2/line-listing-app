@@ -30,10 +30,10 @@ const getTitleText = (titleState, visualization) => {
     }
 }
 
-const getCustomTitleClasses = titleState =>
+const getCustomTitleClasses = (titleState) =>
     titleState === STATE_UNSAVED ? classes.titleUnsaved : ''
 
-const getSuffix = titleState =>
+const getSuffix = (titleState) =>
     titleState === STATE_DIRTY ? (
         <div
             className={cx(classes.titleDirty, classes.suffix)}
@@ -63,7 +63,7 @@ TitleBar.propTypes = {
     titleText: PropTypes.string,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     visualization: sGetVisualization(state),
 })

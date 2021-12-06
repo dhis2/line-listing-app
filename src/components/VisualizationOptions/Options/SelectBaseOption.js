@@ -13,7 +13,7 @@ export const SelectBaseOption = ({
     onChange,
     dataTest,
 }) => {
-    const selected = option.items.find(item => item.value === value)?.value
+    const selected = option.items.find((item) => item.value === value)?.value
 
     return (
         <div className={tabSectionOption.className}>
@@ -52,7 +52,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onChange: value =>
+    onChange: (value) =>
         dispatch(acSetUiOptions({ [ownProps.option.name]: value })),
 })
 

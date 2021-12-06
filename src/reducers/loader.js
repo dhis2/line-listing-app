@@ -31,6 +31,6 @@ export default (state = DEFAULT_LOADING, action) => {
 }
 
 // Selectors
-export const sGetLoadError = state => state.loader.loadingError
-export const sGetIsVisualizationLoading = state =>
+export const sGetLoadError = (state) => state.loader.loadingError
+export const sGetIsVisualizationLoading = (state) =>
     state.loader.isVisualizationLoading

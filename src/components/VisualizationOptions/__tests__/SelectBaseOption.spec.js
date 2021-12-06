@@ -8,7 +8,7 @@ describe('ER > Options > SelectBaseOption', () => {
     let shallowSelectBaseOption
     const onChange = jest.fn()
 
-    const selectBaseOption = props => {
+    const selectBaseOption = (props) => {
         shallowSelectBaseOption = shallow(<SelectBaseOption {...props} />)
 
         return shallowSelectBaseOption
@@ -52,7 +52,7 @@ describe('ER > Options > SelectBaseOption', () => {
 
         select.simulate('change', {
             selected: {
-                value: props.option.items.find(item => item.value === 'opt2'),
+                value: props.option.items.find((item) => item.value === 'opt2'),
             },
         })
 

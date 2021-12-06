@@ -25,29 +25,29 @@ export const getDefaultFromUi = (state, action) => {
     }
 }
 
-export const getOptionsFromUi = ui => pick(ui.options, Object.keys(options))
+export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 
-export const getAxesFromUi = ui =>
+export const getAxesFromUi = (ui) =>
     Object.entries(ui.layout).reduce(
         (layout, [axisId, dimensionIds]) => ({
             ...layout,
             [axisId]: dimensionIds
-                .map(dimensionId =>
+                .map((dimensionId) =>
                     dimensionCreate(
                         dimensionId,
                         ui.itemsByDimension[dimensionId],
                         { filter: ui.conditions[dimensionId] }
                     )
                 )
-                .filter(dim => dim !== null),
+                .filter((dim) => dim !== null),
         }),
         {}
     )
 
-export const getItemsByDimensionFromUi = ui => {
+export const getItemsByDimensionFromUi = (ui) => {
     const result = {}
     Object.keys(ui.itemsByDimension).forEach(
-        key => (result[key] = ui.itemsByDimension[key])
+        (key) => (result[key] = ui.itemsByDimension[key])
     )
     return result
 }
