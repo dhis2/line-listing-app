@@ -20,9 +20,9 @@ import {
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
 import styles from './styles/Visualization.module.css'
-import { useAnalyticsData } from './useAnalyticsData'
+import { useAnalyticsData } from './useAnalyticsData.js'
 
-const getFontSizeClass = fontSize => {
+const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
         case FONT_SIZE_LARGE:
             return styles.fontSizeLarge
