@@ -94,7 +94,6 @@ const InterpretationModal = ({
 
     return (
         <Modal
-            position="middle"
             onClose={handleClose}
             className={cx(modalCSS.className, {
                 hidden: shouldCssHideModal,
