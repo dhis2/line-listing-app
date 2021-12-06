@@ -4,9 +4,6 @@ import React, { useRef } from 'react'
 import { default as MenuButton } from '../Toolbar/MenuBar/MenuButton'
 import { DownloadMenu } from './DownloadMenu.js'
 import { useDownloadMenu } from './useDownloadMenu.js'
-
-Popper
-
 const ToolbarDownloadDropdown = () => {
     const buttonRef = useRef()
     const { isOpen, toggleOpen, disabled, download } = useDownloadMenu()
