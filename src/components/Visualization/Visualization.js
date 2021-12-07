@@ -69,17 +69,7 @@ export const Visualization = ({
     }
 
     if (!data) {
-        return (
-            <div
-                style={{
-                    width: 600,
-                    height: 400,
-                    backgroundColor: 'red',
-                }}
-            >
-                Should not be seen in the modal!
-            </div>
-        )
+        return null
     }
 
     const large = visualization.displayDensity === DISPLAY_DENSITY_COMFORTABLE
