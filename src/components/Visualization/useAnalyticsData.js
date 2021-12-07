@@ -11,7 +11,7 @@ const fetchAnalyticsData = async ({
     sortField,
     sortDirection,
 }) => {
-    const req = new analyticsEngine.request()
+    let req = new analyticsEngine.request()
         .fromVisualization(visualization)
         .withProgram(visualization.program.id)
         .withStage(visualization.programStage.id)
@@ -22,16 +22,16 @@ const fetchAnalyticsData = async ({
         .withPage(page)
 
     if (relativePeriodDate) {
-        req.withRelativePeriodDate(relativePeriodDate)
+        req = req.withRelativePeriodDate(relativePeriodDate)
     }
 
     if (sortField) {
         switch (sortDirection) {
             case 'asc':
-                req.withAsc(sortField)
+                req = req.withAsc(sortField)
                 break
             case 'desc':
-                req.withDesc(sortField)
+                req = req.withDesc(sortField)
                 break
         }
     }
