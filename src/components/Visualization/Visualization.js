@@ -56,7 +56,7 @@ export const Visualization = ({
     // analytics
     const fetchAnalyticsData = useCallback(async () => {
         const analyticsEngine = Analytics.getAnalytics(dataEngine)
-        const req = new analyticsEngine.request()
+        let req = new analyticsEngine.request()
             .fromVisualization(visualization)
             .withProgram(visualization.program.id)
             .withStage(visualization.programStage.id)
@@ -67,16 +67,16 @@ export const Visualization = ({
             .withPage(page)
 
         if (relativePeriodDate) {
-            req.withRelativePeriodDate(relativePeriodDate)
+            req = req.withRelativePeriodDate(relativePeriodDate)
         }
 
         if (sortField) {
             switch (sortDirection) {
                 case 'asc':
-                    req.withAsc(sortField)
+                    req = req.withAsc(sortField)
                     break
                 case 'desc':
-                    req.withDesc(sortField)
+                    req = req.withDesc(sortField)
                     break
             }
         }

@@ -42,6 +42,30 @@ msgstr "Update"
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
 
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Plain data source"
+msgstr "Plain data source"
+
+msgid "Download data from this date"
+msgstr "Download data from this date"
+
+msgid "Metadata ID scheme"
+msgstr "Metadata ID scheme"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Download"
+msgstr "Download"
+
 msgid "Edit"
 msgstr "Edit"
 

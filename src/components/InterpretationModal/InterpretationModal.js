@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
     useInterpretationQueryParams,
@@ -32,6 +33,7 @@ const InterpretationModal = ({
             onClose={removeInterpretationQueryParams}
             onResponseReceived={onResponseReceived}
             visualization={visualization}
+            downloadMenuComponent={ModalDownloadDropdown}
         />
     )
 }

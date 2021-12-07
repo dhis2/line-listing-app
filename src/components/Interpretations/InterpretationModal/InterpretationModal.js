@@ -54,6 +54,7 @@ const InterpretationModal = ({
     isVisualizationLoading,
     visualization,
     onResponseReceived,
+    downloadMenuComponent,
     onClose,
     onInterpretationUpdate,
     interpretationId,
@@ -139,6 +140,9 @@ const InterpretationModal = ({
                                     }
                                     onThreadUpdated={onThreadUpdated}
                                     initialFocus={initialFocus}
+                                    downloadMenuComponent={
+                                        downloadMenuComponent
+                                    }
                                 />
                             </div>
                         </div>
@@ -197,6 +201,10 @@ const InterpretationModal = ({
 
 InterpretationModal.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    downloadMenuComponent: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func,
+    ]).isRequired,
     interpretationId: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
