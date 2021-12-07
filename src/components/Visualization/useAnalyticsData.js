@@ -110,7 +110,6 @@ const useAnalyticsData = ({
 
                 mounted.current && setError(undefined)
                 mounted.current && setData({ headers, rows, pageCount, total })
-
                 onResponseReceived(analyticsResponse)
             } catch (error) {
                 mounted.current && setError(error)

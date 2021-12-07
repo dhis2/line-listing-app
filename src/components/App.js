@@ -92,7 +92,7 @@ const App = ({
         interpretationsUnitRef.current.refresh()
     }
 
-    const needsRefetch = (location) => {
+    const needsRefetch = location => {
         if (!previousLocation) {
             return true
         }
@@ -107,14 +107,14 @@ const App = ({
         return false
     }
 
-    const parseLocation = (location) => {
+    const parseLocation = location => {
         const pathParts = location.pathname.slice(1).split('/')
         const id = pathParts[0]
         const interpretationId = pathParts[2]
         return { id, interpretationId }
     }
 
-    const loadVisualization = (location) => {
+    const loadVisualization = location => {
         setVisualizationLoading(true)
         if (location.pathname.length > 1) {
             // /currentAnalyticalObject
@@ -137,7 +137,7 @@ const App = ({
         setPreviousLocation(location.pathname)
     }
 
-    const onResponseReceived = (response) => {
+    const onResponseReceived = response => {
         setVisualizationLoading(false)
         const metadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
@@ -272,9 +272,6 @@ const App = ({
                                                 onInterpretationUpdate={
                                                     onInterpretationUpdate
                                                 }
-                                                onResponseReceived={
-                                                    onResponseReceived
-                                                }
                                             />
                                         )}
                                     </>
@@ -295,7 +292,7 @@ const App = ({
     )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
     showRightSidebar: sGetUiShowRightSidebar(state),

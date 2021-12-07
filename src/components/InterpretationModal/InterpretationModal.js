@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { acSetVisualizationLoading } from '../../actions/loader.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
@@ -8,38 +9,39 @@ import {
     removeInterpretationQueryParams,
 } from './interpretationIdQueryParam.js'
 
-const InterpretationModal = ({
-    visualization,
-    onResponseReceived,
-    onInterpretationUpdate,
-}) => {
+const InterpretationModal = ({ visualization, onInterpretationUpdate }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
-    const isVisualizationLoading = useSelector(
-        (state) => state.loader.isVisualizationLoading
-    )
+    const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
     const currentUser = useSelector((state) => state.user)
+    const dispatch = useDispatch()
 
-    if (!interpretationId) {
-        return null
+    const onClose = () => {
+        removeInterpretationQueryParams()
+        dispatch(acSetVisualizationLoading(false))
     }
 
-    return (
+    useEffect(() => {
+        setIsVisualizationLoading(!!interpretationId)
+    }, [interpretationId])
+
+    return interpretationId ? (
         <AnalyticsInterpretationModal
             currentUser={currentUser}
             onInterpretationUpdate={onInterpretationUpdate}
             initialFocus={initialFocus}
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
-            onClose={removeInterpretationQueryParams}
-            onResponseReceived={onResponseReceived}
+            onClose={onClose}
+            onResponseReceived={() => setIsVisualizationLoading(false)}
             visualization={visualization}
             downloadMenuComponent={ModalDownloadDropdown}
         />
-    )
+    ) : null
 }
+
 InterpretationModal.propTypes = {
     visualization: PropTypes.object.isRequired,
     onInterpretationUpdate: PropTypes.func.isRequired,
-    onResponseReceived: PropTypes.func,
 }
+
 export { InterpretationModal }

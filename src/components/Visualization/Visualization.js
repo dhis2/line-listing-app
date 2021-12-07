@@ -45,7 +45,7 @@ export const Visualization = ({
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
-    const { loading, fetching, error, data } = useAnalyticsData({
+    const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
@@ -67,19 +67,6 @@ export const Visualization = ({
             </div>
         )
     }
-
-    console.log(
-        '++++ Visualization ++++',
-        '\nhasData: ',
-        !!data,
-        '\nloading: ',
-        loading,
-        '\nfetching: ',
-        fetching,
-        '\ninModal: ',
-        !!relativePeriodDate,
-        '\n------------'
-    )
 
     if (!data) {
         return (

@@ -92,15 +92,6 @@ const InterpretationModal = ({
         }
     }, [interpretationId])
 
-    console.log(
-        '++++ InterpretationModal ++++',
-        '\nloading: ',
-        loading,
-        '\nisVisualizationLoading: ',
-        isVisualizationLoading,
-        '\n---------------'
-    )
-
     return (
         <Modal
             onClose={handleClose}
