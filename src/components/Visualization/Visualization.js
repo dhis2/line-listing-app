@@ -22,7 +22,7 @@ import {
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 
-const getFontSizeClass = fontSize => {
+const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
         case FONT_SIZE_LARGE:
             return styles.fontSizeLarge
