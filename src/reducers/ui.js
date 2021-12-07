@@ -13,6 +13,7 @@ export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
+export const SET_UI_MAIN_SIDEBAR_EXPANDED = 'SET_UI_MAIN_SIDEBAR_EXPANDED'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
@@ -42,6 +43,7 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_ORGUNIT]: [],
     },
     options: getOptionsForUi(),
+    leftSidebarExpanded: false,
     showRightSidebar: false,
     activeModalDialog: null,
     parentGraphMap: {},
@@ -137,6 +139,12 @@ export default (state = EMPTY_UI, action) => {
                 showRightSidebar: !state.showRightSidebar,
             }
         }
+        case SET_UI_MAIN_SIDEBAR_EXPANDED: {
+            return {
+                ...state,
+                leftSidebarExpanded: action.value,
+            }
+        }
         case CLEAR_UI: {
             return getPreselectedUi(action.value)
         }
@@ -203,6 +211,8 @@ export const sGetUiOption = () => {} // TODO: items stored here should be flatte
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiShowRightSidebar = (state) => sGetUi(state).showRightSidebar
+export const sGetUiLeftSidebarExpanded = (state) =>
+    sGetUi(state).leftSidebarExpanded
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog

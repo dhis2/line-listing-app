@@ -8,6 +8,7 @@ import {
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
     TOGGLE_UI_RIGHT_SIDEBAR,
+    SET_UI_MAIN_SIDEBAR_EXPANDED,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
@@ -52,6 +53,11 @@ export const acClearUi = (value) => ({
 
 export const acToggleUiRightSidebar = () => ({
     type: TOGGLE_UI_RIGHT_SIDEBAR,
+})
+
+export const acSetUiMainSideBarExpanded = (value) => ({
+    type: SET_UI_MAIN_SIDEBAR_EXPANDED,
+    value,
 })
 
 export const tClearUi = () => (dispatch, getState) => {
