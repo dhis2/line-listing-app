@@ -70,8 +70,8 @@ export const Visualization = ({
 
     console.log(
         '++++ Visualization ++++',
-        '\ndata: ',
-        data,
+        '\nhasData: ',
+        !!data,
         '\nloading: ',
         loading,
         '\nfetching: ',
