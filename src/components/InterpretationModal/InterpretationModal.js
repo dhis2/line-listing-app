@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetVisualizationLoading } from '../../actions/loader.js'
+import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUser } from '../../reducers/user.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
@@ -9,10 +11,11 @@ import {
     removeInterpretationQueryParams,
 } from './interpretationIdQueryParam.js'
 
-const InterpretationModal = ({ visualization, onInterpretationUpdate }) => {
+const InterpretationModal = ({ onInterpretationUpdate }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
-    const currentUser = useSelector((state) => state.user)
+    const visualization = useSelector(sGetCurrent)
+    const currentUser = useSelector(sGetUser)
     const dispatch = useDispatch()
 
     const onClose = () => {
@@ -40,7 +43,6 @@ const InterpretationModal = ({ visualization, onInterpretationUpdate }) => {
 }
 
 InterpretationModal.propTypes = {
-    visualization: PropTypes.object.isRequired,
     onInterpretationUpdate: PropTypes.func.isRequired,
 }
 

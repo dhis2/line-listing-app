@@ -268,7 +268,6 @@ const App = ({
                                         )}
                                         {current && (
                                             <InterpretationModal
-                                                visualization={current}
                                                 onInterpretationUpdate={
                                                     onInterpretationUpdate
                                                 }
