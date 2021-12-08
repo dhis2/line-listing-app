@@ -1,5 +1,6 @@
 import { AboutAOUnit } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
+import { stringify } from 'query-string'
 import React from 'react'
 import { connect } from 'react-redux'
 import history from '../../modules/history.js'
@@ -7,6 +8,16 @@ import { sGetCurrent } from '../../reducers/current.js'
 import { sGetUser } from '../../reducers/user.js'
 import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/index.js'
 import classes from './styles/DetailsPanel.module.css'
+
+const navigateToOpenModal = (interpretationId, initialFocus) => {
+    history.push(
+        {
+            pathName: history.location.pathname,
+            search: `?${stringify({ interpretationId, initialFocus })}`,
+        },
+        { isModalOpening: true }
+    )
+}
 
 export const DetailsPanel = ({
     currentUser,
@@ -21,14 +32,10 @@ export const DetailsPanel = ({
             id={visualization.id}
             currentUser={currentUser}
             onInterpretationClick={(interpretationId) =>
-                history.push(
-                    `/${visualization.id}?interpretationId=${interpretationId}`
-                )
+                navigateToOpenModal(interpretationId)
             }
             onReplyIconClick={(interpretationId) =>
-                history.push(
-                    `/${visualization.id}?interpretationId=${interpretationId}&initialFocus=true`
-                )
+                navigateToOpenModal(interpretationId, true)
             }
         />
     </div>
