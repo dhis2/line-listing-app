@@ -8,6 +8,9 @@ import {
     Button,
     spacers,
     colors,
+    Layer,
+    CenteredContent,
+    CircularLoader,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -93,108 +96,122 @@ const InterpretationModal = ({
     }, [interpretationId])
 
     return (
-        <Modal
-            onClose={handleClose}
-            className={cx(modalCSS.className, {
-                hidden: shouldCssHideModal,
-            })}
-        >
-            <h1 className="title">
-                <span className="ellipsis">
-                    {i18n.t('Viewing interpretation: {{visualisationName}}', {
-                        visualisationName: visualization.displayName,
-                        nsSeparator: '^^',
-                    })}
-                </span>
-            </h1>
-            <ModalContent className="modalContent">
-                <div className="container">
-                    {error && (
-                        <NoticeBox
-                            error
-                            title={i18n.t('Could not load interpretation')}
-                        >
-                            {error.message ||
-                                i18n.t(
-                                    'The interpretation couldn’t be displayed. Try again or contact your system administrator.'
-                                )}
-                        </NoticeBox>
-                    )}
-                    {shouldRenderModalContent && (
-                        <div className="row">
-                            <div className="visualisation-wrap">
-                                <Visualization
-                                    relativePeriodDate={interpretation.created}
-                                    visualization={visualization}
-                                    onResponseReceived={onResponseReceived}
-                                />
+        <>
+            {shouldCssHideModal && (
+                <Layer>
+                    <CenteredContent>
+                        <CircularLoader />
+                    </CenteredContent>
+                </Layer>
+            )}
+            <Modal
+                onClose={handleClose}
+                className={cx(modalCSS.className, {
+                    hidden: shouldCssHideModal,
+                })}
+            >
+                <h1 className="title">
+                    <span className="ellipsis">
+                        {i18n.t(
+                            'Viewing interpretation: {{visualisationName}}',
+                            {
+                                visualisationName: visualization.displayName,
+                                nsSeparator: '^^',
+                            }
+                        )}
+                    </span>
+                </h1>
+                <ModalContent className="modalContent">
+                    <div className="container">
+                        {error && (
+                            <NoticeBox
+                                error
+                                title={i18n.t('Could not load interpretation')}
+                            >
+                                {error.message ||
+                                    i18n.t(
+                                        'The interpretation couldn’t be displayed. Try again or contact your system administrator.'
+                                    )}
+                            </NoticeBox>
+                        )}
+                        {shouldRenderModalContent && (
+                            <div className="row">
+                                <div className="visualisation-wrap">
+                                    <Visualization
+                                        relativePeriodDate={
+                                            interpretation.created
+                                        }
+                                        visualization={visualization}
+                                        onResponseReceived={onResponseReceived}
+                                    />
+                                </div>
+                                <div className="thread-wrap">
+                                    <InterpretationThread
+                                        currentUser={currentUser}
+                                        fetching={fetching}
+                                        interpretation={interpretation}
+                                        onInterpretationDeleted={
+                                            onInterpretationDeleted
+                                        }
+                                        onThreadUpdated={onThreadUpdated}
+                                        initialFocus={initialFocus}
+                                        downloadMenuComponent={
+                                            downloadMenuComponent
+                                        }
+                                    />
+                                </div>
                             </div>
-                            <div className="thread-wrap">
-                                <InterpretationThread
-                                    currentUser={currentUser}
-                                    fetching={fetching}
-                                    interpretation={interpretation}
-                                    onInterpretationDeleted={
-                                        onInterpretationDeleted
-                                    }
-                                    onThreadUpdated={onThreadUpdated}
-                                    initialFocus={initialFocus}
-                                    downloadMenuComponent={
-                                        downloadMenuComponent
-                                    }
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </ModalContent>
-            <ModalActions>
-                <Button disabled={fetching} onClick={handleClose}>
-                    {i18n.t('Hide interpretation')}
-                </Button>
-            </ModalActions>
-            {modalCSS.styles}
-            <style jsx>{`
-                .title {
-                    color: ${colors.grey900};
-                    font-size: 20px;
-                    font-weight: 500;
-                    line-height: 24px;
-                    margin: 0px;
-                    padding: ${spacers.dp24} ${spacers.dp24} 0;
-                }
+                        )}
+                    </div>
+                </ModalContent>
+                <ModalActions>
+                    <Button disabled={fetching} onClick={handleClose}>
+                        {i18n.t('Hide interpretation')}
+                    </Button>
+                </ModalActions>
+                {modalCSS.styles}
+                <style jsx>{`
+                    .title {
+                        color: ${colors.grey900};
+                        font-size: 20px;
+                        font-weight: 500;
+                        line-height: 24px;
+                        margin: 0px;
+                        padding: ${spacers.dp24} ${spacers.dp24} 0;
+                    }
 
-                .ellipsis {
-                    display: inline-block;
-                    line-height: 20px;
-                    white-space: nowrap;
-                    width: 100%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
+                    .ellipsis {
+                        display: inline-block;
+                        line-height: 20px;
+                        white-space: nowrap;
+                        width: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
 
-                .container {
-                    display: flex;
-                    flex-direction: column;
-                }
+                    .container {
+                        display: flex;
+                        flex-direction: column;
+                    }
 
-                .row {
-                    display: flex;
-                    flex-direction: row;
-                    gap: 16px;
-                }
+                    .row {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 16px;
+                    }
 
-                .visualisation-wrap {
-                    flex-grow: 1;
-                }
+                    .visualisation-wrap {
+                        flex-grow: 1;
+                    }
 
-                .thread-wrap {
-                    flex-basis: 300px;
-                    flex-shrink: 0;
-                    overflow-y: auto;
-                }
-            `}</style>
-        </Modal>
+                    .thread-wrap {
+                        flex-basis: 300px;
+                        flex-shrink: 0;
+                        overflow-y: auto;
+                    }
+                `}</style>
+            </Modal>
+        </>
     )
 }
 
