@@ -273,13 +273,17 @@ const App = ({
                         </div>
                     </div>
                 </DndContext>
-                {showRightSidebar && current && (
-                    <div className={classes.mainRight}>
+                <div
+                    className={cx(classes.mainRight, {
+                        [classes.hidden]: !showRightSidebar,
+                    })}
+                >
+                    {showRightSidebar && current && (
                         <DetailsPanel
                             interpretationsUnitRef={interpretationsUnitRef}
                         />
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
             <CssVariables colors spacers />
         </div>

@@ -53,8 +53,12 @@
     background-color: #f0f2f4;
     overflow-y: auto;
     overflow-x: hidden;
+    transform: scaleX(1);
+    transition: max-width 350ms ease-in-out;
 }
-
+.mainRight.hidden {
+    max-width: 0;
+}
 /* Main canvas */
 
 .mainCenterCanvas {
