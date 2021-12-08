@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16 } from '@dhis2/ui'
+import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -9,16 +9,18 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { sGetLegendSetIdByDimensionId } from '../../../reducers/current.js'
-import { sGetLegendSetById } from '../../../reducers/legendSets.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
-import NumericCondition from './NumericCondition.js'
+import NumericCondition, { OPERATOR_RANGE_SET } from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
+
+const DIMENSION_TYPE_NUMERIC = 'DIMENSION_TYPE_NUMERIC'
+
+const EMPTY_CONDITION = ''
 
 const ConditionsManager = ({
     conditions,
@@ -27,25 +29,42 @@ const ConditionsManager = ({
     dimension,
     onClose,
     setConditionsByDimension,
-    legendSet,
 }) => {
     const [conditionsList, setConditionsList] = useState(
-        parseConditionsStringToArray(conditions)
+        (conditions.condition?.length &&
+            parseConditionsStringToArray(conditions.condition)) ||
+            (conditions.legendSet ? [EMPTY_CONDITION] : [])
     )
 
-    const addCondition = () => setConditionsList([...conditionsList, ''])
+    const [selectedLegendSet, setSelectedLegendSet] = useState(
+        conditions.legendSet
+    )
 
-    const removeCondition = (conditionIndex) =>
-        setConditionsList(
-            conditionsList.filter((_, index) => index !== conditionIndex)
+    const addCondition = () =>
+        setConditionsList([...conditionsList, EMPTY_CONDITION])
+
+    const removeCondition = (conditionIndex) => {
+        const filteredConditionsList = conditionsList.filter(
+            (_, index) => index !== conditionIndex
         )
+        setConditionsList(filteredConditionsList)
+        if (
+            selectedLegendSet &&
+            !filteredConditionsList.some((condition) =>
+                condition.includes(OPERATOR_RANGE_SET)
+            )
+        ) {
+            setSelectedLegendSet(null)
+        }
+    }
 
-    const setCondition = (conditionIndex, value) =>
+    const setCondition = (conditionIndex, value) => {
         setConditionsList(
             conditionsList.map((condition, index) =>
                 index === conditionIndex ? value : condition
             )
         )
+    }
 
     const storeConditions = () =>
         setConditionsByDimension(
@@ -54,7 +73,8 @@ const ConditionsManager = ({
                     (cnd) => cnd.length && cnd.slice(-1) !== ':'
                 )
             ),
-            dimension.id
+            dimension.id,
+            selectedLegendSet
         )
 
     const primaryOnClick = () => {
@@ -67,6 +87,49 @@ const ConditionsManager = ({
         storeConditions()
         onClose()
     }
+
+    const dimensionType = DIMENSION_TYPE_NUMERIC // TODO: Should be returned by the backend
+
+    const renderConditionsContent = () => {
+        const getDividerContent = (index) =>
+            conditionsList.length > 1 &&
+            index < conditionsList.length - 1 && (
+                <span className={classes.separator}>{i18n.t('and')}</span>
+            )
+
+        switch (dimensionType) {
+            case DIMENSION_TYPE_NUMERIC:
+                return (
+                    (conditionsList.length && conditionsList) ||
+                    (selectedLegendSet && [''])
+                ).map((condition, index) => (
+                    <div key={index}>
+                        <NumericCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                            dimensionId={dimension.id}
+                            numberOfConditions={
+                                conditionsList.length ||
+                                (selectedLegendSet ? 1 : 0)
+                            }
+                            legendSetId={selectedLegendSet}
+                            onLegendSetChange={(value) =>
+                                setSelectedLegendSet(value)
+                            }
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+        }
+    }
+
+    const disableAddButton =
+        dimensionType === DIMENSION_TYPE_NUMERIC &&
+        (conditionsList.some((condition) =>
+            condition.includes(OPERATOR_RANGE_SET)
+        ) ||
+            selectedLegendSet)
 
     return dimension ? (
         <DimensionModal
@@ -84,7 +147,7 @@ const ConditionsManager = ({
                 </p>
             </div>
             <div className={classes.mainSection}>
-                {!conditionsList.length ? (
+                {!conditionsList.length && !selectedLegendSet ? (
                     <p className={classes.paragraph}>
                         <span className={classes.infoIcon}>
                             <IconInfo16 />
@@ -94,46 +157,51 @@ const ConditionsManager = ({
                         )}
                     </p>
                 ) : (
-                    conditionsList.map((condition, index) => (
-                        <div key={index}>
-                            <NumericCondition
-                                condition={condition}
-                                onChange={(value) => setCondition(index, value)}
-                                onRemove={() => removeCondition(index)}
-                                legendSet={legendSet}
-                            />
-                            {conditionsList.length > 1 &&
-                                index < conditionsList.length - 1 && (
-                                    <span className={classes.separator}>
-                                        {i18n.t('and')}
-                                    </span>
-                                )}
-                        </div>
-                    ))
+                    renderConditionsContent()
                 )}
-                <Button
-                    type="button"
-                    small
-                    onClick={addCondition}
-                    dataTest={'conditions-manager-add-condition'}
-                    className={classes.addConditionButton}
+                <Tooltip
+                    content={i18n.t(
+                        'Preset options can’t be combined with other conditions'
+                    )}
+                    placement="bottom"
+                    closeDelay={200}
                 >
-                    {conditionsList.length
-                        ? i18n.t('Add another condition')
-                        : i18n.t('Add a condition')}
-                </Button>
+                    {({ onMouseOver, onMouseOut, ref }) => (
+                        <span
+                            ref={ref}
+                            onMouseOver={() =>
+                                disableAddButton && onMouseOver()
+                            }
+                            onMouseOut={() => disableAddButton && onMouseOut()}
+                            className={classes.tooltipReference}
+                        >
+                            <Button
+                                type="button"
+                                small
+                                onClick={addCondition}
+                                dataTest={'conditions-manager-add-condition'}
+                                className={classes.addConditionButton}
+                                disabled={disableAddButton}
+                            >
+                                {conditionsList.length
+                                    ? i18n.t('Add another condition')
+                                    : i18n.t('Add a condition')}
+                            </Button>
+                        </span>
+                    )}
+                </Tooltip>
             </div>
         </DimensionModal>
     ) : null
 }
 
 ConditionsManager.propTypes = {
-    conditions: PropTypes.string.isRequired,
+    conditions: PropTypes.object.isRequired,
     dimension: PropTypes.object.isRequired,
     /* eslint-disable-next-line react/no-unused-prop-types */
     dimensionId: PropTypes.string.isRequired,
     isInLayout: PropTypes.bool.isRequired,
-    legendSet: PropTypes.object,
+    legendSet: PropTypes.string,
     setConditionsByDimension: PropTypes.func,
     onClose: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -144,12 +212,8 @@ const mapStateToProps = (state, ownProps) => ({
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimensionId
     ),
-    conditions: sGetUiConditionsByDimension(state, ownProps.dimensionId) || '',
+    conditions: sGetUiConditionsByDimension(state, ownProps.dimensionId) || {},
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
-    legendSet: sGetLegendSetById(
-        state,
-        sGetLegendSetIdByDimensionId(state, ownProps.dimensionId)
-    ),
 })
 
 const mapDispatchToProps = {

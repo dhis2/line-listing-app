@@ -13,6 +13,3 @@ export default (state = DEFAULT_LEGEND_SETS, action) => {
 }
 
 export const sGetLegendSets = (state) => state.legendSets
-
-export const sGetLegendSetById = (state, id) =>
-    sGetLegendSets(state).find((legendSet) => legendSet.id === id)

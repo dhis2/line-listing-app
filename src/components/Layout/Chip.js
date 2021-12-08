@@ -11,7 +11,7 @@ import styles from './styles/Chip.module.css'
 import { default as TooltipContent } from './TooltipContent.js'
 
 const Chip = ({
-    conditions,
+    numberOfConditions,
     dimensionId,
     dimensionName,
     axisId,
@@ -33,9 +33,9 @@ const Chip = ({
             itemsLabel = i18n.t('{{count}} selected', {
                 count: items.length,
             })
-        } else if (conditions.length) {
+        } else if (numberOfConditions) {
             itemsLabel = i18n.t('{{count}} conditions', {
-                count: conditions.length,
+                count: numberOfConditions,
                 defaultValue: '{{count}} condition',
                 defaultValue_plural: '{{count}} conditions',
             })
@@ -63,7 +63,7 @@ const Chip = ({
     return (
         <div
             className={cx(styles.chipWrapper, {
-                [styles.chipEmpty]: !items.length && !conditions.length,
+                [styles.chipEmpty]: !items.length && !numberOfConditions,
             })}
             data-dimensionid={dimensionId}
             onDragStart={getDragStartHandler()}
@@ -99,9 +99,9 @@ Chip.propTypes = {
     dimensionId: PropTypes.string.isRequired,
     dimensionName: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    conditions: PropTypes.array,
     contextMenu: PropTypes.object,
     items: PropTypes.array,
+    numberOfConditions: PropTypes.number,
 }
 
 Chip.defaultProps = {

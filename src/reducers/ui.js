@@ -200,4 +200,4 @@ export const sGetDimensionIdsFromLayout = (state) =>
     )
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
-    sGetUiConditions(state)[dimension] || ''
+    sGetUiConditions(state)[dimension]

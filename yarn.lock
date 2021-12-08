@@ -1918,10 +1918,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^21.0.7":
-  version "21.0.7"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-21.0.7.tgz#a56a6be836202fd5f5b17f48dbbe6e9b0be8c50c"
-  integrity sha512-+8mmfbXsBj63/g3BX+ROssUV7/no3q1Sd7mxIze1cbRzzgggLY4rB+ZHRHhUh4jqJa1Ddxg9DLksHv+1Fy3tjQ==
+"@dhis2/analytics@^21.0.9":
+  version "21.0.9"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-21.0.9.tgz#801d64e1cc01ce0c00eec8cb4196aaddf095b93a"
+  integrity sha512-krSw8N5MB+jjQptLRaejxvGSAVS3jc7y5rFZjwFinV7jyPreKumcwXTx95BD8O3+FOXT76ueAoDXi7EtFHtuew==
   dependencies:
     "@dhis2/d2-ui-translation-dialog" "^7.3.1"
     classnames "^2.3.1"

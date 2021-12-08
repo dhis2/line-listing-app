@@ -67,5 +67,14 @@ export const getParentGraphMapFromVisualization = (vis) => {
 
 const getConditionsFromVisualization = (vis) =>
     [...vis.columns, ...vis.rows, ...vis.filters]
-        .filter((item) => item.filter)
-        .reduce((acc, key) => ({ ...acc, [key.dimension]: key.filter }), {})
+        .filter((item) => item.filter || item.legendSet)
+        .reduce(
+            (acc, key) => ({
+                ...acc,
+                [key.dimension]: {
+                    condition: key.filter,
+                    legendSet: key.legendSet?.id,
+                },
+            }),
+            {}
+        )

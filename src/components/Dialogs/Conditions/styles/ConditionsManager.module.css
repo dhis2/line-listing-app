@@ -13,10 +13,6 @@
     padding: var(--spacers-dp8);
 }
 
-.addConditionButton {
-    margin-top: var(--spacers-dp16);
-}
-
 .infoIcon svg {
     color: var(--colors-grey900);
     margin-right: 6px;
@@ -30,4 +26,14 @@
     font-weight: 500;
     color: var(--colors-grey700);
     padding: var(--spacers-dp4) 0;
+}
+
+.tooltipReference {
+    display: inline-flex;
+    cursor: not-allowed;
+    margin-top: var(--spacers-dp16);
+}
+
+.tooltipReference > .addConditionButton:disabled {
+    pointer-events: none;
 }
