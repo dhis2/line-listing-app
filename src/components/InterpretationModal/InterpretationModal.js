@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { acSetVisualizationLoading } from '../../actions/loader.js'
+import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetUser } from '../../reducers/user.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
@@ -16,12 +15,6 @@ const InterpretationModal = ({ onInterpretationUpdate }) => {
     const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
     const visualization = useSelector(sGetCurrent)
     const currentUser = useSelector(sGetUser)
-    const dispatch = useDispatch()
-
-    const onClose = () => {
-        removeInterpretationQueryParams()
-        dispatch(acSetVisualizationLoading(false))
-    }
 
     useEffect(() => {
         setIsVisualizationLoading(!!interpretationId)
@@ -34,7 +27,7 @@ const InterpretationModal = ({ onInterpretationUpdate }) => {
             initialFocus={initialFocus}
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
-            onClose={onClose}
+            onClose={removeInterpretationQueryParams}
             onResponseReceived={() => setIsVisualizationLoading(false)}
             visualization={visualization}
             downloadMenuComponent={ModalDownloadDropdown}
