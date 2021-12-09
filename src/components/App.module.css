@@ -62,6 +62,7 @@
     height: 100%;
     overflow: hidden;
     position: relative;
+    padding: 0 var(--spacers-dp4);
 }
 
 .loadingCover {
