@@ -137,6 +137,13 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 showRightSidebar: !state.showRightSidebar,
+                /*
+                 * Always close left sidebar when opening the right sidebar
+                 * Leave left sidebar unaffected when closing the right sidebar
+                 */
+                leftSidebarExpanded: !state.showRightSidebar
+                    ? false
+                    : state.leftSidebarExpanded,
             }
         }
         case SET_UI_MAIN_SIDEBAR_EXPANDED: {
