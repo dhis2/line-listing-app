@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUser } from '../../reducers/user.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
@@ -8,22 +10,17 @@ import {
     removeInterpretationQueryParams,
 } from './interpretationIdQueryParam.js'
 
-const InterpretationModal = ({
-    visualization,
-    onResponseReceived,
-    onInterpretationUpdate,
-}) => {
+const InterpretationModal = ({ onInterpretationUpdate }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
-    const isVisualizationLoading = useSelector(
-        (state) => state.loader.isVisualizationLoading
-    )
-    const currentUser = useSelector((state) => state.user)
+    const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
+    const visualization = useSelector(sGetCurrent)
+    const currentUser = useSelector(sGetUser)
 
-    if (!interpretationId) {
-        return null
-    }
+    useEffect(() => {
+        setIsVisualizationLoading(!!interpretationId)
+    }, [interpretationId])
 
-    return (
+    return interpretationId ? (
         <AnalyticsInterpretationModal
             currentUser={currentUser}
             onInterpretationUpdate={onInterpretationUpdate}
@@ -31,15 +28,15 @@ const InterpretationModal = ({
             interpretationId={interpretationId}
             isVisualizationLoading={isVisualizationLoading}
             onClose={removeInterpretationQueryParams}
-            onResponseReceived={onResponseReceived}
+            onResponseReceived={() => setIsVisualizationLoading(false)}
             visualization={visualization}
             downloadMenuComponent={ModalDownloadDropdown}
         />
-    )
+    ) : null
 }
+
 InterpretationModal.propTypes = {
-    visualization: PropTypes.object.isRequired,
     onInterpretationUpdate: PropTypes.func.isRequired,
-    onResponseReceived: PropTypes.func,
 }
+
 export { InterpretationModal }

@@ -1,15 +1,26 @@
 import { parse, stringify } from 'query-string'
+import { useState, useEffect } from 'react'
 import history from '../../modules/history.js'
 
 const options = { parseBooleans: true }
 
 const useInterpretationQueryParams = () => {
-    const { interpretationId, initialFocus } = parse(
-        history.location.search,
-        options
+    const [params, setParams] = useState(
+        parse(history.location.search, options)
     )
+    useEffect(() => {
+        const unlisten = history.listen(({ location }) => {
+            if (location.state?.isModalOpening) {
+                setParams(parse(history.location.search, options))
+            }
+            if (location.state?.isModalClosing) {
+                setParams(parse(history.location.search, options))
+            }
+        })
+        return unlisten
+    }, [])
 
-    return { interpretationId, initialFocus }
+    return params
 }
 
 const removeInterpretationQueryParams = () => {
@@ -26,10 +37,15 @@ const removeInterpretationQueryParams = () => {
     )
     const search = stringify(parsedWithoutInterpretationId)
 
-    history.push({
-        ...history.location,
-        search,
-    })
+    history.push(
+        {
+            ...history.location,
+            search,
+        },
+        {
+            isModalClosing: true,
+        }
+    )
 }
 
 export { useInterpretationQueryParams, removeInterpretationQueryParams }
