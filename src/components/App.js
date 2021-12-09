@@ -28,6 +28,7 @@ import { sGetUiShowRightSidebar } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
 import { default as DialogManager } from './Dialogs/DialogManager.js'
+import { DimensionPanel } from './DimensionPanel/index.js'
 import DndContext from './DndContext.js'
 import { InterpretationModal } from './InterpretationModal/index.js'
 import Layout from './Layout/Layout.js'
@@ -214,12 +215,8 @@ const App = ({
                 )}
             >
                 <DndContext>
-                    <div className={classes.mainLeft}>
-                        <span style={{ color: 'red' }}>
-                            {'dimension panel'}
-                        </span>
-                        <DialogManager />
-                    </div>
+                    <DimensionPanel />
+                    <DialogManager />
                     <div
                         className={cx(
                             classes.mainCenter,

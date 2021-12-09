@@ -42,11 +42,6 @@
     overflow: hidden;
 }
 
-.mainLeft {
-    min-width: 260px;
-    border-right: 1px solid #e0e2e4;
-}
-
 .mainRight {
     flex: 1 1 0%;
     max-width: 380px;
