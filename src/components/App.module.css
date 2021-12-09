@@ -54,7 +54,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     transform: scaleX(1);
-    transition: max-width 350ms ease-in-out;
+    transition: max-width 200ms ease-out;
 }
 .mainRight.hidden {
     max-width: 0;
