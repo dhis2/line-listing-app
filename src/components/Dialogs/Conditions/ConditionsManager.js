@@ -18,7 +18,23 @@ import DimensionModal from '../DimensionModal.js'
 import NumericCondition, { OPERATOR_RANGE_SET } from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
-const DIMENSION_TYPE_NUMERIC = 'DIMENSION_TYPE_NUMERIC'
+const DIMENSION_TYPE_NUMBER = 'NUMBER'
+const DIMENSION_TYPE_UNIT_INTERVAL = 'UNIT_INTERVAL'
+const DIMENSION_TYPE_PERCENTAGE = 'PERCENTAGE'
+const DIMENSION_TYPE_INTEGER = 'INTEGER'
+const DIMENSION_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
+const DIMENSION_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
+const DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
+
+const NUMERIC_TYPES = [
+    DIMENSION_TYPE_NUMBER,
+    DIMENSION_TYPE_UNIT_INTERVAL,
+    DIMENSION_TYPE_PERCENTAGE,
+    DIMENSION_TYPE_INTEGER,
+    DIMENSION_TYPE_INTEGER_POSITIVE,
+    DIMENSION_TYPE_INTEGER_NEGATIVE,
+    DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE,
+]
 
 const EMPTY_CONDITION = ''
 
@@ -88,7 +104,7 @@ const ConditionsManager = ({
         onClose()
     }
 
-    const dimensionType = DIMENSION_TYPE_NUMERIC // TODO: Should be returned by the backend
+    const dimensionType = DIMENSION_TYPE_NUMBER // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const renderConditionsContent = () => {
         const getDividerContent = (index) =>
@@ -98,7 +114,15 @@ const ConditionsManager = ({
             )
 
         switch (dimensionType) {
-            case DIMENSION_TYPE_NUMERIC:
+            case DIMENSION_TYPE_NUMBER:
+            case DIMENSION_TYPE_UNIT_INTERVAL:
+            case DIMENSION_TYPE_PERCENTAGE:
+            case DIMENSION_TYPE_INTEGER:
+            case DIMENSION_TYPE_INTEGER_POSITIVE:
+            case DIMENSION_TYPE_INTEGER_NEGATIVE:
+            case DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE: {
+                const useDecimalSteps =
+                    dimensionType === DIMENSION_TYPE_UNIT_INTERVAL
                 return (
                     (conditionsList.length && conditionsList) ||
                     (selectedLegendSet && [''])
@@ -117,15 +141,17 @@ const ConditionsManager = ({
                             onLegendSetChange={(value) =>
                                 setSelectedLegendSet(value)
                             }
+                            useDecimalSteps={useDecimalSteps}
                         />
                         {getDividerContent(index)}
                     </div>
                 ))
+            }
         }
     }
 
     const disableAddButton =
-        dimensionType === DIMENSION_TYPE_NUMERIC &&
+        NUMERIC_TYPES.includes(dimensionType) &&
         (conditionsList.some((condition) =>
             condition.includes(OPERATOR_RANGE_SET)
         ) ||
