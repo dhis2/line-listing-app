@@ -5,11 +5,35 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-08T08:35:41.851Z\n"
-"PO-Revision-Date: 2021-12-08T08:35:41.851Z\n"
+"POT-Creation-Date: 2021-12-10T13:38:35.393Z\n"
+"PO-Revision-Date: 2021-12-10T13:38:35.393Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
+
+msgid "exactly"
+msgstr "exactly"
+
+msgid "is not"
+msgstr "is not"
+
+msgid "contains"
+msgstr "contains"
+
+msgid "does not contain"
+msgstr "does not contain"
+
+msgid "is empty / null"
+msgstr "is empty / null"
+
+msgid "is not empty / not null"
+msgstr "is not empty / not null"
+
+msgid "Choose a condition type"
+msgstr "Choose a condition type"
+
+msgid "Remove"
+msgstr "Remove"
 
 msgid "and"
 msgstr "and"
@@ -30,17 +54,29 @@ msgstr "Add another condition"
 msgid "Add a condition"
 msgstr "Add a condition"
 
-msgid "Choose a condition type"
-msgstr "Choose a condition type"
+msgid "equal to (=)"
+msgstr "equal to (=)"
+
+msgid "greater than (>)"
+msgstr "greater than (>)"
+
+msgid "greater than or equal to (≥)"
+msgstr "greater than or equal to (≥)"
+
+msgid "less than (<)"
+msgstr "less than (<)"
+
+msgid "less than or equal to (≤)"
+msgstr "less than or equal to (≤)"
+
+msgid "not equal to (≠)"
+msgstr "not equal to (≠)"
 
 msgid "is one of preset options"
 msgstr "is one of preset options"
 
 msgid "Choose a set of options"
 msgstr "Choose a set of options"
-
-msgid "Remove"
-msgstr "Remove"
 
 msgid "Hide"
 msgstr "Hide"
