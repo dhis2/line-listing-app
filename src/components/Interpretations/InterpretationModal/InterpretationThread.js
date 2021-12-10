@@ -14,6 +14,7 @@ const InterpretationThread = ({
     onInterpretationDeleted,
     initialFocus,
     onThreadUpdated,
+    downloadMenuComponent: DownloadMenu,
 }) => {
     const focusRef = useRef()
 
@@ -32,7 +33,7 @@ const InterpretationThread = ({
                     <IconClock16 color={colors.grey700} />
                     {moment(interpretation.created).format('LLL')}
                 </div>
-                <div style={{ color: 'red' }}>Download btn placeholder</div>
+                <DownloadMenu relativePeriodDate={interpretation.created} />
                 <Interpretation
                     currentUser={currentUser}
                     interpretation={interpretation}
@@ -129,6 +130,10 @@ const InterpretationThread = ({
 
 InterpretationThread.propTypes = {
     currentUser: PropTypes.object.isRequired,
+    downloadMenuComponent: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func,
+    ]).isRequired,
     fetching: PropTypes.bool.isRequired,
     interpretation: PropTypes.object.isRequired,
     onInterpretationDeleted: PropTypes.func.isRequired,

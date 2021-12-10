@@ -70,7 +70,14 @@ export const Interpretation = ({
                 )}
             </MessageStatsBar>
             {!!onClick && (
-                <Button secondary small onClick={onClick}>
+                <Button
+                    secondary
+                    small
+                    onClick={(_, event) => {
+                        event.stopPropagation()
+                        onClick(interpretation.id)
+                    }}
+                >
                     {i18n.t('See interpretation')}
                 </Button>
             )}

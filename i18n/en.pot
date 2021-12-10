@@ -51,6 +51,30 @@ msgstr "Update"
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
 
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Plain data source"
+msgstr "Plain data source"
+
+msgid "Download data from this date"
+msgstr "Download data from this date"
+
+msgid "Metadata ID scheme"
+msgstr "Metadata ID scheme"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Download"
+msgstr "Download"
+
 msgid "Edit"
 msgstr "Edit"
 
@@ -190,6 +214,16 @@ msgstr "TEXT"
 
 msgid "Your most viewed TEXT"
 msgstr "Your most viewed TEXT"
+
+msgid "Could not load visualization"
+msgstr "Could not load visualization"
+
+msgid ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
+msgstr ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
 
 msgid "Cases per page"
 msgstr "Cases per page"
