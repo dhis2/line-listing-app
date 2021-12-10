@@ -24,14 +24,14 @@ export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
 export const OPERATOR_RANGE_SET = 'IN'
 
 const operators = {
-    [OPERATOR_EQUAL]: 'equal to (=)',
-    [OPERATOR_GREATER]: 'greater than (>)',
-    [OPERATOR_GREATER_OR_EQUAL]: 'greater than or equal to (≥)',
-    [OPERATOR_LESS]: 'less than (<)',
-    [OPERATOR_LESS_OR_EQUAL]: 'less than or equal to (≤)',
-    [OPERATOR_NOT_EQUAL]: 'not equal to (≠)',
-    [OPERATOR_EMPTY]: 'is empty / null',
-    [OPERATOR_NOT_EMPTY]: 'is not empty / not null',
+    [OPERATOR_EQUAL]: i18n.t('equal to (=)'),
+    [OPERATOR_GREATER]: i18n.t('greater than (>)'),
+    [OPERATOR_GREATER_OR_EQUAL]: i18n.t('greater than or equal to (≥)'),
+    [OPERATOR_LESS]: i18n.t('less than (<)'),
+    [OPERATOR_LESS_OR_EQUAL]: i18n.t('less than or equal to (≤)'),
+    [OPERATOR_NOT_EQUAL]: i18n.t('not equal to (≠)'),
+    [OPERATOR_EMPTY]: i18n.t('is empty / null'),
+    [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
 }
 
 const l1 = {
