@@ -85,11 +85,14 @@ export const acSetUiConditions = (value) => ({
 })
 
 export const tSetUiConditionsByDimension =
-    (inputCondition, dimension) => (dispatch, getState) => {
+    (inputCondition, dimension, legendSet) => (dispatch, getState) => {
         dispatch(
             acSetUiConditions({
                 ...sGetUiConditions(getState()),
-                [dimension]: inputCondition,
+                [dimension]:
+                    inputCondition.length || legendSet
+                        ? { condition: inputCondition, legendSet }
+                        : undefined,
             })
         )
     }

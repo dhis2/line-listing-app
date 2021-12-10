@@ -36,7 +36,14 @@ export const getAxesFromUi = (ui) =>
                     dimensionCreate(
                         dimensionId,
                         ui.itemsByDimension[dimensionId],
-                        { filter: ui.conditions[dimensionId] }
+                        {
+                            filter: ui.conditions[dimensionId]?.condition,
+                            ...(ui.conditions[dimensionId]?.legendSet && {
+                                legendSet: {
+                                    id: ui.conditions[dimensionId].legendSet,
+                                },
+                            }),
+                        }
                     )
                 )
                 .filter((dim) => dim !== null),

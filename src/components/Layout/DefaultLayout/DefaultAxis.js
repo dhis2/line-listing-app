@@ -51,9 +51,15 @@ const DefaultAxis = ({
                                 const key = `${axisId}-${dimensionId}`
 
                                 const items = getItemsByDimension(dimensionId)
-                                const conditions = parseConditionsStringToArray(
+
+                                const conditions =
                                     getConditionsByDimension(dimensionId)
-                                )
+                                const numberOfConditions =
+                                    parseConditionsStringToArray(
+                                        conditions.condition
+                                    ).length || conditions.legendSet
+                                        ? 1
+                                        : 0
 
                                 return (
                                     <Draggable
@@ -74,7 +80,9 @@ const DefaultAxis = ({
                                                     axisId={axisId}
                                                     dimensionId={dimensionId}
                                                     items={items}
-                                                    conditions={conditions}
+                                                    numberOfConditions={
+                                                        numberOfConditions
+                                                    }
                                                     contextMenu={
                                                         <ChipMenu
                                                             dimensionId={
@@ -128,7 +136,7 @@ export const renderChipsSelector = createSelector(
 const mapStateToProps = (state) => ({
     layout: sGetUiLayout(state),
     getConditionsByDimension: (dimensionId) =>
-        sGetUiConditionsByDimension(state, dimensionId) || '',
+        sGetUiConditionsByDimension(state, dimensionId) || {},
     getItemsByDimension: (dimensionId) =>
         sGetUiItemsByDimension(state, dimensionId) || [],
     renderChips: renderChipsSelector(state),
