@@ -1,5 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelectField, SingleSelectOption, Button, Input } from '@dhis2/ui'
+import {
+    SingleSelectField,
+    SingleSelectOption,
+    Button,
+    Input,
+    Checkbox,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import classes from './styles/Condition.module.css'
@@ -11,6 +17,10 @@ export const OPERATOR_CONTAINS = 'LIKE'
 export const OPERATOR_NOT_CONTAINS = '!LIKE'
 export const OPERATOR_EMPTY = `EQ:${NULL_VALUE}`
 export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
+export const OPERATOR_EQUAL_CASE_SENSITIVE = 'IEQ'
+export const OPERATOR_NOT_EQUAL_CASE_SENSITIVE = '!IEQ'
+export const OPERATOR_CONTAINS_CASE_SENSITIVE = 'ILIKE'
+export const OPERATOR_NOT_CONTAINS_CASE_SENSITIVE = '!ILIKE'
 
 const operators = {
     [OPERATOR_EQUAL]: i18n.t('exactly'),
@@ -49,10 +59,58 @@ const AlphanumericCondition = ({
         onChange(`${operator}:${input || ''}`)
     }
 
+    const toggleCaseSensitive = (state) => {
+        switch (operator) {
+            case OPERATOR_EQUAL:
+            case OPERATOR_EQUAL_CASE_SENSITIVE:
+                setOperator(
+                    state ? OPERATOR_EQUAL_CASE_SENSITIVE : OPERATOR_EQUAL
+                )
+                break
+            case OPERATOR_NOT_EQUAL:
+            case OPERATOR_NOT_EQUAL_CASE_SENSITIVE:
+                setOperator(
+                    state
+                        ? OPERATOR_NOT_EQUAL_CASE_SENSITIVE
+                        : OPERATOR_NOT_EQUAL
+                )
+                break
+            case OPERATOR_CONTAINS:
+            case OPERATOR_CONTAINS_CASE_SENSITIVE:
+                setOperator(
+                    state ? OPERATOR_CONTAINS_CASE_SENSITIVE : OPERATOR_CONTAINS
+                )
+                break
+            case OPERATOR_NOT_CONTAINS:
+            case OPERATOR_NOT_CONTAINS_CASE_SENSITIVE:
+                setOperator(
+                    state
+                        ? OPERATOR_NOT_CONTAINS_CASE_SENSITIVE
+                        : OPERATOR_NOT_CONTAINS
+                )
+                break
+        }
+    }
+
+    const useGenericOperator = (operator) => {
+        switch (operator) {
+            case OPERATOR_EQUAL_CASE_SENSITIVE:
+                return OPERATOR_EQUAL
+            case OPERATOR_NOT_EQUAL_CASE_SENSITIVE:
+                return OPERATOR_NOT_EQUAL
+            case OPERATOR_CONTAINS_CASE_SENSITIVE:
+                return OPERATOR_CONTAINS
+            case OPERATOR_NOT_CONTAINS_CASE_SENSITIVE:
+                return OPERATOR_NOT_CONTAINS
+            default:
+                return operator
+        }
+    }
+
     return (
         <div className={classes.container}>
             <SingleSelectField
-                selected={operator}
+                selected={useGenericOperator(operator)}
                 inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
@@ -75,7 +133,21 @@ const AlphanumericCondition = ({
                     dense
                 />
             )}
-            {allowCaseSensitive && <p>Case sensitive goes here</p>}
+            {allowCaseSensitive &&
+                ![OPERATOR_EMPTY, OPERATOR_NOT_EMPTY].includes(operator) && (
+                    <Checkbox
+                        checked={[
+                            OPERATOR_EQUAL_CASE_SENSITIVE,
+                            OPERATOR_NOT_EQUAL_CASE_SENSITIVE,
+                            OPERATOR_CONTAINS_CASE_SENSITIVE,
+                            OPERATOR_NOT_CONTAINS_CASE_SENSITIVE,
+                        ].includes(operator)}
+                        label={i18n.t('Case sensitive')}
+                        onChange={({ checked }) => toggleCaseSensitive(checked)}
+                        dense
+                        className={classes.caseSensitiveCheckbox}
+                    />
+                )}
             <Button
                 type="button"
                 small
