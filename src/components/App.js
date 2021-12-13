@@ -282,7 +282,7 @@ const App = ({
                     )}
                 </div>
             </div>
-            <CssVariables colors spacers />
+            <CssVariables colors spacers theme />
         </div>
     )
 }
