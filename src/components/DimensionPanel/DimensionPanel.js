@@ -1,49 +1,66 @@
 import { IconArrowRight16, IconFolder16 } from '@dhis2/ui'
 import cx from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { acSetUiMainSideBarExpanded } from '../../actions/ui.js'
+import {
+    acSetUiMainSideBarExpanded,
+    acSetUiRightSidebarOpen,
+} from '../../actions/ui.js'
 import { sGetUiLeftSidebarExpanded } from '../../reducers/ui.js'
 import { DimensionMenuItem } from './DimensionMenuItem.js'
 import styles from './DimensionPanel.module.css'
 
+const IDS = {
+    INPUT: 'INPUT',
+    PROGRAM: 'PROGRAM',
+    YOUR: 'YOUR',
+}
+
 const DimensionPanel = () => {
     const dispatch = useDispatch()
+    const [dimensionId, setDimensionId] = useState(null)
     const open = useSelector(sGetUiLeftSidebarExpanded)
-    const toggle = () => dispatch(acSetUiMainSideBarExpanded(!open))
-    const onClick = () => console.log('clicked')
+    const setOpen = (newOpen) => dispatch(acSetUiMainSideBarExpanded(newOpen))
+    const closeDetailsPanel = () => dispatch(acSetUiRightSidebarOpen(false))
+    const onClick = (id) => {
+        if (id === dimensionId) {
+            setDimensionId(null)
+            setOpen(false)
+        } else {
+            setDimensionId(id)
+            setOpen(true)
+            closeDetailsPanel()
+        }
+    }
 
     return (
         <div className={styles.container}>
-            <div className={styles.main} onClick={toggle}>
+            <div className={styles.main}>
                 <DimensionMenuItem
                     icon={<IconArrowRight16 />}
                     label="Input: Person"
-                    onClick={onClick}
+                    onClick={() => onClick(IDS.INPUT)}
+                    selected={dimensionId === IDS.INPUT}
                 />
                 <DimensionMenuItem
                     icon={<IconFolder16 />}
                     label="Program dimensions"
-                    onClick={onClick}
-                    selected
+                    onClick={() => onClick(IDS.PROGRAM)}
+                    selected={dimensionId === IDS.PROGRAM}
                 />
                 <DimensionMenuItem
                     icon={<IconFolder16 />}
                     label="Your dimensions"
-                    onClick={onClick}
+                    onClick={() => onClick(IDS.YOUR)}
+                    selected={dimensionId === IDS.YOUR}
                     count={5}
                 />
             </div>
             <div className={cx(styles.accessory, { [styles.hidden]: !open })}>
                 <div className={styles.accessoryInner}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    {dimensionId === IDS.INPUT && <h1>INPUT</h1>}
+                    {dimensionId === IDS.PROGRAM && <h1>PROGRAM</h1>}
+                    {dimensionId === IDS.YOUR && <h1>YOUR</h1>}
                 </div>
             </div>
         </div>

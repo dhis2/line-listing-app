@@ -14,7 +14,7 @@ import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
 import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager.js'
-import { default as InterpretationsButton } from './InterpretationsButton.js'
+import { InterpretationsButton } from './InterpretationsButton.js'
 import classes from './styles/MenuBar.module.css'
 
 const visualizationSaveMutation = {

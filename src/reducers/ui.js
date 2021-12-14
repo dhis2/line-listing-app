@@ -12,7 +12,7 @@ export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
-export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
+export const SET_UI_RIGHT_SIDEBAR_OPEN = 'SET_UI_RIGHT_SIDEBAR_OPEN'
 export const SET_UI_MAIN_SIDEBAR_EXPANDED = 'SET_UI_MAIN_SIDEBAR_EXPANDED'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
@@ -133,15 +133,15 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case TOGGLE_UI_RIGHT_SIDEBAR: {
+        case SET_UI_RIGHT_SIDEBAR_OPEN: {
             return {
                 ...state,
-                showRightSidebar: !state.showRightSidebar,
+                showRightSidebar: action.value,
                 /*
                  * Always close left sidebar when opening the right sidebar
                  * Leave left sidebar unaffected when closing the right sidebar
                  */
-                leftSidebarExpanded: !state.showRightSidebar
+                leftSidebarExpanded: action.value
                     ? false
                     : state.leftSidebarExpanded,
             }
@@ -150,6 +150,11 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 leftSidebarExpanded: action.value,
+                /*
+                 * Always close right sidebar when opening the left sidebar
+                 * Leave right sidebar unaffected when closing the left sidebar
+                 */
+                showRightSidebar: action.value ? false : state.showRightSidebar,
             }
         }
         case CLEAR_UI: {

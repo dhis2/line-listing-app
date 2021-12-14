@@ -7,7 +7,7 @@ import {
     SET_UI_OPTIONS,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
-    TOGGLE_UI_RIGHT_SIDEBAR,
+    SET_UI_RIGHT_SIDEBAR_OPEN,
     SET_UI_MAIN_SIDEBAR_EXPANDED,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
@@ -51,8 +51,9 @@ export const acClearUi = (value) => ({
     value,
 })
 
-export const acToggleUiRightSidebar = () => ({
-    type: TOGGLE_UI_RIGHT_SIDEBAR,
+export const acSetUiRightSidebarOpen = (value) => ({
+    type: SET_UI_RIGHT_SIDEBAR_OPEN,
+    value,
 })
 
 export const acSetUiMainSideBarExpanded = (value) => ({
