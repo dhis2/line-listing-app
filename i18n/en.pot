@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-10T13:38:35.393Z\n"
-"PO-Revision-Date: 2021-12-10T13:38:35.393Z\n"
+"POT-Creation-Date: 2021-12-14T13:50:18.493Z\n"
+"PO-Revision-Date: 2021-12-14T13:50:18.493Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -31,6 +31,9 @@ msgstr "is not empty / not null"
 
 msgid "Choose a condition type"
 msgstr "Choose a condition type"
+
+msgid "Case sensitive"
+msgstr "Case sensitive"
 
 msgid "Remove"
 msgstr "Remove"
@@ -86,9 +89,6 @@ msgstr "Update"
 
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
-
-msgid "Remove"
-msgstr "Remove"
 
 msgid "Plain data source"
 msgstr "Plain data source"
