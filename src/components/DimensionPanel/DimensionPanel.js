@@ -9,6 +9,7 @@ import {
 import { sGetUiLeftSidebarExpanded } from '../../reducers/ui.js'
 import { DimensionMenuItem } from './DimensionMenuItem.js'
 import styles from './DimensionPanel.module.css'
+import { InputPanel } from './InputPanel/index.js'
 
 const IDS = {
     INPUT: 'INPUT',
@@ -18,8 +19,9 @@ const IDS = {
 
 const DimensionPanel = () => {
     const dispatch = useDispatch()
-    const [dimensionId, setDimensionId] = useState(null)
     const open = useSelector(sGetUiLeftSidebarExpanded)
+    const [dimensionId, setDimensionId] = useState(null)
+    const [selectedInputType, setSelectedInputType] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiMainSideBarExpanded(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiRightSidebarOpen(false))
     const onClick = (id) => {
@@ -58,7 +60,12 @@ const DimensionPanel = () => {
             </div>
             <div className={cx(styles.accessory, { [styles.hidden]: !open })}>
                 <div className={styles.accessoryInner}>
-                    {dimensionId === IDS.INPUT && <h1>INPUT</h1>}
+                    {dimensionId === IDS.INPUT && (
+                        <InputPanel
+                            selectedInputType={selectedInputType}
+                            setSelectedInputType={setSelectedInputType}
+                        />
+                    )}
                     {dimensionId === IDS.PROGRAM && <h1>PROGRAM</h1>}
                     {dimensionId === IDS.YOUR && <h1>YOUR</h1>}
                 </div>
