@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import { IconArrowRight16, IconFolder16 } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useState } from 'react'
@@ -40,7 +41,14 @@ const DimensionPanel = () => {
             <div className={styles.main}>
                 <DimensionMenuItem
                     icon={<IconArrowRight16 />}
-                    label="Input: Person"
+                    label={
+                        selectedInputType
+                            ? i18n.t('Input: {{selectedInputType}}', {
+                                  selectedInputType: selectedInputType.label,
+                                  nsSeparator: '^^',
+                              })
+                            : i18n.t('Choose an input')
+                    }
                     onClick={() => onClick(IDS.INPUT)}
                     selected={dimensionId === IDS.INPUT}
                 />

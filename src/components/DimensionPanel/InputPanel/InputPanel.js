@@ -16,14 +16,24 @@ const InputPanel = ({ selectedInputType, setSelectedInputType }) => (
             description={i18n.t(
                 'Events are single registrations or incidents in a program.'
             )}
-            onClick={() => setSelectedInputType(INPUT_TYPES.EVENT)}
-            selected={selectedInputType === INPUT_TYPES.EVENT}
+            onClick={() =>
+                setSelectedInputType({
+                    id: INPUT_TYPES.EVENT,
+                    label: i18n.t('Event'),
+                })
+            }
+            selected={selectedInputType?.id === INPUT_TYPES.EVENT}
         />
         <InputOption
             header={i18n.t('Enrollment')}
             description={i18n.t('Programs track enrollments across time.')}
-            onClick={() => setSelectedInputType(INPUT_TYPES.ENROLLMENT)}
-            selected={selectedInputType === INPUT_TYPES.ENROLLMENT}
+            onClick={() =>
+                setSelectedInputType({
+                    id: INPUT_TYPES.ENROLLMENT,
+                    label: i18n.t('Enrollment'),
+                })
+            }
+            selected={selectedInputType?.id === INPUT_TYPES.ENROLLMENT}
         />
     </div>
 )
