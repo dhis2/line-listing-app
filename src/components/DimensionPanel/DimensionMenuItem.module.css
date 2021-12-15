@@ -16,6 +16,9 @@
     outline: 3px solid var(--theme-focus);
     outline-offset: -3px;
 }
+.container:focus:not(:focus-visible) {
+    outline: none;
+}
 .container.selected {
     background: linear-gradient(180deg, #fafbfc 0%, #f3f5f7 100%);
 }
