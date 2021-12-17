@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-14T13:50:18.493Z\n"
-"PO-Revision-Date: 2021-12-14T13:50:18.493Z\n"
+"POT-Creation-Date: 2021-12-17T09:28:10.425Z\n"
+"PO-Revision-Date: 2021-12-17T09:28:10.425Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -37,6 +37,15 @@ msgstr "Case sensitive"
 
 msgid "Remove"
 msgstr "Remove"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Not answered"
+msgstr "Not answered"
 
 msgid "and"
 msgstr "and"
