@@ -11,6 +11,7 @@ import React from 'react'
 import classes from './styles/Condition.module.css'
 
 const CASE_SENSITIVE_PREFIX = 'I'
+const NOT_PREFIX = '!'
 const NULL_VALUE = 'NV'
 export const OPERATOR_EQUAL = 'EQ'
 export const OPERATOR_NOT_EQUAL = '!EQ'
@@ -28,8 +29,46 @@ const operators = {
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
 }
 
-const prefixOperator = (operator, isCaseSensitive) =>
-    isCaseSensitive ? `${CASE_SENSITIVE_PREFIX}${operator}` : operator
+const prefixOperator = (operator, isCaseSensitive) => {
+    if (!isCaseSensitive) {
+        // e.g. LIKE -> LIKE
+        return operator
+    } else {
+        if (operator[0] === NOT_PREFIX) {
+            // e.g. !LIKE -> !ILIKE
+            return `${NOT_PREFIX}${CASE_SENSITIVE_PREFIX}${operator.substring(
+                1
+            )}`
+        } else {
+            // e.g. LIKE -> ILIKE
+            return `${CASE_SENSITIVE_PREFIX}${operator}`
+        }
+    }
+}
+
+const unprefixOperator = (operator) => {
+    const isCaseSensitive = checkIsCaseSensitive(operator)
+    if (!isCaseSensitive) {
+        // e.g. LIKE -> LIKE, !LIKE -> !LIKE
+        return operator
+    } else {
+        if (operator[0] === NOT_PREFIX) {
+            // e.g. !ILIKE -> !LIKE
+            return `${NOT_PREFIX}${operator.substring(2)}`
+        } else {
+            // e.g. ILIKE -> LIKE
+            return `${operator.substring(1)}`
+        }
+    }
+}
+
+const checkIsCaseSensitive = (operator) => {
+    if (operator[0] === NOT_PREFIX) {
+        return operator[1] === CASE_SENSITIVE_PREFIX
+    } else {
+        return operator[0] === CASE_SENSITIVE_PREFIX
+    }
+}
 
 const AlphanumericCondition = ({
     condition,
@@ -43,8 +82,8 @@ const AlphanumericCondition = ({
         operator = condition
     } else {
         const parts = condition.split(':')
-        isCaseSensitive = parts[0][0] === CASE_SENSITIVE_PREFIX
-        operator = isCaseSensitive ? parts[0].substring(1) : parts[0]
+        isCaseSensitive = checkIsCaseSensitive(parts[0])
+        operator = unprefixOperator(parts[0])
         value = parts[1]
     }
 
