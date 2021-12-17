@@ -207,9 +207,7 @@ const NumericCondition = ({
     const legendSet =
         availableLegendSets.find((item) => item.id === legendSetId) || {}
 
-    const setValue = (input) => {
-        onChange(`${operator}:${input || ''}`)
-    }
+    const setValue = (input) => onChange(`${operator}:${input || ''}`)
 
     return (
         <div className={classes.container}>

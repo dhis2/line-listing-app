@@ -1,3 +1,7 @@
 .container {
     display: flex;
 }
+
+.checkboxOption {
+    margin-right: var(--spacers-dp16);
+}

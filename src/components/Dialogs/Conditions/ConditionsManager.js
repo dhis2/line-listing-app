@@ -15,6 +15,7 @@ import {
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
+import BooleanCondition from './BooleanCondition.js'
 import NumericCondition, { OPERATOR_RANGE_SET } from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
@@ -25,6 +26,7 @@ const DIMENSION_TYPE_INTEGER = 'INTEGER'
 const DIMENSION_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
 const DIMENSION_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
 const DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
+const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
 
 const NUMERIC_TYPES = [
     DIMENSION_TYPE_NUMBER,
@@ -36,6 +38,8 @@ const NUMERIC_TYPES = [
     DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE,
 ]
 
+const SINGLETON_TYPES = [DIMENSION_TYPE_BOOLEAN]
+
 const EMPTY_CONDITION = ''
 
 const ConditionsManager = ({
@@ -46,9 +50,13 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
+    const dimensionType = DIMENSION_TYPE_BOOLEAN // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
             parseConditionsStringToArray(conditions.condition)) ||
+            (!conditions.condition?.length &&
+                SINGLETON_TYPES.includes(dimensionType) && [EMPTY_CONDITION]) ||
             (conditions.legendSet ? [EMPTY_CONDITION] : [])
     )
 
@@ -104,8 +112,6 @@ const ConditionsManager = ({
         onClose()
     }
 
-    const dimensionType = DIMENSION_TYPE_NUMBER // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
-
     const renderConditionsContent = () => {
         const getDividerContent = (index) =>
             conditionsList.length > 1 &&
@@ -147,6 +153,18 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
+            case DIMENSION_TYPE_BOOLEAN: {
+                return (conditionsList.length && conditionsList).map(
+                    (condition, index) => (
+                        <div key={index}>
+                            <BooleanCondition
+                                condition={condition}
+                                onChange={(value) => setCondition(index, value)}
+                            />
+                        </div>
+                    )
+                )
+            }
         }
     }
 
@@ -173,7 +191,9 @@ const ConditionsManager = ({
                 </p>
             </div>
             <div className={classes.mainSection}>
-                {!conditionsList.length && !selectedLegendSet ? (
+                {!conditionsList.length &&
+                !selectedLegendSet &&
+                !SINGLETON_TYPES.includes(dimensionType) ? (
                     <p className={classes.paragraph}>
                         <span className={classes.infoIcon}>
                             <IconInfo16 />
@@ -185,37 +205,43 @@ const ConditionsManager = ({
                 ) : (
                     renderConditionsContent()
                 )}
-                <Tooltip
-                    content={i18n.t(
-                        'Preset options can’t be combined with other conditions'
-                    )}
-                    placement="bottom"
-                    closeDelay={200}
-                >
-                    {({ onMouseOver, onMouseOut, ref }) => (
-                        <span
-                            ref={ref}
-                            onMouseOver={() =>
-                                disableAddButton && onMouseOver()
-                            }
-                            onMouseOut={() => disableAddButton && onMouseOut()}
-                            className={classes.tooltipReference}
-                        >
-                            <Button
-                                type="button"
-                                small
-                                onClick={addCondition}
-                                dataTest={'conditions-manager-add-condition'}
-                                className={classes.addConditionButton}
-                                disabled={disableAddButton}
+                {!SINGLETON_TYPES.includes(dimensionType) && (
+                    <Tooltip
+                        content={i18n.t(
+                            'Preset options can’t be combined with other conditions'
+                        )}
+                        placement="bottom"
+                        closeDelay={200}
+                    >
+                        {({ onMouseOver, onMouseOut, ref }) => (
+                            <span
+                                ref={ref}
+                                onMouseOver={() =>
+                                    disableAddButton && onMouseOver()
+                                }
+                                onMouseOut={() =>
+                                    disableAddButton && onMouseOut()
+                                }
+                                className={classes.tooltipReference}
                             >
-                                {conditionsList.length
-                                    ? i18n.t('Add another condition')
-                                    : i18n.t('Add a condition')}
-                            </Button>
-                        </span>
-                    )}
-                </Tooltip>
+                                <Button
+                                    type="button"
+                                    small
+                                    onClick={addCondition}
+                                    dataTest={
+                                        'conditions-manager-add-condition'
+                                    }
+                                    className={classes.addConditionButton}
+                                    disabled={disableAddButton}
+                                >
+                                    {conditionsList.length
+                                        ? i18n.t('Add another condition')
+                                        : i18n.t('Add a condition')}
+                                </Button>
+                            </span>
+                        )}
+                    </Tooltip>
+                )}
             </div>
         </DimensionModal>
     ) : null
