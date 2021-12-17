@@ -10,6 +10,7 @@ const TRUE_VALUE = '1'
 const FALSE_VALUE = '0'
 
 const BooleanCondition = ({ condition, onChange }) => {
+    // TODO: param for hiding FALSE for the TRUE_ONLY type... or split this to a separate component?
     const parts = condition.split(':')
     const values = parts[1] || ''
 
