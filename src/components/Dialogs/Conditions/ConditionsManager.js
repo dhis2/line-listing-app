@@ -35,6 +35,7 @@ const DIMENSION_TYPE_EMAIL = 'EMAIL'
 const DIMENSION_TYPE_USERNAME = 'USERNAME'
 const DIMENSION_TYPE_URL = 'URL'
 const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
+const DIMENSION_TYPE_TRUE_ONLY = 'TRUE_ONLY'
 
 const NUMERIC_TYPES = [
     DIMENSION_TYPE_NUMBER,
@@ -46,7 +47,7 @@ const NUMERIC_TYPES = [
     DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE,
 ]
 
-const SINGLETON_TYPES = [DIMENSION_TYPE_BOOLEAN]
+const SINGLETON_TYPES = [DIMENSION_TYPE_BOOLEAN, DIMENSION_TYPE_TRUE_ONLY]
 
 const EMPTY_CONDITION = ''
 
@@ -58,7 +59,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const dimensionType = DIMENSION_TYPE_TEXT // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = DIMENSION_TYPE_TRUE_ONLY // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
@@ -182,13 +183,16 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_BOOLEAN: {
+            case DIMENSION_TYPE_BOOLEAN:
+            case DIMENSION_TYPE_TRUE_ONLY: {
+                const showFalseOption = dimensionType === DIMENSION_TYPE_BOOLEAN
                 return (conditionsList.length && conditionsList).map(
                     (condition, index) => (
                         <div key={index}>
                             <BooleanCondition
                                 condition={condition}
                                 onChange={(value) => setCondition(index, value)}
+                                showFalseOption={showFalseOption}
                             />
                         </div>
                     )
