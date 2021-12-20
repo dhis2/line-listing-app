@@ -23,7 +23,7 @@ export const SET_UI_INPUT = 'SET_UI_INPUT'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
-    input: null,
+    input: {},
     layout: {
         columns: [],
         filters: [],
@@ -36,7 +36,7 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
-    input: null,
+    input: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -228,6 +228,7 @@ export default (state = EMPTY_UI, action) => {
 
 export const sGetUi = (state) => state.ui
 export const sGetUiInput = (state) => sGetUi(state).input
+export const sGetUiInputType = (state) => sGetUi(state).input.type
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension

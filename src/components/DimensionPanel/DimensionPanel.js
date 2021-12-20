@@ -7,7 +7,7 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { sGetUiInput, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
+import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
 import { DimensionMenuItem } from './DimensionMenuItem.js'
 import styles from './DimensionPanel.module.css'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
@@ -21,7 +21,7 @@ const IDS = {
 const DimensionPanel = () => {
     const dispatch = useDispatch()
     const open = useSelector(sGetUiShowAccessoryPanel)
-    const selectedInput = useSelector(sGetUiInput)
+    const selectedInputType = useSelector(sGetUiInputType)
     const [dimensionId, setDimensionId] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
@@ -42,9 +42,9 @@ const DimensionPanel = () => {
                 <DimensionMenuItem
                     icon={<IconArrowRight16 />}
                     label={
-                        selectedInput
+                        selectedInputType
                             ? i18n.t('Input: {{type}}', {
-                                  type: getLabelForInputType(selectedInput),
+                                  type: getLabelForInputType(selectedInputType),
                                   nsSeparator: '^^',
                               })
                             : i18n.t('Choose an input')

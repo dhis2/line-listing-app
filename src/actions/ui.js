@@ -19,7 +19,8 @@ import {
 
 export const acSetUiInput = (value) => ({
     type: SET_UI_INPUT,
-    value,
+    // Store input as an object but allow passing a string for simple input types
+    value: typeof value === 'string' ? { type: value } : value,
 })
 
 export const acSetUiOptions = (value) => ({
