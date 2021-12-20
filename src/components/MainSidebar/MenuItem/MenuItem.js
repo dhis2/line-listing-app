@@ -2,9 +2,9 @@ import { IconChevronRight16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styles from './DimensionMenuItem.module.css'
+import styles from './MenuItem.module.css'
 
-const DimensionMenuItem = ({ icon, label, count, onClick, selected }) => (
+const MenuItem = ({ icon, label, count, onClick, selected }) => (
     <div
         className={cx(styles.container, { [styles.selected]: selected })}
         onClick={onClick}
@@ -19,7 +19,7 @@ const DimensionMenuItem = ({ icon, label, count, onClick, selected }) => (
     </div>
 )
 
-DimensionMenuItem.propTypes = {
+MenuItem.propTypes = {
     icon: PropTypes.node.isRequired,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
@@ -27,4 +27,4 @@ DimensionMenuItem.propTypes = {
     selected: PropTypes.bool,
 }
 
-export { DimensionMenuItem }
+export { MenuItem }

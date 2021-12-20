@@ -8,9 +8,9 @@ import {
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
 import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
-import { DimensionMenuItem } from './DimensionMenuItem.js'
-import styles from './DimensionPanel.module.css'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
+import styles from './MainSidebar.module.css'
+import { MenuItem } from './MenuItem/index.js'
 
 const IDS = {
     INPUT: 'INPUT',
@@ -18,7 +18,7 @@ const IDS = {
     YOUR: 'YOUR',
 }
 
-const DimensionPanel = () => {
+const MainSidebar = () => {
     const dispatch = useDispatch()
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
@@ -39,7 +39,7 @@ const DimensionPanel = () => {
     return (
         <div className={styles.container}>
             <div className={styles.main}>
-                <DimensionMenuItem
+                <MenuItem
                     icon={<IconArrowRight16 />}
                     label={
                         selectedInputType
@@ -52,13 +52,13 @@ const DimensionPanel = () => {
                     onClick={() => onClick(IDS.INPUT)}
                     selected={dimensionId === IDS.INPUT}
                 />
-                <DimensionMenuItem
+                <MenuItem
                     icon={<IconFolder16 />}
                     label="Program dimensions"
                     onClick={() => onClick(IDS.PROGRAM)}
                     selected={dimensionId === IDS.PROGRAM}
                 />
-                <DimensionMenuItem
+                <MenuItem
                     icon={<IconFolder16 />}
                     label="Your dimensions"
                     onClick={() => onClick(IDS.YOUR)}
@@ -77,4 +77,4 @@ const DimensionPanel = () => {
     )
 }
 
-export { DimensionPanel }
+export { MainSidebar }

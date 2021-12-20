@@ -28,11 +28,11 @@ import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
 import { default as DialogManager } from './Dialogs/DialogManager.js'
-import { DimensionPanel } from './DimensionPanel/index.js'
 import DndContext from './DndContext.js'
 import { InterpretationModal } from './InterpretationModal/index.js'
 import Layout from './Layout/Layout.js'
 import LoadingMask from './LoadingMask/LoadingMask.js'
+import { MainSidebar } from './MainSidebar/index.js'
 import { default as TitleBar } from './TitleBar/TitleBar.js'
 import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
@@ -215,7 +215,7 @@ const App = ({
                 )}
             >
                 <DndContext>
-                    <DimensionPanel />
+                    <MainSidebar />
                     <DialogManager />
                     <div
                         className={cx(
