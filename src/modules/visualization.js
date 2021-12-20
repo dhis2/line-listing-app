@@ -4,8 +4,8 @@ import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import { default as options } from './options.js'
 
-export const VIS_TYPE_PIVOT_TABLE = 'VIS_TYPE_PIVOT_TABLE'
-export const VIS_TYPE_LINE_LIST = 'VIS_TYPE_LINE_LIST'
+export const VIS_TYPE_PIVOT_TABLE = 'PIVOT_TABLE'
+export const VIS_TYPE_LINE_LIST = 'LINE_LIST'
 
 export const visTypeMap = {
     [VIS_TYPE_LINE_LIST]: {
