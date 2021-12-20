@@ -26,7 +26,7 @@ const MainSidebar = () => {
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
-        if (id === dimensionId) {
+        if (open && id === dimensionId) {
             setDimensionId(null)
             setOpen(false)
         } else {
@@ -50,19 +50,19 @@ const MainSidebar = () => {
                             : i18n.t('Choose an input')
                     }
                     onClick={() => onClick(IDS.INPUT)}
-                    selected={dimensionId === IDS.INPUT}
+                    selected={open && dimensionId === IDS.INPUT}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label="Program dimensions"
                     onClick={() => onClick(IDS.PROGRAM)}
-                    selected={dimensionId === IDS.PROGRAM}
+                    selected={open && dimensionId === IDS.PROGRAM}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label="Your dimensions"
                     onClick={() => onClick(IDS.YOUR)}
-                    selected={dimensionId === IDS.YOUR}
+                    selected={open && dimensionId === IDS.YOUR}
                     count={5}
                 />
             </div>
