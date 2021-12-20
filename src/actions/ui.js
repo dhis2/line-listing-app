@@ -7,8 +7,8 @@ import {
     SET_UI_OPTIONS,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
-    SET_UI_RIGHT_SIDEBAR_OPEN,
-    SET_UI_MAIN_SIDEBAR_EXPANDED,
+    SET_UI_DETAILS_PANEL_OPEN,
+    SET_UI_ACCESSORY_PANEL_OPEN,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
@@ -51,13 +51,13 @@ export const acClearUi = (value) => ({
     value,
 })
 
-export const acSetUiRightSidebarOpen = (value) => ({
-    type: SET_UI_RIGHT_SIDEBAR_OPEN,
+export const acSetUiDetailsPanelOpen = (value) => ({
+    type: SET_UI_DETAILS_PANEL_OPEN,
     value,
 })
 
-export const acSetUiMainSideBarExpanded = (value) => ({
-    type: SET_UI_MAIN_SIDEBAR_EXPANDED,
+export const acSetUiAccessoryPanelOpen = (value) => ({
+    type: SET_UI_ACCESSORY_PANEL_OPEN,
     value,
 })
 

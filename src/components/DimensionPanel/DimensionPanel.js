@@ -4,10 +4,10 @@ import cx from 'classnames'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-    acSetUiMainSideBarExpanded,
-    acSetUiRightSidebarOpen,
+    acSetUiAccessoryPanelOpen,
+    acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { sGetUiLeftSidebarExpanded } from '../../reducers/ui.js'
+import { sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
 import { DimensionMenuItem } from './DimensionMenuItem.js'
 import styles from './DimensionPanel.module.css'
 import { InputPanel } from './InputPanel/index.js'
@@ -20,11 +20,11 @@ const IDS = {
 
 const DimensionPanel = () => {
     const dispatch = useDispatch()
-    const open = useSelector(sGetUiLeftSidebarExpanded)
+    const open = useSelector(sGetUiShowAccessoryPanel)
     const [dimensionId, setDimensionId] = useState(null)
     const [selectedInputType, setSelectedInputType] = useState(null)
-    const setOpen = (newOpen) => dispatch(acSetUiMainSideBarExpanded(newOpen))
-    const closeDetailsPanel = () => dispatch(acSetUiRightSidebarOpen(false))
+    const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
+    const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
         if (id === dimensionId) {
             setDimensionId(null)

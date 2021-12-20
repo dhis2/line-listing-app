@@ -12,8 +12,8 @@ export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
-export const SET_UI_RIGHT_SIDEBAR_OPEN = 'SET_UI_RIGHT_SIDEBAR_OPEN'
-export const SET_UI_MAIN_SIDEBAR_EXPANDED = 'SET_UI_MAIN_SIDEBAR_EXPANDED'
+export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
+export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
@@ -43,8 +43,8 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_ORGUNIT]: [],
     },
     options: getOptionsForUi(),
-    leftSidebarExpanded: false,
-    showRightSidebar: false,
+    showAccessoryPanel: false,
+    showDetailsPanel: false,
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -133,28 +133,28 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case SET_UI_RIGHT_SIDEBAR_OPEN: {
+        case SET_UI_DETAILS_PANEL_OPEN: {
             return {
                 ...state,
-                showRightSidebar: action.value,
+                showDetailsPanel: action.value,
                 /*
                  * Always close left sidebar when opening the right sidebar
                  * Leave left sidebar unaffected when closing the right sidebar
                  */
-                leftSidebarExpanded: action.value
+                showAccessoryPanel: action.value
                     ? false
-                    : state.leftSidebarExpanded,
+                    : state.showAccessoryPanel,
             }
         }
-        case SET_UI_MAIN_SIDEBAR_EXPANDED: {
+        case SET_UI_ACCESSORY_PANEL_OPEN: {
             return {
                 ...state,
-                leftSidebarExpanded: action.value,
+                showAccessoryPanel: action.value,
                 /*
                  * Always close right sidebar when opening the left sidebar
                  * Leave right sidebar unaffected when closing the left sidebar
                  */
-                showRightSidebar: action.value ? false : state.showRightSidebar,
+                showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
         case CLEAR_UI: {
@@ -222,9 +222,9 @@ export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
-export const sGetUiShowRightSidebar = (state) => sGetUi(state).showRightSidebar
-export const sGetUiLeftSidebarExpanded = (state) =>
-    sGetUi(state).leftSidebarExpanded
+export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
+export const sGetUiShowAccessoryPanel = (state) =>
+    sGetUi(state).showAccessoryPanel
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog

@@ -24,7 +24,7 @@ import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { sGetCurrent } from '../reducers/current.js'
 import { sGetIsVisualizationLoading } from '../reducers/loader.js'
-import { sGetUiShowRightSidebar } from '../reducers/ui.js'
+import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
 import { default as DialogManager } from './Dialogs/DialogManager.js'
@@ -74,7 +74,7 @@ const App = ({
     setVisualizationLoading,
     setUiFromVisualization,
     setUser,
-    showRightSidebar,
+    showDetailsPanel,
     userSettings,
 }) => {
     const [previousLocation, setPreviousLocation] = useState(null)
@@ -272,10 +272,10 @@ const App = ({
                 </DndContext>
                 <div
                     className={cx(classes.mainRight, {
-                        [classes.hidden]: !showRightSidebar,
+                        [classes.hidden]: !showDetailsPanel,
                     })}
                 >
-                    {showRightSidebar && current && (
+                    {showDetailsPanel && current && (
                         <DetailsPanel
                             interpretationsUnitRef={interpretationsUnitRef}
                         />
@@ -290,7 +290,7 @@ const App = ({
 const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
-    showRightSidebar: sGetUiShowRightSidebar(state),
+    showDetailsPanel: sGetUiShowDetailsPanel(state),
 })
 
 const mapDispatchToProps = {
@@ -324,7 +324,7 @@ App.propTypes = {
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
-    showRightSidebar: PropTypes.bool,
+    showDetailsPanel: PropTypes.bool,
     userSettings: PropTypes.object,
 }
 
