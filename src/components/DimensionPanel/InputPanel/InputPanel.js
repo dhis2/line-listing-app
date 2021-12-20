@@ -1,6 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
-import PropTypes from 'prop-types'
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { acSetUiInput } from '../../../actions/ui.js'
+import { sGetUiInput } from '../../../reducers/ui.js'
 import { InputOption } from './InputOption.js'
 import styles from './InputPanel.module.css'
 
@@ -8,39 +10,40 @@ const INPUT_TYPES = {
     EVENT: 'EVENT',
     ENROLLMENT: 'ENROLLMENT',
 }
-
-const InputPanel = ({ selectedInputType, setSelectedInputType }) => (
-    <div className={styles.container}>
-        <InputOption
-            header={i18n.t('Event')}
-            description={i18n.t(
-                'Events are single registrations or incidents in a program.'
-            )}
-            onClick={() =>
-                setSelectedInputType({
-                    id: INPUT_TYPES.EVENT,
-                    label: i18n.t('Event'),
-                })
-            }
-            selected={selectedInputType?.id === INPUT_TYPES.EVENT}
-        />
-        <InputOption
-            header={i18n.t('Enrollment')}
-            description={i18n.t('Programs track enrollments across time.')}
-            onClick={() =>
-                setSelectedInputType({
-                    id: INPUT_TYPES.ENROLLMENT,
-                    label: i18n.t('Enrollment'),
-                })
-            }
-            selected={selectedInputType?.id === INPUT_TYPES.ENROLLMENT}
-        />
-    </div>
-)
-
-InputPanel.propTypes = {
-    selectedInputType: PropTypes.string,
-    setSelectedInputType: PropTypes.func,
+const getLabelForInputType = (type) => {
+    switch (type) {
+        case INPUT_TYPES.EVENT:
+            return i18n.t('Event')
+        case INPUT_TYPES.ENROLLMENT:
+            return i18n.t('Enrollment')
+        default:
+            throw new Error('No input type specified')
+    }
 }
 
-export { InputPanel, INPUT_TYPES }
+const InputPanel = () => {
+    const selectedInput = useSelector(sGetUiInput)
+    const dispatch = useDispatch()
+    const setSelectedInput = (input) => dispatch(acSetUiInput(input))
+
+    return (
+        <div className={styles.container}>
+            <InputOption
+                header={getLabelForInputType(INPUT_TYPES.EVENT)}
+                description={i18n.t(
+                    'Events are single registrations or incidents in a program.'
+                )}
+                onClick={() => setSelectedInput(INPUT_TYPES.EVENT)}
+                selected={selectedInput === INPUT_TYPES.EVENT}
+            />
+            <InputOption
+                header={getLabelForInputType(INPUT_TYPES.ENROLLMENT)}
+                description={i18n.t('Programs track enrollments across time.')}
+                onClick={() => setSelectedInput(INPUT_TYPES.ENROLLMENT)}
+                selected={selectedInput === INPUT_TYPES.ENROLLMENT}
+            />
+        </div>
+    )
+}
+
+export { InputPanel, getLabelForInputType }

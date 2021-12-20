@@ -19,9 +19,11 @@ export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+export const SET_UI_INPUT = 'SET_UI_INPUT'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
+    input: null,
     layout: {
         columns: [],
         filters: [],
@@ -34,6 +36,7 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
+    input: null,
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -76,6 +79,12 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_INPUT: {
+            return {
+                ...state,
+                input: action.value,
+            }
+        }
         case SET_UI_OPTIONS: {
             return {
                 ...state,
@@ -218,6 +227,7 @@ export default (state = EMPTY_UI, action) => {
 // Selectors
 
 export const sGetUi = (state) => state.ui
+export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension

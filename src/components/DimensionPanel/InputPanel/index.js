@@ -1,1 +1,1 @@
-export { InputPanel } from './InputPanel.js'
+export { InputPanel, getLabelForInputType } from './InputPanel.js'
