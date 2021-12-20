@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.caseSensitiveCheckbox {
+    margin-right: var(--spacers-dp8);
+}
+
 .checkboxOption {
     margin-right: var(--spacers-dp16);
 }

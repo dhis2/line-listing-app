@@ -15,6 +15,7 @@ import {
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
+import AlphanumericCondition from './AlphanumericCondition.js'
 import BooleanCondition from './BooleanCondition.js'
 import NumericCondition, { OPERATOR_RANGE_SET } from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
@@ -26,6 +27,13 @@ const DIMENSION_TYPE_INTEGER = 'INTEGER'
 const DIMENSION_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
 const DIMENSION_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
 const DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
+const DIMENSION_TYPE_TEXT = 'TEXT'
+const DIMENSION_TYPE_LONG_TEXT = 'LONG_TEXT'
+const DIMENSION_TYPE_LETTER = 'LETTER'
+const DIMENSION_TYPE_PHONE_NUMBER = 'PHONE_NUMBER'
+const DIMENSION_TYPE_EMAIL = 'EMAIL'
+const DIMENSION_TYPE_USERNAME = 'USERNAME'
+const DIMENSION_TYPE_URL = 'URL'
 const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
 
 const NUMERIC_TYPES = [
@@ -50,7 +58,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const dimensionType = DIMENSION_TYPE_BOOLEAN // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = DIMENSION_TYPE_TEXT // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
@@ -82,13 +90,12 @@ const ConditionsManager = ({
         }
     }
 
-    const setCondition = (conditionIndex, value) => {
+    const setCondition = (conditionIndex, value) =>
         setConditionsList(
             conditionsList.map((condition, index) =>
                 index === conditionIndex ? value : condition
             )
         )
-    }
 
     const storeConditions = () =>
         setConditionsByDimension(
@@ -119,6 +126,8 @@ const ConditionsManager = ({
                 <span className={classes.separator}>{i18n.t('and')}</span>
             )
 
+        // TODO: DIMENSION_TYPE_TEXT + optionSet -> OptionSetCondition.js
+
         switch (dimensionType) {
             case DIMENSION_TYPE_NUMBER:
             case DIMENSION_TYPE_UNIT_INTERVAL:
@@ -138,7 +147,6 @@ const ConditionsManager = ({
                             condition={condition}
                             onChange={(value) => setCondition(index, value)}
                             onRemove={() => removeCondition(index)}
-                            dimensionId={dimension.id}
                             numberOfConditions={
                                 conditionsList.length ||
                                 (selectedLegendSet ? 1 : 0)
@@ -148,6 +156,27 @@ const ConditionsManager = ({
                                 setSelectedLegendSet(value)
                             }
                             useDecimalSteps={useDecimalSteps}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case DIMENSION_TYPE_TEXT:
+            case DIMENSION_TYPE_LONG_TEXT:
+            case DIMENSION_TYPE_LETTER:
+            case DIMENSION_TYPE_PHONE_NUMBER:
+            case DIMENSION_TYPE_EMAIL:
+            case DIMENSION_TYPE_USERNAME:
+            case DIMENSION_TYPE_URL: {
+                const allowCaseSensitive =
+                    dimensionType !== DIMENSION_TYPE_PHONE_NUMBER
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <AlphanumericCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                            allowCaseSensitive={allowCaseSensitive}
                         />
                         {getDividerContent(index)}
                     </div>
