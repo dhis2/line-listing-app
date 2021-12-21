@@ -17,7 +17,7 @@ import {
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
 import AlphanumericCondition from './AlphanumericCondition.js'
-import BooleanCondition from './BooleanCondition.js'
+import { BooleanCondition, TrueOnlyCondition } from './BooleanCondition.js'
 import {
     DateCondition,
     DateTimeCondition,
@@ -192,16 +192,25 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_BOOLEAN:
-            case DIMENSION_TYPE_TRUE_ONLY: {
-                const showFalseOption = dimensionType === DIMENSION_TYPE_BOOLEAN
+            case DIMENSION_TYPE_BOOLEAN: {
                 return (conditionsList.length && conditionsList).map(
                     (condition, index) => (
                         <div key={index}>
                             <BooleanCondition
                                 condition={condition}
                                 onChange={(value) => setCondition(index, value)}
-                                showFalseOption={showFalseOption}
+                            />
+                        </div>
+                    )
+                )
+            }
+            case DIMENSION_TYPE_TRUE_ONLY: {
+                return (conditionsList.length && conditionsList).map(
+                    (condition, index) => (
+                        <div key={index}>
+                            <TrueOnlyCondition
+                                condition={condition}
+                                onChange={(value) => setCondition(index, value)}
                             />
                         </div>
                     )

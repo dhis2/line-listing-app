@@ -9,7 +9,7 @@ const NULL_VALUE = 'NV'
 const TRUE_VALUE = '1'
 const FALSE_VALUE = '0'
 
-const BooleanCondition = ({ condition, onChange, showFalseOption }) => {
+const BaseCondition = ({ condition, onChange, showFalseOption }) => {
     const parts = condition.split(':')
     const values = parts[1] || ''
 
@@ -61,10 +61,14 @@ const BooleanCondition = ({ condition, onChange, showFalseOption }) => {
     )
 }
 
-BooleanCondition.propTypes = {
+BaseCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     showFalseOption: PropTypes.boolean,
 }
 
-export default BooleanCondition
+export const BooleanCondition = (props) => (
+    <BaseCondition showFalseOption={true} {...props} />
+)
+
+export const TrueOnlyCondition = (props) => <BaseCondition {...props} />
