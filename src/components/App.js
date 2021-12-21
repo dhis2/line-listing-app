@@ -160,7 +160,7 @@ const App = ({
         const onMount = async () => {
             await addSettings(userSettings)
             setUser(d2.currentUser)
-            await setLegendSets()
+            await setLegendSets() // TODO: Only fetch this on-demand, rather than on app load!
             await setDimensions()
 
             setInitMetadata()
