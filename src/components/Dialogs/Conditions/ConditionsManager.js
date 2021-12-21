@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { tSetUiConditionsByDimension } from '../../../actions/ui.js'
 import {
+    OPERATOR_RANGE_SET,
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
@@ -17,7 +18,8 @@ import {
 import DimensionModal from '../DimensionModal.js'
 import AlphanumericCondition from './AlphanumericCondition.js'
 import BooleanCondition from './BooleanCondition.js'
-import NumericCondition, { OPERATOR_RANGE_SET } from './NumericCondition.js'
+import DateCondition from './DateCondition.js'
+import NumericCondition from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const DIMENSION_TYPE_NUMBER = 'NUMBER'
@@ -36,6 +38,7 @@ const DIMENSION_TYPE_USERNAME = 'USERNAME'
 const DIMENSION_TYPE_URL = 'URL'
 const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
 const DIMENSION_TYPE_TRUE_ONLY = 'TRUE_ONLY'
+const DIMENSION_TYPE_DATE = 'DATE'
 
 const NUMERIC_TYPES = [
     DIMENSION_TYPE_NUMBER,
@@ -59,7 +62,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const dimensionType = DIMENSION_TYPE_TRUE_ONLY // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = DIMENSION_TYPE_DATE // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
@@ -197,6 +200,18 @@ const ConditionsManager = ({
                         </div>
                     )
                 )
+            }
+            case DIMENSION_TYPE_DATE: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <DateCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
             }
         }
     }
