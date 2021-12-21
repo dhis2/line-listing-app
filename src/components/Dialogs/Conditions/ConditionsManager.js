@@ -18,7 +18,11 @@ import {
 import DimensionModal from '../DimensionModal.js'
 import AlphanumericCondition from './AlphanumericCondition.js'
 import BooleanCondition from './BooleanCondition.js'
-import DateCondition from './DateCondition.js'
+import {
+    DateCondition,
+    DateTimeCondition,
+    TimeCondition,
+} from './DateCondition.js'
 import NumericCondition from './NumericCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
@@ -39,6 +43,8 @@ const DIMENSION_TYPE_URL = 'URL'
 const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
 const DIMENSION_TYPE_TRUE_ONLY = 'TRUE_ONLY'
 const DIMENSION_TYPE_DATE = 'DATE'
+const DIMENSION_TYPE_TIME = 'TIME'
+const DIMENSION_TYPE_DATETIME = 'DATETIME'
 
 const NUMERIC_TYPES = [
     DIMENSION_TYPE_NUMBER,
@@ -62,7 +68,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const dimensionType = DIMENSION_TYPE_DATE // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = DIMENSION_TYPE_TIME // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
@@ -205,6 +211,30 @@ const ConditionsManager = ({
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <DateCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case DIMENSION_TYPE_TIME: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <TimeCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case DIMENSION_TYPE_DATETIME: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <DateTimeCondition
                             condition={condition}
                             onChange={(value) => setCondition(index, value)}
                             onRemove={() => removeCondition(index)}

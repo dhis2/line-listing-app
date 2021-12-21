@@ -15,6 +15,10 @@ import {
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
+const TYPE_DATE = 'date'
+const TYPE_DATETIME = 'datetime-local'
+const TYPE_TIME = 'time'
+
 const operators = {
     [OPERATOR_EQUAL]: i18n.t('exactly'),
     [OPERATOR_NOT_EQUAL]: i18n.t('is not'),
@@ -26,8 +30,10 @@ const operators = {
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
 }
 
-// TODO: Implement DATETIME and TIME (only) input as well... or break out to separate component?
-const DateCondition = ({ condition, onChange, onRemove }) => {
+const API_TIME_DIVIDER = '.' // TODO: Currently just picked a random character, use the correct character preferred by backend
+const UI_TIME_DIVIDER = ':'
+
+const BaseCondition = ({ condition, onChange, onRemove, type }) => {
     let operator, value
 
     if (condition.includes(NULL_VALUE)) {
@@ -47,7 +53,11 @@ const DateCondition = ({ condition, onChange, onRemove }) => {
     }
 
     const setValue = (input) => {
-        onChange(`${operator}:${input || ''}`)
+        onChange(
+            `${operator}:${
+                input.replaceAll(UI_TIME_DIVIDER, API_TIME_DIVIDER) || ''
+            }`
+        )
     }
 
     return (
@@ -69,8 +79,8 @@ const DateCondition = ({ condition, onChange, onRemove }) => {
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
                 <Input
-                    value={value}
-                    type="date"
+                    value={value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)}
+                    type={type}
                     onChange={({ value }) => setValue(value)}
                     width="150px"
                     dense
@@ -89,10 +99,21 @@ const DateCondition = ({ condition, onChange, onRemove }) => {
     )
 }
 
-DateCondition.propTypes = {
+BaseCondition.propTypes = {
     condition: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
 }
 
-export default DateCondition
+export const DateCondition = (props) => (
+    <BaseCondition type={TYPE_DATE} {...props} />
+)
+
+export const DateTimeCondition = (props) => (
+    <BaseCondition type={TYPE_DATETIME} {...props} />
+)
+
+export const TimeCondition = (props) => (
+    <BaseCondition type={TYPE_TIME} {...props} />
+)
