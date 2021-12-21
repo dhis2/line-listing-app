@@ -16,7 +16,10 @@ import {
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
-import AlphanumericCondition from './AlphanumericCondition.js'
+import {
+    AlphanumericCondition,
+    CaseSensitiveAlphanumericCondition,
+} from './AlphanumericCondition.js'
 import { BooleanCondition, TrueOnlyCondition } from './BooleanCondition.js'
 import {
     DateCondition,
@@ -171,22 +174,30 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_TEXT:
-            case DIMENSION_TYPE_LONG_TEXT:
-            case DIMENSION_TYPE_LETTER:
-            case DIMENSION_TYPE_PHONE_NUMBER:
-            case DIMENSION_TYPE_EMAIL:
-            case DIMENSION_TYPE_USERNAME:
-            case DIMENSION_TYPE_URL: {
-                const allowCaseSensitive =
-                    dimensionType !== DIMENSION_TYPE_PHONE_NUMBER
+            case DIMENSION_TYPE_PHONE_NUMBER: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <AlphanumericCondition
                             condition={condition}
                             onChange={(value) => setCondition(index, value)}
                             onRemove={() => removeCondition(index)}
-                            allowCaseSensitive={allowCaseSensitive}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case DIMENSION_TYPE_TEXT:
+            case DIMENSION_TYPE_LONG_TEXT:
+            case DIMENSION_TYPE_LETTER:
+            case DIMENSION_TYPE_EMAIL:
+            case DIMENSION_TYPE_USERNAME:
+            case DIMENSION_TYPE_URL: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <CaseSensitiveAlphanumericCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
                         />
                         {getDividerContent(index)}
                     </div>

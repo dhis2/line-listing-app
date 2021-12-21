@@ -71,7 +71,7 @@ const checkIsCaseSensitive = (operator) => {
     }
 }
 
-const AlphanumericCondition = ({
+const BaseCondition = ({
     condition,
     onChange,
     onRemove,
@@ -153,11 +153,15 @@ const AlphanumericCondition = ({
     )
 }
 
-AlphanumericCondition.propTypes = {
+BaseCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     allowCaseSensitive: PropTypes.bool,
 }
 
-export default AlphanumericCondition
+export const AlphanumericCondition = (props) => <BaseCondition {...props} />
+
+export const CaseSensitiveAlphanumericCondition = (props) => (
+    <BaseCondition allowCaseSensitive={true} {...props} />
+)
