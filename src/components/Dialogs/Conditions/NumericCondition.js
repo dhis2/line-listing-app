@@ -10,18 +10,20 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+    OPERATOR_EQUAL,
+    OPERATOR_GREATER,
+    OPERATOR_GREATER_OR_EQUAL,
+    OPERATOR_LESS,
+    OPERATOR_LESS_OR_EQUAL,
+    OPERATOR_NOT_EQUAL,
+    OPERATOR_EMPTY,
+    OPERATOR_NOT_EMPTY,
+    OPERATOR_RANGE_SET,
+} from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
 const NULL_VALUE = 'NV'
-export const OPERATOR_EQUAL = 'EQ'
-export const OPERATOR_GREATER = 'GT'
-export const OPERATOR_GREATER_OR_EQUAL = 'GE'
-export const OPERATOR_LESS = 'LT'
-export const OPERATOR_LESS_OR_EQUAL = 'LE'
-export const OPERATOR_NOT_EQUAL = '!EQ'
-export const OPERATOR_EMPTY = `EQ:${NULL_VALUE}`
-export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
-export const OPERATOR_RANGE_SET = 'IN'
 
 const operators = {
     [OPERATOR_EQUAL]: i18n.t('equal to (=)'),
