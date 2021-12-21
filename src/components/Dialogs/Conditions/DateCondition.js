@@ -26,6 +26,7 @@ const operators = {
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
 }
 
+// TODO: Implement DATETIME and TIME (only) input as well... or break out to separate component?
 const DateCondition = ({ condition, onChange, onRemove }) => {
     let operator, value
 
@@ -69,7 +70,7 @@ const DateCondition = ({ condition, onChange, onRemove }) => {
             {operator && !operator.includes(NULL_VALUE) && (
                 <Input
                     value={value}
-                    type="text"
+                    type="date"
                     onChange={({ value }) => setValue(value)}
                     width="150px"
                     dense
