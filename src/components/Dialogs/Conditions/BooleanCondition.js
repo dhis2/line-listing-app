@@ -9,8 +9,7 @@ const NULL_VALUE = 'NV'
 const TRUE_VALUE = '1'
 const FALSE_VALUE = '0'
 
-const BooleanCondition = ({ condition, onChange }) => {
-    // TODO: param for hiding FALSE for the TRUE_ONLY type... or split this to a separate component?
+const BooleanCondition = ({ condition, onChange, showFalseOption }) => {
     const parts = condition.split(':')
     const values = parts[1] || ''
 
@@ -38,15 +37,17 @@ const BooleanCondition = ({ condition, onChange }) => {
                 dense
                 className={classes.checkboxOption}
             />
-            <Checkbox
-                checked={values.includes(FALSE_VALUE)}
-                label={i18n.t('No')}
-                onChange={({ checked }) =>
-                    onCheckboxChange(FALSE_VALUE, checked)
-                }
-                dense
-                className={classes.checkboxOption}
-            />
+            {showFalseOption && (
+                <Checkbox
+                    checked={values.includes(FALSE_VALUE)}
+                    label={i18n.t('No')}
+                    onChange={({ checked }) =>
+                        onCheckboxChange(FALSE_VALUE, checked)
+                    }
+                    dense
+                    className={classes.checkboxOption}
+                />
+            )}
             <Checkbox
                 checked={values.includes(NULL_VALUE)}
                 label={i18n.t('Not answered')}
@@ -63,6 +64,7 @@ const BooleanCondition = ({ condition, onChange }) => {
 BooleanCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    showFalseOption: PropTypes.boolean,
 }
 
 export default BooleanCondition
