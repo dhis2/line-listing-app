@@ -205,28 +205,24 @@ const ConditionsManager = ({
                 ))
             }
             case DIMENSION_TYPE_BOOLEAN: {
-                return (conditionsList.length && conditionsList).map(
-                    (condition, index) => (
+                return conditionsList.map((condition, index) => (
                         <div key={index}>
                             <BooleanCondition
                                 condition={condition}
                                 onChange={(value) => setCondition(index, value)}
                             />
                         </div>
-                    )
-                )
+                ))
             }
             case DIMENSION_TYPE_TRUE_ONLY: {
-                return (conditionsList.length && conditionsList).map(
-                    (condition, index) => (
+                return conditionsList.map((condition, index) => (
                         <div key={index}>
                             <TrueOnlyCondition
                                 condition={condition}
                                 onChange={(value) => setCondition(index, value)}
                             />
                         </div>
-                    )
-                )
+                ))
             }
             case DIMENSION_TYPE_DATE: {
                 return conditionsList.map((condition, index) => (
