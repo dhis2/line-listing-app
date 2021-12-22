@@ -72,7 +72,7 @@ const ConditionsManager = ({
     setConditionsByDimension,
 }) => {
     // const dimensionType = dimension.type
-    const dimensionType = DIMENSION_TYPE_DATE // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = DIMENSION_TYPE_TEXT // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
@@ -205,28 +205,24 @@ const ConditionsManager = ({
                 ))
             }
             case DIMENSION_TYPE_BOOLEAN: {
-                return (conditionsList.length && conditionsList).map(
-                    (condition, index) => (
-                        <div key={index}>
-                            <BooleanCondition
-                                condition={condition}
-                                onChange={(value) => setCondition(index, value)}
-                            />
-                        </div>
-                    )
-                )
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <BooleanCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                        />
+                    </div>
+                ))
             }
             case DIMENSION_TYPE_TRUE_ONLY: {
-                return (conditionsList.length && conditionsList).map(
-                    (condition, index) => (
-                        <div key={index}>
-                            <TrueOnlyCondition
-                                condition={condition}
-                                onChange={(value) => setCondition(index, value)}
-                            />
-                        </div>
-                    )
-                )
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <TrueOnlyCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                        />
+                    </div>
+                ))
             }
             case DIMENSION_TYPE_DATE: {
                 return conditionsList.map((condition, index) => (
