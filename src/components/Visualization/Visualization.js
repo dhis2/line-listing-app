@@ -1,3 +1,4 @@
+import { formatValue } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -130,7 +131,16 @@ export const Visualization = ({
                                     small={small}
                                     className={fontSizeClass}
                                 >
-                                    {value}
+                                    {formatValue(
+                                        value,
+                                        data.headers[index]?.valueType ||
+                                            'TEXT',
+                                        {
+                                            digitGroupSeparator:
+                                                visualization.digitGroupSeparator,
+                                            skipRounding: false, // TODO should there be an option for this?
+                                        }
+                                    )}
                                 </DataTableCell>
                             ))}
                         </DataTableRow>
