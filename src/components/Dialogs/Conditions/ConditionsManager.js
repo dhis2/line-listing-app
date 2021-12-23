@@ -71,8 +71,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    // const dimensionType = dimension.type
-    const dimensionType = DIMENSION_TYPE_TEXT // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = dimension.valueType
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
