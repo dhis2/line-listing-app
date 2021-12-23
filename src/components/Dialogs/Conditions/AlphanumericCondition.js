@@ -8,17 +8,18 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import {
+    NULL_VALUE,
+    OPERATOR_CONTAINS,
+    OPERATOR_EMPTY,
+    OPERATOR_EQUAL,
+    OPERATOR_NOT_CONTAINS,
+    OPERATOR_NOT_EMPTY,
+    OPERATOR_NOT_EQUAL,
+    CASE_SENSITIVE_PREFIX,
+    NOT_PREFIX,
+} from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
-
-const CASE_SENSITIVE_PREFIX = 'I'
-const NOT_PREFIX = '!'
-const NULL_VALUE = 'NV'
-export const OPERATOR_EQUAL = 'EQ'
-export const OPERATOR_NOT_EQUAL = '!EQ'
-export const OPERATOR_CONTAINS = 'LIKE'
-export const OPERATOR_NOT_CONTAINS = '!LIKE'
-export const OPERATOR_EMPTY = `EQ:${NULL_VALUE}`
-export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
 
 const operators = {
     [OPERATOR_EQUAL]: i18n.t('exactly'),
@@ -70,7 +71,7 @@ const checkIsCaseSensitive = (operator) => {
     }
 }
 
-const AlphanumericCondition = ({
+const BaseCondition = ({
     condition,
     onChange,
     onRemove,
@@ -152,11 +153,15 @@ const AlphanumericCondition = ({
     )
 }
 
-AlphanumericCondition.propTypes = {
+BaseCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     allowCaseSensitive: PropTypes.bool,
 }
 
-export default AlphanumericCondition
+export const AlphanumericCondition = (props) => <BaseCondition {...props} />
+
+export const CaseSensitiveAlphanumericCondition = (props) => (
+    <BaseCondition allowCaseSensitive={true} {...props} />
+)

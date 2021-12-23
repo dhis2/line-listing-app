@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-17T09:28:10.425Z\n"
-"PO-Revision-Date: 2021-12-17T09:28:10.425Z\n"
+"POT-Creation-Date: 2021-12-21T10:14:42.618Z\n"
+"PO-Revision-Date: 2021-12-21T10:14:42.618Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -65,6 +65,18 @@ msgstr "Add another condition"
 
 msgid "Add a condition"
 msgstr "Add a condition"
+
+msgid "after"
+msgstr "after"
+
+msgid "after and including"
+msgstr "after and including"
+
+msgid "before"
+msgstr "before"
+
+msgid "before or including"
+msgstr "before or including"
 
 msgid "equal to (=)"
 msgstr "equal to (=)"
