@@ -19,7 +19,7 @@ import {
     OPERATOR_NOT_EQUAL,
     OPERATOR_EMPTY,
     OPERATOR_NOT_EMPTY,
-    OPERATOR_RANGE_SET,
+    OPERATOR_IN,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
@@ -185,7 +185,7 @@ const NumericCondition = ({
     if (condition.includes(NULL_VALUE)) {
         operator = condition
     } else if (legendSetId && !condition) {
-        operator = OPERATOR_RANGE_SET
+        operator = OPERATOR_IN
     } else {
         const parts = condition.split(':')
         operator = parts[0]
@@ -195,12 +195,12 @@ const NumericCondition = ({
     const setOperator = (input) => {
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
-        } else if (input.includes(OPERATOR_RANGE_SET)) {
+        } else if (input.includes(OPERATOR_IN)) {
             onChange(`${input}:`)
         } else {
             onChange(`${input}:${value || ''}`)
         }
-        if (!input.includes(OPERATOR_RANGE_SET) && legendSetId) {
+        if (!input.includes(OPERATOR_IN) && legendSetId) {
             onLegendSetChange()
         }
     }
@@ -230,8 +230,8 @@ const NumericCondition = ({
                 {availableLegendSets && <MenuDivider dense />}
                 {availableLegendSets && (
                     <SingleSelectOption
-                        key={OPERATOR_RANGE_SET}
-                        value={OPERATOR_RANGE_SET}
+                        key={OPERATOR_IN}
+                        value={OPERATOR_IN}
                         label={i18n.t('is one of preset options')}
                         disabled={numberOfConditions > 1}
                     />
@@ -239,7 +239,7 @@ const NumericCondition = ({
             </SingleSelectField>
             {operator &&
                 !operator.includes(NULL_VALUE) &&
-                operator !== OPERATOR_RANGE_SET && (
+                operator !== OPERATOR_IN && (
                     <Input
                         value={value}
                         type="number"
@@ -249,52 +249,48 @@ const NumericCondition = ({
                         step={useDecimalSteps ? '0.1' : '1'}
                     />
                 )}
-            {operator &&
-                operator === OPERATOR_RANGE_SET &&
-                availableLegendSets && (
-                    <>
-                        <SingleSelectField
-                            selected={legendSet.id}
-                            inputWidth="136px"
-                            placeholder={i18n.t('Choose a set of options')}
+            {operator && operator === OPERATOR_IN && availableLegendSets && (
+                <>
+                    <SingleSelectField
+                        selected={legendSet.id}
+                        inputWidth="136px"
+                        placeholder={i18n.t('Choose a set of options')}
+                        dense
+                        onChange={({ selected }) => {
+                            onLegendSetChange(selected)
+                            setValue(null)
+                        }}
+                    >
+                        {availableLegendSets.map((item) => (
+                            <SingleSelectOption
+                                key={item.id}
+                                value={item.id}
+                                label={item.name}
+                            />
+                        ))}
+                    </SingleSelectField>
+                    {legendSet.legends && (
+                        <MultiSelectField
+                            onChange={({ selected }) =>
+                                setValue(selected.join(';'))
+                            }
+                            inputWidth="330px"
+                            selected={(value?.length && value.split(';')) || []}
                             dense
-                            onChange={({ selected }) => {
-                                onLegendSetChange(selected)
-                                setValue(null)
-                            }}
                         >
-                            {availableLegendSets.map((item) => (
-                                <SingleSelectOption
-                                    key={item.id}
-                                    value={item.id}
-                                    label={item.name}
-                                />
-                            ))}
-                        </SingleSelectField>
-                        {legendSet.legends && (
-                            <MultiSelectField
-                                onChange={({ selected }) =>
-                                    setValue(selected.join(';'))
-                                }
-                                inputWidth="330px"
-                                selected={
-                                    (value?.length && value.split(';')) || []
-                                }
-                                dense
-                            >
-                                {legendSet.legends
-                                    .sort((a, b) => a.startValue - b.startValue)
-                                    .map((legend) => (
-                                        <MultiSelectOption
-                                            key={legend.id}
-                                            value={legend.id}
-                                            label={legend.name}
-                                        />
-                                    ))}
-                            </MultiSelectField>
-                        )}
-                    </>
-                )}
+                            {legendSet.legends
+                                .sort((a, b) => a.startValue - b.startValue)
+                                .map((legend) => (
+                                    <MultiSelectOption
+                                        key={legend.id}
+                                        value={legend.id}
+                                        label={legend.name}
+                                    />
+                                ))}
+                        </MultiSelectField>
+                    )}
+                </>
+            )}
             <Button
                 type="button"
                 small
