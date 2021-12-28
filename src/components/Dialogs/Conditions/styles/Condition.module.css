@@ -26,3 +26,9 @@
 .transferLeftHeader {
     padding: var(--spacers-dp12) var(--spacers-dp4);
 }
+
+.transferLeftTitle {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 var(--spacers-dp8);
+}

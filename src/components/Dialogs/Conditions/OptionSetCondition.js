@@ -7,11 +7,15 @@ import { connect } from 'react-redux'
 import { apiFetchOptions } from '../../../api/options.js'
 import { OPERATOR_IN } from '../../../modules/conditions.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
+import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import classes from './styles/Condition.module.css'
 
 const LeftHeader = ({ searchTerm, setSearchTerm, dataTest }) => (
     <div className={classes.transferLeftHeader}>
+        <p className={classes.transferLeftTitle}>
+            {i18n.t('Available options')}
+        </p>
         <InputField
             value={searchTerm}
             onChange={({ value }) => setSearchTerm(value)}
@@ -37,23 +41,17 @@ const RightHeader = () => (
     <p className={classes.transferRightHeader}>{i18n.t('Selected options')}</p>
 )
 
-const SourceEmptyPlaceholder = ({ loading, searchTerm, options, dataTest }) => {
-    let message = ''
-    if (!loading && !options.length && !searchTerm) {
-        message = i18n.t('No options')
-    } else if (!loading && !options.length && searchTerm) {
-        message = i18n.t('Nothing found for "{{- searchTerm}}"', {
-            searchTerm: searchTerm,
-        })
-    }
-    return (
-        message && (
-            <p className={classes.transferEmptyList} data-test={dataTest}>
-                {message}
-            </p>
-        )
+const SourceEmptyPlaceholder = ({ loading, searchTerm, options, dataTest }) =>
+    !loading &&
+    !options.length && (
+        <p className={classes.transferEmptyList} data-test={dataTest}>
+            {searchTerm
+                ? i18n.t('Nothing found for "{{- searchTerm}}"', {
+                      searchTerm: searchTerm,
+                  })
+                : i18n.t('No options')}
+        </p>
     )
-}
 
 SourceEmptyPlaceholder.propTypes = {
     dataTest: PropTypes.string,
@@ -67,24 +65,18 @@ const OptionSetCondition = ({
     optionSetId,
     onChange,
     displayNameProp,
+    metadata,
 }) => {
     const parts = condition.split(':')
-    const values = parts[1] || ''
+    const values = parts[1]?.length ? parts[1].split(';') : []
+    const selectedOptions = values.map((code) => ({
+        code,
+        name: metadata[code]?.name, // FIXME: Doesn't work as metadata stores the options with an id that's separate from the code
+    }))
     const dataTest = 'option-set'
 
-    // TODO: Split values by ; and fetch the name for each value from the metadata. Store name/id pair as "selectedItems"
-
-    const onTransferChange = (input, checked) => {
-        const currentValues = values.length ? values.split(';') : []
-        if (checked) {
-            setValues([...currentValues, input].join(';'))
-        } else {
-            setValues(currentValues.filter((v) => v !== input).join(';'))
-        }
-    }
-
-    const setValues = (input) => {
-        onChange(`${OPERATOR_IN}:${input || ''}`)
+    const setValues = (selected) => {
+        onChange(`${OPERATOR_IN}:${selected.join(';') || ''}`)
     }
 
     const [state, setState] = useState({
@@ -107,12 +99,10 @@ const OptionSetCondition = ({
             searchTerm: state.searchTerm,
         })
         const newOptions = []
-        result.dimensionItems?.forEach((item) => {
+        result.options?.forEach((item) => {
             newOptions.push({
-                label: item.name,
-                value: item.id,
-                disabled: item.disabled,
-                type: item.dimensionItemType,
+                name: item.name,
+                code: item.code,
             })
         })
         setState((state) => ({
@@ -133,9 +123,9 @@ const OptionSetCondition = ({
         if (
             result.nextPage &&
             newOptions.length &&
-            selectedItems.length >= newOptions.length &&
+            selectedOptions.length >= newOptions.length &&
             newOptions.every((newOption) =>
-                selectedItems.find(
+                selectedOptions.find(
                     (selectedItem) => selectedItem.value === newOption.value
                 )
             )
@@ -152,21 +142,7 @@ const OptionSetCondition = ({
         }))
         fetchItems(1)
     }, [debouncedSearchTerm, state.filter])
-    // const onChange2 = (newSelected) => {
-    //     // FIXME: The name 'onChange' clashes with the onChange prop
-    //     onSelect(
-    //         newSelected.map((value) => {
-    //             const matchingItem = [...state.options, ...selectedItems].find(
-    //                 (item) => item.value === value
-    //             )
-    //             return {
-    //                 value,
-    //                 label: matchingItem.label,
-    //                 type: matchingItem.type,
-    //             }
-    //         })
-    //     )
-    // }
+
     const onEndReached = () => {
         if (state.nextPage) {
             fetchItems(state.nextPage)
@@ -175,9 +151,12 @@ const OptionSetCondition = ({
 
     return (
         <Transfer
-            onChange={({ selected }) => onChange(selected)}
-            selected={selectedItems.map((item) => item.value)}
-            options={[...state.options, ...selectedItems]}
+            onChange={({ selected }) => setValues(selected)}
+            selected={selectedOptions.map((option) => option.code)}
+            options={[...state.options, ...selectedOptions].map((option) => ({
+                value: option.code,
+                label: option.name,
+            }))}
             loading={state.loading}
             loadingPicked={state.loading}
             sourceEmptyPlaceholder={
@@ -196,9 +175,7 @@ const OptionSetCondition = ({
                     dataTest={`${dataTest}-left-header`}
                 />
             }
-            //height={}
-            //optionsWidth={}
-            //selectedWidth={}
+            height={'340px'}
             selectedEmptyComponent={<EmptySelection />}
             rightHeader={<RightHeader />}
             renderOption={(props) => (
@@ -215,12 +192,14 @@ const OptionSetCondition = ({
 OptionSetCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     displayNameProp: PropTypes.string.isRequired,
+    metadata: PropTypes.object.isRequired,
     optionSetId: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
     displayNameProp: sGetSettingsDisplayNameProperty(state),
+    metadata: sGetMetadata(state),
 })
 
 export default connect(mapStateToProps)(OptionSetCondition)
