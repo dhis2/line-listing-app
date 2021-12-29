@@ -195,7 +195,7 @@ const NumericCondition = ({
     const setOperator = (input) => {
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
-        } else if (input.includes(OPERATOR_IN)) {
+        } else if (input === OPERATOR_IN || operator === OPERATOR_IN) {
             onChange(`${input}:`)
         } else {
             onChange(`${input}:${value || ''}`)
