@@ -16,8 +16,6 @@ const optionsQuery = {
     },
 }
 
-// filter=optionSet.id:eq:eUZ79clX7y1&fields=code,name&pageSize=100
-
 export const apiFetchOptions = async ({
     dataEngine,
     searchTerm,

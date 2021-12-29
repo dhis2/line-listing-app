@@ -43,7 +43,7 @@ const visualizationQuery = {
     eventReport: {
         resource: 'eventReports',
         id: ({ id }) => id,
-        // TODO check if this list is what we need/want (copied from old ER)
+        // TODO: check if this list is what we need/want (copied from old ER)
         params: {
             fields: '*,columns[dimension,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],rows[dimension,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],filters[dimension,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],program[id,displayName~rename(name),enrollmentDateLabel,incidentDateLabel],programStage[id,displayName~rename(name),executionDateLabel],access,user[displayName,userCredentials[username]],href,!interpretations,!userGroupAccesses,!publicAccess,!displayDescription,!rewindRelativePeriods,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren,!externalAccess,!relativePeriods,!columnDimensions,!rowDimensions,!filterDimensions,!organisationUnitGroups,!itemOrganisationUnitGroups,!indicators,!dataElements,!dataElementOperands,!dataElementGroups,!dataSets,!periods,!organisationUnitLevels,!organisationUnits,dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
         },
@@ -199,9 +199,6 @@ const App = ({
             setVisualization(visualization)
             setCurrent(visualization)
             setUiFromVisualization(visualization)
-            // setMetadataFromVisualization
-            // [...columns, ...rows, ...filters].filter(dim => dim.valueType || dim.optionSet?.id).map(dim => ({optionSet, valueType}))
-            //metadata[dimensionId] = myObject
             postDataStatistics({ id: visualization.id })
         }
     }, [data])
