@@ -12,7 +12,6 @@ import {
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
-    sGetUiConditions,
 } from '../reducers/ui.js'
 
 export const acSetUiOptions = (value) => ({
@@ -83,16 +82,3 @@ export const acSetUiConditions = (value) => ({
     type: SET_UI_CONDITIONS,
     value,
 })
-
-export const tSetUiConditionsByDimension =
-    (inputCondition, dimension, legendSet) => (dispatch, getState) => {
-        dispatch(
-            acSetUiConditions({
-                ...sGetUiConditions(getState()),
-                [dimension]:
-                    inputCondition.length || legendSet
-                        ? { condition: inputCondition, legendSet }
-                        : undefined,
-            })
-        )
-    }

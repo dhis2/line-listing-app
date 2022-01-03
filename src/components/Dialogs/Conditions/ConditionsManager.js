@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
-import { tSetUiConditionsByDimension } from '../../../actions/ui.js'
+import { acSetUiConditions } from '../../../actions/ui.js'
 import {
     OPERATOR_IN,
     parseConditionsArrayToString,
@@ -116,15 +116,15 @@ const ConditionsManager = ({
         )
 
     const storeConditions = () =>
-        setConditionsByDimension(
-            parseConditionsArrayToString(
+        setConditionsByDimension({
+            inputCondition: parseConditionsArrayToString(
                 conditionsList.filter(
                     (cnd) => cnd.length && cnd.slice(-1) !== ':'
                 )
             ),
-            dimension.id,
-            selectedLegendSet
-        )
+            dimension: dimension.id,
+            legendSet: selectedLegendSet,
+        })
 
     const primaryOnClick = () => {
         storeConditions()
@@ -384,7 +384,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
     onUpdate: tSetCurrentFromUi,
-    setConditionsByDimension: tSetUiConditionsByDimension,
+    setConditionsByDimension: acSetUiConditions,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConditionsManager)

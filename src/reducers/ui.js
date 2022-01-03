@@ -164,9 +164,16 @@ export default (state = EMPTY_UI, action) => {
             }
         }
         case SET_UI_CONDITIONS: {
+            const { dimension, inputCondition, legendSet } = action.value
             return {
                 ...state,
-                conditions: { ...action.value },
+                conditions: {
+                    ...state.conditions,
+                    [dimension]:
+                        inputCondition.length || legendSet
+                            ? { condition: inputCondition, legendSet }
+                            : undefined,
+                },
             }
         }
         default:
