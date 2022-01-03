@@ -13,6 +13,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     sGetUiConditions,
+    SET_UI_REPETITION,
 } from '../reducers/ui.js'
 
 export const acSetUiOptions = (value) => ({
@@ -96,3 +97,8 @@ export const tSetUiConditionsByDimension =
             })
         )
     }
+
+export const acSetUiRepetition = (value) => ({
+    type: SET_UI_REPETITION,
+    value,
+})

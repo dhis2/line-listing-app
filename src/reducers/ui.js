@@ -17,6 +17,7 @@ export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
+export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
@@ -27,9 +28,10 @@ const EMPTY_UI = {
     itemsByDimension: {},
     options: {},
     parentGraphMap: {},
+    repetitionByDimension: {},
 }
 
-const DEFAULT_UI = {
+export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
@@ -43,6 +45,7 @@ const DEFAULT_UI = {
     showRightSidebar: false,
     activeModalDialog: null,
     parentGraphMap: {},
+    repetitionByDimension: {},
 }
 
 const getPreselectedUi = (options) => {
@@ -169,6 +172,17 @@ export default (state = EMPTY_UI, action) => {
                 conditions: { ...action.value },
             }
         }
+        case SET_UI_REPETITION: {
+            const { dimensionId, repetition } = action.value
+
+            return {
+                ...state,
+                repetitionByDimension: {
+                    ...state.repetitionByDimension,
+                    [dimensionId]: repetition,
+                },
+            }
+        }
         default:
             return state
     }
@@ -187,6 +201,7 @@ export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
+export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
 
 // Selectors level 2
 
@@ -201,3 +216,6 @@ export const sGetDimensionIdsFromLayout = (state) =>
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
     sGetUiConditions(state)[dimension]
+
+export const sGetUiRepetitionByDimension = (state, dimensionId) =>
+    sGetUiRepetition(state)[dimensionId]
