@@ -4,13 +4,14 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
-import { tSetUiConditionsByDimension } from '../../../actions/ui.js'
+import { acSetUiConditions } from '../../../actions/ui.js'
 import {
-    OPERATOR_RANGE_SET,
+    OPERATOR_IN,
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
+import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
@@ -27,6 +28,7 @@ import {
     TimeCondition,
 } from './DateCondition.js'
 import NumericCondition from './NumericCondition.js'
+import OptionSetCondition from './OptionSetCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const DIMENSION_TYPE_NUMBER = 'NUMBER'
@@ -71,14 +73,16 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    // const dimensionType = dimension.type
-    const dimensionType = DIMENSION_TYPE_DATE // TODO: Should be returned by the backend, e.g. NUMBER, INTEGER, PERCENTAGE
+    const dimensionType = dimension.valueType
+    const isOptionSetCondition =
+        dimensionType === DIMENSION_TYPE_TEXT && dimension.optionSet
 
     const [conditionsList, setConditionsList] = useState(
         (conditions.condition?.length &&
             parseConditionsStringToArray(conditions.condition)) ||
             (!conditions.condition?.length &&
-                SINGLETON_TYPES.includes(dimensionType) && [EMPTY_CONDITION]) ||
+                (SINGLETON_TYPES.includes(dimensionType) ||
+                    isOptionSetCondition) && [EMPTY_CONDITION]) ||
             (conditions.legendSet ? [EMPTY_CONDITION] : [])
     )
 
@@ -97,7 +101,7 @@ const ConditionsManager = ({
         if (
             selectedLegendSet &&
             !filteredConditionsList.some((condition) =>
-                condition.includes(OPERATOR_RANGE_SET)
+                condition.includes(OPERATOR_IN)
             )
         ) {
             setSelectedLegendSet(null)
@@ -112,15 +116,15 @@ const ConditionsManager = ({
         )
 
     const storeConditions = () =>
-        setConditionsByDimension(
-            parseConditionsArrayToString(
+        setConditionsByDimension({
+            inputCondition: parseConditionsArrayToString(
                 conditionsList.filter(
                     (cnd) => cnd.length && cnd.slice(-1) !== ':'
                 )
             ),
-            dimension.id,
-            selectedLegendSet
-        )
+            dimension: dimension.id,
+            legendSet: selectedLegendSet,
+        })
 
     const primaryOnClick = () => {
         storeConditions()
@@ -140,7 +144,17 @@ const ConditionsManager = ({
                 <span className={classes.separator}>{i18n.t('and')}</span>
             )
 
-        // TODO: DIMENSION_TYPE_TEXT + optionSet -> OptionSetCondition.js
+        if (isOptionSetCondition) {
+            return conditionsList.map((condition, index) => (
+                <div key={index}>
+                    <OptionSetCondition
+                        condition={condition}
+                        optionSetId={dimension.optionSet}
+                        onChange={(value) => setCondition(index, value)}
+                    />
+                </div>
+            ))
+        }
 
         switch (dimensionType) {
             case DIMENSION_TYPE_NUMBER:
@@ -265,9 +279,7 @@ const ConditionsManager = ({
 
     const disableAddButton =
         NUMERIC_TYPES.includes(dimensionType) &&
-        (conditionsList.some((condition) =>
-            condition.includes(OPERATOR_RANGE_SET)
-        ) ||
+        (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
     return dimension ? (
@@ -288,7 +300,10 @@ const ConditionsManager = ({
             <div className={classes.mainSection}>
                 {!conditionsList.length &&
                 !selectedLegendSet &&
-                !SINGLETON_TYPES.includes(dimensionType) ? (
+                !(
+                    SINGLETON_TYPES.includes(dimensionType) ||
+                    isOptionSetCondition
+                ) ? (
                     <p className={classes.paragraph}>
                         <span className={classes.infoIcon}>
                             <IconInfo16 />
@@ -300,7 +315,10 @@ const ConditionsManager = ({
                 ) : (
                     renderConditionsContent()
                 )}
-                {!SINGLETON_TYPES.includes(dimensionType) && (
+                {!(
+                    SINGLETON_TYPES.includes(dimensionType) ||
+                    isOptionSetCondition
+                ) && (
                     <Tooltip
                         content={i18n.t(
                             'Preset options can’t be combined with other conditions'
@@ -361,11 +379,12 @@ const mapStateToProps = (state, ownProps) => ({
     ),
     conditions: sGetUiConditionsByDimension(state, ownProps.dimensionId) || {},
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
+    displayNameProp: sGetSettingsDisplayNameProperty(state),
 })
 
 const mapDispatchToProps = {
     onUpdate: tSetCurrentFromUi,
-    setConditionsByDimension: tSetUiConditionsByDimension,
+    setConditionsByDimension: acSetUiConditions,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConditionsManager)

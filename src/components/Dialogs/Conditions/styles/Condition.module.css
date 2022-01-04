@@ -9,3 +9,26 @@
 .checkboxOption {
     margin-right: var(--spacers-dp16);
 }
+
+.transferEmptyList {
+    text-align: center;
+    font-size: 14px;
+    line-height: 16px;
+    margin: var(--spacers-dp24) 0 0;
+    color: var(--colors-grey700);
+}
+
+.transferRightHeader {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.transferLeftHeader {
+    padding: var(--spacers-dp12) var(--spacers-dp4);
+}
+
+.transferLeftTitle {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 0 var(--spacers-dp8);
+}

@@ -12,7 +12,6 @@ import {
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
-    sGetUiConditions,
     SET_UI_REPETITION,
 } from '../reducers/ui.js'
 
@@ -84,19 +83,6 @@ export const acSetUiConditions = (value) => ({
     type: SET_UI_CONDITIONS,
     value,
 })
-
-export const tSetUiConditionsByDimension =
-    (inputCondition, dimension, legendSet) => (dispatch, getState) => {
-        dispatch(
-            acSetUiConditions({
-                ...sGetUiConditions(getState()),
-                [dimension]:
-                    inputCondition.length || legendSet
-                        ? { condition: inputCondition, legendSet }
-                        : undefined,
-            })
-        )
-    }
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,

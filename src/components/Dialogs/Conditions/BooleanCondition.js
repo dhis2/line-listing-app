@@ -2,10 +2,9 @@ import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { OPERATOR_IN, NULL_VALUE } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
-const OPERATOR = 'IN'
-const NULL_VALUE = 'NV'
 const TRUE_VALUE = '1'
 const FALSE_VALUE = '0'
 
@@ -23,7 +22,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
     }
 
     const setValues = (input) => {
-        onChange(`${OPERATOR}:${input || ''}`)
+        onChange(`${OPERATOR_IN}:${input || ''}`)
     }
 
     return (
