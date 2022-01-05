@@ -1,6 +1,14 @@
 import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
+
+const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
+
+const booleanMap = {
+    0: i18n.t('No'),
+    1: i18n.t('Yes'),
+}
 
 const fetchAnalyticsData = async ({
     analyticsEngine,
@@ -38,14 +46,34 @@ const fetchAnalyticsData = async ({
 
     const rawResponse = await analyticsEngine.events.getQuery(req)
 
-    return new analyticsEngine.response(rawResponse)
+    return rawResponse
 }
 
-const reduceHeaders = (analyticsResponse, visualization) =>
-    visualization.columns.reduce((headers, column) => {
-        headers.push(analyticsResponse.getHeader(column.dimension)) // TODO figure out what to do when no header match the column (ie. pe)
+const reduceHeaders = (analyticsResponse, visualization) => {
+    // special handling for ou column, use the value from the ouname column instead of the id from ou
+    const ouNameHeaderIndex = analyticsResponse.headers.findIndex(
+        (header) => header.name === 'ouname'
+    )
+
+    return visualization.columns.reduce((headers, column) => {
+        const headerIndex = analyticsResponse.headers.findIndex(
+            (header) => header.name === column.dimension
+        )
+
+        if (headerIndex !== -1) {
+            headers.push({
+                ...analyticsResponse.headers[headerIndex],
+                index:
+                    column.dimension === 'ou' ? ouNameHeaderIndex : headerIndex,
+            })
+        } else {
+            // TODO figure out what to do when no header match the column (ie. pe)
+            headers.push(undefined)
+        }
+
         return headers
     }, [])
+}
 
 const reduceRows = (analyticsResponse, headers) =>
     analyticsResponse.rows.reduce((filteredRows, row) => {
@@ -53,16 +81,15 @@ const reduceRows = (analyticsResponse, headers) =>
             headers.reduce((filteredRow, header) => {
                 if (header) {
                     const rowValue = row[header.index]
-                    const itemKey = header.isPrefix
-                        ? `${header.name}_${rowValue}` // TODO underscore or space? check in AnalyticsResponse
-                        : rowValue
 
                     filteredRow.push(
-                        analyticsResponse.metaData.items[itemKey]?.name ||
-                            rowValue
+                        header.valueType === VALUE_TYPE_BOOLEAN
+                            ? booleanMap[rowValue]
+                            : analyticsResponse.metaData.items[rowValue]
+                                  ?.name || rowValue
                     )
                 } else {
-                    // FIXME solve the case of visualization.column not mapping to any response.header (ie. "pe")
+                    // TODO solve the case of visualization.column not mapping to any response.header (ie. "pe")
                     filteredRow.push('-')
                 }
                 return filteredRow
