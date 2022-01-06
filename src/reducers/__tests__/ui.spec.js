@@ -1,11 +1,32 @@
 import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/ui.js'
-import reducer, { DEFAULT_UI, SET_UI_REPETITION } from '../ui.js'
+import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
+import reducer, { DEFAULT_UI, SET_OUTPUT_TYPE, SET_UI_REPETITION } from '../ui.js'
 
 describe('reducer: ui', () => {
     it('returns the default state when no matching action', () => {
         const actualState = reducer(DEFAULT_UI, { type: 'NO_MATCH' })
 
         expect(actualState).toEqual(DEFAULT_UI)
+    })
+
+    // outputType
+    describe('reducer: ui.outputType', () => {
+        const outputTypeAction = {
+            type: SET_OUTPUT_TYPE,
+            value: OUTPUT_TYPE_EVENT,
+        }
+
+        it('returns a new object', () => {
+            const state = {}
+
+            expect(reducer(state, {})).not.toBe(reducer(state, outputTypeAction))
+        })
+
+        it('sets the new output type', () => {
+            expect(reducer({}, outputTypeAction)).toEqual({
+                outputType: OUTPUT_TYPE_EVENT
+            })
+        })
     })
 
     // repetition
