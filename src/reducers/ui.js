@@ -5,7 +5,7 @@ import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT, VIS_TYPE_LINE_LIST } from '../modules/visualization.js'
 
-export const SET_OUTPUT_TYPE = 'SET_OUTPUT_TYPE'
+export const SET_INPUT = 'SET_INPUT'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -22,7 +22,9 @@ export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
-    outputType: OUTPUT_TYPE_EVENT,
+    input: {
+        type: OUTPUT_TYPE_EVENT,
+    },
     layout: {
         columns: [],
         filters: [],
@@ -35,7 +37,9 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
-    outputType: OUTPUT_TYPE_EVENT,
+    input: {
+        type: OUTPUT_TYPE_EVENT,
+    },
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -77,10 +81,10 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
-        case SET_OUTPUT_TYPE: {
+        case SET_INPUT: {
             return {
                 ...state,
-                outputType: action.value,
+                input: action.value,
             }
         }
         case SET_UI_OPTIONS: {
@@ -207,7 +211,7 @@ export default (state = EMPTY_UI, action) => {
 // Selectors
 
 export const sGetUi = (state) => state.ui
-export const sGetOutputType = (state) => state.outputType
+export const sGetInput = (state) => state.input
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
@@ -221,6 +225,8 @@ export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
 
 // Selectors level 2
+
+export const sGetInputType = (state) => sGetInput(state).type
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]

@@ -1,6 +1,6 @@
 import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
-import reducer, { DEFAULT_UI, SET_OUTPUT_TYPE, SET_UI_REPETITION } from '../ui.js'
+import reducer, { DEFAULT_UI, SET_INPUT, SET_UI_REPETITION } from '../ui.js'
 
 describe('reducer: ui', () => {
     it('returns the default state when no matching action', () => {
@@ -10,21 +10,25 @@ describe('reducer: ui', () => {
     })
 
     // outputType
-    describe('reducer: ui.outputType', () => {
-        const outputTypeAction = {
-            type: SET_OUTPUT_TYPE,
-            value: OUTPUT_TYPE_EVENT,
+    describe('reducer: ui.input', () => {
+        const inputAction = {
+            type: SET_INPUT,
+            value: {
+                type: OUTPUT_TYPE_EVENT,
+            },
         }
 
         it('returns a new object', () => {
             const state = {}
 
-            expect(reducer(state, {})).not.toBe(reducer(state, outputTypeAction))
+            expect(reducer(state, {})).not.toBe(reducer(state, inputAction))
         })
 
-        it('sets the new output type', () => {
-            expect(reducer({}, outputTypeAction)).toEqual({
-                outputType: OUTPUT_TYPE_EVENT
+        it('sets the new input', () => {
+            expect(reducer({}, inputAction)).toEqual({
+                input: {
+                    type: OUTPUT_TYPE_EVENT,
+                }
             })
         })
     })
