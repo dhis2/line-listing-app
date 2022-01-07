@@ -5,7 +5,9 @@ import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT, VIS_TYPE_LINE_LIST } from '../modules/visualization.js'
 
-export const SET_INPUT = 'SET_INPUT'
+export const SET_UI_INPUT = 'SET_UI_INPUT'
+export const SET_UI_PROGRAM = 'SET_UI_PROGRAM'
+export const SET_UI_PROGRAM_STAGE = 'SET_UI_PROGRAM_STAGE'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -25,6 +27,7 @@ const EMPTY_UI = {
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
+    program: {},
     layout: {
         columns: [],
         filters: [],
@@ -40,6 +43,7 @@ export const DEFAULT_UI = {
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
+    program: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -81,10 +85,25 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
-        case SET_INPUT: {
+        case SET_UI_INPUT: {
             return {
                 ...state,
                 input: action.value,
+            }
+        }
+        case SET_UI_PROGRAM: {
+            return {
+                ...state,
+                program: action.value,
+            }
+        }
+        case SET_UI_PROGRAM_STAGE: {
+            return {
+                ...state,
+                program: {
+                    ...state.program,
+                    stage: action.value,
+                },
             }
         }
         case SET_UI_OPTIONS: {

@@ -13,11 +13,23 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
-    SET_INPUT,
+    SET_UI_INPUT,
+    SET_UI_PROGRAM,
+    SET_UI_PROGRAM_STAGE,
 } from '../reducers/ui.js'
 
-export const asSetInput = value => ({
-    type: SET_INPUT,
+export const acSetInput = value => ({
+    type: SET_UI_INPUT,
+    value,
+})
+
+export const acSetUiProgram = value => ({
+    type: SET_UI_PROGRAM,
+    value,
+})
+
+export const acSetUiProgramStage = value => ({
+    type: SET_UI_PROGRAM_STAGE,
     value,
 })
 
