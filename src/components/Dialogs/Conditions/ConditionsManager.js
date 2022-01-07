@@ -291,71 +291,81 @@ const ConditionsManager = ({
             title={dimension.name}
         >
             <div>
-                <p className={classes.paragraph}>
-                    {i18n.t(
-                        'Show items that meet the following conditions for this data item:'
-                    )}
-                </p>
-            </div>
-            <div className={classes.mainSection}>
-                {!conditionsList.length &&
-                !selectedLegendSet &&
-                !(
-                    SINGLETON_TYPES.includes(dimensionType) ||
-                    isOptionSetCondition
-                ) ? (
+                {!dimensionType ? (
                     <p className={classes.paragraph}>
-                        <span className={classes.infoIcon}>
-                            <IconInfo16 />
-                        </span>
                         {i18n.t(
-                            'No conditions yet, so all values will be included. Add a condition to filter results.'
+                            "This dimension can't be filtered. All values will be shown."
                         )}
                     </p>
                 ) : (
-                    renderConditionsContent()
-                )}
-                {!(
-                    SINGLETON_TYPES.includes(dimensionType) ||
-                    isOptionSetCondition
-                ) && (
-                    <Tooltip
-                        content={i18n.t(
-                            'Preset options can’t be combined with other conditions'
+                    <p className={classes.paragraph}>
+                        {i18n.t(
+                            'Show items that meet the following conditions for this data item:'
                         )}
-                        placement="bottom"
-                        closeDelay={200}
-                    >
-                        {({ onMouseOver, onMouseOut, ref }) => (
-                            <span
-                                ref={ref}
-                                onMouseOver={() =>
-                                    disableAddButton && onMouseOver()
-                                }
-                                onMouseOut={() =>
-                                    disableAddButton && onMouseOut()
-                                }
-                                className={classes.tooltipReference}
-                            >
-                                <Button
-                                    type="button"
-                                    small
-                                    onClick={addCondition}
-                                    dataTest={
-                                        'conditions-manager-add-condition'
-                                    }
-                                    className={classes.addConditionButton}
-                                    disabled={disableAddButton}
-                                >
-                                    {conditionsList.length
-                                        ? i18n.t('Add another condition')
-                                        : i18n.t('Add a condition')}
-                                </Button>
-                            </span>
-                        )}
-                    </Tooltip>
+                    </p>
                 )}
             </div>
+            {dimensionType && (
+                <div className={classes.mainSection}>
+                    {!conditionsList.length &&
+                    !selectedLegendSet &&
+                    !(
+                        SINGLETON_TYPES.includes(dimensionType) ||
+                        isOptionSetCondition
+                    ) ? (
+                        <p className={classes.paragraph}>
+                            <span className={classes.infoIcon}>
+                                <IconInfo16 />
+                            </span>
+                            {i18n.t(
+                                'No conditions yet, so all values will be included. Add a condition to filter results.'
+                            )}
+                        </p>
+                    ) : (
+                        renderConditionsContent()
+                    )}
+                    {!(
+                        SINGLETON_TYPES.includes(dimensionType) ||
+                        isOptionSetCondition
+                    ) && (
+                        <Tooltip
+                            content={i18n.t(
+                                'Preset options can’t be combined with other conditions'
+                            )}
+                            placement="bottom"
+                            closeDelay={200}
+                        >
+                            {({ onMouseOver, onMouseOut, ref }) => (
+                                <span
+                                    ref={ref}
+                                    onMouseOver={() =>
+                                        disableAddButton && onMouseOver()
+                                    }
+                                    onMouseOut={() =>
+                                        disableAddButton && onMouseOut()
+                                    }
+                                    className={classes.tooltipReference}
+                                >
+                                    <Button
+                                        type="button"
+                                        small
+                                        onClick={addCondition}
+                                        dataTest={
+                                            'conditions-manager-add-condition'
+                                        }
+                                        className={classes.addConditionButton}
+                                        disabled={disableAddButton}
+                                    >
+                                        {conditionsList.length
+                                            ? i18n.t('Add another condition')
+                                            : i18n.t('Add a condition')}
+                                    </Button>
+                                </span>
+                            )}
+                        </Tooltip>
+                    )}
+                </div>
+            )}
         </DimensionModal>
     ) : null
 }
