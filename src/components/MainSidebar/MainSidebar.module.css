@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+}
+.main,
+.accessory {
+    box-sizing: border-box;
+    width: 260px;
+}
+.main {
+    background-color: var(--colors-grey200);
+    border-right: 1px solid var(--colors-grey400);
+}
+.accessory {
+    background-color: var(--colors-white);
+    overflow-x: hidden;
+    transition: width 200ms ease-out;
+}
+.accessory.hidden {
+    width: 0;
+}
+.accessoryInner {
+    width: 260px;
+    height: 100%;
+    padding: var(--spacers-dp12) var(--spacers-dp8);
+    border-right: 1px solid var(--colors-grey400);
+    transform: translateX(0);
+    transition: transform 200ms ease-out;
+}
+.accessory.hidden .accessoryInner {
+    transform: translateX(-260px);
+}

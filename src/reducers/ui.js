@@ -12,15 +12,18 @@ export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
 export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
-export const TOGGLE_UI_RIGHT_SIDEBAR = 'TOGGLE_UI_RIGHT_SIDEBAR'
+export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
+export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+export const SET_UI_INPUT = 'SET_UI_INPUT'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
+    input: {},
     layout: {
         columns: [],
         filters: [],
@@ -33,6 +36,7 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
+    input: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -42,7 +46,8 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_ORGUNIT]: [],
     },
     options: getOptionsForUi(),
-    showRightSidebar: false,
+    showAccessoryPanel: false,
+    showDetailsPanel: false,
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -74,6 +79,12 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_INPUT: {
+            return {
+                ...state,
+                input: action.value,
+            }
+        }
         case SET_UI_OPTIONS: {
             return {
                 ...state,
@@ -131,10 +142,28 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case TOGGLE_UI_RIGHT_SIDEBAR: {
+        case SET_UI_DETAILS_PANEL_OPEN: {
             return {
                 ...state,
-                showRightSidebar: !state.showRightSidebar,
+                showDetailsPanel: action.value,
+                /*
+                 * Always close left sidebar when opening the right sidebar
+                 * Leave left sidebar unaffected when closing the right sidebar
+                 */
+                showAccessoryPanel: action.value
+                    ? false
+                    : state.showAccessoryPanel,
+            }
+        }
+        case SET_UI_ACCESSORY_PANEL_OPEN: {
+            return {
+                ...state,
+                showAccessoryPanel: action.value,
+                /*
+                 * Always close right sidebar when opening the left sidebar
+                 * Leave right sidebar unaffected when closing the left sidebar
+                 */
+                showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
         case CLEAR_UI: {
@@ -198,11 +227,15 @@ export default (state = EMPTY_UI, action) => {
 // Selectors
 
 export const sGetUi = (state) => state.ui
+export const sGetUiInput = (state) => sGetUi(state).input
+export const sGetUiInputType = (state) => sGetUi(state).input.type
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
-export const sGetUiShowRightSidebar = (state) => sGetUi(state).showRightSidebar
+export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
+export const sGetUiShowAccessoryPanel = (state) =>
+    sGetUi(state).showAccessoryPanel
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog

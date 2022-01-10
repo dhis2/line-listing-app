@@ -7,13 +7,20 @@ import {
     SET_UI_OPTIONS,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
-    TOGGLE_UI_RIGHT_SIDEBAR,
+    SET_UI_DETAILS_PANEL_OPEN,
+    SET_UI_ACCESSORY_PANEL_OPEN,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
+    SET_UI_INPUT,
 } from '../reducers/ui.js'
+
+export const acSetUiInput = (value) => ({
+    type: SET_UI_INPUT,
+    value,
+})
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,
@@ -50,8 +57,14 @@ export const acClearUi = (value) => ({
     value,
 })
 
-export const acToggleUiRightSidebar = () => ({
-    type: TOGGLE_UI_RIGHT_SIDEBAR,
+export const acSetUiDetailsPanelOpen = (value) => ({
+    type: SET_UI_DETAILS_PANEL_OPEN,
+    value,
+})
+
+export const acSetUiAccessoryPanelOpen = (value) => ({
+    type: SET_UI_ACCESSORY_PANEL_OPEN,
+    value,
 })
 
 export const tClearUi = () => (dispatch, getState) => {

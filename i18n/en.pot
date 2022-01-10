@@ -262,6 +262,24 @@ msgstr "And 1 other..."
 msgid "And {{numberOfItems}} others..."
 msgstr "And {{numberOfItems}} others..."
 
+msgid "Event"
+msgstr "Event"
+
+msgid "Enrollment"
+msgstr "Enrollment"
+
+msgid "Events are single registrations or incidents in a program."
+msgstr "Events are single registrations or incidents in a program."
+
+msgid "Programs track enrollments across time."
+msgstr "Programs track enrollments across time."
+
+msgid "Input: {{type}}"
+msgstr "Input: {{type}}"
+
+msgid "Choose an input"
+msgstr "Choose an input"
+
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
 

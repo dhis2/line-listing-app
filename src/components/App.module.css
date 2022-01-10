@@ -42,19 +42,18 @@
     overflow: hidden;
 }
 
-.mainLeft {
-    min-width: 260px;
-    border-right: 1px solid #e0e2e4;
-}
-
 .mainRight {
     flex: 1 1 0%;
     max-width: 380px;
     background-color: #f0f2f4;
     overflow-y: auto;
     overflow-x: hidden;
+    transform: scaleX(1);
+    transition: max-width 200ms ease-out;
 }
-
+.mainRight.hidden {
+    max-width: 0;
+}
 /* Main canvas */
 
 .mainCenterCanvas {
@@ -63,6 +62,7 @@
     height: 100%;
     overflow: hidden;
     position: relative;
+    padding: 0 var(--spacers-dp4);
 }
 
 .loadingCover {
