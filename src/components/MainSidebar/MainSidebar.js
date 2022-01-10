@@ -54,13 +54,13 @@ const MainSidebar = () => {
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
-                    label={i18n.t("Program dimensions")}
+                    label={i18n.t('Program dimensions')}
                     onClick={() => onClick(IDS.PROGRAM)}
                     selected={open && dimensionId === IDS.PROGRAM}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
-                    label={i18n.t("Your dimensions")}
+                    label={i18n.t('Your dimensions')}
                     onClick={() => onClick(IDS.YOUR)}
                     selected={open && dimensionId === IDS.YOUR}
                     count={5}
