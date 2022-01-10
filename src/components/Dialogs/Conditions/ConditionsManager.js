@@ -1,10 +1,12 @@
+import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiConditions } from '../../../actions/ui.js'
+import { apiFetchLegendSetsByDimension } from '../../../api/legendSets.js'
 import {
     OPERATOR_IN,
     parseConditionsArrayToString,
@@ -73,22 +75,47 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const dimensionType = dimension.valueType
+    const valueType = dimension.valueType
     const isOptionSetCondition =
-        dimensionType === DIMENSION_TYPE_TEXT && dimension.optionSet
+        valueType === DIMENSION_TYPE_TEXT && dimension.optionSet
+
+    const getInitConditions = () =>
+        conditions.condition?.length
+            ? parseConditionsStringToArray(conditions.condition)
+            : null
+
+    const getEmptyConditions = () =>
+        SINGLETON_TYPES.includes(valueType) ||
+        isOptionSetCondition ||
+        conditions.legendSet
+            ? [EMPTY_CONDITION]
+            : []
 
     const [conditionsList, setConditionsList] = useState(
-        (conditions.condition?.length &&
-            parseConditionsStringToArray(conditions.condition)) ||
-            (!conditions.condition?.length &&
-                (SINGLETON_TYPES.includes(dimensionType) ||
-                    isOptionSetCondition) && [EMPTY_CONDITION]) ||
-            (conditions.legendSet ? [EMPTY_CONDITION] : [])
+        getInitConditions() || getEmptyConditions()
     )
 
     const [selectedLegendSet, setSelectedLegendSet] = useState(
         conditions.legendSet
     )
+
+    const [availableLegendSets, setAvailableLegendSets] = useState()
+
+    const dataEngine = useDataEngine()
+
+    useEffect(() => {
+        const fetchLegendSets = async () => {
+            const result = await apiFetchLegendSetsByDimension({
+                dataEngine,
+                dimensionId: dimension.id,
+                dimensionType: dimension.dimensionType,
+            })
+            setAvailableLegendSets(result)
+        }
+        if (NUMERIC_TYPES.includes(valueType)) {
+            fetchLegendSets()
+        }
+    }, [])
 
     const addCondition = () =>
         setConditionsList([...conditionsList, EMPTY_CONDITION])
@@ -156,7 +183,7 @@ const ConditionsManager = ({
             ))
         }
 
-        switch (dimensionType) {
+        switch (valueType) {
             case DIMENSION_TYPE_NUMBER:
             case DIMENSION_TYPE_UNIT_INTERVAL:
             case DIMENSION_TYPE_PERCENTAGE:
@@ -164,8 +191,13 @@ const ConditionsManager = ({
             case DIMENSION_TYPE_INTEGER_POSITIVE:
             case DIMENSION_TYPE_INTEGER_NEGATIVE:
             case DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE: {
-                const useDecimalSteps =
-                    dimensionType === DIMENSION_TYPE_UNIT_INTERVAL
+                if (!availableLegendSets) {
+                    return null
+                }
+
+                const enableDecimalSteps =
+                    valueType === DIMENSION_TYPE_UNIT_INTERVAL
+
                 return (
                     (conditionsList.length && conditionsList) ||
                     (selectedLegendSet && [''])
@@ -183,7 +215,8 @@ const ConditionsManager = ({
                             onLegendSetChange={(value) =>
                                 setSelectedLegendSet(value)
                             }
-                            useDecimalSteps={useDecimalSteps}
+                            availableLegendSets={availableLegendSets}
+                            enableDecimalSteps={enableDecimalSteps}
                         />
                         {getDividerContent(index)}
                     </div>
@@ -278,7 +311,7 @@ const ConditionsManager = ({
     }
 
     const disableAddButton =
-        NUMERIC_TYPES.includes(dimensionType) &&
+        NUMERIC_TYPES.includes(valueType) &&
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
@@ -291,7 +324,7 @@ const ConditionsManager = ({
             title={dimension.name}
         >
             <div>
-                {!dimensionType ? (
+                {!valueType ? (
                     <p className={classes.paragraph}>
                         {i18n.t(
                             "This dimension can't be filtered. All values will be shown."
@@ -305,12 +338,12 @@ const ConditionsManager = ({
                     </p>
                 )}
             </div>
-            {dimensionType && (
+            {valueType && (
                 <div className={classes.mainSection}>
                     {!conditionsList.length &&
                     !selectedLegendSet &&
                     !(
-                        SINGLETON_TYPES.includes(dimensionType) ||
+                        SINGLETON_TYPES.includes(valueType) ||
                         isOptionSetCondition
                     ) ? (
                         <p className={classes.paragraph}>
@@ -325,7 +358,7 @@ const ConditionsManager = ({
                         renderConditionsContent()
                     )}
                     {!(
-                        SINGLETON_TYPES.includes(dimensionType) ||
+                        SINGLETON_TYPES.includes(valueType) ||
                         isOptionSetCondition
                     ) && (
                         <Tooltip
