@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiInput } from '../../../actions/ui.js'
@@ -21,7 +22,11 @@ const getLabelForInputType = (type) => {
     }
 }
 
-const InputPanel = () => {
+const InputPanel = ({ visible }) => {
+    if (!visible) {
+        return null
+    }
+
     const selectedInput = useSelector(sGetUiInput)
     const dispatch = useDispatch()
     const setSelectedInput = (input) => dispatch(acSetUiInput(input))
@@ -46,6 +51,10 @@ const InputPanel = () => {
             />
         </div>
     )
+}
+
+InputPanel.propTypes = {
+    visible: PropTypes.bool.isRequired,
 }
 
 export { InputPanel, getLabelForInputType }

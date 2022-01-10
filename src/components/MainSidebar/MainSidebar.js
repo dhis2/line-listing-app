@@ -11,6 +11,7 @@ import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import styles from './MainSidebar.module.css'
 import { MenuItem } from './MenuItem/index.js'
+import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
 
 const IDS = {
     INPUT: 'INPUT',
@@ -22,15 +23,15 @@ const MainSidebar = () => {
     const dispatch = useDispatch()
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
-    const [dimensionId, setDimensionId] = useState(null)
+    const [selectedTabId, setSelectedTabId] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
-        if (open && id === dimensionId) {
-            setDimensionId(null)
+        if (open && id === selectedTabId) {
+            setSelectedTabId(null)
             setOpen(false)
         } else {
-            setDimensionId(id)
+            setSelectedTabId(id)
             setOpen(true)
             closeDetailsPanel()
         }
@@ -50,27 +51,28 @@ const MainSidebar = () => {
                             : i18n.t('Choose an input')
                     }
                     onClick={() => onClick(IDS.INPUT)}
-                    selected={open && dimensionId === IDS.INPUT}
+                    selected={open && selectedTabId === IDS.INPUT}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label={i18n.t('Program dimensions')}
                     onClick={() => onClick(IDS.PROGRAM)}
-                    selected={open && dimensionId === IDS.PROGRAM}
+                    selected={open && selectedTabId === IDS.PROGRAM}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label={i18n.t('Your dimensions')}
                     onClick={() => onClick(IDS.YOUR)}
-                    selected={open && dimensionId === IDS.YOUR}
+                    selected={open && selectedTabId === IDS.YOUR}
                     count={5}
                 />
             </div>
             <div className={cx(styles.accessory, { [styles.hidden]: !open })}>
                 <div className={styles.accessoryInner}>
-                    {dimensionId === IDS.INPUT && <InputPanel />}
-                    {dimensionId === IDS.PROGRAM && <h1>PROGRAM</h1>}
-                    {dimensionId === IDS.YOUR && <h1>YOUR</h1>}
+                    <InputPanel visible={selectedTabId === IDS.INPUT} />
+                    <ProgramDimensionsPanel
+                        visible={selectedTabId === IDS.PROGRAM}
+                    />
                 </div>
             </div>
         </div>
