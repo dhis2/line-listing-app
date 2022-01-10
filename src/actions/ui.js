@@ -19,7 +19,7 @@ import {
     SET_UI_PROGRAM_STAGE,
 } from '../reducers/ui.js'
 
-export const acSetInput = (value) => ({
+export const acSetUiInput = (value) => ({
     type: SET_UI_INPUT,
     value,
 })
