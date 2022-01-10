@@ -24,7 +24,7 @@ import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { sGetCurrent } from '../reducers/current.js'
 import { sGetIsVisualizationLoading } from '../reducers/loader.js'
-import { sGetUiShowRightSidebar } from '../reducers/ui.js'
+import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
 import { default as DialogManager } from './Dialogs/DialogManager.js'
@@ -32,6 +32,7 @@ import DndContext from './DndContext.js'
 import { InterpretationModal } from './InterpretationModal/index.js'
 import Layout from './Layout/Layout.js'
 import LoadingMask from './LoadingMask/LoadingMask.js'
+import { MainSidebar } from './MainSidebar/index.js'
 import { default as TitleBar } from './TitleBar/TitleBar.js'
 import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
@@ -73,7 +74,7 @@ const App = ({
     setVisualizationLoading,
     setUiFromVisualization,
     setUser,
-    showRightSidebar,
+    showDetailsPanel,
     userSettings,
 }) => {
     const [previousLocation, setPreviousLocation] = useState(null)
@@ -214,12 +215,8 @@ const App = ({
                 )}
             >
                 <DndContext>
-                    <div className={classes.mainLeft}>
-                        <span style={{ color: 'red' }}>
-                            {'dimension panel'}
-                        </span>
-                        <DialogManager />
-                    </div>
+                    <MainSidebar />
+                    <DialogManager />
                     <div
                         className={cx(
                             classes.mainCenter,
@@ -273,15 +270,19 @@ const App = ({
                         </div>
                     </div>
                 </DndContext>
-                {showRightSidebar && current && (
-                    <div className={classes.mainRight}>
+                <div
+                    className={cx(classes.mainRight, {
+                        [classes.hidden]: !showDetailsPanel,
+                    })}
+                >
+                    {showDetailsPanel && current && (
                         <DetailsPanel
                             interpretationsUnitRef={interpretationsUnitRef}
                         />
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
-            <CssVariables colors spacers />
+            <CssVariables colors spacers theme />
         </div>
     )
 }
@@ -289,7 +290,7 @@ const App = ({
 const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
-    showRightSidebar: sGetUiShowRightSidebar(state),
+    showDetailsPanel: sGetUiShowDetailsPanel(state),
 })
 
 const mapDispatchToProps = {
@@ -323,7 +324,7 @@ App.propTypes = {
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
-    showRightSidebar: PropTypes.bool,
+    showDetailsPanel: PropTypes.bool,
     userSettings: PropTypes.object,
 }
 

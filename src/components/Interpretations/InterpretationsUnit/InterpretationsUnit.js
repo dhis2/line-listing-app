@@ -73,7 +73,7 @@ export const InterpretationsUnit = forwardRef(
             <div
                 className={cx('container', {
                     expanded: isExpanded,
-                    fetching,
+                    fetching: fetching && !loading,
                 })}
             >
                 <div
@@ -135,11 +135,11 @@ export const InterpretationsUnit = forwardRef(
                     .container.fetching::after {
                         content: '';
                         position: absolute;
-                        top: calc(50% - 24px);
-                        left: calc(50% - 24px);
-                        width: 48px;
-                        height: 48px;
-                        border-width: 6px;
+                        top: calc(50% - 12px);
+                        left: calc(50% - 12px);
+                        width: 24px;
+                        height: 24px;
+                        border-width: 4px;
                         border-style: solid;
                         border-color: rgba(110, 122, 138, 0.15)
                             rgba(110, 122, 138, 0.15) rgb(20, 124, 215);

@@ -28,3 +28,4 @@ export default (state = DEFAULT_CURRENT, action) => {
 // Selectors
 
 export const sGetCurrent = (state) => state.current
+export const sGetCurrentId = (state) => state.current?.id

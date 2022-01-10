@@ -29,7 +29,9 @@ export const visTypeMap = {
 export const outputTypeMap = {
     [OUTPUT_TYPE_EVENT]: {
         name: i18n.t('Event'),
-        description: i18n.t('Events are single registrations or incidents in a program'),
+        description: i18n.t(
+            'Events are single registrations or incidents in a program'
+        ),
     },
     [OUTPUT_TYPE_ENROLLMENT]: {
         name: i18n.t('Enrollment'),

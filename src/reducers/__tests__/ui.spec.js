@@ -70,6 +70,7 @@ describe('reducer: store.ui', () => {
                     stage: 'S',
                 },
             }
+
             expect(reducer(prevState, programAction)).toEqual({
                 program,
             })
