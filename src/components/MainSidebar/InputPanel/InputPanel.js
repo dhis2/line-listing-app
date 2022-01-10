@@ -57,4 +57,4 @@ InputPanel.propTypes = {
     visible: PropTypes.bool.isRequired,
 }
 
-export { InputPanel, getLabelForInputType }
+export { InputPanel, getLabelForInputType, INPUT_TYPES }

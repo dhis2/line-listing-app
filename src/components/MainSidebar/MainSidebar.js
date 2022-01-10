@@ -42,14 +42,10 @@ const MainSidebar = () => {
             <div className={styles.main}>
                 <MenuItem
                     icon={<IconArrowRight16 />}
-                    label={
-                        selectedInputType
-                            ? i18n.t('Input: {{type}}', {
-                                  type: getLabelForInputType(selectedInputType),
-                                  nsSeparator: '^^',
-                              })
-                            : i18n.t('Choose an input')
-                    }
+                    label={i18n.t('Input: {{type}}', {
+                        type: getLabelForInputType(selectedInputType),
+                        nsSeparator: '^^',
+                    })}
                     onClick={() => onClick(IDS.INPUT)}
                     selected={open && selectedTabId === IDS.INPUT}
                 />
