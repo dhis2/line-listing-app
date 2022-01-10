@@ -1,31 +1,71 @@
 import { useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { ProgramSelect } from './ProgramSelect.js'
 
 const programsQuery = {
-    resource: 'programs',
-    params: {
-        fields: [
-            'id',
-            'displayName',
-            'enrollmentDateLabel',
-            'incidentDateLabel',
-            'programType',
-        ],
-        paging: false,
+    programs: {
+        resource: 'programs',
+        params: {
+            fields: [
+                'id',
+                'displayName',
+                'enrollmentDateLabel',
+                'incidentDateLabel',
+                'programType',
+            ],
+            paging: false,
+        },
     },
 }
 
 const ProgramDimensionsPanel = ({ visible }) => {
-    const { loading, fetching, error, data, refetch } =
-        useDataQuery(programsQuery)
+    const [selectedProgramId, setSelectedProgramId] = useState(null)
+    const { fetching, error, data, refetch, called } = useDataQuery(
+        programsQuery,
+        {
+            lazy: true,
+        }
+    )
 
-    console.log(loading, fetching, error, data, refetch)
+    useEffect(() => {
+        if (visible && !data) {
+            refetch()
+        }
+    }, [visible, data])
 
-    if (!visible) {
+    if (!visible || !called) {
         return null
     }
-    return <span>ProgramDimensionsPanel</span>
+
+    if (error && !fetching) {
+        return (
+            <NoticeBox error title={i18n.t('Could not load programs')}>
+                {error.message ||
+                    i18n.t(
+                        "The programs couldn't be retrieved. Try again or contact your system administrator."
+                    )}
+            </NoticeBox>
+        )
+    }
+
+    if (fetching) {
+        return (
+            <CenteredContent>
+                <CircularLoader />
+            </CenteredContent>
+        )
+    }
+
+    return (
+        <ProgramSelect
+            programs={data?.programs.programs}
+            selectedProgramId={selectedProgramId}
+            setSelectedProgramId={setSelectedProgramId}
+        />
+    )
 }
 
 ProgramDimensionsPanel.propTypes = {
