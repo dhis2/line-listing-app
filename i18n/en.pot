@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-12-29T09:23:46.306Z\n"
-"PO-Revision-Date: 2021-12-29T09:23:46.306Z\n"
+"POT-Creation-Date: 2022-01-07T08:30:33.802Z\n"
+"PO-Revision-Date: 2022-01-07T08:30:33.802Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -49,6 +49,9 @@ msgstr "Not answered"
 
 msgid "and"
 msgstr "and"
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr "This dimension can't be filtered. All values will be shown."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to "
