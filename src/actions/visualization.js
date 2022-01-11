@@ -9,11 +9,14 @@ export const acSetVisualization = (value) => {
         ...(value.rows || []),
         ...(value.filters || []),
     ]
-        .filter((dim) => dim.valueType || dim.optionSet?.id)
+        .filter(
+            (dim) => dim.valueType || dim.optionSet?.id || dim.dimensionType
+        )
         .map((dim) => ({
             [dim.dimension]: {
                 valueType: dim.valueType,
                 optionSet: dim.optionSet?.id,
+                dimensionType: dim.dimensionType,
             },
         }))
 
