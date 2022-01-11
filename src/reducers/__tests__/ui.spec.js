@@ -4,6 +4,8 @@ import reducer, {
     DEFAULT_UI,
     SET_UI_INPUT,
     SET_UI_PROGRAM,
+    SET_UI_PROGRAM_ID,
+    SET_UI_PROGRAM_STAGE,
     SET_UI_REPETITION,
 } from '../ui.js'
 
@@ -35,8 +37,8 @@ describe('reducer: store.ui', () => {
         it('sets the new value', () => {
             const prevState = {
                 input: {
-                    type: 'OUTPUT_TYPE_TRACKED_ENTITY',
-                    trackedEntity: 'PERSON',
+                    type: 'tracked entity',
+                    trackedEntityType: 'person',
                 },
             }
 
@@ -47,14 +49,36 @@ describe('reducer: store.ui', () => {
     })
 
     describe(`reducer: ${SET_UI_PROGRAM}`, () => {
+        const prevState = {
+            program: {
+                id: 'P',
+                stage: 'S',
+            },
+        }
+
+        const programId = 'p'
+
+        const programStage = 's'
+
         const program = {
-            id: 'p',
+            id: programId,
         }
 
         const programAction = {
             type: SET_UI_PROGRAM,
             value: program,
         }
+
+        const programIdAction = {
+            type: SET_UI_PROGRAM_ID,
+            value: programId,
+        }
+
+        const programStageAction = {
+            type: SET_UI_PROGRAM_STAGE,
+            value: programStage,
+        }
+
         it('returns a new object', () => {
             const state = {}
 
@@ -63,17 +87,22 @@ describe('reducer: store.ui', () => {
             )
         })
 
-        it('sets the new value', () => {
-            const prevState = {
-                program: {
-                    program: 'P',
-                    stage: 'S',
-                },
-            }
-
+        it('sets the new program object', () => {
             expect(reducer(prevState, programAction)).toEqual({
                 program,
             })
+        })
+
+        it('sets the new program id', () => {
+            expect(reducer(prevState, programIdAction).program.id).toEqual(
+                programId
+            )
+        })
+
+        it('sets the new program stage', () => {
+            expect(
+                reducer(prevState, programStageAction).program.stage
+            ).toEqual(programStage)
         })
     })
 

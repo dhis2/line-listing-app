@@ -17,6 +17,7 @@ import {
     SET_UI_INPUT,
     SET_UI_PROGRAM,
     SET_UI_PROGRAM_STAGE,
+    SET_UI_PROGRAM_ID,
 } from '../reducers/ui.js'
 
 export const acSetUiInput = (value) => ({
@@ -26,6 +27,11 @@ export const acSetUiInput = (value) => ({
 
 export const acSetUiProgram = (value) => ({
     type: SET_UI_PROGRAM,
+    value,
+})
+
+export const acSetUiProgramId = (value) => ({
+    type: SET_UI_PROGRAM_ID,
     value,
 })
 

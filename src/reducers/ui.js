@@ -10,6 +10,7 @@ import {
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const SET_UI_PROGRAM = 'SET_UI_PROGRAM'
+export const SET_UI_PROGRAM_ID = 'SET_UI_PROGRAM_ID'
 export const SET_UI_PROGRAM_STAGE = 'SET_UI_PROGRAM_STAGE'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
@@ -100,6 +101,15 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 program: action.value,
+            }
+        }
+        case SET_UI_PROGRAM_ID: {
+            return {
+                ...state,
+                program: {
+                    ...state.program,
+                    id: action.value,
+                },
             }
         }
         case SET_UI_PROGRAM_STAGE: {
@@ -254,6 +264,7 @@ export default (state = EMPTY_UI, action) => {
 
 export const sGetUi = (state) => state.ui
 export const sGetUiInput = (state) => sGetUi(state).input
+export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
@@ -271,6 +282,9 @@ export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
 // Selectors level 2
 
 export const sGetUiInputType = (state) => sGetUiInput(state).type
+
+export const sGetUiProgramId = (state) => sGetUiProgram(state).id
+export const sGetUiProgramStage = (state) => sGetUiProgram(state).stage
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
