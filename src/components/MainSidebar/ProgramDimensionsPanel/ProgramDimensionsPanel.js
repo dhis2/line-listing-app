@@ -1,11 +1,28 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { sGetUiInputType } from '../../../reducers/ui.js'
+import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
+import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const programsQuery = {
+const WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
+const WITH_REGISTRATION = 'WITH_REGISTRATION'
+const PROGRAM_TYPES = {
+    [WITHOUT_REGISTRATION]: {
+        name: 'EVENT',
+        type: WITHOUT_REGISTRATION,
+    },
+    [WITH_REGISTRATION]: {
+        name: 'TRACKER',
+        type: WITH_REGISTRATION,
+    },
+}
+const query = {
     programs: {
         resource: 'programs',
         params: {
@@ -22,19 +39,25 @@ const programsQuery = {
 }
 
 const ProgramDimensionsPanel = ({ visible }) => {
-    const [selectedProgramId, setSelectedProgramId] = useState(null)
-    const { fetching, error, data, refetch, called } = useDataQuery(
-        programsQuery,
-        {
-            lazy: true,
-        }
-    )
+    const inputType = useSelector(sGetUiInputType)
+    const [selectedProgramId, setSelectedProgramId] = useState(undefined)
+    const { fetching, error, data, refetch, called } = useDataQuery(query, {
+        lazy: true,
+    })
+    const programs = data?.programs.programs
+    const selectedProgram =
+        programs &&
+        selectedProgramId &&
+        programs.find(({ id }) => id === selectedProgramId)
+    const programType = PROGRAM_TYPES[selectedProgram?.programType]
+
+    console.log(programs, selectedProgram, programType)
 
     useEffect(() => {
-        if (visible && !data) {
+        if (visible && !called) {
             refetch()
         }
-    }, [visible, data])
+    }, [visible, called])
 
     if (!visible || !called) {
         return null
@@ -60,11 +83,38 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }
 
     return (
-        <ProgramSelect
-            programs={data?.programs.programs}
-            selectedProgramId={selectedProgramId}
-            setSelectedProgramId={setSelectedProgramId}
-        />
+        <>
+            <div className={cx(styles.section, styles.bordered)}>
+                <ProgramSelect
+                    programs={data.programs.programs}
+                    inputType={inputType}
+                    selectedProgramId={selectedProgramId}
+                    setSelectedProgramId={setSelectedProgramId}
+                />
+            </div>
+            <div
+                className={cx(styles.section, {
+                    [styles.bordered]: !!selectedProgramId,
+                })}
+            >
+                {selectedProgramId ? (
+                    <ProgramDimensionsFilter
+                        program={
+                            selectedProgramId &&
+                            data.programs.programs.find(
+                                ({ id }) => id === selectedProgramId
+                            )
+                        }
+                    />
+                ) : (
+                    <div className={styles.helptext}>
+                        {i18n.t(
+                            'Choose a program above to add program dimensions.'
+                        )}
+                    </div>
+                )}
+            </div>
+        </>
     )
 }
 

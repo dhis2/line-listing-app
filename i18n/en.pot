@@ -277,9 +277,6 @@ msgstr "Programs track enrollments across time."
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
-msgid "Choose an input"
-msgstr "Choose an input"
-
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
