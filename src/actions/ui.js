@@ -15,9 +15,9 @@ import {
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
     SET_UI_INPUT,
-    SET_UI_PROGRAM,
     SET_UI_PROGRAM_STAGE,
     SET_UI_PROGRAM_ID,
+    CLEAR_UI_PROGRAM,
 } from '../reducers/ui.js'
 
 export const acSetUiInput = (value) => ({
@@ -25,9 +25,8 @@ export const acSetUiInput = (value) => ({
     value,
 })
 
-export const acSetUiProgram = (value) => ({
-    type: SET_UI_PROGRAM,
-    value,
+export const acClearUiProgram = () => ({
+    type: CLEAR_UI_PROGRAM,
 })
 
 export const acSetUiProgramId = (value) => ({
@@ -39,6 +38,12 @@ export const acSetUiProgramStage = (value) => ({
     type: SET_UI_PROGRAM_STAGE,
     value,
 })
+
+export const tSetUiProgram = (programId, stageId) => async (dispatch) => {
+    dispatch(acClearUiProgram())
+    programId && dispatch(acSetUiProgramId(programId))
+    stageId && dispatch(acSetUiProgramStage(stageId))
+}
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,

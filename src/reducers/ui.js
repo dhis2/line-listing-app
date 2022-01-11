@@ -9,7 +9,7 @@ import {
 } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
-export const SET_UI_PROGRAM = 'SET_UI_PROGRAM'
+export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
 export const SET_UI_PROGRAM_ID = 'SET_UI_PROGRAM_ID'
 export const SET_UI_PROGRAM_STAGE = 'SET_UI_PROGRAM_STAGE'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -97,10 +97,10 @@ export default (state = EMPTY_UI, action) => {
                 input: action.value,
             }
         }
-        case SET_UI_PROGRAM: {
+        case CLEAR_UI_PROGRAM: {
             return {
                 ...state,
-                program: action.value,
+                program: EMPTY_UI.program,
             }
         }
         case SET_UI_PROGRAM_ID: {

@@ -1,6 +1,7 @@
 import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import reducer, {
+    CLEAR_UI_PROGRAM,
     DEFAULT_UI,
     SET_UI_INPUT,
     SET_UI_PROGRAM,
@@ -69,6 +70,10 @@ describe('reducer: store.ui', () => {
             value: program,
         }
 
+        const clearProgramAction = {
+            type: CLEAR_UI_PROGRAM,
+        }
+
         const programIdAction = {
             type: SET_UI_PROGRAM_ID,
             value: programId,
@@ -90,6 +95,12 @@ describe('reducer: store.ui', () => {
         it('sets the new program object', () => {
             expect(reducer(prevState, programAction)).toEqual({
                 program,
+            })
+        })
+
+        it('clears the selected program', () => {
+            expect(reducer(prevState, clearProgramAction)).toEqual({
+                program: {},
             })
         })
 
