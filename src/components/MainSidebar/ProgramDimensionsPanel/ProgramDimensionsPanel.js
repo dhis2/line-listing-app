@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetUiInputType } from '../../../reducers/ui.js'
+import { INPUT_TYPES } from '../InputPanel/index.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
@@ -15,11 +16,11 @@ const WITH_REGISTRATION = 'WITH_REGISTRATION'
 const PROGRAM_TYPES = {
     [WITHOUT_REGISTRATION]: {
         name: 'EVENT',
-        type: WITHOUT_REGISTRATION,
+        id: WITHOUT_REGISTRATION,
     },
     [WITH_REGISTRATION]: {
         name: 'TRACKER',
-        type: WITH_REGISTRATION,
+        id: WITH_REGISTRATION,
     },
 }
 const query = {
@@ -32,6 +33,7 @@ const query = {
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
+                'programStages[id,displayName]',
             ],
             paging: false,
         },
@@ -44,14 +46,18 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
-    const programs = data?.programs.programs
+    const filteredPrograms = data?.programs.programs.filter(
+        ({ programType }) =>
+            inputType === INPUT_TYPES.EVENT ||
+            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION.id
+    )
     const selectedProgram =
-        programs &&
+        filteredPrograms &&
         selectedProgramId &&
-        programs.find(({ id }) => id === selectedProgramId)
-    const programType = PROGRAM_TYPES[selectedProgram?.programType]
+        filteredPrograms.find(({ id }) => id === selectedProgramId)
+    const programType = PROGRAM_TYPES[selectedProgram?.programType]?.name
 
-    console.log(programs, selectedProgram, programType)
+    console.log(filteredPrograms, selectedProgram, programType)
 
     useEffect(() => {
         if (visible && !called) {
@@ -86,8 +92,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         <>
             <div className={cx(styles.section, styles.bordered)}>
                 <ProgramSelect
-                    programs={data.programs.programs}
-                    inputType={inputType}
+                    programs={filteredPrograms}
                     selectedProgramId={selectedProgramId}
                     setSelectedProgramId={setSelectedProgramId}
                 />
