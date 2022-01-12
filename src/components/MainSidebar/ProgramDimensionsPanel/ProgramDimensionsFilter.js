@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styles from './ProgramDimensionsFilter.module.css'
 import { SingleSelect } from '@dhis2/ui'
+import styles from './ProgramDimensionsFilter.module.css'
 
 const ProgramDimensionsFilter = ({ program }) => {
     console.log(program)
