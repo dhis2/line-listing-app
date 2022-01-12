@@ -18,7 +18,7 @@ const ToolbarDownloadDropdown = () => {
                 {i18n.t('Download')}
             </MenuButton>
             {isOpen && (
-                <Layer onClick={() => toggleOpen}>
+                <Layer onClick={toggleOpen}>
                     <Popper reference={buttonRef} placement="bottom-start">
                         <DownloadMenu download={download} />
                     </Popper>
