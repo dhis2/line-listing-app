@@ -3,18 +3,16 @@ import { SingleSelect, SingleSelectOption, Button, Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { INPUT_TYPES } from '../InputPanel/index.js'
 import styles from './ProgramSelect.module.css'
 
 const ProgramSelect = ({
-    inputType,
     programs,
     setSelectedProgramId,
     selectedProgramId,
 }) => {
-    console.log(inputType, INPUT_TYPES)
     const select = (
         <SingleSelect
+            dense
             selected={selectedProgramId}
             disabled={!!selectedProgramId}
             onChange={({ selected }) => setSelectedProgramId(selected)}
@@ -52,7 +50,6 @@ const ProgramSelect = ({
 }
 
 ProgramSelect.propTypes = {
-    inputType: PropTypes.string.isRequired,
     programs: PropTypes.array.isRequired,
     setSelectedProgramId: PropTypes.func.isRequired,
     selectedProgramId: PropTypes.string,

@@ -102,15 +102,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     [styles.bordered]: !!selectedProgramId,
                 })}
             >
-                {selectedProgramId ? (
-                    <ProgramDimensionsFilter
-                        program={
-                            selectedProgramId &&
-                            data.programs.programs.find(
-                                ({ id }) => id === selectedProgramId
-                            )
-                        }
-                    />
+                {selectedProgram ? (
+                    <ProgramDimensionsFilter program={selectedProgram} />
                 ) : (
                     <div className={styles.helptext}>
                         {i18n.t(
