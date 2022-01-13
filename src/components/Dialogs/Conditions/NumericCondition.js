@@ -96,10 +96,10 @@ const NumericCondition = ({
         <div className={classes.container}>
             <SingleSelectField
                 selected={operator}
-                inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => setOperator(selected)}
+                className={classes.narrowInput}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -135,14 +135,17 @@ const NumericCondition = ({
                 ((legendSetId && legendSet) || !legendSetId) && (
                     <>
                         <SingleSelectField
+                            className={classes.narrowInput}
                             selected={legendSet?.id}
-                            inputWidth="136px"
                             placeholder={i18n.t('Choose a set of options')}
                             dense
                             onChange={({ selected }) => {
                                 onLegendSetChange(selected)
                                 setValue(null)
                             }}
+                            empty={i18n.t(
+                                'No preset option sets for this data item'
+                            )}
                         >
                             {availableLegendSets.map((item) => (
                                 <SingleSelectOption
@@ -157,11 +160,11 @@ const NumericCondition = ({
                                 onChange={({ selected }) =>
                                     setValue(selected.join(';'))
                                 }
-                                inputWidth="330px"
                                 selected={
                                     (value?.length && value.split(';')) || []
                                 }
                                 dense
+                                className={classes.wideInput}
                             >
                                 {legendSet.legends
                                     .sort((a, b) => a.startValue - b.startValue)

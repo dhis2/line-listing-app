@@ -108,7 +108,6 @@ const BaseCondition = ({
         <div className={classes.container}>
             <SingleSelectField
                 selected={operator}
-                inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => setOperator(selected)}

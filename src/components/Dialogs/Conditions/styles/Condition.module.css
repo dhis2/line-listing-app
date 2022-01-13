@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    align-items: flex-start;
 }
 
 .caseSensitiveCheckbox {
@@ -31,4 +32,16 @@
     font-size: 14px;
     font-weight: 400;
     margin: 0 0 var(--spacers-dp8);
+}
+
+.wideInput {
+    flex: 2 1 auto;
+}
+
+.narrowInput {
+    flex: 0 1 auto;
+}
+
+.removeButton {
+    flex: 0 0 auto;
 }
