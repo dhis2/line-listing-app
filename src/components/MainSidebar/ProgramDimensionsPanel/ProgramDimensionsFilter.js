@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelect, SingleSelectOption, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
