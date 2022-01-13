@@ -1,12 +1,11 @@
 import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import reducer, {
-    CLEAR_UI_PROGRAM,
     DEFAULT_UI,
     SET_UI_INPUT,
-    SET_UI_PROGRAM,
-    SET_UI_PROGRAM_ID,
-    SET_UI_PROGRAM_STAGE,
+    CLEAR_UI_PROGRAM,
+    UPDATE_UI_PROGRAM_ID,
+    UPDATE_UI_PROGRAM_STAGE,
     SET_UI_REPETITION,
 } from '../ui.js'
 
@@ -27,12 +26,10 @@ describe('reducer: store.ui', () => {
             value: input,
         }
 
-        it('returns a new object', () => {
+        it('is pure', () => {
             const state = {}
 
-            expect(reducer(state, inputAction)).not.toBe(
-                reducer(state, inputAction)
-            )
+            expect(reducer(state, inputAction).input).not.toBe(state)
         })
 
         it('sets the new value', () => {
@@ -49,7 +46,7 @@ describe('reducer: store.ui', () => {
         })
     })
 
-    describe(`reducer: ${SET_UI_PROGRAM}`, () => {
+    describe(`reducer: ${CLEAR_UI_PROGRAM}`, () => {
         const prevState = {
             program: {
                 id: 'P',
@@ -57,46 +54,9 @@ describe('reducer: store.ui', () => {
             },
         }
 
-        const programId = 'p'
-
-        const programStage = 's'
-
-        const program = {
-            id: programId,
-        }
-
-        const programAction = {
-            type: SET_UI_PROGRAM,
-            value: program,
-        }
-
         const clearProgramAction = {
             type: CLEAR_UI_PROGRAM,
         }
-
-        const programIdAction = {
-            type: SET_UI_PROGRAM_ID,
-            value: programId,
-        }
-
-        const programStageAction = {
-            type: SET_UI_PROGRAM_STAGE,
-            value: programStage,
-        }
-
-        it('returns a new object', () => {
-            const state = {}
-
-            expect(reducer(state, programAction)).not.toBe(
-                reducer(state, programAction)
-            )
-        })
-
-        it('sets the new program object', () => {
-            expect(reducer(prevState, programAction)).toEqual({
-                program,
-            })
-        })
 
         it('clears the selected program', () => {
             expect(reducer(prevState, clearProgramAction)).toEqual({
@@ -104,16 +64,54 @@ describe('reducer: store.ui', () => {
             })
         })
 
+        it('is pure', () => {
+            const state = {}
+
+            expect(reducer(state, clearProgramAction)).not.toBe(state)
+        })
+    })
+
+    describe(`reducer: ${UPDATE_UI_PROGRAM_ID}`, () => {
+        const programId = 'p'
+
+        const programIdAction = {
+            type: UPDATE_UI_PROGRAM_ID,
+            value: programId,
+        }
+
         it('sets the new program id', () => {
-            expect(reducer(prevState, programIdAction).program.id).toEqual(
-                programId
+            expect(reducer({}, programIdAction).program.id).toBe(programId)
+        })
+
+        it('is pure', () => {
+            const state = {}
+
+            expect(
+                reducer({ program: state }, programIdAction).program
+            ).not.toBe(state)
+        })
+    })
+
+    describe(`reducer: ${UPDATE_UI_PROGRAM_STAGE}`, () => {
+        const programStage = 's'
+
+        const programStageAction = {
+            type: UPDATE_UI_PROGRAM_STAGE,
+            value: programStage,
+        }
+
+        it('sets the new program stage', () => {
+            expect(reducer({}, programStageAction).program.stage).toBe(
+                programStage
             )
         })
 
-        it('sets the new program stage', () => {
+        it('is pure', () => {
+            const state = {}
+
             expect(
-                reducer(prevState, programStageAction).program.stage
-            ).toEqual(programStage)
+                reducer({ program: state }, programStageAction).program
+            ).not.toBe(state)
         })
     })
 

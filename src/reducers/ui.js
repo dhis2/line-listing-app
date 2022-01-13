@@ -10,8 +10,8 @@ import {
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
-export const SET_UI_PROGRAM_ID = 'SET_UI_PROGRAM_ID'
-export const SET_UI_PROGRAM_STAGE = 'SET_UI_PROGRAM_STAGE'
+export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
+export const UPDATE_UI_PROGRAM_STAGE = 'UPDATE_UI_PROGRAM_STAGE'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -103,7 +103,7 @@ export default (state = EMPTY_UI, action) => {
                 program: EMPTY_UI.program,
             }
         }
-        case SET_UI_PROGRAM_ID: {
+        case UPDATE_UI_PROGRAM_ID: {
             return {
                 ...state,
                 program: {
@@ -112,7 +112,7 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case SET_UI_PROGRAM_STAGE: {
+        case UPDATE_UI_PROGRAM_STAGE: {
             return {
                 ...state,
                 program: {
