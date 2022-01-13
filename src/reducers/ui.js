@@ -109,6 +109,7 @@ export default (state = EMPTY_UI, action) => {
                 program: {
                     ...state.program,
                     id: action.value,
+                    stage: undefined,
                 },
             }
         }
