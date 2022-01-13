@@ -3,9 +3,10 @@ import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { sGetUiInputType } from '../../../reducers/ui.js'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { tSetUiProgram } from '../../../actions/ui.js'
+import { sGetUiInputType, sGetUiProgramId } from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import styles from './ProgramDimensionsPanel.module.css'
@@ -41,8 +42,10 @@ const query = {
 }
 
 const ProgramDimensionsPanel = ({ visible }) => {
+    const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
-    const [selectedProgramId, setSelectedProgramId] = useState(undefined)
+    const selectedProgramId = useSelector(sGetUiProgramId)
+    const setSelectedProgramId = (id) => dispatch(tSetUiProgram(id))
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
