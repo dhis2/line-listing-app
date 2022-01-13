@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-10T13:26:08.550Z\n"
-"PO-Revision-Date: 2022-01-10T13:26:08.550Z\n"
+"POT-Creation-Date: 2022-01-13T10:51:26.226Z\n"
+"PO-Revision-Date: 2022-01-13T10:51:26.226Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -282,6 +282,49 @@ msgstr "Program dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
+
+msgid "Search in program"
+msgstr "Search in program"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "All"
+msgstr "All"
+
+msgid "Data element"
+msgstr "Data element"
+
+msgid "Program attribute"
+msgstr "Program attribute"
+
+msgid "Program indicator"
+msgstr "Program indicator"
+
+msgid "Stage"
+msgstr "Stage"
+
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+
+msgid "Choose a program above to add program dimensions."
+msgstr "Choose a program above to add program dimensions."
+
+msgid "Choose a program"
+msgstr "Choose a program"
+
+msgid "Clear program first to choose another"
+msgstr "Clear program first to choose another"
+
+msgid "Clear"
+msgstr "Clear"
 
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"

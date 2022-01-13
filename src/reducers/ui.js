@@ -1,6 +1,5 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
-import { INPUT_TYPES } from '../components/MainSidebar/index.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
