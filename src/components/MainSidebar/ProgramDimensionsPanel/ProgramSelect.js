@@ -3,17 +3,20 @@ import { SingleSelect, SingleSelectOption, Button, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './ProgramSelect.module.css'
+import { StageSelect } from './StageSelect.js'
 
 const ProgramSelect = ({
     programs,
     setSelectedProgramId,
-    selectedProgramId,
+    requiredStageSelection,
+    selectedProgram,
 }) => {
+    const showStageSelect = selectedProgram && requiredStageSelection
     const select = (
         <SingleSelect
             dense
-            selected={selectedProgramId}
-            disabled={!!selectedProgramId}
+            selected={selectedProgram?.id}
+            disabled={!!selectedProgram}
             onChange={({ selected }) => setSelectedProgramId(selected)}
             placeholder={i18n.t('Choose a program')}
         >
@@ -24,24 +27,29 @@ const ProgramSelect = ({
     )
 
     return (
-        <div className={styles.container}>
-            <div className={styles.stretch}>
-                {!selectedProgramId ? (
-                    select
-                ) : (
-                    <Tooltip
-                        content={i18n.t(
-                            'Clear program first to choose another'
-                        )}
-                    >
-                        {select}
-                    </Tooltip>
+        <div className={styles.rows}>
+            <div className={styles.columns}>
+                <div className={styles.stretch}>
+                    {!selectedProgram ? (
+                        select
+                    ) : (
+                        <Tooltip
+                            content={i18n.t(
+                                'Clear program first to choose another'
+                            )}
+                        >
+                            {select}
+                        </Tooltip>
+                    )}
+                </div>
+                {selectedProgram && (
+                    <Button onClick={() => setSelectedProgramId(undefined)}>
+                        {i18n.t('Clear')}
+                    </Button>
                 )}
             </div>
-            {selectedProgramId && (
-                <Button onClick={() => setSelectedProgramId(undefined)}>
-                    {i18n.t('Clear')}
-                </Button>
+            {showStageSelect && (
+                <StageSelect stages={selectedProgram.programStages} />
             )}
         </div>
     )
@@ -50,7 +58,8 @@ const ProgramSelect = ({
 ProgramSelect.propTypes = {
     programs: PropTypes.array.isRequired,
     setSelectedProgramId: PropTypes.func.isRequired,
-    selectedProgramId: PropTypes.string,
+    requiredStageSelection: PropTypes.bool,
+    selectedProgram: PropTypes.object,
 }
 
 export { ProgramSelect }

@@ -1,4 +1,9 @@
-.container {
+.rows {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp4);
+}
+.columns {
     display: flex;
     align-items: center;
 }

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
 import styles from './ProgramDimensionsFilter.module.css'
+import { StageSelect } from './StageSelect.js'
 
 const TYPES = {
     ALL: 'ALL',
@@ -13,21 +14,13 @@ const TYPES = {
     PROGRAM_ATTRIBUTE: 'PROGRAM_ATTRIBUTE',
     PROGRAM_INDICATOR: 'PROGRAM_INDICATOR',
 }
-const STAGE_ALL = 'STAGE_ALL'
 
 const ProgramDimensionsFilter = ({ program }) => {
     const inputType = useSelector(sGetUiInputType)
-    const { programType, programStages } = program
-    const hideStageSelect =
-        inputType === INPUT_TYPES.EVENT &&
-        programType === 'WITHOUT_REGISTRATION'
-    const requireStageSelection =
-        inputType === INPUT_TYPES.EVENT && programType === 'WITH_REGISTRATION'
     const [searchTerm, setSearchTerm] = useState('')
     const [type, setType] = useState(TYPES.ALL)
-    const [stage, setStage] = useState(
-        requireStageSelection ? undefined : STAGE_ALL
-    )
+    const showStageSelect =
+        inputType === INPUT_TYPES.ENROLLMENT && type === TYPES.DATA_ELEMENT
 
     return (
         <div className={styles.container}>
@@ -57,27 +50,8 @@ const ProgramDimensionsFilter = ({ program }) => {
                     value={TYPES.PROGRAM_INDICATOR}
                 />
             </SingleSelect>
-            {!hideStageSelect && (
-                <SingleSelect
-                    prefix={i18n.t('Stage')}
-                    dense
-                    selected={stage}
-                    onChange={({ selected }) => setStage(selected)}
-                >
-                    {!requireStageSelection && (
-                        <SingleSelectOption
-                            label={i18n.t('All')}
-                            value={STAGE_ALL}
-                        />
-                    )}
-                    {programStages.map(({ id, displayName }) => (
-                        <SingleSelectOption
-                            label={displayName}
-                            key={id}
-                            value={id}
-                        />
-                    ))}
-                </SingleSelect>
+            {showStageSelect && (
+                <StageSelect stages={program.programStages} optional />
             )}
         </div>
     )

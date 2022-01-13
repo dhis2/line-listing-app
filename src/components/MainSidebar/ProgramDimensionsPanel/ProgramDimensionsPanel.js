@@ -6,7 +6,11 @@ import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { sGetUiInputType, sGetUiProgramId } from '../../../reducers/ui.js'
+import {
+    sGetUiInputType,
+    sGetUiProgramId,
+    sGetUiProgramStage,
+} from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import styles from './ProgramDimensionsPanel.module.css'
@@ -45,6 +49,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
+    const selectedStageId = useSelector(sGetUiProgramStage)
     const setSelectedProgramId = (id) => dispatch(tSetUiProgram(id))
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
@@ -59,6 +64,12 @@ const ProgramDimensionsPanel = ({ visible }) => {
         selectedProgramId &&
         filteredPrograms.find(({ id }) => id === selectedProgramId)
     const programType = PROGRAM_TYPES[selectedProgram?.programType]?.name
+    const requiredStageSelection =
+        inputType === INPUT_TYPES.EVENT &&
+        programType === PROGRAM_TYPES.WITH_REGISTRATION.name
+    const showDimensionsFilter = requiredStageSelection
+        ? selectedProgramId && selectedStageId
+        : !!selectedProgramId
 
     console.log(filteredPrograms, selectedProgram, programType)
 
@@ -96,8 +107,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
             <div className={cx(styles.section, styles.bordered)}>
                 <ProgramSelect
                     programs={filteredPrograms}
-                    selectedProgramId={selectedProgramId}
+                    selectedProgram={selectedProgram}
                     setSelectedProgramId={setSelectedProgramId}
+                    requiredStageSelection={requiredStageSelection}
                 />
             </div>
             <div
@@ -105,7 +117,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     [styles.bordered]: !!selectedProgramId,
                 })}
             >
-                {selectedProgram ? (
+                {showDimensionsFilter ? (
                     <ProgramDimensionsFilter program={selectedProgram} />
                 ) : (
                     <div className={styles.helptext}>
