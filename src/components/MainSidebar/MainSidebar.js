@@ -63,7 +63,12 @@ const MainSidebar = () => {
                     count={5}
                 />
             </div>
-            <div className={cx(styles.accessory, { [styles.hidden]: !open })}>
+            <div
+                className={cx(styles.accessory, {
+                    [styles.hidden]: !open,
+                    [styles.padded]: selectedTabId !== IDS.PROGRAM,
+                })}
+            >
                 <div className={styles.accessoryInner}>
                     <InputPanel visible={selectedTabId === IDS.INPUT} />
                     <ProgramDimensionsPanel

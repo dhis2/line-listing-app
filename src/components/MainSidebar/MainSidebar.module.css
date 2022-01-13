@@ -28,3 +28,6 @@
 .accessory.hidden .accessoryInner {
     transform: translateX(-260px);
 }
+.accessory.padded .accessoryInner {
+    padding: var(--spacers-dp12) var(--spacers-dp8);
+}
