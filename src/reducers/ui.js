@@ -3,8 +3,15 @@ import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { VIS_TYPE_LINE_LIST } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    VIS_TYPE_LINE_LIST,
+} from '../modules/visualization.js'
 
+export const SET_UI_INPUT = 'SET_UI_INPUT'
+export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
+export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
+export const UPDATE_UI_PROGRAM_STAGE = 'UPDATE_UI_PROGRAM_STAGE'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -19,11 +26,13 @@ export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
-export const SET_UI_INPUT = 'SET_UI_INPUT'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
-    input: {},
+    input: {
+        type: OUTPUT_TYPE_EVENT,
+    },
+    program: {},
     layout: {
         columns: [],
         filters: [],
@@ -36,7 +45,10 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     type: VIS_TYPE_LINE_LIST,
-    input: {},
+    input: {
+        type: OUTPUT_TYPE_EVENT,
+    },
+    program: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -83,6 +95,30 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 input: action.value,
+            }
+        }
+        case CLEAR_UI_PROGRAM: {
+            return {
+                ...state,
+                program: EMPTY_UI.program,
+            }
+        }
+        case UPDATE_UI_PROGRAM_ID: {
+            return {
+                ...state,
+                program: {
+                    ...state.program,
+                    id: action.value,
+                },
+            }
+        }
+        case UPDATE_UI_PROGRAM_STAGE: {
+            return {
+                ...state,
+                program: {
+                    ...state.program,
+                    stage: action.value,
+                },
             }
         }
         case SET_UI_OPTIONS: {
@@ -228,7 +264,7 @@ export default (state = EMPTY_UI, action) => {
 
 export const sGetUi = (state) => state.ui
 export const sGetUiInput = (state) => sGetUi(state).input
-export const sGetUiInputType = (state) => sGetUi(state).input.type
+export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiOptions = (state) => sGetUi(state).options
 export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
@@ -244,6 +280,11 @@ export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
 
 // Selectors level 2
+
+export const sGetUiInputType = (state) => sGetUiInput(state).type
+
+export const sGetUiProgramId = (state) => sGetUiProgram(state).id
+export const sGetUiProgramStage = (state) => sGetUiProgram(state).stage
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]

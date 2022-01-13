@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-10T12:32:36.806Z\n"
-"PO-Revision-Date: 2022-01-10T12:32:36.806Z\n"
+"POT-Creation-Date: 2022-01-10T13:26:08.550Z\n"
+"PO-Revision-Date: 2022-01-10T13:26:08.550Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -529,3 +529,9 @@ msgstr "Pivot table"
 
 msgid "Pivot tables are not supported by this app yet"
 msgstr "Pivot tables are not supported by this app yet"
+
+msgid "Events are single registrations or incidents in a program"
+msgstr "Events are single registrations or incidents in a program"
+
+msgid "Programs track enrollments across time"
+msgstr "Programs track enrollments across time"

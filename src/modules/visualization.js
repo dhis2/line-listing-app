@@ -7,6 +7,9 @@ import { default as options } from './options.js'
 export const VIS_TYPE_PIVOT_TABLE = 'PIVOT_TABLE'
 export const VIS_TYPE_LINE_LIST = 'LINE_LIST'
 
+export const OUTPUT_TYPE_EVENT = 'EVENT'
+export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
+
 export const visTypeMap = {
     [VIS_TYPE_LINE_LIST]: {
         name: i18n.t('Line list'),
@@ -20,6 +23,19 @@ export const visTypeMap = {
         icon: PivotTableIcon,
         disabled: true,
         disabledText: i18n.t('Pivot tables are not supported by this app yet'),
+    },
+}
+
+export const outputTypeMap = {
+    [OUTPUT_TYPE_EVENT]: {
+        name: i18n.t('Event'),
+        description: i18n.t(
+            'Events are single registrations or incidents in a program'
+        ),
+    },
+    [OUTPUT_TYPE_ENROLLMENT]: {
+        name: i18n.t('Enrollment'),
+        description: i18n.t('Programs track enrollments across time'),
     },
 }
 
