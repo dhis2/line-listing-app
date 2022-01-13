@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
 import {
@@ -12,7 +12,7 @@ import {
     sGetUiProgramStage,
 } from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
-import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
+import { ProgramDimensionsFilter, TYPES } from './ProgramDimensionsFilter.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
@@ -46,6 +46,8 @@ const query = {
 }
 
 const ProgramDimensionsPanel = ({ visible }) => {
+    const [searchTerm, setSearchTerm] = useState('')
+    const [type, setType] = useState(TYPES.ALL)
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
@@ -118,7 +120,13 @@ const ProgramDimensionsPanel = ({ visible }) => {
                 })}
             >
                 {showDimensionsFilter ? (
-                    <ProgramDimensionsFilter program={selectedProgram} />
+                    <ProgramDimensionsFilter
+                        program={selectedProgram}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        type={type}
+                        setType={setType}
+                    />
                 ) : (
                     <div className={styles.helptext}>
                         {i18n.t(

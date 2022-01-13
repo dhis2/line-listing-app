@@ -15,10 +15,14 @@ const TYPES = {
     PROGRAM_INDICATOR: 'PROGRAM_INDICATOR',
 }
 
-const ProgramDimensionsFilter = ({ program }) => {
+const ProgramDimensionsFilter = ({
+    program,
+    searchTerm,
+    setSearchTerm,
+    type,
+    setType,
+}) => {
     const inputType = useSelector(sGetUiInputType)
-    const [searchTerm, setSearchTerm] = useState('')
-    const [type, setType] = useState(TYPES.ALL)
     const showStageSelect =
         inputType === INPUT_TYPES.ENROLLMENT && type === TYPES.DATA_ELEMENT
 
@@ -59,6 +63,10 @@ const ProgramDimensionsFilter = ({ program }) => {
 
 ProgramDimensionsFilter.propTypes = {
     program: PropTypes.object.isRequired,
+    searchTerm: PropTypes.string,
+    setSearchTerm: PropTypes.func,
+    setType: PropTypes.func,
+    type: PropTypes.string,
 }
 
-export { ProgramDimensionsFilter }
+export { ProgramDimensionsFilter, TYPES }
