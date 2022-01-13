@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelect, SingleSelectOption, Button, Tooltip } from '@dhis2/ui'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './ProgramSelect.module.css'
@@ -39,12 +38,11 @@ const ProgramSelect = ({
                     </Tooltip>
                 )}
             </div>
-            <Button
-                className={cx({ [styles.hidden]: !selectedProgramId })}
-                onClick={() => setSelectedProgramId(undefined)}
-            >
-                {i18n.t('Clear')}
-            </Button>
+            {selectedProgramId && (
+                <Button onClick={() => setSelectedProgramId(undefined)}>
+                    {i18n.t('Clear')}
+                </Button>
+            )}
         </div>
     )
 }

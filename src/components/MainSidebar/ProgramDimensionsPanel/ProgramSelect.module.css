@@ -5,7 +5,3 @@
 .stretch {
     flex-grow: 1;
 }
-.hidden {
-    visibility: hidden;
-    pointer-events: none;
-}
