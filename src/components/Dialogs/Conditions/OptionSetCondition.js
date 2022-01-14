@@ -188,7 +188,7 @@ const OptionSetCondition = ({
         />
     )
 }
-// hello world
+
 OptionSetCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     displayNameProp: PropTypes.string.isRequired,
