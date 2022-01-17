@@ -1,0 +1,18 @@
+.container {
+    overflow-y: auto;
+}
+.padded {
+    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
+}
+.noResults {
+    padding: var(--spacers-dp24) var(--spacers-dp32) 0;
+    color: var(--colors-grey600);
+    text-align: center;
+    font-size: 14px;
+    line-height: 19px;
+}
+.loaderWrap {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--spacers-dp16);
+}

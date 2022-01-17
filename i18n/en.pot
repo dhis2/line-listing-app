@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-13T10:51:26.226Z\n"
-"PO-Revision-Date: 2022-01-13T10:51:26.226Z\n"
+"POT-Creation-Date: 2022-01-17T15:05:15.396Z\n"
+"PO-Revision-Date: 2022-01-17T15:05:15.396Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -301,8 +301,21 @@ msgstr "Program attribute"
 msgid "Program indicator"
 msgstr "Program indicator"
 
-msgid "Stage"
-msgstr "Stage"
+msgid "Could not load visualization"
+msgstr "Could not load visualization"
+
+msgid ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
+msgstr ""
+"The visualization couldn’t be displayed. Try again or contact your system "
+"administrator."
+
+msgid "No dimensions found for '{{searchTerm}}'"
+msgstr "No dimensions found for '{{searchTerm}}'"
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr "No dimensions found in the {{programName}} program"
 
 msgid "Could not load programs"
 msgstr "Could not load programs"
@@ -313,6 +326,9 @@ msgid ""
 msgstr ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr "Choose a program and stage above to add program dimensions."
 
 msgid "Choose a program above to add program dimensions."
 msgstr "Choose a program above to add program dimensions."
@@ -325,6 +341,9 @@ msgstr "Clear program first to choose another"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "Stage"
+msgstr "Stage"
 
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
@@ -356,16 +375,6 @@ msgstr "TEXT"
 
 msgid "Your most viewed TEXT"
 msgstr "Your most viewed TEXT"
-
-msgid "Could not load visualization"
-msgstr "Could not load visualization"
-
-msgid ""
-"The visualization couldn’t be displayed. Try again or contact your system "
-"administrator."
-msgstr ""
-"The visualization couldn’t be displayed. Try again or contact your system "
-"administrator."
 
 msgid "Cases per page"
 msgstr "Cases per page"

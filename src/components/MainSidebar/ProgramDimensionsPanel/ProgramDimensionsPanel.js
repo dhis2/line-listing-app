@@ -5,14 +5,19 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiProgram } from '../../../actions/ui.js'
+import { tSetUiProgram, acUpdateUiProgramStage } from '../../../actions/ui.js'
+import { useDebounce } from '../../../modules/utils.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
     sGetUiProgramStage,
 } from '../../../reducers/ui.js'
 import { INPUT_TYPES } from '../InputPanel/index.js'
-import { ProgramDimensionsFilter, TYPES } from './ProgramDimensionsFilter.js'
+import {
+    ProgramDimensionsFilter,
+    DIMENSION_TYPES,
+} from './ProgramDimensionsFilter.js'
+import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
@@ -46,8 +51,6 @@ const query = {
 }
 
 const ProgramDimensionsPanel = ({ visible }) => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [type, setType] = useState(TYPES.ALL)
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
@@ -56,6 +59,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
+    const [searchTerm, setSearchTerm] = useState('')
+    const [dimensionType, setDimensionType] = useState(DIMENSION_TYPES.ALL)
+    const debouncedSearchTerm = useDebounce(searchTerm, 350)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
             inputType === INPUT_TYPES.EVENT ||
@@ -69,11 +75,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const requiredStageSelection =
         inputType === INPUT_TYPES.EVENT &&
         programType === PROGRAM_TYPES.WITH_REGISTRATION.name
-    const showDimensionsFilter = requiredStageSelection
-        ? selectedProgramId && selectedStageId
-        : !!selectedProgramId
-
-    console.log(filteredPrograms, selectedProgram, programType)
+    const isProgramSelectionComplete =
+        inputType === INPUT_TYPES.EVENT
+            ? selectedProgramId && selectedStageId
+            : !!selectedProgramId
 
     useEffect(() => {
         if (visible && !called) {
@@ -81,18 +86,31 @@ const ProgramDimensionsPanel = ({ visible }) => {
         }
     }, [visible, called])
 
+    useEffect(() => {
+        if (
+            // These only have a single artificial stage
+            inputType === INPUT_TYPES.EVENT &&
+            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION.name
+        ) {
+            const artificialStageId = selectedProgram.programStages[0].id
+            dispatch(acUpdateUiProgramStage(artificialStageId))
+        }
+    }, [inputType, programType])
+
     if (!visible || !called) {
         return null
     }
 
     if (error && !fetching) {
         return (
-            <NoticeBox error title={i18n.t('Could not load programs')}>
-                {error.message ||
-                    i18n.t(
-                        "The programs couldn't be retrieved. Try again or contact your system administrator."
-                    )}
-            </NoticeBox>
+            <div className={styles.section}>
+                <NoticeBox error title={i18n.t('Could not load programs')}>
+                    {error?.message ||
+                        i18n.t(
+                            "The programs couldn't be retrieved. Try again or contact your system administrator."
+                        )}
+                </NoticeBox>
+            </div>
         )
     }
 
@@ -105,7 +123,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }
 
     return (
-        <>
+        <div className={styles.container}>
             <div className={cx(styles.section, styles.bordered)}>
                 <ProgramSelect
                     programs={filteredPrograms}
@@ -119,23 +137,37 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     [styles.bordered]: !!selectedProgramId,
                 })}
             >
-                {showDimensionsFilter ? (
+                {isProgramSelectionComplete ? (
                     <ProgramDimensionsFilter
                         program={selectedProgram}
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
-                        type={type}
-                        setType={setType}
+                        dimensionType={dimensionType}
+                        setDimensionType={setDimensionType}
                     />
                 ) : (
                     <div className={styles.helptext}>
-                        {i18n.t(
-                            'Choose a program above to add program dimensions.'
-                        )}
+                        {requiredStageSelection
+                            ? i18n.t(
+                                  'Choose a program and stage above to add program dimensions.'
+                              )
+                            : i18n.t(
+                                  'Choose a program above to add program dimensions.'
+                              )}
                     </div>
                 )}
             </div>
-        </>
+            {isProgramSelectionComplete && (
+                <ProgramDimensionsList
+                    inputType={inputType}
+                    programId={selectedProgramId}
+                    programName={selectedProgram.displayName}
+                    dimensionType={dimensionType}
+                    searchTerm={debouncedSearchTerm}
+                    stageId={selectedStageId}
+                />
+            )}
+        </div>
     )
 }
 

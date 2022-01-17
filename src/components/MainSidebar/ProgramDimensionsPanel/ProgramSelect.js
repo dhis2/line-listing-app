@@ -11,6 +11,12 @@ const ProgramSelect = ({
     requiredStageSelection,
     selectedProgram,
 }) => {
+    /*
+     * TODO: the logic for disabling the select and showing the clear
+     * button needs to be changed later on. Currently this happens when
+     * programId is present but it should actually happen once at least one
+     * dimension item is selected
+     */
     const showStageSelect = selectedProgram && requiredStageSelection
     const select = (
         <SingleSelect
