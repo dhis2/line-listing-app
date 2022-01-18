@@ -69,7 +69,6 @@ const ProgramDimensionsList = ({
         return <div className={styles.noResults}>{message}</div>
     }
 
-    console.log(isListEndVisible)
     return (
         <div
             className={styles.scrollbox}

@@ -143,6 +143,7 @@ const useProgramDimensions = ({
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             if (shouldReset) {
+                console.log('Calling reset')
                 dispatch({ type: ACTIONS.RESET })
             } else {
                 dispatch({ type: ACTIONS.INIT })
