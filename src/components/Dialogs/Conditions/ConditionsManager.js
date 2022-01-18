@@ -34,41 +34,42 @@ import OptionSetCondition from './OptionSetCondition.js'
 import OrgUnitCondition from './OrgUnitCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
-const DIMENSION_TYPE_NUMBER = 'NUMBER'
-const DIMENSION_TYPE_UNIT_INTERVAL = 'UNIT_INTERVAL'
-const DIMENSION_TYPE_PERCENTAGE = 'PERCENTAGE'
-const DIMENSION_TYPE_INTEGER = 'INTEGER'
-const DIMENSION_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
-const DIMENSION_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
-const DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
-const DIMENSION_TYPE_TEXT = 'TEXT'
-const DIMENSION_TYPE_LONG_TEXT = 'LONG_TEXT'
-const DIMENSION_TYPE_LETTER = 'LETTER'
-const DIMENSION_TYPE_PHONE_NUMBER = 'PHONE_NUMBER'
-const DIMENSION_TYPE_EMAIL = 'EMAIL'
-const DIMENSION_TYPE_USERNAME = 'USERNAME'
-const DIMENSION_TYPE_URL = 'URL'
-const DIMENSION_TYPE_BOOLEAN = 'BOOLEAN'
-const DIMENSION_TYPE_TRUE_ONLY = 'TRUE_ONLY'
-const DIMENSION_TYPE_DATE = 'DATE'
-const DIMENSION_TYPE_TIME = 'TIME'
-const DIMENSION_TYPE_DATETIME = 'DATETIME'
-const DIMENSION_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
+const VALUE_TYPE_NUMBER = 'NUMBER'
+const VALUE_TYPE_UNIT_INTERVAL = 'UNIT_INTERVAL'
+const VALUE_TYPE_PERCENTAGE = 'PERCENTAGE'
+const VALUE_TYPE_INTEGER = 'INTEGER'
+const VALUE_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
+const VALUE_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
+const VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
+const VALUE_TYPE_TEXT = 'TEXT'
+const VALUE_TYPE_LONG_TEXT = 'LONG_TEXT'
+const VALUE_TYPE_LETTER = 'LETTER'
+const VALUE_TYPE_PHONE_NUMBER = 'PHONE_NUMBER'
+const VALUE_TYPE_EMAIL = 'EMAIL'
+const VALUE_TYPE_USERNAME = 'USERNAME'
+const VALUE_TYPE_URL = 'URL'
+const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
+const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
+const VALUE_TYPE_DATE = 'DATE'
+const VALUE_TYPE_TIME = 'TIME'
+const VALUE_TYPE_DATETIME = 'DATETIME'
+const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
+const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const NUMERIC_TYPES = [
-    DIMENSION_TYPE_NUMBER,
-    DIMENSION_TYPE_UNIT_INTERVAL,
-    DIMENSION_TYPE_PERCENTAGE,
-    DIMENSION_TYPE_INTEGER,
-    DIMENSION_TYPE_INTEGER_POSITIVE,
-    DIMENSION_TYPE_INTEGER_NEGATIVE,
-    DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
 ]
 
 const SINGLETON_TYPES = [
-    DIMENSION_TYPE_BOOLEAN,
-    DIMENSION_TYPE_TRUE_ONLY,
-    DIMENSION_TYPE_ORGANISATION_UNIT,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_ORGANISATION_UNIT,
 ]
 
 const EMPTY_CONDITION = ''
@@ -82,8 +83,12 @@ const ConditionsManager = ({
     setConditionsByDimension,
 }) => {
     const valueType = dimension.valueType
+    const isProgramIndicator =
+        dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
     const isOptionSetCondition =
-        valueType === DIMENSION_TYPE_TEXT && dimension.optionSet
+        valueType === VALUE_TYPE_TEXT && dimension.optionSet
+    const canHaveLegendSets =
+        NUMERIC_TYPES.includes(valueType) || isProgramIndicator
 
     const getInitConditions = () =>
         conditions.condition?.length
@@ -118,7 +123,7 @@ const ConditionsManager = ({
             })
             setAvailableLegendSets(result)
         }
-        if (NUMERIC_TYPES.includes(valueType)) {
+        if (canHaveLegendSets) {
             fetchLegendSets()
         }
     }, [])
@@ -189,46 +194,52 @@ const ConditionsManager = ({
             ))
         }
 
-        switch (valueType) {
-            case DIMENSION_TYPE_NUMBER:
-            case DIMENSION_TYPE_UNIT_INTERVAL:
-            case DIMENSION_TYPE_PERCENTAGE:
-            case DIMENSION_TYPE_INTEGER:
-            case DIMENSION_TYPE_INTEGER_POSITIVE:
-            case DIMENSION_TYPE_INTEGER_NEGATIVE:
-            case DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE: {
-                if (!availableLegendSets) {
-                    return null
-                }
-
-                const enableDecimalSteps =
-                    valueType === DIMENSION_TYPE_UNIT_INTERVAL
-
-                return (
-                    (conditionsList.length && conditionsList) ||
-                    (selectedLegendSet && [''])
-                ).map((condition, index) => (
-                    <div key={index}>
-                        <NumericCondition
-                            condition={condition}
-                            onChange={(value) => setCondition(index, value)}
-                            onRemove={() => removeCondition(index)}
-                            numberOfConditions={
-                                conditionsList.length ||
-                                (selectedLegendSet ? 1 : 0)
-                            }
-                            legendSetId={selectedLegendSet}
-                            onLegendSetChange={(value) =>
-                                setSelectedLegendSet(value)
-                            }
-                            availableLegendSets={availableLegendSets}
-                            enableDecimalSteps={enableDecimalSteps}
-                        />
-                        {getDividerContent(index)}
-                    </div>
-                ))
+        const renderNumericCondition = () => {
+            if (!availableLegendSets) {
+                return null
             }
-            case DIMENSION_TYPE_PHONE_NUMBER: {
+
+            const enableDecimalSteps = valueType === VALUE_TYPE_UNIT_INTERVAL
+
+            return (
+                (conditionsList.length && conditionsList) ||
+                (selectedLegendSet && [''])
+            ).map((condition, index) => (
+                <div key={index}>
+                    <NumericCondition
+                        condition={condition}
+                        onChange={(value) => setCondition(index, value)}
+                        onRemove={() => removeCondition(index)}
+                        numberOfConditions={
+                            conditionsList.length || (selectedLegendSet ? 1 : 0)
+                        }
+                        legendSetId={selectedLegendSet}
+                        onLegendSetChange={(value) =>
+                            setSelectedLegendSet(value)
+                        }
+                        availableLegendSets={availableLegendSets}
+                        enableDecimalSteps={enableDecimalSteps}
+                    />
+                    {getDividerContent(index)}
+                </div>
+            ))
+        }
+
+        if (isProgramIndicator) {
+            return renderNumericCondition()
+        }
+
+        switch (valueType) {
+            case VALUE_TYPE_NUMBER:
+            case VALUE_TYPE_UNIT_INTERVAL:
+            case VALUE_TYPE_PERCENTAGE:
+            case VALUE_TYPE_INTEGER:
+            case VALUE_TYPE_INTEGER_POSITIVE:
+            case VALUE_TYPE_INTEGER_NEGATIVE:
+            case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE: {
+                return renderNumericCondition()
+            }
+            case VALUE_TYPE_PHONE_NUMBER: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <AlphanumericCondition
@@ -240,12 +251,12 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_TEXT:
-            case DIMENSION_TYPE_LONG_TEXT:
-            case DIMENSION_TYPE_LETTER:
-            case DIMENSION_TYPE_EMAIL:
-            case DIMENSION_TYPE_USERNAME:
-            case DIMENSION_TYPE_URL: {
+            case VALUE_TYPE_TEXT:
+            case VALUE_TYPE_LONG_TEXT:
+            case VALUE_TYPE_LETTER:
+            case VALUE_TYPE_EMAIL:
+            case VALUE_TYPE_USERNAME:
+            case VALUE_TYPE_URL: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <CaseSensitiveAlphanumericCondition
@@ -257,7 +268,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_BOOLEAN: {
+            case VALUE_TYPE_BOOLEAN: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <BooleanCondition
@@ -267,7 +278,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_TRUE_ONLY: {
+            case VALUE_TYPE_TRUE_ONLY: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <TrueOnlyCondition
@@ -277,7 +288,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_DATE: {
+            case VALUE_TYPE_DATE: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <DateCondition
@@ -289,7 +300,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_TIME: {
+            case VALUE_TYPE_TIME: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <TimeCondition
@@ -301,7 +312,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_DATETIME: {
+            case VALUE_TYPE_DATETIME: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <DateTimeCondition
@@ -313,7 +324,7 @@ const ConditionsManager = ({
                     </div>
                 ))
             }
-            case DIMENSION_TYPE_ORGANISATION_UNIT: {
+            case VALUE_TYPE_ORGANISATION_UNIT: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
                         <OrgUnitCondition
@@ -327,7 +338,7 @@ const ConditionsManager = ({
     }
 
     const disableAddButton =
-        NUMERIC_TYPES.includes(valueType) &&
+        canHaveLegendSets &&
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
@@ -340,7 +351,7 @@ const ConditionsManager = ({
             title={dimension.name}
         >
             <div>
-                {!valueType ? (
+                {!valueType && !isProgramIndicator ? (
                     <p className={classes.paragraph}>
                         {i18n.t(
                             "This dimension can't be filtered. All values will be shown."
@@ -354,7 +365,7 @@ const ConditionsManager = ({
                     </p>
                 )}
             </div>
-            {valueType && (
+            {(valueType || isProgramIndicator) && (
                 <div className={classes.mainSection}>
                     {!conditionsList.length &&
                     !selectedLegendSet &&
