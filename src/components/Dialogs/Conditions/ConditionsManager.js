@@ -31,6 +31,7 @@ import {
 } from './DateCondition.js'
 import NumericCondition from './NumericCondition.js'
 import OptionSetCondition from './OptionSetCondition.js'
+import OrgUnitCondition from './OrgUnitCondition.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const DIMENSION_TYPE_NUMBER = 'NUMBER'
@@ -52,6 +53,7 @@ const DIMENSION_TYPE_TRUE_ONLY = 'TRUE_ONLY'
 const DIMENSION_TYPE_DATE = 'DATE'
 const DIMENSION_TYPE_TIME = 'TIME'
 const DIMENSION_TYPE_DATETIME = 'DATETIME'
+const DIMENSION_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
 
 const NUMERIC_TYPES = [
     DIMENSION_TYPE_NUMBER,
@@ -63,7 +65,11 @@ const NUMERIC_TYPES = [
     DIMENSION_TYPE_INTEGER_ZERO_OR_POSITIVE,
 ]
 
-const SINGLETON_TYPES = [DIMENSION_TYPE_BOOLEAN, DIMENSION_TYPE_TRUE_ONLY]
+const SINGLETON_TYPES = [
+    DIMENSION_TYPE_BOOLEAN,
+    DIMENSION_TYPE_TRUE_ONLY,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+]
 
 const EMPTY_CONDITION = ''
 
@@ -304,6 +310,16 @@ const ConditionsManager = ({
                             onRemove={() => removeCondition(index)}
                         />
                         {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case DIMENSION_TYPE_ORGANISATION_UNIT: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <OrgUnitCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                        />
                     </div>
                 ))
             }

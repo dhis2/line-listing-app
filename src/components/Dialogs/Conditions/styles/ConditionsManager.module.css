@@ -11,6 +11,7 @@
     margin: var(--spacers-dp12) var(--spacers-dp8) var(--spacers-dp8)
         var(--spacers-dp8);
     padding: var(--spacers-dp8);
+    overflow: auto;
 }
 
 .infoIcon svg {
