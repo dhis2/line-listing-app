@@ -31,10 +31,10 @@ const ProgramDimensionsList = ({
     if (error) {
         return (
             <div className={styles.padded}>
-                <NoticeBox error title={i18n.t('Could not load visualization')}>
+                <NoticeBox error title={i18n.t("Couldn't load dimensions")}>
                     {error?.message ||
                         i18n.t(
-                            'The visualization couldn’t be displayed. Try again or contact your system administrator.'
+                            'There was a problem loading dimensions. Try again, or contact your system administrator.'
                         )}
                 </NoticeBox>
             </div>
