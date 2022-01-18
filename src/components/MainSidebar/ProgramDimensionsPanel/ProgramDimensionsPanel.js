@@ -83,6 +83,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }, [visible, called])
 
     useEffect(() => {
+        // Clear search fields when program changes
+        setSearchTerm('')
+        setDimensionType(DIMENSION_TYPES.ALL)
         /*
          * This combination occurs when inputType changes to enrollment
          * but the currently selected program does not have
@@ -90,10 +93,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
          * Everyhting needs to be reset to the initial state
          */
         if (selectedProgramId && !selectedProgram) {
-            setSearchTerm('')
-            dispatch(acClearUiProgram())
             // This clears both the program and the stage
-            setDimensionType(DIMENSION_TYPES.ALL)
+            dispatch(acClearUiProgram())
         }
     }, [selectedProgramId, selectedProgram])
 
