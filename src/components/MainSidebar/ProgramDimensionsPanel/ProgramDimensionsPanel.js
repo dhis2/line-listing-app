@@ -5,7 +5,11 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiProgram, acUpdateUiProgramStage } from '../../../actions/ui.js'
+import {
+    tSetUiProgram,
+    acUpdateUiProgramStage,
+    acClearUiProgram,
+} from '../../../actions/ui.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     sGetUiInputType,
@@ -77,14 +81,29 @@ const ProgramDimensionsPanel = ({ visible }) => {
         programType === PROGRAM_TYPES.WITH_REGISTRATION.name
     const isProgramSelectionComplete =
         inputType === INPUT_TYPES.EVENT
-            ? selectedProgramId && selectedStageId
-            : !!selectedProgramId
+            ? selectedProgram && selectedStageId
+            : !!selectedProgram
 
     useEffect(() => {
         if (visible && !called) {
             refetch()
         }
     }, [visible, called])
+
+    useEffect(() => {
+        /*
+         * This combination occurs when inputType changes to enrollment
+         * but the currently selected program does not have
+         * `programType === 'WITH_REGISTRATION'`
+         * Everyhting needs to be reset to the initial state
+         */
+        if (selectedProgramId && !selectedProgram) {
+            setSearchTerm('')
+            dispatch(acClearUiProgram())
+            // This clears both the program and the stage
+            setDimensionType(DIMENSION_TYPES.ALL)
+        }
+    }, [selectedProgramId, selectedProgram])
 
     useEffect(() => {
         if (
