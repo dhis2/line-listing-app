@@ -48,7 +48,7 @@ const ProgramDimensionsList = ({
 
     if (error) {
         return (
-            <div className={styles.padded}>
+            <div className={styles.errorWrap}>
                 <NoticeBox error title={i18n.t("Couldn't load dimensions")}>
                     {error?.message ||
                         i18n.t(

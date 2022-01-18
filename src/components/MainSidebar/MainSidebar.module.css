@@ -24,6 +24,7 @@
     border-right: 1px solid var(--colors-grey400);
     transform: translateX(0);
     transition: transform 200ms ease-out;
+    flex-shrink: 0;
 }
 .accessory.hidden .accessoryInner {
     transform: translateX(-260px);

@@ -1,7 +1,7 @@
 .scrollbox {
     overflow-y: auto;
 }
-.padded {
+.errorWrap {
     padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
 }
 .noResults {
