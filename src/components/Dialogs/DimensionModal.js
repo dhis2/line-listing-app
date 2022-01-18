@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton.js'
+import classes from './styles/DimensionModal.module.css'
 
 const DimensionModal = ({
     children,
@@ -21,7 +22,12 @@ const DimensionModal = ({
 }) => (
     <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
         <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
-        <ModalContent dataTest={`${dataTest}-content`}>{children}</ModalContent>
+        <ModalContent
+            dataTest={`${dataTest}-content`}
+            className={classes.modalContent}
+        >
+            {children}
+        </ModalContent>
         <ModalActions dataTest={`${dataTest}-actions`}>
             <ButtonStrip>
                 <Button
