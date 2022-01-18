@@ -57,12 +57,6 @@ const ProgramDimensionsList = ({
                 {dimensions.map(({ id, displayName }) => (
                     <li key={id}>{displayName}</li>
                 ))}
-                {dimensions.map(({ id, displayName }) => (
-                    <li key={id}>{displayName}</li>
-                ))}
-                {dimensions.map(({ id, displayName }) => (
-                    <li key={id}>{displayName}</li>
-                ))}
             </ul>
         </div>
     )
