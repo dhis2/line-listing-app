@@ -61,7 +61,7 @@ const reducer = (state, action) => {
 
 const createDimensionsQuery = ({
     inputType,
-    nextPage,
+    page,
     programId,
     stageId,
     searchTerm,
@@ -73,7 +73,7 @@ const createDimensionsQuery = ({
             : 'analytics/enrollments/query/dimensions'
     const params = {
         pageSize: 30,
-        page: nextPage,
+        page,
         fields: ['id', 'displayName'],
     }
 
@@ -143,16 +143,16 @@ const useProgramDimensions = ({
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             if (shouldReset) {
-                console.log('Calling reset')
                 dispatch({ type: ACTIONS.RESET })
             } else {
                 dispatch({ type: ACTIONS.INIT })
             }
             try {
+                const page = shouldReset ? 1 : nextPage
                 const data = await engine.query({
                     dimensions: createDimensionsQuery({
                         inputType,
-                        nextPage,
+                        page,
                         programId,
                         stageId,
                         searchTerm,
@@ -169,6 +169,7 @@ const useProgramDimensions = ({
         },
         [
             inputType,
+            nextPage,
             programId,
             stageId,
             searchTerm,
