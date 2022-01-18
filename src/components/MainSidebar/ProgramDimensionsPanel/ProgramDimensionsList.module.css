@@ -1,4 +1,4 @@
-.container {
+.scrollbox {
     overflow-y: auto;
 }
 .padded {
@@ -15,4 +15,9 @@
     display: flex;
     justify-content: center;
     padding-top: var(--spacers-dp16);
+}
+.loadMoreWrap {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
 }

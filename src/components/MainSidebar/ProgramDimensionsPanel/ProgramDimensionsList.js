@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './ProgramDimensionsList.module.css'
 import { useProgramDimensions } from './useProgramDimensions.js'
 
@@ -13,13 +13,30 @@ const ProgramDimensionsList = ({
     searchTerm,
     dimensionType,
 }) => {
-    const { dimensions, loading, error } = useProgramDimensions({
+    const scrollBoxRef = useRef()
+    const [isListEndVisible, setIsListEndVisible] = useState(false)
+    const { dimensions, loading, fetching, error } = useProgramDimensions({
         inputType,
+        isListEndVisible,
         programId,
         stageId,
         searchTerm,
         dimensionType,
     })
+    const updateIsListEndVisible = () => {
+        const el = scrollBoxRef.current
+        const isVisible = el.scrollHeight - el.scrollTop - el.clientHeight < 5
+
+        if (isVisible !== isListEndVisible) {
+            setIsListEndVisible(isVisible)
+        }
+    }
+
+    useEffect(() => {
+        if (dimensions && scrollBoxRef.current) {
+            updateIsListEndVisible()
+        }
+    }, [dimensions, scrollBoxRef.current])
 
     if (loading) {
         return (
@@ -28,6 +45,7 @@ const ProgramDimensionsList = ({
             </div>
         )
     }
+
     if (error) {
         return (
             <div className={styles.padded}>
@@ -40,6 +58,7 @@ const ProgramDimensionsList = ({
             </div>
         )
     }
+
     if (dimensions.length === 0) {
         const message = searchTerm
             ? i18n.t("No dimensions found for '{{searchTerm}}'", { searchTerm })
@@ -50,14 +69,24 @@ const ProgramDimensionsList = ({
         return <div className={styles.noResults}>{message}</div>
     }
 
+    console.log(isListEndVisible)
     return (
-        <div className={styles.container}>
-            <ul>
+        <div
+            className={styles.scrollbox}
+            onScroll={updateIsListEndVisible}
+            ref={scrollBoxRef}
+        >
+            <div>
                 {/* TODO: implement item styles and functionality */}
                 {dimensions.map(({ id, displayName }) => (
-                    <li key={id}>{displayName}</li>
+                    <div key={id}>{displayName}</div>
                 ))}
-            </ul>
+                {fetching && (
+                    <div className={styles.loadMoreWrap}>
+                        <CircularLoader small />
+                    </div>
+                )}
+            </div>
         </div>
     )
 }

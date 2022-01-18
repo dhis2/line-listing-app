@@ -4,6 +4,7 @@ import { INPUT_TYPES } from '../InputPanel/index.js'
 import { DIMENSION_TYPES } from './ProgramDimensionsFilter.js'
 
 const ACTIONS = {
+    RESET: 'RESET',
     INIT: 'INIT',
     SUCCESS: 'SUCCESS',
     ERROR: 'ERROR',
@@ -11,23 +12,43 @@ const ACTIONS = {
 
 const initialState = {
     loading: true,
+    fetching: true,
     error: null,
     dimensions: null,
+    nextPage: 1,
+    isLastPage: false,
 }
 
-const reducer = (_, action) => {
+const reducer = (state, action) => {
     switch (action.type) {
-        case ACTIONS.INIT:
+        case ACTIONS.RESET:
             return { ...initialState }
+        case ACTIONS.INIT:
+            return {
+                ...state,
+                loading: !state.dimensions,
+                fetching: true,
+                error: null,
+            }
         case ACTIONS.SUCCESS:
             return {
+                ...state,
                 loading: false,
+                fetching: false,
                 error: null,
-                dimensions: action.payload,
+                dimensions: state.dimensions
+                    ? [...state.dimensions, ...action.payload.dimensions]
+                    : action.payload.dimensions,
+                nextPage: action.payload.page + 1,
+                isLastPage:
+                    action.payload.pageSize * action.payload.page >=
+                    action.payload.total,
             }
         case ACTIONS.ERROR:
             return {
+                ...state,
                 loading: false,
+                fetching: false,
                 error: action.payload,
                 dimensions: null,
             }
@@ -40,6 +61,7 @@ const reducer = (_, action) => {
 
 const createDimensionsQuery = ({
     inputType,
+    nextPage,
     programId,
     stageId,
     searchTerm,
@@ -50,8 +72,8 @@ const createDimensionsQuery = ({
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
-        // TODO: change to `paging: false` once DHIS2-12457 is merged
-        skipPaging: true,
+        pageSize: 30,
+        page: nextPage,
         fields: ['id', 'displayName'],
     }
 
@@ -106,40 +128,63 @@ const createDimensionsQuery = ({
 
 const useProgramDimensions = ({
     inputType,
+    isListEndVisible,
     programId,
     stageId,
     searchTerm,
     dimensionType,
 }) => {
     const engine = useDataEngine()
-    const [{ loading, error, dimensions }, dispatch] = useReducer(
-        reducer,
-        initialState
+    const [
+        { loading, fetching, error, dimensions, nextPage, isLastPage },
+        dispatch,
+    ] = useReducer(reducer, initialState)
+
+    const fetchDimensions = useCallback(
+        async (shouldReset) => {
+            if (shouldReset) {
+                dispatch({ type: ACTIONS.RESET })
+            } else {
+                dispatch({ type: ACTIONS.INIT })
+            }
+            try {
+                const data = await engine.query({
+                    dimensions: createDimensionsQuery({
+                        inputType,
+                        nextPage,
+                        programId,
+                        stageId,
+                        searchTerm,
+                        dimensionType,
+                    }),
+                })
+                dispatch({
+                    type: ACTIONS.SUCCESS,
+                    payload: data.dimensions,
+                })
+            } catch (error) {
+                dispatch({ type: ACTIONS.ERROR, payload: error })
+            }
+        },
+        [
+            inputType,
+            programId,
+            stageId,
+            searchTerm,
+            dimensionType,
+            isListEndVisible,
+        ]
     )
-    const fetchDimensions = useCallback(async () => {
-        dispatch({ type: ACTIONS.INIT })
-        try {
-            const data = await engine.query({
-                dimensions: createDimensionsQuery({
-                    inputType,
-                    programId,
-                    stageId,
-                    searchTerm,
-                    dimensionType,
-                }),
-            })
-            dispatch({
-                type: ACTIONS.SUCCESS,
-                payload: data.dimensions.dimensions,
-            })
-        } catch (error) {
-            dispatch({ type: ACTIONS.ERROR, payload: error })
-        }
+
+    useEffect(() => {
+        fetchDimensions(true)
     }, [inputType, programId, stageId, searchTerm, dimensionType])
 
     useEffect(() => {
-        fetchDimensions()
-    }, [fetchDimensions])
+        if (isListEndVisible && !isLastPage && !fetching) {
+            fetchDimensions(false)
+        }
+    }, [isListEndVisible, isLastPage])
 
     return {
         loading,
