@@ -75,11 +75,8 @@ const createDimensionsQuery = ({
         pageSize: 30,
         page,
         fields: ['id', 'displayName'],
+        filter: [],
     }
-
-    // TODO: create empty `filter` array under params and push to that
-    // once DHIS2-12458 is merged
-    const filter = []
 
     if (programId && inputType === INPUT_TYPES.ENROLLMENT) {
         params.programId = programId
@@ -96,7 +93,7 @@ const createDimensionsQuery = ({
     ) {
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
-        filter.push(`id:like:${stageId}`)
+        params.filter.push(`id:like:${stageId}`)
     }
 
     /*
@@ -108,16 +105,11 @@ const createDimensionsQuery = ({
      * i.e. `filter=identifiable:token:${searchTerm}` or `query=${searchTerm}`
      */
     if (searchTerm) {
-        filter.push(`name:ilike:${searchTerm}`)
+        params.filter.push(`name:ilike:${searchTerm}`)
     }
 
     if (dimensionType && dimensionType !== DIMENSION_TYPES.ALL) {
-        filter.push(`dimensionType:eq:${dimensionType}`)
-    }
-
-    // TODO: remove once DHIS2-12458 is merged
-    if (filter.length > 0) {
-        params.filter = filter.join(';')
+        params.filter.push(`dimensionType:eq:${dimensionType}`)
     }
 
     return {
@@ -147,6 +139,7 @@ const useProgramDimensions = ({
             } else {
                 dispatch({ type: ACTIONS.INIT })
             }
+
             try {
                 const page = shouldReset ? 1 : nextPage
                 const data = await engine.query({
