@@ -25,17 +25,9 @@ import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
-const WITH_REGISTRATION = 'WITH_REGISTRATION'
 const PROGRAM_TYPES = {
-    [WITHOUT_REGISTRATION]: {
-        name: 'EVENT',
-        id: WITHOUT_REGISTRATION,
-    },
-    [WITH_REGISTRATION]: {
-        name: 'TRACKER',
-        id: WITH_REGISTRATION,
-    },
+    WITHOUT_REGISTRATION: 'WITHOUT_REGISTRATION',
+    WITH_REGISTRATION: 'WITH_REGISTRATION',
 }
 const query = {
     programs: {
@@ -69,16 +61,16 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
             inputType === INPUT_TYPES.EVENT ||
-            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION.id
+            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION
     )
     const selectedProgram =
         filteredPrograms &&
         selectedProgramId &&
         filteredPrograms.find(({ id }) => id === selectedProgramId)
-    const programType = PROGRAM_TYPES[selectedProgram?.programType]?.name
+    const programType = PROGRAM_TYPES[selectedProgram?.programType]
     const requiredStageSelection =
         inputType === INPUT_TYPES.EVENT &&
-        programType === PROGRAM_TYPES.WITH_REGISTRATION.name
+        programType === PROGRAM_TYPES.WITH_REGISTRATION
     const isProgramSelectionComplete =
         inputType === INPUT_TYPES.EVENT
             ? selectedProgram && selectedStageId
@@ -109,7 +101,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         if (
             // These only have a single artificial stage
             inputType === INPUT_TYPES.EVENT &&
-            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION.name
+            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION
         ) {
             const artificialStageId = selectedProgram.programStages[0].id
             dispatch(acUpdateUiProgramStage(artificialStageId))
