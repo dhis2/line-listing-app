@@ -8,7 +8,7 @@ const optionsQuery = {
         }
 
         return {
-            fields: 'code,name',
+            fields: 'code,name,id',
             filter: filters,
             paging: true,
             page,

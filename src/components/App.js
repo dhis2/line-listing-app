@@ -143,6 +143,7 @@ const App = ({
                     name: item.name || item.displayName,
                     displayName: item.displayName,
                     dimensionItemType: item.dimensionItemType, // TODO needed?
+                    code: item.code,
                 }
 
                 return obj
