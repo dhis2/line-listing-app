@@ -32,7 +32,7 @@ const ChipMenu = ({
                     onClick={toggleMenu}
                     dataTest={`layout-chip-menu-button-${dimensionId}`}
                 >
-                    <IconMore16 />
+                    <IconMore16 color="var(--colors-grey700)" />
                 </IconButton>
             </div>
             {menuIsOpen && (
