@@ -4,10 +4,21 @@ import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
+const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
 
 const booleanMap = {
     0: i18n.t('No'),
     1: i18n.t('Yes'),
+}
+
+const formatRowValue = (rowValue, valueType, rowValueItem) => {
+    switch (valueType) {
+        case VALUE_TYPE_BOOLEAN:
+        case VALUE_TYPE_TRUE_ONLY:
+            return booleanMap[rowValue] || i18n.t('Not answered')
+        default:
+            return rowValueItem?.name || rowValue
+    }
 }
 
 const fetchAnalyticsData = async ({
@@ -83,10 +94,11 @@ const reduceRows = (analyticsResponse, headers) =>
                     const rowValue = row[header.index]
 
                     filteredRow.push(
-                        header.valueType === VALUE_TYPE_BOOLEAN
-                            ? booleanMap[rowValue]
-                            : analyticsResponse.metaData.items[rowValue]
-                                  ?.name || rowValue
+                        formatRowValue(
+                            rowValue,
+                            header.valueType,
+                            analyticsResponse.metaData.items[rowValue]
+                        )
                     )
                 } else {
                     // TODO solve the case of visualization.column not mapping to any response.header (ie. "pe")
