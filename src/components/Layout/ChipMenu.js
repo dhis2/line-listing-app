@@ -1,4 +1,4 @@
-import { Layer, Popper, IconMore24 } from '@dhis2/ui'
+import { Layer, Popper, IconMore16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
@@ -32,7 +32,7 @@ const ChipMenu = ({
                     onClick={toggleMenu}
                     dataTest={`layout-chip-menu-button-${dimensionId}`}
                 >
-                    <IconMore24 />
+                    <IconMore16 />
                 </IconButton>
             </div>
             {menuIsOpen && (
