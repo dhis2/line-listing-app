@@ -8,7 +8,6 @@ import {
 } from '../../actions/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import IconButton from '../IconButton/IconButton.js'
-import { styles } from './styles/Menu.style.js'
 
 const ChipMenu = ({
     axisItemHandler,
@@ -31,10 +30,9 @@ const ChipMenu = ({
                     ariaOwns={menuIsOpen ? getMenuId() : null}
                     ariaHaspopup={true}
                     onClick={toggleMenu}
-                    style={styles.icon}
                     dataTest={`layout-chip-menu-button-${dimensionId}`}
                 >
-                    <IconMore24 style={styles.icon} />
+                    <IconMore24 />
                 </IconButton>
             </div>
             {menuIsOpen && (
