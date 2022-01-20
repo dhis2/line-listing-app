@@ -7,15 +7,14 @@ import { sGetUiInput } from '../../../reducers/ui.js'
 import { InputOption } from './InputOption.js'
 import styles from './InputPanel.module.css'
 
-const INPUT_TYPES = {
-    EVENT: 'EVENT',
-    ENROLLMENT: 'ENROLLMENT',
-}
+const INPUT_TYPE_EVENT = 'EVENT'
+const INPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
+
 const getLabelForInputType = (type) => {
     switch (type) {
-        case INPUT_TYPES.EVENT:
+        case INPUT_TYPE_EVENT:
             return i18n.t('Event')
-        case INPUT_TYPES.ENROLLMENT:
+        case INPUT_TYPE_ENROLLMENT:
             return i18n.t('Enrollment')
         default:
             throw new Error('No input type specified')
@@ -34,20 +33,20 @@ const InputPanel = ({ visible }) => {
     return (
         <div className={styles.container}>
             <InputOption
-                header={getLabelForInputType(INPUT_TYPES.EVENT)}
+                header={getLabelForInputType(INPUT_TYPE_EVENT)}
                 description={i18n.t(
                     'Events are single registrations or incidents in a program.'
                 )}
-                onClick={() => setSelectedInput({ type: INPUT_TYPES.EVENT })}
-                selected={selectedInput.type === INPUT_TYPES.EVENT}
+                onClick={() => setSelectedInput({ type: INPUT_TYPE_EVENT })}
+                selected={selectedInput.type === INPUT_TYPE_EVENT}
             />
             <InputOption
-                header={getLabelForInputType(INPUT_TYPES.ENROLLMENT)}
+                header={getLabelForInputType(INPUT_TYPE_ENROLLMENT)}
                 description={i18n.t('Programs track enrollments across time.')}
                 onClick={() =>
-                    setSelectedInput({ type: INPUT_TYPES.ENROLLMENT })
+                    setSelectedInput({ type: INPUT_TYPE_ENROLLMENT })
                 }
-                selected={selectedInput.type === INPUT_TYPES.ENROLLMENT}
+                selected={selectedInput.type === INPUT_TYPE_ENROLLMENT}
             />
         </div>
     )
@@ -57,4 +56,9 @@ InputPanel.propTypes = {
     visible: PropTypes.bool.isRequired,
 }
 
-export { InputPanel, getLabelForInputType, INPUT_TYPES }
+export {
+    InputPanel,
+    getLabelForInputType,
+    INPUT_TYPE_EVENT,
+    INPUT_TYPE_ENROLLMENT,
+}

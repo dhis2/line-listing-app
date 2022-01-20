@@ -4,16 +4,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { sGetUiInputType } from '../../../reducers/ui.js'
-import { INPUT_TYPES } from '../InputPanel/index.js'
+import { INPUT_TYPE_ENROLLMENT } from '../InputPanel/index.js'
 import styles from './ProgramDimensionsFilter.module.css'
 import { StageSelect } from './StageSelect.js'
 
-const DIMENSION_TYPES = {
-    ALL: 'ALL',
-    DATA_ELEMENT: 'DATA_ELEMENT',
-    PROGRAM_ATTRIBUTE: 'PROGRAM_ATTRIBUTE',
-    PROGRAM_INDICATOR: 'PROGRAM_INDICATOR',
-}
+const DIMENSION_TYPE_ALL = 'ALL'
+const DIMENSION_TYPE_DATA_ELEMENT = 'DATA_ELEMENT'
+const DIMENSION_TYPE_PROGRAM_ATTRIBUTE = 'PROGRAM_ATTRIBUTE'
+const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const ProgramDimensionsFilter = ({
     program,
@@ -24,8 +22,8 @@ const ProgramDimensionsFilter = ({
 }) => {
     const inputType = useSelector(sGetUiInputType)
     const showStageSelect =
-        inputType === INPUT_TYPES.ENROLLMENT &&
-        dimensionType === DIMENSION_TYPES.DATA_ELEMENT
+        inputType === INPUT_TYPE_ENROLLMENT &&
+        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
 
     return (
         <div className={styles.container}>
@@ -43,19 +41,19 @@ const ProgramDimensionsFilter = ({
             >
                 <SingleSelectOption
                     label={i18n.t('All')}
-                    value={DIMENSION_TYPES.ALL}
+                    value={DIMENSION_TYPE_ALL}
                 />
                 <SingleSelectOption
                     label={i18n.t('Data element')}
-                    value={DIMENSION_TYPES.DATA_ELEMENT}
+                    value={DIMENSION_TYPE_DATA_ELEMENT}
                 />
                 <SingleSelectOption
                     label={i18n.t('Program attribute')}
-                    value={DIMENSION_TYPES.PROGRAM_ATTRIBUTE}
+                    value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
                 />
                 <SingleSelectOption
                     label={i18n.t('Program indicator')}
-                    value={DIMENSION_TYPES.PROGRAM_INDICATOR}
+                    value={DIMENSION_TYPE_PROGRAM_INDICATOR}
                 />
             </SingleSelect>
             {showStageSelect && (
@@ -73,4 +71,10 @@ ProgramDimensionsFilter.propTypes = {
     setSearchTerm: PropTypes.func,
 }
 
-export { ProgramDimensionsFilter, DIMENSION_TYPES }
+export {
+    ProgramDimensionsFilter,
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+}

@@ -16,19 +16,18 @@ import {
     sGetUiProgramId,
     sGetUiProgramStage,
 } from '../../../reducers/ui.js'
-import { INPUT_TYPES } from '../InputPanel/index.js'
+import { INPUT_TYPE_EVENT } from '../InputPanel/index.js'
 import {
     ProgramDimensionsFilter,
-    DIMENSION_TYPES,
+    DIMENSION_TYPE_ALL,
 } from './ProgramDimensionsFilter.js'
 import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const PROGRAM_TYPES = {
-    WITHOUT_REGISTRATION: 'WITHOUT_REGISTRATION',
-    WITH_REGISTRATION: 'WITH_REGISTRATION',
-}
+const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
+const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
+
 const query = {
     programs: {
         resource: 'programs',
@@ -56,22 +55,22 @@ const ProgramDimensionsPanel = ({ visible }) => {
         lazy: true,
     })
     const [searchTerm, setSearchTerm] = useState('')
-    const [dimensionType, setDimensionType] = useState(DIMENSION_TYPES.ALL)
+    const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
     const debouncedSearchTerm = useDebounce(searchTerm, 500)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
-            inputType === INPUT_TYPES.EVENT ||
-            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION
+            inputType === INPUT_TYPE_EVENT ||
+            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
     )
     const selectedProgram =
         selectedProgramId &&
         filteredPrograms?.find(({ id }) => id === selectedProgramId)
-    const programType = PROGRAM_TYPES[selectedProgram?.programType]
+    const programType = selectedProgram?.programType
     const requiredStageSelection =
-        inputType === INPUT_TYPES.EVENT &&
-        programType === PROGRAM_TYPES.WITH_REGISTRATION
+        inputType === INPUT_TYPE_EVENT &&
+        programType === PROGRAM_TYPE_WITH_REGISTRATION
     const isProgramSelectionComplete =
-        inputType === INPUT_TYPES.EVENT
+        inputType === INPUT_TYPE_EVENT
             ? selectedProgram && selectedStageId
             : !!selectedProgram
 
@@ -84,7 +83,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         // Clear search fields when program changes
         setSearchTerm('')
-        setDimensionType(DIMENSION_TYPES.ALL)
+        setDimensionType(DIMENSION_TYPE_ALL)
         /*
          * This combination occurs when inputType changes to enrollment
          * but the currently selected program does not have
@@ -100,8 +99,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         if (
             // These only have a single artificial stage
-            inputType === INPUT_TYPES.EVENT &&
-            programType === PROGRAM_TYPES.WITHOUT_REGISTRATION
+            inputType === INPUT_TYPE_EVENT &&
+            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
             const artificialStageId = selectedProgram.programStages[0].id
             dispatch(acUpdateUiProgramStage(artificialStageId))

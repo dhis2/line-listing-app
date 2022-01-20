@@ -1,7 +1,10 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback } from 'react'
-import { INPUT_TYPES } from '../InputPanel/index.js'
-import { DIMENSION_TYPES } from './ProgramDimensionsFilter.js'
+import { INPUT_TYPE_EVENT, INPUT_TYPE_ENROLLMENT } from '../InputPanel/index.js'
+import {
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+} from './ProgramDimensionsFilter.js'
 
 const ACTIONS = {
     RESET: 'RESET',
@@ -68,7 +71,7 @@ const createDimensionsQuery = ({
     dimensionType,
 }) => {
     const resource =
-        inputType === INPUT_TYPES.EVENT
+        inputType === INPUT_TYPE_EVENT
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
@@ -78,18 +81,18 @@ const createDimensionsQuery = ({
         filter: [],
     }
 
-    if (programId && inputType === INPUT_TYPES.ENROLLMENT) {
+    if (programId && inputType === INPUT_TYPE_ENROLLMENT) {
         params.programId = programId
     }
 
-    if (stageId && inputType === INPUT_TYPES.EVENT) {
+    if (stageId && inputType === INPUT_TYPE_EVENT) {
         params.programStageId = stageId
     }
 
     if (
         stageId &&
-        inputType === INPUT_TYPES.ENROLLMENT &&
-        dimensionType === DIMENSION_TYPES.DATA_ELEMENT
+        inputType === INPUT_TYPE_ENROLLMENT &&
+        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
@@ -108,7 +111,7 @@ const createDimensionsQuery = ({
         params.filter.push(`name:ilike:${searchTerm}`)
     }
 
-    if (dimensionType && dimensionType !== DIMENSION_TYPES.ALL) {
+    if (dimensionType && dimensionType !== DIMENSION_TYPE_ALL) {
         params.filter.push(`dimensionType:eq:${dimensionType}`)
     }
 
