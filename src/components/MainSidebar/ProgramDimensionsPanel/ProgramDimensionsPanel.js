@@ -64,9 +64,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
             programType === PROGRAM_TYPES.WITHOUT_REGISTRATION
     )
     const selectedProgram =
-        filteredPrograms &&
         selectedProgramId &&
-        filteredPrograms.find(({ id }) => id === selectedProgramId)
+        filteredPrograms?.find(({ id }) => id === selectedProgramId)
     const programType = PROGRAM_TYPES[selectedProgram?.programType]
     const requiredStageSelection =
         inputType === INPUT_TYPES.EVENT &&
