@@ -18,5 +18,5 @@ export const OPERATOR_NOT_EMPTY = `NE:${NULL_VALUE}`
 export const OPERATOR_IN = 'IN'
 export const OPERATOR_CONTAINS = 'LIKE'
 export const OPERATOR_NOT_CONTAINS = '!LIKE'
-export const CASE_SENSITIVE_PREFIX = 'I'
+export const CASE_INSENSITIVE_PREFIX = 'I'
 export const NOT_PREFIX = '!'
