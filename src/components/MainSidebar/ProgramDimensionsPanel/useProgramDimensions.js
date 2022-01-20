@@ -11,6 +11,7 @@ const ACTIONS = {
     INIT: 'INIT',
     SUCCESS: 'SUCCESS',
     ERROR: 'ERROR',
+    SET_LIST_END_VISIBLE: 'SET_LIST_END_VISIBLE',
 }
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
     dimensions: null,
     nextPage: 1,
     isLastPage: false,
+    isListEndVisible: false,
 }
 
 const reducer = (state, action) => {
@@ -55,6 +57,11 @@ const reducer = (state, action) => {
                 error: action.payload,
                 dimensions: null,
             }
+        case ACTIONS.SET_LIST_END_VISIBLE:
+            return {
+                ...state,
+                isListEndVisible: action.payload,
+            }
         default:
             throw new Error(
                 'Invalid action passed to useProgramDimensions reducer function'
@@ -75,9 +82,9 @@ const createDimensionsQuery = ({
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
-        pageSize: 30,
+        pageSize: 50,
         page,
-        fields: ['id', 'displayName'],
+        fields: ['id', 'displayName', 'dimensionType'],
         filter: [],
     }
 
@@ -123,7 +130,6 @@ const createDimensionsQuery = ({
 
 const useProgramDimensions = ({
     inputType,
-    isListEndVisible,
     programId,
     stageId,
     searchTerm,
@@ -131,9 +137,23 @@ const useProgramDimensions = ({
 }) => {
     const engine = useDataEngine()
     const [
-        { loading, fetching, error, dimensions, nextPage, isLastPage },
+        {
+            loading,
+            fetching,
+            error,
+            dimensions,
+            nextPage,
+            isLastPage,
+            isListEndVisible,
+        },
         dispatch,
     ] = useReducer(reducer, initialState)
+
+    const setIsListEndVisible = (isVisible) => {
+        if (isVisible !== isListEndVisible) {
+            dispatch({ type: ACTIONS.SET_LIST_END_VISIBLE, payload: isVisible })
+        }
+    }
 
     const fetchDimensions = useCallback(
         async (shouldReset) => {
@@ -188,6 +208,7 @@ const useProgramDimensions = ({
         loading,
         error,
         dimensions,
+        setIsListEndVisible,
     }
 }
 

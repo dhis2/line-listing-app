@@ -12,12 +12,11 @@ import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import styles from './MainSidebar.module.css'
 import { MenuItem } from './MenuItem/index.js'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
+import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
-const IDS = {
-    INPUT: 'INPUT',
-    PROGRAM: 'PROGRAM',
-    YOUR: 'YOUR',
-}
+const TAB_INPUT = 'INPUT'
+const TAB_PROGRAM = 'PROGRAM'
+const TAB_YOUR = 'YOUR'
 
 const MainSidebar = () => {
     const dispatch = useDispatch()
@@ -46,34 +45,35 @@ const MainSidebar = () => {
                         type: getLabelForInputType(selectedInputType),
                         nsSeparator: '^^',
                     })}
-                    onClick={() => onClick(IDS.INPUT)}
-                    selected={open && selectedTabId === IDS.INPUT}
+                    onClick={() => onClick(TAB_INPUT)}
+                    selected={open && selectedTabId === TAB_INPUT}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label={i18n.t('Program dimensions')}
-                    onClick={() => onClick(IDS.PROGRAM)}
-                    selected={open && selectedTabId === IDS.PROGRAM}
+                    onClick={() => onClick(TAB_PROGRAM)}
+                    selected={open && selectedTabId === TAB_PROGRAM}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label={i18n.t('Your dimensions')}
-                    onClick={() => onClick(IDS.YOUR)}
-                    selected={open && selectedTabId === IDS.YOUR}
+                    onClick={() => onClick(TAB_YOUR)}
+                    selected={open && selectedTabId === TAB_YOUR}
                     count={5}
                 />
             </div>
             <div
                 className={cx(styles.accessory, {
                     [styles.hidden]: !open,
-                    [styles.padded]: selectedTabId !== IDS.PROGRAM,
+                    [styles.padded]: selectedTabId === TAB_INPUT,
                 })}
             >
                 <div className={styles.accessoryInner}>
-                    <InputPanel visible={selectedTabId === IDS.INPUT} />
+                    <InputPanel visible={selectedTabId === TAB_INPUT} />
                     <ProgramDimensionsPanel
-                        visible={selectedTabId === IDS.PROGRAM}
+                        visible={selectedTabId === TAB_PROGRAM}
                     />
+                    <YourDimensionsPanel visible={selectedTabId === TAB_YOUR} />
                 </div>
             </div>
         </div>
