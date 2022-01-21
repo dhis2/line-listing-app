@@ -10,7 +10,9 @@ import {
     MenuDivider,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { acAddMetadata } from '../../../actions/metadata.js'
 import {
     apiFetchLegendSetById,
     apiFetchLegendSetsByDimension,
@@ -26,6 +28,7 @@ import {
     OPERATOR_NOT_EMPTY,
     OPERATOR_IN,
 } from '../../../modules/conditions.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import classes from './styles/Condition.module.css'
 
 const NULL_VALUE = 'NV'
@@ -53,11 +56,23 @@ const NumericCondition = ({
 }) => {
     let operator, value
 
-    const [legendSet, setLegendSet] = useState()
+    const dispatch = useDispatch()
+
+    const availableLegendSets = useSelector(
+        (state) => sGetMetadataById(state, dimension.id)?.legendSets
+    )
+
+    const setAvailableLegendSets = (legendSets) =>
+        dispatch(acAddMetadata({ [dimension.id]: { legendSets } }))
+
+    const legendSet = useSelector((state) =>
+        sGetMetadataById(state, legendSetId)
+    )
+
+    const setLegendSet = (input) =>
+        dispatch(acAddMetadata({ [input.id]: input }))
 
     const dataEngine = useDataEngine()
-
-    const [availableLegendSets, setAvailableLegendSets] = useState()
 
     const fetchLegendSets = async () => {
         const result = await apiFetchLegendSetsByDimension({
@@ -69,7 +84,7 @@ const NumericCondition = ({
     }
 
     useEffect(() => {
-        if (operator === OPERATOR_IN) {
+        if (operator === OPERATOR_IN && !availableLegendSets) {
             fetchLegendSets()
         }
     }, [])
@@ -112,7 +127,7 @@ const NumericCondition = ({
             })
             setLegendSet(result)
         }
-        if (legendSetId) {
+        if (legendSetId && !legendSet) {
             fetchLegendSet()
         }
     }, [legendSetId])
@@ -160,7 +175,11 @@ const NumericCondition = ({
                     <SingleSelectField
                         selected={availableLegendSets && legendSetId}
                         inputWidth="136px"
-                        placeholder={i18n.t('Choose a set of options')}
+                        placeholder={
+                            !availableLegendSets
+                                ? i18n.t('Loading...')
+                                : i18n.t('Choose a set of options')
+                        }
                         dense
                         onChange={({ selected }) => {
                             onLegendSetChange(selected)
@@ -178,6 +197,7 @@ const NumericCondition = ({
                     </SingleSelectField>
                     {legendSetId && (
                         <MultiSelectField
+                            placeholder={!legendSet && i18n.t('Loading...')}
                             onChange={({ selected }) =>
                                 setValue(selected.join(';'))
                             }
