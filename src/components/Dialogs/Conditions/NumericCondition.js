@@ -11,7 +11,10 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { apiFetchLegendSetById } from '../../../api/legendSets.js'
+import {
+    apiFetchLegendSetById,
+    apiFetchLegendSetsByDimension,
+} from '../../../api/legendSets.js'
 import {
     OPERATOR_EQUAL,
     OPERATOR_GREATER,
@@ -43,16 +46,33 @@ const NumericCondition = ({
     onChange,
     onRemove,
     legendSetId,
-    availableLegendSets,
     numberOfConditions,
     onLegendSetChange,
     enableDecimalSteps,
+    dimension,
 }) => {
     let operator, value
 
     const [legendSet, setLegendSet] = useState()
 
     const dataEngine = useDataEngine()
+
+    const [availableLegendSets, setAvailableLegendSets] = useState()
+
+    const fetchLegendSets = async () => {
+        const result = await apiFetchLegendSetsByDimension({
+            dataEngine,
+            dimensionId: dimension.id,
+            dimensionType: dimension.dimensionType,
+        })
+        setAvailableLegendSets(result)
+    }
+
+    useEffect(() => {
+        if (operator === OPERATOR_IN) {
+            fetchLegendSets()
+        }
+    }, [])
 
     if (condition.includes(NULL_VALUE)) {
         operator = condition
@@ -62,6 +82,13 @@ const NumericCondition = ({
         const parts = condition.split(':')
         operator = parts[0]
         value = parts[1]
+    }
+
+    const onOperatorChange = (input) => {
+        if (input === OPERATOR_IN && !availableLegendSets) {
+            fetchLegendSets()
+        }
+        setOperator(input)
     }
 
     const setOperator = (input) => {
@@ -85,7 +112,7 @@ const NumericCondition = ({
             })
             setLegendSet(result)
         }
-        if (availableLegendSets && legendSetId) {
+        if (legendSetId) {
             fetchLegendSet()
         }
     }, [legendSetId])
@@ -99,7 +126,7 @@ const NumericCondition = ({
                 inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
-                onChange={({ selected }) => setOperator(selected)}
+                onChange={({ selected }) => onOperatorChange(selected)}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -108,15 +135,13 @@ const NumericCondition = ({
                         label={operators[key]}
                     />
                 ))}
-                {availableLegendSets && <MenuDivider dense />}
-                {availableLegendSets && (
-                    <SingleSelectOption
-                        key={OPERATOR_IN}
-                        value={OPERATOR_IN}
-                        label={i18n.t('is one of preset options')}
-                        disabled={numberOfConditions > 1}
-                    />
-                )}
+                <MenuDivider dense />
+                <SingleSelectOption
+                    key={OPERATOR_IN}
+                    value={OPERATOR_IN}
+                    label={i18n.t('is one of preset options')}
+                    disabled={numberOfConditions > 1}
+                />
             </SingleSelectField>
             {operator &&
                 !operator.includes(NULL_VALUE) &&
@@ -130,40 +155,44 @@ const NumericCondition = ({
                         step={enableDecimalSteps ? '0.1' : '1'}
                     />
                 )}
-            {operator === OPERATOR_IN &&
-                availableLegendSets &&
-                ((legendSetId && legendSet) || !legendSetId) && (
-                    <>
-                        <SingleSelectField
-                            selected={legendSet?.id}
-                            inputWidth="136px"
-                            placeholder={i18n.t('Choose a set of options')}
+            {operator === OPERATOR_IN && (
+                <>
+                    <SingleSelectField
+                        selected={availableLegendSets && legendSetId}
+                        inputWidth="136px"
+                        placeholder={i18n.t('Choose a set of options')}
+                        dense
+                        onChange={({ selected }) => {
+                            onLegendSetChange(selected)
+                            setValue(null)
+                        }}
+                        loading={!availableLegendSets}
+                    >
+                        {availableLegendSets?.map((item) => (
+                            <SingleSelectOption
+                                key={item.id}
+                                value={item.id}
+                                label={item.name}
+                            />
+                        ))}
+                    </SingleSelectField>
+                    {legendSetId && (
+                        <MultiSelectField
+                            onChange={({ selected }) =>
+                                setValue(selected.join(';'))
+                            }
+                            inputWidth="330px"
+                            selected={
+                                (legendSet?.legends?.length &&
+                                    value?.length &&
+                                    value.split(';')) ||
+                                []
+                            }
                             dense
-                            onChange={({ selected }) => {
-                                onLegendSetChange(selected)
-                                setValue(null)
-                            }}
+                            loading={!legendSet}
                         >
-                            {availableLegendSets.map((item) => (
-                                <SingleSelectOption
-                                    key={item.id}
-                                    value={item.id}
-                                    label={item.name}
-                                />
-                            ))}
-                        </SingleSelectField>
-                        {legendSet?.legends && (
-                            <MultiSelectField
-                                onChange={({ selected }) =>
-                                    setValue(selected.join(';'))
-                                }
-                                inputWidth="330px"
-                                selected={
-                                    (value?.length && value.split(';')) || []
-                                }
-                                dense
-                            >
-                                {legendSet.legends
+                            {legendSet?.legends?.length &&
+                                legendSet.legends
                                     .sort((a, b) => a.startValue - b.startValue)
                                     .map((legend) => (
                                         <MultiSelectOption
@@ -172,10 +201,10 @@ const NumericCondition = ({
                                             label={legend.name}
                                         />
                                     ))}
-                            </MultiSelectField>
-                        )}
-                    </>
-                )}
+                        </MultiSelectField>
+                    )}
+                </>
+            )}
             <Button
                 type="button"
                 small
@@ -195,7 +224,10 @@ NumericCondition.propTypes = {
     onChange: PropTypes.func.isRequired,
     onLegendSetChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
-    availableLegendSets: PropTypes.array,
+    dimension: PropTypes.shape({
+        dimensionType: PropTypes.string,
+        id: PropTypes.string,
+    }),
     enableDecimalSteps: PropTypes.bool,
     legendSetId: PropTypes.string,
 }
