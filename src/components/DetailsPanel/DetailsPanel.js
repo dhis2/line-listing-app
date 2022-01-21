@@ -25,10 +25,10 @@ export const DetailsPanel = ({
     visualization,
 }) => (
     <div className={classes.panel}>
-        <AboutAOUnit type="eventReports" id={visualization.id} />
+        <AboutAOUnit type="eventVisualizations" id={visualization.id} />
         <InterpretationsUnit
             ref={interpretationsUnitRef}
-            type="eventReport"
+            type="eventVisualization"
             id={visualization.id}
             currentUser={currentUser}
             onInterpretationClick={(interpretationId) =>
