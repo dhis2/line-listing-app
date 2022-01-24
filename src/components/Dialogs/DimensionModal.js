@@ -9,7 +9,7 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { AddToLayoutButton } from './AddToLayoutButton/AddToLayoutButton.js'
+import AddToLayoutButton from './AddToLayoutButton/AddToLayoutButton.js'
 import classes from './styles/DimensionModal.module.css'
 
 const DimensionModal = ({
