@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
+import { DimensionListItem } from './DimensionListItem.js'
 import styles from './DimensionsList.module.css'
 
 const getNoResultsMessage = (searchTerm, programName) => {
@@ -76,10 +77,16 @@ const DimensionsList = ({
             onScroll={updateIsListEndVisible}
             ref={scrollBoxRef}
         >
-            <div>
-                {/* TODO: implement item styles and functionality */}
-                {dimensions.map(({ id, displayName }) => (
-                    <div key={id}>{displayName}</div>
+            <div className={styles.list}>
+                {dimensions.map((dimension) => (
+                    <DimensionListItem
+                        key={dimension.id}
+                        dimensionType={dimension.dimensionType}
+                        displayName={dimension.displayName}
+                        id={dimension.id}
+                        optionSet={dimension.optionSet}
+                        valueType={dimension.valueType}
+                    />
                 ))}
                 {fetching && (
                     <div className={styles.loadMoreWrap}>

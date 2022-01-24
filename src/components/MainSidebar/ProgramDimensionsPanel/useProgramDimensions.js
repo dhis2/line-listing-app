@@ -4,6 +4,7 @@ import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
+import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
@@ -87,7 +88,7 @@ const createDimensionsQuery = ({
     const params = {
         pageSize: 50,
         page,
-        fields: ['id', 'displayName', 'dimensionType'],
+        fields: DIMENSION_LIST_FIELDS,
         filter: [],
     }
 

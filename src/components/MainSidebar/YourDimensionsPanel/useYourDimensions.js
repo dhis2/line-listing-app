@@ -1,5 +1,6 @@
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect, useState } from 'react'
+import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
 const query = {
     dimensions: {
@@ -15,7 +16,7 @@ const query = {
             return {
                 pageSize: 50,
                 page,
-                fields: ['id', 'displayName', 'dimensionType'],
+                fields: DIMENSION_LIST_FIELDS,
                 filter,
             }
         },
