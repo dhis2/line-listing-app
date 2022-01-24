@@ -97,7 +97,7 @@ const OptionSetCondition = ({
     const dataEngine = useDataEngine()
     const setSearchTerm = (searchTerm) =>
         setState((state) => ({ ...state, searchTerm }))
-    const debouncedSearchTerm = useDebounce(state.searchTerm, 200)
+    const debouncedSearchTerm = useDebounce(state.searchTerm, 500)
     const fetchItems = async (page) => {
         setState((state) => ({ ...state, loading: true }))
         const result = await apiFetchOptions({
