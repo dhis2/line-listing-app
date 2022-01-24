@@ -19,7 +19,7 @@ import classes from './styles/MenuBar.module.css'
 
 const visualizationSaveMutation = {
     type: 'create',
-    resource: 'eventReports',
+    resource: 'eventVisualizations',
     data: ({ visualization }) => visualization,
     params: {
         skipTranslations: true,
@@ -29,7 +29,7 @@ const visualizationSaveMutation = {
 
 const visualizationSaveAsMutation = {
     type: 'update',
-    resource: 'eventReports',
+    resource: 'eventVisualizations',
     id: ({ visualization }) => visualization.id,
     data: ({ visualization }) => visualization,
     params: {
