@@ -3,7 +3,6 @@ import {
     IconDimensionIndicator16,
     IconDimensionOrgUnit16,
     IconDimensionProgramIndicator16,
-    IconFilter16,
     IconLock16,
     IconMore16,
     IconWarningFilled16,
@@ -18,20 +17,20 @@ import styles from './DimensionListItem.module.css'
 // TODO: get correct icon for each dimension type
 // Currently using IconFilter16 as placeholder
 const DIMENSION_TYPE_ICONS = {
-    DATA_ELEMENT: IconFilter16,
-    DATA_ELEMENT_OPERAND: IconFilter16,
+    DATA_ELEMENT: undefined,
+    DATA_ELEMENT_OPERAND: undefined,
     INDICATOR: IconDimensionIndicator16,
-    REPORTING_RATE: IconFilter16,
-    PROGRAM_DATA_ELEMENT: IconFilter16,
-    PROGRAM_ATTRIBUTE: IconFilter16,
+    REPORTING_RATE: undefined,
+    PROGRAM_DATA_ELEMENT: undefined,
+    PROGRAM_ATTRIBUTE: undefined,
     PROGRAM_INDICATOR: IconDimensionProgramIndicator16,
     PERIOD: IconClock16,
     ORGANISATION_UNIT: IconDimensionOrgUnit16,
-    CATEGORY_OPTION: IconFilter16,
-    OPTION_GROUP: IconFilter16,
-    DATA_ELEMENT_GROUP: IconFilter16,
-    ORGANISATION_UNIT_GROUP: IconFilter16,
-    CATEGORY_OPTION_GROUP: IconFilter16,
+    CATEGORY_OPTION: undefined,
+    OPTION_GROUP: undefined,
+    DATA_ELEMENT_GROUP: undefined,
+    ORGANISATION_UNIT_GROUP: undefined,
+    CATEGORY_OPTION_GROUP: undefined,
 }
 
 const getIconForDimensionType = (dimensionType) => {
