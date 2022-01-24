@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-21T08:50:20.490Z\n"
-"PO-Revision-Date: 2022-01-21T08:50:20.490Z\n"
+"POT-Creation-Date: 2022-01-23T21:31:36.034Z\n"
+"PO-Revision-Date: 2022-01-23T21:31:36.034Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -101,6 +101,9 @@ msgstr "not equal to (≠)"
 
 msgid "is one of preset options"
 msgstr "is one of preset options"
+
+msgid "Loading..."
+msgstr "Loading..."
 
 msgid "Choose a set of options"
 msgstr "Choose a set of options"

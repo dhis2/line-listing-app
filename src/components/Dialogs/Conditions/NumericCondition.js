@@ -197,7 +197,11 @@ const NumericCondition = ({
                     </SingleSelectField>
                     {legendSetId && (
                         <MultiSelectField
-                            placeholder={!legendSet && i18n.t('Loading...')}
+                            placeholder={
+                                !legendSet
+                                    ? i18n.t('Loading...')
+                                    : i18n.t('Choose options')
+                            }
                             onChange={({ selected }) =>
                                 setValue(selected.join(';'))
                             }
