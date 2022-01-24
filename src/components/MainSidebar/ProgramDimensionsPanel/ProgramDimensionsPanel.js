@@ -11,12 +11,12 @@ import {
     acClearUiProgram,
 } from '../../../actions/ui.js'
 import { useDebounce } from '../../../modules/utils.js'
+import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
     sGetUiProgramStage,
 } from '../../../reducers/ui.js'
-import { INPUT_TYPE_EVENT } from '../InputPanel/index.js'
 import {
     ProgramDimensionsFilter,
     DIMENSION_TYPE_ALL,
@@ -59,7 +59,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const debouncedSearchTerm = useDebounce(searchTerm, 500)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
-            inputType === INPUT_TYPE_EVENT ||
+            inputType === OUTPUT_TYPE_EVENT ||
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
     )
     const selectedProgram =
@@ -67,10 +67,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
         filteredPrograms?.find(({ id }) => id === selectedProgramId)
     const programType = selectedProgram?.programType
     const requiredStageSelection =
-        inputType === INPUT_TYPE_EVENT &&
+        inputType === OUTPUT_TYPE_EVENT &&
         programType === PROGRAM_TYPE_WITH_REGISTRATION
     const isProgramSelectionComplete =
-        inputType === INPUT_TYPE_EVENT
+        inputType === OUTPUT_TYPE_EVENT
             ? selectedProgram && selectedStageId
             : !!selectedProgram
 
@@ -99,7 +99,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         if (
             // These only have a single artificial stage
-            inputType === INPUT_TYPE_EVENT &&
+            inputType === OUTPUT_TYPE_EVENT &&
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
             const artificialStageId = selectedProgram.programStages[0].id

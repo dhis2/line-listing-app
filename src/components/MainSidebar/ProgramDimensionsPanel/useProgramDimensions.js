@@ -1,6 +1,9 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback } from 'react'
-import { INPUT_TYPE_EVENT, INPUT_TYPE_ENROLLMENT } from '../InputPanel/index.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+} from '../../../modules/visualization.js'
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
@@ -78,7 +81,7 @@ const createDimensionsQuery = ({
     dimensionType,
 }) => {
     const resource =
-        inputType === INPUT_TYPE_EVENT
+        inputType === OUTPUT_TYPE_EVENT
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
@@ -88,17 +91,17 @@ const createDimensionsQuery = ({
         filter: [],
     }
 
-    if (programId && inputType === INPUT_TYPE_ENROLLMENT) {
+    if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
         params.programId = programId
     }
 
-    if (stageId && inputType === INPUT_TYPE_EVENT) {
+    if (stageId && inputType === OUTPUT_TYPE_EVENT) {
         params.programStageId = stageId
     }
 
     if (
         stageId &&
-        inputType === INPUT_TYPE_ENROLLMENT &&
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
         // This works because data element IDs have the following notation:
