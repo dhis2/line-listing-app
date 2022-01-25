@@ -100,8 +100,8 @@ DimensionListItem.propTypes = {
     dimensionType: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    optionSet: PropTypes.string.isRequired,
-    valueType: PropTypes.string.isRequired,
+    optionSet: PropTypes.string,
+    valueType: PropTypes.string,
 }
 
 export { DimensionListItem }
