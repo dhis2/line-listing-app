@@ -21,6 +21,23 @@ const formatRowValue = (rowValue, valueType, rowValueItem) => {
     }
 }
 
+const extractHeadersFromColumns = (columns) =>
+    columns.reduce((headers, { dimension }) => {
+        switch (dimension) {
+            // TODO remove when this is sorted out https://jira.dhis2.org/browse/TECH-869
+            case 'pe':
+                break
+            case 'ou':
+                headers.push('ouname')
+                break
+            default:
+                headers.push(dimension)
+                break
+        }
+
+        return headers
+    }, [])
+
 const fetchAnalyticsData = async ({
     analyticsEngine,
     visualization,
@@ -32,6 +49,9 @@ const fetchAnalyticsData = async ({
 }) => {
     let req = new analyticsEngine.request()
         .fromVisualization(visualization)
+        .withParameters({
+            headers: extractHeadersFromColumns(visualization.columns).join(','),
+        })
         .withProgram(visualization.program.id)
         .withStage(visualization.programStage.id)
         .withDisplayProperty('NAME') // TODO from settings ?!
@@ -60,55 +80,47 @@ const fetchAnalyticsData = async ({
     return rawResponse
 }
 
-const reduceHeaders = (analyticsResponse, visualization) => {
-    // special handling for ou column, use the value from the ouname column instead of the id from ou
-    const ouNameHeaderIndex = analyticsResponse.headers.findIndex(
-        (header) => header.name === 'ouname'
-    )
+const extractHeaders = (analyticsResponse) =>
+    analyticsResponse.headers.map((header, index) => ({
+        ...header,
+        index,
+    }))
 
-    return visualization.columns.reduce((headers, column) => {
-        const headerIndex = analyticsResponse.headers.findIndex(
-            (header) => header.name === column.dimension
-        )
+const extractRows = (analyticsResponse, headers) => {
+    const filteredRows = []
 
-        if (headerIndex !== -1) {
-            headers.push({
-                ...analyticsResponse.headers[headerIndex],
-                index:
-                    column.dimension === 'ou' ? ouNameHeaderIndex : headerIndex,
-            })
-        } else {
-            // TODO figure out what to do when no header match the column (ie. pe)
-            headers.push(undefined)
+    for (
+        let rowIndex = 0, rowsCount = analyticsResponse.rows.length;
+        rowIndex < rowsCount;
+        rowIndex++
+    ) {
+        const row = analyticsResponse.rows[rowIndex]
+
+        const filteredRow = []
+
+        for (
+            let headerIndex = 0, headersCount = headers.length;
+            headerIndex < headersCount;
+            headerIndex++
+        ) {
+            const header = headers[headerIndex]
+
+            const rowValue = row[header.index]
+
+            filteredRow.push(
+                formatRowValue(
+                    rowValue,
+                    header.valueType,
+                    analyticsResponse.metaData.items[rowValue]
+                )
+            )
         }
 
-        return headers
-    }, [])
+        filteredRows.push(filteredRow)
+    }
+
+    return filteredRows
 }
-
-const reduceRows = (analyticsResponse, headers) =>
-    analyticsResponse.rows.reduce((filteredRows, row) => {
-        filteredRows.push(
-            headers.reduce((filteredRow, header) => {
-                if (header) {
-                    const rowValue = row[header.index]
-
-                    filteredRow.push(
-                        formatRowValue(
-                            rowValue,
-                            header.valueType,
-                            analyticsResponse.metaData.items[rowValue]
-                        )
-                    )
-                } else {
-                    // TODO solve the case of visualization.column not mapping to any response.header (ie. "pe")
-                    filteredRow.push('-')
-                }
-                return filteredRow
-            }, [])
-        )
-        return filteredRows
-    }, [])
 
 const useAnalyticsData = ({
     visualization,
@@ -142,8 +154,8 @@ const useAnalyticsData = ({
                     sortField,
                     sortDirection,
                 })
-                const headers = reduceHeaders(analyticsResponse, visualization)
-                const rows = reduceRows(analyticsResponse, headers)
+                const headers = extractHeaders(analyticsResponse)
+                const rows = extractRows(analyticsResponse, headers)
                 const pageCount = analyticsResponse.metaData.pager.pageCount
                 const total = analyticsResponse.metaData.pager.total
 
