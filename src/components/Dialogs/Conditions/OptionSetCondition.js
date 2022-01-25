@@ -4,6 +4,7 @@ import { InputField, Transfer, TransferOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { acAddMetadata } from '../../../actions/metadata.js'
 import { apiFetchOptions } from '../../../api/options.js'
 import { OPERATOR_IN } from '../../../modules/conditions.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
@@ -66,16 +67,24 @@ const OptionSetCondition = ({
     onChange,
     displayNameProp,
     metadata,
+    addMetadata,
 }) => {
     const parts = condition.split(':')
     const values = parts[1]?.length ? parts[1].split(';') : []
     const selectedOptions = values.map((code) => ({
         code,
-        name: metadata[code]?.name, // FIXME: Doesn't work as metadata stores the options with an id that's separate from the code
+        name: Object.values(metadata).find((item) => item.code === code).name,
     }))
     const dataTest = 'option-set'
 
     const setValues = (selected) => {
+        addMetadata(
+            state.options
+                .filter((item) => selected.includes(item.code))
+                .map((item) => ({
+                    [item.id]: item,
+                }))
+        )
         onChange(`${OPERATOR_IN}:${selected.join(';') || ''}`)
     }
 
@@ -88,7 +97,7 @@ const OptionSetCondition = ({
     const dataEngine = useDataEngine()
     const setSearchTerm = (searchTerm) =>
         setState((state) => ({ ...state, searchTerm }))
-    const debouncedSearchTerm = useDebounce(state.searchTerm, 200)
+    const debouncedSearchTerm = useDebounce(state.searchTerm, 500)
     const fetchItems = async (page) => {
         setState((state) => ({ ...state, loading: true }))
         const result = await apiFetchOptions({
@@ -103,6 +112,7 @@ const OptionSetCondition = ({
             newOptions.push({
                 name: item.name,
                 code: item.code,
+                id: item.id,
             })
         })
         setState((state) => ({
@@ -190,6 +200,7 @@ const OptionSetCondition = ({
 }
 
 OptionSetCondition.propTypes = {
+    addMetadata: PropTypes.func.isRequired,
     condition: PropTypes.string.isRequired,
     displayNameProp: PropTypes.string.isRequired,
     metadata: PropTypes.object.isRequired,
@@ -202,4 +213,6 @@ const mapStateToProps = (state) => ({
     metadata: sGetMetadata(state),
 })
 
-export default connect(mapStateToProps)(OptionSetCondition)
+export default connect(mapStateToProps, { addMetadata: acAddMetadata })(
+    OptionSetCondition
+)

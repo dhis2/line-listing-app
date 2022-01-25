@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-10T15:30:55.533Z\n"
-"PO-Revision-Date: 2022-01-10T15:30:55.533Z\n"
+"POT-Creation-Date: 2022-01-18T16:00:57.226Z\n"
+"PO-Revision-Date: 2022-01-18T16:00:57.226Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -280,14 +280,73 @@ msgstr "Programs track enrollments across time."
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
-msgid "Choose an input"
-msgstr "Choose an input"
-
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
+
+msgid "Search in program"
+msgstr "Search in program"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "All"
+msgstr "All"
+
+msgid "Data element"
+msgstr "Data element"
+
+msgid "Program attribute"
+msgstr "Program attribute"
+
+msgid "Program indicator"
+msgstr "Program indicator"
+
+msgid "Couldn't load dimensions"
+msgstr "Couldn't load dimensions"
+
+msgid ""
+"There was a problem loading dimensions. Try again, or contact your system "
+"administrator."
+msgstr ""
+"There was a problem loading dimensions. Try again, or contact your system "
+"administrator."
+
+msgid "No dimensions found for '{{searchTerm}}'"
+msgstr "No dimensions found for '{{searchTerm}}'"
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr "No dimensions found in the {{programName}} program"
+
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr "Choose a program and stage above to add program dimensions."
+
+msgid "Choose a program above to add program dimensions."
+msgstr "Choose a program above to add program dimensions."
+
+msgid "Choose a program"
+msgstr "Choose a program"
+
+msgid "Clear program first to choose another"
+msgstr "Clear program first to choose another"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Stage"
+msgstr "Stage"
 
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"

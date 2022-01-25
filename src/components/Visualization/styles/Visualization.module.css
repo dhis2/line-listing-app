@@ -5,6 +5,36 @@
     align-items: flex-start;
 }
 
+.fetchIndicator {
+    position: relative;
+}
+
+.fetchIndicator.fetching::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(110, 122, 138, 0.15) rgba(110, 122, 138, 0.15)
+        rgb(20, 124, 215);
+    border-image: initial;
+    border-radius: 50%;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-name: rotation;
+    animation-timing-function: linear;
+}
+
+.fetchIndicator.fetching tbody::before {
+    content: '';
+    position: absolute;
+    inset: 0px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
 .stickyFooter {
     position: sticky;
     bottom: 0;
@@ -26,4 +56,13 @@
     flex: 1;
     align-self: flex-start;
     margin: 0 var(--spacers-dp12);
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

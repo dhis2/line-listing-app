@@ -39,8 +39,8 @@ import StartScreen from './Visualization/StartScreen.js'
 import { Visualization } from './Visualization/Visualization.js'
 
 const visualizationQuery = {
-    eventReport: {
-        resource: 'eventReports',
+    eventVisualization: {
+        resource: 'eventVisualizations',
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
         params: {
@@ -143,6 +143,7 @@ const App = ({
                     name: item.name || item.displayName,
                     displayName: item.displayName,
                     dimensionItemType: item.dimensionItemType, // TODO needed?
+                    code: item.code,
                 }
 
                 return obj
@@ -187,7 +188,7 @@ const App = ({
     }, [])
 
     useEffect(() => {
-        const visualization = data?.eventReport
+        const visualization = data?.eventVisualization
 
         if (visualization) {
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))

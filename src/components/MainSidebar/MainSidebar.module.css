@@ -14,18 +14,21 @@
     background-color: var(--colors-white);
     overflow-x: hidden;
     transition: width 200ms ease-out;
+    display: flex;
 }
 .accessory.hidden {
     width: 0;
 }
 .accessoryInner {
     width: 260px;
-    height: 100%;
-    padding: var(--spacers-dp12) var(--spacers-dp8);
     border-right: 1px solid var(--colors-grey400);
     transform: translateX(0);
     transition: transform 200ms ease-out;
+    flex-shrink: 0;
 }
 .accessory.hidden .accessoryInner {
     transform: translateX(-260px);
+}
+.accessory.padded .accessoryInner {
+    padding: var(--spacers-dp12) var(--spacers-dp8);
 }

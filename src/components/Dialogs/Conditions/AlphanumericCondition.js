@@ -7,7 +7,7 @@ import {
     Checkbox,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     NULL_VALUE,
     OPERATOR_CONTAINS,
@@ -16,7 +16,7 @@ import {
     OPERATOR_NOT_CONTAINS,
     OPERATOR_NOT_EMPTY,
     OPERATOR_NOT_EQUAL,
-    CASE_SENSITIVE_PREFIX,
+    CASE_INSENSITIVE_PREFIX,
     NOT_PREFIX,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
@@ -31,25 +31,25 @@ const operators = {
 }
 
 const prefixOperator = (operator, isCaseSensitive) => {
-    if (!isCaseSensitive) {
+    if (isCaseSensitive) {
         // e.g. LIKE -> LIKE
         return operator
     } else {
         if (operator[0] === NOT_PREFIX) {
             // e.g. !LIKE -> !ILIKE
-            return `${NOT_PREFIX}${CASE_SENSITIVE_PREFIX}${operator.substring(
+            return `${NOT_PREFIX}${CASE_INSENSITIVE_PREFIX}${operator.substring(
                 1
             )}`
         } else {
             // e.g. LIKE -> ILIKE
-            return `${CASE_SENSITIVE_PREFIX}${operator}`
+            return `${CASE_INSENSITIVE_PREFIX}${operator}`
         }
     }
 }
 
 const unprefixOperator = (operator) => {
     const isCaseSensitive = checkIsCaseSensitive(operator)
-    if (!isCaseSensitive) {
+    if (isCaseSensitive) {
         // e.g. LIKE -> LIKE, !LIKE -> !LIKE
         return operator
     } else {
@@ -65,9 +65,11 @@ const unprefixOperator = (operator) => {
 
 const checkIsCaseSensitive = (operator) => {
     if (operator[0] === NOT_PREFIX) {
-        return operator[1] === CASE_SENSITIVE_PREFIX
+        // !LIKE, !ILIKE, !EQ, !IEQ
+        return operator[1] !== CASE_INSENSITIVE_PREFIX
     } else {
-        return operator[0] === CASE_SENSITIVE_PREFIX
+        // LIKE, ILIKE, EQ, IEQ
+        return operator[0] !== CASE_INSENSITIVE_PREFIX
     }
 }
 
@@ -78,6 +80,12 @@ const BaseCondition = ({
     allowCaseSensitive,
 }) => {
     let operator, value, isCaseSensitive
+
+    useEffect(() => {
+        if (!condition?.length) {
+            onChange(`${CASE_INSENSITIVE_PREFIX}:`)
+        }
+    }, [condition])
 
     if (condition.includes(NULL_VALUE)) {
         operator = condition
@@ -97,7 +105,7 @@ const BaseCondition = ({
     }
 
     const setValue = (input) => {
-        onChange(`${operator}:${input || ''}`)
+        onChange(`${prefixOperator(operator, isCaseSensitive)}:${input || ''}`)
     }
 
     const toggleCaseSensitive = (cs) => {
