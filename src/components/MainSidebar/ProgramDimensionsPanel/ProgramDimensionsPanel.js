@@ -81,20 +81,11 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }, [visible, called])
 
     useEffect(() => {
-        // Clear search fields when program changes
+        // Clear everything when user changes input type
+        dispatch(acClearUiProgram())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
-        /*
-         * This combination occurs when inputType changes to enrollment
-         * but the currently selected program does not have
-         * `programType === 'WITH_REGISTRATION'`
-         * Everyhting needs to be reset to the initial state
-         */
-        if (selectedProgramId && !selectedProgram) {
-            // This clears both the program and the stage
-            dispatch(acClearUiProgram())
-        }
-    }, [selectedProgramId, selectedProgram])
+    }, [inputType])
 
     useEffect(() => {
         if (
