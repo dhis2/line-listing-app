@@ -47,7 +47,7 @@ const getIconForDimensionType = (dimensionType) => {
 
 const DimensionListItem = ({
     dimensionType,
-    displayName,
+    name,
     id,
     optionSet,
     valueType,
@@ -56,7 +56,7 @@ const DimensionListItem = ({
     const onClick = () =>
         dispatch(
             acSetUiActiveModalDialog(id, {
-                [id]: { id, displayName, dimensionType, valueType, optionSet },
+                [id]: { id, name, dimensionType, valueType, optionSet },
             })
         )
     const Icon = getIconForDimensionType(dimensionType)
@@ -81,7 +81,7 @@ const DimensionListItem = ({
             <div className={styles.icon}>
                 <Icon />
             </div>
-            <div className={styles.label}>{displayName}</div>
+            <div className={styles.label}>{name}</div>
             {locked ? (
                 <div className={styles.lock}>
                     <IconLock16 />
@@ -98,8 +98,8 @@ const DimensionListItem = ({
 
 DimensionListItem.propTypes = {
     dimensionType: PropTypes.string.isRequired,
-    displayName: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     optionSet: PropTypes.string.isRequired,
     valueType: PropTypes.string.isRequired,
 }

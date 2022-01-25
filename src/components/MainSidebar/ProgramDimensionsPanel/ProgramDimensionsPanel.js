@@ -34,11 +34,11 @@ const query = {
         params: {
             fields: [
                 'id',
-                'displayName',
+                'displayName~rename(name)',
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
-                'programStages[id,displayName]',
+                'programStages[id,displayName~rename(name)]',
             ],
             paging: false,
         },
@@ -171,7 +171,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                 <ProgramDimensionsList
                     inputType={inputType}
                     programId={selectedProgramId}
-                    programName={selectedProgram.displayName}
+                    programName={selectedProgram.name}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}

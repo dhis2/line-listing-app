@@ -24,8 +24,8 @@ const StageSelect = ({ optional, stages }) => {
             {optional && (
                 <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
             )}
-            {stages.map(({ id, displayName }) => (
-                <SingleSelectOption label={displayName} key={id} value={id} />
+            {stages.map(({ id, name }) => (
+                <SingleSelectOption label={name} key={id} value={id} />
             ))}
         </SingleSelect>
     )

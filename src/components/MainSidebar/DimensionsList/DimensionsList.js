@@ -82,7 +82,7 @@ const DimensionsList = ({
                     <DimensionListItem
                         key={dimension.id}
                         dimensionType={dimension.dimensionType}
-                        displayName={dimension.displayName}
+                        name={dimension.name}
                         id={dimension.id}
                         optionSet={dimension.optionSet}
                         valueType={dimension.valueType}
