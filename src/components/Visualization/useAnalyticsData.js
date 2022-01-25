@@ -72,7 +72,7 @@ const fetchAnalyticsData = async ({
         .withProgram(visualization.program?.id || uiState.program.id)
         .withStage(visualization?.programStage?.id || uiState.program.stage)
         .withDisplayProperty('NAME') // TODO from settings ?!
-        .withOutputType(visualization.outputType || uiState.type)
+        .withOutputType(visualization.outputType || uiState.input.type)
         .withParameters({ completedOnly: visualization.completedOnly })
         .withPageSize(pageSize)
         .withPage(page)
