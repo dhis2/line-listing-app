@@ -133,7 +133,7 @@ const BaseCondition = ({
                     value={value}
                     type="text"
                     onChange={({ value }) => setValue(value)}
-                    width="150px"
+                    className={classes.wideInput}
                     dense
                 />
             )}

@@ -81,7 +81,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                     value={value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)}
                     type={type}
                     onChange={({ value }) => setValue(value)}
-                    width="150px"
+                    className={classes.narrowInput}
                     dense
                 />
             )}
