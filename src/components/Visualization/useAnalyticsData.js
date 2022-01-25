@@ -2,10 +2,12 @@ import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
 } from '../../modules/visualization.js'
+import { sGetUi } from '../../reducers/ui.js'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
 const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
@@ -60,16 +62,17 @@ const fetchAnalyticsData = async ({
     relativePeriodDate,
     sortField,
     sortDirection,
+    uiState,
 }) => {
     let req = new analyticsEngine.request()
         .fromVisualization(visualization)
         .withParameters({
             headers: extractHeadersFromColumns(visualization.columns).join(','),
         })
-        .withProgram(visualization.program.id)
-        .withStage(visualization.programStage.id)
+        .withProgram(visualization.program?.id || uiState.program.id)
+        .withStage(visualization?.programStage?.id || uiState.program.stage)
         .withDisplayProperty('NAME') // TODO from settings ?!
-        .withOutputType(visualization.outputType)
+        .withOutputType(visualization.outputType || uiState.type)
         .withParameters({ completedOnly: visualization.completedOnly })
         .withPageSize(pageSize)
         .withPage(page)
@@ -151,6 +154,7 @@ const useAnalyticsData = ({
     page,
     pageSize,
 }) => {
+    const uiState = useSelector(sGetUi)
     const dataEngine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
@@ -173,6 +177,7 @@ const useAnalyticsData = ({
                     relativePeriodDate,
                     sortField,
                     sortDirection,
+                    uiState,
                 })
                 const headers = extractHeaders(analyticsResponse)
                 const rows = extractRows(analyticsResponse, headers)
@@ -183,6 +188,7 @@ const useAnalyticsData = ({
                 mounted.current && setData({ headers, rows, pageCount, total })
                 onResponseReceived(analyticsResponse)
             } catch (error) {
+                console.error(error)
                 mounted.current && setError(error)
             } finally {
                 mounted.current && setLoading(false)
