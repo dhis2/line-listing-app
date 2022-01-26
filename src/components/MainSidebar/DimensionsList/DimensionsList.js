@@ -60,7 +60,7 @@ const DimensionsList = ({
         )
     }
 
-    if (dimensions.length === 0) {
+    if (!dimensions?.length) {
         return (
             <div className={styles.noResults}>
                 {getNoResultsMessage(searchTerm, programName)}
