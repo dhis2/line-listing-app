@@ -11,13 +11,18 @@ const booleanMap = {
     1: i18n.t('Yes'),
 }
 
-const formatRowValue = (rowValue, valueType, rowValueItem) => {
-    switch (valueType) {
+const findOptionSetItem = (code, metaDataItems) =>
+    Object.values(metaDataItems).find((item) => item.code === code)
+
+const formatRowValue = (rowValue, header, metaDataItems) => {
+    switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
             return booleanMap[rowValue] || i18n.t('Not answered')
         default:
-            return rowValueItem?.name || rowValue
+            return header.optionSet
+                ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                : metaDataItems[rowValue]?.name || rowValue
     }
 }
 
@@ -110,8 +115,8 @@ const extractRows = (analyticsResponse, headers) => {
             filteredRow.push(
                 formatRowValue(
                     rowValue,
-                    header.valueType,
-                    analyticsResponse.metaData.items[rowValue]
+                    header,
+                    analyticsResponse.metaData.items
                 )
             )
         }
