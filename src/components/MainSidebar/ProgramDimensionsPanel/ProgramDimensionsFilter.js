@@ -3,8 +3,8 @@ import { SingleSelect, SingleSelectOption, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
-import { INPUT_TYPE_ENROLLMENT } from '../InputPanel/index.js'
 import styles from './ProgramDimensionsFilter.module.css'
 import { StageSelect } from './StageSelect.js'
 
@@ -22,7 +22,7 @@ const ProgramDimensionsFilter = ({
 }) => {
     const inputType = useSelector(sGetUiInputType)
     const showStageSelect =
-        inputType === INPUT_TYPE_ENROLLMENT &&
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
 
     return (

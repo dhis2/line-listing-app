@@ -21,10 +21,18 @@ export const getDefaultFromUi = (current, action) => {
         ...current,
         [BASE_FIELD_TYPE]: ui.type,
         outputType: ui.input.type,
+        ...getProgramFromUi(ui),
+        ...getProgramStageFromUi(ui),
         ...getAxesFromUi(ui),
         ...getOptionsFromUi(ui),
     }
 }
+
+export const getProgramFromUi = (ui) =>
+    ui.program?.id && { program: { id: ui.program.id } }
+
+export const getProgramStageFromUi = (ui) =>
+    ui.program?.stage && { programStage: { id: ui.program.stage } }
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 

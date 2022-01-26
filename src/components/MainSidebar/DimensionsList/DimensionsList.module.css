@@ -1,6 +1,12 @@
 .scrollbox {
     overflow-y: auto;
 }
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
+}
 .errorWrap {
     padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
 }
