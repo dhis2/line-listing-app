@@ -46,10 +46,10 @@ const reducer = (state, action) => {
                 dimensions: state.dimensions
                     ? [...state.dimensions, ...action.payload.dimensions]
                     : action.payload.dimensions,
-                nextPage: action.payload.page + 1,
+                nextPage: action.payload.pager.page + 1,
                 isLastPage:
-                    action.payload.pageSize * action.payload.page >=
-                    action.payload.total,
+                    action.payload.pager.pageSize * action.payload.pager.page >=
+                    action.payload.pager.total,
             }
         case ACTIONS_ERROR:
             return {
@@ -84,7 +84,7 @@ const createDimensionsQuery = ({
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
-        pageSize: 50,
+        pageSize: 10,
         page,
         fields: DIMENSION_LIST_FIELDS,
         filter: [],
