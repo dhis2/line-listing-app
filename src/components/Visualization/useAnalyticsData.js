@@ -2,6 +2,10 @@ import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
+} from '../../modules/visualization.js'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
 const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
@@ -9,6 +13,11 @@ const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
 const booleanMap = {
     0: i18n.t('No'),
     1: i18n.t('Yes'),
+}
+
+const analyticsApiEndpointMap = {
+    [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
+    [OUTPUT_TYPE_EVENT]: 'events',
 }
 
 const findOptionSetItem = (code, metaDataItems) =>
@@ -80,7 +89,13 @@ const fetchAnalyticsData = async ({
         }
     }
 
-    const rawResponse = await analyticsEngine.events.getQuery(req)
+    const analyticsApiEndpoint =
+        analyticsApiEndpointMap[visualization.outputType]
+
+    // for 2.38 only /query is used (since only Line List is enabled)
+    const rawResponse = await analyticsEngine[analyticsApiEndpoint].getQuery(
+        req
+    )
 
     return rawResponse
 }
