@@ -2,14 +2,16 @@ import { VisualizationOptions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { tSetCurrentFromUi } from '../../actions/current.js'
+import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
 import { getOptionsByType } from '../../modules/options/config.js'
 import MenuButton from '../Toolbar/MenuBar/MenuButton.js'
 //import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
 const VisualizationOptionsManager = ({ onUpdate }) => {
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const dispatch = useDispatch()
 
     const onClick = () => {
         setDialogIsOpen(false)
@@ -21,6 +23,7 @@ const VisualizationOptionsManager = ({ onUpdate }) => {
         // }
         //onLoadingStart()
         onUpdate()
+        dispatch(acSetShowExpandedLayoutPanel(false))
     }
 
     const optionsConfig = getOptionsByType()

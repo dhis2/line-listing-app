@@ -21,6 +21,7 @@ export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
+export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
@@ -60,6 +61,7 @@ export const DEFAULT_UI = {
     options: getOptionsForUi(),
     showAccessoryPanel: false,
     showDetailsPanel: false,
+    showExpandedLayoutPanel: false,
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -202,6 +204,9 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
+        case SET_UI_EXPANDED_LAYOUT_PANEL: {
+            return { ...state, showExpandedLayoutPanel: action.value }
+        }
         case CLEAR_UI: {
             return getPreselectedUi(action.value)
         }
@@ -272,6 +277,8 @@ export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
+export const sGetUiShowExpandedLayoutPanel = (state) =>
+    sGetUi(state).showExpandedLayoutPanel
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
