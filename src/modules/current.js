@@ -29,10 +29,10 @@ export const getDefaultFromUi = (current, action) => {
 }
 
 export const getProgramFromUi = (ui) =>
-    ui.program?.id ? { program: { id: ui.program.id } } : null
+    ui.program?.id && { program: { id: ui.program.id } }
 
 export const getProgramStageFromUi = (ui) =>
-    ui.program?.stage ? { programStage: { id: ui.program.stage } } : null
+    ui.program?.stage && { programStage: { id: ui.program.stage } }
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 
