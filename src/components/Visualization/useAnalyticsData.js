@@ -188,7 +188,6 @@ const useAnalyticsData = ({
                 mounted.current && setData({ headers, rows, pageCount, total })
                 onResponseReceived(analyticsResponse)
             } catch (error) {
-                console.error(error)
                 mounted.current && setError(error)
             } finally {
                 mounted.current && setLoading(false)
