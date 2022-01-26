@@ -10,13 +10,11 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
 } from './ProgramDimensionsFilter.js'
 
-const ACTIONS = {
-    RESET: 'RESET',
-    INIT: 'INIT',
-    SUCCESS: 'SUCCESS',
-    ERROR: 'ERROR',
-    SET_LIST_END_VISIBLE: 'SET_LIST_END_VISIBLE',
-}
+const ACTIONS_RESET = 'RESET'
+const ACTIONS_INIT = 'INIT'
+const ACTIONS_SUCCESS = 'SUCCESS'
+const ACTIONS_ERROR = 'ERROR'
+const ACTIONS_SET_LIST_END_VISIBLE = 'SET_LIST_END_VISIBLE'
 
 const initialState = {
     loading: true,
@@ -30,16 +28,16 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case ACTIONS.RESET:
+        case ACTIONS_RESET:
             return { ...initialState }
-        case ACTIONS.INIT:
+        case ACTIONS_INIT:
             return {
                 ...state,
                 loading: !state.dimensions,
                 fetching: true,
                 error: null,
             }
-        case ACTIONS.SUCCESS:
+        case ACTIONS_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -53,7 +51,7 @@ const reducer = (state, action) => {
                     action.payload.pageSize * action.payload.page >=
                     action.payload.total,
             }
-        case ACTIONS.ERROR:
+        case ACTIONS_ERROR:
             return {
                 ...state,
                 loading: false,
@@ -61,7 +59,7 @@ const reducer = (state, action) => {
                 error: action.payload,
                 dimensions: null,
             }
-        case ACTIONS.SET_LIST_END_VISIBLE:
+        case ACTIONS_SET_LIST_END_VISIBLE:
             return {
                 ...state,
                 isListEndVisible: action.payload,
@@ -155,16 +153,16 @@ const useProgramDimensions = ({
 
     const setIsListEndVisible = (isVisible) => {
         if (isVisible !== isListEndVisible) {
-            dispatch({ type: ACTIONS.SET_LIST_END_VISIBLE, payload: isVisible })
+            dispatch({ type: ACTIONS_SET_LIST_END_VISIBLE, payload: isVisible })
         }
     }
 
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             if (shouldReset) {
-                dispatch({ type: ACTIONS.RESET })
+                dispatch({ type: ACTIONS_RESET })
             } else {
-                dispatch({ type: ACTIONS.INIT })
+                dispatch({ type: ACTIONS_INIT })
             }
 
             try {
@@ -180,11 +178,11 @@ const useProgramDimensions = ({
                     }),
                 })
                 dispatch({
-                    type: ACTIONS.SUCCESS,
+                    type: ACTIONS_SUCCESS,
                     payload: data.dimensions,
                 })
             } catch (error) {
-                dispatch({ type: ACTIONS.ERROR, payload: error })
+                dispatch({ type: ACTIONS_ERROR, payload: error })
             }
         },
         [
