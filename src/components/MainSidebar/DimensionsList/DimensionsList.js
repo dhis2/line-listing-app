@@ -19,7 +19,7 @@ const getNoResultsMessage = (searchTerm, programName) => {
     return i18n.t('No dimensions found')
 }
 
-const isScrollboxEndVisible = (el) =>
+const isEndReached = (el) =>
     el.scrollHeight - el.scrollTop - el.clientHeight < 5
 
 const DimensionsList = ({
@@ -35,7 +35,7 @@ const DimensionsList = ({
 
     useEffect(() => {
         if (dimensions && scrollBoxRef.current && !loading && !fetching) {
-            setIsListEndVisible(isScrollboxEndVisible(scrollBoxRef.current))
+            setIsListEndVisible(isEndReached(scrollBoxRef.current))
         }
     }, [dimensions, scrollBoxRef.current])
 
@@ -72,7 +72,7 @@ const DimensionsList = ({
         <div
             className={styles.scrollbox}
             onScroll={(event) =>
-                setIsListEndVisible(isScrollboxEndVisible(event.target))
+                setIsListEndVisible(isEndReached(event.target))
             }
             ref={scrollBoxRef}
         >
