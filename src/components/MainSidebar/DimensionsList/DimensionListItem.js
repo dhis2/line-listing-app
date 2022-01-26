@@ -11,7 +11,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { acSetUiActiveModalDialog } from '../../../actions/ui.js'
+import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import styles from './DimensionListItem.module.css'
 
 // TODO: get correct icon for each dimension type
@@ -55,7 +55,7 @@ const DimensionListItem = ({
     const dispatch = useDispatch()
     const onClick = () =>
         dispatch(
-            acSetUiActiveModalDialog(id, {
+            acSetUiOpenDimensionModal(id, {
                 [id]: { id, name, dimensionType, valueType, optionSet },
             })
         )

@@ -106,7 +106,7 @@ export const tClearUi = () => (dispatch, getState) => {
     )
 }
 
-export const acSetUiActiveModalDialog = (value, metadata) => ({
+export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
     value,
     metadata,
