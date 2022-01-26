@@ -84,7 +84,7 @@ const createDimensionsQuery = ({
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
-        pageSize: 10,
+        pageSize: 50,
         page,
         fields: DIMENSION_LIST_FIELDS,
         filter: [],
