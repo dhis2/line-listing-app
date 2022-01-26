@@ -9,7 +9,7 @@ import styles from './YourDimensionsPanel.module.css'
 
 const YourDimensionsPanel = ({ visible }) => {
     const [searchTerm, setSearchTerm] = useState('')
-    const debouncedSearchTerm = useDebounce(searchTerm, 500)
+    const debouncedSearchTerm = useDebounce(searchTerm)
     const { loading, fetching, error, dimensions, setIsListEndVisible } =
         useYourDimensions({
             visible,

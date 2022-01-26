@@ -56,7 +56,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     })
     const [searchTerm, setSearchTerm] = useState('')
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
-    const debouncedSearchTerm = useDebounce(searchTerm, 500)
+    const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
             inputType === OUTPUT_TYPE_EVENT ||
