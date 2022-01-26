@@ -1,13 +1,13 @@
 .container {
     display: flex;
-    gap: var(--spacers-dp8);
+    gap: var(--spacers-dp4);
     align-items: center;
     cursor: pointer;
     background-color: var(--colors-white);
     border: 1px solid var(--colors-grey300);
     border-radius: 6px;
     padding: var(--spacers-dp12) var(--spacers-dp8) var(--spacers-dp12)
-        var(--spacers-dp12);
+        var(--spacers-dp8);
 }
 .container:hover {
     background-color: var(--colors-grey050);
