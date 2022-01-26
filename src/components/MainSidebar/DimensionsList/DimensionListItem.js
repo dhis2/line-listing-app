@@ -82,12 +82,10 @@ const DimensionListItem = ({
                 <Icon />
             </div>
             <div className={styles.label}>{name}</div>
-            {locked ? (
+            {locked && (
                 <div className={styles.lock}>
                     <IconLock16 />
                 </div>
-            ) : (
-                ''
             )}
             <div className={styles.menuTrigger}>
                 <IconMore16 />
