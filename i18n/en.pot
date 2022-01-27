@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-26T13:48:11.141Z\n"
-"PO-Revision-Date: 2022-01-26T13:48:11.141Z\n"
+"POT-Creation-Date: 2022-01-26T15:16:16.072Z\n"
+"PO-Revision-Date: 2022-01-26T15:16:16.072Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -240,6 +240,18 @@ msgstr "Preview"
 
 msgid "Back to write mode"
 msgstr "Back to write mode"
+
+msgid "Too many results. Try refining the search."
+msgstr "Too many results. Try refining the search."
+
+msgid "Search for a user"
+msgstr "Search for a user"
+
+msgid "Searching for \"{{searchText}}\""
+msgstr "Searching for \"{{searchText}}\""
+
+msgid "No results found"
+msgstr "No results found"
 
 msgid "None selected"
 msgstr "None selected"
