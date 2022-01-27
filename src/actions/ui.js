@@ -30,21 +30,25 @@ export const acClearUiProgram = () => ({
     type: CLEAR_UI_PROGRAM,
 })
 
-export const acUpdateUiProgramId = (value) => ({
+export const acUpdateUiProgramId = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_ID,
     value,
+    metadata,
 })
 
-export const acUpdateUiProgramStage = (value) => ({
+export const acUpdateUiProgramStage = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_STAGE,
     value,
+    metadata,
 })
 
-export const tSetUiProgram = (programId, stageId) => async (dispatch) => {
-    dispatch(acClearUiProgram())
-    programId && dispatch(acUpdateUiProgramId(programId))
-    stageId && dispatch(acUpdateUiProgramStage(stageId))
-}
+export const tSetUiProgram =
+    ({ programId, stageId, metadata }) =>
+    async (dispatch) => {
+        dispatch(acClearUiProgram())
+        programId && dispatch(acUpdateUiProgramId(programId, metadata))
+        stageId && dispatch(acUpdateUiProgramStage(stageId))
+    }
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,

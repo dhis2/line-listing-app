@@ -11,8 +11,13 @@ const STAGE_ALL = 'STAGE_ALL'
 const StageSelect = ({ optional, stages }) => {
     const dispatch = useDispatch()
     const selectedStageId = useSelector(sGetUiProgramStage)
-    const onChange = ({ selected }) =>
-        dispatch(acUpdateUiProgramStage(selected))
+    const onChange = ({ selected: stageId }) => {
+        dispatch(
+            acUpdateUiProgramStage(stageId, {
+                [stageId]: stages.find(({ id }) => id === stageId),
+            })
+        )
+    }
 
     return (
         <SingleSelect
