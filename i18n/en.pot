@@ -102,6 +102,9 @@ msgstr "not equal to (≠)"
 msgid "is one of preset options"
 msgstr "is one of preset options"
 
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "Choose a set of options"
 msgstr "Choose a set of options"
 
