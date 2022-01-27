@@ -38,7 +38,10 @@ const query = {
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
-                'programStages[id,displayName~rename(name)]',
+                'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel]',
+                'displayIncidentDate',
+                'displayIncidentDateLabel',
+                'displayEnrollmentDateLabel',
             ],
             paging: false,
         },
@@ -50,7 +53,17 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStage)
-    const setSelectedProgramId = (id) => dispatch(tSetUiProgram(id))
+    const setSelectedProgramId = (programId) =>
+        dispatch(
+            tSetUiProgram({
+                programId,
+                metadata: {
+                    [programId]: filteredPrograms.find(
+                        ({ id }) => id === programId
+                    ),
+                },
+            })
+        )
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
