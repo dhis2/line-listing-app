@@ -4,8 +4,6 @@ import {
     IconDimensionIndicator16,
     IconDimensionOrgUnit16,
     IconDimensionProgramIndicator16,
-    IconLock16,
-    IconMore16,
     IconWarningFilled16,
 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -48,10 +46,11 @@ const getIconForDimensionType = (dimensionType) => {
 
 const DimensionListItem = ({
     dimensionType,
-    name,
     id,
     isDisabled,
+    name,
     optionSet,
+    selected,
     valueType,
 }) => {
     const dispatch = useDispatch()
@@ -63,19 +62,11 @@ const DimensionListItem = ({
         )
     const Icon = getIconForDimensionType(dimensionType)
 
-    // TODO: populate with proper values
-    const picked = false
-    const recommended = false
-    const dragOnly = false
-    const locked = false
-
     return (
         <div
             className={cx(styles.dimensionItem, {
-                [styles.picked]: picked,
+                [styles.selected]: selected,
                 [styles.disabled]: isDisabled,
-                [styles.recommended]: recommended,
-                [styles.dragOnly]: dragOnly,
             })}
             onClick={onClick}
         >
@@ -83,14 +74,6 @@ const DimensionListItem = ({
                 <Icon />
             </div>
             <div className={styles.label}>{name}</div>
-            {locked && (
-                <div className={styles.lock}>
-                    <IconLock16 />
-                </div>
-            )}
-            <div className={styles.menuTrigger}>
-                <IconMore16 />
-            </div>
         </div>
     )
 }
@@ -101,6 +84,7 @@ DimensionListItem.propTypes = {
     name: PropTypes.string.isRequired,
     isDisabled: PropTypes.bool,
     optionSet: PropTypes.string,
+    selected: PropTypes.bool,
     valueType: PropTypes.string,
 }
 
