@@ -1,7 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { sGetCurrent } from '../../../reducers/current.js'
 import { DimensionListItem } from './DimensionListItem.js'
 import styles from './DimensionsList.module.css'
 
@@ -32,6 +34,20 @@ const DimensionsList = ({
     setIsListEndVisible,
 }) => {
     const scrollBoxRef = useRef()
+    const current = useSelector(sGetCurrent)
+    const selectedDimensionSet = useMemo(
+        () =>
+            new Set(
+                current &&
+                    [
+                        ...current.columns,
+                        ...current.filters,
+                        // TODO: Not sure if rows are needed here too
+                        // ...current.rows,
+                    ].map(({ dimension }) => dimension)
+            ),
+        [current]
+    )
 
     useEffect(() => {
         if (dimensions && scrollBoxRef.current && !loading && !fetching) {
@@ -85,6 +101,7 @@ const DimensionsList = ({
                         id={dimension.id}
                         optionSet={dimension.optionSet}
                         valueType={dimension.valueType}
+                        selected={selectedDimensionSet.has(dimension.id)}
                     />
                 ))}
                 {fetching && (
