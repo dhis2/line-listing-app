@@ -52,8 +52,6 @@ const VALUE_TYPE_DATE = 'DATE'
 const VALUE_TYPE_TIME = 'TIME'
 const VALUE_TYPE_DATETIME = 'DATETIME'
 const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
-const VALUE_TYPE_COORDINATE = 'COORDINATE'
-const VALUE_TYPE_AGE = 'AGE'
 const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const NUMERIC_TYPES = [
@@ -72,7 +70,28 @@ const SINGLETON_TYPES = [
     VALUE_TYPE_ORGANISATION_UNIT,
 ]
 
-const UNSUPPORTED_TYPES = [VALUE_TYPE_COORDINATE, VALUE_TYPE_AGE]
+const SUPPORTED_TYPES = [
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_LONG_TEXT,
+    VALUE_TYPE_LETTER,
+    VALUE_TYPE_PHONE_NUMBER,
+    VALUE_TYPE_EMAIL,
+    VALUE_TYPE_USERNAME,
+    VALUE_TYPE_URL,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_ORGANISATION_UNIT,
+]
 
 const EMPTY_CONDITION = ''
 
@@ -91,6 +110,8 @@ const ConditionsManager = ({
         valueType === VALUE_TYPE_TEXT && dimension.optionSet
     const canHaveLegendSets =
         NUMERIC_TYPES.includes(valueType) || isProgramIndicator
+    const isSupported =
+        SUPPORTED_TYPES.includes(valueType) || isProgramIndicator
 
     const getInitConditions = () =>
         conditions.condition?.length
@@ -322,17 +343,16 @@ const ConditionsManager = ({
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
-    const isSupported =
-        (valueType || isProgramIndicator) &&
-        !UNSUPPORTED_TYPES.includes(valueType)
-
     return dimension ? (
         <DimensionModal
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={dimension.name + ' ' + valueType}
+            title={
+                dimension.name +
+                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}`
+            }
         >
             <div>
                 {isSupported ? (
