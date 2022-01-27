@@ -351,7 +351,7 @@ const ConditionsManager = ({
             onUpdate={primaryOnClick}
             title={
                 dimension.name +
-                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}`
+                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
             }
         >
             <div>
