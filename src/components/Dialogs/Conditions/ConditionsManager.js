@@ -52,6 +52,8 @@ const VALUE_TYPE_DATE = 'DATE'
 const VALUE_TYPE_TIME = 'TIME'
 const VALUE_TYPE_DATETIME = 'DATETIME'
 const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
+const VALUE_TYPE_COORDINATE = 'COORDINATE'
+const VALUE_TYPE_AGE = 'AGE'
 const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const NUMERIC_TYPES = [
@@ -69,6 +71,8 @@ const SINGLETON_TYPES = [
     VALUE_TYPE_TRUE_ONLY,
     VALUE_TYPE_ORGANISATION_UNIT,
 ]
+
+const UNSUPPORTED_TYPES = [VALUE_TYPE_COORDINATE, VALUE_TYPE_AGE]
 
 const EMPTY_CONDITION = ''
 
@@ -318,30 +322,34 @@ const ConditionsManager = ({
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
+    const isSupported =
+        (valueType || isProgramIndicator) &&
+        !UNSUPPORTED_TYPES.includes(valueType)
+
     return dimension ? (
         <DimensionModal
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={dimension.name}
+            title={dimension.name + ' ' + valueType}
         >
             <div>
-                {!valueType && !isProgramIndicator ? (
-                    <p className={classes.paragraph}>
-                        {i18n.t(
-                            "This dimension can't be filtered. All values will be shown."
-                        )}
-                    </p>
-                ) : (
+                {isSupported ? (
                     <p className={classes.paragraph}>
                         {i18n.t(
                             'Show items that meet the following conditions for this data item:'
                         )}
                     </p>
+                ) : (
+                    <p className={classes.paragraph}>
+                        {i18n.t(
+                            "This dimension can't be filtered. All values will be shown."
+                        )}
+                    </p>
                 )}
             </div>
-            {(valueType || isProgramIndicator) && (
+            {isSupported && (
                 <div className={classes.mainSection}>
                     {!conditionsList.length &&
                     !selectedLegendSet &&
