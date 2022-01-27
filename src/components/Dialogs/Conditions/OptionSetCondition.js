@@ -78,13 +78,18 @@ const OptionSetCondition = ({
     const dataTest = 'option-set'
 
     const setValues = (selected) => {
-        addMetadata(
-            state.options
-                .filter((item) => selected.includes(item.code))
-                .map((item) => ({
+        state.options
+            .filter(
+                (item) =>
+                    selected.includes(item.code) &&
+                    !selectedOptions.find((so) => so.code === item.code)
+            )
+            .forEach((item) => {
+                addMetadata({
                     [item.id]: item,
-                }))
-        )
+                })
+            })
+
         onChange(`${OPERATOR_IN}:${selected.join(';') || ''}`)
     }
 
