@@ -5,8 +5,9 @@ import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { acSetCurrent, tSetCurrentFromUi } from '../../../actions/current.js'
+import { acSetShowExpandedLayoutPanel } from '../../../actions/ui.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
@@ -52,6 +53,7 @@ export const MenuBar = ({
         ({ message }) => message,
         ({ options }) => options
     )
+    const dispatch = useDispatch()
 
     const onOpen = (id) => {
         const path = `/${id}`
@@ -197,8 +199,10 @@ export const MenuBar = ({
     })
 
     const onUpdateClick = () => {
-        // TODO: More things to be added here later (validation, error handling etc). Should be in line with the onClick in VisualizationsOptionsManager
+        // TODO: More things to be added here later (validation, error handling etc).
+        // Should be in line with the onClick in VisualizationsOptionsManager
         onUpdate()
+        dispatch(acSetShowExpandedLayoutPanel(false))
     }
 
     return (

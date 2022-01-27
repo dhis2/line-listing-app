@@ -43,16 +43,15 @@
 }
 
 .mainRight {
-    flex: 1 1 0%;
-    max-width: 380px;
+    width: 380px;
     background-color: #f0f2f4;
     overflow-y: auto;
     overflow-x: hidden;
     transform: scaleX(1);
-    transition: max-width 200ms ease-out;
+    transition: width 200ms ease-out;
 }
 .mainRight.hidden {
-    max-width: 0;
+    width: 0;
 }
 /* Main canvas */
 

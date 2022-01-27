@@ -4,7 +4,7 @@ import React from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { acSetUiActiveModalDialog } from '../../../actions/ui.js'
+import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { parseConditionsStringToArray } from '../../../modules/conditions.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
@@ -144,7 +144,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getOpenHandler: (dimensionId) => () =>
-        dispatch(acSetUiActiveModalDialog(dimensionId)),
+        dispatch(acSetUiOpenDimensionModal(dimensionId)),
 })
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

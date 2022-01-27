@@ -1,17 +1,20 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback } from 'react'
-import { INPUT_TYPE_EVENT, INPUT_TYPE_ENROLLMENT } from '../InputPanel/index.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+} from '../../../modules/visualization.js'
+import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
 } from './ProgramDimensionsFilter.js'
 
-const ACTIONS = {
-    RESET: 'RESET',
-    INIT: 'INIT',
-    SUCCESS: 'SUCCESS',
-    ERROR: 'ERROR',
-}
+const ACTIONS_RESET = 'RESET'
+const ACTIONS_INIT = 'INIT'
+const ACTIONS_SUCCESS = 'SUCCESS'
+const ACTIONS_ERROR = 'ERROR'
+const ACTIONS_SET_LIST_END_VISIBLE = 'SET_LIST_END_VISIBLE'
 
 const initialState = {
     loading: true,
@@ -20,20 +23,21 @@ const initialState = {
     dimensions: null,
     nextPage: 1,
     isLastPage: false,
+    isListEndVisible: false,
 }
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case ACTIONS.RESET:
+        case ACTIONS_RESET:
             return { ...initialState }
-        case ACTIONS.INIT:
+        case ACTIONS_INIT:
             return {
                 ...state,
                 loading: !state.dimensions,
                 fetching: true,
                 error: null,
             }
-        case ACTIONS.SUCCESS:
+        case ACTIONS_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -42,18 +46,23 @@ const reducer = (state, action) => {
                 dimensions: state.dimensions
                     ? [...state.dimensions, ...action.payload.dimensions]
                     : action.payload.dimensions,
-                nextPage: action.payload.page + 1,
+                nextPage: action.payload.pager.page + 1,
                 isLastPage:
-                    action.payload.pageSize * action.payload.page >=
-                    action.payload.total,
+                    action.payload.pager.pageSize * action.payload.pager.page >=
+                    action.payload.pager.total,
             }
-        case ACTIONS.ERROR:
+        case ACTIONS_ERROR:
             return {
                 ...state,
                 loading: false,
                 fetching: false,
                 error: action.payload,
                 dimensions: null,
+            }
+        case ACTIONS_SET_LIST_END_VISIBLE:
+            return {
+                ...state,
+                isListEndVisible: action.payload,
             }
         default:
             throw new Error(
@@ -71,27 +80,27 @@ const createDimensionsQuery = ({
     dimensionType,
 }) => {
     const resource =
-        inputType === INPUT_TYPE_EVENT
+        inputType === OUTPUT_TYPE_EVENT
             ? 'analytics/events/query/dimensions'
             : 'analytics/enrollments/query/dimensions'
     const params = {
-        pageSize: 30,
+        pageSize: 50,
         page,
-        fields: ['id', 'displayName'],
+        fields: DIMENSION_LIST_FIELDS,
         filter: [],
     }
 
-    if (programId && inputType === INPUT_TYPE_ENROLLMENT) {
+    if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
         params.programId = programId
     }
 
-    if (stageId && inputType === INPUT_TYPE_EVENT) {
+    if (stageId && inputType === OUTPUT_TYPE_EVENT) {
         params.programStageId = stageId
     }
 
     if (
         stageId &&
-        inputType === INPUT_TYPE_ENROLLMENT &&
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
         // This works because data element IDs have the following notation:
@@ -123,7 +132,6 @@ const createDimensionsQuery = ({
 
 const useProgramDimensions = ({
     inputType,
-    isListEndVisible,
     programId,
     stageId,
     searchTerm,
@@ -131,16 +139,30 @@ const useProgramDimensions = ({
 }) => {
     const engine = useDataEngine()
     const [
-        { loading, fetching, error, dimensions, nextPage, isLastPage },
+        {
+            loading,
+            fetching,
+            error,
+            dimensions,
+            nextPage,
+            isLastPage,
+            isListEndVisible,
+        },
         dispatch,
     ] = useReducer(reducer, initialState)
+
+    const setIsListEndVisible = (isVisible) => {
+        if (isVisible !== isListEndVisible) {
+            dispatch({ type: ACTIONS_SET_LIST_END_VISIBLE, payload: isVisible })
+        }
+    }
 
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             if (shouldReset) {
-                dispatch({ type: ACTIONS.RESET })
+                dispatch({ type: ACTIONS_RESET })
             } else {
-                dispatch({ type: ACTIONS.INIT })
+                dispatch({ type: ACTIONS_INIT })
             }
 
             try {
@@ -156,11 +178,11 @@ const useProgramDimensions = ({
                     }),
                 })
                 dispatch({
-                    type: ACTIONS.SUCCESS,
+                    type: ACTIONS_SUCCESS,
                     payload: data.dimensions,
                 })
             } catch (error) {
-                dispatch({ type: ACTIONS.ERROR, payload: error })
+                dispatch({ type: ACTIONS_ERROR, payload: error })
             }
         },
         [
@@ -188,6 +210,7 @@ const useProgramDimensions = ({
         loading,
         error,
         dimensions,
+        setIsListEndVisible,
     }
 }
 

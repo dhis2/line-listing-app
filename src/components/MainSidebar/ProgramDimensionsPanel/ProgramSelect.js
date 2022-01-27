@@ -26,8 +26,8 @@ const ProgramSelect = ({
             onChange={({ selected }) => setSelectedProgramId(selected)}
             placeholder={i18n.t('Choose a program')}
         >
-            {programs.map(({ id, displayName }) => (
-                <SingleSelectOption key={id} label={displayName} value={id} />
+            {programs.map(({ id, name }) => (
+                <SingleSelectOption key={id} label={name} value={id} />
             ))}
         </SingleSelect>
     )

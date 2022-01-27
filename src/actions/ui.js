@@ -9,6 +9,7 @@ import {
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
     SET_UI_ACCESSORY_PANEL_OPEN,
+    SET_UI_EXPANDED_LAYOUT_PANEL,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
@@ -90,6 +91,11 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
+export const acSetShowExpandedLayoutPanel = (value) => ({
+    type: SET_UI_EXPANDED_LAYOUT_PANEL,
+    value,
+})
+
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
@@ -100,9 +106,10 @@ export const tClearUi = () => (dispatch, getState) => {
     )
 }
 
-export const acSetUiActiveModalDialog = (value) => ({
+export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
     value,
+    metadata,
 })
 
 export const acSetUiItems = (value) => ({

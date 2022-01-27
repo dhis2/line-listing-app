@@ -4,7 +4,7 @@ import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current.js'
 import { acSetVisualizationLoading } from '../actions/loader.js'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
@@ -13,6 +13,7 @@ import {
     tClearUi,
     acSetUiFromVisualization,
     acAddParentGraphMap,
+    acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetUser } from '../actions/user.js'
 import {
@@ -59,7 +60,7 @@ const dataStatisticsMutation = {
 }
 
 const App = ({
-    location,
+    initialLocation,
     current,
     addMetadata,
     addParentGraphMap,
@@ -84,6 +85,8 @@ const App = ({
     })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const { d2 } = useD2()
+    const dispatch = useDispatch()
+
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
         interpretationsUnitRef.current.refresh()
@@ -113,7 +116,8 @@ const App = ({
 
     const loadVisualization = (location) => {
         setVisualizationLoading(true)
-        if (location.pathname.length > 1) {
+        const isExisting = location.pathname.length > 1
+        if (isExisting) {
             // /currentAnalyticalObject
             // /${id}/
             // /${id}/interpretation/${interpretationId}
@@ -130,6 +134,7 @@ const App = ({
             setVisualizationLoading(false)
         }
 
+        dispatch(acSetShowExpandedLayoutPanel(!isExisting))
         setInitialLoadIsComplete(true)
         setPreviousLocation(location.pathname)
     }
@@ -161,7 +166,7 @@ const App = ({
 
             setInitMetadata()
 
-            loadVisualization(location)
+            loadVisualization(initialLocation)
         }
 
         onMount()
@@ -317,8 +322,8 @@ App.propTypes = {
     clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
     current: PropTypes.object,
+    initialLocation: PropTypes.object,
     isLoading: PropTypes.bool,
-    location: PropTypes.object,
     setCurrent: PropTypes.func,
     setInitMetadata: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
