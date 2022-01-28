@@ -244,6 +244,18 @@ msgstr "Preview"
 msgid "Back to write mode"
 msgstr "Back to write mode"
 
+msgid "Too many results. Try refining the search."
+msgstr "Too many results. Try refining the search."
+
+msgid "Search for a user"
+msgstr "Search for a user"
+
+msgid "Searching for \"{{searchText}}\""
+msgstr "Searching for \"{{searchText}}\""
+
+msgid "No results found"
+msgstr "No results found"
+
 msgid "None selected"
 msgstr "None selected"
 

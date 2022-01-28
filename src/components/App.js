@@ -45,7 +45,41 @@ const visualizationQuery = {
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
         params: {
-            fields: '*,columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],program[id,displayName~rename(name),enrollmentDateLabel,incidentDateLabel],programStage[id,displayName~rename(name),executionDateLabel],access,user[displayName,userCredentials[username]],href,!interpretations,!userGroupAccesses,!publicAccess,!displayDescription,!rewindRelativePeriods,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren,!externalAccess,!relativePeriods,!columnDimensions,!rowDimensions,!filterDimensions,!organisationUnitGroups,!itemOrganisationUnitGroups,!indicators,!dataElements,!dataElementOperands,!dataElementGroups,!dataSets,!periods,!organisationUnitLevels,!organisationUnits,dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
+            fields: [
+                '*',
+                'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'program[id,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate]',
+                'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate]',
+                'access,user[displayName,userCredentials[username]]',
+                'href',
+                'dataElementDimensions[legendSet[id,name]',
+                'dataElement[id,name]]',
+                '!interpretations',
+                '!userGroupAccesses',
+                '!publicAccess',
+                '!displayDescription',
+                '!rewindRelativePeriods',
+                '!userOrganisationUnit',
+                '!userOrganisationUnitChildren',
+                '!userOrganisationUnitGrandChildren',
+                '!externalAccess',
+                '!relativePeriods',
+                '!columnDimensions',
+                '!rowDimensions',
+                '!filterDimensions',
+                '!organisationUnitGroups',
+                '!itemOrganisationUnitGroups',
+                '!indicators',
+                '!dataElements',
+                '!dataElementOperands',
+                '!dataElementGroups',
+                '!dataSets',
+                '!periods',
+                '!organisationUnitLevels',
+                '!organisationUnits',
+            ],
         },
     },
 }
@@ -141,7 +175,8 @@ const App = ({
 
     const onResponseReceived = (response) => {
         setVisualizationLoading(false)
-        const metadata = Object.entries(response.metaData.items).reduce(
+        const { program, programStage } = data.eventVisualization
+        const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
                     id,
@@ -156,7 +191,11 @@ const App = ({
             {}
         )
 
-        addMetadata(metadata)
+        addMetadata({
+            ...itemsMetadata,
+            [program.id]: program,
+            [programStage.id]: programStage,
+        })
     }
 
     useEffect(() => {

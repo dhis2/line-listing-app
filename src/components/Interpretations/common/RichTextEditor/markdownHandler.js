@@ -1,3 +1,7 @@
+export const BOLD = 'bold'
+export const ITALIC = 'italic'
+export const LINK = 'link'
+export const MENTION = 'mention'
 export const EMOJI_SMILEY_FACE = 'smileyFace'
 export const EMOJI_SAD_FACE = 'sadFace'
 export const EMOJI_THUMBS_UP = 'thumbsUp'
@@ -11,19 +15,19 @@ export const emojis = {
 }
 
 const markdownMap = {
-    italic: {
+    [ITALIC]: {
         prefix: '_',
         postfix: '_',
     },
-    bold: {
+    [BOLD]: {
         prefix: '*',
         postfix: '*',
     },
-    link: {
+    [LINK]: {
         prefix: '[',
         postfix: '](https://link-url)',
     },
-    mention: {
+    [MENTION]: {
         prefix: '@',
     },
     [EMOJI_SMILEY_FACE]: {
@@ -61,10 +65,10 @@ export const insertMarkdown = (markdown, target, cb) => {
         // is caret between two markers (i.e., "**" or "__")? Then do not add padding
         if (start === end && value.length && start > 0) {
             if (
-                (value[start - 1] === markdownMap.bold.prefix &&
-                    value[start] === markdownMap.bold.prefix) ||
-                (value[start - 1] === markdownMap.italic.prefix &&
-                    value[start] === markdownMap.italic.prefix)
+                (value[start - 1] === markdownMap[BOLD].prefix &&
+                    value[start] === markdownMap[BOLD].prefix) ||
+                (value[start - 1] === markdownMap[ITALIC].prefix &&
+                    value[start] === markdownMap[ITALIC].prefix)
             ) {
                 return text
             }
@@ -121,9 +125,9 @@ export const convertCtrlKey = (event, cb) => {
 
     if (key === 'b' && (ctrlKey || metaKey)) {
         event.preventDefault()
-        insertMarkdown('bold', event.target, cb)
+        insertMarkdown(BOLD, event.target, cb)
     } else if (key === 'i' && (ctrlKey || metaKey)) {
         event.preventDefault()
-        insertMarkdown('italic', event.target, cb)
+        insertMarkdown(ITALIC, event.target, cb)
     }
 }

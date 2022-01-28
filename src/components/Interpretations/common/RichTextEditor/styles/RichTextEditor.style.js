@@ -72,7 +72,7 @@ export const toolbarClasses = css`
     }
 
     .previewWrapper {
-        margin-bottom: ${spacers.dp4};
+        margin: ${spacers.dp4};
         text-align: right;
     }
 `
