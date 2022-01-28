@@ -71,6 +71,29 @@ const SINGLETON_TYPES = [
     VALUE_TYPE_ORGANISATION_UNIT,
 ]
 
+const SUPPORTED_TYPES = [
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_LONG_TEXT,
+    VALUE_TYPE_LETTER,
+    VALUE_TYPE_PHONE_NUMBER,
+    VALUE_TYPE_EMAIL,
+    VALUE_TYPE_USERNAME,
+    VALUE_TYPE_URL,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_ORGANISATION_UNIT,
+]
+
 const EMPTY_CONDITION = ''
 
 const ConditionsManager = ({
@@ -88,6 +111,8 @@ const ConditionsManager = ({
         valueType === VALUE_TYPE_TEXT && dimension.optionSet
     const canHaveLegendSets =
         NUMERIC_TYPES.includes(valueType) || isProgramIndicator
+    const isSupported =
+        SUPPORTED_TYPES.includes(valueType) || isProgramIndicator
 
     const getInitConditions = () =>
         conditions.condition?.length
@@ -336,24 +361,27 @@ const ConditionsManager = ({
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={dimension.name}
+            title={
+                dimension.name +
+                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
+            }
         >
             <div>
-                {!valueType && !isProgramIndicator ? (
-                    <p className={classes.paragraph}>
-                        {i18n.t(
-                            "This dimension can't be filtered. All values will be shown."
-                        )}
-                    </p>
-                ) : (
+                {isSupported ? (
                     <p className={classes.paragraph}>
                         {i18n.t(
                             'Show items that meet the following conditions for this data item:'
                         )}
                     </p>
+                ) : (
+                    <p className={classes.paragraph}>
+                        {i18n.t(
+                            "This dimension can't be filtered. All values will be shown."
+                        )}
+                    </p>
                 )}
             </div>
-            {(valueType || isProgramIndicator) && (
+            {isSupported && (
                 <div className={classes.mainSection}>
                     {!conditionsList.length &&
                     !selectedLegendSet &&
