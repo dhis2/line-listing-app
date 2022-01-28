@@ -1,12 +1,10 @@
-import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiConditions } from '../../../actions/ui.js'
-import { apiFetchLegendSetsByDimension } from '../../../api/legendSets.js'
 import {
     OPERATOR_IN,
     parseConditionsArrayToString,
@@ -111,24 +109,6 @@ const ConditionsManager = ({
         conditions.legendSet
     )
 
-    const [availableLegendSets, setAvailableLegendSets] = useState()
-
-    const dataEngine = useDataEngine()
-
-    useEffect(() => {
-        const fetchLegendSets = async () => {
-            const result = await apiFetchLegendSetsByDimension({
-                dataEngine,
-                dimensionId: dimension.id,
-                dimensionType: dimension.dimensionType,
-            })
-            setAvailableLegendSets(result)
-        }
-        if (canHaveLegendSets) {
-            fetchLegendSets()
-        }
-    }, [])
-
     const addCondition = () =>
         setConditionsList([...conditionsList, EMPTY_CONDITION])
 
@@ -196,10 +176,6 @@ const ConditionsManager = ({
         }
 
         const renderNumericCondition = () => {
-            if (!availableLegendSets) {
-                return null
-            }
-
             const enableDecimalSteps = valueType === VALUE_TYPE_UNIT_INTERVAL
 
             return (
@@ -218,8 +194,8 @@ const ConditionsManager = ({
                         onLegendSetChange={(value) =>
                             setSelectedLegendSet(value)
                         }
-                        availableLegendSets={availableLegendSets}
                         enableDecimalSteps={enableDecimalSteps}
+                        dimension={dimension}
                     />
                     {getDividerContent(index)}
                 </div>

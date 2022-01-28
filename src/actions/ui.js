@@ -9,6 +9,7 @@ import {
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
     SET_UI_ACCESSORY_PANEL_OPEN,
+    SET_UI_EXPANDED_LAYOUT_PANEL,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
     ADD_UI_PARENT_GRAPH_MAP,
@@ -29,21 +30,25 @@ export const acClearUiProgram = () => ({
     type: CLEAR_UI_PROGRAM,
 })
 
-export const acUpdateUiProgramId = (value) => ({
+export const acUpdateUiProgramId = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_ID,
     value,
+    metadata,
 })
 
-export const acUpdateUiProgramStage = (value) => ({
+export const acUpdateUiProgramStage = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_STAGE,
     value,
+    metadata,
 })
 
-export const tSetUiProgram = (programId, stageId) => async (dispatch) => {
-    dispatch(acClearUiProgram())
-    programId && dispatch(acUpdateUiProgramId(programId))
-    stageId && dispatch(acUpdateUiProgramStage(stageId))
-}
+export const tSetUiProgram =
+    ({ programId, stageId, metadata }) =>
+    async (dispatch) => {
+        dispatch(acClearUiProgram())
+        programId && dispatch(acUpdateUiProgramId(programId, metadata))
+        stageId && dispatch(acUpdateUiProgramStage(stageId))
+    }
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,
@@ -90,6 +95,11 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
+export const acSetShowExpandedLayoutPanel = (value) => ({
+    type: SET_UI_EXPANDED_LAYOUT_PANEL,
+    value,
+})
+
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
@@ -100,9 +110,10 @@ export const tClearUi = () => (dispatch, getState) => {
     )
 }
 
-export const acSetUiActiveModalDialog = (value) => ({
+export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
     value,
+    metadata,
 })
 
 export const acSetUiItems = (value) => ({

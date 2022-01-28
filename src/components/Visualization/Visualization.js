@@ -23,6 +23,7 @@ import {
 } from '../../modules/options.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
+import { useAvailableWidth } from './useAvailableWidth.js'
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -41,6 +42,7 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
+    const maxWidth = useAvailableWidth()
     const [{ sortField, sortDirection }, setSorting] = useState({
         sortField: 'eventdate', // TODO get field name corresponding to visualization.sortOrder ?!
         sortDirection: 'desc',
@@ -86,7 +88,11 @@ export const Visualization = ({
                     [styles.fetching]: fetching,
                 })}
             >
-                <DataTable scrollHeight="500px" width="auto">
+                <DataTable
+                    scrollHeight="500px"
+                    width="auto"
+                    scrollWidth={maxWidth}
+                >
                     <DataTableHead>
                         <DataTableRow>
                             {data.headers.map((header, index) =>

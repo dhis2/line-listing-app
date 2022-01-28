@@ -4,7 +4,7 @@ import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { acClearCurrent, acSetCurrent } from '../actions/current.js'
 import { acSetVisualizationLoading } from '../actions/loader.js'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
@@ -13,6 +13,7 @@ import {
     tClearUi,
     acSetUiFromVisualization,
     acAddParentGraphMap,
+    acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetUser } from '../actions/user.js'
 import {
@@ -44,7 +45,41 @@ const visualizationQuery = {
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
         params: {
-            fields: '*,columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]],program[id,displayName~rename(name),enrollmentDateLabel,incidentDateLabel],programStage[id,displayName~rename(name),executionDateLabel],access,user[displayName,userCredentials[username]],href,!interpretations,!userGroupAccesses,!publicAccess,!displayDescription,!rewindRelativePeriods,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren,!externalAccess,!relativePeriods,!columnDimensions,!rowDimensions,!filterDimensions,!organisationUnitGroups,!itemOrganisationUnitGroups,!indicators,!dataElements,!dataElementOperands,!dataElementGroups,!dataSets,!periods,!organisationUnitLevels,!organisationUnits,dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
+            fields: [
+                '*',
+                'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'program[id,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate]',
+                'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate]',
+                'access,user[displayName,userCredentials[username]]',
+                'href',
+                'dataElementDimensions[legendSet[id,name]',
+                'dataElement[id,name]]',
+                '!interpretations',
+                '!userGroupAccesses',
+                '!publicAccess',
+                '!displayDescription',
+                '!rewindRelativePeriods',
+                '!userOrganisationUnit',
+                '!userOrganisationUnitChildren',
+                '!userOrganisationUnitGrandChildren',
+                '!externalAccess',
+                '!relativePeriods',
+                '!columnDimensions',
+                '!rowDimensions',
+                '!filterDimensions',
+                '!organisationUnitGroups',
+                '!itemOrganisationUnitGroups',
+                '!indicators',
+                '!dataElements',
+                '!dataElementOperands',
+                '!dataElementGroups',
+                '!dataSets',
+                '!periods',
+                '!organisationUnitLevels',
+                '!organisationUnits',
+            ],
         },
     },
 }
@@ -59,7 +94,7 @@ const dataStatisticsMutation = {
 }
 
 const App = ({
-    location,
+    initialLocation,
     current,
     addMetadata,
     addParentGraphMap,
@@ -84,6 +119,8 @@ const App = ({
     })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const { d2 } = useD2()
+    const dispatch = useDispatch()
+
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
         interpretationsUnitRef.current.refresh()
@@ -113,7 +150,8 @@ const App = ({
 
     const loadVisualization = (location) => {
         setVisualizationLoading(true)
-        if (location.pathname.length > 1) {
+        const isExisting = location.pathname.length > 1
+        if (isExisting) {
             // /currentAnalyticalObject
             // /${id}/
             // /${id}/interpretation/${interpretationId}
@@ -130,13 +168,15 @@ const App = ({
             setVisualizationLoading(false)
         }
 
+        dispatch(acSetShowExpandedLayoutPanel(!isExisting))
         setInitialLoadIsComplete(true)
         setPreviousLocation(location.pathname)
     }
 
     const onResponseReceived = (response) => {
         setVisualizationLoading(false)
-        const metadata = Object.entries(response.metaData.items).reduce(
+        const { program, programStage } = data.eventVisualization
+        const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
                     id,
@@ -151,7 +191,11 @@ const App = ({
             {}
         )
 
-        addMetadata(metadata)
+        addMetadata({
+            ...itemsMetadata,
+            [program.id]: program,
+            [programStage.id]: programStage,
+        })
     }
 
     useEffect(() => {
@@ -161,7 +205,7 @@ const App = ({
 
             setInitMetadata()
 
-            loadVisualization(location)
+            loadVisualization(initialLocation)
         }
 
         onMount()
@@ -317,8 +361,8 @@ App.propTypes = {
     clearUi: PropTypes.func,
     clearVisualization: PropTypes.func,
     current: PropTypes.object,
+    initialLocation: PropTypes.object,
     isLoading: PropTypes.bool,
-    location: PropTypes.object,
     setCurrent: PropTypes.func,
     setInitMetadata: PropTypes.func,
     setUiFromVisualization: PropTypes.func,

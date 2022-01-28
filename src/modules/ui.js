@@ -7,6 +7,7 @@ import isObject from 'lodash-es/isObject'
 import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
+import { getProgramFromVisualisation } from './program.js'
 import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization.js'
 
 const lineListUiAdapter = (ui) => ({
@@ -26,6 +27,7 @@ export const getAdaptedUiByType = (ui) => {
 
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
+    program: getProgramFromVisualisation(vis),
     options: getOptionsFromVisualization(vis),
     layout: layoutGetAxisIdDimensionIdsObject(vis),
     itemsByDimension: layoutGetDimensionIdItemIdsObject(vis),

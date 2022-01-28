@@ -2,6 +2,10 @@ import { Analytics } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
+} from '../../modules/visualization.js'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
 const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
@@ -11,15 +15,42 @@ const booleanMap = {
     1: i18n.t('Yes'),
 }
 
-const formatRowValue = (rowValue, valueType, rowValueItem) => {
-    switch (valueType) {
+const analyticsApiEndpointMap = {
+    [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
+    [OUTPUT_TYPE_EVENT]: 'events',
+}
+
+const findOptionSetItem = (code, metaDataItems) =>
+    Object.values(metaDataItems).find((item) => item.code === code)
+
+const formatRowValue = (rowValue, header, metaDataItems) => {
+    switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
             return booleanMap[rowValue] || i18n.t('Not answered')
         default:
-            return rowValueItem?.name || rowValue
+            return header.optionSet
+                ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                : metaDataItems[rowValue]?.name || rowValue
     }
 }
+
+const extractHeadersFromColumns = (columns) =>
+    columns.reduce((headers, { dimension }) => {
+        switch (dimension) {
+            // TODO remove when this is sorted out https://jira.dhis2.org/browse/TECH-869
+            case 'pe':
+                break
+            case 'ou':
+                headers.push('ouname')
+                break
+            default:
+                headers.push(dimension)
+                break
+        }
+
+        return headers
+    }, [])
 
 const fetchAnalyticsData = async ({
     analyticsEngine,
@@ -32,6 +63,9 @@ const fetchAnalyticsData = async ({
 }) => {
     let req = new analyticsEngine.request()
         .fromVisualization(visualization)
+        .withParameters({
+            headers: extractHeadersFromColumns(visualization.columns).join(','),
+        })
         .withProgram(visualization.program.id)
         .withStage(visualization.programStage.id)
         .withDisplayProperty('NAME') // TODO from settings ?!
@@ -55,60 +89,58 @@ const fetchAnalyticsData = async ({
         }
     }
 
-    const rawResponse = await analyticsEngine.events.getQuery(req)
+    const analyticsApiEndpoint =
+        analyticsApiEndpointMap[visualization.outputType]
+
+    // for 2.38 only /query is used (since only Line List is enabled)
+    const rawResponse = await analyticsEngine[analyticsApiEndpoint].getQuery(
+        req
+    )
 
     return rawResponse
 }
 
-const reduceHeaders = (analyticsResponse, visualization) => {
-    // special handling for ou column, use the value from the ouname column instead of the id from ou
-    const ouNameHeaderIndex = analyticsResponse.headers.findIndex(
-        (header) => header.name === 'ouname'
-    )
+const extractHeaders = (analyticsResponse) =>
+    analyticsResponse.headers.map((header, index) => ({
+        ...header,
+        index,
+    }))
 
-    return visualization.columns.reduce((headers, column) => {
-        const headerIndex = analyticsResponse.headers.findIndex(
-            (header) => header.name === column.dimension
-        )
+const extractRows = (analyticsResponse, headers) => {
+    const filteredRows = []
 
-        if (headerIndex !== -1) {
-            headers.push({
-                ...analyticsResponse.headers[headerIndex],
-                index:
-                    column.dimension === 'ou' ? ouNameHeaderIndex : headerIndex,
-            })
-        } else {
-            // TODO figure out what to do when no header match the column (ie. pe)
-            headers.push(undefined)
+    for (
+        let rowIndex = 0, rowsCount = analyticsResponse.rows.length;
+        rowIndex < rowsCount;
+        rowIndex++
+    ) {
+        const row = analyticsResponse.rows[rowIndex]
+
+        const filteredRow = []
+
+        for (
+            let headerIndex = 0, headersCount = headers.length;
+            headerIndex < headersCount;
+            headerIndex++
+        ) {
+            const header = headers[headerIndex]
+
+            const rowValue = row[header.index]
+
+            filteredRow.push(
+                formatRowValue(
+                    rowValue,
+                    header,
+                    analyticsResponse.metaData.items
+                )
+            )
         }
 
-        return headers
-    }, [])
+        filteredRows.push(filteredRow)
+    }
+
+    return filteredRows
 }
-
-const reduceRows = (analyticsResponse, headers) =>
-    analyticsResponse.rows.reduce((filteredRows, row) => {
-        filteredRows.push(
-            headers.reduce((filteredRow, header) => {
-                if (header) {
-                    const rowValue = row[header.index]
-
-                    filteredRow.push(
-                        formatRowValue(
-                            rowValue,
-                            header.valueType,
-                            analyticsResponse.metaData.items[rowValue]
-                        )
-                    )
-                } else {
-                    // TODO solve the case of visualization.column not mapping to any response.header (ie. "pe")
-                    filteredRow.push('-')
-                }
-                return filteredRow
-            }, [])
-        )
-        return filteredRows
-    }, [])
 
 const useAnalyticsData = ({
     visualization,
@@ -142,8 +174,8 @@ const useAnalyticsData = ({
                     sortField,
                     sortDirection,
                 })
-                const headers = reduceHeaders(analyticsResponse, visualization)
-                const rows = reduceRows(analyticsResponse, headers)
+                const headers = extractHeaders(analyticsResponse)
+                const rows = extractRows(analyticsResponse, headers)
                 const pageCount = analyticsResponse.metaData.pager.pageCount
                 const total = analyticsResponse.metaData.pager.total
 

@@ -11,8 +11,13 @@ const STAGE_ALL = 'STAGE_ALL'
 const StageSelect = ({ optional, stages }) => {
     const dispatch = useDispatch()
     const selectedStageId = useSelector(sGetUiProgramStage)
-    const onChange = ({ selected }) =>
-        dispatch(acUpdateUiProgramStage(selected))
+    const onChange = ({ selected: stageId }) => {
+        dispatch(
+            acUpdateUiProgramStage(stageId, {
+                [stageId]: stages.find(({ id }) => id === stageId),
+            })
+        )
+    }
 
     return (
         <SingleSelect
@@ -24,8 +29,8 @@ const StageSelect = ({ optional, stages }) => {
             {optional && (
                 <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
             )}
-            {stages.map(({ id, displayName }) => (
-                <SingleSelectOption label={displayName} key={id} value={id} />
+            {stages.map(({ id, name }) => (
+                <SingleSelectOption label={name} key={id} value={id} />
             ))}
         </SingleSelect>
     )

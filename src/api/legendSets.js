@@ -33,7 +33,7 @@ const legendSetsQuery = {
         fields: [
             'id',
             'displayName~rename(name)',
-            'legends[id,displayName~rename(name),startValue,endValue,color]',
+            'legends[id,displayName~rename(name),startValue,endValue]',
         ],
         paging: 'false',
     },
