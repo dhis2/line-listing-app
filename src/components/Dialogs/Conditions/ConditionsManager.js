@@ -360,9 +360,7 @@ const ConditionsManager = ({
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={
-                valueType // FIXME: For testing only
-            }
+            title={dimension.name}
         >
             <div>
                 {!valueType && !isProgramIndicator ? (
