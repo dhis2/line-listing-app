@@ -69,6 +69,8 @@ export const apiFetchLegendSetsByDimension = async ({
         case TYPE_PI:
             query = programIndicatorsQuery
             break
+        default:
+            throw new Error(`${dimensionType} is not a valid dimension type`)
     }
     const response = await dataEngine.query(
         { legendSets: query },
