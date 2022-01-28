@@ -99,7 +99,7 @@ const NumericCondition = ({
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => setOperator(selected)}
-                className={classes.narrowInput}
+                className={classes.operatorSelect}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -125,7 +125,7 @@ const NumericCondition = ({
                         value={value}
                         type="number"
                         onChange={({ value }) => setValue(value)}
-                        className={classes.narrowInput}
+                        className={classes.numbericInput}
                         dense
                         step={enableDecimalSteps ? '0.1' : '1'}
                     />
@@ -135,7 +135,7 @@ const NumericCondition = ({
                 ((legendSetId && legendSet) || !legendSetId) && (
                     <>
                         <SingleSelectField
-                            className={classes.narrowInput}
+                            className={classes.legendSetSelect}
                             selected={legendSet?.id}
                             placeholder={i18n.t('Choose a set of options')}
                             dense
@@ -164,7 +164,7 @@ const NumericCondition = ({
                                     (value?.length && value.split(';')) || []
                                 }
                                 dense
-                                className={classes.wideInput}
+                                className={classes.legendSelect}
                             >
                                 {legendSet.legends
                                     .sort((a, b) => a.startValue - b.startValue)

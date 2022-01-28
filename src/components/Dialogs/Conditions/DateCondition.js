@@ -67,6 +67,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => setOperator(selected)}
+                className={classes.operatorSelect}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -81,7 +82,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                     value={value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)}
                     type={type}
                     onChange={({ value }) => setValue(value)}
-                    className={classes.narrowInput}
+                    className={classes.dateInput}
                     dense
                 />
             )}

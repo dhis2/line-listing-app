@@ -34,14 +34,34 @@
     margin: 0 0 var(--spacers-dp8);
 }
 
-.wideInput {
+.legendSelect,
+.textInput {
     flex: 2 1 auto;
 }
 
-.narrowInput {
+.legendSetSelect {
     flex: 0 1 auto;
 }
 
 .removeButton {
     flex: 0 0 auto;
+}
+
+.operatorSelect {
+    flex: 0 1 auto;
+    min-width: 180px;
+}
+
+.dateInput,
+.numericInput {
+    flex: 0 1 auto;
+    min-width: 150px;
+}
+
+.phoneNumberInput {
+    min-width: 200px;
+}
+
+.letterInput {
+    min-width: 100px;
 }
