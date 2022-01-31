@@ -51,6 +51,7 @@ const DimensionListItem = ({
     name,
     optionSet,
     selected,
+    stageName,
     valueType,
 }) => {
     const dispatch = useDispatch()
@@ -73,7 +74,12 @@ const DimensionListItem = ({
             <div className={styles.icon}>
                 <Icon />
             </div>
-            <div className={styles.label}>{name}</div>
+            <div className={styles.label}>
+                <span className={styles.primary}>{name}</span>
+                {stageName && (
+                    <span className={styles.secondary}>{stageName}</span>
+                )}
+            </div>
         </div>
     )
 }
@@ -85,6 +91,7 @@ DimensionListItem.propTypes = {
     isDisabled: PropTypes.bool,
     optionSet: PropTypes.string,
     selected: PropTypes.bool,
+    stageName: PropTypes.string,
     valueType: PropTypes.string,
 }
 

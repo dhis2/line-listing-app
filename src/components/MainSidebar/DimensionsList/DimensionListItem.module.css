@@ -41,6 +41,16 @@
 .label {
     flex: 0 1 auto;
     margin-top: 2px;
+}
+
+.label .primary {
     font-size: 14px;
     line-height: 17px;
+}
+
+.label .secondary {
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--colors-grey600);
+    padding-left: var(--spacers-dp8);
 }

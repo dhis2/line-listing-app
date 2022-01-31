@@ -14,6 +14,7 @@ import { useDebounce } from '../../../modules/utils.js'
 import {
     DIMENSION_TYPE_ALL,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
 import {
     sGetUiInputType,
@@ -48,7 +49,7 @@ const query = {
     },
 }
 
-const ProgramDimensionsPanel = ({ visible }) => {
+const ProgramDimensionsPanel = ({ visible, isSelected }) => {
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
@@ -73,8 +74,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
-            inputType === OUTPUT_TYPE_EVENT ||
-            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            !(
+                inputType === OUTPUT_TYPE_ENROLLMENT &&
+                programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            )
     )
     const selectedProgram =
         selectedProgramId &&
@@ -178,11 +181,11 @@ const ProgramDimensionsPanel = ({ visible }) => {
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}
-                    programId={selectedProgramId}
-                    programName={selectedProgram.name}
+                    program={selectedProgram}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}
+                    isSelected={isSelected}
                 />
             )}
         </div>
@@ -190,6 +193,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
 }
 
 ProgramDimensionsPanel.propTypes = {
+    isSelected: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
 }
 

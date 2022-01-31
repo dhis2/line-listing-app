@@ -7,7 +7,7 @@ import { DimensionsList } from '../DimensionsList/index.js'
 import { useYourDimensions } from './useYourDimensions.js'
 import styles from './YourDimensionsPanel.module.css'
 
-const YourDimensionsPanel = ({ visible }) => {
+const YourDimensionsPanel = ({ visible, isSelected }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const debouncedSearchTerm = useDebounce(searchTerm)
     const { loading, fetching, error, dimensions, setIsListEndVisible } =
@@ -37,12 +37,14 @@ const YourDimensionsPanel = ({ visible }) => {
                 fetching={fetching}
                 loading={loading}
                 searchTerm={debouncedSearchTerm}
+                isSelected={isSelected}
             />
         </>
     )
 }
 
 YourDimensionsPanel.propTypes = {
+    isSelected: PropTypes.func.isRequired,
     visible: PropTypes.bool,
 }
 
