@@ -104,7 +104,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
-    const valueType = VALUE_TYPE_INTEGER_POSITIVE //dimension.valueType
+    const valueType = dimension.valueType
     const isProgramIndicator =
         dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
     const isOptionSetCondition =
