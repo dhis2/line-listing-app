@@ -1,0 +1,68 @@
+.tabBar {
+    padding-right: var(--spacers-dp24);
+}
+
+.tabContent {
+    overflow: auto;
+    padding-right: var(--spacers-dp24);
+}
+
+.tabSection {
+    padding: var(--spacers-dp16) 0;
+}
+
+.tabSection:not(:last-child) {
+    border-bottom: 1px solid var(--colors-grey300);
+    margin-bottom: var(--spacers-dp8);
+}
+
+.tabSectionContent {
+    overflow-y: auto;
+}
+
+.tabSectionTitle {
+    display: inline-block;
+    padding-bottom: var(--spacers-dp12);
+    font-size: 15px;
+    color: var(--colors-grey900);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.tabSectionTitleMargin {
+    margin-top: var(--spacers-dp8);
+}
+
+.tabSectionOption:not(:last-child):not(.inline) {
+    padding-bottom: var(--spacers-dp16);
+}
+
+.tabSectionOptionItem:not(:last-child) {
+    padding-bottom: var(--spacers-dp8);
+}
+
+.tabSectionOptionText {
+    margin: 0;
+    padding-bottom: var(--spacers-dp8);
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--colors-grey700);
+}
+
+.tabSectionOptionToggleable {
+    margin: var(--spacers-dp4) 0 0 23px;
+}
+
+.tabSectionToggleableSubsection {
+    margin-left: 23px;
+}
+
+.tabSectionOptionComplexInline {
+    display: flex;
+}
+
+.tabSectionOptionIcon {
+    vertical-align: top;
+    margin-right: var(--spacers-dp4);
+    color: var(--colors-grey600);
+}

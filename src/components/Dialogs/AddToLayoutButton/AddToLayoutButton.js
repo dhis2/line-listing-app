@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { acAddUiLayoutDimensions } from '../../../actions/ui.js'
 import { sGetUiActiveModalDialog, sGetUiType } from '../../../reducers/ui.js'
 
-export const AddToLayoutButton = ({
+const AddToLayoutButton = ({
     dialogId,
     visType,
     onAddDimension,

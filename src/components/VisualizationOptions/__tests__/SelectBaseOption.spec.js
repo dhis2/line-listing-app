@@ -1,61 +1,39 @@
-import { SingleSelectField, SingleSelectOption } from '@dhis2/ui'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { SelectBaseOption } from '../Options/SelectBaseOption.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import SelectBaseOption from '../Options/SelectBaseOption.js'
+
+const mockStore = configureMockStore()
 
 describe('ER > Options > SelectBaseOption', () => {
-    let props
-    let shallowSelectBaseOption
-    const onChange = jest.fn()
-
-    const selectBaseOption = (props) => {
-        shallowSelectBaseOption = shallow(<SelectBaseOption {...props} />)
-
-        return shallowSelectBaseOption
-    }
-
-    beforeEach(() => {
-        props = {
-            value: '',
-            option: {
-                name: 'select',
-                defaultValue: '',
-                items: [
-                    { value: 'opt1', label: 'Option 1' },
-                    { value: 'opt2', label: 'Option 2' },
-                    { value: 'opt3', label: 'Option 3' },
-                ],
+    it('renders the list of options', () => {
+        const store = {
+            ui: {
+                options: {
+                    theOptionName: 'option3',
+                },
             },
-            onChange,
         }
 
-        shallowSelectBaseOption = undefined
-    })
+        const option = {
+            name: 'theOptionName',
+            items: [
+                { label: 'Option 1 label', value: 'option1' },
+                { label: 'Option 2 label', value: 'option2' },
+                { label: 'Option 3 label', value: 'option3' },
+            ],
+        }
 
-    it('renders a <SingleSelectField />', () => {
-        expect(selectBaseOption(props).find(SingleSelectField)).toHaveLength(1)
-    })
-
-    it('renders the list of options', () => {
-        const options = selectBaseOption(props).find(SingleSelectOption)
-
-        options.forEach((item, index) => {
-            const option = props.option.items[index]
-
-            expect(item.props().value).toEqual(option.value)
-            expect(item.props().label).toEqual(option.label)
-        })
-    })
-
-    it('should trigger the onChange callback on select change', () => {
-        const select = selectBaseOption(props).find(SingleSelectField)
-
-        select.simulate('change', {
-            selected: {
-                value: props.option.items.find((item) => item.value === 'opt2'),
-            },
-        })
-
-        expect(onChange).toHaveBeenCalled()
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <SelectBaseOption
+                    dataTest="testing-prefix"
+                    label="Should I?"
+                    option={option}
+                />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
     })
 })

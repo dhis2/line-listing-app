@@ -7,7 +7,7 @@ import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
 import ConditionsManager from './Conditions/ConditionsManager.js'
 import FixedDimension from './FixedDimension.js'
 
-export const DialogManager = ({ dialogId, changeDialog }) => {
+const DialogManager = ({ dialogId, changeDialog }) => {
     switch (dialogId) {
         case DIMENSION_ID_ORGUNIT: {
             return (

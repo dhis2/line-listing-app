@@ -39,7 +39,7 @@ const visualizationSaveAsMutation = {
     },
 }
 
-export const MenuBar = ({
+const MenuBar = ({
     dataTest,
     current,
     visualization,
