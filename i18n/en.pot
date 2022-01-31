@@ -320,6 +320,9 @@ msgstr "Program dimensions"
 msgid "Your dimensions"
 msgstr "Your dimensions"
 
+msgid "Time dimensions"
+msgstr "Time dimensions"
+
 msgid "Search in program"
 msgstr "Search in program"
 
@@ -603,6 +606,21 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
+
+msgid "Date of registration"
+msgstr "Date of registration"
+
+msgid "Tracking date"
+msgstr "Tracking date"
+
+msgid "Test date"
+msgstr "Test date"
+
+msgid "Due/Scheduled date"
+msgstr "Due/Scheduled date"
+
+msgid "Last updated on"
+msgstr "Last updated on"
 
 msgid "Line list"
 msgstr "Line list"

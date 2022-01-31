@@ -25,8 +25,8 @@ import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
-const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
+export const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
+export const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
 
 const query = {
     programs: {
