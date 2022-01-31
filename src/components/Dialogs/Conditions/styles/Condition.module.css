@@ -4,7 +4,7 @@
 }
 
 .caseSensitiveCheckbox {
-    margin-right: var(--spacers-dp8);
+    margin-right: var(--spacers-dp4);
 }
 
 .checkboxOption {
@@ -37,31 +37,38 @@
 .legendSelect,
 .textInput {
     flex: 2 1 auto;
+    margin-right: var(--spacers-dp4);
 }
 
 .legendSetSelect {
     flex: 0 1 auto;
+    margin-right: var(--spacers-dp4);
 }
 
 .removeButton {
     flex: 0 0 auto;
+    margin-left: var(--spacers-dp4);
 }
 
 .operatorSelect {
     flex: 0 1 auto;
     min-width: 180px;
+    margin-right: var(--spacers-dp4);
 }
 
 .dateInput,
 .numericInput {
     flex: 0 1 auto;
     min-width: 150px;
+    margin-right: var(--spacers-dp4);
 }
 
 .phoneNumberInput {
     min-width: 200px;
+    margin-right: var(--spacers-dp4);
 }
 
 .letterInput {
     min-width: 100px;
+    margin-right: var(--spacers-dp4);
 }
