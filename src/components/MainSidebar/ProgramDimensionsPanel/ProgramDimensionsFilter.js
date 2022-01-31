@@ -3,15 +3,16 @@ import { SingleSelect, SingleSelectOption, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import {
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+    OUTPUT_TYPE_ENROLLMENT,
+} from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import styles from './ProgramDimensionsFilter.module.css'
 import { StageSelect } from './StageSelect.js'
-
-const DIMENSION_TYPE_ALL = 'ALL'
-const DIMENSION_TYPE_DATA_ELEMENT = 'DATA_ELEMENT'
-const DIMENSION_TYPE_PROGRAM_ATTRIBUTE = 'PROGRAM_ATTRIBUTE'
-const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const ProgramDimensionsFilter = ({
     program,
@@ -71,10 +72,4 @@ ProgramDimensionsFilter.propTypes = {
     setSearchTerm: PropTypes.func,
 }
 
-export {
-    ProgramDimensionsFilter,
-    DIMENSION_TYPE_ALL,
-    DIMENSION_TYPE_DATA_ELEMENT,
-    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-    DIMENSION_TYPE_PROGRAM_INDICATOR,
-}
+export { ProgramDimensionsFilter }

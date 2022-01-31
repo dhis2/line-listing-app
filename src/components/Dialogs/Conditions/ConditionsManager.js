@@ -10,6 +10,7 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
+import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '../../../modules/visualization.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
@@ -52,7 +53,6 @@ const VALUE_TYPE_DATE = 'DATE'
 const VALUE_TYPE_TIME = 'TIME'
 const VALUE_TYPE_DATETIME = 'DATETIME'
 const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
-const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
 
 const NUMERIC_TYPES = [
     VALUE_TYPE_NUMBER,

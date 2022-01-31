@@ -1,14 +1,12 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback } from 'react'
 import {
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
-import {
-    DIMENSION_TYPE_ALL,
-    DIMENSION_TYPE_DATA_ELEMENT,
-} from './ProgramDimensionsFilter.js'
 
 const ACTIONS_RESET = 'RESET'
 const ACTIONS_INIT = 'INIT'

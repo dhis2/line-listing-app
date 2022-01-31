@@ -23,6 +23,7 @@ import {
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
+import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
 import { sGetIsVisualizationLoading } from '../reducers/loader.js'
 import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
@@ -232,9 +233,11 @@ const App = ({
     }, [])
 
     useEffect(() => {
-        const visualization = data?.eventVisualization
+        if (data?.eventVisualization) {
+            const visualization = transformVisualization(
+                data.eventVisualization
+            )
 
-        if (visualization) {
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))
             setVisualization(visualization)
             setCurrent(visualization)
