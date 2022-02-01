@@ -11,11 +11,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { acSetUiOptions } from '../../../actions/ui.js'
 import { sGetUiOptions } from '../../../reducers/ui.js'
-import {
-    tabSectionOption,
-    tabSectionOptionText,
-    tabSectionOptionComplexInline,
-} from '../styles/VisualizationOptions.style.js'
+import styles from '../styles/VisualizationOptions.module.css'
 
 const OperatorSelect = ({ name, value, onChange }) => {
     const options = [
@@ -103,18 +99,16 @@ class MeasureCriteria extends Component {
         const { op1, v1, op2, v2 } = this.state
 
         return (
-            <div className={tabSectionOption.className}>
-                <p className={tabSectionOptionText.className}>
+            <div className={styles.tabSectionOption}>
+                <p className={styles.tabSectionOptionText}>
                     {i18n.t(
                         'You can set a minimum or maximum value. This will apply to the entire visualization, all values outside of the minimum/maximum range will not be displayed'
                     )}
                 </p>
-                <div className={tabSectionOptionComplexInline.className}>
+                <div className={styles.tabSectionOptionComplexInline}>
                     <div style={{ width: '250px' }}>
                         <Label>{i18n.t('Minimum data value')}</Label>
-                        <div
-                            className={tabSectionOptionComplexInline.className}
-                        >
+                        <div className={styles.tabSectionOptionComplexInline}>
                             <OperatorSelect
                                 name="op1"
                                 value={op1}
@@ -129,9 +123,7 @@ class MeasureCriteria extends Component {
                     </div>
                     <div style={{ width: '250px' }}>
                         <Label>{i18n.t('Maximum data value')}</Label>
-                        <div
-                            className={tabSectionOptionComplexInline.className}
-                        >
+                        <div className={styles.tabSectionOptionComplexInline}>
                             <OperatorSelect
                                 name="op2"
                                 value={op2}

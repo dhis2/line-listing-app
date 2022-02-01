@@ -32,3 +32,14 @@
 .accessory.padded .accessoryInner {
     padding: var(--spacers-dp12) var(--spacers-dp8);
 }
+
+.dimensionSection {
+    padding: var(--spacers-dp8);
+    background: var(--colors-white);
+    border-bottom: 1px solid var(--colors-grey300);
+}
+.dimensionSectionHeader {
+    color: var(--colors-grey700);
+    font-size: 13px;
+    margin-bottom: var(--spacers-dp8);
+}

@@ -1,79 +1,67 @@
-import { InputField } from '@dhis2/ui'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { TextBaseOption } from '../Options/TextBaseOption.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import TextBaseOption from '../Options/TextBaseOption.js'
+
+const mockStore = configureMockStore()
 
 describe('ER > Options > TextBaseOption', () => {
-    let props
-    let shallowTextBaseOption
-    let onChange
-
-    const textBaseOption = (props) => {
-        shallowTextBaseOption = shallow(<TextBaseOption {...props} />)
-
-        return shallowTextBaseOption
-    }
-
-    beforeEach(() => {
-        onChange = jest.fn()
-
-        props = {
-            value: 'test',
-            type: 'text',
-            label: 'Input field',
-            option: {
-                name: 'input1',
+    it('renders enabled input with type time', () => {
+        const store = {
+            ui: {
+                options: {
+                    theTime: '10:30',
+                },
             },
-
-            onChange,
         }
 
-        shallowTextBaseOption = undefined
-    })
+        const option = {
+            name: 'theTime',
+        }
 
-    it('renders a <InputField />', () => {
-        expect(textBaseOption(props).find(InputField)).toHaveLength(1)
-    })
-
-    it('sets the type prop to what passed in the prop', () => {
-        expect(textBaseOption(props).find(InputField).props().type).toEqual(
-            props.type
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <TextBaseOption
+                    dataTest="testing-prefix"
+                    disabled={false}
+                    label="Current time"
+                    option={option}
+                    placeholder="placeholder text"
+                    type="time"
+                    width="200px"
+                />
+            </Provider>
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('sets the label prop to what passed in the prop', () => {
-        expect(textBaseOption(props).find(InputField).props().label).toEqual(
-            props.label
+    it('renders disabled input with type time', () => {
+        const store = {
+            ui: {
+                options: {
+                    theTime: '10:30',
+                },
+            },
+        }
+
+        const option = {
+            name: 'theTime',
+        }
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <TextBaseOption
+                    dataTest="testing-prefix"
+                    disabled={true}
+                    label="Current time"
+                    option={option}
+                    placeholder="placeholder text"
+                    type="time"
+                    width="200px"
+                />
+            </Provider>
         )
-    })
-
-    it('sets the value to what passed in the prop', () => {
-        expect(textBaseOption(props).find(InputField).props().value).toEqual(
-            props.value
-        )
-    })
-
-    it('sets the placeholder to what passed in the prop', () => {
-        props.placeholder = 'placeholder text'
-
-        expect(
-            textBaseOption(props).find(InputField).props().placeholder
-        ).toEqual(props.placeholder)
-    })
-
-    it('sets the width prop to what passed in the prop', () => {
-        props.width = '105px'
-
-        expect(
-            textBaseOption(props).find(InputField).props().inputWidth
-        ).toEqual(props.width)
-    })
-
-    it('should trigger the onChange callback on text change', () => {
-        const text = textBaseOption(props).find(InputField)
-
-        text.simulate('change', { value: 'test' })
-
-        expect(onChange).toHaveBeenCalled()
+        expect(container).toMatchSnapshot()
     })
 })

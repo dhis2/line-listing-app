@@ -4,19 +4,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { acSetUiOptions } from '../../../actions/ui.js'
 import { sGetUiOptions } from '../../../reducers/ui.js'
-import { tabSectionOption } from '../styles/VisualizationOptions.style.js'
+import styles from '../styles/VisualizationOptions.module.css'
 
-export const SelectBaseOption = ({
-    option,
-    label,
-    value,
-    onChange,
-    dataTest,
-}) => {
+const SelectBaseOption = ({ option, label, value, onChange, dataTest }) => {
     const selected = option.items.find((item) => item.value === value)?.value
 
     return (
-        <div className={tabSectionOption.className}>
+        <div className={styles.tabSectionOption}>
             <SingleSelectField
                 name={`${option.name}-select`}
                 label={label}

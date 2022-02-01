@@ -19,7 +19,7 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
     )
 }
 
-export const DetailsPanel = ({
+const DetailsPanel = ({
     currentUser,
     interpretationsUnitRef,
     visualization,

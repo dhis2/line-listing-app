@@ -11,22 +11,22 @@ import {
     acClearUiProgram,
 } from '../../../actions/ui.js'
 import { useDebounce } from '../../../modules/utils.js'
-import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
+import {
+    DIMENSION_TYPE_ALL,
+    OUTPUT_TYPE_EVENT,
+} from '../../../modules/visualization.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
     sGetUiProgramStage,
 } from '../../../reducers/ui.js'
-import {
-    ProgramDimensionsFilter,
-    DIMENSION_TYPE_ALL,
-} from './ProgramDimensionsFilter.js'
+import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
-const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
+export const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
+export const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
 
 const query = {
     programs: {

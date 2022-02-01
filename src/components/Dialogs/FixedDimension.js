@@ -19,7 +19,7 @@ import {
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
 
-export const FixedDimension = ({
+const FixedDimension = ({
     addMetadata,
     addParentGraphMap,
     onClose,

@@ -12,6 +12,7 @@ import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import styles from './MainSidebar.module.css'
 import { MenuItem } from './MenuItem/index.js'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
+import TimeDimensions from './TimeDimensions.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const TAB_INPUT = 'INPUT'
@@ -61,6 +62,13 @@ const MainSidebar = () => {
                     selected={open && selectedTabId === TAB_YOUR}
                     count={5}
                 />
+
+                <div className={styles.dimensionSection}>
+                    <div className={styles.dimensionSectionHeader}>
+                        {i18n.t('Time dimensions')}
+                    </div>
+                    <TimeDimensions />
+                </div>
             </div>
             <div
                 className={cx(styles.accessory, {
