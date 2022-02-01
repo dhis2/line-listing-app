@@ -4,7 +4,9 @@ This project was bootstrapped with [DHIS2 Application Platform](https://github.c
 
 After cloning the repo, run:
 
+### `yarn install`
 ### `yarn d2-style install`
+
 
 For development you can run:
 
