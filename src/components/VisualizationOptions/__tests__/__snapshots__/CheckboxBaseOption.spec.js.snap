@@ -6,17 +6,17 @@ exports[`ER > Options > CheckboxBaseOption renders checkbox with value: false, i
     class="tabSectionOption"
   >
     <label
-      class="jsx-3569559994 dense"
+      class="jsx-1366065624 dense"
       data-test="testing-prefix"
     >
       <input
-        class="jsx-3569559994"
+        class="jsx-1366065624"
         name="theOptionName"
         type="checkbox"
         value=""
       />
       <div
-        class="jsx-3569559994 icon dense"
+        class="jsx-1366065624 icon dense"
       >
         <svg
           class="jsx-1744227082 jsx-2054485247 "
@@ -64,18 +64,18 @@ exports[`ER > Options > CheckboxBaseOption renders checkbox with value: false, i
     class="tabSectionOption"
   >
     <label
-      class="jsx-3569559994 dense"
+      class="jsx-1366065624 dense"
       data-test="testing-prefix"
     >
       <input
         checked=""
-        class="jsx-3569559994"
+        class="jsx-1366065624"
         name="theOptionName"
         type="checkbox"
         value=""
       />
       <div
-        class="jsx-3569559994 icon dense"
+        class="jsx-1366065624 icon dense"
       >
         <svg
           class="jsx-1744227082 jsx-2054485247 checked"
@@ -123,18 +123,18 @@ exports[`ER > Options > CheckboxBaseOption renders checkbox with value: true, in
     class="tabSectionOption"
   >
     <label
-      class="jsx-3569559994 dense"
+      class="jsx-1366065624 dense"
       data-test="testing-prefix"
     >
       <input
         checked=""
-        class="jsx-3569559994"
+        class="jsx-1366065624"
         name="theOptionName"
         type="checkbox"
         value=""
       />
       <div
-        class="jsx-3569559994 icon dense"
+        class="jsx-1366065624 icon dense"
       >
         <svg
           class="jsx-1744227082 jsx-2054485247 checked"
@@ -182,17 +182,17 @@ exports[`ER > Options > CheckboxBaseOption renders checkbox with value: true, in
     class="tabSectionOption"
   >
     <label
-      class="jsx-3569559994 dense"
+      class="jsx-1366065624 dense"
       data-test="testing-prefix"
     >
       <input
-        class="jsx-3569559994"
+        class="jsx-1366065624"
         name="theOptionName"
         type="checkbox"
         value=""
       />
       <div
-        class="jsx-3569559994 icon dense"
+        class="jsx-1366065624 icon dense"
       >
         <svg
           class="jsx-1744227082 jsx-2054485247 "

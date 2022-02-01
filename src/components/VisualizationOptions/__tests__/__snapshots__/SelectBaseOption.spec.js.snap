@@ -28,22 +28,22 @@ exports[`ER > Options > SelectBaseOption renders the list of options 1`] = `
           data-test="dhis2-uicore-box"
         >
           <div
-            class="jsx-2451184972 root"
+            class="jsx-114080822 root"
             data-test="dhis2-uicore-singleselect"
           >
             <div
-              class="jsx-2451184972 root-input"
+              class="jsx-114080822 root-input"
             >
               <div
                 data-test="dhis2-uicore-select"
               >
                 <div
-                  class="jsx-3336622488 root dense"
+                  class="jsx-1165050001 root dense"
                   data-test="dhis2-uicore-select-input"
                   tabindex="0"
                 >
                   <div
-                    class="jsx-3336622488 root-children"
+                    class="jsx-1165050001 root-children"
                   >
                     <div
                       class="jsx-2240447017 jsx-4123978364 root"
@@ -60,7 +60,7 @@ exports[`ER > Options > SelectBaseOption renders the list of options 1`] = `
                     </div>
                   </div>
                   <div
-                    class="jsx-3336622488 root-right"
+                    class="jsx-1165050001 root-right"
                   >
                     <svg
                       height="16"
