@@ -1,5 +1,5 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery, useDataMutation } from '@dhis2/app-runtime'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -111,15 +111,14 @@ const App = ({
     setUiFromVisualization,
     setUser,
     showDetailsPanel,
-    userSettings,
 }) => {
+    const { currentUser, userSettings } = useCachedDataQuery()
     const [previousLocation, setPreviousLocation] = useState(null)
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const { data, refetch } = useDataQuery(visualizationQuery, {
         lazy: true,
     })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
-    const { d2 } = useD2()
     const dispatch = useDispatch()
 
     const interpretationsUnitRef = useRef()
@@ -197,7 +196,11 @@ const App = ({
     useEffect(() => {
         const onMount = async () => {
             await addSettings(userSettings)
-            setUser(d2.currentUser)
+
+            setUser({
+                ...currentUser,
+                uiLocale: userSettings.uiLocale,
+            })
 
             setInitMetadata()
 
@@ -373,7 +376,6 @@ App.propTypes = {
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
     showDetailsPanel: PropTypes.bool,
-    userSettings: PropTypes.object,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
