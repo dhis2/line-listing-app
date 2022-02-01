@@ -19,8 +19,9 @@ import {
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
 import {
-    AlphanumericCondition,
+    PhoneNumberCondition,
     CaseSensitiveAlphanumericCondition,
+    LetterCondition,
 } from './AlphanumericCondition.js'
 import { BooleanCondition, TrueOnlyCondition } from './BooleanCondition.js'
 import {
@@ -243,7 +244,19 @@ const ConditionsManager = ({
             case VALUE_TYPE_PHONE_NUMBER: {
                 return conditionsList.map((condition, index) => (
                     <div key={index}>
-                        <AlphanumericCondition
+                        <PhoneNumberCondition
+                            condition={condition}
+                            onChange={(value) => setCondition(index, value)}
+                            onRemove={() => removeCondition(index)}
+                        />
+                        {getDividerContent(index)}
+                    </div>
+                ))
+            }
+            case VALUE_TYPE_LETTER: {
+                return conditionsList.map((condition, index) => (
+                    <div key={index}>
+                        <LetterCondition
                             condition={condition}
                             onChange={(value) => setCondition(index, value)}
                             onRemove={() => removeCondition(index)}
@@ -254,7 +267,6 @@ const ConditionsManager = ({
             }
             case VALUE_TYPE_TEXT:
             case VALUE_TYPE_LONG_TEXT:
-            case VALUE_TYPE_LETTER:
             case VALUE_TYPE_EMAIL:
             case VALUE_TYPE_USERNAME:
             case VALUE_TYPE_URL: {

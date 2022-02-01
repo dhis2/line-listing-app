@@ -29,20 +29,17 @@ exports[`ER > Options > TextBaseOption renders disabled input with type time 1`]
           data-test="dhis2-uicore-box"
         >
           <div
-            class="jsx-3353877153 jsx-2404454085 input"
+            class="jsx-3353877153 jsx-2422099811 input"
             data-test="dhis2-uicore-input"
           >
             <input
-              class="jsx-3353877153 jsx-2404454085 dense disabled"
+              class="jsx-3353877153 jsx-2422099811 dense disabled"
               disabled=""
               id="theTime"
               name="theTime"
               placeholder="placeholder text"
               type="time"
               value="10:30"
-            />
-            <div
-              class="jsx-3353877153 jsx-2404454085 status-icon"
             />
           </div>
         </div>
@@ -81,19 +78,16 @@ exports[`ER > Options > TextBaseOption renders enabled input with type time 1`] 
           data-test="dhis2-uicore-box"
         >
           <div
-            class="jsx-3353877153 jsx-2404454085 input"
+            class="jsx-3353877153 jsx-2422099811 input"
             data-test="dhis2-uicore-input"
           >
             <input
-              class="jsx-3353877153 jsx-2404454085 dense"
+              class="jsx-3353877153 jsx-2422099811 dense"
               id="theTime"
               name="theTime"
               placeholder="placeholder text"
               type="time"
               value="10:30"
-            />
-            <div
-              class="jsx-3353877153 jsx-2404454085 status-icon"
             />
           </div>
         </div>

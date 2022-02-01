@@ -78,6 +78,7 @@ const BaseCondition = ({
     onChange,
     onRemove,
     allowCaseSensitive,
+    valueClassName,
 }) => {
     let operator, value, isCaseSensitive
 
@@ -116,10 +117,10 @@ const BaseCondition = ({
         <div className={classes.container}>
             <SingleSelectField
                 selected={operator}
-                inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => setOperator(selected)}
+                className={classes.operatorSelect}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -134,7 +135,7 @@ const BaseCondition = ({
                     value={value}
                     type="text"
                     onChange={({ value }) => setValue(value)}
-                    width="150px"
+                    className={valueClassName || classes.textInput}
                     dense
                 />
             )}
@@ -166,9 +167,20 @@ BaseCondition.propTypes = {
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     allowCaseSensitive: PropTypes.bool,
+    valueClassName: PropTypes.object,
 }
 
-export const AlphanumericCondition = (props) => <BaseCondition {...props} />
+export const PhoneNumberCondition = (props) => (
+    <BaseCondition valueClassName={classes.phoneNumberInput} {...props} />
+)
+
+export const LetterCondition = (props) => (
+    <BaseCondition
+        valueClassName={classes.letterInput}
+        allowCaseSensitive={true}
+        {...props}
+    />
+)
 
 export const CaseSensitiveAlphanumericCondition = (props) => (
     <BaseCondition allowCaseSensitive={true} {...props} />

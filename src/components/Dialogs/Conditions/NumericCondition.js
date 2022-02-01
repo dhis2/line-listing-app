@@ -138,10 +138,10 @@ const NumericCondition = ({
         <div className={classes.container}>
             <SingleSelectField
                 selected={operator}
-                inputWidth="180px"
                 placeholder={i18n.t('Choose a condition type')}
                 dense
                 onChange={({ selected }) => onOperatorChange(selected)}
+                className={classes.operatorSelect}
             >
                 {Object.keys(operators).map((key) => (
                     <SingleSelectOption
@@ -165,7 +165,7 @@ const NumericCondition = ({
                         value={value}
                         type="number"
                         onChange={({ value }) => setValue(value)}
-                        width="150px"
+                        className={classes.numericInput}
                         dense
                         step={enableDecimalSteps ? '0.1' : '1'}
                     />
@@ -174,7 +174,7 @@ const NumericCondition = ({
                 <>
                     <SingleSelectField
                         selected={availableLegendSets && legendSetId}
-                        inputWidth="136px"
+                        className={classes.legendSetSelect}
                         placeholder={
                             !availableLegendSets
                                 ? i18n.t('Loading...')
@@ -186,6 +186,9 @@ const NumericCondition = ({
                             setValue(null)
                         }}
                         loading={!availableLegendSets}
+                        empty={i18n.t(
+                            'No preset option sets for this data item'
+                        )}
                     >
                         {availableLegendSets?.map((item) => (
                             <SingleSelectOption
@@ -205,7 +208,7 @@ const NumericCondition = ({
                             onChange={({ selected }) =>
                                 setValue(selected.join(';'))
                             }
-                            inputWidth="330px"
+                            className={classes.legendSelect}
                             selected={
                                 (legendSet?.legends?.length &&
                                     value?.length &&

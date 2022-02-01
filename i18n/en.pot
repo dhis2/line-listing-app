@@ -108,6 +108,9 @@ msgstr "Loading..."
 msgid "Choose a set of options"
 msgstr "Choose a set of options"
 
+msgid "No preset option sets for this data item"
+msgstr "No preset option sets for this data item"
+
 msgid "Choose options"
 msgstr "Choose options"
 
