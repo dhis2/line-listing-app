@@ -2,7 +2,11 @@ This project was bootstrapped with [DHIS2 Application Platform](https://github.c
 
 ## Available Scripts
 
-In the project directory, you can run:
+After cloning the repo, run:
+
+### `yarn d2-style install`
+
+For development you can run:
 
 ### `yarn start`
 
