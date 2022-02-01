@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ER > Options > TextBaseOption renders disabled input with type time 1`] = `
+<div>
+  <div
+    class="tabSectionOption"
+  >
+    <div
+      class="jsx-1141087211 "
+      data-test="testing-prefix-input"
+    >
+      <label
+        class="jsx-2718078600 disabled"
+        data-test="testing-prefix-input-label"
+        for="theTime"
+      >
+        <span
+          class="jsx-2718078600"
+        >
+          Current time
+        </span>
+      </label>
+      <div
+        class="jsx-3111771310 "
+        data-test="testing-prefix-input-content"
+      >
+        <div
+          class="jsx-2908043323 "
+          data-test="dhis2-uicore-box"
+        >
+          <div
+            class="jsx-3353877153 jsx-2404454085 input"
+            data-test="dhis2-uicore-input"
+          >
+            <input
+              class="jsx-3353877153 jsx-2404454085 dense disabled"
+              disabled=""
+              id="theTime"
+              name="theTime"
+              placeholder="placeholder text"
+              type="time"
+              value="10:30"
+            />
+            <div
+              class="jsx-3353877153 jsx-2404454085 status-icon"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ER > Options > TextBaseOption renders enabled input with type time 1`] = `
+<div>
+  <div
+    class="tabSectionOption"
+  >
+    <div
+      class="jsx-1141087211 "
+      data-test="testing-prefix-input"
+    >
+      <label
+        class="jsx-2718078600 "
+        data-test="testing-prefix-input-label"
+        for="theTime"
+      >
+        <span
+          class="jsx-2718078600"
+        >
+          Current time
+        </span>
+      </label>
+      <div
+        class="jsx-3111771310 "
+        data-test="testing-prefix-input-content"
+      >
+        <div
+          class="jsx-2908043323 "
+          data-test="dhis2-uicore-box"
+        >
+          <div
+            class="jsx-3353877153 jsx-2404454085 input"
+            data-test="dhis2-uicore-input"
+          >
+            <input
+              class="jsx-3353877153 jsx-2404454085 dense"
+              id="theTime"
+              name="theTime"
+              placeholder="placeholder text"
+              type="time"
+              value="10:30"
+            />
+            <div
+              class="jsx-3353877153 jsx-2404454085 status-icon"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

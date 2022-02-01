@@ -9,7 +9,7 @@ import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
 import VisualizationTypeListItem from './VisualizationTypeListItem.js'
 
-export const VisualizationTypeSelector = ({ visualizationType }) => {
+const VisualizationTypeSelector = ({ visualizationType }) => {
     const [listIsOpen, setListIsOpen] = useState(false)
 
     const handleListItemClick = () => () => {

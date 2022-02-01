@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { acSetUiOption, acSetUiOptions } from '../../../actions/ui.js'
 import { sGetUiOption, sGetUiOptions } from '../../../reducers/ui.js'
 
-export const RadioBaseOption = ({
+const RadioBaseOption = ({
     option,
     label,
     value,

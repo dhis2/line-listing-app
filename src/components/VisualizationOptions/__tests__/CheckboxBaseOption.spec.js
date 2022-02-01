@@ -1,49 +1,113 @@
-import { Checkbox } from '@dhis2/ui'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import React from 'react'
-import { CheckboxBaseOption } from '../Options/CheckboxBaseOption.js'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import CheckboxBaseOption from '../Options/CheckboxBaseOption.js'
+
+const mockStore = configureMockStore()
 
 describe('ER > Options > CheckboxBaseOption', () => {
-    let props
-    let shallowCheckboxBaseOption
-    let onChange
-
-    const checkboxBaseOption = (props) => {
-        shallowCheckboxBaseOption = shallow(<CheckboxBaseOption {...props} />)
-
-        return shallowCheckboxBaseOption
-    }
-
-    beforeEach(() => {
-        onChange = jest.fn()
-
-        props = {
-            value: false,
-            label: 'text',
-            option: { name: 'checkbox1' },
-            onChange,
+    it('renders checkbox with value: true, inverted: true', () => {
+        const store = {
+            ui: {
+                options: {
+                    theOptionName: true,
+                },
+            },
         }
 
-        shallowCheckboxBaseOption = undefined
-    })
+        const option = {
+            name: 'theOptionName',
+        }
 
-    it('renders a label for checkbox', () => {
-        expect(checkboxBaseOption(props).find(Checkbox).props().label).toEqual(
-            props.label
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <CheckboxBaseOption
+                    dataTest="testing-prefix"
+                    inverted={true}
+                    label="Should I?"
+                    option={option}
+                />
+            </Provider>
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('renders the checkbox with the correct checked state', () => {
-        expect(checkboxBaseOption(props).find(Checkbox).props().checked).toBe(
-            props.value
+    it('renders checkbox with value: true, inverted: false', () => {
+        const store = {
+            ui: {
+                options: {
+                    theOptionName: true,
+                },
+            },
+        }
+
+        const option = {
+            name: 'theOptionName',
+        }
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <CheckboxBaseOption
+                    dataTest="testing-prefix"
+                    inverted={false}
+                    label="Should I?"
+                    option={option}
+                />
+            </Provider>
         )
+        expect(container).toMatchSnapshot()
     })
 
-    it('should trigger the onChange callback on checkbox change', () => {
-        const checkbox = checkboxBaseOption(props).find(Checkbox)
+    it('renders checkbox with value: false, inverted: true', () => {
+        const store = {
+            ui: {
+                options: {
+                    theOptionName: false,
+                },
+            },
+        }
 
-        checkbox.simulate('change', { checked: true })
+        const option = {
+            name: 'theOptionName',
+        }
 
-        expect(onChange).toHaveBeenCalled()
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <CheckboxBaseOption
+                    dataTest="testing-prefix"
+                    inverted={true}
+                    label="Should I?"
+                    option={option}
+                />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
+    })
+
+    it('renders checkbox with value: false, inverted: false', () => {
+        const store = {
+            ui: {
+                options: {
+                    theOptionName: false,
+                },
+            },
+        }
+
+        const option = {
+            name: 'theOptionName',
+        }
+
+        const { container } = render(
+            <Provider store={mockStore(store)}>
+                <CheckboxBaseOption
+                    dataTest="testing-prefix"
+                    inverted={false}
+                    label="Should I?"
+                    option={option}
+                />
+            </Provider>
+        )
+        expect(container).toMatchSnapshot()
     })
 })

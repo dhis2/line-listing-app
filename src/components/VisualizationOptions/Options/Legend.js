@@ -16,12 +16,7 @@ import {
     OPTION_LEGEND_SET,
 } from '../../../modules/options.js'
 import { sGetUiOption } from '../../../reducers/ui.js'
-import {
-    tabSectionOptionToggleable,
-    tabSectionOption,
-    tabSectionTitle,
-    tabSectionTitleMargin,
-} from '../styles/VisualizationOptions.style.js'
+import styles from '../styles/VisualizationOptions.module.css'
 import LegendDisplayStrategy from './LegendDisplayStrategy.js'
 import LegendDisplayStyle from './LegendDisplayStyle.js'
 import ShowLegendKey from './ShowLegendKey.js'
@@ -69,7 +64,7 @@ const Legend = ({
     }
 
     return (
-        <div className={tabSectionOption.className}>
+        <div className={styles.tabSectionOptionToggleable}>
             <Checkbox
                 checked={legendEnabled}
                 label={i18n.t('Use legend for chart colors')}
@@ -77,39 +72,39 @@ const Legend = ({
                 dense
             />
             {legendEnabled ? (
-                <div className={tabSectionOptionToggleable.className}>
+                <div className={styles.tabSectionOptionToggleable}>
                     {!hideStyleOptions ? (
-                        <div className={tabSectionOption.className}>
+                        <div className={styles.tabSectionOption}>
                             <FieldSet>
                                 <UiCoreLegend>
                                     <span
                                         className={cx(
-                                            tabSectionTitle.className,
-                                            tabSectionTitleMargin.className
+                                            styles.tabSectionTitle,
+                                            styles.tabSectionTitleMargin
                                         )}
                                     >
                                         {i18n.t('Legend style')}
                                     </span>
                                 </UiCoreLegend>
-                                <div className={tabSectionOption.className}>
+                                <div className={styles.tabSectionOption}>
                                     <LegendDisplayStyle />
                                 </div>
                             </FieldSet>
                         </div>
                     ) : null}
-                    <div className={tabSectionOption.className}>
+                    <div className={styles.tabSectionOption}>
                         <FieldSet>
                             <UiCoreLegend>
                                 <span
-                                    className={cx(tabSectionTitle.className, {
-                                        [tabSectionTitleMargin.className]:
+                                    className={cx(styles.tabSectionTitle, {
+                                        [styles.tabSectionTitleMargin]:
                                             hideStyleOptions,
                                     })}
                                 >
                                     {i18n.t('Legend type')}
                                 </span>
                             </UiCoreLegend>
-                            <div className={tabSectionOption.className}>
+                            <div className={styles.tabSectionOption}>
                                 <LegendDisplayStrategy />
                             </div>
                         </FieldSet>
