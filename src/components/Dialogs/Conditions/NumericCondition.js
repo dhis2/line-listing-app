@@ -165,7 +165,7 @@ const NumericCondition = ({
                         value={value}
                         type="number"
                         onChange={({ value }) => setValue(value)}
-                        className={classes.numbericInput}
+                        className={classes.numericInput}
                         dense
                         step={enableDecimalSteps ? '0.1' : '1'}
                     />
