@@ -75,9 +75,10 @@ export const acSetUiLayout = (value) => ({
     value,
 })
 
-export const acSetUiFromVisualization = (value) => ({
+export const acSetUiFromVisualization = (value, metadata) => ({
     type: SET_UI_FROM_VISUALIZATION,
     value,
+    metadata,
 })
 
 export const acClearUi = (value) => ({

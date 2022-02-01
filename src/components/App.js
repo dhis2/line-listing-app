@@ -51,7 +51,7 @@ const visualizationQuery = {
                 'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
                 'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
                 'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
-                'program[id,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate]',
+                'program[id,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name)]]',
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate]',
                 'access,user[displayName,userCredentials[username]]',
                 'href',
@@ -176,7 +176,6 @@ const App = ({
 
     const onResponseReceived = (response) => {
         setVisualizationLoading(false)
-        const { program, programStage } = data.eventVisualization
         const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
@@ -192,11 +191,7 @@ const App = ({
             {}
         )
 
-        addMetadata({
-            ...itemsMetadata,
-            [program.id]: program,
-            [programStage.id]: programStage,
-        })
+        addMetadata(itemsMetadata)
     }
 
     useEffect(() => {
@@ -234,14 +229,19 @@ const App = ({
 
     useEffect(() => {
         if (data?.eventVisualization) {
+            const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
                 data.eventVisualization
             )
+            const metadata = {
+                [program.id]: program,
+                [programStage.id]: programStage,
+            }
 
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))
             setVisualization(visualization)
             setCurrent(visualization)
-            setUiFromVisualization(visualization)
+            setUiFromVisualization(visualization, metadata)
             postDataStatistics({ id: visualization.id })
         }
     }, [data])
