@@ -38,7 +38,7 @@ const query = {
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
-                'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel]',
+                'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel,repeatable]',
                 'displayIncidentDate',
                 'displayIncidentDateLabel',
                 'displayEnrollmentDateLabel',

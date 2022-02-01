@@ -38,3 +38,18 @@
 .tooltipReference > .addConditionButton:disabled {
     pointer-events: none;
 }
+
+.tabBar {
+    margin-bottom: var(--spacers-dp16);
+}
+
+.repeatableWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.repeatableInput {
+    width: 55px;
+    margin-left: var(--spacers-dp8);
+    margin-bottom: var(--spacers-dp4);
+}

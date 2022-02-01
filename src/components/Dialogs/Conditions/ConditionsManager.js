@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
+import { Button, IconInfo16, Tooltip, TabBar, Tab, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -55,6 +55,9 @@ const VALUE_TYPE_TIME = 'TIME'
 const VALUE_TYPE_DATETIME = 'DATETIME'
 const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
 
+const TAB_CONDITIONS = 'CONDITIONS'
+const TAB_REPEATABLE_EVENTS = 'REPEATABLE_EVENTS'
+
 const NUMERIC_TYPES = [
     VALUE_TYPE_NUMBER,
     VALUE_TYPE_UNIT_INTERVAL,
@@ -104,6 +107,7 @@ const ConditionsManager = ({
     onClose,
     setConditionsByDimension,
 }) => {
+    const [currentTab, setCurrentTab] = useState(TAB_CONDITIONS)
     const valueType = dimension.valueType
     const isProgramIndicator =
         dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
@@ -355,17 +359,11 @@ const ConditionsManager = ({
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
-    return dimension ? (
-        <DimensionModal
-            dataTest={'dialog-manager-modal'}
-            isInLayout={isInLayout}
-            onClose={closeModal}
-            onUpdate={primaryOnClick}
-            title={
-                dimension.name +
-                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
-            }
-        >
+    const isRepeatable = true // TODO: add logic here
+    const disableRepeatable = false // TODO: add logic here
+
+    const renderConditions = () => (
+        <>
             <div>
                 {isSupported ? (
                     <p className={classes.paragraph}>
@@ -442,6 +440,81 @@ const ConditionsManager = ({
                     )}
                 </div>
             )}
+        </>
+    )
+
+    const renderRepeatableEvents = () => (
+        <div>
+            <p className={classes.paragraph}>
+                {i18n.t(
+                    'From stages with repeatable events, show values for this data element from:'
+                )}
+            </p>
+            <ul>
+                <li>
+                    <div className={classes.repeatableWrapper}>
+                        <p className={classes.paragraph}>
+                            {i18n.t('the most recent events: ')}
+                        </p>
+                        <Input
+                            type="number"
+                            dense
+                            className={classes.repeatableInput}
+                        />
+                    </div>
+                </li>
+                <li>
+                    <div className={classes.repeatableWrapper}>
+                        <p className={classes.paragraph}>
+                            {i18n.t('the oldest events: ')}
+                        </p>
+                        <Input
+                            type="number"
+                            dense
+                            className={classes.repeatableInput}
+                        />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    )
+
+    const renderTabs = () => (
+        <>
+            <TabBar className={classes.tabBar}>
+                <Tab
+                    key={TAB_CONDITIONS}
+                    onClick={() => setCurrentTab(TAB_CONDITIONS)}
+                    selected={currentTab === TAB_CONDITIONS}
+                >
+                    {i18n.t('Conditions')}
+                </Tab>
+                <Tab
+                    key={TAB_REPEATABLE_EVENTS}
+                    onClick={() => setCurrentTab(TAB_REPEATABLE_EVENTS)}
+                    selected={currentTab === TAB_REPEATABLE_EVENTS}
+                >
+                    {i18n.t('Repeatable events')}
+                </Tab>
+            </TabBar>
+            {currentTab === TAB_CONDITIONS
+                ? renderConditions()
+                : renderRepeatableEvents()}
+        </>
+    )
+
+    return dimension ? (
+        <DimensionModal
+            dataTest={'dialog-manager-modal'}
+            isInLayout={isInLayout}
+            onClose={closeModal}
+            onUpdate={primaryOnClick}
+            title={
+                dimension.name +
+                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
+            }
+        >
+            {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>
     ) : null
 }
