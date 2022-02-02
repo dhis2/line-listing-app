@@ -7,6 +7,10 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
+import {
+    DIMENSION_TYPES_PROGRAM,
+    DIMENSION_TYPES_YOURS,
+} from '../../modules/dimensionTypes.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
@@ -20,24 +24,6 @@ import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 const TAB_INPUT = 'INPUT'
 const TAB_PROGRAM = 'PROGRAM'
 const TAB_YOUR = 'YOUR'
-
-const PROGRAM_DIMENSION_TYPES = new Set([
-    'DATA_ELEMENT',
-    'DATA_ELEMENT_OPERAND',
-    'INDICATOR',
-    'REPORTING_RATE',
-    'PROGRAM_DATA_ELEMENT',
-    'PROGRAM_ATTRIBUTE',
-    'PROGRAM_INDICATOR',
-    'PERIOD',
-    'ORGANISATION_UNIT',
-    'CATEGORY_OPTION',
-    'OPTION_GROUP',
-    'DATA_ELEMENT_GROUP',
-    'ORGANISATION_UNIT_GROUP',
-    'CATEGORY_OPTION_GROUP',
-])
-const YOUR_DIMENSION_TYPES = new Set(['ORGANISATION_UNIT_GROUP_SET'])
 
 const useSelectedDimensions = () => {
     const current = useSelector(sGetCurrent)
@@ -57,11 +43,11 @@ const useSelectedDimensions = () => {
             (acc, id) => {
                 const { dimensionType } = metadata[id]
 
-                if (PROGRAM_DIMENSION_TYPES.has(dimensionType)) {
+                if (DIMENSION_TYPES_PROGRAM.has(dimensionType)) {
                     acc.program += 1
                 }
 
-                if (YOUR_DIMENSION_TYPES.has(dimensionType)) {
+                if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
                 return acc
