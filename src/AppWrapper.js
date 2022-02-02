@@ -1,9 +1,6 @@
-import {
-    apiFetchOrganisationUnitLevels,
-    CachedDataQueryProvider,
-} from '@dhis2/analytics'
+import { CachedDataQueryProvider } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './components/App.js'
@@ -30,7 +27,6 @@ const query = {
 const providerDataTransformation = (rawData) => {
     const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
         rawData.userSettings
-
     return {
         currentUser: rawData.currentUser,
         userSettings: {
@@ -45,6 +41,13 @@ const providerDataTransformation = (rawData) => {
     }
 }
 
+/*
+ * The redux store is being created here and this should only happen once,
+ * because having multiple store instances leads to very unpredictable behaviour.
+ * To avoid having multiple stores, ensure this component only renders once,
+ * so it should remain stateless and be the app's most outer container.
+ */
+
 const AppWrapper = () => {
     const engine = useDataEngine()
     const store = configureStore([
@@ -56,34 +59,13 @@ const AppWrapper = () => {
         window.store = store
     }
 
-    const [ouLevels, setOuLevels] = useState(null)
-
-    const doFetchOuLevelsData = useCallback(async () => {
-        const ouLevels = await apiFetchOrganisationUnitLevels(engine)
-
-        return ouLevels
-    }, [engine])
-
-    useEffect(() => {
-        const doFetch = async () => {
-            const ouLevelsData = await doFetchOuLevelsData()
-
-            setOuLevels(ouLevelsData)
-        }
-
-        doFetch()
-    }, [])
-
     return (
         <ReduxProvider store={store}>
             <CachedDataQueryProvider
                 query={query}
                 dataTransformation={providerDataTransformation}
             >
-                <App
-                    initialLocation={history.location}
-                    ouLevels={ouLevels} // TODO: Unused by App.js?
-                />
+                <App initialLocation={history.location} />
             </CachedDataQueryProvider>
         </ReduxProvider>
     )
