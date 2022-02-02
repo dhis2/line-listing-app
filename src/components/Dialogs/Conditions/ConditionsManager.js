@@ -450,32 +450,28 @@ const ConditionsManager = ({
                     'From stages with repeatable events, show values for this data element from:'
                 )}
             </p>
-            <ul>
-                <li>
-                    <div className={classes.repeatableWrapper}>
-                        <p className={classes.paragraph}>
-                            {i18n.t('the most recent events: ')}
-                        </p>
-                        <Input
-                            type="number"
-                            dense
-                            className={classes.repeatableInput}
-                        />
-                    </div>
-                </li>
-                <li>
-                    <div className={classes.repeatableWrapper}>
-                        <p className={classes.paragraph}>
-                            {i18n.t('the oldest events: ')}
-                        </p>
-                        <Input
-                            type="number"
-                            dense
-                            className={classes.repeatableInput}
-                        />
-                    </div>
-                </li>
-            </ul>
+            <div>
+                <div className={classes.repeatableWrapper}>
+                    <p className={classes.paragraph}>
+                        {i18n.t('Most recent events: ')}
+                    </p>
+                    <Input
+                        type="number"
+                        dense
+                        className={classes.repeatableInput}
+                    />
+                </div>
+                <div className={classes.repeatableWrapper}>
+                    <p className={classes.paragraph}>
+                        {i18n.t('Oldest events: ')}
+                    </p>
+                    <Input
+                        type="number"
+                        dense
+                        className={classes.repeatableInput}
+                    />
+                </div>
+            </div>
         </div>
     )
 
@@ -494,7 +490,7 @@ const ConditionsManager = ({
                     onClick={() => setCurrentTab(TAB_REPEATABLE_EVENTS)}
                     selected={currentTab === TAB_REPEATABLE_EVENTS}
                 >
-                    {i18n.t('Repeatable events')}
+                    {i18n.t('Repeated events')}
                 </Tab>
             </TabBar>
             {currentTab === TAB_CONDITIONS

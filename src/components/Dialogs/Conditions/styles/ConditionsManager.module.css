@@ -46,10 +46,18 @@
 .repeatableWrapper {
     display: flex;
     align-items: center;
+    margin-left: var(--spacers-dp8);
+}
+
+.repeatableWrapper:first-child {
+    margin-top: var(--spacers-dp16);
+}
+
+.repeatableWrapper:not(:last-child) {
+    margin-bottom: var(--spacers-dp12);
 }
 
 .repeatableInput {
-    width: 55px;
-    margin-left: var(--spacers-dp8);
-    margin-bottom: var(--spacers-dp4);
+    width: 100px;
+    margin-left: var(--spacers-dp4);
 }
