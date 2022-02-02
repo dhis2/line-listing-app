@@ -62,12 +62,14 @@ const DimensionListItem = ({
     valueType,
 }) => {
     const dispatch = useDispatch()
-    const onClick = () =>
-        dispatch(
-            acSetUiOpenDimensionModal(id, {
-                [id]: { id, name, dimensionType, valueType, optionSet },
-            })
-        )
+    const onClick = disabled
+        ? undefined
+        : () =>
+              dispatch(
+                  acSetUiOpenDimensionModal(id, {
+                      [id]: { id, name, dimensionType, valueType, optionSet },
+                  })
+              )
     const Icon = DIMENSION_TYPE_ICONS[dimensionType]
 
     return (

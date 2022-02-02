@@ -12,6 +12,7 @@
 .dimensionItem:hover {
     background-color: var(--colors-grey200);
 }
+
 .dimensionItem:active {
     background-color: #d8e1e9;
 }
@@ -26,8 +27,18 @@
 .dimensionItem.selected:hover {
     background-color: #cdeae8;
 }
+
 .dimensionItem.selected:active {
     background-color: #bbe2e0;
+}
+
+.dimensionItem.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dimensionItem.disabled:hover {
+    background-color: unset;
 }
 
 .icon {
