@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
-import { DimensionListItem } from './DimensionListItem.js'
+import { DimensionItem } from '../DimensionItem/DimensionItem.js'
 import styles from './DimensionsList.module.css'
 
 const getNoResultsMessage = (searchTerm, programName) => {
@@ -79,7 +79,7 @@ const DimensionsList = ({
         >
             <div className={styles.list}>
                 {dimensions.map((dimension) => (
-                    <DimensionListItem
+                    <DimensionItem
                         key={dimension.id}
                         dimensionType={dimension.dimensionType}
                         name={dimension.name}

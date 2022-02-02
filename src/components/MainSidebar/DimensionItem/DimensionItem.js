@@ -28,7 +28,7 @@ import {
     DIMENSION_TYPE_PROGRAM_STATUS,
     DIMENSION_TYPE_STORED_BY,
 } from '../../../modules/dimensionTypes.js'
-import styles from './DimensionListItem.module.css'
+import styles from './DimensionItem.module.css'
 
 const DIMENSION_TYPE_ICONS = {
     /**PROGRAM**/
@@ -51,7 +51,7 @@ const DIMENSION_TYPE_ICONS = {
     [DIMENSION_ID_PERIOD]: IconCalendar16,
 }
 
-const DimensionListItem = ({
+const DimensionItem = ({
     dimensionType,
     id,
     disabled,
@@ -93,7 +93,7 @@ const DimensionListItem = ({
     )
 }
 
-DimensionListItem.propTypes = {
+DimensionItem.propTypes = {
     dimensionType: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -104,4 +104,4 @@ DimensionListItem.propTypes = {
     valueType: PropTypes.string,
 }
 
-export { DimensionListItem }
+export { DimensionItem }

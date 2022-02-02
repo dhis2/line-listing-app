@@ -18,7 +18,7 @@ import {
     sGetUiProgramId,
     sGetUiProgramStageId,
 } from '../../reducers/ui.js'
-import { DimensionListItem } from './DimensionsList/DimensionListItem.js'
+import { DimensionItem } from './DimensionItem/index.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './ProgramDimensionsPanel/ProgramDimensionsPanel.js'
 import styles from './TimeDimensions.module.css'
 
@@ -80,7 +80,7 @@ const TimeDimensions = ({ isSelected }) => {
     return (
         <div className={styles.list}>
             {dimensions.map((dimension) => (
-                <DimensionListItem
+                <DimensionItem
                     key={dimension.id}
                     dimensionType={dimension.dimensionType}
                     name={dimension.name}
