@@ -1,47 +1,54 @@
 import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
 import {
-    IconCalendar16,
-    IconDimensionIndicator16,
-    IconDimensionOrgUnit16,
+    IconDimensionData16,
     IconDimensionProgramIndicator16,
-    IconWarningFilled16,
+    IconFilter16,
+    IconDimensionCategoryOptionGroupset16,
+    IconDimensionOrgUnitGroupset16,
+    IconDimensionOrgUnit16,
+    IconCheckmarkCircle16,
+    IconUser16,
+    IconCalendar16,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
+import {
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_LAST_UPDATED_BY,
+    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+    DIMENSION_TYPE_OU,
+    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+    DIMENSION_TYPE_STORED_BY,
+} from '../../../modules/dimensionTypes.js'
 import styles from './DimensionListItem.module.css'
 
-// TODO: get correct icon for each dimension type
-// Currently using IconFilter16 as placeholder
 const DIMENSION_TYPE_ICONS = {
-    DATA_ELEMENT: undefined,
-    DATA_ELEMENT_OPERAND: undefined,
-    INDICATOR: IconDimensionIndicator16,
-    REPORTING_RATE: undefined,
-    PROGRAM_DATA_ELEMENT: undefined,
-    PROGRAM_ATTRIBUTE: undefined,
-    PROGRAM_INDICATOR: IconDimensionProgramIndicator16,
+    /**PROGRAM**/
+    [DIMENSION_TYPE_DATA_ELEMENT]: IconDimensionData16,
+    [DIMENSION_TYPE_PROGRAM_ATTRIBUTE]: IconDimensionData16,
+    [DIMENSION_TYPE_PROGRAM_INDICATOR]: IconDimensionProgramIndicator16,
+    [DIMENSION_TYPE_CATEGORY]: IconFilter16,
+    [DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET]:
+        IconDimensionCategoryOptionGroupset16,
+    /**YOURS**/
+    [DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET]:
+        IconDimensionOrgUnitGroupset16,
+    /**MAIN**/
+    [DIMENSION_TYPE_OU]: IconDimensionOrgUnit16,
+    [DIMENSION_TYPE_PROGRAM_STATUS]: IconCheckmarkCircle16,
+    [DIMENSION_TYPE_EVENT_STATUS]: IconCheckmarkCircle16,
+    [DIMENSION_TYPE_STORED_BY]: IconUser16,
+    [DIMENSION_TYPE_LAST_UPDATED_BY]: IconUser16,
+    /**TIME**/
     [DIMENSION_ID_PERIOD]: IconCalendar16,
-    ORGANISATION_UNIT: IconDimensionOrgUnit16,
-    CATEGORY_OPTION: undefined,
-    OPTION_GROUP: undefined,
-    DATA_ELEMENT_GROUP: undefined,
-    ORGANISATION_UNIT_GROUP: undefined,
-    CATEGORY_OPTION_GROUP: undefined,
-}
-
-const getIconForDimensionType = (dimensionType) => {
-    const Icon = DIMENSION_TYPE_ICONS[dimensionType]
-
-    if (!Icon) {
-        console.warn(
-            `No icon found for dimension type ${dimensionType}, using fallback warning icon instead`
-        )
-    }
-
-    return Icon || IconWarningFilled16
 }
 
 const DimensionListItem = ({
@@ -54,7 +61,6 @@ const DimensionListItem = ({
     stageName,
     valueType,
 }) => {
-    console.log(name, dimensionType)
     const dispatch = useDispatch()
     const onClick = () =>
         dispatch(
@@ -62,7 +68,7 @@ const DimensionListItem = ({
                 [id]: { id, name, dimensionType, valueType, optionSet },
             })
         )
-    const Icon = getIconForDimensionType(dimensionType)
+    const Icon = DIMENSION_TYPE_ICONS[dimensionType]
 
     return (
         <div

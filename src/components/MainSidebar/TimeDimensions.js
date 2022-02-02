@@ -81,7 +81,7 @@ const TimeDimensions = () => {
             {dimensions.map((dimension) => (
                 <DimensionListItem
                     key={dimension.id}
-                    dimensionType={dimension.id}
+                    dimensionType={dimension.dimensionType}
                     name={dimension.name}
                     id={dimension.id}
                     disabled={dimension.isDisabled}

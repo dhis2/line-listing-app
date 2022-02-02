@@ -161,11 +161,6 @@ const transformResponseData = ({
                   dataElementId &&
                   deDimensionsMapRef.current.get(dataElementId) > 1
               ) {
-                  console.log(
-                      'it is happening!',
-                      programStageId,
-                      programStageNames?.get(programStageId)
-                  )
                   dimension.stageName = programStageNames?.get(programStageId)
               }
               return dimension
