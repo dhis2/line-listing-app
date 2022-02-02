@@ -26,23 +26,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -66,23 +54,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -106,23 +82,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -146,23 +110,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le due date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le due date
+        </span>
       </div>
     </div>
     <div
@@ -186,23 +138,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -235,23 +175,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -275,23 +203,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -315,23 +231,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -355,23 +259,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
       <div
         class="label"
       >
-        le due date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le due date
+        </span>
       </div>
     </div>
     <div
@@ -395,23 +287,11 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -444,23 +324,11 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Date of registration
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Date of registration
+        </span>
       </div>
     </div>
     <div
@@ -484,23 +352,11 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Tracking date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Tracking date
+        </span>
       </div>
     </div>
     <div
@@ -524,23 +380,11 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Test date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Test date
+        </span>
       </div>
     </div>
     <div
@@ -564,23 +408,11 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -604,23 +436,11 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -653,23 +473,11 @@ exports[`input type EVENT and program metadata missing 1`] = `
       <div
         class="label"
       >
-        Date of registration
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Date of registration
+        </span>
       </div>
     </div>
     <div
@@ -693,23 +501,11 @@ exports[`input type EVENT and program metadata missing 1`] = `
       <div
         class="label"
       >
-        Tracking date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Tracking date
+        </span>
       </div>
     </div>
     <div
@@ -733,23 +529,11 @@ exports[`input type EVENT and program metadata missing 1`] = `
       <div
         class="label"
       >
-        Test date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Test date
+        </span>
       </div>
     </div>
     <div
@@ -773,23 +557,11 @@ exports[`input type EVENT and program metadata missing 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -813,23 +585,11 @@ exports[`input type EVENT and program metadata missing 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -862,23 +622,11 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -902,23 +650,11 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Tracking date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Tracking date
+        </span>
       </div>
     </div>
     <div
@@ -942,23 +678,11 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Test date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Test date
+        </span>
       </div>
     </div>
     <div
@@ -982,23 +706,11 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -1022,23 +734,11 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -1071,23 +771,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -1111,23 +799,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -1151,23 +827,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -1191,23 +855,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        le due date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le due date
+        </span>
       </div>
     </div>
     <div
@@ -1231,23 +883,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -1280,23 +920,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
       <div
         class="label"
       >
-        le 2nd event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le 2nd event date
+        </span>
       </div>
     </div>
     <div
@@ -1320,23 +948,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -1360,23 +976,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -1400,23 +1004,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
       <div
         class="label"
       >
-        le 2nd due date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le 2nd due date
+        </span>
       </div>
     </div>
     <div
@@ -1440,23 +1032,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -1489,23 +1069,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -1529,23 +1097,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -1569,23 +1125,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -1609,23 +1153,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
       <div
         class="label"
       >
-        le due date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le due date
+        </span>
       </div>
     </div>
     <div
@@ -1649,23 +1181,11 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -1698,23 +1218,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
       <div
         class="label"
       >
-        Date of registration
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Date of registration
+        </span>
       </div>
     </div>
     <div
@@ -1738,23 +1246,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
       <div
         class="label"
       >
-        Tracking date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Tracking date
+        </span>
       </div>
     </div>
     <div
@@ -1778,23 +1274,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
       <div
         class="label"
       >
-        Test date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Test date
+        </span>
       </div>
     </div>
     <div
@@ -1818,23 +1302,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -1858,23 +1330,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -1907,23 +1367,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
       <div
         class="label"
       >
-        le event date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le event date
+        </span>
       </div>
     </div>
     <div
@@ -1947,23 +1395,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
       <div
         class="label"
       >
-        Tracking date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Tracking date
+        </span>
       </div>
     </div>
     <div
@@ -1987,23 +1423,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
       <div
         class="label"
       >
-        Test date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Test date
+        </span>
       </div>
     </div>
     <div
@@ -2027,23 +1451,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -2067,23 +1479,11 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
@@ -2116,23 +1516,11 @@ exports[`stage missing 1`] = `
       <div
         class="label"
       >
-        Date of registration
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Date of registration
+        </span>
       </div>
     </div>
     <div
@@ -2156,23 +1544,11 @@ exports[`stage missing 1`] = `
       <div
         class="label"
       >
-        le enrollment date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le enrollment date
+        </span>
       </div>
     </div>
     <div
@@ -2196,23 +1572,11 @@ exports[`stage missing 1`] = `
       <div
         class="label"
       >
-        le incident date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          le incident date
+        </span>
       </div>
     </div>
     <div
@@ -2236,23 +1600,11 @@ exports[`stage missing 1`] = `
       <div
         class="label"
       >
-        Due/Scheduled date
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Due/Scheduled date
+        </span>
       </div>
     </div>
     <div
@@ -2276,23 +1628,11 @@ exports[`stage missing 1`] = `
       <div
         class="label"
       >
-        Last updated on
-      </div>
-      <div
-        class="menuTrigger"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="primary"
         >
-          <path
-            d="M3 7a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2zm5 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
+          Last updated on
+        </span>
       </div>
     </div>
   </div>
