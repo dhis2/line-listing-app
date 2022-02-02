@@ -35,7 +35,7 @@ test('input type EVENT, WITHOUT_REGISTRATION no custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -71,7 +71,7 @@ test('input type EVENT, WITHOUT_REGISTRATION with custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -111,7 +111,7 @@ test('input type EVENT, WITH_REGISTRATION', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -154,7 +154,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -198,7 +198,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide due date', () => 
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -241,7 +241,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide incident date', (
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -284,7 +284,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident dat
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -327,7 +327,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -365,7 +365,7 @@ test('input type ENROLLMENT, WITHOUT_REGISTRATION', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -387,7 +387,7 @@ test('input type EVENT and program metadata missing', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -423,7 +423,7 @@ test('stage missing', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()

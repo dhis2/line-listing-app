@@ -1,4 +1,5 @@
 import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -32,7 +33,7 @@ const getName = (dimension, program, stage) => {
     return name || dimension.defaultName
 }
 
-const TimeDimensions = () => {
+const TimeDimensions = ({ isSelected }) => {
     const selectedInputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
     const stageId = useSelector(sGetUiProgramStageId)
@@ -84,6 +85,7 @@ const TimeDimensions = () => {
                     dimensionType={dimension.dimensionType}
                     name={dimension.name}
                     id={dimension.id}
+                    selected={isSelected(dimension.id)}
                     disabled={dimension.isDisabled}
                     optionSet={dimension.optionSet}
                     valueType={dimension.valueType}
@@ -91,6 +93,10 @@ const TimeDimensions = () => {
             ))}
         </div>
     )
+}
+
+TimeDimensions.propTypes = {
+    isSelected: PropTypes.func,
 }
 
 export default TimeDimensions
