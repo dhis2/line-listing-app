@@ -3,6 +3,7 @@ import {
     CachedDataQueryProvider,
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import React, { useState, useEffect, useCallback } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -30,7 +31,6 @@ const query = {
 const providerDataTransformation = (rawData) => {
     const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
         rawData.userSettings
-
     return {
         currentUser: rawData.currentUser,
         userSettings: {
@@ -45,6 +45,38 @@ const providerDataTransformation = (rawData) => {
     }
 }
 
+const AppWrapperInner = ({ engine }) => {
+    const [ouLevels, setOuLevels] = useState(null)
+    const doFetchOuLevelsData = useCallback(async () => {
+        const ouLevels = await apiFetchOrganisationUnitLevels(engine)
+        return ouLevels
+    }, [engine])
+
+    useEffect(() => {
+        const doFetch = async () => {
+            const ouLevelsData = await doFetchOuLevelsData()
+            setOuLevels(ouLevelsData)
+        }
+        doFetch()
+    }, [])
+
+    return (
+        <CachedDataQueryProvider
+            query={query}
+            dataTransformation={providerDataTransformation}
+        >
+            <App
+                initialLocation={history.location}
+                ouLevels={ouLevels} // TODO: Unused by App.js?
+            />
+        </CachedDataQueryProvider>
+    )
+}
+
+AppWrapperInner.propTypes = {
+    engine: PropTypes.object,
+}
+
 const AppWrapper = () => {
     const engine = useDataEngine()
     const store = configureStore([
@@ -56,35 +88,9 @@ const AppWrapper = () => {
         window.store = store
     }
 
-    const [ouLevels, setOuLevels] = useState(null)
-
-    const doFetchOuLevelsData = useCallback(async () => {
-        const ouLevels = await apiFetchOrganisationUnitLevels(engine)
-
-        return ouLevels
-    }, [engine])
-
-    useEffect(() => {
-        const doFetch = async () => {
-            const ouLevelsData = await doFetchOuLevelsData()
-
-            setOuLevels(ouLevelsData)
-        }
-
-        doFetch()
-    }, [])
-
     return (
         <ReduxProvider store={store}>
-            <CachedDataQueryProvider
-                query={query}
-                dataTransformation={providerDataTransformation}
-            >
-                <App
-                    initialLocation={history.location}
-                    ouLevels={ouLevels} // TODO: Unused by App.js?
-                />
-            </CachedDataQueryProvider>
+            <AppWrapperInner engine={engine} />
         </ReduxProvider>
     )
 }
