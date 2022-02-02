@@ -49,13 +49,19 @@ const ProgramSelect = ({
                     )}
                 </div>
                 {selectedProgram && (
-                    <Button onClick={() => setSelectedProgramId(undefined)}>
+                    <Button
+                        small
+                        secondary
+                        onClick={() => setSelectedProgramId(undefined)}
+                    >
                         {i18n.t('Clear')}
                     </Button>
                 )}
             </div>
             {showStageSelect && (
-                <StageSelect stages={selectedProgram.programStages} />
+                <div className={styles.indented}>
+                    <StageSelect stages={selectedProgram.programStages} />
+                </div>
             )}
         </div>
     )
