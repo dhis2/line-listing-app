@@ -10,9 +10,9 @@ import {
     acUpdateUiProgramStageId,
     acClearUiProgram,
 } from '../../../actions/ui.js'
+import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
-    DIMENSION_TYPE_ALL,
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
