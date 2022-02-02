@@ -118,11 +118,9 @@ const ProgramDimensionsPanel = ({ visible, isSelected }) => {
             inputType === OUTPUT_TYPE_EVENT &&
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
-            const artificialStageId = selectedProgram.programStages[0].id
-            const metadata = {
-                [artificialStageId]: selectedProgram.programStages[0],
-            }
-            dispatch(acUpdateUiProgramStageId(artificialStageId, metadata))
+            const artificialStage = selectedProgram.programStages[0]
+            const metadata = { [artificialStage.id]: artificialStage }
+            dispatch(acUpdateUiProgramStageId(artificialStage.id, metadata))
         }
     }, [inputType, programType])
 
