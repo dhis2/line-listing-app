@@ -47,13 +47,14 @@ const getIconForDimensionType = (dimensionType) => {
 const DimensionListItem = ({
     dimensionType,
     id,
-    isDisabled,
+    disabled,
     name,
     optionSet,
     selected,
     stageName,
     valueType,
 }) => {
+    console.log(name, dimensionType)
     const dispatch = useDispatch()
     const onClick = () =>
         dispatch(
@@ -67,7 +68,7 @@ const DimensionListItem = ({
         <div
             className={cx(styles.dimensionItem, {
                 [styles.selected]: selected,
-                [styles.disabled]: isDisabled,
+                [styles.disabled]: disabled,
             })}
             onClick={onClick}
         >
@@ -88,7 +89,7 @@ DimensionListItem.propTypes = {
     dimensionType: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    isDisabled: PropTypes.bool,
+    disabled: PropTypes.bool,
     optionSet: PropTypes.string,
     selected: PropTypes.bool,
     stageName: PropTypes.string,

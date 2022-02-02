@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
-    DIMENSION_TYPE_ALL,
+    OUTPUT_TYPE_ENROLLMENT,
     DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-    OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import styles from './ProgramDimensionsFilter.module.css'
