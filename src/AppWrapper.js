@@ -41,6 +41,13 @@ const providerDataTransformation = (rawData) => {
     }
 }
 
+/*
+ * The redux store is being created here and this should only happen once,
+ * because having multiple store instances leads to very unpredictable behaviour.
+ * To avoid having multiple stores, ensure this component only renders once,
+ * so it should remain stateless and be the app's most outer container.
+ */
+
 const AppWrapper = () => {
     const engine = useDataEngine()
     const store = configureStore([
