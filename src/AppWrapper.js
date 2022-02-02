@@ -1,10 +1,6 @@
-import {
-    apiFetchOrganisationUnitLevels,
-    CachedDataQueryProvider,
-} from '@dhis2/analytics'
+import { CachedDataQueryProvider } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import PropTypes from 'prop-types'
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './components/App.js'
@@ -45,38 +41,6 @@ const providerDataTransformation = (rawData) => {
     }
 }
 
-const AppWrapperInner = ({ engine }) => {
-    const [ouLevels, setOuLevels] = useState(null)
-    const doFetchOuLevelsData = useCallback(async () => {
-        const ouLevels = await apiFetchOrganisationUnitLevels(engine)
-        return ouLevels
-    }, [engine])
-
-    useEffect(() => {
-        const doFetch = async () => {
-            const ouLevelsData = await doFetchOuLevelsData()
-            setOuLevels(ouLevelsData)
-        }
-        doFetch()
-    }, [])
-
-    return (
-        <CachedDataQueryProvider
-            query={query}
-            dataTransformation={providerDataTransformation}
-        >
-            <App
-                initialLocation={history.location}
-                ouLevels={ouLevels} // TODO: Unused by App.js?
-            />
-        </CachedDataQueryProvider>
-    )
-}
-
-AppWrapperInner.propTypes = {
-    engine: PropTypes.object,
-}
-
 const AppWrapper = () => {
     const engine = useDataEngine()
     const store = configureStore([
@@ -90,7 +54,12 @@ const AppWrapper = () => {
 
     return (
         <ReduxProvider store={store}>
-            <AppWrapperInner engine={engine} />
+            <CachedDataQueryProvider
+                query={query}
+                dataTransformation={providerDataTransformation}
+            >
+                <App initialLocation={history.location} />
+            </CachedDataQueryProvider>
         </ReduxProvider>
     )
 }
