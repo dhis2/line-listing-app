@@ -6,6 +6,7 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import isObject from 'lodash-es/isObject'
+import { getInputFromVisualization } from './input.js'
 import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
@@ -28,6 +29,7 @@ export const getAdaptedUiByType = (ui) => {
 
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
+    input: getInputFromVisualization(vis),
     program: getProgramFromVisualisation(vis),
     options: getOptionsFromVisualization(vis),
     layout: layoutGetAxisIdDimensionIdsObject(vis),

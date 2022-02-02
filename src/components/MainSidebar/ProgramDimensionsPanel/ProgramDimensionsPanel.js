@@ -9,6 +9,7 @@ import {
     tSetUiProgram,
     acUpdateUiProgramStageId,
     acClearUiProgram,
+    acClearUiStage,
 } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
@@ -103,6 +104,13 @@ const ProgramDimensionsPanel = ({ visible, isSelected }) => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType])
+
+    useEffect(() => {
+        // Clear everything but program itself when user switches program
+        dispatch(acClearUiStage())
+        setSearchTerm('')
+        setDimensionType(DIMENSION_TYPE_ALL)
+    }, [inputType, selectedProgramId])
 
     useEffect(() => {
         if (

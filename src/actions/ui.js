@@ -19,6 +19,7 @@ import {
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
     CLEAR_UI_PROGRAM,
+    CLEAR_UI_STAGE,
 } from '../reducers/ui.js'
 
 export const acSetUiInput = (value) => ({
@@ -28,6 +29,10 @@ export const acSetUiInput = (value) => ({
 
 export const acClearUiProgram = () => ({
     type: CLEAR_UI_PROGRAM,
+})
+
+export const acClearUiStage = () => ({
+    type: CLEAR_UI_STAGE,
 })
 
 export const acUpdateUiProgramId = (value, metadata) => ({

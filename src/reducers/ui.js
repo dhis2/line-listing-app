@@ -11,6 +11,7 @@ import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
+export const CLEAR_UI_STAGE = 'CLEAR_UI_STAGE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -104,6 +105,15 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 program: EMPTY_UI.program,
+            }
+        }
+        case CLEAR_UI_STAGE: {
+            return {
+                ...state,
+                program: {
+                    id: state.program.id,
+                    stage: undefined,
+                },
             }
         }
         case UPDATE_UI_PROGRAM_ID: {
