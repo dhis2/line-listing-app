@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-28T14:22:26.535Z\n"
-"PO-Revision-Date: 2022-01-28T14:22:26.535Z\n"
+"POT-Creation-Date: 2022-02-02T11:05:53.667Z\n"
+"PO-Revision-Date: 2022-02-02T11:05:53.667Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -68,6 +68,12 @@ msgstr "Add another condition"
 
 msgid "Add a condition"
 msgstr "Add a condition"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Repeated events"
+msgstr "Repeated events"
 
 msgid "after"
 msgstr "after"
