@@ -8,8 +8,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     tSetUiProgram,
     acUpdateUiProgramStageId,
-    acClearUiProgram,
-    acClearUiStage,
+    acClearUiProgramId,
+    acClearUiStageId,
 } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
@@ -100,14 +100,14 @@ const ProgramDimensionsPanel = ({ visible, isSelected }) => {
 
     useEffect(() => {
         // Clear everything when user changes input type
-        dispatch(acClearUiProgram())
+        dispatch(acClearUiProgramId())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType])
 
     useEffect(() => {
         // Clear everything but program itself when user switches program
-        dispatch(acClearUiStage())
+        dispatch(acClearUiStageId())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType, selectedProgramId])
