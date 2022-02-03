@@ -1,5 +1,4 @@
 import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
-import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -22,6 +21,7 @@ import {
 } from '../../reducers/ui.js'
 import { DimensionItem } from './DimensionItem/index.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './ProgramDimensionsPanel/ProgramDimensionsPanel.js'
+import { useSelectedDimensions } from './SelectedDimensionsContext.js'
 import styles from './TimeDimensions.module.css'
 
 const getName = (dimension, program, stage) => {
@@ -35,7 +35,8 @@ const getName = (dimension, program, stage) => {
     return name || dimension.defaultName
 }
 
-const TimeDimensions = ({ isSelected }) => {
+const TimeDimensions = () => {
+    const { getIsDimensionSelected } = useSelectedDimensions()
     const selectedInputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
     const stageId = useSelector(sGetUiProgramStageId)
@@ -87,7 +88,7 @@ const TimeDimensions = ({ isSelected }) => {
                     dimensionType={dimension.dimensionType}
                     name={dimension.name}
                     id={dimension.id}
-                    selected={isSelected(dimension.id)}
+                    selected={getIsDimensionSelected(dimension.id)}
                     disabled={dimension.isDisabled}
                     optionSet={dimension.optionSet}
                     valueType={dimension.valueType}
@@ -95,10 +96,6 @@ const TimeDimensions = ({ isSelected }) => {
             ))}
         </div>
     )
-}
-
-TimeDimensions.propTypes = {
-    isSelected: PropTypes.func,
 }
 
 export default TimeDimensions

@@ -3,6 +3,7 @@ import { CircularLoader, NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import { DimensionItem } from '../DimensionItem/DimensionItem.js'
+import { useSelectedDimensions } from '../SelectedDimensionsContext.js'
 import styles from './DimensionsList.module.css'
 
 const getNoResultsMessage = (searchTerm, programName) => {
@@ -29,10 +30,10 @@ const DimensionsList = ({
     dimensions,
     programName,
     searchTerm,
-    isSelected,
     setIsListEndVisible,
 }) => {
     const scrollBoxRef = useRef()
+    const { getIsDimensionSelected } = useSelectedDimensions()
 
     useEffect(() => {
         if (dimensions && scrollBoxRef.current && !loading && !fetching) {
@@ -87,7 +88,7 @@ const DimensionsList = ({
                         id={dimension.id}
                         optionSet={dimension.optionSet}
                         valueType={dimension.valueType}
-                        selected={isSelected(dimension.id)}
+                        selected={getIsDimensionSelected(dimension.id)}
                     />
                 ))}
                 {fetching && (
@@ -101,7 +102,6 @@ const DimensionsList = ({
 }
 
 DimensionsList.propTypes = {
-    isSelected: PropTypes.func.isRequired,
     setIsListEndVisible: PropTypes.func.isRequired,
     dimensions: PropTypes.array,
     error: PropTypes.object,

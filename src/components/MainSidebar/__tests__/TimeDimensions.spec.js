@@ -4,6 +4,12 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import TimeDimensions from '../TimeDimensions.js'
 
+jest.mock('../SelectedDimensionsContext.js', () => ({
+    useSelectedDimensions: () => ({
+        getIsDimensionSelected: jest.fn(() => false),
+    }),
+}))
+
 const mockStore = configureMockStore()
 
 test('input type EVENT, WITHOUT_REGISTRATION no custom labels', () => {

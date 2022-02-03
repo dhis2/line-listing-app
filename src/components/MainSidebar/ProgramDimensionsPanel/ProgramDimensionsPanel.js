@@ -50,7 +50,7 @@ const query = {
     },
 }
 
-const ProgramDimensionsPanel = ({ visible, isSelected }) => {
+const ProgramDimensionsPanel = ({ visible }) => {
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
@@ -191,7 +191,6 @@ const ProgramDimensionsPanel = ({ visible, isSelected }) => {
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}
-                    isSelected={isSelected}
                 />
             )}
         </div>
@@ -199,7 +198,6 @@ const ProgramDimensionsPanel = ({ visible, isSelected }) => {
 }
 
 ProgramDimensionsPanel.propTypes = {
-    isSelected: PropTypes.func.isRequired,
     visible: PropTypes.bool.isRequired,
 }
 
