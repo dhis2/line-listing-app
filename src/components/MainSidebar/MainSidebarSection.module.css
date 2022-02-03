@@ -1,18 +1,18 @@
-.list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
-}
-
-.dimensionSection {
+.container {
     padding: var(--spacers-dp8);
     background: var(--colors-white);
     border-bottom: 1px solid var(--colors-grey300);
 }
 
-.dimensionSectionHeader {
+.header {
     color: var(--colors-grey700);
     font-size: 13px;
     margin-bottom: var(--spacers-dp8);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
 }

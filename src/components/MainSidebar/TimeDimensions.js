@@ -1,4 +1,5 @@
 import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
@@ -20,9 +21,9 @@ import {
     sGetUiProgramStageId,
 } from '../../reducers/ui.js'
 import { DimensionItem } from './DimensionItem/index.js'
+import { MainSidebarSection } from './MainSidebarSection.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './ProgramDimensionsPanel/ProgramDimensionsPanel.js'
 import { useSelectedDimensions } from './SelectedDimensionsContext.js'
-import styles from './TimeDimensions.module.css'
 
 const getName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty) {
@@ -35,7 +36,7 @@ const getName = (dimension, program, stage) => {
     return name || dimension.defaultName
 }
 
-const TimeDimensions = () => {
+export const TimeDimensions = () => {
     const { getIsDimensionSelected } = useSelectedDimensions()
     const selectedInputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
@@ -81,7 +82,7 @@ const TimeDimensions = () => {
     }))
 
     return (
-        <div className={styles.list}>
+        <MainSidebarSection header={i18n.t('Time dimensions')}>
             {dimensions.map((dimension) => (
                 <DimensionItem
                     key={dimension.id}
@@ -94,8 +95,6 @@ const TimeDimensions = () => {
                     valueType={dimension.valueType}
                 />
             ))}
-        </div>
+        </MainSidebarSection>
     )
 }
-
-export default TimeDimensions
