@@ -8,12 +8,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     tSetUiProgram,
     acUpdateUiProgramStageId,
-    acClearUiProgram,
+    acClearUiProgramId,
+    acClearUiStageId,
 } from '../../../actions/ui.js'
+import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
-    DIMENSION_TYPE_ALL,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
 import {
     sGetUiInputType,
@@ -73,8 +75,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
-            inputType === OUTPUT_TYPE_EVENT ||
-            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            !(
+                inputType === OUTPUT_TYPE_ENROLLMENT &&
+                programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            )
     )
     const selectedProgram =
         selectedProgramId &&
@@ -96,10 +100,17 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
     useEffect(() => {
         // Clear everything when user changes input type
-        dispatch(acClearUiProgram())
+        dispatch(acClearUiProgramId())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType])
+
+    useEffect(() => {
+        // Clear everything but program itself when user switches program
+        dispatch(acClearUiStageId())
+        setSearchTerm('')
+        setDimensionType(DIMENSION_TYPE_ALL)
+    }, [inputType, selectedProgramId])
 
     useEffect(() => {
         if (
@@ -107,11 +118,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
             inputType === OUTPUT_TYPE_EVENT &&
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
-            const artificialStageId = selectedProgram.programStages[0].id
-            const metadata = {
-                [artificialStageId]: selectedProgram.programStages[0],
-            }
-            dispatch(acUpdateUiProgramStageId(artificialStageId, metadata))
+            const artificialStage = selectedProgram.programStages[0]
+            const metadata = { [artificialStage.id]: artificialStage }
+            dispatch(acUpdateUiProgramStageId(artificialStage.id, metadata))
         }
     }, [inputType, programType])
 
@@ -178,8 +187,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}
-                    programId={selectedProgramId}
-                    programName={selectedProgram.name}
+                    program={selectedProgram}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}
