@@ -130,25 +130,32 @@ const transformResponseData = ({
     deDimensionsMapRef,
     programStageNames,
     shouldReset,
+    inputType,
 }) => {
     const pager = data.dimensions.pager
     let newDuplicateFound = false
-    data.dimensions.dimensions.forEach((dimension) => {
-        const dataElementId = dimension.id.split('.')[1]
-        if (dataElementId) {
-            const dataElementCount =
-                deDimensionsMapRef.current.get(dataElementId)
-            if (dataElementCount) {
-                deDimensionsMapRef.current.set(
-                    dataElementId,
-                    dataElementCount + 1
-                )
-                newDuplicateFound = true
-            } else {
-                deDimensionsMapRef.current.set(dataElementId, 1)
+
+    if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        data.dimensions.dimensions.forEach((dimension) => {
+            const dataElementId = dimension.id.split('.')[1]
+            if (
+                dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+                dataElementId
+            ) {
+                const dataElementCount =
+                    deDimensionsMapRef.current.get(dataElementId)
+                if (dataElementCount) {
+                    deDimensionsMapRef.current.set(
+                        dataElementId,
+                        dataElementCount + 1
+                    )
+                    newDuplicateFound = true
+                } else {
+                    deDimensionsMapRef.current.set(dataElementId, 1)
+                }
             }
-        }
-    })
+        })
+    }
 
     const allDimensions = shouldReset
         ? data.dimensions.dimensions
@@ -240,6 +247,7 @@ const useProgramDimensions = ({
                         deDimensionsMapRef,
                         programStageNames,
                         shouldReset,
+                        inputType,
                     }),
                 })
             } catch (error) {
