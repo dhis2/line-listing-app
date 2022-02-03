@@ -397,6 +397,9 @@ msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 
+msgid "Not supported by this app yet"
+msgstr "Not supported by this app yet"
+
 msgid "Getting started"
 msgstr "Getting started"
 
@@ -625,17 +628,14 @@ msgstr "Due/Scheduled date"
 msgid "Last updated on"
 msgstr "Last updated on"
 
-msgid "Line list"
-msgstr "Line list"
-
-msgid "Pivot table"
-msgstr "Pivot table"
-
-msgid "Pivot tables are not supported by this app yet"
-msgstr "Pivot tables are not supported by this app yet"
-
 msgid "Events are single registrations or incidents in a program"
 msgstr "Events are single registrations or incidents in a program"
 
 msgid "Programs track enrollments across time"
 msgstr "Programs track enrollments across time"
+
+msgid "TEXT description for Line List"
+msgstr "TEXT description for Line List"
+
+msgid "TEXT description for Pivot Table"
+msgstr "TEXT description for Pivot Table"

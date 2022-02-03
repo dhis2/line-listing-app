@@ -1,6 +1,10 @@
-import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
+import {
+    AXIS_ID_COLUMNS,
+    AXIS_ID_FILTERS,
+    VIS_TYPE_LINE_LIST,
+    VIS_TYPE_PIVOT_TABLE,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import PivotTableIcon from '../assets/PivotTableIcon.js'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import { default as options } from './options.js'
@@ -15,27 +19,8 @@ export const DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET =
 export const DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET =
     'ORGANISATION_UNIT_GROUP_SET'
 
-export const VIS_TYPE_PIVOT_TABLE = 'PIVOT_TABLE'
-export const VIS_TYPE_LINE_LIST = 'LINE_LIST'
-
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
-
-export const visTypeMap = {
-    [VIS_TYPE_LINE_LIST]: {
-        name: i18n.t('Line list'),
-        description: 'TEXT description for Line list',
-        icon: PivotTableIcon,
-        disabled: false,
-    },
-    [VIS_TYPE_PIVOT_TABLE]: {
-        name: i18n.t('Pivot table'),
-        description: 'TEXT description for Pivot table',
-        icon: PivotTableIcon,
-        disabled: true,
-        disabledText: i18n.t('Pivot tables are not supported by this app yet'),
-    },
-}
 
 export const outputTypeMap = {
     [OUTPUT_TYPE_EVENT]: {
@@ -69,6 +54,17 @@ export const transformProgramDataElement = (visualization) => {
 
 export const transformVisualization = (visualization) =>
     transformProgramDataElement(visualization)
+
+export const visTypes = [
+    { type: VIS_TYPE_LINE_LIST },
+    { type: VIS_TYPE_PIVOT_TABLE, disabled: true },
+]
+
+export const visTypeDescriptions = {
+    // TODO review descriptions @scott @joe
+    [VIS_TYPE_LINE_LIST]: i18n.t('TEXT description for Line List'),
+    [VIS_TYPE_PIVOT_TABLE]: i18n.t('TEXT description for Pivot Table'),
+}
 
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)

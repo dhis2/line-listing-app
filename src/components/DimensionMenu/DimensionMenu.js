@@ -2,13 +2,13 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_FILTERS,
     AXIS_ID_ROWS,
+    VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { MenuDivider, FlyoutMenu, MenuItem } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { getAxisName } from '../../modules/axis.js'
-import { VIS_TYPE_LINE_LIST } from '../../modules/visualization.js'
 
 const getAxisItemLabel = (axisName, isDimensionInLayout) =>
     isDimensionInLayout
