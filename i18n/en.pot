@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-01-28T14:22:26.535Z\n"
-"PO-Revision-Date: 2022-01-28T14:22:26.535Z\n"
+"POT-Creation-Date: 2022-02-03T10:15:43.058Z\n"
+"PO-Revision-Date: 2022-02-03T10:15:43.058Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -114,14 +114,20 @@ msgstr "No preset option sets for this data item"
 msgid "Choose options"
 msgstr "Choose options"
 
+msgid "Hide"
+msgstr "Hide"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "No items selected"
+msgstr "No items selected"
+
 msgid "Available options"
 msgstr "Available options"
 
 msgid "Filter options"
 msgstr "Filter options"
-
-msgid "No items selected"
-msgstr "No items selected"
 
 msgid "Selected options"
 msgstr "Selected options"
@@ -131,12 +137,6 @@ msgstr "Nothing found for \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr "No options"
-
-msgid "Hide"
-msgstr "Hide"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"

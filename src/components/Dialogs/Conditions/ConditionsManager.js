@@ -11,13 +11,13 @@ import {
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
 import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '../../../modules/visualization.js'
-import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
+import commonClasses from '../styles/Common.module.css'
 import {
     PhoneNumberCondition,
     CaseSensitiveAlphanumericCondition,
@@ -368,13 +368,13 @@ const ConditionsManager = ({
         >
             <div>
                 {isSupported ? (
-                    <p className={classes.paragraph}>
+                    <p className={commonClasses.paragraph}>
                         {i18n.t(
                             'Show items that meet the following conditions for this data item:'
                         )}
                     </p>
                 ) : (
-                    <p className={classes.paragraph}>
+                    <p className={commonClasses.paragraph}>
                         {i18n.t(
                             "This dimension can't be filtered. All values will be shown."
                         )}
@@ -382,14 +382,14 @@ const ConditionsManager = ({
                 )}
             </div>
             {isSupported && (
-                <div className={classes.mainSection}>
+                <div className={commonClasses.mainSection}>
                     {!conditionsList.length &&
                     !selectedLegendSet &&
                     !(
                         SINGLETON_TYPES.includes(valueType) ||
                         isOptionSetCondition
                     ) ? (
-                        <p className={classes.paragraph}>
+                        <p className={commonClasses.paragraph}>
                             <span className={classes.infoIcon}>
                                 <IconInfo16 />
                             </span>
@@ -450,7 +450,6 @@ ConditionsManager.propTypes = {
     conditions: PropTypes.object.isRequired,
     dimension: PropTypes.object.isRequired,
     /* eslint-disable-next-line react/no-unused-prop-types */
-    dimensionId: PropTypes.string.isRequired,
     isInLayout: PropTypes.bool.isRequired,
     legendSet: PropTypes.string,
     setConditionsByDimension: PropTypes.func,
@@ -459,11 +458,11 @@ ConditionsManager.propTypes = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    dimension: sGetMetadata(state)[ownProps.dimensionId],
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
-        ownProps.dimensionId
+        ownProps.dimension?.id
     ),
-    conditions: sGetUiConditionsByDimension(state, ownProps.dimensionId) || {},
+    conditions:
+        sGetUiConditionsByDimension(state, ownProps.dimension?.id) || {},
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
     displayNameProp: sGetSettingsDisplayNameProperty(state),
 })

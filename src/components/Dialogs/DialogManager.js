@@ -3,46 +3,54 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
+import {
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+} from '../../modules/visualization.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
 import ConditionsManager from './Conditions/ConditionsManager.js'
+import DynamicDimension from './DynamicDimension.js'
 import FixedDimension from './FixedDimension.js'
 
-const DialogManager = ({ dialogId, changeDialog }) => {
-    switch (dialogId) {
+const isDynamicDimension = (type) =>
+    [
+        DIMENSION_TYPE_CATEGORY,
+        DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+        DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+    ].includes(type)
+
+const DialogManager = ({ dimension, changeDialog }) => {
+    const onClose = () => changeDialog(null)
+
+    if (isDynamicDimension(dimension?.dimensionType)) {
+        return <DynamicDimension dimension={dimension} onClose={onClose} />
+    }
+    switch (dimension?.id) {
         case DIMENSION_ID_ORGUNIT: {
-            return (
-                <FixedDimension
-                    dimensionId={dialogId}
-                    onClose={() => changeDialog(null)}
-                />
-            )
+            return <FixedDimension dimension={dimension} onClose={onClose} />
         }
         // TODO: case DIMENSION_ID_PERIOD:
         default: {
-            return (
-                dialogId && (
-                    <ConditionsManager
-                        dimensionId={dialogId}
-                        onClose={() => changeDialog(null)}
-                    />
-                )
-            )
+            return dimension?.id ? (
+                <ConditionsManager dimension={dimension} onClose={onClose} />
+            ) : null
         }
     }
 }
 
 DialogManager.propTypes = {
     changeDialog: PropTypes.func.isRequired,
-    dialogId: PropTypes.string,
+    dimension: PropTypes.object.isRequired,
 }
 
 DialogManager.defaultProps = {
-    dialogId: null,
     rootOrgUnits: [],
 }
 
 const mapStateToProps = (state) => ({
-    dialogId: sGetUiActiveModalDialog(state),
+    dimension: sGetMetadata(state)[sGetUiActiveModalDialog(state)],
 })
 
 export default connect(mapStateToProps, {
