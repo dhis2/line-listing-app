@@ -1,3 +1,3 @@
-export const getInputFromVisualization = (vis) => ({
+export const getInputTypeFromVisualization = (vis) => ({
     type: vis.outputType,
 })
