@@ -9,6 +9,7 @@ import {
 } from '../../actions/ui.js'
 import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
+import { MainDimensions } from './MainDimensions.js'
 import styles from './MainSidebar.module.css'
 import { MenuItem } from './MenuItem/index.js'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
@@ -16,7 +17,7 @@ import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
 } from './SelectedDimensionsContext.js'
-import TimeDimensions from './TimeDimensions.js'
+import { TimeDimensions } from './TimeDimensions.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const TAB_INPUT = 'INPUT'
@@ -68,13 +69,8 @@ const MainSidebar = () => {
                     selected={open && selectedTabId === TAB_YOUR}
                     count={counts.your}
                 />
-
-                <div className={styles.dimensionSection}>
-                    <div className={styles.dimensionSectionHeader}>
-                        {i18n.t('Time dimensions')}
-                    </div>
-                    <TimeDimensions />
-                </div>
+                <MainDimensions />
+                <TimeDimensions />
             </div>
             <div
                 className={cx(styles.accessory, {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-03T10:15:43.058Z\n"
-"PO-Revision-Date: 2022-02-03T10:15:43.058Z\n"
+"POT-Creation-Date: 2022-02-03T15:45:41.429Z\n"
+"PO-Revision-Date: 2022-02-03T15:45:41.429Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -314,6 +314,9 @@ msgstr "Events are single registrations or incidents in a program."
 msgid "Programs track enrollments across time."
 msgstr "Programs track enrollments across time."
 
+msgid "Main dimensions"
+msgstr "Main dimensions"
+
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -322,9 +325,6 @@ msgstr "Program dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
-
-msgid "Time dimensions"
-msgstr "Time dimensions"
 
 msgid "Search in program"
 msgstr "Search in program"
@@ -371,6 +371,9 @@ msgstr "Clear"
 
 msgid "Stage"
 msgstr "Stage"
+
+msgid "Time dimensions"
+msgstr "Time dimensions"
 
 msgid "Search your dimensions"
 msgstr "Search your dimensions"

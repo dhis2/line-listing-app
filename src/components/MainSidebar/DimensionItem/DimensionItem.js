@@ -70,7 +70,7 @@ const DimensionItem = ({
                       [id]: { id, name, dimensionType, valueType, optionSet },
                   })
               )
-    const Icon = DIMENSION_TYPE_ICONS[dimensionType]
+    const Icon = DIMENSION_TYPE_ICONS[dimensionType] || IconDimensionData16
 
     return (
         <div
