@@ -1,4 +1,8 @@
-import { FileMenu, useCachedDataQuery } from '@dhis2/analytics'
+import {
+    FileMenu,
+    useCachedDataQuery,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
@@ -10,6 +14,7 @@ import { acSetShowExpandedLayoutPanel } from '../../../actions/ui.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
+import { visTypes } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -219,6 +224,8 @@ const MenuBar = ({
                 currentUser={currentUser}
                 fileType={apiObjectName}
                 fileObject={current}
+                filterVisTypes={visTypes}
+                defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}

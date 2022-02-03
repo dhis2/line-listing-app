@@ -1,12 +1,13 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
-import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    USER_ORG_UNIT,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import {
-    OUTPUT_TYPE_EVENT,
-    VIS_TYPE_LINE_LIST,
-} from '../modules/visualization.js'
+import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'

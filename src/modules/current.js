@@ -1,9 +1,8 @@
-import { dimensionCreate } from '@dhis2/analytics'
+import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
-import { VIS_TYPE_LINE_LIST } from './visualization.js'
 
 export const getDefaultFromUi = (current, action) => {
     const ui = {

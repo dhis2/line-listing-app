@@ -2,10 +2,10 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
+    VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import cx from 'classnames'
 import React from 'react'
-import { VIS_TYPE_PIVOT_TABLE } from '../../../modules/visualization.js'
 import DefaultAxis from './DefaultAxis.js'
 import defaultAxisStyles from './styles/DefaultAxis.module.css'
 import defaultLayoutStyles from './styles/DefaultLayout.module.css'
