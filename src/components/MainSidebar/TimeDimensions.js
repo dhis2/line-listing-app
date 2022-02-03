@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
-    TIME_DIMENSION_EVENT_DATE,
-    TIME_DIMENSION_ENROLLMENT_DATE,
-    TIME_DIMENSION_INCIDENT_DATE,
-    TIME_DIMENSION_SCHEDULED_DATE,
-    TIME_DIMENSION_LAST_UPDATED,
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from '../../modules/dimensionTypes.js'
+import {
     getTimeDimensions,
     NAME_PARENT_PROPERTY_PROGRAM,
 } from '../../modules/timeDimensions.js'
@@ -51,22 +53,22 @@ const TimeDimensions = ({ isSelected }) => {
             program.programType === PROGRAM_TYPE_WITH_REGISTRATION
 
         if (isEvent) {
-            enabledDimensionIds.push(TIME_DIMENSION_EVENT_DATE)
+            enabledDimensionIds.push(DIMENSION_TYPE_EVENT_DATE)
         }
 
         if (withRegistration) {
-            enabledDimensionIds.push(TIME_DIMENSION_ENROLLMENT_DATE)
+            enabledDimensionIds.push(DIMENSION_TYPE_ENROLLMENT_DATE)
 
             isEvent &&
                 !stage.hideDueDate &&
-                enabledDimensionIds.push(TIME_DIMENSION_SCHEDULED_DATE)
+                enabledDimensionIds.push(DIMENSION_TYPE_SCHEDULED_DATE)
 
             program.displayIncidentDate &&
-                enabledDimensionIds.push(TIME_DIMENSION_INCIDENT_DATE)
+                enabledDimensionIds.push(DIMENSION_TYPE_INCIDENT_DATE)
         }
 
         if (isEvent || withRegistration) {
-            enabledDimensionIds.push(TIME_DIMENSION_LAST_UPDATED)
+            enabledDimensionIds.push(DIMENSION_TYPE_LAST_UPDATED)
         }
     }
 
