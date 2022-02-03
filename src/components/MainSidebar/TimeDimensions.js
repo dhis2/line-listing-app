@@ -15,7 +15,7 @@ import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
-    sGetUiProgramStage,
+    sGetUiProgramStageId,
 } from '../../reducers/ui.js'
 import { DimensionListItem } from './DimensionsList/DimensionListItem.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './ProgramDimensionsPanel/ProgramDimensionsPanel.js'
@@ -35,7 +35,7 @@ const getName = (dimension, program, stage) => {
 const TimeDimensions = () => {
     const selectedInputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
-    const stageId = useSelector(sGetUiProgramStage)
+    const stageId = useSelector(sGetUiProgramStageId)
     const program =
         useSelector((state) => sGetMetadataById(state, programId)) || {}
     const stage = useSelector((state) => sGetMetadataById(state, stageId)) || {}

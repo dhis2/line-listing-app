@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     tSetUiProgram,
-    acUpdateUiProgramStage,
+    acUpdateUiProgramStageId,
     acClearUiProgram,
 } from '../../../actions/ui.js'
 import { useDebounce } from '../../../modules/utils.js'
@@ -18,7 +18,7 @@ import {
 import {
     sGetUiInputType,
     sGetUiProgramId,
-    sGetUiProgramStage,
+    sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import { ProgramDimensionsList } from './ProgramDimensionsList.js'
@@ -52,7 +52,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
-    const selectedStageId = useSelector(sGetUiProgramStage)
+    const selectedStageId = useSelector(sGetUiProgramStageId)
     const setSelectedProgramId = (programId) =>
         dispatch(
             tSetUiProgram({
@@ -64,6 +64,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                 },
             })
         )
+
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -107,7 +108,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
             const artificialStageId = selectedProgram.programStages[0].id
-            dispatch(acUpdateUiProgramStage(artificialStageId))
+            const metadata = {
+                [artificialStageId]: selectedProgram.programStages[0],
+            }
+            dispatch(acUpdateUiProgramStageId(artificialStageId, metadata))
         }
     }, [inputType, programType])
 

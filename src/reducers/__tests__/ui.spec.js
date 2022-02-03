@@ -5,7 +5,7 @@ import reducer, {
     SET_UI_INPUT,
     CLEAR_UI_PROGRAM,
     UPDATE_UI_PROGRAM_ID,
-    UPDATE_UI_PROGRAM_STAGE,
+    UPDATE_UI_PROGRAM_STAGE_ID,
     SET_UI_REPETITION,
 } from '../ui.js'
 
@@ -50,7 +50,7 @@ describe('reducer: store.ui', () => {
         const prevState = {
             program: {
                 id: 'P',
-                stage: 'S',
+                stageId: 'S',
             },
         }
 
@@ -92,16 +92,16 @@ describe('reducer: store.ui', () => {
         })
     })
 
-    describe(`reducer: ${UPDATE_UI_PROGRAM_STAGE}`, () => {
+    describe(`reducer: ${UPDATE_UI_PROGRAM_STAGE_ID}`, () => {
         const programStage = 's'
 
         const programStageAction = {
-            type: UPDATE_UI_PROGRAM_STAGE,
+            type: UPDATE_UI_PROGRAM_STAGE_ID,
             value: programStage,
         }
 
-        it('sets the new program stage', () => {
-            expect(reducer({}, programStageAction).program.stage).toBe(
+        it('sets the new program stage id', () => {
+            expect(reducer({}, programStageAction).program.stageId).toBe(
                 programStage
             )
         })
