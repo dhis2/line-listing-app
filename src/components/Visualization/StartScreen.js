@@ -7,6 +7,7 @@ import { GenericError } from '../../assets/ErrorIcons.js'
 import { EVENT_TYPE } from '../../modules/dataStatistics.js'
 import { VisualizationError, genericErrorTitle } from '../../modules/error.js'
 import history from '../../modules/history.js'
+import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetUsername } from '../../reducers/user.js'
 import styles from './styles/StartScreen.module.css'
 
@@ -112,8 +113,7 @@ StartScreen.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    // TODO: Implement set and get load error in the store and on the visualization
-    error: null, //sGetLoadError(state),
+    error: sGetLoadError(state),
     username: sGetUsername(state),
 })
 
