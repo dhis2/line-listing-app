@@ -5,27 +5,34 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { acClearCurrent, acSetCurrent } from '../actions/current.js'
-import { acSetVisualizationLoading } from '../actions/loader.js'
+import { acSetCurrent } from '../actions/current.js'
+import {
+    acClearAll,
+    acSetLoadError,
+    acSetVisualizationLoading,
+} from '../actions/loader.js'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
 import { tAddSettings } from '../actions/settings.js'
 import {
-    tClearUi,
     acSetUiFromVisualization,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetUser } from '../actions/user.js'
-import {
-    acClearVisualization,
-    acSetVisualization,
-} from '../actions/visualization.js'
+import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
+import {
+    GenericServerError,
+    VisualizationNotFoundError,
+} from '../modules/error.js'
 import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
-import { sGetIsVisualizationLoading } from '../reducers/loader.js'
+import {
+    sGetIsVisualizationLoading,
+    sGetLoadError,
+} from '../reducers/loader.js'
 import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
@@ -100,9 +107,8 @@ const App = ({
     addMetadata,
     addParentGraphMap,
     addSettings,
-    clearCurrent,
-    clearVisualization,
-    clearUi,
+    clearAll,
+    error,
     isLoading,
     setCurrent,
     setInitMetadata,
@@ -115,7 +121,11 @@ const App = ({
     const { currentUser, userSettings } = useCachedDataQuery()
     const [previousLocation, setPreviousLocation] = useState(null)
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
-    const { data, refetch } = useDataQuery(visualizationQuery, {
+    const {
+        data,
+        refetch,
+        error: fetchError,
+    } = useDataQuery(visualizationQuery, {
         lazy: true,
     })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
@@ -124,6 +134,14 @@ const App = ({
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
         interpretationsUnitRef.current.refresh()
+    }
+
+    if (!error && fetchError) {
+        if (fetchError.details?.httpStatusCode === 404) {
+            clearAll(new VisualizationNotFoundError())
+        } else {
+            clearAll(fetchError.details.message || new GenericServerError())
+        }
     }
 
     const needsRefetch = (location) => {
@@ -161,10 +179,8 @@ const App = ({
                 refetch({ id })
             }
         } else {
-            clearCurrent()
-            clearVisualization()
+            clearAll()
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
-            clearUi()
             setVisualizationLoading(false)
         }
 
@@ -289,35 +305,35 @@ const App = ({
                                 classes.flexGrow1
                             )}
                         >
-                            {initialLoadIsComplete &&
-                                (!current && !isLoading ? (
-                                    <StartScreen />
-                                ) : (
-                                    <>
-                                        {isLoading && (
-                                            <div
-                                                className={classes.loadingCover}
-                                            >
-                                                <LoadingMask />
-                                            </div>
-                                        )}
-                                        {current && (
-                                            <Visualization
-                                                visualization={current}
-                                                onResponseReceived={
-                                                    onResponseReceived
-                                                }
-                                            />
-                                        )}
-                                        {current && (
-                                            <InterpretationModal
-                                                onInterpretationUpdate={
-                                                    onInterpretationUpdate
-                                                }
-                                            />
-                                        )}
-                                    </>
-                                ))}
+                            {(initialLoadIsComplete &&
+                                !current &&
+                                !isLoading) ||
+                            error ? (
+                                <StartScreen />
+                            ) : (
+                                <>
+                                    {isLoading && (
+                                        <div className={classes.loadingCover}>
+                                            <LoadingMask />
+                                        </div>
+                                    )}
+                                    {current && (
+                                        <Visualization
+                                            visualization={current}
+                                            onResponseReceived={
+                                                onResponseReceived
+                                            }
+                                        />
+                                    )}
+                                    {current && (
+                                        <InterpretationModal
+                                            onInterpretationUpdate={
+                                                onInterpretationUpdate
+                                            }
+                                        />
+                                    )}
+                                </>
+                            )}
                         </div>
                     </div>
                 </DndContext>
@@ -342,31 +358,30 @@ const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     isLoading: sGetIsVisualizationLoading(state),
     showDetailsPanel: sGetUiShowDetailsPanel(state),
+    error: sGetLoadError(state),
 })
 
 const mapDispatchToProps = {
     addMetadata: acAddMetadata,
     addParentGraphMap: acAddParentGraphMap,
     addSettings: tAddSettings,
-    clearVisualization: acClearVisualization,
-    clearCurrent: acClearCurrent,
-    clearUi: tClearUi,
+    clearAll: acClearAll,
     setCurrent: acSetCurrent,
     setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
     setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
     setVisualizationLoading: acSetVisualizationLoading,
+    setLoadError: acSetLoadError,
 }
 
 App.propTypes = {
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
     addSettings: PropTypes.func,
-    clearCurrent: PropTypes.func,
-    clearUi: PropTypes.func,
-    clearVisualization: PropTypes.func,
+    clearAll: PropTypes.func,
     current: PropTypes.object,
+    error: PropTypes.object,
     initialLocation: PropTypes.object,
     isLoading: PropTypes.bool,
     setCurrent: PropTypes.func,
