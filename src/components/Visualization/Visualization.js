@@ -59,18 +59,18 @@ export const Visualization = ({
         pageSize,
     })
 
-    if (error) {
-        return (
-            <div className={styles.error}>
-                <NoticeBox error title={i18n.t('Could not load visualization')}>
-                    {error?.message ||
-                        i18n.t(
-                            "The visualization couldn't be displayed. Try again or contact your system administrator."
-                        )}
-                </NoticeBox>
-            </div>
-        )
-    }
+    // if (error) {
+    //     return (
+    //         <div className={styles.error}>
+    //             <NoticeBox error title={i18n.t('Could not load visualization')}>
+    //                 {error?.message ||
+    //                     i18n.t(
+    //                         "The visualization couldn't be displayed. Try again or contact your system administrator."
+    //                     )}
+    //             </NoticeBox>
+    //         </div>
+    //     )
+    // }
 
     if (!data) {
         return null

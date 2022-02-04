@@ -22,6 +22,7 @@ import { acSetUser } from '../actions/user.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
+    EmptyResponseError,
     GenericServerError,
     VisualizationNotFoundError,
 } from '../modules/error.js'
@@ -207,6 +208,10 @@ const App = ({
         )
 
         addMetadata(itemsMetadata)
+
+        if (!response.rows?.length) {
+            throw new EmptyResponseError()
+        }
     }
 
     useEffect(() => {
