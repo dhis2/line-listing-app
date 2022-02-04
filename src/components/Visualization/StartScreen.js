@@ -40,9 +40,19 @@ const StartScreen = ({ error, username }) => {
                         {i18n.t('Getting started')}
                     </h3>
                     <ul className={styles.guide}>
-                        <li className={styles.guideItem}>{i18n.t('TEXT')}</li>
-                        <li className={styles.guideItem}>{i18n.t('TEXT')}</li>
-                        <li className={styles.guideItem}>{i18n.t('TEXT')}</li>
+                        <li className={styles.guideItem}>
+                            {i18n.t(
+                                'All dimensions that you can use to build visualizations are shown in the sections in the left sidebar.'
+                            )}
+                        </li>
+                        <li className={styles.guideItem}>
+                            {i18n.t('Add dimensions to the layout above.')}
+                        </li>
+                        <li className={styles.guideItem}>
+                            {i18n.t(
+                                'Click a dimension to add or remove conditions.'
+                            )}
+                        </li>
                     </ul>
                 </div>
                 {/* TODO add a spinner when loading?! */}
@@ -52,7 +62,7 @@ const StartScreen = ({ error, username }) => {
                             className={styles.title}
                             data-test="start-screen-secondary-section-title"
                         >
-                            {i18n.t('Your most viewed TEXT')}
+                            {i18n.t('Your most viewed event reports')}
                         </h3>
                         {data.mostViewedVisualizations.map(
                             (visualization, index) => {
