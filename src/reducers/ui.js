@@ -10,7 +10,8 @@ import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
-export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
+export const CLEAR_UI_PROGRAM_ID = 'CLEAR_UI_PROGRAM_ID'
+export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
@@ -34,7 +35,10 @@ const EMPTY_UI = {
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
-    program: {},
+    program: {
+        id: undefined,
+        stageId: undefined,
+    },
     layout: {
         columns: [],
         filters: [],
@@ -100,10 +104,19 @@ export default (state = EMPTY_UI, action) => {
                 input: action.value,
             }
         }
-        case CLEAR_UI_PROGRAM: {
+        case CLEAR_UI_PROGRAM_ID: {
             return {
                 ...state,
                 program: EMPTY_UI.program,
+            }
+        }
+        case CLEAR_UI_STAGE_ID: {
+            return {
+                ...state,
+                program: {
+                    id: state.program.id,
+                    stageId: undefined,
+                },
             }
         }
         case UPDATE_UI_PROGRAM_ID: {

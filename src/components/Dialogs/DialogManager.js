@@ -7,7 +7,7 @@ import {
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
     DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
-} from '../../modules/visualization.js'
+} from '../../modules/dimensionTypes.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
 import ConditionsManager from './Conditions/ConditionsManager.js'

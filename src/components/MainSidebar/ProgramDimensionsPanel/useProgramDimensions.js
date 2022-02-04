@@ -1,8 +1,10 @@
 import { useDataEngine } from '@dhis2/app-runtime'
-import { useEffect, useReducer, useCallback } from 'react'
+import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
+} from '../../../modules/dimensionTypes.js'
+import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
@@ -41,13 +43,7 @@ const reducer = (state, action) => {
                 loading: false,
                 fetching: false,
                 error: null,
-                dimensions: state.dimensions
-                    ? [...state.dimensions, ...action.payload.dimensions]
-                    : action.payload.dimensions,
-                nextPage: action.payload.pager.page + 1,
-                isLastPage:
-                    action.payload.pager.pageSize * action.payload.pager.page >=
-                    action.payload.pager.total,
+                ...action.payload,
             }
         case ACTIONS_ERROR:
             return {
@@ -128,13 +124,71 @@ const createDimensionsQuery = ({
     }
 }
 
+const transformResponseData = ({
+    data,
+    dimensions,
+    deDimensionsMapRef,
+    programStageNames,
+    shouldReset,
+    inputType,
+}) => {
+    const pager = data.dimensions.pager
+    let newDuplicateFound = false
+
+    if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        data.dimensions.dimensions.forEach((dimension) => {
+            const dataElementId = dimension.id.split('.')[1]
+            if (
+                dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+                dataElementId
+            ) {
+                const dataElementCount =
+                    deDimensionsMapRef.current.get(dataElementId)
+                if (dataElementCount) {
+                    deDimensionsMapRef.current.set(
+                        dataElementId,
+                        dataElementCount + 1
+                    )
+                    newDuplicateFound = true
+                } else {
+                    deDimensionsMapRef.current.set(dataElementId, 1)
+                }
+            }
+        })
+    }
+
+    const allDimensions = shouldReset
+        ? data.dimensions.dimensions
+        : [...dimensions, ...data.dimensions.dimensions]
+
+    const allDimensionsWithStageLabel = newDuplicateFound
+        ? allDimensions.map((dimension) => {
+              const [programStageId, dataElementId] = dimension.id.split('.')
+              if (
+                  dataElementId &&
+                  deDimensionsMapRef.current.get(dataElementId) > 1
+              ) {
+                  dimension.stageName = programStageNames?.get(programStageId)
+              }
+              return dimension
+          })
+        : allDimensions
+
+    return {
+        dimensions: allDimensionsWithStageLabel,
+        nextPage: pager.page + 1,
+        isLastPage: pager.pageSize * pager.page >= pager.total,
+    }
+}
+
 const useProgramDimensions = ({
     inputType,
-    programId,
+    program,
     stageId,
     searchTerm,
     dimensionType,
 }) => {
+    const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
         {
@@ -148,6 +202,14 @@ const useProgramDimensions = ({
         },
         dispatch,
     ] = useReducer(reducer, initialState)
+    const programStageNames = useMemo(
+        () =>
+            program.programStages?.reduce((acc, stage) => {
+                acc.set(stage.id, stage.name)
+                return acc
+            }, new Map()),
+        [program]
+    )
 
     const setIsListEndVisible = (isVisible) => {
         if (isVisible !== isListEndVisible) {
@@ -158,6 +220,7 @@ const useProgramDimensions = ({
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             if (shouldReset) {
+                deDimensionsMapRef.current.clear()
                 dispatch({ type: ACTIONS_RESET })
             } else {
                 dispatch({ type: ACTIONS_INIT })
@@ -169,15 +232,23 @@ const useProgramDimensions = ({
                     dimensions: createDimensionsQuery({
                         inputType,
                         page,
-                        programId,
+                        programId: program.id,
                         stageId,
                         searchTerm,
                         dimensionType,
                     }),
                 })
+
                 dispatch({
                     type: ACTIONS_SUCCESS,
-                    payload: data.dimensions,
+                    payload: transformResponseData({
+                        data,
+                        dimensions,
+                        deDimensionsMapRef,
+                        programStageNames,
+                        shouldReset,
+                        inputType,
+                    }),
                 })
             } catch (error) {
                 dispatch({ type: ACTIONS_ERROR, payload: error })
@@ -186,7 +257,7 @@ const useProgramDimensions = ({
         [
             inputType,
             nextPage,
-            programId,
+            program,
             stageId,
             searchTerm,
             dimensionType,
@@ -194,9 +265,11 @@ const useProgramDimensions = ({
         ]
     )
 
+    useEffect(() => {}, [])
+
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, programId, stageId, searchTerm, dimensionType])
+    }, [inputType, program, stageId, searchTerm, dimensionType])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {

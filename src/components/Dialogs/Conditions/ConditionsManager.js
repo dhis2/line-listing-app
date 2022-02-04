@@ -10,7 +10,7 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '../../../modules/visualization.js'
+import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '../../../modules/dimensionTypes.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
