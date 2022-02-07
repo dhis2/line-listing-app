@@ -3,7 +3,7 @@ import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import reducer, {
     DEFAULT_UI,
     SET_UI_INPUT,
-    CLEAR_UI_PROGRAM_ID,
+    CLEAR_UI_PROGRAM,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
     SET_UI_REPETITION,
@@ -46,7 +46,7 @@ describe('reducer: store.ui', () => {
         })
     })
 
-    describe(`reducer: ${CLEAR_UI_PROGRAM_ID}`, () => {
+    describe(`reducer: ${CLEAR_UI_PROGRAM}`, () => {
         const prevState = {
             program: {
                 id: 'P',
@@ -55,7 +55,7 @@ describe('reducer: store.ui', () => {
         }
 
         const clearProgramAction = {
-            type: CLEAR_UI_PROGRAM_ID,
+            type: CLEAR_UI_PROGRAM,
         }
 
         it('clears the selected program', () => {
