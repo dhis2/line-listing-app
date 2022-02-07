@@ -6,15 +6,8 @@ import {
     DIMENSION_PROP_NO_ITEMS,
     VIS_TYPE_LINE,
     DIMENSION_ID_ORGUNIT,
-    layoutHasDimension,
 } from '@dhis2/analytics'
-import { DIMENSION_TYPES_TIME } from './dimensionTypes.js'
-import {
-    NoColumnsError,
-    NoOrgUnitError,
-    NoPeriodError,
-    NoProgramError,
-} from './error.js'
+import { NoColumnsError, NoOrgUnitError, NoProgramError } from './error.js'
 
 // Layout validation helper functions
 const isAxisValid = (axis) =>
