@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { acSetUiInput } from '../../../actions/ui.js'
+import { tSetUiInput } from '../../../actions/ui.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
@@ -29,7 +29,7 @@ const InputPanel = ({ visible }) => {
 
     const selectedInput = useSelector(sGetUiInput)
     const dispatch = useDispatch()
-    const setSelectedInput = (input) => dispatch(acSetUiInput(input))
+    const setSelectedInput = (input) => dispatch(tSetUiInput(input))
 
     return (
         <div className={styles.container}>

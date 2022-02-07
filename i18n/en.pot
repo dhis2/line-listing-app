@@ -314,6 +314,24 @@ msgstr "Events are single registrations or incidents in a program."
 msgid "Programs track enrollments across time."
 msgstr "Programs track enrollments across time."
 
+msgid "Main dimensions"
+msgstr "Main dimensions"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Program status"
+msgstr "Program status"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Last updated by"
+msgstr "Last updated by"
+
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -322,9 +340,6 @@ msgstr "Program dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
-
-msgid "Time dimensions"
-msgstr "Time dimensions"
 
 msgid "Search in program"
 msgstr "Search in program"
@@ -371,6 +386,9 @@ msgstr "Clear"
 
 msgid "Stage"
 msgstr "Stage"
+
+msgid "Time dimensions"
+msgstr "Time dimensions"
 
 msgid "Search your dimensions"
 msgstr "Search your dimensions"

@@ -26,7 +26,7 @@ import {
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
     DIMENSION_TYPE_PROGRAM_STATUS,
-    DIMENSION_TYPE_STORED_BY,
+    DIMENSION_TYPE_CREATED_BY,
 } from '../../../modules/dimensionTypes.js'
 import styles from './DimensionItem.module.css'
 
@@ -45,7 +45,7 @@ const DIMENSION_TYPE_ICONS = {
     [DIMENSION_TYPE_OU]: IconDimensionOrgUnit16,
     [DIMENSION_TYPE_PROGRAM_STATUS]: IconCheckmarkCircle16,
     [DIMENSION_TYPE_EVENT_STATUS]: IconCheckmarkCircle16,
-    [DIMENSION_TYPE_STORED_BY]: IconUser16,
+    [DIMENSION_TYPE_CREATED_BY]: IconUser16,
     [DIMENSION_TYPE_LAST_UPDATED_BY]: IconUser16,
     /**TIME**/
     [DIMENSION_ID_PERIOD]: IconCalendar16,
@@ -70,7 +70,7 @@ const DimensionItem = ({
                       [id]: { id, name, dimensionType, valueType, optionSet },
                   })
               )
-    const Icon = DIMENSION_TYPE_ICONS[dimensionType]
+    const Icon = DIMENSION_TYPE_ICONS[dimensionType] || IconDimensionData16
 
     return (
         <div

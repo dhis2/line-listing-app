@@ -9,11 +9,11 @@
     cursor: pointer;
 }
 
-.dimensionItem:hover {
+.dimensionItem:not(.disabled):hover {
     background-color: var(--colors-grey200);
 }
 
-.dimensionItem:active {
+.dimensionItem:not(.disabled):active {
     background-color: #d8e1e9;
 }
 
@@ -24,11 +24,11 @@
     font-weight: 500;
 }
 
-.dimensionItem.selected:hover {
+.dimensionItem.selected:not(.disabled):hover {
     background-color: #cdeae8;
 }
 
-.dimensionItem.selected:active {
+.dimensionItem.selected:not(.disabled):active {
     background-color: #bbe2e0;
 }
 
@@ -37,15 +37,11 @@
     cursor: not-allowed;
 }
 
-.dimensionItem.disabled:hover {
-    background-color: unset;
-}
-
 .icon {
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
-    margin: 2px 6px 0 0;
+    margin: 4px 6px 0 0;
     overflow: hidden;
 }
 

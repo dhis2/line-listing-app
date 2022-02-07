@@ -59,7 +59,7 @@ const visualizationQuery = {
                 'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
                 'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
                 'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
-                'program[id,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name)]]',
+                'program[id,programType,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name)]]',
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate]',
                 'access,user[displayName,userCredentials[username]]',
                 'href',
