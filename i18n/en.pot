@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-03T15:45:41.429Z\n"
-"PO-Revision-Date: 2022-02-03T15:45:41.429Z\n"
+"POT-Creation-Date: 2022-02-07T14:29:02.653Z\n"
+"PO-Revision-Date: 2022-02-07T14:29:02.653Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -317,6 +317,21 @@ msgstr "Programs track enrollments across time."
 msgid "Main dimensions"
 msgstr "Main dimensions"
 
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Program status"
+msgstr "Program status"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Last updated by"
+msgstr "Last updated by"
+
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -406,11 +421,21 @@ msgstr "Not supported by this app yet"
 msgid "Getting started"
 msgstr "Getting started"
 
-msgid "TEXT"
-msgstr "TEXT"
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
 
-msgid "Your most viewed TEXT"
-msgstr "Your most viewed TEXT"
+msgid "Add dimensions to the layout above."
+msgstr "Add dimensions to the layout above."
+
+msgid "Click a dimension to add or remove conditions."
+msgstr "Click a dimension to add or remove conditions."
+
+msgid "Your most viewed event reports"
+msgstr "Your most viewed event reports"
 
 msgid "Could not load visualization"
 msgstr "Could not load visualization"
