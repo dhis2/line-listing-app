@@ -3,146 +3,155 @@
 exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem disabled"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le due date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le due date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -152,146 +161,155 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels 1`] = `
 exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident date 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem disabled"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le due date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le due date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -301,146 +319,155 @@ exports[`input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident 
 exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem disabled"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Date of registration
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem disabled"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Date of registration
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Tracking date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Test date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            Tracking date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Test date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -450,146 +477,155 @@ exports[`input type ENROLLMENT, WITHOUT_REGISTRATION 1`] = `
 exports[`input type EVENT and program metadata missing 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem disabled"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Date of registration
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem disabled"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Date of registration
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Tracking date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Test date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            Tracking date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Test date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -599,146 +635,155 @@ exports[`input type EVENT and program metadata missing 1`] = `
 exports[`input type EVENT, WITH_REGISTRATION 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Tracking date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Test date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            Tracking date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Test date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -748,146 +793,155 @@ exports[`input type EVENT, WITH_REGISTRATION 1`] = `
 exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le due date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le due date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -897,146 +951,155 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels 1`] = `
 exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le 2nd event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le 2nd event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le 2nd due date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le 2nd due date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1046,146 +1109,155 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide due date 1`] =
 exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le due date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le due date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1195,146 +1267,155 @@ exports[`input type EVENT, WITH_REGISTRATION, custom labels, hide incident date 
 exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Date of registration
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem disabled"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Date of registration
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Tracking date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Test date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            Tracking date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Test date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1344,146 +1425,155 @@ exports[`input type EVENT, WITHOUT_REGISTRATION no custom labels 1`] = `
 exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le event date
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem disabled"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le event date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Tracking date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Test date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            Tracking date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Test date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1493,146 +1583,155 @@ exports[`input type EVENT, WITHOUT_REGISTRATION with custom labels 1`] = `
 exports[`stage missing 1`] = `
 <div>
   <div
-    class="list"
+    class="container"
   >
     <div
-      class="dimensionItem disabled"
+      class="header"
     >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          Date of registration
-        </span>
-      </div>
+      Time dimensions
     </div>
     <div
-      class="dimensionItem disabled"
+      class="list"
     >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Date of registration
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          le enrollment date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-      <div
-        class="label"
-      >
-        <span
-          class="primary"
-        >
-          le incident date
-        </span>
-      </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
-      <div
-        class="icon"
-      >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <span
+            class="primary"
+          >
+            le enrollment date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Due/Scheduled date
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            le incident date
+          </span>
+        </div>
       </div>
-    </div>
-    <div
-      class="dimensionItem disabled"
-    >
       <div
-        class="icon"
+        class="dimensionItem disabled"
       >
-        <svg
-          height="16"
-          viewBox="0 0 16 16"
-          width="16"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="icon"
         >
-          <path
-            d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
-            fill="currentColor"
-          />
-        </svg>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Due/Scheduled date
+          </span>
+        </div>
       </div>
       <div
-        class="label"
+        class="dimensionItem disabled"
       >
-        <span
-          class="primary"
+        <div
+          class="icon"
         >
-          Last updated on
-        </span>
+          <svg
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 2a.5.5 0 01.5.5V4h1a1 1 0 011 1v8a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h1V2.5a.5.5 0 011 0V4h6V2.5a.5.5 0 01.5-.5zM13 6H3v7h10zm-8 4a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zM5 7a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2zm3 0a1 1 0 110 2 1 1 0 010-2z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+        <div
+          class="label"
+        >
+          <span
+            class="primary"
+          >
+            Last updated on
+          </span>
+        </div>
       </div>
     </div>
   </div>
