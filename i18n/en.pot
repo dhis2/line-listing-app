@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-03T10:15:43.058Z\n"
-"PO-Revision-Date: 2022-02-03T10:15:43.058Z\n"
+"POT-Creation-Date: 2022-02-07T15:39:29.521Z\n"
+"PO-Revision-Date: 2022-02-07T15:39:29.521Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -403,21 +403,24 @@ msgstr "Not supported by this app yet"
 msgid "Getting started"
 msgstr "Getting started"
 
-msgid "TEXT"
-msgstr "TEXT"
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
 
-msgid "Your most viewed TEXT"
-msgstr "Your most viewed TEXT"
+msgid "Add dimensions to the layout above."
+msgstr "Add dimensions to the layout above."
+
+msgid "Click a dimension to add or remove conditions."
+msgstr "Click a dimension to add or remove conditions."
+
+msgid "Your most viewed event reports"
+msgstr "Your most viewed event reports"
 
 msgid "Could not load visualization"
 msgstr "Could not load visualization"
-
-msgid ""
-"The visualization couldn't be displayed. Try again or contact your system "
-"administrator."
-msgstr ""
-"The visualization couldn't be displayed. Try again or contact your system "
-"administrator."
 
 msgid "Cases per page"
 msgstr "Cases per page"
@@ -573,6 +576,30 @@ msgid ""
 msgstr ""
 "The visualization you are trying to view could not be found, the ID could "
 "be incorrect or it could have been deleted."
+
+msgid "No program selected"
+msgstr "No program selected"
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr "Choose a program from the Program Dimensions sidebar."
+
+msgid "Columns is empty"
+msgstr "Columns is empty"
+
+msgid "At at least one item to Columns."
+msgstr "At at least one item to Columns."
+
+msgid "No organisation unit selected"
+msgstr "No organisation unit selected"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr "Add at least one organisation unit to the layout."
+
+msgid "No time dimension selected"
+msgstr "No time dimension selected"
+
+msgid "Add at least one time dimension to the layout."
+msgstr "Add at least one time dimension to the layout."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"

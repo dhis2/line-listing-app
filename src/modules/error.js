@@ -1,6 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
-import { EmptyBox, GenericError } from '../assets/ErrorIcons.js'
-
+import {
+    DataError,
+    EmptyBox,
+    GenericError,
+    PeriodError,
+} from '../assets/ErrorIcons.js'
 export class VisualizationError {
     constructor(icon, title, description) {
         this.icon = icon
@@ -49,6 +53,46 @@ export class VisualizationNotFoundError extends VisualizationError {
             i18n.t(
                 'The visualization you are trying to view could not be found, the ID could be incorrect or it could have been deleted.'
             )
+        )
+    }
+}
+
+export class NoProgramError extends VisualizationError {
+    constructor() {
+        super(
+            EmptyBox,
+            i18n.t('No program selected'),
+            i18n.t('Choose a program from the Program Dimensions sidebar.')
+        )
+    }
+}
+
+export class NoColumnsError extends VisualizationError {
+    constructor() {
+        super(
+            EmptyBox,
+            i18n.t('Columns is empty'),
+            i18n.t('At at least one item to Columns.')
+        )
+    }
+}
+
+export class NoOrgUnitError extends VisualizationError {
+    constructor() {
+        super(
+            DataError,
+            i18n.t('No organisation unit selected'),
+            i18n.t('Add at least one organisation unit to the layout.')
+        )
+    }
+}
+
+export class NoPeriodError extends VisualizationError {
+    constructor() {
+        super(
+            PeriodError,
+            i18n.t('No time dimension selected'),
+            i18n.t('Add at least one time dimension to the layout.')
         )
     }
 }

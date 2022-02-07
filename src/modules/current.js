@@ -4,34 +4,33 @@ import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
 
-export const getDefaultFromUi = (current, action) => {
-    const ui = {
-        ...action.value,
+export const getDefaultFromUi = (current, ui) => {
+    const adaptedUi = {
+        ...ui,
         layout: {
-            ...getAdaptedUiLayoutByType(
-                action.value.layout,
-                VIS_TYPE_LINE_LIST
-            ),
+            ...getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
         },
-        itemsByDimension: getItemsByDimensionFromUi(action.value),
+        itemsByDimension: getItemsByDimensionFromUi(ui),
     }
 
     return {
-        ...current,
-        [BASE_FIELD_TYPE]: ui.type,
-        outputType: ui.input.type,
-        ...getProgramFromUi(ui),
-        ...getProgramStageFromUi(ui),
-        ...getAxesFromUi(ui),
-        ...getOptionsFromUi(ui),
+        ...current, // TODO: This turns it in to an "update existing" rather than a "create from scratch" operation, is this intentional?
+        [BASE_FIELD_TYPE]: adaptedUi.type,
+        outputType: adaptedUi.input.type,
+        ...getProgramFromUi(adaptedUi),
+        ...getProgramStageFromUi(adaptedUi),
+        ...getAxesFromUi(adaptedUi),
+        ...getOptionsFromUi(adaptedUi),
     }
 }
 
-export const getProgramFromUi = (ui) =>
-    ui.program?.id && { program: { id: ui.program.id } }
+export const getProgramFromUi = (ui) => ({
+    program: { id: ui.program?.id },
+})
 
-export const getProgramStageFromUi = (ui) =>
-    ui.program?.stageId && { programStage: { id: ui.program.stageId } }
+export const getProgramStageFromUi = (ui) => ({
+    programStage: { id: ui.program?.stageId },
+})
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 
