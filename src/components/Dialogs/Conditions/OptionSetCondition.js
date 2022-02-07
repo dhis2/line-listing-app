@@ -1,6 +1,5 @@
 import { useDataEngine } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
-import { InputField, Transfer, TransferOption } from '@dhis2/ui'
+import { Transfer, TransferOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -10,56 +9,15 @@ import { OPERATOR_IN } from '../../../modules/conditions.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
-import classes from './styles/Condition.module.css'
-
-const LeftHeader = ({ searchTerm, setSearchTerm, dataTest }) => (
-    <div className={classes.transferLeftHeader}>
-        <p className={classes.transferLeftTitle}>
-            {i18n.t('Available options')}
-        </p>
-        <InputField
-            value={searchTerm}
-            onChange={({ value }) => setSearchTerm(value)}
-            placeholder={i18n.t('Filter options')}
-            dataTest={`${dataTest}-filter-input-field`}
-            dense
-            initialFocus
-            type={'search'}
-        />
-    </div>
-)
-
-LeftHeader.propTypes = {
-    dataTest: PropTypes.string,
-    searchTerm: PropTypes.string,
-    setSearchTerm: PropTypes.func,
-}
-
-const EmptySelection = () => (
-    <p className={classes.transferEmptyList}>{i18n.t('No items selected')}</p>
-)
-const RightHeader = () => (
-    <p className={classes.transferRightHeader}>{i18n.t('Selected options')}</p>
-)
-
-const SourceEmptyPlaceholder = ({ loading, searchTerm, options, dataTest }) =>
-    !loading &&
-    !options.length && (
-        <p className={classes.transferEmptyList} data-test={dataTest}>
-            {searchTerm
-                ? i18n.t('Nothing found for "{{- searchTerm}}"', {
-                      searchTerm: searchTerm,
-                  })
-                : i18n.t('No options')}
-        </p>
-    )
-
-SourceEmptyPlaceholder.propTypes = {
-    dataTest: PropTypes.string,
-    loading: PropTypes.bool,
-    options: PropTypes.array,
-    searchTerm: PropTypes.string,
-}
+import { TransferEmptySelection } from '../common/TransferEmptySelection.js'
+import { TransferLeftHeader } from '../common/TransferLeftHeader.js'
+import { TransferRightHeader } from '../common/TransferRightHeader.js'
+import { TransferSourceEmptyPlaceholder } from '../common/TransferSourceEmptyPlaceholder.js'
+import {
+    TRANSFER_HEIGHT,
+    TRANSFER_OPTIONS_WIDTH,
+    TRANSFER_SELECTED_WIDTH,
+} from '../utils.js'
 
 const OptionSetCondition = ({
     condition,
@@ -173,7 +131,7 @@ const OptionSetCondition = ({
             loading={state.loading}
             loadingPicked={state.loading}
             sourceEmptyPlaceholder={
-                <SourceEmptyPlaceholder
+                <TransferSourceEmptyPlaceholder
                     loading={state.loading}
                     searchTerm={debouncedSearchTerm}
                     options={state.options}
@@ -182,15 +140,17 @@ const OptionSetCondition = ({
             }
             onEndReached={onEndReached}
             leftHeader={
-                <LeftHeader
+                <TransferLeftHeader
                     searchTerm={state.searchTerm}
                     setSearchTerm={setSearchTerm}
                     dataTest={`${dataTest}-left-header`}
                 />
             }
-            height={'340px'}
-            selectedEmptyComponent={<EmptySelection />}
-            rightHeader={<RightHeader />}
+            height={TRANSFER_HEIGHT}
+            optionsWidth={TRANSFER_OPTIONS_WIDTH}
+            selectedWidth={TRANSFER_SELECTED_WIDTH}
+            selectedEmptyComponent={<TransferEmptySelection />}
+            rightHeader={<TransferRightHeader />}
             renderOption={(props) => (
                 <TransferOption
                     {...props}
