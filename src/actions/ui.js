@@ -18,7 +18,7 @@ import {
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
-    CLEAR_UI_PROGRAM_ID,
+    CLEAR_UI_PROGRAM,
     CLEAR_UI_STAGE_ID,
 } from '../reducers/ui.js'
 
@@ -27,8 +27,8 @@ export const acSetUiInput = (value) => ({
     value,
 })
 
-export const acClearUiProgramId = () => ({
-    type: CLEAR_UI_PROGRAM_ID,
+export const acClearUiProgram = () => ({
+    type: CLEAR_UI_PROGRAM,
 })
 
 export const acClearUiStageId = () => ({
@@ -47,10 +47,15 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
+export const tSetUiInput = (value) => (dispatch) => {
+    dispatch(acClearUiProgram())
+    dispatch(acSetUiInput(value))
+}
+
 export const tSetUiProgram =
     ({ programId, stageId, metadata }) =>
-    async (dispatch) => {
-        dispatch(acClearUiProgramId())
+    (dispatch) => {
+        dispatch(acClearUiProgram())
         programId && dispatch(acUpdateUiProgramId(programId, metadata))
         stageId && dispatch(acUpdateUiProgramStageId(stageId))
     }

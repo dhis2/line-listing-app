@@ -5,12 +5,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    tSetUiProgram,
-    acUpdateUiProgramStageId,
-    acClearUiProgramId,
-    acClearUiStageId,
-} from '../../../actions/ui.js'
+import { tSetUiProgram, acUpdateUiProgramStageId } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
@@ -55,18 +50,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
-    const setSelectedProgramId = (programId) =>
-        dispatch(
-            tSetUiProgram({
-                programId,
-                metadata: {
-                    [programId]: filteredPrograms.find(
-                        ({ id }) => id === programId
-                    ),
-                },
-            })
-        )
-
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -91,6 +74,20 @@ const ProgramDimensionsPanel = ({ visible }) => {
         inputType === OUTPUT_TYPE_EVENT
             ? selectedProgram && selectedStageId
             : !!selectedProgram
+    const setSelectedProgramId = (programId) => {
+        if (programId !== selectedProgramId) {
+            dispatch(
+                tSetUiProgram({
+                    programId,
+                    metadata: {
+                        [programId]: filteredPrograms.find(
+                            ({ id }) => id === programId
+                        ),
+                    },
+                })
+            )
+        }
+    }
 
     useEffect(() => {
         if (visible && !called) {
@@ -99,15 +96,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }, [visible, called])
 
     useEffect(() => {
-        // Clear everything when user changes input type
-        dispatch(acClearUiProgramId())
-        setSearchTerm('')
-        setDimensionType(DIMENSION_TYPE_ALL)
-    }, [inputType])
-
-    useEffect(() => {
-        // Clear everything but program itself when user switches program
-        dispatch(acClearUiStageId())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType, selectedProgramId])
