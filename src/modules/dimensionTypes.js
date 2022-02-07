@@ -29,14 +29,14 @@ export const DIMENSION_TYPES_YOURS = new Set([
 export const DIMENSION_TYPE_OU = 'ou'
 export const DIMENSION_TYPE_PROGRAM_STATUS = 'programStatus'
 export const DIMENSION_TYPE_EVENT_STATUS = 'eventStatus'
-export const DIMENSION_TYPE_STORED_BY = 'storedBy'
+export const DIMENSION_TYPE_CREATED_BY = 'createdBy'
 export const DIMENSION_TYPE_LAST_UPDATED_BY = 'lastUpdatedBy'
 
 export const DIMENSION_TYPES_MAIN = new Set([
     DIMENSION_TYPE_OU,
     DIMENSION_TYPE_PROGRAM_STATUS,
     DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_STORED_BY,
+    DIMENSION_TYPE_CREATED_BY,
     DIMENSION_TYPE_LAST_UPDATED_BY,
 ])
 
