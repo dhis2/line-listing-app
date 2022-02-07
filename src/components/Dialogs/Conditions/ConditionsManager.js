@@ -99,7 +99,6 @@ const EMPTY_CONDITION = ''
 const ConditionsManager = ({
     conditions,
     isInLayout,
-    onUpdate,
     dimension,
     onClose,
     setConditionsByDimension,
@@ -169,12 +168,6 @@ const ConditionsManager = ({
             dimension: dimension.id,
             legendSet: selectedLegendSet,
         })
-
-    const primaryOnClick = () => {
-        storeConditions()
-        onUpdate()
-        onClose()
-    }
 
     const closeModal = () => {
         storeConditions()
@@ -360,7 +353,6 @@ const ConditionsManager = ({
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            onUpdate={primaryOnClick}
             title={
                 dimension.name +
                 ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
@@ -453,7 +445,6 @@ ConditionsManager.propTypes = {
     legendSet: PropTypes.string,
     setConditionsByDimension: PropTypes.func,
     onClose: PropTypes.func,
-    onUpdate: PropTypes.func,
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -467,7 +458,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-    onUpdate: tSetCurrentFromUi,
     setConditionsByDimension: acSetUiConditions,
 }
 

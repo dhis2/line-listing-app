@@ -1,29 +1,17 @@
 import { VisualizationOptions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { connect, useDispatch } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current.js'
-import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
+import { connect } from 'react-redux'
 import { getOptionsByType } from '../../modules/options/config.js'
 import MenuButton from '../Toolbar/MenuBar/MenuButton.js'
-//import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
+import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
-const VisualizationOptionsManager = ({ onUpdate }) => {
+const VisualizationOptionsManager = () => {
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
-    const dispatch = useDispatch()
 
-    const onClick = () => {
+    const onClick = (handler) => {
+        handler()
         setDialogIsOpen(false)
-        // try {
-        //     validateLayout(getCurrentFromUi())
-        //     acClearLoadError()
-        // } catch (error) {
-        //     acSetLoadError(error || new GenericClientError())
-        // }
-        //onLoadingStart()
-        onUpdate()
-        dispatch(acSetShowExpandedLayoutPanel(false))
     }
 
     const optionsConfig = getOptionsByType()
@@ -37,25 +25,25 @@ const VisualizationOptionsManager = ({ onUpdate }) => {
                 {i18n.t('Options')}
             </MenuButton>
             {dialogIsOpen && (
-                <VisualizationOptions
-                    optionsConfig={optionsConfig}
-                    onUpdate={onClick}
-                    onClose={() => setDialogIsOpen(false)}
+                <UpdateVisualizationContainer
+                    renderComponent={(handler) => (
+                        <VisualizationOptions
+                            optionsConfig={optionsConfig}
+                            onUpdate={() => onClick(handler)}
+                            onClose={() => setDialogIsOpen(false)}
+                        />
+                    )}
                 />
             )}
         </>
     )
 }
 
-VisualizationOptionsManager.propTypes = {
-    onUpdate: PropTypes.func,
-}
+VisualizationOptionsManager.propTypes = {}
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = {
-    onUpdate: tSetCurrentFromUi,
-}
+const mapDispatchToProps = {}
 
 export default connect(
     mapStateToProps,
