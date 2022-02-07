@@ -8,6 +8,7 @@ import { connect, useDispatch } from 'react-redux'
 import { acSetCurrent } from '../actions/current.js'
 import {
     acClearAll,
+    acClearLoadError,
     acSetLoadError,
     acSetVisualizationLoading,
 } from '../actions/loader.js'
@@ -109,6 +110,7 @@ const App = ({
     addParentGraphMap,
     addSettings,
     clearAll,
+    clearLoadError,
     error,
     isLoading,
     setCurrent,
@@ -267,6 +269,7 @@ const App = ({
             setCurrent(visualization)
             setUiFromVisualization(visualization, metadata)
             postDataStatistics({ id: visualization.id })
+            clearLoadError()
         }
     }, [data])
 
@@ -371,6 +374,7 @@ const mapDispatchToProps = {
     addParentGraphMap: acAddParentGraphMap,
     addSettings: tAddSettings,
     clearAll: acClearAll,
+    clearLoadError: acClearLoadError,
     setCurrent: acSetCurrent,
     setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
@@ -385,6 +389,7 @@ App.propTypes = {
     addParentGraphMap: PropTypes.func,
     addSettings: PropTypes.func,
     clearAll: PropTypes.func,
+    clearLoadError: PropTypes.func,
     current: PropTypes.object,
     error: PropTypes.object,
     initialLocation: PropTypes.object,
