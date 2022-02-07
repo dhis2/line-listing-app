@@ -70,6 +70,7 @@ export const DEFAULT_UI = {
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
+    conditions: {},
 }
 
 const getPreselectedUi = (options) => {
