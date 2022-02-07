@@ -1,9 +1,7 @@
 import {
     AXIS,
-    getPredefinedDimensionProp,
     dimensionIsValid,
     layoutGetDimension,
-    DIMENSION_PROP_NO_ITEMS,
     VIS_TYPE_LINE,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
@@ -14,10 +12,7 @@ const isAxisValid = (axis) =>
     AXIS.isValid(axis) &&
     axis.some((axisItem) =>
         dimensionIsValid(axisItem, {
-            requireItems: !getPredefinedDimensionProp(
-                axisItem.dimension,
-                DIMENSION_PROP_NO_ITEMS
-            ),
+            requireItems: false,
         })
     )
 
