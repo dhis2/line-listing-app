@@ -43,7 +43,7 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
-    const { availableWidth, scrollbarWidth } = useAvailableWidth()
+    const { availableOuterWidth, availableInnerWidth } = useAvailableWidth()
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
 
@@ -108,7 +108,7 @@ export const Visualization = ({
                 <DataTable
                     scrollHeight="100%"
                     width="auto"
-                    scrollWidth={`${availableWidth}px`}
+                    scrollWidth={`${availableOuterWidth}px`}
                 >
                     <DataTableHead>
                         <DataTableRow>
@@ -188,8 +188,7 @@ export const Visualization = ({
                                 <div
                                     className={styles.stickyNavigation}
                                     style={{
-                                        maxWidth:
-                                            availableWidth - scrollbarWidth,
+                                        maxWidth: availableInnerWidth,
                                     }}
                                 >
                                     <Pagination
