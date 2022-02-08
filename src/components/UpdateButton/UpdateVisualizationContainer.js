@@ -10,23 +10,21 @@ import { GenericClientError } from '../../modules/error.js'
 import { validateLayout } from '../../modules/layoutValidation.js'
 import { sGetCurrent, sGetCurrentFromUi } from '../../reducers/current.js'
 
-// TODO: Replace all 'Update' buttons throughout the app with UVC
-
 const UpdateVisualizationContainer = ({
     renderComponent,
     getCurrentFromUi,
     onUpdate,
-    acSetLoadError,
-    acClearLoadError,
+    setLoadError,
+    clearLoadError,
     onLoadingStart,
     hideLayoutPanel,
 }) => {
     const onClick = () => {
         try {
             validateLayout(getCurrentFromUi())
-            acClearLoadError()
+            clearLoadError()
         } catch (error) {
-            acSetLoadError(error || new GenericClientError())
+            setLoadError(error || new GenericClientError())
         }
 
         hideLayoutPanel()
@@ -59,8 +57,8 @@ const mapDispatchToProps = {
     getCurrentFromUi: () => (dispatch, getState) =>
         sGetCurrentFromUi(getState()),
     onUpdate: tSetCurrentFromUi,
-    acSetLoadError,
-    acClearLoadError,
+    setLoadError: acSetLoadError,
+    clearLoadError: acClearLoadError,
     onLoadingStart: () => acSetVisualizationLoading(true),
     hideLayoutPanel: () => acSetShowExpandedLayoutPanel(false),
 }
