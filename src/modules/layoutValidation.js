@@ -2,7 +2,7 @@ import {
     AXIS,
     dimensionIsValid,
     layoutGetDimension,
-    VIS_TYPE_LINE,
+    VIS_TYPE_LINE_LIST,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import { NoColumnsError, NoOrgUnitError, NoProgramError } from './error.js'
@@ -54,7 +54,7 @@ const validateLineListLayout = (layout) => {
 
 export const validateLayout = (layout) => {
     switch (layout.type) {
-        case VIS_TYPE_LINE:
+        case VIS_TYPE_LINE_LIST:
         default:
             return validateLineListLayout(layout)
     }
