@@ -16,8 +16,8 @@ import classes from './styles/DimensionModal.module.css'
 
 const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
     const onClick = (handler) => {
-        handler()
         onClose()
+        handler()
     }
 
     return (
