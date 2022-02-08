@@ -1,4 +1,4 @@
-import { formatValue } from '@dhis2/analytics'
+import { formatValue, AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -13,7 +13,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -21,6 +21,7 @@ import {
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
+import { headersMap } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -43,9 +44,12 @@ export const Visualization = ({
     relativePeriodDate,
 }) => {
     const maxWidth = useAvailableWidth()
+    const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
+    const defaultSortDirection = 'asc'
+
     const [{ sortField, sortDirection }, setSorting] = useState({
-        sortField: 'eventdate', // TODO get field name corresponding to visualization.sortOrder ?!
-        sortDirection: 'desc',
+        sortField: headersMap[defaultSortField] || defaultSortField,
+        sortDirection: defaultSortDirection,
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
@@ -58,6 +62,19 @@ export const Visualization = ({
         page,
         pageSize,
     })
+
+    useEffect(() => {
+        if (visualization) {
+            const sortField = visualization[AXIS_ID_COLUMNS][0].dimension
+
+            setSorting({
+                sortField: headersMap[sortField] || sortField,
+                sortDirection: defaultSortDirection,
+            })
+            setPage(1)
+            setPageSize(100)
+        }
+    }, [visualization])
 
     if (error) {
         return (

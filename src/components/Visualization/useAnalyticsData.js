@@ -1,10 +1,23 @@
-import { Analytics } from '@dhis2/analytics'
+import {
+    AXIS_ID_COLUMNS,
+    AXIS_ID_ROWS,
+    AXIS_ID_FILTERS,
+    Analytics,
+} from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
 import {
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from '../../modules/dimensionTypes.js'
+import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
+    headersMap,
 } from '../../modules/visualization.js'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
@@ -35,22 +48,52 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
     }
 }
 
-const extractHeadersFromColumns = (columns) =>
-    columns.reduce((headers, { dimension }) => {
-        switch (dimension) {
-            // TODO remove when this is sorted out https://jira.dhis2.org/browse/TECH-869
-            case 'pe':
-                break
-            case 'ou':
-                headers.push('ouname')
-                break
-            default:
-                headers.push(dimension)
-                break
-        }
+const isTimeDimension = (dimensionId) =>
+    [
+        DIMENSION_TYPE_EVENT_DATE,
+        DIMENSION_TYPE_ENROLLMENT_DATE,
+        DIMENSION_TYPE_INCIDENT_DATE,
+        DIMENSION_TYPE_SCHEDULED_DATE,
+        DIMENSION_TYPE_LAST_UPDATED,
+    ].includes(dimensionId)
 
-        return headers
-    }, [])
+const getAdaptedVisualization = (visualization) => {
+    const timeDimensionParameters = {}
+
+    const adaptDimensions = (dimensions) => {
+        const adaptedDimensions = []
+        dimensions.forEach((dimensionObj) => {
+            const dimensionId = dimensionObj.dimension
+
+            isTimeDimension(dimensionId)
+                ? (timeDimensionParameters[dimensionId] =
+                      dimensionObj.items?.map((item) => item.id))
+                : adaptedDimensions.push(dimensionObj)
+        })
+        return adaptedDimensions
+    }
+
+    const adaptedColumns = adaptDimensions(visualization[AXIS_ID_COLUMNS])
+    const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
+    const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
+
+    const headers = [
+        ...visualization[AXIS_ID_COLUMNS],
+        ...visualization[AXIS_ID_ROWS],
+    ].map(
+        ({ dimension: dimensionId }) => headersMap[dimensionId] || dimensionId
+    )
+
+    return {
+        adaptedVisualization: {
+            [AXIS_ID_COLUMNS]: adaptedColumns,
+            [AXIS_ID_ROWS]: adaptedRows,
+            [AXIS_ID_FILTERS]: adaptedFilters,
+        },
+        headers,
+        timeDimensionParameters,
+    }
+}
 
 const fetchAnalyticsData = async ({
     analyticsEngine,
@@ -61,10 +104,15 @@ const fetchAnalyticsData = async ({
     sortField,
     sortDirection,
 }) => {
+    // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
+    const { adaptedVisualization, headers, timeDimensionParameters } =
+        getAdaptedVisualization(visualization)
+
     let req = new analyticsEngine.request()
-        .fromVisualization(visualization)
+        .fromVisualization(adaptedVisualization)
         .withParameters({
-            headers: extractHeadersFromColumns(visualization.columns).join(','),
+            headers: headers,
+            ...timeDimensionParameters,
         })
         .withProgram(visualization.program.id)
         .withStage(visualization.programStage.id)
