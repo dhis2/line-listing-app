@@ -51,6 +51,7 @@ const validateLineListLayout = (layout) => {
     })
 
     if (!layoutHasTimeDimension) {
+        // TODO: Uncomment when time dimensions are implemented properly
         console.error('NoPeriodError')
         //throw new NoPeriodError()
     }
