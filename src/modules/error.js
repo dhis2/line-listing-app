@@ -72,7 +72,7 @@ export class NoColumnsError extends VisualizationError {
         super(
             EmptyBox,
             i18n.t('Columns is empty'),
-            i18n.t('At at least one item to Columns.')
+            i18n.t('Add at least one item to Columns.')
         )
     }
 }
