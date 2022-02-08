@@ -115,6 +115,7 @@ const App = ({
     isLoading,
     setCurrent,
     setInitMetadata,
+    setLoadError,
     setVisualization,
     setVisualizationLoading,
     setUiFromVisualization,
@@ -212,7 +213,7 @@ const App = ({
         addMetadata(itemsMetadata)
 
         if (!response.rows?.length) {
-            throw new EmptyResponseError()
+            setLoadError(new EmptyResponseError())
         }
     }
 
@@ -396,6 +397,7 @@ App.propTypes = {
     isLoading: PropTypes.bool,
     setCurrent: PropTypes.func,
     setInitMetadata: PropTypes.func,
+    setLoadError: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,
