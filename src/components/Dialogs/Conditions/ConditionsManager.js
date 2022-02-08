@@ -3,7 +3,6 @@ import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiConditions } from '../../../actions/ui.js'
 import {
     OPERATOR_IN,

@@ -6,7 +6,6 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current.js'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'

@@ -9,7 +9,6 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
-    NoticeBox,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -49,7 +48,7 @@ export const Visualization = ({
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
-    const { fetching, error, data } = useAnalyticsData({
+    const { fetching, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
@@ -58,19 +57,6 @@ export const Visualization = ({
         page,
         pageSize,
     })
-
-    // if (error) {
-    //     return (
-    //         <div className={styles.error}>
-    //             <NoticeBox error title={i18n.t('Could not load visualization')}>
-    //                 {error?.message ||
-    //                     i18n.t(
-    //                         "The visualization couldn't be displayed. Try again or contact your system administrator."
-    //                     )}
-    //             </NoticeBox>
-    //         </div>
-    //     )
-    // }
 
     if (!data) {
         return null
