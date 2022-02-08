@@ -4,8 +4,15 @@ import {
     layoutGetDimension,
     VIS_TYPE_LINE_LIST,
     DIMENSION_ID_ORGUNIT,
+    layoutHasDimension,
 } from '@dhis2/analytics'
-import { NoColumnsError, NoOrgUnitError, NoProgramError } from './error.js'
+import { DIMENSION_TYPES_TIME } from './dimensionTypes.js'
+import {
+    NoColumnsError,
+    NoOrgUnitError,
+    NoPeriodError,
+    NoProgramError,
+} from './error.js'
 
 // Layout validation helper functions
 const isAxisValid = (axis) =>
@@ -35,17 +42,18 @@ const validateLineListLayout = (layout) => {
         new NoOrgUnitError(layout.type),
         true
     )
-    // let layoutHasTimeDimension = false
-    // DIMENSION_TYPES_TIME.forEach((dimension) => {
-    //     if (layoutHasDimension(layout, dimension)) {
-    //         validateDimension(dimension, new NoPeriodError(), true)
-    //         layoutHasTimeDimension = true
-    //     }
-    // })
+    let layoutHasTimeDimension = false
+    DIMENSION_TYPES_TIME.forEach((dimension) => {
+        if (layoutHasDimension(layout, dimension)) {
+            validateDimension(dimension, new NoPeriodError(), true)
+            layoutHasTimeDimension = true
+        }
+    })
 
-    // if (!layoutHasTimeDimension) {
-    //     throw new NoPeriodError()
-    // }
+    if (!layoutHasTimeDimension) {
+        console.error('NoPeriodError')
+        //throw new NoPeriodError()
+    }
 
     if (!layout?.program?.id) {
         throw new NoProgramError()
