@@ -62,7 +62,7 @@ const MenuBar = ({
     const onOpen = (id) => {
         const path = `/${id}`
         if (history.location.pathname === path) {
-            history.replace({ pathname: path, state: { isOpening: true } })
+            history.replace({ pathname: path }, { isOpening: true })
         } else {
             history.push(path)
         }
@@ -70,7 +70,7 @@ const MenuBar = ({
 
     const onNew = () => {
         if (history.location.pathname === '/') {
-            history.replace({ pathname: '/', state: { isResetting: true } })
+            history.replace({ pathname: '/' }, { isResetting: true })
         } else {
             history.push('/')
         }
