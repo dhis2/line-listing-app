@@ -1,7 +1,6 @@
 import { VisualizationOptions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import { getOptionsByType } from '../../modules/options/config.js'
 import MenuButton from '../Toolbar/MenuBar/MenuButton.js'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
@@ -39,13 +38,4 @@ const VisualizationOptionsManager = () => {
     )
 }
 
-VisualizationOptionsManager.propTypes = {}
-
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = {}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(VisualizationOptionsManager)
+export default VisualizationOptionsManager
