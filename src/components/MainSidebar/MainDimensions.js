@@ -33,7 +33,6 @@ export const MainDimensions = () => {
     const inputType = useSelector(sGetUiInputType)
     const programType = useProgramType()
     const { getIsDimensionSelected } = useSelectedDimensions()
-    const allDisabled = !programType || !inputType
 
     return (
         <MainSidebarSection header={i18n.t('Main dimensions')}>
@@ -42,7 +41,6 @@ export const MainDimensions = () => {
                 name={i18n.t('Organisation unit')}
                 id={DIMENSION_TYPE_OU}
                 selected={getIsDimensionSelected(DIMENSION_TYPE_OU)}
-                disabled={allDisabled}
             />
             <DimensionItem
                 dimensionType={DIMENSION_TYPE_PROGRAM_STATUS}
@@ -50,7 +48,7 @@ export const MainDimensions = () => {
                 id={DIMENSION_TYPE_PROGRAM_STATUS}
                 selected={getIsDimensionSelected(DIMENSION_TYPE_PROGRAM_STATUS)}
                 disabled={
-                    allDisabled ||
+                    !programType ||
                     programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
                 }
             />
@@ -59,14 +57,13 @@ export const MainDimensions = () => {
                 name={i18n.t('Event status')}
                 id={DIMENSION_TYPE_EVENT_STATUS}
                 selected={getIsDimensionSelected(DIMENSION_TYPE_EVENT_STATUS)}
-                disabled={allDisabled || inputType === OUTPUT_TYPE_ENROLLMENT}
+                disabled={!programType || inputType === OUTPUT_TYPE_ENROLLMENT}
             />
             <DimensionItem
                 dimensionType={DIMENSION_TYPE_CREATED_BY}
                 name={i18n.t('Created by')}
                 id={DIMENSION_TYPE_CREATED_BY}
                 selected={getIsDimensionSelected(DIMENSION_TYPE_CREATED_BY)}
-                disabled={allDisabled}
             />
             <DimensionItem
                 dimensionType={DIMENSION_TYPE_LAST_UPDATED_BY}
@@ -75,7 +72,6 @@ export const MainDimensions = () => {
                 selected={getIsDimensionSelected(
                     DIMENSION_TYPE_LAST_UPDATED_BY
                 )}
-                disabled={allDisabled}
             />
         </MainSidebarSection>
     )
