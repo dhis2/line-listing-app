@@ -13,6 +13,9 @@ import {
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { acSetLoadError } from '../../actions/loader.js'
+import { GenericServerError, NoPeriodError } from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -42,6 +45,7 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
+    const dispatch = useDispatch()
     const maxWidth = useAvailableWidth()
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
@@ -52,7 +56,7 @@ export const Visualization = ({
     })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
-    const { fetching, data } = useAnalyticsData({
+    const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
@@ -75,7 +79,23 @@ export const Visualization = ({
         }
     }, [visualization])
 
-    if (!data) {
+    if (error) {
+        let output
+        if (error.details) {
+            switch (error.details.errorCode) {
+                case 'E7205':
+                    output = new NoPeriodError()
+                    break
+                default:
+                    output = error
+            }
+        } else {
+            output = new GenericServerError()
+        }
+        dispatch(acSetLoadError(output))
+    }
+
+    if (!data || error) {
         return null
     }
 
