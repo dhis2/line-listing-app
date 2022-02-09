@@ -47,6 +47,7 @@ export const DIMENSION_TYPE_INCIDENT_DATE = 'incidentDate'
 export const DIMENSION_TYPE_SCHEDULED_DATE = 'scheduledDate'
 export const DIMENSION_TYPE_LAST_UPDATED = 'lastUpdated'
 
+// TODO - not used?
 export const DIMENSION_TYPES_TIME = new Set([
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
