@@ -14,6 +14,7 @@ import {
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
 } from './dimensionTypes.js'
+import { MAIN_DIMENSIONS } from './mainDimensions.js'
 
 const getOrganisationUnits = () => ({
     [USER_ORG_UNIT]: i18n.t('User organisation unit'),
@@ -61,7 +62,8 @@ export const getTimeDimensions = () => ({
 })
 
 export default function () {
-    const res = {
+    return {
+        ...MAIN_DIMENSIONS,
         ...Object.entries({
             ...getOrganisationUnits(),
         }).reduce(
@@ -84,5 +86,4 @@ export default function () {
             {}
         ),
     }
-    return res
 }

@@ -53,7 +53,6 @@ const getName = (dimension, program, stage) => {
 }
 
 export const tSetTimeDimensionsMetadata = () => (dispatch, getState) => {
-    console.log('tSetTimeDimensionsMetadata')
     const state = getState()
 
     const inputType = sGetUiInputType(state)
