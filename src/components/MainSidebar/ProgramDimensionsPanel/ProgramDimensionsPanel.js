@@ -5,7 +5,6 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { tSetTimeDimensionsMetadata } from '../../../actions/metadata.js'
 import { tSetUiProgram, acUpdateUiProgramStageId } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
@@ -87,7 +86,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     },
                 })
             )
-            dispatch(tSetTimeDimensionsMetadata())
         }
     }
 
@@ -111,7 +109,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
             const artificialStage = selectedProgram.programStages[0]
             const metadata = { [artificialStage.id]: artificialStage }
             dispatch(acUpdateUiProgramStageId(artificialStage.id, metadata))
-            dispatch(tSetTimeDimensionsMetadata())
         }
     }, [inputType, programType])
 

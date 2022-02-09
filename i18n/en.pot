@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-07T14:29:02.653Z\n"
-"PO-Revision-Date: 2022-02-07T14:29:02.653Z\n"
+"POT-Creation-Date: 2022-02-09T14:40:58.995Z\n"
+"PO-Revision-Date: 2022-02-09T14:40:58.995Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -317,21 +317,6 @@ msgstr "Programs track enrollments across time."
 msgid "Main dimensions"
 msgstr "Main dimensions"
 
-msgid "Organisation unit"
-msgstr "Organisation unit"
-
-msgid "Program status"
-msgstr "Program status"
-
-msgid "Event status"
-msgstr "Event status"
-
-msgid "Created by"
-msgstr "Created by"
-
-msgid "Last updated by"
-msgstr "Last updated by"
-
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -604,6 +589,21 @@ msgstr ""
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Program status"
+msgstr "Program status"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Last updated by"
+msgstr "Last updated by"
 
 msgid "User organisation unit"
 msgstr "User organisation unit"

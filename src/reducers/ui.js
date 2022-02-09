@@ -1,11 +1,21 @@
-/*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
+import { useMemo } from 'react'
+import { useStore, useSelector } from 'react-redux'
 import { getFilteredLayout } from '../modules/layout.js'
+import {
+    getMainDimensions,
+    getIsMainDimensionDisabled,
+} from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
+import {
+    getTimeDimensionName,
+    getEnabledTimeDimensionIds,
+    getTimeDimensions,
+} from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
@@ -321,3 +331,69 @@ export const sGetUiConditionsByDimension = (state, dimension) =>
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
+
+// Selector/hooks
+export const useMainDimensions = () => {
+    const store = useStore()
+    const programId = useSelector(sGetUiProgramId)
+    const inputType = useSelector(sGetUiInputType)
+
+    return useMemo(() => {
+        const { metadata } = store.getState()
+        const programType = programId && metadata[programId].programType
+
+        return Object.values(getMainDimensions()).reduce((acc, dimension) => {
+            acc[dimension.id] = {
+                ...dimension,
+                disabled: getIsMainDimensionDisabled(
+                    dimension.id,
+                    inputType,
+                    programType
+                ),
+            }
+            return acc
+        }, {})
+    }, [programId, inputType])
+}
+
+export const useMainDimension = (id) => {
+    const mainDimensions = useMainDimension()
+    return mainDimensions[id]
+}
+
+export const useTimeDimensions = () => {
+    const store = useStore()
+    const programId = useSelector(sGetUiProgramId)
+    const inputType = useSelector(sGetUiInputType)
+    const stageId = useSelector(sGetUiProgramStageId)
+
+    return useMemo(() => {
+        const { metadata } = store.getState()
+        const timeDimensions = getTimeDimensions()
+        const program = metadata[programId]
+        const stage = metadata[stageId]
+        const enabledDimensionIds = getEnabledTimeDimensionIds(
+            inputType,
+            program,
+            stage
+        )
+
+        return Object.values(timeDimensions).reduce((acc, dimension) => {
+            acc[dimension.id] = {
+                ...dimension,
+                name: getTimeDimensionName(
+                    timeDimensions[dimension.id],
+                    program,
+                    stage
+                ),
+                disabled: !enabledDimensionIds.has(dimension.id),
+            }
+            return acc
+        }, {})
+    }, [programId, inputType, stageId])
+}
+
+export const useTimeDimension = (id) => {
+    const timeDimensions = useTimeDimension()
+    return timeDimensions[id]
+}
