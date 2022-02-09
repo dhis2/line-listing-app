@@ -1645,7 +1645,7 @@ exports[`stage missing 1`] = `
           <span
             class="primary"
           >
-            le enrollment date
+            Tracking date
           </span>
         </div>
       </div>
@@ -1673,7 +1673,7 @@ exports[`stage missing 1`] = `
           <span
             class="primary"
           >
-            le incident date
+            Test date
           </span>
         </div>
       </div>

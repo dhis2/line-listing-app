@@ -62,7 +62,7 @@ export const getTimeDimensionName = (dimension, program, stage) => {
 
 export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
     const enabledDimensionIds = new Set()
-    if (inputType && program?.programType && stage.id) {
+    if (inputType && program?.programType && stage?.id) {
         const isEvent = inputType === OUTPUT_TYPE_EVENT
         const withRegistration =
             program.programType === PROGRAM_TYPE_WITH_REGISTRATION
