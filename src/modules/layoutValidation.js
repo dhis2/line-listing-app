@@ -39,7 +39,7 @@ const validateLineListLayout = (layout) => {
     validateAxis(layout.columns, new NoColumnsError(layout.type))
     validateDimension(
         layoutGetDimension(layout, DIMENSION_ID_ORGUNIT),
-        new NoOrgUnitError(layout.type),
+        new NoOrgUnitError(),
         true
     )
     let layoutHasTimeDimension = false
