@@ -7,6 +7,7 @@ import {
     DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { getTimeDimensions } from './timeDimensions.js'
 
 const getOrganisationUnits = () => ({
     [USER_ORG_UNIT]: i18n.t('User organisation unit'),
@@ -20,7 +21,7 @@ const getFixedDimensions = () => ({
 })
 
 export default function () {
-    return {
+    const res = {
         ...Object.entries({
             ...getOrganisationUnits(),
         }).reduce(
@@ -28,5 +29,8 @@ export default function () {
             {}
         ),
         ...getFixedDimensions(),
+        ...getTimeDimensions(),
     }
+    console.log('res', res)
+    return res
 }
