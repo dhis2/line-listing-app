@@ -8,7 +8,6 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import history from '../../modules/history.js'
 import {
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
@@ -16,6 +15,7 @@ import {
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
 } from '../../modules/dimensionTypes.js'
+import history from '../../modules/history.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
