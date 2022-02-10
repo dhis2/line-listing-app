@@ -1,12 +1,15 @@
 import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
-    TIME_DIMENSION_EVENT_DATE,
-    TIME_DIMENSION_ENROLLMENT_DATE,
-    TIME_DIMENSION_INCIDENT_DATE,
-    TIME_DIMENSION_SCHEDULED_DATE,
-    TIME_DIMENSION_LAST_UPDATED,
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from '../../modules/dimensionTypes.js'
+import {
     getTimeDimensions,
     NAME_PARENT_PROPERTY_PROGRAM,
 } from '../../modules/timeDimensions.js'
@@ -15,11 +18,12 @@ import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
-    sGetUiProgramStage,
+    sGetUiProgramStageId,
 } from '../../reducers/ui.js'
-import { DimensionListItem } from './DimensionsList/DimensionListItem.js'
+import { DimensionItem } from './DimensionItem/index.js'
+import { MainSidebarSection } from './MainSidebarSection.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './ProgramDimensionsPanel/ProgramDimensionsPanel.js'
-import styles from './TimeDimensions.module.css'
+import { useSelectedDimensions } from './SelectedDimensionsContext.js'
 
 const getName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty) {
@@ -32,10 +36,11 @@ const getName = (dimension, program, stage) => {
     return name || dimension.defaultName
 }
 
-const TimeDimensions = () => {
+export const TimeDimensions = () => {
+    const { getIsDimensionSelected } = useSelectedDimensions()
     const selectedInputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
-    const stageId = useSelector(sGetUiProgramStage)
+    const stageId = useSelector(sGetUiProgramStageId)
     const program =
         useSelector((state) => sGetMetadataById(state, programId)) || {}
     const stage = useSelector((state) => sGetMetadataById(state, stageId)) || {}
@@ -50,22 +55,22 @@ const TimeDimensions = () => {
             program.programType === PROGRAM_TYPE_WITH_REGISTRATION
 
         if (isEvent) {
-            enabledDimensionIds.push(TIME_DIMENSION_EVENT_DATE)
+            enabledDimensionIds.push(DIMENSION_TYPE_EVENT_DATE)
         }
 
         if (withRegistration) {
-            enabledDimensionIds.push(TIME_DIMENSION_ENROLLMENT_DATE)
+            enabledDimensionIds.push(DIMENSION_TYPE_ENROLLMENT_DATE)
 
             isEvent &&
                 !stage.hideDueDate &&
-                enabledDimensionIds.push(TIME_DIMENSION_SCHEDULED_DATE)
+                enabledDimensionIds.push(DIMENSION_TYPE_SCHEDULED_DATE)
 
             program.displayIncidentDate &&
-                enabledDimensionIds.push(TIME_DIMENSION_INCIDENT_DATE)
+                enabledDimensionIds.push(DIMENSION_TYPE_INCIDENT_DATE)
         }
 
         if (isEvent || withRegistration) {
-            enabledDimensionIds.push(TIME_DIMENSION_LAST_UPDATED)
+            enabledDimensionIds.push(DIMENSION_TYPE_LAST_UPDATED)
         }
     }
 
@@ -77,20 +82,19 @@ const TimeDimensions = () => {
     }))
 
     return (
-        <div className={styles.list}>
+        <MainSidebarSection header={i18n.t('Time dimensions')}>
             {dimensions.map((dimension) => (
-                <DimensionListItem
+                <DimensionItem
                     key={dimension.id}
                     dimensionType={dimension.dimensionType}
                     name={dimension.name}
                     id={dimension.id}
-                    isDisabled={dimension.isDisabled}
+                    selected={getIsDimensionSelected(dimension.id)}
+                    disabled={dimension.isDisabled}
                     optionSet={dimension.optionSet}
                     valueType={dimension.valueType}
                 />
             ))}
-        </div>
+        </MainSidebarSection>
     )
 }
-
-export default TimeDimensions

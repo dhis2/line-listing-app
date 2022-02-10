@@ -5,8 +5,7 @@ import { useProgramDimensions } from './useProgramDimensions.js'
 
 const ProgramDimensionsList = ({
     inputType,
-    programId,
-    programName,
+    program,
     stageId,
     searchTerm,
     dimensionType,
@@ -14,7 +13,7 @@ const ProgramDimensionsList = ({
     const { dimensions, loading, fetching, error, setIsListEndVisible } =
         useProgramDimensions({
             inputType,
-            programId,
+            program,
             stageId,
             searchTerm,
             dimensionType,
@@ -27,7 +26,7 @@ const ProgramDimensionsList = ({
             error={error}
             fetching={fetching}
             loading={loading}
-            programName={programName}
+            programName={program.name}
             searchTerm={searchTerm}
         />
     )
@@ -35,8 +34,7 @@ const ProgramDimensionsList = ({
 
 ProgramDimensionsList.propTypes = {
     inputType: PropTypes.string.isRequired,
-    programId: PropTypes.string.isRequired,
-    programName: PropTypes.string.isRequired,
+    program: PropTypes.object.isRequired,
     dimensionType: PropTypes.string,
     searchTerm: PropTypes.string,
     stageId: PropTypes.string,

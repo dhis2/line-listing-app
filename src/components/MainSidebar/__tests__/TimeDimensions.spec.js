@@ -2,7 +2,13 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import TimeDimensions from '../TimeDimensions.js'
+import { TimeDimensions } from '../TimeDimensions.js'
+
+jest.mock('../SelectedDimensionsContext.js', () => ({
+    useSelectedDimensions: () => ({
+        getIsDimensionSelected: jest.fn(() => false),
+    }),
+}))
 
 const mockStore = configureMockStore()
 
@@ -14,7 +20,6 @@ test('input type EVENT, WITHOUT_REGISTRATION no custom labels', () => {
                 programStages: [
                     {
                         id: 'stage1Id',
-                        name: 'The Only Stage',
                     },
                 ],
             },
@@ -26,7 +31,7 @@ test('input type EVENT, WITHOUT_REGISTRATION no custom labels', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -36,7 +41,7 @@ test('input type EVENT, WITHOUT_REGISTRATION no custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -62,7 +67,7 @@ test('input type EVENT, WITHOUT_REGISTRATION with custom labels', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -72,7 +77,7 @@ test('input type EVENT, WITHOUT_REGISTRATION with custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -102,7 +107,7 @@ test('input type EVENT, WITH_REGISTRATION', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -112,7 +117,7 @@ test('input type EVENT, WITH_REGISTRATION', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -145,7 +150,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -155,7 +160,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -189,7 +194,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide due date', () => 
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage2Id',
+                stageId: 'stage2Id',
             },
             input: {
                 type: 'EVENT',
@@ -199,7 +204,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide due date', () => 
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -232,7 +237,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide incident date', (
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -242,7 +247,7 @@ test('input type EVENT, WITH_REGISTRATION, custom labels, hide incident date', (
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -275,7 +280,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident dat
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'ENROLLMENT',
@@ -285,7 +290,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels, hide incident dat
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -318,7 +323,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'ENROLLMENT',
@@ -328,7 +333,7 @@ test('input type ENROLLMENT, WITH_REGISTRATION, custom labels', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -356,7 +361,7 @@ test('input type ENROLLMENT, WITHOUT_REGISTRATION', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'ENROLLMENT',
@@ -366,7 +371,7 @@ test('input type ENROLLMENT, WITHOUT_REGISTRATION', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -378,7 +383,7 @@ test('input type EVENT and program metadata missing', () => {
         ui: {
             program: {
                 id: 'theProgramId',
-                stage: 'stage1Id',
+                stageId: 'stage1Id',
             },
             input: {
                 type: 'EVENT',
@@ -388,7 +393,7 @@ test('input type EVENT and program metadata missing', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()
@@ -424,7 +429,7 @@ test('stage missing', () => {
 
     const { container } = render(
         <Provider store={mockStore(store)}>
-            <TimeDimensions />
+            <TimeDimensions isSelected={() => false} />
         </Provider>
     )
     expect(container).toMatchSnapshot()

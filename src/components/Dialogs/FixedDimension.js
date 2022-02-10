@@ -23,7 +23,7 @@ const FixedDimension = ({
     addMetadata,
     addParentGraphMap,
     onClose,
-    dimensionId,
+    dimension,
     isInLayout,
     metadata,
     onUpdate,
@@ -71,7 +71,7 @@ const FixedDimension = ({
     const closeModal = () => onClose()
 
     const renderModalContent = () => {
-        switch (dimensionId) {
+        switch (dimension.id) {
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
                     onSelect: selectUiItems,
@@ -94,7 +94,7 @@ const FixedDimension = ({
                     })
 
                 const display =
-                    DIMENSION_ID_ORGUNIT === dimensionId ? 'block' : 'none'
+                    dimension.id === DIMENSION_ID_ORGUNIT ? 'block' : 'none'
 
                 return (
                     <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
@@ -117,8 +117,6 @@ const FixedDimension = ({
         closeModal()
     }
 
-    const dimension = metadata[dimensionId]
-
     return dimension ? (
         <DimensionModal
             dataTest={'dialog-manager-modal'}
@@ -133,7 +131,7 @@ const FixedDimension = ({
 }
 
 FixedDimension.propTypes = {
-    dimensionId: PropTypes.string.isRequired,
+    dimension: PropTypes.object.isRequired,
     isInLayout: PropTypes.array.isRequired,
     ouIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -152,7 +150,7 @@ FixedDimension.defaultProps = {
 
 const mapStateToProps = (state, ownProps) => ({
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
-        ownProps.dimensionId
+        ownProps.dimension?.id
     ),
     metadata: sGetMetadata(state),
     ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),

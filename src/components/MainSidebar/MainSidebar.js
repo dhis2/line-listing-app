@@ -9,10 +9,15 @@ import {
 } from '../../actions/ui.js'
 import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
+import { MainDimensions } from './MainDimensions.js'
 import styles from './MainSidebar.module.css'
 import { MenuItem } from './MenuItem/index.js'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
-import TimeDimensions from './TimeDimensions.js'
+import {
+    SelectedDimensionsProvider,
+    useSelectedDimensions,
+} from './SelectedDimensionsContext.js'
+import { TimeDimensions } from './TimeDimensions.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const TAB_INPUT = 'INPUT'
@@ -36,6 +41,7 @@ const MainSidebar = () => {
             closeDetailsPanel()
         }
     }
+    const { counts } = useSelectedDimensions()
 
     return (
         <div className={styles.container}>
@@ -54,21 +60,17 @@ const MainSidebar = () => {
                     label={i18n.t('Program dimensions')}
                     onClick={() => onClick(TAB_PROGRAM)}
                     selected={open && selectedTabId === TAB_PROGRAM}
+                    count={counts.program}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
                     label={i18n.t('Your dimensions')}
                     onClick={() => onClick(TAB_YOUR)}
                     selected={open && selectedTabId === TAB_YOUR}
-                    count={5}
+                    count={counts.your}
                 />
-
-                <div className={styles.dimensionSection}>
-                    <div className={styles.dimensionSectionHeader}>
-                        {i18n.t('Time dimensions')}
-                    </div>
-                    <TimeDimensions />
-                </div>
+                <MainDimensions />
+                <TimeDimensions />
             </div>
             <div
                 className={cx(styles.accessory, {
@@ -88,4 +90,10 @@ const MainSidebar = () => {
     )
 }
 
-export { MainSidebar }
+const MainSidebarWithSelectedDimensionsProvider = () => (
+    <SelectedDimensionsProvider>
+        <MainSidebar />
+    </SelectedDimensionsProvider>
+)
+
+export { MainSidebarWithSelectedDimensionsProvider as MainSidebar }

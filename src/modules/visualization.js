@@ -1,35 +1,38 @@
-import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
+import {
+    AXIS_ID_COLUMNS,
+    AXIS_ID_ROWS,
+    AXIS_ID_FILTERS,
+    DIMENSION_ID_PERIOD,
+    VIS_TYPE_LINE_LIST,
+    VIS_TYPE_PIVOT_TABLE,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import PivotTableIcon from '../assets/PivotTableIcon.js'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
+import {
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from './dimensionTypes.js'
 import { default as options } from './options.js'
-
-export const DIMENSION_TYPE_ALL = 'ALL'
-export const DIMENSION_TYPE_DATA_ELEMENT = 'DATA_ELEMENT'
-export const DIMENSION_TYPE_PROGRAM_ATTRIBUTE = 'PROGRAM_ATTRIBUTE'
-export const DIMENSION_TYPE_PROGRAM_INDICATOR = 'PROGRAM_INDICATOR'
-
-export const VIS_TYPE_PIVOT_TABLE = 'PIVOT_TABLE'
-export const VIS_TYPE_LINE_LIST = 'LINE_LIST'
 
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 
-export const visTypeMap = {
-    [VIS_TYPE_LINE_LIST]: {
-        name: i18n.t('Line list'),
-        description: 'TEXT description for Line list',
-        icon: PivotTableIcon,
-        disabled: false,
-    },
-    [VIS_TYPE_PIVOT_TABLE]: {
-        name: i18n.t('Pivot table'),
-        description: 'TEXT description for Pivot table',
-        icon: PivotTableIcon,
-        disabled: true,
-        disabledText: i18n.t('Pivot tables are not supported by this app yet'),
-    },
+export const headersMap = {
+    ou: 'ouname',
+    programStatus: 'programstatus',
+    eventStatus: 'eventstatus',
+    storedBy: 'storedby',
+    lastUpdatedBy: 'lastupdatedby',
+    [DIMENSION_TYPE_EVENT_DATE]: 'eventdate',
+    [DIMENSION_TYPE_ENROLLMENT_DATE]: 'enrollmentdate',
+    [DIMENSION_TYPE_INCIDENT_DATE]: 'incidentdate',
+    [DIMENSION_TYPE_SCHEDULED_DATE]: 'scheduleddate',
+    [DIMENSION_TYPE_LAST_UPDATED]: 'lastupdated',
 }
 
 export const outputTypeMap = {
@@ -45,25 +48,57 @@ export const outputTypeMap = {
     },
 }
 
-export const transformProgramDataElement = (visualization) => {
-    const replaceProgramDataElement = (dimension) =>
-        dimension.dimensionType === 'PROGRAM_DATA_ELEMENT'
-            ? { ...dimension, dimensionType: DIMENSION_TYPE_DATA_ELEMENT }
-            : dimension
-
-    return {
-        ...visualization,
-        [AXIS_ID_COLUMNS]: visualization[AXIS_ID_COLUMNS].map(
-            replaceProgramDataElement
-        ),
-        [AXIS_ID_FILTERS]: visualization[AXIS_ID_FILTERS].map(
-            replaceProgramDataElement
-        ),
-    }
+export const outputTypeTimeDimensionMap = {
+    [OUTPUT_TYPE_EVENT]: DIMENSION_TYPE_EVENT_DATE,
+    [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_TYPE_ENROLLMENT_DATE,
 }
 
-export const transformVisualization = (visualization) =>
-    transformProgramDataElement(visualization)
+export const transformVisualization = (visualization) => ({
+    ...visualization,
+    [AXIS_ID_COLUMNS]: transformDimensions(
+        visualization[AXIS_ID_COLUMNS],
+        visualization
+    ),
+    [AXIS_ID_ROWS]: transformDimensions(
+        visualization[AXIS_ID_ROWS],
+        visualization
+    ),
+    [AXIS_ID_FILTERS]: transformDimensions(
+        visualization[AXIS_ID_FILTERS],
+        visualization
+    ),
+})
+
+const transformDimensions = (dimensions, { outputType, type }) =>
+    dimensions.map((dimensionObj) => {
+        if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
+            return {
+                ...dimensionObj,
+                dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+            }
+        } else if (
+            dimensionObj.dimension === DIMENSION_ID_PERIOD &&
+            type === VIS_TYPE_LINE_LIST
+        ) {
+            return {
+                ...dimensionObj,
+                dimension: outputTypeTimeDimensionMap[outputType],
+            }
+        } else {
+            return dimensionObj
+        }
+    })
+
+export const visTypes = [
+    { type: VIS_TYPE_LINE_LIST },
+    { type: VIS_TYPE_PIVOT_TABLE, disabled: true },
+]
+
+export const visTypeDescriptions = {
+    // TODO review descriptions @scott @joe
+    [VIS_TYPE_LINE_LIST]: i18n.t('TEXT description for Line List'),
+    [VIS_TYPE_PIVOT_TABLE]: i18n.t('TEXT description for Pivot Table'),
+}
 
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)

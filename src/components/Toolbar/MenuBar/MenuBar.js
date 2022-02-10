@@ -1,6 +1,9 @@
-import { FileMenu } from '@dhis2/analytics'
+import {
+    FileMenu,
+    useCachedDataQuery,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
-import { useD2 } from '@dhis2/app-runtime-adapter-d2'
 import i18n from '@dhis2/d2-i18n'
 import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -11,6 +14,7 @@ import { acSetShowExpandedLayoutPanel } from '../../../actions/ui.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
+import { visTypes } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -48,7 +52,7 @@ const MenuBar = ({
     setVisualization,
     onUpdate,
 }) => {
-    const { d2 } = useD2()
+    const { currentUser } = useCachedDataQuery()
     const { show: showAlert } = useAlert(
         ({ message }) => message,
         ({ options }) => options
@@ -217,9 +221,11 @@ const MenuBar = ({
                 {i18n.t('Update')}
             </Button>
             <FileMenu
-                d2={d2}
+                currentUser={currentUser}
                 fileType={apiObjectName}
                 fileObject={current}
+                filterVisTypes={visTypes}
+                defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}

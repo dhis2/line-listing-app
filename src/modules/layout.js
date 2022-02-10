@@ -2,8 +2,9 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_FILTERS,
     AXIS_ID_ROWS,
+    VIS_TYPE_LINE_LIST,
+    VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
-import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from './visualization.js'
 
 // Names for dnd sources
 export const SOURCE_DIMENSIONS = 'dimensions'

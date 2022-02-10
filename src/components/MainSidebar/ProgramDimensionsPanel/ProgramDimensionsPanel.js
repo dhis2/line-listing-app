@@ -5,20 +5,17 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    tSetUiProgram,
-    acUpdateUiProgramStage,
-    acClearUiProgram,
-} from '../../../actions/ui.js'
+import { tSetUiProgram, acUpdateUiProgramStageId } from '../../../actions/ui.js'
+import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
-    DIMENSION_TYPE_ALL,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
 } from '../../../modules/visualization.js'
 import {
     sGetUiInputType,
     sGetUiProgramId,
-    sGetUiProgramStage,
+    sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import { ProgramDimensionsList } from './ProgramDimensionsList.js'
@@ -52,18 +49,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
-    const selectedStageId = useSelector(sGetUiProgramStage)
-    const setSelectedProgramId = (programId) =>
-        dispatch(
-            tSetUiProgram({
-                programId,
-                metadata: {
-                    [programId]: filteredPrograms.find(
-                        ({ id }) => id === programId
-                    ),
-                },
-            })
-        )
+    const selectedStageId = useSelector(sGetUiProgramStageId)
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -72,8 +58,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
         ({ programType }) =>
-            inputType === OUTPUT_TYPE_EVENT ||
-            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            !(
+                inputType === OUTPUT_TYPE_ENROLLMENT &&
+                programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+            )
     )
     const selectedProgram =
         selectedProgramId &&
@@ -86,6 +74,20 @@ const ProgramDimensionsPanel = ({ visible }) => {
         inputType === OUTPUT_TYPE_EVENT
             ? selectedProgram && selectedStageId
             : !!selectedProgram
+    const setSelectedProgramId = (programId) => {
+        if (programId !== selectedProgramId) {
+            dispatch(
+                tSetUiProgram({
+                    programId,
+                    metadata: {
+                        [programId]: filteredPrograms.find(
+                            ({ id }) => id === programId
+                        ),
+                    },
+                })
+            )
+        }
+    }
 
     useEffect(() => {
         if (visible && !called) {
@@ -94,11 +96,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }, [visible, called])
 
     useEffect(() => {
-        // Clear everything when user changes input type
-        dispatch(acClearUiProgram())
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
-    }, [inputType])
+    }, [inputType, selectedProgramId])
 
     useEffect(() => {
         if (
@@ -106,8 +106,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
             inputType === OUTPUT_TYPE_EVENT &&
             programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
         ) {
-            const artificialStageId = selectedProgram.programStages[0].id
-            dispatch(acUpdateUiProgramStage(artificialStageId))
+            const artificialStage = selectedProgram.programStages[0]
+            const metadata = { [artificialStage.id]: artificialStage }
+            dispatch(acUpdateUiProgramStageId(artificialStage.id, metadata))
         }
     }, [inputType, programType])
 
@@ -174,8 +175,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}
-                    programId={selectedProgramId}
-                    programName={selectedProgram.name}
+                    program={selectedProgram}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}

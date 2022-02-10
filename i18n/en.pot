@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-02T11:05:53.667Z\n"
-"PO-Revision-Date: 2022-02-02T11:05:53.667Z\n"
+"POT-Creation-Date: 2022-02-07T14:29:02.653Z\n"
+"PO-Revision-Date: 2022-02-07T14:29:02.653Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -120,14 +120,20 @@ msgstr "No preset option sets for this data item"
 msgid "Choose options"
 msgstr "Choose options"
 
+msgid "Hide"
+msgstr "Hide"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "No items selected"
+msgstr "No items selected"
+
 msgid "Available options"
 msgstr "Available options"
 
 msgid "Filter options"
 msgstr "Filter options"
-
-msgid "No items selected"
-msgstr "No items selected"
 
 msgid "Selected options"
 msgstr "Selected options"
@@ -137,12 +143,6 @@ msgstr "Nothing found for \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr "No options"
-
-msgid "Hide"
-msgstr "Hide"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
@@ -320,6 +320,24 @@ msgstr "Events are single registrations or incidents in a program."
 msgid "Programs track enrollments across time."
 msgstr "Programs track enrollments across time."
 
+msgid "Main dimensions"
+msgstr "Main dimensions"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Program status"
+msgstr "Program status"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Last updated by"
+msgstr "Last updated by"
+
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -328,9 +346,6 @@ msgstr "Program dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
-
-msgid "Time dimensions"
-msgstr "Time dimensions"
 
 msgid "Search in program"
 msgstr "Search in program"
@@ -378,6 +393,9 @@ msgstr "Clear"
 msgid "Stage"
 msgstr "Stage"
 
+msgid "Time dimensions"
+msgstr "Time dimensions"
+
 msgid "Search your dimensions"
 msgstr "Search your dimensions"
 
@@ -403,14 +421,27 @@ msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 
+msgid "Not supported by this app yet"
+msgstr "Not supported by this app yet"
+
 msgid "Getting started"
 msgstr "Getting started"
 
-msgid "TEXT"
-msgstr "TEXT"
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
 
-msgid "Your most viewed TEXT"
-msgstr "Your most viewed TEXT"
+msgid "Add dimensions to the layout above."
+msgstr "Add dimensions to the layout above."
+
+msgid "Click a dimension to add or remove conditions."
+msgstr "Click a dimension to add or remove conditions."
+
+msgid "Your most viewed event reports"
+msgstr "Your most viewed event reports"
 
 msgid "Could not load visualization"
 msgstr "Could not load visualization"
@@ -631,17 +662,14 @@ msgstr "Due/Scheduled date"
 msgid "Last updated on"
 msgstr "Last updated on"
 
-msgid "Line list"
-msgstr "Line list"
-
-msgid "Pivot table"
-msgstr "Pivot table"
-
-msgid "Pivot tables are not supported by this app yet"
-msgstr "Pivot tables are not supported by this app yet"
-
 msgid "Events are single registrations or incidents in a program"
 msgstr "Events are single registrations or incidents in a program"
 
 msgid "Programs track enrollments across time"
 msgstr "Programs track enrollments across time"
+
+msgid "TEXT description for Line List"
+msgstr "TEXT description for Line List"
+
+msgid "TEXT description for Pivot Table"
+msgstr "TEXT description for Pivot Table"

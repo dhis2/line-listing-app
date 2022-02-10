@@ -1,9 +1,8 @@
-import { dimensionCreate } from '@dhis2/analytics'
+import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
-import { VIS_TYPE_LINE_LIST } from './visualization.js'
 
 export const getDefaultFromUi = (current, action) => {
     const ui = {
@@ -32,7 +31,7 @@ export const getProgramFromUi = (ui) =>
     ui.program?.id && { program: { id: ui.program.id } }
 
 export const getProgramStageFromUi = (ui) =>
-    ui.program?.stage && { programStage: { id: ui.program.stage } }
+    ui.program?.stageId && { programStage: { id: ui.program.stageId } }
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 

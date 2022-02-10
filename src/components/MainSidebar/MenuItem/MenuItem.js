@@ -12,7 +12,7 @@ const MenuItem = ({ icon, label, count, onClick, selected }) => (
     >
         <div className={styles.icon}>{icon}</div>
         <div className={styles.label}>{label}</div>
-        {typeof count === 'number' && (
+        {typeof count === 'number' && count > 0 && (
             <div className={styles.count}>{count}</div>
         )}
         <IconChevronRight16 />

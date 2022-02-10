@@ -2,7 +2,7 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../modules/visualization.js'
+} from '../modules/dimensionTypes.js'
 
 const dataElementsQuery = {
     resource: 'dataElements',

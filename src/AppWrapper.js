@@ -1,17 +1,52 @@
-import { apiFetchOrganisationUnitLevels } from '@dhis2/analytics'
+import { CachedDataQueryProvider } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
-import { D2Shim } from '@dhis2/app-runtime-adapter-d2'
-import React, { useState, useEffect, useCallback } from 'react'
+import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './components/App.js'
-import UserSettingsProvider, {
-    UserSettingsCtx,
-} from './components/UserSettingsProvider.js'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
 import history from './modules/history.js'
 import './locales/index.js'
+
+const query = {
+    currentUser: {
+        resource: 'me',
+        params: {
+            fields: 'id,username,displayName~rename(name)',
+        },
+    },
+    userSettings: {
+        resource: 'userSettings',
+        params: {
+            key: ['keyUiLocale', 'keyAnalysisDisplayProperty'],
+        },
+    },
+}
+
+const providerDataTransformation = (rawData) => {
+    const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
+        rawData.userSettings
+    return {
+        currentUser: rawData.currentUser,
+        userSettings: {
+            ...rest,
+            displayProperty: keyAnalysisDisplayProperty,
+            displayNameProperty:
+                keyAnalysisDisplayProperty === 'name'
+                    ? 'displayName'
+                    : 'displayShortName',
+            uiLocale: keyUiLocale,
+        },
+    }
+}
+
+/*
+ * The redux store is being created here and this should only happen once,
+ * because having multiple store instances leads to very unpredictable behaviour.
+ * To avoid having multiple stores, ensure this component only renders once,
+ * so it should remain stateless and be the app's most outer container.
+ */
 
 const AppWrapper = () => {
     const engine = useDataEngine()
@@ -24,60 +59,14 @@ const AppWrapper = () => {
         window.store = store
     }
 
-    const [ouLevels, setOuLevels] = useState(null)
-
-    const doFetchOuLevelsData = useCallback(async () => {
-        const ouLevels = await apiFetchOrganisationUnitLevels(engine)
-
-        return ouLevels
-    }, [engine])
-
-    useEffect(() => {
-        const doFetch = async () => {
-            const ouLevelsData = await doFetchOuLevelsData()
-
-            setOuLevels(ouLevelsData)
-        }
-
-        doFetch()
-    }, [])
-
-    const d2Config = {
-        schemas: [],
-    }
-
     return (
         <ReduxProvider store={store}>
-            <UserSettingsProvider>
-                <UserSettingsCtx.Consumer>
-                    {({ userSettings }) => {
-                        return userSettings?.uiLocale ? (
-                            <D2Shim
-                                d2Config={d2Config}
-                                i18nRoot="./i18n_old"
-                                locale={userSettings.uiLocale}
-                            >
-                                {({ d2 }) => {
-                                    if (!d2) {
-                                        // TODO: Handle errors in d2 initialization
-                                        return null
-                                    } else {
-                                        return (
-                                            <App
-                                                initialLocation={
-                                                    history.location
-                                                }
-                                                ouLevels={ouLevels} // TODO: Unused by App.js?
-                                                userSettings={userSettings}
-                                            />
-                                        )
-                                    }
-                                }}
-                            </D2Shim>
-                        ) : null
-                    }}
-                </UserSettingsCtx.Consumer>
-            </UserSettingsProvider>
+            <CachedDataQueryProvider
+                query={query}
+                dataTransformation={providerDataTransformation}
+            >
+                <App initialLocation={history.location} />
+            </CachedDataQueryProvider>
         </ReduxProvider>
     )
 }

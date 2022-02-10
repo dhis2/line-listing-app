@@ -1,9 +1,14 @@
+import { visTypeDisplayNames } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import { Card, Popper, Layer, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, createRef } from 'react'
 import { connect } from 'react-redux'
 import ArrowDown from '../../../assets/ArrowDown.js'
-import { visTypeMap } from '../../../modules/visualization.js'
+import {
+    visTypes,
+    visTypeDescriptions,
+} from '../../../modules/visualization.js'
 import { sGetUi, sGetUiType } from '../../../reducers/ui.js'
 import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
@@ -17,20 +22,16 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
         setListIsOpen(false)
     }
 
-    const getVisTypes = () => Object.keys(visTypeMap).sort()
-
-    const renderVisualizationTypeListItem = (type) => {
-        const isDisabled = visTypeMap[type].disabled
-
+    const renderVisualizationTypeListItem = ({ type, disabled }) => {
         return (
             <VisualizationTypeListItem
                 key={type}
                 visType={type}
-                label={visTypeMap[type].name}
-                description={visTypeMap[type].description}
+                label={visTypeDisplayNames[type]}
+                description={visTypeDescriptions[type]}
                 isSelected={type === visualizationType}
-                onClick={isDisabled ? null : handleListItemClick(type)}
-                disabled={isDisabled}
+                onClick={!disabled && handleListItemClick(type)}
+                disabled={disabled}
             />
         )
     }
@@ -39,17 +40,22 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
         <Card dataTest={'visualization-type-selector-card'}>
             <div className={classes.listContainer}>
                 <div className={classes.listSection}>
-                    {getVisTypes().map((type) =>
-                        visTypeMap[type].disabled ? (
+                    {visTypes.map(({ type, disabled }) =>
+                        disabled ? (
                             <Tooltip
                                 key={`${type}-tooltip`}
                                 placement="bottom"
-                                content={visTypeMap[type].disabledText}
+                                content={i18n.t(
+                                    'Not supported by this app yet'
+                                )}
                             >
-                                {renderVisualizationTypeListItem(type)}
+                                {renderVisualizationTypeListItem({
+                                    type,
+                                    disabled,
+                                })}
                             </Tooltip>
                         ) : (
-                            renderVisualizationTypeListItem(type)
+                            renderVisualizationTypeListItem({ type })
                         )
                     )}
                 </div>
@@ -69,7 +75,7 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
             >
                 <ListItemIcon visType={visualizationType} />
                 <span data-test="visualization-type-selector-currently-selected-text">
-                    {visTypeMap[visualizationType].name}
+                    {visTypeDisplayNames[visualizationType]}
                 </span>
                 <span className={classes.arrowIcon}>
                     <ArrowDown />
@@ -89,7 +95,7 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
 }
 
 VisualizationTypeSelector.propTypes = {
-    visualizationType: PropTypes.oneOf(Object.keys(visTypeMap)),
+    visualizationType: PropTypes.oneOf(visTypes.map(({ type }) => type)),
 }
 
 const mapStateToProps = (state) => ({

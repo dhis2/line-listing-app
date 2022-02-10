@@ -5,8 +5,12 @@
 }
 .columns {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    gap: var(--spacers-dp4);
 }
 .stretch {
     flex-grow: 1;
+}
+.indented {
+    padding-left: var(--spacers-dp16);
 }

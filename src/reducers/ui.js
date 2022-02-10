@@ -1,17 +1,19 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
-import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    USER_ORG_UNIT,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import {
-    OUTPUT_TYPE_EVENT,
-    VIS_TYPE_LINE_LIST,
-} from '../modules/visualization.js'
+import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
+export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
-export const UPDATE_UI_PROGRAM_STAGE = 'UPDATE_UI_PROGRAM_STAGE'
+export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
@@ -33,7 +35,10 @@ const EMPTY_UI = {
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
-    program: {},
+    program: {
+        id: undefined,
+        stageId: undefined,
+    },
     layout: {
         columns: [],
         filters: [],
@@ -105,6 +110,15 @@ export default (state = EMPTY_UI, action) => {
                 program: EMPTY_UI.program,
             }
         }
+        case CLEAR_UI_STAGE_ID: {
+            return {
+                ...state,
+                program: {
+                    id: state.program.id,
+                    stageId: undefined,
+                },
+            }
+        }
         case UPDATE_UI_PROGRAM_ID: {
             return {
                 ...state,
@@ -114,12 +128,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case UPDATE_UI_PROGRAM_STAGE: {
+        case UPDATE_UI_PROGRAM_STAGE_ID: {
             return {
                 ...state,
                 program: {
                     ...state.program,
-                    stage: action.value,
+                    stageId: action.value,
                 },
             }
         }
@@ -291,7 +305,7 @@ export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
 export const sGetUiInputType = (state) => sGetUiInput(state).type
 
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
-export const sGetUiProgramStage = (state) => sGetUiProgram(state).stage
+export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]

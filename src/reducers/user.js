@@ -5,27 +5,16 @@ export const DEFAULT_USER = {
     username: '',
     name: '',
     uiLocale: '',
-    isSuperuser: false,
     authorities: {},
 }
 
 export default (state = DEFAULT_USER, action) => {
     switch (action.type) {
         case SET_USER: {
-            return fromD2ToUserObj(action.value)
+            return action.value
         }
         default:
             return state
-    }
-}
-
-function fromD2ToUserObj(d2Object) {
-    return {
-        id: d2Object.id,
-        username: d2Object.username,
-        name: d2Object.name,
-        uiLocale: d2Object.settings.keyUiLocale,
-        isSuperuser: d2Object.authorities.has('ALL'),
     }
 }
 
