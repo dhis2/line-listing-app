@@ -9,6 +9,10 @@ export const TimeDimensions = () => {
     const timeDimensions = useTimeDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
 
+    if (!timeDimensions) {
+        return null
+    }
+
     return (
         <MainSidebarSection header={i18n.t('Time dimensions')}>
             {Object.values(timeDimensions).map((dimension) => (

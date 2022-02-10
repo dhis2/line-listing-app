@@ -3,6 +3,7 @@ import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { tUpdateTimeDimensionsMetadataNames } from '../../../actions/metadata.js'
 import { acUpdateUiProgramStageId } from '../../../actions/ui.js'
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
 
@@ -17,6 +18,7 @@ const StageSelect = ({ optional, stages }) => {
                 [stageId]: stages.find(({ id }) => id === stageId),
             })
         )
+        dispatch(tUpdateTimeDimensionsMetadataNames())
     }
 
     return (

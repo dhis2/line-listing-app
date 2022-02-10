@@ -5,19 +5,23 @@ import {
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
+import {
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from '../modules/dimensionTypes.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import {
     getMainDimensions,
     getIsMainDimensionDisabled,
 } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
-import {
-    getTimeDimensionName,
-    getEnabledTimeDimensionIds,
-    getTimeDimensions,
-} from '../modules/timeDimensions.js'
+import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import { sGetMetadataById } from './metadata.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
@@ -356,44 +360,66 @@ export const useMainDimensions = () => {
     }, [programId, inputType])
 }
 
-export const useMainDimension = (id) => {
-    const mainDimensions = useMainDimension()
-    return mainDimensions[id]
-}
-
 export const useTimeDimensions = () => {
     const store = useStore()
     const programId = useSelector(sGetUiProgramId)
     const inputType = useSelector(sGetUiInputType)
     const stageId = useSelector(sGetUiProgramStageId)
+    const eventDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_EVENT_DATE)
+    )
+    const enrollmentDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_ENROLLMENT_DATE)
+    )
+    const incidentDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_INCIDENT_DATE)
+    )
+    const scheduledDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_SCHEDULED_DATE)
+    )
+    const lastUpdatedDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_LAST_UPDATED)
+    )
 
     return useMemo(() => {
-        const { metadata } = store.getState()
-        const timeDimensions = getTimeDimensions()
-        const program = metadata[programId]
-        const stage = metadata[stageId]
-        const enabledDimensionIds = getEnabledTimeDimensionIds(
-            inputType,
-            program,
-            stage
-        )
-
-        return Object.values(timeDimensions).reduce((acc, dimension) => {
-            acc[dimension.id] = {
-                ...dimension,
-                name: getTimeDimensionName(
-                    timeDimensions[dimension.id],
-                    program,
-                    stage
-                ),
-                disabled: !enabledDimensionIds.has(dimension.id),
-            }
-            return acc
-        }, {})
-    }, [programId, inputType, stageId])
-}
-
-export const useTimeDimension = (id) => {
-    const timeDimensions = useTimeDimension()
-    return timeDimensions[id]
+        if (
+            eventDateDim &&
+            enrollmentDateDim &&
+            incidentDateDim &&
+            scheduledDateDim &&
+            lastUpdatedDim
+        ) {
+            const { metadata } = store.getState()
+            const timeDimensions = [
+                eventDateDim,
+                enrollmentDateDim,
+                incidentDateDim,
+                scheduledDateDim,
+                lastUpdatedDim,
+            ]
+            const program = metadata[programId]
+            const stage = metadata[stageId]
+            const enabledDimensionIds = getEnabledTimeDimensionIds(
+                inputType,
+                program,
+                stage
+            )
+            return timeDimensions.reduce((acc, dimension) => {
+                acc[dimension.id] = {
+                    ...dimension,
+                    disabled: !enabledDimensionIds.has(dimension.id),
+                }
+                return acc
+            }, {})
+        }
+    }, [
+        programId,
+        inputType,
+        stageId,
+        eventDateDim,
+        enrollmentDateDim,
+        incidentDateDim,
+        scheduledDateDim,
+        lastUpdatedDim,
+    ])
 }
