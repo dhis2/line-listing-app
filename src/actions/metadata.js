@@ -1,4 +1,4 @@
-import defaultMetadata from '../modules/metadata.js'
+import { getDefaultMetadata } from '../modules/metadata.js'
 import {
     getTimeDimensions,
     getTimeDimensionName,
@@ -13,7 +13,7 @@ export const acAddMetadata = (value) => ({
 })
 
 export const tSetInitMetadata = () => (dispatch, getState) => {
-    const metaData = { ...defaultMetadata() }
+    const metaData = { ...getDefaultMetadata() }
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
     rootOrgUnits.forEach((rootOrgUnit) => {

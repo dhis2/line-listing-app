@@ -21,16 +21,11 @@ const getFixedDimensions = () => ({
     [DIMENSION_ID_PERIOD]: getDimensionById(DIMENSION_ID_PERIOD),
 })
 
-export default function () {
-    return {
-        ...getMainDimensions(),
-        ...getTimeDimensions(),
-        ...getFixedDimensions(),
-        ...Object.entries({
-            ...getOrganisationUnits(),
-        }).reduce(
-            (acc, [key, value]) => ({ ...acc, [key]: { name: value } }),
-            {}
-        ),
-    }
-}
+export const getDefaultMetadata = () => ({
+    ...getMainDimensions(),
+    ...getTimeDimensions(),
+    ...getFixedDimensions(),
+    ...Object.entries({
+        ...getOrganisationUnits(),
+    }).reduce((acc, [key, value]) => ({ ...acc, [key]: { name: value } }), {}),
+})
