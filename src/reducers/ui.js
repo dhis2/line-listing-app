@@ -6,7 +6,11 @@ import {
 } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
-import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
+import {
+    getAdaptedUiByType,
+    getDefaultUiRepetition,
+    getUiFromVisualization,
+} from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
@@ -320,4 +324,4 @@ export const sGetUiConditionsByDimension = (state, dimension) =>
     sGetUiConditions(state)[dimension]
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
-    sGetUiRepetition(state)[dimensionId]
+    sGetUiRepetition(state)[dimensionId] || getDefaultUiRepetition() // TODO: temp only, should return null

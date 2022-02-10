@@ -32,6 +32,7 @@ import {
 import NumericCondition from './NumericCondition.js'
 import OptionSetCondition from './OptionSetCondition.js'
 import OrgUnitCondition from './OrgUnitCondition.js'
+import RepeatableEvents from './RepeatableEvents.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const VALUE_TYPE_NUMBER = 'NUMBER'
@@ -443,44 +444,6 @@ const ConditionsManager = ({
         </>
     )
 
-    const renderRepeatableEvents = () => (
-        <div>
-            <p className={commonClasses.paragraph}>
-                {i18n.t(
-                    'From stages with repeatable events, show values for this data element from:'
-                )}
-            </p>
-            <div>
-                <div className={classes.repeatableWrapper}>
-                    <p className={commonClasses.paragraph}>
-                        {i18n.t('Most recent events: ', {
-                            keySeparator: '>',
-                            nsSeparator: '|',
-                        })}
-                    </p>
-                    <Input
-                        type="number"
-                        dense
-                        className={classes.repeatableInput}
-                    />
-                </div>
-                <div className={classes.repeatableWrapper}>
-                    <p className={commonClasses.paragraph}>
-                        {i18n.t('Oldest events: ', {
-                            keySeparator: '>',
-                            nsSeparator: '|',
-                        })}
-                    </p>
-                    <Input
-                        type="number"
-                        dense
-                        className={classes.repeatableInput}
-                    />
-                </div>
-            </div>
-        </div>
-    )
-
     const renderTabs = () => (
         <>
             <TabBar className={classes.tabBar}>
@@ -499,9 +462,11 @@ const ConditionsManager = ({
                     {i18n.t('Repeated events')}
                 </Tab>
             </TabBar>
-            {currentTab === TAB_CONDITIONS
-                ? renderConditions()
-                : renderRepeatableEvents()}
+            {currentTab === TAB_CONDITIONS ? (
+                renderConditions()
+            ) : (
+                <RepeatableEvents dimensionId={dimension.id} />
+            )}
         </>
     )
 
