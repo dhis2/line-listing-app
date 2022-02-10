@@ -453,7 +453,10 @@ const ConditionsManager = ({
             <div>
                 <div className={classes.repeatableWrapper}>
                     <p className={classes.paragraph}>
-                        {i18n.t('Most recent events: ')}
+                        {i18n.t('Most recent events: ', {
+                            keySeparator: '>',
+                            nsSeparator: '|',
+                        })}
                     </p>
                     <Input
                         type="number"
@@ -463,7 +466,10 @@ const ConditionsManager = ({
                 </div>
                 <div className={classes.repeatableWrapper}>
                     <p className={classes.paragraph}>
-                        {i18n.t('Oldest events: ')}
+                        {i18n.t('Oldest events: ', {
+                            keySeparator: '>',
+                            nsSeparator: '|',
+                        })}
                     </p>
                     <Input
                         type="number"
