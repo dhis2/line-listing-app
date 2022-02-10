@@ -445,14 +445,14 @@ const ConditionsManager = ({
 
     const renderRepeatableEvents = () => (
         <div>
-            <p className={classes.paragraph}>
+            <p className={commonClasses.paragraph}>
                 {i18n.t(
                     'From stages with repeatable events, show values for this data element from:'
                 )}
             </p>
             <div>
                 <div className={classes.repeatableWrapper}>
-                    <p className={classes.paragraph}>
+                    <p className={commonClasses.paragraph}>
                         {i18n.t('Most recent events: ', {
                             keySeparator: '>',
                             nsSeparator: '|',
@@ -465,7 +465,7 @@ const ConditionsManager = ({
                     />
                 </div>
                 <div className={classes.repeatableWrapper}>
-                    <p className={classes.paragraph}>
+                    <p className={commonClasses.paragraph}>
                         {i18n.t('Oldest events: ', {
                             keySeparator: '>',
                             nsSeparator: '|',
