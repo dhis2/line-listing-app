@@ -62,7 +62,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         type="number"
                         dense
                         className={classes.repeatableInput}
-                        value={mostRecent}
+                        value={mostRecent.toString()}
                         onChange={({ value }) => onMostRecentChange(value)}
                     />
                 </div>
@@ -77,7 +77,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         type="number"
                         dense
                         className={classes.repeatableInput}
-                        value={oldest}
+                        value={oldest.toString()}
                         onChange={({ value }) => onOldestChange(value)}
                     />
                 </div>
