@@ -6,11 +6,7 @@ import {
 } from '@dhis2/analytics'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getOptionsForUi } from '../modules/options.js'
-import {
-    getAdaptedUiByType,
-    getDefaultUiRepetition,
-    getUiFromVisualization,
-} from '../modules/ui.js'
+import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
@@ -302,7 +298,8 @@ export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
-export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
+export const sGetUiRepetition = (state) =>
+    sGetUi(state).repetitionByDimension || {}
 
 // Selectors level 2
 
@@ -324,4 +321,4 @@ export const sGetUiConditionsByDimension = (state, dimension) =>
     sGetUiConditions(state)[dimension]
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
-    sGetUiRepetition(state)[dimensionId] || getDefaultUiRepetition() // TODO: temp only, should return null
+    sGetUiRepetition(state)[dimensionId]

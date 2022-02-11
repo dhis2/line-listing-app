@@ -4,7 +4,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetUiRepetition } from '../../../actions/ui.js'
-import { PROP_MOST_RECENT, PROP_OLDEST } from '../../../modules/ui.js'
+import {
+    getDefaultUiRepetition,
+    PROP_MOST_RECENT,
+    PROP_OLDEST,
+} from '../../../modules/ui.js'
 import { sGetUiRepetitionByDimension } from '../../../reducers/ui.js'
 import commonClasses from '../styles/Common.module.css'
 import classes from './styles/ConditionsManager.module.css'
@@ -12,22 +16,28 @@ import classes from './styles/ConditionsManager.module.css'
 const RepeatableEvents = ({ dimensionId }) => {
     const dispatch = useDispatch()
 
-    // TODO: if there's no repetition on component mount then call the setReptition with the default value
+    const setRepetition = (value) =>
+        dispatch(acSetUiRepetition({ dimensionId, repetition: value }))
 
-    const { [PROP_MOST_RECENT]: mostRecent, [PROP_OLDEST]: oldest } =
-        useSelector((state) => sGetUiRepetitionByDimension(state, dimensionId))
+    const repetition = useSelector((state) =>
+        sGetUiRepetitionByDimension(state, dimensionId)
+    )
 
-    const setReptetition = (repetition) =>
-        dispatch(acSetUiRepetition({ dimensionId, repetition }))
+    if (!repetition) {
+        setRepetition(getDefaultUiRepetition())
+        return null
+    }
+
+    const { [PROP_MOST_RECENT]: mostRecent, [PROP_OLDEST]: oldest } = repetition
 
     const onMostRecentChange = (value) => {
-        setReptetition({
+        setRepetition({
             [PROP_MOST_RECENT]: parseInt(value, 10),
             [PROP_OLDEST]: oldest,
         })
     }
     const onOldestChange = (value) => {
-        setReptetition({
+        setRepetition({
             [PROP_OLDEST]: parseInt(value, 10),
             [PROP_MOST_RECENT]: mostRecent,
         })
