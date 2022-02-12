@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
-import { GenericServerError, NoPeriodError } from '../../modules/error.js'
+import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -84,13 +84,13 @@ export const Visualization = ({
         if (error.details) {
             switch (error.details.errorCode) {
                 case 'E7205':
-                    output = new NoPeriodError()
+                    output = noPeriodError()
                     break
                 default:
                     output = error
             }
         } else {
-            output = new GenericServerError()
+            output = genericServerError()
         }
         dispatch(acSetLoadError(output))
     }

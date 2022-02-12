@@ -6,7 +6,7 @@ import {
     acSetVisualizationLoading,
 } from '../../actions/loader.js'
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
-import { GenericClientError } from '../../modules/error.js'
+import { genericClientError } from '../../modules/error.js'
 import { validateLayout } from '../../modules/layoutValidation.js'
 import { sGetCurrent, sGetCurrentFromUi } from '../../reducers/current.js'
 
@@ -24,7 +24,7 @@ const UpdateVisualizationContainer = ({
             validateLayout(getCurrentFromUi())
             clearLoadError()
         } catch (error) {
-            setLoadError(error || new GenericClientError())
+            setLoadError(error || genericClientError())
         }
 
         hideLayoutPanel()

@@ -8,10 +8,10 @@ import {
 } from '@dhis2/analytics'
 import { DIMENSION_TYPES_TIME } from './dimensionTypes.js'
 import {
-    NoColumnsError,
-    NoOrgUnitError,
-    NoPeriodError,
-    NoProgramError,
+    noColumnsError,
+    noOrgUnitError,
+    noPeriodError,
+    noProgramError,
 } from './error.js'
 
 // Layout validation helper functions
@@ -36,28 +36,28 @@ const validateAxis = (axis, error) => {
 }
 
 const validateLineListLayout = (layout) => {
-    validateAxis(layout.columns, new NoColumnsError(layout.type))
+    validateAxis(layout.columns, noColumnsError())
     validateDimension(
         layoutGetDimension(layout, DIMENSION_ID_ORGUNIT),
-        new NoOrgUnitError(),
+        noOrgUnitError(),
         true
     )
     let layoutHasTimeDimension = false
     DIMENSION_TYPES_TIME.forEach((dimension) => {
         if (layoutHasDimension(layout, dimension)) {
-            validateDimension(dimension, new NoPeriodError(), true)
+            validateDimension(dimension, noPeriodError(), true)
             layoutHasTimeDimension = true
         }
     })
 
     if (!layoutHasTimeDimension) {
         // TODO: Uncomment when time dimensions are implemented properly
-        console.error('NoPeriodError')
-        //throw new NoPeriodError()
+        console.error('noPeriodError')
+        //throw noPeriodError()
     }
 
     if (!layout?.program?.id) {
-        throw new NoProgramError()
+        throw noProgramError()
     }
 }
 

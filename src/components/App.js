@@ -23,9 +23,9 @@ import { acSetUser } from '../actions/user.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
-    EmptyResponseError,
-    GenericServerError,
-    VisualizationNotFoundError,
+    emptyResponseError,
+    genericServerError,
+    visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
@@ -142,9 +142,9 @@ const App = ({
 
     if (!error && fetchError) {
         if (fetchError.details?.httpStatusCode === 404) {
-            clearAll(new VisualizationNotFoundError())
+            clearAll(visualizationNotFoundError())
         } else {
-            clearAll(fetchError.details.message || new GenericServerError())
+            clearAll(fetchError.details.message || genericServerError())
         }
     }
 
@@ -213,7 +213,7 @@ const App = ({
         addMetadata(itemsMetadata)
 
         if (!response.rows?.length) {
-            setLoadError(new EmptyResponseError())
+            setLoadError(emptyResponseError())
         }
     }
 
