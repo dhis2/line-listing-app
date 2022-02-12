@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16, Tooltip, TabBar, Tab, Input } from '@dhis2/ui'
+import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
