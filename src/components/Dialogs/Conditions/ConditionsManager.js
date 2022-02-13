@@ -361,12 +361,14 @@ const ConditionsManager = ({
             isInLayout={isInLayout}
             onClose={closeModal}
             onUpdate={primaryOnClick}
-            title={
-                dimension.name +
-                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
-            }
+            title={dimension.name}
         >
             <div>
+                <small>
+                    {
+                        `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}` // FIXME: For testing only
+                    }
+                </small>
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(

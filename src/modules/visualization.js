@@ -17,6 +17,9 @@ import {
     DIMENSION_TYPE_INCIDENT_DATE,
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_LAST_UPDATED_BY,
 } from './dimensionTypes.js'
 import { default as options } from './options.js'
 
@@ -27,10 +30,10 @@ export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 
 export const headersMap = {
     ou: 'ouname',
-    programStatus: 'programstatus',
-    eventStatus: 'eventstatus',
+    [DIMENSION_TYPE_PROGRAM_STATUS]: 'programstatus',
+    [DIMENSION_TYPE_EVENT_STATUS]: 'eventstatus',
     storedBy: 'storedby',
-    lastUpdatedBy: 'lastupdatedby',
+    [DIMENSION_TYPE_LAST_UPDATED_BY]: 'lastupdatedby',
     [DIMENSION_TYPE_EVENT_DATE]: 'eventdate',
     [DIMENSION_TYPE_ENROLLMENT_DATE]: 'enrollmentdate',
     [DIMENSION_TYPE_INCIDENT_DATE]: 'incidentdate',

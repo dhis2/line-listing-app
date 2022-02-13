@@ -3,12 +3,22 @@ import {
     ouIdHelper,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { tSetCurrentFromUi } from '../../actions/current.js'
 import { acAddMetadata } from '../../actions/metadata.js'
-import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
+import {
+    acSetUiItems,
+    acAddParentGraphMap,
+    acSetUiProgramStatus,
+} from '../../actions/ui.js'
+import {
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+} from '../../modules/dimensionTypes.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../../reducers/settings.js'
@@ -16,8 +26,10 @@ import {
     sGetUiItemsByDimension,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
+    sGetUiProgramStatus,
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
+import classes from './styles/Common.module.css'
 
 const FixedDimension = ({
     addMetadata,
@@ -32,6 +44,7 @@ const FixedDimension = ({
     rootOrgUnits,
     setUiItems,
 }) => {
+    const dispatch = useDispatch()
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
             dimensionId,
@@ -70,8 +83,65 @@ const FixedDimension = ({
 
     const closeModal = () => onClose()
 
+    const renderStatusParagraph = () => (
+        <p className={classes.paragraph}>
+            {i18n.t('Show items where the status is:')}
+        </p>
+    )
+
+    const renderProgramStatus = () => {
+        const PROGRAM_STATUS_ACTIVE = 'active',
+            PROGRAM_STATUS_COMPLETED = 'completed',
+            PROGRAM_STATUS_CANCELLED = 'cancelled' // TODO: Ideally these are defined somewhere more central
+        const ALL_STATUSES = [
+            { id: PROGRAM_STATUS_ACTIVE, name: i18n.t('Active') },
+            { id: PROGRAM_STATUS_COMPLETED, name: i18n.t('Completed') },
+            { id: PROGRAM_STATUS_CANCELLED, name: i18n.t('Cancelled') },
+        ]
+        const selectedStatus = useSelector(sGetUiProgramStatus)
+
+        const setStatus = (id, toggle) => {
+            if (toggle) {
+                dispatch(
+                    acSetUiProgramStatus([...new Set([...selectedStatus, id])])
+                )
+            } else {
+                dispatch(
+                    acSetUiProgramStatus(
+                        selectedStatus.filter((status) => status !== id)
+                    )
+                )
+            }
+        }
+
+        return (
+            <>
+                {renderStatusParagraph()}
+                <div>
+                    {ALL_STATUSES.map((status) => (
+                        <Checkbox
+                            key={status.id}
+                            checked={selectedStatus.includes(status.id)}
+                            label={status.name}
+                            onChange={({ checked }) =>
+                                setStatus(status.id, checked)
+                            }
+                            dense
+                            className={classes.verticalCheckbox}
+                        />
+                    ))}
+                </div>
+            </>
+        )
+    }
+
     const renderModalContent = () => {
         switch (dimension.id) {
+            case DIMENSION_TYPE_PROGRAM_STATUS:
+                return renderProgramStatus()
+            case DIMENSION_TYPE_EVENT_STATUS: {
+                return <p>EVENT STATUS</p>
+            }
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
                     onSelect: selectUiItems,
