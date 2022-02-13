@@ -14,6 +14,7 @@ import {
     acSetUiItems,
     acAddParentGraphMap,
     acSetUiProgramStatus,
+    acSetUiEventStatus,
 } from '../../actions/ui.js'
 import {
     DIMENSION_TYPE_EVENT_STATUS,
@@ -27,6 +28,7 @@ import {
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
     sGetUiProgramStatus,
+    sGetUiEventStatus,
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
 import classes from './styles/Common.module.css'
@@ -135,13 +137,62 @@ const FixedDimension = ({
         )
     }
 
+    const renderEventStatus = () => {
+        const EVENT_STATUS_ACTIVE = 'active',
+            EVENT_STATUS_COMPLETED = 'completed',
+            EVENT_STATUS_SCHEDULED = 'scheduled',
+            EVENT_STATUS_OVERDUE = 'overdue',
+            EVENT_STATUS_SKIPPED = 'skipped' // TODO: Ideally these are defined somewhere more central
+        const ALL_STATUSES = [
+            { id: EVENT_STATUS_ACTIVE, name: i18n.t('Active') },
+            { id: EVENT_STATUS_COMPLETED, name: i18n.t('Completed') },
+            { id: EVENT_STATUS_SCHEDULED, name: i18n.t('Scheduled') },
+            { id: EVENT_STATUS_OVERDUE, name: i18n.t('Overdue') },
+            { id: EVENT_STATUS_SKIPPED, name: i18n.t('Skipped') },
+        ]
+        const selectedStatus = useSelector(sGetUiEventStatus)
+
+        const setStatus = (id, toggle) => {
+            if (toggle) {
+                dispatch(
+                    acSetUiEventStatus([...new Set([...selectedStatus, id])])
+                )
+            } else {
+                dispatch(
+                    acSetUiEventStatus(
+                        selectedStatus.filter((status) => status !== id)
+                    )
+                )
+            }
+        }
+
+        return (
+            <>
+                {renderStatusParagraph()}
+                <div>
+                    {ALL_STATUSES.map((status) => (
+                        <Checkbox
+                            key={status.id}
+                            checked={selectedStatus.includes(status.id)}
+                            label={status.name}
+                            onChange={({ checked }) =>
+                                setStatus(status.id, checked)
+                            }
+                            dense
+                            className={classes.verticalCheckbox}
+                        />
+                    ))}
+                </div>
+            </>
+        )
+    }
+
     const renderModalContent = () => {
         switch (dimension.id) {
             case DIMENSION_TYPE_PROGRAM_STATUS:
                 return renderProgramStatus()
-            case DIMENSION_TYPE_EVENT_STATUS: {
-                return <p>EVENT STATUS</p>
-            }
+            case DIMENSION_TYPE_EVENT_STATUS:
+                return renderEventStatus()
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
                     onSelect: selectUiItems,
