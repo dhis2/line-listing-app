@@ -7,7 +7,6 @@ import {
     DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { sGetUiProgramId } from '../reducers/ui.js'
 import { getMainDimensions } from './mainDimensions.js'
 import {
     getTimeDimensions,
@@ -35,38 +34,11 @@ export const getDefaultMetadata = () => ({
     }).reduce((acc, [key, value]) => ({ ...acc, [key]: { name: value } }), {}),
 })
 
-const removeProgramAndStagesFromMetadata = (state) => {
-    const idsToRemove = new Set()
-    const programId = sGetUiProgramId(state)
+export const updateMetadataOnInputChange = () =>
+    getDefaulTimeDimensionsMetadata()
 
-    if (programId) {
-        idsToRemove.add(programId)
-
-        const programStages = state.metadata[programId]?.programStages
-        if (programStages) {
-            programStages.forEach(({ id }) => {
-                idsToRemove.add(id)
-            })
-        }
-    }
-
-    return {
-        // reset time dimension names as well
-        ...getDefaulTimeDimensionsMetadata(),
-        ...Object.entries(state.metadata).reduce((acc, [key, value]) => {
-            if (!idsToRemove.has(key)) {
-                acc[key] = value
-            }
-            return acc
-        }, {}),
-    }
-}
-
-export const updateMetadataOnInputChange = (state) =>
-    removeProgramAndStagesFromMetadata(state)
-
-export const updateMetadataOnProgramChange = (program, state) => ({
-    ...removeProgramAndStagesFromMetadata(state),
+export const updateMetadataOnProgramChange = (program) => ({
+    ...getDefaulTimeDimensionsMetadata(),
     ...program.programStages.reduce((acc, stage) => {
         acc[stage.id] = stage
         return acc
@@ -74,8 +46,7 @@ export const updateMetadataOnProgramChange = (program, state) => ({
     [program.id]: program,
 })
 
-export const updateMetadataOnStageChange = (stage, program, state) => ({
-    ...state.metadata,
+export const updateMetadataOnStageChange = (stage, program) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
         acc[dimension.id] = {
             id: dimension.id,

@@ -9,8 +9,6 @@ export const MainDimensions = () => {
     const mainDimensions = useMainDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
 
-    console.log(mainDimensions)
-
     return (
         <MainSidebarSection header={i18n.t('Main dimensions')}>
             {mainDimensions.map(({ id, name, dimensionType, disabled }) => (

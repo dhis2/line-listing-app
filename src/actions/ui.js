@@ -55,29 +55,27 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
-export const tSetUiInput = (value) => (dispatch, getState) => {
+export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
-    dispatch(acSetUiInput(value, updateMetadataOnInputChange(getState())))
+    dispatch(acSetUiInput(value, updateMetadataOnInputChange()))
 }
 
 export const tSetUiProgram =
     ({ program, stage }) =>
-    (dispatch, getState) => {
-        const state = getState()
-
+    (dispatch) => {
         dispatch(acClearUiProgram())
         program &&
             dispatch(
                 acUpdateUiProgramId(
                     program.id,
-                    updateMetadataOnProgramChange(program, state)
+                    updateMetadataOnProgramChange(program)
                 )
             )
         stage &&
             dispatch(
                 acUpdateUiProgramStageId(
                     stage.id,
-                    updateMetadataOnStageChange(stage, program, state)
+                    updateMetadataOnStageChange(stage, program)
                 )
             )
     }
@@ -88,7 +86,7 @@ export const tSetUiStage = (stage) => (dispatch, getState) => {
     dispatch(
         acUpdateUiProgramStageId(
             stage.id,
-            updateMetadataOnStageChange(stage, program, state)
+            updateMetadataOnStageChange(stage, program)
         )
     )
 }
