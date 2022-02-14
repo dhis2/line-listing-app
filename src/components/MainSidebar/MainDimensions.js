@@ -9,20 +9,20 @@ export const MainDimensions = () => {
     const mainDimensions = useMainDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
 
+    console.log(mainDimensions)
+
     return (
         <MainSidebarSection header={i18n.t('Main dimensions')}>
-            {Object.values(mainDimensions).map(
-                ({ id, name, dimensionType, disabled }) => (
-                    <DimensionItem
-                        key={id}
-                        dimensionType={dimensionType}
-                        name={name}
-                        id={id}
-                        selected={getIsDimensionSelected(id)}
-                        disabled={disabled}
-                    />
-                )
-            )}
+            {mainDimensions.map(({ id, name, dimensionType, disabled }) => (
+                <DimensionItem
+                    key={id}
+                    dimensionType={dimensionType}
+                    name={name}
+                    id={id}
+                    selected={getIsDimensionSelected(id)}
+                    disabled={disabled}
+                />
+            ))}
         </MainSidebarSection>
     )
 }

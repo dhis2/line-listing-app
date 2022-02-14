@@ -336,7 +336,7 @@ export const sGetUiConditionsByDimension = (state, dimension) =>
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
 
-// Selector/hooks
+// Selector based hooks
 export const useMainDimensions = () => {
     const store = useStore()
     const programId = useSelector(sGetUiProgramId)
@@ -346,17 +346,14 @@ export const useMainDimensions = () => {
         const { metadata } = store.getState()
         const programType = programId && metadata[programId].programType
 
-        return Object.values(getMainDimensions()).reduce((acc, dimension) => {
-            acc[dimension.id] = {
-                ...dimension,
-                disabled: getIsMainDimensionDisabled(
-                    dimension.id,
-                    inputType,
-                    programType
-                ),
-            }
-            return acc
-        }, {})
+        return Object.values(getMainDimensions()).map((dimension) => ({
+            ...dimension,
+            disabled: getIsMainDimensionDisabled(
+                dimension.id,
+                inputType,
+                programType
+            ),
+        }))
     }, [programId, inputType])
 }
 
