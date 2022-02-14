@@ -3,6 +3,7 @@ import {
     updateMetadataOnProgramChange,
     updateMetadataOnStageChange,
 } from '../modules/metadata.js'
+import { getDefaulTimeDimensionsMetadata } from '../modules/timeDimensions.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -35,6 +36,7 @@ export const acSetUiInput = (value, metadata) => ({
 
 export const acClearUiProgram = () => ({
     type: CLEAR_UI_PROGRAM,
+    metadata: getDefaulTimeDimensionsMetadata(),
 })
 
 export const acClearUiStageId = () => ({
@@ -63,8 +65,6 @@ export const tSetUiProgram =
     (dispatch, getState) => {
         const state = getState()
 
-        console.log('program or stage present? ', !!program, !!stage)
-
         dispatch(acClearUiProgram())
         program &&
             dispatch(
@@ -75,15 +75,21 @@ export const tSetUiProgram =
             )
         stage &&
             dispatch(
-                acUpdateUiProgramStageId(stage.id),
-                updateMetadataOnStageChange(stage, state)
+                acUpdateUiProgramStageId(
+                    stage.id,
+                    updateMetadataOnStageChange(stage, program, state)
+                )
             )
     }
 
 export const tSetUiStage = (stage) => (dispatch, getState) => {
+    const state = getState()
+    const program = state.metadata[state.ui.program.id]
     dispatch(
-        acUpdateUiProgramStageId(stage.id),
-        updateMetadataOnStageChange(stage, getState())
+        acUpdateUiProgramStageId(
+            stage.id,
+            updateMetadataOnStageChange(stage, program, state)
+        )
     )
 }
 

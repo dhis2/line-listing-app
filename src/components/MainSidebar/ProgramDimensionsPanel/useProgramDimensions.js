@@ -266,7 +266,6 @@ const useProgramDimensions = ({
     )
 
     useEffect(() => {
-        console.log('fetch effect')
         fetchDimensions(true)
     }, [inputType, program, stageId, searchTerm, dimensionType])
 

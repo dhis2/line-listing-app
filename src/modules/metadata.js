@@ -74,19 +74,14 @@ export const updateMetadataOnProgramChange = (program, state) => ({
     [program.id]: program,
 })
 
-export const updateMetadataOnStageChange = (stage, state) => {
-    const programId = sGetUiProgramId(state)
-
-    return {
-        ...state.metadata,
-        ...Object.values(getTimeDimensions()).map((dimension) => ({
+export const updateMetadataOnStageChange = (stage, program, state) => ({
+    ...state.metadata,
+    ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
+        acc[dimension.id] = {
             id: dimension.id,
             dimensionType: dimension.dimensionType,
-            name: getTimeDimensionName(
-                dimension,
-                state.metadata[programId],
-                stage
-            ),
-        })),
-    }
-}
+            name: getTimeDimensionName(dimension, program, stage),
+        }
+        return acc
+    }),
+})
