@@ -25,8 +25,6 @@ import {
     UPDATE_UI_PROGRAM_STAGE_ID,
     CLEAR_UI_PROGRAM,
     CLEAR_UI_STAGE_ID,
-    SET_UI_PROGRAM_STATUS,
-    SET_UI_EVENT_STATUS,
 } from '../reducers/ui.js'
 
 export const acSetUiInput = (value, metadata) => ({
@@ -176,15 +174,5 @@ export const acSetUiConditions = (value) => ({
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
-    value,
-})
-
-export const acSetUiProgramStatus = (value) => ({
-    type: SET_UI_PROGRAM_STATUS,
-    value,
-})
-
-export const acSetUiEventStatus = (value) => ({
-    type: SET_UI_EVENT_STATUS,
     value,
 })

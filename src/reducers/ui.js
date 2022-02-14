@@ -11,6 +11,8 @@ import {
     DIMENSION_TYPE_INCIDENT_DATE,
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_PROGRAM_STATUS,
 } from '../modules/dimensionTypes.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import {
@@ -43,8 +45,6 @@ export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
-export const SET_UI_PROGRAM_STATUS = 'SET_UI_PROGRAM_STATUS'
-export const SET_UI_EVENT_STATUS = 'SET_UI_EVENT_STATUS'
 
 const EMPTY_UI = {
     type: VIS_TYPE_LINE_LIST,
@@ -63,8 +63,6 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
-    programStatus: [],
-    eventStatus: [],
 }
 
 export const DEFAULT_UI = {
@@ -80,6 +78,8 @@ export const DEFAULT_UI = {
     },
     itemsByDimension: {
         [DIMENSION_ID_ORGUNIT]: [],
+        [DIMENSION_TYPE_EVENT_STATUS]: [], // XXX should this default be set in the component instead? since these are fixed dimensions perhaps this default here makes sense
+        [DIMENSION_TYPE_PROGRAM_STATUS]: [],
     },
     options: getOptionsForUi(),
     showAccessoryPanel: false,
@@ -88,8 +88,6 @@ export const DEFAULT_UI = {
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
-    programStatus: [],
-    eventStatus: [],
 }
 
 const getPreselectedUi = (options) => {
@@ -294,18 +292,6 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
-        case SET_UI_PROGRAM_STATUS: {
-            return {
-                ...state,
-                programStatus: action.value,
-            }
-        }
-        case SET_UI_EVENT_STATUS: {
-            return {
-                ...state,
-                eventStatus: action.value,
-            }
-        }
         default:
             return state
     }
@@ -331,8 +317,6 @@ export const sGetUiActiveModalDialog = (state) =>
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
-export const sGetUiProgramStatus = (state) => sGetUi(state).programStatus
-export const sGetUiEventStatus = (state) => sGetUi(state).eventStatus
 
 // Selectors level 2
 
