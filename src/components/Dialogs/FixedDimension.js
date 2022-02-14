@@ -16,6 +16,15 @@ import {
     DIMENSION_TYPE_PROGRAM_STATUS,
 } from '../../modules/dimensionTypes.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import {
+    STATUS_ACTIVE,
+    STATUS_CANCELLED,
+    STATUS_COMPLETED,
+    STATUS_OVERDUE,
+    STATUS_SCHEDULED,
+    STATUS_SKIPPED,
+    statusNames,
+} from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../../reducers/settings.js'
 import {
@@ -86,13 +95,10 @@ const FixedDimension = ({
     )
 
     const renderProgramStatus = () => {
-        const PROGRAM_STATUS_ACTIVE = 'ACTIVE',
-            PROGRAM_STATUS_COMPLETED = 'COMPLETED',
-            PROGRAM_STATUS_CANCELLED = 'CANCELLED' // TODO: Ideally these are defined somewhere more central
         const ALL_STATUSES = [
-            { id: PROGRAM_STATUS_ACTIVE, name: i18n.t('Active') },
-            { id: PROGRAM_STATUS_COMPLETED, name: i18n.t('Completed') },
-            { id: PROGRAM_STATUS_CANCELLED, name: i18n.t('Cancelled') },
+            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
+            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
+            { id: STATUS_CANCELLED, name: statusNames[STATUS_CANCELLED] },
         ]
 
         const setStatus = (id, toggle) => {
@@ -126,17 +132,12 @@ const FixedDimension = ({
     }
 
     const renderEventStatus = () => {
-        const EVENT_STATUS_ACTIVE = 'ACTIVE',
-            EVENT_STATUS_COMPLETED = 'COMPLETED',
-            EVENT_STATUS_SCHEDULED = 'SCHEDULED',
-            EVENT_STATUS_OVERDUE = 'OVERDUE',
-            EVENT_STATUS_SKIPPED = 'SKIPPED' // TODO: Ideally these are defined somewhere more central
         const ALL_STATUSES = [
-            { id: EVENT_STATUS_ACTIVE, name: i18n.t('Active') },
-            { id: EVENT_STATUS_COMPLETED, name: i18n.t('Completed') },
-            { id: EVENT_STATUS_SCHEDULED, name: i18n.t('Scheduled') },
-            { id: EVENT_STATUS_OVERDUE, name: i18n.t('Overdue') },
-            { id: EVENT_STATUS_SKIPPED, name: i18n.t('Skipped') },
+            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
+            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
+            { id: STATUS_SCHEDULED, name: statusNames[STATUS_SCHEDULED] },
+            { id: STATUS_OVERDUE, name: statusNames[STATUS_OVERDUE] },
+            { id: STATUS_SKIPPED, name: statusNames[STATUS_SKIPPED] },
         ]
 
         const setStatus = (id, toggle) => {
