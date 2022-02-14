@@ -109,9 +109,6 @@ const useDownloadMenu = (relativePeriodDate) => {
 
             // TODO add common parameters
             // if there are for both event/enrollment and PT/LL
-            req = req.withParameters({
-                completedOnly: current.completedOnly,
-            })
 
             if (relativePeriodDate) {
                 req = req.withRelativePeriodDate(relativePeriodDate)

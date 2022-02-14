@@ -11,6 +11,7 @@ import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
     DIMENSION_TYPE_INCIDENT_DATE,
@@ -18,6 +19,8 @@ import {
     DIMENSION_TYPE_LAST_UPDATED,
 } from './dimensionTypes.js'
 import { default as options } from './options.js'
+
+const STATUS_COMPLETED = 'COMPLETED'
 
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
@@ -53,21 +56,41 @@ export const outputTypeTimeDimensionMap = {
     [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_TYPE_ENROLLMENT_DATE,
 }
 
-export const transformVisualization = (visualization) => ({
-    ...visualization,
-    [AXIS_ID_COLUMNS]: transformDimensions(
+export const transformVisualization = (visualization) => {
+    const transformedColumns = transformDimensions(
         visualization[AXIS_ID_COLUMNS],
         visualization
-    ),
-    [AXIS_ID_ROWS]: transformDimensions(
+    )
+    const transformedRows = transformDimensions(
         visualization[AXIS_ID_ROWS],
         visualization
-    ),
-    [AXIS_ID_FILTERS]: transformDimensions(
+    )
+    const transformedFilters = transformDimensions(
         visualization[AXIS_ID_FILTERS],
         visualization
-    ),
-})
+    )
+
+    // convert completedOnly option to eventStatus = COMPLETED filter
+    if (
+        visualization.completedOnly &&
+        visualization.outputType === OUTPUT_TYPE_EVENT
+    ) {
+        transformedFilters.push({
+            dimension: DIMENSION_TYPE_EVENT_STATUS,
+            items: [{ id: STATUS_COMPLETED }],
+        })
+    }
+
+    const transformedVisualization = { ...visualization }
+    delete transformedVisualization.completedOnly
+
+    return {
+        ...transformedVisualization,
+        [AXIS_ID_COLUMNS]: transformedColumns,
+        [AXIS_ID_ROWS]: transformedRows,
+        [AXIS_ID_FILTERS]: transformedFilters,
+    }
+}
 
 const transformDimensions = (dimensions, { outputType, type }) =>
     dimensions.map((dimensionObj) => {
