@@ -1,3 +1,8 @@
+import {
+    updateMetadataOnInputChange,
+    updateMetadataOnProgramChange,
+    updateMetadataOnStageChange,
+} from '../modules/metadata.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -22,9 +27,10 @@ import {
     CLEAR_UI_STAGE_ID,
 } from '../reducers/ui.js'
 
-export const acSetUiInput = (value) => ({
+export const acSetUiInput = (value, metadata) => ({
     type: SET_UI_INPUT,
     value,
+    metadata,
 })
 
 export const acClearUiProgram = () => ({
@@ -47,18 +53,39 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
-export const tSetUiInput = (value) => (dispatch) => {
+export const tSetUiInput = (value) => (dispatch, getState) => {
     dispatch(acClearUiProgram())
-    dispatch(acSetUiInput(value))
+    dispatch(acSetUiInput(value, updateMetadataOnInputChange(getState())))
 }
 
 export const tSetUiProgram =
-    ({ programId, stageId, metadata }) =>
-    (dispatch) => {
+    ({ program, stage }) =>
+    (dispatch, getState) => {
+        const state = getState()
+
+        console.log('program or stage present? ', !!program, !!stage)
+
         dispatch(acClearUiProgram())
-        programId && dispatch(acUpdateUiProgramId(programId, metadata))
-        stageId && dispatch(acUpdateUiProgramStageId(stageId))
+        program &&
+            dispatch(
+                acUpdateUiProgramId(
+                    program.id,
+                    updateMetadataOnProgramChange(program, state)
+                )
+            )
+        stage &&
+            dispatch(
+                acUpdateUiProgramStageId(stage.id),
+                updateMetadataOnStageChange(stage, state)
+            )
     }
+
+export const tSetUiStage = (stage) => (dispatch, getState) => {
+    dispatch(
+        acUpdateUiProgramStageId(stage.id),
+        updateMetadataOnStageChange(stage, getState())
+    )
+}
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,

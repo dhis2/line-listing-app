@@ -15,7 +15,7 @@ export const TimeDimensions = () => {
 
     return (
         <MainSidebarSection header={i18n.t('Time dimensions')}>
-            {Object.values(timeDimensions).map((dimension) => (
+            {timeDimensions.map((dimension) => (
                 <DimensionItem
                     key={dimension.id}
                     dimensionType={dimension.dimensionType}

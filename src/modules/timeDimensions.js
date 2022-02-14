@@ -49,14 +49,31 @@ export const getTimeDimensions = () => ({
     },
 })
 
+export const getDefaulTimeDimensionsMetadata = () => {
+    return Object.values(getTimeDimensions()).reduce(
+        (acc, { id, name, dimensionType }) => {
+            acc[id] = {
+                id,
+                name,
+                dimensionType,
+            }
+            return acc
+        },
+        {}
+    )
+}
+
 export const getTimeDimensionName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty || !program || !stage) {
         return dimension.name
     }
+    console.log(dimension, program, stage)
     const name =
         dimension.nameParentProperty === NAME_PARENT_PROPERTY_PROGRAM
             ? program[dimension.nameProperty]
             : stage[dimension.nameProperty]
+
+    console.log('name: ', name, dimension.name)
     return name || dimension.name
 }
 

@@ -362,9 +362,6 @@ export const useMainDimensions = () => {
 
 export const useTimeDimensions = () => {
     const store = useStore()
-    const programId = useSelector(sGetUiProgramId)
-    const inputType = useSelector(sGetUiInputType)
-    const stageId = useSelector(sGetUiProgramStageId)
     const eventDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_TYPE_EVENT_DATE)
     )
@@ -382,40 +379,32 @@ export const useTimeDimensions = () => {
     )
 
     return useMemo(() => {
-        if (
-            eventDateDim &&
-            enrollmentDateDim &&
-            incidentDateDim &&
-            scheduledDateDim &&
-            lastUpdatedDim
-        ) {
-            const { metadata } = store.getState()
-            const timeDimensions = [
-                eventDateDim,
-                enrollmentDateDim,
-                incidentDateDim,
-                scheduledDateDim,
-                lastUpdatedDim,
-            ]
-            const program = metadata[programId]
-            const stage = metadata[stageId]
+        const timeDimensions = [
+            eventDateDim,
+            enrollmentDateDim,
+            incidentDateDim,
+            scheduledDateDim,
+            lastUpdatedDim,
+        ]
+
+        if (timeDimensions.every((dimension) => !!dimension)) {
+            const { ui, metadata } = store.getState()
+            const inputType = ui.input.type
+            const program = metadata[ui.program.id]
+            const stage = metadata[ui.program.stageId]
             const enabledDimensionIds = getEnabledTimeDimensionIds(
                 inputType,
                 program,
                 stage
             )
-            return timeDimensions.reduce((acc, dimension) => {
-                acc[dimension.id] = {
-                    ...dimension,
-                    disabled: !enabledDimensionIds.has(dimension.id),
-                }
-                return acc
-            }, {})
+            return timeDimensions.map((dimension) => ({
+                ...dimension,
+                disabled: !enabledDimensionIds.has(dimension.id),
+            }))
+        } else {
+            return null
         }
     }, [
-        programId,
-        inputType,
-        stageId,
         eventDateDim,
         enrollmentDateDim,
         incidentDateDim,
