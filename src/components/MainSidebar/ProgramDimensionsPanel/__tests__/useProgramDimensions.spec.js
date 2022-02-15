@@ -74,7 +74,7 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
                 searchTerm: '',
                 dimensionType: 'DATA_ELEMENT',
             })
-            expect(actual.params.filter).toContain('id:like:TEST')
+            expect(actual.params.filter).toContain('id:startsWith:TEST')
         })
     })
     describe('params for both input types', () => {
