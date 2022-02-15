@@ -10,7 +10,7 @@ import {
 } from './dimensionTypes.js'
 import { OUTPUT_TYPE_EVENT } from './visualization.js'
 
-export const NAME_PARENT_PROPERTY_PROGRAM = 'program'
+const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
 
 export const getTimeDimensions = () => ({
