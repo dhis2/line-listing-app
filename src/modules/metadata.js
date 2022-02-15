@@ -60,5 +60,5 @@ export const getDynamicTimeDimensionsMetadata = (stage, program) => ({
             name: getTimeDimensionName(dimension, program, stage),
         }
         return acc
-    }),
+    }, {}),
 })
