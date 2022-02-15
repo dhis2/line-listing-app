@@ -97,9 +97,10 @@ const createDimensionsQuery = ({
         inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
+        console.log('stageId', stageId)
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
-        params.filter.push(`id:like:${stageId}`)
+        params.filter.push(`id:startsWith:${stageId}`)
     }
 
     /*
