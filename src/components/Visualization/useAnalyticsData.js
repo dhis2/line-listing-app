@@ -233,7 +233,6 @@ const useAnalyticsData = ({
         } catch (error) {
             mounted.current && setError(error)
         } finally {
-            // console.log('finally?', mounted.current)
             mounted.current && setLoading(false)
             mounted.current && setFetching(false)
         }
