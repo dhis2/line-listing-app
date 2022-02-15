@@ -8,6 +8,8 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef } from 'react'
 import {
+    DIMENSION_TYPE_PROGRAM_STATUS,
+    DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
     DIMENSION_TYPE_INCIDENT_DATE,
@@ -58,18 +60,26 @@ const isTimeDimension = (dimensionId) =>
     ].includes(dimensionId)
 
 const getAdaptedVisualization = (visualization) => {
-    const timeDimensionParameters = {}
+    const parameters = {}
 
     const adaptDimensions = (dimensions) => {
         const adaptedDimensions = []
         dimensions.forEach((dimensionObj) => {
             const dimensionId = dimensionObj.dimension
 
-            isTimeDimension(dimensionId)
-                ? (timeDimensionParameters[dimensionId] =
-                      dimensionObj.items?.map((item) => item.id))
-                : adaptedDimensions.push(dimensionObj)
+            if (
+                isTimeDimension(dimensionId) ||
+                dimensionId === DIMENSION_TYPE_EVENT_STATUS ||
+                dimensionId === DIMENSION_TYPE_PROGRAM_STATUS
+            ) {
+                parameters[dimensionId] = dimensionObj.items?.map(
+                    (item) => item.id
+                )
+            } else {
+                adaptedDimensions.push(dimensionObj)
+            }
         })
+
         return adaptedDimensions
     }
 
@@ -91,7 +101,7 @@ const getAdaptedVisualization = (visualization) => {
             [AXIS_ID_FILTERS]: adaptedFilters,
         },
         headers,
-        timeDimensionParameters,
+        parameters,
     }
 }
 
@@ -105,20 +115,19 @@ const fetchAnalyticsData = async ({
     sortDirection,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
-    const { adaptedVisualization, headers, timeDimensionParameters } =
+    const { adaptedVisualization, headers, parameters } =
         getAdaptedVisualization(visualization)
 
     let req = new analyticsEngine.request()
         .fromVisualization(adaptedVisualization)
         .withParameters({
-            headers: headers,
-            ...timeDimensionParameters,
+            headers,
+            ...parameters,
         })
         .withProgram(visualization.program.id)
         .withStage(visualization.programStage.id)
         .withDisplayProperty('NAME') // TODO from settings ?!
         .withOutputType(visualization.outputType)
-        .withParameters({ completedOnly: visualization.completedOnly })
         .withPageSize(pageSize)
         .withPage(page)
 
