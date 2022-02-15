@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiStage, acClearUiStageId } from '../../../actions/ui.js'
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
 
-export const STAGE_ALL = 'STAGE_ALL'
+const STAGE_ALL = 'STAGE_ALL'
 
 const StageSelect = ({ optional, stages }) => {
     const dispatch = useDispatch()
