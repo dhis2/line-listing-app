@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-09T14:40:58.995Z\n"
-"PO-Revision-Date: 2022-02-09T14:40:58.995Z\n"
+"POT-Creation-Date: 2022-02-09T16:33:13.170Z\n"
+"PO-Revision-Date: 2022-02-09T16:33:13.170Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -440,12 +440,6 @@ msgstr "Column sub-totals"
 
 msgid "Columns totals"
 msgstr "Columns totals"
-
-msgid "Event data"
-msgstr "Event data"
-
-msgid "Only include completed events"
-msgstr "Only include completed events"
 
 msgid "Digit group separator"
 msgstr "Digit group separator"

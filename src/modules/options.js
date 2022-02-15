@@ -37,8 +37,8 @@ export const options = {
         requestable: false,
         savable: true,
     },
-    title: { defaultValue: undefined, requestable: false, savable: true },*/
-    completedOnly: { defaultValue: false, requestable: true, savable: true },
+    title: { defaultValue: undefined, requestable: false, savable: true },
+    completedOnly: { defaultValue: false, requestable: true, savable: true },*/
     displayDensity: {
         defaultValue: DISPLAY_DENSITY_NORMAL,
         requestable: false,
