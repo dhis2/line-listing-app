@@ -99,7 +99,7 @@ const createDimensionsQuery = ({
     ) {
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
-        params.filter.push(`id:like:${stageId}`)
+        params.filter.push(`id:startsWith:${stageId}`)
     }
 
     /*
@@ -264,8 +264,6 @@ const useProgramDimensions = ({
             isListEndVisible,
         ]
     )
-
-    useEffect(() => {}, [])
 
     useEffect(() => {
         fetchDimensions(true)

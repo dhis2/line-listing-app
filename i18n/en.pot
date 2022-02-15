@@ -317,21 +317,6 @@ msgstr "Programs track enrollments across time."
 msgid "Main dimensions"
 msgstr "Main dimensions"
 
-msgid "Organisation unit"
-msgstr "Organisation unit"
-
-msgid "Program status"
-msgstr "Program status"
-
-msgid "Event status"
-msgstr "Event status"
-
-msgid "Created by"
-msgstr "Created by"
-
-msgid "Last updated by"
-msgstr "Last updated by"
-
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
@@ -612,6 +597,21 @@ msgstr "Add at least one time dimension to the layout."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Program status"
+msgstr "Program status"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Created by"
+msgstr "Created by"
+
+msgid "Last updated by"
+msgstr "Last updated by"
 
 msgid "User organisation unit"
 msgstr "User organisation unit"

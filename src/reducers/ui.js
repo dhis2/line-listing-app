@@ -1,13 +1,27 @@
-/*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
+import { useMemo } from 'react'
+import { useStore, useSelector } from 'react-redux'
+import {
+    DIMENSION_TYPE_EVENT_DATE,
+    DIMENSION_TYPE_ENROLLMENT_DATE,
+    DIMENSION_TYPE_INCIDENT_DATE,
+    DIMENSION_TYPE_SCHEDULED_DATE,
+    DIMENSION_TYPE_LAST_UPDATED,
+} from '../modules/dimensionTypes.js'
 import { getFilteredLayout } from '../modules/layout.js'
+import {
+    getMainDimensions,
+    getIsMainDimensionDisabled,
+} from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
+import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import { sGetMetadataById } from './metadata.js'
 
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
@@ -322,3 +336,77 @@ export const sGetUiConditionsByDimension = (state, dimension) =>
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
+
+// Selector based hooks
+export const useMainDimensions = () => {
+    const store = useStore()
+    const programId = useSelector(sGetUiProgramId)
+    const inputType = useSelector(sGetUiInputType)
+
+    return useMemo(() => {
+        const { metadata } = store.getState()
+        const programType = programId && metadata[programId].programType
+
+        return Object.values(getMainDimensions()).map((dimension) => ({
+            ...dimension,
+            disabled: getIsMainDimensionDisabled(
+                dimension.id,
+                inputType,
+                programType
+            ),
+        }))
+    }, [programId, inputType])
+}
+
+export const useTimeDimensions = () => {
+    const store = useStore()
+    const eventDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_EVENT_DATE)
+    )
+    const enrollmentDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_ENROLLMENT_DATE)
+    )
+    const incidentDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_INCIDENT_DATE)
+    )
+    const scheduledDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_SCHEDULED_DATE)
+    )
+    const lastUpdatedDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_TYPE_LAST_UPDATED)
+    )
+
+    return useMemo(() => {
+        const timeDimensions = [
+            eventDateDim,
+            enrollmentDateDim,
+            incidentDateDim,
+            scheduledDateDim,
+            lastUpdatedDim,
+        ]
+
+        if (timeDimensions.every((dimension) => !!dimension)) {
+            const { ui, metadata } = store.getState()
+            const inputType = ui.input.type
+            const program = metadata[ui.program.id]
+            const stage = metadata[ui.program.stageId]
+            const enabledDimensionIds = getEnabledTimeDimensionIds(
+                inputType,
+                program,
+                stage
+            )
+            return timeDimensions.map((dimension) => ({
+                ...dimension,
+                disabled: !enabledDimensionIds.has(dimension.id),
+            }))
+        } else {
+            return null
+        }
+    }, [
+        eventDateDim,
+        enrollmentDateDim,
+        incidentDateDim,
+        scheduledDateDim,
+        lastUpdatedDim,
+    ])
+}

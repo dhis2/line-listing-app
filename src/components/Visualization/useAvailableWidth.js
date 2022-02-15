@@ -11,27 +11,57 @@ const RIGHT_SIDEBAR_WIDTH = 380
 const PADDING = 2 * 4
 const BORDER = 2 * 1
 
-const computeAvailableWidth = (windowWidth, leftOpen, rightOpen) => {
-    let availableWidth = windowWidth - LEFT_SIDEBARS_WIDTH - PADDING - BORDER
+const className = '__scrollbar-width-test__'
+const styles = `
+    .${className} {
+        position: absolute;
+        top: -9999px;
+        width: 100px;
+        height: 100px;
+        overflow-y: scroll;
+    }
+`
+
+const scrollbarWidth = (() => {
+    const style = document.createElement('style')
+    style.innerHTML = styles
+
+    const el = document.createElement('div')
+    el.classList.add(className)
+
+    document.body.appendChild(style)
+    document.body.appendChild(el)
+
+    const width = el.offsetWidth - el.clientWidth
+
+    document.body.removeChild(style)
+    document.body.removeChild(el)
+
+    return width
+})()
+
+const computeAvailableOuterWidth = (windowWidth, leftOpen, rightOpen) => {
+    let availableOuterWidth =
+        windowWidth - LEFT_SIDEBARS_WIDTH - PADDING - BORDER
 
     if (leftOpen) {
-        availableWidth -= LEFT_SIDEBARS_WIDTH
+        availableOuterWidth -= LEFT_SIDEBARS_WIDTH
     }
 
     if (rightOpen) {
-        availableWidth -= RIGHT_SIDEBAR_WIDTH
+        availableOuterWidth -= RIGHT_SIDEBAR_WIDTH
     }
 
-    return availableWidth
+    return availableOuterWidth
 }
 
 export const useAvailableWidth = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const debounceWindowWidth = useDebounce(windowWidth, 150)
+    const debouncedWindowWidth = useDebounce(windowWidth, 150)
     const leftOpen = useSelector(sGetUiShowAccessoryPanel)
     const rightOpen = useSelector(sGetUiShowDetailsPanel)
-    const [availableWidth, setAvailableWidth] = useState(
-        computeAvailableWidth(windowWidth, leftOpen, rightOpen)
+    const [availableOuterWidth, setAvailableOuterWidth] = useState(
+        computeAvailableOuterWidth(windowWidth, leftOpen, rightOpen)
     )
 
     useEffect(() => {
@@ -46,10 +76,17 @@ export const useAvailableWidth = () => {
     }, [])
 
     useEffect(() => {
-        setAvailableWidth(
-            computeAvailableWidth(debounceWindowWidth, leftOpen, rightOpen)
+        setAvailableOuterWidth(
+            computeAvailableOuterWidth(
+                debouncedWindowWidth,
+                leftOpen,
+                rightOpen
+            )
         )
-    }, [leftOpen, rightOpen, debounceWindowWidth])
+    }, [leftOpen, rightOpen, debouncedWindowWidth])
 
-    return `${availableWidth}px`
+    return {
+        availableOuterWidth,
+        availableInnerWidth: availableOuterWidth - scrollbarWidth - BORDER,
+    }
 }

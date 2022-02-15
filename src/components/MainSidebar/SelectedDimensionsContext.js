@@ -6,6 +6,7 @@ import {
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionTypes.js'
 import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUiProgramId } from '../../reducers/ui.js'
 
 const SelectedDimensionsContext = createContext({
     counts: {
@@ -19,17 +20,19 @@ const SelectedDimensionsContext = createContext({
 
 export const SelectedDimensionsProvider = ({ children }) => {
     const current = useSelector(sGetCurrent)
+    const programId = useSelector(sGetUiProgramId)
     const store = useStore()
 
     const providerValue = useMemo(() => {
-        const allSelectedIds = current
-            ? [
-                  ...current.columns,
-                  ...current.filters,
-                  // Rows not used now, but will be later
-                  ...current.rows,
-              ].map(({ dimension }) => dimension)
-            : []
+        const allSelectedIds =
+            current && programId
+                ? [
+                      ...current.columns,
+                      ...current.filters,
+                      // Rows not used now, but will be later
+                      ...current.rows,
+                  ].map(({ dimension }) => dimension)
+                : []
         const allSelectedIdsSet = new Set(allSelectedIds)
         const counts = allSelectedIds.reduce(
             (acc, id) => {
@@ -57,7 +60,7 @@ export const SelectedDimensionsProvider = ({ children }) => {
             counts,
             getIsDimensionSelected: (id) => allSelectedIdsSet.has(id),
         }
-    }, [current])
+    }, [current, programId])
 
     return (
         <SelectedDimensionsContext.Provider value={providerValue}>
