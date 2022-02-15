@@ -94,23 +94,23 @@ const FixedDimension = ({
         </p>
     )
 
+    const setStatus = ({ dimensionId, selectedItemsIds, itemId, toggle }) => {
+        const newIds = toggle
+            ? [...new Set([...selectedItemsIds, itemId])]
+            : selectedItemsIds.filter((id) => id !== itemId)
+
+        selectUiItems({
+            dimensionId,
+            items: newIds.map((id) => ({ id })),
+        })
+    }
+
     const renderProgramStatus = () => {
         const ALL_STATUSES = [
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
             { id: STATUS_CANCELLED, name: statusNames[STATUS_CANCELLED] },
         ]
-
-        const setStatus = (id, toggle) => {
-            const newIds = toggle
-                ? [...new Set([...programStatusIds, id])]
-                : programStatusIds.filter((statusId) => statusId !== id)
-
-            selectUiItems({
-                dimensionId: DIMENSION_TYPE_PROGRAM_STATUS,
-                items: newIds.map((id) => ({ id })),
-            })
-        }
 
         return (
             <>
@@ -121,7 +121,14 @@ const FixedDimension = ({
                             key={id}
                             checked={programStatusIds.includes(id)}
                             label={name}
-                            onChange={({ checked }) => setStatus(id, checked)}
+                            onChange={({ checked }) =>
+                                setStatus({
+                                    dimensionId: DIMENSION_TYPE_PROGRAM_STATUS,
+                                    selectedItemsIds: programStatusIds,
+                                    itemId: id,
+                                    toggle: checked,
+                                })
+                            }
                             dense
                             className={classes.verticalCheckbox}
                         />
@@ -140,17 +147,6 @@ const FixedDimension = ({
             { id: STATUS_SKIPPED, name: statusNames[STATUS_SKIPPED] },
         ]
 
-        const setStatus = (id, toggle) => {
-            const newIds = toggle
-                ? [...new Set([...eventStatusIds, id])]
-                : eventStatusIds.filter((statusId) => statusId !== id)
-
-            selectUiItems({
-                dimensionId: DIMENSION_TYPE_EVENT_STATUS,
-                items: newIds.map((id) => ({ id })),
-            })
-        }
-
         return (
             <>
                 {renderStatusParagraph()}
@@ -160,7 +156,14 @@ const FixedDimension = ({
                             key={id}
                             checked={eventStatusIds.includes(id)}
                             label={name}
-                            onChange={({ checked }) => setStatus(id, checked)}
+                            onChange={({ checked }) =>
+                                setStatus({
+                                    dimensionId: DIMENSION_TYPE_EVENT_STATUS,
+                                    selectedItemsIds: eventStatusIds,
+                                    itemId: id,
+                                    toggle: checked,
+                                })
+                            }
                             dense
                             className={classes.verticalCheckbox}
                         />
