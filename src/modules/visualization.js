@@ -106,6 +106,7 @@ const transformDimensions = (dimensions, { outputType, type }) =>
             return {
                 ...dimensionObj,
                 dimension: outputTypeTimeDimensionMap[outputType],
+                dimensionType: DIMENSION_ID_PERIOD,
             }
         } else {
             return dimensionObj
