@@ -1,9 +1,8 @@
 import {
-    updateMetadataOnInputChange,
-    updateMetadataOnProgramChange,
-    updateMetadataOnStageChange,
+    getDefaulTimeDimensionsMetadata,
+    getDynamicTimeDimensionsMetadata,
+    getProgramAsMetadata,
 } from '../modules/metadata.js'
-import { getDefaulTimeDimensionsMetadata } from '../modules/timeDimensions.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -57,7 +56,7 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
-    dispatch(acSetUiInput(value, updateMetadataOnInputChange()))
+    dispatch(acSetUiInput(value, getDefaulTimeDimensionsMetadata()))
 }
 
 export const tSetUiProgram =
@@ -66,16 +65,16 @@ export const tSetUiProgram =
         dispatch(acClearUiProgram())
         program &&
             dispatch(
-                acUpdateUiProgramId(
-                    program.id,
-                    updateMetadataOnProgramChange(program)
-                )
+                acUpdateUiProgramId(program.id, {
+                    ...getProgramAsMetadata(program),
+                    ...getDefaulTimeDimensionsMetadata(),
+                })
             )
         stage &&
             dispatch(
                 acUpdateUiProgramStageId(
                     stage.id,
-                    updateMetadataOnStageChange(stage, program)
+                    getDynamicTimeDimensionsMetadata(stage, program)
                 )
             )
     }
@@ -86,7 +85,7 @@ export const tSetUiStage = (stage) => (dispatch, getState) => {
     dispatch(
         acUpdateUiProgramStageId(
             stage.id,
-            updateMetadataOnStageChange(stage, program)
+            getDynamicTimeDimensionsMetadata(stage, program)
         )
     )
 }

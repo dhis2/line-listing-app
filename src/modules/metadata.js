@@ -8,11 +8,7 @@ import {
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions } from './mainDimensions.js'
-import {
-    getTimeDimensions,
-    getTimeDimensionName,
-    getDefaulTimeDimensionsMetadata,
-} from './timeDimensions.js'
+import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
 
 const getOrganisationUnits = () => ({
     [USER_ORG_UNIT]: i18n.t('User organisation unit'),
@@ -34,11 +30,21 @@ export const getDefaultMetadata = () => ({
     }).reduce((acc, [key, value]) => ({ ...acc, [key]: { name: value } }), {}),
 })
 
-export const updateMetadataOnInputChange = () =>
-    getDefaulTimeDimensionsMetadata()
+export const getDefaulTimeDimensionsMetadata = () => {
+    return Object.values(getTimeDimensions()).reduce(
+        (acc, { id, name, dimensionType }) => {
+            acc[id] = {
+                id,
+                name,
+                dimensionType,
+            }
+            return acc
+        },
+        {}
+    )
+}
 
-export const updateMetadataOnProgramChange = (program) => ({
-    ...getDefaulTimeDimensionsMetadata(),
+export const getProgramAsMetadata = (program) => ({
     ...program.programStages.reduce((acc, stage) => {
         acc[stage.id] = stage
         return acc
@@ -46,7 +52,7 @@ export const updateMetadataOnProgramChange = (program) => ({
     [program.id]: program,
 })
 
-export const updateMetadataOnStageChange = (stage, program) => ({
+export const getDynamicTimeDimensionsMetadata = (stage, program) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
         acc[dimension.id] = {
             id: dimension.id,
