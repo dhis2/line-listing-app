@@ -7,6 +7,8 @@ import {
     DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { getMainDimensions } from './mainDimensions.js'
+import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
 
 const getOrganisationUnits = () => ({
     [USER_ORG_UNIT]: i18n.t('User organisation unit'),
@@ -19,14 +21,44 @@ const getFixedDimensions = () => ({
     [DIMENSION_ID_PERIOD]: getDimensionById(DIMENSION_ID_PERIOD),
 })
 
-export default function () {
-    return {
-        ...Object.entries({
-            ...getOrganisationUnits(),
-        }).reduce(
-            (obj, [key, value]) => ({ ...obj, [key]: { name: value } }),
-            {}
-        ),
-        ...getFixedDimensions(),
-    }
+export const getDefaultMetadata = () => ({
+    ...getMainDimensions(),
+    ...getDefaulTimeDimensionsMetadata(),
+    ...getFixedDimensions(),
+    ...Object.entries({
+        ...getOrganisationUnits(),
+    }).reduce((acc, [key, value]) => ({ ...acc, [key]: { name: value } }), {}),
+})
+
+export const getDefaulTimeDimensionsMetadata = () => {
+    return Object.values(getTimeDimensions()).reduce(
+        (acc, { id, name, dimensionType }) => {
+            acc[id] = {
+                id,
+                name,
+                dimensionType,
+            }
+            return acc
+        },
+        {}
+    )
 }
+
+export const getProgramAsMetadata = (program) => ({
+    ...program.programStages.reduce((acc, stage) => {
+        acc[stage.id] = stage
+        return acc
+    }, {}),
+    [program.id]: program,
+})
+
+export const getDynamicTimeDimensionsMetadata = (stage, program) => ({
+    ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
+        acc[dimension.id] = {
+            id: dimension.id,
+            dimensionType: dimension.dimensionType,
+            name: getTimeDimensionName(dimension, program, stage),
+        }
+        return acc
+    }, {}),
+})
