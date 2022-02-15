@@ -45,7 +45,7 @@ export const headersMap = {
     ou: 'ouname',
     [DIMENSION_TYPE_PROGRAM_STATUS]: 'programstatus',
     [DIMENSION_TYPE_EVENT_STATUS]: 'eventstatus',
-    storedBy: 'storedby',
+    createdBy: 'createdby',
     [DIMENSION_TYPE_LAST_UPDATED_BY]: 'lastupdatedby',
     [DIMENSION_TYPE_EVENT_DATE]: 'eventdate',
     [DIMENSION_TYPE_ENROLLMENT_DATE]: 'enrollmentdate',
