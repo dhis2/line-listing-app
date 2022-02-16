@@ -1,0 +1,5 @@
+.entry {
+    border-top: 1px solid var(--colors-grey400);
+    margin-top: var(--spacers-dp8);
+    padding-top: var(--spacers-dp12);
+}
