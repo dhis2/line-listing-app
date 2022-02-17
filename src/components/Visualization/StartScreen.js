@@ -1,8 +1,11 @@
+import { VisTypeIcon, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
+import { colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
+import { acSetLoadError } from '../../actions/loader.js'
 import { GenericError } from '../../assets/ErrorIcons.js'
 import { EVENT_TYPE } from '../../modules/dataStatistics.js'
 import { VisualizationError, genericErrorTitle } from '../../modules/error.js'
@@ -11,26 +14,63 @@ import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetUsername } from '../../reducers/user.js'
 import styles from './styles/StartScreen.module.css'
 
-const mostViewedVisualizationsQuery = {
-    mostViewedVisualizations: {
+const mostViewedQuery = {
+    mostViewed: {
         resource: 'dataStatistics/favorites',
-        params: ({ pageSize, username }) => ({
+        params: ({ username }) => ({
             eventType: EVENT_TYPE,
-            pageSize: pageSize || 10,
+            pageSize: 6,
             ...(username ? { username } : {}),
         }),
     },
 }
 
-const StartScreen = ({ error, username }) => {
-    const { data } = useDataQuery(mostViewedVisualizationsQuery, {
-        variables: { pageSize: 6, username },
+const visualizationsQuery = {
+    visualizations: {
+        resource: 'eventVisualizations',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids.join(',')}]`,
+            fields: ['id', 'displayName~rename(name)', 'type'],
+        }),
+    },
+}
+
+const useMostViewedVisualizations = (username, setLoadError) => {
+    const visualizations = useDataQuery(visualizationsQuery, {
+        lazy: true,
+        onError: (error) => setLoadError(error),
     })
 
-    const getContent = () =>
-        error ? (
-            getErrorContent()
-        ) : (
+    const mostViewed = useDataQuery(mostViewedQuery, {
+        variables: { username },
+        onComplete: (data) => {
+            visualizations.refetch({
+                ids: data.mostViewed.map((obj) => obj.id),
+            })
+        },
+        onError: (error) => setLoadError(error),
+    })
+
+    return {
+        mostViewed: visualizations.data
+            ? visualizations.data.visualizations.eventVisualizations
+            : undefined,
+        loading: mostViewed.loading || visualizations.loading,
+        fetching: mostViewed.fetching || visualizations.fetching,
+        error: mostViewed.error || visualizations.error,
+    }
+}
+
+const StartScreen = ({ error, username, setLoadError }) => {
+    const getContent = () => {
+        const data = useMostViewedVisualizations(username, setLoadError)
+
+        /* TODO remove this when pivot tables are supported */
+        const mostViewed = data?.mostViewed?.filter(
+            (vis) => vis.type === VIS_TYPE_LINE_LIST
+        )
+
+        return (
             <div data-test="start-screen">
                 <div className={styles.section}>
                     <h3
@@ -55,8 +95,8 @@ const StartScreen = ({ error, username }) => {
                         </li>
                     </ul>
                 </div>
-                {/* TODO add a spinner when loading?! */}
-                {data?.mostViewedVisualizations.length > 0 && (
+                {/* TODO add a spinner when loading? */}
+                {mostViewed?.length > 0 && (
                     <div className={styles.section}>
                         <h3
                             className={styles.title}
@@ -64,28 +104,30 @@ const StartScreen = ({ error, username }) => {
                         >
                             {i18n.t('Your most viewed event reports')}
                         </h3>
-                        {data.mostViewedVisualizations.map(
-                            (visualization, index) => {
-                                return (
-                                    <p
-                                        key={index}
-                                        className={styles.visualization}
-                                        onClick={() =>
-                                            history.push(`/${visualization.id}`)
-                                        }
-                                        data-test="start-screen-most-viewed-list-item"
-                                    >
-                                        <span>{visualization.name}</span>
-                                    </p>
-                                )
-                            }
-                        )}
+                        {mostViewed.map((vis, index) => (
+                            <p
+                                key={index}
+                                className={styles.visualization}
+                                onClick={() => history.push(`/${vis.id}`)}
+                                data-test="start-screen-most-viewed-list-item"
+                            >
+                                <span className={styles.visIcon}>
+                                    <VisTypeIcon
+                                        type={vis.type}
+                                        useSmall
+                                        color={colors.grey600}
+                                    />
+                                </span>
+                                <span>{vis.name}</span>
+                            </p>
+                        ))}
                     </div>
                 )}
             </div>
         )
+    }
 
-    const getErrorContent = () => (
+    const getErrorContent = (error) => (
         <div
             className={styles.errorContainer}
             data-test="start-screen-error-container"
@@ -112,13 +154,16 @@ const StartScreen = ({ error, username }) => {
 
     return (
         <div className={styles.outer}>
-            <div className={styles.inner}>{getContent()}</div>
+            <div className={styles.inner}>
+                {error ? getErrorContent(error) : getContent()}
+            </div>
         </div>
     )
 }
 
 StartScreen.propTypes = {
     error: PropTypes.object,
+    setLoadError: PropTypes.func,
     username: PropTypes.string,
 }
 
@@ -127,4 +172,8 @@ const mapStateToProps = (state) => ({
     username: sGetUsername(state),
 })
 
-export default connect(mapStateToProps)(StartScreen)
+const mapDispatchToProps = (dispatch) => ({
+    setLoadError: (error) => dispatch(acSetLoadError(error)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartScreen)
