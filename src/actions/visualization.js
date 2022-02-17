@@ -12,13 +12,20 @@ export const acSetVisualization = (value) => {
         .filter(
             (dim) => dim.valueType || dim.optionSet?.id || dim.dimensionType
         )
-        .map((dim) => ({
-            [dim.dimension]: {
-                valueType: dim.valueType,
-                optionSet: dim.optionSet?.id,
-                dimensionType: dim.dimensionType,
-            },
-        }))
+        .map((dim) => {
+            const id = dim.programStage?.id
+                ? `${dim.programStage.id}.${dim.dimension}`
+                : dim.dimension
+
+            return {
+                [id]: {
+                    valueType: dim.valueType,
+                    optionSet: dim.optionSet?.id,
+                    dimensionType: dim.dimensionType,
+                    id,
+                },
+            }
+        })
 
     return {
         type: SET_VISUALIZATION,
