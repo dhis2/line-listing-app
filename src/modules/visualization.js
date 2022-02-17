@@ -9,6 +9,7 @@ import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
+    DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_EVENT_DATE,
@@ -57,11 +58,16 @@ export const outputTypeTimeDimensionMap = {
 
 export const transformVisualization = (visualization) => {
     const transformedColumns = transformDimensions(
-        visualization[AXIS_ID_COLUMNS]
+        visualization[AXIS_ID_COLUMNS],
+        visualization
     )
-    const transformedRows = transformDimensions(visualization[AXIS_ID_ROWS])
+    const transformedRows = transformDimensions(
+        visualization[AXIS_ID_ROWS],
+        visualization
+    )
     const transformedFilters = transformDimensions(
-        visualization[AXIS_ID_FILTERS]
+        visualization[AXIS_ID_FILTERS],
+        visualization
     )
 
     // convert completedOnly option to eventStatus = COMPLETED filter
@@ -86,12 +92,21 @@ export const transformVisualization = (visualization) => {
     }
 }
 
-const transformDimensions = (dimensions) =>
+const transformDimensions = (dimensions, { outputType, type }) =>
     dimensions.map((dimensionObj) => {
         if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
             return {
                 ...dimensionObj,
                 dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+            }
+        } else if (
+            dimensionObj.dimension === DIMENSION_TYPE_PERIOD &&
+            type === VIS_TYPE_LINE_LIST
+        ) {
+            return {
+                ...dimensionObj,
+                dimension: outputTypeTimeDimensionMap[outputType],
+                dimensionType: DIMENSION_TYPE_PERIOD,
             }
         } else {
             return dimensionObj
