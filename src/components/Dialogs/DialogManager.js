@@ -1,7 +1,6 @@
 import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
-import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     DIMENSION_TYPE_CATEGORY,
@@ -21,8 +20,13 @@ const isDynamicDimension = (type) =>
         DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
     ].includes(type)
 
-const DialogManager = ({ dimension, changeDialog }) => {
-    const onClose = () => changeDialog(null)
+const DialogManager = () => {
+    const dispatch = useDispatch()
+    const dimension = useSelector(
+        (state) => sGetMetadata(state)[sGetUiActiveModalDialog(state)]
+    )
+
+    const onClose = () => dispatch(acSetUiOpenDimensionModal(null))
 
     if (isDynamicDimension(dimension?.dimensionType)) {
         return <DynamicDimension dimension={dimension} onClose={onClose} />
@@ -40,19 +44,4 @@ const DialogManager = ({ dimension, changeDialog }) => {
     }
 }
 
-DialogManager.propTypes = {
-    changeDialog: PropTypes.func.isRequired,
-    dimension: PropTypes.object.isRequired,
-}
-
-DialogManager.defaultProps = {
-    rootOrgUnits: [],
-}
-
-const mapStateToProps = (state) => ({
-    dimension: sGetMetadata(state)[sGetUiActiveModalDialog(state)],
-})
-
-export default connect(mapStateToProps, {
-    changeDialog: acSetUiOpenDimensionModal,
-})(DialogManager)
+export default DialogManager
