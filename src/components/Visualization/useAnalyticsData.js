@@ -93,8 +93,10 @@ const getAdaptedVisualization = (visualization) => {
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
         ...visualization[AXIS_ID_ROWS],
-    ].map(
-        ({ dimension: dimensionId }) => headersMap[dimensionId] || dimensionId
+    ].map(({ dimension, programStage }) =>
+        programStage?.id
+            ? `${programStage.id}.${dimension}`
+            : headersMap[dimension] || dimension
     )
 
     return {
