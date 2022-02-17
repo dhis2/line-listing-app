@@ -5,7 +5,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiProgram, acUpdateUiProgramStageId } from '../../../actions/ui.js'
+import { tSetUiProgram } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
@@ -76,16 +76,15 @@ const ProgramDimensionsPanel = ({ visible }) => {
             : !!selectedProgram
     const setSelectedProgramId = (programId) => {
         if (programId !== selectedProgramId) {
-            dispatch(
-                tSetUiProgram({
-                    programId,
-                    metadata: {
-                        [programId]: filteredPrograms.find(
-                            ({ id }) => id === programId
-                        ),
-                    },
-                })
-            )
+            const program = filteredPrograms?.find(({ id }) => id === programId)
+            const stage =
+                program &&
+                // These have a single artificial stage
+                inputType === OUTPUT_TYPE_EVENT &&
+                program.programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+                    ? program.programStages[0]
+                    : undefined
+            dispatch(tSetUiProgram({ program, stage }))
         }
     }
 
@@ -99,18 +98,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType, selectedProgramId])
-
-    useEffect(() => {
-        if (
-            // These only have a single artificial stage
-            inputType === OUTPUT_TYPE_EVENT &&
-            programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
-        ) {
-            const artificialStage = selectedProgram.programStages[0]
-            const metadata = { [artificialStage.id]: artificialStage }
-            dispatch(acUpdateUiProgramStageId(artificialStage.id, metadata))
-        }
-    }, [inputType, programType])
 
     if (!visible || !called) {
         return null

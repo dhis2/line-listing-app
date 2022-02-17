@@ -26,10 +26,10 @@
         "redux-mock-store": "^1.5.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "^23.1.0",
+        "@dhis2/analytics": "^23.3.0",
         "@dhis2/app-runtime": "^3.2.8",
         "@dhis2/d2-ui-rich-text": "^7.3.3",
-        "@dhis2/ui": "^7.16.1",
+        "@dhis2/ui": "^7.16.2",
         "@testing-library/jest-dom": "^5.16.1",
         "@testing-library/react": "^12.1.2",
         "history": "^5.0.1",

@@ -41,8 +41,13 @@ export const getAxesFromUi = (ui) =>
         (layout, [axisId, dimensionIds]) => ({
             ...layout,
             [axisId]: dimensionIds
-                .map((dimensionId) =>
-                    dimensionCreate(
+                .map((id) => {
+                    // not all dimension have program stage prefix, make sure the dimensionId is always the first
+                    const [dimensionId, programStageId] = id
+                        .split('.')
+                        .reverse()
+
+                    return dimensionCreate(
                         dimensionId,
                         ui.itemsByDimension[dimensionId],
                         {
@@ -62,9 +67,14 @@ export const getAxesFromUi = (ui) =>
                                         ),
                                     },
                                 }),
+                            ...(programStageId && {
+                                programStage: {
+                                    id: programStageId,
+                                },
+                            }),
                         }
                     )
-                )
+                })
                 .filter((dim) => dim !== null),
         }),
         {}

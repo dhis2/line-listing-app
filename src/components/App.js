@@ -119,7 +119,9 @@ const App = ({
     showDetailsPanel,
 }) => {
     const { currentUser, userSettings } = useCachedDataQuery()
-    const [previousLocation, setPreviousLocation] = useState(null)
+    const [previousLocation, setPreviousLocation] = useState(
+        initialLocation.pathname
+    )
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const {
         data,
@@ -144,21 +146,6 @@ const App = ({
         }
     }
 
-    const needsRefetch = (location) => {
-        if (!previousLocation) {
-            return true
-        }
-
-        const id = location.pathname.slice(1).split('/')[0]
-        const prevId = previousLocation.slice(1).split('/')[0]
-
-        if (id !== prevId || previousLocation === location.pathname) {
-            return true
-        }
-
-        return false
-    }
-
     const parseLocation = (location) => {
         const pathParts = location.pathname.slice(1).split('/')
         const id = pathParts[0]
@@ -174,10 +161,7 @@ const App = ({
             // /${id}/
             // /${id}/interpretation/${interpretationId}
             const { id } = parseLocation(location)
-
-            if (needsRefetch(location)) {
-                refetch({ id })
-            }
+            refetch({ id })
         } else {
             clearAll()
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())

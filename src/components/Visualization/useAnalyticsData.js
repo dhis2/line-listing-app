@@ -6,19 +6,24 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { useSelector } from 'react-redux'
 import {
+    DIMENSION_TYPE_PROGRAM_STATUS,
+    DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
     DIMENSION_TYPE_INCIDENT_DATE,
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
 } from '../../modules/dimensionTypes.js'
+import history from '../../modules/history.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
     headersMap,
 } from '../../modules/visualization.js'
+import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
 
 const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
 const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
@@ -58,18 +63,26 @@ const isTimeDimension = (dimensionId) =>
     ].includes(dimensionId)
 
 const getAdaptedVisualization = (visualization) => {
-    const timeDimensionParameters = {}
+    const parameters = {}
 
     const adaptDimensions = (dimensions) => {
         const adaptedDimensions = []
         dimensions.forEach((dimensionObj) => {
             const dimensionId = dimensionObj.dimension
 
-            isTimeDimension(dimensionId)
-                ? (timeDimensionParameters[dimensionId] =
-                      dimensionObj.items?.map((item) => item.id))
-                : adaptedDimensions.push(dimensionObj)
+            if (
+                isTimeDimension(dimensionId) ||
+                dimensionId === DIMENSION_TYPE_EVENT_STATUS ||
+                dimensionId === DIMENSION_TYPE_PROGRAM_STATUS
+            ) {
+                parameters[dimensionId] = dimensionObj.items?.map(
+                    (item) => item.id
+                )
+            } else {
+                adaptedDimensions.push(dimensionObj)
+            }
         })
+
         return adaptedDimensions
     }
 
@@ -91,7 +104,7 @@ const getAdaptedVisualization = (visualization) => {
             [AXIS_ID_FILTERS]: adaptedFilters,
         },
         headers,
-        timeDimensionParameters,
+        parameters,
     }
 }
 
@@ -105,20 +118,18 @@ const fetchAnalyticsData = async ({
     sortDirection,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
-    const { adaptedVisualization, headers, timeDimensionParameters } =
+    const { adaptedVisualization, headers, parameters } =
         getAdaptedVisualization(visualization)
 
     let req = new analyticsEngine.request()
         .fromVisualization(adaptedVisualization)
         .withParameters({
-            headers: headers,
-            ...timeDimensionParameters,
+            headers,
+            ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withStage(visualization.programStage.id)
         .withDisplayProperty('NAME') // TODO from settings ?!
         .withOutputType(visualization.outputType)
-        .withParameters({ completedOnly: visualization.completedOnly })
         .withPageSize(pageSize)
         .withPage(page)
 
@@ -200,6 +211,7 @@ const useAnalyticsData = ({
     pageSize,
 }) => {
     const dataEngine = useDataEngine()
+    const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)
@@ -207,44 +219,56 @@ const useAnalyticsData = ({
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
 
-    useEffect(() => {
-        mounted.current = true
-        setFetching(true)
+    const doFetch = useCallback(async () => {
+        try {
+            const analyticsResponse = await fetchAnalyticsData({
+                analyticsEngine,
+                page,
+                pageSize,
+                relativePeriodDate,
+                sortDirection,
+                sortField,
+                visualization,
+            })
+            const headers = extractHeaders(analyticsResponse)
+            const rows = extractRows(analyticsResponse, headers)
+            const pageCount = analyticsResponse.metaData.pager.pageCount
+            const total = analyticsResponse.metaData.pager.total
 
-        const doFetch = async () => {
-            try {
-                const analyticsResponse = await fetchAnalyticsData({
-                    analyticsEngine,
-                    visualization,
-                    pageSize,
-                    page,
-                    relativePeriodDate,
-                    sortField,
-                    sortDirection,
-                })
-                const headers = extractHeaders(analyticsResponse)
-                const rows = extractRows(analyticsResponse, headers)
-                const pageCount = analyticsResponse.metaData.pager.pageCount
-                const total = analyticsResponse.metaData.pager.total
-
-                mounted.current && setError(undefined)
-                mounted.current && setData({ headers, rows, pageCount, total })
-                onResponseReceived(analyticsResponse)
-            } catch (error) {
-                mounted.current && setError(error)
-            } finally {
-                mounted.current && setLoading(false)
-                mounted.current && setFetching(false)
-            }
+            mounted.current && setError(undefined)
+            mounted.current && setData({ headers, rows, pageCount, total })
+            onResponseReceived(analyticsResponse)
+        } catch (error) {
+            mounted.current && setError(error)
+        } finally {
+            mounted.current && setLoading(false)
+            mounted.current && setFetching(false)
         }
+    }, [
+        analyticsEngine,
+        page,
+        pageSize,
+        relativePeriodDate,
+        sortDirection,
+        sortField,
+        visualization,
+    ])
 
-        doFetch()
+    useEffect(() => {
+        /*
+         * Hack to prevent state updates on unmounted components
+         * needed because the analytics engine cannot cancel requests
+         */
+        mounted.current = true
 
         return () => {
-            // Hack to prevent state updates on unmounted components
-            // needed because the analytics engine cannot cancel requests
             mounted.current = false
         }
+    }, [])
+
+    useEffect(() => {
+        setFetching(true)
+        doFetch()
     }, [
         visualization,
         page,
@@ -254,11 +278,40 @@ const useAnalyticsData = ({
         relativePeriodDate,
     ])
 
+    useEffect(() => {
+        // Do a full reset when loading a new visualization
+        if (isGlobalLoading) {
+            setFetching(false)
+            setLoading(false)
+            setError(undefined)
+            setData(null)
+        }
+    }, [isGlobalLoading])
+
+    useEffect(() => {
+        /*
+         * Reload the current visualization when it is reopened
+         * i.e. from File > Open > Etc
+         */
+        const unlisten = history.listen(({ location }) => {
+            const isReloadingCurrent = location.state?.isOpening
+
+            if (isReloadingCurrent) {
+                setLoading(true)
+                setFetching(true)
+                doFetch()
+            }
+        })
+
+        return unlisten
+    }, [])
+
     return {
         loading,
         fetching,
         error,
         data,
+        isGlobalLoading,
     }
 }
 

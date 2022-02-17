@@ -43,7 +43,7 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
-    const maxWidth = useAvailableWidth()
+    const { availableOuterWidth, availableInnerWidth } = useAvailableWidth()
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
 
@@ -106,9 +106,9 @@ export const Visualization = ({
                 })}
             >
                 <DataTable
-                    scrollHeight="500px"
+                    scrollHeight="100%"
                     width="auto"
-                    scrollWidth={maxWidth}
+                    scrollWidth={`${availableOuterWidth}px`}
                 >
                     <DataTableHead>
                         <DataTableRow>
@@ -180,39 +180,50 @@ export const Visualization = ({
                     </DataTableBody>
                     <DataTableFoot className={styles.stickyFooter}>
                         <DataTableRow>
-                            <DataTableCell colSpan={colSpan} staticStyle>
-                                <Pagination
-                                    page={page}
-                                    pageCount={data.pageCount}
-                                    pageSize={pageSize}
-                                    total={data.total}
-                                    onPageChange={setPage}
-                                    onPageSizeChange={setPageSize}
-                                    pageSizeSelectText={i18n.t(
-                                        'Cases per page'
-                                    )}
-                                    pageSummaryText={({
-                                        firstItem,
-                                        lastItem,
-                                        total,
-                                    }) =>
-                                        i18n.t(
-                                            '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
-                                            {
-                                                firstCaseIndex: firstItem,
-                                                lastCaseIndex: lastItem,
-                                                count: total,
-                                                // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
-                                                // not sure is possible to have empty string for singular with i18n
-                                                // TODO also, this string for some reason is not extracted
-                                                defaultValue:
-                                                    '{{firstCaseIndex}} of {{count}} case',
-                                                defaultValue_plural:
-                                                    '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
-                                            }
-                                        )
-                                    }
-                                />
+                            <DataTableCell
+                                colSpan={colSpan}
+                                staticStyle
+                                className={styles.footerCell}
+                            >
+                                <div
+                                    className={styles.stickyNavigation}
+                                    style={{
+                                        maxWidth: availableInnerWidth,
+                                    }}
+                                >
+                                    <Pagination
+                                        page={page}
+                                        pageCount={data.pageCount}
+                                        pageSize={pageSize}
+                                        total={data.total}
+                                        onPageChange={setPage}
+                                        onPageSizeChange={setPageSize}
+                                        pageSizeSelectText={i18n.t(
+                                            'Cases per page'
+                                        )}
+                                        pageSummaryText={({
+                                            firstItem,
+                                            lastItem,
+                                            total,
+                                        }) =>
+                                            i18n.t(
+                                                '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                                {
+                                                    firstCaseIndex: firstItem,
+                                                    lastCaseIndex: lastItem,
+                                                    count: total,
+                                                    // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
+                                                    // not sure is possible to have empty string for singular with i18n
+                                                    // TODO also, this string for some reason is not extracted
+                                                    defaultValue:
+                                                        '{{firstCaseIndex}} of {{count}} case',
+                                                    defaultValue_plural:
+                                                        '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                                }
+                                            )
+                                        }
+                                    />
+                                </div>
                             </DataTableCell>
                         </DataTableRow>
                     </DataTableFoot>
