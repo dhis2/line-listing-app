@@ -2,7 +2,6 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
-    DIMENSION_ID_PERIOD,
     VIS_TYPE_LINE_LIST,
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
@@ -58,16 +57,11 @@ export const outputTypeTimeDimensionMap = {
 
 export const transformVisualization = (visualization) => {
     const transformedColumns = transformDimensions(
-        visualization[AXIS_ID_COLUMNS],
-        visualization
+        visualization[AXIS_ID_COLUMNS]
     )
-    const transformedRows = transformDimensions(
-        visualization[AXIS_ID_ROWS],
-        visualization
-    )
+    const transformedRows = transformDimensions(visualization[AXIS_ID_ROWS])
     const transformedFilters = transformDimensions(
-        visualization[AXIS_ID_FILTERS],
-        visualization
+        visualization[AXIS_ID_FILTERS]
     )
 
     // convert completedOnly option to eventStatus = COMPLETED filter
@@ -92,21 +86,12 @@ export const transformVisualization = (visualization) => {
     }
 }
 
-const transformDimensions = (dimensions, { outputType, type }) =>
+const transformDimensions = (dimensions) =>
     dimensions.map((dimensionObj) => {
         if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
             return {
                 ...dimensionObj,
                 dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
-            }
-        } else if (
-            dimensionObj.dimension === DIMENSION_ID_PERIOD &&
-            type === VIS_TYPE_LINE_LIST
-        ) {
-            return {
-                ...dimensionObj,
-                dimension: outputTypeTimeDimensionMap[outputType],
-                dimensionType: DIMENSION_ID_PERIOD,
             }
         } else {
             return dimensionObj
