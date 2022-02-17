@@ -32,7 +32,10 @@ export const DIMENSION_TYPE_EVENT_STATUS = 'eventStatus'
 export const DIMENSION_TYPE_CREATED_BY = 'createdBy'
 export const DIMENSION_TYPE_LAST_UPDATED_BY = 'lastUpdatedBy'
 
-/**TIME**/
+/**PERIOD - time dimension group name**/
+export const DIMENSION_TYPE_PERIOD = 'PERIOD'
+
+/**TIME - specific time dimensions**/
 export const DIMENSION_TYPE_EVENT_DATE = 'eventDate'
 export const DIMENSION_TYPE_ENROLLMENT_DATE = 'enrollmentDate'
 export const DIMENSION_TYPE_INCIDENT_DATE = 'incidentDate'

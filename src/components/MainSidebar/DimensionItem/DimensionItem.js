@@ -1,4 +1,3 @@
-import { DIMENSION_ID_PERIOD } from '@dhis2/analytics'
 import {
     IconDimensionData16,
     IconDimensionProgramIndicator16,
@@ -16,6 +15,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import {
+    DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_DATA_ELEMENT,
@@ -48,7 +48,7 @@ const DIMENSION_TYPE_ICONS = {
     [DIMENSION_TYPE_CREATED_BY]: IconUser16,
     [DIMENSION_TYPE_LAST_UPDATED_BY]: IconUser16,
     /**TIME**/
-    [DIMENSION_ID_PERIOD]: IconCalendar16,
+    [DIMENSION_TYPE_PERIOD]: IconCalendar16,
 }
 
 const DimensionItem = ({

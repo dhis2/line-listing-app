@@ -2,14 +2,15 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
-    DIMENSION_ID_PERIOD,
     VIS_TYPE_LINE_LIST,
     VIS_TYPE_PIVOT_TABLE,
+    DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
+    DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_EVENT_DATE,
@@ -106,7 +107,7 @@ const transformDimensions = (dimensions, { outputType, type }) =>
             return {
                 ...dimensionObj,
                 dimension: outputTypeTimeDimensionMap[outputType],
-                dimensionType: DIMENSION_ID_PERIOD,
+                dimensionType: DIMENSION_TYPE_PERIOD,
             }
         } else {
             return dimensionObj
