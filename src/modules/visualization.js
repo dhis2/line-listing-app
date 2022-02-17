@@ -4,6 +4,7 @@ import {
     AXIS_ID_FILTERS,
     VIS_TYPE_LINE_LIST,
     VIS_TYPE_PIVOT_TABLE,
+    DIMENSION_ID_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
@@ -100,7 +101,7 @@ const transformDimensions = (dimensions, { outputType, type }) =>
                 dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
             }
         } else if (
-            dimensionObj.dimension === DIMENSION_TYPE_PERIOD &&
+            dimensionObj.dimension === DIMENSION_ID_PERIOD &&
             type === VIS_TYPE_LINE_LIST
         ) {
             return {
