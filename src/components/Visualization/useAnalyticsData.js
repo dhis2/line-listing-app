@@ -134,7 +134,6 @@ const fetchAnalyticsData = async ({
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
-        .withIncludeMetadataDetails(true)
 
     if (relativePeriodDate) {
         req = req.withRelativePeriodDate(relativePeriodDate)
