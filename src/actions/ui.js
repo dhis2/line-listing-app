@@ -157,9 +157,10 @@ export const acSetUiOpenDimensionModal = (value, metadata) => ({
     metadata,
 })
 
-export const acSetUiItems = (value) => ({
+export const acSetUiItems = (value, metadata) => ({
     type: SET_UI_ITEMS,
     value,
+    metadata,
 })
 
 export const acAddParentGraphMap = (value) => ({

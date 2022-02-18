@@ -1,11 +1,14 @@
-import { PeriodDimension as BasePeriodDimension } from '@dhis2/analytics'
+import {
+    PeriodDimension as BasePeriodDimension,
+    useCachedDataQuery,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
-import { acAddMetadata } from '../../../actions/metadata.js'
+import { acSetUiItems } from '../../../actions/ui.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -24,28 +27,87 @@ const segmentedControlOptions = [
     },
 ]
 
-export const PeriodDimension = ({
-    addMetadata,
-    dimension,
-    isInLayout,
-    selectedIds,
-    onClose,
-    onUpdate,
-}) => {
-    const [entryMethod, setEntryMethod] = useState(OPTION_PRESETS)
-    const [startEndDate, setStartEndDate] = useState('')
-    const selectedPeriods = selectedIds.map((id) => ({ id, name: id }))
+const isStartEndDate = (id) => {
+    const parts = id.split('_')
+    return (
+        parts.length === 2 &&
+        !isNaN(Date.parse(parts[0])) &&
+        !isNaN(Date.parse(parts[1]))
+    )
+}
 
-    // console.log(
-    //     addMetadata,
-    //     dimension,
-    //     isInLayout,
-    //     selectedIds,
-    //     setUiItems,
-    //     onClose,
-    //     onUpdate
-    // )
-    const primaryOnClick = () => console.log('clicka')
+const useIsInLayout = (dimensionId) => {
+    const allDimensionIds = useSelector(sGetDimensionIdsFromLayout)
+    return useMemo(
+        () => !!dimensionId && allDimensionIds.includes(dimensionId),
+        [dimensionId, allDimensionIds]
+    )
+}
+
+const useLocalizedStartEndDateFormatter = () => {
+    const { userSettings } = useCachedDataQuery()
+    const locale = userSettings.uiLocale
+    const formatter = new Intl.DateTimeFormat(locale, {
+        dateStyle: 'long',
+    })
+    return (startEndDate) => {
+        if (isStartEndDate(startEndDate)) {
+            return startEndDate
+                .split('_')
+                .map((dateStr) => formatter.format(new Date(dateStr)))
+                .join(' - ')
+        } else {
+            return ''
+        }
+    }
+}
+
+export const PeriodDimension = ({ dimension, onClose }) => {
+    const formatStartEndDate = useLocalizedStartEndDateFormatter()
+    const dispatch = useDispatch()
+    const isInLayout = useIsInLayout(dimension?.id)
+    const selectedIds =
+        useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
+        []
+    const [entryMethod, setEntryMethod] = useState(OPTION_PRESETS)
+    const [presets, setPresets] = useState(() =>
+        selectedIds
+            .filter((id) => !isStartEndDate(id))
+            /*
+             * TODO: it should be able to fetch the names from the metadata store
+             * once the backend starts returning period dimension metadata
+             */
+            .map((id) => ({ id, name: id }))
+    )
+
+    const [startEndDate, setStartEndDate] = useState(
+        () => selectedIds.find((id) => isStartEndDate(id)) || ''
+    )
+
+    const primaryOnClick = () => {
+        // first add to metadata and ui
+        const metadata = presets.reduce((acc, preset) => {
+            acc[preset.id] = preset
+            return acc
+        }, {})
+        const uiItems = {
+            dimensionId: dimension.id,
+            itemIds: presets.map(({ id }) => id),
+        }
+
+        if (isStartEndDate(startEndDate)) {
+            metadata[startEndDate] = {
+                id: startEndDate,
+                name: formatStartEndDate(startEndDate),
+            }
+            uiItems.itemIds.push(startEndDate)
+        }
+        dispatch(acSetUiItems(uiItems, metadata))
+        // then update current
+        dispatch(tSetCurrentFromUi())
+        // and finally close modal
+        onClose()
+    }
 
     return dimension ? (
         <DimensionModal
@@ -63,8 +125,8 @@ export const PeriodDimension = ({
             <div className={styles.entry}>
                 {entryMethod === OPTION_PRESETS && (
                     <BasePeriodDimension
-                        selectedPeriods={selectedPeriods}
-                        onSelect={(payload) => console.log(payload)}
+                        selectedPeriods={presets}
+                        onSelect={({ items }) => setPresets(items)}
                     />
                 )}
                 {entryMethod === OPTION_START_END_DATES && (
@@ -78,30 +140,7 @@ export const PeriodDimension = ({
     ) : null
 }
 
-SegmentedControl.propTypes = {
-    /** An option to select; should match the `value` property of the option to be selected */
-    selected: PropTypes.string.isRequired,
-    /** Called with the signature `({ value: string }, event)` */
-    onChange: PropTypes.func.isRequired,
-}
-
 PeriodDimension.propTypes = {
-    addMetadata: PropTypes.func.isRequired,
     dimension: PropTypes.object.isRequired,
-    isInLayout: PropTypes.bool.isRequired,
-    selectedIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
 }
-
-const mapStateToProps = (state, ownProps) => ({
-    isInLayout: sGetDimensionIdsFromLayout(state).includes(
-        ownProps.dimension?.id
-    ),
-    selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id) || [],
-})
-
-export default connect(mapStateToProps, {
-    onUpdate: tSetCurrentFromUi,
-    addMetadata: acAddMetadata,
-})(PeriodDimension)

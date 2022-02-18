@@ -32,8 +32,6 @@ const DialogManager = () => {
 
     const onClose = () => dispatch(acSetUiOpenDimensionModal(null))
 
-    console.log('checkme', dimension?.dimensionType, DIMENSION_TYPE_PERIOD)
-
     if (isDynamicDimension(dimension?.dimensionType)) {
         return <DynamicDimension dimension={dimension} onClose={onClose} />
     }
