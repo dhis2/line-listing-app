@@ -5,7 +5,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiItems } from '../../../actions/ui.js'
@@ -84,25 +84,46 @@ export const PeriodDimension = ({ dimension, onClose }) => {
         () => selectedIds.find((id) => isStartEndDate(id)) || ''
     )
 
+    useEffect(() => {
+        if (presets) {
+            updatePeriodDimensionItems(presets)
+        }
+    }, [presets])
+
+    useEffect(() => {
+        if (startEndDate) {
+            updatePeriodDimensionItems([{ id: startEndDate }])
+        }
+    }, [startEndDate])
+
+    const updatePeriodDimensionItems = (items) => {
+        const { uiItems, metadata } = items.reduce(
+            (acc, item) => {
+                acc.uiItems.push(item.id)
+
+                if (isStartEndDate(item.id)) {
+                    acc.metadata[item.id] = {
+                        id: item.id,
+                        name: formatStartEndDate(item.id),
+                    }
+                } else {
+                    acc.metadata[item.id] = item
+                }
+
+                return acc
+            },
+            { uiItems: [], metadata: {} }
+        )
+
+        dispatch(
+            acSetUiItems(
+                { dimensionId: dimension.id, itemIds: uiItems },
+                metadata
+            )
+        )
+    }
+
     const primaryOnClick = () => {
-        const metadata = presets.reduce((acc, preset) => {
-            acc[preset.id] = preset
-            return acc
-        }, {})
-        const uiItems = {
-            dimensionId: dimension.id,
-            itemIds: presets.map(({ id }) => id),
-        }
-
-        if (isStartEndDate(startEndDate)) {
-            metadata[startEndDate] = {
-                id: startEndDate,
-                name: formatStartEndDate(startEndDate),
-            }
-            uiItems.itemIds.push(startEndDate)
-        }
-
-        dispatch(acSetUiItems(uiItems, metadata))
         dispatch(tSetCurrentFromUi())
         onClose()
     }
