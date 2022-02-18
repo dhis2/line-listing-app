@@ -3,7 +3,7 @@ import { Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import DynamicDimensionIcon from '../../assets/DynamicDimensionIcon.js'
 import { setDataTransfer } from '../../modules/dnd.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
@@ -13,13 +13,20 @@ import { default as TooltipContent } from './TooltipContent.js'
 const Chip = ({
     numberOfConditions,
     dimensionId,
-    dimensionName,
     axisId,
     items,
     onClick,
     contextMenu,
 }) => {
+    // TODO - using the rawDimensionId instead of dimensionId
+    // is a temporary workaround
+    // until the backend is updated to return programStageId.dimensionId
+    // in analytics response.metadata.items
+    const [rawDimensionId] = dimensionId.split('.').reverse()
     const id = Math.random().toString(36)
+    const dimensionName = useSelector(
+        (state) => sGetMetadataById(state, rawDimensionId) || {}
+    ).name
 
     const dataTest = `layout-chip-${dimensionId}`
 
@@ -97,7 +104,6 @@ const Chip = ({
 Chip.propTypes = {
     axisId: PropTypes.string.isRequired,
     dimensionId: PropTypes.string.isRequired,
-    dimensionName: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     contextMenu: PropTypes.object,
     items: PropTypes.array,
@@ -109,8 +115,4 @@ Chip.defaultProps = {
     items: [],
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    dimensionName: (sGetMetadataById(state, ownProps.dimensionId) || {}).name,
-})
-
-export default connect(mapStateToProps)(Chip)
+export default Chip

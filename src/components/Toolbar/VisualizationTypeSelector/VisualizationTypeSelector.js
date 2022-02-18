@@ -30,7 +30,7 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
                 label={visTypeDisplayNames[type]}
                 description={visTypeDescriptions[type]}
                 isSelected={type === visualizationType}
-                onClick={!disabled && handleListItemClick(type)}
+                onClick={!disabled ? handleListItemClick(type) : null}
                 disabled={disabled}
             />
         )
