@@ -1,16 +1,25 @@
 import i18n from '@dhis2/d2-i18n'
 import { Field, IconArrowRight16, InputField, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './StartEndDate.module.css'
 
 export const StartEndDate = ({ value, setValue }) => {
     const [startDateStr, endDateStr] = value ? value.split('_') : []
+    const [startDate, setStartDate] = useState(startDateStr)
+    const [endDate, setEndDate] = useState(endDateStr)
+
+    useEffect(() => {
+        if (startDate && endDate) {
+            setValue(`${startDate}_${endDate}`)
+        }
+    }, [startDate, endDate])
+
     const onStartDateChange = ({ value }) => {
-        setValue(`${value}_${endDateStr}`)
+        setStartDate(value)
     }
     const onEndDateChange = ({ value }) => {
-        setValue(`${startDateStr}_${value}`)
+        setEndDate(value)
     }
 
     return (
@@ -21,7 +30,7 @@ export const StartEndDate = ({ value, setValue }) => {
         >
             <div className={styles.row}>
                 <InputField
-                    value={startDateStr}
+                    value={startDate}
                     type="date"
                     onChange={onStartDateChange}
                     label={i18n.t('Start date')}
@@ -31,7 +40,7 @@ export const StartEndDate = ({ value, setValue }) => {
                     <IconArrowRight16 color={colors.grey500} />
                 </div>
                 <InputField
-                    value={endDateStr}
+                    value={endDate}
                     type="date"
                     onChange={onEndDateChange}
                     label={i18n.t('End date')}
