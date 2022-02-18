@@ -48,12 +48,12 @@ export const getAxesFromUi = (ui) =>
 
                     return dimensionCreate(
                         dimensionId,
-                        ui.itemsByDimension[dimensionId],
+                        ui.itemsByDimension[id],
                         {
-                            filter: ui.conditions[dimensionId]?.condition,
-                            ...(ui.conditions[dimensionId]?.legendSet && {
+                            filter: ui.conditions[id]?.condition,
+                            ...(ui.conditions[id]?.legendSet && {
                                 legendSet: {
-                                    id: ui.conditions[dimensionId].legendSet,
+                                    id: ui.conditions[id].legendSet,
                                 },
                             }),
                             ...(programStageId && {
