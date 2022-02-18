@@ -74,8 +74,8 @@ export const PeriodDimension = ({ dimension, onClose }) => {
         selectedIds
             .filter((id) => !isStartEndDate(id))
             /*
-             * TODO: it should be able to fetch the names from the metadata store
-             * once the backend starts returning period dimension metadata
+             * TODO: it should be possible to fetch the names from the metadata
+             * store once the backend starts returning period dimension metadata
              */
             .map((id) => ({ id, name: id }))
     )
@@ -85,7 +85,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     )
 
     const primaryOnClick = () => {
-        // first add to metadata and ui
         const metadata = presets.reduce((acc, preset) => {
             acc[preset.id] = preset
             return acc
@@ -102,10 +101,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             }
             uiItems.itemIds.push(startEndDate)
         }
+
         dispatch(acSetUiItems(uiItems, metadata))
-        // then update current
         dispatch(tSetCurrentFromUi())
-        // and finally close modal
         onClose()
     }
 
