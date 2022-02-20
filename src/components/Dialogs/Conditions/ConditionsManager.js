@@ -120,8 +120,7 @@ const ConditionsManager = ({
     const valueType = dimension.valueType
     const isProgramIndicator =
         dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
-    const isOptionSetCondition =
-        valueType === VALUE_TYPE_TEXT && dimension.optionSet
+    const isOptionSetCondition = dimension.optionSet
     const canHaveLegendSets =
         NUMERIC_TYPES.includes(valueType) || isProgramIndicator
     const isSupported =
