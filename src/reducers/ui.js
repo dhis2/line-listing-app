@@ -78,7 +78,7 @@ export const DEFAULT_UI = {
     },
     itemsByDimension: {
         [DIMENSION_ID_ORGUNIT]: [],
-        [DIMENSION_TYPE_EVENT_STATUS]: [], // XXX should this default be set in the component instead? since these are fixed dimensions perhaps this default here makes sense
+        [DIMENSION_TYPE_EVENT_STATUS]: [],
         [DIMENSION_TYPE_PROGRAM_STATUS]: [],
     },
     options: getOptionsForUi(),
