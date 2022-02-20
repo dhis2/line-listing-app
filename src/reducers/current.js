@@ -14,7 +14,7 @@ export default (state = DEFAULT_CURRENT, action) => {
         case SET_CURRENT_FROM_UI: {
             switch (action.value.type) {
                 default: {
-                    return getDefaultFromUi(state, action)
+                    return getDefaultFromUi(state, action.value)
                 }
             }
         }
@@ -29,3 +29,13 @@ export default (state = DEFAULT_CURRENT, action) => {
 
 export const sGetCurrent = (state) => state.current
 export const sGetCurrentId = (state) => state.current?.id
+
+export const sGetCurrentFromUi = (state) => {
+    const ui = state.ui
+
+    switch (ui.type) {
+        default: {
+            return getDefaultFromUi(state.current, ui)
+        }
+    }
+}

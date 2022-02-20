@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { GenericError } from '../../assets/ErrorIcons.js'
 import { EVENT_TYPE } from '../../modules/dataStatistics.js'
-import { VisualizationError, genericErrorTitle } from '../../modules/error.js'
+import { genericErrorTitle, isVisualizationError } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetUsername } from '../../reducers/user.js'
@@ -132,7 +132,7 @@ const StartScreen = ({ error, username, setLoadError }) => {
             className={styles.errorContainer}
             data-test="start-screen-error-container"
         >
-            {error instanceof VisualizationError ? (
+            {isVisualizationError(error) ? (
                 <>
                     <div className={styles.errorIcon}>{error.icon()}</div>
                     <p className={styles.errorTitle}>{error.title}</p>

@@ -9,11 +9,13 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
-    NoticeBox,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { acSetLoadError } from '../../actions/loader.js'
+import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -43,6 +45,7 @@ export const Visualization = ({
     onResponseReceived,
     relativePeriodDate,
 }) => {
+    const dispatch = useDispatch()
     const { availableOuterWidth, availableInnerWidth } = useAvailableWidth()
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
@@ -77,19 +80,22 @@ export const Visualization = ({
     }, [visualization])
 
     if (error) {
-        return (
-            <div className={styles.error}>
-                <NoticeBox error title={i18n.t('Could not load visualization')}>
-                    {error?.message ||
-                        i18n.t(
-                            "The visualization couldn't be displayed. Try again or contact your system administrator."
-                        )}
-                </NoticeBox>
-            </div>
-        )
+        let output
+        if (error.details) {
+            switch (error.details.errorCode) {
+                case 'E7205':
+                    output = noPeriodError()
+                    break
+                default:
+                    output = error
+            }
+        } else {
+            output = genericServerError()
+        }
+        dispatch(acSetLoadError(output))
     }
 
-    if (!data) {
+    if (!data || error) {
         return null
     }
 

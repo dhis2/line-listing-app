@@ -8,7 +8,6 @@ import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current.js'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
 import {
@@ -42,7 +41,6 @@ const FixedDimension = ({
     dimension,
     isInLayout,
     metadata,
-    onUpdate,
     ouIds,
     eventStatusIds,
     programStatusIds,
@@ -219,17 +217,11 @@ const FixedDimension = ({
         }
     }
 
-    const primaryOnClick = () => {
-        onUpdate()
-        closeModal()
-    }
-
     return dimension ? (
         <DimensionModal
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            onUpdate={primaryOnClick}
             title={dimension.name}
         >
             {renderModalContent()}
@@ -250,7 +242,6 @@ FixedDimension.propTypes = {
     parentGraphMap: PropTypes.object,
     rootOrgUnits: PropTypes.array,
     setUiItems: PropTypes.func,
-    onUpdate: PropTypes.func,
 }
 
 FixedDimension.defaultProps = {
@@ -276,5 +267,4 @@ export default connect(mapStateToProps, {
     setUiItems: acSetUiItems,
     addMetadata: acAddMetadata,
     addParentGraphMap: acAddParentGraphMap,
-    onUpdate: tSetCurrentFromUi,
 })(FixedDimension)
