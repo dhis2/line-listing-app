@@ -9,7 +9,7 @@ import {
     visTypes,
     visTypeDescriptions,
 } from '../../../modules/visualization.js'
-import { sGetUi, sGetUiType } from '../../../reducers/ui.js'
+import { sGetUiType } from '../../../reducers/ui.js'
 import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
 import VisualizationTypeListItem from './VisualizationTypeListItem.js'
@@ -100,7 +100,6 @@ VisualizationTypeSelector.propTypes = {
 
 const mapStateToProps = (state) => ({
     visualizationType: sGetUiType(state),
-    ui: sGetUi(state),
 })
 
 export default connect(mapStateToProps)(VisualizationTypeSelector)

@@ -8,6 +8,7 @@ import { connect, useDispatch } from 'react-redux'
 import { acSetCurrent } from '../actions/current.js'
 import {
     acClearAll,
+    acClearLoadError,
     acSetLoadError,
     acSetVisualizationLoading,
 } from '../actions/loader.js'
@@ -22,8 +23,9 @@ import { acSetUser } from '../actions/user.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
-    GenericServerError,
-    VisualizationNotFoundError,
+    emptyResponseError,
+    genericServerError,
+    visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
@@ -108,10 +110,12 @@ const App = ({
     addParentGraphMap,
     addSettings,
     clearAll,
+    clearLoadError,
     error,
     isLoading,
     setCurrent,
     setInitMetadata,
+    setLoadError,
     setVisualization,
     setVisualizationLoading,
     setUiFromVisualization,
@@ -140,9 +144,9 @@ const App = ({
 
     if (!error && fetchError) {
         if (fetchError.details?.httpStatusCode === 404) {
-            clearAll(new VisualizationNotFoundError())
+            clearAll(visualizationNotFoundError())
         } else {
-            clearAll(fetchError.details.message || new GenericServerError())
+            clearAll(fetchError.details.message || genericServerError())
         }
     }
 
@@ -191,6 +195,10 @@ const App = ({
         )
 
         addMetadata(itemsMetadata)
+
+        if (!response.rows?.length) {
+            setLoadError(emptyResponseError())
+        }
     }
 
     useEffect(() => {
@@ -246,6 +254,7 @@ const App = ({
             setCurrent(visualization)
             setUiFromVisualization(visualization, metadata)
             postDataStatistics({ id: visualization.id })
+            clearLoadError()
         }
     }, [data])
 
@@ -350,6 +359,7 @@ const mapDispatchToProps = {
     addParentGraphMap: acAddParentGraphMap,
     addSettings: tAddSettings,
     clearAll: acClearAll,
+    clearLoadError: acClearLoadError,
     setCurrent: acSetCurrent,
     setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
@@ -364,12 +374,14 @@ App.propTypes = {
     addParentGraphMap: PropTypes.func,
     addSettings: PropTypes.func,
     clearAll: PropTypes.func,
+    clearLoadError: PropTypes.func,
     current: PropTypes.object,
     error: PropTypes.object,
     initialLocation: PropTypes.object,
     isLoading: PropTypes.bool,
     setCurrent: PropTypes.func,
     setInitMetadata: PropTypes.func,
+    setLoadError: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
     setUser: PropTypes.func,
     setVisualization: PropTypes.func,

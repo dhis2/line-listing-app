@@ -9,58 +9,59 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import UpdateButton from '../UpdateButton/UpdateButton.js'
+import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 import AddToLayoutButton from './AddToLayoutButton/AddToLayoutButton.js'
 import classes from './styles/DimensionModal.module.css'
 
-const DimensionModal = ({
-    children,
-    dataTest,
-    isInLayout,
-    onClose,
-    onUpdate,
-    title,
-}) => (
-    <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
-        <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
-        <ModalContent
-            dataTest={`${dataTest}-content`}
-            className={classes.modalContent}
-        >
-            {children}
-        </ModalContent>
-        <ModalActions dataTest={`${dataTest}-actions`}>
-            <ButtonStrip>
-                <Button
-                    type="button"
-                    secondary
-                    onClick={onClose}
-                    dataTest={`${dataTest}-action-cancel`}
-                >
-                    {i18n.t('Hide')}
-                </Button>
-                {isInLayout ? (
+const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
+    const onClick = (handler) => {
+        onClose()
+        handler()
+    }
+
+    return (
+        <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
+            <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
+            <ModalContent
+                dataTest={`${dataTest}-content`}
+                className={classes.modalContent}
+            >
+                {children}
+            </ModalContent>
+            <ModalActions dataTest={`${dataTest}-actions`}>
+                <ButtonStrip>
                     <Button
-                        onClick={onUpdate}
                         type="button"
-                        primary
-                        dataTest={`${dataTest}-action-confirm`}
+                        secondary
+                        onClick={onClose}
+                        dataTest={`${dataTest}-action-cancel`}
                     >
-                        {i18n.t('Update')}
+                        {i18n.t('Hide')}
                     </Button>
-                ) : (
-                    <AddToLayoutButton
-                        onClick={() => alert('add to layout')}
-                        dataTest={`${dataTest}-action-confirm`}
+                    <UpdateVisualizationContainer
+                        renderComponent={(handler) =>
+                            isInLayout ? (
+                                <UpdateButton
+                                    onClick={() => onClick(handler)}
+                                    dataTest={`${dataTest}-action-confirm`}
+                                />
+                            ) : (
+                                <AddToLayoutButton
+                                    onClick={() => onClick(handler)}
+                                    dataTest={`${dataTest}-action-confirm`}
+                                />
+                            )
+                        }
                     />
-                )}
-            </ButtonStrip>
-        </ModalActions>
-    </Modal>
-)
+                </ButtonStrip>
+            </ModalActions>
+        </Modal>
+    )
+}
 
 DimensionModal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
     children: PropTypes.node,
     dataTest: PropTypes.string,
     isInLayout: PropTypes.bool,

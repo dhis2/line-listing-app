@@ -5,12 +5,10 @@ import {
 } from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { Button } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect, useDispatch } from 'react-redux'
-import { acSetCurrent, tSetCurrentFromUi } from '../../../actions/current.js'
-import { acSetShowExpandedLayoutPanel } from '../../../actions/ui.js'
+import { connect } from 'react-redux'
+import { acSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
@@ -18,6 +16,8 @@ import { visTypes } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
+import UpdateButton from '../../UpdateButton/UpdateButton.js'
+import UpdateVisualizationContainer from '../../UpdateButton/UpdateVisualizationContainer.js'
 import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager.js'
 import { InterpretationsButton } from './InterpretationsButton.js'
 import classes from './styles/MenuBar.module.css'
@@ -50,14 +50,12 @@ const MenuBar = ({
     apiObjectName,
     setCurrent,
     setVisualization,
-    onUpdate,
 }) => {
     const { currentUser } = useCachedDataQuery()
     const { show: showAlert } = useAlert(
         ({ message }) => message,
         ({ options }) => options
     )
-    const dispatch = useDispatch()
 
     const onOpen = (id) => {
         const path = `/${id}`
@@ -202,24 +200,17 @@ const MenuBar = ({
         onError,
     })
 
-    const onUpdateClick = () => {
-        // TODO: More things to be added here later (validation, error handling etc).
-        // Should be in line with the onClick in VisualizationsOptionsManager
-        onUpdate()
-        dispatch(acSetShowExpandedLayoutPanel(false))
-    }
-
     return (
         <div className={classes.menuBar} data-test={dataTest}>
-            <Button
-                className={classes.updateButton}
-                onClick={onUpdateClick}
-                type="button"
-                primary
-                small
-            >
-                {i18n.t('Update')}
-            </Button>
+            <UpdateVisualizationContainer
+                renderComponent={(handler) => (
+                    <UpdateButton
+                        className={classes.updateButton}
+                        onClick={handler}
+                        small
+                    />
+                )}
+            />
             <FileMenu
                 currentUser={currentUser}
                 fileType={apiObjectName}
@@ -249,7 +240,6 @@ MenuBar.propTypes = {
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
-    onUpdate: PropTypes.func,
 }
 
 const mapStateToProps = (state) => ({
@@ -260,7 +250,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     setCurrent: acSetCurrent,
     setVisualization: acSetVisualization,
-    onUpdate: tSetCurrentFromUi,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

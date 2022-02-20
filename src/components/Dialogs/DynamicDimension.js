@@ -5,7 +5,6 @@ import { Transfer, TransferOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current.js'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems } from '../../actions/ui.js'
 import { useDebounce, useDidUpdateEffect } from '../../modules/utils.js'
@@ -31,7 +30,6 @@ const DynamicDimension = ({
     onClose,
     dimension,
     isInLayout,
-    onUpdate,
     setUiItems,
     displayNameProp,
     selectedIds,
@@ -185,16 +183,10 @@ const DynamicDimension = ({
         </>
     )
 
-    const primaryOnClick = () => {
-        onUpdate()
-        closeModal()
-    }
-
     return dimension ? (
         <DimensionModal
             isInLayout={isInLayout}
             onClose={closeModal}
-            onUpdate={primaryOnClick}
             title={
                 dimension.name + ` | dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
             }
@@ -213,7 +205,6 @@ DynamicDimension.propTypes = {
     selectedIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
     setUiItems: PropTypes.func,
-    onUpdate: PropTypes.func,
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -227,6 +218,5 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(mapStateToProps, {
     setUiItems: acSetUiItems,
-    onUpdate: tSetCurrentFromUi,
     addMetadata: acAddMetadata,
 })(DynamicDimension)

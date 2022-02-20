@@ -3,7 +3,6 @@ import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiConditions } from '../../../actions/ui.js'
 import {
     OPERATOR_IN,
@@ -110,7 +109,6 @@ const ConditionsManager = ({
     conditions,
     inputType,
     isInLayout,
-    onUpdate,
     dimension,
     stage,
     onClose,
@@ -181,12 +179,6 @@ const ConditionsManager = ({
             dimension: dimension.id,
             legendSet: selectedLegendSet,
         })
-
-    const primaryOnClick = () => {
-        storeConditions()
-        onUpdate()
-        onClose()
-    }
 
     const closeModal = () => {
         storeConditions()
@@ -374,6 +366,16 @@ const ConditionsManager = ({
     const renderConditions = () => (
         <>
             <div>
+                <small>
+                    <p>
+                        valueType: <b>{valueType}</b>, dimensionType:
+                        <b> {dimension.dimensionType}</b>, id:
+                        <b> {dimension.id}</b>
+                    </p>
+                    {
+                        // FIXME: For testing only
+                    }
+                </small>
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(
@@ -503,11 +505,7 @@ const ConditionsManager = ({
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            onUpdate={primaryOnClick}
-            title={
-                dimension.name +
-                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
-            }
+            title={dimension.name}
         >
             {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>
@@ -523,7 +521,6 @@ ConditionsManager.propTypes = {
     setConditionsByDimension: PropTypes.func,
     stage: PropTypes.object,
     onClose: PropTypes.func,
-    onUpdate: PropTypes.func,
 }
 
 const mapStateToProps = (state, ownProps) => ({
@@ -546,7 +543,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-    onUpdate: tSetCurrentFromUi,
     setConditionsByDimension: acSetUiConditions,
 }
 

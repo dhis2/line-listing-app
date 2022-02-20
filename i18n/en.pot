@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-12T15:29:38.864Z\n"
-"PO-Revision-Date: 2022-02-12T15:29:38.864Z\n"
+"POT-Creation-Date: 2022-02-20T08:52:08.816Z\n"
+"PO-Revision-Date: 2022-02-20T08:52:08.816Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -132,9 +132,6 @@ msgstr "Oldest events: "
 msgid "Hide"
 msgstr "Hide"
 
-msgid "Update"
-msgstr "Update"
-
 msgid "No items selected"
 msgstr "No items selected"
 
@@ -197,6 +194,9 @@ msgstr "Could not update comment"
 
 msgid "Enter comment text"
 msgstr "Enter comment text"
+
+msgid "Update"
+msgstr "Update"
 
 msgid "Viewing interpretation: {{visualisationName}}"
 msgstr "Viewing interpretation: {{visualisationName}}"
@@ -437,16 +437,6 @@ msgstr "Click a dimension to add or remove conditions."
 msgid "Your most viewed event reports"
 msgstr "Your most viewed event reports"
 
-msgid "Could not load visualization"
-msgstr "Could not load visualization"
-
-msgid ""
-"The visualization couldn't be displayed. Try again or contact your system "
-"administrator."
-msgstr ""
-"The visualization couldn't be displayed. Try again or contact your system "
-"administrator."
-
 msgid "Cases per page"
 msgstr "Cases per page"
 
@@ -596,6 +586,30 @@ msgstr ""
 "The visualization you are trying to view could not be found, the ID could "
 "be incorrect or it could have been deleted."
 
+msgid "No program selected"
+msgstr "No program selected"
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr "Choose a program from the Program Dimensions sidebar."
+
+msgid "Columns is empty"
+msgstr "Columns is empty"
+
+msgid "Add at least one item to Columns."
+msgstr "Add at least one item to Columns."
+
+msgid "No organisation unit selected"
+msgstr "No organisation unit selected"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr "Add at least one organisation unit to the layout."
+
+msgid "No time dimension selected"
+msgstr "No time dimension selected"
+
+msgid "Add at least one time dimension to the layout."
+msgstr "Add at least one time dimension to the layout."
+
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -664,6 +678,24 @@ msgstr "Due/Scheduled date"
 
 msgid "Last updated on"
 msgstr "Last updated on"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Overdue"
+msgstr "Overdue"
+
+msgid "Scheduled"
+msgstr "Scheduled"
+
+msgid "Skipped"
+msgstr "Skipped"
 
 msgid "Events are single registrations or incidents in a program"
 msgstr "Events are single registrations or incidents in a program"
