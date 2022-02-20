@@ -18,20 +18,36 @@ import {
     DIMENSION_TYPE_INCIDENT_DATE,
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+    DIMENSION_TYPE_LAST_UPDATED_BY,
 } from './dimensionTypes.js'
 import { default as options } from './options.js'
 
-const STATUS_COMPLETED = 'COMPLETED'
+export const STATUS_ACTIVE = 'ACTIVE'
+export const STATUS_CANCELLED = 'CANCELLED'
+export const STATUS_COMPLETED = 'COMPLETED'
+export const STATUS_OVERDUE = 'OVERDUE'
+export const STATUS_SCHEDULED = 'SCHEDULED'
+export const STATUS_SKIPPED = 'SKIPPED'
 
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 
+export const statusNames = {
+    [STATUS_ACTIVE]: i18n.t('Active'),
+    [STATUS_CANCELLED]: i18n.t('Cancelled'),
+    [STATUS_COMPLETED]: i18n.t('Completed'),
+    [STATUS_OVERDUE]: i18n.t('Overdue'),
+    [STATUS_SCHEDULED]: i18n.t('Scheduled'),
+    [STATUS_SKIPPED]: i18n.t('Skipped'),
+}
+
 export const headersMap = {
     ou: 'ouname',
-    programStatus: 'programstatus',
-    eventStatus: 'eventstatus',
-    storedBy: 'storedby',
-    lastUpdatedBy: 'lastupdatedby',
+    [DIMENSION_TYPE_PROGRAM_STATUS]: 'programstatus',
+    [DIMENSION_TYPE_EVENT_STATUS]: 'eventstatus',
+    createdBy: 'createdby',
+    [DIMENSION_TYPE_LAST_UPDATED_BY]: 'lastupdatedby',
     [DIMENSION_TYPE_EVENT_DATE]: 'eventdate',
     [DIMENSION_TYPE_ENROLLMENT_DATE]: 'enrollmentdate',
     [DIMENSION_TYPE_INCIDENT_DATE]: 'incidentdate',

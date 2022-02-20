@@ -5,7 +5,9 @@ import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+    DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+    DIMENSION_TYPE_PROGRAM_STATUS,
 } from '../../modules/dimensionTypes.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
@@ -32,6 +34,8 @@ const DialogManager = () => {
         return <DynamicDimension dimension={dimension} onClose={onClose} />
     }
     switch (dimension?.id) {
+        case DIMENSION_TYPE_PROGRAM_STATUS:
+        case DIMENSION_TYPE_EVENT_STATUS:
         case DIMENSION_ID_ORGUNIT: {
             return <FixedDimension dimension={dimension} onClose={onClose} />
         }

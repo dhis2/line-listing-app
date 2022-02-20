@@ -35,3 +35,7 @@
     padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp16);
     overflow: auto;
 }
+
+.verticalCheckbox {
+    padding-top: var(--spacers-dp8);
+}

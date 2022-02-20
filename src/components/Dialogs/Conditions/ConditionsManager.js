@@ -352,12 +352,19 @@ const ConditionsManager = ({
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            title={
-                dimension.name +
-                ` | valueType: ${valueType}, dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
-            }
+            title={dimension.name}
         >
             <div>
+                <small>
+                    <p>
+                        valueType: <b>{valueType}</b>, dimensionType:
+                        <b> {dimension.dimensionType}</b>, id:
+                        <b> {dimension.id}</b>
+                    </p>
+                    {
+                        // FIXME: For testing only
+                    }
+                </small>
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(

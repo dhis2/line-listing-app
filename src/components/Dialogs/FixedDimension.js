@@ -3,12 +3,27 @@ import {
     ouIdHelper,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
+import {
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+} from '../../modules/dimensionTypes.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import {
+    STATUS_ACTIVE,
+    STATUS_CANCELLED,
+    STATUS_COMPLETED,
+    STATUS_OVERDUE,
+    STATUS_SCHEDULED,
+    STATUS_SKIPPED,
+    statusNames,
+} from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../../reducers/settings.js'
 import {
@@ -17,6 +32,7 @@ import {
     sGetDimensionIdsFromLayout,
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
+import classes from './styles/Common.module.css'
 
 const FixedDimension = ({
     addMetadata,
@@ -26,6 +42,8 @@ const FixedDimension = ({
     isInLayout,
     metadata,
     ouIds,
+    eventStatusIds,
+    programStatusIds,
     parentGraphMap,
     rootOrgUnits,
     setUiItems,
@@ -68,8 +86,97 @@ const FixedDimension = ({
 
     const closeModal = () => onClose()
 
+    const renderStatusParagraph = () => (
+        <p className={classes.paragraph}>
+            {i18n.t('Show items where the status is:')}
+        </p>
+    )
+
+    const setStatus = ({ dimensionId, selectedItemsIds, itemId, toggle }) => {
+        const newIds = toggle
+            ? [...new Set([...selectedItemsIds, itemId])]
+            : selectedItemsIds.filter((id) => id !== itemId)
+
+        selectUiItems({
+            dimensionId,
+            items: newIds.map((id) => ({ id })),
+        })
+    }
+
+    const renderProgramStatus = () => {
+        const ALL_STATUSES = [
+            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
+            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
+            { id: STATUS_CANCELLED, name: statusNames[STATUS_CANCELLED] },
+        ]
+
+        return (
+            <>
+                {renderStatusParagraph()}
+                <div>
+                    {ALL_STATUSES.map(({ id, name }) => (
+                        <Checkbox
+                            key={id}
+                            checked={programStatusIds.includes(id)}
+                            label={name}
+                            onChange={({ checked }) =>
+                                setStatus({
+                                    dimensionId: DIMENSION_TYPE_PROGRAM_STATUS,
+                                    selectedItemsIds: programStatusIds,
+                                    itemId: id,
+                                    toggle: checked,
+                                })
+                            }
+                            dense
+                            className={classes.verticalCheckbox}
+                        />
+                    ))}
+                </div>
+            </>
+        )
+    }
+
+    const renderEventStatus = () => {
+        const ALL_STATUSES = [
+            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
+            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
+            { id: STATUS_SCHEDULED, name: statusNames[STATUS_SCHEDULED] },
+            { id: STATUS_OVERDUE, name: statusNames[STATUS_OVERDUE] },
+            { id: STATUS_SKIPPED, name: statusNames[STATUS_SKIPPED] },
+        ]
+
+        return (
+            <>
+                {renderStatusParagraph()}
+                <div>
+                    {ALL_STATUSES.map(({ id, name }) => (
+                        <Checkbox
+                            key={id}
+                            checked={eventStatusIds.includes(id)}
+                            label={name}
+                            onChange={({ checked }) =>
+                                setStatus({
+                                    dimensionId: DIMENSION_TYPE_EVENT_STATUS,
+                                    selectedItemsIds: eventStatusIds,
+                                    itemId: id,
+                                    toggle: checked,
+                                })
+                            }
+                            dense
+                            className={classes.verticalCheckbox}
+                        />
+                    ))}
+                </div>
+            </>
+        )
+    }
+
     const renderModalContent = () => {
         switch (dimension.id) {
+            case DIMENSION_TYPE_PROGRAM_STATUS:
+                return renderProgramStatus()
+            case DIMENSION_TYPE_EVENT_STATUS:
+                return renderEventStatus()
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
                     onSelect: selectUiItems,
@@ -124,8 +231,10 @@ const FixedDimension = ({
 
 FixedDimension.propTypes = {
     dimension: PropTypes.object.isRequired,
+    eventStatusIds: PropTypes.array.isRequired,
     isInLayout: PropTypes.array.isRequired,
     ouIds: PropTypes.array.isRequired,
+    programStatusIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
@@ -140,12 +249,17 @@ FixedDimension.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+    eventStatusIds: sGetUiItemsByDimension(state, DIMENSION_TYPE_EVENT_STATUS),
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
     metadata: sGetMetadata(state),
     ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
     parentGraphMap: sGetUiParentGraphMap(state),
+    programStatusIds: sGetUiItemsByDimension(
+        state,
+        DIMENSION_TYPE_PROGRAM_STATUS
+    ),
     rootOrgUnits: sGetRootOrgUnits(state),
 })
 

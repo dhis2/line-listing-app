@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-09T16:33:13.170Z\n"
-"PO-Revision-Date: 2022-02-09T16:33:13.170Z\n"
+"POT-Creation-Date: 2022-02-20T08:52:08.816Z\n"
+"PO-Revision-Date: 2022-02-20T08:52:08.816Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -663,6 +663,24 @@ msgstr "Due/Scheduled date"
 
 msgid "Last updated on"
 msgstr "Last updated on"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Overdue"
+msgstr "Overdue"
+
+msgid "Scheduled"
+msgstr "Scheduled"
+
+msgid "Skipped"
+msgstr "Skipped"
 
 msgid "Events are single registrations or incidents in a program"
 msgstr "Events are single registrations or incidents in a program"
