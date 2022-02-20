@@ -8,6 +8,13 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions } from './mainDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
+import { statusNames } from './visualization.js'
+
+const formatObject = (object) =>
+    Object.entries(object).reduce(
+        (obj, [key, value]) => ({ ...obj, [key]: { name: value } }),
+        {}
+    )
 
 const getOrganisationUnits = () => ({
     [USER_ORG_UNIT]: i18n.t('User organisation unit'),
@@ -23,9 +30,8 @@ export const getDefaultMetadata = () => ({
     ...getMainDimensions(),
     ...getDefaulTimeDimensionsMetadata(),
     ...getFixedDimensions(),
-    ...Object.entries({
-        ...getOrganisationUnits(),
-    }).reduce((acc, [key, value]) => ({ ...acc, [key]: { name: value } }), {}),
+    ...formatObject(getOrganisationUnits()),
+    ...formatObject(statusNames),
 })
 
 export const getDefaulTimeDimensionsMetadata = () => {
