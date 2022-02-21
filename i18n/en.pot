@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-20T08:52:08.816Z\n"
-"PO-Revision-Date: 2022-02-20T08:52:08.816Z\n"
+"POT-Creation-Date: 2022-02-21T08:15:47.708Z\n"
+"PO-Revision-Date: 2022-02-21T08:15:47.708Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -117,11 +117,6 @@ msgstr "Choose options"
 msgid "Hide"
 msgstr "Hide"
 
-<<<<<<< HEAD
-=======
-msgid "Update"
-msgstr "Update"
-
 msgid "Choose from presets"
 msgstr "Choose from presets"
 
@@ -137,7 +132,6 @@ msgstr "Start date"
 msgid "End date"
 msgstr "End date"
 
->>>>>>> 12af591 (feat: add time dimension dialog ui (not connected to the store))
 msgid "No items selected"
 msgstr "No items selected"
 
