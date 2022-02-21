@@ -57,12 +57,10 @@ export const getAxesFromUi = (ui) =>
                                 },
                             }),
                             ...(ui.repetitionByDimension &&
-                                ui.repetitionByDimension[dimensionId] && {
+                                ui.repetitionByDimension[id] && {
                                     repetition: {
                                         indexes: parseUiRepetition(
-                                            ui.repetitionByDimension[
-                                                dimensionId
-                                            ]
+                                            ui.repetitionByDimension[id]
                                         ),
                                     },
                                 }),
