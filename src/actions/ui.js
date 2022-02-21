@@ -7,6 +7,7 @@ import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
+    SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
     SET_UI_OPTION,
     SET_UI_OPTIONS,
@@ -26,6 +27,11 @@ import {
     CLEAR_UI_PROGRAM,
     CLEAR_UI_STAGE_ID,
 } from '../reducers/ui.js'
+
+export const acSetUiDraggingId = (value) => ({
+    type: SET_UI_DRAGGING_ID,
+    value,
+})
 
 export const acSetUiInput = (value, metadata) => ({
     type: SET_UI_INPUT,

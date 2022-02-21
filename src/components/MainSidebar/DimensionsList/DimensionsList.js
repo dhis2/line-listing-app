@@ -1,8 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
+import { SortableContext } from '@dnd-kit/sortable'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
-import { DimensionItem } from '../DimensionItem/DimensionItem.js'
+import { DimensionItem } from '../DimensionItem/index.js'
 import { useSelectedDimensions } from '../SelectedDimensionsContext.js'
 import styles from './DimensionsList.module.css'
 
@@ -28,6 +29,7 @@ const DimensionsList = ({
     fetching,
     error,
     dimensions,
+    listId,
     programName,
     searchTerm,
     setIsListEndVisible,
@@ -79,18 +81,18 @@ const DimensionsList = ({
             ref={scrollBoxRef}
         >
             <div className={styles.list}>
-                {dimensions.map((dimension) => (
-                    <DimensionItem
-                        key={dimension.id}
-                        dimensionType={dimension.dimensionType}
-                        name={dimension.name}
-                        stageName={dimension.stageName}
-                        id={dimension.id}
-                        optionSet={dimension.optionSet}
-                        valueType={dimension.valueType}
-                        selected={getIsDimensionSelected(dimension.id)}
-                    />
-                ))}
+                <SortableContext
+                    id={listId}
+                    items={dimensions.map((dim) => dim.draggableId)}
+                >
+                    {dimensions.map((dimension) => (
+                        <DimensionItem
+                            key={dimension.id}
+                            {...dimension}
+                            selected={getIsDimensionSelected(dimension.id)}
+                        />
+                    ))}
+                </SortableContext>
                 {fetching && (
                     <div className={styles.loadMoreWrap}>
                         <CircularLoader small />
@@ -106,6 +108,7 @@ DimensionsList.propTypes = {
     dimensions: PropTypes.array,
     error: PropTypes.object,
     fetching: PropTypes.bool,
+    listId: PropTypes.string,
     loading: PropTypes.bool,
     programName: PropTypes.string,
     searchTerm: PropTypes.string,

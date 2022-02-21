@@ -1,14 +1,16 @@
+import { useDroppable } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { parseConditionsStringToArray } from '../../../modules/conditions.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
+    sGetUiDraggingId,
     sGetUiItemsByDimension,
     sGetUiLayout,
     sGetUiConditionsByDimension,
@@ -27,8 +29,51 @@ const DefaultAxis = ({
     renderChips,
     visType,
 }) => {
-    const onDragOver = (e) => {
-        e.preventDefault()
+    const draggingId = useSelector(sGetUiDraggingId)
+    const metadata = useSelector(sGetMetadata)
+    const { isOver, setNodeRef } = useDroppable({
+        id: axisId,
+    })
+
+    // TODO - using the rawDimensionId instead of dimensionId
+    // is a temporary workaround
+    // until the backend is updated to return programStageId.dimensionId
+    // in analytics response.metadata.items
+    const getDimensionName = (id) => {
+        let name
+        if (metadata[id]?.name) {
+            name = metadata[id].name || ''
+        } else {
+            const [rawDimensionId] = id.split('.').reverse()
+            name = metadata[rawDimensionId]?.name || ''
+        }
+
+        return name
+    }
+
+    const getDimensionType = (id) => {
+        let dimensionType
+        if (metadata[id]?.dimensionType) {
+            dimensionType = metadata[id].dimensionType || null
+        } else {
+            const [rawDimensionId] = id.split('.').reverse()
+            dimensionType = metadata[rawDimensionId]?.dimensionType || null
+        }
+
+        return dimensionType
+    }
+
+    const activeIndex = draggingId ? axis.indexOf(draggingId) : -1
+
+    const getNumberOfConditions = (dimensionId) => {
+        const conditions = getConditionsByDimension(dimensionId)
+        const numberOfConditions =
+            parseConditionsStringToArray(conditions.condition).length ||
+            conditions.legendSet
+                ? 1
+                : 0
+
+        return numberOfConditions
     }
 
     return (
@@ -36,74 +81,45 @@ const DefaultAxis = ({
             id={axisId}
             data-test={`${axisId}-axis`}
             className={cx(styles.axisContainer, className)}
-            onDragOver={onDragOver}
         >
             <div className={styles.label}>{getAxisName(axisId)}</div>
-            <Droppable droppableId={axisId} direction="horizontal">
-                {(provided) => (
+            <SortableContext id={axisId} items={axis}>
+                <div className={styles.content}>
                     <div
-                        className={styles.content}
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
+                        ref={setNodeRef}
+                        className={cx(styles.lastItemDroppableArea, {
+                            [styles.isOver]: isOver,
+                            [styles.isEmpty]: !axis.length,
+                        })}
                     >
-                        {renderChips &&
-                            axis.map((dimensionId, index) => {
-                                const key = `${axisId}-${dimensionId}`
-
-                                const items = getItemsByDimension(dimensionId)
-
-                                const conditions =
-                                    getConditionsByDimension(dimensionId)
-                                const numberOfConditions =
-                                    parseConditionsStringToArray(
-                                        conditions.condition
-                                    ).length || conditions.legendSet
-                                        ? 1
-                                        : 0
-
-                                return (
-                                    <Draggable
-                                        key={key}
-                                        draggableId={key}
-                                        index={index}
-                                    >
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                <Chip
-                                                    onClick={getOpenHandler(
-                                                        dimensionId
-                                                    )}
-                                                    axisId={axisId}
-                                                    dimensionId={dimensionId}
-                                                    items={items}
-                                                    numberOfConditions={
-                                                        numberOfConditions
-                                                    }
-                                                    contextMenu={
-                                                        <ChipMenu
-                                                            dimensionId={
-                                                                dimensionId
-                                                            }
-                                                            currentAxisId={
-                                                                axisId
-                                                            }
-                                                            visType={visType}
-                                                        />
-                                                    }
-                                                />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                )
-                            })}
-                        {provided.placeholder}
+                        <div className={styles.dropIndicator} />
                     </div>
-                )}
-            </Droppable>
+                    {renderChips &&
+                        axis.map((id) => {
+                            return (
+                                <Chip
+                                    key={`${axisId}-${id}`}
+                                    onClick={getOpenHandler(id)}
+                                    dimensionId={id}
+                                    dimensionName={getDimensionName(id)}
+                                    dimensionType={getDimensionType(id)}
+                                    items={getItemsByDimension(id)}
+                                    numberOfConditions={getNumberOfConditions(
+                                        id
+                                    )}
+                                    contextMenu={
+                                        <ChipMenu
+                                            dimensionId={id}
+                                            currentAxisId={axisId}
+                                            visType={visType}
+                                        />
+                                    }
+                                    activeIndex={activeIndex}
+                                />
+                            )
+                        })}
+                </div>
+            </SortableContext>
         </div>
     )
 }
@@ -115,7 +131,6 @@ DefaultAxis.propTypes = {
     getConditionsByDimension: PropTypes.func,
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
-    layout: PropTypes.object,
     renderChips: PropTypes.bool,
     visType: PropTypes.string,
 }

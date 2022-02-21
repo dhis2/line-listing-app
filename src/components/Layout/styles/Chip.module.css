@@ -1,10 +1,60 @@
 .chipWrapper {
+    position: relative;
     display: flex;
     margin: var(--spacers-dp4);
     background-color: var(--colors-teal200);
     border-radius: 2px;
     align-items: center;
     max-width: 400px;
+}
+
+.chipWrapperOverlay {
+    margin: 0;
+}
+
+.chipWrapper:not(.active).insertBefore .content::before,
+.chipWrapper:not(.active).insertAfter .content::before,
+.chipWrapper:not(.active).insertBefore .content::after,
+.chipWrapper:not(.active).insertAfter .content::after {
+    content: '';
+    position: absolute;
+    z-index: 100;
+}
+
+/* the vertical line */
+.content::before {
+    top: 6px;
+    bottom: 0;
+    width: 4px;
+    background-color: #4c9ffe;
+}
+
+/* the circle */
+.content::after {
+    top: -4px;
+    width: 12px;
+    height: 12px;
+    border: 4px solid #4c9ffe;
+    background: transparent;
+    border-radius: 12px;
+}
+
+.insertBefore .content::before {
+    left: -6px;
+}
+.insertBefore .content::after {
+    left: -10px;
+}
+
+.insertAfter .content::before {
+    right: -6px;
+}
+.insertAfter .content::after {
+    right: -10px;
+}
+
+.content {
+    display: inline-flex;
 }
 
 .chip {
@@ -55,4 +105,10 @@
     padding-left: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+/* dnd */
+
+.active {
+    opacity: 0.4;
 }
