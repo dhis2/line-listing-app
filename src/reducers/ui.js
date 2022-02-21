@@ -399,7 +399,7 @@ export const useTimeDimensions = () => {
             eventDateDim,
             enrollmentDateDim,
             incidentDateDim,
-            scheduledDateDim,
+            // scheduledDateDim,
             lastUpdatedDim,
         ]
 
