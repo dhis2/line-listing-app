@@ -15,4 +15,5 @@
     flex-direction: column;
     gap: 4px;
     padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
+    user-select: none;
 }

@@ -1,65 +1,21 @@
-import {
-    IconDimensionData16,
-    IconDimensionProgramIndicator16,
-    IconFilter16,
-    IconDimensionCategoryOptionGroupset16,
-    IconDimensionOrgUnitGroupset16,
-    IconDimensionOrgUnit16,
-    IconCheckmarkCircle16,
-    IconUser16,
-    IconCalendar16,
-} from '@dhis2/ui'
-import cx from 'classnames'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
-import {
-    DIMENSION_TYPE_PERIOD,
-    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
-    DIMENSION_TYPE_CATEGORY,
-    DIMENSION_TYPE_DATA_ELEMENT,
-    DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_LAST_UPDATED_BY,
-    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
-    DIMENSION_TYPE_OU,
-    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-    DIMENSION_TYPE_PROGRAM_INDICATOR,
-    DIMENSION_TYPE_PROGRAM_STATUS,
-    DIMENSION_TYPE_CREATED_BY,
-} from '../../../modules/dimensionTypes.js'
-import styles from './DimensionItem.module.css'
+import { DimensionItemBase } from './DimensionItemBase.js'
 
-const DIMENSION_TYPE_ICONS = {
-    /**PROGRAM**/
-    [DIMENSION_TYPE_DATA_ELEMENT]: IconDimensionData16,
-    [DIMENSION_TYPE_PROGRAM_ATTRIBUTE]: IconDimensionData16,
-    [DIMENSION_TYPE_PROGRAM_INDICATOR]: IconDimensionProgramIndicator16,
-    [DIMENSION_TYPE_CATEGORY]: IconFilter16,
-    [DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET]:
-        IconDimensionCategoryOptionGroupset16,
-    /**YOURS**/
-    [DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET]:
-        IconDimensionOrgUnitGroupset16,
-    /**MAIN**/
-    [DIMENSION_TYPE_OU]: IconDimensionOrgUnit16,
-    [DIMENSION_TYPE_PROGRAM_STATUS]: IconCheckmarkCircle16,
-    [DIMENSION_TYPE_EVENT_STATUS]: IconCheckmarkCircle16,
-    [DIMENSION_TYPE_CREATED_BY]: IconUser16,
-    [DIMENSION_TYPE_LAST_UPDATED_BY]: IconUser16,
-    /**TIME**/
-    [DIMENSION_TYPE_PERIOD]: IconCalendar16,
-}
-
-const DimensionItem = ({
-    dimensionType,
+export const DimensionItem = ({
     id,
-    disabled,
+    draggableId,
     name,
-    optionSet,
-    selected,
-    stageName,
+    dimensionType,
     valueType,
+    optionSet,
+    stageName,
+    disabled,
+    selected,
 }) => {
     const dispatch = useDispatch()
     const onClick = disabled
@@ -67,34 +23,62 @@ const DimensionItem = ({
         : () =>
               dispatch(
                   acSetUiOpenDimensionModal(id, {
-                      [id]: { id, name, dimensionType, valueType, optionSet },
+                      [id]: {
+                          id,
+                          name,
+                          dimensionType,
+                          valueType,
+                          optionSet,
+                      },
                   })
               )
-    const Icon = DIMENSION_TYPE_ICONS[dimensionType] || IconDimensionData16
 
+    const {
+        attributes,
+        listeners,
+        isSorting,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({
+        id: draggableId || id,
+        disabled: disabled || selected,
+        data: {
+            name,
+            dimensionType,
+        },
+    })
+
+    const style = transform
+        ? {
+              transform: isSorting
+                  ? undefined
+                  : CSS.Translate.toString({
+                        x: transform.x,
+                        y: transform.y,
+                        scaleX: 1,
+                        scaleY: 1,
+                    }),
+              transition,
+          }
+        : undefined
     return (
-        <div
-            className={cx(styles.dimensionItem, {
-                [styles.selected]: selected,
-                [styles.disabled]: disabled,
-            })}
-            onClick={onClick}
-        >
-            <div className={styles.icon}>
-                <Icon />
-            </div>
-            <div className={styles.label}>
-                <span className={styles.primary}>{name}</span>
-                {stageName && (
-                    <span className={styles.secondary}>{stageName}</span>
-                )}
-            </div>
+        <div {...attributes} {...listeners} ref={setNodeRef} style={style}>
+            <DimensionItemBase
+                name={name}
+                dimensionType={dimensionType}
+                disabled={disabled}
+                selected={selected}
+                stageName={stageName}
+                onClick={onClick}
+            />
         </div>
     )
 }
 
 DimensionItem.propTypes = {
     dimensionType: PropTypes.string.isRequired,
+    draggableId: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
@@ -103,5 +87,3 @@ DimensionItem.propTypes = {
     stageName: PropTypes.string,
     valueType: PropTypes.string,
 }
-
-export { DimensionItem }

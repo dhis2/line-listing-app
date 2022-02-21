@@ -20,7 +20,7 @@ const initialState = {
     loading: true,
     fetching: true,
     error: null,
-    dimensions: null,
+    dimensions: [],
     nextPage: 1,
     isLastPage: false,
     isListEndVisible: false,
@@ -51,7 +51,7 @@ const reducer = (state, action) => {
                 loading: false,
                 fetching: false,
                 error: action.payload,
-                dimensions: null,
+                dimensions: [],
             }
         case ACTIONS_SET_LIST_END_VISIBLE:
             return {
