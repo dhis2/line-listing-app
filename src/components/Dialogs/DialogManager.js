@@ -3,6 +3,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
+    DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
     DIMENSION_TYPE_EVENT_STATUS,
@@ -14,6 +15,7 @@ import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
 import ConditionsManager from './Conditions/ConditionsManager.js'
 import DynamicDimension from './DynamicDimension.js'
 import FixedDimension from './FixedDimension.js'
+import PeriodDimension from './PeriodDimension/index.js'
 
 const isDynamicDimension = (type) =>
     [
@@ -33,13 +35,15 @@ const DialogManager = () => {
     if (isDynamicDimension(dimension?.dimensionType)) {
         return <DynamicDimension dimension={dimension} onClose={onClose} />
     }
+    if (dimension?.dimensionType === DIMENSION_TYPE_PERIOD) {
+        return <PeriodDimension dimension={dimension} onClose={onClose} />
+    }
     switch (dimension?.id) {
         case DIMENSION_TYPE_PROGRAM_STATUS:
         case DIMENSION_TYPE_EVENT_STATUS:
         case DIMENSION_ID_ORGUNIT: {
             return <FixedDimension dimension={dimension} onClose={onClose} />
         }
-        // TODO: case DIMENSION_ID_PERIOD:
         default: {
             return dimension?.id ? (
                 <ConditionsManager dimension={dimension} onClose={onClose} />

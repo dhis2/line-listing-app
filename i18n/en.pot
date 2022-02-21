@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-20T08:52:08.816Z\n"
-"PO-Revision-Date: 2022-02-20T08:52:08.816Z\n"
+"POT-Creation-Date: 2022-02-21T08:15:47.708Z\n"
+"PO-Revision-Date: 2022-02-21T08:15:47.708Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -116,6 +116,21 @@ msgstr "Choose options"
 
 msgid "Hide"
 msgstr "Hide"
+
+msgid "Choose from presets"
+msgstr "Choose from presets"
+
+msgid "Define start - end dates"
+msgstr "Define start - end dates"
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr "Start and end dates are inclusive and will be included in the outputs."
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
 
 msgid "No items selected"
 msgstr "No items selected"

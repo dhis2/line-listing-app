@@ -1,0 +1,11 @@
+.row {
+    display: flex;
+    gap: var(--spacers-dp4);
+    align-items: flex-end;
+}
+.icon {
+    flex-grow: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
