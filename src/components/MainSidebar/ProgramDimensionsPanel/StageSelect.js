@@ -3,7 +3,7 @@ import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { tSetUiStage, acClearUiStageId } from '../../../actions/ui.js'
+import { tSetUiStage, tClearUiStage } from '../../../actions/ui.js'
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
 
 const STAGE_ALL = 'STAGE_ALL'
@@ -13,7 +13,7 @@ const StageSelect = ({ optional, stages }) => {
     const selectedStageId = useSelector(sGetUiProgramStageId)
     const onChange = ({ selected: stageId }) => {
         if (stageId === STAGE_ALL) {
-            dispatch(acClearUiStageId())
+            dispatch(tClearUiStage())
         } else {
             const stage = stages.find(({ id }) => id === stageId)
             dispatch(tSetUiStage(stage))
