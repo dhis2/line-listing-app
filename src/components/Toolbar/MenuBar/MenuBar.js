@@ -156,18 +156,21 @@ const MenuBar = ({
 
     const onSaveComplete = (res, copy = false) => {
         if (res.response.uid) {
-            const historyEntry = {
+            const locationObject = {
                 pathname: `/${res.response.uid}`,
-                state: { isSaving: true },
+            }
+
+            const locationState = {
+                isSaving: true,
             }
 
             // Save As
             if (copy) {
-                history.push(historyEntry)
+                history.push(locationObject, locationState)
             }
             // Save
             else {
-                history.replace(historyEntry)
+                history.replace(locationObject, locationState)
             }
         }
     }
@@ -196,7 +199,7 @@ const MenuBar = ({
         onError,
     })
     const [putVisualization] = useDataMutation(visualizationSaveAsMutation, {
-        onComplete: () => (res) => onSaveComplete(res, true),
+        onComplete: (res) => onSaveComplete(res, true),
         onError,
     })
 

@@ -19,7 +19,6 @@ import {
     DIMENSION_TYPE_CREATED_BY,
     DIMENSION_TYPE_LAST_UPDATED_BY,
 } from '../../modules/dimensionTypes.js'
-import history from '../../modules/history.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
@@ -296,24 +295,6 @@ const useAnalyticsData = ({
             setData(null)
         }
     }, [isGlobalLoading])
-
-    useEffect(() => {
-        /*
-         * Reload the current visualization when it is reopened
-         * i.e. from File > Open > Etc
-         */
-        const unlisten = history.listen(({ location }) => {
-            const isReloadingCurrent = location.state?.isOpening
-
-            if (isReloadingCurrent) {
-                setLoading(true)
-                setFetching(true)
-                doFetch()
-            }
-        })
-
-        return unlisten
-    }, [])
 
     return {
         loading,

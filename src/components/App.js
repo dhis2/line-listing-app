@@ -1,5 +1,5 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
-import { useDataQuery, useDataMutation } from '@dhis2/app-runtime'
+import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -122,18 +122,14 @@ const App = ({
     setUser,
     showDetailsPanel,
 }) => {
+    const dataEngine = useDataEngine()
+    const [data, setData] = useState()
+    const [fetchError, setFetchError] = useState()
     const { currentUser, userSettings } = useCachedDataQuery()
     const [previousLocation, setPreviousLocation] = useState(
         initialLocation.pathname
     )
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
-    const {
-        data,
-        refetch,
-        error: fetchError,
-    } = useDataQuery(visualizationQuery, {
-        lazy: true,
-    })
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const dispatch = useDispatch()
 
@@ -142,13 +138,15 @@ const App = ({
         interpretationsUnitRef.current.refresh()
     }
 
-    if (!error && fetchError) {
-        if (fetchError.details?.httpStatusCode === 404) {
-            clearAll(visualizationNotFoundError())
-        } else {
-            clearAll(fetchError.details.message || genericServerError())
+    useEffect(() => {
+        if (!error && fetchError) {
+            if (fetchError.details?.httpStatusCode === 404) {
+                clearAll(visualizationNotFoundError())
+            } else {
+                clearAll(fetchError.details.message || genericServerError())
+            }
         }
-    }
+    }, [error, fetchError])
 
     const parseLocation = (location) => {
         const pathParts = location.pathname.slice(1).split('/')
@@ -157,7 +155,7 @@ const App = ({
         return { id, interpretationId }
     }
 
-    const loadVisualization = (location) => {
+    const loadVisualization = async (location) => {
         setVisualizationLoading(true)
         const isExisting = location.pathname.length > 1
         if (isExisting) {
@@ -165,7 +163,16 @@ const App = ({
             // /${id}/
             // /${id}/interpretation/${interpretationId}
             const { id } = parseLocation(location)
-            refetch({ id })
+
+            try {
+                const data = await dataEngine.query(visualizationQuery, {
+                    variables: { id },
+                })
+
+                setData(data)
+            } catch (error) {
+                setFetchError(error)
+            }
         } else {
             clearAll()
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
