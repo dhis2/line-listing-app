@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16, Tooltip } from '@dhis2/ui'
+import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -9,11 +9,17 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '../../../modules/dimensionTypes.js'
+import {
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+} from '../../../modules/dimensionTypes.js'
+import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
+    sGetUiInputType,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
 import commonClasses from '../styles/Common.module.css'
@@ -31,6 +37,7 @@ import {
 import NumericCondition from './NumericCondition.js'
 import OptionSetCondition from './OptionSetCondition.js'
 import OrgUnitCondition from './OrgUnitCondition.js'
+import RepeatableEvents from './RepeatableEvents.js'
 import classes from './styles/ConditionsManager.module.css'
 
 const VALUE_TYPE_NUMBER = 'NUMBER'
@@ -53,6 +60,9 @@ const VALUE_TYPE_DATE = 'DATE'
 const VALUE_TYPE_TIME = 'TIME'
 const VALUE_TYPE_DATETIME = 'DATETIME'
 const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
+
+const TAB_CONDITIONS = 'CONDITIONS'
+const TAB_REPEATABLE_EVENTS = 'REPEATABLE_EVENTS'
 
 const NUMERIC_TYPES = [
     VALUE_TYPE_NUMBER,
@@ -97,16 +107,18 @@ const EMPTY_CONDITION = ''
 
 const ConditionsManager = ({
     conditions,
+    inputType,
     isInLayout,
     dimension,
+    stage,
     onClose,
     setConditionsByDimension,
 }) => {
+    const [currentTab, setCurrentTab] = useState(TAB_CONDITIONS)
     const valueType = dimension.valueType
     const isProgramIndicator =
         dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
-    const isOptionSetCondition =
-        valueType === VALUE_TYPE_TEXT && dimension.optionSet
+    const isOptionSetCondition = dimension.optionSet
     const canHaveLegendSets =
         NUMERIC_TYPES.includes(valueType) || isProgramIndicator
     const isSupported =
@@ -347,13 +359,12 @@ const ConditionsManager = ({
         (conditionsList.some((condition) => condition.includes(OPERATOR_IN)) ||
             selectedLegendSet)
 
-    return dimension ? (
-        <DimensionModal
-            dataTest={'dialog-manager-modal'}
-            isInLayout={isInLayout}
-            onClose={closeModal}
-            title={dimension.name}
-        >
+    const isRepeatable =
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
+        dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+
+    const renderConditions = () => (
+        <>
             <div>
                 <small>
                     <p>
@@ -440,6 +451,63 @@ const ConditionsManager = ({
                     )}
                 </div>
             )}
+        </>
+    )
+
+    const renderTabs = () => {
+        const disableRepeatableTab = !stage?.repeatable
+        const repeatableTab = (
+            <Tab
+                key={TAB_REPEATABLE_EVENTS}
+                onClick={() => setCurrentTab(TAB_REPEATABLE_EVENTS)}
+                selected={currentTab === TAB_REPEATABLE_EVENTS}
+                disabled={disableRepeatableTab}
+            >
+                {i18n.t('Repeated events')}
+            </Tab>
+        )
+
+        return (
+            <>
+                <TabBar className={classes.tabBar}>
+                    <Tab
+                        key={TAB_CONDITIONS}
+                        onClick={() => setCurrentTab(TAB_CONDITIONS)}
+                        selected={currentTab === TAB_CONDITIONS}
+                    >
+                        {i18n.t('Conditions')}
+                    </Tab>
+                    {disableRepeatableTab ? (
+                        <Tooltip
+                            key={`repeatable-tooltip`}
+                            placement="bottom"
+                            content={i18n.t(
+                                'Only available for repeatable stages'
+                            )}
+                        >
+                            {repeatableTab}
+                        </Tooltip>
+                    ) : (
+                        repeatableTab
+                    )}
+                </TabBar>
+                {currentTab === TAB_CONDITIONS ? (
+                    renderConditions()
+                ) : (
+                    <RepeatableEvents dimensionId={dimension.id} />
+                )}
+            </>
+        )
+    }
+
+    return dimension ? (
+        <DimensionModal
+            dataTest={'dialog-manager-modal'}
+            isInLayout={isInLayout}
+            onClose={closeModal}
+            title={dimension.name}
+        >
+            {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>
     ) : null
 }
@@ -448,8 +516,10 @@ ConditionsManager.propTypes = {
     conditions: PropTypes.object.isRequired,
     dimension: PropTypes.object.isRequired,
     isInLayout: PropTypes.bool.isRequired,
+    inputType: PropTypes.string,
     legendSet: PropTypes.string,
     setConditionsByDimension: PropTypes.func,
+    stage: PropTypes.object,
     onClose: PropTypes.func,
 }
 
@@ -461,6 +531,15 @@ const mapStateToProps = (state, ownProps) => ({
         sGetUiConditionsByDimension(state, ownProps.dimension?.id) || {},
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
     displayNameProp: sGetSettingsDisplayNameProperty(state),
+    inputType: sGetUiInputType(state),
+    stage:
+        sGetMetadataById(
+            state,
+            ownProps.dimension?.id?.substring(
+                0,
+                ownProps.dimension.id.indexOf('.')
+            )
+        ) || {},
 })
 
 const mapDispatchToProps = {

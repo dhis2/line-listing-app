@@ -3,6 +3,7 @@ import pick from 'lodash-es/pick'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
+import { parseUiRepetition } from './ui.js'
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -55,6 +56,14 @@ export const getAxesFromUi = (ui) =>
                                     id: ui.conditions[id].legendSet,
                                 },
                             }),
+                            ...(ui.repetitionByDimension &&
+                                ui.repetitionByDimension[id] && {
+                                    repetition: {
+                                        indexes: parseUiRepetition(
+                                            ui.repetitionByDimension[id]
+                                        ),
+                                    },
+                                }),
                             ...(programStageId && {
                                 programStage: {
                                     id: programStageId,

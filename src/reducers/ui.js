@@ -325,7 +325,8 @@ export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
-export const sGetUiRepetition = (state) => sGetUi(state).repetitionByDimension
+export const sGetUiRepetition = (state) =>
+    sGetUi(state).repetitionByDimension || {}
 
 // Selectors level 2
 

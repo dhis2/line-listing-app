@@ -22,3 +22,26 @@
 .tooltipReference > .addConditionButton:disabled {
     pointer-events: none;
 }
+
+.tabBar {
+    margin-bottom: var(--spacers-dp16);
+}
+
+.repeatableWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: var(--spacers-dp8);
+}
+
+.repeatableWrapper:first-child {
+    margin-top: var(--spacers-dp16);
+}
+
+.repeatableWrapper:not(:last-child) {
+    margin-bottom: var(--spacers-dp12);
+}
+
+.repeatableInput {
+    width: 100px;
+    margin-left: var(--spacers-dp4);
+}

@@ -69,6 +69,15 @@ msgstr "Add another condition"
 msgid "Add a condition"
 msgstr "Add a condition"
 
+msgid "Repeated events"
+msgstr "Repeated events"
+
+msgid "Conditions"
+msgstr "Conditions"
+
+msgid "Only available for repeatable stages"
+msgstr "Only available for repeatable stages"
+
 msgid "after"
 msgstr "after"
 
@@ -113,6 +122,12 @@ msgstr "No preset option sets for this data item"
 
 msgid "Choose options"
 msgstr "Choose options"
+
+msgid "Most recent events: "
+msgstr "Most recent events: "
+
+msgid "Oldest events: "
+msgstr "Oldest events: "
 
 msgid "Hide"
 msgstr "Hide"

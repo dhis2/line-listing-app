@@ -74,11 +74,14 @@ export const apiFetchLegendSetsByDimension = async ({
         default:
             throw new Error(`${dimensionType} is not a valid dimension type`)
     }
+
+    const [id] = dimensionId.split('.').reverse()
+
     const response = await dataEngine.query(
         { legendSets: query },
         {
             variables: {
-                id: dimensionId,
+                id,
             },
             onError: (error) => console.log('Error: ', error),
         }
