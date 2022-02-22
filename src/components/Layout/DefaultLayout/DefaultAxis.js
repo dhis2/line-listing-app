@@ -15,8 +15,8 @@ import {
     sGetUiLayout,
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
+import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
 import Chip from '../Chip.js'
-import ChipMenu from '../ChipMenu.js'
 import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({
@@ -27,7 +27,6 @@ const DefaultAxis = ({
     getOpenHandler,
     className,
     renderChips,
-    visType,
 }) => {
     const draggingId = useSelector(sGetUiDraggingId)
     const metadata = useSelector(sGetMetadata)
@@ -108,10 +107,9 @@ const DefaultAxis = ({
                                         id
                                     )}
                                     contextMenu={
-                                        <ChipMenu
+                                        <DimensionMenu
                                             dimensionId={id}
                                             currentAxisId={axisId}
-                                            visType={visType}
                                         />
                                     }
                                     activeIndex={activeIndex}
@@ -132,7 +130,6 @@ DefaultAxis.propTypes = {
     getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     renderChips: PropTypes.bool,
-    visType: PropTypes.string,
 }
 
 export const renderChipsSelector = createSelector(

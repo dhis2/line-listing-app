@@ -1,8 +1,4 @@
-import {
-    AXIS_ID_COLUMNS,
-    AXIS_ID_FILTERS,
-    VIS_TYPE_LINE_LIST,
-} from '@dhis2/analytics'
+import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
 import cx from 'classnames'
 import React from 'react'
 import DefaultAxis from '../DefaultLayout/DefaultAxis.js'
@@ -25,7 +21,6 @@ const Layout = () => (
                     defaultLayoutStyles.filters,
                     defaultAxisStyles.axisContainerLeft
                 )}
-                visType={VIS_TYPE_LINE_LIST}
             />
         </div>
         <div
@@ -38,7 +33,6 @@ const Layout = () => (
             <DefaultAxis
                 axisId={AXIS_ID_FILTERS}
                 className={defaultLayoutStyles.filters}
-                visType={VIS_TYPE_LINE_LIST}
             />
         </div>
     </div>
