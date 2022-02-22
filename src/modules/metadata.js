@@ -56,7 +56,7 @@ export const getProgramAsMetadata = (program) => ({
     [program.id]: program,
 })
 
-export const getDynamicTimeDimensionsMetadata = (stage, program) => ({
+export const getDynamicTimeDimensionsMetadata = (program, stage) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
         acc[dimension.id] = {
             id: dimension.id,

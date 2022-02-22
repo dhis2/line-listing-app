@@ -21,6 +21,11 @@
     z-index: 100;
 }
 
+.showBlank .content {
+    visibility: hidden;
+    min-width: 100px;
+}
+
 /* the vertical line */
 .content::before {
     top: 6px;

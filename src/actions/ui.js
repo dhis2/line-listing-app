@@ -44,8 +44,9 @@ export const acClearUiProgram = () => ({
     metadata: getDefaulTimeDimensionsMetadata(),
 })
 
-export const acClearUiStageId = () => ({
+export const acClearUiStageId = (metadata) => ({
     type: CLEAR_UI_STAGE_ID,
+    metadata,
 })
 
 export const acUpdateUiProgramId = (value, metadata) => ({
@@ -73,17 +74,18 @@ export const tSetUiProgram =
             dispatch(
                 acUpdateUiProgramId(program.id, {
                     ...getProgramAsMetadata(program),
-                    ...getDefaulTimeDimensionsMetadata(),
+                    ...getDynamicTimeDimensionsMetadata(program, stage),
                 })
             )
-        stage &&
-            dispatch(
-                acUpdateUiProgramStageId(
-                    stage.id,
-                    getDynamicTimeDimensionsMetadata(stage, program)
-                )
-            )
+        stage && dispatch(acUpdateUiProgramStageId(stage.id))
     }
+
+export const tClearUiStage = () => (dispatch, getState) => {
+    const state = getState()
+    const program = state.metadata[state.ui.program.id]
+
+    dispatch(acClearUiStageId(getDynamicTimeDimensionsMetadata(program)))
+}
 
 export const tSetUiStage = (stage) => (dispatch, getState) => {
     const state = getState()
@@ -91,7 +93,7 @@ export const tSetUiStage = (stage) => (dispatch, getState) => {
     dispatch(
         acUpdateUiProgramStageId(
             stage.id,
-            getDynamicTimeDimensionsMetadata(stage, program)
+            getDynamicTimeDimensionsMetadata(program, stage)
         )
     )
 }

@@ -83,6 +83,7 @@ const Chip = ({
                 [styles.active]: isDragging,
                 [styles.insertBefore]: insertPosition === BEFORE,
                 [styles.insertAfter]: insertPosition === AFTER,
+                [styles.showBlank]: !dimensionName,
             })}
         >
             <div className={styles.content}>

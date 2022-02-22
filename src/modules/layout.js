@@ -35,16 +35,14 @@ export const getAdaptedUiLayoutByType = (layout, type) => {
 }
 
 // Transform from ui.layout to line list layout format
-const getLineListLayout = (layout) => {
-    const columns = layout[AXIS_ID_COLUMNS].slice()
-    const rows = layout[AXIS_ID_ROWS].slice()
-
-    return {
-        [AXIS_ID_COLUMNS]: [...columns, ...rows],
-        [AXIS_ID_ROWS]: [],
-        [AXIS_ID_FILTERS]: [...layout[AXIS_ID_FILTERS]],
-    }
-}
+const getLineListLayout = (layout) => ({
+    [AXIS_ID_COLUMNS]: [
+        ...layout[AXIS_ID_COLUMNS],
+        ...(layout[AXIS_ID_ROWS] || []),
+    ],
+    [AXIS_ID_ROWS]: [],
+    [AXIS_ID_FILTERS]: [...layout[AXIS_ID_FILTERS]],
+})
 
 // Accepts layout: { columns: ['dx'] }
 // Returns inverse layout: { dx: 'columns' }
