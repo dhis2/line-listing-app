@@ -13,8 +13,12 @@ import {
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
+import {
+    DIMENSION_TYPE_EVENT_STATUS,
+    DIMENSION_TYPE_PROGRAM_STATUS,
+} from '../../modules/dimensionTypes.js'
 import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
@@ -24,6 +28,7 @@ import {
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
 import { headersMap } from '../../modules/visualization.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -46,6 +51,7 @@ export const Visualization = ({
     relativePeriodDate,
 }) => {
     const dispatch = useDispatch()
+    const metadata = useSelector(sGetMetadata)
     const { availableOuterWidth, availableInnerWidth } = useAvailableWidth()
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
@@ -103,6 +109,22 @@ export const Visualization = ({
     const small = visualization.displayDensity === DISPLAY_DENSITY_COMPACT
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
+
+    const formatCellValue = (value, header) => {
+        if (
+            [
+                headersMap[DIMENSION_TYPE_EVENT_STATUS],
+                headersMap[DIMENSION_TYPE_PROGRAM_STATUS],
+            ].includes(header?.name)
+        ) {
+            return metadata[value]?.name || value
+        } else {
+            return formatValue(value, header?.valueType || 'TEXT', {
+                digitGroupSeparator: visualization.digitGroupSeparator,
+                skipRounding: false, // TODO should there be an option for this?
+            })
+        }
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -169,15 +191,9 @@ export const Visualization = ({
                                         small={small}
                                         className={fontSizeClass}
                                     >
-                                        {formatValue(
+                                        {formatCellValue(
                                             value,
-                                            data.headers[index]?.valueType ||
-                                                'TEXT',
-                                            {
-                                                digitGroupSeparator:
-                                                    visualization.digitGroupSeparator,
-                                                skipRounding: false, // TODO should there be an option for this?
-                                            }
+                                            data.headers[index]
                                         )}
                                     </DataTableCell>
                                 ))}
