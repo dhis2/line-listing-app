@@ -99,11 +99,19 @@ const getAdaptedVisualization = (visualization) => {
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
         ...visualization[AXIS_ID_ROWS],
-    ].map(({ dimension, programStage }) =>
-        programStage?.id
+    ].map(({ dimension, programStage, repetition }) => {
+        const headerId = programStage?.id
             ? `${programStage.id}.${dimension}`
             : headersMap[dimension] || dimension
-    )
+
+        if (repetition?.indexes?.length) {
+            return repetition.indexes.map((index) =>
+                headerId.replace(/\./, `[${index}].`)
+            )
+        } else {
+            return headerId
+        }
+    })
 
     return {
         adaptedVisualization: {
