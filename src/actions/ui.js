@@ -87,10 +87,7 @@ export const tClearProgramStageDimensions =
         if (needsClearing) {
             const idsToRemove = ui.layout.columns
                 .concat(ui.layout.filters)
-                .filter((id) => {
-                    const idParts = id.split('.')
-                    return idParts.length === 2 && idParts[0] === stageId
-                })
+                .filter((id) => id.includes(`${stageId}.`))
             dispatch(acRemoveUiLayoutDimensions(idsToRemove))
             dispatch(acRemoveUiItems(idsToRemove))
         }
