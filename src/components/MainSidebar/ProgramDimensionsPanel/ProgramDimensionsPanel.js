@@ -7,6 +7,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
 import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -21,9 +25,6 @@ import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
 import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
-
-export const PROGRAM_TYPE_WITHOUT_REGISTRATION = 'WITHOUT_REGISTRATION'
-export const PROGRAM_TYPE_WITH_REGISTRATION = 'WITH_REGISTRATION'
 
 const query = {
     programs: {

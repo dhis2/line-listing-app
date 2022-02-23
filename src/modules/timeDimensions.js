@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../components/MainSidebar/ProgramDimensionsPanel/ProgramDimensionsPanel.js'
 import {
     DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_EVENT_DATE,
@@ -8,6 +7,7 @@ import {
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
 } from './dimensionTypes.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_EVENT } from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'

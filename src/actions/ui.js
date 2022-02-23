@@ -1,8 +1,12 @@
+import { DIMENSION_TYPES_PROGRAM } from '../modules/dimensionTypes.js'
 import {
     getDefaulTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../modules/metadata.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
+import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import { sGetMetadataById } from '../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -26,6 +30,9 @@ import {
     UPDATE_UI_PROGRAM_STAGE_ID,
     CLEAR_UI_PROGRAM,
     CLEAR_UI_STAGE_ID,
+    REMOVE_UI_ITEMS,
+    sGetUiProgramId,
+    sGetUiInputType,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -61,8 +68,37 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
+const tClearUiProgramDimensions = () => (dispatch, getState) => {
+    const { ui, metadata } = getState()
+    const idsToRemove = ui.layout.columns
+        .concat(ui.layout.filters)
+        .filter((dimensionId) =>
+            DIMENSION_TYPES_PROGRAM.has(metadata[dimensionId].dimensionType)
+        )
+    dispatch(acRemoveUiLayoutDimensions(idsToRemove))
+    dispatch(acRemoveUiItems(idsToRemove))
+}
+
+export const tClearUiProgramStageDimensions =
+    (stageId) => (dispatch, getState) => {
+        const state = getState()
+        const program = sGetMetadataById(state, sGetUiProgramId(state))
+        const needsClearing =
+            sGetUiInputType(state) === OUTPUT_TYPE_EVENT &&
+            program.programType === PROGRAM_TYPE_WITH_REGISTRATION
+
+        if (needsClearing) {
+            const idsToRemove = state.ui.layout.columns
+                .concat(state.ui.layout.filters)
+                .filter((id) => id.includes(`${stageId}.`))
+            dispatch(acRemoveUiLayoutDimensions(idsToRemove))
+            dispatch(acRemoveUiItems(idsToRemove))
+        }
+    }
+
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
+    dispatch(tClearUiProgramDimensions())
     dispatch(acSetUiInput(value, getDefaulTimeDimensionsMetadata()))
 }
 
@@ -70,6 +106,7 @@ export const tSetUiProgram =
     ({ program, stage }) =>
     (dispatch) => {
         dispatch(acClearUiProgram())
+        dispatch(tClearUiProgramDimensions())
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
@@ -115,6 +152,11 @@ export const acAddUiLayoutDimensions = (value) => ({
 
 export const acRemoveUiLayoutDimensions = (value) => ({
     type: REMOVE_UI_LAYOUT_DIMENSIONS,
+    value,
+})
+
+export const acRemoveUiItems = (value) => ({
+    type: REMOVE_UI_ITEMS,
     value,
 })
 
