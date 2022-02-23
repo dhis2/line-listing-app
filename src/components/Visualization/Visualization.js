@@ -126,14 +126,32 @@ export const Visualization = ({
         }
     }
 
-    const lookupMetadataForHeader = ({ name }) => {
+    const formatCellHeader = (header) => {
+        if (header.stageOffset !== undefined) {
+            let postfix
+
+            if (header.stageOffset === 0) {
+                postfix = i18n.t('most recent')
+            } else if (header.stageOffset === 1) {
+                postfix = i18n.t('oldest')
+            } else if (header.stageOffset > 1) {
+                postfix = `${i18n.t('oldest')} +${header.stageOffset - 1}`
+            } else if (header.stageOffset < 0) {
+                postfix = `${i18n.t('most recent')} ${header.stageOffset}`
+            }
+
+            return `${header.column} (${postfix})`
+        }
+
         const match = Object.entries(headersMap).find(
-            (entry) => entry[1] === name
+            (entry) => entry[1] === header.name
         )
 
         if (match) {
             return metadata[match[0]]?.name
         }
+
+        return header.column
     }
 
     return (
@@ -175,8 +193,7 @@ export const Visualization = ({
                                         small={small}
                                         className={fontSizeClass}
                                     >
-                                        {lookupMetadataForHeader(header) ||
-                                            header.column}
+                                        {formatCellHeader(header)}
                                     </DataTableColumnHeader>
                                 ) : (
                                     <DataTableColumnHeader
