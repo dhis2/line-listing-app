@@ -57,9 +57,9 @@ const visualizationQuery = {
         params: {
             fields: [
                 '*',
-                'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
-                'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
-                'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],items[dimensionItem~rename(id)]]',
+                'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
+                'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
+                'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
                 'program[id,programType,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name),repeatable]]',
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate,repeatable]',
                 'access,user[displayName,userCredentials[username]]',
