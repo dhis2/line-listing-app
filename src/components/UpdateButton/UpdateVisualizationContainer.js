@@ -23,15 +23,13 @@ const UpdateVisualizationContainer = ({
         try {
             validateLayout(getCurrentFromUi())
             clearLoadError()
+            onUpdate()
+            onLoadingStart()
         } catch (error) {
             setLoadError(error || genericClientError())
         }
 
         hideLayoutPanel()
-
-        onLoadingStart()
-
-        onUpdate()
 
         // const urlContainsCurrentAOKey =
         //     history.location.pathname === '/' + CURRENT_AO_KEY
