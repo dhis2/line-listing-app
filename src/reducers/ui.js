@@ -77,12 +77,11 @@ export const DEFAULT_UI = {
     program: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
-        columns: [DIMENSION_ID_ORGUNIT, DIMENSION_TYPE_EVENT_DATE],
+        columns: [DIMENSION_ID_ORGUNIT],
         filters: [],
     },
     itemsByDimension: {
         [DIMENSION_ID_ORGUNIT]: [],
-        [DIMENSION_TYPE_EVENT_DATE]: ['THIS_MONTH'],
         [DIMENSION_TYPE_EVENT_STATUS]: [],
         [DIMENSION_TYPE_PROGRAM_STATUS]: [],
     },
