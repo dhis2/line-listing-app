@@ -3,4 +3,7 @@
 }
 .axisGroupRight {
     flex-basis: 35%;
+    border-color: var(--colors-grey300);
+    border-style: solid;
+    border-width: 0 0 0 1px;
 }

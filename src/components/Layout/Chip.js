@@ -17,6 +17,8 @@ const Chip = ({
     dimensionName,
     dimensionType,
     items,
+    isLast,
+    overLastDropZone,
     onClick,
     contextMenu,
     activeIndex,
@@ -50,6 +52,10 @@ const Chip = ({
         }
     }
 
+    if (isLast && overLastDropZone) {
+        insertPosition = AFTER
+    }
+
     const style = transform
         ? {
               transform: isSorting
@@ -75,48 +81,52 @@ const Chip = ({
     return (
         <div
             ref={setNodeRef}
-            style={style}
             {...listeners}
             {...attributes}
-            className={cx(styles.chipWrapper, {
-                [styles.chipEmpty]: !items.length && !numberOfConditions,
-                [styles.active]: isDragging,
-                [styles.insertBefore]: insertPosition === BEFORE,
-                [styles.insertAfter]: insertPosition === AFTER,
-                [styles.showBlank]: !dimensionName,
-            })}
+            className={isLast ? styles.isLast : null}
+            style={style}
         >
-            <div className={styles.content}>
-                {
-                    <Tooltip
-                        content={renderTooltipContent()}
-                        placement="bottom"
-                    >
-                        {({ ref, onMouseOver, onMouseOut }) => (
-                            <div
-                                data-test={dataTest}
-                                id={id}
-                                className={cx(styles.chip, styles.chipLeft)}
-                                onClick={onClick}
-                                ref={ref}
-                                onMouseOver={onMouseOver}
-                                onMouseOut={onMouseOut}
-                            >
-                                <ChipBase
-                                    dimensionName={dimensionName}
-                                    dimensionType={dimensionType}
-                                    numberOfConditions={numberOfConditions}
-                                    items={items}
-                                />
-                            </div>
-                        )}
-                    </Tooltip>
-                }
-                {contextMenu && (
-                    <div className={cx(styles.chip, styles.chipRight)}>
-                        {contextMenu}
-                    </div>
-                )}
+            <div
+                className={cx(styles.chipWrapper, {
+                    [styles.chipEmpty]: !items.length && !numberOfConditions,
+                    [styles.active]: isDragging,
+                    [styles.insertBefore]: insertPosition === BEFORE,
+                    [styles.insertAfter]: insertPosition === AFTER,
+                    [styles.showBlank]: !dimensionName,
+                })}
+            >
+                <div className={styles.content}>
+                    {
+                        <Tooltip
+                            content={renderTooltipContent()}
+                            placement="bottom"
+                        >
+                            {({ ref, onMouseOver, onMouseOut }) => (
+                                <div
+                                    data-test={dataTest}
+                                    id={id}
+                                    className={cx(styles.chip, styles.chipLeft)}
+                                    onClick={onClick}
+                                    ref={ref}
+                                    onMouseOver={onMouseOver}
+                                    onMouseOut={onMouseOut}
+                                >
+                                    <ChipBase
+                                        dimensionName={dimensionName}
+                                        dimensionType={dimensionType}
+                                        numberOfConditions={numberOfConditions}
+                                        items={items}
+                                    />
+                                </div>
+                            )}
+                        </Tooltip>
+                    }
+                    {contextMenu && (
+                        <div className={cx(styles.chip, styles.chipRight)}>
+                            {contextMenu}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     )
@@ -129,8 +139,10 @@ Chip.propTypes = {
     contextMenu: PropTypes.object,
     dimensionName: PropTypes.string,
     dimensionType: PropTypes.string,
+    isLast: PropTypes.bool,
     items: PropTypes.array,
     numberOfConditions: PropTypes.number,
+    overLastDropZone: PropTypes.bool,
 }
 
 Chip.defaultProps = {

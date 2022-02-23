@@ -1,6 +1,7 @@
 .ct {
     display: flex;
     flex: 1;
+    background-color: var(--colors-white);
 }
 .axisGroup {
     display: flex;
@@ -11,13 +12,13 @@
 }
 .axisGroupRight {
     flex-basis: 50%;
+    border-color: var(--colors-grey300);
+    border-style: solid;
+    border-width: 0 0 0 1px;
 }
 .columns {
     flex-basis: 50%;
 }
 .rows {
     flex-basis: 50%;
-}
-.filters {
-    flex-basis: 100%;
 }

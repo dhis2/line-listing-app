@@ -36,12 +36,17 @@ export const YOUR_DIMENSIONS = 'your'
 export const PROGRAM_DIMENSIONS = 'program'
 
 const FIRST_POSITION = 0
+const LAST_POSITION = -1
 const SOURCE_DIMENSIONS = [
     MAIN_DIMENSIONS,
     TIME_DIMENSIONS,
     YOUR_DIMENSIONS,
     PROGRAM_DIMENSIONS,
 ]
+
+export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
+export const FIRST = 'first'
+export const LAST = 'last'
 
 function getIntersectionRatio(entry, target) {
     const top = Math.max(target.top, entry.top)
@@ -163,32 +168,35 @@ const OuterDndContext = ({ children }) => {
                 ? 1
                 : 0
 
-        return (
-            <div className={styles.overlay}>
-                {SOURCE_DIMENSIONS.includes(sourceAxis) ? (
+        if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
+            return (
+                <div className={styles.overlay}>
                     <DimensionItemBase
                         name={name}
                         dimensionType={dimensionType}
                     />
-                ) : (
-                    <div
-                        className={cx(
-                            chipStyles.chipWrapper,
-                            chipStyles.chipWrapperOverlay,
-                            {
-                                [chipStyles.chipEmpty]:
-                                    !chipItems.length && !numberOfConditions,
-                            }
-                        )}
-                    >
-                        <ChipBase
-                            dimensionName={name}
-                            dimensionType={dimensionType}
-                            items={chipItems}
-                            numberOfConditions={numberOfConditions}
-                        />
-                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div
+                className={cx(
+                    chipStyles.chipWrapper,
+                    chipStyles.chipWrapperOverlay,
+                    styles.overlay,
+                    {
+                        [chipStyles.chipEmpty]:
+                            !chipItems.length && !numberOfConditions,
+                    }
                 )}
+            >
+                <ChipBase
+                    dimensionName={name}
+                    dimensionType={dimensionType}
+                    items={chipItems}
+                    numberOfConditions={numberOfConditions}
+                />
             </div>
         )
     }
@@ -199,11 +207,16 @@ const OuterDndContext = ({ children }) => {
         destinationAxisId,
         destinationIndex,
     }) => {
+        const destItems = Array.from(layout[destinationAxisId])
+        const newIndex =
+            destinationIndex !== LAST_POSITION
+                ? destinationIndex
+                : destItems.length
         const sourceList = Array.from(layout[sourceAxisId])
         const [moved] = sourceList.splice(sourceIndex, 1)
 
         if (sourceAxisId === destinationAxisId) {
-            sourceList.splice(destinationIndex, 0, moved)
+            sourceList.splice(newIndex, 0, moved)
 
             dispatch(
                 acSetUiLayout({
@@ -216,7 +229,7 @@ const OuterDndContext = ({ children }) => {
                 acAddUiLayoutDimensions({
                     [moved]: {
                         axisId: destinationAxisId,
-                        index: destinationIndex,
+                        index: newIndex,
                     },
                 })
             )
@@ -225,7 +238,7 @@ const OuterDndContext = ({ children }) => {
 
     const addDimensionToLayout = ({ axisId, index, dimensionId }) => {
         const sourceList = Array.from(layout[axisId])
-        const idx = index !== -1 ? index : sourceList.length
+        const idx = index !== LAST_POSITION ? index : sourceList.length
         dispatch(
             acAddUiLayoutDimensions({ [dimensionId]: { axisId, index: idx } })
         )
@@ -265,19 +278,30 @@ const OuterDndContext = ({ children }) => {
             onDragCancel()
             return
         }
+
         const sourceAxisId = active.data.current.sortable.containerId
-        const destinationAxisId =
+        const destinationAxisId = (
             over.data.current?.sortable?.containerId || over.id
+        ).split('-')[0]
+
         let destinationIndex =
             over.data.current?.sortable?.index || FIRST_POSITION
 
-        const isDroppingInFirstPosition = () => {
-            return [AXIS_ID_COLUMNS, AXIS_ID_FILTERS].includes(over.id)
-        }
+        const isDroppingInFirstPosition = [
+            `${AXIS_ID_COLUMNS}-${FIRST}`,
+            `${AXIS_ID_FILTERS}-${FIRST}`,
+        ].includes(over.id)
+
+        const isDroppingInLastPosition = [
+            `${AXIS_ID_COLUMNS}-${LAST}`,
+            `${AXIS_ID_FILTERS}-${LAST}`,
+        ].includes(over.id)
 
         if (SOURCE_DIMENSIONS.includes(sourceAxisId)) {
-            if (isDroppingInFirstPosition()) {
+            if (isDroppingInFirstPosition) {
                 destinationIndex = FIRST_POSITION
+            } else if (isDroppingInLastPosition) {
+                destinationIndex = LAST_POSITION
             } else {
                 ++destinationIndex
             }
@@ -294,8 +318,10 @@ const OuterDndContext = ({ children }) => {
                 ++destinationIndex
             }
 
-            if (isDroppingInFirstPosition()) {
+            if (isDroppingInFirstPosition) {
                 destinationIndex = FIRST_POSITION
+            } else if (isDroppingInLastPosition) {
+                destinationIndex = LAST_POSITION
             }
 
             rearrangeLayoutDimensions({

@@ -16,7 +16,9 @@ import {
     sGetUiConditionsByDimension,
 } from '../../../reducers/ui.js'
 import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
+import { LAST, getDropzoneId } from '../../DndContext.js'
 import Chip from '../Chip.js'
+import { DropZone } from './DropZone.js'
 import styles from './styles/DefaultAxis.module.css'
 
 const DefaultAxis = ({
@@ -28,11 +30,12 @@ const DefaultAxis = ({
     className,
     renderChips,
 }) => {
+    const lastDropZoneId = getDropzoneId(axisId, LAST)
+    const { over, setNodeRef } = useDroppable({
+        id: lastDropZoneId,
+    })
     const draggingId = useSelector(sGetUiDraggingId)
     const metadata = useSelector(sGetMetadata)
-    const { isOver, setNodeRef } = useDroppable({
-        id: axisId,
-    })
 
     // TODO - using the rawDimensionId instead of dimensionId
     // is a temporary workaround
@@ -75,27 +78,25 @@ const DefaultAxis = ({
         return numberOfConditions
     }
 
+    const overLastDropZone = over?.id === lastDropZoneId
+
     return (
-        <div
-            id={axisId}
-            data-test={`${axisId}-axis`}
-            className={cx(styles.axisContainer, className)}
-        >
-            <div className={styles.label}>{getAxisName(axisId)}</div>
-            <SortableContext id={axisId} items={axis}>
-                <div className={styles.content}>
-                    <div
-                        ref={setNodeRef}
-                        className={cx(styles.lastItemDroppableArea, {
-                            [styles.isOver]: isOver,
-                            [styles.isEmpty]: !axis.length,
-                        })}
-                    >
-                        <div className={styles.dropIndicator} />
-                    </div>
-                    {renderChips &&
-                        axis.map((id) => {
-                            return (
+        <div ref={setNodeRef} className={styles.lastDropzone}>
+            <div
+                id={axisId}
+                data-test={`${axisId}-axis`}
+                className={cx(styles.axisContainer, className)}
+            >
+                <div className={styles.label}>{getAxisName(axisId)}</div>
+                <SortableContext id={axisId} items={axis}>
+                    <div className={styles.content}>
+                        <DropZone
+                            axisId={axisId}
+                            firstElementId={axis[0]}
+                            overLastDropZone={overLastDropZone}
+                        />
+                        {renderChips &&
+                            axis.map((id, i) => (
                                 <Chip
                                     key={`${axisId}-${id}`}
                                     onClick={getOpenHandler(id)}
@@ -106,6 +107,8 @@ const DefaultAxis = ({
                                     numberOfConditions={getNumberOfConditions(
                                         id
                                     )}
+                                    isLast={i === axis.length - 1}
+                                    overLastDropZone={overLastDropZone}
                                     contextMenu={
                                         <DimensionMenu
                                             dimensionId={id}
@@ -114,10 +117,10 @@ const DefaultAxis = ({
                                     }
                                     activeIndex={activeIndex}
                                 />
-                            )
-                        })}
-                </div>
-            </SortableContext>
+                            ))}
+                    </div>
+                </SortableContext>
+            </div>
         </div>
     )
 }
