@@ -19,9 +19,6 @@ import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
     STATUS_COMPLETED,
-    STATUS_OVERDUE,
-    STATUS_SCHEDULED,
-    STATUS_SKIPPED,
     statusNames,
 } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
@@ -140,9 +137,6 @@ const FixedDimension = ({
         const ALL_STATUSES = [
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-            { id: STATUS_SCHEDULED, name: statusNames[STATUS_SCHEDULED] },
-            { id: STATUS_OVERDUE, name: statusNames[STATUS_OVERDUE] },
-            { id: STATUS_SKIPPED, name: statusNames[STATUS_SKIPPED] },
         ]
 
         return (
