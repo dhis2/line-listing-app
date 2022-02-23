@@ -25,6 +25,7 @@ const ProgramSelect = ({
             disabled={!!selectedProgram}
             onChange={({ selected }) => setSelectedProgramId(selected)}
             placeholder={i18n.t('Choose a program')}
+            maxHeight="max(60vh, 460px)"
         >
             {programs.map(({ id, name }) => (
                 <SingleSelectOption key={id} label={name} value={id} />
