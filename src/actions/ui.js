@@ -30,7 +30,10 @@ import {
     CLEAR_UI_PROGRAM,
     CLEAR_UI_STAGE_ID,
     REMOVE_UI_ITEMS,
+    sGetUiProgramId,
+    sGetUiInputType,
 } from '../reducers/ui.js'
+import { sGetMetadataById } from '../reducers/metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
@@ -78,15 +81,15 @@ const tClearUiProgramDimensions = () => (dispatch, getState) => {
 
 export const tClearUiProgramStageDimensions =
     (stageId) => (dispatch, getState) => {
-        const { ui, metadata } = getState()
-        const program = metadata[ui.program.id]
+        const state = getState()
+        const program = sGetMetadataById(state, sGetUiProgramId(state))
         const needsClearing =
-            ui.input.type === OUTPUT_TYPE_EVENT &&
+            sGetUiInputType(state) === OUTPUT_TYPE_EVENT &&
             program.programType === PROGRAM_TYPE_WITH_REGISTRATION
 
         if (needsClearing) {
-            const idsToRemove = ui.layout.columns
-                .concat(ui.layout.filters)
+            const idsToRemove = state.ui.layout.columns
+                .concat(state.ui.layout.filters)
                 .filter((id) => id.includes(`${stageId}.`))
             dispatch(acRemoveUiLayoutDimensions(idsToRemove))
             dispatch(acRemoveUiItems(idsToRemove))
