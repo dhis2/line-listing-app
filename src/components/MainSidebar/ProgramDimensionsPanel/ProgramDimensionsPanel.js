@@ -78,10 +78,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
         if (programId !== selectedProgramId) {
             const program = filteredPrograms?.find(({ id }) => id === programId)
             const stage =
-                program &&
-                // These have a single artificial stage
-                inputType === OUTPUT_TYPE_EVENT &&
-                program.programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+                // auto-select if a program only has a single stage
+                program?.programStages.length === 1
                     ? program.programStages[0]
                     : undefined
             dispatch(tSetUiProgram({ program, stage }))

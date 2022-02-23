@@ -19,7 +19,9 @@ const StageSelect = ({ optional, stages }) => {
             dispatch(tSetUiStage(stage))
         }
     }
-    const selected = selectedStageId || (optional && STAGE_ALL)
+    const includeShowAllOption = optional && stages.length > 1
+    const selected =
+        selectedStageId || (includeShowAllOption ? STAGE_ALL : undefined)
 
     return (
         <SingleSelect
@@ -28,7 +30,7 @@ const StageSelect = ({ optional, stages }) => {
             selected={selected}
             onChange={onChange}
         >
-            {optional && (
+            {includeShowAllOption && (
                 <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
             )}
             {stages.map(({ id, name }) => (
