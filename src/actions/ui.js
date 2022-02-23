@@ -6,6 +6,7 @@ import {
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import { sGetMetadataById } from '../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -33,7 +34,6 @@ import {
     sGetUiProgramId,
     sGetUiInputType,
 } from '../reducers/ui.js'
-import { sGetMetadataById } from '../reducers/metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
