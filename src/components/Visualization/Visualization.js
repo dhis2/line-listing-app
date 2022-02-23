@@ -126,6 +126,16 @@ export const Visualization = ({
         }
     }
 
+    const lookupMetadataForHeader = ({ name }) => {
+        const match = Object.entries(headersMap).find(
+            (entry) => entry[1] === name
+        )
+
+        if (match) {
+            return metadata[match[0]]?.name
+        }
+    }
+
     return (
         <div className={styles.wrapper}>
             <div
@@ -165,7 +175,8 @@ export const Visualization = ({
                                         small={small}
                                         className={fontSizeClass}
                                     >
-                                        {header.column}
+                                        {lookupMetadataForHeader(header) ||
+                                            header.column}
                                     </DataTableColumnHeader>
                                 ) : (
                                     <DataTableColumnHeader
