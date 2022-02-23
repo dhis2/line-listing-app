@@ -35,13 +35,15 @@ export const getTimeDimensions = () => ({
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayIncidentDateLabel',
     },
-    // [DIMENSION_TYPE_SCHEDULED_DATE]: {
-    //     id: DIMENSION_TYPE_SCHEDULED_DATE,
-    //     dimensionType: DIMENSION_TYPE_PERIOD,
-    //     name: i18n.t('Due/Scheduled date'),
-    //     nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
-    //     nameProperty: 'displayDueDateLabel',
-    // },
+    /***** NOT in MVP / 2.38 release *****
+    [DIMENSION_TYPE_SCHEDULED_DATE]: {
+        id: DIMENSION_TYPE_SCHEDULED_DATE,
+        dimensionType: DIMENSION_TYPE_PERIOD,
+        name: i18n.t('Due/Scheduled date'),
+        nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
+        nameProperty: 'displayDueDateLabel',
+    },
+    */
     [DIMENSION_TYPE_LAST_UPDATED]: {
         id: DIMENSION_TYPE_LAST_UPDATED,
         dimensionType: DIMENSION_TYPE_PERIOD,
