@@ -191,7 +191,7 @@ const App = ({
                     id,
                     name: item.name || item.displayName,
                     displayName: item.displayName,
-                    dimensionItemType: item.dimensionItemType, // TODO needed?
+                    dimensionType: item.dimensionItemType,
                     code: item.code,
                 }
 

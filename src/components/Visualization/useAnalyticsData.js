@@ -11,13 +11,9 @@ import { useSelector } from 'react-redux'
 import {
     DIMENSION_TYPE_PROGRAM_STATUS,
     DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_EVENT_DATE,
-    DIMENSION_TYPE_ENROLLMENT_DATE,
-    DIMENSION_TYPE_INCIDENT_DATE,
-    DIMENSION_TYPE_SCHEDULED_DATE,
-    DIMENSION_TYPE_LAST_UPDATED,
     DIMENSION_TYPE_CREATED_BY,
     DIMENSION_TYPE_LAST_UPDATED_BY,
+    DIMENSION_TYPES_TIME,
 } from '../../modules/dimensionTypes.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -59,14 +55,7 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
     }
 }
 
-const isTimeDimension = (dimensionId) =>
-    [
-        DIMENSION_TYPE_EVENT_DATE,
-        DIMENSION_TYPE_ENROLLMENT_DATE,
-        DIMENSION_TYPE_INCIDENT_DATE,
-        DIMENSION_TYPE_SCHEDULED_DATE,
-        DIMENSION_TYPE_LAST_UPDATED,
-    ].includes(dimensionId)
+const isTimeDimension = (dimensionId) => DIMENSION_TYPES_TIME.has(dimensionId)
 
 const getAdaptedVisualization = (visualization) => {
     const parameters = {}
@@ -148,6 +137,7 @@ const fetchAnalyticsData = async ({
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
+        .withIncludeMetadataDetails()
 
     if (relativePeriodDate) {
         req = req.withRelativePeriodDate(relativePeriodDate)

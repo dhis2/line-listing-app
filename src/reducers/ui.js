@@ -43,6 +43,7 @@ export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
+export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
@@ -265,6 +266,22 @@ export default (state = EMPTY_UI, action) => {
                     ...state.itemsByDimension,
                     [dimensionId]: itemIds,
                 },
+            }
+        }
+        case REMOVE_UI_ITEMS: {
+            const idsToRemove = new Set(action.value)
+
+            return {
+                ...state,
+                itemsByDimension: Object.entries(state.itemsByDimension).reduce(
+                    (acc, [id, items]) => {
+                        if (!idsToRemove.has(id)) {
+                            acc[id] = items
+                        }
+                        return acc
+                    },
+                    {}
+                ),
             }
         }
         case ADD_UI_PARENT_GRAPH_MAP: {
