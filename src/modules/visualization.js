@@ -138,9 +138,10 @@ export const visTypes = [
 ]
 
 export const visTypeDescriptions = {
-    // TODO review descriptions @scott @joe
-    [VIS_TYPE_LINE_LIST]: i18n.t('TEXT description for Line List'),
-    [VIS_TYPE_PIVOT_TABLE]: i18n.t('TEXT description for Pivot Table'),
+    [VIS_TYPE_LINE_LIST]: i18n.t('List data from tracked entities and events.'),
+    [VIS_TYPE_PIVOT_TABLE]: i18n.t(
+        'Explore data with manipulatable columns, rows, and aggregations.'
+    ),
 }
 
 export const getVisualizationFromCurrent = (current) => {

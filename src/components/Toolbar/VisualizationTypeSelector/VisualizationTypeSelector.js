@@ -1,6 +1,17 @@
-import { visTypeDisplayNames } from '@dhis2/analytics'
+import {
+    visTypeDisplayNames,
+    VIS_TYPE_LINE_LIST,
+    VIS_TYPE_PIVOT_TABLE,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { Card, Popper, Layer, Tooltip } from '@dhis2/ui'
+import {
+    Card,
+    Popper,
+    Layer,
+    Tooltip,
+    IconVisualizationLinelist16,
+    IconVisualizationPivotTable16,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, createRef } from 'react'
 import { connect } from 'react-redux'
@@ -10,7 +21,6 @@ import {
     visTypeDescriptions,
 } from '../../../modules/visualization.js'
 import { sGetUiType } from '../../../reducers/ui.js'
-import ListItemIcon from './ListItemIcon.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
 import VisualizationTypeListItem from './VisualizationTypeListItem.js'
 
@@ -73,7 +83,12 @@ const VisualizationTypeSelector = ({ visualizationType }) => {
                 className={classes.button}
                 data-test={'visualization-type-selector-button'}
             >
-                <ListItemIcon visType={visualizationType} />
+                {visualizationType === VIS_TYPE_LINE_LIST && (
+                    <IconVisualizationLinelist16 color="#4a5768" />
+                )}
+                {visualizationType === VIS_TYPE_PIVOT_TABLE && (
+                    <IconVisualizationPivotTable16 color="#4a5768" />
+                )}
                 <span data-test="visualization-type-selector-currently-selected-text">
                     {visTypeDisplayNames[visualizationType]}
                 </span>
