@@ -76,7 +76,7 @@ const tClearUiProgramDimensions = () => (dispatch, getState) => {
     dispatch(acRemoveUiItems(idsToRemove))
 }
 
-export const tClearProgramStageDimensions =
+export const tClearUiProgramStageDimensions =
     (stageId) => (dispatch, getState) => {
         const { ui, metadata } = getState()
         const program = metadata[ui.program.id]
