@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     tSetUiStage,
     tClearUiStage,
-    tClearProgramStageDimensions,
+    tClearUiProgramStageDimensions,
 } from '../../../actions/ui.js'
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
 
@@ -24,7 +24,7 @@ const StageSelect = ({ optional, stages }) => {
         }
 
         if (!optional && selectedStageId) {
-            dispatch(tClearProgramStageDimensions(selectedStageId))
+            dispatch(tClearUiProgramStageDimensions(selectedStageId))
         }
     }
     const includeShowAllOption = optional && stages.length > 1
