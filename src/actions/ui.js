@@ -4,6 +4,8 @@ import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../modules/metadata.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
+import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -65,12 +67,34 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 
 const tClearUiProgramDimensions = () => (dispatch, getState) => {
     const { ui, metadata } = getState()
-    const idsToRemove = Object.keys(ui.itemsByDimension).filter((dimensionId) =>
-        DIMENSION_TYPES_PROGRAM.has(metadata[dimensionId].dimensionType)
-    )
+    const idsToRemove = ui.layout.columns
+        .concat(ui.layout.filters)
+        .filter((dimensionId) =>
+            DIMENSION_TYPES_PROGRAM.has(metadata[dimensionId].dimensionType)
+        )
     dispatch(acRemoveUiLayoutDimensions(idsToRemove))
     dispatch(acRemoveUiItems(idsToRemove))
 }
+
+export const tClearProgramStageDimensions =
+    (stageId) => (dispatch, getState) => {
+        const { ui, metadata } = getState()
+        const program = metadata[ui.program.id]
+        const needsClearing =
+            ui.input.type === OUTPUT_TYPE_EVENT &&
+            program.programType === PROGRAM_TYPE_WITH_REGISTRATION
+
+        if (needsClearing) {
+            const idsToRemove = ui.layout.columns
+                .concat(ui.layout.filters)
+                .filter((id) => {
+                    const idParts = id.split('.')
+                    return idParts.length === 2 && idParts[0] === stageId
+                })
+            dispatch(acRemoveUiLayoutDimensions(idsToRemove))
+            dispatch(acRemoveUiItems(idsToRemove))
+        }
+    }
 
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())

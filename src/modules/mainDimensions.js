@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from '../components/MainSidebar/ProgramDimensionsPanel/ProgramDimensionsPanel.js'
 import {
     DIMENSION_TYPE_OU,
     DIMENSION_TYPE_CREATED_BY,
@@ -7,6 +6,7 @@ import {
     DIMENSION_TYPE_EVENT_STATUS,
     DIMENSION_TYPE_LAST_UPDATED_BY,
 } from './dimensionTypes.js'
+import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 export const getMainDimensions = () => ({

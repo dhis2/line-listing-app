@@ -1,14 +1,14 @@
 import {
-    PROGRAM_TYPE_WITH_REGISTRATION,
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-} from '../../components/MainSidebar/ProgramDimensionsPanel/ProgramDimensionsPanel.js'
-import {
     DIMENSION_TYPE_EVENT_DATE,
     DIMENSION_TYPE_ENROLLMENT_DATE,
     DIMENSION_TYPE_INCIDENT_DATE,
     DIMENSION_TYPE_SCHEDULED_DATE,
     DIMENSION_TYPE_LAST_UPDATED,
 } from '../dimensionTypes.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from '../programTypes.js'
 import {
     getTimeDimensionName,
     getEnabledTimeDimensionIds,
