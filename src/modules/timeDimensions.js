@@ -8,7 +8,7 @@ import {
     DIMENSION_TYPE_LAST_UPDATED,
 } from './dimensionTypes.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_EVENT } from './visualization.js'
+import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
@@ -67,10 +67,15 @@ export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
     const enabledDimensionIds = new Set()
     if (inputType) {
         const isEvent = inputType === OUTPUT_TYPE_EVENT
+        const isEnrollment = inputType === OUTPUT_TYPE_ENROLLMENT
         const withRegistration =
             program?.programType === PROGRAM_TYPE_WITH_REGISTRATION
 
         if (isEvent) {
+            enabledDimensionIds.add(DIMENSION_TYPE_EVENT_DATE)
+        }
+
+        if (isEnrollment) {
             enabledDimensionIds.add(DIMENSION_TYPE_EVENT_DATE)
         }
 
@@ -85,7 +90,7 @@ export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
                 enabledDimensionIds.add(DIMENSION_TYPE_INCIDENT_DATE)
         }
 
-        if (isEvent || withRegistration) {
+        if (isEvent || isEnrollment || withRegistration) {
             enabledDimensionIds.add(DIMENSION_TYPE_LAST_UPDATED)
         }
     }
