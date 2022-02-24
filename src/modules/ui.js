@@ -11,6 +11,7 @@ import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
 import { getProgramFromVisualisation } from './program.js'
+import { getRepetitionFromVisualisation } from './repetition.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,
@@ -39,6 +40,7 @@ export const getUiFromVisualization = (vis, currentState = {}) => ({
         vis.parentGraphMap ||
         getParentGraphMapFromVisualization(vis) ||
         currentState.parentGraphMap,
+    repetitionByDimension: getRepetitionFromVisualisation(vis),
 })
 
 export const getParentGraphMapFromVisualization = (vis) => {
