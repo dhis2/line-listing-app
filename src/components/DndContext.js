@@ -256,6 +256,7 @@ const OuterDndContext = ({ children }) => {
                     id,
                     name: active.data.current.name,
                     dimensionType: active.data.current.dimensionType,
+                    valueType: active.data.current.valueType,
                 },
             })
         )
