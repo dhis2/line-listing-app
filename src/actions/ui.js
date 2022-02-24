@@ -1,4 +1,7 @@
-import { DIMENSION_TYPES_PROGRAM } from '../modules/dimensionTypes.js'
+import {
+    DIMENSION_TYPES_PROGRAM,
+    DIMENSION_TYPES_TIME,
+} from '../modules/dimensionTypes.js'
 import {
     getDefaulTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
@@ -68,13 +71,17 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
-const tClearUiProgramDimensions = () => (dispatch, getState) => {
+const tClearUiProgramRelatedDimensions = () => (dispatch, getState) => {
     const { ui, metadata } = getState()
     const idsToRemove = ui.layout.columns
         .concat(ui.layout.filters)
-        .filter((dimensionId) =>
-            DIMENSION_TYPES_PROGRAM.has(metadata[dimensionId].dimensionType)
-        )
+        .filter((dimensionId) => {
+            const dimension = metadata[dimensionId]
+            return (
+                DIMENSION_TYPES_PROGRAM.has(dimension.dimensionType) ||
+                DIMENSION_TYPES_TIME.has(dimension.id)
+            )
+        })
     dispatch(acRemoveUiLayoutDimensions(idsToRemove))
     dispatch(acRemoveUiItems(idsToRemove))
 }
@@ -98,7 +105,7 @@ export const tClearUiProgramStageDimensions =
 
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
-    dispatch(tClearUiProgramDimensions())
+    dispatch(tClearUiProgramRelatedDimensions())
     dispatch(acSetUiInput(value, getDefaulTimeDimensionsMetadata()))
 }
 
@@ -106,7 +113,7 @@ export const tSetUiProgram =
     ({ program, stage }) =>
     (dispatch) => {
         dispatch(acClearUiProgram())
-        dispatch(tClearUiProgramDimensions())
+        dispatch(tClearUiProgramRelatedDimensions())
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
@@ -119,14 +126,14 @@ export const tSetUiProgram =
 
 export const tClearUiStage = () => (dispatch, getState) => {
     const state = getState()
-    const program = state.metadata[state.ui.program.id]
+    const program = sGetMetadataById(state, sGetUiProgramId(state))
 
     dispatch(acClearUiStageId(getDynamicTimeDimensionsMetadata(program)))
 }
 
 export const tSetUiStage = (stage) => (dispatch, getState) => {
     const state = getState()
-    const program = state.metadata[state.ui.program.id]
+    const program = sGetMetadataById(state, sGetUiProgramId(state))
     dispatch(
         acUpdateUiProgramStageId(
             stage.id,
