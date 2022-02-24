@@ -51,6 +51,7 @@ export const DimensionItem = ({
         data: {
             name,
             dimensionType,
+            valueType,
         },
     })
 
