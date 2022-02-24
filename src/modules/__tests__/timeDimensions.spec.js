@@ -251,6 +251,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 hideDueDate: false,
             },
             expected: [
+                DIMENSION_TYPE_EVENT_DATE,
                 DIMENSION_TYPE_ENROLLMENT_DATE,
                 DIMENSION_TYPE_INCIDENT_DATE,
                 DIMENSION_TYPE_LAST_UPDATED,
