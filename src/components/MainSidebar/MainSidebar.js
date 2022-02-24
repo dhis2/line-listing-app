@@ -7,7 +7,11 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
+import {
+    sGetUiInputType,
+    sGetUiShowAccessoryPanel,
+    sGetUiProgramId,
+} from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
 import styles from './MainSidebar.module.css'
@@ -28,6 +32,7 @@ const MainSidebar = () => {
     const dispatch = useDispatch()
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
+    const selectedProgramId = useSelector(sGetUiProgramId)
     const [selectedTabId, setSelectedTabId] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
@@ -61,6 +66,7 @@ const MainSidebar = () => {
                     onClick={() => onClick(TAB_PROGRAM)}
                     selected={open && selectedTabId === TAB_PROGRAM}
                     count={counts.program}
+                    isCountDisabled={!selectedProgramId}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
