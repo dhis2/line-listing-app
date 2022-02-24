@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-23T11:37:56.069Z\n"
-"PO-Revision-Date: 2022-02-23T11:37:56.069Z\n"
+"POT-Creation-Date: 2022-02-24T10:56:43.943Z\n"
+"PO-Revision-Date: 2022-02-24T10:56:43.943Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -353,9 +353,6 @@ msgstr "Input: {{type}}"
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
-msgid "Your dimensions"
-msgstr "Your dimensions"
-
 msgid "Search in program"
 msgstr "Search in program"
 
@@ -405,6 +402,9 @@ msgstr "Stage"
 msgid "Time dimensions"
 msgstr "Time dimensions"
 
+msgid "Your dimensions"
+msgstr "Your dimensions"
+
 msgid "Search your dimensions"
 msgstr "Search your dimensions"
 
@@ -451,6 +451,12 @@ msgstr "Click a dimension to add or remove conditions."
 
 msgid "Your most viewed event reports"
 msgstr "Your most viewed event reports"
+
+msgid "most recent"
+msgstr "most recent"
+
+msgid "oldest"
+msgstr "oldest"
 
 msgid "Cases per page"
 msgstr "Cases per page"
