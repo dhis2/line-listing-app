@@ -36,7 +36,7 @@ export const YourDimensionsMenuItem = ({ selected, count, onClick }) => {
 }
 
 YourDimensionsMenuItem.propTypes = {
-    count: PropTypes.number.isRequired,
-    selected: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
+    count: PropTypes.number,
+    selected: PropTypes.bool,
 }
