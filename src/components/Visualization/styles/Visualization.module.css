@@ -59,19 +59,63 @@
 .stickyNavigation {
     position: sticky;
     left: 0;
+}
+
+/* Table header cells in various sizes */
+.dataTable .headerCell.fontSizeLarge {
+    font-size: 15px;
+    line-height: 16px;
+}
+.dataTable .headerCell.fontSizeNormal {
+    font-size: 12px;
+    line-height: 13px;
+}
+.dataTable .headerCell.fontSizeSmall {
+    font-size: 10px;
+    line-height: 11px;
+}
+.dataTable .headerCell.sizeComfortable {
+    padding: 12px 12px;
+}
+.dataTable .headerCell.sizeNormal {
+    padding: 4px 8px;
+}
+.dataTable .headerCell.sizeCompact {
+    padding: 0px 8px;
+}
+
+/* Table body cells in various sizes */
+.dataTable .cell.fontSizeLarge {
+    font-size: 15px;
+    line-height: 16px;
+}
+.dataTable .cell.fontSizeNormal {
+    font-size: 12px;
+    line-height: 13px;
+}
+.dataTable .cell.fontSizeSmall {
+    font-size: 10px;
+    line-height: 11px;
+}
+.dataTable .cell.sizeComfortable {
+    padding: 16px 12px;
+}
+.dataTable .cell.sizeNormal {
+    padding: 8px 8px;
+}
+.dataTable .cell.sizeCompact {
+    padding: 4px 8px;
+}
+
+/* Sizes for the table footer */
+.dataTable .stickyNavigation.sizeComfortable {
     padding: 14px 12px;
 }
-
-.fontSizeLarge {
-    font-size: 13px !important;
+.dataTable .stickyNavigation.sizeNormal {
+    padding: 10px 12px;
 }
-
-.fontSizeNormal {
-    font-size: 11px !important;
-}
-
-.fontSizeSmall {
-    font-size: 10px !important;
+.dataTable .stickyNavigation.sizeCompact {
+    padding: 6px 12px;
 }
 .error {
     flex: 1;
