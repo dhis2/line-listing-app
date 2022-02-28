@@ -6,7 +6,6 @@ import thunk from 'redux-thunk'
 import App from './components/App.js'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
-import history from './modules/history.js'
 import './locales/index.js'
 
 const query = {
@@ -65,7 +64,7 @@ const AppWrapper = () => {
                 query={query}
                 dataTransformation={providerDataTransformation}
             >
-                <App initialLocation={history.location} />
+                <App />
             </CachedDataQueryProvider>
         </ReduxProvider>
     )

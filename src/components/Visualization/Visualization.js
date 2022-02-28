@@ -45,6 +45,17 @@ const getFontSizeClass = (fontSize) => {
     }
 }
 
+const getSizeClass = (displayDensity) => {
+    switch (displayDensity) {
+        case DISPLAY_DENSITY_COMFORTABLE:
+            return styles.sizeComfortable
+        case DISPLAY_DENSITY_COMPACT:
+            return styles.sizeCompact
+        default:
+            return styles.sizeNormal
+    }
+}
+
 export const Visualization = ({
     visualization,
     onResponseReceived,
@@ -105,8 +116,7 @@ export const Visualization = ({
         return null
     }
 
-    const large = visualization.displayDensity === DISPLAY_DENSITY_COMFORTABLE
-    const small = visualization.displayDensity === DISPLAY_DENSITY_COMPACT
+    const sizeClass = getSizeClass(visualization.displayDensity)
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
@@ -165,6 +175,7 @@ export const Visualization = ({
                     scrollHeight="100%"
                     width="auto"
                     scrollWidth={`${availableOuterWidth}px`}
+                    className={styles.dataTable}
                 >
                     <DataTableHead>
                         <DataTableRow>
@@ -189,9 +200,11 @@ export const Visualization = ({
                                                 ? sortDirection
                                                 : 'default'
                                         }
-                                        large={large}
-                                        small={small}
-                                        className={fontSizeClass}
+                                        className={cx(
+                                            styles.headerCell,
+                                            fontSizeClass,
+                                            sizeClass
+                                        )}
                                     >
                                         {formatCellHeader(header)}
                                     </DataTableColumnHeader>
@@ -200,9 +213,11 @@ export const Visualization = ({
                                         fixed
                                         top="0"
                                         key={`undefined_${index}`} // FIXME this is due to pe not being present in headers, needs special handling
-                                        large={large}
-                                        small={small}
-                                        className={fontSizeClass}
+                                        className={cx(
+                                            styles.headerCell,
+                                            fontSizeClass,
+                                            sizeClass
+                                        )}
                                     />
                                 )
                             )}
@@ -215,9 +230,11 @@ export const Visualization = ({
                                 {row.map((value, index) => (
                                     <DataTableCell
                                         key={index}
-                                        large={large}
-                                        small={small}
-                                        className={fontSizeClass}
+                                        className={cx(
+                                            styles.cell,
+                                            fontSizeClass,
+                                            sizeClass
+                                        )}
                                     >
                                         {formatCellValue(
                                             value,
@@ -236,7 +253,10 @@ export const Visualization = ({
                                 className={styles.footerCell}
                             >
                                 <div
-                                    className={styles.stickyNavigation}
+                                    className={cx(
+                                        styles.stickyNavigation,
+                                        sizeClass
+                                    )}
                                     style={{
                                         maxWidth: availableInnerWidth,
                                     }}

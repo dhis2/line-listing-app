@@ -27,6 +27,8 @@ const getFixedDimensions = () => ({
 })
 
 export const getDefaultMetadata = () => ({
+    // default selected period
+    THIS_MONTH: { name: i18n.t('This month') },
     ...getMainDimensions(),
     ...getDefaulTimeDimensionsMetadata(),
     ...getFixedDimensions(),

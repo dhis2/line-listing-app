@@ -7,7 +7,11 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { sGetUiInputType, sGetUiShowAccessoryPanel } from '../../reducers/ui.js'
+import {
+    sGetUiInputType,
+    sGetUiShowAccessoryPanel,
+    sGetUiProgramId,
+} from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
 import styles from './MainSidebar.module.css'
@@ -18,6 +22,7 @@ import {
     useSelectedDimensions,
 } from './SelectedDimensionsContext.js'
 import { TimeDimensions } from './TimeDimensions.js'
+import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const TAB_INPUT = 'INPUT'
@@ -28,6 +33,7 @@ const MainSidebar = () => {
     const dispatch = useDispatch()
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
+    const selectedProgramId = useSelector(sGetUiProgramId)
     const [selectedTabId, setSelectedTabId] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
@@ -61,13 +67,12 @@ const MainSidebar = () => {
                     onClick={() => onClick(TAB_PROGRAM)}
                     selected={open && selectedTabId === TAB_PROGRAM}
                     count={counts.program}
+                    isCountDisabled={!selectedProgramId}
                 />
-                <MenuItem
-                    icon={<IconFolder16 />}
-                    label={i18n.t('Your dimensions')}
-                    onClick={() => onClick(TAB_YOUR)}
+                <YourDimensionsMenuItem
                     selected={open && selectedTabId === TAB_YOUR}
                     count={counts.your}
+                    onClick={() => onClick(TAB_YOUR)}
                 />
                 <MainDimensions />
                 <TimeDimensions />

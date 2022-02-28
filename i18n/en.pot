@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-24T07:52:19.703Z\n"
-"PO-Revision-Date: 2022-02-24T07:52:19.703Z\n"
+"POT-Creation-Date: 2022-02-24T10:56:43.943Z\n"
+"PO-Revision-Date: 2022-02-24T10:56:43.943Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -353,9 +353,6 @@ msgstr "Input: {{type}}"
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
-msgid "Your dimensions"
-msgstr "Your dimensions"
-
 msgid "Search in program"
 msgstr "Search in program"
 
@@ -404,6 +401,9 @@ msgstr "Stage"
 
 msgid "Time dimensions"
 msgstr "Time dimensions"
+
+msgid "Your dimensions"
+msgstr "Your dimensions"
 
 msgid "Search your dimensions"
 msgstr "Search your dimensions"

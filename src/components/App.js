@@ -104,7 +104,6 @@ const dataStatisticsMutation = {
 }
 
 const App = ({
-    initialLocation,
     current,
     addMetadata,
     addParentGraphMap,
@@ -126,9 +125,7 @@ const App = ({
     const [data, setData] = useState()
     const [fetchError, setFetchError] = useState()
     const { currentUser, userSettings } = useCachedDataQuery()
-    const [previousLocation, setPreviousLocation] = useState(
-        initialLocation.pathname
-    )
+    const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const dispatch = useDispatch()
@@ -218,8 +215,7 @@ const App = ({
             })
 
             setInitMetadata()
-
-            loadVisualization(initialLocation)
+            loadVisualization(history.location)
         }
 
         onMount()
@@ -384,7 +380,6 @@ App.propTypes = {
     clearLoadError: PropTypes.func,
     current: PropTypes.object,
     error: PropTypes.object,
-    initialLocation: PropTypes.object,
     isLoading: PropTypes.bool,
     setCurrent: PropTypes.func,
     setInitMetadata: PropTypes.func,
