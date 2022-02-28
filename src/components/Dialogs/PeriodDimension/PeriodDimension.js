@@ -6,7 +6,7 @@ import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, useStore } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiItems } from '../../../actions/ui.js'
 import {
@@ -62,8 +62,18 @@ const useLocalizedStartEndDateFormatter = () => {
     }
 }
 
+const useMetadataNameGetter = () => {
+    const store = useStore()
+
+    return (id) => {
+        const { metadata } = store.getState()
+        return metadata[id]?.name
+    }
+}
+
 export const PeriodDimension = ({ dimension, onClose }) => {
     const formatStartEndDate = useLocalizedStartEndDateFormatter()
+    const getNameFromMetadata = useMetadataNameGetter()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
     const selectedIds =
@@ -73,11 +83,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const [presets, setPresets] = useState(() =>
         selectedIds
             .filter((id) => !isStartEndDate(id))
-            /*
-             * TODO: it should be possible to fetch the names from the metadata
-             * store once the backend starts returning period dimension metadata
-             */
-            .map((id) => ({ id, name: id }))
+            .map((id) => ({ id, name: getNameFromMetadata(id) }))
     )
 
     const [startEndDate, setStartEndDate] = useState(
