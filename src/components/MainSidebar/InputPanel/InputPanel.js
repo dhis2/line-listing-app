@@ -29,7 +29,11 @@ const InputPanel = ({ visible }) => {
 
     const selectedInput = useSelector(sGetUiInput)
     const dispatch = useDispatch()
-    const setSelectedInput = (input) => dispatch(tSetUiInput(input))
+    const setSelectedInput = (input) => {
+        if (selectedInput.type !== input.type) {
+            dispatch(tSetUiInput(input))
+        }
+    }
 
     return (
         <div className={styles.container}>
