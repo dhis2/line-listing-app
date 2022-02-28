@@ -82,6 +82,7 @@ const createDimensionsQuery = ({
         page,
         fields: DIMENSION_LIST_FIELDS,
         filter: [],
+        order: 'displayName:asc',
     }
 
     if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {

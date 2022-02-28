@@ -21,6 +21,7 @@ const query = {
                 page,
                 fields: DIMENSION_LIST_FIELDS,
                 filter: filters,
+                order: 'displayName:asc',
             }
         },
     },
