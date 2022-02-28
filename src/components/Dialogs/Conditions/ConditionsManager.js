@@ -12,7 +12,7 @@ import {
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../../../modules/dimensionTypes.js'
+} from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'

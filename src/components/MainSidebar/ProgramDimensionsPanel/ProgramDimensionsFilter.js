@@ -8,7 +8,7 @@ import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../../../modules/dimensionTypes.js'
+} from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import styles from './ProgramDimensionsFilter.module.css'

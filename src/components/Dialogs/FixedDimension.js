@@ -11,9 +11,9 @@ import { connect } from 'react-redux'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems, acAddParentGraphMap } from '../../actions/ui.js'
 import {
-    DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_PROGRAM_STATUS,
-} from '../../modules/dimensionTypes.js'
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from '../../modules/dimensionConstants.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
 import {
     STATUS_ACTIVE,
@@ -118,7 +118,7 @@ const FixedDimension = ({
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_TYPE_PROGRAM_STATUS,
+                                    dimensionId: DIMENSION_ID_PROGRAM_STATUS,
                                     selectedItemsIds: programStatusIds,
                                     itemId: id,
                                     toggle: checked,
@@ -150,7 +150,7 @@ const FixedDimension = ({
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_TYPE_EVENT_STATUS,
+                                    dimensionId: DIMENSION_ID_EVENT_STATUS,
                                     selectedItemsIds: eventStatusIds,
                                     itemId: id,
                                     toggle: checked,
@@ -167,9 +167,9 @@ const FixedDimension = ({
 
     const renderModalContent = () => {
         switch (dimension.id) {
-            case DIMENSION_TYPE_PROGRAM_STATUS:
+            case DIMENSION_ID_PROGRAM_STATUS:
                 return renderProgramStatus()
-            case DIMENSION_TYPE_EVENT_STATUS:
+            case DIMENSION_ID_EVENT_STATUS:
                 return renderEventStatus()
             case DIMENSION_ID_ORGUNIT: {
                 const dimensionProps = {
@@ -243,7 +243,7 @@ FixedDimension.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    eventStatusIds: sGetUiItemsByDimension(state, DIMENSION_TYPE_EVENT_STATUS),
+    eventStatusIds: sGetUiItemsByDimension(state, DIMENSION_ID_EVENT_STATUS),
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
@@ -252,7 +252,7 @@ const mapStateToProps = (state, ownProps) => ({
     parentGraphMap: sGetUiParentGraphMap(state),
     programStatusIds: sGetUiItemsByDimension(
         state,
-        DIMENSION_TYPE_PROGRAM_STATUS
+        DIMENSION_ID_PROGRAM_STATUS
     ),
     rootOrgUnits: sGetRootOrgUnits(state),
 })

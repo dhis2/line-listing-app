@@ -188,7 +188,7 @@ const App = ({
                     id,
                     name: item.name || item.displayName,
                     displayName: item.displayName,
-                    dimensionType: item.dimensionItemType,
+                    dimensionType: item.dimensionType || item.dimensionItemType,
                     code: item.code,
                 }
 

@@ -26,26 +26,31 @@ export const DIMENSION_TYPES_YOURS = new Set([
 ])
 
 /**MAIN**/
-export const DIMENSION_TYPE_OU = 'ou'
-export const DIMENSION_TYPE_PROGRAM_STATUS = 'programStatus'
-export const DIMENSION_TYPE_EVENT_STATUS = 'eventStatus'
-export const DIMENSION_TYPE_CREATED_BY = 'createdBy'
-export const DIMENSION_TYPE_LAST_UPDATED_BY = 'lastUpdatedBy'
+export const DIMENSION_TYPE_OU = 'ORGANISATION_UNIT'
+export const DIMENSION_TYPE_STATUS = 'STATUS'
+export const DIMENSION_TYPE_USER = 'DATA_X'
 
 /**PERIOD - time dimension group name**/
 export const DIMENSION_TYPE_PERIOD = 'PERIOD'
 
-/**TIME - specific time dimensions**/
-export const DIMENSION_TYPE_EVENT_DATE = 'eventDate'
-export const DIMENSION_TYPE_ENROLLMENT_DATE = 'enrollmentDate'
-export const DIMENSION_TYPE_INCIDENT_DATE = 'incidentDate'
-export const DIMENSION_TYPE_SCHEDULED_DATE = 'scheduledDate'
-export const DIMENSION_TYPE_LAST_UPDATED = 'lastUpdated'
+/** DIMENSION_IDS */
 
-export const DIMENSION_TYPES_TIME = new Set([
-    DIMENSION_TYPE_EVENT_DATE,
-    DIMENSION_TYPE_ENROLLMENT_DATE,
-    DIMENSION_TYPE_INCIDENT_DATE,
-    DIMENSION_TYPE_SCHEDULED_DATE,
-    DIMENSION_TYPE_LAST_UPDATED,
+export const DIMENSION_ID_PROGRAM_STATUS = 'programStatus'
+export const DIMENSION_ID_EVENT_STATUS = 'eventStatus'
+export const DIMENSION_ID_CREATED_BY = 'createdBy'
+export const DIMENSION_ID_LAST_UPDATED_BY = 'lastUpdatedBy'
+
+/**TIME - specific time dimensions**/
+export const DIMENSION_ID_EVENT_DATE = 'eventDate'
+export const DIMENSION_ID_ENROLLMENT_DATE = 'enrollmentDate'
+export const DIMENSION_ID_INCIDENT_DATE = 'incidentDate'
+export const DIMENSION_ID_SCHEDULED_DATE = 'scheduledDate'
+export const DIMENSION_ID_LAST_UPDATED = 'lastUpdated'
+
+export const DIMENSION_IDS_TIME = new Set([
+    DIMENSION_ID_EVENT_DATE,
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
 ])

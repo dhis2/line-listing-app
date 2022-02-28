@@ -4,7 +4,7 @@ import { useSelector, useStore } from 'react-redux'
 import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_TYPES_YOURS,
-} from '../../modules/dimensionTypes.js'
+} from '../../modules/dimensionConstants.js'
 import { sGetUiLayout } from '../../reducers/ui.js'
 
 const SelectedDimensionsContext = createContext({

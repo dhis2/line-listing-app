@@ -1,4 +1,4 @@
-import { DIMENSION_TYPES_PROGRAM } from '../modules/dimensionTypes.js'
+import { DIMENSION_TYPES_PROGRAM } from '../modules/dimensionConstants.js'
 import {
     getDefaulTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,

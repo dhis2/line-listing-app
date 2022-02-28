@@ -12,17 +12,17 @@ import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
     DIMENSION_TYPE_PERIOD,
-    DIMENSION_TYPE_CREATED_BY,
+    DIMENSION_ID_CREATED_BY,
     DIMENSION_TYPE_DATA_ELEMENT,
-    DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_EVENT_DATE,
-    DIMENSION_TYPE_ENROLLMENT_DATE,
-    DIMENSION_TYPE_INCIDENT_DATE,
-    DIMENSION_TYPE_SCHEDULED_DATE,
-    DIMENSION_TYPE_LAST_UPDATED,
-    DIMENSION_TYPE_LAST_UPDATED_BY,
-    DIMENSION_TYPE_PROGRAM_STATUS,
-} from './dimensionTypes.js'
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_EVENT_DATE,
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_BY,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from './dimensionConstants.js'
 import { default as options } from './options.js'
 
 export const STATUS_ACTIVE = 'ACTIVE'
@@ -40,15 +40,15 @@ export const statusNames = {
 
 export const headersMap = {
     [DIMENSION_ID_ORGUNIT]: 'ouname',
-    [DIMENSION_TYPE_PROGRAM_STATUS]: 'programstatus',
-    [DIMENSION_TYPE_EVENT_STATUS]: 'eventstatus',
-    [DIMENSION_TYPE_CREATED_BY]: 'createdbydisplayname',
-    [DIMENSION_TYPE_LAST_UPDATED_BY]: 'lastupdatedbydisplayname',
-    [DIMENSION_TYPE_EVENT_DATE]: 'eventdate',
-    [DIMENSION_TYPE_ENROLLMENT_DATE]: 'enrollmentdate',
-    [DIMENSION_TYPE_INCIDENT_DATE]: 'incidentdate',
-    [DIMENSION_TYPE_SCHEDULED_DATE]: 'scheduleddate',
-    [DIMENSION_TYPE_LAST_UPDATED]: 'lastupdated',
+    [DIMENSION_ID_PROGRAM_STATUS]: 'programstatus',
+    [DIMENSION_ID_EVENT_STATUS]: 'eventstatus',
+    [DIMENSION_ID_CREATED_BY]: 'createdbydisplayname',
+    [DIMENSION_ID_LAST_UPDATED_BY]: 'lastupdatedbydisplayname',
+    [DIMENSION_ID_EVENT_DATE]: 'eventdate',
+    [DIMENSION_ID_ENROLLMENT_DATE]: 'enrollmentdate',
+    [DIMENSION_ID_INCIDENT_DATE]: 'incidentdate',
+    [DIMENSION_ID_SCHEDULED_DATE]: 'scheduleddate',
+    [DIMENSION_ID_LAST_UPDATED]: 'lastupdated',
 }
 
 export const outputTypeMap = {
@@ -65,8 +65,8 @@ export const outputTypeMap = {
 }
 
 export const outputTypeTimeDimensionMap = {
-    [OUTPUT_TYPE_EVENT]: DIMENSION_TYPE_EVENT_DATE,
-    [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_TYPE_ENROLLMENT_DATE,
+    [OUTPUT_TYPE_EVENT]: DIMENSION_ID_EVENT_DATE,
+    [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_ID_ENROLLMENT_DATE,
 }
 
 export const transformVisualization = (visualization) => {
@@ -89,7 +89,7 @@ export const transformVisualization = (visualization) => {
         visualization.outputType === OUTPUT_TYPE_EVENT
     ) {
         transformedFilters.push({
-            dimension: DIMENSION_TYPE_EVENT_STATUS,
+            dimension: DIMENSION_ID_EVENT_STATUS,
             items: [{ id: STATUS_COMPLETED }],
         })
     }

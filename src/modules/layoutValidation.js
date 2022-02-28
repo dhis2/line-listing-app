@@ -5,7 +5,7 @@ import {
     VIS_TYPE_LINE_LIST,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
-import { DIMENSION_TYPES_TIME } from './dimensionTypes.js'
+import { DIMENSION_IDS_TIME } from './dimensionConstants.js'
 import {
     noColumnsError,
     noOrgUnitError,
@@ -44,7 +44,7 @@ const validateLineListLayout = (layout) => {
 
     let layoutHasTimeDimension = false
 
-    DIMENSION_TYPES_TIME.forEach((dimensionId) => {
+    DIMENSION_IDS_TIME.forEach((dimensionId) => {
         const dimension = layoutGetDimension(layout, dimensionId)
 
         if (dimension && dimensionIsValid(dimension, { requireItems: true })) {

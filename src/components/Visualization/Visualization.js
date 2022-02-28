@@ -16,9 +16,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import {
-    DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_PROGRAM_STATUS,
-} from '../../modules/dimensionTypes.js'
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from '../../modules/dimensionConstants.js'
 import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
@@ -123,8 +123,8 @@ export const Visualization = ({
     const formatCellValue = (value, header) => {
         if (
             [
-                headersMap[DIMENSION_TYPE_EVENT_STATUS],
-                headersMap[DIMENSION_TYPE_PROGRAM_STATUS],
+                headersMap[DIMENSION_ID_EVENT_STATUS],
+                headersMap[DIMENSION_ID_PROGRAM_STATUS],
             ].includes(header?.name)
         ) {
             return metadata[value]?.name || value

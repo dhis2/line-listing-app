@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionTypes.js'
+import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionConstants.js'
 import {
     PROGRAM_TYPE_WITH_REGISTRATION,
     PROGRAM_TYPE_WITHOUT_REGISTRATION,

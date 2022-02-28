@@ -9,12 +9,12 @@ import i18n from '@dhis2/d2-i18n'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import {
-    DIMENSION_TYPE_PROGRAM_STATUS,
-    DIMENSION_TYPE_EVENT_STATUS,
-    DIMENSION_TYPE_CREATED_BY,
-    DIMENSION_TYPE_LAST_UPDATED_BY,
-    DIMENSION_TYPES_TIME,
-} from '../../modules/dimensionTypes.js'
+    DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_CREATED_BY,
+    DIMENSION_ID_LAST_UPDATED_BY,
+    DIMENSION_IDS_TIME,
+} from '../../modules/dimensionConstants.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
@@ -36,8 +36,8 @@ const analyticsApiEndpointMap = {
 }
 
 const excludedDimensions = [
-    DIMENSION_TYPE_CREATED_BY,
-    DIMENSION_TYPE_LAST_UPDATED_BY,
+    DIMENSION_ID_CREATED_BY,
+    DIMENSION_ID_LAST_UPDATED_BY,
 ]
 
 const findOptionSetItem = (code, metaDataItems) =>
@@ -55,7 +55,7 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
     }
 }
 
-const isTimeDimension = (dimensionId) => DIMENSION_TYPES_TIME.has(dimensionId)
+const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 
 const getAdaptedVisualization = (visualization) => {
     const parameters = {}
@@ -67,8 +67,8 @@ const getAdaptedVisualization = (visualization) => {
 
             if (
                 isTimeDimension(dimensionId) ||
-                dimensionId === DIMENSION_TYPE_EVENT_STATUS ||
-                dimensionId === DIMENSION_TYPE_PROGRAM_STATUS
+                dimensionId === DIMENSION_ID_EVENT_STATUS ||
+                dimensionId === DIMENSION_ID_PROGRAM_STATUS
             ) {
                 parameters[dimensionId] = dimensionObj.items?.map(
                     (item) => item.id
