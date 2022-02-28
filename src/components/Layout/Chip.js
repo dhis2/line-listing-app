@@ -4,6 +4,8 @@ import { CSS } from '@dnd-kit/utilities'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { sGetLoadError } from '../../reducers/loader.js'
 import { ChipBase } from './ChipBase.js'
 import styles from './styles/Chip.module.css'
 import { default as TooltipContent } from './TooltipContent.js'
@@ -40,6 +42,7 @@ const Chip = ({
             dimensionType,
         },
     })
+    const globalLoadError = useSelector(sGetLoadError)
 
     let insertPosition = undefined
     if (over?.id === dimensionId) {
@@ -77,6 +80,10 @@ const Chip = ({
     const renderTooltipContent = () => (
         <TooltipContent dimensionId={dimensionId} itemIds={items} />
     )
+
+    if (globalLoadError && !dimensionName) {
+        return null
+    }
 
     return (
         <div
