@@ -1,4 +1,7 @@
-import { DIMENSION_TYPES_PROGRAM } from '../modules/dimensionConstants.js'
+import {
+    DIMENSION_TYPES_PROGRAM,
+    DIMENSION_IDS_TIME,
+} from '../modules/dimensionConstants.js'
 import {
     getDefaulTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
@@ -80,9 +83,11 @@ const tClearUiProgramRelatedDimensions =
             .concat(ui.layout.filters)
             .filter((dimensionId) => {
                 const dimension = metadata[dimensionId]
+
                 return (
                     DIMENSION_TYPES_PROGRAM.has(dimension.dimensionType) ||
-                    !enabledTimeDimensionsIds.has(dimension.id)
+                    (DIMENSION_IDS_TIME.has(dimension.id) &&
+                        !enabledTimeDimensionsIds.has(dimension.id))
                 )
             })
         dispatch(acRemoveUiLayoutDimensions(idsToRemove))
