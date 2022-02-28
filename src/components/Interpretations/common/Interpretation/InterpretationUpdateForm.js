@@ -7,6 +7,7 @@ import {
     MessageEditorContainer,
     RichTextEditor,
     MessageButtonStrip,
+    InterpretationSharingLink,
 } from '../index.js'
 
 const mutation = {
@@ -47,6 +48,7 @@ export const InterpretationUpdateForm = ({
                     disabled={loading}
                     errorText={errorText}
                 />
+                <InterpretationSharingLink id={id} type="interpretation" />
                 <MessageButtonStrip>
                     <Button
                         loading={loading}
