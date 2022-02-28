@@ -76,7 +76,7 @@ export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
         }
 
         if (isEnrollment) {
-            enabledDimensionIds.add(DIMENSION_TYPE_EVENT_DATE)
+            enabledDimensionIds.add(DIMENSION_TYPE_ENROLLMENT_DATE)
         }
 
         if (withRegistration) {
