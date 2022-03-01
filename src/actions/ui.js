@@ -1,6 +1,7 @@
 import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_IDS_TIME,
+    DIMENSION_ID_EVENT_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
     getDefaulTimeDimensionsMetadata,
@@ -85,6 +86,7 @@ const tClearUiProgramRelatedDimensions =
                 const dimension = metadata[dimensionId]
 
                 return (
+                    dimension.id === DIMENSION_ID_EVENT_STATUS ||
                     DIMENSION_TYPES_PROGRAM.has(dimension.dimensionType) ||
                     (DIMENSION_IDS_TIME.has(dimension.id) &&
                         !enabledTimeDimensionsIds.has(dimension.id))
