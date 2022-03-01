@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
@@ -19,7 +19,6 @@ export const DimensionItem = ({
     selected,
 }) => {
     const dispatch = useDispatch()
-    const [mouseIsOver, setMouseIsOver] = useState(false)
     const dimensionMetadata = {
         [id]: {
             id,
@@ -34,9 +33,6 @@ export const DimensionItem = ({
         ? undefined
         : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
 
-    const onMouseOver = () => setMouseIsOver(true)
-    const onMouseExit = () => setMouseIsOver(false)
-
     const {
         attributes,
         listeners,
@@ -47,7 +43,7 @@ export const DimensionItem = ({
     } = useSortable({
         id: draggableId || id,
         disabled: disabled || selected,
-        data: dimensionMetadata,
+        data: dimensionMetadata[id],
     })
 
     const style = transform
@@ -65,14 +61,7 @@ export const DimensionItem = ({
         : undefined
 
     return (
-        <div
-            {...attributes}
-            {...listeners}
-            ref={setNodeRef}
-            style={style}
-            onMouseOver={onMouseOver}
-            onMouseLeave={onMouseExit}
-        >
+        <div {...attributes} {...listeners} ref={setNodeRef} style={style}>
             <DimensionItemBase
                 name={name}
                 dimensionType={dimensionType}
@@ -81,12 +70,12 @@ export const DimensionItem = ({
                 stageName={stageName}
                 onClick={onClick}
                 contextMenu={
-                    mouseIsOver && !disabled ? (
+                    !disabled && (
                         <DimensionMenu
                             dimensionId={id}
                             dimensionMetadata={dimensionMetadata}
                         />
-                    ) : null
+                    )
                 }
             />
         </div>

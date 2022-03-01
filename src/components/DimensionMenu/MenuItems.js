@@ -17,7 +17,7 @@ const getAxisItemLabel = (axisName, isDimensionInLayout) =>
 
 const getDividerItem = (key) => <MenuDivider dense key={key} />
 
-const DimensionMenu = ({
+const MenuItems = ({
     dimensionId,
     currentAxisId,
     visType,
@@ -91,7 +91,7 @@ const DimensionMenu = ({
     )
 }
 
-DimensionMenu.propTypes = {
+MenuItems.propTypes = {
     axisItemHandler: PropTypes.func.isRequired,
     removeItemHandler: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -101,4 +101,4 @@ DimensionMenu.propTypes = {
     visType: PropTypes.string,
 }
 
-export default DimensionMenu
+export default MenuItems

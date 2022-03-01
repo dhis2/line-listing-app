@@ -23,19 +23,22 @@ const renderChipLabelSuffix = (items, numberOfConditions) => {
     return itemsLabel ? `: ${itemsLabel}` : ''
 }
 
-export const ChipBase = (props) => {
-    return (
-        <div className={cx(styles.chip, styles.chipLeft)}>
-            <div className={styles.leftIconWrapper}>
-                <DimensionIcon dimensionType={props.dimensionType} />
-            </div>
-            <span className={styles.label}>{props.dimensionName}</span>
-            <span>
-                {renderChipLabelSuffix(props.items, props.numberOfConditions)}
-            </span>
+export const ChipBase = ({
+    dimensionName,
+    dimensionType,
+    items,
+    numberOfConditions,
+}) => (
+    <div className={cx(styles.chipBase)}>
+        <div className={styles.leftIcon}>
+            <DimensionIcon dimensionType={dimensionType} />
         </div>
-    )
-}
+        <span className={styles.label}>{dimensionName}</span>
+        <span className={styles.label}>
+            {renderChipLabelSuffix(items, numberOfConditions)}
+        </span>
+    </div>
+)
 
 ChipBase.propTypes = {
     dimensionName: PropTypes.string,

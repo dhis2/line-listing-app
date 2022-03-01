@@ -170,10 +170,11 @@ const OuterDndContext = ({ children }) => {
 
         if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
             return (
-                <div className={styles.overlay}>
+                <div className={cx(styles.overlay, styles.dimensionItem)}>
                     <DimensionItemBase
                         name={name}
                         dimensionType={dimensionType}
+                        dragging={true}
                     />
                 </div>
             )
@@ -182,12 +183,14 @@ const OuterDndContext = ({ children }) => {
         return (
             <div
                 className={cx(
-                    chipStyles.chipWrapper,
-                    chipStyles.chipWrapperOverlay,
+                    chipStyles.chip,
+                    chipStyles.dragging,
                     styles.overlay,
                     {
                         [chipStyles.chipEmpty]:
-                            !chipItems.length && !numberOfConditions,
+                            sourceAxis === AXIS_ID_FILTERS &&
+                            !chipItems.length &&
+                            !numberOfConditions,
                     }
                 )}
             >

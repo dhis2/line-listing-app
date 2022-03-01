@@ -2,17 +2,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-transform: none;
-    box-sizing: border-box;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0;
     vertical-align: middle;
-    border-radius: 2px;
+    border-radius: 4px;
     width: 20px;
     height: 20px;
-    margin-left: 2px;
+    margin-left: 4px;
     color: var(--colors-grey700);
 }
 

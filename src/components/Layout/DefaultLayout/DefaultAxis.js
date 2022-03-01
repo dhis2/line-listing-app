@@ -100,6 +100,7 @@ const DefaultAxis = ({
                                 <Chip
                                     key={`${axisId}-${id}`}
                                     onClick={getOpenHandler(id)}
+                                    axisId={axisId}
                                     dimensionId={id}
                                     dimensionName={getDimensionName(id)}
                                     dimensionType={getDimensionType(id)}

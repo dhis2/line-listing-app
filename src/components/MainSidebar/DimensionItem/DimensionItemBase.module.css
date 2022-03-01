@@ -1,5 +1,5 @@
 .dimensionItem {
-    background-color: transparent;
+    background-color: var(--colors-white);
     color: var(--colors-grey900);
     fill: var(--colors-grey800);
     display: flex;
@@ -7,10 +7,16 @@
     margin: 0;
     border-radius: 3px;
     cursor: pointer;
+    align-items: center;
+    min-height: 24px;
 }
 
-.dimensionItem:not(.disabled):hover {
+.dimensionItem:not(.disabled):not(.dragging):hover {
     background-color: var(--colors-grey200);
+}
+
+.dimensionItem:not(.disabled):hover div {
+    visibility: visible;
 }
 
 .dimensionItem:not(.disabled):active {
@@ -41,13 +47,11 @@
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
-    margin: 4px 6px 0 0;
-    overflow: hidden;
+    margin-right: 6px;
 }
 
 .label {
     flex: 0 1 auto;
-    margin-top: 2px;
 }
 
 .label .primary {
@@ -57,6 +61,7 @@
 
 .iconAndLabelWrapper {
     display: flex;
+    align-items: center;
 }
 
 .label .secondary {

@@ -1,24 +1,48 @@
-.chipWrapper {
+.chip {
     position: relative;
     display: flex;
     margin: var(--spacers-dp4);
     background-color: var(--colors-teal200);
-    border-radius: 2px;
-    align-items: center;
-    max-width: 400px;
+    border-radius: 3px;
     width: fit-content;
 }
 
-.chipWrapperOverlay {
-    margin: 0;
-    padding-left: 6px;
-    padding-right: 24px;
+.content {
+    display: inline-flex;
+    cursor: pointer;
+    min-height: 24px;
+    user-select: none;
+    width: fit-content;
+    align-items: center;
+    padding: 1px 2px 1px 6px;
 }
 
-.chipWrapper:not(.active).insertBefore .content::before,
-.chipWrapper:not(.active).insertAfter .content::before,
-.chipWrapper:not(.active).insertBefore .content::after,
-.chipWrapper:not(.active).insertAfter .content::after {
+.chipBase {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--colors-grey900);
+    display: flex;
+    overflow: hidden;
+    max-width: 360px;
+}
+
+.label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dragging {
+    margin: 0;
+    padding: 1px 24px 1px 6px;
+    align-items: center;
+    min-height: 24px;
+}
+
+.chip:not(.active).insertBefore .content::before,
+.chip:not(.active).insertAfter .content::before,
+.chip:not(.active).insertBefore .content::after,
+.chip:not(.active).insertAfter .content::after {
     content: '';
     position: absolute;
     z-index: 100;
@@ -65,59 +89,14 @@
     right: -10px;
 }
 
-.content {
-    display: inline-flex;
-}
-
-.chip {
-    padding: 1px 2px 1px 6px;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--colors-grey900);
-    cursor: pointer;
-    min-height: 24px;
-    user-select: none;
-    width: fit-content;
-}
-
 .chipEmpty {
     background-color: var(--colors-grey300);
 }
 
-.fixedDimensionIcon {
-    padding-right: 6px;
-}
-
-.leftIconWrapper {
-    padding-right: 6px;
+.leftIcon {
+    margin-right: 6px;
     display: flex;
     align-items: center;
-}
-
-.rightIconWrapper {
-    padding-left: 6px;
-}
-
-.label {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.chipLeft {
-    display: flex;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.chipRight {
-    padding-left: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 /* dnd */
