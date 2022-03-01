@@ -11,6 +11,7 @@ import {
     Pagination,
 } from '@dhis2/ui'
 import cx from 'classnames'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +19,9 @@ import { acSetLoadError } from '../../actions/loader.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_EVENT_DATE,
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
 } from '../../modules/dimensionConstants.js'
 import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
@@ -128,6 +132,16 @@ export const Visualization = ({
             ].includes(header?.name)
         ) {
             return metadata[value]?.name || value
+        } else if (
+            [
+                DIMENSION_ID_EVENT_DATE,
+                DIMENSION_ID_ENROLLMENT_DATE,
+                DIMENSION_ID_INCIDENT_DATE,
+            ]
+                .map((header) => headersMap[header])
+                .includes(header?.name)
+        ) {
+            return moment(value).format('yyyy-MM-DD')
         } else {
             return formatValue(value, header?.valueType || 'TEXT', {
                 digitGroupSeparator: visualization.digitGroupSeparator,
