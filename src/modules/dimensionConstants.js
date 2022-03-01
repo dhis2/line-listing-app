@@ -28,7 +28,7 @@ export const DIMENSION_TYPES_YOURS = new Set([
 /**MAIN**/
 export const DIMENSION_TYPE_OU = 'ORGANISATION_UNIT'
 export const DIMENSION_TYPE_STATUS = 'STATUS'
-export const DIMENSION_TYPE_USER = 'DATA_X'
+export const DIMENSION_TYPE_USER = 'USER'
 
 /**PERIOD - time dimension group name**/
 export const DIMENSION_TYPE_PERIOD = 'PERIOD'
@@ -54,3 +54,18 @@ export const DIMENSION_IDS_TIME = new Set([
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 ])
+
+export const getUiDimensionType = ({ dimensionId, dimensionType }) => {
+    switch (dimensionId) {
+        case DIMENSION_ID_PROGRAM_STATUS:
+        case DIMENSION_ID_EVENT_STATUS:
+            return DIMENSION_TYPE_STATUS
+
+        case DIMENSION_ID_CREATED_BY:
+        case DIMENSION_ID_LAST_UPDATED_BY:
+            return DIMENSION_TYPE_USER
+
+        default:
+            return dimensionType
+    }
+}

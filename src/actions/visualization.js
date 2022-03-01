@@ -1,3 +1,4 @@
+import { getUiDimensionType } from '../modules/dimensionConstants.js'
 import {
     SET_VISUALIZATION,
     CLEAR_VISUALIZATION,
@@ -21,7 +22,10 @@ export const acSetVisualization = (value) => {
                 [id]: {
                     valueType: dim.valueType,
                     optionSet: dim.optionSet?.id,
-                    dimensionType: dim.dimensionType,
+                    dimensionType: getUiDimensionType({
+                        dimensionId: id,
+                        dimensionType: dim.dimensionType,
+                    }),
                     id,
                 },
             }
