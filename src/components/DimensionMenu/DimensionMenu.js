@@ -18,7 +18,7 @@ const getAxisIdForDimension = (dimensionId, layout) => {
     return axisLayout ? axisLayout[0] : undefined
 }
 
-const DimensionMenu = ({ currentAxisId, dimensionId }) => {
+const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const dispatch = useDispatch()
     const visType = useSelector(sGetUiType)
     const layout = useSelector(sGetUiLayout)
@@ -33,7 +33,12 @@ const DimensionMenu = ({ currentAxisId, dimensionId }) => {
     const getMenuId = () => `menu-for-${dimensionId}`
 
     const axisItemHandler = ({ dimensionId, axisId }) => {
-        dispatch(acAddUiLayoutDimensions({ [dimensionId]: { axisId } }))
+        dispatch(
+            acAddUiLayoutDimensions(
+                { [dimensionId]: { axisId } },
+                dimensionMetadata
+            )
+        )
     }
 
     const removeItemHandler = (id) => dispatch(acRemoveUiLayoutDimensions(id))
@@ -72,6 +77,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId }) => {
 DimensionMenu.propTypes = {
     currentAxisId: PropTypes.string,
     dimensionId: PropTypes.string,
+    dimensionMetadata: PropTypes.obj,
 }
 
 export default DimensionMenu

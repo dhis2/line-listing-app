@@ -20,20 +20,19 @@ export const DimensionItem = ({
 }) => {
     const dispatch = useDispatch()
     const [mouseIsOver, setMouseIsOver] = useState(false)
+    const dimensionMetadata = {
+        [id]: {
+            id,
+            name,
+            dimensionType,
+            valueType,
+            optionSet,
+        },
+    }
+
     const onClick = disabled
         ? undefined
-        : () =>
-              dispatch(
-                  acSetUiOpenDimensionModal(id, {
-                      [id]: {
-                          id,
-                          name,
-                          dimensionType,
-                          valueType,
-                          optionSet,
-                      },
-                  })
-              )
+        : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
 
     const onMouseOver = () => setMouseIsOver(true)
     const onMouseExit = () => setMouseIsOver(false)
@@ -48,11 +47,7 @@ export const DimensionItem = ({
     } = useSortable({
         id: draggableId || id,
         disabled: disabled || selected,
-        data: {
-            name,
-            dimensionType,
-            valueType,
-        },
+        data: dimensionMetadata,
     })
 
     const style = transform
@@ -87,7 +82,10 @@ export const DimensionItem = ({
                 onClick={onClick}
                 contextMenu={
                     mouseIsOver && !disabled ? (
-                        <DimensionMenu dimensionId={id} />
+                        <DimensionMenu
+                            dimensionId={id}
+                            dimensionMetadata={dimensionMetadata}
+                        />
                     ) : null
                 }
             />

@@ -661,6 +661,9 @@ msgstr "User sub-units"
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
 
+msgid "This month"
+msgstr "This month"
+
 msgid "Table title"
 msgstr "Table title"
 
