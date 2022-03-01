@@ -366,16 +366,6 @@ const ConditionsManager = ({
     const renderConditions = () => (
         <>
             <div>
-                <small>
-                    <p>
-                        valueType: <b>{valueType}</b>, dimensionType:
-                        <b> {dimension.dimensionType}</b>, id:
-                        <b> {dimension.id}</b>
-                    </p>
-                    {
-                        // FIXME: For testing only
-                    }
-                </small>
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(
