@@ -64,6 +64,7 @@ export const toolbarClasses = css`
     .mainActions {
         display: flex;
         gap: ${spacers.dp8};
+        margin-top: ${spacers.dp2};
     }
 
     .sideActions {
