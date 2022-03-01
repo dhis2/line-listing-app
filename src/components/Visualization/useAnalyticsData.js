@@ -57,6 +57,8 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
 
 const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 
+const getAnalyticsEndpoint = (outputType) => analyticsApiEndpointMap[outputType]
+
 const getAdaptedVisualization = (visualization) => {
     const parameters = {}
 
@@ -70,9 +72,11 @@ const getAdaptedVisualization = (visualization) => {
                 dimensionId === DIMENSION_ID_EVENT_STATUS ||
                 dimensionId === DIMENSION_ID_PROGRAM_STATUS
             ) {
-                parameters[dimensionId] = dimensionObj.items?.map(
-                    (item) => item.id
-                )
+                if (dimensionObj.items?.length) {
+                    parameters[dimensionId] = dimensionObj.items?.map(
+                        (item) => item.id
+                    )
+                }
             } else if (!excludedDimensions.includes(dimensionId)) {
                 adaptedDimensions.push(dimensionObj)
             }
@@ -154,8 +158,7 @@ const fetchAnalyticsData = async ({
         }
     }
 
-    const analyticsApiEndpoint =
-        analyticsApiEndpointMap[visualization.outputType]
+    const analyticsApiEndpoint = getAnalyticsEndpoint(visualization.outputType)
 
     // for 2.38 only /query is used (since only Line List is enabled)
     const rawResponse = await analyticsEngine[analyticsApiEndpoint].getQuery(
@@ -303,4 +306,4 @@ const useAnalyticsData = ({
     }
 }
 
-export { useAnalyticsData }
+export { useAnalyticsData, getAnalyticsEndpoint, getAdaptedVisualization }

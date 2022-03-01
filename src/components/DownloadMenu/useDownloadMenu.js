@@ -4,6 +4,10 @@ import { useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
+    getAnalyticsEndpoint,
+    getAdaptedVisualization,
+} from '../Visualization/useAnalyticsData.js'
+import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_NAME,
     DOWNLOAD_TYPE_TABLE,
@@ -28,13 +32,16 @@ const useDownloadMenu = (relativePeriodDate) => {
             let req = new analyticsEngine.request()
             let target = '_top'
 
+            const { adaptedVisualization, parameters } =
+                getAdaptedVisualization(current)
+            const path = `${getAnalyticsEndpoint(current.outputType)}/query`
+
             switch (type) {
                 case DOWNLOAD_TYPE_TABLE:
                     req = req
-                        .fromVisualization(current)
+                        .fromVisualization(adaptedVisualization)
                         .withProgram(current.program.id)
-                        .withStage(current.programStage.id) // XXX might not always be present?
-                        .withPath('events/query') // TODO depends on event/enrollment
+                        .withPath(path)
                         .withFormat(format)
                         .withTableLayout()
                         .withColumns(
@@ -50,6 +57,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                                 .join(';')
                         )
                         .withParameters({
+                            ...parameters,
                             dataIdScheme: ID_SCHEME_NAME,
                             paging: false,
                         }) // only for LL
@@ -69,12 +77,12 @@ const useDownloadMenu = (relativePeriodDate) => {
                 case DOWNLOAD_TYPE_PLAIN:
                     req = req
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
-                        .fromVisualization(current, true)
+                        .fromVisualization(adaptedVisualization, true)
                         .withProgram(current.program.id)
-                        .withStage(current.programStage.id) // XXX might not always be present?
-                        .withPath('events/query') // TODO depends on event/enrollment
+                        .withPath(path)
                         .withFormat(format)
                         .withOutputIdScheme(idScheme)
+                        .withParameters(parameters)
 
                     // TODO options
                     // startDate
