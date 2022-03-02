@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-02-28T14:28:34.391Z\n"
-"PO-Revision-Date: 2022-02-28T14:28:34.391Z\n"
+"POT-Creation-Date: 2022-03-01T10:28:21.131Z\n"
+"PO-Revision-Date: 2022-03-01T10:28:21.131Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -660,9 +660,6 @@ msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
-
-msgid "This month"
-msgstr "This month"
 
 msgid "Table title"
 msgstr "Table title"

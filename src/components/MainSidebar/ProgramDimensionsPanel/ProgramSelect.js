@@ -60,9 +60,7 @@ const ProgramSelect = ({
                 )}
             </div>
             {showStageSelect && (
-                <div className={styles.indented}>
-                    <StageSelect stages={selectedProgram.programStages} />
-                </div>
+                <StageSelect stages={selectedProgram.programStages} />
             )}
         </div>
     )

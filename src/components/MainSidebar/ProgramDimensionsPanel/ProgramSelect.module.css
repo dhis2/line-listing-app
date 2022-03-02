@@ -11,6 +11,3 @@
 .stretch {
     flex-grow: 1;
 }
-.indented {
-    padding-left: var(--spacers-dp16);
-}
