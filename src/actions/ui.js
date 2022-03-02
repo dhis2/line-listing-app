@@ -2,6 +2,7 @@ import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_IDS_TIME,
     DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
     getDefaulTimeDimensionsMetadata,
@@ -10,7 +11,10 @@ import {
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+} from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
 import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
@@ -86,7 +90,10 @@ const tClearUiProgramRelatedDimensions =
                 const dimension = metadata[dimensionId]
 
                 return (
-                    dimension.id === DIMENSION_ID_EVENT_STATUS ||
+                    (inputType === OUTPUT_TYPE_EVENT &&
+                        dimension.id === DIMENSION_ID_PROGRAM_STATUS) ||
+                    (inputType === OUTPUT_TYPE_ENROLLMENT &&
+                        dimension.id === DIMENSION_ID_EVENT_STATUS) ||
                     DIMENSION_TYPES_PROGRAM.has(dimension.dimensionType) ||
                     (DIMENSION_IDS_TIME.has(dimension.id) &&
                         !enabledTimeDimensionsIds.has(dimension.id))
