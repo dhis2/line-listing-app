@@ -17,32 +17,11 @@ import {
     apiFetchLegendSetById,
     apiFetchLegendSetsByDimension,
 } from '../../../api/legendSets.js'
-import {
-    OPERATOR_EQUAL,
-    OPERATOR_GREATER,
-    OPERATOR_GREATER_OR_EQUAL,
-    OPERATOR_LESS,
-    OPERATOR_LESS_OR_EQUAL,
-    OPERATOR_NOT_EQUAL,
-    OPERATOR_EMPTY,
-    OPERATOR_NOT_EMPTY,
-    OPERATOR_IN,
-} from '../../../modules/conditions.js'
+import { NUMERIC_OPERATORS, OPERATOR_IN } from '../../../modules/conditions.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import classes from './styles/Condition.module.css'
 
 const NULL_VALUE = 'NV'
-
-const operators = {
-    [OPERATOR_EQUAL]: i18n.t('equal to (=)'),
-    [OPERATOR_GREATER]: i18n.t('greater than (>)'),
-    [OPERATOR_GREATER_OR_EQUAL]: i18n.t('greater than or equal to (≥)'),
-    [OPERATOR_LESS]: i18n.t('less than (<)'),
-    [OPERATOR_LESS_OR_EQUAL]: i18n.t('less than or equal to (≤)'),
-    [OPERATOR_NOT_EQUAL]: i18n.t('not equal to (≠)'),
-    [OPERATOR_EMPTY]: i18n.t('is empty / null'),
-    [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
-}
 
 const NumericCondition = ({
     condition,
@@ -143,12 +122,8 @@ const NumericCondition = ({
                 onChange={({ selected }) => onOperatorChange(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.keys(operators).map((key) => (
-                    <SingleSelectOption
-                        key={key}
-                        value={key}
-                        label={operators[key]}
-                    />
+                {Object.entries(NUMERIC_OPERATORS).map(([key, value]) => (
+                    <SingleSelectOption key={key} value={key} label={value} />
                 ))}
                 <MenuDivider dense />
                 <SingleSelectOption

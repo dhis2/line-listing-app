@@ -14,9 +14,10 @@ describe('TooltipContent', () => {
 
     beforeEach(() => {
         props = {
-            dimensionId: 'abc',
+            dimension: { id: 'abc' },
             metadata: {},
             itemIds: [],
+            conditions: {},
         }
         shallowTooltip = undefined
     })
@@ -35,6 +36,7 @@ describe('TooltipContent', () => {
 
     describe('items are provided', () => {
         it('renders list items for the provided items', () => {
+            props.dimension.dimensionType = 'ORGANISATION_UNIT'
             props.itemIds = ['aaa', 'bbb']
 
             const items = tooltip().find('li')
@@ -45,6 +47,7 @@ describe('TooltipContent', () => {
 
         describe('metadata is provided', () => {
             it('renders list items for the provided items', () => {
+                props.dimension.dimensionType = 'ORGANISATION_UNIT'
                 props.itemIds = ['aaa', 'bbb']
                 props.metadata = {
                     aaa: { name: 'The aaa dimension' },

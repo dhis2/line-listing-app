@@ -1,12 +1,14 @@
-import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { OPERATOR_IN, NULL_VALUE } from '../../../modules/conditions.js'
+import {
+    OPERATOR_IN,
+    NULL_VALUE,
+    TRUE_VALUE,
+    FALSE_VALUE,
+    BOOLEAN_VALUES,
+} from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
-
-const TRUE_VALUE = '1'
-const FALSE_VALUE = '0'
 
 const BaseCondition = ({ condition, onChange, showFalseOption }) => {
     const parts = condition.split(':')
@@ -29,7 +31,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
         <div className={classes.container}>
             <Checkbox
                 checked={values.includes(TRUE_VALUE)}
-                label={i18n.t('Yes')}
+                label={BOOLEAN_VALUES[TRUE_VALUE]}
                 onChange={({ checked }) =>
                     onCheckboxChange(TRUE_VALUE, checked)
                 }
@@ -39,7 +41,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
             {showFalseOption && (
                 <Checkbox
                     checked={values.includes(FALSE_VALUE)}
-                    label={i18n.t('No')}
+                    label={BOOLEAN_VALUES[FALSE_VALUE]}
                     onChange={({ checked }) =>
                         onCheckboxChange(FALSE_VALUE, checked)
                     }
@@ -49,7 +51,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
             )}
             <Checkbox
                 checked={values.includes(NULL_VALUE)}
-                label={i18n.t('Not answered')}
+                label={BOOLEAN_VALUES[NULL_VALUE]}
                 onChange={({ checked }) =>
                     onCheckboxChange(NULL_VALUE, checked)
                 }

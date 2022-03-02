@@ -5,29 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-01T10:28:21.131Z\n"
-"PO-Revision-Date: 2022-03-01T10:28:21.131Z\n"
+"POT-Creation-Date: 2022-03-02T07:39:09.900Z\n"
+"PO-Revision-Date: 2022-03-02T07:39:09.900Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
-
-msgid "exactly"
-msgstr "exactly"
-
-msgid "is not"
-msgstr "is not"
-
-msgid "contains"
-msgstr "contains"
-
-msgid "does not contain"
-msgstr "does not contain"
-
-msgid "is empty / null"
-msgstr "is empty / null"
-
-msgid "is not empty / not null"
-msgstr "is not empty / not null"
 
 msgid "Choose a condition type"
 msgstr "Choose a condition type"
@@ -37,15 +19,6 @@ msgstr "Case sensitive"
 
 msgid "Remove"
 msgstr "Remove"
-
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
-
-msgid "Not answered"
-msgstr "Not answered"
 
 msgid "and"
 msgstr "and"
@@ -77,36 +50,6 @@ msgstr "Conditions"
 
 msgid "Only available for repeatable stages"
 msgstr "Only available for repeatable stages"
-
-msgid "after"
-msgstr "after"
-
-msgid "after and including"
-msgstr "after and including"
-
-msgid "before"
-msgstr "before"
-
-msgid "before or including"
-msgstr "before or including"
-
-msgid "equal to (=)"
-msgstr "equal to (=)"
-
-msgid "greater than (>)"
-msgstr "greater than (>)"
-
-msgid "greater than or equal to (≥)"
-msgstr "greater than or equal to (≥)"
-
-msgid "less than (<)"
-msgstr "less than (<)"
-
-msgid "less than or equal to (≤)"
-msgstr "less than or equal to (≤)"
-
-msgid "not equal to (≠)"
-msgstr "not equal to (≠)"
 
 msgid "is one of preset options"
 msgstr "is one of preset options"
@@ -292,29 +235,33 @@ msgstr "Searching for \"{{searchText}}\""
 msgid "No results found"
 msgstr "No results found"
 
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] "{{count}} condition"
+msgstr[1] "{{count}} conditions"
+
 msgid "None selected"
 msgstr "None selected"
 
-msgid "Only '{{- name}}' in use"
-msgstr "Only '{{- name}}' in use"
-
-msgid "Only '{{number}}' in use"
-msgstr "Only '{{number}}' in use"
-
-msgid "All items are selected"
-msgstr "All items are selected"
-
-msgid "Levels"
-msgstr "Levels"
-
-msgid "Groups"
-msgstr "Groups"
+msgid "Showing all values for this dimension"
+msgstr "Showing all values for this dimension"
 
 msgid "And 1 other..."
 msgstr "And 1 other..."
 
 msgid "And {{numberOfItems}} others..."
 msgstr "And {{numberOfItems}} others..."
+
+msgid "Levels"
+msgstr "Levels"
+
+msgid "Groups"
+msgstr "Groups"
 
 msgid "No dimensions found for '{{searchTerm}}'"
 msgstr "No dimensions found for '{{searchTerm}}'"
@@ -464,6 +411,11 @@ msgstr "oldest"
 msgid "Cases per page"
 msgstr "Cases per page"
 
+msgid "{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases"
+msgid_plural "{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases"
+msgstr[0] "{{firstCaseIndex}} of {{count}} case"
+msgstr[1] "{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases"
+
 msgid "Column sub-totals"
 msgstr "Column sub-totals"
 
@@ -583,6 +535,63 @@ msgstr "Rows"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "equal to (=)"
+msgstr "equal to (=)"
+
+msgid "greater than (>)"
+msgstr "greater than (>)"
+
+msgid "greater than or equal to (≥)"
+msgstr "greater than or equal to (≥)"
+
+msgid "less than (<)"
+msgstr "less than (<)"
+
+msgid "less than or equal to (≤)"
+msgstr "less than or equal to (≤)"
+
+msgid "not equal to (≠)"
+msgstr "not equal to (≠)"
+
+msgid "is empty / null"
+msgstr "is empty / null"
+
+msgid "is not empty / not null"
+msgstr "is not empty / not null"
+
+msgid "exactly"
+msgstr "exactly"
+
+msgid "is not"
+msgstr "is not"
+
+msgid "contains"
+msgstr "contains"
+
+msgid "does not contain"
+msgstr "does not contain"
+
+msgid "after"
+msgstr "after"
+
+msgid "after and including"
+msgstr "after and including"
+
+msgid "before"
+msgstr "before"
+
+msgid "before or including"
+msgstr "before or including"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Not answered"
+msgstr "Not answered"
 
 msgid "There is a problem with this visualization."
 msgstr "There is a problem with this visualization."

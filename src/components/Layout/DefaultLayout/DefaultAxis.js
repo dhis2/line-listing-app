@@ -7,14 +7,8 @@ import { connect, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
-import { parseConditionsStringToArray } from '../../../modules/conditions.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
-import {
-    sGetUiDraggingId,
-    sGetUiItemsByDimension,
-    sGetUiLayout,
-    sGetUiConditionsByDimension,
-} from '../../../reducers/ui.js'
+import { sGetUiDraggingId, sGetUiLayout } from '../../../reducers/ui.js'
 import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
 import { LAST, getDropzoneId } from '../../DndContext.js'
 import Chip from '../Chip.js'
@@ -24,8 +18,6 @@ import styles from './styles/DefaultAxis.module.css'
 const DefaultAxis = ({
     axis,
     axisId,
-    getConditionsByDimension,
-    getItemsByDimension,
     getOpenHandler,
     className,
     renderChips,
@@ -41,42 +33,19 @@ const DefaultAxis = ({
     // is a temporary workaround
     // until the backend is updated to return programStageId.dimensionId
     // in analytics response.metadata.items
-    const getDimensionName = (id) => {
-        let name
+    const getDimension = (id) => {
+        let dimension
         if (metadata[id]?.name) {
-            name = metadata[id].name || ''
+            dimension = metadata[id]
         } else {
             const [rawDimensionId] = id.split('.').reverse()
-            name = metadata[rawDimensionId]?.name || ''
+            dimension = metadata[rawDimensionId]
         }
 
-        return name
-    }
-
-    const getDimensionType = (id) => {
-        let dimensionType
-        if (metadata[id]?.dimensionType) {
-            dimensionType = metadata[id].dimensionType || null
-        } else {
-            const [rawDimensionId] = id.split('.').reverse()
-            dimensionType = metadata[rawDimensionId]?.dimensionType || null
-        }
-
-        return dimensionType
+        return dimension || {}
     }
 
     const activeIndex = draggingId ? axis.indexOf(draggingId) : -1
-
-    const getNumberOfConditions = (dimensionId) => {
-        const conditions = getConditionsByDimension(dimensionId)
-        const numberOfConditions =
-            parseConditionsStringToArray(conditions.condition).length ||
-            conditions.legendSet
-                ? 1
-                : 0
-
-        return numberOfConditions
-    }
 
     const overLastDropZone = over?.id === lastDropZoneId
 
@@ -100,14 +69,8 @@ const DefaultAxis = ({
                                 <Chip
                                     key={`${axisId}-${id}`}
                                     onClick={getOpenHandler(id)}
+                                    dimension={getDimension(id)}
                                     axisId={axisId}
-                                    dimensionId={id}
-                                    dimensionName={getDimensionName(id)}
-                                    dimensionType={getDimensionType(id)}
-                                    items={getItemsByDimension(id)}
-                                    numberOfConditions={getNumberOfConditions(
-                                        id
-                                    )}
                                     isLast={i === axis.length - 1}
                                     overLastDropZone={overLastDropZone}
                                     contextMenu={
@@ -130,8 +93,6 @@ DefaultAxis.propTypes = {
     axis: PropTypes.array,
     axisId: PropTypes.string,
     className: PropTypes.string,
-    getConditionsByDimension: PropTypes.func,
-    getItemsByDimension: PropTypes.func,
     getOpenHandler: PropTypes.func,
     renderChips: PropTypes.bool,
 }
@@ -151,10 +112,6 @@ export const renderChipsSelector = createSelector(
 
 const mapStateToProps = (state) => ({
     layout: sGetUiLayout(state),
-    getConditionsByDimension: (dimensionId) =>
-        sGetUiConditionsByDimension(state, dimensionId) || {},
-    getItemsByDimension: (dimensionId) =>
-        sGetUiItemsByDimension(state, dimensionId) || [],
     renderChips: renderChipsSelector(state),
 })
 

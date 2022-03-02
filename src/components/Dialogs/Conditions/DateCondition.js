@@ -2,33 +2,12 @@ import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption, Button, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-    NULL_VALUE,
-    OPERATOR_EQUAL,
-    OPERATOR_NOT_EQUAL,
-    OPERATOR_GREATER,
-    OPERATOR_GREATER_OR_EQUAL,
-    OPERATOR_LESS,
-    OPERATOR_LESS_OR_EQUAL,
-    OPERATOR_EMPTY,
-    OPERATOR_NOT_EMPTY,
-} from '../../../modules/conditions.js'
+import { NULL_VALUE, DATE_OPERATORS } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
 const TYPE_DATE = 'date'
 const TYPE_DATETIME = 'datetime-local'
 const TYPE_TIME = 'time'
-
-const operators = {
-    [OPERATOR_EQUAL]: i18n.t('exactly'),
-    [OPERATOR_NOT_EQUAL]: i18n.t('is not'),
-    [OPERATOR_GREATER]: i18n.t('after'),
-    [OPERATOR_GREATER_OR_EQUAL]: i18n.t('after and including'),
-    [OPERATOR_LESS]: i18n.t('before'),
-    [OPERATOR_LESS_OR_EQUAL]: i18n.t('before or including'),
-    [OPERATOR_EMPTY]: i18n.t('is empty / null'),
-    [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
-}
 
 const API_TIME_DIVIDER = '.' // TODO: Currently just picked a random character, use the correct character preferred by backend
 const UI_TIME_DIVIDER = ':'
@@ -69,12 +48,8 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                 onChange={({ selected }) => setOperator(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.keys(operators).map((key) => (
-                    <SingleSelectOption
-                        key={key}
-                        value={key}
-                        label={operators[key]}
-                    />
+                {Object.entries(DATE_OPERATORS).map(([key, value]) => (
+                    <SingleSelectOption key={key} value={key} label={value} />
                 ))}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
