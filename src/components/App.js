@@ -153,6 +153,7 @@ const App = ({
     }
 
     const loadVisualization = async (location) => {
+        setFetchError(undefined)
         setVisualizationLoading(true)
         const isExisting = location.pathname.length > 1
         if (isExisting) {
