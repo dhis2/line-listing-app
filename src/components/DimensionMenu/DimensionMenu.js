@@ -21,7 +21,6 @@ const getAxisIdForDimension = (dimensionId, layout) => {
 }
 
 const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
-    console.log('DimMenu', dimensionId, dimensionMetadata)
     const dispatch = useDispatch()
     const visType = useSelector(sGetUiType)
     const layout = useSelector(sGetUiLayout)
