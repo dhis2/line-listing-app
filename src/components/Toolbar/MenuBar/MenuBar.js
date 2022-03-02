@@ -223,7 +223,7 @@ const MenuBar = ({
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
-                onSave={onSave}
+                onSave={current?.legacy ? undefined : onSave}
                 onSaveAs={(details) => onSave(details, true)}
                 onDelete={onDelete}
                 onError={onError}
