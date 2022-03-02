@@ -9,8 +9,11 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_USER,
 } from './dimensionConstants.js'
-import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
+import {
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+    PROGRAM_TYPE_WITH_REGISTRATION,
+} from './programTypes.js'
+import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
 
 export const getMainDimensions = () => ({
     [DIMENSION_ID_ORGUNIT]: {
@@ -18,15 +21,15 @@ export const getMainDimensions = () => ({
         dimensionType: DIMENSION_TYPE_OU,
         name: i18n.t('Organisation unit'),
     },
-    [DIMENSION_ID_PROGRAM_STATUS]: {
-        id: DIMENSION_ID_PROGRAM_STATUS,
-        dimensionType: DIMENSION_TYPE_STATUS,
-        name: i18n.t('Program status'),
-    },
     [DIMENSION_ID_EVENT_STATUS]: {
         id: DIMENSION_ID_EVENT_STATUS,
         dimensionType: DIMENSION_TYPE_STATUS,
         name: i18n.t('Event status'),
+    },
+    [DIMENSION_ID_PROGRAM_STATUS]: {
+        id: DIMENSION_ID_PROGRAM_STATUS,
+        dimensionType: DIMENSION_TYPE_STATUS,
+        name: i18n.t('Program status'),
     },
     [DIMENSION_ID_CREATED_BY]: {
         id: DIMENSION_ID_CREATED_BY,
@@ -45,11 +48,19 @@ export const getIsMainDimensionDisabled = ({
     inputType,
     programType,
 }) => {
-    if (dimensionId === DIMENSION_ID_PROGRAM_STATUS) {
+    if (
+        inputType === OUTPUT_TYPE_EVENT &&
+        dimensionId === DIMENSION_ID_PROGRAM_STATUS
+    ) {
         return !programType || programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
-    } else if (dimensionId === DIMENSION_ID_EVENT_STATUS) {
-        return !programType || inputType === OUTPUT_TYPE_ENROLLMENT
-    } else {
-        return false
     }
+
+    if (
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
+        dimensionId === DIMENSION_ID_EVENT_STATUS
+    ) {
+        return !programType || programType === PROGRAM_TYPE_WITH_REGISTRATION
+    }
+
+    return false
 }

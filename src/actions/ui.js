@@ -1,7 +1,10 @@
 import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_IDS_TIME,
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
+import { getIsMainDimensionDisabled } from '../modules/mainDimensions.js'
 import {
     getDefaulTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
@@ -83,14 +86,29 @@ const tClearUiProgramRelatedDimensions =
             .concat(ui.layout.filters)
             .filter((dimensionId) => {
                 const dimension = metadata[dimensionId]
+                const isProgramDimension = DIMENSION_TYPES_PROGRAM.has(
+                    dimension.dimensionType
+                )
+                const isDisabledMainDimension =
+                    (dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
+                        dimensionId === DIMENSION_ID_EVENT_STATUS) &&
+                    getIsMainDimensionDisabled({
+                        dimensionId,
+                        inputType,
+                        programType: program?.programType,
+                    })
+                const isDisabledTimeDimension =
+                    DIMENSION_IDS_TIME.has(dimension.id) &&
+                    !enabledTimeDimensionsIds.has(dimension.id)
 
                 return (
-                    DIMENSION_TYPES_PROGRAM.has(dimension.dimensionType) ||
-                    (DIMENSION_IDS_TIME.has(dimension.id) &&
-                        !enabledTimeDimensionsIds.has(dimension.id))
+                    isProgramDimension ||
+                    isDisabledMainDimension ||
+                    isDisabledTimeDimension
                 )
             })
-        dispatch(acRemoveUiLayoutDimensions(idsToRemove))
+
+        dispatch(acRemoveUiLayoutDimensions(idsToRemove), idsToRemove)
         dispatch(acRemoveUiItems(idsToRemove))
     }
 
@@ -113,7 +131,7 @@ export const tClearUiProgramStageDimensions =
 
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
-    dispatch(tClearUiProgramRelatedDimensions(value))
+    dispatch(tClearUiProgramRelatedDimensions(value.type))
     dispatch(acSetUiInput(value, getDefaulTimeDimensionsMetadata()))
 }
 
