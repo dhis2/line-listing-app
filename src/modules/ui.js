@@ -79,7 +79,9 @@ const getConditionsFromVisualization = (vis) =>
         .reduce(
             (acc, key) => ({
                 ...acc,
-                [key.dimension]: {
+                [key.programStage?.id
+                    ? `${key.programStage.id}.${key.dimension}`
+                    : key.dimension]: {
                     condition: key.filter,
                     legendSet: key.legendSet?.id,
                 },
