@@ -67,7 +67,9 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { availableOuterWidth, availableInnerWidth } = useAvailableWidth()
+    const isInModal = !!relativePeriodDate
+    const { availableOuterWidth, availableInnerWidth } =
+        useAvailableWidth(isInModal)
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
     const defaultSortDirection = 'asc'
 

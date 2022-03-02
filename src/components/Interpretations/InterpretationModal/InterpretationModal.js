@@ -18,6 +18,7 @@ import React, { useEffect, useState } from 'react'
 import css from 'styled-jsx/css'
 import { Visualization } from '../../Visualization/Visualization.js'
 import { InterpretationThread } from './InterpretationThread.js'
+import { useModalContentWidth } from './useModalContentWidth.js'
 
 const modalCSS = css.resolve`
     aside {
@@ -32,6 +33,14 @@ const modalCSS = css.resolve`
         display: none;
     }
 `
+
+function getModalContentCSS(width) {
+    return css.resolve`
+        div {
+            width: ${width}px;
+        }
+    `
+}
 
 const query = {
     interpretation: {
@@ -63,6 +72,8 @@ const InterpretationModal = ({
     interpretationId,
     initialFocus,
 }) => {
+    const modalContentWidth = useModalContentWidth()
+    const modalContentCSS = getModalContentCSS(modalContentWidth)
     const [isDirty, setIsDirty] = useState(false)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
@@ -121,7 +132,7 @@ const InterpretationModal = ({
                         )}
                     </span>
                 </h1>
-                <ModalContent className="modalContent">
+                <ModalContent className={modalContentCSS.className}>
                     <div className="container">
                         {error && (
                             <NoticeBox
@@ -170,19 +181,19 @@ const InterpretationModal = ({
                     </Button>
                 </ModalActions>
                 {modalCSS.styles}
+                {modalContentCSS.styles}
                 <style jsx>{`
                     .title {
                         color: ${colors.grey900};
-                        font-size: 20px;
-                        font-weight: 500;
-                        line-height: 24px;
                         margin: 0px;
-                        padding: ${spacers.dp24} ${spacers.dp24} 0;
+                        padding: ${spacers.dp24} ${spacers.dp24} ${spacers.dp4};
                     }
 
                     .ellipsis {
                         display: inline-block;
-                        line-height: 20px;
+                        font-size: 20px;
+                        font-weight: 500;
+                        line-height: 24px;
                         white-space: nowrap;
                         width: 100%;
                         overflow: hidden;

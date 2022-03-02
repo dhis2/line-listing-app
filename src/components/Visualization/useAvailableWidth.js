@@ -6,10 +6,15 @@ import {
     sGetUiShowAccessoryPanel,
 } from '../../reducers/ui.js'
 
-const LEFT_SIDEBARS_WIDTH = 260
-const RIGHT_SIDEBAR_WIDTH = 380
-const PADDING = 2 * 4
-const BORDER = 2 * 1
+const PAGE_LEFT_SIDEBARS_WIDTH = 260
+const PAGE_RIGHT_SIDEBAR_WIDTH = 380
+const PAGE_PADDING = 2 * 4
+const PAGE_BORDER = 2 * 1
+
+const MODAL_SIDEBAR_WIDTH = 300
+const MODAL_GAP = 16
+const MODAL_SIDE_PADDING = 2 * 24
+const MODAL_SIDE_MARGINS = 2 * 128
 
 const className = '__scrollbar-width-test__'
 const styles = `
@@ -40,28 +45,50 @@ const scrollbarWidth = (() => {
     return width
 })()
 
-const computeAvailableOuterWidth = (windowWidth, leftOpen, rightOpen) => {
+const computeOuterWidthInModal = ({ windowWidth }) =>
+    windowWidth -
+    MODAL_SIDEBAR_WIDTH -
+    MODAL_GAP -
+    MODAL_SIDE_PADDING -
+    MODAL_SIDE_MARGINS
+
+const computeOuterWidthInPage = ({ windowWidth, leftOpen, rightOpen }) => {
     let availableOuterWidth =
-        windowWidth - LEFT_SIDEBARS_WIDTH - PADDING - BORDER
+        windowWidth - PAGE_LEFT_SIDEBARS_WIDTH - PAGE_PADDING - PAGE_BORDER
 
     if (leftOpen) {
-        availableOuterWidth -= LEFT_SIDEBARS_WIDTH
+        availableOuterWidth -= PAGE_LEFT_SIDEBARS_WIDTH
     }
 
     if (rightOpen) {
-        availableOuterWidth -= RIGHT_SIDEBAR_WIDTH
+        availableOuterWidth -= PAGE_RIGHT_SIDEBAR_WIDTH
     }
 
     return availableOuterWidth
 }
 
-export const useAvailableWidth = () => {
+const computeAvailableOuterWidth = ({
+    isInModal,
+    windowWidth,
+    leftOpen,
+    rightOpen,
+}) =>
+    isInModal
+        ? computeOuterWidthInModal({ windowWidth })
+        : computeOuterWidthInPage({ windowWidth, leftOpen, rightOpen })
+
+export const useAvailableWidth = (isInModal) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const debouncedWindowWidth = useDebounce(windowWidth, 150)
     const leftOpen = useSelector(sGetUiShowAccessoryPanel)
     const rightOpen = useSelector(sGetUiShowDetailsPanel)
     const [availableOuterWidth, setAvailableOuterWidth] = useState(
-        computeAvailableOuterWidth(windowWidth, leftOpen, rightOpen)
+        computeAvailableOuterWidth({
+            isInModal,
+            windowWidth,
+            leftOpen,
+            rightOpen,
+        })
     )
 
     useEffect(() => {
@@ -77,16 +104,17 @@ export const useAvailableWidth = () => {
 
     useEffect(() => {
         setAvailableOuterWidth(
-            computeAvailableOuterWidth(
-                debouncedWindowWidth,
+            computeAvailableOuterWidth({
+                isInModal,
+                windowWidth: debouncedWindowWidth,
                 leftOpen,
-                rightOpen
-            )
+                rightOpen,
+            })
         )
-    }, [leftOpen, rightOpen, debouncedWindowWidth])
+    }, [isInModal, leftOpen, rightOpen, debouncedWindowWidth])
 
     return {
         availableOuterWidth,
-        availableInnerWidth: availableOuterWidth - scrollbarWidth - BORDER,
+        availableInnerWidth: availableOuterWidth - scrollbarWidth - PAGE_BORDER,
     }
 }

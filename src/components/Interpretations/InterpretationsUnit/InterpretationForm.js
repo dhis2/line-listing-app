@@ -9,7 +9,13 @@ import {
     MessageButtonStrip,
 } from '../common/index.js'
 
-export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
+export const InterpretationForm = ({
+    type,
+    id,
+    currentUser,
+    disabled,
+    onSave,
+}) => {
     const [showRichTextEditor, setShowRichTextEditor] = useState(false)
     const [interpretationText, setInterpretationText] = useState('')
 
@@ -69,6 +75,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
                 <Input
                     onFocus={() => setShowRichTextEditor(true)}
                     placeholder={inputPlaceholder}
+                    disabled={disabled}
                 />
             )}
         </MessageEditorContainer>
@@ -77,6 +84,7 @@ export const InterpretationForm = ({ type, id, currentUser, onSave }) => {
 
 InterpretationForm.propTypes = {
     currentUser: PropTypes.object,
+    disabled: PropTypes.bool,
     id: PropTypes.string,
     type: PropTypes.string,
     onSave: PropTypes.func,

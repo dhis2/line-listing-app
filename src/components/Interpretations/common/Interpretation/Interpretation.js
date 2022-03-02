@@ -13,6 +13,7 @@ export const Interpretation = ({
     onClick,
     onUpdated,
     onDeleted,
+    disabled,
     onReplyIconClick,
 }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
@@ -21,6 +22,7 @@ export const Interpretation = ({
         currentUser,
         onComplete: onUpdated,
     })
+    const shouldShowButton = !!onClick && !disabled
 
     return isUpdateMode ? (
         <InterpretationUpdateForm
@@ -36,40 +38,44 @@ export const Interpretation = ({
             created={interpretation.created}
             id={interpretation.id}
             username={interpretation.user.displayName}
-            onClick={onClick}
+            onClick={disabled ? undefined : onClick}
         >
-            <MessageStatsBar>
-                <MessageIconButton
-                    tooltipContent={
-                        isLikedByCurrentUser ? i18n.t('Unlike') : i18n.t('Like')
-                    }
-                    iconComponent={IconThumbUp16}
-                    onClick={toggleLike}
-                    selected={isLikedByCurrentUser}
-                    count={interpretation.likes}
-                    disabled={toggleLikeInProgress}
-                />
-                <MessageIconButton
-                    tooltipContent={i18n.t('Reply')}
-                    iconComponent={IconReply16}
-                    onClick={() => onReplyIconClick(interpretation.id)}
-                    count={interpretation.comments.length}
-                />
-                {interpretation.access.update && (
+            {!disabled && (
+                <MessageStatsBar>
                     <MessageIconButton
-                        iconComponent={IconEdit16}
-                        tooltipContent={i18n.t('Edit')}
-                        onClick={() => setIsUpdateMode(true)}
+                        tooltipContent={
+                            isLikedByCurrentUser
+                                ? i18n.t('Unlike')
+                                : i18n.t('Like')
+                        }
+                        iconComponent={IconThumbUp16}
+                        onClick={toggleLike}
+                        selected={isLikedByCurrentUser}
+                        count={interpretation.likes}
+                        disabled={toggleLikeInProgress}
                     />
-                )}
-                {interpretation.access.delete && (
-                    <InterpretationDeleteButton
-                        id={interpretation.id}
-                        onComplete={onDeleted}
+                    <MessageIconButton
+                        tooltipContent={i18n.t('Reply')}
+                        iconComponent={IconReply16}
+                        onClick={() => onReplyIconClick(interpretation.id)}
+                        count={interpretation.comments.length}
                     />
-                )}
-            </MessageStatsBar>
-            {!!onClick && (
+                    {interpretation.access.update && (
+                        <MessageIconButton
+                            iconComponent={IconEdit16}
+                            tooltipContent={i18n.t('Edit')}
+                            onClick={() => setIsUpdateMode(true)}
+                        />
+                    )}
+                    {interpretation.access.delete && (
+                        <InterpretationDeleteButton
+                            id={interpretation.id}
+                            onComplete={onDeleted}
+                        />
+                    )}
+                </MessageStatsBar>
+            )}
+            {shouldShowButton && (
                 <Button
                     secondary
                     small
@@ -91,5 +97,6 @@ Interpretation.propTypes = {
     onDeleted: PropTypes.func.isRequired,
     onReplyIconClick: PropTypes.func.isRequired,
     onUpdated: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
 }
