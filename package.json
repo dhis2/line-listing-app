@@ -15,7 +15,7 @@
         "validate-push": "yarn test"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^8.3.2",
+        "@dhis2/cli-app-scripts": "^8.3.3",
         "@dhis2/cli-style": "^10.1.1",
         "@testing-library/jest-dom": "^5.16.2",
         "@testing-library/react": "^12.1.2",
