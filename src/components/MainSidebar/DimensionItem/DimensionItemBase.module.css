@@ -27,7 +27,6 @@
     background-color: var(--colors-teal100);
     color: var(--colors-teal900);
     fill: var(--colors-teal800);
-    font-weight: 500;
 }
 
 .dimensionItem.selected:not(.disabled):hover {
