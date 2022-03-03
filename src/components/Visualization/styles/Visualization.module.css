@@ -62,6 +62,9 @@
 }
 
 /* Table header cells in various sizes */
+.dataTable .headerCell {
+    cursor: pointer;
+}
 .dataTable .headerCell.fontSizeLarge {
     font-size: 15px;
     line-height: 16px;

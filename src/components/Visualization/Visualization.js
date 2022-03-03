@@ -16,6 +16,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
+import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -153,6 +154,13 @@ export const Visualization = ({
     }
 
     const formatCellHeader = (header) => {
+        let headerName = header.column
+        let dimensionId = header.name
+
+        const match = Object.entries(headersMap).find(
+            (entry) => entry[1] === header.name
+        )
+
         if (header.stageOffset !== undefined) {
             let postfix
 
@@ -166,18 +174,19 @@ export const Visualization = ({
                 postfix = `${i18n.t('most recent')} ${header.stageOffset}`
             }
 
-            return `${header.column} (${postfix})`
+            headerName = `${header.column} (${postfix})`
+        } else if (match) {
+            dimensionId = match[0]
+            headerName = metadata[dimensionId]?.name
         }
 
-        const match = Object.entries(headersMap).find(
-            (entry) => entry[1] === header.name
+        return (
+            <span
+                onClick={() => dispatch(acSetUiOpenDimensionModal(dimensionId))}
+            >
+                {headerName}
+            </span>
         )
-
-        if (match) {
-            return metadata[match[0]]?.name
-        }
-
-        return header.column
     }
 
     return (
