@@ -131,6 +131,7 @@ const fetchAnalyticsData = async ({
         .fromVisualization(adaptedVisualization)
         .withParameters({
             headers,
+            totalPages: false,
             ...parameters,
         })
         .withProgram(visualization.program.id)
@@ -238,11 +239,10 @@ const useAnalyticsData = ({
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
-            const pageCount = analyticsResponse.metaData.pager.pageCount
-            const total = analyticsResponse.metaData.pager.total
+            const pager = analyticsResponse.metaData.pager
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, pageCount, total })
+            mounted.current && setData({ headers, rows, ...pager })
             onResponseReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)

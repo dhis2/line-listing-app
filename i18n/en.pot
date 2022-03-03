@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-02T07:39:09.900Z\n"
-"PO-Revision-Date: 2022-03-02T07:39:09.900Z\n"
+"POT-Creation-Date: 2022-03-02T15:35:22.490Z\n"
+"PO-Revision-Date: 2022-03-02T15:35:22.490Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -649,11 +649,11 @@ msgstr "Something went wrong"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
-msgid "Program status"
-msgstr "Program status"
-
 msgid "Event status"
 msgstr "Event status"
+
+msgid "Program status"
+msgstr "Program status"
 
 msgid "Created by"
 msgstr "Created by"

@@ -279,32 +279,25 @@ export const Visualization = ({
                                 >
                                     <Pagination
                                         page={page}
-                                        pageCount={data.pageCount}
                                         pageSize={pageSize}
-                                        total={data.total}
+                                        isLastPage={data.isLastPage}
                                         onPageChange={setPage}
                                         onPageSizeChange={setPageSize}
                                         pageSizeSelectText={i18n.t(
-                                            'Cases per page'
+                                            'Rows per page'
                                         )}
+                                        pageLength={data.rows.length}
                                         pageSummaryText={({
                                             firstItem,
                                             lastItem,
-                                            total,
+                                            page,
                                         }) =>
                                             i18n.t(
-                                                '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                                'Page {{page}}, row {{firstItem}}-{{lastItem}}',
                                                 {
-                                                    firstCaseIndex: firstItem,
-                                                    lastCaseIndex: lastItem,
-                                                    count: total,
-                                                    // FIXME does it make sense if there is only 1 case?! "1 of 1 case"
-                                                    // not sure is possible to have empty string for singular with i18n
-                                                    // TODO also, this string for some reason is not extracted
-                                                    defaultValue:
-                                                        '{{firstCaseIndex}} of {{count}} case',
-                                                    defaultValue_plural:
-                                                        '{{firstCaseIndex}}-{{lastCaseIndex}} of {{count}} cases',
+                                                    firstItem,
+                                                    lastItem,
+                                                    page,
                                                 }
                                             )
                                         }
