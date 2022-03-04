@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/dhis2/line-listing-app/compare/v1.0.0...v1.0.1) (2022-03-04)
+
+
+### Bug Fixes
+
+* adjust css according to spec ([#9](https://github.com/dhis2/line-listing-app/issues/9)) ([22097d9](https://github.com/dhis2/line-listing-app/commit/22097d965b46f010e16cd40ab8a5308cbd9a6196))
+* format date values (TECH-1008) ([#12](https://github.com/dhis2/line-listing-app/issues/12)) ([dcaf06c](https://github.com/dhis2/line-listing-app/commit/dcaf06ca84a46000ac6137ee717b29c17d8b70fc))
+
 # 1.0.0 (2022-03-03)
 
 
