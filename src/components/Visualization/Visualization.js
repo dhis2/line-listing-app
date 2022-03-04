@@ -16,6 +16,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
+import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -147,6 +148,13 @@ export const Visualization = ({
     }
 
     const formatCellHeader = (header) => {
+        let headerName = header.column
+        let dimensionId = header.name
+
+        const reverseLookupDimensionId = Object.keys(headersMap).find(
+            (key) => headersMap[key] === header.name
+        )
+
         if (header.stageOffset !== undefined) {
             let postfix
 
@@ -155,23 +163,29 @@ export const Visualization = ({
             } else if (header.stageOffset === 1) {
                 postfix = i18n.t('oldest')
             } else if (header.stageOffset > 1) {
-                postfix = `${i18n.t('oldest')} +${header.stageOffset - 1}`
+                postfix = i18n.t('oldest {{repeatEventIndex}}', {
+                    repeatEventIndex: `+${header.stageOffset - 1}`,
+                })
             } else if (header.stageOffset < 0) {
-                postfix = `${i18n.t('most recent')} ${header.stageOffset}`
+                postfix = i18n.t('most recent {{repeatEventIndex}}', {
+                    repeatEventIndex: header.stageOffset,
+                })
             }
 
-            return `${header.column} (${postfix})`
+            headerName = `${header.column} (${postfix})`
+        } else if (reverseLookupDimensionId) {
+            dimensionId = reverseLookupDimensionId
+            headerName = metadata[dimensionId]?.name
         }
 
-        const match = Object.entries(headersMap).find(
-            (entry) => entry[1] === header.name
+        return (
+            <span
+                className={cx(styles.headerCell, styles.dimensionModalHandler)}
+                onClick={() => dispatch(acSetUiOpenDimensionModal(dimensionId))}
+            >
+                {headerName}
+            </span>
         )
-
-        if (match) {
-            return metadata[match[0]]?.name
-        }
-
-        return header.column
     }
 
     return (
