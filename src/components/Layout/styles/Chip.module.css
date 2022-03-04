@@ -14,22 +14,39 @@
     user-select: none;
     width: fit-content;
     align-items: center;
-    padding: 1px 2px 1px 6px;
+    padding: 0 2px 0 6px;
 }
 
 .chipBase {
-    font-size: 14px;
     font-weight: 400;
-    color: var(--colors-grey900);
     display: flex;
     overflow: hidden;
     max-width: 360px;
+    align-items: center;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--colors-grey900);
 }
 
 .label {
     white-space: nowrap;
+    display: flex;
+    align-items: center;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.secondary {
+    font-size: 13px;
+    line-height: 15px;
+    /* flex: 1; */
+    color: var(--colors-grey700);
+    padding-left: 6px;
+}
+
+.suffix {
+    white-space: nowrap;
+    flex: 1;
 }
 
 .dragging {
@@ -95,8 +112,7 @@
 
 .leftIcon {
     margin-right: 6px;
-    display: flex;
-    align-items: center;
+    line-height: 0;
 }
 
 /* dnd */
