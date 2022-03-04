@@ -74,9 +74,9 @@ const DimensionsList = ({
         <div
             className={styles.scrollbox}
             onScroll={(event) => {
-                console.log('scrolling', event.target)
                 return setIsListEndVisible(isEndReached(event.target))
             }}
+            onMouseDown={(event) => event.preventDefault()}
             ref={scrollBoxRef}
         >
             <div className={styles.list}>

@@ -259,10 +259,6 @@ const OuterDndContext = ({ children }) => {
         dispatch(acSetUiDraggingId(null))
     }
 
-    const onDragMove = (props) => {
-        console.log('onDragMove', props)
-    }
-
     const onDragEnd = (result) => {
         const { active, over } = result
 
@@ -293,13 +289,6 @@ const OuterDndContext = ({ children }) => {
             `${AXIS_ID_COLUMNS}-${LAST}`,
             `${AXIS_ID_FILTERS}-${LAST}`,
         ].includes(over.id)
-
-        console.log(
-            'sourceAxisId',
-            sourceAxisId,
-            destinationAxisId,
-            destinationIndex
-        )
 
         if (sourceAxisId === DIMENSION_PANEL_SOURCE) {
             if (isDroppingInFirstPosition) {
