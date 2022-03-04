@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-03T11:56:45.782Z\n"
-"PO-Revision-Date: 2022-03-03T11:56:45.782Z\n"
+"POT-Creation-Date: 2022-03-04T06:58:11.681Z\n"
+"PO-Revision-Date: 2022-03-04T06:58:11.681Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -234,6 +234,9 @@ msgstr "Searching for \"{{searchText}}\""
 
 msgid "No results found"
 msgstr "No results found"
+
+msgid "all"
+msgstr "all"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"

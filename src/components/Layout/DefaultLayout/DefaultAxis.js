@@ -3,8 +3,7 @@ import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
-import { connect, useSelector, useDispatch } from 'react-redux'
-import { createSelector } from 'reselect'
+import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { DIMENSION_TYPE_DATA_ELEMENT } from '../../../modules/dimensionConstants.js'
@@ -12,10 +11,10 @@ import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,
-    sGetUiLayout,
     sGetUiDimensionIdsForLayoutAxis,
     sGetUiInputType,
     sGetUiProgramId,
+    renderChipsSelector,
 } from '../../../reducers/ui.js'
 import { LAST, getDropzoneId } from '../../DndContext.js'
 import Chip from '../Chip.js'
@@ -76,7 +75,7 @@ const getDimensionsWithStageName = ({
     return dimensions
 }
 
-const DefaultAxis = ({ axisId, className, renderChips }) => {
+const DefaultAxis = ({ axisId, className }) => {
     const lastDropZoneId = getDropzoneId(axisId, LAST)
     const { over, setNodeRef } = useDroppable({
         id: lastDropZoneId,
@@ -86,6 +85,7 @@ const DefaultAxis = ({ axisId, className, renderChips }) => {
     const axis = useSelector((state) =>
         sGetUiDimensionIdsForLayoutAxis(state, axisId)
     )
+    const renderChips = useSelector(renderChipsSelector)
     const draggingId = useSelector(sGetUiDraggingId)
     const metadata = useSelector(sGetMetadata)
     const inputType = useSelector(sGetUiInputType)
@@ -157,24 +157,6 @@ const DefaultAxis = ({ axisId, className, renderChips }) => {
 DefaultAxis.propTypes = {
     axisId: PropTypes.string,
     className: PropTypes.string,
-    renderChips: PropTypes.bool,
 }
 
-export const renderChipsSelector = createSelector(
-    // only render chips when all have names (from metadata) available
-    [sGetUiLayout, sGetMetadata],
-    (layout, metadata) => {
-        const layoutItems = Object.values(layout || {}).flat()
-        const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
-
-        return layoutItems.every((item) =>
-            dataObjects.some((data) => data.id === item)
-        )
-    }
-)
-
-const mapStateToProps = (state) => ({
-    renderChips: renderChipsSelector(state),
-})
-
-export default connect(mapStateToProps)(DefaultAxis)
+export default DefaultAxis
