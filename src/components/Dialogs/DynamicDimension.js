@@ -183,13 +183,15 @@ const DynamicDimension = ({
         </>
     )
 
+    console.log(
+        `dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+    ) // TODO: For testing only
+
     return dimension ? (
         <DimensionModal
             isInLayout={isInLayout}
             onClose={closeModal}
-            title={
-                dimension.name + ` | dimensionType: ${dimension.dimensionType}` // FIXME: For testing only
-            }
+            title={dimension.name}
         >
             {renderModalContent()}
         </DimensionModal>

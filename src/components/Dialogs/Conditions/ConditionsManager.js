@@ -489,6 +489,10 @@ const ConditionsManager = ({
         )
     }
 
+    console.log(
+        `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+    ) // TODO: For testing only
+
     return dimension ? (
         <DimensionModal
             dataTest={'dialog-manager-modal'}
