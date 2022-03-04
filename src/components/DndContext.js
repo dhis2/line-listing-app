@@ -158,6 +158,10 @@ const OuterDndContext = ({ children }) => {
             dimension = metadata[rawDimensionId]
         }
 
+        if (!dimension) {
+            return null
+        }
+
         if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
