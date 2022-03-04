@@ -12,6 +12,9 @@ import { DIMENSION_TYPE_PERIOD } from '../../modules/dimensionConstants.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
 
+const VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS = 2
+const VALUE_TYPE_BOOLEAN_NUM_OPTIONS = 3
+
 // Presentational component used by dnd - do not add redux or dnd functionality
 
 const getChipSuffix = ({
@@ -39,8 +42,10 @@ const getChipSuffix = ({
     const conds = getConditions({ conditions, metadata, dimension })
 
     if (
-        (valueType === VALUE_TYPE_TRUE_ONLY && conds.length === 2) ||
-        (valueType === VALUE_TYPE_BOOLEAN && conds.length === 3)
+        (valueType === VALUE_TYPE_TRUE_ONLY &&
+            conds.length === VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS) ||
+        (valueType === VALUE_TYPE_BOOLEAN &&
+            conds.length === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
     ) {
         return `: ${all}`
     }
