@@ -82,7 +82,7 @@ const DefaultAxis = ({ axisId, className }) => {
     })
 
     const dispatch = useDispatch()
-    const axis = useSelector((state) =>
+    const dimensionIds = useSelector((state) =>
         sGetUiDimensionIdsForLayoutAxis(state, axisId)
     )
     const renderChips = useSelector(renderChipsSelector)
@@ -104,13 +104,13 @@ const DefaultAxis = ({ axisId, className }) => {
     )
 
     const dimensions = getDimensionsWithStageName({
-        dimensionIds: axis,
+        dimensionIds,
         inputType,
         programStageNames,
         metadata,
     })
 
-    const activeIndex = draggingId ? axis.indexOf(draggingId) : -1
+    const activeIndex = draggingId ? dimensionIds.indexOf(draggingId) : -1
 
     const overLastDropZone = over?.id === lastDropZoneId
 
@@ -122,11 +122,11 @@ const DefaultAxis = ({ axisId, className }) => {
                 className={cx(styles.axisContainer, className)}
             >
                 <div className={styles.label}>{getAxisName(axisId)}</div>
-                <SortableContext id={axisId} items={axis}>
+                <SortableContext id={axisId} items={dimensionIds}>
                     <div className={styles.content}>
                         <DropZone
                             axisId={axisId}
-                            firstElementId={axis[0]}
+                            firstElementId={dimensionIds[0]}
                             overLastDropZone={overLastDropZone}
                         />
                         {renderChips &&
@@ -142,7 +142,7 @@ const DefaultAxis = ({ axisId, className }) => {
                                     }
                                     dimension={dimension}
                                     axisId={axisId}
-                                    isLast={i === axis.length - 1}
+                                    isLast={i === dimensionIds.length - 1}
                                     overLastDropZone={overLastDropZone}
                                     activeIndex={activeIndex}
                                 />

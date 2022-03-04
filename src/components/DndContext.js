@@ -185,7 +185,7 @@ const OuterDndContext = ({ children }) => {
                     dimension={dimension}
                     items={chipItems}
                     conditions={chipConditions}
-                    metadata
+                    metadata={metadata}
                 />
             </div>
         )
