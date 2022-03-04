@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader, NoticeBox } from '@dhis2/ui'
-import { SortableContext } from '@dnd-kit/sortable'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import { DimensionItem } from '../DimensionItem/index.js'
@@ -29,7 +28,6 @@ const DimensionsList = ({
     fetching,
     error,
     dimensions,
-    listId,
     programName,
     searchTerm,
     setIsListEndVisible,
@@ -75,24 +73,20 @@ const DimensionsList = ({
     return (
         <div
             className={styles.scrollbox}
-            onScroll={(event) =>
-                setIsListEndVisible(isEndReached(event.target))
-            }
+            onScroll={(event) => {
+                console.log('scrolling', event.target)
+                return setIsListEndVisible(isEndReached(event.target))
+            }}
             ref={scrollBoxRef}
         >
             <div className={styles.list}>
-                <SortableContext
-                    id={listId}
-                    items={dimensions.map((dim) => dim.draggableId)}
-                >
-                    {dimensions.map((dimension) => (
-                        <DimensionItem
-                            key={dimension.id}
-                            {...dimension}
-                            selected={getIsDimensionSelected(dimension.id)}
-                        />
-                    ))}
-                </SortableContext>
+                {dimensions.map((dimension) => (
+                    <DimensionItem
+                        key={dimension.id}
+                        {...dimension}
+                        selected={getIsDimensionSelected(dimension.id)}
+                    />
+                ))}
                 {fetching && (
                     <div className={styles.loadMoreWrap}>
                         <CircularLoader small />
@@ -108,7 +102,6 @@ DimensionsList.propTypes = {
     dimensions: PropTypes.array,
     error: PropTypes.object,
     fetching: PropTypes.bool,
-    listId: PropTypes.string,
     loading: PropTypes.bool,
     programName: PropTypes.string,
     searchTerm: PropTypes.string,
