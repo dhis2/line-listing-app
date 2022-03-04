@@ -186,6 +186,7 @@ export const Visualization = ({
 
         return (
             <span
+                className={cx(styles.headerCell, styles.dimensionModalHandler)}
                 onClick={() => dispatch(acSetUiOpenDimensionModal(dimensionId))}
             >
                 {headerName}

@@ -62,7 +62,7 @@
 }
 
 /* Table header cells in various sizes */
-.dataTable .headerCell {
+.dataTable .headerCell.dimensionModalHandler {
     cursor: pointer;
 }
 .dataTable .headerCell.fontSizeLarge {
