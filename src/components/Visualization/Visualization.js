@@ -169,9 +169,13 @@ export const Visualization = ({
             } else if (header.stageOffset === 1) {
                 postfix = i18n.t('oldest')
             } else if (header.stageOffset > 1) {
-                postfix = `${i18n.t('oldest')} +${header.stageOffset - 1}`
+                postfix = i18n.t('oldest {{repeatEventIndex}}', {
+                    repeatEventIndex: `+${header.stageOffset - 1}`,
+                })
             } else if (header.stageOffset < 0) {
-                postfix = `${i18n.t('most recent')} ${header.stageOffset}`
+                postfix = i18n.t('most recent {{repeatEventIndex}}', {
+                    repeatEventIndex: header.stageOffset,
+                })
             }
 
             headerName = `${header.column} (${postfix})`

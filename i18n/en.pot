@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-03T11:56:45.782Z\n"
-"PO-Revision-Date: 2022-03-03T11:56:45.782Z\n"
+"POT-Creation-Date: 2022-03-04T08:47:44.413Z\n"
+"PO-Revision-Date: 2022-03-04T08:47:44.413Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -407,6 +407,12 @@ msgstr "most recent"
 
 msgid "oldest"
 msgstr "oldest"
+
+msgid "oldest {{offsetIndex}}"
+msgstr "oldest {{offsetIndex}}"
+
+msgid "most recent {{offsetIndex}}"
+msgstr "most recent {{offsetIndex}}"
 
 msgid "Rows per page"
 msgstr "Rows per page"
