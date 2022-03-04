@@ -67,14 +67,19 @@ const getChipSuffix = ({
 }
 
 export const ChipBase = (props) => {
-    const { name, dimensionType } = props.dimension
+    const { name, dimensionType, stageName } = props.dimension
     return (
         <div className={cx(styles.chipBase)}>
             <div className={styles.leftIcon}>
                 <DimensionIcon dimensionType={dimensionType} />
             </div>
-            <span className={styles.label}>{name}</span>
-            <span className={styles.label}>{getChipSuffix(props)}</span>
+            <span className={styles.label}>
+                <span className={styles.primary}>{name}</span>
+                {stageName && (
+                    <span className={styles.secondary}>{stageName}</span>
+                )}
+            </span>
+            <span className={styles.suffix}>{getChipSuffix(props)}</span>
         </div>
     )
 }
