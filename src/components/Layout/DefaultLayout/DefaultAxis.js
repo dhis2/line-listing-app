@@ -73,12 +73,6 @@ const DefaultAxis = ({
                                     axisId={axisId}
                                     isLast={i === axis.length - 1}
                                     overLastDropZone={overLastDropZone}
-                                    contextMenu={
-                                        <DimensionMenu
-                                            dimensionId={id}
-                                            currentAxisId={axisId}
-                                        />
-                                    }
                                     activeIndex={activeIndex}
                                 />
                             ))}

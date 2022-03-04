@@ -16,7 +16,6 @@ import {
     acSetUiLayout,
     acSetUiDraggingId,
 } from '../actions/ui.js'
-import { parseConditionsStringToArray } from '../modules/conditions.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
@@ -151,32 +150,21 @@ const OuterDndContext = ({ children }) => {
         // is a temporary workaround
         // until the backend is updated to return programStageId.dimensionId
         // in analytics response.metadata.items
-        let name
-        let dimensionType
+        let dimension
         if (metadata[id]) {
-            name = metadata[id].name || ''
-            dimensionType = metadata[id].dimensionType || null
+            dimension = metadata[id]
         } else {
             const [rawDimensionId] = id.split('.').reverse()
-            name = metadata[rawDimensionId]?.name || ''
-            dimensionType = metadata[rawDimensionId]?.dimensionType || null
+            dimension = metadata[rawDimensionId]
         }
 
         if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
-                    <DimensionItemBase
-                        name={name}
-                        dimensionType={dimensionType}
-                        dragging={true}
-                    />
+                    <DimensionItemBase {...dimension} dragging={true} />
                 </div>
             )
         }
-
-        const numberOfConditions =
-            parseConditionsStringToArray(chipConditions.condition).length ||
-            (chipConditions.legendSet ? 1 : 0)
 
         return (
             <div
@@ -188,15 +176,16 @@ const OuterDndContext = ({ children }) => {
                         [chipStyles.chipEmpty]:
                             sourceAxis === AXIS_ID_FILTERS &&
                             !chipItems.length &&
-                            !numberOfConditions,
+                            !chipConditions.condition?.length &&
+                            !chipConditions.legendSet,
                     }
                 )}
             >
                 <ChipBase
-                    dimensionName={name}
-                    dimensionType={dimensionType}
+                    dimension={dimension}
                     items={chipItems}
-                    numberOfConditions={numberOfConditions}
+                    conditions={chipConditions}
+                    metadata
                 />
             </div>
         )
