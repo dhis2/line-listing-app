@@ -157,8 +157,8 @@ export const Visualization = ({
         let headerName = header.column
         let dimensionId = header.name
 
-        const match = Object.entries(headersMap).find(
-            (entry) => entry[1] === header.name
+        const reverseLookupDimensionId = Object.keys(headersMap).find(
+            (key) => headersMap[key] === header.name
         )
 
         if (header.stageOffset !== undefined) {
@@ -179,8 +179,8 @@ export const Visualization = ({
             }
 
             headerName = `${header.column} (${postfix})`
-        } else if (match) {
-            dimensionId = match[0]
+        } else if (reverseLookupDimensionId) {
+            dimensionId = reverseLookupDimensionId
             headerName = metadata[dimensionId]?.name
         }
 
