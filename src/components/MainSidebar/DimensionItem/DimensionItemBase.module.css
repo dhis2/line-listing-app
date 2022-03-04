@@ -3,7 +3,7 @@
     color: var(--colors-grey900);
     fill: var(--colors-grey800);
     display: flex;
-    padding: 2px 4px;
+    padding: 2px var(--spacers-dp8);
     margin: 0;
     border-radius: 3px;
     cursor: pointer;
@@ -25,9 +25,8 @@
 
 .dimensionItem.selected {
     background-color: var(--colors-teal100);
-    color: var(--colors-teal900);
     fill: var(--colors-teal800);
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .dimensionItem.selected:not(.disabled):hover {
