@@ -331,7 +331,6 @@ const OuterDndContext = ({ children }) => {
             collisionDetection={rectIntersectionCustom}
             onDragStart={onDragStart}
             onDragEnd={onDragEnd}
-            // onDragMove={onDragMove}
             onDragCancel={onDragCancel}
             sensors={sensors}
         >
