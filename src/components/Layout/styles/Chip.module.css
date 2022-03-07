@@ -20,7 +20,6 @@
 .chipBase {
     font-weight: 400;
     display: flex;
-    overflow: hidden;
     max-width: 360px;
     align-items: center;
     font-size: 14px;
@@ -33,15 +32,24 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+}
+
+.primary {
+    flex: 2 1 auto;
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .secondary {
     font-size: 13px;
     line-height: 15px;
-    /* flex: 1; */
+    flex: 1 2.3 auto;
     color: var(--colors-grey700);
     padding-left: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .suffix {
