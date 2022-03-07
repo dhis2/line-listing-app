@@ -1,3 +1,17 @@
+## [1.1.1](https://github.com/dhis2/line-listing-app/compare/v1.1.0...v1.1.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* bump Analytics to latest ([#14](https://github.com/dhis2/line-listing-app/issues/14)) ([bc8110d](https://github.com/dhis2/line-listing-app/commit/bc8110df351ddecbd5dd44cce7fc973d3c3775eb))
+
+# [1.1.0](https://github.com/dhis2/line-listing-app/compare/v1.0.1...v1.1.0) (2022-03-04)
+
+
+### Features
+
+* click on header name opens dimension modal ([#7](https://github.com/dhis2/line-listing-app/issues/7)) ([766fe98](https://github.com/dhis2/line-listing-app/commit/766fe98e33e85f6496aa71210bc86f1ba0992d7b))
+
 ## [1.0.1](https://github.com/dhis2/line-listing-app/compare/v1.0.0...v1.0.1) (2022-03-04)
 
 
