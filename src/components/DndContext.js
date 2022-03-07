@@ -236,8 +236,7 @@ const OuterDndContext = ({ children }) => {
         //TODO: Add onDropWithoutItems
     }
 
-    const onDragStart = (prop) => {
-        const { active } = prop
+    const onDragStart = ({ active }) => {
         const id = getIdFromDraggingId(active.id)
 
         setSourceAxis(active.data.current.sortable.containerId)
