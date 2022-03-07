@@ -1,3 +1,11 @@
+## [1.1.2](https://github.com/dhis2/line-listing-app/compare/v1.1.1...v1.1.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* prevent scrolling while dragging item from program dimensions panel ([#15](https://github.com/dhis2/line-listing-app/issues/15)) ([5163658](https://github.com/dhis2/line-listing-app/commit/516365843124a3f855dc439dc0f751c841032c1b))
+* reset page to 1 when a sorting is applied (TECH-1025) ([#17](https://github.com/dhis2/line-listing-app/issues/17)) ([4855211](https://github.com/dhis2/line-listing-app/commit/4855211d8584cce2a660707e03be4f898d9b7854))
+
 ## [1.1.1](https://github.com/dhis2/line-listing-app/compare/v1.1.0...v1.1.1) (2022-03-05)
 
 
