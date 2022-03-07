@@ -28,20 +28,10 @@ import { ChipBase } from './Layout/ChipBase.js'
 import chipStyles from './Layout/styles/Chip.module.css'
 import { DimensionItemBase } from './MainSidebar/DimensionItem/DimensionItemBase.js'
 
-// Names for dnd sources
-export const TIME_DIMENSIONS = 'time'
-export const MAIN_DIMENSIONS = 'main'
-export const YOUR_DIMENSIONS = 'your'
-export const PROGRAM_DIMENSIONS = 'program'
-
 const FIRST_POSITION = 0
 const LAST_POSITION = -1
-const SOURCE_DIMENSIONS = [
-    MAIN_DIMENSIONS,
-    TIME_DIMENSIONS,
-    YOUR_DIMENSIONS,
-    PROGRAM_DIMENSIONS,
-]
+
+const DIMENSION_PANEL_SOURCE = 'Sortable'
 
 export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
 export const FIRST = 'first'
@@ -162,7 +152,7 @@ const OuterDndContext = ({ children }) => {
             return null
         }
 
-        if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
+        if (sourceAxis === DIMENSION_PANEL_SOURCE) {
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
                     <DimensionItemBase {...dimension} dragging={true} />
@@ -266,9 +256,8 @@ const OuterDndContext = ({ children }) => {
 
         if (
             !over?.id ||
-            SOURCE_DIMENSIONS.includes(
-                over?.data?.current?.sortable?.containerId
-            )
+            over?.data?.current?.sortable?.containerId ===
+                DIMENSION_PANEL_SOURCE
         ) {
             // dropped over non-droppable or over dimension panel
             onDragCancel()
@@ -293,7 +282,7 @@ const OuterDndContext = ({ children }) => {
             `${AXIS_ID_FILTERS}-${LAST}`,
         ].includes(over.id)
 
-        if (SOURCE_DIMENSIONS.includes(sourceAxisId)) {
+        if (sourceAxisId === DIMENSION_PANEL_SOURCE) {
             if (isDroppingInFirstPosition) {
                 destinationIndex = FIRST_POSITION
             } else if (isDroppingInLastPosition) {
