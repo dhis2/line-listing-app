@@ -3,7 +3,6 @@ import { Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDebounce } from '../../../modules/utils.js'
-import { YOUR_DIMENSIONS } from '../../DndContext.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { useYourDimensions } from './useYourDimensions.js'
 import styles from './YourDimensionsPanel.module.css'
@@ -22,7 +21,7 @@ const YourDimensionsPanel = ({ visible }) => {
     }
 
     const draggableDimensions = dimensions.map((dimension) => ({
-        draggableId: `${YOUR_DIMENSIONS}-${dimension.id}`,
+        draggableId: `your-${dimension.id}`,
         ...dimension,
     }))
 
@@ -43,7 +42,6 @@ const YourDimensionsPanel = ({ visible }) => {
                 fetching={fetching}
                 loading={loading}
                 searchTerm={debouncedSearchTerm}
-                listId={YOUR_DIMENSIONS}
             />
         </>
     )
