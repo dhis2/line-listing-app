@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dhis2/line-listing-app/compare/v1.1.0...v1.1.1) (2022-03-05)
+
+
+### Bug Fixes
+
+* bump Analytics to latest ([#14](https://github.com/dhis2/line-listing-app/issues/14)) ([bc8110d](https://github.com/dhis2/line-listing-app/commit/bc8110df351ddecbd5dd44cce7fc973d3c3775eb))
+
 # [1.1.0](https://github.com/dhis2/line-listing-app/compare/v1.0.1...v1.1.0) (2022-03-04)
 
 
