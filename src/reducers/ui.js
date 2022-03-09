@@ -361,7 +361,7 @@ export const sGetDimensionIdsFromLayout = (state) =>
         []
     )
 
-export const sGetUiDimensionIdsForLayoutAxis = (state, axisId) =>
+export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
     sGetUiLayout(state)[axisId]
 
 export const sGetUiConditionsByDimension = (state, dimension) =>

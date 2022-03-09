@@ -21,60 +21,6 @@ import Chip from '../Chip.js'
 import { DropZone } from './DropZone.js'
 import styles from './styles/DefaultAxis.module.css'
 
-const getDimensionsWithStageName = ({
-    dimensionIds = [],
-    inputType,
-    programStageNames = [],
-    metadata = {},
-}) => {
-    let hasDuplicates = false
-    const dataElements = new Map()
-
-    const dimensions = dimensionIds.map((id) => {
-        let dimension = {}
-        if (metadata[id]) {
-            dimension = metadata[id]
-        } else {
-            const [rawDimensionId] = id.split('.').reverse()
-            dimension = metadata[rawDimensionId]
-        }
-        return dimension
-    })
-
-    if (inputType === OUTPUT_TYPE_ENROLLMENT) {
-        dimensions.forEach((dimension) => {
-            const dataElementId = dimension.id.split('.')[1]
-            if (
-                dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
-                dataElementId
-            ) {
-                const dataElementCount = dataElements.get(dataElementId)
-
-                if (dataElementCount) {
-                    dataElements.set(dataElementId, dataElementCount + 1)
-                    hasDuplicates = true
-                } else {
-                    dataElements.set(dataElementId, 1)
-                }
-            }
-        })
-
-        return hasDuplicates
-            ? dimensions.map((dimension) => {
-                  const [programStageId, dataElementId] =
-                      dimension.id.split('.')
-                  if (dataElementId && dataElements.get(dataElementId) > 1) {
-                      dimension.stageName =
-                          programStageNames?.get(programStageId)
-                  }
-                  return dimension
-              })
-            : dimensions
-    }
-
-    return dimensions
-}
-
 const DefaultAxis = ({ axisId, className }) => {
     const lastDropZoneId = getDropzoneId(axisId, LAST)
     const { over, setNodeRef } = useDroppable({
@@ -103,12 +49,57 @@ const DefaultAxis = ({ axisId, className }) => {
         [program]
     )
 
-    const dimensions = getDimensionsWithStageName({
-        dimensionIds,
-        inputType,
-        programStageNames,
-        metadata,
-    })
+    const getDimensionsWithStageName = () => {
+        let hasDuplicates = false
+        const dataElements = new Map()
+
+        const dimensions = dimensionIds.map((id) => {
+            let dimension = {}
+            if (metadata[id]) {
+                dimension = metadata[id]
+            } else {
+                const [rawDimensionId] = id.split('.').reverse()
+                dimension = metadata[rawDimensionId]
+            }
+            return dimension
+        })
+
+        if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+            dimensions.forEach((dimension) => {
+                const dataElementId = dimension.id.split('.')[1]
+                if (
+                    dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+                    dataElementId
+                ) {
+                    const dataElementCount = dataElements.get(dataElementId)
+
+                    if (dataElementCount) {
+                        dataElements.set(dataElementId, dataElementCount + 1)
+                        hasDuplicates = true
+                    } else {
+                        dataElements.set(dataElementId, 1)
+                    }
+                }
+            })
+
+            return hasDuplicates
+                ? dimensions.map((dimension) => {
+                      const [programStageId, dataElementId] =
+                          dimension.id.split('.')
+                      if (
+                          dataElementId &&
+                          dataElements.get(dataElementId) > 1
+                      ) {
+                          dimension.stageName =
+                              programStageNames?.get(programStageId)
+                      }
+                      return dimension
+                  })
+                : dimensions
+        }
+
+        return dimensions
+    }
 
     const activeIndex = draggingId ? dimensionIds.indexOf(draggingId) : -1
 
@@ -130,7 +121,7 @@ const DefaultAxis = ({ axisId, className }) => {
                             overLastDropZone={overLastDropZone}
                         />
                         {renderChips &&
-                            dimensions.map((dimension, i) => (
+                            getDimensionsWithStageName().map((dimension, i) => (
                                 <Chip
                                     key={`${axisId}-${dimension.id}`}
                                     onClick={() =>
