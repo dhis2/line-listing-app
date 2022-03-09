@@ -1,3 +1,20 @@
+## [1.1.3](https://github.com/dhis2/line-listing-app/compare/v1.1.2...v1.1.3) (2022-03-09)
+
+
+### Bug Fixes
+
+* default operators to numeric for program indicators that dont have value type ([c5d1020](https://github.com/dhis2/line-listing-app/commit/c5d102039adb5bb9e0c979e7611dc8f54e887fd6))
+* make layout scrollable and collapsible at full height ([cb164dc](https://github.com/dhis2/line-listing-app/commit/cb164dc674993d240792a501faad297cbfe32dc1))
+* operators for program indicators [#16](https://github.com/dhis2/line-listing-app/issues/16) ([ffc5d91](https://github.com/dhis2/line-listing-app/commit/ffc5d91c0d3ae8cfe0a70e8d440c4c343a59aa1b))
+
+## [1.1.2](https://github.com/dhis2/line-listing-app/compare/v1.1.1...v1.1.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* prevent scrolling while dragging item from program dimensions panel ([#15](https://github.com/dhis2/line-listing-app/issues/15)) ([5163658](https://github.com/dhis2/line-listing-app/commit/516365843124a3f855dc439dc0f751c841032c1b))
+* reset page to 1 when a sorting is applied (TECH-1025) ([#17](https://github.com/dhis2/line-listing-app/issues/17)) ([4855211](https://github.com/dhis2/line-listing-app/commit/4855211d8584cce2a660707e03be4f898d9b7854))
+
 ## [1.1.1](https://github.com/dhis2/line-listing-app/compare/v1.1.0...v1.1.1) (2022-03-05)
 
 

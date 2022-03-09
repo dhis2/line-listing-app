@@ -125,6 +125,11 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
+    const sortData = ({ sortField, sortDirection }) => {
+        setSorting({ sortField, sortDirection })
+        setPage(1)
+    }
+
     const formatCellValue = (value, header) => {
         if (
             [
@@ -216,7 +221,7 @@ export const Visualization = ({
                                             name,
                                             direction,
                                         }) =>
-                                            setSorting({
+                                            sortData({
                                                 sortField: name,
                                                 sortDirection: direction,
                                             })
