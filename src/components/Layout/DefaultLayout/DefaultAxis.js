@@ -11,7 +11,7 @@ import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,
-    sGetUiDimensionIdsForLayoutAxis,
+    sGetUiDimensionIdsByAxisId,
     sGetUiInputType,
     sGetUiProgramId,
     renderChipsSelector,
@@ -83,7 +83,7 @@ const DefaultAxis = ({ axisId, className }) => {
 
     const dispatch = useDispatch()
     const dimensionIds = useSelector((state) =>
-        sGetUiDimensionIdsForLayoutAxis(state, axisId)
+        sGetUiDimensionIdsByAxisId(state, axisId)
     )
     const renderChips = useSelector(renderChipsSelector)
     const draggingId = useSelector(sGetUiDraggingId)
