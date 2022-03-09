@@ -128,16 +128,6 @@ export const checkIsCaseSensitive = (operator) => {
 
 const getOperatorsByValueType = (valueType) => {
     switch (valueType) {
-        case VALUE_TYPE_NUMBER:
-        case VALUE_TYPE_UNIT_INTERVAL:
-        case VALUE_TYPE_PERCENTAGE:
-        case VALUE_TYPE_INTEGER:
-        case VALUE_TYPE_INTEGER_POSITIVE:
-        case VALUE_TYPE_INTEGER_NEGATIVE:
-        case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
-        case VALUE_TYPE_PHONE_NUMBER: {
-            return NUMERIC_OPERATORS
-        }
         case VALUE_TYPE_LETTER:
         case VALUE_TYPE_TEXT:
         case VALUE_TYPE_LONG_TEXT:
@@ -150,6 +140,17 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_TIME:
         case VALUE_TYPE_DATETIME: {
             return DATE_OPERATORS
+        }
+        case VALUE_TYPE_NUMBER:
+        case VALUE_TYPE_UNIT_INTERVAL:
+        case VALUE_TYPE_PERCENTAGE:
+        case VALUE_TYPE_INTEGER:
+        case VALUE_TYPE_INTEGER_POSITIVE:
+        case VALUE_TYPE_INTEGER_NEGATIVE:
+        case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
+        case VALUE_TYPE_PHONE_NUMBER:
+        default: {
+            return NUMERIC_OPERATORS
         }
     }
 }
