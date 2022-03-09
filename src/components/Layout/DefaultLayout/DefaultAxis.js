@@ -32,7 +32,7 @@ const getDimensionsWithStageName = ({
 
     const dimensions = dimensionIds.map((id) => {
         let dimension = {}
-        if (metadata[id]?.name) {
+        if (metadata[id]) {
             dimension = metadata[id]
         } else {
             const [rawDimensionId] = id.split('.').reverse()
