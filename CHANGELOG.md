@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/dhis2/line-listing-app/compare/v1.1.3...v1.1.4) (2022-03-09)
+
+
+### Bug Fixes
+
+* remove stage index from dimension id used for modal ([#13](https://github.com/dhis2/line-listing-app/issues/13)) ([4ce12c1](https://github.com/dhis2/line-listing-app/commit/4ce12c1a6976a406facf714f648f1a07474e003c))
+
 ## [1.1.3](https://github.com/dhis2/line-listing-app/compare/v1.1.2...v1.1.3) (2022-03-09)
 
 
