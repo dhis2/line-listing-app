@@ -1,3 +1,19 @@
+## [1.1.4](https://github.com/dhis2/line-listing-app/compare/v1.1.3...v1.1.4) (2022-03-09)
+
+
+### Bug Fixes
+
+* remove stage index from dimension id used for modal ([#13](https://github.com/dhis2/line-listing-app/issues/13)) ([4ce12c1](https://github.com/dhis2/line-listing-app/commit/4ce12c1a6976a406facf714f648f1a07474e003c))
+
+## [1.1.3](https://github.com/dhis2/line-listing-app/compare/v1.1.2...v1.1.3) (2022-03-09)
+
+
+### Bug Fixes
+
+* default operators to numeric for program indicators that dont have value type ([c5d1020](https://github.com/dhis2/line-listing-app/commit/c5d102039adb5bb9e0c979e7611dc8f54e887fd6))
+* make layout scrollable and collapsible at full height ([cb164dc](https://github.com/dhis2/line-listing-app/commit/cb164dc674993d240792a501faad297cbfe32dc1))
+* operators for program indicators [#16](https://github.com/dhis2/line-listing-app/issues/16) ([ffc5d91](https://github.com/dhis2/line-listing-app/commit/ffc5d91c0d3ae8cfe0a70e8d440c4c343a59aa1b))
+
 ## [1.1.2](https://github.com/dhis2/line-listing-app/compare/v1.1.1...v1.1.2) (2022-03-07)
 
 
