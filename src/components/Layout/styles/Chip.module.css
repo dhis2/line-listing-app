@@ -5,6 +5,7 @@
     background-color: var(--colors-teal200);
     border-radius: 3px;
     width: fit-content;
+    cursor: pointer;
 }
 
 .content {
