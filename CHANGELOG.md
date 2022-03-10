@@ -1,3 +1,10 @@
+## [1.1.8](https://github.com/dhis2/line-listing-app/compare/v1.1.7...v1.1.8) (2022-03-10)
+
+
+### Bug Fixes
+
+* remove core app flag to allow app deployment ([#28](https://github.com/dhis2/line-listing-app/issues/28)) ([c64869c](https://github.com/dhis2/line-listing-app/commit/c64869ce456c5a75e7dc04ae2d833d59f975c72c))
+
 ## [1.1.7](https://github.com/dhis2/line-listing-app/compare/v1.1.6...v1.1.7) (2022-03-10)
 
 
