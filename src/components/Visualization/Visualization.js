@@ -125,6 +125,11 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
+    const sortData = ({ sortField, sortDirection }) => {
+        setSorting({ sortField, sortDirection })
+        setPage(1)
+    }
+
     const formatCellValue = (value, header) => {
         if (
             [
@@ -149,7 +154,9 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = header.name
+        let dimensionId = header?.stageOffset
+            ? header.name.replace(/\[-?\d+\]/, '')
+            : header.name
 
         const reverseLookupDimensionId = Object.keys(headersMap).find(
             (key) => headersMap[key] === header.name
@@ -214,7 +221,7 @@ export const Visualization = ({
                                             name,
                                             direction,
                                         }) =>
-                                            setSorting({
+                                            sortData({
                                                 sortField: name,
                                                 sortDirection: direction,
                                             })

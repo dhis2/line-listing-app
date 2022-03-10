@@ -1,3 +1,34 @@
+## [1.1.5](https://github.com/dhis2/line-listing-app/compare/v1.1.4...v1.1.5) (2022-03-10)
+
+
+### Bug Fixes
+
+* chip label with stage name and correct suffix ([#11](https://github.com/dhis2/line-listing-app/issues/11)) ([bd68007](https://github.com/dhis2/line-listing-app/commit/bd680074ed7ecd80c4b196eb9b64cbbf75f2fe6a))
+
+## [1.1.4](https://github.com/dhis2/line-listing-app/compare/v1.1.3...v1.1.4) (2022-03-09)
+
+
+### Bug Fixes
+
+* remove stage index from dimension id used for modal ([#13](https://github.com/dhis2/line-listing-app/issues/13)) ([4ce12c1](https://github.com/dhis2/line-listing-app/commit/4ce12c1a6976a406facf714f648f1a07474e003c))
+
+## [1.1.3](https://github.com/dhis2/line-listing-app/compare/v1.1.2...v1.1.3) (2022-03-09)
+
+
+### Bug Fixes
+
+* default operators to numeric for program indicators that dont have value type ([c5d1020](https://github.com/dhis2/line-listing-app/commit/c5d102039adb5bb9e0c979e7611dc8f54e887fd6))
+* make layout scrollable and collapsible at full height ([cb164dc](https://github.com/dhis2/line-listing-app/commit/cb164dc674993d240792a501faad297cbfe32dc1))
+* operators for program indicators [#16](https://github.com/dhis2/line-listing-app/issues/16) ([ffc5d91](https://github.com/dhis2/line-listing-app/commit/ffc5d91c0d3ae8cfe0a70e8d440c4c343a59aa1b))
+
+## [1.1.2](https://github.com/dhis2/line-listing-app/compare/v1.1.1...v1.1.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* prevent scrolling while dragging item from program dimensions panel ([#15](https://github.com/dhis2/line-listing-app/issues/15)) ([5163658](https://github.com/dhis2/line-listing-app/commit/516365843124a3f855dc439dc0f751c841032c1b))
+* reset page to 1 when a sorting is applied (TECH-1025) ([#17](https://github.com/dhis2/line-listing-app/issues/17)) ([4855211](https://github.com/dhis2/line-listing-app/commit/4855211d8584cce2a660707e03be4f898d9b7854))
+
 ## [1.1.1](https://github.com/dhis2/line-listing-app/compare/v1.1.0...v1.1.1) (2022-03-05)
 
 
