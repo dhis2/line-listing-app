@@ -1,7 +1,7 @@
 const config = {
     type: 'app',
-    name: 'event-reports',
-    title: 'Event reports',
+    name: 'line-listing',
+    title: 'Line listing',
     coreApp: true,
 
     entryPoints: {

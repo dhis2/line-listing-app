@@ -3,11 +3,6 @@
     border-right: 1px solid #e0e2e4;
 }
 
-.arrowIcon {
-    display: flex;
-    margin-left: auto;
-}
-
 .button {
     height: 38px;
     padding: 7px var(--spacers-dp8);
@@ -15,7 +10,6 @@
     align-items: center;
     justify-content: flex-start;
     background-color: var(--colors-white);
-    cursor: pointer;
 }
 
 .button > svg {
@@ -24,84 +18,4 @@
 
 .button > span {
     font-size: 14px;
-}
-
-.cardContainer {
-    margin: 1px 0;
-}
-
-.listContainer {
-    max-width: 888px;
-    box-shadow: 0 0 1px 0 rgba(64, 75, 90, 0.29),
-        0 3px 8px -2px rgba(64, 75, 90, 0.3);
-    border-radius: 3px;
-    padding: 12px 16px;
-}
-
-.listSection {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.listItem {
-    width: 280px;
-    background: var(--colors-white);
-    border: 1px solid var(--colors-grey300);
-    border-radius: 3px;
-    padding: var(--spacers-dp8);
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: var(--spacers-dp8);
-    cursor: pointer;
-}
-
-.listItem:nth-child(3n + 1) {
-    margin-right: var(--spacers-dp8);
-}
-
-.listItem:nth-child(3n + 3) {
-    margin-left: var(--spacers-dp8);
-}
-
-.listItem:hover {
-    background: var(--colors-grey050);
-    border-color: var(--colors-grey400);
-}
-
-.listItemActive {
-    background: var(--colors-teal050);
-    border: 2px solid var(--colors-teal300);
-}
-
-.listItemDisabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.listItemDisabled:hover {
-    background-color: transparent;
-}
-
-.listItemSvg {
-    width: var(--spacers-dp48);
-    height: var(--spacers-dp48);
-}
-
-.listItemIcon {
-    width: 48px;
-    height: 48px;
-    margin-right: var(--spacers-dp8);
-}
-
-.listItemName {
-    font-size: 14px;
-    font-weight: 500;
-    margin: 4px 0;
-}
-
-.listItemDescription {
-    font-size: 12px;
-    color: var(--colors-grey700);
-    margin: 0;
-    line-height: 1.4;
 }
