@@ -8,10 +8,6 @@
     min-height: 32px;
 }
 
-.content > div {
-    cursor: pointer;
-}
-
 .lastDropzone {
     height: 100%;
 }

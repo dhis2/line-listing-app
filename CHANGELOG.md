@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/dhis2/line-listing-app/compare/v1.1.5...v1.1.6) (2022-03-10)
+
+
+### Bug Fixes
+
+* set cursor on the chip directly ([#26](https://github.com/dhis2/line-listing-app/issues/26)) ([8cae391](https://github.com/dhis2/line-listing-app/commit/8cae39184b8f19d24bc842be8fd8e724d9228ddc))
+
 ## [1.1.5](https://github.com/dhis2/line-listing-app/compare/v1.1.4...v1.1.5) (2022-03-10)
 
 
