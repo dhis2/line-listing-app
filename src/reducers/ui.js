@@ -5,6 +5,7 @@ import {
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
+import { createSelector } from 'reselect'
 import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
@@ -23,7 +24,7 @@ import { getOptionsForUi } from '../modules/options.js'
 import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
-import { sGetMetadataById } from './metadata.js'
+import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
@@ -360,11 +361,27 @@ export const sGetDimensionIdsFromLayout = (state) =>
         []
     )
 
+export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
+    sGetUiLayout(state)[axisId]
+
 export const sGetUiConditionsByDimension = (state, dimension) =>
     sGetUiConditions(state)[dimension]
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
+
+export const renderChipsSelector = createSelector(
+    // only render chips when all have names (from metadata) available
+    [sGetUiLayout, sGetMetadata],
+    (layout, metadata) => {
+        const layoutItems = Object.values(layout || {}).flat()
+        const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
+
+        return layoutItems.every((item) =>
+            dataObjects.some((data) => data.id === item)
+        )
+    }
+)
 
 // Selector based hooks
 export const useMainDimensions = () => {
