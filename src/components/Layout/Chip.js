@@ -6,12 +6,13 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { parseConditionsStringToArray } from '../../modules/conditions.js'
 import { sGetLoadError } from '../../reducers/loader.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
     sGetUiConditionsByDimension,
 } from '../../reducers/ui.js'
+import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import { ChipBase } from './ChipBase.js'
 import styles from './styles/Chip.module.css'
 import { default as TooltipContent } from './TooltipContent.js'
@@ -25,7 +26,6 @@ const Chip = ({
     isLast,
     overLastDropZone,
     onClick,
-    contextMenu,
     activeIndex,
 }) => {
     const {
@@ -33,6 +33,7 @@ const Chip = ({
         name: dimensionName,
         dimensionType,
         valueType,
+        optionSet,
     } = dimension
 
     const {
@@ -51,13 +52,15 @@ const Chip = ({
             name: dimensionName,
             dimensionType,
             valueType,
+            optionSet,
         },
     })
     const globalLoadError = useSelector(sGetLoadError)
+    const metadata = useSelector(sGetMetadata)
     const conditions =
         useSelector((state) =>
             sGetUiConditionsByDimension(state, dimension.id)
-        ) || []
+        ) || {}
     const items =
         useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
         []
@@ -97,10 +100,6 @@ const Chip = ({
 
     const renderTooltipContent = () => <TooltipContent dimension={dimension} />
 
-    const numberOfConditions =
-        parseConditionsStringToArray(conditions.condition).length ||
-        (conditions.legendSet ? 1 : 0)
-
     if (globalLoadError && !dimensionName) {
         return null
     }
@@ -118,7 +117,8 @@ const Chip = ({
                     [styles.chipEmpty]:
                         axisId === AXIS_ID_FILTERS &&
                         !items.length &&
-                        !numberOfConditions,
+                        !conditions.condition?.length &&
+                        !conditions.legendSet,
                     [styles.active]: isDragging,
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,
@@ -141,16 +141,19 @@ const Chip = ({
                                     onMouseOut={onMouseOut}
                                 >
                                     <ChipBase
-                                        dimensionName={dimensionName}
-                                        dimensionType={dimensionType}
-                                        numberOfConditions={numberOfConditions}
+                                        dimension={dimension}
+                                        conditions={conditions}
                                         items={items}
+                                        metadata={metadata}
                                     />
                                 </div>
                             )}
                         </Tooltip>
                     }
-                    {contextMenu}
+                    <DimensionMenu
+                        dimensionId={dimensionId}
+                        currentAxisId={axisId}
+                    />
                 </div>
             </div>
         </div>
@@ -162,7 +165,6 @@ Chip.propTypes = {
     onClick: PropTypes.func.isRequired,
     activeIndex: PropTypes.number,
     axisId: PropTypes.string,
-    contextMenu: PropTypes.object,
     isLast: PropTypes.bool,
     overLastDropZone: PropTypes.bool,
 }
