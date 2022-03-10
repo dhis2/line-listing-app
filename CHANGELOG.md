@@ -1,3 +1,10 @@
+## [1.1.5](https://github.com/dhis2/line-listing-app/compare/v1.1.4...v1.1.5) (2022-03-10)
+
+
+### Bug Fixes
+
+* chip label with stage name and correct suffix ([#11](https://github.com/dhis2/line-listing-app/issues/11)) ([bd68007](https://github.com/dhis2/line-listing-app/commit/bd680074ed7ecd80c4b196eb9b64cbbf75f2fe6a))
+
 ## [1.1.4](https://github.com/dhis2/line-listing-app/compare/v1.1.3...v1.1.4) (2022-03-09)
 
 
