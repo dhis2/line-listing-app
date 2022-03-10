@@ -1,3 +1,9 @@
+:root {
+    --headerbarHeight: 48px;
+    --toolbarHeight: 38px;
+    --expandButtonHeight: 16px;
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -14,14 +20,18 @@
 }
 
 .expanded {
-    max-height: 100%;
+    max-height: calc(
+        100vh - var(--headerbarHeight) - var(--toolbarHeight) -
+            var(--expandButtonHeight)
+    );
+    overflow-y: auto;
 }
 
 .button {
     cursor: pointer;
     padding: 0;
     width: 100%;
-    height: 16px;
+    height: var(--expandButtonHeight);
     background-color: var(--colors-grey050);
     border: none;
     border-top: 1px solid var(--colors-grey300);
