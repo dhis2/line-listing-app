@@ -16,7 +16,6 @@ import {
     acSetUiLayout,
     acSetUiDraggingId,
 } from '../actions/ui.js'
-import { parseConditionsStringToArray } from '../modules/conditions.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
@@ -29,20 +28,10 @@ import { ChipBase } from './Layout/ChipBase.js'
 import chipStyles from './Layout/styles/Chip.module.css'
 import { DimensionItemBase } from './MainSidebar/DimensionItem/DimensionItemBase.js'
 
-// Names for dnd sources
-export const TIME_DIMENSIONS = 'time'
-export const MAIN_DIMENSIONS = 'main'
-export const YOUR_DIMENSIONS = 'your'
-export const PROGRAM_DIMENSIONS = 'program'
-
 const FIRST_POSITION = 0
 const LAST_POSITION = -1
-const SOURCE_DIMENSIONS = [
-    MAIN_DIMENSIONS,
-    TIME_DIMENSIONS,
-    YOUR_DIMENSIONS,
-    PROGRAM_DIMENSIONS,
-]
+
+const DIMENSION_PANEL_SOURCE = 'Sortable'
 
 export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
 export const FIRST = 'first'
@@ -151,32 +140,25 @@ const OuterDndContext = ({ children }) => {
         // is a temporary workaround
         // until the backend is updated to return programStageId.dimensionId
         // in analytics response.metadata.items
-        let name
-        let dimensionType
+        let dimension
         if (metadata[id]) {
-            name = metadata[id].name || ''
-            dimensionType = metadata[id].dimensionType || null
+            dimension = metadata[id]
         } else {
             const [rawDimensionId] = id.split('.').reverse()
-            name = metadata[rawDimensionId]?.name || ''
-            dimensionType = metadata[rawDimensionId]?.dimensionType || null
+            dimension = metadata[rawDimensionId]
         }
 
-        if (SOURCE_DIMENSIONS.includes(sourceAxis)) {
+        if (!dimension) {
+            return null
+        }
+
+        if (sourceAxis === DIMENSION_PANEL_SOURCE) {
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
-                    <DimensionItemBase
-                        name={name}
-                        dimensionType={dimensionType}
-                        dragging={true}
-                    />
+                    <DimensionItemBase {...dimension} dragging={true} />
                 </div>
             )
         }
-
-        const numberOfConditions =
-            parseConditionsStringToArray(chipConditions.condition).length ||
-            (chipConditions.legendSet ? 1 : 0)
 
         return (
             <div
@@ -188,15 +170,16 @@ const OuterDndContext = ({ children }) => {
                         [chipStyles.chipEmpty]:
                             sourceAxis === AXIS_ID_FILTERS &&
                             !chipItems.length &&
-                            !numberOfConditions,
+                            !chipConditions.condition?.length &&
+                            !chipConditions.legendSet,
                     }
                 )}
             >
                 <ChipBase
-                    dimensionName={name}
-                    dimensionType={dimensionType}
+                    dimension={dimension}
                     items={chipItems}
-                    numberOfConditions={numberOfConditions}
+                    conditions={chipConditions}
+                    metadata={metadata}
                 />
             </div>
         )
@@ -273,9 +256,8 @@ const OuterDndContext = ({ children }) => {
 
         if (
             !over?.id ||
-            SOURCE_DIMENSIONS.includes(
-                over?.data?.current?.sortable?.containerId
-            )
+            over?.data?.current?.sortable?.containerId ===
+                DIMENSION_PANEL_SOURCE
         ) {
             // dropped over non-droppable or over dimension panel
             onDragCancel()
@@ -300,7 +282,7 @@ const OuterDndContext = ({ children }) => {
             `${AXIS_ID_FILTERS}-${LAST}`,
         ].includes(over.id)
 
-        if (SOURCE_DIMENSIONS.includes(sourceAxisId)) {
+        if (sourceAxisId === DIMENSION_PANEL_SOURCE) {
             if (isDroppingInFirstPosition) {
                 destinationIndex = FIRST_POSITION
             } else if (isDroppingInLastPosition) {
