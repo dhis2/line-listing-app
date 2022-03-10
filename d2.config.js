@@ -1,7 +1,7 @@
 const config = {
     type: 'app',
     name: 'line-listing',
-    title: 'Line listing',
+    title: 'Line Listing',
     coreApp: true,
 
     entryPoints: {
