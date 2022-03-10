@@ -1,3 +1,10 @@
+## [1.1.7](https://github.com/dhis2/line-listing-app/compare/v1.1.6...v1.1.7) (2022-03-10)
+
+
+### Bug Fixes
+
+* remove vis type selector, rename app ([#27](https://github.com/dhis2/line-listing-app/issues/27)) ([3110a73](https://github.com/dhis2/line-listing-app/commit/3110a73c19afeea9e4d7c51fd159e0688841f962))
+
 ## [1.1.6](https://github.com/dhis2/line-listing-app/compare/v1.1.5...v1.1.6) (2022-03-10)
 
 
