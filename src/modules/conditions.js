@@ -125,3 +125,108 @@ export const checkIsCaseSensitive = (operator) => {
         return operator[0] !== CASE_INSENSITIVE_PREFIX
     }
 }
+
+const getOperatorsByValueType = (valueType) => {
+    switch (valueType) {
+        case VALUE_TYPE_LETTER:
+        case VALUE_TYPE_TEXT:
+        case VALUE_TYPE_LONG_TEXT:
+        case VALUE_TYPE_EMAIL:
+        case VALUE_TYPE_USERNAME:
+        case VALUE_TYPE_URL: {
+            return ALPHA_NUMERIC_OPERATORS
+        }
+        case VALUE_TYPE_DATE:
+        case VALUE_TYPE_TIME:
+        case VALUE_TYPE_DATETIME: {
+            return DATE_OPERATORS
+        }
+        case VALUE_TYPE_NUMBER:
+        case VALUE_TYPE_UNIT_INTERVAL:
+        case VALUE_TYPE_PERCENTAGE:
+        case VALUE_TYPE_INTEGER:
+        case VALUE_TYPE_INTEGER_POSITIVE:
+        case VALUE_TYPE_INTEGER_NEGATIVE:
+        case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
+        case VALUE_TYPE_PHONE_NUMBER:
+        default: {
+            return NUMERIC_OPERATORS
+        }
+    }
+}
+
+const parseCondition = (conditionItem) =>
+    conditionItem.split(':').pop().split(';')
+
+export const getConditions = ({
+    conditions = {},
+    metadata = {},
+    dimension = {},
+}) => {
+    const conditionsList = parseConditionsStringToArray(conditions.condition)
+
+    if (conditions.legendSet) {
+        if (!conditionsList?.length) {
+            return [metadata[conditions.legendSet]?.name]
+        } else {
+            const legends = parseCondition(conditionsList[0])
+            const allLegends = metadata[conditions.legendSet]?.legends
+            const legendNames = legends.map(
+                (legend) => allLegends.find((l) => l.id === legend).name
+            )
+            return legendNames
+        }
+    }
+
+    if (dimension.optionSet && conditionsList[0]?.startsWith(OPERATOR_IN)) {
+        const items = parseCondition(conditionsList[0])
+        const itemNames = items.map(
+            (code) =>
+                Object.values(metadata).find((item) => item.code === code).name
+        )
+        return itemNames
+    }
+
+    if (
+        [VALUE_TYPE_BOOLEAN, VALUE_TYPE_TRUE_ONLY].includes(
+            dimension.valueType
+        ) &&
+        conditionsList[0]?.startsWith(OPERATOR_IN)
+    ) {
+        const values = parseCondition(conditionsList[0])
+        const valueNames = values.map((value) => BOOLEAN_VALUES[value])
+        return valueNames
+    }
+
+    if (
+        dimension.valueType === VALUE_TYPE_ORGANISATION_UNIT &&
+        conditionsList[0]?.startsWith(OPERATOR_EQUAL)
+    ) {
+        const ous = parseCondition(conditionsList[0])
+        const ouNames = ous.map((ou) => metadata[ou]?.name)
+        return ouNames
+    }
+
+    const operators = getOperatorsByValueType(dimension.valueType)
+
+    const parsedConditions = conditionsList.map((condition) => {
+        let operator, value
+
+        if (condition.includes(NULL_VALUE)) {
+            operator = condition
+        } else {
+            const parts = condition.split(':')
+            operator = unprefixOperator(parts[0])
+            value = parts[1]
+        }
+
+        const operatorName = operators[operator]
+        const capitalCaseOperatorName =
+            operatorName[0].toUpperCase() + operatorName.substring(1)
+        return value
+            ? `${capitalCaseOperatorName}: ${value}`
+            : capitalCaseOperatorName
+    })
+
+    return parsedConditions
+}

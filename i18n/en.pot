@@ -235,6 +235,9 @@ msgstr "Searching for \"{{searchText}}\""
 msgid "No results found"
 msgstr "No results found"
 
+msgid "all"
+msgstr "all"
+
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
 msgstr[0] "{{count}} selected"
