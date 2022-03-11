@@ -2,6 +2,7 @@ import {
     FileMenu,
     useCachedDataQuery,
     VIS_TYPE_LINE_LIST,
+    visTypeDisplayNames,
 } from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -12,7 +13,10 @@ import { acSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
-import { visTypes } from '../../../modules/visualization.js'
+import {
+    visTypes,
+    getVisualizationFromCurrent,
+} from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -124,7 +128,7 @@ const MenuBar = ({
     }
 
     const onSave = (details = {}, copy = false) => {
-        const visualization = current // TODO getVisualizationFromCurrent
+        const visualization = getVisualizationFromCurrent(current)
 
         visualization.name =
             // name provided in Save dialog
@@ -133,7 +137,7 @@ const MenuBar = ({
             visualization.name ||
             // new visualization with no name provided in Save dialog
             i18n.t('Untitled {{visualizationType}} visualization, {{date}}', {
-                visualizationType: 'TEXT', // TODO Line list/PT?
+                visualizationType: visTypeDisplayNames(VIS_TYPE_LINE_LIST),
                 date: new Date().toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: 'short',
@@ -223,7 +227,7 @@ const MenuBar = ({
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
-                onSave={current?.legacy ? undefined : onSave}
+                onSave={!current || current?.legacy ? undefined : onSave}
                 onSaveAs={(details) => onSave(details, true)}
                 onDelete={onDelete}
                 onError={onError}
