@@ -51,19 +51,6 @@ export const headersMap = {
     [DIMENSION_ID_LAST_UPDATED]: 'lastupdated',
 }
 
-export const outputTypeMap = {
-    [OUTPUT_TYPE_EVENT]: {
-        name: i18n.t('Event'),
-        description: i18n.t(
-            'Events are single registrations or incidents in a program'
-        ),
-    },
-    [OUTPUT_TYPE_ENROLLMENT]: {
-        name: i18n.t('Enrollment'),
-        description: i18n.t('Programs track enrollments across time'),
-    },
-}
-
 export const outputTypeTimeDimensionMap = {
     [OUTPUT_TYPE_EVENT]: DIMENSION_ID_EVENT_DATE,
     [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_ID_ENROLLMENT_DATE,
