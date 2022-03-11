@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-10T10:43:57.547Z\n"
-"PO-Revision-Date: 2022-03-10T10:43:57.547Z\n"
+"POT-Creation-Date: 2022-03-11T13:07:49.081Z\n"
+"PO-Revision-Date: 2022-03-11T13:07:49.081Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -291,11 +291,11 @@ msgstr "Event"
 msgid "Enrollment"
 msgstr "Enrollment"
 
-msgid "Events are single registrations or incidents in a program."
-msgstr "Events are single registrations or incidents in a program."
+msgid "See individual event data from a Tracker program stage or event program."
+msgstr "See individual event data from a Tracker program stage or event program."
 
-msgid "Programs track enrollments across time."
-msgstr "Programs track enrollments across time."
+msgid "See data from multiple program stages in a Tracker program."
+msgstr "See data from multiple program stages in a Tracker program."
 
 msgid "Main dimensions"
 msgstr "Main dimensions"
@@ -724,12 +724,6 @@ msgstr "Cancelled"
 
 msgid "Completed"
 msgstr "Completed"
-
-msgid "Events are single registrations or incidents in a program"
-msgstr "Events are single registrations or incidents in a program"
-
-msgid "Programs track enrollments across time"
-msgstr "Programs track enrollments across time"
 
 msgid "List data from tracked entities and events."
 msgstr "List data from tracked entities and events."

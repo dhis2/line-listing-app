@@ -40,14 +40,16 @@ const InputPanel = ({ visible }) => {
             <InputOption
                 header={getLabelForInputType(OUTPUT_TYPE_EVENT)}
                 description={i18n.t(
-                    'Events are single registrations or incidents in a program.'
+                    'See individual event data from a Tracker program stage or event program.'
                 )}
                 onClick={() => setSelectedInput({ type: OUTPUT_TYPE_EVENT })}
                 selected={selectedInput.type === OUTPUT_TYPE_EVENT}
             />
             <InputOption
                 header={getLabelForInputType(OUTPUT_TYPE_ENROLLMENT)}
-                description={i18n.t('Programs track enrollments across time.')}
+                description={i18n.t(
+                    'See data from multiple program stages in a Tracker program.'
+                )}
                 onClick={() =>
                     setSelectedInput({ type: OUTPUT_TYPE_ENROLLMENT })
                 }
