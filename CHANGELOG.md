@@ -1,3 +1,10 @@
+## [1.1.10](https://github.com/dhis2/line-listing-app/compare/v1.1.9...v1.1.10) (2022-03-11)
+
+
+### Bug Fixes
+
+* disable Save if no current ([#30](https://github.com/dhis2/line-listing-app/issues/30)) ([fd613fa](https://github.com/dhis2/line-listing-app/commit/fd613fa9dd897f4e860f1b938a7f6a66d4f3f7db))
+
 ## [1.1.9](https://github.com/dhis2/line-listing-app/compare/v1.1.8...v1.1.9) (2022-03-11)
 
 
