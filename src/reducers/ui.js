@@ -418,9 +418,9 @@ export const useTimeDimensions = () => {
     const incidentDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
     )
-    const scheduledDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
-    )
+    // const scheduledDateDim = useSelector((state) =>
+    //     sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
+    // )
     const lastUpdatedDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
     )
@@ -457,7 +457,7 @@ export const useTimeDimensions = () => {
         eventDateDim,
         enrollmentDateDim,
         incidentDateDim,
-        scheduledDateDim,
+        // scheduledDateDim,
         lastUpdatedDim,
     ])
 }
