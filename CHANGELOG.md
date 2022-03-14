@@ -1,3 +1,10 @@
+## [1.1.11](https://github.com/dhis2/line-listing-app/compare/v1.1.10...v1.1.11) (2022-03-14)
+
+
+### Bug Fixes
+
+* add time dimension metadata when opening ao ([#36](https://github.com/dhis2/line-listing-app/issues/36)) ([6530511](https://github.com/dhis2/line-listing-app/commit/6530511c86989aa344c3574a25bfb4d5dd9ec74f))
+
 ## [1.1.10](https://github.com/dhis2/line-listing-app/compare/v1.1.9...v1.1.10) (2022-03-11)
 
 
