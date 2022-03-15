@@ -26,7 +26,7 @@ const ProgramDimensionsFilter = ({
     const showStageSelect =
         inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
-    console.log('PROGRAM', program)
+
     return (
         <div className={styles.container}>
             <Input
