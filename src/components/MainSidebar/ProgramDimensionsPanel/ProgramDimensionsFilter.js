@@ -9,6 +9,7 @@ import {
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '../../../modules/dimensionConstants.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import styles from './ProgramDimensionsFilter.module.css'
@@ -25,7 +26,7 @@ const ProgramDimensionsFilter = ({
     const showStageSelect =
         inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
-
+    console.log('PROGRAM', program)
     return (
         <div className={styles.container}>
             <Input
@@ -48,10 +49,12 @@ const ProgramDimensionsFilter = ({
                     label={i18n.t('Data element')}
                     value={DIMENSION_TYPE_DATA_ELEMENT}
                 />
-                <SingleSelectOption
-                    label={i18n.t('Program attribute')}
-                    value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
-                />
+                {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
+                    <SingleSelectOption
+                        label={i18n.t('Program attribute')}
+                        value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
+                    />
+                )}
                 <SingleSelectOption
                     label={i18n.t('Program indicator')}
                     value={DIMENSION_TYPE_PROGRAM_INDICATOR}
