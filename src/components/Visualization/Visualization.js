@@ -20,7 +20,7 @@ import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_DATE,
 } from '../../modules/dimensionConstants.js'
 import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
@@ -140,7 +140,7 @@ export const Visualization = ({
             return metadata[value]?.name || value
         } else if (header?.valueType === 'DATE') {
             return moment(value).format(
-                header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
+                header.name === headersMap[DIMENSION_ID_LAST_UPDATED_DATE]
                     ? 'yyyy-MM-DD hh:mm'
                     : 'yyyy-MM-DD'
             )

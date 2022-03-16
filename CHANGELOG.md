@@ -1,3 +1,10 @@
+## [1.1.12](https://github.com/dhis2/line-listing-app/compare/v1.1.11...v1.1.12) (2022-03-16)
+
+
+### Bug Fixes
+
+* hide attributes for event programs ([#37](https://github.com/dhis2/line-listing-app/issues/37)) ([b99815d](https://github.com/dhis2/line-listing-app/commit/b99815d8118d7f44bc4a4ca695b88f412973dbad))
+
 ## [1.1.11](https://github.com/dhis2/line-listing-app/compare/v1.1.10...v1.1.11) (2022-03-14)
 
 
