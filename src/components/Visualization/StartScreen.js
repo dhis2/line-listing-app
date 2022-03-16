@@ -62,10 +62,10 @@ const useMostViewedVisualizations = (username, setLoadError) => {
 }
 
 const StartScreen = ({ error, username, setLoadError }) => {
-    const data = useMostViewedVisualizations(username, setLoadError)
+    const Content = () => {
+        const data = useMostViewedVisualizations(username, setLoadError)
 
-    const getContent = () => {
-        /* TODO remove this when/if other types are supported */
+        /* TODO remove this when other types are supported */
         const mostViewed = data?.mostViewed?.filter(
             (vis) => vis.type === VIS_TYPE_LINE_LIST
         )
@@ -127,7 +127,7 @@ const StartScreen = ({ error, username, setLoadError }) => {
         )
     }
 
-    const getErrorContent = (error) => (
+    const ErrorContent = ({ error }) => (
         <div
             className={styles.errorContainer}
             data-test="start-screen-error-container"
@@ -155,7 +155,7 @@ const StartScreen = ({ error, username, setLoadError }) => {
     return (
         <div className={styles.outer}>
             <div className={styles.inner}>
-                {error ? getErrorContent(error) : getContent()}
+                {error ? <ErrorContent error={error} /> : <Content />}
             </div>
         </div>
     )
