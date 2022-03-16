@@ -219,6 +219,7 @@ const MenuBar = ({
                 currentUser={currentUser}
                 fileType={apiObjectName}
                 fileObject={current}
+                defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
