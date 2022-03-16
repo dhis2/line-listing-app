@@ -213,12 +213,11 @@ const useAnalyticsData = ({
     visualization,
     relativePeriodDate,
     onResponseReceived,
-    page,
     pageSize,
 }) => {
     const dataEngine = useDataEngine()
     const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
-    const { sortField, sortDirection } = useSelector(sGetUiSorting)
+    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)

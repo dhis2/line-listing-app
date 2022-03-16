@@ -10,6 +10,7 @@ import {
     sGetUi,
     sGetUiSorting,
     DEFAULT_SORT_DIRECTION,
+    FIRST_PAGE,
 } from '../reducers/ui.js'
 
 const acSetCurrent = (value) => ({
@@ -18,9 +19,9 @@ const acSetCurrent = (value) => ({
 })
 
 export const tSetCurrent = (visualization) => (dispatch, getState) => {
-    const { sortField, sortDirection } = sGetUiSorting(getState())
+    const { sortField, sortDirection, page } = sGetUiSorting(getState())
 
-    let sorting = { sortField, sortDirection }
+    let sorting = { sortField, sortDirection, page }
 
     const allDimensions = [
         ...visualization.columns,
@@ -33,6 +34,7 @@ export const tSetCurrent = (visualization) => (dispatch, getState) => {
         sorting = {
             sortField: headersMap[defaultSortField] || defaultSortField,
             sortDirection: DEFAULT_SORT_DIRECTION,
+            page: FIRST_PAGE,
         }
     }
 
@@ -64,6 +66,7 @@ export const tSetCurrentFromUi = () => async (dispatch, getState) => {
         const sorting = {
             sortField: headersMap[defaultSortField] || defaultSortField,
             sortDirection: DEFAULT_SORT_DIRECTION,
+            page: FIRST_PAGE,
         }
 
         dispatch(acSetUiSorting(sorting))

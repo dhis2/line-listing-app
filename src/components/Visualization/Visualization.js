@@ -32,7 +32,7 @@ import {
 } from '../../modules/options.js'
 import { headersMap } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetUiSorting } from '../../reducers/ui.js'
+import { sGetUiSorting, FIRST_PAGE } from '../../reducers/ui.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -67,18 +67,16 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection } = useSelector(sGetUiSorting)
+    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
-    const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
-        page,
         pageSize,
     })
 
@@ -106,10 +104,17 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
-    const sortData = ({ sortField, sortDirection }) => {
-        dispatch(acSetUiSorting({ sortField, sortDirection }))
-        setPage(1)
-    }
+    const sortData = ({ name, direction }) =>
+        dispatch(
+            acSetUiSorting({
+                sortField: name,
+                sortDirection: direction,
+                page: FIRST_PAGE,
+            })
+        )
+
+    const setPage = (pageNum) =>
+        dispatch(acSetUiSorting({ sortField, sortDirection, page: pageNum }))
 
     const formatCellValue = (value, header) => {
         if (
@@ -198,15 +203,7 @@ export const Visualization = ({
                                         top="0"
                                         key={header.name}
                                         name={header.name}
-                                        onSortIconClick={({
-                                            name,
-                                            direction,
-                                        }) =>
-                                            sortData({
-                                                sortField: name,
-                                                sortDirection: direction,
-                                            })
-                                        }
+                                        onSortIconClick={sortData}
                                         sortDirection={
                                             header.name === sortField
                                                 ? sortDirection
