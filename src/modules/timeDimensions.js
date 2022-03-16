@@ -5,7 +5,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_DATE,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
@@ -44,8 +44,8 @@ export const getTimeDimensions = () => ({
         nameProperty: 'displayDueDateLabel',
     },
     */
-    [DIMENSION_ID_LAST_UPDATED]: {
-        id: DIMENSION_ID_LAST_UPDATED,
+    [DIMENSION_ID_LAST_UPDATED_DATE]: {
+        id: DIMENSION_ID_LAST_UPDATED_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
         name: i18n.t('Last updated on'),
     },
@@ -91,7 +91,7 @@ export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
         }
 
         if (isEvent || isEnrollment || withRegistration) {
-            enabledDimensionIds.add(DIMENSION_ID_LAST_UPDATED)
+            enabledDimensionIds.add(DIMENSION_ID_LAST_UPDATED_DATE)
         }
     }
     return enabledDimensionIds

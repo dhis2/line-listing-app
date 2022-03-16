@@ -28,6 +28,7 @@ import {
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
+import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -251,6 +252,7 @@ const App = ({
             const metadata = {
                 [program.id]: program,
                 [programStage.id]: programStage,
+                ...getDynamicTimeDimensionsMetadata(program, programStage),
             }
 
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))
