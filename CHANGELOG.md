@@ -1,3 +1,10 @@
+## [1.1.14](https://github.com/dhis2/line-listing-app/compare/v1.1.13...v1.1.14) (2022-03-16)
+
+
+### Bug Fixes
+
+* prevent extra api request and render of vis table when sorting and updating ([#40](https://github.com/dhis2/line-listing-app/issues/40)) ([d99ff02](https://github.com/dhis2/line-listing-app/commit/d99ff0203f4dcfd3c13db82ba3107fd0cd217944))
+
 ## [1.1.13](https://github.com/dhis2/line-listing-app/compare/v1.1.12...v1.1.13) (2022-03-16)
 
 
