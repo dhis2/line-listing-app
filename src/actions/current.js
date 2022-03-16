@@ -19,27 +19,16 @@ const acSetCurrent = (value) => ({
 })
 
 export const tSetCurrent = (visualization) => (dispatch, getState) => {
-    const { sortField, sortDirection, page } = sGetUiSorting(getState())
+    const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
 
-    let sorting = { sortField, sortDirection, page }
-
-    const allDimensions = [
-        ...visualization.columns,
-        ...visualization.rows,
-        ...visualization.filters,
-    ].map((f) => headersMap[f.dimension] || f.dimension)
-
-    if (!sortField || !allDimensions.includes(sortField)) {
-        const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
-        sorting = {
+    dispatch(acSetCurrent(visualization))
+    dispatch(
+        acSetUiSorting({
             sortField: headersMap[defaultSortField] || defaultSortField,
             sortDirection: DEFAULT_SORT_DIRECTION,
             page: FIRST_PAGE,
-        }
-    }
-
-    dispatch(acSetCurrent(visualization))
-    dispatch(acSetUiSorting(sorting))
+        })
+    )
 }
 
 export const acClearCurrent = () => ({
