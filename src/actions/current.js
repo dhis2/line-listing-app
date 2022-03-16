@@ -41,7 +41,7 @@ export const acSetCurrentFromUi = (value) => ({
 })
 
 export const tSetCurrentFromUi = () => async (dispatch, getState) => {
-    const { sortField } = sGetUiSorting(getState())
+    const { sortField, sortDirection } = sGetUiSorting(getState())
     const ui = sGetUi(getState())
 
     const allDimensions = [
@@ -50,16 +50,19 @@ export const tSetCurrentFromUi = () => async (dispatch, getState) => {
         ...ui.layout.filters,
     ].map((d) => headersMap[d] || d)
 
+    const sorting = {
+        sortField,
+        sortDirection,
+        page: FIRST_PAGE,
+    }
+
     if (!sortField || !allDimensions.includes(sortField)) {
         const defaultSortField = ui.layout[AXIS_ID_COLUMNS][0]
-        const sorting = {
-            sortField: headersMap[defaultSortField] || defaultSortField,
-            sortDirection: DEFAULT_SORT_DIRECTION,
-            page: FIRST_PAGE,
-        }
 
-        dispatch(acSetUiSorting(sorting))
+        sorting.sortField = headersMap[defaultSortField] || defaultSortField
+        sorting.sortDirection = DEFAULT_SORT_DIRECTION
     }
 
     dispatch(acSetCurrentFromUi(ui))
+    dispatch(acSetUiSorting(sorting))
 }
