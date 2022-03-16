@@ -62,10 +62,10 @@ const useMostViewedVisualizations = (username, setLoadError) => {
 }
 
 const StartScreen = ({ error, username, setLoadError }) => {
-    const getContent = () => {
-        const data = useMostViewedVisualizations(username, setLoadError)
+    const data = useMostViewedVisualizations(username, setLoadError)
 
-        /* TODO remove this when pivot tables are supported */
+    const getContent = () => {
+        /* TODO remove this when/if other types are supported */
         const mostViewed = data?.mostViewed?.filter(
             (vis) => vis.type === VIS_TYPE_LINE_LIST
         )
