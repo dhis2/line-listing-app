@@ -13,10 +13,7 @@ import { acSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
-import {
-    visTypes,
-    getVisualizationFromCurrent,
-} from '../../../modules/visualization.js'
+import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -222,8 +219,6 @@ const MenuBar = ({
                 currentUser={currentUser}
                 fileType={apiObjectName}
                 fileObject={current}
-                filterVisTypes={visTypes}
-                defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
