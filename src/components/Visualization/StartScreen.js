@@ -65,7 +65,7 @@ const StartScreen = ({ error, username, setLoadError }) => {
     const Content = () => {
         const data = useMostViewedVisualizations(username, setLoadError)
 
-        /* TODO remove this when other types are supported */
+        /* TODO change this when other types are supported */
         const mostViewed = data?.mostViewed?.filter(
             (vis) => vis.type === VIS_TYPE_LINE_LIST
         )
