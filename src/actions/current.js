@@ -18,7 +18,7 @@ const acSetCurrent = (value) => ({
     value,
 })
 
-export const tSetCurrent = (visualization) => (dispatch, getState) => {
+export const tSetCurrent = (visualization) => (dispatch) => {
     const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
 
     dispatch(acSetCurrent(visualization))
