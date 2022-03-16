@@ -34,6 +34,7 @@ export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
+export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
@@ -48,6 +49,8 @@ export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+
+export const DEFAULT_SORT_DIRECTION = 'asc'
 
 const EMPTY_UI = {
     draggingId: null,
@@ -67,6 +70,11 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
+    sorting: {
+        sortField: null,
+        sortDirection: DEFAULT_SORT_DIRECTION,
+        page: 1,
+    },
 }
 
 export const DEFAULT_UI = {
@@ -94,6 +102,11 @@ export const DEFAULT_UI = {
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: {},
+    sorting: {
+        sortField: null,
+        sortDirection: DEFAULT_SORT_DIRECTION,
+        page: 1,
+    },
 }
 
 const getPreselectedUi = (options) => {
@@ -129,6 +142,12 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 input: action.value,
+            }
+        }
+        case SET_UI_SORTING: {
+            return {
+                ...state,
+                sorting: action.value,
             }
         }
         case CLEAR_UI_PROGRAM: {
@@ -344,6 +363,8 @@ export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
+
+export const sGetUiSorting = (state) => sGetUi(state).sorting
 
 // Selectors level 2
 

@@ -5,7 +5,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
 import { connect, useDispatch } from 'react-redux'
-import { acSetCurrent } from '../actions/current.js'
+import { tSetCurrent } from '../actions/current.js'
 import {
     acClearAll,
     acClearLoadError,
@@ -366,7 +366,7 @@ const mapDispatchToProps = {
     addSettings: tAddSettings,
     clearAll: acClearAll,
     clearLoadError: acClearLoadError,
-    setCurrent: acSetCurrent,
+    setCurrent: tSetCurrent,
     setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
     setUser: acSetUser,

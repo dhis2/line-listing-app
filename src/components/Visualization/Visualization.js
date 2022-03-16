@@ -13,10 +13,10 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
-import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
+import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -32,6 +32,7 @@ import {
 } from '../../modules/options.js'
 import { headersMap } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
+import { sGetUiSorting } from '../../reducers/ui.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -66,40 +67,20 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
+    const { sortField, sortDirection } = useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
-    const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
-    const defaultSortDirection = 'asc'
 
-    const [{ sortField, sortDirection }, setSorting] = useState({
-        sortField: headersMap[defaultSortField] || defaultSortField,
-        sortDirection: defaultSortDirection,
-    })
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
-        sortField,
-        sortDirection,
         page,
         pageSize,
     })
-
-    useEffect(() => {
-        if (visualization) {
-            const sortField = visualization[AXIS_ID_COLUMNS][0].dimension
-
-            setSorting({
-                sortField: headersMap[sortField] || sortField,
-                sortDirection: defaultSortDirection,
-            })
-            setPage(1)
-            setPageSize(100)
-        }
-    }, [visualization])
 
     if (error) {
         let output
@@ -126,7 +107,7 @@ export const Visualization = ({
     const colSpan = String(Math.max(data.headers.length, 1))
 
     const sortData = ({ sortField, sortDirection }) => {
-        setSorting({ sortField, sortDirection })
+        dispatch(acSetUiSorting({ sortField, sortDirection }))
         setPage(1)
     }
 
