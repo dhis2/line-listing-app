@@ -9,7 +9,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { acSetCurrent } from '../../../actions/current.js'
+import { tSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
@@ -255,7 +255,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    setCurrent: acSetCurrent,
+    setCurrent: tSetCurrent,
     setVisualization: acSetVisualization,
 }
 
