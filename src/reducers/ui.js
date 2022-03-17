@@ -11,7 +11,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     // DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_DATE,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
@@ -34,6 +34,7 @@ export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const SET_UI_OPTION = 'SET_UI_OPTION'
+export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
@@ -48,6 +49,9 @@ export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+
+export const DEFAULT_SORT_DIRECTION = 'asc'
+export const FIRST_PAGE = 1
 
 const EMPTY_UI = {
     draggingId: null,
@@ -67,6 +71,11 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
+    sorting: {
+        sortField: null,
+        sortDirection: DEFAULT_SORT_DIRECTION,
+        page: FIRST_PAGE,
+    },
 }
 
 export const DEFAULT_UI = {
@@ -94,6 +103,11 @@ export const DEFAULT_UI = {
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: {},
+    sorting: {
+        sortField: null,
+        sortDirection: DEFAULT_SORT_DIRECTION,
+        page: FIRST_PAGE,
+    },
 }
 
 const getPreselectedUi = (options) => {
@@ -129,6 +143,12 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 input: action.value,
+            }
+        }
+        case SET_UI_SORTING: {
+            return {
+                ...state,
+                sorting: action.value,
             }
         }
         case CLEAR_UI_PROGRAM: {
@@ -345,6 +365,8 @@ export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
 
+export const sGetUiSorting = (state) => sGetUi(state).sorting
+
 // Selectors level 2
 
 export const sGetUiInputType = (state) => sGetUiInput(state).type
@@ -422,7 +444,7 @@ export const useTimeDimensions = () => {
     //     sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
     // )
     const lastUpdatedDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
+        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED_DATE)
     )
 
     return useMemo(() => {

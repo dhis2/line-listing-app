@@ -1,4 +1,4 @@
-import { formatValue, AXIS_ID_COLUMNS } from '@dhis2/analytics'
+import { formatValue } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -13,14 +13,14 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
-import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
+import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_DATE,
 } from '../../modules/dimensionConstants.js'
 import { genericServerError, noPeriodError } from '../../modules/error.js'
 import {
@@ -32,6 +32,7 @@ import {
 } from '../../modules/options.js'
 import { headersMap } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
+import { sGetUiSorting, FIRST_PAGE } from '../../reducers/ui.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -66,40 +67,18 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
+    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
-    const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
-    const defaultSortDirection = 'asc'
 
-    const [{ sortField, sortDirection }, setSorting] = useState({
-        sortField: headersMap[defaultSortField] || defaultSortField,
-        sortDirection: defaultSortDirection,
-    })
-    const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
         onResponseReceived,
-        sortField,
-        sortDirection,
-        page,
         pageSize,
     })
-
-    useEffect(() => {
-        if (visualization) {
-            const sortField = visualization[AXIS_ID_COLUMNS][0].dimension
-
-            setSorting({
-                sortField: headersMap[sortField] || sortField,
-                sortDirection: defaultSortDirection,
-            })
-            setPage(1)
-            setPageSize(100)
-        }
-    }, [visualization])
 
     if (error) {
         let output
@@ -125,10 +104,17 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
-    const sortData = ({ sortField, sortDirection }) => {
-        setSorting({ sortField, sortDirection })
-        setPage(1)
-    }
+    const sortData = ({ name, direction }) =>
+        dispatch(
+            acSetUiSorting({
+                sortField: name,
+                sortDirection: direction,
+                page: FIRST_PAGE,
+            })
+        )
+
+    const setPage = (pageNum) =>
+        dispatch(acSetUiSorting({ sortField, sortDirection, page: pageNum }))
 
     const formatCellValue = (value, header) => {
         if (
@@ -140,7 +126,7 @@ export const Visualization = ({
             return metadata[value]?.name || value
         } else if (header?.valueType === 'DATE') {
             return moment(value).format(
-                header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
+                header.name === headersMap[DIMENSION_ID_LAST_UPDATED_DATE]
                     ? 'yyyy-MM-DD hh:mm'
                     : 'yyyy-MM-DD'
             )
@@ -217,15 +203,7 @@ export const Visualization = ({
                                         top="0"
                                         key={header.name}
                                         name={header.name}
-                                        onSortIconClick={({
-                                            name,
-                                            direction,
-                                        }) =>
-                                            sortData({
-                                                sortField: name,
-                                                sortDirection: direction,
-                                            })
-                                        }
+                                        onSortIconClick={sortData}
                                         sortDirection={
                                             header.name === sortField
                                                 ? sortDirection
