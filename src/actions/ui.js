@@ -6,7 +6,7 @@ import {
 } from '../modules/dimensionConstants.js'
 import { getIsMainDimensionDisabled } from '../modules/mainDimensions.js'
 import {
-    getDefaulTimeDimensionsMetadata,
+    getDefaultTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../modules/metadata.js'
@@ -42,6 +42,7 @@ import {
     sGetUiProgramId,
     sGetUiInputType,
 } from '../reducers/ui.js'
+import { acAddMetadata } from './metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
@@ -56,7 +57,7 @@ export const acSetUiInput = (value, metadata) => ({
 
 export const acClearUiProgram = () => ({
     type: CLEAR_UI_PROGRAM,
-    metadata: getDefaulTimeDimensionsMetadata(),
+    metadata: getDefaultTimeDimensionsMetadata(),
 })
 
 export const acClearUiStageId = (metadata) => ({
@@ -133,7 +134,7 @@ export const tClearUiProgramStageDimensions =
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
     dispatch(tClearUiProgramRelatedDimensions(value.type))
-    dispatch(acSetUiInput(value, getDefaulTimeDimensionsMetadata()))
+    dispatch(acSetUiInput(value, getDefaultTimeDimensionsMetadata()))
 }
 
 export const tSetUiProgram =
@@ -234,6 +235,8 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
 
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
+
+    dispatch(acAddMetadata(getDefaultTimeDimensionsMetadata()))
 
     dispatch(
         acClearUi({
