@@ -42,6 +42,7 @@ import {
     sGetUiProgramId,
     sGetUiInputType,
 } from '../reducers/ui.js'
+import { acAddMetadata } from './metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
@@ -234,6 +235,8 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
 
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
+
+    dispatch(acAddMetadata(getDefaultTimeDimensionsMetadata()))
 
     dispatch(
         acClearUi({
