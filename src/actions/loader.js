@@ -1,9 +1,11 @@
+import { getDefaulTimeDimensionsMetadata } from '../modules/metadata.js'
 import {
     SET_LOAD_ERROR,
     CLEAR_LOAD_ERROR,
     SET_VISUALIZATION_LOADING,
 } from '../reducers/loader.js'
 import { acClearCurrent } from './current.js'
+import { acAddMetadata } from './metadata.js'
 import { tClearUi } from './ui.js'
 import { acClearVisualization } from './visualization.js'
 
@@ -31,6 +33,7 @@ export const acClearAll =
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
         dispatch(tClearUi())
+        dispatch(acAddMetadata(getDefaulTimeDimensionsMetadata()))
 
         // TODO: Copied from DV, needed in ER?
         // const rootOrganisationUnits = sGetRootOrgUnits(getState())
