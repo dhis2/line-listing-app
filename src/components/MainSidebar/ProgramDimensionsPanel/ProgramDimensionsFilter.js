@@ -8,6 +8,8 @@ import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
 } from '../../../modules/dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
@@ -58,6 +60,14 @@ const ProgramDimensionsFilter = ({
                 <SingleSelectOption
                     label={i18n.t('Program indicator')}
                     value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                />
+                <SingleSelectOption
+                    label={i18n.t('Category')}
+                    value={DIMENSION_TYPE_CATEGORY}
+                />
+                <SingleSelectOption
+                    label={i18n.t('Category option group set')}
+                    value={DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET}
                 />
             </SingleSelect>
             {showStageSelect && (
