@@ -1,3 +1,14 @@
+## [1.1.15](https://github.com/dhis2/line-listing-app/compare/v1.1.14...v1.1.15) (2022-03-17)
+
+
+### Bug Fixes
+
+* add cat and cogs filters ([#46](https://github.com/dhis2/line-listing-app/issues/46)) ([053e299](https://github.com/dhis2/line-listing-app/commit/053e299742e7c7b47fd70c05319a5bcf8b17124b))
+* don't call hook conditionally ([153e25c](https://github.com/dhis2/line-listing-app/commit/153e25caa08ee98c2111b491e917f730dd7f8026))
+* don't call hooks conditionally ([#44](https://github.com/dhis2/line-listing-app/issues/44)) ([9678455](https://github.com/dhis2/line-listing-app/commit/967845560a4fa0035ff6243186ea712eac3d56b3))
+* remove vis type filter in OpenFileDialog and filter only LL AOs ([#39](https://github.com/dhis2/line-listing-app/issues/39)) ([49a192c](https://github.com/dhis2/line-listing-app/commit/49a192c6cd26c0d8d5294d84c390ccb62024943d))
+* restore time dimensions defaults when clearing the ui for a new visualization ([#45](https://github.com/dhis2/line-listing-app/issues/45)) ([33640a3](https://github.com/dhis2/line-listing-app/commit/33640a349c8b56e2ad7fa90a96fa6b05ec36da07))
+
 ## [1.1.14](https://github.com/dhis2/line-listing-app/compare/v1.1.13...v1.1.14) (2022-03-16)
 
 
