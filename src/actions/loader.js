@@ -34,17 +34,4 @@ export const acClearAll =
         dispatch(acClearCurrent())
         dispatch(tClearUi())
         dispatch(acAddMetadata(getDefaulTimeDimensionsMetadata()))
-
-        // TODO: Copied from DV, needed in ER?
-        // const rootOrganisationUnits = sGetRootOrgUnits(getState())
-        // const relativePeriod = sGetRelativePeriod(getState())
-        // const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
-
-        // dispatch(
-        //     fromUi.acClear({
-        //         rootOrganisationUnits,
-        //         relativePeriod,
-        //         digitGroupSeparator,
-        //     })
-        // )
     }
