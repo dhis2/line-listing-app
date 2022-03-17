@@ -32,13 +32,13 @@ const getFixedDimensions = () => ({
 
 export const getDefaultMetadata = () => ({
     ...getMainDimensions(),
-    ...getDefaulTimeDimensionsMetadata(),
+    ...getDefaultTimeDimensionsMetadata(),
     ...getFixedDimensions(),
     ...formatObject(getOrganisationUnits()),
     ...formatObject(statusNames),
 })
 
-export const getDefaulTimeDimensionsMetadata = () => {
+export const getDefaultTimeDimensionsMetadata = () => {
     return Object.values(getTimeDimensions()).reduce(
         (acc, { id, name, dimensionType }) => {
             acc[id] = {

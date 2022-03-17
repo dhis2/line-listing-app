@@ -1,4 +1,4 @@
-import { getDefaulTimeDimensionsMetadata } from '../modules/metadata.js'
+import { getDefaultTimeDimensionsMetadata } from '../modules/metadata.js'
 import {
     SET_LOAD_ERROR,
     CLEAR_LOAD_ERROR,
@@ -33,5 +33,5 @@ export const acClearAll =
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
         dispatch(tClearUi())
-        dispatch(acAddMetadata(getDefaulTimeDimensionsMetadata()))
+        dispatch(acAddMetadata(getDefaultTimeDimensionsMetadata()))
     }
