@@ -20,8 +20,10 @@ const acSetCurrent = (value) => ({
 })
 
 export const tSetCurrent = (visualization) => (dispatch) => {
+    const firstColumnDimension = visualization[AXIS_ID_COLUMNS][0]
     const defaultSortField = formatDimensionId(
-        visualization[AXIS_ID_COLUMNS][0]
+        firstColumnDimension?.dimension,
+        firstColumnDimension?.programStage?.id
     )
 
     dispatch(acSetCurrent(visualization))
