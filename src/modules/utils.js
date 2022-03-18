@@ -27,7 +27,5 @@ export const useDidUpdateEffect = (fn, inputs) => {
     }, inputs)
 }
 
-export const formatDimensionId = (dimensionObj) =>
-    dimensionObj.programStage?.id
-        ? `${dimensionObj.programStage.id}.${dimensionObj.dimension}`
-        : dimensionObj.dimension
+export const formatDimensionId = (dimensionId, programStageId) =>
+    programStageId ? `${programStageId}.${dimensionId}` : dimensionId
