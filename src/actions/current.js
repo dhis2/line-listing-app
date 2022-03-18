@@ -1,5 +1,6 @@
 import { AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import { acSetUiSorting } from '../actions/ui.js'
+import { formatDimensionId } from '../modules/utils.js'
 import { headersMap } from '../modules/visualization.js'
 import {
     SET_CURRENT,
@@ -19,7 +20,9 @@ const acSetCurrent = (value) => ({
 })
 
 export const tSetCurrent = (visualization) => (dispatch) => {
-    const defaultSortField = visualization[AXIS_ID_COLUMNS][0].dimension
+    const defaultSortField = formatDimensionId(
+        visualization[AXIS_ID_COLUMNS][0]
+    )
 
     dispatch(acSetCurrent(visualization))
     dispatch(
