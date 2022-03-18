@@ -49,7 +49,7 @@ export const DATE_OPERATORS = {
     [OPERATOR_EQUAL]: i18n.t('exactly'),
     [OPERATOR_NOT_EQUAL]: i18n.t('is not'),
     [OPERATOR_GREATER]: i18n.t('after'),
-    [OPERATOR_GREATER_OR_EQUAL]: i18n.t('after and including'),
+    [OPERATOR_GREATER_OR_EQUAL]: i18n.t('after or including'),
     [OPERATOR_LESS]: i18n.t('before'),
     [OPERATOR_LESS_OR_EQUAL]: i18n.t('before or including'),
     [OPERATOR_EMPTY]: i18n.t('is empty / null'),
