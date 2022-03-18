@@ -1,3 +1,10 @@
+## [1.1.17](https://github.com/dhis2/line-listing-app/compare/v1.1.16...v1.1.17) (2022-03-18)
+
+
+### Bug Fixes
+
+* after -or- including ([#48](https://github.com/dhis2/line-listing-app/issues/48)) ([a1fabd0](https://github.com/dhis2/line-listing-app/commit/a1fabd06d331cf547ea781f008b1f34d9e191c8e))
+
 ## [1.1.16](https://github.com/dhis2/line-listing-app/compare/v1.1.15...v1.1.16) (2022-03-18)
 
 
