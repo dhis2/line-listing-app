@@ -3,7 +3,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
 } from '../dimensionConstants.js'
 import {
     PROGRAM_TYPE_WITH_REGISTRATION,
@@ -24,7 +24,7 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
     /***** NOT in MVP / 2.38 release *****
     const scheduledDateDimension = timeDimensions[DIMENSION_ID_SCHEDULED_DATE]
     */
-    const lastUpdatedDimension = timeDimensions[DIMENSION_ID_LAST_UPDATED_DATE]
+    const lastUpdatedDimension = timeDimensions[DIMENSION_ID_LAST_UPDATED]
 
     it('uses default names normally', () => {
         const program = {
@@ -200,7 +200,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 DIMENSION_ID_ENROLLMENT_DATE,
                 DIMENSION_ID_SCHEDULED_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED_DATE,
+                DIMENSION_ID_LAST_UPDATED,
             ],
         },
         // Hiding the due date
@@ -218,7 +218,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 DIMENSION_ID_EVENT_DATE,
                 DIMENSION_ID_ENROLLMENT_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED_DATE,
+                DIMENSION_ID_LAST_UPDATED,
             ],
         },
         // Hiding the incident date
@@ -235,7 +235,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
             expected: [
                 DIMENSION_ID_EVENT_DATE,
                 DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_LAST_UPDATED_DATE,
+                DIMENSION_ID_LAST_UPDATED,
             ],
         },
         // input type enrollment
@@ -252,7 +252,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
             expected: [
                 DIMENSION_ID_ENROLLMENT_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED_DATE,
+                DIMENSION_ID_LAST_UPDATED,
             ],
         },
         // Event program
@@ -266,7 +266,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: false,
             },
-            expected: [DIMENSION_ID_EVENT_DATE, DIMENSION_ID_LAST_UPDATED_DATE],
+            expected: [DIMENSION_ID_EVENT_DATE, DIMENSION_ID_LAST_UPDATED],
         },
     ])(
         'returns expected IDs for inputType $inputType, programType $program.programType with displayIncidentDate $program.displayIncidentDate and stage.hideDueDate $stage.hideDueDate',
