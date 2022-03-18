@@ -1,3 +1,10 @@
+## [1.1.18](https://github.com/dhis2/line-listing-app/compare/v1.1.17...v1.1.18) (2022-03-18)
+
+
+### Bug Fixes
+
+* use prefixed sort dimension ([#49](https://github.com/dhis2/line-listing-app/issues/49)) ([0feb680](https://github.com/dhis2/line-listing-app/commit/0feb680c2876b67027690e9b293302c508742442))
+
 ## [1.1.17](https://github.com/dhis2/line-listing-app/compare/v1.1.16...v1.1.17) (2022-03-18)
 
 
