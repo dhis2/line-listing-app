@@ -11,7 +11,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     // DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
@@ -444,7 +444,7 @@ export const useTimeDimensions = () => {
     //     sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
     // )
     const lastUpdatedDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED_DATE)
+        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
     )
 
     return useMemo(() => {

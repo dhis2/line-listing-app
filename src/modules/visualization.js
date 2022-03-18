@@ -19,7 +19,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_ID_PROGRAM_STATUS,
 } from './dimensionConstants.js'
@@ -48,7 +48,7 @@ export const headersMap = {
     [DIMENSION_ID_ENROLLMENT_DATE]: 'enrollmentdate',
     [DIMENSION_ID_INCIDENT_DATE]: 'incidentdate',
     [DIMENSION_ID_SCHEDULED_DATE]: 'scheduleddate',
-    [DIMENSION_ID_LAST_UPDATED_DATE]: 'lastupdated',
+    [DIMENSION_ID_LAST_UPDATED]: 'lastupdated',
 }
 
 export const outputTypeTimeDimensionMap = {
