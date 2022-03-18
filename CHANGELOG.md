@@ -1,3 +1,10 @@
+## [1.1.16](https://github.com/dhis2/line-listing-app/compare/v1.1.15...v1.1.16) (2022-03-18)
+
+
+### Bug Fixes
+
+* revert rename lastUpdated to lastUpdatedDate TECH-1040 ([#47](https://github.com/dhis2/line-listing-app/issues/47)) ([13c5104](https://github.com/dhis2/line-listing-app/commit/13c5104389a9701f0c7553d04332ef49d02cebbe))
+
 ## [1.1.15](https://github.com/dhis2/line-listing-app/compare/v1.1.14...v1.1.15) (2022-03-17)
 
 
