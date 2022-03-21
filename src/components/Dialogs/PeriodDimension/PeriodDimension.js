@@ -79,7 +79,11 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const selectedIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
         []
-    const [entryMethod, setEntryMethod] = useState(OPTION_PRESETS)
+    const [entryMethod, setEntryMethod] = useState(
+        selectedIds.filter((id) => isStartEndDate(id)).length
+            ? OPTION_START_END_DATES
+            : OPTION_PRESETS
+    )
     const [presets, setPresets] = useState(() =>
         selectedIds
             .filter((id) => !isStartEndDate(id))
@@ -97,9 +101,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     }, [presets])
 
     useEffect(() => {
-        if (startEndDate) {
-            updatePeriodDimensionItems([{ id: startEndDate }])
-        }
+        updatePeriodDimensionItems(startEndDate ? [{ id: startEndDate }] : [])
     }, [startEndDate])
 
     const updatePeriodDimensionItems = (items) => {
