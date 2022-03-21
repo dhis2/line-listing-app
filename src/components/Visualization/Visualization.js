@@ -13,7 +13,7 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
@@ -72,12 +72,12 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
+    const { sortField, sortDirection, page, pageSize } =
+        useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
-    const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
@@ -119,7 +119,24 @@ export const Visualization = ({
         )
 
     const setPage = (pageNum) =>
-        dispatch(acSetUiSorting({ sortField, sortDirection, page: pageNum }))
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                pageSize,
+                page: pageNum,
+            })
+        )
+
+    const setPageSize = (pageSizeNum) =>
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                page,
+                pageSize: pageSizeNum,
+            })
+        )
 
     const formatCellValue = (value, header) => {
         if (
