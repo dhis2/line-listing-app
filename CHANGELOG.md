@@ -1,3 +1,11 @@
+## [1.1.20](https://github.com/dhis2/line-listing-app/compare/v1.1.19...v1.1.20) (2022-03-22)
+
+
+### Bug Fixes
+
+* make URL values in datatable clickable TECH-1054 ([9c3f244](https://github.com/dhis2/line-listing-app/commit/9c3f2445befdd4a1347743adeac79f678f39cba0))
+* make URL values in datatable clickable TECH-1054 ([b3f1192](https://github.com/dhis2/line-listing-app/commit/b3f11924808919cc14c8ec71aff3e49c5e58e12f))
+
 ## [1.1.19](https://github.com/dhis2/line-listing-app/compare/v1.1.18...v1.1.19) (2022-03-22)
 
 
