@@ -2,12 +2,11 @@ import { Layer, Popper, IconMore16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
     acAddUiLayoutDimensions,
     acRemoveUiLayoutDimensions,
 } from '../../actions/ui.js'
-import { sGetUiType, sGetUiLayout } from '../../reducers/ui.js'
 import IconButton from '../IconButton/IconButton.js'
 import styles from './DimensionMenu.module.css'
 import MenuItems from './MenuItems.js'
@@ -20,10 +19,14 @@ const getAxisIdForDimension = (dimensionId, layout) => {
     return axisLayout ? axisLayout[0] : undefined
 }
 
-const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
+const DimensionMenu = ({
+    currentAxisId,
+    dimensionId,
+    dimensionMetadata,
+    visType,
+    layout,
+}) => {
     const dispatch = useDispatch()
-    const visType = useSelector(sGetUiType)
-    const layout = useSelector(sGetUiLayout)
 
     const axisId = currentAxisId || getAxisIdForDimension(dimensionId, layout)
 
@@ -85,6 +88,10 @@ DimensionMenu.propTypes = {
     currentAxisId: PropTypes.string,
     dimensionId: PropTypes.string,
     dimensionMetadata: PropTypes.object,
+    layout: PropTypes.object,
+    visType: PropTypes.string,
 }
 
-export default DimensionMenu
+const MemoizedDimensionMenu = React.memo(DimensionMenu)
+
+export default MemoizedDimensionMenu

@@ -1,9 +1,10 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PropTypes from 'prop-types'
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useMemo, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
+import { sGetUiType, sGetUiLayout } from '../../../reducers/ui.js'
 import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
 import { DimensionItemBase } from './DimensionItemBase.js'
 
@@ -19,19 +20,26 @@ export const DimensionItem = ({
     selected,
 }) => {
     const dispatch = useDispatch()
-    const dimensionMetadata = {
-        [id]: {
-            id,
-            name,
-            dimensionType,
-            valueType,
-            optionSet,
-        },
-    }
+    const visType = useSelector(sGetUiType)
+    const layout = useSelector(sGetUiLayout)
 
-    const onClick = disabled
-        ? undefined
-        : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+    const memoizedDimensionMetadata = useMemo(() => {
+        return {
+            [id]: {
+                id,
+                name,
+                dimensionType,
+                valueType,
+                optionSet,
+            },
+        }
+    }, [id, name, dimensionType, valueType, optionSet])
+
+    const onClick = useCallback(
+        () =>
+            dispatch(acSetUiOpenDimensionModal(id, memoizedDimensionMetadata)),
+        [dispatch, id, memoizedDimensionMetadata]
+    )
 
     const {
         attributes,
@@ -43,7 +51,7 @@ export const DimensionItem = ({
     } = useSortable({
         id: draggableId || id,
         disabled: disabled || selected,
-        data: dimensionMetadata[id],
+        data: memoizedDimensionMetadata[id],
     })
 
     const style = transform
@@ -68,12 +76,14 @@ export const DimensionItem = ({
                 disabled={disabled}
                 selected={selected}
                 stageName={stageName}
-                onClick={onClick}
+                onClick={disabled ? undefined : onClick}
                 contextMenu={
                     !disabled && (
                         <DimensionMenu
                             dimensionId={id}
-                            dimensionMetadata={dimensionMetadata}
+                            dimensionMetadata={memoizedDimensionMetadata}
+                            visType={visType}
+                            layout={layout}
                         />
                     )
                 }
