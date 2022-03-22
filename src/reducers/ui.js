@@ -50,6 +50,8 @@ export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 
+const DEFAULT_CONDITIONS = {}
+const DEFAULT_DIMENSION_ITEMS = []
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 
@@ -71,6 +73,7 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
+    conditions: DEFAULT_CONDITIONS,
     sorting: {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
@@ -102,7 +105,7 @@ export const DEFAULT_UI = {
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
-    conditions: {},
+    conditions: DEFAULT_CONDITIONS,
     sorting: {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
@@ -361,7 +364,7 @@ export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
-export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
+export const sGetUiConditions = (state) => sGetUi(state).conditions
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
 
@@ -375,7 +378,9 @@ export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 
 export const sGetUiItemsByDimension = (state, dimension) =>
-    sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
+    sGetUiItems(state)[dimension] ||
+    DEFAULT_UI.itemsByDimension[dimension] ||
+    DEFAULT_DIMENSION_ITEMS
 
 export const sGetDimensionIdsFromLayout = (state) =>
     Object.values(sGetUiLayout(state)).reduce(
