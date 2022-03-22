@@ -4,7 +4,7 @@ import {
     DragOverlay,
     useSensor,
     useSensors,
-    MouseSensor,
+    PointerSensor,
 } from '@dnd-kit/core'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -122,12 +122,12 @@ const OuterDndContext = ({ children }) => {
         useSelector((state) => sGetUiConditionsByDimension(state, id)) || {}
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
-    const mouseSensor = useSensor(MouseSensor, {
+    const pointerSensor = useSensor(PointerSensor, {
         activationConstraint: {
             distance: 15,
         },
     })
-    const sensors = useSensors(mouseSensor)
+    const sensors = useSensors(pointerSensor)
 
     const dispatch = useDispatch()
 
