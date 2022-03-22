@@ -18,6 +18,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
 import {
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_URL,
+} from '../../modules/conditions.js'
+import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
@@ -124,20 +129,20 @@ export const Visualization = ({
             ].includes(header?.name)
         ) {
             return metadata[value]?.name || value
-        } else if (header?.valueType === 'DATE') {
+        } else if (header?.valueType === VALUE_TYPE_DATE) {
             return moment(value).format(
                 header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
                     ? 'yyyy-MM-DD hh:mm'
                     : 'yyyy-MM-DD'
             )
-        } else if (header?.valueType === 'URL') {
+        } else if (header?.valueType === VALUE_TYPE_URL) {
             return (
                 <a href={value} target="_blank" rel="noreferrer">
                     {value}
                 </a>
             )
         } else {
-            return formatValue(value, header?.valueType || 'TEXT', {
+            return formatValue(value, header?.valueType || VALUE_TYPE_TEXT, {
                 digitGroupSeparator: visualization.digitGroupSeparator,
                 skipRounding: false, // TODO should there be an option for this?
             })
