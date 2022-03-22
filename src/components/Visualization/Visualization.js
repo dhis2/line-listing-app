@@ -130,6 +130,12 @@ export const Visualization = ({
                     ? 'yyyy-MM-DD hh:mm'
                     : 'yyyy-MM-DD'
             )
+        } else if (header?.valueType === 'URL') {
+            return (
+                <a href={value} target="_blank" rel="noreferrer">
+                    {value}
+                </a>
+            )
         } else {
             return formatValue(value, header?.valueType || 'TEXT', {
                 digitGroupSeparator: visualization.digitGroupSeparator,
