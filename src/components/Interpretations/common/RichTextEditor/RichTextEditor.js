@@ -60,6 +60,29 @@ EmojisPopover.propTypes = {
     reference: PropTypes.object,
 }
 
+const IconButtonWithTooltip = ({ tooltipContent, button }) => (
+    <>
+        <Tooltip content={tooltipContent} placement="bottom" closeDelay={200}>
+            {({ ref, onMouseOver, onMouseOut }) => (
+                <span
+                    ref={ref}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                    className="tooltip"
+                >
+                    {button}
+                </span>
+            )}
+        </Tooltip>
+        <style jsx>{toolbarClasses}</style>
+    </>
+)
+
+IconButtonWithTooltip.propTypes = {
+    button: PropTypes.node,
+    tooltipContent: PropTypes.text,
+}
+
 const Toolbar = ({
     disabled,
     onInsertMarkdown,
@@ -77,85 +100,79 @@ const Toolbar = ({
             {!previewMode ? (
                 <div className="actionsWrapper">
                     <div className="mainActions">
-                        <Tooltip
-                            content={i18n.t('Bold text')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconTextBold24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(BOLD)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Italic text')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconTextItalic24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(ITALIC)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Link to a URL')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconLink24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(LINK)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Mention a user')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconAt24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(MENTION)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Add emoji')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <div ref={emojisButtonRef}>
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Bold text')}
+                            button={
+                                <Button
+                                    secondary
+                                    small
+                                    disabled={disabled}
+                                    icon={<IconTextBold24 color={iconColor} />}
+                                    onClick={() => onInsertMarkdown(BOLD)}
+                                />
+                            }
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Italic text')}
+                            button={
+                                <Button
+                                    secondary
+                                    small
+                                    disabled={disabled}
+                                    icon={
+                                        <IconTextItalic24 color={iconColor} />
+                                    }
+                                    onClick={() => onInsertMarkdown(ITALIC)}
+                                />
+                            }
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Link to a URL')}
+                            button={
+                                <Button
+                                    secondary
+                                    small
+                                    disabled={disabled}
+                                    icon={<IconLink24 color={iconColor} />}
+                                    onClick={() => onInsertMarkdown(LINK)}
+                                />
+                            }
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Mention a user')}
+                            button={
+                                <Button
+                                    secondary
+                                    small
+                                    disabled={disabled}
+                                    icon={<IconAt24 color={iconColor} />}
+                                    onClick={() => onInsertMarkdown(MENTION)}
+                                />
+                            }
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Add emoji')}
+                            button={
                                 <Button
                                     secondary
                                     small
                                     disabled={disabled}
                                     icon={<IconFaceAdd24 color={iconColor} />}
                                     onClick={() => setEmojisPopoverIsOpen(true)}
+                                    ref={emojisButtonRef}
                                 />
-                            </div>
-                            {emojisPopoverIsOpen && (
-                                <EmojisPopover
-                                    onClose={() =>
-                                        setEmojisPopoverIsOpen(false)
-                                    }
-                                    onInsertMarkdown={(markup) => {
-                                        onInsertMarkdown(markup)
-                                        setEmojisPopoverIsOpen(false)
-                                    }}
-                                    reference={emojisButtonRef}
-                                />
-                            )}
-                        </Tooltip>
+                            }
+                        />
+                        {emojisPopoverIsOpen && (
+                            <EmojisPopover
+                                onClose={() => setEmojisPopoverIsOpen(false)}
+                                onInsertMarkdown={(markup) => {
+                                    onInsertMarkdown(markup)
+                                    setEmojisPopoverIsOpen(false)
+                                }}
+                                reference={emojisButtonRef}
+                            />
+                        )}
                     </div>
 
                     <div className="sideActions">

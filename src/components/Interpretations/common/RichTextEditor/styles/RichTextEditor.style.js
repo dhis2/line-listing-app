@@ -76,6 +76,11 @@ export const toolbarClasses = css`
         margin: ${spacers.dp4};
         text-align: right;
     }
+
+    .tooltip {
+        display: inline-flex;
+        align-items: center;
+    }
 `
 
 export const emojisPopoverClasses = css`
