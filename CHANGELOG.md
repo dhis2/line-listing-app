@@ -1,3 +1,19 @@
+## [1.1.20](https://github.com/dhis2/line-listing-app/compare/v1.1.19...v1.1.20) (2022-03-22)
+
+
+### Bug Fixes
+
+* make URL values in datatable clickable TECH-1054 ([9c3f244](https://github.com/dhis2/line-listing-app/commit/9c3f2445befdd4a1347743adeac79f678f39cba0))
+* make URL values in datatable clickable TECH-1054 ([b3f1192](https://github.com/dhis2/line-listing-app/commit/b3f11924808919cc14c8ec71aff3e49c5e58e12f))
+
+## [1.1.19](https://github.com/dhis2/line-listing-app/compare/v1.1.18...v1.1.19) (2022-03-22)
+
+
+### Bug Fixes
+
+* open correct tab, enable date to be removed ([53a5234](https://github.com/dhis2/line-listing-app/commit/53a5234922ba71d81339ca9990b88ecb6b4a3972))
+* open correct tab, enable date to be removed (TECH-1044, TECH-1052) [#54](https://github.com/dhis2/line-listing-app/issues/54) ([ef5c0c6](https://github.com/dhis2/line-listing-app/commit/ef5c0c6a9808769c0e775b474a4fc02c73e61829))
+
 ## [1.1.18](https://github.com/dhis2/line-listing-app/compare/v1.1.17...v1.1.18) (2022-03-18)
 
 
