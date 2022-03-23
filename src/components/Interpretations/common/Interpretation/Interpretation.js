@@ -36,6 +36,7 @@ export const Interpretation = ({
         <InterpretationUpdateForm
             close={() => setIsUpdateMode(false)}
             id={interpretation.id}
+            showSharingLink={interpretation.access.manage}
             onComplete={onUpdated}
             text={interpretation.text}
             currentUser={currentUser}
