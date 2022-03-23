@@ -1,3 +1,10 @@
+## [1.1.21](https://github.com/dhis2/line-listing-app/compare/v1.1.20...v1.1.21) (2022-03-23)
+
+
+### Bug Fixes
+
+* pass correct page length ([#60](https://github.com/dhis2/line-listing-app/issues/60)) ([098b480](https://github.com/dhis2/line-listing-app/commit/098b48088d8679fa73d07e5651c2e7b5e79c55db))
+
 ## [1.1.20](https://github.com/dhis2/line-listing-app/compare/v1.1.19...v1.1.20) (2022-03-22)
 
 
