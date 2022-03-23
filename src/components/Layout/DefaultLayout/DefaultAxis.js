@@ -4,7 +4,6 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { DIMENSION_TYPE_DATA_ELEMENT } from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
@@ -124,13 +123,6 @@ const DefaultAxis = ({ axisId, className }) => {
                             getDimensionsWithStageName().map((dimension, i) => (
                                 <Chip
                                     key={`${axisId}-${dimension.id}`}
-                                    onClick={() =>
-                                        dispatch(
-                                            acSetUiOpenDimensionModal(
-                                                dimension.id
-                                            )
-                                        )
-                                    }
                                     dimension={dimension}
                                     axisId={axisId}
                                     isLast={i === dimensionIds.length - 1}
