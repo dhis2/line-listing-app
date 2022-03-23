@@ -82,7 +82,6 @@ const IconButtonWithTooltip = ({ tooltipContent, disabled, icon, onClick }) => (
             )}
         </Tooltip>
         <style jsx>{tooltipAnchorClasses}</style>
-        <style jsx>{toolbarClasses}</style>
     </>
 )
 
