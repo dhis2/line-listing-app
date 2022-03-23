@@ -76,7 +76,9 @@ export const toolbarClasses = css`
         margin: ${spacers.dp4};
         text-align: right;
     }
+`
 
+export const tooltipAnchorClasses = css`
     .tooltip {
         display: inline-flex;
         align-items: center;

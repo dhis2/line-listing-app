@@ -31,6 +31,7 @@ import {
 import {
     mainClasses,
     toolbarClasses,
+    tooltipAnchorClasses,
     emojisPopoverClasses,
 } from './styles/RichTextEditor.style.js'
 
@@ -60,13 +61,7 @@ EmojisPopover.propTypes = {
     reference: PropTypes.object,
 }
 
-const IconButtonWithTooltip = ({
-    tooltipContent,
-    disabled,
-    icon,
-    onClick,
-    buttonRef,
-}) => (
+const IconButtonWithTooltip = ({ tooltipContent, disabled, icon, onClick }) => (
     <>
         <Tooltip content={tooltipContent} placement="bottom" closeDelay={200}>
             {({ ref, onMouseOver, onMouseOut }) => (
@@ -82,17 +77,16 @@ const IconButtonWithTooltip = ({
                         disabled={disabled}
                         icon={icon}
                         onClick={onClick}
-                        ref={buttonRef}
                     />
                 </span>
             )}
         </Tooltip>
+        <style jsx>{tooltipAnchorClasses}</style>
         <style jsx>{toolbarClasses}</style>
     </>
 )
 
 IconButtonWithTooltip.propTypes = {
-    buttonRef: PropTypes.object,
     disabled: PropTypes.bool,
     icon: PropTypes.node,
     tooltipContent: PropTypes.text,
@@ -140,13 +134,14 @@ const Toolbar = ({
                             icon={<IconAt24 color={iconColor} />}
                             onClick={() => onInsertMarkdown(MENTION)}
                         />
-                        <IconButtonWithTooltip
-                            tooltipContent={i18n.t('Add emoji')}
-                            disabled={disabled}
-                            icon={<IconFaceAdd24 color={iconColor} />}
-                            onClick={() => setEmojisPopoverIsOpen(true)}
-                            ref={emojisButtonRef}
-                        />
+                        <span ref={emojisButtonRef} className="tooltip">
+                            <IconButtonWithTooltip
+                                tooltipContent={i18n.t('Add emoji')}
+                                disabled={disabled}
+                                icon={<IconFaceAdd24 color={iconColor} />}
+                                onClick={() => setEmojisPopoverIsOpen(true)}
+                            />
+                        </span>
                         {emojisPopoverIsOpen && (
                             <EmojisPopover
                                 onClose={() => setEmojisPopoverIsOpen(false)}
@@ -182,6 +177,7 @@ const Toolbar = ({
                     </Button>
                 </div>
             )}
+            <style jsx>{tooltipAnchorClasses}</style>
             <style jsx>{toolbarClasses}</style>
         </div>
     )
