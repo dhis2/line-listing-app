@@ -290,7 +290,11 @@ export const Visualization = ({
                                         pageSizeSelectText={i18n.t(
                                             'Rows per page'
                                         )}
-                                        pageLength={data.rows.length}
+                                        pageLength={
+                                            fetching && data.isLastPage
+                                                ? pageSize
+                                                : data.rows.length
+                                        }
                                         pageSummaryText={({
                                             firstItem,
                                             lastItem,
