@@ -9,10 +9,10 @@ const sortByDateProp = (a, b) => {
     const dateB = b.created
 
     if (dateA < dateB) {
-        return -1
+        return 1
     }
     if (dateA > dateB) {
-        return 1
+        return -1
     }
     return 0
 }
