@@ -92,8 +92,11 @@ const IconButtonWithTooltip = ({
 )
 
 IconButtonWithTooltip.propTypes = {
-    button: PropTypes.node,
+    buttonRef: PropTypes.object,
+    disabled: PropTypes.bool,
+    icon: PropTypes.node,
     tooltipContent: PropTypes.text,
+    onClick: PropTypes.func,
 }
 
 const Toolbar = ({
