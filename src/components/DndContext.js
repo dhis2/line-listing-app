@@ -107,6 +107,12 @@ const getIdFromDraggingId = (draggingId) => {
     return id
 }
 
+const constraint = {
+    activationConstraint: {
+        distance: 15,
+    },
+}
+
 const OuterDndContext = ({ children }) => {
     const [sourceAxis, setSourceAxis] = useState(null)
 
@@ -115,18 +121,14 @@ const OuterDndContext = ({ children }) => {
 
     const layout = useSelector(sGetUiLayout)
     const metadata = useSelector(sGetMetadata)
-    const chipItems =
-        useSelector((state) => sGetUiItemsByDimension(state, id)) || []
+    const chipItems = useSelector((state) => sGetUiItemsByDimension(state, id))
 
-    const chipConditions =
-        useSelector((state) => sGetUiConditionsByDimension(state, id)) || {}
+    const chipConditions = useSelector((state) =>
+        sGetUiConditionsByDimension(state, id)
+    )
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
-    const pointerSensor = useSensor(PointerSensor, {
-        activationConstraint: {
-            distance: 15,
-        },
-    })
+    const pointerSensor = useSensor(PointerSensor, constraint)
     const sensors = useSensors(pointerSensor)
 
     const dispatch = useDispatch()
@@ -230,10 +232,10 @@ const OuterDndContext = ({ children }) => {
     }
 
     const onDragStart = ({ active }) => {
-        const id = getIdFromDraggingId(active.id)
-
         setSourceAxis(active.data.current.sortable.containerId)
         dispatch(acSetUiDraggingId(active.id))
+
+        const id = getIdFromDraggingId(active.id)
         dispatch(
             acAddMetadata({
                 [id]: {
@@ -247,9 +249,7 @@ const OuterDndContext = ({ children }) => {
         )
     }
 
-    const onDragCancel = () => {
-        dispatch(acSetUiDraggingId(null))
-    }
+    const onDragCancel = () => dispatch(acSetUiDraggingId(null))
 
     const onDragEnd = (result) => {
         const { active, over } = result
