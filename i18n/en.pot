@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-18T10:18:10.037Z\n"
-"PO-Revision-Date: 2022-03-18T10:18:10.037Z\n"
+"POT-Creation-Date: 2022-03-23T11:09:09.529Z\n"
+"PO-Revision-Date: 2022-03-23T11:09:09.529Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -135,11 +135,11 @@ msgstr "Download"
 msgid "Edit"
 msgstr "Edit"
 
-msgid "Add a comment"
-msgstr "Add a comment"
+msgid "Write a reply"
+msgstr "Write a reply"
 
-msgid "Save comment"
-msgstr "Save comment"
+msgid "Post reply"
+msgstr "Post reply"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -175,8 +175,8 @@ msgstr "Hide interpretation"
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
 
-msgid "Save interpretation"
-msgstr "Save interpretation"
+msgid "Post interpretation"
+msgstr "Post interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
@@ -189,6 +189,9 @@ msgstr "Like"
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Share"
+msgstr "Share"
 
 msgid "See interpretation"
 msgstr "See interpretation"
