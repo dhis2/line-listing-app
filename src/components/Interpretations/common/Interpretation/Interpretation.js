@@ -1,5 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconReply16, IconThumbUp16, IconEdit16 } from '@dhis2/ui'
+import {
+    Button,
+    SharingDialog,
+    IconReply16,
+    IconShare16,
+    IconThumbUp16,
+    IconEdit16,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Message, MessageStatsBar, MessageIconButton } from '../index.js'
@@ -17,6 +24,7 @@ export const Interpretation = ({
     onReplyIconClick,
 }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
+    const [showSharingDialog, setShowSharingDialog] = useState(false)
     const { toggleLike, isLikedByCurrentUser, toggleLikeInProgress } = useLike({
         interpretation,
         currentUser,
@@ -60,6 +68,21 @@ export const Interpretation = ({
                         onClick={() => onReplyIconClick(interpretation.id)}
                         count={interpretation.comments.length}
                     />
+                    {interpretation.access.manage && (
+                        <MessageIconButton
+                            iconComponent={IconShare16}
+                            tooltipContent={i18n.t('Share')}
+                            onClick={() => setShowSharingDialog(true)}
+                        />
+                    )}
+                    {showSharingDialog && (
+                        <SharingDialog
+                            open={true}
+                            type={'interpretation'}
+                            id={interpretation.id}
+                            onClose={() => setShowSharingDialog(false)}
+                        />
+                    )}
                     {interpretation.access.update && (
                         <MessageIconButton
                             iconComponent={IconEdit16}
