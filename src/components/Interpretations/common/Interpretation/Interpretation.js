@@ -46,7 +46,8 @@ export const Interpretation = ({
             created={interpretation.created}
             id={interpretation.id}
             username={interpretation.user.displayName}
-            onClick={disabled ? undefined : onClick}
+            // XXX showSharingDialog is needed here to avoid the interpretations view to open when the SharingDialog is closed
+            onClick={disabled || showSharingDialog ? undefined : onClick}
         >
             {!disabled && (
                 <MessageStatsBar>
