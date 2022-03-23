@@ -216,6 +216,7 @@ const InterpretationModal = ({
                     }
 
                     .thread-wrap {
+                        padding-right: ${spacers.dp4};
                         flex-basis: 300px;
                         flex-shrink: 0;
                         overflow-y: auto;
