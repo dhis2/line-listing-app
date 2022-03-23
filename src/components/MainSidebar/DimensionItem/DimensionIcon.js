@@ -46,7 +46,7 @@ const DIMENSION_TYPE_ICONS = {
 
 // Presentational component used by dnd - do not add redux or dnd functionality
 
-const DimensionIcon = ({ dimensionType }) => {
+const InternalDimensionIcon = ({ dimensionType }) => {
     const Icon =
         dimensionType && DIMENSION_TYPE_ICONS[dimensionType]
             ? DIMENSION_TYPE_ICONS[dimensionType]
@@ -55,8 +55,10 @@ const DimensionIcon = ({ dimensionType }) => {
     return <Icon />
 }
 
-DimensionIcon.propTypes = {
+InternalDimensionIcon.propTypes = {
     dimensionType: PropTypes.string,
 }
+
+const DimensionIcon = React.memo(InternalDimensionIcon)
 
 export { DimensionIcon }
