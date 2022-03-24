@@ -186,7 +186,7 @@ const InterpretationModal = ({
                     .title {
                         color: ${colors.grey900};
                         margin: 0px;
-                        padding: ${spacers.dp24} ${spacers.dp24} ${spacers.dp4};
+                        padding: ${spacers.dp24} 0 ${spacers.dp4};
                     }
 
                     .ellipsis {
