@@ -3,12 +3,11 @@ import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getAxisName } from '../../../modules/axis.js'
 import { DIMENSION_TYPE_DATA_ELEMENT } from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from '../../../reducers/metadata.js'
-import { sGetLoadError } from '../../../reducers/loader.js'
 import {
     sGetUiDraggingId,
     sGetUiDimensionIdsByAxisId,
@@ -27,6 +26,7 @@ const DefaultAxis = ({ axisId, className }) => {
         id: lastDropZoneId,
     })
 
+    const dispatch = useDispatch()
     const dimensionIds = useSelector((state) =>
         sGetUiDimensionIdsByAxisId(state, axisId)
     )
@@ -38,8 +38,6 @@ const DefaultAxis = ({ axisId, className }) => {
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
-
-    const globalLoadError = useSelector(sGetLoadError)
 
     const programStageNames = useMemo(
         () =>
@@ -114,32 +112,26 @@ const DefaultAxis = ({ axisId, className }) => {
                 className={cx(styles.axisContainer, className)}
             >
                 <div className={styles.label}>{getAxisName(axisId)}</div>
-                {!globalLoadError && (
-                    <SortableContext id={axisId} items={dimensionIds}>
-                        <div className={styles.content}>
-                            <DropZone
-                                axisId={axisId}
-                                firstElementId={dimensionIds[0]}
-                                overLastDropZone={overLastDropZone}
-                            />
-                            {renderChips &&
-                                getDimensionsWithStageName().map(
-                                    (dimension, i) => (
-                                        <Chip
-                                            key={`${axisId}-${dimension.id}`}
-                                            dimension={dimension}
-                                            axisId={axisId}
-                                            isLast={
-                                                i === dimensionIds.length - 1
-                                            }
-                                            overLastDropZone={overLastDropZone}
-                                            activeIndex={activeIndex}
-                                        />
-                                    )
-                                )}
-                        </div>
-                    </SortableContext>
-                )}
+                <SortableContext id={axisId} items={dimensionIds}>
+                    <div className={styles.content}>
+                        <DropZone
+                            axisId={axisId}
+                            firstElementId={dimensionIds[0]}
+                            overLastDropZone={overLastDropZone}
+                        />
+                        {renderChips &&
+                            getDimensionsWithStageName().map((dimension, i) => (
+                                <Chip
+                                    key={`${axisId}-${dimension.id}`}
+                                    dimension={dimension}
+                                    axisId={axisId}
+                                    isLast={i === dimensionIds.length - 1}
+                                    overLastDropZone={overLastDropZone}
+                                    activeIndex={activeIndex}
+                                />
+                            ))}
+                    </div>
+                </SortableContext>
             </div>
         </div>
     )

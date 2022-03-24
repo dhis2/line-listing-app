@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import React, { useMemo, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
+import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
@@ -35,6 +36,8 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
         [id, name, dimensionType, valueType, optionSet]
     )
 
+    const metadata = useSelector(sGetMetadata)
+
     const {
         attributes,
         listeners,
@@ -49,10 +52,12 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
         id,
         data: memoizedDimensionMetadata,
     })
-    const metadata = useSelector(sGetMetadata)
+    const globalLoadError = useSelector(sGetLoadError)
+
     const conditions = useSelector((state) =>
         sGetUiConditionsByDimension(state, id)
     )
+
     const items = useSelector((state) => sGetUiItemsByDimension(state, id))
 
     const memoizedOnClick = useCallback(
@@ -94,6 +99,10 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
     const dataTest = `layout-chip-${id}`
 
     const renderTooltipContent = () => <TooltipContent dimension={dimension} />
+
+    if (globalLoadError && !name) {
+        return null
+    }
 
     return (
         <div
