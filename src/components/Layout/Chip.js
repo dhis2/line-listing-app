@@ -36,8 +36,6 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
         [id, name, dimensionType, valueType, optionSet]
     )
 
-    const metadata = useSelector(sGetMetadata)
-
     const {
         attributes,
         listeners,
@@ -53,13 +51,11 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
         data: memoizedDimensionMetadata,
     })
     const globalLoadError = useSelector(sGetLoadError)
-
+    const metadata = useSelector(sGetMetadata)
     const conditions = useSelector((state) =>
         sGetUiConditionsByDimension(state, id)
     )
-
     const items = useSelector((state) => sGetUiItemsByDimension(state, id))
-
     const memoizedOnClick = useCallback(
         () => dispatch(acSetUiOpenDimensionModal(id)),
         [dispatch, id]
