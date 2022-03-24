@@ -114,7 +114,7 @@ const Chip = ({ dimension, axisId, isLast, overLastDropZone, activeIndex }) => {
                         axisId === AXIS_ID_FILTERS &&
                         !items.length &&
                         !conditions?.condition?.length &&
-                        !conditions.legendSet,
+                        !conditions?.legendSet,
                     [styles.active]: isDragging,
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,

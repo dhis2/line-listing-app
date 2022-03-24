@@ -23,8 +23,8 @@ export const DimensionItem = ({
     const visType = useSelector(sGetUiType)
     const layout = useSelector(sGetUiLayout)
 
-    const memoizedDimensionMetadata = useMemo(() => {
-        return {
+    const memoizedDimensionMetadata = useMemo(
+        () => ({
             [id]: {
                 id,
                 name,
@@ -32,8 +32,9 @@ export const DimensionItem = ({
                 valueType,
                 optionSet,
             },
-        }
-    }, [id, name, dimensionType, valueType, optionSet])
+        }),
+        [id, name, dimensionType, valueType, optionSet]
+    )
 
     const onClick = useCallback(
         () =>
