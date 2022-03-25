@@ -24,7 +24,6 @@ export const tSetInitMetadata = () => (dispatch, getState) => {
         }
     })
 
-    console.log('tSetInitMetadata')
     dispatch(acClearMetadata())
     dispatch(acAddMetadata(metaData))
 }
