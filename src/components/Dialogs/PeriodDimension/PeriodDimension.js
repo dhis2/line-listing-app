@@ -101,7 +101,11 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     }, [presets])
 
     useEffect(() => {
-        updatePeriodDimensionItems(startEndDate ? [{ id: startEndDate }] : [])
+        if (startEndDate) {
+            updatePeriodDimensionItems([{ id: startEndDate }])
+        } else if (!presets?.length) {
+            updatePeriodDimensionItems([])
+        }
     }, [startEndDate])
 
     const updatePeriodDimensionItems = (items) => {
