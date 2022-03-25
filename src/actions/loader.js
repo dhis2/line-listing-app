@@ -4,6 +4,7 @@ import {
     SET_VISUALIZATION_LOADING,
 } from '../reducers/loader.js'
 import { acClearCurrent } from './current.js'
+import { tSetInitMetadata } from './metadata.js'
 import { tClearUi } from './ui.js'
 import { acClearVisualization } from './visualization.js'
 
@@ -28,6 +29,7 @@ export const acClearAll =
             dispatch(acClearLoadError())
         }
 
+        dispatch(tSetInitMetadata())
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
         dispatch(tClearUi())

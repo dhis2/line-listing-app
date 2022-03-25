@@ -236,8 +236,6 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
-    dispatch(acAddMetadata(getDefaultTimeDimensionsMetadata()))
-
     dispatch(
         acClearUi({
             rootOrgUnits,

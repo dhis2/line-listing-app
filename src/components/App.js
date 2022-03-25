@@ -255,6 +255,7 @@ const App = ({
                 ...getDynamicTimeDimensionsMetadata(program, programStage),
             }
 
+            setInitMetadata()
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))
             setVisualization(visualization)
             setCurrent(visualization)
