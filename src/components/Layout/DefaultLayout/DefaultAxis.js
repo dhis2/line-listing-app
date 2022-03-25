@@ -3,7 +3,7 @@ import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getAxisName } from '../../../modules/axis.js'
 import { DIMENSION_TYPE_DATA_ELEMENT } from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
@@ -26,7 +26,6 @@ const DefaultAxis = ({ axisId, className }) => {
         id: lastDropZoneId,
     })
 
-    const dispatch = useDispatch()
     const dimensionIds = useSelector((state) =>
         sGetUiDimensionIdsByAxisId(state, axisId)
     )
@@ -38,7 +37,6 @@ const DefaultAxis = ({ axisId, className }) => {
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
-
     const programStageNames = useMemo(
         () =>
             program?.programStages?.reduce((acc, stage) => {
