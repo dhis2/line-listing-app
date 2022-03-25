@@ -42,7 +42,6 @@ import {
     sGetUiProgramId,
     sGetUiInputType,
 } from '../reducers/ui.js'
-import { acAddMetadata } from './metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
