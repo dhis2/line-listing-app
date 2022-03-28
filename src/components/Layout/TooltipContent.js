@@ -11,6 +11,7 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_OU,
+    DIMENSION_TYPE_DATA_ELEMENT,
 } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -45,6 +46,16 @@ export const TooltipContent = ({
                 }`,
             `${label}: `
         )
+
+    let stageName
+    if (dimension.stageName) {
+        stageName = dimension.stageName
+    } else {
+        const stageId =
+            dimension.id.indexOf('.') !== -1 &&
+            dimension.id.substring(0, dimension.id.indexOf('.'))
+        stageName = metadata[stageId]?.name
+    }
 
     const getItemDisplayNames = () => {
         const levelIds = []
@@ -146,7 +157,22 @@ export const TooltipContent = ({
                         : renderNoItemsLabel()}
                 </ul>
             )
-
+        case DIMENSION_TYPE_DATA_ELEMENT: {
+            return (
+                <ul className={styles.list}>
+                    {stageName && (
+                        <li className={styles.item}>
+                            {i18n.t('Program stage: {{stageName}}', {
+                                stageName,
+                            })}
+                        </li>
+                    )}
+                    {conditions?.condition || conditions?.legendSet
+                        ? renderConditions(conditions)
+                        : renderAllItemsLabel()}
+                </ul>
+            )
+        }
         default: {
             return (
                 <ul className={styles.list}>
