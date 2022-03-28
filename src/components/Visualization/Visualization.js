@@ -130,10 +130,13 @@ export const Visualization = ({
         ) {
             return metadata[value]?.name || value
         } else if (header?.valueType === VALUE_TYPE_DATE) {
-            return moment(value).format(
-                header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
-                    ? 'yyyy-MM-DD hh:mm'
-                    : 'yyyy-MM-DD'
+            return (
+                value &&
+                moment(value).format(
+                    header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
+                        ? 'yyyy-MM-DD hh:mm'
+                        : 'yyyy-MM-DD'
+                )
             )
         } else if (header?.valueType === VALUE_TYPE_URL) {
             return (
