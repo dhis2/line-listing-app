@@ -1,3 +1,11 @@
+## [1.1.24](https://github.com/dhis2/line-listing-app/compare/v1.1.23...v1.1.24) (2022-03-29)
+
+
+### Bug Fixes
+
+* do not show Invalid date for empty dates (TECH-1060) ([#70](https://github.com/dhis2/line-listing-app/issues/70)) ([20d59df](https://github.com/dhis2/line-listing-app/commit/20d59df30835abd1be018f8d9fec163e4505bf8c))
+* interpretation modal scrolling ([#71](https://github.com/dhis2/line-listing-app/issues/71)) ([97abf56](https://github.com/dhis2/line-listing-app/commit/97abf56e60a9e5ac0ac1e1f920f2a9f08905a720))
+
 ## [1.1.23](https://github.com/dhis2/line-listing-app/compare/v1.1.22...v1.1.23) (2022-03-29)
 
 
