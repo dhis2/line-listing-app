@@ -245,17 +245,21 @@ const App = ({
 
     useEffect(() => {
         if (data?.eventVisualization) {
+            setInitMetadata()
+
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
                 data.eventVisualization
             )
             const metadata = {
                 [program.id]: program,
-                [programStage.id]: programStage,
                 ...getDynamicTimeDimensionsMetadata(program, programStage),
             }
 
-            setInitMetadata()
+            if (programStage?.id) {
+                metadata[programStage.id] = programStage
+            }
+
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))
             setVisualization(visualization)
             setCurrent(visualization)
