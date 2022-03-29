@@ -1,3 +1,10 @@
+## [1.1.22](https://github.com/dhis2/line-listing-app/compare/v1.1.21...v1.1.22) (2022-03-29)
+
+
+### Bug Fixes
+
+* programStage issues when saving/loading AO ([#63](https://github.com/dhis2/line-listing-app/issues/63)) ([48ab110](https://github.com/dhis2/line-listing-app/commit/48ab11032f389b641375d33869a86f57f6c9cbbe))
+
 ## [1.1.21](https://github.com/dhis2/line-listing-app/compare/v1.1.20...v1.1.21) (2022-03-23)
 
 
