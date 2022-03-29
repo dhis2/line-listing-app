@@ -4,7 +4,7 @@ import {
     DragOverlay,
     useSensor,
     useSensors,
-    MouseSensor,
+    PointerSensor,
 } from '@dnd-kit/core'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -36,6 +36,12 @@ const DIMENSION_PANEL_SOURCE = 'Sortable'
 export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
 export const FIRST = 'first'
 export const LAST = 'last'
+
+const activateAt15pixels = {
+    activationConstraint: {
+        distance: 15,
+    },
+}
 
 function getIntersectionRatio(entry, target) {
     const top = Math.max(target.top, entry.top)
@@ -122,12 +128,8 @@ const OuterDndContext = ({ children }) => {
         useSelector((state) => sGetUiConditionsByDimension(state, id)) || {}
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
-    const mouseSensor = useSensor(MouseSensor, {
-        activationConstraint: {
-            distance: 15,
-        },
-    })
-    const sensors = useSensors(mouseSensor)
+    const sensor = useSensor(PointerSensor, activateAt15pixels)
+    const sensors = useSensors(sensor)
 
     const dispatch = useDispatch()
 
