@@ -1,3 +1,10 @@
+## [1.1.23](https://github.com/dhis2/line-listing-app/compare/v1.1.22...v1.1.23) (2022-03-29)
+
+
+### Bug Fixes
+
+* reinitialize metadata when new, opening, and deleting an AO ([#62](https://github.com/dhis2/line-listing-app/issues/62)) ([570d39a](https://github.com/dhis2/line-listing-app/commit/570d39a27a1e506ed6fae3fe07364b0b45287343))
+
 ## [1.1.22](https://github.com/dhis2/line-listing-app/compare/v1.1.21...v1.1.22) (2022-03-29)
 
 
