@@ -258,7 +258,7 @@
   dependencies:
     "@babel/types" "^7.15.4"
 
-"@babel/helper-validator-identifier@^7.14.5", "@babel/helper-validator-identifier@^7.14.9", "@babel/helper-validator-identifier@^7.15.7", "@babel/helper-validator-identifier@^7.16.7":
+"@babel/helper-validator-identifier@^7.14.9", "@babel/helper-validator-identifier@^7.15.7", "@babel/helper-validator-identifier@^7.16.7":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.16.7.tgz#e8c602438c4a8195751243da9031d1607d247cad"
   integrity sha512-hsEnFemeiW4D08A5gUAZxLBTXpZ39P+a+DGDsHw1yxqyQ/jzFEnxf5uTEGp+3bzAbNOxU1paTgYS4ECU/IgfDw==
@@ -287,7 +287,7 @@
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.4"
 
-"@babel/highlight@^7.10.4", "@babel/highlight@^7.14.5", "@babel/highlight@^7.16.7":
+"@babel/highlight@^7.10.4", "@babel/highlight@^7.16.7":
   version "7.16.10"
   resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.16.10.tgz#744f2eb81579d6eea753c227b0f570ad785aba88"
   integrity sha512-5FnTQLSLswEj6IkgVw5KusNUUFY9ZGqe/TRFnP/BKYHYgfh7tc+C7mwiy95/yNP7Dh9x580Vv8r7u7ZfTBFxdw==
@@ -1951,10 +1951,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.6.3":
-  version "23.6.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.6.3.tgz#6b28c3bfdd2f1587cd4fa83549a21b389892dd76"
-  integrity sha512-wj7yAEUIpuGWNYJwxDOkLFa+uPIVSWv3Ug2jsKdcQXJn9TcFxZzhWxiCBTwjckVteQd0zjP1Ov0pT6Lq4/CCWQ==
+"@dhis2/analytics@^23.7.2":
+  version "23.7.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.7.2.tgz#2f9c22448e7381d31bfde5cbe0ed4b1b757a98a1"
+  integrity sha512-HaDVmr+YHV+fVUYwwSBKJWop7dGk0hmJlyU2cZ9uWT4/r2p8YAc/iUXwF9StAQsDfpd5J30lga4PUmENsgpP/A==
   dependencies:
     "@dhis2/d2-ui-translation-dialog" "^7.3.1"
     classnames "^2.3.1"
