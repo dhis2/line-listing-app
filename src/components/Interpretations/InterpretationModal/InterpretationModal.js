@@ -31,9 +31,6 @@ const modalCSS = css.resolve`
     aside.hidden {
         display: none;
     }
-    aside > :global(div) > :global(div) {
-        max-height: 100%;
-    }
 `
 
 function getModalContentCSS(width) {
