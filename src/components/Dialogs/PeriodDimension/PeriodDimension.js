@@ -76,9 +76,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const getNameFromMetadata = useMetadataNameGetter()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
-    const selectedIds =
-        useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
-        []
+    const selectedIds = useSelector((state) =>
+        sGetUiItemsByDimension(state, dimension?.id)
+    )
     const [entryMethod, setEntryMethod] = useState(
         selectedIds.filter((id) => isStartEndDate(id)).length
             ? OPTION_START_END_DATES
