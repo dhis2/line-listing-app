@@ -251,8 +251,11 @@ const App = ({
             )
             const metadata = {
                 [program.id]: program,
-                [programStage.id]: programStage,
                 ...getDynamicTimeDimensionsMetadata(program, programStage),
+            }
+
+            if (programStage?.id) {
+                metadata[programStage.id] = programStage
             }
 
             addParentGraphMap(getParentGraphMapFromVisualization(visualization))

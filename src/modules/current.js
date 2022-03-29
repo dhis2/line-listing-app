@@ -29,9 +29,12 @@ export const getProgramFromUi = (ui) => ({
     program: { id: ui.program?.id },
 })
 
-export const getProgramStageFromUi = (ui) => ({
-    programStage: { id: ui.program?.stageId },
-})
+export const getProgramStageFromUi = (ui) =>
+    ui.program?.stageId
+        ? {
+              programStage: { id: ui.program?.stageId },
+          }
+        : {}
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 
