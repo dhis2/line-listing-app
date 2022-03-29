@@ -51,6 +51,7 @@ export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 
 const DEFAULT_CONDITIONS = {}
+const DEFAULT_DIMENSION_CONDITIONS = {}
 const DEFAULT_DIMENSION_ITEMS = []
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -364,8 +365,7 @@ export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
-export const sGetUiConditions = (state) =>
-    sGetUi(state).conditions || DEFAULT_CONDITIONS
+export const sGetUiConditions = (state) => sGetUi(state).conditions
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
 
@@ -393,7 +393,7 @@ export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
     sGetUiLayout(state)[axisId]
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
-    sGetUiConditions(state)[dimension]
+    sGetUiConditions(state)[dimension] || DEFAULT_DIMENSION_CONDITIONS
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
