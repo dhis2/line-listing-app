@@ -32,7 +32,7 @@ export const ChipBase = ({ dimension, conditions, items, metadata }) => {
 
         const all = i18n.t('all')
 
-        if (!conditions.condition && !conditions.legendSet && !items.length) {
+        if (!conditions?.condition && !conditions?.legendSet && !items.length) {
             return `: ${all}`
         }
 
@@ -97,10 +97,4 @@ ChipBase.propTypes = {
     }),
     items: PropTypes.array,
     metadata: PropTypes.object,
-}
-
-ChipBase.defaultProps = {
-    conditions: {},
-    items: [],
-    metadata: {},
 }

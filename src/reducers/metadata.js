@@ -1,7 +1,7 @@
 export const ADD_METADATA = 'ADD_METADATA'
 export const CLEAR_METADATA = 'CLEAR_METADATA'
 
-const EMPTY_METADATA = {}
+export const EMPTY_METADATA = {}
 
 export default (state = EMPTY_METADATA, action) => {
     switch (action.type) {
