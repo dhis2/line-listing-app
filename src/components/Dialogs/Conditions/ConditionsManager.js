@@ -520,8 +520,7 @@ const mapStateToProps = (state, ownProps) => ({
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
-    conditions:
-        sGetUiConditionsByDimension(state, ownProps.dimension?.id) || {},
+    conditions: sGetUiConditionsByDimension(state, ownProps.dimension?.id),
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
     displayNameProp: sGetSettingsDisplayNameProperty(state),
     inputType: sGetUiInputType(state),

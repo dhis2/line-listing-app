@@ -168,8 +168,8 @@ TooltipContent.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
     metadata: sGetMetadata(state),
-    itemIds: sGetUiItemsByDimension(state, ownProps.dimension.id) || [],
-    conditions: sGetUiConditionsByDimension(state, ownProps.dimension.id) || {},
+    itemIds: sGetUiItemsByDimension(state, ownProps.dimension.id),
+    conditions: sGetUiConditionsByDimension(state, ownProps.dimension.id),
 })
 
 export default connect(mapStateToProps)(TooltipContent)
