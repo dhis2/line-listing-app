@@ -30,7 +30,7 @@
         "@dhis2/app-runtime": "^3.4.0",
         "@dhis2/d2-ui-rich-text": "^7.3.3",
         "@dhis2/ui": "^8.1.9",
-        "@dnd-kit/core": "^5.0.1",
+        "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.0",
         "@dnd-kit/utilities": "^3.1.0",
         "@testing-library/jest-dom": "^5.16.2",

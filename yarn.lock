@@ -258,7 +258,7 @@
   dependencies:
     "@babel/types" "^7.15.4"
 
-"@babel/helper-validator-identifier@^7.14.5", "@babel/helper-validator-identifier@^7.14.9", "@babel/helper-validator-identifier@^7.15.7", "@babel/helper-validator-identifier@^7.16.7":
+"@babel/helper-validator-identifier@^7.14.9", "@babel/helper-validator-identifier@^7.15.7", "@babel/helper-validator-identifier@^7.16.7":
   version "7.16.7"
   resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.16.7.tgz#e8c602438c4a8195751243da9031d1607d247cad"
   integrity sha512-hsEnFemeiW4D08A5gUAZxLBTXpZ39P+a+DGDsHw1yxqyQ/jzFEnxf5uTEGp+3bzAbNOxU1paTgYS4ECU/IgfDw==
@@ -287,7 +287,7 @@
     "@babel/traverse" "^7.15.4"
     "@babel/types" "^7.15.4"
 
-"@babel/highlight@^7.10.4", "@babel/highlight@^7.14.5", "@babel/highlight@^7.16.7":
+"@babel/highlight@^7.10.4", "@babel/highlight@^7.16.7":
   version "7.16.10"
   resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.16.10.tgz#744f2eb81579d6eea753c227b0f570ad785aba88"
   integrity sha512-5FnTQLSLswEj6IkgVw5KusNUUFY9ZGqe/TRFnP/BKYHYgfh7tc+C7mwiy95/yNP7Dh9x580Vv8r7u7ZfTBFxdw==
@@ -2261,10 +2261,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@dnd-kit/core@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@dnd-kit/core/-/core-5.0.1.tgz#ae8c01ca5a91083ab31bbd8c839c552e5cf62c26"
-  integrity sha512-h02GyHb2KqbpqbELA9QW5WVLdnAQODgZs8Nv15PTg/VpEpQxEkLPn0QHqiMSSOOFBx0qJOowwYh6ggfL1ZIJPQ==
+"@dnd-kit/core@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/core/-/core-5.0.3.tgz#028d7e543e9fd3756f9cb857b34f818d73020810"
+  integrity sha512-IribcBLsaPqHdYLpc5xG0TqwYIaD+65offdEYxoKh38WDjzRxUjDmrt7hj9oa/ooUKL0epux20u+mBTd92i/zw==
   dependencies:
     "@dnd-kit/accessibility" "^3.0.0"
     "@dnd-kit/utilities" "^3.1.0"
