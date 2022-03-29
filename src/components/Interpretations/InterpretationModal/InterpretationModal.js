@@ -22,15 +22,17 @@ import { useModalContentWidth } from './useModalContentWidth.js'
 
 const modalCSS = css.resolve`
     aside {
-        min-width: 600px;
-        min-height: 600px;
-        max-width: 90vw !important;
-        max-height: 90vh !important;
+        max-width: calc(100vw - 128px) !important;
+        max-height: calc(100vh - 128px) !important;
         width: auto !important;
         height: auto !important;
+        overflow-y: hidden;
     }
     aside.hidden {
         display: none;
+    }
+    aside > :global(div) > :global(div) {
+        max-height: 100%;
     }
 `
 
@@ -116,6 +118,7 @@ const InterpretationModal = ({
                 </Layer>
             )}
             <Modal
+                fluid
                 onClose={handleClose}
                 className={cx(modalCSS.className, {
                     hidden: shouldCssHideModal,

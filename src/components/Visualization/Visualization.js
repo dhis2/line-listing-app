@@ -200,7 +200,7 @@ export const Visualization = ({
                 })}
             >
                 <DataTable
-                    scrollHeight="100%"
+                    scrollHeight={isInModal ? 'calc(100vh - 285px)' : '100%'}
                     width="auto"
                     scrollWidth={`${availableOuterWidth}px`}
                     className={styles.dataTable}
