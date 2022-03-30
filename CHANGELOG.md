@@ -1,3 +1,14 @@
+## [1.1.26](https://github.com/dhis2/line-listing-app/compare/v1.1.25...v1.1.26) (2022-03-30)
+
+
+### Bug Fixes
+
+* always show program stage in tooltip ([3a2c071](https://github.com/dhis2/line-listing-app/commit/3a2c071ffcf214d523b29a79b0c2c3feeb570728))
+* prevent metadata to be edited when dimension props are assigned ([5176f16](https://github.com/dhis2/line-listing-app/commit/5176f1637cd2680c3b35adfcd0fdfea8868b39af))
+* show program stage in data table header for duplicates ([f753050](https://github.com/dhis2/line-listing-app/commit/f7530509317be237f5064523e803689382a21fa6))
+* show program stage in modal title ([4e09b66](https://github.com/dhis2/line-listing-app/commit/4e09b660478c993213c7f0ecf555e9eeea66bef2))
+* various updates to duplicate dimensions (TECH-1032) [#67](https://github.com/dhis2/line-listing-app/issues/67) ([97aa1a3](https://github.com/dhis2/line-listing-app/commit/97aa1a37cad8861c882bf7f160f585ac821dc56f))
+
 ## [1.1.25](https://github.com/dhis2/line-listing-app/compare/v1.1.24...v1.1.25) (2022-03-30)
 
 
