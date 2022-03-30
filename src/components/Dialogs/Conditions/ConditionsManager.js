@@ -524,14 +524,10 @@ const mapStateToProps = (state, ownProps) => ({
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
     displayNameProp: sGetSettingsDisplayNameProperty(state),
     inputType: sGetUiInputType(state),
-    stage:
-        sGetMetadataById(
-            state,
-            ownProps.dimension?.id?.substring(
-                0,
-                ownProps.dimension.id.indexOf('.')
-            )
-        ) || {},
+    stage: sGetMetadataById(
+        state,
+        ownProps.dimension?.id?.substring(0, ownProps.dimension.id.indexOf('.'))
+    ),
 })
 
 const mapDispatchToProps = {

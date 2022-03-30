@@ -42,7 +42,7 @@ const DefaultAxis = ({ axisId, className }) => {
 
     const programStageNames = useMemo(
         () =>
-            program?.programStages?.reduce((acc, stage) => {
+            program.programStages?.reduce((acc, stage) => {
                 acc.set(stage.id, stage.name)
                 return acc
             }, new Map()),
