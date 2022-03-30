@@ -154,15 +154,15 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = header?.stageOffset
-            ? header.name.replace(/\[-?\d+\]/, '')
-            : header.name
+        let dimensionId = isNaN(header?.stageOffset)
+            ? header.name
+            : header.name.replace(/\[-?\d+\]/, '')
 
         const reverseLookupDimensionId = Object.keys(headersMap).find(
             (key) => headersMap[key] === header.name
         )
 
-        if (header.stageOffset !== undefined) {
+        if (!isNaN(header.stageOffset)) {
             let postfix
 
             if (header.stageOffset === 0) {
