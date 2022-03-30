@@ -1,3 +1,10 @@
+## [1.1.25](https://github.com/dhis2/line-listing-app/compare/v1.1.24...v1.1.25) (2022-03-30)
+
+
+### Bug Fixes
+
+* align vertically toolbar buttons TECH-1048 ([#57](https://github.com/dhis2/line-listing-app/issues/57)) ([1fe394d](https://github.com/dhis2/line-listing-app/commit/1fe394d6f82bd6639a835ac966d89dce3b047f5e))
+
 ## [1.1.24](https://github.com/dhis2/line-listing-app/compare/v1.1.23...v1.1.24) (2022-03-29)
 
 
