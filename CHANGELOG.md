@@ -1,3 +1,10 @@
+## [1.1.28](https://github.com/dhis2/line-listing-app/compare/v1.1.27...v1.1.28) (2022-03-30)
+
+
+### Bug Fixes
+
+* use pointersensor so most devices can use dnd ([#69](https://github.com/dhis2/line-listing-app/issues/69)) ([65400b9](https://github.com/dhis2/line-listing-app/commit/65400b9e850750d2e6bba023348b6e29a90d87c5))
+
 ## [1.1.27](https://github.com/dhis2/line-listing-app/compare/v1.1.26...v1.1.27) (2022-03-30)
 
 
