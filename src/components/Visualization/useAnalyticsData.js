@@ -168,10 +168,19 @@ const fetchAnalyticsData = async ({
 }
 
 const extractHeaders = (analyticsResponse) =>
-    analyticsResponse.headers.map((header, index) => ({
-        ...header,
-        index,
-    }))
+    analyticsResponse.headers.map((header, index) => {
+        const result = { ...header, index }
+        const [dimensionId, stageId] = header.name.split('.').reverse()
+        if (
+            stageId &&
+            analyticsResponse.headers.filter((h) =>
+                h.name.includes(dimensionId)
+            ).length > 1
+        ) {
+            result.column += ` - ${analyticsResponse.metaData.items[stageId].name}`
+        }
+        return result
+    })
 
 const extractRows = (analyticsResponse, headers) => {
     const filteredRows = []

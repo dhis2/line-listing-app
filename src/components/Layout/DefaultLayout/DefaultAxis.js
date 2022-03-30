@@ -56,10 +56,10 @@ const DefaultAxis = ({ axisId, className }) => {
         const dimensions = dimensionIds.map((id) => {
             let dimension = {}
             if (metadata[id]) {
-                dimension = metadata[id]
+                dimension = { ...metadata[id] }
             } else {
                 const [rawDimensionId] = id.split('.').reverse()
-                dimension = metadata[rawDimensionId]
+                dimension = { ...metadata[rawDimensionId] }
             }
             return dimension
         })

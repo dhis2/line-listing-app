@@ -498,7 +498,11 @@ const ConditionsManager = ({
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            title={dimension.name}
+            title={
+                stage?.name
+                    ? `${dimension.name} - ${stage.name}`
+                    : dimension.name
+            }
         >
             {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>
