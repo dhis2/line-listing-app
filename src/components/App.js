@@ -245,6 +245,8 @@ const App = ({
 
     useEffect(() => {
         if (data?.eventVisualization) {
+            setInitMetadata()
+
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
                 data.eventVisualization
