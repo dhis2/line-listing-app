@@ -154,7 +154,7 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = header?.stageOffset
+        let dimensionId = Number.isInteger(header?.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
 
@@ -162,7 +162,7 @@ export const Visualization = ({
             (key) => headersMap[key] === header.name
         )
 
-        if (header.stageOffset !== undefined) {
+        if (Number.isInteger(header.stageOffset)) {
             let postfix
 
             if (header.stageOffset === 0) {
