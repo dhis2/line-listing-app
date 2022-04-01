@@ -202,7 +202,7 @@ DynamicDimension.propTypes = {
     addMetadata: PropTypes.func.isRequired,
     dimension: PropTypes.object.isRequired,
     displayNameProp: PropTypes.string.isRequired,
-    isInLayout: PropTypes.array.isRequired,
+    isInLayout: PropTypes.bool.isRequired,
     metadata: PropTypes.object.isRequired,
     selectedIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
