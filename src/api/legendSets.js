@@ -3,7 +3,7 @@ import {
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '../modules/dimensionConstants.js'
-import { extractDimensionParts } from '../modules/utils.js'
+import { extractDimensionIdParts } from '../modules/utils.js'
 
 const dataElementsQuery = {
     resource: 'dataElements',
@@ -76,7 +76,7 @@ export const apiFetchLegendSetsByDimension = async ({
             throw new Error(`${dimensionType} is not a valid dimension type`)
     }
 
-    const { dimensionId: id } = extractDimensionParts(dimensionId)
+    const { dimensionId: id } = extractDimensionIdParts(dimensionId)
 
     const response = await dataEngine.query(
         { legendSets: query },

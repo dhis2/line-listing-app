@@ -4,7 +4,7 @@ import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
 } from '../../../modules/dimensionConstants.js'
-import { extractDimensionParts } from '../../../modules/utils.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
@@ -139,7 +139,7 @@ const transformResponseData = ({
 
     if (inputType === OUTPUT_TYPE_ENROLLMENT) {
         data.dimensions.dimensions.forEach((dimension) => {
-            const { dimensionId } = extractDimensionParts(dimension.id)
+            const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (
                 dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
                 dimensionId
@@ -165,7 +165,7 @@ const transformResponseData = ({
 
     const allDimensionsWithStageLabel = newDuplicateFound
         ? allDimensions.map((dimension) => {
-              const { dimensionId, programStageId } = extractDimensionParts(
+              const { dimensionId, programStageId } = extractDimensionIdParts(
                   dimension.id
               )
               if (

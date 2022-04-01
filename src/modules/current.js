@@ -4,7 +4,7 @@ import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
 import { parseUiRepetition } from './ui.js'
-import { extractDimensionParts } from './utils.js'
+import { extractDimensionIdParts } from './utils.js'
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -46,7 +46,7 @@ export const getAxesFromUi = (ui) =>
             [axisId]: dimensionIds
                 .map((id) => {
                     const { dimensionId, programStageId } =
-                        extractDimensionParts(id)
+                        extractDimensionIdParts(id)
 
                     return dimensionCreate(
                         dimensionId,

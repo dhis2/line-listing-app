@@ -16,7 +16,7 @@ import {
     acSetUiLayout,
     acSetUiDraggingId,
 } from '../actions/ui.js'
-import { extractDimensionParts } from '../modules/utils.js'
+import { extractDimensionIdParts } from '../modules/utils.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
@@ -147,7 +147,7 @@ const OuterDndContext = ({ children }) => {
         if (metadata[id]) {
             dimension = metadata[id]
         } else {
-            const { dimensionId } = extractDimensionParts(id)
+            const { dimensionId } = extractDimensionIdParts(id)
             dimension = metadata[dimensionId]
         }
 
