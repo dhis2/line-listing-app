@@ -4,6 +4,7 @@ import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
 } from '../../../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
@@ -138,21 +139,21 @@ const transformResponseData = ({
 
     if (inputType === OUTPUT_TYPE_ENROLLMENT) {
         data.dimensions.dimensions.forEach((dimension) => {
-            const dataElementId = dimension.id.split('.')[1]
+            const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (
                 dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
-                dataElementId
+                dimensionId
             ) {
                 const dataElementCount =
-                    deDimensionsMapRef.current.get(dataElementId)
+                    deDimensionsMapRef.current.get(dimensionId)
                 if (dataElementCount) {
                     deDimensionsMapRef.current.set(
-                        dataElementId,
+                        dimensionId,
                         dataElementCount + 1
                     )
                     newDuplicateFound = true
                 } else {
-                    deDimensionsMapRef.current.set(dataElementId, 1)
+                    deDimensionsMapRef.current.set(dimensionId, 1)
                 }
             }
         })
@@ -164,10 +165,12 @@ const transformResponseData = ({
 
     const allDimensionsWithStageLabel = newDuplicateFound
         ? allDimensions.map((dimension) => {
-              const [programStageId, dataElementId] = dimension.id.split('.')
+              const { dimensionId, programStageId } = extractDimensionIdParts(
+                  dimension.id
+              )
               if (
-                  dataElementId &&
-                  deDimensionsMapRef.current.get(dataElementId) > 1
+                  dimensionId &&
+                  deDimensionsMapRef.current.get(dimensionId) > 1
               ) {
                   dimension.stageName = programStageNames?.get(programStageId)
               }

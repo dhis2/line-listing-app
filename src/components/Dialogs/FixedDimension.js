@@ -226,7 +226,7 @@ const FixedDimension = ({
 FixedDimension.propTypes = {
     dimension: PropTypes.object.isRequired,
     eventStatusIds: PropTypes.array.isRequired,
-    isInLayout: PropTypes.array.isRequired,
+    isInLayout: PropTypes.bool.isRequired,
     ouIds: PropTypes.array.isRequired,
     programStatusIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,

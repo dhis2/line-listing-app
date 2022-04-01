@@ -20,6 +20,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
@@ -170,14 +171,16 @@ const fetchAnalyticsData = async ({
 const extractHeaders = (analyticsResponse) =>
     analyticsResponse.headers.map((header, index) => {
         const result = { ...header, index }
-        const [dimensionId, stageId] = header.name.split('.').reverse()
+        const { dimensionId, programStageId } = extractDimensionIdParts(
+            header.name
+        )
         if (
-            stageId &&
+            programStageId &&
             analyticsResponse.headers.filter((h) =>
                 h.name.includes(dimensionId)
             ).length > 1
         ) {
-            result.column += ` - ${analyticsResponse.metaData.items[stageId].name}`
+            result.column += ` - ${analyticsResponse.metaData.items[programStageId].name}`
         }
         return result
     })

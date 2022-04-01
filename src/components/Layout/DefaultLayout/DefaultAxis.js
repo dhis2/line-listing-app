@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { DIMENSION_TYPE_DATA_ELEMENT } from '../../../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from '../../../reducers/metadata.js'
 import {
@@ -58,38 +59,35 @@ const DefaultAxis = ({ axisId, className }) => {
             if (metadata[id]) {
                 dimension = { ...metadata[id] }
             } else {
-                const [rawDimensionId] = id.split('.').reverse()
-                dimension = { ...metadata[rawDimensionId] }
+                const { dimensionId } = extractDimensionIdParts(id)
+                dimension = { ...metadata[dimensionId] }
             }
             return dimension
         })
 
         if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             dimensions.forEach((dimension) => {
-                const dataElementId = dimension.id.split('.')[1]
+                const { dimensionId } = extractDimensionIdParts(dimension.id)
                 if (
                     dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
-                    dataElementId
+                    dimensionId
                 ) {
-                    const dataElementCount = dataElements.get(dataElementId)
+                    const dataElementCount = dataElements.get(dimensionId)
 
                     if (dataElementCount) {
-                        dataElements.set(dataElementId, dataElementCount + 1)
+                        dataElements.set(dimensionId, dataElementCount + 1)
                         hasDuplicates = true
                     } else {
-                        dataElements.set(dataElementId, 1)
+                        dataElements.set(dimensionId, 1)
                     }
                 }
             })
 
             return hasDuplicates
                 ? dimensions.map((dimension) => {
-                      const [programStageId, dataElementId] =
-                          dimension.id.split('.')
-                      if (
-                          dataElementId &&
-                          dataElements.get(dataElementId) > 1
-                      ) {
+                      const { dimensionId, programStageId } =
+                          extractDimensionIdParts(dimension.id)
+                      if (dimensionId && dataElements.get(dimensionId) > 1) {
                           dimension.stageName =
                               programStageNames?.get(programStageId)
                       }

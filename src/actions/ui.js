@@ -33,6 +33,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
+    REMOVE_UI_REPETITION,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -266,5 +267,10 @@ export const acSetUiConditions = (value) => ({
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
+    value,
+})
+
+export const acRemoveUiRepetition = (value) => ({
+    type: REMOVE_UI_REPETITION,
     value,
 })
