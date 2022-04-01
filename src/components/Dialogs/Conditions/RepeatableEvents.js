@@ -1,9 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
 import { Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { acSetUiRepetition } from '../../../actions/ui.js'
+import { acRemoveUiRepetition, acSetUiRepetition } from '../../../actions/ui.js'
 import {
     getDefaultUiRepetition,
     PROP_MOST_RECENT,
@@ -13,20 +13,35 @@ import { sGetUiRepetitionByDimension } from '../../../reducers/ui.js'
 import commonClasses from '../styles/Common.module.css'
 import classes from './styles/ConditionsManager.module.css'
 
+const isDefaultRepetition = (repetition) => {
+    const {
+        [PROP_MOST_RECENT]: defaultMostRecent,
+        [PROP_OLDEST]: defaultOldest,
+    } = getDefaultUiRepetition()
+    return (
+        repetition?.[PROP_MOST_RECENT] === defaultMostRecent &&
+        repetition?.[PROP_OLDEST] === defaultOldest
+    )
+}
+
 const RepeatableEvents = ({ dimensionId }) => {
     const dispatch = useDispatch()
-
-    const setRepetition = (value) =>
-        dispatch(acSetUiRepetition({ dimensionId, repetition: value }))
-
-    const repetition = useSelector((state) =>
+    const sRepetition = useSelector((state) =>
         sGetUiRepetitionByDimension(state, dimensionId)
     )
+    const [repetition, setRepetition] = useState(
+        sRepetition && !isDefaultRepetition(isDefaultRepetition)
+            ? sRepetition
+            : getDefaultUiRepetition()
+    )
 
-    if (!repetition) {
-        setRepetition(getDefaultUiRepetition())
-        return null
-    }
+    useEffect(() => {
+        if (isDefaultRepetition(repetition)) {
+            dispatch(acRemoveUiRepetition(dimensionId))
+        } else {
+            dispatch(acSetUiRepetition({ dimensionId, repetition }))
+        }
+    }, [repetition])
 
     const { [PROP_MOST_RECENT]: mostRecent, [PROP_OLDEST]: oldest } = repetition
 
