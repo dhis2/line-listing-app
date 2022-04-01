@@ -1,3 +1,13 @@
+## [1.1.30](https://github.com/dhis2/line-listing-app/compare/v1.1.29...v1.1.30) (2022-04-01)
+
+
+### Bug Fixes
+
+* add util for extracting dimension parts ([abe3d5f](https://github.com/dhis2/line-listing-app/commit/abe3d5f8732b76d0dd06215548476ce640fd4c23))
+* only store repetition if its other than default ([a3d508d](https://github.com/dhis2/line-listing-app/commit/a3d508d132ee173351f2dbac6e632409757b3a15))
+* repetition index issues (TECH-1066) [#75](https://github.com/dhis2/line-listing-app/issues/75) ([e9b5c48](https://github.com/dhis2/line-listing-app/commit/e9b5c48433f0e92262f0d4490252b93f9703d45e))
+* use a separator that is not a colon for this string ([#77](https://github.com/dhis2/line-listing-app/issues/77)) ([c7f5a5a](https://github.com/dhis2/line-listing-app/commit/c7f5a5a422c0b28ae4ea7e87e45c6591e61d9837))
+
 ## [1.1.29](https://github.com/dhis2/line-listing-app/compare/v1.1.28...v1.1.29) (2022-04-01)
 
 
