@@ -164,6 +164,7 @@ export const TooltipContent = ({
                         <li className={styles.item}>
                             {i18n.t('Program stage: {{stageName}}', {
                                 stageName,
+                                nsSeparator: '^^',
                             })}
                         </li>
                     )}
