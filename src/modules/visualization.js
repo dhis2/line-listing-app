@@ -125,11 +125,18 @@ export const visTypeDescriptions = {
     ),
 }
 
-const removeDimensionPropsBeforeSaving = (axis) =>
+const defaultRemoveDimensionProps = ['dimensionType', 'valueType']
+
+const removeDimensionPropsBeforeSaving = (
+    axis,
+    props = defaultRemoveDimensionProps
+) =>
     axis?.map((dim) => {
         const dimension = Object.assign({}, dim)
-        delete dimension.dimensionType
-        delete dimension.valueType
+
+        props.forEach((prop) => {
+            delete dimension[prop]
+        })
 
         return dimension
     })
