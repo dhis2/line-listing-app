@@ -125,6 +125,16 @@ export const visTypeDescriptions = {
     ),
 }
 
+const removeDimensionPropsBeforeSaving = (axis) => {
+    return axis.map((dim) => {
+        const dimension = Object.assign({}, dim)
+        delete dimension.dimensionType
+        delete dimension.valueType
+
+        return dimension
+    })
+}
+
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)
     const nonSavableOptions = Object.keys(options).filter(
@@ -132,6 +142,13 @@ export const getVisualizationFromCurrent = (current) => {
     )
 
     nonSavableOptions.forEach((option) => delete visualization[option])
+
+    visualization.columns = removeDimensionPropsBeforeSaving(
+        visualization.columns
+    )
+    visualization.filters = removeDimensionPropsBeforeSaving(
+        visualization.filters
+    )
 
     return visualization
 }
