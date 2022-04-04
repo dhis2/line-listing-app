@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, SingleSelectOption, Input } from '@dhis2/ui'
+import { SingleSelect, Input } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -14,8 +15,29 @@ import {
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
+import { DimensionIcon } from '../DimensionItem/DimensionIcon.js'
 import styles from './ProgramDimensionsFilter.module.css'
 import { StageSelect } from './StageSelect.js'
+
+const SingleSelectOption = ({ label, active, value, onClick }) => (
+    <div
+        className={cx(styles.option, { [styles.active]: active })}
+        data-value={value}
+        onClick={(e) => onClick({}, e)}
+    >
+        <span className={styles.optionIcon}>
+            <DimensionIcon dimensionType={value} />
+        </span>
+        {label}
+    </div>
+)
+
+SingleSelectOption.propTypes = {
+    active: PropTypes.bool,
+    label: PropTypes.string,
+    value: PropTypes.string,
+    onClick: PropTypes.func,
+}
 
 const ProgramDimensionsFilter = ({
     program,
@@ -38,7 +60,14 @@ const ProgramDimensionsFilter = ({
                 placeholder={i18n.t('Search in program')}
             />
             <SingleSelect
-                prefix={i18n.t('Type')}
+                prefix={
+                    <div className={styles.prefix}>
+                        <span>{i18n.t('Type')}</span>
+                        <span className={styles.prefixIcon}>
+                            <DimensionIcon dimensionType={dimensionType} />
+                        </span>
+                    </div>
+                }
                 selected={dimensionType}
                 onChange={({ selected }) => setDimensionType(selected)}
                 dense
