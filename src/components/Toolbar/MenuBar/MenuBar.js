@@ -3,6 +3,7 @@ import {
     useCachedDataQuery,
     VIS_TYPE_LINE_LIST,
     visTypeDisplayNames,
+    layoutGetAllDimensions,
 } from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -146,9 +147,13 @@ const MenuBar = ({
             visualization.description = details.description
         }
 
+        layoutGetAllDimensions(visualization).forEach((dimension) => {
+            delete dimension.dimensionType
+            delete dimension.valueType
+        })
+
         if (copy) {
             delete visualization.id
-
             postVisualization({ visualization })
         } else {
             putVisualization({ visualization })
