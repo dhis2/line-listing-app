@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-01T13:10:33.896Z\n"
-"PO-Revision-Date: 2022-04-01T13:10:33.896Z\n"
+"POT-Creation-Date: 2022-04-04T08:11:45.400Z\n"
+"PO-Revision-Date: 2022-04-04T08:11:45.400Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -23,6 +23,9 @@ msgstr "Remove"
 msgid "and"
 msgstr "and"
 
+msgid "Show items that meet the following conditions for this data item:"
+msgstr "Show items that meet the following conditions for this data item:"
+
 msgid "This dimension can't be filtered. All values will be shown."
 msgstr "This dimension can't be filtered. All values will be shown."
 
@@ -33,8 +36,8 @@ msgstr ""
 "No conditions yet, so all values will be included. Add a condition to "
 "filter results."
 
-msgid "Preset options can’t be combined with other conditions"
-msgstr "Preset options can’t be combined with other conditions"
+msgid "Preset options can't be combined with other conditions"
+msgstr "Preset options can't be combined with other conditions"
 
 msgid "Add another condition"
 msgstr "Add another condition"
@@ -66,14 +69,20 @@ msgstr "No preset option sets for this data item"
 msgid "Choose options"
 msgstr "Choose options"
 
-msgid "Most recent events: "
-msgstr "Most recent events: "
+msgid "From stages with repeatable events, show values for this data element from:"
+msgstr "From stages with repeatable events, show values for this data element from:"
 
-msgid "Oldest events: "
-msgstr "Oldest events: "
+msgid "Most recent events:"
+msgstr "Most recent events:"
+
+msgid "Oldest events:"
+msgstr "Oldest events:"
 
 msgid "Hide"
 msgstr "Hide"
+
+msgid "Show items where the status is:"
+msgstr "Show items where the status is:"
 
 msgid "Choose from presets"
 msgstr "Choose from presets"

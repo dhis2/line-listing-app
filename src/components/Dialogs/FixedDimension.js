@@ -85,7 +85,7 @@ const FixedDimension = ({
 
     const renderStatusParagraph = () => (
         <p className={classes.paragraph}>
-            {i18n.t('Show items where the status is:')}
+            {i18n.t('Show items where the status is:', { nsSeparator: '^^' })}
         </p>
     )
 

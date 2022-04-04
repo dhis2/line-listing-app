@@ -62,15 +62,16 @@ const RepeatableEvents = ({ dimensionId }) => {
         <div>
             <p className={commonClasses.paragraph}>
                 {i18n.t(
-                    'From stages with repeatable events, show values for this data element from:'
+                    'From stages with repeatable events, show values for this data element from:',
+                    { nsSeparator: '^^' }
                 )}
             </p>
             <div>
                 <div className={classes.repeatableWrapper}>
                     <p className={commonClasses.paragraph}>
-                        {i18n.t('Most recent events: ', {
+                        {i18n.t('Most recent events:', {
                             keySeparator: '>',
-                            nsSeparator: '|',
+                            nsSeparator: '^^',
                         })}
                     </p>
                     <Input
@@ -83,9 +84,9 @@ const RepeatableEvents = ({ dimensionId }) => {
                 </div>
                 <div className={classes.repeatableWrapper}>
                     <p className={commonClasses.paragraph}>
-                        {i18n.t('Oldest events: ', {
+                        {i18n.t('Oldest events:', {
                             keySeparator: '>',
-                            nsSeparator: '|',
+                            nsSeparator: '^^',
                         })}
                     </p>
                     <Input
