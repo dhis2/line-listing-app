@@ -125,15 +125,14 @@ export const visTypeDescriptions = {
     ),
 }
 
-const removeDimensionPropsBeforeSaving = (axis) => {
-    return axis.map((dim) => {
+const removeDimensionPropsBeforeSaving = (axis) =>
+    axis?.map((dim) => {
         const dimension = Object.assign({}, dim)
         delete dimension.dimensionType
         delete dimension.valueType
 
         return dimension
     })
-}
 
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)
