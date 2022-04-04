@@ -1,3 +1,10 @@
+## [1.1.32](https://github.com/dhis2/line-listing-app/compare/v1.1.31...v1.1.32) (2022-04-04)
+
+
+### Bug Fixes
+
+* do not pass unnecessary props to 'save as' ([#81](https://github.com/dhis2/line-listing-app/issues/81)) ([5f5172c](https://github.com/dhis2/line-listing-app/commit/5f5172cf8915ea76989f8bfbbee54bd8aba1acca))
+
 ## [1.1.31](https://github.com/dhis2/line-listing-app/compare/v1.1.30...v1.1.31) (2022-04-04)
 
 
