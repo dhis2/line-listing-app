@@ -1,3 +1,10 @@
+## [1.1.31](https://github.com/dhis2/line-listing-app/compare/v1.1.30...v1.1.31) (2022-04-04)
+
+
+### Bug Fixes
+
+* use special namespace separator for strings with colons ([#78](https://github.com/dhis2/line-listing-app/issues/78)) ([3791031](https://github.com/dhis2/line-listing-app/commit/3791031eb9b7a860cf5c757da669ee07738d26c2))
+
 ## [1.1.30](https://github.com/dhis2/line-listing-app/compare/v1.1.29...v1.1.30) (2022-04-01)
 
 
