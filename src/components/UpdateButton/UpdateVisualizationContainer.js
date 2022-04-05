@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import { tSetCurrentFromUi } from '../../actions/current.js'
+import { useSelector, useDispatch } from 'react-redux'
+import { tSetCurrentFromUi, acClearCurrent } from '../../actions/current.js'
 import {
     acSetLoadError,
     acClearLoadError,
@@ -8,57 +8,27 @@ import {
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
 import { genericClientError } from '../../modules/error.js'
 import { validateLayout } from '../../modules/layoutValidation.js'
-import { sGetCurrent, sGetCurrentFromUi } from '../../reducers/current.js'
+import { sGetCurrentFromUi } from '../../reducers/current.js'
 
-const UpdateVisualizationContainer = ({
-    renderComponent,
-    getCurrentFromUi,
-    onUpdate,
-    setLoadError,
-    clearLoadError,
-    onLoadingStart,
-    hideLayoutPanel,
-}) => {
+const UpdateVisualizationContainer = ({ renderComponent }) => {
+    const dispatch = useDispatch()
+    const currentFromUi = useSelector(sGetCurrentFromUi)
+
     const onClick = () => {
         try {
-            validateLayout(getCurrentFromUi())
-            clearLoadError()
-            onUpdate()
-            onLoadingStart()
+            validateLayout(currentFromUi)
+            dispatch(acClearLoadError())
+            dispatch(tSetCurrentFromUi())
+            dispatch(acSetVisualizationLoading(true))
         } catch (error) {
-            setLoadError(error || genericClientError())
+            dispatch(acSetLoadError(error || genericClientError()))
+            dispatch(acClearCurrent())
         }
 
-        hideLayoutPanel()
-
-        // const urlContainsCurrentAOKey =
-        //     history.location.pathname === '/' + CURRENT_AO_KEY
-
-        // const current = getCurrent()
-
-        // const pathWithoutInterpretation =
-        //     current && current.id ? `/${current.id}` : '/'
-
-        // if (
-        //     !urlContainsCurrentAOKey &&
-        //     history.location.pathname !== pathWithoutInterpretation
-        // ) {
-        //     history.push(pathWithoutInterpretation)
-        // }
+        dispatch(acSetShowExpandedLayoutPanel(false))
     }
 
     return renderComponent(onClick)
 }
 
-const mapDispatchToProps = {
-    getCurrent: () => (dispatch, getState) => sGetCurrent(getState()),
-    getCurrentFromUi: () => (dispatch, getState) =>
-        sGetCurrentFromUi(getState()),
-    onUpdate: tSetCurrentFromUi,
-    setLoadError: acSetLoadError,
-    clearLoadError: acClearLoadError,
-    onLoadingStart: () => acSetVisualizationLoading(true),
-    hideLayoutPanel: () => acSetShowExpandedLayoutPanel(false),
-}
-
-export default connect(null, mapDispatchToProps)(UpdateVisualizationContainer)
+export default UpdateVisualizationContainer
