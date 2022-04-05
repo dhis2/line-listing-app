@@ -1,8 +1,9 @@
 export const ADD_METADATA = 'ADD_METADATA'
+export const CLEAR_METADATA = 'CLEAR_METADATA'
 
-export const DEFAULT_METADATA = {}
+const EMPTY_METADATA = {}
 
-export default (state = DEFAULT_METADATA, action) => {
+export default (state = EMPTY_METADATA, action) => {
     switch (action.type) {
         case ADD_METADATA: {
             const result = { ...state }
@@ -11,6 +12,8 @@ export default (state = DEFAULT_METADATA, action) => {
             )
             return result
         }
+        case CLEAR_METADATA:
+            return EMPTY_METADATA
         default:
             return state
     }

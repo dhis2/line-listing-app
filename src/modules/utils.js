@@ -29,3 +29,15 @@ export const useDidUpdateEffect = (fn, inputs) => {
 
 export const formatDimensionId = (dimensionId, programStageId) =>
     programStageId ? `${programStageId}.${dimensionId}` : dimensionId
+
+export const extractDimensionIdParts = (input) => {
+    const [dimensionId, rawStageId] = input.split('.').reverse()
+    const [programStageId, repetitionIndex] = (rawStageId || '').split('[')
+    return {
+        dimensionId,
+        programStageId,
+        repetitionIndex:
+            repetitionIndex?.length &&
+            repetitionIndex.substring(0, repetitionIndex.indexOf(']')),
+    }
+}

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-03-23T11:09:09.529Z\n"
-"PO-Revision-Date: 2022-03-23T11:09:09.529Z\n"
+"POT-Creation-Date: 2022-04-05T13:34:29.641Z\n"
+"PO-Revision-Date: 2022-04-05T13:34:29.641Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -23,6 +23,9 @@ msgstr "Remove"
 msgid "and"
 msgstr "and"
 
+msgid "Show items that meet the following conditions for this data item:"
+msgstr "Show items that meet the following conditions for this data item:"
+
 msgid "This dimension can't be filtered. All values will be shown."
 msgstr "This dimension can't be filtered. All values will be shown."
 
@@ -33,8 +36,8 @@ msgstr ""
 "No conditions yet, so all values will be included. Add a condition to "
 "filter results."
 
-msgid "Preset options can’t be combined with other conditions"
-msgstr "Preset options can’t be combined with other conditions"
+msgid "Preset options can't be combined with other conditions"
+msgstr "Preset options can't be combined with other conditions"
 
 msgid "Add another condition"
 msgstr "Add another condition"
@@ -66,14 +69,20 @@ msgstr "No preset option sets for this data item"
 msgid "Choose options"
 msgstr "Choose options"
 
-msgid "Most recent events: "
-msgstr "Most recent events: "
+msgid "From stages with repeatable events, show values for this data element from:"
+msgstr "From stages with repeatable events, show values for this data element from:"
 
-msgid "Oldest events: "
-msgstr "Oldest events: "
+msgid "Most recent events:"
+msgstr "Most recent events:"
+
+msgid "Oldest events:"
+msgstr "Oldest events:"
 
 msgid "Hide"
 msgstr "Hide"
+
+msgid "Show items where the status is:"
+msgstr "Show items where the status is:"
 
 msgid "Choose from presets"
 msgstr "Choose from presets"
@@ -268,6 +277,9 @@ msgstr "Levels"
 
 msgid "Groups"
 msgstr "Groups"
+
+msgid "Program stage: {{stageName}}"
+msgstr "Program stage: {{stageName}}"
 
 msgid "No dimensions found for '{{searchTerm}}'"
 msgstr "No dimensions found for '{{searchTerm}}'"
@@ -650,11 +662,15 @@ msgstr "No organisation unit selected"
 msgid "Add at least one organisation unit to the layout."
 msgstr "Add at least one organisation unit to the layout."
 
-msgid "No time dimension selected"
-msgstr "No time dimension selected"
+msgid "Time dimension is missing or invalid"
+msgstr "Time dimension is missing or invalid"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "Add at least one time dimension to the layout."
+msgid ""
+"Check that at least one time dimension has been added and that it has a "
+"valid format."
+msgstr ""
+"Check that at least one time dimension has been added and that it has a "
+"valid format."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"

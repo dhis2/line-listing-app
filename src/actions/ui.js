@@ -33,6 +33,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
+    REMOVE_UI_REPETITION,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -42,7 +43,6 @@ import {
     sGetUiProgramId,
     sGetUiInputType,
 } from '../reducers/ui.js'
-import { acAddMetadata } from './metadata.js'
 
 export const acSetUiDraggingId = (value) => ({
     type: SET_UI_DRAGGING_ID,
@@ -236,8 +236,6 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
 export const tClearUi = () => (dispatch, getState) => {
     const rootOrgUnits = sGetRootOrgUnits(getState())
 
-    dispatch(acAddMetadata(getDefaultTimeDimensionsMetadata()))
-
     dispatch(
         acClearUi({
             rootOrgUnits,
@@ -269,5 +267,10 @@ export const acSetUiConditions = (value) => ({
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
+    value,
+})
+
+export const acRemoveUiRepetition = (value) => ({
+    type: REMOVE_UI_REPETITION,
     value,
 })

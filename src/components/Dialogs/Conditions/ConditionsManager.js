@@ -368,7 +368,8 @@ const ConditionsManager = ({
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(
-                            'Show items that meet the following conditions for this data item:'
+                            'Show items that meet the following conditions for this data item:',
+                            { nsSeparator: '^^' }
                         )}
                     </p>
                 ) : (
@@ -404,7 +405,7 @@ const ConditionsManager = ({
                     ) && (
                         <Tooltip
                             content={i18n.t(
-                                'Preset options can’t be combined with other conditions'
+                                "Preset options can't be combined with other conditions"
                             )}
                             placement="bottom"
                             closeDelay={200}
@@ -498,7 +499,11 @@ const ConditionsManager = ({
             dataTest={'dialog-manager-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
-            title={dimension.name}
+            title={
+                stage?.name
+                    ? `${dimension.name} - ${stage.name}`
+                    : dimension.name
+            }
         >
             {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>

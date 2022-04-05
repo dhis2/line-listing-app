@@ -1,3 +1,109 @@
+## [1.1.34](https://github.com/dhis2/line-listing-app/compare/v1.1.33...v1.1.34) (2022-04-05)
+
+
+### Bug Fixes
+
+* use correct PropTypes and translation strings ([#84](https://github.com/dhis2/line-listing-app/issues/84)) ([b02a9a0](https://github.com/dhis2/line-listing-app/commit/b02a9a0f7b9866fd6f58b3804a1fb13c257ae326))
+
+## [1.1.33](https://github.com/dhis2/line-listing-app/compare/v1.1.32...v1.1.33) (2022-04-05)
+
+
+### Bug Fixes
+
+* message should handle case where an invalid date has been selected ([#83](https://github.com/dhis2/line-listing-app/issues/83)) ([e1d4802](https://github.com/dhis2/line-listing-app/commit/e1d4802786c02741a4845a2a3cc37cd7e1195456))
+
+## [1.1.32](https://github.com/dhis2/line-listing-app/compare/v1.1.31...v1.1.32) (2022-04-04)
+
+
+### Bug Fixes
+
+* do not pass unnecessary props to 'save as' ([#81](https://github.com/dhis2/line-listing-app/issues/81)) ([5f5172c](https://github.com/dhis2/line-listing-app/commit/5f5172cf8915ea76989f8bfbbee54bd8aba1acca))
+
+## [1.1.31](https://github.com/dhis2/line-listing-app/compare/v1.1.30...v1.1.31) (2022-04-04)
+
+
+### Bug Fixes
+
+* use special namespace separator for strings with colons ([#78](https://github.com/dhis2/line-listing-app/issues/78)) ([3791031](https://github.com/dhis2/line-listing-app/commit/3791031eb9b7a860cf5c757da669ee07738d26c2))
+
+## [1.1.30](https://github.com/dhis2/line-listing-app/compare/v1.1.29...v1.1.30) (2022-04-01)
+
+
+### Bug Fixes
+
+* add util for extracting dimension parts ([abe3d5f](https://github.com/dhis2/line-listing-app/commit/abe3d5f8732b76d0dd06215548476ce640fd4c23))
+* only store repetition if its other than default ([a3d508d](https://github.com/dhis2/line-listing-app/commit/a3d508d132ee173351f2dbac6e632409757b3a15))
+* repetition index issues (TECH-1066) [#75](https://github.com/dhis2/line-listing-app/issues/75) ([e9b5c48](https://github.com/dhis2/line-listing-app/commit/e9b5c48433f0e92262f0d4490252b93f9703d45e))
+* use a separator that is not a colon for this string ([#77](https://github.com/dhis2/line-listing-app/issues/77)) ([c7f5a5a](https://github.com/dhis2/line-listing-app/commit/c7f5a5a422c0b28ae4ea7e87e45c6591e61d9837))
+
+## [1.1.29](https://github.com/dhis2/line-listing-app/compare/v1.1.28...v1.1.29) (2022-04-01)
+
+
+### Bug Fixes
+
+* upgrade analytics with the fix ([#76](https://github.com/dhis2/line-listing-app/issues/76)) ([c1b0a84](https://github.com/dhis2/line-listing-app/commit/c1b0a84cfc2f1e87be6133736dbaf309ad911775))
+
+## [1.1.28](https://github.com/dhis2/line-listing-app/compare/v1.1.27...v1.1.28) (2022-03-30)
+
+
+### Bug Fixes
+
+* use pointersensor so most devices can use dnd ([#69](https://github.com/dhis2/line-listing-app/issues/69)) ([65400b9](https://github.com/dhis2/line-listing-app/commit/65400b9e850750d2e6bba023348b6e29a90d87c5))
+
+## [1.1.27](https://github.com/dhis2/line-listing-app/compare/v1.1.26...v1.1.27) (2022-03-30)
+
+
+### Bug Fixes
+
+* open modal for most recent header TECH-1065 ([#73](https://github.com/dhis2/line-listing-app/issues/73)) ([52e3c13](https://github.com/dhis2/line-listing-app/commit/52e3c13e0806a2e0d062c4ff3a76017bf23a1674))
+
+## [1.1.26](https://github.com/dhis2/line-listing-app/compare/v1.1.25...v1.1.26) (2022-03-30)
+
+
+### Bug Fixes
+
+* always show program stage in tooltip ([3a2c071](https://github.com/dhis2/line-listing-app/commit/3a2c071ffcf214d523b29a79b0c2c3feeb570728))
+* prevent metadata to be edited when dimension props are assigned ([5176f16](https://github.com/dhis2/line-listing-app/commit/5176f1637cd2680c3b35adfcd0fdfea8868b39af))
+* show program stage in data table header for duplicates ([f753050](https://github.com/dhis2/line-listing-app/commit/f7530509317be237f5064523e803689382a21fa6))
+* show program stage in modal title ([4e09b66](https://github.com/dhis2/line-listing-app/commit/4e09b660478c993213c7f0ecf555e9eeea66bef2))
+* various updates to duplicate dimensions (TECH-1032) [#67](https://github.com/dhis2/line-listing-app/issues/67) ([97aa1a3](https://github.com/dhis2/line-listing-app/commit/97aa1a37cad8861c882bf7f160f585ac821dc56f))
+
+## [1.1.25](https://github.com/dhis2/line-listing-app/compare/v1.1.24...v1.1.25) (2022-03-30)
+
+
+### Bug Fixes
+
+* align vertically toolbar buttons TECH-1048 ([#57](https://github.com/dhis2/line-listing-app/issues/57)) ([1fe394d](https://github.com/dhis2/line-listing-app/commit/1fe394d6f82bd6639a835ac966d89dce3b047f5e))
+
+## [1.1.24](https://github.com/dhis2/line-listing-app/compare/v1.1.23...v1.1.24) (2022-03-29)
+
+
+### Bug Fixes
+
+* do not show Invalid date for empty dates (TECH-1060) ([#70](https://github.com/dhis2/line-listing-app/issues/70)) ([20d59df](https://github.com/dhis2/line-listing-app/commit/20d59df30835abd1be018f8d9fec163e4505bf8c))
+* interpretation modal scrolling ([#71](https://github.com/dhis2/line-listing-app/issues/71)) ([97abf56](https://github.com/dhis2/line-listing-app/commit/97abf56e60a9e5ac0ac1e1f920f2a9f08905a720))
+
+## [1.1.23](https://github.com/dhis2/line-listing-app/compare/v1.1.22...v1.1.23) (2022-03-29)
+
+
+### Bug Fixes
+
+* reinitialize metadata when new, opening, and deleting an AO ([#62](https://github.com/dhis2/line-listing-app/issues/62)) ([570d39a](https://github.com/dhis2/line-listing-app/commit/570d39a27a1e506ed6fae3fe07364b0b45287343))
+
+## [1.1.22](https://github.com/dhis2/line-listing-app/compare/v1.1.21...v1.1.22) (2022-03-29)
+
+
+### Bug Fixes
+
+* programStage issues when saving/loading AO ([#63](https://github.com/dhis2/line-listing-app/issues/63)) ([48ab110](https://github.com/dhis2/line-listing-app/commit/48ab11032f389b641375d33869a86f57f6c9cbbe))
+
+## [1.1.21](https://github.com/dhis2/line-listing-app/compare/v1.1.20...v1.1.21) (2022-03-23)
+
+
+### Bug Fixes
+
+* pass correct page length ([#60](https://github.com/dhis2/line-listing-app/issues/60)) ([098b480](https://github.com/dhis2/line-listing-app/commit/098b48088d8679fa73d07e5651c2e7b5e79c55db))
+
 ## [1.1.20](https://github.com/dhis2/line-listing-app/compare/v1.1.19...v1.1.20) (2022-03-22)
 
 
