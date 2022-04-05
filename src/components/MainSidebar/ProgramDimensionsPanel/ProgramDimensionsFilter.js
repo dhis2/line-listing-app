@@ -19,21 +19,20 @@ import { DimensionIcon } from '../DimensionItem/DimensionIcon.js'
 import styles from './ProgramDimensionsFilter.module.css'
 import { StageSelect } from './StageSelect.js'
 
-const SingleSelectOption = ({ label, active, value, onClick }) => (
+const SingleSelectOption = ({ label, active, value, icon, onClick }) => (
     <div
         className={cx(styles.option, { [styles.active]: active })}
         data-value={value}
         onClick={(e) => onClick({}, e)}
     >
-        <span className={styles.optionIcon}>
-            <DimensionIcon dimensionType={value} />
-        </span>
+        <span className={styles.optionIcon}>{icon}</span>
         {label}
     </div>
 )
 
 SingleSelectOption.propTypes = {
     active: PropTypes.bool,
+    icon: PropTypes.node,
     label: PropTypes.string,
     value: PropTypes.string,
     onClick: PropTypes.func,
@@ -60,14 +59,7 @@ const ProgramDimensionsFilter = ({
                 placeholder={i18n.t('Search in program')}
             />
             <SingleSelect
-                prefix={
-                    <div className={styles.prefix}>
-                        <span>{i18n.t('Type')}</span>
-                        <span className={styles.prefixIcon}>
-                            <DimensionIcon dimensionType={dimensionType} />
-                        </span>
-                    </div>
-                }
+                prefix={i18n.t('Type')}
                 selected={dimensionType}
                 onChange={({ selected }) => setDimensionType(selected)}
                 dense
@@ -75,28 +67,56 @@ const ProgramDimensionsFilter = ({
                 <SingleSelectOption
                     label={i18n.t('All')}
                     value={DIMENSION_TYPE_ALL}
+                    icon={<DimensionIcon dimensionType={DIMENSION_TYPE_ALL} />}
                 />
                 <SingleSelectOption
                     label={i18n.t('Data element')}
                     value={DIMENSION_TYPE_DATA_ELEMENT}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={DIMENSION_TYPE_DATA_ELEMENT}
+                        />
+                    }
                 />
                 {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
                     <SingleSelectOption
                         label={i18n.t('Program attribute')}
                         value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
+                        icon={
+                            <DimensionIcon
+                                dimensionType={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
+                            />
+                        }
                     />
                 )}
                 <SingleSelectOption
                     label={i18n.t('Program indicator')}
                     value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                        />
+                    }
                 />
                 <SingleSelectOption
                     label={i18n.t('Category')}
                     value={DIMENSION_TYPE_CATEGORY}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={DIMENSION_TYPE_CATEGORY}
+                        />
+                    }
                 />
                 <SingleSelectOption
                     label={i18n.t('Category option group set')}
                     value={DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={
+                                DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
+                            }
+                        />
+                    }
                 />
             </SingleSelect>
             {showStageSelect && (

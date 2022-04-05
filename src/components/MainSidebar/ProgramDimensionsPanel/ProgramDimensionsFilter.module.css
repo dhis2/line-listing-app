@@ -11,17 +11,6 @@
     margin-right: 6px;
 }
 
-.prefixIcon {
-    flex: 0 0 auto;
-    width: 16px;
-    height: 16px;
-    margin-left: 6px;
-}
-
-.prefix {
-    display: flex;
-}
-
 .option {
     display: flex;
     align-items: center;
