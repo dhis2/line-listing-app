@@ -88,7 +88,7 @@ const IconButtonWithTooltip = ({ tooltipContent, disabled, icon, onClick }) => (
 IconButtonWithTooltip.propTypes = {
     disabled: PropTypes.bool,
     icon: PropTypes.node,
-    tooltipContent: PropTypes.text,
+    tooltipContent: PropTypes.string,
     onClick: PropTypes.func,
 }
 
