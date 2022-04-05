@@ -1,3 +1,10 @@
+## [1.1.34](https://github.com/dhis2/line-listing-app/compare/v1.1.33...v1.1.34) (2022-04-05)
+
+
+### Bug Fixes
+
+* use correct PropTypes and translation strings ([#84](https://github.com/dhis2/line-listing-app/issues/84)) ([b02a9a0](https://github.com/dhis2/line-listing-app/commit/b02a9a0f7b9866fd6f58b3804a1fb13c257ae326))
+
 ## [1.1.33](https://github.com/dhis2/line-listing-app/compare/v1.1.32...v1.1.33) (2022-04-05)
 
 
