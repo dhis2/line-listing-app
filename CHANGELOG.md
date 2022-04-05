@@ -1,3 +1,10 @@
+## [1.1.33](https://github.com/dhis2/line-listing-app/compare/v1.1.32...v1.1.33) (2022-04-05)
+
+
+### Bug Fixes
+
+* message should handle case where an invalid date has been selected ([#83](https://github.com/dhis2/line-listing-app/issues/83)) ([e1d4802](https://github.com/dhis2/line-listing-app/commit/e1d4802786c02741a4845a2a3cc37cd7e1195456))
+
 ## [1.1.32](https://github.com/dhis2/line-listing-app/compare/v1.1.31...v1.1.32) (2022-04-04)
 
 
