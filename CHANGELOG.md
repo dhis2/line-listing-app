@@ -1,3 +1,13 @@
+## [1.1.35](https://github.com/dhis2/line-listing-app/compare/v1.1.34...v1.1.35) (2022-04-06)
+
+
+### Bug Fixes
+
+* change max date to 9999 ([a85335c](https://github.com/dhis2/line-listing-app/commit/a85335c66c145a9572156d12a9bb219904052704))
+* date max (TECH-1068) [#85](https://github.com/dhis2/line-listing-app/issues/85) ([1b97eaf](https://github.com/dhis2/line-listing-app/commit/1b97eaf61302681a74df63812b6813a60d3798b5))
+* prevent dates in the very distant future to be entered ([ae8db2a](https://github.com/dhis2/line-listing-app/commit/ae8db2a49f749583b12bb9b04853b4cedc30b815))
+* reverse the ambiguous message for period error ([74da72d](https://github.com/dhis2/line-listing-app/commit/74da72da0ecd190b8dbf6857e494447cb6142a9e))
+
 ## [1.1.34](https://github.com/dhis2/line-listing-app/compare/v1.1.33...v1.1.34) (2022-04-05)
 
 
