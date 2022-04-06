@@ -33,7 +33,7 @@ export const CommentAddForm = ({
         },
     })
 
-    const inputPlaceholder = i18n.t('Add a comment')
+    const inputPlaceholder = i18n.t('Write a reply')
 
     return (
         <MessageEditorContainer currentUser={currentUser}>
@@ -53,7 +53,7 @@ export const CommentAddForm = ({
                             onClick={() => save({ commentText })}
                             loading={loading}
                         >
-                            {i18n.t('Save comment')}
+                            {i18n.t('Post reply')}
                         </Button>
                         <Button
                             secondary

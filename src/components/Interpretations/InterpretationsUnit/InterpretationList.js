@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Interpretation } from '../common/index.js'
 
-const sortByDateProp = (a, b) => {
+const sortByCreatedDateDesc = (a, b) => {
     const dateA = a.created
     const dateB = b.created
 
     if (dateA < dateB) {
-        return -1
+        return 1
     }
     if (dateA > dateB) {
-        return 1
+        return -1
     }
     return 0
 }
@@ -55,7 +55,7 @@ export const InterpretationList = ({
                         </div>
                         <ol className="interpretation-list">
                             {interpretationsByDate[date]
-                                .sort(sortByDateProp)
+                                .sort(sortByCreatedDateDesc)
                                 .map((interpretation) => (
                                     <Interpretation
                                         key={interpretation.id}

@@ -1,5 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconReply16, IconThumbUp16, IconEdit16 } from '@dhis2/ui'
+import {
+    Button,
+    SharingDialog,
+    IconReply16,
+    IconShare16,
+    IconThumbUp16,
+    IconEdit16,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Message, MessageStatsBar, MessageIconButton } from '../index.js'
@@ -17,6 +24,7 @@ export const Interpretation = ({
     onReplyIconClick,
 }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
+    const [showSharingDialog, setShowSharingDialog] = useState(false)
     const { toggleLike, isLikedByCurrentUser, toggleLikeInProgress } = useLike({
         interpretation,
         currentUser,
@@ -28,6 +36,7 @@ export const Interpretation = ({
         <InterpretationUpdateForm
             close={() => setIsUpdateMode(false)}
             id={interpretation.id}
+            showSharingLink={interpretation.access.manage}
             onComplete={onUpdated}
             text={interpretation.text}
             currentUser={currentUser}
@@ -38,7 +47,10 @@ export const Interpretation = ({
             created={interpretation.created}
             id={interpretation.id}
             username={interpretation.user.displayName}
-            onClick={disabled ? undefined : onClick}
+            // There is a weird behaviour we couldn't figure out which causes the interpretation view (modal) to open when the SharingDialog opened via the button in the Message component is closed or its content is clicked.
+            // Even with stopPropagation in place on the click of the action buttons in Message, it seems the click is propagated but only triggering the interpretation's Modal to open when the SharingDialog modal is closed.
+            // To avoid this issue we don't set the onClick when the SharingDialog is open
+            onClick={disabled || showSharingDialog ? undefined : onClick}
         >
             {!disabled && (
                 <MessageStatsBar>
@@ -60,6 +72,21 @@ export const Interpretation = ({
                         onClick={() => onReplyIconClick(interpretation.id)}
                         count={interpretation.comments.length}
                     />
+                    {interpretation.access.manage && (
+                        <MessageIconButton
+                            iconComponent={IconShare16}
+                            tooltipContent={i18n.t('Share')}
+                            onClick={() => setShowSharingDialog(true)}
+                        />
+                    )}
+                    {showSharingDialog && (
+                        <SharingDialog
+                            open={true}
+                            type={'interpretation'}
+                            id={interpretation.id}
+                            onClose={() => setShowSharingDialog(false)}
+                        />
+                    )}
                     {interpretation.access.update && (
                         <MessageIconButton
                             iconComponent={IconEdit16}
