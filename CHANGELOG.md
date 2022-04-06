@@ -1,3 +1,27 @@
+## [1.1.35](https://github.com/dhis2/line-listing-app/compare/v1.1.34...v1.1.35) (2022-04-06)
+
+
+### Bug Fixes
+
+* change max date to 9999 ([a85335c](https://github.com/dhis2/line-listing-app/commit/a85335c66c145a9572156d12a9bb219904052704))
+* date max (TECH-1068) [#85](https://github.com/dhis2/line-listing-app/issues/85) ([1b97eaf](https://github.com/dhis2/line-listing-app/commit/1b97eaf61302681a74df63812b6813a60d3798b5))
+* prevent dates in the very distant future to be entered ([ae8db2a](https://github.com/dhis2/line-listing-app/commit/ae8db2a49f749583b12bb9b04853b4cedc30b815))
+* reverse the ambiguous message for period error ([74da72d](https://github.com/dhis2/line-listing-app/commit/74da72da0ecd190b8dbf6857e494447cb6142a9e))
+
+## [1.1.34](https://github.com/dhis2/line-listing-app/compare/v1.1.33...v1.1.34) (2022-04-05)
+
+
+### Bug Fixes
+
+* use correct PropTypes and translation strings ([#84](https://github.com/dhis2/line-listing-app/issues/84)) ([b02a9a0](https://github.com/dhis2/line-listing-app/commit/b02a9a0f7b9866fd6f58b3804a1fb13c257ae326))
+
+## [1.1.33](https://github.com/dhis2/line-listing-app/compare/v1.1.32...v1.1.33) (2022-04-05)
+
+
+### Bug Fixes
+
+* message should handle case where an invalid date has been selected ([#83](https://github.com/dhis2/line-listing-app/issues/83)) ([e1d4802](https://github.com/dhis2/line-listing-app/commit/e1d4802786c02741a4845a2a3cc37cd7e1195456))
+
 ## [1.1.32](https://github.com/dhis2/line-listing-app/compare/v1.1.31...v1.1.32) (2022-04-04)
 
 
