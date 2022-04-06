@@ -68,10 +68,8 @@ export const noOrgUnitError = () =>
 export const noPeriodError = () =>
     visualizationError(
         PeriodError,
-        i18n.t('Time dimension is missing or invalid'),
-        i18n.t(
-            'Check that at least one time dimension has been added and that it has a valid format.'
-        )
+        i18n.t('No time dimension selected'),
+        i18n.t('Add at least one time dimension to the layout.')
     )
 
 export const getAlertTypeByStatusCode = (statusCode) =>
