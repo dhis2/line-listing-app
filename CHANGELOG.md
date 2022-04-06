@@ -1,3 +1,10 @@
+## [1.1.36](https://github.com/dhis2/line-listing-app/compare/v1.1.35...v1.1.36) (2022-04-06)
+
+
+### Bug Fixes
+
+* interpretations fixes TECH-1055 ([#58](https://github.com/dhis2/line-listing-app/issues/58)) ([0aee0b7](https://github.com/dhis2/line-listing-app/commit/0aee0b7e77afbf0e81977463912aff03a0cd64a3))
+
 ## [1.1.35](https://github.com/dhis2/line-listing-app/compare/v1.1.34...v1.1.35) (2022-04-06)
 
 
