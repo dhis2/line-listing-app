@@ -1966,7 +1966,7 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.7.3":
+"@dhis2/analytics@^23.7.5":
   version "23.7.5"
   resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.7.5.tgz#76edf0fd46b39806135ec588f62a21fd46464077"
   integrity sha512-owbtwaaT3MWuPYCxmnK5xnYSt2a2jVZAZjJ0W19QaxSWd2KuqQnbVAL0RMxFUli7oi/z9EcGrGQTmA/DbCJ71g==
