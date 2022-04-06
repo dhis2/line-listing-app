@@ -68,3 +68,14 @@ export const validateLayout = (layout) => {
             return validateLineListLayout(layout)
     }
 }
+
+export const layoutCanBeSaved = (layout) => {
+    if (!layout) {
+        return false
+    }
+    switch (layout.type) {
+        case VIS_TYPE_LINE_LIST:
+        default:
+            return Boolean(layout?.program?.id)
+    }
+}
