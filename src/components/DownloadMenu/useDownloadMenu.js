@@ -24,8 +24,7 @@ const useDownloadMenu = (relativePeriodDate) => {
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
     const buttonRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
-    const { sortField, sortDirection, page, pageSize } =
-        useSelector(sGetUiSorting)
+    const { sortField, sortDirection } = useSelector(sGetUiSorting)
 
     const download = useCallback(
         (type, format, idScheme) => {
@@ -65,11 +64,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                             ...parameters,
                             headers,
                             dataIdScheme: ID_SCHEME_NAME,
-                            // XXX remove when backend is fixed
-                            page,
-                            pageSize,
-                            // XXX enable when backend is fixed
-                            // paging: false,
+                            paging: false,
                         }) // only for LL
 
                     // not sorted (see old ER)
@@ -96,11 +91,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                         .withParameters({
                             ...parameters,
                             headers,
-                            // XXX remove when backend is fixed
-                            page,
-                            pageSize,
-                            // XXX enable when backend is fixed
-                            //paging: false,
+                            paging: false,
                         })
 
                     // TODO options
@@ -121,11 +112,6 @@ const useDownloadMenu = (relativePeriodDate) => {
                     // collapsedDataDimensions
                     // useOrgUnit (URL)
                     // relativePeriodDate
-                    // TODO LL only
-                    // need to reflect the page and pageSize and sorting shown in the Visualization component?
-                    // NO!
-                    // asc
-                    // desc
                     target = [FILE_FORMAT_CSV, FILE_FORMAT_XLS].includes(format)
                         ? '_top'
                         : '_blank'
@@ -157,7 +143,7 @@ const useDownloadMenu = (relativePeriodDate) => {
             window.open(url, target)
             setIsOpen(false)
         },
-        [current, relativePeriodDate, sortField, sortDirection, page, pageSize]
+        [current, relativePeriodDate, sortField, sortDirection]
     )
 
     return {
