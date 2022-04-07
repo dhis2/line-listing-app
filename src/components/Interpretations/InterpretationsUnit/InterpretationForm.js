@@ -56,7 +56,7 @@ export const InterpretationForm = ({
                             disabled={saveMutationInProgress}
                             onClick={() => save({ interpretationText })}
                         >
-                            {i18n.t('Save interpretation')}
+                            {i18n.t('Post interpretation')}
                         </Button>
                         <Button
                             secondary

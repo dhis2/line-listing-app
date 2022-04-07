@@ -144,11 +144,11 @@ msgstr "Download"
 msgid "Edit"
 msgstr "Edit"
 
-msgid "Add a comment"
-msgstr "Add a comment"
+msgid "Write a reply"
+msgstr "Write a reply"
 
-msgid "Save comment"
-msgstr "Save comment"
+msgid "Post reply"
+msgstr "Post reply"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -184,8 +184,8 @@ msgstr "Hide interpretation"
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
 
-msgid "Save interpretation"
-msgstr "Save interpretation"
+msgid "Post interpretation"
+msgstr "Post interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
@@ -198,6 +198,9 @@ msgstr "Like"
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Share"
+msgstr "Share"
 
 msgid "See interpretation"
 msgstr "See interpretation"

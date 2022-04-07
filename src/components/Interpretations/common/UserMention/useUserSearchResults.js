@@ -6,10 +6,10 @@ const usersQuery = {
     users: {
         resource: 'users/gist',
         params: ({ searchText }) => ({
-            fields: 'id,displayName,userCredentials.username~rename(username)',
+            fields: 'id,displayName,username',
             order: 'firstName,surname',
             total: true,
-            filter: `userCredentials.username:ilike:${searchText},firstName:ilike:${searchText},surname:ilike:${searchText},email:ilike:${searchText}`,
+            filter: `username:ilike:${searchText},firstName:ilike:${searchText},surname:ilike:${searchText},email:ilike:${searchText}`,
             rootJunction: 'OR',
         }),
     },
