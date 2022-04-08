@@ -4,8 +4,8 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Message = ({ children, text, created, id, username, onClick }) => (
-    <li className="container" onClick={() => onClick && onClick(id)}>
+const Message = ({ children, text, created, id, username }) => (
+    <li className="container">
         <div className="header">
             <UserAvatar name={username} extrasmall />
             {username}
@@ -25,7 +25,6 @@ const Message = ({ children, text, created, id, username, onClick }) => (
                 display: flex;
                 flex-direction: column;
                 gap: ${spacers.dp8};
-                cursor: pointer;
             }
 
             .header {
@@ -69,7 +68,6 @@ Message.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
 }
 
 export { Message }
