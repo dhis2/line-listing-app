@@ -1,3 +1,12 @@
+## [1.1.38](https://github.com/dhis2/line-listing-app/compare/v1.1.37...v1.1.38) (2022-04-08)
+
+
+### Bug Fixes
+
+* change color of ATL button ([2335afc](https://github.com/dhis2/line-listing-app/commit/2335afca8dc7221242a93c2e86cf2f4d9b95d109))
+* prevent add to layout button from triggering an update (TECH-1084) [#86](https://github.com/dhis2/line-listing-app/issues/86) ([ed48660](https://github.com/dhis2/line-listing-app/commit/ed48660b65e006bfb5898df73b08316826b6131e))
+* prevent ATL from triggering update ([561da05](https://github.com/dhis2/line-listing-app/commit/561da0560bfeb7049f83deba68ab1eaa2d610545))
+
 ## [1.1.37](https://github.com/dhis2/line-listing-app/compare/v1.1.36...v1.1.37) (2022-04-08)
 
 
