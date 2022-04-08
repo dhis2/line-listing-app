@@ -23,7 +23,10 @@ const DimensionItemBase = ({
             [styles.dragging]: dragging,
         })}
     >
-        <div className={styles.iconAndLabelWrapper} onClick={onClick}>
+        <div
+            className={styles.iconAndLabelWrapper}
+            onClick={onClick ? onClick : undefined}
+        >
             <div className={styles.icon}>
                 <DimensionIcon dimensionType={dimensionType} />
             </div>
@@ -49,12 +52,6 @@ DimensionItemBase.propTypes = {
     selected: PropTypes.bool,
     stageName: PropTypes.string,
     onClick: PropTypes.func,
-}
-
-DimensionItemBase.defaultProps = {
-    conditions: [],
-    items: [],
-    onClick: Function.prototype,
 }
 
 export { DimensionItemBase }

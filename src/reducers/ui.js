@@ -25,7 +25,7 @@ import { getOptionsForUi } from '../modules/options.js'
 import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
-import { sGetMetadata, sGetMetadataById } from './metadata.js'
+import { sGetMetadata, sGetMetadataById, EMPTY_METADATA } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
@@ -52,6 +52,9 @@ export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 
+const DEFAULT_CONDITIONS = {}
+const DEFAULT_DIMENSION_CONDITIONS = {}
+const DEFAULT_DIMENSION_ITEMS = []
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
@@ -74,6 +77,7 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
+    conditions: DEFAULT_CONDITIONS,
     sorting: {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
@@ -106,7 +110,7 @@ export const DEFAULT_UI = {
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
-    conditions: {},
+    conditions: DEFAULT_CONDITIONS,
     sorting: {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
@@ -377,7 +381,7 @@ export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
-export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
+export const sGetUiConditions = (state) => sGetUi(state).conditions
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
 
@@ -391,7 +395,9 @@ export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 
 export const sGetUiItemsByDimension = (state, dimension) =>
-    sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
+    sGetUiItems(state)[dimension] ||
+    DEFAULT_UI.itemsByDimension[dimension] ||
+    DEFAULT_DIMENSION_ITEMS
 
 export const sGetDimensionIdsFromLayout = (state) =>
     Object.values(sGetUiLayout(state)).reduce(
@@ -403,7 +409,7 @@ export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
     sGetUiLayout(state)[axisId]
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
-    sGetUiConditions(state)[dimension]
+    sGetUiConditions(state)[dimension] || DEFAULT_DIMENSION_CONDITIONS
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
@@ -413,7 +419,7 @@ export const renderChipsSelector = createSelector(
     [sGetUiLayout, sGetMetadata],
     (layout, metadata) => {
         const layoutItems = Object.values(layout || {}).flat()
-        const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
+        const dataObjects = [...Object.values(metadata || EMPTY_METADATA)] // TODO: Refactor to not use the whole metadata list
 
         return layoutItems.every((item) =>
             dataObjects.some((data) => data.id === item)
@@ -439,7 +445,7 @@ export const useMainDimensions = () => {
                 programType,
             }),
         }))
-    }, [programId, inputType])
+    }, [store, programId, inputType])
 }
 
 export const useTimeDimensions = () => {
@@ -489,6 +495,7 @@ export const useTimeDimensions = () => {
             return null
         }
     }, [
+        store,
         inputType,
         programId,
         programStageId,

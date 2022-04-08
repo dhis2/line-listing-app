@@ -86,7 +86,7 @@ export const ChipBase = ({ dimension, conditions, items, metadata }) => {
 }
 
 ChipBase.propTypes = {
-    conditions: PropTypes.object,
+    conditions: PropTypes.object.isRequired,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,
         id: PropTypes.string,
@@ -94,13 +94,7 @@ ChipBase.propTypes = {
         optionSet: PropTypes.string,
         stageName: PropTypes.string,
         valueType: PropTypes.string,
-    }),
-    items: PropTypes.array,
-    metadata: PropTypes.object,
-}
-
-ChipBase.defaultProps = {
-    conditions: {},
-    items: [],
-    metadata: {},
+    }).isRequired,
+    items: PropTypes.array.isRequired,
+    metadata: PropTypes.object.isRequired,
 }

@@ -28,13 +28,7 @@ const Chip = ({
     onClick,
     activeIndex,
 }) => {
-    const {
-        id: dimensionId,
-        name: dimensionName,
-        dimensionType,
-        valueType,
-        optionSet,
-    } = dimension
+    const { id, name, dimensionType, valueType, optionSet } = dimension
 
     const {
         attributes,
@@ -47,26 +41,30 @@ const Chip = ({
         transform,
         transition,
     } = useSortable({
-        id: dimensionId,
+        id,
         data: {
-            name: dimensionName,
+            name,
             dimensionType,
             valueType,
             optionSet,
         },
     })
-    const globalLoadError = useSelector(sGetLoadError)
+
     const metadata = useSelector(sGetMetadata)
-    const conditions =
-        useSelector((state) =>
-            sGetUiConditionsByDimension(state, dimension.id)
-        ) || {}
-    const items =
-        useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
-        []
+    const conditions = useSelector((state) =>
+        sGetUiConditionsByDimension(state, dimension.id)
+    )
+    const items = useSelector((state) =>
+        sGetUiItemsByDimension(state, dimension.id)
+    )
+
+    const globalLoadError = useSelector(sGetLoadError)
+    if (globalLoadError && !name) {
+        return null
+    }
 
     let insertPosition = undefined
-    if (over?.id === dimensionId) {
+    if (over?.id === id) {
         // This chip is being hovered over by a dragged item
         if (activeIndex === -1) {
             //This item came from the dimensions panel
@@ -94,15 +92,7 @@ const Chip = ({
           }
         : undefined
 
-    const id = Math.random().toString(36)
-
-    const dataTest = `layout-chip-${dimensionId}`
-
     const renderTooltipContent = () => <TooltipContent dimension={dimension} />
-
-    if (globalLoadError && !dimensionName) {
-        return null
-    }
 
     return (
         <div
@@ -122,7 +112,7 @@ const Chip = ({
                     [styles.active]: isDragging,
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,
-                    [styles.showBlank]: !dimensionName,
+                    [styles.showBlank]: !name,
                 })}
             >
                 <div className={styles.content}>
@@ -133,8 +123,8 @@ const Chip = ({
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div
-                                    data-test={dataTest}
-                                    id={id}
+                                    data-test={`layout-chip-${id}`}
+                                    id={Math.random().toString(36)}
                                     onClick={onClick}
                                     ref={ref}
                                     onMouseOver={onMouseOver}
@@ -150,10 +140,7 @@ const Chip = ({
                             )}
                         </Tooltip>
                     }
-                    <DimensionMenu
-                        dimensionId={dimensionId}
-                        currentAxisId={axisId}
-                    />
+                    <DimensionMenu dimensionId={id} currentAxisId={axisId} />
                 </div>
             </div>
         </div>

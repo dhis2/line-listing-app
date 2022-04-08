@@ -214,7 +214,7 @@ const mapStateToProps = (state, ownProps) => ({
         ownProps.dimension?.id
     ),
     displayNameProp: sGetSettingsDisplayNameProperty(state),
-    selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id) || [],
+    selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id),
     metadata: sGetMetadata(state),
 })
 
