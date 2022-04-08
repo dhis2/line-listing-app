@@ -150,9 +150,13 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 {entryMethod === OPTION_START_END_DATES && (
                     <StartEndDate
                         value={selectedIds[0] || ''}
-                        setValue={(value) =>
-                            updatePeriodDimensionItems([{ id: value }])
-                        }
+                        setValue={(value) => {
+                            if (!value && selectedIds.length) {
+                                updatePeriodDimensionItems([])
+                            } else if (value && value !== selectedIds[0]) {
+                                updatePeriodDimensionItems([{ id: value }])
+                            }
+                        }}
                     />
                 )}
             </div>

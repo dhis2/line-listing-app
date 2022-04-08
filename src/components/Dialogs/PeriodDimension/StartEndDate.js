@@ -10,7 +10,7 @@ export const StartEndDate = ({ value, setValue }) => {
     const [endDate, setEndDate] = useState(endDateStr)
 
     useEffect(() => {
-        setValue(startDate && endDate ? `${startDate}_${endDate}` : '')
+        setValue(startDate && endDate ? `${startDate}_${endDate}` : null)
     }, [startDate, endDate])
 
     const onStartDateChange = ({ value }) => {
