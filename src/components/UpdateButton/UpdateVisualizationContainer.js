@@ -8,7 +8,7 @@ import {
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
 import { genericClientError } from '../../modules/error.js'
 import {
-    layoutCanBeSaved,
+    layoutHasProgramId,
     validateLayout,
 } from '../../modules/layoutValidation.js'
 import { sGetCurrentFromUi } from '../../reducers/current.js'
@@ -25,7 +25,7 @@ const UpdateVisualizationContainer = ({ renderComponent }) => {
         } catch (error) {
             dispatch(acSetLoadError(error || genericClientError()))
         }
-        if (layoutCanBeSaved(currentFromUi)) {
+        if (layoutHasProgramId(currentFromUi)) {
             dispatch(tSetCurrentFromUi())
         } else {
             dispatch(acClearCurrent())

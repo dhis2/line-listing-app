@@ -69,7 +69,7 @@ export const validateLayout = (layout) => {
     }
 }
 
-export const layoutCanBeSaved = (layout) => {
+export const layoutHasProgramId = (layout) => {
     if (!layout) {
         return false
     }
@@ -79,3 +79,5 @@ export const layoutCanBeSaved = (layout) => {
             return Boolean(layout?.program?.id)
     }
 }
+
+export const AOIsLegacy = (layout) => layout.legacy // The legacy prop is returned by the backend for AOs that were created in the old ER app

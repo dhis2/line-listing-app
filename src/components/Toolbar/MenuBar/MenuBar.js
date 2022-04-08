@@ -13,7 +13,10 @@ import { tSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
-import { layoutCanBeSaved } from '../../../modules/layoutValidation.js'
+import {
+    AOIsLegacy,
+    layoutHasProgramId,
+} from '../../../modules/layoutValidation.js'
 import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
@@ -225,7 +228,7 @@ const MenuBar = ({
                 onNew={onNew}
                 onRename={onRename}
                 onSave={
-                    layoutCanBeSaved(current) && !current.legacy
+                    layoutHasProgramId(current) && !AOIsLegacy(current)
                         ? onSave
                         : undefined
                 }
