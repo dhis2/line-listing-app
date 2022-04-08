@@ -1,3 +1,10 @@
+## [1.1.37](https://github.com/dhis2/line-listing-app/compare/v1.1.36...v1.1.37) (2022-04-08)
+
+
+### Bug Fixes
+
+* download url ([#55](https://github.com/dhis2/line-listing-app/issues/55)) ([95bb80a](https://github.com/dhis2/line-listing-app/commit/95bb80a1945e36f3d5ae30a4ba0bd23b1d524c84))
+
 ## [1.1.36](https://github.com/dhis2/line-listing-app/compare/v1.1.35...v1.1.36) (2022-04-06)
 
 
