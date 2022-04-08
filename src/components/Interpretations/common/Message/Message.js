@@ -4,7 +4,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Message = ({ children, text, created, id, username }) => (
+const Message = ({ children, text, created, username }) => (
     <li className="container">
         <div className="header">
             <UserAvatar name={username} extrasmall />
@@ -65,7 +65,6 @@ const Message = ({ children, text, created, id, username }) => (
 Message.propTypes = {
     children: PropTypes.node.isRequired,
     created: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
 }

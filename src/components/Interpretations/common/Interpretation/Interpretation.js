@@ -45,7 +45,6 @@ export const Interpretation = ({
         <Message
             text={interpretation.text}
             created={interpretation.created}
-            id={interpretation.id}
             username={interpretation.user.displayName}
         >
             {!disabled && (
