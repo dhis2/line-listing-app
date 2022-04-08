@@ -76,7 +76,7 @@ export const layoutHasProgramId = (layout) => {
     switch (layout.type) {
         case VIS_TYPE_LINE_LIST:
         default:
-            return Boolean(layout?.program?.id)
+            return Boolean(layout.program?.id)
     }
 }
 
