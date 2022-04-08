@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
     USER_ORG_UNIT,
@@ -49,9 +50,11 @@ export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
+export const PAGE_SIZE = 100
 
 const EMPTY_UI = {
     draggingId: null,
@@ -75,6 +78,7 @@ const EMPTY_UI = {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
         page: FIRST_PAGE,
+        pageSize: PAGE_SIZE,
     },
 }
 
@@ -107,6 +111,7 @@ export const DEFAULT_UI = {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
         page: FIRST_PAGE,
+        pageSize: PAGE_SIZE,
     },
 }
 
@@ -335,6 +340,17 @@ export default (state = EMPTY_UI, action) => {
                     ...state.repetitionByDimension,
                     [dimensionId]: repetition,
                 },
+            }
+        }
+        case REMOVE_UI_REPETITION: {
+            const {
+                [action.value]: removedProperty,
+                ...repetitionByDimension
+            } = { ...state.repetitionByDimension }
+
+            return {
+                ...state,
+                repetitionByDimension,
             }
         }
         default:

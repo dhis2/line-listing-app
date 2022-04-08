@@ -13,7 +13,7 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
@@ -72,12 +72,12 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
+    const { sortField, sortDirection, page, pageSize } =
+        useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
-    const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
@@ -119,7 +119,24 @@ export const Visualization = ({
         )
 
     const setPage = (pageNum) =>
-        dispatch(acSetUiSorting({ sortField, sortDirection, page: pageNum }))
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                pageSize,
+                page: pageNum,
+            })
+        )
+
+    const setPageSize = (pageSizeNum) =>
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                page,
+                pageSize: pageSizeNum,
+            })
+        )
 
     const formatCellValue = (value, header) => {
         if (
@@ -130,10 +147,13 @@ export const Visualization = ({
         ) {
             return metadata[value]?.name || value
         } else if (header?.valueType === VALUE_TYPE_DATE) {
-            return moment(value).format(
-                header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
-                    ? 'yyyy-MM-DD hh:mm'
-                    : 'yyyy-MM-DD'
+            return (
+                value &&
+                moment(value).format(
+                    header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
+                        ? 'yyyy-MM-DD hh:mm'
+                        : 'yyyy-MM-DD'
+                )
             )
         } else if (header?.valueType === VALUE_TYPE_URL) {
             return (
@@ -151,7 +171,7 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = header?.stageOffset
+        let dimensionId = Number.isInteger(header?.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
 
@@ -159,7 +179,7 @@ export const Visualization = ({
             (key) => headersMap[key] === header.name
         )
 
-        if (header.stageOffset !== undefined) {
+        if (Number.isInteger(header.stageOffset)) {
             let postfix
 
             if (header.stageOffset === 0) {
@@ -200,7 +220,7 @@ export const Visualization = ({
                 })}
             >
                 <DataTable
-                    scrollHeight="100%"
+                    scrollHeight={isInModal ? 'calc(100vh - 285px)' : '100%'}
                     width="auto"
                     scrollWidth={`${availableOuterWidth}px`}
                     className={styles.dataTable}

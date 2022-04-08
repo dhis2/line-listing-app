@@ -4,6 +4,7 @@ import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { options } from './options.js'
 import { parseUiRepetition } from './ui.js'
+import { extractDimensionIdParts } from './utils.js'
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -29,9 +30,12 @@ export const getProgramFromUi = (ui) => ({
     program: { id: ui.program?.id },
 })
 
-export const getProgramStageFromUi = (ui) => ({
-    programStage: { id: ui.program?.stageId },
-})
+export const getProgramStageFromUi = (ui) =>
+    ui.program?.stageId
+        ? {
+              programStage: { id: ui.program?.stageId },
+          }
+        : {}
 
 export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
 
@@ -41,10 +45,8 @@ export const getAxesFromUi = (ui) =>
             ...layout,
             [axisId]: dimensionIds
                 .map((id) => {
-                    // not all dimension have program stage prefix, make sure the dimensionId is always the first
-                    const [dimensionId, programStageId] = id
-                        .split('.')
-                        .reverse()
+                    const { dimensionId, programStageId } =
+                        extractDimensionIdParts(id)
 
                     return dimensionCreate(
                         dimensionId,

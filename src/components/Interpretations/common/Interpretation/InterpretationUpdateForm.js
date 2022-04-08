@@ -23,6 +23,7 @@ export const InterpretationUpdateForm = ({
     currentUser,
     id,
     onComplete,
+    showSharingLink,
     text,
 }) => {
     const [interpretationText, setInterpretationText] = useState(text || '')
@@ -48,7 +49,9 @@ export const InterpretationUpdateForm = ({
                     disabled={loading}
                     errorText={errorText}
                 />
-                <InterpretationSharingLink id={id} type="interpretation" />
+                {showSharingLink && (
+                    <InterpretationSharingLink id={id} type="interpretation" />
+                )}
                 <MessageButtonStrip>
                     <Button
                         loading={loading}
@@ -78,5 +81,6 @@ InterpretationUpdateForm.propTypes = {
     currentUser: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
+    showSharingLink: PropTypes.bool,
     text: PropTypes.string,
 }

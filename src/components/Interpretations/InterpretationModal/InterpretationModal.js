@@ -22,12 +22,11 @@ import { useModalContentWidth } from './useModalContentWidth.js'
 
 const modalCSS = css.resolve`
     aside {
-        min-width: 600px;
-        min-height: 600px;
-        max-width: 90vw !important;
-        max-height: 90vh !important;
+        max-width: calc(100vw - 128px) !important;
+        max-height: calc(100vh - 128px) !important;
         width: auto !important;
         height: auto !important;
+        overflow-y: hidden;
     }
     aside.hidden {
         display: none;
@@ -116,6 +115,7 @@ const InterpretationModal = ({
                 </Layer>
             )}
             <Modal
+                fluid
                 onClose={handleClose}
                 className={cx(modalCSS.className, {
                     hidden: shouldCssHideModal,
@@ -186,7 +186,7 @@ const InterpretationModal = ({
                     .title {
                         color: ${colors.grey900};
                         margin: 0px;
-                        padding: ${spacers.dp24} ${spacers.dp24} ${spacers.dp4};
+                        padding: ${spacers.dp24} 0 ${spacers.dp4};
                     }
 
                     .ellipsis {
@@ -216,6 +216,7 @@ const InterpretationModal = ({
                     }
 
                     .thread-wrap {
+                        padding-right: ${spacers.dp4};
                         flex-basis: 300px;
                         flex-shrink: 0;
                         overflow-y: auto;

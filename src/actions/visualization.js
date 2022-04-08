@@ -1,4 +1,5 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
+import { formatDimensionId } from '../modules/utils.js'
 import {
     SET_VISUALIZATION,
     CLEAR_VISUALIZATION,
@@ -14,9 +15,7 @@ export const acSetVisualization = (value) => {
             (dim) => dim.valueType || dim.optionSet?.id || dim.dimensionType
         )
         .map((dim) => {
-            const id = dim.programStage?.id
-                ? `${dim.programStage.id}.${dim.dimension}`
-                : dim.dimension
+            const id = formatDimensionId(dim.dimension, dim.programStage?.id)
 
             return {
                 [id]: {
