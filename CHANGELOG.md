@@ -1,3 +1,10 @@
+## [1.1.40](https://github.com/dhis2/line-listing-app/compare/v1.1.39...v1.1.40) (2022-04-11)
+
+
+### Bug Fixes
+
+* remove legacy flag when saving a copy TECH-1092 ([#89](https://github.com/dhis2/line-listing-app/issues/89)) ([e897f5c](https://github.com/dhis2/line-listing-app/commit/e897f5c32dea441f4a067523f2fe4d1b3020bad6))
+
 ## [1.1.39](https://github.com/dhis2/line-listing-app/compare/v1.1.38...v1.1.39) (2022-04-11)
 
 
