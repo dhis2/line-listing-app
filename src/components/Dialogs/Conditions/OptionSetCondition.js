@@ -97,7 +97,7 @@ const OptionSetCondition = ({
             selectedOptions.length >= newOptions.length &&
             newOptions.every((newOption) =>
                 selectedOptions.find(
-                    (selectedItem) => selectedItem.value === newOption.value
+                    (selectedItem) => selectedItem.code === newOption.code
                 )
             )
         ) {
