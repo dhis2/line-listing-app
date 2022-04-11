@@ -1,3 +1,13 @@
+## [1.1.39](https://github.com/dhis2/line-listing-app/compare/v1.1.38...v1.1.39) (2022-04-11)
+
+
+### Bug Fixes
+
+* prevent duplicate updates ([507dd8d](https://github.com/dhis2/line-listing-app/commit/507dd8dd42e3a343a9a5f5845c0dc95903d3f125))
+* prevent time dims from being wiped when reopening modal ([f7638aa](https://github.com/dhis2/line-listing-app/commit/f7638aa1d35662dfa487370d289377caaae64a87))
+* prevent time dims from being wiped when reopening modal (TECH-1061) [#64](https://github.com/dhis2/line-listing-app/issues/64) ([8989654](https://github.com/dhis2/line-listing-app/commit/898965449ddecdd80a78754f2dafdf205edcaed3))
+* reverse useEffect change to avoid lint error ([f48e4d3](https://github.com/dhis2/line-listing-app/commit/f48e4d3b9efd734dd99037b2afd53785c0a4cec0))
+
 ## [1.1.38](https://github.com/dhis2/line-listing-app/compare/v1.1.37...v1.1.38) (2022-04-08)
 
 
