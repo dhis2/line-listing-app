@@ -5,7 +5,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiItems } from '../../../actions/ui.js'
@@ -84,25 +84,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             ? OPTION_START_END_DATES
             : OPTION_PRESETS
     )
-    const [presets, setPresets] = useState(() =>
-        selectedIds
-            .filter((id) => !isStartEndDate(id))
-            .map((id) => ({ id, name: getNameFromMetadata(id) }))
-    )
-
-    const [startEndDate, setStartEndDate] = useState(
-        () => selectedIds.find((id) => isStartEndDate(id)) || ''
-    )
-
-    useEffect(() => {
-        if (presets) {
-            updatePeriodDimensionItems(presets)
-        }
-    }, [presets])
-
-    useEffect(() => {
-        updatePeriodDimensionItems(startEndDate ? [{ id: startEndDate }] : [])
-    }, [startEndDate])
 
     const updatePeriodDimensionItems = (items) => {
         const { uiItems, metadata } = items.reduce(
@@ -136,6 +117,11 @@ export const PeriodDimension = ({ dimension, onClose }) => {
         onClose()
     }
 
+    const onSegmentedControlChange = ({ value }) => {
+        setEntryMethod(value)
+        updatePeriodDimensionItems([])
+    }
+
     return dimension ? (
         <DimensionModal
             dataTest={'period-dimension-modal'}
@@ -147,19 +133,30 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             <SegmentedControl
                 options={segmentedControlOptions}
                 selected={entryMethod}
-                onChange={({ value }) => setEntryMethod(value)}
+                onChange={onSegmentedControlChange}
             ></SegmentedControl>
             <div className={styles.entry}>
                 {entryMethod === OPTION_PRESETS && (
                     <BasePeriodDimension
-                        selectedPeriods={presets}
-                        onSelect={({ items }) => setPresets(items)}
+                        selectedPeriods={selectedIds.map((id) => ({
+                            id,
+                            name: getNameFromMetadata(id),
+                        }))}
+                        onSelect={({ items }) =>
+                            updatePeriodDimensionItems(items)
+                        }
                     />
                 )}
                 {entryMethod === OPTION_START_END_DATES && (
                     <StartEndDate
-                        value={startEndDate}
-                        setValue={setStartEndDate}
+                        value={selectedIds[0] || ''}
+                        setValue={(value) => {
+                            if (!value && selectedIds.length) {
+                                updatePeriodDimensionItems([])
+                            } else if (value && value !== selectedIds[0]) {
+                                updatePeriodDimensionItems([{ id: value }])
+                            }
+                        }}
                     />
                 )}
             </div>
