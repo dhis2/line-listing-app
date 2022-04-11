@@ -156,6 +156,11 @@ export const getVisualizationFromCurrent = (current) => {
         visualization.filters
     )
 
+    // When saving a copy of an AO created with the Event Reports app, remove the legacy flag.
+    // This copy won't work in Event Reports app anyway.
+    // This also unlocks the Save button on the copied (and converted to new format) AO in LL app.
+    delete visualization.legacy
+
     return visualization
 }
 
