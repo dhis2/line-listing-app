@@ -72,8 +72,7 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection, page, pageSize } =
-        useSelector(sGetUiSorting)
+    const { sortField, sortDirection, pageSize } = useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
