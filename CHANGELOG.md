@@ -1,3 +1,10 @@
+## [1.1.42](https://github.com/dhis2/line-listing-app/compare/v1.1.41...v1.1.42) (2022-04-12)
+
+
+### Bug Fixes
+
+* reset page when changing page size TECH-1081 ([#93](https://github.com/dhis2/line-listing-app/issues/93)) ([13e44fe](https://github.com/dhis2/line-listing-app/commit/13e44fe5495b571bc578aa956096c064d2ad8020))
+
 ## [1.1.41](https://github.com/dhis2/line-listing-app/compare/v1.1.40...v1.1.41) (2022-04-12)
 
 
