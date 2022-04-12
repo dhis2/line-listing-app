@@ -114,6 +114,7 @@ export const Visualization = ({
             acSetUiSorting({
                 sortField: name,
                 sortDirection: direction,
+                pageSize,
                 page: FIRST_PAGE,
             })
         )
@@ -133,8 +134,8 @@ export const Visualization = ({
             acSetUiSorting({
                 sortField,
                 sortDirection,
-                page,
                 pageSize: pageSizeNum,
+                page: FIRST_PAGE,
             })
         )
 
@@ -302,19 +303,15 @@ export const Visualization = ({
                                     }}
                                 >
                                     <Pagination
-                                        page={page}
-                                        pageSize={pageSize}
+                                        page={data.page}
+                                        pageSize={data.pageSize}
                                         isLastPage={data.isLastPage}
                                         onPageChange={setPage}
                                         onPageSizeChange={setPageSize}
                                         pageSizeSelectText={i18n.t(
                                             'Rows per page'
                                         )}
-                                        pageLength={
-                                            fetching && data.isLastPage
-                                                ? pageSize
-                                                : data.rows.length
-                                        }
+                                        pageLength={data.rows.length}
                                         pageSummaryText={({
                                             firstItem,
                                             lastItem,
