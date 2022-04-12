@@ -1168,9 +1168,9 @@
     "@babel/plugin-transform-typescript" "^7.15.0"
 
 "@babel/runtime-corejs2@^7.4.2":
-  version "7.17.8"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.17.8.tgz#c026a0801d400080bee9b805fb45031da5bab2ea"
-  integrity sha512-KWN7KTjojEVk+hhT7EtvWtSBTueqnPiCT2xPoDFF+ept2Sx9UKnLY7hGsnrNsdx7jvMUQnHoDS6AHCys7i15LA==
+  version "7.17.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.17.9.tgz#068e3f4cc08c7c62504eb704b5eb8b735b079b56"
+  integrity sha512-+QThIsnjVY12uURTvmnW33risFZ7ulq6OWw0VJL08UwiYiWVp9PM63s+W1L2ppajYyKAYKb7afcGYSHzA0k04Q==
   dependencies:
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
@@ -1190,7 +1190,14 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.15.4", "@babel/runtime@^7.9.2":
+  version "7.17.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.9.tgz#d19fbf802d01a8cb6cf053a64e472d42c434ba72"
+  integrity sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.10.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.0", "@babel/runtime@^7.12.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
   version "7.17.8"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.8.tgz#3e56e4aff81befa55ac3ac6a0967349fd1c5bca2"
   integrity sha512-dQpEpK0O9o6lj6oPu0gRDbbnk+4LeHlNcBpspf6Olzt3GIX4P1lWF1gS+pHLDFlaJvbR6q7jCfQ08zA4QJBnmA==
@@ -1967,9 +1974,9 @@
     prop-types "^15.7.2"
 
 "@dhis2/analytics@^23.7.5":
-  version "23.7.5"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.7.5.tgz#76edf0fd46b39806135ec588f62a21fd46464077"
-  integrity sha512-owbtwaaT3MWuPYCxmnK5xnYSt2a2jVZAZjJ0W19QaxSWd2KuqQnbVAL0RMxFUli7oi/z9EcGrGQTmA/DbCJ71g==
+  version "23.7.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.7.6.tgz#43d3b504853d241a85e6b755c934db3a3810ac9b"
+  integrity sha512-5mawcKxrKCWkdhxcvZZvgqCllx5JR/p++xiOhgNmKK9Z/CN0Mz35y9LtudfQiqw/Ji0xnQus7uJwGSweWjJorA==
   dependencies:
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
