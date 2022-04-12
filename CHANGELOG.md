@@ -1,3 +1,11 @@
+## [1.1.41](https://github.com/dhis2/line-listing-app/compare/v1.1.40...v1.1.41) (2022-04-12)
+
+
+### Bug Fixes
+
+* mouse pointer and clickable area for chip ([33f625a](https://github.com/dhis2/line-listing-app/commit/33f625a2352dc4516b9f5594f3979fcf238b4eb7))
+* mouse pointer and clickable area for chip (TECH-1083) [#91](https://github.com/dhis2/line-listing-app/issues/91) ([e6ee222](https://github.com/dhis2/line-listing-app/commit/e6ee2220ec2adf3bd2ffa96fe3fe457eed959548))
+
 ## [1.1.40](https://github.com/dhis2/line-listing-app/compare/v1.1.39...v1.1.40) (2022-04-11)
 
 
