@@ -27,7 +27,11 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../modules/dimensionConstants.js'
-import { genericServerError, noPeriodError } from '../../modules/error.js'
+import {
+    genericServerError,
+    indicatorError,
+    noPeriodError,
+} from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -90,6 +94,9 @@ export const Visualization = ({
             switch (error.details.errorCode) {
                 case 'E7205':
                     output = noPeriodError()
+                    break
+                case 'E7132':
+                    output = indicatorError()
                     break
                 default:
                     output = error

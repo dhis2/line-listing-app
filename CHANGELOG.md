@@ -1,3 +1,28 @@
+## [1.1.45](https://github.com/dhis2/line-listing-app/compare/v1.1.44...v1.1.45) (2022-04-13)
+
+
+### Bug Fixes
+
+* add missing margin to dimension menu ([506b501](https://github.com/dhis2/line-listing-app/commit/506b501d4c6cb39eed6ef4e75d0820bf852e7f4e))
+* add missing margin to dimension menu [#95](https://github.com/dhis2/line-listing-app/issues/95) ([3fca5d6](https://github.com/dhis2/line-listing-app/commit/3fca5d6a1ca796b408f570047290aace47af2ebf))
+
+## [1.1.44](https://github.com/dhis2/line-listing-app/compare/v1.1.43...v1.1.44) (2022-04-13)
+
+
+### Bug Fixes
+
+* catch error code for indicator error and display a custom error msg ([2daa6d5](https://github.com/dhis2/line-listing-app/commit/2daa6d51acb63af6600ab67504646b871c2dbdb4))
+* catch error code for indicator error and display a custom error msg (TECH-1097) [#94](https://github.com/dhis2/line-listing-app/issues/94) ([fa30427](https://github.com/dhis2/line-listing-app/commit/fa304274bea44949bfa344486991f2a79967ac3b))
+* use data icon ([a3902b4](https://github.com/dhis2/line-listing-app/commit/a3902b452f7737a6eb0b6c4dd191e0bd5e355910))
+
+## [1.1.43](https://github.com/dhis2/line-listing-app/compare/v1.1.42...v1.1.43) (2022-04-13)
+
+
+### Bug Fixes
+
+* evaluate code instead of value ([2f47cb7](https://github.com/dhis2/line-listing-app/commit/2f47cb7ce5f079bff56cdbd1fee575b6617fba9e))
+* option set to use code instead of value for paging (TECH-1082) [#90](https://github.com/dhis2/line-listing-app/issues/90) ([1d6da88](https://github.com/dhis2/line-listing-app/commit/1d6da88c06cc24b2f8308cd1937b1f856129c9ee))
+
 ## [1.1.42](https://github.com/dhis2/line-listing-app/compare/v1.1.41...v1.1.42) (2022-04-12)
 
 
