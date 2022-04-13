@@ -1,3 +1,12 @@
+## [1.1.44](https://github.com/dhis2/line-listing-app/compare/v1.1.43...v1.1.44) (2022-04-13)
+
+
+### Bug Fixes
+
+* catch error code for indicator error and display a custom error msg ([2daa6d5](https://github.com/dhis2/line-listing-app/commit/2daa6d51acb63af6600ab67504646b871c2dbdb4))
+* catch error code for indicator error and display a custom error msg (TECH-1097) [#94](https://github.com/dhis2/line-listing-app/issues/94) ([fa30427](https://github.com/dhis2/line-listing-app/commit/fa304274bea44949bfa344486991f2a79967ac3b))
+* use data icon ([a3902b4](https://github.com/dhis2/line-listing-app/commit/a3902b452f7737a6eb0b6c4dd191e0bd5e355910))
+
 ## [1.1.43](https://github.com/dhis2/line-listing-app/compare/v1.1.42...v1.1.43) (2022-04-13)
 
 
