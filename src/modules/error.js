@@ -72,6 +72,13 @@ export const noPeriodError = () =>
         i18n.t('Add at least one time dimension to the layout.')
     )
 
+export const indicatorError = () =>
+    visualizationError(
+        GenericError,
+        genericErrorTitle,
+        i18n.t("There's a problem with at least one selected indicator")
+    )
+
 export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 
