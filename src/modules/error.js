@@ -74,7 +74,7 @@ export const noPeriodError = () =>
 
 export const indicatorError = () =>
     visualizationError(
-        GenericError,
+        DataError,
         genericErrorTitle,
         i18n.t("There's a problem with at least one selected indicator")
     )
