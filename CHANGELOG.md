@@ -1,3 +1,10 @@
+## [1.1.46](https://github.com/dhis2/line-listing-app/compare/v1.1.45...v1.1.46) (2022-04-13)
+
+
+### Bug Fixes
+
+* filter out longitude and latitude dimensions ([#97](https://github.com/dhis2/line-listing-app/issues/97)) ([00376a0](https://github.com/dhis2/line-listing-app/commit/00376a0887c202266a2c112db8854ec941f8c32a))
+
 ## [1.1.45](https://github.com/dhis2/line-listing-app/compare/v1.1.44...v1.1.45) (2022-04-13)
 
 
