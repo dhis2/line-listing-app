@@ -93,25 +93,30 @@ export const transformVisualization = (visualization) => {
 }
 
 const transformDimensions = (dimensions, { outputType, type }) =>
-    dimensions.map((dimensionObj) => {
-        if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
-            return {
-                ...dimensionObj,
-                dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+    dimensions
+        .filter(
+            (dimensionObj) =>
+                !['longitude', 'latitude'].includes(dimensionObj.dimension)
+        )
+        .map((dimensionObj) => {
+            if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
+                return {
+                    ...dimensionObj,
+                    dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+                }
+            } else if (
+                dimensionObj.dimension === DIMENSION_ID_PERIOD &&
+                type === VIS_TYPE_LINE_LIST
+            ) {
+                return {
+                    ...dimensionObj,
+                    dimension: outputTypeTimeDimensionMap[outputType],
+                    dimensionType: DIMENSION_TYPE_PERIOD,
+                }
+            } else {
+                return dimensionObj
             }
-        } else if (
-            dimensionObj.dimension === DIMENSION_ID_PERIOD &&
-            type === VIS_TYPE_LINE_LIST
-        ) {
-            return {
-                ...dimensionObj,
-                dimension: outputTypeTimeDimensionMap[outputType],
-                dimensionType: DIMENSION_TYPE_PERIOD,
-            }
-        } else {
-            return dimensionObj
-        }
-    })
+        })
 
 export const visTypes = [
     { type: VIS_TYPE_LINE_LIST },
