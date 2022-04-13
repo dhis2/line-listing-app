@@ -1,3 +1,11 @@
+## [1.1.45](https://github.com/dhis2/line-listing-app/compare/v1.1.44...v1.1.45) (2022-04-13)
+
+
+### Bug Fixes
+
+* add missing margin to dimension menu ([506b501](https://github.com/dhis2/line-listing-app/commit/506b501d4c6cb39eed6ef4e75d0820bf852e7f4e))
+* add missing margin to dimension menu [#95](https://github.com/dhis2/line-listing-app/issues/95) ([3fca5d6](https://github.com/dhis2/line-listing-app/commit/3fca5d6a1ca796b408f570047290aace47af2ebf))
+
 ## [1.1.44](https://github.com/dhis2/line-listing-app/compare/v1.1.43...v1.1.44) (2022-04-13)
 
 
