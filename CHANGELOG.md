@@ -1,3 +1,11 @@
+## [1.1.43](https://github.com/dhis2/line-listing-app/compare/v1.1.42...v1.1.43) (2022-04-13)
+
+
+### Bug Fixes
+
+* evaluate code instead of value ([2f47cb7](https://github.com/dhis2/line-listing-app/commit/2f47cb7ce5f079bff56cdbd1fee575b6617fba9e))
+* option set to use code instead of value for paging (TECH-1082) [#90](https://github.com/dhis2/line-listing-app/issues/90) ([1d6da88](https://github.com/dhis2/line-listing-app/commit/1d6da88c06cc24b2f8308cd1937b1f856129c9ee))
+
 ## [1.1.42](https://github.com/dhis2/line-listing-app/compare/v1.1.41...v1.1.42) (2022-04-12)
 
 
