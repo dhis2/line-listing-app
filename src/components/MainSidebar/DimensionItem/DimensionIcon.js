@@ -25,10 +25,26 @@ import {
     DIMENSION_TYPE_USER,
 } from '../../../modules/dimensionConstants.js'
 
+// TODO: move this to ui-icons when Joe is back and has a chance to alter the design
+const IconDimensionProgramAttribute16 = () => (
+    <svg
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="m15 3 v10h-5v-10z m-1 1 v2h-3v-2z m0 3 v2h-3v-2z m0 3 v2h-3v-2z m-5 -6 h-7v7h7v1h-8v-10h8z"
+            fill="#010101"
+            fillRule="evenodd"
+        />
+    </svg>
+)
+
 const DIMENSION_TYPE_ICONS = {
     /**PROGRAM**/
     [DIMENSION_TYPE_DATA_ELEMENT]: IconDimensionData16,
-    [DIMENSION_TYPE_PROGRAM_ATTRIBUTE]: IconDimensionData16,
+    [DIMENSION_TYPE_PROGRAM_ATTRIBUTE]: IconDimensionProgramAttribute16,
     [DIMENSION_TYPE_PROGRAM_INDICATOR]: IconDimensionProgramIndicator16,
     [DIMENSION_TYPE_CATEGORY]: IconFilter16,
     [DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET]:
