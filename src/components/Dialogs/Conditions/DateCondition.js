@@ -2,15 +2,17 @@ import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption, Button, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { NULL_VALUE, DATE_OPERATORS } from '../../../modules/conditions.js'
+import {
+    NULL_VALUE,
+    DATE_OPERATORS,
+    UI_TIME_DIVIDER,
+    API_TIME_DIVIDER,
+} from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
 const TYPE_DATE = 'date'
 const TYPE_DATETIME = 'datetime-local'
 const TYPE_TIME = 'time'
-
-const API_TIME_DIVIDER = '.' // TODO: Currently just picked a random character, use the correct character preferred by backend
-const UI_TIME_DIVIDER = ':'
 
 const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
     let operator, value
