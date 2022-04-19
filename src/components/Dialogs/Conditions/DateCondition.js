@@ -12,7 +12,7 @@ const TYPE_TIME = 'time'
 const API_TIME_DIVIDER = '.' // TODO: Currently just picked a random character, use the correct character preferred by backend
 const UI_TIME_DIVIDER = ':'
 
-const BaseCondition = ({ condition, onChange, onRemove, type }) => {
+const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
     let operator, value
 
     if (condition.includes(NULL_VALUE)) {
@@ -58,6 +58,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                     type={type}
                     onChange={({ value }) => setValue(value)}
                     className={classes.dateInput}
+                    max={max}
                     dense
                 />
             )}
@@ -79,14 +80,15 @@ BaseCondition.propTypes = {
     type: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    max: PropTypes.string,
 }
 
 export const DateCondition = (props) => (
-    <BaseCondition type={TYPE_DATE} {...props} />
+    <BaseCondition type={TYPE_DATE} max="9999-12-31" {...props} />
 )
 
 export const DateTimeCondition = (props) => (
-    <BaseCondition type={TYPE_DATETIME} {...props} />
+    <BaseCondition type={TYPE_DATETIME} max="9999-12-31T23:59:59" {...props} />
 )
 
 export const TimeCondition = (props) => (
