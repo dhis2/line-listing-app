@@ -1,6 +1,15 @@
 import {
     PeriodDimension as BasePeriodDimension,
     useCachedDataQuery,
+    DAILY,
+    WEEKLY,
+    WEEKLYWED,
+    WEEKLYTHU,
+    WEEKLYSAT,
+    WEEKLYSUN,
+    BIWEEKLY,
+    MONTHLY,
+    BIMONTHLY,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { SegmentedControl } from '@dhis2/ui'
@@ -9,6 +18,14 @@ import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiItems } from '../../../actions/ui.js'
+import {
+    SYSTEM_SETTINGS_HIDE_DAILY_PERIODS,
+    SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS,
+    SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS,
+    SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
+    SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
+    sGetSettings,
+} from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -71,11 +88,33 @@ const useMetadataNameGetter = () => {
     }
 }
 
+const useExcludedPeriods = () => {
+    const systemSettings = useSelector(sGetSettings)
+    const types = []
+    if (systemSettings[SYSTEM_SETTINGS_HIDE_DAILY_PERIODS]) {
+        types.push(DAILY)
+    }
+    if (systemSettings[SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS]) {
+        types.push(WEEKLY, WEEKLYWED, WEEKLYTHU, WEEKLYSAT, WEEKLYSUN)
+    }
+    if (systemSettings[SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS]) {
+        types.push(BIWEEKLY)
+    }
+    if (systemSettings[SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS]) {
+        types.push(MONTHLY)
+    }
+    if (systemSettings[SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS]) {
+        types.push(BIMONTHLY)
+    }
+    return types
+}
+
 export const PeriodDimension = ({ dimension, onClose }) => {
     const formatStartEndDate = useLocalizedStartEndDateFormatter()
     const getNameFromMetadata = useMetadataNameGetter()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
+    const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
         []
@@ -145,6 +184,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                         onSelect={({ items }) =>
                             updatePeriodDimensionItems(items)
                         }
+                        excludedPeriodTypes={excludedPeriodTypes}
                     />
                 )}
                 {entryMethod === OPTION_START_END_DATES && (
