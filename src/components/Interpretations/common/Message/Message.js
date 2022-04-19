@@ -25,6 +25,7 @@ const Message = ({ children, text, created, id, username, onClick }) => (
                 display: flex;
                 flex-direction: column;
                 gap: ${spacers.dp8};
+                cursor: pointer;
             }
 
             .header {

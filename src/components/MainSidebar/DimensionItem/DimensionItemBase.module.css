@@ -63,6 +63,10 @@
     align-items: center;
 }
 
+.iconAndLabelWrapper:not(:only-child) {
+    margin-right: var(--spacers-dp4);
+}
+
 .label .secondary {
     font-size: 13px;
     line-height: 15px;

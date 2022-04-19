@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-04T08:11:45.400Z\n"
-"PO-Revision-Date: 2022-04-04T08:11:45.400Z\n"
+"POT-Creation-Date: 2022-04-13T07:27:47.683Z\n"
+"PO-Revision-Date: 2022-04-13T07:27:47.683Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -144,11 +144,11 @@ msgstr "Download"
 msgid "Edit"
 msgstr "Edit"
 
-msgid "Add a comment"
-msgstr "Add a comment"
+msgid "Write a reply"
+msgstr "Write a reply"
 
-msgid "Save comment"
-msgstr "Save comment"
+msgid "Post reply"
+msgstr "Post reply"
 
 msgid "Cancel"
 msgstr "Cancel"
@@ -184,8 +184,8 @@ msgstr "Hide interpretation"
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
 
-msgid "Save interpretation"
-msgstr "Save interpretation"
+msgid "Post interpretation"
+msgstr "Post interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
@@ -198,6 +198,9 @@ msgstr "Like"
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Share"
+msgstr "Share"
 
 msgid "See interpretation"
 msgstr "See interpretation"
@@ -664,6 +667,9 @@ msgstr "No time dimension selected"
 
 msgid "Add at least one time dimension to the layout."
 msgstr "Add at least one time dimension to the layout."
+
+msgid "There's a problem with at least one selected indicator"
+msgstr "There's a problem with at least one selected indicator"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
