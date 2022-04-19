@@ -15,6 +15,7 @@
     user-select: none;
     width: fit-content;
     align-items: center;
+    padding-right: 2px;
 }
 
 .chipBase {
