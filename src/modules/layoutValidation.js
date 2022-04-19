@@ -80,4 +80,4 @@ export const layoutHasProgramId = (layout) => {
     }
 }
 
-export const AOIsLegacy = (layout) => layout.legacy // The legacy prop is returned by the backend for AOs that were created in the old ER app
+export const aoCreatedInEventReportsApp = (layout) => layout.legacy

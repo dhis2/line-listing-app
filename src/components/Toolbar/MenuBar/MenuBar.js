@@ -14,7 +14,7 @@ import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
 import {
-    AOIsLegacy,
+    aoCreatedInEventReportsApp,
     layoutHasProgramId,
 } from '../../../modules/layoutValidation.js'
 import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
@@ -228,7 +228,8 @@ const MenuBar = ({
                 onNew={onNew}
                 onRename={onRename}
                 onSave={
-                    layoutHasProgramId(current) && !AOIsLegacy(current)
+                    layoutHasProgramId(current) &&
+                    !aoCreatedInEventReportsApp(current)
                         ? onSave
                         : undefined
                 }
