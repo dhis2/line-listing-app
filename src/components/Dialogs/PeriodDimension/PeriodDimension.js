@@ -115,6 +115,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     console.log('excludedPerTypes', excludedPeriodTypes)
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
+    const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
         []

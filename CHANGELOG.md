@@ -1,3 +1,27 @@
+## [1.1.49](https://github.com/dhis2/line-listing-app/compare/v1.1.48...v1.1.49) (2022-04-19)
+
+
+### Bug Fixes
+
+* check system settings for hidden periods ([#99](https://github.com/dhis2/line-listing-app/issues/99)) ([db7451d](https://github.com/dhis2/line-listing-app/commit/db7451dcd0d7563162307eb0c37b6cf497e65d6d))
+
+## [1.1.48](https://github.com/dhis2/line-listing-app/compare/v1.1.47...v1.1.48) (2022-04-19)
+
+
+### Bug Fixes
+
+* allow saving when a program has been selected ([9eedbbe](https://github.com/dhis2/line-listing-app/commit/9eedbbe1847071be9d82725d8d380777dacf6ab6))
+* clear current in redux store [#82](https://github.com/dhis2/line-listing-app/issues/82) (TECH-1069) ([5610f5e](https://github.com/dhis2/line-listing-app/commit/5610f5e8bce5d79de5e084776003479815fe6626))
+* clear current when ui config is invalid ([ea9c0c0](https://github.com/dhis2/line-listing-app/commit/ea9c0c06fc55690b9adaf89489064bf193fc64db))
+
+## [1.1.47](https://github.com/dhis2/line-listing-app/compare/v1.1.46...v1.1.47) (2022-04-19)
+
+
+### Bug Fixes
+
+* fix vertical alignment of interpretation action buttons TECH-1085 ([#98](https://github.com/dhis2/line-listing-app/issues/98)) ([71a28ac](https://github.com/dhis2/line-listing-app/commit/71a28acf2033a57a35eece4342710571c5de41b8))
+* use system settings for DGS option TECH-1091 ([#96](https://github.com/dhis2/line-listing-app/issues/96)) ([d4f4c10](https://github.com/dhis2/line-listing-app/commit/d4f4c10a50f75f74c82cd1a469bb05d827f25eac))
+
 ## [1.1.46](https://github.com/dhis2/line-listing-app/compare/v1.1.45...v1.1.46) (2022-04-13)
 
 
