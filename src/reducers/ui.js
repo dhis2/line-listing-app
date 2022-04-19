@@ -116,7 +116,9 @@ export const DEFAULT_UI = {
 }
 
 const getPreselectedUi = (options) => {
-    const rootOrgUnitIds = options.rootOrgUnits
+    const { rootOrgUnits, digitGroupSeparator } = options
+
+    const rootOrgUnitIds = rootOrgUnits
         .filter((root) => root.id)
         .map((root) => root.id)
     const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
@@ -129,7 +131,7 @@ const getPreselectedUi = (options) => {
         ...DEFAULT_UI,
         options: {
             ...DEFAULT_UI.options,
-            //digitGroupSeparator,
+            digitGroupSeparator,
         },
         itemsByDimension: {
             ...DEFAULT_UI.itemsByDimension,

@@ -5,7 +5,7 @@ export const ADD_SETTINGS = 'ADD_SETTINGS'
 export const DEFAULT_SETTINGS = {
     // keyDateFormat: 'yyyy-MM-dd',
     // keyAnalysisRelativePeriod: 'LAST_12_MONTHS',
-    // keyAnalysisDigitGroupSeparator: 'SPACE',
+    keyAnalysisDigitGroupSeparator: 'SPACE',
     // keyIgnoreAnalyticsApprovalYearThreshold: -1,
     displayNameProperty: 'displayName',
     // uiLocale: 'en',
@@ -32,8 +32,8 @@ export const sGetSettings = (state) => state.settings
 export const sGetSettingsDisplayNameProperty = (state) =>
     sGetSettings(state).displayNameProperty
 
-// export const sGetSettingsDigitGroupSeparator = state =>
-//     sGetSettings(state).keyAnalysisDigitGroupSeparator
+export const sGetSettingsDigitGroupSeparator = (state) =>
+    sGetSettings(state).keyAnalysisDigitGroupSeparator
 
 export const sGetRootOrgUnits = (state) => sGetSettings(state).rootOrgUnits
 
