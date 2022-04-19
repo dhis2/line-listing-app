@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
@@ -13,13 +12,11 @@ import {
     acSetVisualizationLoading,
 } from '../actions/loader.js'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
-import { tAddSettings } from '../actions/settings.js'
 import {
     acSetUiFromVisualization,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
-import { acSetUser } from '../actions/user.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
@@ -108,7 +105,6 @@ const App = ({
     current,
     addMetadata,
     addParentGraphMap,
-    addSettings,
     clearAll,
     clearLoadError,
     error,
@@ -119,13 +115,11 @@ const App = ({
     setVisualization,
     setVisualizationLoading,
     setUiFromVisualization,
-    setUser,
     showDetailsPanel,
 }) => {
     const dataEngine = useDataEngine()
     const [data, setData] = useState()
     const [fetchError, setFetchError] = useState()
-    const { currentUser, userSettings } = useCachedDataQuery()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
@@ -209,13 +203,6 @@ const App = ({
 
     useEffect(() => {
         const onMount = async () => {
-            await addSettings(userSettings)
-
-            setUser({
-                ...currentUser,
-                uiLocale: userSettings.uiLocale,
-            })
-
             setInitMetadata()
             loadVisualization(history.location)
         }
@@ -368,13 +355,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     addMetadata: acAddMetadata,
     addParentGraphMap: acAddParentGraphMap,
-    addSettings: tAddSettings,
     clearAll: acClearAll,
     clearLoadError: acClearLoadError,
     setCurrent: tSetCurrent,
     setInitMetadata: tSetInitMetadata,
     setVisualization: acSetVisualization,
-    setUser: acSetUser,
     setUiFromVisualization: acSetUiFromVisualization,
     setVisualizationLoading: acSetVisualizationLoading,
     setLoadError: acSetLoadError,
@@ -383,7 +368,6 @@ const mapDispatchToProps = {
 App.propTypes = {
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
-    addSettings: PropTypes.func,
     clearAll: PropTypes.func,
     clearLoadError: PropTypes.func,
     current: PropTypes.object,
@@ -393,7 +377,6 @@ App.propTypes = {
     setInitMetadata: PropTypes.func,
     setLoadError: PropTypes.func,
     setUiFromVisualization: PropTypes.func,
-    setUser: PropTypes.func,
     setVisualization: PropTypes.func,
     setVisualizationLoading: PropTypes.func,
     showDetailsPanel: PropTypes.bool,

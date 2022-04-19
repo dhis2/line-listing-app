@@ -6,6 +6,8 @@ import thunk from 'redux-thunk'
 import App from './components/App.js'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
+import { systemSettingsKeys } from './modules/systemSettings.js'
+import { userSettingsKeys } from './modules/userSettings.js'
 import './locales/index.js'
 
 const query = {
@@ -18,7 +20,21 @@ const query = {
     userSettings: {
         resource: 'userSettings',
         params: {
-            key: ['keyUiLocale', 'keyAnalysisDisplayProperty'],
+            key: userSettingsKeys,
+        },
+    },
+    systemSettings: {
+        resource: 'systemSettings',
+        params: {
+            key: systemSettingsKeys,
+        },
+    },
+    rootOrgUnits: {
+        resource: 'organisationUnits',
+        params: {
+            fields: 'id,displayName,name',
+            userDataViewFallback: true,
+            paging: false,
         },
     },
 }
@@ -37,6 +53,8 @@ const providerDataTransformation = (rawData) => {
                     : 'displayShortName',
             uiLocale: keyUiLocale,
         },
+        systemSettings: rawData.systemSettings,
+        rootOrgUnits: rawData.rootOrgUnits,
     }
 }
 

@@ -1,4 +1,4 @@
-import { apiFetchItemsByDimension } from '@dhis2/analytics'
+import { apiFetchItemsByDimension, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Transfer, TransferOption } from '@dhis2/ui'
@@ -9,11 +9,12 @@ import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems } from '../../actions/ui.js'
 import { useDebounce, useDidUpdateEffect } from '../../modules/utils.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetSettingsDisplayNameProperty } from '../../reducers/settings.js'
+// import { sGetSettingsDisplayNameProperty } from '../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
 } from '../../reducers/ui.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { TransferEmptySelection } from './common/TransferEmptySelection.js'
 import { TransferLeftHeader } from './common/TransferLeftHeader.js'
 import { TransferRightHeader } from './common/TransferRightHeader.js'
@@ -31,11 +32,11 @@ const DynamicDimension = ({
     dimension,
     isInLayout,
     setUiItems,
-    displayNameProp,
     selectedIds,
     addMetadata,
     metadata,
 }) => {
+    const { userSettings } = useCachedDataQuery()
     const [state, setState] = useState({
         searchTerm: '',
         items: [],
@@ -59,7 +60,7 @@ const DynamicDimension = ({
             dimensionId: dimension.id,
             searchTerm: state.searchTerm,
             page,
-            nameProp: displayNameProp,
+            nameProp: userSettings[USER_SETTINGS_DISPLAY_PROPERTY],
         })
         const newItems = result.dimensionItems?.map(
             ({ id, name, disabled }) => ({
@@ -201,7 +202,6 @@ const DynamicDimension = ({
 DynamicDimension.propTypes = {
     addMetadata: PropTypes.func.isRequired,
     dimension: PropTypes.object.isRequired,
-    displayNameProp: PropTypes.string.isRequired,
     isInLayout: PropTypes.bool.isRequired,
     metadata: PropTypes.object.isRequired,
     selectedIds: PropTypes.array.isRequired,
@@ -213,7 +213,6 @@ const mapStateToProps = (state, ownProps) => ({
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
-    displayNameProp: sGetSettingsDisplayNameProperty(state),
     selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id) || [],
     metadata: sGetMetadata(state),
 })
