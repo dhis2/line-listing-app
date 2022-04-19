@@ -1,3 +1,11 @@
+## [1.1.47](https://github.com/dhis2/line-listing-app/compare/v1.1.46...v1.1.47) (2022-04-19)
+
+
+### Bug Fixes
+
+* fix vertical alignment of interpretation action buttons TECH-1085 ([#98](https://github.com/dhis2/line-listing-app/issues/98)) ([71a28ac](https://github.com/dhis2/line-listing-app/commit/71a28acf2033a57a35eece4342710571c5de41b8))
+* use system settings for DGS option TECH-1091 ([#96](https://github.com/dhis2/line-listing-app/issues/96)) ([d4f4c10](https://github.com/dhis2/line-listing-app/commit/d4f4c10a50f75f74c82cd1a469bb05d827f25eac))
+
 ## [1.1.46](https://github.com/dhis2/line-listing-app/compare/v1.1.45...v1.1.46) (2022-04-13)
 
 
