@@ -1,3 +1,12 @@
+## [1.1.48](https://github.com/dhis2/line-listing-app/compare/v1.1.47...v1.1.48) (2022-04-19)
+
+
+### Bug Fixes
+
+* allow saving when a program has been selected ([9eedbbe](https://github.com/dhis2/line-listing-app/commit/9eedbbe1847071be9d82725d8d380777dacf6ab6))
+* clear current in redux store [#82](https://github.com/dhis2/line-listing-app/issues/82) (TECH-1069) ([5610f5e](https://github.com/dhis2/line-listing-app/commit/5610f5e8bce5d79de5e084776003479815fe6626))
+* clear current when ui config is invalid ([ea9c0c0](https://github.com/dhis2/line-listing-app/commit/ea9c0c06fc55690b9adaf89489064bf193fc64db))
+
 ## [1.1.47](https://github.com/dhis2/line-listing-app/compare/v1.1.46...v1.1.47) (2022-04-19)
 
 
