@@ -1,3 +1,10 @@
+## [1.1.49](https://github.com/dhis2/line-listing-app/compare/v1.1.48...v1.1.49) (2022-04-19)
+
+
+### Bug Fixes
+
+* check system settings for hidden periods ([#99](https://github.com/dhis2/line-listing-app/issues/99)) ([db7451d](https://github.com/dhis2/line-listing-app/commit/db7451dcd0d7563162307eb0c37b6cf497e65d6d))
+
 ## [1.1.48](https://github.com/dhis2/line-listing-app/compare/v1.1.47...v1.1.48) (2022-04-19)
 
 
