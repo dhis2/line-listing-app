@@ -115,8 +115,8 @@ const App = () => {
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
     const { systemSettings, rootOrgUnits } = useCachedDataQuery()
-    console.log('systemSettings', systemSettings)
-    console.log('rootOrgUnits', rootOrgUnits)
+    const digitGroupSeparator =
+        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR]
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
@@ -129,10 +129,7 @@ const App = () => {
                 dispatch(
                     acClearAll({
                         error: visualizationNotFoundError(),
-                        digitGroupSeparator:
-                            systemSettings[
-                                SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR
-                            ],
+                        digitGroupSeparator,
                         rootOrgUnits,
                     })
                 )
@@ -141,10 +138,7 @@ const App = () => {
                     acClearAll({
                         error:
                             fetchError.details.message || genericServerError(),
-                        digitGroupSeparator:
-                            systemSettings[
-                                SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR
-                            ],
+                        digitGroupSeparator,
                         rootOrgUnits,
                     })
                 )
@@ -182,8 +176,7 @@ const App = () => {
             dispatch(
                 acClearAll({
                     error: null,
-                    digitGroupSeparator:
-                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
+                    digitGroupSeparator,
                     rootOrgUnits,
                 })
             )
