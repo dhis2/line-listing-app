@@ -1,9 +1,9 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../actions/current.js'
 import {
     acClearAll,
@@ -26,6 +26,7 @@ import {
 } from '../modules/error.js'
 import history from '../modules/history.js'
 import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
+import { SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -101,22 +102,7 @@ const dataStatisticsMutation = {
     type: 'create',
 }
 
-const App = ({
-    current,
-    addMetadata,
-    addParentGraphMap,
-    clearAll,
-    clearLoadError,
-    error,
-    isLoading,
-    setCurrent,
-    setInitMetadata,
-    setLoadError,
-    setVisualization,
-    setVisualizationLoading,
-    setUiFromVisualization,
-    showDetailsPanel,
-}) => {
+const App = () => {
     const dataEngine = useDataEngine()
     const [data, setData] = useState()
     const [fetchError, setFetchError] = useState()
@@ -124,6 +110,14 @@ const App = ({
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const dispatch = useDispatch()
+    const current = useSelector(sGetCurrent)
+    const isLoading = useSelector(sGetIsVisualizationLoading)
+    const error = useSelector(sGetLoadError)
+    const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const { systemSettings, rootOrgUnits, ...rest } = useCachedDataQuery()
+    console.log('systemSettings', systemSettings)
+    console.log('rootOrgUnits', rootOrgUnits)
+    console.log('rest', rest)
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
@@ -133,9 +127,21 @@ const App = ({
     useEffect(() => {
         if (!error && fetchError) {
             if (fetchError.details?.httpStatusCode === 404) {
-                clearAll(visualizationNotFoundError())
+                dispatch(
+                    acClearAll(
+                        visualizationNotFoundError(),
+                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
+                        rootOrgUnits
+                    )
+                )
             } else {
-                clearAll(fetchError.details.message || genericServerError())
+                dispatch(
+                    acClearAll(
+                        fetchError.details.message || genericServerError(),
+                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
+                        rootOrgUnits
+                    )
+                )
             }
         }
     }, [error, fetchError])
@@ -149,7 +155,7 @@ const App = ({
 
     const loadVisualization = async (location) => {
         setFetchError(undefined)
-        setVisualizationLoading(true)
+        dispatch(acSetVisualizationLoading(true))
         const isExisting = location.pathname.length > 1
         if (isExisting) {
             // /currentAnalyticalObject
@@ -167,9 +173,15 @@ const App = ({
                 setFetchError(error)
             }
         } else {
-            clearAll()
+            dispatch(
+                acClearAll(
+                    null,
+                    systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
+                    rootOrgUnits
+                )
+            )
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
-            setVisualizationLoading(false)
+            dispatch(acSetVisualizationLoading(false))
         }
 
         dispatch(acSetShowExpandedLayoutPanel(!isExisting))
@@ -193,21 +205,17 @@ const App = ({
             {}
         )
 
-        addMetadata(itemsMetadata)
-        setVisualizationLoading(false)
+        dispatch(acAddMetadata(itemsMetadata))
+        dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
-            setLoadError(emptyResponseError())
+            dispatch(acSetLoadError(emptyResponseError()))
         }
     }
 
     useEffect(() => {
-        const onMount = async () => {
-            setInitMetadata()
-            loadVisualization(history.location)
-        }
-
-        onMount()
+        dispatch(tSetInitMetadata())
+        loadVisualization(history.location)
 
         const unlisten = history.listen(({ location }) => {
             const isSaving = location.state?.isSaving
@@ -232,7 +240,7 @@ const App = ({
 
     useEffect(() => {
         if (data?.eventVisualization) {
-            setInitMetadata()
+            dispatch(tSetInitMetadata())
 
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
@@ -247,12 +255,16 @@ const App = ({
                 metadata[programStage.id] = programStage
             }
 
-            addParentGraphMap(getParentGraphMapFromVisualization(visualization))
-            setVisualization(visualization)
-            setCurrent(visualization)
-            setUiFromVisualization(visualization, metadata)
+            dispatch(
+                acAddParentGraphMap(
+                    getParentGraphMapFromVisualization(visualization)
+                )
+            )
+            dispatch(acSetVisualization(visualization))
+            dispatch(tSetCurrent(visualization))
+            dispatch(acSetUiFromVisualization(visualization, metadata))
             postDataStatistics({ id: visualization.id })
-            clearLoadError()
+            dispatch(acClearLoadError())
         }
     }, [data])
 
@@ -345,41 +357,4 @@ const App = ({
     )
 }
 
-const mapStateToProps = (state) => ({
-    current: sGetCurrent(state),
-    isLoading: sGetIsVisualizationLoading(state),
-    showDetailsPanel: sGetUiShowDetailsPanel(state),
-    error: sGetLoadError(state),
-})
-
-const mapDispatchToProps = {
-    addMetadata: acAddMetadata,
-    addParentGraphMap: acAddParentGraphMap,
-    clearAll: acClearAll,
-    clearLoadError: acClearLoadError,
-    setCurrent: tSetCurrent,
-    setInitMetadata: tSetInitMetadata,
-    setVisualization: acSetVisualization,
-    setUiFromVisualization: acSetUiFromVisualization,
-    setVisualizationLoading: acSetVisualizationLoading,
-    setLoadError: acSetLoadError,
-}
-
-App.propTypes = {
-    addMetadata: PropTypes.func,
-    addParentGraphMap: PropTypes.func,
-    clearAll: PropTypes.func,
-    clearLoadError: PropTypes.func,
-    current: PropTypes.object,
-    error: PropTypes.object,
-    isLoading: PropTypes.bool,
-    setCurrent: PropTypes.func,
-    setInitMetadata: PropTypes.func,
-    setLoadError: PropTypes.func,
-    setUiFromVisualization: PropTypes.func,
-    setVisualization: PropTypes.func,
-    setVisualizationLoading: PropTypes.func,
-    showDetailsPanel: PropTypes.bool,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
