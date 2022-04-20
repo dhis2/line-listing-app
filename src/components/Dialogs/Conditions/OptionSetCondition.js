@@ -7,13 +7,13 @@ import { connect } from 'react-redux'
 import { acAddMetadata } from '../../../actions/metadata.js'
 import { apiFetchOptions } from '../../../api/options.js'
 import { OPERATOR_IN } from '../../../modules/conditions.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { TransferEmptySelection } from '../common/TransferEmptySelection.js'
 import { TransferLeftHeader } from '../common/TransferLeftHeader.js'
 import { TransferRightHeader } from '../common/TransferRightHeader.js'
 import { TransferSourceEmptyPlaceholder } from '../common/TransferSourceEmptyPlaceholder.js'
-import {USER_SETTINGS_DISPLAY_PROPERTY} from '../../../modules/userSettings.js'
 import {
     TRANSFER_HEIGHT,
     TRANSFER_OPTIONS_WIDTH,
@@ -64,7 +64,7 @@ const OptionSetCondition = ({
         setState((state) => ({ ...state, loading: true }))
         const result = await apiFetchOptions({
             dataEngine,
-            nameProp: userSettings[USER_SETTINGS_DISPLAY_PROPERTY]
+            nameProp: userSettings[USER_SETTINGS_DISPLAY_PROPERTY],
             page,
             optionSetId,
             searchTerm: state.searchTerm,

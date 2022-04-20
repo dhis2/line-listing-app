@@ -21,7 +21,7 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
 
 const DetailsPanel = ({ interpretationsUnitRef, visualization, disabled }) => {
     const { currentUser } = useCachedDataQuery()
-    console.log('currentUser', currentUser)
+
     return (
         <div className={classes.panel}>
             <AboutAOUnit type="eventVisualizations" id={visualization.id} />

@@ -7,14 +7,13 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems } from '../../actions/ui.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { useDebounce, useDidUpdateEffect } from '../../modules/utils.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-// import { sGetSettingsDisplayNameProperty } from '../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
 } from '../../reducers/ui.js'
-import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { TransferEmptySelection } from './common/TransferEmptySelection.js'
 import { TransferLeftHeader } from './common/TransferLeftHeader.js'
 import { TransferRightHeader } from './common/TransferRightHeader.js'

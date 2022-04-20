@@ -11,7 +11,7 @@ const acClearMetadata = () => ({
     type: CLEAR_METADATA,
 })
 
-export const tSetInitMetadata = () => (dispatch, getState) => {
+export const tSetInitMetadata = () => (dispatch) => {
     const metaData = { ...getDefaultMetadata() }
     // const rootOrgUnits = sGetRootOrgUnits(getState())
 

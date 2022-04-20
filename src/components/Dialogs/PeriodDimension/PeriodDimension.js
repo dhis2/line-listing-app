@@ -112,10 +112,8 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const formatStartEndDate = useLocalizedStartEndDateFormatter()
     const getNameFromMetadata = useMetadataNameGetter()
     const excludedPeriodTypes = useExcludedPeriods()
-    console.log('excludedPerTypes', excludedPeriodTypes)
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
-    const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
         []
