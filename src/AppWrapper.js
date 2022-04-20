@@ -51,7 +51,6 @@ const providerDataTransformation = (rawData) => {
                 keyAnalysisDisplayProperty === 'name'
                     ? 'displayName'
                     : 'displayShortName',
-            uiLocale: keyUiLocale,
         },
         systemSettings: rawData.systemSettings,
         rootOrgUnits: rawData.rootOrgUnits.organisationUnits,

@@ -25,6 +25,7 @@ import {
     SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
+import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -62,10 +63,12 @@ const useIsInLayout = (dimensionId) => {
 
 const useLocalizedStartEndDateFormatter = () => {
     const { userSettings } = useCachedDataQuery()
-    const locale = userSettings.uiLocale
-    const formatter = new Intl.DateTimeFormat(locale, {
-        dateStyle: 'long',
-    })
+    const formatter = new Intl.DateTimeFormat(
+        userSettings[USER_SETTINGS_UI_LOCALE],
+        {
+            dateStyle: 'long',
+        }
+    )
     return (startEndDate) => {
         if (isStartEndDate(startEndDate)) {
             return startEndDate
@@ -111,9 +114,9 @@ const useExcludedPeriods = () => {
 export const PeriodDimension = ({ dimension, onClose }) => {
     const formatStartEndDate = useLocalizedStartEndDateFormatter()
     const getNameFromMetadata = useMetadataNameGetter()
-    const excludedPeriodTypes = useExcludedPeriods()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
+    const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
         []

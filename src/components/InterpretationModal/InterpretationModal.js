@@ -15,7 +15,6 @@ const InterpretationModal = ({ onInterpretationUpdate }) => {
     const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
     const visualization = useSelector(sGetCurrent)
     const { currentUser } = useCachedDataQuery()
-    console.log('currentUser', currentUser)
 
     useEffect(() => {
         setIsVisualizationLoading(!!interpretationId)
