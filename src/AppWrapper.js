@@ -7,7 +7,11 @@ import App from './components/App.js'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
 import { systemSettingsKeys } from './modules/systemSettings.js'
-import { userSettingsKeys } from './modules/userSettings.js'
+import {
+    userSettingsKeys,
+    USER_SETTINGS_DISPLAY_PROPERTY,
+    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
+} from './modules/userSettings.js'
 import './locales/index.js'
 
 const query = {
@@ -39,21 +43,23 @@ const query = {
     },
 }
 
-const providerDataTransformation = (rawData) => {
-    const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
-        rawData.userSettings
+const providerDataTransformation = ({
+    currentUser,
+    userSettings,
+    systemSettings,
+    rootOrgUnits,
+}) => {
     return {
-        currentUser: rawData.currentUser,
+        currentUser,
         userSettings: {
-            ...rest,
-            displayProperty: keyAnalysisDisplayProperty,
-            displayNameProperty:
-                keyAnalysisDisplayProperty === 'name'
+            ...userSettings,
+            [DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]:
+                userSettings[USER_SETTINGS_DISPLAY_PROPERTY] === 'name'
                     ? 'displayName'
                     : 'displayShortName',
         },
-        systemSettings: rawData.systemSettings,
-        rootOrgUnits: rawData.rootOrgUnits.organisationUnits,
+        systemSettings,
+        rootOrgUnits: rootOrgUnits.organisationUnits,
     }
 }
 

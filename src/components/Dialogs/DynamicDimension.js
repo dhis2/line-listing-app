@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems } from '../../actions/ui.js'
-import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import { useDebounce, useDidUpdateEffect } from '../../modules/utils.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -59,7 +59,7 @@ const DynamicDimension = ({
             dimensionId: dimension.id,
             searchTerm: state.searchTerm,
             page,
-            nameProp: userSettings[USER_SETTINGS_DISPLAY_PROPERTY],
+            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
         })
         const newItems = result.dimensionItems?.map(
             ({ id, name, disabled }) => ({
