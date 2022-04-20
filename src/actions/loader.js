@@ -21,7 +21,7 @@ export const acSetVisualizationLoading = (value) => ({
 })
 
 export const acClearAll =
-    (error = null, rootOrgUnits, digitGroupSeparator) =>
+    ({ error = null, digitGroupSeparator, rootOrgUnits }) =>
     (dispatch) => {
         if (error) {
             dispatch(acSetLoadError(error))
@@ -29,7 +29,7 @@ export const acClearAll =
             dispatch(acClearLoadError())
         }
 
-        dispatch(tSetInitMetadata())
+        dispatch(tSetInitMetadata(rootOrgUnits))
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
         dispatch(

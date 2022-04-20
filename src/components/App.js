@@ -114,10 +114,9 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
-    const { systemSettings, rootOrgUnits, ...rest } = useCachedDataQuery()
+    const { systemSettings, rootOrgUnits } = useCachedDataQuery()
     console.log('systemSettings', systemSettings)
     console.log('rootOrgUnits', rootOrgUnits)
-    console.log('rest', rest)
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
@@ -128,19 +127,26 @@ const App = () => {
         if (!error && fetchError) {
             if (fetchError.details?.httpStatusCode === 404) {
                 dispatch(
-                    acClearAll(
-                        visualizationNotFoundError(),
-                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
-                        rootOrgUnits
-                    )
+                    acClearAll({
+                        error: visualizationNotFoundError(),
+                        digitGroupSeparator:
+                            systemSettings[
+                                SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR
+                            ],
+                        rootOrgUnits,
+                    })
                 )
             } else {
                 dispatch(
-                    acClearAll(
-                        fetchError.details.message || genericServerError(),
-                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
-                        rootOrgUnits
-                    )
+                    acClearAll({
+                        error:
+                            fetchError.details.message || genericServerError(),
+                        digitGroupSeparator:
+                            systemSettings[
+                                SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR
+                            ],
+                        rootOrgUnits,
+                    })
                 )
             }
         }
@@ -174,13 +180,13 @@ const App = () => {
             }
         } else {
             dispatch(
-                acClearAll(
-                    null,
-                    systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
-                    rootOrgUnits
-                )
+                acClearAll({
+                    error: null,
+                    digitGroupSeparator:
+                        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR],
+                    rootOrgUnits,
+                })
             )
-            //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
             dispatch(acSetVisualizationLoading(false))
         }
 
@@ -214,7 +220,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        dispatch(tSetInitMetadata())
+        dispatch(tSetInitMetadata(rootOrgUnits))
         loadVisualization(history.location)
 
         const unlisten = history.listen(({ location }) => {
@@ -240,7 +246,7 @@ const App = () => {
 
     useEffect(() => {
         if (data?.eventVisualization) {
-            dispatch(tSetInitMetadata())
+            dispatch(tSetInitMetadata(rootOrgUnits))
 
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(

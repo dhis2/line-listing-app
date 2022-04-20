@@ -54,7 +54,7 @@ const providerDataTransformation = (rawData) => {
             uiLocale: keyUiLocale,
         },
         systemSettings: rawData.systemSettings,
-        rootOrgUnits: rawData.rootOrgUnits,
+        rootOrgUnits: rawData.rootOrgUnits.organisationUnits,
     }
 }
 
