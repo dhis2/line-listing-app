@@ -1,3 +1,12 @@
+## [1.1.51](https://github.com/dhis2/line-listing-app/compare/v1.1.50...v1.1.51) (2022-04-20)
+
+
+### Bug Fixes
+
+* format date and datetime [#101](https://github.com/dhis2/line-listing-app/issues/101) ([93e646b](https://github.com/dhis2/line-listing-app/commit/93e646b14e3e9eabc4ea15cf58e8c269d1c7ee2c))
+* format tooltip for time and datetime dims ([404753e](https://github.com/dhis2/line-listing-app/commit/404753e45255c883f8ebb65150bd98a8d7e0353a))
+* set max to date and datetime conditions ([f5e2352](https://github.com/dhis2/line-listing-app/commit/f5e2352f6d177b8476f6d9e300029cbc68e823c6))
+
 ## [1.1.50](https://github.com/dhis2/line-listing-app/compare/v1.1.49...v1.1.50) (2022-04-19)
 
 
