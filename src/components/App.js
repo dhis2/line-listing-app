@@ -26,7 +26,7 @@ import {
 } from '../modules/error.js'
 import history from '../modules/history.js'
 import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
-import { SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR } from '../modules/systemSettings.js'
+import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -116,7 +116,7 @@ const App = () => {
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
     const { systemSettings, rootOrgUnits } = useCachedDataQuery()
     const digitGroupSeparator =
-        systemSettings[SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR]
+        systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
