@@ -1,3 +1,10 @@
+## [1.1.50](https://github.com/dhis2/line-listing-app/compare/v1.1.49...v1.1.50) (2022-04-19)
+
+
+### Bug Fixes
+
+* add missing padding to chip ([#100](https://github.com/dhis2/line-listing-app/issues/100)) ([392a2df](https://github.com/dhis2/line-listing-app/commit/392a2df4b849f125a7c4e9070b90e9b76d749c17))
+
 ## [1.1.49](https://github.com/dhis2/line-listing-app/compare/v1.1.48...v1.1.49) (2022-04-19)
 
 
