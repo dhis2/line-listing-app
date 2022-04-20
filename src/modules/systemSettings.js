@@ -1,6 +1,7 @@
 const SYSTEM_SETTING_DATE_FORMAT = 'keyDateFormat'
 const SYSTEM_SETTINGS_RELATIVE_PERIOD = 'keyAnalysisRelativePeriod'
-const SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR = 'keyAnalysisDigitGroupSeparator'
+export const SYSTEM_SETTINGS_DIGITAL_GROUP_SEPARATOR =
+    'keyAnalysisDigitGroupSeparator'
 export const SYSTEM_SETTINGS_HIDE_DAILY_PERIODS = 'keyHideDailyPeriods'
 export const SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS = 'keyHideWeeklyPeriods'
 export const SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS = 'keyHideBiWeeklyPeriods'

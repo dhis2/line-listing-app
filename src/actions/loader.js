@@ -5,7 +5,7 @@ import {
 } from '../reducers/loader.js'
 import { acClearCurrent } from './current.js'
 import { tSetInitMetadata } from './metadata.js'
-import { tClearUi } from './ui.js'
+import { acClearUi } from './ui.js'
 import { acClearVisualization } from './visualization.js'
 
 export const acSetLoadError = (value) => ({
@@ -21,7 +21,7 @@ export const acSetVisualizationLoading = (value) => ({
 })
 
 export const acClearAll =
-    (error = null) =>
+    (error = null, rootOrgUnits, digitGroupSeparator) =>
     (dispatch) => {
         if (error) {
             dispatch(acSetLoadError(error))
@@ -32,5 +32,10 @@ export const acClearAll =
         dispatch(tSetInitMetadata())
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
-        dispatch(tClearUi())
+        dispatch(
+            acClearUi({
+                rootOrgUnits,
+                digitGroupSeparator,
+            })
+        )
     }
