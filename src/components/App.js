@@ -2,9 +2,8 @@ import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
 import React, { useState, useEffect, useRef } from 'react'
-import { connect, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../actions/current.js'
 import {
     acClearAll,
@@ -104,24 +103,7 @@ const dataStatisticsMutation = {
     type: 'create',
 }
 
-const App = ({
-    current,
-    addMetadata,
-    addParentGraphMap,
-    addSettings,
-    clearAll,
-    clearLoadError,
-    error,
-    isLoading,
-    setCurrent,
-    setInitMetadata,
-    setLoadError,
-    setVisualization,
-    setVisualizationLoading,
-    setUiFromVisualization,
-    setUser,
-    showDetailsPanel,
-}) => {
+const App = () => {
     const dataEngine = useDataEngine()
     const [data, setData] = useState()
     const [fetchError, setFetchError] = useState()
@@ -130,6 +112,10 @@ const App = ({
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const dispatch = useDispatch()
+    const current = useSelector(sGetCurrent)
+    const isLoading = useSelector(sGetIsVisualizationLoading)
+    const error = useSelector(sGetLoadError)
+    const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
@@ -139,9 +125,13 @@ const App = ({
     useEffect(() => {
         if (!error && fetchError) {
             if (fetchError.details?.httpStatusCode === 404) {
-                clearAll(visualizationNotFoundError())
+                dispatch(acClearAll(visualizationNotFoundError()))
             } else {
-                clearAll(fetchError.details.message || genericServerError())
+                dispatch(
+                    acClearAll(
+                        fetchError.details.message || genericServerError()
+                    )
+                )
             }
         }
     }, [error, fetchError])
@@ -155,7 +145,7 @@ const App = ({
 
     const loadVisualization = async (location) => {
         setFetchError(undefined)
-        setVisualizationLoading(true)
+        dispatch(acSetVisualizationLoading(true))
         const isExisting = location.pathname.length > 1
         if (isExisting) {
             // /currentAnalyticalObject
@@ -173,9 +163,9 @@ const App = ({
                 setFetchError(error)
             }
         } else {
-            clearAll()
+            dispatch(acClearAll())
             //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
-            setVisualizationLoading(false)
+            dispatch(acSetVisualizationLoading(false))
         }
 
         dispatch(acSetShowExpandedLayoutPanel(!isExisting))
@@ -199,24 +189,26 @@ const App = ({
             {}
         )
 
-        addMetadata(itemsMetadata)
-        setVisualizationLoading(false)
+        dispatch(acAddMetadata(itemsMetadata))
+        dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
-            setLoadError(emptyResponseError())
+            dispatch(acSetLoadError(emptyResponseError()))
         }
     }
 
     useEffect(() => {
         const onMount = async () => {
-            await addSettings(userSettings)
+            await dispatch(tAddSettings(userSettings))
 
-            setUser({
-                ...currentUser,
-                uiLocale: userSettings.uiLocale,
-            })
+            dispatch(
+                acSetUser({
+                    ...currentUser,
+                    uiLocale: userSettings.uiLocale,
+                })
+            )
 
-            setInitMetadata()
+            dispatch(tSetInitMetadata())
             loadVisualization(history.location)
         }
 
@@ -245,7 +237,7 @@ const App = ({
 
     useEffect(() => {
         if (data?.eventVisualization) {
-            setInitMetadata()
+            dispatch(tSetInitMetadata())
 
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
@@ -260,12 +252,16 @@ const App = ({
                 metadata[programStage.id] = programStage
             }
 
-            addParentGraphMap(getParentGraphMapFromVisualization(visualization))
-            setVisualization(visualization)
-            setCurrent(visualization)
-            setUiFromVisualization(visualization, metadata)
+            dispatch(
+                acAddParentGraphMap(
+                    getParentGraphMapFromVisualization(visualization)
+                )
+            )
+            dispatch(acSetVisualization(visualization))
+            dispatch(tSetCurrent(visualization))
+            dispatch(acSetUiFromVisualization(visualization, metadata))
             postDataStatistics({ id: visualization.id })
-            clearLoadError()
+            dispatch(acClearLoadError())
         }
     }, [data])
 
@@ -358,45 +354,4 @@ const App = ({
     )
 }
 
-const mapStateToProps = (state) => ({
-    current: sGetCurrent(state),
-    isLoading: sGetIsVisualizationLoading(state),
-    showDetailsPanel: sGetUiShowDetailsPanel(state),
-    error: sGetLoadError(state),
-})
-
-const mapDispatchToProps = {
-    addMetadata: acAddMetadata,
-    addParentGraphMap: acAddParentGraphMap,
-    addSettings: tAddSettings,
-    clearAll: acClearAll,
-    clearLoadError: acClearLoadError,
-    setCurrent: tSetCurrent,
-    setInitMetadata: tSetInitMetadata,
-    setVisualization: acSetVisualization,
-    setUser: acSetUser,
-    setUiFromVisualization: acSetUiFromVisualization,
-    setVisualizationLoading: acSetVisualizationLoading,
-    setLoadError: acSetLoadError,
-}
-
-App.propTypes = {
-    addMetadata: PropTypes.func,
-    addParentGraphMap: PropTypes.func,
-    addSettings: PropTypes.func,
-    clearAll: PropTypes.func,
-    clearLoadError: PropTypes.func,
-    current: PropTypes.object,
-    error: PropTypes.object,
-    isLoading: PropTypes.bool,
-    setCurrent: PropTypes.func,
-    setInitMetadata: PropTypes.func,
-    setLoadError: PropTypes.func,
-    setUiFromVisualization: PropTypes.func,
-    setUser: PropTypes.func,
-    setVisualization: PropTypes.func,
-    setVisualizationLoading: PropTypes.func,
-    showDetailsPanel: PropTypes.bool,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
