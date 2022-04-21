@@ -3,6 +3,7 @@ import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUiSorting } from '../../reducers/ui.js'
 import {
     getAnalyticsEndpoint,
     getAdaptedVisualization,
@@ -23,6 +24,8 @@ const useDownloadMenu = (relativePeriodDate) => {
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
     const buttonRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
+    const { sortField, sortDirection } = useSelector(sGetUiSorting)
+
     const download = useCallback(
         (type, format, idScheme) => {
             if (!current) {
@@ -32,7 +35,7 @@ const useDownloadMenu = (relativePeriodDate) => {
             let req = new analyticsEngine.request()
             let target = '_top'
 
-            const { adaptedVisualization, parameters } =
+            const { adaptedVisualization, headers, parameters } =
                 getAdaptedVisualization(current)
             const path = `${getAnalyticsEndpoint(current.outputType)}/query`
 
@@ -41,6 +44,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                     req = req
                         .fromVisualization(adaptedVisualization)
                         .withProgram(current.program.id)
+                        .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
                         .withTableLayout()
@@ -58,6 +62,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                         )
                         .withParameters({
                             ...parameters,
+                            headers,
                             dataIdScheme: ID_SCHEME_NAME,
                             paging: false,
                         }) // only for LL
@@ -79,10 +84,15 @@ const useDownloadMenu = (relativePeriodDate) => {
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
                         .fromVisualization(adaptedVisualization, true)
                         .withProgram(current.program.id)
+                        .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
                         .withOutputIdScheme(idScheme)
-                        .withParameters(parameters)
+                        .withParameters({
+                            ...parameters,
+                            headers,
+                            paging: false,
+                        })
 
                     // TODO options
                     // startDate
@@ -102,13 +112,6 @@ const useDownloadMenu = (relativePeriodDate) => {
                     // collapsedDataDimensions
                     // useOrgUnit (URL)
                     // relativePeriodDate
-                    // TODO LL only
-                    // need to reflect the page and pageSize and sorting shown in the Visualization component?
-                    // NO!
-                    // asc
-                    // desc
-                    // pageSize
-                    // page
                     target = [FILE_FORMAT_CSV, FILE_FORMAT_XLS].includes(format)
                         ? '_top'
                         : '_blank'
@@ -117,6 +120,12 @@ const useDownloadMenu = (relativePeriodDate) => {
 
             // TODO add common parameters
             // if there are for both event/enrollment and PT/LL
+
+            if (sortField) {
+                sortDirection === 'asc'
+                    ? req.withAsc(sortField)
+                    : req.withDesc(sortField)
+            }
 
             if (relativePeriodDate) {
                 req = req.withRelativePeriodDate(relativePeriodDate)
@@ -134,7 +143,7 @@ const useDownloadMenu = (relativePeriodDate) => {
             window.open(url, target)
             setIsOpen(false)
         },
-        [current, relativePeriodDate]
+        [current, relativePeriodDate, sortField, sortDirection]
     )
 
     return {

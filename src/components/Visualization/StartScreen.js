@@ -1,4 +1,8 @@
-import { VisTypeIcon, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
+import {
+    VisTypeIcon,
+    VIS_TYPE_LINE_LIST,
+    useCachedDataQuery,
+} from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { colors } from '@dhis2/ui'
@@ -11,7 +15,6 @@ import { EVENT_TYPE } from '../../modules/dataStatistics.js'
 import { genericErrorTitle, isVisualizationError } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import { sGetLoadError } from '../../reducers/loader.js'
-import { sGetUsername } from '../../reducers/user.js'
 import styles from './styles/StartScreen.module.css'
 
 const mostViewedQuery = {
@@ -62,8 +65,13 @@ const useMostViewedVisualizations = (username, error, setLoadError) => {
     }
 }
 
-const StartScreen = ({ error, username, setLoadError }) => {
-    const data = useMostViewedVisualizations(username, error, setLoadError)
+const StartScreen = ({ error, setLoadError }) => {
+    const { currentUser } = useCachedDataQuery()
+    const data = useMostViewedVisualizations(
+        currentUser.username,
+        error,
+        setLoadError
+    )
 
     /* TODO remove this when pivot tables are supported */
     const mostViewed = data?.mostViewed?.filter(
@@ -171,12 +179,10 @@ const StartScreen = ({ error, username, setLoadError }) => {
 StartScreen.propTypes = {
     error: PropTypes.object,
     setLoadError: PropTypes.func,
-    username: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
     error: sGetLoadError(state),
-    username: sGetUsername(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

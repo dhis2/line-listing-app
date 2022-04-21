@@ -14,7 +14,6 @@ import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
-import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
@@ -232,16 +231,6 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
     type: SET_UI_EXPANDED_LAYOUT_PANEL,
     value,
 })
-
-export const tClearUi = () => (dispatch, getState) => {
-    const rootOrgUnits = sGetRootOrgUnits(getState())
-
-    dispatch(
-        acClearUi({
-            rootOrgUnits,
-        })
-    )
-}
 
 export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,

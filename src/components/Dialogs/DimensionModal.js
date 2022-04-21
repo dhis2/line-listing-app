@@ -39,21 +39,21 @@ const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
                     >
                         {i18n.t('Hide')}
                     </Button>
-                    <UpdateVisualizationContainer
-                        renderComponent={(handler) =>
-                            isInLayout ? (
+                    {isInLayout ? (
+                        <UpdateVisualizationContainer
+                            renderComponent={(handler) => (
                                 <UpdateButton
                                     onClick={() => onClick(handler)}
                                     dataTest={`${dataTest}-action-confirm`}
                                 />
-                            ) : (
-                                <AddToLayoutButton
-                                    onClick={() => onClick(handler)}
-                                    dataTest={`${dataTest}-action-confirm`}
-                                />
-                            )
-                        }
-                    />
+                            )}
+                        />
+                    ) : (
+                        <AddToLayoutButton
+                            onClick={onClose}
+                            dataTest={`${dataTest}-action-confirm`}
+                        />
+                    )}
                 </ButtonStrip>
             </ModalActions>
         </Modal>

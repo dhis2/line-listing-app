@@ -35,7 +35,6 @@ import {
 } from '../../../modules/dimensionConstants.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
-import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
@@ -528,7 +527,6 @@ const mapStateToProps = (state, ownProps) => ({
     conditions:
         sGetUiConditionsByDimension(state, ownProps.dimension?.id) || {},
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
-    displayNameProp: sGetSettingsDisplayNameProperty(state),
     inputType: sGetUiInputType(state),
     stage:
         sGetMetadataById(

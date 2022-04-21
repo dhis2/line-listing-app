@@ -54,6 +54,7 @@ export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
+export const PAGE_SIZE = 100
 
 const EMPTY_UI = {
     draggingId: null,
@@ -77,6 +78,7 @@ const EMPTY_UI = {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
         page: FIRST_PAGE,
+        pageSize: PAGE_SIZE,
     },
 }
 
@@ -109,11 +111,14 @@ export const DEFAULT_UI = {
         sortField: null,
         sortDirection: DEFAULT_SORT_DIRECTION,
         page: FIRST_PAGE,
+        pageSize: PAGE_SIZE,
     },
 }
 
 const getPreselectedUi = (options) => {
-    const rootOrgUnitIds = options.rootOrgUnits
+    const { rootOrgUnits, digitGroupSeparator } = options
+
+    const rootOrgUnitIds = rootOrgUnits
         .filter((root) => root.id)
         .map((root) => root.id)
     const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
@@ -126,7 +131,7 @@ const getPreselectedUi = (options) => {
         ...DEFAULT_UI,
         options: {
             ...DEFAULT_UI.options,
-            //digitGroupSeparator,
+            digitGroupSeparator,
         },
         itemsByDimension: {
             ...DEFAULT_UI.itemsByDimension,
