@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { OrganisationUnitTree } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -7,10 +8,6 @@ import { acAddParentGraphMap } from '../../../actions/ui.js'
 import { OPERATOR_EQUAL } from '../../../modules/conditions.js'
 import { getOuPath, removeLastPathSegment } from '../../../modules/orgUnit.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
-import {
-    sGetRootOrgUnits,
-    sGetSettingsDisplayNameProperty,
-} from '../../../reducers/settings.js'
 import { sGetUiParentGraphMap } from '../../../reducers/ui.js'
 
 const OrgUnitCondition = ({
@@ -18,10 +15,10 @@ const OrgUnitCondition = ({
     addParentGraphMap,
     condition,
     onChange,
-    rootOrgUnits,
     metadata,
     parentGraphMap,
 }) => {
+    const { rootOrgUnits } = useCachedDataQuery()
     const parts = condition.split(':')
     const value = parts[1]?.length && parts[1]
 
@@ -83,7 +80,6 @@ OrgUnitCondition.propTypes = {
     addParentGraphMap: PropTypes.func,
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
-    rootOrgUnits: PropTypes.array,
 }
 
 OrgUnitCondition.defaultProps = {
@@ -91,9 +87,7 @@ OrgUnitCondition.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-    displayNameProp: sGetSettingsDisplayNameProperty(state),
     metadata: sGetMetadata(state),
-    rootOrgUnits: sGetRootOrgUnits(state),
     parentGraphMap: sGetUiParentGraphMap(state),
 })
 

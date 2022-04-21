@@ -12,13 +12,11 @@ import {
     acSetVisualizationLoading,
 } from '../actions/loader.js'
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
-import { tAddSettings } from '../actions/settings.js'
 import {
     acSetUiFromVisualization,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
-import { acSetUser } from '../actions/user.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
@@ -28,6 +26,7 @@ import {
 } from '../modules/error.js'
 import history from '../modules/history.js'
 import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
+import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { transformVisualization } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -107,7 +106,6 @@ const App = () => {
     const dataEngine = useDataEngine()
     const [data, setData] = useState()
     const [fetchError, setFetchError] = useState()
-    const { currentUser, userSettings } = useCachedDataQuery()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
@@ -116,6 +114,9 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const { systemSettings, rootOrgUnits } = useCachedDataQuery()
+    const digitGroupSeparator =
+        systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
@@ -125,12 +126,21 @@ const App = () => {
     useEffect(() => {
         if (!error && fetchError) {
             if (fetchError.details?.httpStatusCode === 404) {
-                dispatch(acClearAll(visualizationNotFoundError()))
+                dispatch(
+                    acClearAll({
+                        error: visualizationNotFoundError(),
+                        digitGroupSeparator,
+                        rootOrgUnits,
+                    })
+                )
             } else {
                 dispatch(
-                    acClearAll(
-                        fetchError.details.message || genericServerError()
-                    )
+                    acClearAll({
+                        error:
+                            fetchError.details.message || genericServerError(),
+                        digitGroupSeparator,
+                        rootOrgUnits,
+                    })
                 )
             }
         }
@@ -163,8 +173,13 @@ const App = () => {
                 setFetchError(error)
             }
         } else {
-            dispatch(acClearAll())
-            //const digitGroupSeparator = sGetSettingsDigitGroupSeparator(getState())
+            dispatch(
+                acClearAll({
+                    error: null,
+                    digitGroupSeparator,
+                    rootOrgUnits,
+                })
+            )
             dispatch(acSetVisualizationLoading(false))
         }
 
@@ -198,21 +213,8 @@ const App = () => {
     }
 
     useEffect(() => {
-        const onMount = async () => {
-            await dispatch(tAddSettings(userSettings))
-
-            dispatch(
-                acSetUser({
-                    ...currentUser,
-                    uiLocale: userSettings.uiLocale,
-                })
-            )
-
-            dispatch(tSetInitMetadata())
-            loadVisualization(history.location)
-        }
-
-        onMount()
+        dispatch(tSetInitMetadata(rootOrgUnits))
+        loadVisualization(history.location)
 
         const unlisten = history.listen(({ location }) => {
             const isSaving = location.state?.isSaving
@@ -237,7 +239,7 @@ const App = () => {
 
     useEffect(() => {
         if (data?.eventVisualization) {
-            dispatch(tSetInitMetadata())
+            dispatch(tSetInitMetadata(rootOrgUnits))
 
             const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(

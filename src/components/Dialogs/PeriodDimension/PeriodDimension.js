@@ -24,8 +24,8 @@ import {
     SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
-    sGetSettings,
-} from '../../../reducers/settings.js'
+} from '../../../modules/systemSettings.js'
+import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -63,10 +63,12 @@ const useIsInLayout = (dimensionId) => {
 
 const useLocalizedStartEndDateFormatter = () => {
     const { userSettings } = useCachedDataQuery()
-    const locale = userSettings.uiLocale
-    const formatter = new Intl.DateTimeFormat(locale, {
-        dateStyle: 'long',
-    })
+    const formatter = new Intl.DateTimeFormat(
+        userSettings[USER_SETTINGS_UI_LOCALE],
+        {
+            dateStyle: 'long',
+        }
+    )
     return (startEndDate) => {
         if (isStartEndDate(startEndDate)) {
             return startEndDate
@@ -89,7 +91,7 @@ const useMetadataNameGetter = () => {
 }
 
 const useExcludedPeriods = () => {
-    const systemSettings = useSelector(sGetSettings)
+    const { systemSettings } = useCachedDataQuery()
     const types = []
     if (systemSettings[SYSTEM_SETTINGS_HIDE_DAILY_PERIODS]) {
         types.push(DAILY)

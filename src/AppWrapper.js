@@ -6,6 +6,12 @@ import thunk from 'redux-thunk'
 import App from './components/App.js'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
+import { systemSettingsKeys } from './modules/systemSettings.js'
+import {
+    userSettingsKeys,
+    USER_SETTINGS_DISPLAY_PROPERTY,
+    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
+} from './modules/userSettings.js'
 import './locales/index.js'
 
 const query = {
@@ -18,25 +24,42 @@ const query = {
     userSettings: {
         resource: 'userSettings',
         params: {
-            key: ['keyUiLocale', 'keyAnalysisDisplayProperty'],
+            key: userSettingsKeys,
+        },
+    },
+    systemSettings: {
+        resource: 'systemSettings',
+        params: {
+            key: systemSettingsKeys,
+        },
+    },
+    rootOrgUnits: {
+        resource: 'organisationUnits',
+        params: {
+            fields: 'id,displayName,name',
+            userDataViewFallback: true,
+            paging: false,
         },
     },
 }
 
-const providerDataTransformation = (rawData) => {
-    const { keyAnalysisDisplayProperty, keyUiLocale, ...rest } =
-        rawData.userSettings
+const providerDataTransformation = ({
+    currentUser,
+    userSettings,
+    systemSettings,
+    rootOrgUnits,
+}) => {
     return {
-        currentUser: rawData.currentUser,
+        currentUser,
         userSettings: {
-            ...rest,
-            displayProperty: keyAnalysisDisplayProperty,
-            displayNameProperty:
-                keyAnalysisDisplayProperty === 'name'
+            ...userSettings,
+            [DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]:
+                userSettings[USER_SETTINGS_DISPLAY_PROPERTY] === 'name'
                     ? 'displayName'
                     : 'displayShortName',
-            uiLocale: keyUiLocale,
         },
+        systemSettings,
+        rootOrgUnits: rootOrgUnits.organisationUnits,
     }
 }
 
