@@ -13,7 +13,7 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
@@ -27,7 +27,11 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../modules/dimensionConstants.js'
-import { genericServerError, noPeriodError } from '../../modules/error.js'
+import {
+    genericServerError,
+    indicatorError,
+    noPeriodError,
+} from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -72,12 +76,11 @@ export const Visualization = ({
 }) => {
     const dispatch = useDispatch()
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
+    const { sortField, sortDirection, pageSize } = useSelector(sGetUiSorting)
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
-    const [pageSize, setPageSize] = useState(100)
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
@@ -91,6 +94,9 @@ export const Visualization = ({
             switch (error.details.errorCode) {
                 case 'E7205':
                     output = noPeriodError()
+                    break
+                case 'E7132':
+                    output = indicatorError()
                     break
                 default:
                     output = error
@@ -114,12 +120,30 @@ export const Visualization = ({
             acSetUiSorting({
                 sortField: name,
                 sortDirection: direction,
+                pageSize,
                 page: FIRST_PAGE,
             })
         )
 
     const setPage = (pageNum) =>
-        dispatch(acSetUiSorting({ sortField, sortDirection, page: pageNum }))
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                pageSize,
+                page: pageNum,
+            })
+        )
+
+    const setPageSize = (pageSizeNum) =>
+        dispatch(
+            acSetUiSorting({
+                sortField,
+                sortDirection,
+                pageSize: pageSizeNum,
+                page: FIRST_PAGE,
+            })
+        )
 
     const formatCellValue = (value, header) => {
         if (
@@ -154,7 +178,7 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = header?.stageOffset
+        let dimensionId = Number.isInteger(header?.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
 
@@ -162,7 +186,7 @@ export const Visualization = ({
             (key) => headersMap[key] === header.name
         )
 
-        if (header.stageOffset !== undefined) {
+        if (Number.isInteger(header.stageOffset)) {
             let postfix
 
             if (header.stageOffset === 0) {
@@ -285,19 +309,15 @@ export const Visualization = ({
                                     }}
                                 >
                                     <Pagination
-                                        page={page}
-                                        pageSize={pageSize}
+                                        page={data.page}
+                                        pageSize={data.pageSize}
                                         isLastPage={data.isLastPage}
                                         onPageChange={setPage}
                                         onPageSizeChange={setPageSize}
                                         pageSizeSelectText={i18n.t(
                                             'Rows per page'
                                         )}
-                                        pageLength={
-                                            fetching && data.isLastPage
-                                                ? pageSize
-                                                : data.rows.length
-                                        }
+                                        pageLength={data.rows.length}
                                         pageSummaryText={({
                                             firstItem,
                                             lastItem,

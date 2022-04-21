@@ -186,7 +186,7 @@ const InterpretationModal = ({
                     .title {
                         color: ${colors.grey900};
                         margin: 0px;
-                        padding: ${spacers.dp24} ${spacers.dp24} ${spacers.dp4};
+                        padding: ${spacers.dp24} 0 ${spacers.dp4};
                     }
 
                     .ellipsis {
@@ -216,6 +216,7 @@ const InterpretationModal = ({
                     }
 
                     .thread-wrap {
+                        padding-right: ${spacers.dp4};
                         flex-basis: 300px;
                         flex-shrink: 0;
                         overflow-y: auto;

@@ -31,6 +31,7 @@ import {
 import {
     mainClasses,
     toolbarClasses,
+    tooltipAnchorClasses,
     emojisPopoverClasses,
 } from './styles/RichTextEditor.style.js'
 
@@ -60,6 +61,37 @@ EmojisPopover.propTypes = {
     reference: PropTypes.object,
 }
 
+const IconButtonWithTooltip = ({ tooltipContent, disabled, icon, onClick }) => (
+    <>
+        <Tooltip content={tooltipContent} placement="bottom" closeDelay={200}>
+            {({ ref, onMouseOver, onMouseOut }) => (
+                <span
+                    ref={ref}
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                    className="tooltip"
+                >
+                    <Button
+                        secondary
+                        small
+                        disabled={disabled}
+                        icon={icon}
+                        onClick={onClick}
+                    />
+                </span>
+            )}
+        </Tooltip>
+        <style jsx>{tooltipAnchorClasses}</style>
+    </>
+)
+
+IconButtonWithTooltip.propTypes = {
+    disabled: PropTypes.bool,
+    icon: PropTypes.node,
+    tooltipContent: PropTypes.string,
+    onClick: PropTypes.func,
+}
+
 const Toolbar = ({
     disabled,
     onInsertMarkdown,
@@ -77,85 +109,48 @@ const Toolbar = ({
             {!previewMode ? (
                 <div className="actionsWrapper">
                     <div className="mainActions">
-                        <Tooltip
-                            content={i18n.t('Bold text')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Bold text')}
+                            disabled={disabled}
+                            icon={<IconTextBold24 color={iconColor} />}
+                            onClick={() => onInsertMarkdown(BOLD)}
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Italic text')}
+                            disabled={disabled}
+                            icon={<IconTextItalic24 color={iconColor} />}
+                            onClick={() => onInsertMarkdown(ITALIC)}
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Link to a URL')}
+                            disabled={disabled}
+                            icon={<IconLink24 color={iconColor} />}
+                            onClick={() => onInsertMarkdown(LINK)}
+                        />
+                        <IconButtonWithTooltip
+                            tooltipContent={i18n.t('Mention a user')}
+                            disabled={disabled}
+                            icon={<IconAt24 color={iconColor} />}
+                            onClick={() => onInsertMarkdown(MENTION)}
+                        />
+                        <span ref={emojisButtonRef} className="tooltip">
+                            <IconButtonWithTooltip
+                                tooltipContent={i18n.t('Add emoji')}
                                 disabled={disabled}
-                                icon={<IconTextBold24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(BOLD)}
+                                icon={<IconFaceAdd24 color={iconColor} />}
+                                onClick={() => setEmojisPopoverIsOpen(true)}
                             />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Italic text')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconTextItalic24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(ITALIC)}
+                        </span>
+                        {emojisPopoverIsOpen && (
+                            <EmojisPopover
+                                onClose={() => setEmojisPopoverIsOpen(false)}
+                                onInsertMarkdown={(markup) => {
+                                    onInsertMarkdown(markup)
+                                    setEmojisPopoverIsOpen(false)
+                                }}
+                                reference={emojisButtonRef}
                             />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Link to a URL')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconLink24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(LINK)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Mention a user')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <Button
-                                secondary
-                                small
-                                disabled={disabled}
-                                icon={<IconAt24 color={iconColor} />}
-                                onClick={() => onInsertMarkdown(MENTION)}
-                            />
-                        </Tooltip>
-                        <Tooltip
-                            content={i18n.t('Add emoji')}
-                            placement="bottom"
-                            closeDelay={200}
-                        >
-                            <div ref={emojisButtonRef}>
-                                <Button
-                                    secondary
-                                    small
-                                    disabled={disabled}
-                                    icon={<IconFaceAdd24 color={iconColor} />}
-                                    onClick={() => setEmojisPopoverIsOpen(true)}
-                                />
-                            </div>
-                            {emojisPopoverIsOpen && (
-                                <EmojisPopover
-                                    onClose={() =>
-                                        setEmojisPopoverIsOpen(false)
-                                    }
-                                    onInsertMarkdown={(markup) => {
-                                        onInsertMarkdown(markup)
-                                        setEmojisPopoverIsOpen(false)
-                                    }}
-                                    reference={emojisButtonRef}
-                                />
-                            )}
-                        </Tooltip>
+                        )}
                     </div>
 
                     <div className="sideActions">
@@ -181,6 +176,7 @@ const Toolbar = ({
                     </Button>
                 </div>
             )}
+            <style jsx>{tooltipAnchorClasses}</style>
             <style jsx>{toolbarClasses}</style>
         </div>
     )

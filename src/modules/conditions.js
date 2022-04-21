@@ -83,6 +83,11 @@ export const VALUE_TYPE_TIME = 'TIME'
 export const VALUE_TYPE_DATETIME = 'DATETIME'
 export const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
 
+export const API_TIME_DIVIDER = '.'
+export const UI_TIME_DIVIDER = ':'
+export const API_DATETIME_DIVIDER = 'T'
+export const UI_DATETIME_DIVIDER = ' '
+
 export const prefixOperator = (operator, isCaseSensitive) => {
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE
@@ -218,6 +223,15 @@ export const getConditions = ({
             const parts = condition.split(':')
             operator = unprefixOperator(parts[0])
             value = parts[1]
+        }
+
+        if (
+            [VALUE_TYPE_TIME, VALUE_TYPE_DATETIME].includes(dimension.valueType)
+        ) {
+            value = value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)
+        }
+        if (dimension.valueType === VALUE_TYPE_DATETIME) {
+            value = value.replaceAll(API_DATETIME_DIVIDER, UI_DATETIME_DIVIDER)
         }
 
         const operatorName = operators[operator]

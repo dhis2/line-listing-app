@@ -14,7 +14,6 @@ import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
-import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
@@ -33,6 +32,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
+    REMOVE_UI_REPETITION,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -232,16 +232,6 @@ export const acSetShowExpandedLayoutPanel = (value) => ({
     value,
 })
 
-export const tClearUi = () => (dispatch, getState) => {
-    const rootOrgUnits = sGetRootOrgUnits(getState())
-
-    dispatch(
-        acClearUi({
-            rootOrgUnits,
-        })
-    )
-}
-
 export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
     value,
@@ -266,5 +256,10 @@ export const acSetUiConditions = (value) => ({
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
+    value,
+})
+
+export const acRemoveUiRepetition = (value) => ({
+    type: REMOVE_UI_REPETITION,
     value,
 })

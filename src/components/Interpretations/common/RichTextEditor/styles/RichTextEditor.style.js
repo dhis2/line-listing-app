@@ -56,14 +56,14 @@ export const toolbarClasses = css`
 
     .actionsWrapper {
         display: flex;
+        gap: ${spacers.dp4};
         align-items: center;
         padding: ${spacers.dp4};
-        flex-wrap: wrap;
     }
 
     .mainActions {
         display: flex;
-        gap: ${spacers.dp8};
+        gap: ${spacers.dp4};
         margin-top: ${spacers.dp2};
     }
 
@@ -75,6 +75,13 @@ export const toolbarClasses = css`
     .previewWrapper {
         margin: ${spacers.dp4};
         text-align: right;
+    }
+`
+
+export const tooltipAnchorClasses = css`
+    .tooltip {
+        display: inline-flex;
+        align-items: center;
     }
 `
 

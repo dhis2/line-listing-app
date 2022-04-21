@@ -1,8 +1,8 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
-import { sGetUser } from '../../reducers/user.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/index.js'
 import {
@@ -14,7 +14,7 @@ const InterpretationModal = ({ onInterpretationUpdate }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
     const visualization = useSelector(sGetCurrent)
-    const currentUser = useSelector(sGetUser)
+    const { currentUser } = useCachedDataQuery()
 
     useEffect(() => {
         setIsVisualizationLoading(!!interpretationId)
