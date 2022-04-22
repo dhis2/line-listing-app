@@ -175,7 +175,8 @@ export const getConditions = ({
             return [metadata[conditions.legendSet]?.name]
         } else {
             const legends = parseCondition(conditionsList[0])
-            const allLegends = metadata[conditions.legendSet]?.legends
+            const allLegends = metadata[conditions.legendSet]?.legends || []
+
             const legendNames = legends.map(
                 (legend) => allLegends.find((l) => l.id === legend)?.name
             )
