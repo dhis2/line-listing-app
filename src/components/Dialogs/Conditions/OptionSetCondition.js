@@ -32,7 +32,9 @@ const OptionSetCondition = ({
     const values = parts[1]?.length ? parts[1].split(';') : []
     const selectedOptions = values.map((code) => ({
         code,
-        name: Object.values(metadata).find((item) => item.code === code)?.name,
+        name:
+            Object.values(metadata).find((item) => item.code === code)?.name ||
+            code,
     }))
     const dataTest = 'option-set'
 
@@ -77,6 +79,7 @@ const OptionSetCondition = ({
                 id: item.id,
             })
         })
+
         setState((state) => ({
             ...state,
             loading: false,
@@ -127,7 +130,7 @@ const OptionSetCondition = ({
             selected={selectedOptions.map((option) => option.code)}
             options={[...state.options, ...selectedOptions].map((option) => ({
                 value: option.code,
-                label: option.name || '',
+                label: option.name,
             }))}
             loading={state.loading}
             loadingPicked={state.loading}
