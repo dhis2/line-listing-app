@@ -127,7 +127,7 @@ const OptionSetCondition = ({
             selected={selectedOptions.map((option) => option.code)}
             options={[...state.options, ...selectedOptions].map((option) => ({
                 value: option.code,
-                label: option.name,
+                label: option.name || '',
             }))}
             loading={state.loading}
             loadingPicked={state.loading}
