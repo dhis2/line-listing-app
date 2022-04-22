@@ -79,7 +79,6 @@ const OptionSetCondition = ({
                 id: item.id,
             })
         })
-
         setState((state) => ({
             ...state,
             loading: false,
