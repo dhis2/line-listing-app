@@ -4,7 +4,7 @@ const optionsQuery = {
         const filters = [`optionSet.id:eq:${optionSetId}`]
 
         if (searchTerm) {
-            filters.push(`displayName:ilike:${searchTerm}`)
+            filters.push(`name:ilike:${searchTerm}`)
         }
 
         return {
