@@ -196,25 +196,26 @@ export const dimensionMetadataPropMap = {
     dataElementGroupSetDimensions: 'dataElementGroupSet',
 }
 
-export const getDimensionMetadataFromVisualization = (visualization) => {
-    const keys = Object.keys(dimensionMetadataPropMap)
+export const getDimensionMetadataFromVisualization = (visualization) =>
+    Object.entries(dimensionMetadataPropMap).reduce(
+        (metaData, [listName, objectName]) => {
+            const list = visualization[listName] || []
 
-    return keys.reduce((metaData, key) => {
-        const list = visualization[key] || []
-        const objectName = dimensionMetadataPropMap[key]
+            list.forEach((listItem) => {
+                const dimension = listItem[objectName]
+                metaData[dimension.id] = dimension
+            })
 
-        list.forEach((listItem) => {
-            const dimension = listItem[objectName]
-            metaData[dimension.id] = dimension
-        })
-
-        return metaData
-    }, {})
-}
+            return metaData
+        },
+        {}
+    )
 
 export const getDimensionMetadataFields = () =>
-    Object.entries(dimensionMetadataPropMap).reduce((arr, entry) => {
-        const [listName, objectName] = entry
-        arr.push(`${listName}[${objectName}[id,name]]`)
-        return arr
-    }, [])
+    Object.entries(dimensionMetadataPropMap).reduce(
+        (fields, [listName, objectName]) => {
+            fields.push(`${listName}[${objectName}[id,name]]`)
+            return fields
+        },
+        []
+    )
