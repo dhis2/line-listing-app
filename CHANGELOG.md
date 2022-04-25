@@ -1,3 +1,11 @@
+## [1.1.52](https://github.com/dhis2/line-listing-app/compare/v1.1.51...v1.1.52) (2022-04-25)
+
+
+### Bug Fixes
+
+* change input type to search ([266e2a8](https://github.com/dhis2/line-listing-app/commit/266e2a80e951e2f491d6ce46c06eebe50063bf47))
+* change input type to search (TECH-1120) [#106](https://github.com/dhis2/line-listing-app/issues/106) ([8fe5bb0](https://github.com/dhis2/line-listing-app/commit/8fe5bb011032b047e545800ea8ef45a640b6518a))
+
 ## [1.1.51](https://github.com/dhis2/line-listing-app/compare/v1.1.50...v1.1.51) (2022-04-20)
 
 
