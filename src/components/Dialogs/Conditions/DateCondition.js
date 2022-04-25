@@ -2,17 +2,19 @@ import i18n from '@dhis2/d2-i18n'
 import { SingleSelectField, SingleSelectOption, Button, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { NULL_VALUE, DATE_OPERATORS } from '../../../modules/conditions.js'
+import {
+    NULL_VALUE,
+    DATE_OPERATORS,
+    UI_TIME_DIVIDER,
+    API_TIME_DIVIDER,
+} from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
 const TYPE_DATE = 'date'
 const TYPE_DATETIME = 'datetime-local'
 const TYPE_TIME = 'time'
 
-const API_TIME_DIVIDER = '.' // TODO: Currently just picked a random character, use the correct character preferred by backend
-const UI_TIME_DIVIDER = ':'
-
-const BaseCondition = ({ condition, onChange, onRemove, type }) => {
+const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
     let operator, value
 
     if (condition.includes(NULL_VALUE)) {
@@ -58,6 +60,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type }) => {
                     type={type}
                     onChange={({ value }) => setValue(value)}
                     className={classes.dateInput}
+                    max={max}
                     dense
                 />
             )}
@@ -79,14 +82,15 @@ BaseCondition.propTypes = {
     type: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    max: PropTypes.string,
 }
 
 export const DateCondition = (props) => (
-    <BaseCondition type={TYPE_DATE} {...props} />
+    <BaseCondition type={TYPE_DATE} max="9999-12-31" {...props} />
 )
 
 export const DateTimeCondition = (props) => (
-    <BaseCondition type={TYPE_DATETIME} {...props} />
+    <BaseCondition type={TYPE_DATETIME} max="9999-12-31T23:59:59" {...props} />
 )
 
 export const TimeCondition = (props) => (
