@@ -28,7 +28,11 @@ import history from '../modules/history.js'
 import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
-import { transformVisualization } from '../modules/visualization.js'
+import {
+    getDimensionMetadataFields,
+    getDimensionMetadataFromVisualization,
+    transformVisualization,
+} from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
 import {
     sGetIsVisualizationLoading,
@@ -63,8 +67,8 @@ const visualizationQuery = {
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate,repeatable]',
                 'access,user[displayName,userCredentials[username]]',
                 'href',
-                'dataElementDimensions[legendSet[id,name]',
-                'dataElement[id,name]]',
+                ...getDimensionMetadataFields(),
+                'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
                 '!interpretations',
                 '!userGroupAccesses',
                 '!publicAccess',
@@ -247,6 +251,7 @@ const App = () => {
             )
             const metadata = {
                 [program.id]: program,
+                ...getDimensionMetadataFromVisualization(visualization),
                 ...getDynamicTimeDimensionsMetadata(program, programStage),
             }
 
