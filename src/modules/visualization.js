@@ -187,13 +187,13 @@ export const STATE_UNSAVED = 'UNSAVED'
 export const STATE_DIRTY = 'DIRTY'
 
 export const dimensionMetadataPropMap = {
-    dataElementGroupSetDimensions: 'dataElementGroupSet',
-    organisationUnitGroupSetDimensions: 'organisationUnitGroupSet',
+    dataElementDimensions: 'dataElement',
+    attributeDimensions: 'attribute',
+    programIndicatorDimensions: 'programIndicator',
     categoryDimensions: 'category',
     categoryOptionGroupSetDimensions: 'categoryOptionGroupSet',
-    attributeDimensions: 'attribute',
-    dataElementDimensions: 'dataElement',
-    programIndicatorDimensions: 'programIndicator',
+    organisationUnitGroupSetDimensions: 'organisationUnitGroupSet',
+    dataElementGroupSetDimensions: 'dataElementGroupSet',
 }
 
 export const getDimensionMetadataFromVisualization = (visualization) => {
