@@ -28,7 +28,7 @@ const MessageIconButton = ({
                     disabled={disabled}
                 >
                     {count && count}
-                    <Icon className={cx('icon', { selected })} />
+                    <Icon />
                 </button>
                 <style jsx>{`
                     .wrapper {
@@ -51,19 +51,21 @@ const MessageIconButton = ({
                         color: ${colors.teal600};
                         font-weight: 500;
                     }
+
                     .button:hover {
                         color: ${colors.grey900};
                     }
-                    .icon {
-                        color: ${colors.grey700};
+
+                    .button.selected:hover {
+                        color: ${colors.teal800};
                     }
 
-                    .icon.selected {
+                    .button.selected :global(svg) {
                         color: ${colors.teal500};
                     }
 
-                    .icon:hover {
-                        color: #000;
+                    .button.selected:hover :global(svg) {
+                        color: ${colors.teal700};
                     }
                 `}</style>
             </span>
