@@ -1,10 +1,10 @@
 const optionsQuery = {
     resource: 'options',
-    params: ({ optionSetId, searchTerm, nameProp, page }) => {
+    params: ({ optionSetId, searchTerm, page }) => {
         const filters = [`optionSet.id:eq:${optionSetId}`]
 
         if (searchTerm) {
-            filters.push(`${nameProp}:ilike:${searchTerm}`)
+            filters.push(`displayName:ilike:${searchTerm}`)
         }
 
         return {
@@ -19,7 +19,6 @@ const optionsQuery = {
 export const apiFetchOptions = async ({
     dataEngine,
     searchTerm,
-    nameProp,
     optionSetId,
     page,
 }) => {
@@ -28,7 +27,6 @@ export const apiFetchOptions = async ({
         {
             variables: {
                 searchTerm,
-                nameProp,
                 optionSetId,
                 page,
             },
