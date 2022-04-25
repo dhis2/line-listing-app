@@ -33,6 +33,7 @@ const YourDimensionsPanel = ({ visible }) => {
                     onChange={({ value }) => setSearchTerm(value)}
                     dense
                     placeholder={i18n.t('Search your dimensions')}
+                    type={'search'}
                 />
             </div>
             <DimensionsList
