@@ -40,7 +40,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
     useEffect(() => {
         // Delay initial fetch until component comes into view
         if (visible && !called) {
-            refetch({ page: 1 })
+            refetch({ page: 1, nameProp })
         }
     }, [visible, called])
 
