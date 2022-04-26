@@ -73,6 +73,7 @@ const createDimensionsQuery = ({
     stageId,
     searchTerm,
     dimensionType,
+    nameProp,
 }) => {
     const resource =
         inputType === OUTPUT_TYPE_EVENT
@@ -81,9 +82,9 @@ const createDimensionsQuery = ({
     const params = {
         pageSize: 50,
         page,
-        fields: DIMENSION_LIST_FIELDS,
+        fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
-        order: 'displayName:asc',
+        order: `${nameProp}:asc`,
     }
 
     if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
@@ -113,7 +114,7 @@ const createDimensionsQuery = ({
      * i.e. `filter=identifiable:token:${searchTerm}` or `query=${searchTerm}`
      */
     if (searchTerm) {
-        params.filter.push(`name:ilike:${searchTerm}`)
+        params.filter.push(`${nameProp}:ilike:${searchTerm}`)
     }
 
     if (dimensionType && dimensionType !== DIMENSION_TYPE_ALL) {
@@ -191,6 +192,7 @@ const useProgramDimensions = ({
     stageId,
     searchTerm,
     dimensionType,
+    nameProp,
 }) => {
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
@@ -240,6 +242,7 @@ const useProgramDimensions = ({
                         stageId,
                         searchTerm,
                         dimensionType,
+                        nameProp,
                     }),
                 })
 
@@ -266,12 +269,13 @@ const useProgramDimensions = ({
             searchTerm,
             dimensionType,
             isListEndVisible,
+            nameProp,
         ]
     )
 
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, program, stageId, searchTerm, dimensionType])
+    }, [inputType, program, stageId, searchTerm, dimensionType, nameProp])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {

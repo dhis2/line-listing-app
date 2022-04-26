@@ -28,6 +28,7 @@ import history from '../modules/history.js'
 import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../modules/userSettings.js'
 import {
     getDimensionMetadataFields,
     getDimensionMetadataFromVisualization,
@@ -57,13 +58,13 @@ const visualizationQuery = {
         resource: 'eventVisualizations',
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
-        params: {
+        params: ({ nameProp }) => ({
             fields: [
                 '*',
                 'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
                 'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
                 'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
-                'program[id,programType,displayName~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name),repeatable]]',
+                `program[id,programType,${nameProp}~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name),repeatable]]`,
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate,repeatable]',
                 'access,user[displayName,userCredentials[username]]',
                 'href',
@@ -93,7 +94,7 @@ const visualizationQuery = {
                 '!organisationUnitLevels',
                 '!organisationUnits',
             ],
-        },
+        }),
     },
 }
 
@@ -118,7 +119,7 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
-    const { systemSettings, rootOrgUnits } = useCachedDataQuery()
+    const { systemSettings, rootOrgUnits, userSettings } = useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
@@ -169,7 +170,13 @@ const App = () => {
 
             try {
                 const data = await dataEngine.query(visualizationQuery, {
-                    variables: { id },
+                    variables: {
+                        id,
+                        nameProp:
+                            userSettings[
+                                DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                            ],
+                    },
                 })
 
                 setData(data)
