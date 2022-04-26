@@ -87,7 +87,9 @@ export const getDisabledTimeDimensions = (
                 //         )
                 // }
             } else {
-                const disabledReason = i18n.t('Not supported in Event programs')
+                const disabledReason = !program
+                    ? i18n.t('No program selected')
+                    : i18n.t('Not supported in Event programs')
                 disabledDimensions[DIMENSION_ID_ENROLLMENT_DATE] =
                     disabledReason
 
