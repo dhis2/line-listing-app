@@ -198,11 +198,11 @@ export const dimensionMetadataPropMap = {
 
 export const getDimensionMetadataFromVisualization = (visualization) =>
     Object.entries(dimensionMetadataPropMap).reduce(
-        (metaData, [listName, objectName]) => {
-            const list = visualization[listName] || []
+        (metaData, [listName, dimensionName]) => {
+            const dimensionList = visualization[listName] || []
 
-            list.forEach((listItem) => {
-                const dimension = listItem[objectName]
+            dimensionList.forEach((dimensionWrapper) => {
+                const dimension = dimensionWrapper[dimensionName]
                 metaData[dimension.id] = dimension
             })
 
@@ -212,10 +212,6 @@ export const getDimensionMetadataFromVisualization = (visualization) =>
     )
 
 export const getDimensionMetadataFields = () =>
-    Object.entries(dimensionMetadataPropMap).reduce(
-        (fields, [listName, objectName]) => {
-            fields.push(`${listName}[${objectName}[id,name]]`)
-            return fields
-        },
-        []
+    Object.entries(dimensionMetadataPropMap).map(
+        ([listName, objectName]) => `${listName}[${objectName}[id,name]]`
     )
