@@ -74,22 +74,20 @@ export const getDisabledTimeDimensions = (
             if (program?.programType === PROGRAM_TYPE_WITH_REGISTRATION) {
                 if (program.displayIncidentDate === false) {
                     disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = i18n.t(
-                        'Not supported in {{programName}} program',
-                        { programName: program.name }
+                        'Disabled by the selected program'
                     )
                 }
 
                 // if (stage.hideDueDate === false) {
                 //     disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] =
                 //         i18n.t(
-                //             'Not supported in {{stageName}} program stage',
-                //             { stageName: stage?.name }
+                //             'Disabled by the selected program stage'
                 //         )
                 // }
             } else {
                 const disabledReason = !program
                     ? i18n.t('No program selected')
-                    : i18n.t('Not supported in Event programs')
+                    : i18n.t('Not applicable to Event programs')
                 disabledDimensions[DIMENSION_ID_ENROLLMENT_DATE] =
                     disabledReason
 
@@ -100,15 +98,13 @@ export const getDisabledTimeDimensions = (
         case OUTPUT_TYPE_ENROLLMENT: {
             const disabledDimensions = {}
             disabledDimensions[DIMENSION_ID_EVENT_DATE] = i18n.t(
-                'Not supported in Tracker programs'
+                'Not applicable to Tracker programs'
             )
 
             if (!program || program.displayIncidentDate === false) {
                 const disabledReason = !program
                     ? i18n.t('No program selected')
-                    : i18n.t('Not supported in {{programName}} program', {
-                          programName: program.name,
-                      })
+                    : i18n.t('Disabled by the selected program')
                 disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
             }
             return disabledDimensions
