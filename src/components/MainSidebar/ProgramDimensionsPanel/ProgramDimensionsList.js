@@ -1,5 +1,7 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import LoadingMask from '../../LoadingMask/LoadingMask.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { useProgramDimensions } from './useProgramDimensions.js'
@@ -11,6 +13,7 @@ const ProgramDimensionsList = ({
     searchTerm,
     dimensionType,
 }) => {
+    const { userSettings } = useCachedDataQuery()
     const { dimensions, loading, fetching, error, setIsListEndVisible } =
         useProgramDimensions({
             inputType,
@@ -18,6 +21,7 @@ const ProgramDimensionsList = ({
             stageId,
             searchTerm,
             dimensionType,
+            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
         })
 
     if (loading) {
