@@ -196,6 +196,7 @@ export const dimensionMetadataPropMap = {
     dataElementGroupSetDimensions: 'dataElementGroupSet',
 }
 
+// Loop through and collect dimension metadata from the visualization
 export const getDimensionMetadataFromVisualization = (visualization) =>
     Object.entries(dimensionMetadataPropMap).reduce(
         (metaData, [listName, dimensionName]) => {
