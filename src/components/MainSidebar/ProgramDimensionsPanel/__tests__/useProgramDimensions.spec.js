@@ -15,7 +15,7 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
         it('does not produce a programId param', () => {
             const actual = createDimensionsQuery({
                 inputType: 'EVENT',
-                programId: 'TEST',
+                programId: 'myProgramId',
                 stageId: '',
                 searchTerm: '',
                 dimensionType: '',
@@ -26,11 +26,11 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
             const actual = createDimensionsQuery({
                 inputType: 'EVENT',
                 programId: '',
-                stageId: 'TEST',
+                stageId: 'myStageId',
                 searchTerm: '',
                 dimensionType: '',
             })
-            expect(actual.params.programStageId).toBe('TEST')
+            expect(actual.params.programStageId).toBe('myStageId')
         })
     })
     describe('input type enrollment', () => {
@@ -49,18 +49,18 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
         it('does produce a programId param', () => {
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
-                programId: 'TEST',
+                programId: 'myProgramId',
                 stageId: '',
                 searchTerm: '',
                 dimensionType: '',
             })
-            expect(actual.params.programId).toBe('TEST')
+            expect(actual.params.programId).toBe('myProgramId')
         })
         it('does not produce a programStageId param', () => {
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
                 programId: '',
-                stageId: 'TEST',
+                stageId: 'myStageId',
                 searchTerm: '',
                 dimensionType: '',
             })
@@ -70,11 +70,11 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
                 programId: '',
-                stageId: 'TEST',
+                stageId: 'myStageId',
                 searchTerm: '',
                 dimensionType: 'DATA_ELEMENT',
             })
-            expect(actual.params.filter).toContain('id:startsWith:TEST')
+            expect(actual.params.filter).toContain('id:startsWith:myStageId')
         })
     })
     describe('params for both input types', () => {
@@ -82,18 +82,21 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
                 programId: '',
-                stageId: 'TEST',
-                searchTerm: 'TEST',
+                stageId: 'myStageId',
+                searchTerm: 'mySearchTerm',
                 dimensionType: 'DATA_ELEMENT',
+                nameProp: 'myNameProp',
             })
-            expect(actual.params.filter).toContain('name:ilike:TEST')
+            expect(actual.params.filter).toContain(
+                'myNameProp:ilike:mySearchTerm'
+            )
         })
         it('adds a dimensionType filter', () => {
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
                 programId: '',
-                stageId: 'TEST',
-                searchTerm: 'TEST',
+                stageId: 'myStageId',
+                searchTerm: 'mySearchTerm',
                 dimensionType: 'DATA_ELEMENT',
             })
             expect(actual.params.filter).toContain(
@@ -104,8 +107,8 @@ describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () =>
             const actual = createDimensionsQuery({
                 inputType: 'ENROLLMENT',
                 programId: '',
-                stageId: 'TEST',
-                searchTerm: 'TEST',
+                stageId: 'myStageId',
+                searchTerm: 'mySearchTerm',
                 dimensionType: 'ALL',
             })
             expect(actual.params.filter).not.toContain('dimensionType:eq:ALL')
