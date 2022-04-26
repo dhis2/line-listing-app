@@ -1,3 +1,10 @@
+## [1.1.54](https://github.com/dhis2/line-listing-app/compare/v1.1.53...v1.1.54) (2022-04-26)
+
+
+### Bug Fixes
+
+* collect and dispatch dimension metadata from visualization (TECH-1128) ([#107](https://github.com/dhis2/line-listing-app/issues/107)) ([487c92b](https://github.com/dhis2/line-listing-app/commit/487c92b87acf87a13bd11dd389865e989ebe52dc))
+
 ## [1.1.53](https://github.com/dhis2/line-listing-app/compare/v1.1.52...v1.1.53) (2022-04-26)
 
 
