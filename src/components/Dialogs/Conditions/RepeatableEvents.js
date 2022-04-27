@@ -45,15 +45,20 @@ const RepeatableEvents = ({ dimensionId }) => {
 
     const { [PROP_MOST_RECENT]: mostRecent, [PROP_OLDEST]: oldest } = repetition
 
+    const parseInput = (value) => {
+        const parsedValue = parseInt(value, 10)
+        return parsedValue > 0 ? parsedValue : 0
+    }
+
     const onMostRecentChange = (value) => {
         setRepetition({
-            [PROP_MOST_RECENT]: parseInt(value, 10),
+            [PROP_MOST_RECENT]: parseInput(value),
             [PROP_OLDEST]: oldest,
         })
     }
     const onOldestChange = (value) => {
         setRepetition({
-            [PROP_OLDEST]: parseInt(value, 10),
+            [PROP_OLDEST]: parseInput(value),
             [PROP_MOST_RECENT]: mostRecent,
         })
     }
