@@ -34,7 +34,7 @@ const IconDimensionProgramAttribute16 = () => (
         xmlns="http://www.w3.org/2000/svg"
     >
         <path
-            d="m15 3 v10h-5v-10z m-1 1 v2h-3v-2z m0 3 v2h-3v-2z m0 3 v2h-3v-2z m-5 -6 h-7v7h7v1h-8v-10h8z"
+            d="m15 3 v10h-7v-10z m-1 1 v2h-5v-2z m0 3 v2h-5v-2z m0 3 v2h-5v-2z m-7 -6 h-5v7h5v1h-6v-10h6z"
             fill="#010101"
             fillRule="evenodd"
         />
