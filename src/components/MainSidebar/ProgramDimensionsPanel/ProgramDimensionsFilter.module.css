@@ -8,7 +8,7 @@
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
-    margin-right: 6px;
+    margin-right: var(--spacers-dp8);
 }
 
 .option {
