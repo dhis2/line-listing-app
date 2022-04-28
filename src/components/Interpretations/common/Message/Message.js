@@ -32,12 +32,12 @@ const Message = ({ children, text, created, username }) => (
                 gap: 6px;
                 align-items: center;
                 font-size: 13px;
-                line-height: ${spacers.dp16};
+                line-height: 16px;
                 color: ${colors.grey900};
             }
 
             .header time {
-                font-size: ${spacers.dp12};
+                font-size: 12px;
                 color: ${colors.grey600};
             }
 
