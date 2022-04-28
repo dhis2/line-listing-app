@@ -1,3 +1,45 @@
+## [1.1.56](https://github.com/dhis2/line-listing-app/compare/v1.1.55...v1.1.56) (2022-04-28)
+
+
+### Bug Fixes
+
+* preserve fetched dimensions when collapsing Program Dimensions panel ([#112](https://github.com/dhis2/line-listing-app/issues/112)) ([3d6fb7c](https://github.com/dhis2/line-listing-app/commit/3d6fb7ca5d4fd22b01cf3ead1aadeb7008b6283c))
+
+## [1.1.55](https://github.com/dhis2/line-listing-app/compare/v1.1.54...v1.1.55) (2022-04-28)
+
+
+### Bug Fixes
+
+* use different color on hover for action buttons TECH-1086 ([#105](https://github.com/dhis2/line-listing-app/issues/105)) ([53cec84](https://github.com/dhis2/line-listing-app/commit/53cec84366c300ba1a994c22dea65cab8a6cba21))
+
+## [1.1.54](https://github.com/dhis2/line-listing-app/compare/v1.1.53...v1.1.54) (2022-04-26)
+
+
+### Bug Fixes
+
+* collect and dispatch dimension metadata from visualization (TECH-1128) ([#107](https://github.com/dhis2/line-listing-app/issues/107)) ([487c92b](https://github.com/dhis2/line-listing-app/commit/487c92b87acf87a13bd11dd389865e989ebe52dc))
+
+## [1.1.53](https://github.com/dhis2/line-listing-app/compare/v1.1.52...v1.1.53) (2022-04-26)
+
+
+### Bug Fixes
+
+* missing change from prev commit ([4b291ca](https://github.com/dhis2/line-listing-app/commit/4b291ca31362ec5fc6f5ebe3ef77ee15270b65b9))
+* remove shortname from options search as options only has displayName ([c23e882](https://github.com/dhis2/line-listing-app/commit/c23e8828a9c1ff4999c77075c295a54624dd4de1))
+* support shortName throughout the app (TECH-1118) [#108](https://github.com/dhis2/line-listing-app/issues/108) ([c55a1a1](https://github.com/dhis2/line-listing-app/commit/c55a1a1e20454f46b116c42fdb5d50b76a8bf62b))
+* use name instead of displayName in search ([745eeb4](https://github.com/dhis2/line-listing-app/commit/745eeb42b9d0de97d79db8531a6c888a726ad37e))
+* use shortname for program and dynamic/your dimensions ([f4c9053](https://github.com/dhis2/line-listing-app/commit/f4c9053185ce35a22b26341eb05e8c7465a37f8b))
+* use shortname for program when fetching AO ([b1e3016](https://github.com/dhis2/line-listing-app/commit/b1e3016f8a745be19ff3fe6b92ebcbc24e46c581))
+* use shortname for programs ([0599917](https://github.com/dhis2/line-listing-app/commit/05999176cb1100612cec03f89d381019c2f5ba9a))
+
+## [1.1.52](https://github.com/dhis2/line-listing-app/compare/v1.1.51...v1.1.52) (2022-04-25)
+
+
+### Bug Fixes
+
+* change input type to search ([266e2a8](https://github.com/dhis2/line-listing-app/commit/266e2a80e951e2f491d6ce46c06eebe50063bf47))
+* change input type to search (TECH-1120) [#106](https://github.com/dhis2/line-listing-app/issues/106) ([8fe5bb0](https://github.com/dhis2/line-listing-app/commit/8fe5bb011032b047e545800ea8ef45a640b6518a))
+
 ## [1.1.51](https://github.com/dhis2/line-listing-app/compare/v1.1.50...v1.1.51) (2022-04-20)
 
 

@@ -1,4 +1,3 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { Transfer, TransferOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -7,7 +6,6 @@ import { connect } from 'react-redux'
 import { acAddMetadata } from '../../../actions/metadata.js'
 import { apiFetchOptions } from '../../../api/options.js'
 import { OPERATOR_IN } from '../../../modules/conditions.js'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { TransferEmptySelection } from '../common/TransferEmptySelection.js'
@@ -27,7 +25,6 @@ const OptionSetCondition = ({
     metadata,
     addMetadata,
 }) => {
-    const { userSettings } = useCachedDataQuery()
     const parts = condition.split(':')
     const values = parts[1]?.length ? parts[1].split(';') : []
     const selectedOptions = values.map((code) => ({
@@ -66,7 +63,6 @@ const OptionSetCondition = ({
         setState((state) => ({ ...state, loading: true }))
         const result = await apiFetchOptions({
             dataEngine,
-            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
             page,
             optionSetId,
             searchTerm: state.searchTerm,
