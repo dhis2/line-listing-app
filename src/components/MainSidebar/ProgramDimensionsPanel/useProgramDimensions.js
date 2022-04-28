@@ -1,9 +1,11 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
 } from '../../../modules/dimensionConstants.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -192,8 +194,8 @@ const useProgramDimensions = ({
     stageId,
     searchTerm,
     dimensionType,
-    nameProp,
 }) => {
+    const { userSettings } = useCachedDataQuery()
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
@@ -216,6 +218,8 @@ const useProgramDimensions = ({
             }, new Map()),
         [program]
     )
+
+    const nameProp = userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
     const setIsListEndVisible = (isVisible) => {
         if (isVisible !== isListEndVisible) {

@@ -104,7 +104,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType, selectedProgramId])
 
-    if (!visible || !called) {
+    if (!called) {
         return null
     }
 
@@ -131,39 +131,43 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
     return (
         <div className={styles.container}>
-            <div className={cx(styles.section, styles.bordered)}>
-                <ProgramSelect
-                    programs={filteredPrograms}
-                    selectedProgram={selectedProgram}
-                    setSelectedProgramId={setSelectedProgramId}
-                    requiredStageSelection={requiredStageSelection}
-                />
-            </div>
-            <div
-                className={cx(styles.section, {
-                    [styles.bordered]: !!selectedProgramId,
-                })}
-            >
-                {isProgramSelectionComplete ? (
-                    <ProgramDimensionsFilter
-                        program={selectedProgram}
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                        dimensionType={dimensionType}
-                        setDimensionType={setDimensionType}
-                    />
-                ) : (
-                    <div className={styles.helptext}>
-                        {requiredStageSelection
-                            ? i18n.t(
-                                  'Choose a program and stage above to add program dimensions.'
-                              )
-                            : i18n.t(
-                                  'Choose a program above to add program dimensions.'
-                              )}
+            {visible && (
+                <>
+                    <div className={cx(styles.section, styles.bordered)}>
+                        <ProgramSelect
+                            programs={filteredPrograms}
+                            selectedProgram={selectedProgram}
+                            setSelectedProgramId={setSelectedProgramId}
+                            requiredStageSelection={requiredStageSelection}
+                        />
                     </div>
-                )}
-            </div>
+                    <div
+                        className={cx(styles.section, {
+                            [styles.bordered]: !!selectedProgramId,
+                        })}
+                    >
+                        {isProgramSelectionComplete ? (
+                            <ProgramDimensionsFilter
+                                program={selectedProgram}
+                                searchTerm={searchTerm}
+                                setSearchTerm={setSearchTerm}
+                                dimensionType={dimensionType}
+                                setDimensionType={setDimensionType}
+                            />
+                        ) : (
+                            <div className={styles.helptext}>
+                                {requiredStageSelection
+                                    ? i18n.t(
+                                          'Choose a program and stage above to add program dimensions.'
+                                      )
+                                    : i18n.t(
+                                          'Choose a program above to add program dimensions.'
+                                      )}
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}
@@ -171,6 +175,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}
+                    visible={visible}
                 />
             )}
         </div>
