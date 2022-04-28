@@ -4,7 +4,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    DIMENSION_ID_SCHEDULED_DATE,
+    // DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
@@ -12,6 +12,9 @@ import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
+
+// TODO: Scheduled date will be implemented soon, hopefully 2.39
+// so it was decided to keep SCHEDULED_DATE code but comment it out
 
 export const getTimeDimensions = () => ({
     [DIMENSION_ID_EVENT_DATE]: {
@@ -63,36 +66,60 @@ export const getTimeDimensionName = (dimension, program, stage) => {
     return name || dimension.name
 }
 
-export const getEnabledTimeDimensionIds = (inputType, program, stage) => {
-    const enabledDimensionIds = new Set()
-    if (inputType) {
-        const isEvent = inputType === OUTPUT_TYPE_EVENT
-        const isEnrollment = inputType === OUTPUT_TYPE_ENROLLMENT
-        const withRegistration =
-            program?.programType === PROGRAM_TYPE_WITH_REGISTRATION
+export const getDisabledTimeDimensions = (
+    inputType,
+    program
+    /*, stage */
+) => {
+    switch (inputType) {
+        case OUTPUT_TYPE_EVENT: {
+            const disabledDimensions = {}
+            if (program?.programType === PROGRAM_TYPE_WITH_REGISTRATION) {
+                if (program.displayIncidentDate === false) {
+                    disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = i18n.t(
+                        'Disabled by the selected program'
+                    )
+                }
 
-        if (isEvent) {
-            enabledDimensionIds.add(DIMENSION_ID_EVENT_DATE)
-        }
+                // if (stage.hideDueDate === false) {
+                //     disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] =
+                //         i18n.t(
+                //             'Disabled by the selected program stage'
+                //         )
+                // }
+            } else {
+                const disabledReason = !program
+                    ? i18n.t('No program selected')
+                    : i18n.t('Not applicable to Event programs')
+                disabledDimensions[DIMENSION_ID_ENROLLMENT_DATE] =
+                    disabledReason
 
-        if (isEnrollment) {
-            enabledDimensionIds.add(DIMENSION_ID_ENROLLMENT_DATE)
-        }
-
-        if (withRegistration) {
-            enabledDimensionIds.add(DIMENSION_ID_ENROLLMENT_DATE)
-
-            if (isEvent && stage && !stage.hideDueDate) {
-                enabledDimensionIds.add(DIMENSION_ID_SCHEDULED_DATE)
+                disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
             }
-
-            program.displayIncidentDate &&
-                enabledDimensionIds.add(DIMENSION_ID_INCIDENT_DATE)
+            return disabledDimensions
         }
+        case OUTPUT_TYPE_ENROLLMENT: {
+            const disabledDimensions = {}
+            disabledDimensions[DIMENSION_ID_EVENT_DATE] = i18n.t(
+                'Not applicable to Tracker programs'
+            )
 
-        if (isEvent || isEnrollment || withRegistration) {
-            enabledDimensionIds.add(DIMENSION_ID_LAST_UPDATED)
+            if (!program || program.displayIncidentDate === false) {
+                const disabledReason = !program
+                    ? i18n.t('No program selected')
+                    : i18n.t('Disabled by the selected program')
+                disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
+            }
+            return disabledDimensions
+        }
+        default: {
+            const disabledReason = i18n.t('No input type selected')
+            return {
+                [DIMENSION_ID_EVENT_DATE]: disabledReason,
+                [DIMENSION_ID_ENROLLMENT_DATE]: disabledReason,
+                [DIMENSION_ID_INCIDENT_DATE]: disabledReason,
+                [DIMENSION_ID_LAST_UPDATED]: disabledReason,
+            }
         }
     }
-    return enabledDimensionIds
 }

@@ -1,3 +1,11 @@
+## [1.1.57](https://github.com/dhis2/line-listing-app/compare/v1.1.56...v1.1.57) (2022-04-28)
+
+
+### Bug Fixes
+
+* avoid crash when opening tooltip or dimension modal in cases where option metadata is missing ([#74](https://github.com/dhis2/line-listing-app/issues/74)) ([8da3c2d](https://github.com/dhis2/line-listing-app/commit/8da3c2d73565d8b8a0a2b30be8fd3f33978103b1))
+* repeated events input validation (TECH-1132) ([#111](https://github.com/dhis2/line-listing-app/issues/111)) ([72d5361](https://github.com/dhis2/line-listing-app/commit/72d536186e3d6ed778e657f2f80d2e56bf611b0b))
+
 ## [1.1.56](https://github.com/dhis2/line-listing-app/compare/v1.1.55...v1.1.56) (2022-04-28)
 
 

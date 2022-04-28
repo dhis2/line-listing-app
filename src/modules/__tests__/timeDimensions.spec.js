@@ -2,7 +2,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    DIMENSION_ID_SCHEDULED_DATE,
+    // DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../dimensionConstants.js'
 import {
@@ -11,7 +11,7 @@ import {
 } from '../programTypes.js'
 import {
     getTimeDimensionName,
-    getEnabledTimeDimensionIds,
+    getDisabledTimeDimensions,
     getTimeDimensions,
 } from '../timeDimensions.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from '../visualization.js'
@@ -170,7 +170,7 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
     })
 })
 
-describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
+describe('ER > Dimensions > getDisabledTimeDimensions', () => {
     test.each([
         // Nothing populated
         {
@@ -182,7 +182,13 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
             stage: {
                 id: '1',
             },
-            expected: [],
+            expected: [
+                DIMENSION_ID_EVENT_DATE,
+                DIMENSION_ID_ENROLLMENT_DATE,
+                // DIMENSION_ID_SCHEDULED_DATE,
+                DIMENSION_ID_INCIDENT_DATE,
+                DIMENSION_ID_LAST_UPDATED,
+            ],
         },
         // Max enabled - with registration / tracker
         {
@@ -195,13 +201,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: false,
             },
-            expected: [
-                DIMENSION_ID_EVENT_DATE,
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_SCHEDULED_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED,
-            ],
+            expected: [],
         },
         // Hiding the due date
         {
@@ -214,12 +214,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: true,
             },
-            expected: [
-                DIMENSION_ID_EVENT_DATE,
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED,
-            ],
+            expected: [],
         },
         // Hiding the incident date
         {
@@ -232,11 +227,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: true,
             },
-            expected: [
-                DIMENSION_ID_EVENT_DATE,
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_LAST_UPDATED,
-            ],
+            expected: [DIMENSION_ID_INCIDENT_DATE],
         },
         // input type enrollment
         {
@@ -249,11 +240,7 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: false,
             },
-            expected: [
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED,
-            ],
+            expected: [DIMENSION_ID_EVENT_DATE],
         },
         // Event program
         {
@@ -266,14 +253,18 @@ describe('ER > Dimensions > getEnabledTimeDimensionIds', () => {
                 id: '1',
                 hideDueDate: false,
             },
-            expected: [DIMENSION_ID_EVENT_DATE, DIMENSION_ID_LAST_UPDATED],
+            expected: [
+                DIMENSION_ID_ENROLLMENT_DATE,
+                DIMENSION_ID_INCIDENT_DATE,
+            ],
         },
     ])(
         'returns expected IDs for inputType $inputType, programType $program.programType with displayIncidentDate $program.displayIncidentDate and stage.hideDueDate $stage.hideDueDate',
         ({ inputType, program, stage, expected }) => {
-            const actual = Array.from(
-                getEnabledTimeDimensionIds(inputType, program, stage)
+            const actual = Object.keys(
+                getDisabledTimeDimensions(inputType, program, stage)
             )
+
             expect(actual).toEqual(expected)
         }
     )
