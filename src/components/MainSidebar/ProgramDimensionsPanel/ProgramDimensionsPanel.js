@@ -1,3 +1,4 @@
+import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
@@ -11,6 +12,7 @@ import {
     PROGRAM_TYPE_WITH_REGISTRATION,
     PROGRAM_TYPE_WITHOUT_REGISTRATION,
 } from '../../../modules/programTypes.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -29,10 +31,10 @@ import { ProgramSelect } from './ProgramSelect.js'
 const query = {
     programs: {
         resource: 'programs',
-        params: {
+        params: ({ nameProp }) => ({
             fields: [
                 'id',
-                'displayName~rename(name)',
+                `${nameProp}~rename(name)`,
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
@@ -42,7 +44,7 @@ const query = {
                 'displayEnrollmentDateLabel',
             ],
             paging: false,
-        },
+        }),
     },
 }
 
@@ -51,6 +53,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
+    const { userSettings } = useCachedDataQuery()
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -89,7 +92,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
     useEffect(() => {
         if (visible && !called) {
-            refetch()
+            refetch({
+                nameProp:
+                    userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+            })
         }
     }, [visible, called])
 
@@ -98,7 +104,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         setDimensionType(DIMENSION_TYPE_ALL)
     }, [inputType, selectedProgramId])
 
-    if (!visible || !called) {
+    if (!called) {
         return null
     }
 
@@ -125,39 +131,43 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
     return (
         <div className={styles.container}>
-            <div className={cx(styles.section, styles.bordered)}>
-                <ProgramSelect
-                    programs={filteredPrograms}
-                    selectedProgram={selectedProgram}
-                    setSelectedProgramId={setSelectedProgramId}
-                    requiredStageSelection={requiredStageSelection}
-                />
-            </div>
-            <div
-                className={cx(styles.section, {
-                    [styles.bordered]: !!selectedProgramId,
-                })}
-            >
-                {isProgramSelectionComplete ? (
-                    <ProgramDimensionsFilter
-                        program={selectedProgram}
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                        dimensionType={dimensionType}
-                        setDimensionType={setDimensionType}
-                    />
-                ) : (
-                    <div className={styles.helptext}>
-                        {requiredStageSelection
-                            ? i18n.t(
-                                  'Choose a program and stage above to add program dimensions.'
-                              )
-                            : i18n.t(
-                                  'Choose a program above to add program dimensions.'
-                              )}
+            {visible && (
+                <>
+                    <div className={cx(styles.section, styles.bordered)}>
+                        <ProgramSelect
+                            programs={filteredPrograms}
+                            selectedProgram={selectedProgram}
+                            setSelectedProgramId={setSelectedProgramId}
+                            requiredStageSelection={requiredStageSelection}
+                        />
                     </div>
-                )}
-            </div>
+                    <div
+                        className={cx(styles.section, {
+                            [styles.bordered]: !!selectedProgramId,
+                        })}
+                    >
+                        {isProgramSelectionComplete ? (
+                            <ProgramDimensionsFilter
+                                program={selectedProgram}
+                                searchTerm={searchTerm}
+                                setSearchTerm={setSearchTerm}
+                                dimensionType={dimensionType}
+                                setDimensionType={setDimensionType}
+                            />
+                        ) : (
+                            <div className={styles.helptext}>
+                                {requiredStageSelection
+                                    ? i18n.t(
+                                          'Choose a program and stage above to add program dimensions.'
+                                      )
+                                    : i18n.t(
+                                          'Choose a program above to add program dimensions.'
+                                      )}
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}
@@ -165,6 +175,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
                     stageId={selectedStageId}
+                    visible={visible}
                 />
             )}
         </div>

@@ -9,25 +9,25 @@ const YOUR_DIMENSIONS_FILTER = 'dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'
 const query = {
     dimensions: {
         resource: YOUR_DIMENSIONS_RESOURCE,
-        params: ({ page, searchTerm }) => {
+        params: ({ page, searchTerm, nameProp }) => {
             const filters = [YOUR_DIMENSIONS_FILTER]
 
             if (searchTerm) {
-                filters.push(`name:ilike:${searchTerm}`)
+                filters.push(`${nameProp}:ilike:${searchTerm}`)
             }
 
             return {
                 pageSize: 50,
                 page,
-                fields: DIMENSION_LIST_FIELDS,
+                fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
                 filter: filters,
-                order: 'displayName:asc',
+                order: `${nameProp}:asc`,
             }
         },
     },
 }
 
-const useYourDimensions = ({ visible, searchTerm }) => {
+const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
     const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState([])
     const { data, error, loading, fetching, called, refetch } = useDataQuery(
@@ -40,7 +40,7 @@ const useYourDimensions = ({ visible, searchTerm }) => {
     useEffect(() => {
         // Delay initial fetch until component comes into view
         if (visible && !called) {
-            refetch({ page: 1 })
+            refetch({ page: 1, nameProp })
         }
     }, [visible, called])
 
@@ -49,11 +49,12 @@ const useYourDimensions = ({ visible, searchTerm }) => {
             refetch({
                 page: 1,
                 searchTerm,
+                nameProp,
             })
         }
         // Reset when filter changes
         setDimensions([])
-    }, [searchTerm])
+    }, [searchTerm, nameProp])
 
     useEffect(() => {
         if (data) {
@@ -64,10 +65,11 @@ const useYourDimensions = ({ visible, searchTerm }) => {
                 refetch({
                     page: data.page + 1,
                     searchTerm,
+                    nameProp,
                 })
             }
         }
-    }, [isListEndVisible])
+    }, [isListEndVisible, nameProp])
 
     useEffect(() => {
         if (data) {
