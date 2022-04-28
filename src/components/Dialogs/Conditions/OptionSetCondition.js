@@ -29,7 +29,9 @@ const OptionSetCondition = ({
     const values = parts[1]?.length ? parts[1].split(';') : []
     const selectedOptions = values.map((code) => ({
         code,
-        name: Object.values(metadata).find((item) => item.code === code).name,
+        name:
+            Object.values(metadata).find((item) => item.code === code)?.name ||
+            code,
     }))
     const dataTest = 'option-set'
 
