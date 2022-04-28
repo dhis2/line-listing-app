@@ -185,3 +185,34 @@ export const STATE_EMPTY = 'EMPTY'
 export const STATE_SAVED = 'SAVED'
 export const STATE_UNSAVED = 'UNSAVED'
 export const STATE_DIRTY = 'DIRTY'
+
+export const dimensionMetadataPropMap = {
+    dataElementDimensions: 'dataElement',
+    attributeDimensions: 'attribute',
+    programIndicatorDimensions: 'programIndicator',
+    categoryDimensions: 'category',
+    categoryOptionGroupSetDimensions: 'categoryOptionGroupSet',
+    organisationUnitGroupSetDimensions: 'organisationUnitGroupSet',
+    dataElementGroupSetDimensions: 'dataElementGroupSet',
+}
+
+// Loop through and collect dimension metadata from the visualization
+export const getDimensionMetadataFromVisualization = (visualization) =>
+    Object.entries(dimensionMetadataPropMap).reduce(
+        (metaData, [listName, dimensionName]) => {
+            const dimensionList = visualization[listName] || []
+
+            dimensionList.forEach((dimensionWrapper) => {
+                const dimension = dimensionWrapper[dimensionName]
+                metaData[dimension.id] = dimension
+            })
+
+            return metaData
+        },
+        {}
+    )
+
+export const getDimensionMetadataFields = () =>
+    Object.entries(dimensionMetadataPropMap).map(
+        ([listName, objectName]) => `${listName}[${objectName}[id,name]]`
+    )
