@@ -28,7 +28,7 @@ const MessageIconButton = ({
                     disabled={disabled}
                 >
                     {count && count}
-                    <Icon color={selected ? colors.teal500 : colors.grey700} />
+                    <Icon />
                 </button>
                 <style jsx>{`
                     .wrapper {
@@ -50,6 +50,22 @@ const MessageIconButton = ({
                     .button.selected {
                         color: ${colors.teal600};
                         font-weight: 500;
+                    }
+
+                    .button:hover {
+                        color: ${colors.grey900};
+                    }
+
+                    .button.selected:hover {
+                        color: ${colors.teal800};
+                    }
+
+                    .button.selected :global(svg) {
+                        color: ${colors.teal500};
+                    }
+
+                    .button.selected:hover :global(svg) {
+                        color: ${colors.teal700};
                     }
                 `}</style>
             </span>

@@ -1,3 +1,10 @@
+## [1.1.55](https://github.com/dhis2/line-listing-app/compare/v1.1.54...v1.1.55) (2022-04-28)
+
+
+### Bug Fixes
+
+* use different color on hover for action buttons TECH-1086 ([#105](https://github.com/dhis2/line-listing-app/issues/105)) ([53cec84](https://github.com/dhis2/line-listing-app/commit/53cec84366c300ba1a994c22dea65cab8a6cba21))
+
 ## [1.1.54](https://github.com/dhis2/line-listing-app/compare/v1.1.53...v1.1.54) (2022-04-26)
 
 
