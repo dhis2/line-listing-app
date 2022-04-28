@@ -86,7 +86,7 @@ export const TooltipContent = ({
     }
 
     const renderItems = (itemDisplayNames = []) => {
-        if (itemDisplayNames.every((name) => name)) {
+        if (itemDisplayNames.some((name) => !name)) {
             return null
         }
         const itemsToRender = itemDisplayNames
