@@ -1,3 +1,12 @@
+## [1.1.58](https://github.com/dhis2/line-listing-app/compare/v1.1.57...v1.1.58) (2022-04-28)
+
+
+### Bug Fixes
+
+* add dimension icons in the dimension selector in program ([#102](https://github.com/dhis2/line-listing-app/issues/102)) ([3170ca5](https://github.com/dhis2/line-listing-app/commit/3170ca5706f3a403cc48f6695cae2c4855c68265))
+* add tooltip explaining why a time dimension is disabled ([#109](https://github.com/dhis2/line-listing-app/issues/109)) ([ab379b2](https://github.com/dhis2/line-listing-app/commit/ab379b26af88e57ad0e5424a6a58e9f76aad5d4d))
+* various interpretations fixes ([#87](https://github.com/dhis2/line-listing-app/issues/87)) ([9e4571a](https://github.com/dhis2/line-listing-app/commit/9e4571a9c636ca2ab09326980a3a3516870ff4aa))
+
 ## [1.1.57](https://github.com/dhis2/line-listing-app/compare/v1.1.56...v1.1.57) (2022-04-28)
 
 
