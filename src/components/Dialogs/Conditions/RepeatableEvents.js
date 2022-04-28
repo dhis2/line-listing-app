@@ -85,6 +85,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         className={classes.repeatableInput}
                         value={mostRecent.toString()}
                         onChange={({ value }) => onMostRecentChange(value)}
+                        min="0"
                     />
                 </div>
                 <div className={classes.repeatableWrapper}>
@@ -100,6 +101,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         className={classes.repeatableInput}
                         value={oldest.toString()}
                         onChange={({ value }) => onOldestChange(value)}
+                        min="0"
                     />
                 </div>
             </div>
