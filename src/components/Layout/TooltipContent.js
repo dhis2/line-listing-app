@@ -85,7 +85,10 @@ export const TooltipContent = ({
         return itemDisplayNames
     }
 
-    const renderItems = (itemDisplayNames) => {
+    const renderItems = (itemDisplayNames = []) => {
+        if (itemDisplayNames.some((name) => !name)) {
+            return null
+        }
         const itemsToRender = itemDisplayNames
             .slice(0, renderLimit)
             .map((name) => (

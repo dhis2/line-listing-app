@@ -175,9 +175,10 @@ export const getConditions = ({
             return [metadata[conditions.legendSet]?.name]
         } else {
             const legends = parseCondition(conditionsList[0])
-            const allLegends = metadata[conditions.legendSet]?.legends
+            const allLegends = metadata[conditions.legendSet]?.legends || []
+
             const legendNames = legends.map(
-                (legend) => allLegends.find((l) => l.id === legend).name
+                (legend) => allLegends.find((l) => l.id === legend)?.name
             )
             return legendNames
         }
@@ -187,7 +188,7 @@ export const getConditions = ({
         const items = parseCondition(conditionsList[0])
         const itemNames = items.map(
             (code) =>
-                Object.values(metadata).find((item) => item.code === code).name
+                Object.values(metadata).find((item) => item.code === code)?.name
         )
         return itemNames
     }
