@@ -3,3 +3,37 @@
     flex-direction: column;
     gap: var(--spacers-dp4);
 }
+
+.optionIcon {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin-right: var(--spacers-dp8);
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--colors-grey900);
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+}
+.option:hover {
+    background-color: var(--colors-grey200);
+}
+.option:active,
+.option.active {
+    background-color: var(--colors-teal700);
+    color: var(--colors-white);
+    cursor: auto;
+}
+.option.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
+.option.disabled:hover {
+    background-color: initial;
+}
