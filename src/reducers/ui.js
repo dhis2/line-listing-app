@@ -22,7 +22,7 @@ import {
     getIsMainDimensionDisabled,
 } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
-import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
+import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
@@ -478,14 +478,16 @@ export const useTimeDimensions = () => {
         ]
 
         if (timeDimensions.every((dimension) => !!dimension)) {
-            const enabledDimensionIds = getEnabledTimeDimensionIds(
+            const disabledTimeDimensions = getDisabledTimeDimensions(
                 inputType,
                 program,
                 stage
             )
+
             return timeDimensions.map((dimension) => ({
                 ...dimension,
-                disabled: !enabledDimensionIds.has(dimension.id),
+                disabled: Boolean(disabledTimeDimensions[dimension.id]),
+                disabledReason: disabledTimeDimensions[dimension.id],
             }))
         } else {
             return null

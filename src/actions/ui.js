@@ -11,7 +11,7 @@ import {
     getProgramAsMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
-import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
+import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
 import {
@@ -79,10 +79,10 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 const tClearUiProgramRelatedDimensions =
     (inputType, program) => (dispatch, getState) => {
         const { ui, metadata } = getState()
-        const enabledTimeDimensionsIds = getEnabledTimeDimensionIds(
-            inputType,
-            program
+        const disabledTimeDimensionIds = new Set(
+            Object.keys(getDisabledTimeDimensions(inputType, program))
         )
+
         const idsToRemove = ui.layout.columns
             .concat(ui.layout.filters)
             .filter((dimensionId) => {
@@ -100,7 +100,7 @@ const tClearUiProgramRelatedDimensions =
                     })
                 const isDisabledTimeDimension =
                     DIMENSION_IDS_TIME.has(dimension.id) &&
-                    !enabledTimeDimensionsIds.has(dimension.id)
+                    disabledTimeDimensionIds.has(dimension.id)
 
                 return (
                     isProgramDimension ||
