@@ -13,6 +13,9 @@ import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
 
+// TODO: Scheduled date will be implemented soon, hopefully 2.39
+// so it was decided to keep SCHEDULED_DATE code but comment it out
+
 export const getTimeDimensions = () => ({
     [DIMENSION_ID_EVENT_DATE]: {
         id: DIMENSION_ID_EVENT_DATE,
