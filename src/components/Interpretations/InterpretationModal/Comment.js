@@ -25,7 +25,6 @@ const Comment = ({
         />
     ) : (
         <Message
-            id={comment.id}
             text={comment.text}
             created={comment.created}
             username={comment.createdBy.displayName}

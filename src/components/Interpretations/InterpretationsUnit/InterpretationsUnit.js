@@ -103,6 +103,13 @@ export const InterpretationsUnit = forwardRef(
                         )}
                         {data && (
                             <>
+                                <InterpretationForm
+                                    currentUser={currentUser}
+                                    type={type}
+                                    id={id}
+                                    onSave={onCompleteAction}
+                                    disabled={disabled}
+                                />
                                 <InterpretationList
                                     currentUser={currentUser}
                                     interpretations={
@@ -113,13 +120,6 @@ export const InterpretationsUnit = forwardRef(
                                     }
                                     onReplyIconClick={onReplyIconClick}
                                     refresh={onCompleteAction}
-                                    disabled={disabled}
-                                />
-                                <InterpretationForm
-                                    currentUser={currentUser}
-                                    type={type}
-                                    id={id}
-                                    onSave={onCompleteAction}
                                     disabled={disabled}
                                 />
                             </>
