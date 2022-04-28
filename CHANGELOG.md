@@ -1,3 +1,10 @@
+## [1.1.56](https://github.com/dhis2/line-listing-app/compare/v1.1.55...v1.1.56) (2022-04-28)
+
+
+### Bug Fixes
+
+* preserve fetched dimensions when collapsing Program Dimensions panel ([#112](https://github.com/dhis2/line-listing-app/issues/112)) ([3d6fb7c](https://github.com/dhis2/line-listing-app/commit/3d6fb7ca5d4fd22b01cf3ead1aadeb7008b6283c))
+
 ## [1.1.55](https://github.com/dhis2/line-listing-app/compare/v1.1.54...v1.1.55) (2022-04-28)
 
 
