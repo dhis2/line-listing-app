@@ -1,3 +1,10 @@
+## [1.1.61](https://github.com/dhis2/line-listing-app/compare/v1.1.60...v1.1.61) (2022-04-29)
+
+
+### Bug Fixes
+
+* datetime formatting ([#119](https://github.com/dhis2/line-listing-app/issues/119)) ([5703f46](https://github.com/dhis2/line-listing-app/commit/5703f468fc735b812fc57b8fa8f20333b516c339))
+
 ## [1.1.60](https://github.com/dhis2/line-listing-app/compare/v1.1.59...v1.1.60) (2022-04-29)
 
 
