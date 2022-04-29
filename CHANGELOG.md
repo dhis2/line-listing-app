@@ -1,3 +1,10 @@
+## [1.1.59](https://github.com/dhis2/line-listing-app/compare/v1.1.58...v1.1.59) (2022-04-29)
+
+
+### Bug Fixes
+
+* Remove icon for all, and rename to 'All types' with a line underneath ([#117](https://github.com/dhis2/line-listing-app/issues/117)) ([f0766d5](https://github.com/dhis2/line-listing-app/commit/f0766d56ed46738c8c218ea208f56f4a89daef35))
+
 ## [1.1.58](https://github.com/dhis2/line-listing-app/compare/v1.1.57...v1.1.58) (2022-04-28)
 
 
