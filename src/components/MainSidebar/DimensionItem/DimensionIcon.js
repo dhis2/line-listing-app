@@ -11,7 +11,6 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import DynamicDimensionIcon from '../../../assets/DynamicDimensionIcon.js'
 import {
     DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
@@ -63,12 +62,9 @@ const DIMENSION_TYPE_ICONS = {
 // Presentational component used by dnd - do not add redux or dnd functionality
 
 const DimensionIcon = ({ dimensionType }) => {
-    const Icon =
-        dimensionType && DIMENSION_TYPE_ICONS[dimensionType]
-            ? DIMENSION_TYPE_ICONS[dimensionType]
-            : DynamicDimensionIcon
+    const Icon = dimensionType && DIMENSION_TYPE_ICONS[dimensionType]
 
-    return <Icon />
+    return Icon ? <Icon /> : null
 }
 
 DimensionIcon.propTypes = {
