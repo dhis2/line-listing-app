@@ -94,7 +94,7 @@ const getConditionsFromVisualization = (vis) =>
 export const PROP_MOST_RECENT = 'mostRecent'
 export const PROP_OLDEST = 'oldest'
 
-export const getDefaultCurrentRepetition = () => [0]
+export const getDefaultCurrentRepetition = () => []
 export const getDefaultUiRepetition = () => ({
     [PROP_MOST_RECENT]: 1,
     [PROP_OLDEST]: 0,
