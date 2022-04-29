@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-13T07:27:47.683Z\n"
-"PO-Revision-Date: 2022-04-13T07:27:47.683Z\n"
+"POT-Creation-Date: 2022-04-29T08:58:22.108Z\n"
+"PO-Revision-Date: 2022-04-29T08:58:22.108Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -739,6 +739,18 @@ msgstr "Due/Scheduled date"
 
 msgid "Last updated on"
 msgstr "Last updated on"
+
+msgid "Disabled by the selected program"
+msgstr "Disabled by the selected program"
+
+msgid "Not applicable to Event programs"
+msgstr "Not applicable to Event programs"
+
+msgid "Not applicable to Tracker programs"
+msgstr "Not applicable to Tracker programs"
+
+msgid "No input type selected"
+msgstr "No input type selected"
 
 msgid "Active"
 msgstr "Active"
