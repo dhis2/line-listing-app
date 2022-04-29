@@ -73,4 +73,5 @@
     line-height: 15px;
     color: var(--colors-grey600);
     padding-left: var(--spacers-dp8);
+    overflow-wrap: anywhere;
 }
