@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, Input } from '@dhis2/ui'
+import { SingleSelect, Input, Divider } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -25,7 +25,7 @@ const SingleSelectOption = ({ label, active, value, icon, onClick }) => (
         data-value={value}
         onClick={(e) => onClick({}, e)}
     >
-        <span className={styles.optionIcon}>{icon}</span>
+        {icon && <span className={styles.optionIcon}>{icon}</span>}
         {label}
     </div>
 )
@@ -66,10 +66,10 @@ const ProgramDimensionsFilter = ({
                 dense
             >
                 <SingleSelectOption
-                    label={i18n.t('All')}
+                    label={i18n.t('All types')}
                     value={DIMENSION_TYPE_ALL}
-                    icon={<DimensionIcon dimensionType={DIMENSION_TYPE_ALL} />}
                 />
+                <Divider />
                 <SingleSelectOption
                     label={i18n.t('Data element')}
                     value={DIMENSION_TYPE_DATA_ELEMENT}
