@@ -124,7 +124,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     if (fetching) {
         return (
             <CenteredContent>
-                <CircularLoader />
+                <CircularLoader small />
             </CenteredContent>
         )
     }
