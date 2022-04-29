@@ -224,7 +224,7 @@ export const Visualization = ({
             headerName = `${header.column} (${postfix})`
         } else if (reverseLookupDimensionId) {
             dimensionId = reverseLookupDimensionId
-            headerName = metadata[dimensionId]?.name
+            headerName = data?.metadata[dimensionId]?.name
         }
 
         return (
@@ -378,9 +378,9 @@ export const Visualization = ({
                                     >
                                         <Pagination
                                             disabled={fetching}
-                                            page={data.page}
-                                            pageSize={data.pageSize}
-                                            isLastPage={data.isLastPage}
+                                            page={data.pager.page}
+                                            pageSize={data.pager.pageSize}
+                                            isLastPage={data.pager.isLastPage}
                                             onPageChange={setPage}
                                             onPageSizeChange={setPageSize}
                                             pageSizeSelectText={i18n.t(

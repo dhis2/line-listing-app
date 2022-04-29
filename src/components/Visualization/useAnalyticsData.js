@@ -359,9 +359,11 @@ const useAnalyticsData = ({
                     })
             }
 
+            const metadata = analyticsResponse.metaData.items
+
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, ...pager })
-            onResponsesReceived(analyticsResponse)
+            mounted.current && setData({ headers, rows, metadata, pager })
+            onResponseReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
         } finally {
