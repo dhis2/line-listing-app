@@ -1,3 +1,10 @@
+## [1.1.64](https://github.com/dhis2/line-listing-app/compare/v1.1.63...v1.1.64) (2022-05-02)
+
+
+### Bug Fixes
+
+* prevent fetchError from reemerging when not loading ([#123](https://github.com/dhis2/line-listing-app/issues/123)) ([760d137](https://github.com/dhis2/line-listing-app/commit/760d1377bf95b07339072b361f76d4b511e531ed))
+
 ## [1.1.63](https://github.com/dhis2/line-listing-app/compare/v1.1.62...v1.1.63) (2022-05-02)
 
 
