@@ -110,7 +110,6 @@ const dataStatisticsMutation = {
 const App = () => {
     const dataEngine = useDataEngine()
     const [data, setData] = useState()
-    const [fetchError, setFetchError] = useState()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
@@ -128,29 +127,6 @@ const App = () => {
         interpretationsUnitRef.current.refresh()
     }
 
-    useEffect(() => {
-        if (!error && fetchError) {
-            if (fetchError.details?.httpStatusCode === 404) {
-                dispatch(
-                    acClearAll({
-                        error: visualizationNotFoundError(),
-                        digitGroupSeparator,
-                        rootOrgUnits,
-                    })
-                )
-            } else {
-                dispatch(
-                    acClearAll({
-                        error:
-                            fetchError.details.message || genericServerError(),
-                        digitGroupSeparator,
-                        rootOrgUnits,
-                    })
-                )
-            }
-        }
-    }, [error, fetchError])
-
     const parseLocation = (location) => {
         const pathParts = location.pathname.slice(1).split('/')
         const id = pathParts[0]
@@ -159,7 +135,6 @@ const App = () => {
     }
 
     const loadVisualization = async (location) => {
-        setFetchError(undefined)
         dispatch(acSetVisualizationLoading(true))
         const isExisting = location.pathname.length > 1
         if (isExisting) {
@@ -180,8 +155,28 @@ const App = () => {
                 })
 
                 setData(data)
-            } catch (error) {
-                setFetchError(error)
+            } catch (fetchError) {
+                if (!error && fetchError) {
+                    if (fetchError.details?.httpStatusCode === 404) {
+                        dispatch(
+                            acClearAll({
+                                error: visualizationNotFoundError(),
+                                digitGroupSeparator,
+                                rootOrgUnits,
+                            })
+                        )
+                    } else {
+                        dispatch(
+                            acClearAll({
+                                error:
+                                    fetchError.details.message ||
+                                    genericServerError(),
+                                digitGroupSeparator,
+                                rootOrgUnits,
+                            })
+                        )
+                    }
+                }
             }
         } else {
             dispatch(
