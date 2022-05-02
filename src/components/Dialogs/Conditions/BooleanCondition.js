@@ -65,7 +65,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
 BaseCondition.propTypes = {
     condition: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    showFalseOption: PropTypes.boolean,
+    showFalseOption: PropTypes.bool,
 }
 
 export const BooleanCondition = (props) => (

@@ -19,6 +19,7 @@ import { acSetLoadError } from '../../actions/loader.js'
 import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
 import {
     VALUE_TYPE_DATE,
+    VALUE_TYPE_DATETIME,
     VALUE_TYPE_TEXT,
     VALUE_TYPE_URL,
 } from '../../modules/conditions.js'
@@ -90,7 +91,7 @@ export const Visualization = ({
 
     if (error) {
         let output
-        if (error.details) {
+        if (error.details?.errorCode) {
             switch (error.details.errorCode) {
                 case 'E7205':
                     output = noPeriodError()
@@ -99,7 +100,7 @@ export const Visualization = ({
                     output = indicatorError()
                     break
                 default:
-                    output = error
+                    output = genericServerError()
             }
         } else {
             output = genericServerError()
@@ -153,11 +154,14 @@ export const Visualization = ({
             ].includes(header?.name)
         ) {
             return metadata[value]?.name || value
-        } else if (header?.valueType === VALUE_TYPE_DATE) {
+        } else if (
+            [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)
+        ) {
             return (
                 value &&
                 moment(value).format(
-                    header.name === headersMap[DIMENSION_ID_LAST_UPDATED]
+                    header.name === headersMap[DIMENSION_ID_LAST_UPDATED] ||
+                        header?.valueType === VALUE_TYPE_DATETIME
                         ? 'yyyy-MM-DD hh:mm'
                         : 'yyyy-MM-DD'
                 )

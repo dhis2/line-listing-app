@@ -1,3 +1,39 @@
+## [1.1.64](https://github.com/dhis2/line-listing-app/compare/v1.1.63...v1.1.64) (2022-05-02)
+
+
+### Bug Fixes
+
+* prevent fetchError from reemerging when not loading ([#123](https://github.com/dhis2/line-listing-app/issues/123)) ([760d137](https://github.com/dhis2/line-listing-app/commit/760d1377bf95b07339072b361f76d4b511e531ed))
+
+## [1.1.63](https://github.com/dhis2/line-listing-app/compare/v1.1.62...v1.1.63) (2022-05-02)
+
+
+### Bug Fixes
+
+* fallback to generic server error ([0fc0f75](https://github.com/dhis2/line-listing-app/commit/0fc0f75236bb0470ba1c5b29e45bc389379b4591))
+* fallback to generic server error (TECH-1140) [#115](https://github.com/dhis2/line-listing-app/issues/115) ([2c07bc5](https://github.com/dhis2/line-listing-app/commit/2c07bc59fb15ed0c41cce94c6a8580f83de93590))
+
+## [1.1.62](https://github.com/dhis2/line-listing-app/compare/v1.1.61...v1.1.62) (2022-04-29)
+
+
+### Bug Fixes
+
+* use correct PropTypes and some missing strings ([#114](https://github.com/dhis2/line-listing-app/issues/114)) ([61640ca](https://github.com/dhis2/line-listing-app/commit/61640ca597771613a1ca5c147b75853081a5bec2))
+
+## [1.1.61](https://github.com/dhis2/line-listing-app/compare/v1.1.60...v1.1.61) (2022-04-29)
+
+
+### Bug Fixes
+
+* datetime formatting ([#119](https://github.com/dhis2/line-listing-app/issues/119)) ([5703f46](https://github.com/dhis2/line-listing-app/commit/5703f468fc735b812fc57b8fa8f20333b516c339))
+
+## [1.1.60](https://github.com/dhis2/line-listing-app/compare/v1.1.59...v1.1.60) (2022-04-29)
+
+
+### Bug Fixes
+
+* use small circular loader TECH-1137 ([#118](https://github.com/dhis2/line-listing-app/issues/118)) ([06bf647](https://github.com/dhis2/line-listing-app/commit/06bf647a3a54180a7d650bb6318716b54f76ca01))
+
 ## [1.1.59](https://github.com/dhis2/line-listing-app/compare/v1.1.58...v1.1.59) (2022-04-29)
 
 
