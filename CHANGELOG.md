@@ -1,3 +1,62 @@
+## [1.1.65](https://github.com/dhis2/line-listing-app/compare/v1.1.64...v1.1.65) (2022-05-02)
+
+
+### Bug Fixes
+
+* add overflow-wrap: anywhere for wrapping of text in dimension item ([#120](https://github.com/dhis2/line-listing-app/issues/120)) ([b7cbdc8](https://github.com/dhis2/line-listing-app/commit/b7cbdc8fbbf6c99b9ba712f05d6cca994d60f3ac))
+
+## [1.1.64](https://github.com/dhis2/line-listing-app/compare/v1.1.63...v1.1.64) (2022-05-02)
+
+
+### Bug Fixes
+
+* prevent fetchError from reemerging when not loading ([#123](https://github.com/dhis2/line-listing-app/issues/123)) ([760d137](https://github.com/dhis2/line-listing-app/commit/760d1377bf95b07339072b361f76d4b511e531ed))
+
+## [1.1.63](https://github.com/dhis2/line-listing-app/compare/v1.1.62...v1.1.63) (2022-05-02)
+
+
+### Bug Fixes
+
+* fallback to generic server error ([0fc0f75](https://github.com/dhis2/line-listing-app/commit/0fc0f75236bb0470ba1c5b29e45bc389379b4591))
+* fallback to generic server error (TECH-1140) [#115](https://github.com/dhis2/line-listing-app/issues/115) ([2c07bc5](https://github.com/dhis2/line-listing-app/commit/2c07bc59fb15ed0c41cce94c6a8580f83de93590))
+
+## [1.1.62](https://github.com/dhis2/line-listing-app/compare/v1.1.61...v1.1.62) (2022-04-29)
+
+
+### Bug Fixes
+
+* use correct PropTypes and some missing strings ([#114](https://github.com/dhis2/line-listing-app/issues/114)) ([61640ca](https://github.com/dhis2/line-listing-app/commit/61640ca597771613a1ca5c147b75853081a5bec2))
+
+## [1.1.61](https://github.com/dhis2/line-listing-app/compare/v1.1.60...v1.1.61) (2022-04-29)
+
+
+### Bug Fixes
+
+* datetime formatting ([#119](https://github.com/dhis2/line-listing-app/issues/119)) ([5703f46](https://github.com/dhis2/line-listing-app/commit/5703f468fc735b812fc57b8fa8f20333b516c339))
+
+## [1.1.60](https://github.com/dhis2/line-listing-app/compare/v1.1.59...v1.1.60) (2022-04-29)
+
+
+### Bug Fixes
+
+* use small circular loader TECH-1137 ([#118](https://github.com/dhis2/line-listing-app/issues/118)) ([06bf647](https://github.com/dhis2/line-listing-app/commit/06bf647a3a54180a7d650bb6318716b54f76ca01))
+
+## [1.1.59](https://github.com/dhis2/line-listing-app/compare/v1.1.58...v1.1.59) (2022-04-29)
+
+
+### Bug Fixes
+
+* Remove icon for all, and rename to 'All types' with a line underneath ([#117](https://github.com/dhis2/line-listing-app/issues/117)) ([f0766d5](https://github.com/dhis2/line-listing-app/commit/f0766d56ed46738c8c218ea208f56f4a89daef35))
+
+## [1.1.58](https://github.com/dhis2/line-listing-app/compare/v1.1.57...v1.1.58) (2022-04-28)
+
+
+### Bug Fixes
+
+* add dimension icons in the dimension selector in program ([#102](https://github.com/dhis2/line-listing-app/issues/102)) ([3170ca5](https://github.com/dhis2/line-listing-app/commit/3170ca5706f3a403cc48f6695cae2c4855c68265))
+* add tooltip explaining why a time dimension is disabled ([#109](https://github.com/dhis2/line-listing-app/issues/109)) ([ab379b2](https://github.com/dhis2/line-listing-app/commit/ab379b26af88e57ad0e5424a6a58e9f76aad5d4d))
+* various interpretations fixes ([#87](https://github.com/dhis2/line-listing-app/issues/87)) ([9e4571a](https://github.com/dhis2/line-listing-app/commit/9e4571a9c636ca2ab09326980a3a3516870ff4aa))
+
 ## [1.1.57](https://github.com/dhis2/line-listing-app/compare/v1.1.56...v1.1.57) (2022-04-28)
 
 

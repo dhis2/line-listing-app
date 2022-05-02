@@ -45,12 +45,7 @@ export const Interpretation = ({
         <Message
             text={interpretation.text}
             created={interpretation.created}
-            id={interpretation.id}
             username={interpretation.user.displayName}
-            // There is a weird behaviour we couldn't figure out which causes the interpretation view (modal) to open when the SharingDialog opened via the button in the Message component is closed or its content is clicked.
-            // Even with stopPropagation in place on the click of the action buttons in Message, it seems the click is propagated but only triggering the interpretation's Modal to open when the SharingDialog modal is closed.
-            // To avoid this issue we don't set the onClick when the SharingDialog is open
-            onClick={disabled || showSharingDialog ? undefined : onClick}
         >
             {!disabled && (
                 <MessageStatsBar>

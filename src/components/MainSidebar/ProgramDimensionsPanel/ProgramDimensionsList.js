@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import LoadingMask from '../../LoadingMask/LoadingMask.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { useProgramDimensions } from './useProgramDimensions.js'
 
@@ -23,10 +22,6 @@ const ProgramDimensionsList = ({
 
     if (!visible) {
         return null
-    }
-
-    if (loading) {
-        return <LoadingMask />
     }
 
     const draggableDimensions = dimensions.map((dimension) => ({
