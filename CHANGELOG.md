@@ -1,3 +1,10 @@
+## [1.1.65](https://github.com/dhis2/line-listing-app/compare/v1.1.64...v1.1.65) (2022-05-02)
+
+
+### Bug Fixes
+
+* add overflow-wrap: anywhere for wrapping of text in dimension item ([#120](https://github.com/dhis2/line-listing-app/issues/120)) ([b7cbdc8](https://github.com/dhis2/line-listing-app/commit/b7cbdc8fbbf6c99b9ba712f05d6cca994d60f3ac))
+
 ## [1.1.64](https://github.com/dhis2/line-listing-app/compare/v1.1.63...v1.1.64) (2022-05-02)
 
 
