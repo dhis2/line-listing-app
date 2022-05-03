@@ -138,7 +138,8 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_LONG_TEXT:
         case VALUE_TYPE_EMAIL:
         case VALUE_TYPE_USERNAME:
-        case VALUE_TYPE_URL: {
+        case VALUE_TYPE_URL:
+        case VALUE_TYPE_PHONE_NUMBER: {
             return ALPHA_NUMERIC_OPERATORS
         }
         case VALUE_TYPE_DATE:
@@ -153,7 +154,6 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_INTEGER_POSITIVE:
         case VALUE_TYPE_INTEGER_NEGATIVE:
         case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
-        case VALUE_TYPE_PHONE_NUMBER:
         default: {
             return NUMERIC_OPERATORS
         }
