@@ -1,3 +1,10 @@
+## [1.1.67](https://github.com/dhis2/line-listing-app/compare/v1.1.66...v1.1.67) (2022-05-03)
+
+
+### Bug Fixes
+
+* disable pagination while fetching data TECH-1119 ([#110](https://github.com/dhis2/line-listing-app/issues/110)) ([5b1a5ec](https://github.com/dhis2/line-listing-app/commit/5b1a5ece55c5c8bb90f709b92e43537eea8fc435))
+
 ## [1.1.66](https://github.com/dhis2/line-listing-app/compare/v1.1.65...v1.1.66) (2022-05-03)
 
 
