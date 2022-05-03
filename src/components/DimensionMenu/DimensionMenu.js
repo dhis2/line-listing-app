@@ -30,14 +30,9 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const buttonRef = useRef()
     const [menuIsOpen, setMenuIsOpen] = useState(false)
 
-    const openMenu = (e) => {
-        setMenuIsOpen(true)
-        e.stopPropagation()
-    }
-
-    const closeMenu = (_, e) => {
-        setMenuIsOpen(false)
-        e.stopPropagation()
+    const toggleMenu = (e) => {
+        setMenuIsOpen(!menuIsOpen)
+        e && e.stopPropagation()
     }
 
     const getMenuId = () => `menu-for-${dimensionId}`
@@ -64,14 +59,14 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
                 <IconButton
                     ariaOwns={menuIsOpen ? getMenuId() : null}
                     ariaHaspopup={true}
-                    onClick={openMenu}
+                    onClick={toggleMenu}
                     dataTest={`layout-dimension-menu-button-${dimensionId}`}
                 >
                     <IconMore16 />
                 </IconButton>
             </div>
             {menuIsOpen && (
-                <Layer onClick={closeMenu}>
+                <Layer onClick={(_, e) => toggleMenu(e)}>
                     <Popper reference={buttonRef} placement="bottom-start">
                         <MenuItems
                             dimensionId={dimensionId}
@@ -79,7 +74,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
                             visType={visType}
                             axisItemHandler={axisItemHandler}
                             removeItemHandler={removeItemHandler}
-                            onClose={closeMenu}
+                            onClose={toggleMenu}
                             dataTest={'layout-dimension-menu-dimension-menu'}
                         />
                     </Popper>
