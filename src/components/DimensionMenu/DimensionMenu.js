@@ -35,7 +35,10 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
         e.stopPropagation()
     }
 
-    const closeMenu = () => setMenuIsOpen(false)
+    const closeMenu = (_, e) => {
+        setMenuIsOpen(false)
+        e.stopPropagation()
+    }
 
     const getMenuId = () => `menu-for-${dimensionId}`
 
