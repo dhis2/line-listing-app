@@ -196,13 +196,10 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = Number.isInteger(header?.stageOffset)
+
+        const dimensionId = Number.isInteger(header?.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
-
-        const reverseLookupDimensionId = Object.keys(headersMap).find(
-            (key) => headersMap[key] === header.name
-        )
 
         if (Number.isInteger(header.stageOffset)) {
             let postfix
@@ -222,9 +219,6 @@ export const Visualization = ({
             }
 
             headerName = `${header.column} (${postfix})`
-        } else if (reverseLookupDimensionId) {
-            dimensionId = reverseLookupDimensionId
-            headerName = data?.metadata[dimensionId]?.name
         }
 
         return (
