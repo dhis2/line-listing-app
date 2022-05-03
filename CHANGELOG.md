@@ -1,3 +1,11 @@
+## [1.1.68](https://github.com/dhis2/line-listing-app/compare/v1.1.67...v1.1.68) (2022-05-03)
+
+
+### Bug Fixes
+
+* update title for most viewed items ([20632f3](https://github.com/dhis2/line-listing-app/commit/20632f30faa620a379a8594de2b655f95ec6dbda))
+* update title for most viewed items (TECH-1148) [#128](https://github.com/dhis2/line-listing-app/issues/128) ([bea85e1](https://github.com/dhis2/line-listing-app/commit/bea85e17423adde89e23c636de771f8336230fea))
+
 ## [1.1.67](https://github.com/dhis2/line-listing-app/compare/v1.1.66...v1.1.67) (2022-05-03)
 
 
