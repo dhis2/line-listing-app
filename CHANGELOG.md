@@ -1,3 +1,11 @@
+## [1.1.66](https://github.com/dhis2/line-listing-app/compare/v1.1.65...v1.1.66) (2022-05-03)
+
+
+### Bug Fixes
+
+* use correct operator type for phone number ([a902427](https://github.com/dhis2/line-listing-app/commit/a902427dfd041fbe03e2ccb3f48343b0055299fb))
+* use correct operator type for phone number (TECH-1147) [#124](https://github.com/dhis2/line-listing-app/issues/124) ([d523f26](https://github.com/dhis2/line-listing-app/commit/d523f260530504e086b5cee29d1bc050a68dd788))
+
 ## [1.1.65](https://github.com/dhis2/line-listing-app/compare/v1.1.64...v1.1.65) (2022-05-02)
 
 
