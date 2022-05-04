@@ -1,18 +1,18 @@
-import { ouIdHelper } from '@dhis2/analytics'
+import {
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    ouIdHelper,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+    DIMENSION_TYPE_PERIOD,
+    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import { getConditions } from '../../modules/conditions.js'
-import {
-    DIMENSION_TYPE_CATEGORY,
-    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
-    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
-    DIMENSION_TYPE_STATUS,
-    DIMENSION_TYPE_PERIOD,
-    DIMENSION_TYPE_OU,
-    DIMENSION_TYPE_DATA_ELEMENT,
-} from '../../modules/dimensionConstants.js'
+import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
     sGetUiConditionsByDimension,
@@ -152,7 +152,7 @@ export const TooltipContent = ({
             )
 
         case DIMENSION_TYPE_PERIOD:
-        case DIMENSION_TYPE_OU:
+        case DIMENSION_TYPE_ORGANISATION_UNIT:
             return (
                 <ul className={styles.list}>
                     {itemDisplayNames

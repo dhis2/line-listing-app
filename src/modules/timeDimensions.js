@@ -1,6 +1,6 @@
+import { DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
-    DIMENSION_TYPE_PERIOD,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,

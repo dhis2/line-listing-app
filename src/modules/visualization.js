@@ -6,14 +6,15 @@ import {
     VIS_TYPE_PIVOT_TABLE,
     DIMENSION_ID_ORGUNIT,
     DIMENSION_ID_PERIOD,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_DATA_ELEMENT,
+    DIMENSION_TYPE_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
-    DIMENSION_TYPE_PERIOD,
     DIMENSION_ID_CREATED_BY,
-    DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
@@ -99,7 +100,10 @@ const transformDimensions = (dimensions, { outputType, type }) =>
                 !['longitude', 'latitude'].includes(dimensionObj.dimension)
         )
         .map((dimensionObj) => {
-            if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
+            if (
+                dimensionObj.dimensionType ===
+                DIMENSION_TYPE_PROGRAM_DATA_ELEMENT
+            ) {
                 return {
                     ...dimensionObj,
                     dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
