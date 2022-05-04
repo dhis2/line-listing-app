@@ -313,6 +313,7 @@ export const Visualization = ({
                                     }}
                                 >
                                     <Pagination
+                                        disabled={fetching}
                                         page={data.page}
                                         pageSize={data.pageSize}
                                         isLastPage={data.isLastPage}

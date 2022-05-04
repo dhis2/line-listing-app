@@ -146,7 +146,7 @@ const StartScreen = ({ error, setLoadError }) => {
                                     className={styles.title}
                                     data-test="start-screen-secondary-section-title"
                                 >
-                                    {i18n.t('Your most viewed event reports')}
+                                    {i18n.t('Your most viewed line lists')}
                                 </h3>
                                 {mostViewed.map((vis, index) => (
                                     <p

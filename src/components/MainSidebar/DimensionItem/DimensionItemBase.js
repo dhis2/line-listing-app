@@ -22,8 +22,9 @@ const DimensionItemBase = ({
             [styles.disabled]: disabled,
             [styles.dragging]: dragging,
         })}
+        onClick={onClick}
     >
-        <div className={styles.iconAndLabelWrapper} onClick={onClick}>
+        <div className={styles.iconAndLabelWrapper}>
             <div className={styles.icon}>
                 <DimensionIcon dimensionType={dimensionType} />
             </div>
