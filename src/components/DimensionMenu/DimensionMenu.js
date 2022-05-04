@@ -30,7 +30,10 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const buttonRef = useRef()
     const [menuIsOpen, setMenuIsOpen] = useState(false)
 
-    const toggleMenu = () => setMenuIsOpen(!menuIsOpen)
+    const toggleMenu = (e) => {
+        setMenuIsOpen(!menuIsOpen)
+        e && e.stopPropagation()
+    }
 
     const getMenuId = () => `menu-for-${dimensionId}`
 
@@ -63,7 +66,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
                 </IconButton>
             </div>
             {menuIsOpen && (
-                <Layer onClick={toggleMenu}>
+                <Layer onClick={(_, e) => toggleMenu(e)}>
                     <Popper reference={buttonRef} placement="bottom-start">
                         <MenuItems
                             dimensionId={dimensionId}

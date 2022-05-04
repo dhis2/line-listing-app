@@ -1,3 +1,29 @@
+## [1.1.69](https://github.com/dhis2/line-listing-app/compare/v1.1.68...v1.1.69) (2022-05-03)
+
+
+### Bug Fixes
+
+* dimension item clickable everywhere ([df2ddda](https://github.com/dhis2/line-listing-app/commit/df2dddacdd10b39c39ac6c9f7a8af78e024bacdc))
+* dimension item fixes (TECH-1135) [#129](https://github.com/dhis2/line-listing-app/issues/129) ([9b1216c](https://github.com/dhis2/line-listing-app/commit/9b1216c3824c4383aa71e74a11ac2a5dccaaeac7))
+* handle all three cases in one toggle ([4fef7a6](https://github.com/dhis2/line-listing-app/commit/4fef7a65ba75204f76b8eaa7ff82438b5294a1a0))
+* stop event propagation when clicking on the Layer ([39a3af2](https://github.com/dhis2/line-listing-app/commit/39a3af237ec8fd3f5a243e4a074202c312a85437))
+* time dimensions full width ([9621288](https://github.com/dhis2/line-listing-app/commit/962128815080f34636fe2327e4d1d3a88beef1b8))
+
+## [1.1.68](https://github.com/dhis2/line-listing-app/compare/v1.1.67...v1.1.68) (2022-05-03)
+
+
+### Bug Fixes
+
+* update title for most viewed items ([20632f3](https://github.com/dhis2/line-listing-app/commit/20632f30faa620a379a8594de2b655f95ec6dbda))
+* update title for most viewed items (TECH-1148) [#128](https://github.com/dhis2/line-listing-app/issues/128) ([bea85e1](https://github.com/dhis2/line-listing-app/commit/bea85e17423adde89e23c636de771f8336230fea))
+
+## [1.1.67](https://github.com/dhis2/line-listing-app/compare/v1.1.66...v1.1.67) (2022-05-03)
+
+
+### Bug Fixes
+
+* disable pagination while fetching data TECH-1119 ([#110](https://github.com/dhis2/line-listing-app/issues/110)) ([5b1a5ec](https://github.com/dhis2/line-listing-app/commit/5b1a5ece55c5c8bb90f709b92e43537eea8fc435))
+
 ## [1.1.66](https://github.com/dhis2/line-listing-app/compare/v1.1.65...v1.1.66) (2022-05-03)
 
 
