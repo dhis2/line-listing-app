@@ -1,4 +1,4 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
+import { useCachedDataQuery, DIMENSION_TYPE_ALL } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionConstants.js'
 import {
     PROGRAM_TYPE_WITH_REGISTRATION,
     PROGRAM_TYPE_WITHOUT_REGISTRATION,

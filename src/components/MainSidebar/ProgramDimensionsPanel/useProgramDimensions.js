@@ -1,10 +1,10 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
-import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
 import {
+    useCachedDataQuery,
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
-} from '../../../modules/dimensionConstants.js'
+} from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
+import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {

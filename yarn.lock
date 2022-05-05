@@ -1950,7 +1950,7 @@
     "@dhis2/ui-constants" "8.2.4"
     classnames "^2.3.1"
     prop-types "^15.7.2"
-
+    
 "@dhis2/analytics@^23.8.2":
   version "23.8.2"
   resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.2.tgz#cc9e6dac18102bef771acfea41d49bee641b26a0"
