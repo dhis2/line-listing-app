@@ -1,3 +1,10 @@
+## [1.1.72](https://github.com/dhis2/line-listing-app/compare/v1.1.71...v1.1.72) (2022-05-05)
+
+
+### Bug Fixes
+
+* use dimension types from Analytics [#131](https://github.com/dhis2/line-listing-app/issues/131) ([494031f](https://github.com/dhis2/line-listing-app/commit/494031f70d6202aa84d03521780892a692f750d6))
+
 ## [1.1.71](https://github.com/dhis2/line-listing-app/compare/v1.1.70...v1.1.71) (2022-05-05)
 
 
