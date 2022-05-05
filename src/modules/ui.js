@@ -94,7 +94,7 @@ const getConditionsFromVisualization = (vis) =>
 export const PROP_MOST_RECENT = 'mostRecent'
 export const PROP_OLDEST = 'oldest'
 
-export const getDefaultCurrentRepetition = () => [0]
+export const getDefaultCurrentRepetition = () => []
 export const getDefaultUiRepetition = () => ({
     [PROP_MOST_RECENT]: 1,
     [PROP_OLDEST]: 0,
@@ -109,33 +109,38 @@ export const parseCurrentRepetition = (repetition) => {
     if (
         !(
             Array.isArray(repetition) &&
-            repetition.length &&
-            repetition.every((i) => typeof i === 'number')
+            repetition.every((i) => Number.isFinite(i))
         )
     ) {
         throw new Error(PARSE_CURRENT_REPETITION_ERROR)
     }
 
-    return {
-        [PROP_MOST_RECENT]: repetition.filter((n) => n < 1).length,
-        [PROP_OLDEST]: repetition.filter((n) => n > 0).length,
-    }
+    return repetition.length
+        ? {
+              [PROP_MOST_RECENT]: repetition.filter((n) => n < 1).length,
+              [PROP_OLDEST]: repetition.filter((n) => n > 0).length,
+          }
+        : getDefaultUiRepetition()
 }
 
 export const parseUiRepetition = (repetition) => {
     if (
         !(
             isObject(repetition) &&
-            typeof repetition[PROP_MOST_RECENT] === 'number' &&
+            Number.isFinite(repetition[PROP_MOST_RECENT]) &&
             repetition[PROP_MOST_RECENT] >= 0 &&
-            typeof repetition[PROP_OLDEST] === 'number' &&
+            Number.isFinite(repetition[PROP_OLDEST]) &&
             repetition[PROP_OLDEST] >= 0
         )
     ) {
         throw new Error(PARSE_UI_REPETITION_ERROR)
     }
 
-    if (repetition[PROP_MOST_RECENT] === 0 && repetition[PROP_OLDEST] === 0) {
+    // default
+    if (
+        repetition[PROP_OLDEST] === 0 &&
+        [0, 1].includes(repetition[PROP_MOST_RECENT])
+    ) {
         return getDefaultCurrentRepetition()
     }
 
