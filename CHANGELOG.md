@@ -1,3 +1,12 @@
+## [1.1.70](https://github.com/dhis2/line-listing-app/compare/v1.1.69...v1.1.70) (2022-05-05)
+
+
+### Bug Fixes
+
+* set default repetition to no repetition ([cbb3928](https://github.com/dhis2/line-listing-app/commit/cbb3928600090c3b438b67f70c7667e1d4987ba6))
+* set default repetition to no repetition (TECH-1143) [#116](https://github.com/dhis2/line-listing-app/issues/116) ([1f49189](https://github.com/dhis2/line-listing-app/commit/1f491894b8865248cc69259a8164645f6647794a))
+* set new default value to empty array, update tests ([a48353e](https://github.com/dhis2/line-listing-app/commit/a48353e28ee4a2064c886370bb697c3423ae69a8))
+
 ## [1.1.69](https://github.com/dhis2/line-listing-app/compare/v1.1.68...v1.1.69) (2022-05-03)
 
 
