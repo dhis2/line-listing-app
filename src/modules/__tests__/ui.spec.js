@@ -20,17 +20,27 @@ describe('parseCurrentRepetition', () => {
     })
 
     it('converts from current to ui format', () => {
-        expect(() => parseCurrentRepetition()).toThrow(
-            PARSE_CURRENT_REPETITION_ERROR
-        )
+        const invalidInputs = [
+            1,
+            'a',
+            ['a'],
+            true,
+            [true],
+            {},
+            [{}],
+            NaN,
+            [NaN],
+            undefined,
+            [undefined],
+            null,
+            [null],
+        ]
 
-        expect(() => parseCurrentRepetition([])).toThrow(
-            PARSE_CURRENT_REPETITION_ERROR
-        )
-
-        expect(() => parseCurrentRepetition([1, 2, null])).toThrow(
-            PARSE_CURRENT_REPETITION_ERROR
-        )
+        invalidInputs.forEach((input) => {
+            expect(() => parseCurrentRepetition(input)).toThrow(
+                PARSE_CURRENT_REPETITION_ERROR
+            )
+        })
 
         expect(parseCurrentRepetition(defaultCurrentRepetition)).toEqual(
             defaultUiRepetition
@@ -93,22 +103,22 @@ describe('parseUiRepetition', () => {
         expect(() =>
             parseUiRepetition({
                 [PROP_MOST_RECENT]: 1,
-                [PROP_OLDEST]: true,
+                [PROP_OLDEST]: NaN,
             })
         ).toThrow(PARSE_UI_REPETITION_ERROR)
 
-        // invalid, but allowed in dialog
+        // default
+        expect(parseUiRepetition(defaultUiRepetition)).toEqual(
+            defaultCurrentRepetition
+        )
+
+        // invalid, but allowed in dialog, return default
         expect(
             parseUiRepetition({
                 [PROP_MOST_RECENT]: 0,
                 [PROP_OLDEST]: 0,
             })
         ).toEqual(defaultCurrentRepetition)
-
-        // default
-        expect(parseUiRepetition(defaultUiRepetition)).toEqual(
-            defaultCurrentRepetition
-        )
 
         expect(
             parseUiRepetition({
