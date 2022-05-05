@@ -91,7 +91,7 @@ export const Visualization = ({
 
     if (error) {
         let output
-        if (error.details) {
+        if (error.details?.errorCode) {
             switch (error.details.errorCode) {
                 case 'E7205':
                     output = noPeriodError()
@@ -100,7 +100,7 @@ export const Visualization = ({
                     output = indicatorError()
                     break
                 default:
-                    output = error
+                    output = genericServerError()
             }
         } else {
             output = genericServerError()
@@ -313,6 +313,7 @@ export const Visualization = ({
                                     }}
                                 >
                                     <Pagination
+                                        disabled={fetching}
                                         page={data.page}
                                         pageSize={data.pageSize}
                                         isLastPage={data.isLastPage}

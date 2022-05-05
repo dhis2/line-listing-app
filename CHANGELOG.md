@@ -1,3 +1,59 @@
+## [1.1.69](https://github.com/dhis2/line-listing-app/compare/v1.1.68...v1.1.69) (2022-05-03)
+
+
+### Bug Fixes
+
+* dimension item clickable everywhere ([df2ddda](https://github.com/dhis2/line-listing-app/commit/df2dddacdd10b39c39ac6c9f7a8af78e024bacdc))
+* dimension item fixes (TECH-1135) [#129](https://github.com/dhis2/line-listing-app/issues/129) ([9b1216c](https://github.com/dhis2/line-listing-app/commit/9b1216c3824c4383aa71e74a11ac2a5dccaaeac7))
+* handle all three cases in one toggle ([4fef7a6](https://github.com/dhis2/line-listing-app/commit/4fef7a65ba75204f76b8eaa7ff82438b5294a1a0))
+* stop event propagation when clicking on the Layer ([39a3af2](https://github.com/dhis2/line-listing-app/commit/39a3af237ec8fd3f5a243e4a074202c312a85437))
+* time dimensions full width ([9621288](https://github.com/dhis2/line-listing-app/commit/962128815080f34636fe2327e4d1d3a88beef1b8))
+
+## [1.1.68](https://github.com/dhis2/line-listing-app/compare/v1.1.67...v1.1.68) (2022-05-03)
+
+
+### Bug Fixes
+
+* update title for most viewed items ([20632f3](https://github.com/dhis2/line-listing-app/commit/20632f30faa620a379a8594de2b655f95ec6dbda))
+* update title for most viewed items (TECH-1148) [#128](https://github.com/dhis2/line-listing-app/issues/128) ([bea85e1](https://github.com/dhis2/line-listing-app/commit/bea85e17423adde89e23c636de771f8336230fea))
+
+## [1.1.67](https://github.com/dhis2/line-listing-app/compare/v1.1.66...v1.1.67) (2022-05-03)
+
+
+### Bug Fixes
+
+* disable pagination while fetching data TECH-1119 ([#110](https://github.com/dhis2/line-listing-app/issues/110)) ([5b1a5ec](https://github.com/dhis2/line-listing-app/commit/5b1a5ece55c5c8bb90f709b92e43537eea8fc435))
+
+## [1.1.66](https://github.com/dhis2/line-listing-app/compare/v1.1.65...v1.1.66) (2022-05-03)
+
+
+### Bug Fixes
+
+* use correct operator type for phone number ([a902427](https://github.com/dhis2/line-listing-app/commit/a902427dfd041fbe03e2ccb3f48343b0055299fb))
+* use correct operator type for phone number (TECH-1147) [#124](https://github.com/dhis2/line-listing-app/issues/124) ([d523f26](https://github.com/dhis2/line-listing-app/commit/d523f260530504e086b5cee29d1bc050a68dd788))
+
+## [1.1.65](https://github.com/dhis2/line-listing-app/compare/v1.1.64...v1.1.65) (2022-05-02)
+
+
+### Bug Fixes
+
+* add overflow-wrap: anywhere for wrapping of text in dimension item ([#120](https://github.com/dhis2/line-listing-app/issues/120)) ([b7cbdc8](https://github.com/dhis2/line-listing-app/commit/b7cbdc8fbbf6c99b9ba712f05d6cca994d60f3ac))
+
+## [1.1.64](https://github.com/dhis2/line-listing-app/compare/v1.1.63...v1.1.64) (2022-05-02)
+
+
+### Bug Fixes
+
+* prevent fetchError from reemerging when not loading ([#123](https://github.com/dhis2/line-listing-app/issues/123)) ([760d137](https://github.com/dhis2/line-listing-app/commit/760d1377bf95b07339072b361f76d4b511e531ed))
+
+## [1.1.63](https://github.com/dhis2/line-listing-app/compare/v1.1.62...v1.1.63) (2022-05-02)
+
+
+### Bug Fixes
+
+* fallback to generic server error ([0fc0f75](https://github.com/dhis2/line-listing-app/commit/0fc0f75236bb0470ba1c5b29e45bc389379b4591))
+* fallback to generic server error (TECH-1140) [#115](https://github.com/dhis2/line-listing-app/issues/115) ([2c07bc5](https://github.com/dhis2/line-listing-app/commit/2c07bc59fb15ed0c41cce94c6a8580f83de93590))
+
 ## [1.1.62](https://github.com/dhis2/line-listing-app/compare/v1.1.61...v1.1.62) (2022-04-29)
 
 
