@@ -1,3 +1,10 @@
+## [1.1.71](https://github.com/dhis2/line-listing-app/compare/v1.1.70...v1.1.71) (2022-05-05)
+
+
+### Bug Fixes
+
+* remove min-width on Toolbar buttons TECH-1145 ([#130](https://github.com/dhis2/line-listing-app/issues/130)) ([b782db5](https://github.com/dhis2/line-listing-app/commit/b782db5ac7a3da2429c57f92479744eb629fc14e))
+
 ## [1.1.70](https://github.com/dhis2/line-listing-app/compare/v1.1.69...v1.1.70) (2022-05-05)
 
 
