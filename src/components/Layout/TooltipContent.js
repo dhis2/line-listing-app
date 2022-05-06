@@ -10,7 +10,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getConditions } from '../../modules/conditions.js'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
@@ -32,12 +32,16 @@ const labels = {
 
 const renderLimit = 5
 
-export const TooltipContent = ({
-    dimension,
-    itemIds,
-    metadata,
-    conditions,
-}) => {
+export const TooltipContent = ({ dimension }) => {
+    const metadata = useSelector(sGetMetadata)
+    const itemIds =
+        useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
+        []
+    const conditions =
+        useSelector((state) =>
+            sGetUiConditionsByDimension(state, dimension.id)
+        ) || {}
+
     const getNameList = (idList, label, metadata) =>
         idList.reduce(
             (levelString, levelId, index) =>
@@ -190,16 +194,7 @@ export const TooltipContent = ({
 }
 
 TooltipContent.propTypes = {
-    conditions: PropTypes.object.isRequired,
     dimension: PropTypes.object.isRequired,
-    metadata: PropTypes.object.isRequired,
-    itemIds: PropTypes.array,
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    metadata: sGetMetadata(state),
-    itemIds: sGetUiItemsByDimension(state, ownProps.dimension.id) || [],
-    conditions: sGetUiConditionsByDimension(state, ownProps.dimension.id) || {},
-})
-
-export default connect(mapStateToProps)(TooltipContent)
+export default TooltipContent
