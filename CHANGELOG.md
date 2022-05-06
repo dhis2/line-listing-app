@@ -1,3 +1,10 @@
+## [1.1.73](https://github.com/dhis2/line-listing-app/compare/v1.1.72...v1.1.73) (2022-05-06)
+
+
+### Bug Fixes
+
+* do not render ProgramDimensionsList if panel is closed ([#122](https://github.com/dhis2/line-listing-app/issues/122)) ([bcbf043](https://github.com/dhis2/line-listing-app/commit/bcbf043af2b29a0c9b2fa3b6a0125fa8b30a2d87)), closes [#112](https://github.com/dhis2/line-listing-app/issues/112)
+
 ## [1.1.72](https://github.com/dhis2/line-listing-app/compare/v1.1.71...v1.1.72) (2022-05-05)
 
 
