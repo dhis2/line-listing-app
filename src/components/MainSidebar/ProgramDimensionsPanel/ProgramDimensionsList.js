@@ -9,7 +9,6 @@ const ProgramDimensionsList = ({
     stageId,
     searchTerm,
     dimensionType,
-    visible,
 }) => {
     const { dimensions, loading, fetching, error, setIsListEndVisible } =
         useProgramDimensions({
@@ -19,10 +18,6 @@ const ProgramDimensionsList = ({
             searchTerm,
             dimensionType,
         })
-
-    if (!visible) {
-        return null
-    }
 
     const draggableDimensions = dimensions.map((dimension) => ({
         draggableId: `program-${dimension.id}`,
@@ -48,7 +43,6 @@ ProgramDimensionsList.propTypes = {
     dimensionType: PropTypes.string,
     searchTerm: PropTypes.string,
     stageId: PropTypes.string,
-    visible: PropTypes.bool,
 }
 
 export { ProgramDimensionsList }
