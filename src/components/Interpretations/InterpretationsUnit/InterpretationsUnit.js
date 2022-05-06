@@ -180,6 +180,7 @@ export const InterpretationsUnit = forwardRef(
                     .header {
                         display: flex;
                         justify-content: space-between;
+                        cursor: pointer;
                     }
 
                     .title {
