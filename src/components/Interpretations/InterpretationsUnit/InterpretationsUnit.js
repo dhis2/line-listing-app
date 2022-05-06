@@ -184,7 +184,7 @@ export const InterpretationsUnit = forwardRef(
                     }
 
                     .title {
-                        font-size: ${spacers.dp16};
+                        font-size: 16px;
                         font-weight: 500;
                         line-height: 21px;
                         color: ${colors.grey900};
