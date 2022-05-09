@@ -1951,10 +1951,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.8.4":
-  version "23.8.4"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.4.tgz#d7f73aaf202fa02f621489e06a2e1b7249a81a74"
-  integrity sha512-GNajiCC93D2zHblttOB4wB/mCcDlcPYvFBrXPnDgsykR1F8ndf+sI5BEOqWy3vQGbPxqwRgbHtG6slKTYSjjjA==
+"@dhis2/analytics@^23.8.5":
+  version "23.8.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.5.tgz#0e815d92fe32bb3ed5d601fda9dce2dc5ec68701"
+  integrity sha512-9mnKB5qyuS5/IZuHVgWUa6Mzct6muRdAnaI6+gG4SO4VgEYM4e+YleqSQuchXWfoFouUkX5M0n5frPgEQX9hFQ==
   dependencies:
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
