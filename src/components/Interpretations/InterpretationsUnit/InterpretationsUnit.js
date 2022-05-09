@@ -80,7 +80,6 @@ export const InterpretationsUnit = forwardRef(
             <div
                 className={cx('container', {
                     expanded: isExpanded,
-                    fetching: fetching && !loading,
                 })}
             >
                 <div
@@ -132,40 +131,6 @@ export const InterpretationsUnit = forwardRef(
                         padding: ${spacers.dp16};
                         border-bottom: 1px solid ${colors.grey400};
                         background-color: ${colors.white};
-                    }
-
-                    .container.fetching::before {
-                        content: '';
-                        position: absolute;
-                        inset: 0px;
-                        background-color: rgba(255, 255, 255, 0.8);
-                    }
-
-                    .container.fetching::after {
-                        content: '';
-                        position: absolute;
-                        top: calc(50% - 12px);
-                        left: calc(50% - 12px);
-                        width: 24px;
-                        height: 24px;
-                        border-width: 4px;
-                        border-style: solid;
-                        border-color: rgba(110, 122, 138, 0.15)
-                            rgba(110, 122, 138, 0.15) rgb(20, 124, 215);
-                        border-image: initial;
-                        border-radius: 50%;
-                        animation: 1s linear 0s infinite normal none running
-                            rotation;
-                    }
-
-                    @keyframes rotation {
-                        0% {
-                            transform: rotate(0);
-                        }
-
-                        100% {
-                            transform: rotate(360deg);
-                        }
                     }
 
                     .expanded {
