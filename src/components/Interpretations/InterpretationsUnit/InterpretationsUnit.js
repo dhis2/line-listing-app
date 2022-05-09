@@ -82,6 +82,11 @@ export const InterpretationsUnit = forwardRef(
                     expanded: isExpanded,
                 })}
             >
+                {fetching && !loading && (
+                    <div className="fetching-loader">
+                        <CircularLoader small />
+                    </div>
+                )}
                 <div
                     className="header"
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -131,6 +136,15 @@ export const InterpretationsUnit = forwardRef(
                         padding: ${spacers.dp16};
                         border-bottom: 1px solid ${colors.grey400};
                         background-color: ${colors.white};
+                    }
+
+                    .fetching-loader {
+                        position: absolute;
+                        inset: 0px;
+                        background-color: rgba(255, 255, 255, 0.8);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
 
                     .expanded {
