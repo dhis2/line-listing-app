@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-04T09:24:11.636Z\n"
-"PO-Revision-Date: 2022-05-04T09:24:11.636Z\n"
+"POT-Creation-Date: 2022-05-06T10:17:37.006Z\n"
+"PO-Revision-Date: 2022-05-06T10:17:37.006Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -120,8 +120,26 @@ msgstr "No options"
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
 
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr "HTML+CSS (.html+css)"
+
 msgid "Plain data source"
 msgstr "Plain data source"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr "Microsoft Excel"
+
+msgid "CSV"
+msgstr "CSV"
 
 msgid "Download data from this date"
 msgstr "Download data from this date"
