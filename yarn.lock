@@ -1950,11 +1950,11 @@
     "@dhis2/ui-constants" "8.2.4"
     classnames "^2.3.1"
     prop-types "^15.7.2"
-    
-"@dhis2/analytics@^23.8.2":
-  version "23.8.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.2.tgz#cc9e6dac18102bef771acfea41d49bee641b26a0"
-  integrity sha512-RJfvtcBm7SrQzKo8sGrjlfGdZQm4sdx2rRXDx9aBe/DfsLmDzIcNAFPTPU9kkmKMp9Aj61p5jZuL43yypwpjUw==
+
+"@dhis2/analytics@^23.8.4":
+  version "23.8.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.4.tgz#d7f73aaf202fa02f621489e06a2e1b7249a81a74"
+  integrity sha512-GNajiCC93D2zHblttOB4wB/mCcDlcPYvFBrXPnDgsykR1F8ndf+sI5BEOqWy3vQGbPxqwRgbHtG6slKTYSjjjA==
   dependencies:
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
