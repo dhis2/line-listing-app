@@ -1,3 +1,10 @@
+## [1.1.74](https://github.com/dhis2/line-listing-app/compare/v1.1.73...v1.1.74) (2022-05-09)
+
+
+### Bug Fixes
+
+* add app icons ([#138](https://github.com/dhis2/line-listing-app/issues/138)) ([d10a064](https://github.com/dhis2/line-listing-app/commit/d10a06440655f4b49135e763ad8efd3eeab9ece4))
+
 ## [1.1.73](https://github.com/dhis2/line-listing-app/compare/v1.1.72...v1.1.73) (2022-05-06)
 
 
