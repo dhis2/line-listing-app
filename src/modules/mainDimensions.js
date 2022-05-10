@@ -54,14 +54,26 @@ export const getIsMainDimensionDisabled = ({
         inputType === OUTPUT_TYPE_EVENT &&
         dimensionId === DIMENSION_ID_PROGRAM_STATUS
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
+        if (!programType) {
+            return i18n.t('No program selected')
+        } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
+            return i18n.t('SOMETHING HERE')
+        } else {
+            return false
+        }
     }
 
     if (
         inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionId === DIMENSION_ID_EVENT_STATUS
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITH_REGISTRATION
+        if (!programType) {
+            return i18n.t('No program selected')
+        } else if (programType === PROGRAM_TYPE_WITH_REGISTRATION) {
+            return i18n.t('SOMETHING HERE 2')
+        } else {
+            return false
+        }
     }
 
     return false
