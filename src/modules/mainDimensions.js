@@ -52,16 +52,16 @@ export const getIsMainDimensionDisabled = ({
 }) => {
     if (
         inputType === OUTPUT_TYPE_EVENT &&
-        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
-        (!programType || programType === PROGRAM_TYPE_WITHOUT_REGISTRATION)
+        programType !== PROGRAM_TYPE_WITH_REGISTRATION &&
+        dimensionId === DIMENSION_ID_PROGRAM_STATUS
     ) {
         return i18n.t(
             'Please select a Tracker program to enable this dimension'
         )
     } else if (
         inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimensionId === DIMENSION_ID_EVENT_STATUS &&
-        (!programType || programType === PROGRAM_TYPE_WITH_REGISTRATION)
+        programType !== PROGRAM_TYPE_WITHOUT_REGISTRATION &&
+        dimensionId === DIMENSION_ID_EVENT_STATUS
     ) {
         return i18n.t('Please select an event program to enable this dimension')
     }
