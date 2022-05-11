@@ -1,3 +1,11 @@
+## [1.1.78](https://github.com/dhis2/line-listing-app/compare/v1.1.77...v1.1.78) (2022-05-10)
+
+
+### Bug Fixes
+
+* width for MenuItem chevron icon (TECH-1173) [#136](https://github.com/dhis2/line-listing-app/issues/136) ([48f7864](https://github.com/dhis2/line-listing-app/commit/48f78647e2a69f99177b7b47bc19de3b14c2b709))
+* wrap the chevron in a div with height and width ([9de6408](https://github.com/dhis2/line-listing-app/commit/9de6408e5e6e0c989232065b2f1d260c4d75a966))
+
 ## [1.1.77](https://github.com/dhis2/line-listing-app/compare/v1.1.76...v1.1.77) (2022-05-09)
 
 

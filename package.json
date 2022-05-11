@@ -1,6 +1,6 @@
 {
     "name": "line-listing-app",
-    "version": "1.1.77",
+    "version": "1.1.78",
     "description": "DHIS2 Line Listing",
     "license": "BSD-3-Clause",
     "private": true,
@@ -17,7 +17,7 @@
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^8.3.3",
         "@dhis2/cli-style": "^10.1.1",
-        "@testing-library/jest-dom": "^5.16.2",
+        "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
@@ -28,12 +28,12 @@
     "dependencies": {
         "@dhis2/analytics": "^23.8.5",
         "@dhis2/app-runtime": "^3.4.0",
-        "@dhis2/d2-ui-rich-text": "^7.3.3",
+        "@dhis2/d2-ui-rich-text": "^7.3.4",
         "@dhis2/ui": "^8.2.4",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
         "@dnd-kit/utilities": "^3.1.0",
-        "@testing-library/jest-dom": "^5.16.2",
+        "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
         "history": "^5.3.0",
         "lodash-es": "^4.17.21",
