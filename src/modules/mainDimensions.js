@@ -1,7 +1,9 @@
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
-    DIMENSION_TYPE_OU,
     DIMENSION_ID_CREATED_BY,
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
@@ -18,7 +20,7 @@ import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
 export const getMainDimensions = () => ({
     [DIMENSION_ID_ORGUNIT]: {
         id: DIMENSION_ID_ORGUNIT,
-        dimensionType: DIMENSION_TYPE_OU,
+        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
         name: i18n.t('Organisation unit'),
     },
     [DIMENSION_ID_EVENT_STATUS]: {

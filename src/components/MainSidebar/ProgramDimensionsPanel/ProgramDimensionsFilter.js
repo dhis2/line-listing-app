@@ -1,9 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, Input, Divider } from '@dhis2/ui'
-import cx from 'classnames'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { useSelector } from 'react-redux'
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_ALL,
@@ -11,7 +5,13 @@ import {
     DIMENSION_TYPE_PROGRAM_INDICATOR,
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
-} from '../../../modules/dimensionConstants.js'
+} from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { SingleSelect, Input, Divider } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
