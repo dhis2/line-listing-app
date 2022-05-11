@@ -1,14 +1,14 @@
+import {
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+    DIMENSION_TYPE_PERIOD,
+    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+} from '@dhis2/analytics'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
-import {
-    DIMENSION_TYPE_OU,
-    DIMENSION_TYPE_PERIOD,
-    DIMENSION_TYPE_CATEGORY,
-    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
-    DIMENSION_TYPE_STATUS,
-    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
-} from '../../modules/dimensionConstants.js'
+import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiActiveModalDialog } from '../../reducers/ui.js'
 import ConditionsManager from './Conditions/ConditionsManager.js'
@@ -37,7 +37,7 @@ const DialogManager = () => {
             return <PeriodDimension dimension={dimension} onClose={onClose} />
 
         case DIMENSION_TYPE_STATUS:
-        case DIMENSION_TYPE_OU:
+        case DIMENSION_TYPE_ORGANISATION_UNIT:
             return <FixedDimension dimension={dimension} onClose={onClose} />
 
         default:

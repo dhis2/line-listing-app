@@ -1951,10 +1951,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^23.7.10":
-  version "23.7.10"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.7.10.tgz#3263692fef7cc23a074998365b076c84c32701c8"
-  integrity sha512-TiCAmttMOiJahgibIP6sXFcavtdl2rz4t6oWA0ixOao4XU1Uo7SGXaTXFiVoBVDndASckbCVLFjqFpWioYaxhA==
+"@dhis2/analytics@^23.8.5":
+  version "23.8.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.5.tgz#0e815d92fe32bb3ed5d601fda9dce2dc5ec68701"
+  integrity sha512-9mnKB5qyuS5/IZuHVgWUa6Mzct6muRdAnaI6+gG4SO4VgEYM4e+YleqSQuchXWfoFouUkX5M0n5frPgEQX9hFQ==
   dependencies:
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
@@ -16066,8 +16066,10 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
+    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

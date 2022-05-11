@@ -28,7 +28,9 @@ const MenuItem = ({
                 {count}
             </div>
         )}
-        <IconChevronRight16 />
+        <div className={styles.chevron}>
+            <IconChevronRight16 />
+        </div>
     </div>
 )
 

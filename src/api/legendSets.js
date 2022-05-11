@@ -2,7 +2,7 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../modules/dimensionConstants.js'
+} from '@dhis2/analytics'
 import { extractDimensionIdParts } from '../modules/utils.js'
 
 const dataElementsQuery = {
