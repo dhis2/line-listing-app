@@ -9,9 +9,7 @@ const Message = ({ children, text, created, username }) => (
         <div className="header">
             <UserAvatar name={username} extrasmall />
             {username}
-            <time dateTime={created}>
-                {moment(created).format('DD/MM/YY hh:mm')}
-            </time>
+            <time dateTime={created}>{moment(created).format('lll')}</time>
         </div>
         <div className="content">
             <RichTextParser>{text}</RichTextParser>
