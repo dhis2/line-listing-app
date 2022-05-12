@@ -16,7 +16,7 @@ describe('ER > Dimensions > getIsMainDimensionDisabled', () => {
             programType: undefined,
             expected: {
                 [DIMENSION_ID_EVENT_STATUS]: false,
-                [DIMENSION_ID_PROGRAM_STATUS]: true,
+                [DIMENSION_ID_PROGRAM_STATUS]: 'No program selected',
             },
         },
         {
@@ -24,7 +24,8 @@ describe('ER > Dimensions > getIsMainDimensionDisabled', () => {
             programType: PROGRAM_TYPE_WITHOUT_REGISTRATION,
             expected: {
                 [DIMENSION_ID_EVENT_STATUS]: false,
-                [DIMENSION_ID_PROGRAM_STATUS]: true,
+                [DIMENSION_ID_PROGRAM_STATUS]:
+                    'Not applicable to event programs',
             },
         },
         {
@@ -39,7 +40,7 @@ describe('ER > Dimensions > getIsMainDimensionDisabled', () => {
             inputType: OUTPUT_TYPE_ENROLLMENT,
             programType: undefined,
             expected: {
-                [DIMENSION_ID_EVENT_STATUS]: true,
+                [DIMENSION_ID_EVENT_STATUS]: 'Not applicable to enrollments',
                 [DIMENSION_ID_PROGRAM_STATUS]: false,
             },
         },
@@ -47,7 +48,7 @@ describe('ER > Dimensions > getIsMainDimensionDisabled', () => {
             inputType: OUTPUT_TYPE_ENROLLMENT,
             programType: PROGRAM_TYPE_WITH_REGISTRATION,
             expected: {
-                [DIMENSION_ID_EVENT_STATUS]: true,
+                [DIMENSION_ID_EVENT_STATUS]: 'Not applicable to enrollments',
                 [DIMENSION_ID_PROGRAM_STATUS]: false,
             },
         },
