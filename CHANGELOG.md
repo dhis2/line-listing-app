@@ -1,3 +1,11 @@
+## [1.1.79](https://github.com/dhis2/line-listing-app/compare/v1.1.78...v1.1.79) (2022-05-11)
+
+
+### Bug Fixes
+
+* interpretations use locale format (TECH-1175) [#141](https://github.com/dhis2/line-listing-app/issues/141) ([4a13729](https://github.com/dhis2/line-listing-app/commit/4a1372966308ebc0d5f768c8f15d19f2531d0025))
+* use locale format ([8e0a313](https://github.com/dhis2/line-listing-app/commit/8e0a31349d5201897d4cb1db50038ea5d6ab316a))
+
 ## [1.1.78](https://github.com/dhis2/line-listing-app/compare/v1.1.77...v1.1.78) (2022-05-10)
 
 
