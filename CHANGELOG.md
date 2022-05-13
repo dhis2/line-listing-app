@@ -1,3 +1,11 @@
+## [1.1.82](https://github.com/dhis2/line-listing-app/compare/v1.1.81...v1.1.82) (2022-05-13)
+
+
+### Bug Fixes
+
+* use shortname for the analytics request ([bb6ebca](https://github.com/dhis2/line-listing-app/commit/bb6ebca0a1a339c506125bee396db21474af5ad3))
+* use shortname for the analytics request (TECH-1118) [#125](https://github.com/dhis2/line-listing-app/issues/125) ([67f0804](https://github.com/dhis2/line-listing-app/commit/67f08044e5e50e8ad8c2db9c0b1da1f689b3c591))
+
 ## [1.1.81](https://github.com/dhis2/line-listing-app/compare/v1.1.80...v1.1.81) (2022-05-13)
 
 
