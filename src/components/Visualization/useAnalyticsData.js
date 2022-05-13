@@ -3,6 +3,7 @@ import {
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
     Analytics,
+    useCachedDataQuery,
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -20,6 +21,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -124,6 +126,7 @@ const fetchAnalyticsData = async ({
     relativePeriodDate,
     sortField,
     sortDirection,
+    nameProp,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
     const { adaptedVisualization, headers, parameters } =
@@ -137,7 +140,7 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withDisplayProperty('NAME') // TODO from settings ?!
+        .withDisplayProperty(nameProp)
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
@@ -236,6 +239,7 @@ const useAnalyticsData = ({
     const [fetching, setFetching] = useState(true)
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
+    const { userSettings } = useCachedDataQuery()
 
     const doFetch = useCallback(async () => {
         try {
@@ -247,6 +251,8 @@ const useAnalyticsData = ({
                 sortDirection,
                 sortField,
                 visualization,
+                nameProp:
+                    userSettings[USER_SETTINGS_DISPLAY_PROPERTY].toUpperCase(),
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
