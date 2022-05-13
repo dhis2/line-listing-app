@@ -1,3 +1,10 @@
+## [1.1.80](https://github.com/dhis2/line-listing-app/compare/v1.1.79...v1.1.80) (2022-05-13)
+
+
+### Bug Fixes
+
+* update d2-ui-rich-text dependency LIBS-317 ([#142](https://github.com/dhis2/line-listing-app/issues/142)) ([9c365bd](https://github.com/dhis2/line-listing-app/commit/9c365bd1baa795bf7c3ebf27f1e4bc95090ac877))
+
 ## [1.1.79](https://github.com/dhis2/line-listing-app/compare/v1.1.78...v1.1.79) (2022-05-11)
 
 
