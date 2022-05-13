@@ -1,3 +1,10 @@
+## [1.1.81](https://github.com/dhis2/line-listing-app/compare/v1.1.80...v1.1.81) (2022-05-13)
+
+
+### Bug Fixes
+
+* main dimension's tooltip (TECH-1168) ([#140](https://github.com/dhis2/line-listing-app/issues/140)) ([6254e21](https://github.com/dhis2/line-listing-app/commit/6254e218130c1f0e0983403e4069c154f4c97e31))
+
 ## [1.1.80](https://github.com/dhis2/line-listing-app/compare/v1.1.79...v1.1.80) (2022-05-13)
 
 
