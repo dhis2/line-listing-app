@@ -3,10 +3,10 @@ import { Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import React from 'react'
 import { useTimeDimensions } from '../../reducers/ui.js'
+import styles from './common.module.css'
 import { DimensionItem } from './DimensionItem/index.js'
 import { MainSidebarSection } from './MainSidebarSection.js'
 import { useSelectedDimensions } from './SelectedDimensionsContext.js'
-import styles from './TimeDimensions.module.css'
 
 export const TimeDimensions = () => {
     const timeDimensions = useTimeDimensions()
