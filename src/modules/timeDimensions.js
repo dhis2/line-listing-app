@@ -1,6 +1,6 @@
+import { DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
-    DIMENSION_TYPE_PERIOD,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
@@ -90,7 +90,7 @@ export const getDisabledTimeDimensions = (
             } else {
                 const disabledReason = !program
                     ? i18n.t('No program selected')
-                    : i18n.t('Not applicable to Event programs')
+                    : i18n.t('Not applicable to event programs')
                 disabledDimensions[DIMENSION_ID_ENROLLMENT_DATE] =
                     disabledReason
 
@@ -101,7 +101,7 @@ export const getDisabledTimeDimensions = (
         case OUTPUT_TYPE_ENROLLMENT: {
             const disabledDimensions = {}
             disabledDimensions[DIMENSION_ID_EVENT_DATE] = i18n.t(
-                'Not applicable to Tracker programs'
+                'Not applicable to enrollments'
             )
 
             if (!program || program.displayIncidentDate === false) {

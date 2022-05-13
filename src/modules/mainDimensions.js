@@ -1,7 +1,9 @@
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
-    DIMENSION_TYPE_OU,
     DIMENSION_ID_CREATED_BY,
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
@@ -9,16 +11,13 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_USER,
 } from './dimensionConstants.js'
-import {
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-    PROGRAM_TYPE_WITH_REGISTRATION,
-} from './programTypes.js'
+import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
 
 export const getMainDimensions = () => ({
     [DIMENSION_ID_ORGUNIT]: {
         id: DIMENSION_ID_ORGUNIT,
-        dimensionType: DIMENSION_TYPE_OU,
+        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
         name: i18n.t('Organisation unit'),
     },
     [DIMENSION_ID_EVENT_STATUS]: {
@@ -49,17 +48,19 @@ export const getIsMainDimensionDisabled = ({
     programType,
 }) => {
     if (
-        inputType === OUTPUT_TYPE_EVENT &&
-        dimensionId === DIMENSION_ID_PROGRAM_STATUS
+        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
+        inputType === OUTPUT_TYPE_EVENT
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
-    }
-
-    if (
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimensionId === DIMENSION_ID_EVENT_STATUS
+        if (!programType) {
+            return i18n.t('No program selected')
+        } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
+            return i18n.t('Not applicable to event programs')
+        }
+    } else if (
+        dimensionId === DIMENSION_ID_EVENT_STATUS &&
+        inputType === OUTPUT_TYPE_ENROLLMENT
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITH_REGISTRATION
+        return i18n.t('Not applicable to enrollments')
     }
 
     return false

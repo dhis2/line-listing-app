@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-04-29T09:59:33.142Z\n"
-"PO-Revision-Date: 2022-04-29T09:59:33.142Z\n"
+"POT-Creation-Date: 2022-05-11T13:59:48.286Z\n"
+"PO-Revision-Date: 2022-05-11T13:59:48.286Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -120,8 +120,26 @@ msgstr "No options"
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
 
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr "HTML+CSS (.html+css)"
+
 msgid "Plain data source"
 msgstr "Plain data source"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr "Microsoft Excel"
+
+msgid "CSV"
+msgstr "CSV"
 
 msgid "Download data from this date"
 msgstr "Download data from this date"
@@ -423,8 +441,8 @@ msgstr "Add dimensions to the layout above."
 msgid "Click a dimension to add or remove conditions."
 msgstr "Click a dimension to add or remove conditions."
 
-msgid "Your most viewed event reports"
-msgstr "Your most viewed event reports"
+msgid "Your most viewed line lists"
+msgstr "Your most viewed line lists"
 
 msgid "most recent"
 msgstr "most recent"
@@ -692,6 +710,12 @@ msgstr "Created by"
 msgid "Last updated by"
 msgstr "Last updated by"
 
+msgid "Not applicable to event programs"
+msgstr "Not applicable to event programs"
+
+msgid "Not applicable to enrollments"
+msgstr "Not applicable to enrollments"
+
 msgid "User organisation unit"
 msgstr "User organisation unit"
 
@@ -745,12 +769,6 @@ msgstr "Last updated on"
 
 msgid "Disabled by the selected program"
 msgstr "Disabled by the selected program"
-
-msgid "Not applicable to Event programs"
-msgstr "Not applicable to Event programs"
-
-msgid "Not applicable to Tracker programs"
-msgstr "Not applicable to Tracker programs"
 
 msgid "No input type selected"
 msgstr "No input type selected"

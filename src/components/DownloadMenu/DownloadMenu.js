@@ -14,30 +14,30 @@ import { PlainDataSourceSubMenu } from './PlainDataSourceSubMenu.js'
 
 const DownloadMenu = ({ download }) => (
     <FlyoutMenu>
-        <MenuSectionHeader label="HTML" />
+        <MenuSectionHeader label={i18n.t('HTML')} />
         <MenuItem
-            label="HTML+CSS (.html+css)"
+            label={i18n.t('HTML+CSS (.html+css)')}
             onClick={() => download(DOWNLOAD_TYPE_TABLE, FILE_FORMAT_HTML_CSS)}
         />
         <MenuSectionHeader label={i18n.t('Plain data source')} />
         <PlainDataSourceSubMenu
             download={download}
-            label="JSON"
+            label={i18n.t('JSON')}
             format={FILE_FORMAT_JSON}
         />
         <PlainDataSourceSubMenu
             download={download}
-            label="XML"
+            label={i18n.t('XML')}
             format={FILE_FORMAT_XML}
         />
         <PlainDataSourceSubMenu
             download={download}
-            label="Microsoft Excel"
+            label={i18n.t('Microsoft Excel')}
             format={FILE_FORMAT_XLS}
         />
         <PlainDataSourceSubMenu
             download={download}
-            label="CSV"
+            label={i18n.t('CSV')}
             format={FILE_FORMAT_CSV}
         />
     </FlyoutMenu>
