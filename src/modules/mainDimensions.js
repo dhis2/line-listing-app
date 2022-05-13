@@ -11,10 +11,7 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_USER,
 } from './dimensionConstants.js'
-import {
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-    PROGRAM_TYPE_WITH_REGISTRATION,
-} from './programTypes.js'
+import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
 
 export const getMainDimensions = () => ({
