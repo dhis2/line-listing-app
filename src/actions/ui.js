@@ -222,11 +222,6 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
-export const acSetUiSorting = (value) => ({
-    type: SET_UI_SORTING,
-    value,
-})
-
 export const acSetShowExpandedLayoutPanel = (value) => ({
     type: SET_UI_EXPANDED_LAYOUT_PANEL,
     value,
