@@ -1,3 +1,158 @@
+## [1.1.82](https://github.com/dhis2/line-listing-app/compare/v1.1.81...v1.1.82) (2022-05-13)
+
+
+### Bug Fixes
+
+* use shortname for the analytics request ([bb6ebca](https://github.com/dhis2/line-listing-app/commit/bb6ebca0a1a339c506125bee396db21474af5ad3))
+* use shortname for the analytics request (TECH-1118) [#125](https://github.com/dhis2/line-listing-app/issues/125) ([67f0804](https://github.com/dhis2/line-listing-app/commit/67f08044e5e50e8ad8c2db9c0b1da1f689b3c591))
+
+## [1.1.81](https://github.com/dhis2/line-listing-app/compare/v1.1.80...v1.1.81) (2022-05-13)
+
+
+### Bug Fixes
+
+* main dimension's tooltip (TECH-1168) ([#140](https://github.com/dhis2/line-listing-app/issues/140)) ([6254e21](https://github.com/dhis2/line-listing-app/commit/6254e218130c1f0e0983403e4069c154f4c97e31))
+
+## [1.1.80](https://github.com/dhis2/line-listing-app/compare/v1.1.79...v1.1.80) (2022-05-13)
+
+
+### Bug Fixes
+
+* update d2-ui-rich-text dependency LIBS-317 ([#142](https://github.com/dhis2/line-listing-app/issues/142)) ([9c365bd](https://github.com/dhis2/line-listing-app/commit/9c365bd1baa795bf7c3ebf27f1e4bc95090ac877))
+
+## [1.1.79](https://github.com/dhis2/line-listing-app/compare/v1.1.78...v1.1.79) (2022-05-11)
+
+
+### Bug Fixes
+
+* interpretations use locale format (TECH-1175) [#141](https://github.com/dhis2/line-listing-app/issues/141) ([4a13729](https://github.com/dhis2/line-listing-app/commit/4a1372966308ebc0d5f768c8f15d19f2531d0025))
+* use locale format ([8e0a313](https://github.com/dhis2/line-listing-app/commit/8e0a31349d5201897d4cb1db50038ea5d6ab316a))
+
+## [1.1.78](https://github.com/dhis2/line-listing-app/compare/v1.1.77...v1.1.78) (2022-05-10)
+
+
+### Bug Fixes
+
+* width for MenuItem chevron icon (TECH-1173) [#136](https://github.com/dhis2/line-listing-app/issues/136) ([48f7864](https://github.com/dhis2/line-listing-app/commit/48f78647e2a69f99177b7b47bc19de3b14c2b709))
+* wrap the chevron in a div with height and width ([9de6408](https://github.com/dhis2/line-listing-app/commit/9de6408e5e6e0c989232065b2f1d260c4d75a966))
+
+## [1.1.77](https://github.com/dhis2/line-listing-app/compare/v1.1.76...v1.1.77) (2022-05-09)
+
+
+### Bug Fixes
+
+* app icon and analytics upgrade ([#139](https://github.com/dhis2/line-listing-app/issues/139)) ([5f06e42](https://github.com/dhis2/line-listing-app/commit/5f06e426e0ee715910eaf65571b6ca47c9fa5c23))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+* use pointer cursor on Interpretations unit TECH-1172 ([#132](https://github.com/dhis2/line-listing-app/issues/132)) ([c2d0de3](https://github.com/dhis2/line-listing-app/commit/c2d0de3166560df22afd6d2409c5ba95071a9424))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+* use pointer cursor on Interpretations unit TECH-1172 ([#132](https://github.com/dhis2/line-listing-app/issues/132)) ([c2d0de3](https://github.com/dhis2/line-listing-app/commit/c2d0de3166560df22afd6d2409c5ba95071a9424))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+* use pointer cursor on Interpretations unit TECH-1172 ([#132](https://github.com/dhis2/line-listing-app/issues/132)) ([c2d0de3](https://github.com/dhis2/line-listing-app/commit/c2d0de3166560df22afd6d2409c5ba95071a9424))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+* use pointer cursor on Interpretations unit TECH-1172 ([#132](https://github.com/dhis2/line-listing-app/issues/132)) ([c2d0de3](https://github.com/dhis2/line-listing-app/commit/c2d0de3166560df22afd6d2409c5ba95071a9424))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.76](https://github.com/dhis2/line-listing-app/compare/v1.1.75...v1.1.76) (2022-05-09)
+
+
+### Bug Fixes
+
+* use larger lateral padding on Toolbar buttons TECH-1145 ([#135](https://github.com/dhis2/line-listing-app/issues/135)) ([c4bfd97](https://github.com/dhis2/line-listing-app/commit/c4bfd97865c71a2399dbd4296e1b1116556e948c))
+
+## [1.1.75](https://github.com/dhis2/line-listing-app/compare/v1.1.74...v1.1.75) (2022-05-09)
+
+
+### Bug Fixes
+
+* mark all strings in download menu for translation TECH-1169 ([#133](https://github.com/dhis2/line-listing-app/issues/133)) ([7a7c988](https://github.com/dhis2/line-listing-app/commit/7a7c988e5ec1d5bb3eb4ea6630cabd375d546d49))
+* show translated title TECH-1170 ([#134](https://github.com/dhis2/line-listing-app/issues/134)) ([9c9ad2e](https://github.com/dhis2/line-listing-app/commit/9c9ad2e17bd5f59dc5a46ddd5a141ca87db9ffc0))
+
+## [1.1.74](https://github.com/dhis2/line-listing-app/compare/v1.1.73...v1.1.74) (2022-05-09)
+
+
+### Bug Fixes
+
+* add app icons ([#138](https://github.com/dhis2/line-listing-app/issues/138)) ([d10a064](https://github.com/dhis2/line-listing-app/commit/d10a06440655f4b49135e763ad8efd3eeab9ece4))
+
 ## [1.1.73](https://github.com/dhis2/line-listing-app/compare/v1.1.72...v1.1.73) (2022-05-06)
 
 

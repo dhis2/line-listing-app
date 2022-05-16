@@ -1950,11 +1950,11 @@
     "@dhis2/ui-constants" "8.2.4"
     classnames "^2.3.1"
     prop-types "^15.7.2"
-    
-"@dhis2/analytics@^23.8.2":
-  version "23.8.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.2.tgz#cc9e6dac18102bef771acfea41d49bee641b26a0"
-  integrity sha512-RJfvtcBm7SrQzKo8sGrjlfGdZQm4sdx2rRXDx9aBe/DfsLmDzIcNAFPTPU9kkmKMp9Aj61p5jZuL43yypwpjUw==
+
+"@dhis2/analytics@^23.8.5":
+  version "23.8.5"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-23.8.5.tgz#0e815d92fe32bb3ed5d601fda9dce2dc5ec68701"
+  integrity sha512-9mnKB5qyuS5/IZuHVgWUa6Mzct6muRdAnaI6+gG4SO4VgEYM4e+YleqSQuchXWfoFouUkX5M0n5frPgEQX9hFQ==
   dependencies:
     classnames "^2.3.1"
     d2-utilizr "^0.2.16"
@@ -2115,10 +2115,10 @@
     i18next "^10.3"
     moment "^2.24.0"
 
-"@dhis2/d2-ui-rich-text@^7.3.3":
-  version "7.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.3.3.tgz#4fdb8de8a56edc924f98768efc1fead47450f834"
-  integrity sha512-3uVI4jT4MpwE4JYuJarTHEtf+fX0kt4JCKqgUUaRKW0Oul6/E1zm5vpHccPlhUVRtdmD/epcJ4AmWDznqp5rQg==
+"@dhis2/d2-ui-rich-text@^7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/d2-ui-rich-text/-/d2-ui-rich-text-7.4.0.tgz#e1fb6eff7309ea80a6af3bee2a247c9f93ea721d"
+  integrity sha512-q8woPPyYHiqQfNtujuCQH8eq7zRcN0140XqrKHw1DXF/fnqmrcVDTNZkPSaWMuUsdPhcgTHcnuEySP0MRAXv6g==
   dependencies:
     babel-runtime "^6.26.0"
     markdown-it "^8.4.2"
@@ -3057,10 +3057,10 @@
     lz-string "^1.4.4"
     pretty-format "^27.0.2"
 
-"@testing-library/jest-dom@^5.16.2":
-  version "5.16.2"
-  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.16.2.tgz#f329b36b44aa6149cd6ced9adf567f8b6aa1c959"
-  integrity sha512-6ewxs1MXWwsBFZXIk4nKKskWANelkdUehchEOokHsN8X7c2eKXGw+77aRV63UU8f/DTSVUPLaGxdrj4lN7D/ug==
+"@testing-library/jest-dom@^5.16.4":
+  version "5.16.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-5.16.4.tgz#938302d7b8b483963a3ae821f1c0808f872245cd"
+  integrity sha512-Gy+IoFutbMQcky0k+bqqumXZ1cTGswLsFqmNLzNdSKkU9KGV2u9oXhukCbbJ9/LRPKiqwxEE8VpV/+YZlfkPUA==
   dependencies:
     "@babel/runtime" "^7.9.2"
     "@types/testing-library__jest-dom" "^5.9.1"
