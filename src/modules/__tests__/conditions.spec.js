@@ -105,6 +105,11 @@ const tests = [
     },
     {
         dimensionValueType: 'NUMBER',
+        condition: 'GT:3568.8',
+        expected: ['Greater than (>): 3568.8'],
+    },
+    {
+        dimensionValueType: 'NUMBER',
         condition: 'EQ:NV:LE:40.9',
         expected: ['Is empty / null', 'Less than or equal to (≤): 40.9'],
     },
@@ -127,6 +132,11 @@ const tests = [
         dimensionValueType: 'INTEGER',
         condition: 'NE:NV',
         expected: ['Is not empty / not null'],
+    },
+    {
+        dimensionValueType: 'INTEGER',
+        condition: 'GT:3568',
+        expected: ['Greater than (>): 3568'],
     },
     {
         dimensionValueType: 'LONG_TEXT',
