@@ -1,3 +1,11 @@
+## [1.1.83](https://github.com/dhis2/line-listing-app/compare/v1.1.82...v1.1.83) (2022-05-16)
+
+
+### Bug Fixes
+
+* prevent replaceAll from crashing due to undefined value ([414e339](https://github.com/dhis2/line-listing-app/commit/414e339b4570d2de10789d038491af62dd0f875c))
+* prevent replaceAll from crashing due to undefined value (TECH-1183) [#145](https://github.com/dhis2/line-listing-app/issues/145) ([ad7d6cf](https://github.com/dhis2/line-listing-app/commit/ad7d6cfdbf3017e9c8387dd2728604349c7da4e3))
+
 ## [1.1.82](https://github.com/dhis2/line-listing-app/compare/v1.1.81...v1.1.82) (2022-05-13)
 
 
