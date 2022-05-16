@@ -227,11 +227,12 @@ export const getConditions = ({
         }
 
         if (
+            value &&
             [VALUE_TYPE_TIME, VALUE_TYPE_DATETIME].includes(dimension.valueType)
         ) {
             value = value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)
         }
-        if (dimension.valueType === VALUE_TYPE_DATETIME) {
+        if (value && dimension.valueType === VALUE_TYPE_DATETIME) {
             value = value.replaceAll(API_DATETIME_DIVIDER, UI_DATETIME_DIVIDER)
         }
 

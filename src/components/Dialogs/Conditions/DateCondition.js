@@ -36,7 +36,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
     const setValue = (input) => {
         onChange(
             `${operator}:${
-                input.replaceAll(UI_TIME_DIVIDER, API_TIME_DIVIDER) || ''
+                input?.replaceAll(UI_TIME_DIVIDER, API_TIME_DIVIDER) || ''
             }`
         )
     }
@@ -56,7 +56,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
                 <Input
-                    value={value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)}
+                    value={value?.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)}
                     type={type}
                     onChange={({ value }) => setValue(value)}
                     className={classes.dateInput}
