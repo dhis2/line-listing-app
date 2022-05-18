@@ -433,14 +433,18 @@ export const useMainDimensions = () => {
         const { metadata } = store.getState()
         const programType = programId && metadata[programId].programType
 
-        return Object.values(getMainDimensions()).map((dimension) => ({
-            ...dimension,
-            disabled: getIsMainDimensionDisabled({
+        return Object.values(getMainDimensions()).map((dimension) => {
+            const disabledReason = getIsMainDimensionDisabled({
                 dimensionId: dimension.id,
                 inputType,
                 programType,
-            }),
-        }))
+            })
+            return {
+                ...dimension,
+                disabled: Boolean(disabledReason),
+                disabledReason,
+            }
+        })
     }, [programId, inputType])
 }
 

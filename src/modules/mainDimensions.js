@@ -11,10 +11,7 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_USER,
 } from './dimensionConstants.js'
-import {
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-    PROGRAM_TYPE_WITH_REGISTRATION,
-} from './programTypes.js'
+import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
 
 export const getMainDimensions = () => ({
@@ -51,17 +48,19 @@ export const getIsMainDimensionDisabled = ({
     programType,
 }) => {
     if (
-        inputType === OUTPUT_TYPE_EVENT &&
-        dimensionId === DIMENSION_ID_PROGRAM_STATUS
+        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
+        inputType === OUTPUT_TYPE_EVENT
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
-    }
-
-    if (
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimensionId === DIMENSION_ID_EVENT_STATUS
+        if (!programType) {
+            return i18n.t('No program selected')
+        } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
+            return i18n.t('Not applicable to event programs')
+        }
+    } else if (
+        dimensionId === DIMENSION_ID_EVENT_STATUS &&
+        inputType === OUTPUT_TYPE_ENROLLMENT
     ) {
-        return !programType || programType === PROGRAM_TYPE_WITH_REGISTRATION
+        return i18n.t('Not applicable to enrollments')
     }
 
     return false

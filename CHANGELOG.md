@@ -1,3 +1,45 @@
+# [100.0.0](https://github.com/dhis2/line-listing-app/compare/v99.9.9...v100.0.0) (2022-05-18)
+
+
+### chore
+
+* cut 100.0.0 CD release ([c4d1dea](https://github.com/dhis2/line-listing-app/commit/c4d1deab455fbab1082c5d0794afdd2eb3498752))
+
+
+### BREAKING CHANGES
+
+* move to 100.x version scheme
+
+## [1.1.83](https://github.com/dhis2/line-listing-app/compare/v1.1.82...v1.1.83) (2022-05-16)
+
+
+### Bug Fixes
+
+* prevent replaceAll from crashing due to undefined value ([414e339](https://github.com/dhis2/line-listing-app/commit/414e339b4570d2de10789d038491af62dd0f875c))
+* prevent replaceAll from crashing due to undefined value (TECH-1183) [#145](https://github.com/dhis2/line-listing-app/issues/145) ([ad7d6cf](https://github.com/dhis2/line-listing-app/commit/ad7d6cfdbf3017e9c8387dd2728604349c7da4e3))
+
+## [1.1.82](https://github.com/dhis2/line-listing-app/compare/v1.1.81...v1.1.82) (2022-05-13)
+
+
+### Bug Fixes
+
+* use shortname for the analytics request ([bb6ebca](https://github.com/dhis2/line-listing-app/commit/bb6ebca0a1a339c506125bee396db21474af5ad3))
+* use shortname for the analytics request (TECH-1118) [#125](https://github.com/dhis2/line-listing-app/issues/125) ([67f0804](https://github.com/dhis2/line-listing-app/commit/67f08044e5e50e8ad8c2db9c0b1da1f689b3c591))
+
+## [1.1.81](https://github.com/dhis2/line-listing-app/compare/v1.1.80...v1.1.81) (2022-05-13)
+
+
+### Bug Fixes
+
+* main dimension's tooltip (TECH-1168) ([#140](https://github.com/dhis2/line-listing-app/issues/140)) ([6254e21](https://github.com/dhis2/line-listing-app/commit/6254e218130c1f0e0983403e4069c154f4c97e31))
+
+## [1.1.80](https://github.com/dhis2/line-listing-app/compare/v1.1.79...v1.1.80) (2022-05-13)
+
+
+### Bug Fixes
+
+* update d2-ui-rich-text dependency LIBS-317 ([#142](https://github.com/dhis2/line-listing-app/issues/142)) ([9c365bd](https://github.com/dhis2/line-listing-app/commit/9c365bd1baa795bf7c3ebf27f1e4bc95090ac877))
+
 ## [1.1.79](https://github.com/dhis2/line-listing-app/compare/v1.1.78...v1.1.79) (2022-05-11)
 
 
