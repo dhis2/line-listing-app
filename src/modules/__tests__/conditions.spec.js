@@ -1,6 +1,6 @@
 import { getConditions } from '../conditions.js'
 
-test('Legend set chosen with no conditions selected', () => {
+test('Legend set chosen with no legends selected', () => {
     const conditions = {
         condition: '',
         legendSet: 'legendSetId1',
@@ -14,9 +14,9 @@ test('Legend set chosen with no conditions selected', () => {
     expect(actual).toEqual(['Legend Set Name'])
 })
 
-test('Legend set chosen with conditions selected', () => {
+test('Legend set chosen with legends selected', () => {
     const conditions = {
-        condition: 'IN:Condition1Id;Condition2Id',
+        condition: 'IN:Legend1Id;Legend2Id',
         legendSet: 'legendSetId1',
     }
     const metadata = {
@@ -24,15 +24,15 @@ test('Legend set chosen with conditions selected', () => {
             id: 'legendSetId1',
             name: 'Legend Set Name',
             legends: [
-                { id: 'Condition1Id', name: 'Condition 1' },
-                { id: 'Condition2Id', name: 'Condition 2' },
+                { id: 'Legend1Id', name: 'Legend 1' },
+                { id: 'Legend2Id', name: 'Legend 2' },
             ],
         },
     }
     const dimension = {}
     const actual = getConditions({ conditions, metadata, dimension })
 
-    expect(actual).toEqual(['Condition 1', 'Condition 2'])
+    expect(actual).toEqual(['Legend 1', 'Legend 2'])
 })
 
 test('Dimension with optionSet', () => {
