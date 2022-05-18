@@ -1,3 +1,15 @@
+# [100.0.0](https://github.com/dhis2/line-listing-app/compare/v99.9.9...v100.0.0) (2022-05-18)
+
+
+### chore
+
+* cut 100.0.0 CD release ([c4d1dea](https://github.com/dhis2/line-listing-app/commit/c4d1deab455fbab1082c5d0794afdd2eb3498752))
+
+
+### BREAKING CHANGES
+
+* move to 100.x version scheme
+
 ## [1.1.83](https://github.com/dhis2/line-listing-app/compare/v1.1.82...v1.1.83) (2022-05-16)
 
 
