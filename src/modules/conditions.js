@@ -163,7 +163,7 @@ const getOperatorsByValueType = (valueType) => {
 const parseCondition = (conditionItem) =>
     conditionItem.split(':').pop().split(';')
 
-export const getConditions = ({
+export const getConditionsTexts = ({
     conditions = {},
     metadata = {},
     dimension = {},

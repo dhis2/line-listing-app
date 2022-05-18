@@ -11,7 +11,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
-import { getConditions } from '../../modules/conditions.js'
+import { getConditionsTexts } from '../../modules/conditions.js'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -116,7 +116,7 @@ export const TooltipContent = ({
     }
 
     const renderConditions = () =>
-        renderItems(getConditions({ conditions, metadata, dimension }))
+        renderItems(getConditionsTexts({ conditions, metadata, dimension }))
 
     const renderNoItemsLabel = () => (
         <li

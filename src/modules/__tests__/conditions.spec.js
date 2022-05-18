@@ -1,4 +1,4 @@
-import { getConditions } from '../conditions.js'
+import { getConditionsTexts } from '../conditions.js'
 
 test('Legend set chosen with no legends selected', () => {
     const conditions = {
@@ -9,7 +9,7 @@ test('Legend set chosen with no legends selected', () => {
         legendSetId1: { id: 'legendSetId1', name: 'Legend Set Name' },
     }
     const dimension = {}
-    const actual = getConditions({ conditions, metadata, dimension })
+    const actual = getConditionsTexts({ conditions, metadata, dimension })
 
     expect(actual).toEqual(['Legend Set Name'])
 })
@@ -30,7 +30,7 @@ test('Legend set chosen with legends selected', () => {
         },
     }
     const dimension = {}
-    const actual = getConditions({ conditions, metadata, dimension })
+    const actual = getConditionsTexts({ conditions, metadata, dimension })
 
     expect(actual).toEqual(['Legend 1', 'Legend 2'])
 })
@@ -47,7 +47,7 @@ test('Dimension with optionSet', () => {
         optionSet: 'optionsetId',
         valueType: 'NUMBER',
     }
-    const actual = getConditions({ conditions, metadata, dimension })
+    const actual = getConditionsTexts({ conditions, metadata, dimension })
 
     expect(actual).toEqual(['5', '6'])
 })
@@ -62,7 +62,7 @@ test('Organisation unit dimension with EQ condition', () => {
     const dimension = {
         valueType: 'ORGANISATION_UNIT',
     }
-    const actual = getConditions({ conditions, metadata, dimension })
+    const actual = getConditionsTexts({ conditions, metadata, dimension })
 
     expect(actual).toEqual(['Org unit name'])
 })
@@ -164,7 +164,7 @@ describe('conditions that do not include legend sets or option sets', () => {
     tests.forEach((t) => {
         const testname = `valueType: ${t.dimensionValueType}, condition: ${t.condition}`
         test(testname, () => {
-            const actual = getConditions({
+            const actual = getConditionsTexts({
                 conditions: { condition: t.condition },
                 metadata: {},
                 dimension: { valueType: t.dimensionValueType },
