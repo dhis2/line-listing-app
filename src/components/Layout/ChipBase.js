@@ -6,7 +6,7 @@ import React from 'react'
 import {
     VALUE_TYPE_BOOLEAN,
     VALUE_TYPE_TRUE_ONLY,
-    getConditions,
+    getConditionsTexts,
 } from '../../modules/conditions.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
@@ -35,7 +35,7 @@ export const ChipBase = ({ dimension, conditions, items, metadata }) => {
             return `: ${all}`
         }
 
-        const conds = getConditions({ conditions, metadata, dimension })
+        const conds = getConditionsTexts({ conditions, metadata, dimension })
 
         if (
             (valueType === VALUE_TYPE_TRUE_ONLY &&
