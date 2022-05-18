@@ -145,6 +145,11 @@ const tests = [
     },
     {
         dimensionValueType: 'LONG_TEXT',
+        condition: '!ILIKE:Cats',
+        expected: ['Does not contain: Cats'],
+    },
+    {
+        dimensionValueType: 'LONG_TEXT',
         condition: 'NE:NV:LIKE:Cats',
         expected: ['Is not empty / not null', 'Contains: Cats'],
     },
