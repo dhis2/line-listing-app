@@ -1,3 +1,4 @@
+import { formatValue } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
@@ -223,7 +224,7 @@ export const getConditionsTexts = ({
         } else {
             const parts = condition.split(':')
             operator = unprefixOperator(parts[0])
-            value = parts[1]
+            value = formatValue(parts[1], dimension.valueType, {})
         }
 
         if (

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-11T13:59:48.286Z\n"
-"PO-Revision-Date: 2022-05-11T13:59:48.286Z\n"
+"POT-Creation-Date: 2022-05-19T09:40:22.966Z\n"
+"PO-Revision-Date: 2022-05-19T09:40:22.966Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -278,23 +278,22 @@ msgid_plural "{{count}} conditions"
 msgstr[0] "{{count}} condition"
 msgstr[1] "{{count}} conditions"
 
-msgid "None selected"
-msgstr "None selected"
-
-msgid "Showing all values for this dimension"
-msgstr "Showing all values for this dimension"
-
-msgid "And 1 other..."
-msgstr "And 1 other..."
-
-msgid "And {{numberOfItems}} others..."
-msgstr "And {{numberOfItems}} others..."
-
 msgid "Levels"
 msgstr "Levels"
 
 msgid "Groups"
 msgstr "Groups"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] "And {{count}} other..."
+msgstr[1] "And {{count}} others..."
+
+msgid "None selected"
+msgstr "None selected"
+
+msgid "Showing all values for this dimension"
+msgstr "Showing all values for this dimension"
 
 msgid "Program stage: {{stageName}}"
 msgstr "Program stage: {{stageName}}"

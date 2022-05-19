@@ -10,7 +10,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getConditionsTexts } from '../../modules/conditions.js'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
@@ -20,24 +20,18 @@ import {
 } from '../../reducers/ui.js'
 import styles from './styles/Tooltip.module.css'
 
-const labels = {
-    noneSelected: () => i18n.t('None selected'),
-    allSelected: () => i18n.t('Showing all values for this dimension'),
-    oneOverLimit: () => i18n.t('And 1 other...'),
-    nOverLimit: (n) =>
-        i18n.t('And {{numberOfItems}} others...', {
-            numberOfItems: n,
-        }),
-}
-
 const renderLimit = 5
 
-export const TooltipContent = ({
-    dimension,
-    itemIds,
-    metadata,
-    conditions,
-}) => {
+export const TooltipContent = ({ dimension }) => {
+    const metadata = useSelector(sGetMetadata)
+    const itemIds =
+        useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
+        []
+    const conditions =
+        useSelector((state) =>
+            sGetUiConditionsByDimension(state, dimension.id)
+        ) || {}
+
     const getNameList = (idList, label, metadata) =>
         idList.reduce(
             (levelString, levelId, index) =>
@@ -97,17 +91,18 @@ export const TooltipContent = ({
                 </li>
             ))
 
-        if (itemDisplayNames.length > renderLimit) {
+        const numberOverRenderLimit = itemDisplayNames.length - renderLimit
+        if (numberOverRenderLimit > 0) {
             itemsToRender.push(
                 <li
                     key={`${dimension.id}-render-limit`}
                     className={styles.item}
                 >
-                    {itemDisplayNames.length - renderLimit === 1
-                        ? labels.oneOverLimit
-                        : labels.nOverLimit(
-                              itemDisplayNames.length - renderLimit
-                          )}
+                    {i18n.t('And {{count}} other...', {
+                        count: numberOverRenderLimit,
+                        defaultValue: 'And {{count}} other...',
+                        defaultValue_plural: 'And {{count}} others...',
+                    })}
                 </li>
             )
         }
@@ -119,20 +114,14 @@ export const TooltipContent = ({
         renderItems(getConditionsTexts({ conditions, metadata, dimension }))
 
     const renderNoItemsLabel = () => (
-        <li
-            key={`${dimension.id}-${labels.noneSelected()}`}
-            className={styles.item}
-        >
-            {labels.noneSelected()}
+        <li key={`${dimension.id}-none-selected`} className={styles.item}>
+            {i18n.t('None selected')}
         </li>
     )
 
     const renderAllItemsLabel = () => (
-        <li
-            key={`${dimension.id}-${labels.allSelected()}`}
-            className={styles.item}
-        >
-            {labels.allSelected()}
+        <li key={`${dimension.id}-all-selected`} className={styles.item}>
+            {i18n.t('Showing all values for this dimension')}
         </li>
     )
 
@@ -190,16 +179,7 @@ export const TooltipContent = ({
 }
 
 TooltipContent.propTypes = {
-    conditions: PropTypes.object.isRequired,
     dimension: PropTypes.object.isRequired,
-    metadata: PropTypes.object.isRequired,
-    itemIds: PropTypes.array,
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    metadata: sGetMetadata(state),
-    itemIds: sGetUiItemsByDimension(state, ownProps.dimension.id) || [],
-    conditions: sGetUiConditionsByDimension(state, ownProps.dimension.id) || {},
-})
-
-export default connect(mapStateToProps)(TooltipContent)
+export default TooltipContent
