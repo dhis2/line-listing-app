@@ -15,7 +15,10 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+// TODO this action cannot be used and a callback prop should be passed instead
 import { acSetLoadError } from '../../actions/loader.js'
+// TODO this action cannot be used and a callback prop should be passed instead
+// when the plugin is used in dashboard, this feature should be disabled
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     VALUE_TYPE_DATE,
