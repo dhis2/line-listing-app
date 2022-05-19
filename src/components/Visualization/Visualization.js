@@ -32,6 +32,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../modules/dimensionConstants.js'
 import {
+    dataAccessError,
     genericServerError,
     indicatorError,
     noPeriodError,
@@ -115,6 +116,9 @@ export const Visualization = ({
                     break
                 case 'E7132':
                     output = indicatorError()
+                    break
+                case 'E7121':
+                    output = dataAccessError()
                     break
                 default:
                     output = genericServerError()

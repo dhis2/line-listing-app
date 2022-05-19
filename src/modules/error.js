@@ -79,6 +79,13 @@ export const indicatorError = () =>
         i18n.t("There's a problem with at least one selected indicator")
     )
 
+export const dataAccessError = () =>
+    visualizationError(
+        GenericError,
+        genericErrorTitle,
+        i18n.t("You don't have access to the requested data")
+    )
+
 export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 
