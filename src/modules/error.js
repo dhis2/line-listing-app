@@ -82,7 +82,7 @@ export const indicatorError = () =>
 export const dataAccessError = () =>
     visualizationError(
         GenericError,
-        genericErrorTitle,
+        i18n.t('No access'),
         i18n.t("You don't have access to the requested data")
     )
 
