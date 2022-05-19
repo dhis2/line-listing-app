@@ -404,10 +404,8 @@ export const sGetDimensionIdsFromLayout = (state) =>
 export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
     sGetUiLayout(state)[axisId]
 
-export const sGetUiConditionsByDimension = (state, dimension) => {
-    const conds = sGetUiConditions(state)
-    return conds[dimension]
-}
+export const sGetUiConditionsByDimension = (state, dimension) =>
+    sGetUiConditions(state)[dimension]
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]
