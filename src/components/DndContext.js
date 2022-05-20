@@ -16,6 +16,7 @@ import {
     acSetUiLayout,
     acSetUiDraggingId,
 } from '../actions/ui.js'
+import { getConditionsTexts } from '../modules/conditions.js'
 import { extractDimensionIdParts } from '../modules/utils.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
@@ -23,6 +24,7 @@ import {
     sGetUiItemsByDimension,
     sGetUiDraggingId,
     sGetUiConditionsByDimension,
+    sGetUiOptions,
 } from '../reducers/ui.js'
 import styles from './DndContext.module.css'
 import { ChipBase } from './Layout/ChipBase.js'
@@ -127,6 +129,7 @@ const OuterDndContext = ({ children }) => {
 
     const chipConditions =
         useSelector((state) => sGetUiConditionsByDimension(state, id)) || {}
+    const { digitGroupSeparator } = useSelector(sGetUiOptions)
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
     const sensor = useSensor(PointerSensor, activateAt15pixels)
@@ -163,6 +166,13 @@ const OuterDndContext = ({ children }) => {
             )
         }
 
+        const conditionsTexts = getConditionsTexts({
+            conditions: chipConditions,
+            metadata,
+            dimension,
+            formatValueOptions: { digitGroupSeparator, skipRounding: false },
+        })
+
         return (
             <div
                 className={cx(
@@ -180,9 +190,8 @@ const OuterDndContext = ({ children }) => {
             >
                 <ChipBase
                     dimension={dimension}
-                    items={chipItems}
-                    conditions={chipConditions}
-                    metadata={metadata}
+                    conditionsLength={conditionsTexts.length}
+                    itemsLength={chipItems.length}
                 />
             </div>
         )
