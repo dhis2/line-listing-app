@@ -344,7 +344,6 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiOptions = (state) => sGetUi(state).options
-export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel

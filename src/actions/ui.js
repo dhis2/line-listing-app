@@ -174,11 +174,6 @@ export const acSetUiOptions = (value) => ({
     value,
 })
 
-export const acSetUiOption = (value) => ({
-    type: SET_UI_OPTION,
-    value,
-})
-
 export const acAddUiLayoutDimensions = (value, metadata) => ({
     type: ADD_UI_LAYOUT_DIMENSIONS,
     value,
