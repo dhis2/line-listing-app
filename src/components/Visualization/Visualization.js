@@ -13,10 +13,13 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+// TODO this action cannot be used and a callback prop should be passed instead
 import { acSetLoadError } from '../../actions/loader.js'
-import { acSetUiOpenDimensionModal, acSetUiSorting } from '../../actions/ui.js'
+// TODO this action cannot be used and a callback prop should be passed instead
+// when the plugin is used in dashboard, this feature should be disabled
+import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
 import {
     VALUE_TYPE_DATE,
     VALUE_TYPE_DATETIME,
@@ -29,6 +32,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../modules/dimensionConstants.js'
 import {
+    dataAccessError,
     genericServerError,
     indicatorError,
     noPeriodError,
@@ -42,10 +46,13 @@ import {
 } from '../../modules/options.js'
 import { headersMap } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetUiSorting, FIRST_PAGE } from '../../reducers/ui.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
+
+export const DEFAULT_SORT_DIRECTION = 'asc'
+export const FIRST_PAGE = 1
+export const PAGE_SIZE = 100
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -76,8 +83,16 @@ export const Visualization = ({
     relativePeriodDate,
 }) => {
     const dispatch = useDispatch()
+    // TODO remove need for metadata
     const metadata = useSelector(sGetMetadata)
-    const { sortField, sortDirection, pageSize } = useSelector(sGetUiSorting)
+    const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
+        {
+            sortField: null,
+            sortDirection: DEFAULT_SORT_DIRECTION,
+            page: FIRST_PAGE,
+            pageSize: PAGE_SIZE,
+        }
+    )
     const isInModal = !!relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
@@ -87,6 +102,9 @@ export const Visualization = ({
         relativePeriodDate,
         onResponseReceived,
         pageSize,
+        page,
+        sortField,
+        sortDirection,
     })
 
     if (error) {
@@ -98,6 +116,9 @@ export const Visualization = ({
                     break
                 case 'E7132':
                     output = indicatorError()
+                    break
+                case 'E7121':
+                    output = dataAccessError()
                     break
                 default:
                     output = genericServerError()
@@ -117,34 +138,28 @@ export const Visualization = ({
     const colSpan = String(Math.max(data.headers.length, 1))
 
     const sortData = ({ name, direction }) =>
-        dispatch(
-            acSetUiSorting({
-                sortField: name,
-                sortDirection: direction,
-                pageSize,
-                page: FIRST_PAGE,
-            })
-        )
+        setSorting({
+            sortField: name,
+            sortDirection: direction,
+            pageSize,
+            page: FIRST_PAGE,
+        })
 
     const setPage = (pageNum) =>
-        dispatch(
-            acSetUiSorting({
-                sortField,
-                sortDirection,
-                pageSize,
-                page: pageNum,
-            })
-        )
+        setSorting({
+            sortField,
+            sortDirection,
+            pageSize,
+            page: pageNum,
+        })
 
     const setPageSize = (pageSizeNum) =>
-        dispatch(
-            acSetUiSorting({
-                sortField,
-                sortDirection,
-                pageSize: pageSizeNum,
-                page: FIRST_PAGE,
-            })
-        )
+        setSorting({
+            sortField,
+            sortDirection,
+            pageSize: pageSizeNum,
+            page: FIRST_PAGE,
+        })
 
     const formatCellValue = (value, header) => {
         if (
@@ -153,6 +168,7 @@ export const Visualization = ({
                 headersMap[DIMENSION_ID_PROGRAM_STATUS],
             ].includes(header?.name)
         ) {
+            // TODO remove metadata use
             return metadata[value]?.name || value
         } else if (
             [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)

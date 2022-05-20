@@ -3,7 +3,6 @@ import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useRef, useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
-import { sGetUiSorting } from '../../reducers/ui.js'
 import {
     getAnalyticsEndpoint,
     getAdaptedVisualization,
@@ -24,7 +23,6 @@ const useDownloadMenu = (relativePeriodDate) => {
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
     const buttonRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
-    const { sortField, sortDirection } = useSelector(sGetUiSorting)
 
     const download = useCallback(
         (type, format, idScheme) => {
@@ -121,12 +119,6 @@ const useDownloadMenu = (relativePeriodDate) => {
             // TODO add common parameters
             // if there are for both event/enrollment and PT/LL
 
-            if (sortField) {
-                sortDirection === 'asc'
-                    ? req.withAsc(sortField)
-                    : req.withDesc(sortField)
-            }
-
             if (relativePeriodDate) {
                 req = req.withRelativePeriodDate(relativePeriodDate)
             }
@@ -143,7 +135,7 @@ const useDownloadMenu = (relativePeriodDate) => {
             window.open(url, target)
             setIsOpen(false)
         },
-        [current, relativePeriodDate, sortField, sortDirection]
+        [current, relativePeriodDate]
     )
 
     return {
