@@ -58,20 +58,20 @@ export const options = {
     },
     [OPTION_LEGEND_DISPLAY_STRATEGY]: {
         requestable: false,
-        savable: true,
+        savable: false,
     },
     [OPTION_LEGEND_DISPLAY_STYLE]: {
         requestable: false,
-        savable: true,
+        savable: false,
     },
     [OPTION_LEGEND_SET]: {
         requestable: false,
-        savable: true,
+        savable: false,
     },
     [OPTION_SHOW_LEGEND_KEY]: {
         defaultValue: false,
         requestable: false,
-        savable: true,
+        savable: false,
     },
     // TODO: Limit the number of rows shown in the table
     // TODO: Only show the [top/bottom] x rows
@@ -89,7 +89,20 @@ export const getOptionsForUi = () => {
 export const getOptionsFromVisualization = (visualization) => {
     const optionsFromVisualization = {
         ...getOptionsForUi(),
-        ...pick(visualization, Object.keys(options)),
+        ...pick(
+            visualization,
+            Object.keys(options).filter((option) => options[option].savable)
+        ),
+    }
+
+    if (visualization.legend) {
+        optionsFromVisualization[OPTION_LEGEND_DISPLAY_STRATEGY] =
+            visualization.legend.strategy
+        optionsFromVisualization[OPTION_LEGEND_DISPLAY_STYLE] =
+            visualization.legend.style
+        optionsFromVisualization[OPTION_LEGEND_SET] = visualization.legend.set
+        optionsFromVisualization[OPTION_SHOW_LEGEND_KEY] =
+            visualization.legend.showKey
     }
 
     return optionsFromVisualization
