@@ -11,26 +11,22 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { getConditionsTexts } from '../../modules/conditions.js'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import {
-    sGetUiConditionsByDimension,
-    sGetUiItemsByDimension,
-} from '../../reducers/ui.js'
+import { sGetUiItemsByDimension } from '../../reducers/ui.js'
 import styles from './styles/Tooltip.module.css'
 
 const renderLimit = 5
 
-export const TooltipContent = ({ dimension }) => {
+export const TooltipContent = ({
+    dimension,
+    hasConditions,
+    conditionsTexts,
+}) => {
     const metadata = useSelector(sGetMetadata)
     const itemIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
         []
-    const conditions =
-        useSelector((state) =>
-            sGetUiConditionsByDimension(state, dimension.id)
-        ) || {}
 
     const getNameList = (idList, label, metadata) =>
         idList.reduce(
@@ -110,9 +106,6 @@ export const TooltipContent = ({ dimension }) => {
         return itemsToRender
     }
 
-    const renderConditions = () =>
-        renderItems(getConditionsTexts({ conditions, metadata, dimension }))
-
     const renderNoItemsLabel = () => (
         <li key={`${dimension.id}-none-selected`} className={styles.item}>
             {i18n.t('None selected')}
@@ -160,8 +153,8 @@ export const TooltipContent = ({ dimension }) => {
                             })}
                         </li>
                     )}
-                    {conditions?.condition || conditions?.legendSet
-                        ? renderConditions(conditions)
+                    {hasConditions
+                        ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
                 </ul>
             )
@@ -169,8 +162,8 @@ export const TooltipContent = ({ dimension }) => {
         default: {
             return (
                 <ul className={styles.list}>
-                    {conditions?.condition || conditions?.legendSet
-                        ? renderConditions(conditions)
+                    {hasConditions
+                        ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
                 </ul>
             )
@@ -180,6 +173,8 @@ export const TooltipContent = ({ dimension }) => {
 
 TooltipContent.propTypes = {
     dimension: PropTypes.object.isRequired,
+    hasConditions: PropTypes.bool.isRequired,
+    conditionsTexts: PropTypes.array,
 }
 
 export default TooltipContent

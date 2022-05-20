@@ -1,103 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TooltipContent 2 conditions 1`] = `
-<div>
-  <ul
-    class="list"
-  >
-    <li
-      class="item"
-    >
-      Is not empty / not null
-    </li>
-    <li
-      class="item"
-    >
-      Less than (&lt;): 1000
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`TooltipContent 6 conditions 1`] = `
-<div>
-  <ul
-    class="list"
-  >
-    <li
-      class="item"
-    >
-      Is not empty / not null
-    </li>
-    <li
-      class="item"
-    >
-      Less than (&lt;): 1000
-    </li>
-    <li
-      class="item"
-    >
-      Greater than (&gt;): 10
-    </li>
-    <li
-      class="item"
-    >
-      Not equal to (≠): 11
-    </li>
-    <li
-      class="item"
-    >
-      Not equal to (≠): 50
-    </li>
-    <li
-      class="item"
-    >
-      And 1 other...
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`TooltipContent 8 conditions 1`] = `
-<div>
-  <ul
-    class="list"
-  >
-    <li
-      class="item"
-    >
-      Is not empty / not null
-    </li>
-    <li
-      class="item"
-    >
-      Less than (&lt;): 1000
-    </li>
-    <li
-      class="item"
-    >
-      Greater than (&gt;): 10
-    </li>
-    <li
-      class="item"
-    >
-      Not equal to (≠): 11
-    </li>
-    <li
-      class="item"
-    >
-      Not equal to (≠): 50
-    </li>
-    <li
-      class="item"
-    >
-      And 3 others...
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`TooltipContent COGS 1`] = `
+exports[`TooltipContent COGS: 2 items 1`] = `
 <div>
   <ul
     class="list"
@@ -116,7 +19,7 @@ exports[`TooltipContent COGS 1`] = `
 </div>
 `;
 
-exports[`TooltipContent legendset with options chosen 1`] = `
+exports[`TooltipContent Data element: 2 conditions 1`] = `
 <div>
   <ul
     class="list"
@@ -124,18 +27,18 @@ exports[`TooltipContent legendset with options chosen 1`] = `
     <li
       class="item"
     >
-      0 - 4
+      Condition 1
     </li>
     <li
       class="item"
     >
-      5 - 14
+      Condition 2
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent legendset without options chosen 1`] = `
+exports[`TooltipContent Data element: 6 conditions 1`] = `
 <div>
   <ul
     class="list"
@@ -143,13 +46,77 @@ exports[`TooltipContent legendset without options chosen 1`] = `
     <li
       class="item"
     >
-      Legend set name
+      Condition 1
+    </li>
+    <li
+      class="item"
+    >
+      Condition 2
+    </li>
+    <li
+      class="item"
+    >
+      Condition 3
+    </li>
+    <li
+      class="item"
+    >
+      Condition 4
+    </li>
+    <li
+      class="item"
+    >
+      Condition 5
+    </li>
+    <li
+      class="item"
+    >
+      And 1 other...
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent no conditions 1`] = `
+exports[`TooltipContent Data element: 8 conditions 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Condition 1
+    </li>
+    <li
+      class="item"
+    >
+      Condition 2
+    </li>
+    <li
+      class="item"
+    >
+      Condition 3
+    </li>
+    <li
+      class="item"
+    >
+      Condition 4
+    </li>
+    <li
+      class="item"
+    >
+      Condition 5
+    </li>
+    <li
+      class="item"
+    >
+      And 3 other...
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: no conditions 1`] = `
 <div>
   <ul
     class="list"
@@ -163,7 +130,15 @@ exports[`TooltipContent no conditions 1`] = `
 </div>
 `;
 
-exports[`TooltipContent no ou selected 1`] = `
+exports[`TooltipContent Data element: optionSet, 2 conditions but name missing for one 1`] = `
+<div>
+  <ul
+    class="list"
+  />
+</div>
+`;
+
+exports[`TooltipContent Data element: with stage and 1 condition 1`] = `
 <div>
   <ul
     class="list"
@@ -171,13 +146,18 @@ exports[`TooltipContent no ou selected 1`] = `
     <li
       class="item"
     >
-      None selected
+      Program stage: The first stage
+    </li>
+    <li
+      class="item"
+    >
+      Condition 1
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent no period selected 1`] = `
+exports[`TooltipContent OU: 1 id and 1 level 1`] = `
 <div>
   <ul
     class="list"
@@ -185,13 +165,18 @@ exports[`TooltipContent no period selected 1`] = `
     <li
       class="item"
     >
-      None selected
+      My OU
+    </li>
+    <li
+      class="item"
+    >
+      Levels: My level 1
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent ou and level 1`] = `
+exports[`TooltipContent OU: 1 id and 1 level, and missing metadata 1`] = `
 <div>
   <ul
     class="list"
@@ -199,18 +184,18 @@ exports[`TooltipContent ou and level 1`] = `
     <li
       class="item"
     >
-      OU Equestria
+      theOuId
     </li>
     <li
       class="item"
     >
-      Levels: Evertree forest
+      Levels: level1Id
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent ou id and 3 ou groups 1`] = `
+exports[`TooltipContent OU: 1 id and 3 groups 1`] = `
 <div>
   <ul
     class="list"
@@ -229,7 +214,7 @@ exports[`TooltipContent ou id and 3 ou groups 1`] = `
 </div>
 `;
 
-exports[`TooltipContent ou with missing metadata 1`] = `
+exports[`TooltipContent OU: none selected 1`] = `
 <div>
   <ul
     class="list"
@@ -237,18 +222,13 @@ exports[`TooltipContent ou with missing metadata 1`] = `
     <li
       class="item"
     >
-      equestriaOuId
-    </li>
-    <li
-      class="item"
-    >
-      Levels: evertreeForestId
+      None selected
     </li>
   </ul>
 </div>
 `;
 
-exports[`TooltipContent period selected 1`] = `
+exports[`TooltipContent Period: 2 selected 1`] = `
 <div>
   <ul
     class="list"
@@ -267,15 +247,7 @@ exports[`TooltipContent period selected 1`] = `
 </div>
 `;
 
-exports[`TooltipContent return null when at least one item is missing a name 1`] = `
-<div>
-  <ul
-    class="list"
-  />
-</div>
-`;
-
-exports[`TooltipContent with stage 1`] = `
+exports[`TooltipContent Period: none selected 1`] = `
 <div>
   <ul
     class="list"
@@ -283,12 +255,7 @@ exports[`TooltipContent with stage 1`] = `
     <li
       class="item"
     >
-      Program stage: The first stage
-    </li>
-    <li
-      class="item"
-    >
-      Greater than (&gt;): 11
+      None selected
     </li>
   </ul>
 </div>

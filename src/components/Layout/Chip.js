@@ -6,6 +6,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { getConditionsTexts } from '../../modules/conditions.js'
 import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -98,7 +99,20 @@ const Chip = ({
 
     const dataTest = `layout-chip-${dimensionId}`
 
-    const renderTooltipContent = () => <TooltipContent dimension={dimension} />
+    const hasConditions = conditions.condition?.length || conditions.legendSet
+    const conditionsTexts = getConditionsTexts({
+        conditions,
+        metadata,
+        dimension,
+    })
+
+    const renderTooltipContent = () => (
+        <TooltipContent
+            dimension={dimension}
+            hasConditions={hasConditions}
+            conditionsTexts={conditionsTexts}
+        />
+    )
 
     if (globalLoadError && !dimensionName) {
         return null
@@ -117,8 +131,7 @@ const Chip = ({
                     [styles.chipEmpty]:
                         axisId === AXIS_ID_FILTERS &&
                         !items.length &&
-                        !conditions.condition?.length &&
-                        !conditions.legendSet,
+                        !hasConditions,
                     [styles.active]: isDragging,
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,
@@ -142,8 +155,10 @@ const Chip = ({
                                 >
                                     <ChipBase
                                         dimension={dimension}
-                                        conditions={conditions}
-                                        items={items}
+                                        conditionsLength={
+                                            conditionsTexts.length
+                                        }
+                                        itemsLength={items.length}
                                         metadata={metadata}
                                     />
                                 </div>
