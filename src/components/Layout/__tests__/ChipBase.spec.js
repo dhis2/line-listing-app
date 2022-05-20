@@ -157,7 +157,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('Data element: TRUE_ONLY 1 conditions', () => {
+    test('Data element: TRUE_ONLY 1 condition', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',

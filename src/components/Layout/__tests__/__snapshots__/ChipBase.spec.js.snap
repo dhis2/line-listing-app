@@ -38,7 +38,7 @@ exports[`ChipBase Data element: 2 conditions 1`] = `
 </div>
 `;
 
-exports[`ChipBase Data element: TRUE_ONLY 1 conditions 1`] = `
+exports[`ChipBase Data element: TRUE_ONLY 1 condition 1`] = `
 <div>
   <div
     class="chipBase"
