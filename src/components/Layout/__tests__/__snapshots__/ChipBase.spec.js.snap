@@ -190,6 +190,49 @@ exports[`ChipBase data element all 1`] = `
 </div>
 `;
 
+exports[`ChipBase data element in stage with option set and 2 options chosen 1`] = `
+<div>
+  <div
+    class="chipBase"
+  >
+    <div
+      class="leftIcon"
+    >
+      <svg
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 1a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V2a1 1 0 011-1zm-8 9v3h8v-3zm2 1v1H5v-1zm0-4v1H5V7zm6-5H4v3h8zM6 3v1H5V3zM4 9h8V6H4z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+    <span
+      class="label"
+    >
+      <span
+        class="primary"
+      >
+        My data element
+      </span>
+      <span
+        class="secondary"
+      >
+        Stage 1
+      </span>
+    </span>
+    <span
+      class="suffix"
+    >
+      : 2 selected
+    </span>
+  </div>
+</div>
+`;
+
 exports[`ChipBase data element with legend set and 2 options chosen 1`] = `
 <div>
   <div

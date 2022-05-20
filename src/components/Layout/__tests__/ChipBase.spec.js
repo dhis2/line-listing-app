@@ -177,6 +177,28 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
+    test('data element in stage with option set and 2 options chosen', () => {
+        const dimension = {
+            id: 'stageId.dataElementId',
+            name: 'My data element',
+            dimensionType: 'DATA_ELEMENT',
+            valueType: 'NUMBER',
+            optionSet: 'optionSetId',
+            stageName: 'Stage 1',
+        }
+
+        const { container } = render(
+            <ChipBase
+                dimension={dimension}
+                conditions={{
+                    condition: 'IN:4;5',
+                }}
+                items={[]}
+                metadata={{}}
+            />
+        )
+        expect(container).toMatchSnapshot()
+    })
     test('TRUE_ONLY data element with all', () => {
         const dimension = {
             id: 'dataElementId',
