@@ -4,7 +4,7 @@ import { ChipBase } from '../ChipBase.js'
 import '../../../locales/index.js'
 
 describe('ChipBase', () => {
-    test('empty date', () => {
+    test('Period: none selected', () => {
         const dimension = {
             id: 'eventDate',
             name: 'Event date (analytics)',
@@ -20,7 +20,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('date 1 selected', () => {
+    test('Period: 1 selected', () => {
         const dimension = {
             id: 'eventDate',
             name: 'Event date (analytics)',
@@ -36,7 +36,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('empty ou', () => {
+    test('OU: none selected', () => {
         const dimension = {
             id: 'ou',
             name: 'Organsiation unit',
@@ -52,7 +52,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('ou 2 selected', () => {
+    test('OU: 2 selected', () => {
         const dimension = {
             id: 'eventDate',
             name: 'Event date (analytics)',
@@ -68,7 +68,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('data element all', () => {
+    test('Data element: no conditions', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
@@ -86,7 +86,7 @@ describe('ChipBase', () => {
         expect(container).toMatchSnapshot()
     })
     //TODO - why isn't i18n.t working with plurals
-    test('data element 2 conditions', () => {
+    test('Data element: 2 conditions', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
@@ -103,7 +103,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('data element with option set and 2 options chosen', () => {
+    test('Data element: option set and 2 options chosen', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
@@ -121,7 +121,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('data element in stage with option set and 2 options chosen', () => {
+    test('Data element: in stage with option set and 2 options chosen', () => {
         const dimension = {
             id: 'stageId.dataElementId',
             name: 'My data element',
@@ -140,7 +140,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('TRUE_ONLY data element with all', () => {
+    test('Data element: TRUE_ONLY no conditions', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
@@ -157,7 +157,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('TRUE_ONLY data element with 1 selected', () => {
+    test('Data element: TRUE_ONLY 1 conditions', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
@@ -174,7 +174,7 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    test('TRUE_ONLY data element with both selected', () => {
+    test('Data element: TRUE_ONLY both selected', () => {
         const dimension = {
             id: 'dataElementId',
             name: 'My data element',
