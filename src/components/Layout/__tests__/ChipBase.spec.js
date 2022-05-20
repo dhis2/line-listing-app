@@ -54,9 +54,9 @@ describe('ChipBase', () => {
     })
     test('OU: 2 selected', () => {
         const dimension = {
-            id: 'eventDate',
-            name: 'Event date (analytics)',
-            dimensionType: 'PERIOD',
+            id: 'ou',
+            name: 'Organsiation unit',
+            dimensionType: 'ORGANISATION_UNIT',
         }
 
         const { container } = render(
