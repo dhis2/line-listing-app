@@ -12,6 +12,7 @@ import { sGetMetadata } from '../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
     sGetUiConditionsByDimension,
+    sGetUiOptions,
 } from '../../reducers/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import { ChipBase } from './ChipBase.js'
@@ -58,6 +59,7 @@ const Chip = ({
     })
     const globalLoadError = useSelector(sGetLoadError)
     const metadata = useSelector(sGetMetadata)
+    const { digitGroupSeparator } = useSelector(sGetUiOptions)
     const conditions =
         useSelector((state) =>
             sGetUiConditionsByDimension(state, dimension.id)
@@ -99,11 +101,14 @@ const Chip = ({
 
     const dataTest = `layout-chip-${dimensionId}`
 
-    const hasConditions = conditions.condition?.length || conditions.legendSet
+    const hasConditions = Boolean(
+        conditions.condition?.length || conditions.legendSet
+    )
     const conditionsTexts = getConditionsTexts({
         conditions,
         metadata,
         dimension,
+        formatValueOptions: { digitGroupSeparator, skipRounding: false },
     })
 
     const renderTooltipContent = () => (

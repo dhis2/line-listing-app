@@ -168,6 +168,7 @@ export const getConditionsTexts = ({
     conditions = {},
     metadata = {},
     dimension = {},
+    formatValueOptions = {},
 }) => {
     const conditionsList = parseConditionsStringToArray(conditions.condition)
 
@@ -224,7 +225,11 @@ export const getConditionsTexts = ({
         } else {
             const parts = condition.split(':')
             operator = unprefixOperator(parts[0])
-            value = formatValue(parts[1], dimension.valueType, {})
+            value = formatValue(
+                parts[1],
+                dimension.valueType,
+                formatValueOptions
+            )
         }
 
         if (
