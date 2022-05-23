@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 import { ChipBase } from '../ChipBase.js'
-import '../../../locales/index.js'
 
 describe('ChipBase', () => {
     test('Period: none selected', () => {
@@ -85,7 +84,8 @@ describe('ChipBase', () => {
         )
         expect(container).toMatchSnapshot()
     })
-    //TODO - why isn't i18n.t working with plurals
+    // TODO: figure out why plural translations are not being returned from i18n.t() in Jest tests
+    // The snapshot should say "2 conditions"
     test('Data element: 2 conditions', () => {
         const dimension = {
             id: 'dataElementId',

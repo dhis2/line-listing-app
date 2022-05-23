@@ -353,6 +353,7 @@ describe('TooltipContent', () => {
         expect(container).toMatchSnapshot()
     })
     // TODO: figure out why plural translations are not being returned from i18n.t() in Jest tests
+    // The snapshot should say "And 3 others..."
     test('Data element: 8 conditions', () => {
         const store = {
             ui: {
