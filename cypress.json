@@ -6,6 +6,6 @@
     "video": false,
     "env": {
         "dhis2DatatestPrefix": "dhis2-linelisting",
-        "dhis2ApiVersion": 38
+        "dhis2ApiVersion": 39
     }
 }
