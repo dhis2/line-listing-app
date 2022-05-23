@@ -101,9 +101,6 @@ const Chip = ({
 
     const dataTest = `layout-chip-${dimensionId}`
 
-    const hasConditions = Boolean(
-        conditions.condition?.length || conditions.legendSet
-    )
     const conditionsTexts = getConditionsTexts({
         conditions,
         metadata,
@@ -114,7 +111,6 @@ const Chip = ({
     const renderTooltipContent = () => (
         <TooltipContent
             dimension={dimension}
-            hasConditions={hasConditions}
             conditionsTexts={conditionsTexts}
         />
     )
@@ -136,7 +132,8 @@ const Chip = ({
                     [styles.chipEmpty]:
                         axisId === AXIS_ID_FILTERS &&
                         !items.length &&
-                        !hasConditions,
+                        !conditions.condition?.length &&
+                        !conditions.legendSet,
                     [styles.active]: isDragging,
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,

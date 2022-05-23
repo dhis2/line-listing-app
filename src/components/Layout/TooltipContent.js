@@ -18,11 +18,7 @@ import styles from './styles/Tooltip.module.css'
 
 const renderLimit = 5
 
-export const TooltipContent = ({
-    dimension,
-    hasConditions,
-    conditionsTexts,
-}) => {
+export const TooltipContent = ({ dimension, conditionsTexts }) => {
     const metadata = useSelector(sGetMetadata)
     const itemIds =
         useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
@@ -153,7 +149,7 @@ export const TooltipContent = ({
                             })}
                         </li>
                     )}
-                    {hasConditions
+                    {conditionsTexts.length
                         ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
                 </ul>
@@ -162,7 +158,7 @@ export const TooltipContent = ({
         default: {
             return (
                 <ul className={styles.list}>
-                    {hasConditions
+                    {conditionsTexts.length
                         ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
                 </ul>
@@ -172,9 +168,8 @@ export const TooltipContent = ({
 }
 
 TooltipContent.propTypes = {
+    conditionsTexts: PropTypes.array.isRequired,
     dimension: PropTypes.object.isRequired,
-    hasConditions: PropTypes.bool.isRequired,
-    conditionsTexts: PropTypes.array,
 }
 
 export default TooltipContent
