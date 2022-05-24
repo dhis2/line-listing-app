@@ -308,24 +308,28 @@ const useAnalyticsData = ({
             const rows = extractRows(analyticsResponse, headers)
             const pager = analyticsResponse.metaData.pager
             const legendSetIds = []
-            switch (visualization.legend?.strategy) {
-                case LEGEND_DISPLAY_STRATEGY_FIXED:
-                    if (visualization.legend?.set?.id) {
-                        legendSetIds.push(visualization.legend.set.id)
-                    }
-                    break
-                case LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM: {
-                    data.headers.forEach((header) => {
-                        const legendSet =
-                            analyticsResponse.metaData.items[header.name]
-                                ?.legendSet
-                        if (legendSet) {
-                            legendSetIds.push(legendSet)
-                        }
-                    })
-
-                    break
-                }
+            const headerLegendSetMap = headers.reduce(
+                (acc, header) => ({
+                    ...acc,
+                    [header.name]:
+                        analyticsResponse.metaData.items[header.name]
+                            ?.legendSet,
+                }),
+                {}
+            )
+            if (
+                visualization.legend?.strategy ===
+                    LEGEND_DISPLAY_STRATEGY_FIXED &&
+                visualization.legend?.set?.id
+            ) {
+                legendSetIds.push(visualization.legend.set.id)
+            } else if (
+                visualization.legend?.strategy ===
+                LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM
+            ) {
+                Object.values(headerLegendSetMap)
+                    .filter((legendSet) => legendSet)
+                    .forEach((legendSet) => legendSetIds.push(legendSet))
             }
 
             const legendSets = await fetchLegendSets({
@@ -337,7 +341,7 @@ const useAnalyticsData = ({
                 headers
                     .filter((header) => valueTypeIsNumeric(header.valueType))
                     .forEach((header) => {
-                        switch (visualization.legend?.strategy) {
+                        switch (visualization.legend.strategy) {
                             case LEGEND_DISPLAY_STRATEGY_FIXED:
                                 header.legendSet = legendSets[0]
                                 break
@@ -345,9 +349,7 @@ const useAnalyticsData = ({
                                 header.legendSet = legendSets.find(
                                     (legendSet) =>
                                         legendSet.id ===
-                                        analyticsResponse.metaData.items[
-                                            header.name
-                                        ]?.legendSet
+                                        headerLegendSetMap[header.name]
                                 )
                                 break
                             }
