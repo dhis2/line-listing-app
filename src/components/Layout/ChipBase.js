@@ -1,13 +1,14 @@
-import { DIMENSION_ID_ORGUNIT, DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_PERIOD,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-    VALUE_TYPE_BOOLEAN,
-    VALUE_TYPE_TRUE_ONLY,
-    getConditionsTexts,
-} from '../../modules/conditions.js'
+import { getConditionsTexts } from '../../modules/conditions.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
 

@@ -1,4 +1,10 @@
-import { formatValue } from '@dhis2/analytics'
+import {
+    formatValue,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_URL,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -20,12 +26,6 @@ import { acSetLoadError } from '../../actions/loader.js'
 // TODO this action cannot be used and a callback prop should be passed instead
 // when the plugin is used in dashboard, this feature should be disabled
 import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
-import {
-    VALUE_TYPE_DATE,
-    VALUE_TYPE_DATETIME,
-    VALUE_TYPE_TEXT,
-    VALUE_TYPE_URL,
-} from '../../modules/conditions.js'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
