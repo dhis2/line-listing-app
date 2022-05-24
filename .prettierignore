@@ -1,0 +1,6 @@
+node_modules
+.d2
+src/locales
+build
+cypress/fixtures/network
+cypress.env.json

@@ -21,7 +21,6 @@ import {
     SET_UI_LAYOUT,
     SET_UI_OPTION,
     SET_UI_OPTIONS,
-    SET_UI_SORTING,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
@@ -219,11 +218,6 @@ export const acSetUiDetailsPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelOpen = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_OPEN,
-    value,
-})
-
-export const acSetUiSorting = (value) => ({
-    type: SET_UI_SORTING,
     value,
 })
 

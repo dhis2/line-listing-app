@@ -29,7 +29,6 @@ import {
     headersMap,
 } from '../../modules/visualization.js'
 import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
-import { sGetUiSorting } from '../../reducers/ui.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
@@ -229,10 +228,12 @@ const useAnalyticsData = ({
     relativePeriodDate,
     onResponseReceived,
     pageSize,
+    page,
+    sortField,
+    sortDirection,
 }) => {
     const dataEngine = useDataEngine()
     const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
-    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)

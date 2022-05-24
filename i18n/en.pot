@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-11T13:59:48.286Z\n"
-"PO-Revision-Date: 2022-05-11T13:59:48.286Z\n"
+"POT-Creation-Date: 2022-05-19T13:15:10.917Z\n"
+"PO-Revision-Date: 2022-05-19T13:15:10.917Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -691,6 +691,12 @@ msgstr "Add at least one time dimension to the layout."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "There's a problem with at least one selected indicator"
+
+msgid "No access"
+msgstr "No access"
+
+msgid "You don't have access to the requested data"
+msgstr "You don't have access to the requested data"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
