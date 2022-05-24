@@ -1,5 +1,7 @@
 import {
     formatValue,
+    getColorByValueFromLegendSet,
+    LEGEND_DISPLAY_STYLE_TEXT,
     VALUE_TYPE_DATE,
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_TEXT,
@@ -196,6 +198,21 @@ export const Visualization = ({
         }
     }
 
+    const getCellStyle = (value, header) => {
+        if (header.legendSet) {
+            return {
+                [visualization.legend?.style === LEGEND_DISPLAY_STYLE_TEXT
+                    ? 'color'
+                    : 'background-color']: getColorByValueFromLegendSet(
+                    header.legendSet,
+                    value
+                ),
+            }
+        } else {
+            return {}
+        }
+    }
+
     const formatCellHeader = (header) => {
         let headerName = header.column
         let dimensionId = Number.isInteger(header?.stageOffset)
@@ -303,10 +320,17 @@ export const Visualization = ({
                                             sizeClass
                                         )}
                                     >
-                                        {formatCellValue(
-                                            value,
-                                            data.headers[index]
-                                        )}
+                                        <div
+                                            style={getCellStyle(
+                                                value,
+                                                data.headers[index]
+                                            )}
+                                        >
+                                            {formatCellValue(
+                                                value,
+                                                data.headers[index]
+                                            )}
+                                        </div>
                                     </DataTableCell>
                                 ))}
                             </DataTableRow>
