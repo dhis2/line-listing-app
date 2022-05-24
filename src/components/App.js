@@ -70,6 +70,7 @@ const visualizationQuery = {
                 'href',
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
+                'legend[set[id,displayName],strategy,style,showKey]',
                 '!interpretations',
                 '!userGroupAccesses',
                 '!publicAccess',
