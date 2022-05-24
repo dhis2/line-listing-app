@@ -23,12 +23,13 @@ const getLabelForInputType = (type) => {
 }
 
 const InputPanel = ({ visible }) => {
+    const selectedInput = useSelector(sGetUiInput)
+    const dispatch = useDispatch()
+
     if (!visible) {
         return null
     }
 
-    const selectedInput = useSelector(sGetUiInput)
-    const dispatch = useDispatch()
     const setSelectedInput = (input) => {
         if (selectedInput.type !== input.type) {
             dispatch(tSetUiInput(input))
