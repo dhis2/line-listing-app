@@ -6,11 +6,13 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { getConditionsTexts } from '../../modules/conditions.js'
 import { sGetLoadError } from '../../reducers/loader.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
     sGetUiItemsByDimension,
     sGetUiConditionsByDimension,
+    sGetUiOptions,
 } from '../../reducers/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import { ChipBase } from './ChipBase.js'
@@ -57,6 +59,7 @@ const Chip = ({
     })
     const globalLoadError = useSelector(sGetLoadError)
     const metadata = useSelector(sGetMetadata)
+    const { digitGroupSeparator } = useSelector(sGetUiOptions)
     const conditions =
         useSelector((state) =>
             sGetUiConditionsByDimension(state, dimension.id)
@@ -98,7 +101,19 @@ const Chip = ({
 
     const dataTest = `layout-chip-${dimensionId}`
 
-    const renderTooltipContent = () => <TooltipContent dimension={dimension} />
+    const conditionsTexts = getConditionsTexts({
+        conditions,
+        metadata,
+        dimension,
+        formatValueOptions: { digitGroupSeparator, skipRounding: false },
+    })
+
+    const renderTooltipContent = () => (
+        <TooltipContent
+            dimension={dimension}
+            conditionsTexts={conditionsTexts}
+        />
+    )
 
     if (globalLoadError && !dimensionName) {
         return null
@@ -142,8 +157,10 @@ const Chip = ({
                                 >
                                     <ChipBase
                                         dimension={dimension}
-                                        conditions={conditions}
-                                        items={items}
+                                        conditionsLength={
+                                            conditionsTexts.length
+                                        }
+                                        itemsLength={items.length}
                                         metadata={metadata}
                                     />
                                 </div>

@@ -19,6 +19,8 @@ import {
     VALUE_TYPE_TIME,
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_ORGANISATION_UNIT,
+    formatValue,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 
@@ -168,6 +170,7 @@ export const getConditionsTexts = ({
     conditions = {},
     metadata = {},
     dimension = {},
+    formatValueOptions = {},
 }) => {
     const conditionsList = parseConditionsStringToArray(conditions.condition)
 
@@ -223,8 +226,12 @@ export const getConditionsTexts = ({
             operator = condition
         } else {
             const parts = condition.split(':')
+            const valueType =
+                dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
+                    ? VALUE_TYPE_NUMBER
+                    : dimension.valueType
             operator = unprefixOperator(parts[0])
-            value = parts[1]
+            value = formatValue(parts[1], valueType, formatValueOptions)
         }
 
         if (
