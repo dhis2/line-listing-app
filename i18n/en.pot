@@ -278,23 +278,22 @@ msgid_plural "{{count}} conditions"
 msgstr[0] "{{count}} condition"
 msgstr[1] "{{count}} conditions"
 
-msgid "None selected"
-msgstr "None selected"
-
-msgid "Showing all values for this dimension"
-msgstr "Showing all values for this dimension"
-
-msgid "And 1 other..."
-msgstr "And 1 other..."
-
-msgid "And {{numberOfItems}} others..."
-msgstr "And {{numberOfItems}} others..."
-
 msgid "Levels"
 msgstr "Levels"
 
 msgid "Groups"
 msgstr "Groups"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] "And {{count}} other..."
+msgstr[1] "And {{count}} others..."
+
+msgid "None selected"
+msgstr "None selected"
+
+msgid "Showing all values for this dimension"
+msgstr "Showing all values for this dimension"
 
 msgid "Program stage: {{stageName}}"
 msgstr "Program stage: {{stageName}}"

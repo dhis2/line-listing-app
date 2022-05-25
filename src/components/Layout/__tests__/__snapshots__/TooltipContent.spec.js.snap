@@ -1,0 +1,262 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TooltipContent COGS: 2 items 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      COGS item 1
+    </li>
+    <li
+      class="item"
+    >
+      COGS item 2
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: 2 conditions 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Condition 1
+    </li>
+    <li
+      class="item"
+    >
+      Condition 2
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: 6 conditions 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Condition 1
+    </li>
+    <li
+      class="item"
+    >
+      Condition 2
+    </li>
+    <li
+      class="item"
+    >
+      Condition 3
+    </li>
+    <li
+      class="item"
+    >
+      Condition 4
+    </li>
+    <li
+      class="item"
+    >
+      Condition 5
+    </li>
+    <li
+      class="item"
+    >
+      And 1 other...
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: 8 conditions 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Condition 1
+    </li>
+    <li
+      class="item"
+    >
+      Condition 2
+    </li>
+    <li
+      class="item"
+    >
+      Condition 3
+    </li>
+    <li
+      class="item"
+    >
+      Condition 4
+    </li>
+    <li
+      class="item"
+    >
+      Condition 5
+    </li>
+    <li
+      class="item"
+    >
+      And 3 other...
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: no conditions 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Showing all values for this dimension
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Data element: optionSet, 2 conditions but name missing for one 1`] = `
+<div>
+  <ul
+    class="list"
+  />
+</div>
+`;
+
+exports[`TooltipContent Data element: with stage and 1 condition 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      Program stage: The first stage
+    </li>
+    <li
+      class="item"
+    >
+      Condition 1
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent OU: 1 id and 1 level 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      My OU
+    </li>
+    <li
+      class="item"
+    >
+      Levels: My level 1
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent OU: 1 id and 1 level, and missing metadata 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      theOuId
+    </li>
+    <li
+      class="item"
+    >
+      Levels: level1Id
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent OU: 1 id and 3 groups 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      OU Equestria
+    </li>
+    <li
+      class="item"
+    >
+      Groups: All the blue ponies, All the yellow ponies, All the purple ponies
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent OU: none selected 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      None selected
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Period: 2 selected 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      May 2022
+    </li>
+    <li
+      class="item"
+    >
+      July 2022
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`TooltipContent Period: none selected 1`] = `
+<div>
+  <ul
+    class="list"
+  >
+    <li
+      class="item"
+    >
+      None selected
+    </li>
+  </ul>
+</div>
+`;
