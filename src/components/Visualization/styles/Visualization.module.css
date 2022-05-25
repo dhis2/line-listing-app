@@ -1,8 +1,8 @@
 .wrapper {
     display: flex;
     flex-direction: row;
-    flex-grow: 0;
     align-items: flex-start;
+    flex-grow: 1;
 }
 
 .fetchIndicator {
@@ -133,4 +133,17 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* Legend key */
+.legendKeyContainer {
+    margin: 0 12px 0 8px;
+    width: 180px;
+}
+.legendKeyWrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
