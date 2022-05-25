@@ -1,6 +1,7 @@
 import {
     formatValue,
     getColorByValueFromLegendSet,
+    LEGEND_DISPLAY_STYLE_FILL,
     LEGEND_DISPLAY_STYLE_TEXT,
     VALUE_TYPE_DATE,
     VALUE_TYPE_DATETIME,
@@ -198,21 +199,6 @@ export const Visualization = ({
         }
     }
 
-    const getCellStyle = (value, header) => {
-        if (header.legendSet) {
-            return {
-                [visualization.legend?.style === LEGEND_DISPLAY_STYLE_TEXT
-                    ? 'color'
-                    : 'background-color']: getColorByValueFromLegendSet(
-                    header.legendSet,
-                    value
-                ),
-            }
-        } else {
-            return {}
-        }
-    }
-
     const formatCellHeader = (header) => {
         let headerName = header.column
         let dimensionId = Number.isInteger(header?.stageOffset)
@@ -319,12 +305,29 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        backgroundColor={
+                                            visualization.legend?.style ===
+                                                LEGEND_DISPLAY_STYLE_FILL &&
+                                            getColorByValueFromLegendSet(
+                                                data.headers[index].legendSet,
+                                                value
+                                            )
+                                        }
                                     >
                                         <div
-                                            style={getCellStyle(
-                                                value,
-                                                data.headers[index]
-                                            )}
+                                            style={
+                                                visualization.legend?.style ===
+                                                LEGEND_DISPLAY_STYLE_TEXT
+                                                    ? {
+                                                          color: getColorByValueFromLegendSet(
+                                                              data.headers[
+                                                                  index
+                                                              ].legendSet,
+                                                              value
+                                                          ),
+                                                      }
+                                                    : {}
+                                            }
                                         >
                                             {formatCellValue(
                                                 value,
