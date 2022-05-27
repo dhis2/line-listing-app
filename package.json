@@ -69,7 +69,6 @@
         }
     },
     "resolutions": {
-        "@dhis2/prop-types": "^1.6.4",
         "@dhis2/ui": "^8.3.1",
         "i18next": "^20.5.0"
     }
