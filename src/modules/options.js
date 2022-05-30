@@ -87,11 +87,20 @@ export const getOptionsForUi = () => {
 }
 
 export const getOptionsFromVisualization = (visualization) => {
+    const legendOptions = [
+        OPTION_LEGEND_DISPLAY_STRATEGY,
+        OPTION_LEGEND_DISPLAY_STYLE,
+        OPTION_LEGEND_SET,
+        OPTION_SHOW_LEGEND_KEY,
+    ]
+
     const optionsFromVisualization = {
         ...getOptionsForUi(),
         ...pick(
             visualization,
-            Object.keys(options).filter((option) => options[option].savable)
+            Object.keys(options).filter(
+                (option) => !legendOptions.includes(option)
+            )
         ),
     }
 
