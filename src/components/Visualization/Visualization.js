@@ -85,7 +85,7 @@ const LEGEND_KEY_WIDTH = 196
 
 export const Visualization = ({
     visualization,
-    onResponseReceived,
+    onResponsesReceived,
     relativePeriodDate,
 }) => {
     const dispatch = useDispatch()
@@ -107,7 +107,7 @@ export const Visualization = ({
     const { fetching, error, data } = useAnalyticsData({
         visualization,
         relativePeriodDate,
-        onResponseReceived,
+        onResponsesReceived,
         pageSize,
         page,
         sortField,
@@ -438,11 +438,11 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
-    onResponseReceived: Function.prototype,
+    onResponsesReceived: Function.prototype,
 }
 
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
-    onResponseReceived: PropTypes.func.isRequired,
+    onResponsesReceived: PropTypes.func.isRequired,
     relativePeriodDate: PropTypes.string,
 }

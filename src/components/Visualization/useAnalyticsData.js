@@ -276,7 +276,7 @@ const valueTypeIsNumeric = (valueType) =>
 const useAnalyticsData = ({
     visualization,
     relativePeriodDate,
-    onResponseReceived,
+    onResponsesReceived,
     pageSize,
     page,
     sortField,
@@ -360,7 +360,7 @@ const useAnalyticsData = ({
 
             mounted.current && setError(undefined)
             mounted.current && setData({ headers, rows, ...pager })
-            onResponseReceived(analyticsResponse)
+            onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
         } finally {
