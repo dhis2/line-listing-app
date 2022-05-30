@@ -44,17 +44,6 @@ export const getProgramStageFromUi = (ui) =>
         : {}
 
 export const getOptionsFromUi = (ui) => {
-    const legendOptions = [
-        OPTION_LEGEND_DISPLAY_STRATEGY,
-        OPTION_LEGEND_DISPLAY_STYLE,
-        OPTION_LEGEND_SET,
-        OPTION_SHOW_LEGEND_KEY,
-    ]
-    const filteredOptions = pick(
-        ui.options,
-        Object.keys(options).filter((option) => !legendOptions.includes(option))
-    )
-
     const legend = {
         strategy: ui.options[OPTION_LEGEND_DISPLAY_STRATEGY],
         style: ui.options[OPTION_LEGEND_DISPLAY_STYLE],
@@ -62,7 +51,7 @@ export const getOptionsFromUi = (ui) => {
         showKey: ui.options[OPTION_SHOW_LEGEND_KEY],
     }
 
-    return { ...filteredOptions, legend }
+    return { ...pick(ui.options, Object.keys(options)), legend }
 }
 
 export const getAxesFromUi = (ui) =>
