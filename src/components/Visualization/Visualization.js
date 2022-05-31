@@ -81,7 +81,7 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
-const LEGEND_KEY_WIDTH = 200
+const LEGEND_KEY_WIDTH = 196
 
 export const Visualization = ({
     visualization,
