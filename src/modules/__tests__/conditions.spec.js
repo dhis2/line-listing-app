@@ -106,6 +106,24 @@ const tests = [
     {
         dimensionValueType: 'NUMBER',
         condition: 'GT:3568.8',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568.8'],
+    },
+    {
+        dimensionValueType: 'NUMBER',
+        condition: 'GT:3568.8',
+        dgs: 'COMMA',
+        expected: ['Greater than (>): 3,568.8'],
+    },
+    {
+        dimensionValueType: 'NUMBER',
+        condition: 'GT:3568.8',
+        dgs: 'NONE',
+        expected: ['Greater than (>): 3568.8'],
+    },
+    {
+        dimensionValueType: 'NUMBER',
+        condition: 'GT:3568.8',
         expected: ['Greater than (>): 3568.8'],
     },
     {
@@ -139,6 +157,60 @@ const tests = [
         expected: ['Greater than (>): 3568'],
     },
     {
+        dimensionValueType: 'INTEGER',
+        condition: 'GT:3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568'],
+    },
+    {
+        dimensionValueType: 'INTEGER',
+        condition: 'GT:3568',
+        dgs: 'COMMA',
+        expected: ['Greater than (>): 3,568'],
+    },
+    {
+        dimensionValueType: 'INTEGER',
+        condition: 'GT:3568',
+        dgs: 'NONE',
+        expected: ['Greater than (>): 3568'],
+    },
+    {
+        dimensionValueType: 'INTEGER_POSITIVE',
+        condition: 'GT:3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568'],
+    },
+    {
+        dimensionValueType: 'INTEGER_NEGATIVE',
+        condition: 'GT:-3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): -3 568'],
+    },
+    {
+        dimensionValueType: 'INTEGER_ZERO_OR_POSITIVE',
+        condition: 'GT:3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568'],
+    },
+    {
+        dimensionValueType: 'PERCENTAGE',
+        condition: 'GT:3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568'],
+    },
+    {
+        dimensionValueType: 'UNIT_INTERVAL',
+        condition: 'GT:3568',
+        dgs: 'SPACE',
+        expected: ['Greater than (>): 3 568'],
+    },
+    {
+        dimensionType: 'PROGRAM_INDICATOR',
+        condition: 'GT:5678',
+        dgs: 'COMMA',
+        expected: ['Greater than (>): 5,678'],
+    },
+    {
         dimensionValueType: 'LONG_TEXT',
         condition: 'ILIKE:Cats',
         expected: ['Contains: Cats'],
@@ -162,12 +234,17 @@ const tests = [
 
 describe('conditions that do not include legend sets or option sets', () => {
     tests.forEach((t) => {
-        const testname = `valueType: ${t.dimensionValueType}, condition: ${t.condition}`
+        const testname = `dimensionType: ${t.dimensionType}, valueType: ${t.dimensionValueType}, condition: ${t.condition}, dgs: ${t.dgs}`
+        const formatValueOptions = t.dgs ? { digitGroupSeparator: t.dgs } : {}
         test(testname, () => {
             const actual = getConditionsTexts({
                 conditions: { condition: t.condition },
                 metadata: {},
-                dimension: { valueType: t.dimensionValueType },
+                dimension: {
+                    dimensionType: t.dimensionType,
+                    valueType: t.dimensionValueType,
+                },
+                formatValueOptions,
             })
             expect(actual).toEqual(t.expected)
         })
