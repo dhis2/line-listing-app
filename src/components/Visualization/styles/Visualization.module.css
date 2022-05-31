@@ -13,10 +13,6 @@
     min-width: 190px;
 }
 
-.legendKeyScrollbox > :global(.container) {
-    border: none;
-}
-
 .fetchIndicator {
     position: relative;
     max-height: 100%;
@@ -146,4 +142,3 @@
         transform: rotate(360deg);
     }
 }
-
