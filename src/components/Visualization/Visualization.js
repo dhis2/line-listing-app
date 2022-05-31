@@ -254,21 +254,47 @@ export const Visualization = ({
 
         if (uniqueLegendSets.length && visualization.legend?.showKey) {
             return (
-                <div
-                    className={styles.legendKeyContainer}
-                    data-test="visualization-legend-key"
-                >
-                    <div className={styles.legendKeyWrapper}>
-                        <LegendKey legendSets={uniqueLegendSets} />
-                    </div>
+                <div className={styles.legendKeyScrollbox}>
+                    <LegendKey legendSets={uniqueLegendSets} />
                 </div>
             )
         }
     }
 
+    const LEGEND_KEY_WIDTH = 200
+
+    const getOuterWidth = () => {
+        const allLegendSets = data.headers
+            .filter((header) => header.legendSet)
+            .map((header) => header.legendSet)
+        const uniqueLegendSets = allLegendSets.filter(
+            (e, index) =>
+                allLegendSets.findIndex((a) => a.id === e.id) === index
+        )
+        if (uniqueLegendSets.length && visualization.legend?.showKey) {
+            console.log('calc outerwidth')
+            return availableOuterWidth - LEGEND_KEY_WIDTH
+        }
+        return availableOuterWidth
+    }
+
+    const getCellContentWidth = () => {
+        const allLegendSets = data.headers
+            .filter((header) => header.legendSet)
+            .map((header) => header.legendSet)
+        const uniqueLegendSets = allLegendSets.filter(
+            (e, index) =>
+                allLegendSets.findIndex((a) => a.id === e.id) === index
+        )
+        if (uniqueLegendSets.length && visualization.legend?.showKey) {
+            return availableInnerWidth - LEGEND_KEY_WIDTH
+        }
+        return availableInnerWidth
+    }
+
     return (
         <>
-            <div className={styles.wrapper}>
+            <div className={styles.dataTableContainer}>
                 <div
                     className={cx(styles.fetchIndicator, {
                         [styles.fetching]: fetching,
@@ -279,7 +305,7 @@ export const Visualization = ({
                             isInModal ? 'calc(100vh - 285px)' : '100%'
                         }
                         width="auto"
-                        scrollWidth={`${availableOuterWidth}px`}
+                        scrollWidth={`${getOuterWidth()}px`}
                         className={styles.dataTable}
                     >
                         <DataTableHead>
@@ -381,7 +407,7 @@ export const Visualization = ({
                                             sizeClass
                                         )}
                                         style={{
-                                            maxWidth: availableInnerWidth,
+                                            maxWidth: getCellContentWidth(),
                                         }}
                                     >
                                         <Pagination

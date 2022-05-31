@@ -1,8 +1,20 @@
-.wrapper {
+.dataTableContainer {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
     flex-grow: 1;
+    margin-right: 12px;
+}
+
+/* Legend key */
+.legendKeyScrollbox {
+    border: 1px solid var(--colors-grey400);
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 190px;
+}
+
+.legendKeyScrollbox > :global(.container) {
+    border: none;
 }
 
 .fetchIndicator {
@@ -135,15 +147,3 @@
     }
 }
 
-/* Legend key */
-.legendKeyContainer {
-    margin: 0 12px 0 8px;
-    width: 180px;
-}
-.legendKeyWrapper {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
