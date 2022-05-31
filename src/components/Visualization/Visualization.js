@@ -23,7 +23,7 @@ import {
 import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // TODO this action cannot be used and a callback prop should be passed instead
 import { acSetLoadError } from '../../actions/loader.js'
@@ -81,6 +81,8 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
+const LEGEND_KEY_WIDTH = 200
+
 export const Visualization = ({
     visualization,
     onResponseReceived,
@@ -89,6 +91,7 @@ export const Visualization = ({
     const dispatch = useDispatch()
     // TODO remove need for metadata
     const metadata = useSelector(sGetMetadata)
+    const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
         {
             sortField: null,
@@ -110,6 +113,25 @@ export const Visualization = ({
         sortField,
         sortDirection,
     })
+
+    useEffect(() => {
+        if (data && visualization) {
+            const allLegendSets = data.headers
+                .filter((header) => header.legendSet)
+                .map((header) => header.legendSet)
+            const relevantLegendSets = allLegendSets.filter(
+                (e, index) =>
+                    allLegendSets.findIndex((a) => a.id === e.id) === index
+            )
+            if (relevantLegendSets.length && visualization.legend?.showKey) {
+                setUniqueLegendSets(relevantLegendSets)
+            } else {
+                setUniqueLegendSets([])
+            }
+        } else {
+            setUniqueLegendSets([])
+        }
+    }, [data, visualization])
 
     if (error) {
         let output
@@ -244,14 +266,7 @@ export const Visualization = ({
     }
 
     const getLegendKey = () => {
-        const allLegendSets = data.headers
-            .filter((header) => header.legendSet)
-            .map((header) => header.legendSet)
-        const uniqueLegendSets = allLegendSets.filter(
-            (e, index) =>
-                allLegendSets.findIndex((a) => a.id === e.id) === index
-        )
-
+        console.log('getLegendKey', uniqueLegendSets)
         if (uniqueLegendSets.length && visualization.legend?.showKey) {
             return (
                 <div className={styles.legendKeyScrollbox}>
@@ -261,36 +276,15 @@ export const Visualization = ({
         }
     }
 
-    const LEGEND_KEY_WIDTH = 200
+    const tableOuterWidth =
+        uniqueLegendSets.length && visualization.legend?.showKey
+            ? availableOuterWidth - LEGEND_KEY_WIDTH
+            : availableOuterWidth
 
-    const getOuterWidth = () => {
-        const allLegendSets = data.headers
-            .filter((header) => header.legendSet)
-            .map((header) => header.legendSet)
-        const uniqueLegendSets = allLegendSets.filter(
-            (e, index) =>
-                allLegendSets.findIndex((a) => a.id === e.id) === index
-        )
-        if (uniqueLegendSets.length && visualization.legend?.showKey) {
-            console.log('calc outerwidth')
-            return availableOuterWidth - LEGEND_KEY_WIDTH
-        }
-        return availableOuterWidth
-    }
-
-    const getCellContentWidth = () => {
-        const allLegendSets = data.headers
-            .filter((header) => header.legendSet)
-            .map((header) => header.legendSet)
-        const uniqueLegendSets = allLegendSets.filter(
-            (e, index) =>
-                allLegendSets.findIndex((a) => a.id === e.id) === index
-        )
-        if (uniqueLegendSets.length && visualization.legend?.showKey) {
-            return availableInnerWidth - LEGEND_KEY_WIDTH
-        }
-        return availableInnerWidth
-    }
+    const tableCellMaxWidth =
+        uniqueLegendSets.length && visualization.legend?.showKey
+            ? availableInnerWidth - LEGEND_KEY_WIDTH
+            : availableInnerWidth
 
     return (
         <>
@@ -305,7 +299,7 @@ export const Visualization = ({
                             isInModal ? 'calc(100vh - 285px)' : '100%'
                         }
                         width="auto"
-                        scrollWidth={`${getOuterWidth()}px`}
+                        scrollWidth={`${tableOuterWidth}px`}
                         className={styles.dataTable}
                     >
                         <DataTableHead>
@@ -407,7 +401,7 @@ export const Visualization = ({
                                             sizeClass
                                         )}
                                         style={{
-                                            maxWidth: getCellContentWidth(),
+                                            maxWidth: tableCellMaxWidth,
                                         }}
                                     >
                                         <Pagination
