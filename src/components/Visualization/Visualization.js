@@ -265,16 +265,11 @@ export const Visualization = ({
         )
     }
 
-    const getLegendKey = () => {
-        console.log('getLegendKey', uniqueLegendSets)
-        if (uniqueLegendSets.length && visualization.legend?.showKey) {
-            return (
-                <div className={styles.legendKeyScrollbox}>
-                    <LegendKey legendSets={uniqueLegendSets} />
-                </div>
-            )
-        }
-    }
+    const getLegendKey = () => (
+        <div className={styles.legendKeyScrollbox}>
+            <LegendKey legendSets={uniqueLegendSets} />
+        </div>
+    )
 
     const tableOuterWidth =
         uniqueLegendSets.length && visualization.legend?.showKey
@@ -437,7 +432,7 @@ export const Visualization = ({
                     </DataTable>
                 </div>
             </div>
-            {getLegendKey()}
+            {Boolean(uniqueLegendSets.length) && getLegendKey()}
         </>
     )
 }
