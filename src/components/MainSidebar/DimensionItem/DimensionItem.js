@@ -74,6 +74,7 @@ export const DimensionItem = ({
                         <DimensionMenu
                             dimensionId={id}
                             dimensionMetadata={dimensionMetadata}
+                            dimensionName={name}
                         />
                     )
                 }
