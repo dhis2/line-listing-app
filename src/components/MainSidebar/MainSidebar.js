@@ -51,7 +51,7 @@ const MainSidebar = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.main}>
+            <div className={styles.main} data-test="main-sidebar">
                 <MenuItem
                     icon={<IconArrowRight16 />}
                     label={i18n.t('Input: {{type}}', {

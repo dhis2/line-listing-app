@@ -251,6 +251,7 @@ export const Visualization = ({
                     width="auto"
                     scrollWidth={`${availableOuterWidth}px`}
                     className={styles.dataTable}
+                    dataTest="line-list-table"
                 >
                     <DataTableHead>
                         <DataTableRow>

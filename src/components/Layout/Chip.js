@@ -128,6 +128,7 @@ const Chip = ({
             style={style}
         >
             <div
+                data-test="layout-chip"
                 className={cx(styles.chip, {
                     [styles.chipEmpty]:
                         axisId === AXIS_ID_FILTERS &&

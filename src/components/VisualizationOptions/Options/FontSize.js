@@ -13,6 +13,7 @@ const FontSize = () => (
                 { value: 'SMALL', label: i18n.t('Small') },
             ],
         }}
+        dataTest="font-size"
     />
 )
 
