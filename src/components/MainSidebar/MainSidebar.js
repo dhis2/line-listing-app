@@ -82,6 +82,7 @@ const MainSidebar = () => {
                     [styles.hidden]: !open,
                     [styles.padded]: selectedTabId === TAB_INPUT,
                 })}
+                data-test="accessory-sidebar"
             >
                 <div className={styles.accessoryInner}>
                     <InputPanel visible={selectedTabId === TAB_INPUT} />

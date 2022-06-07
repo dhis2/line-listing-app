@@ -19,12 +19,14 @@ const addProgramDimensions = ({
     cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
 
     // choose the program
-    cy.contains('Choose a program').click()
+    cy.getWithDataTest('{accessory-sidebar}')
+        .contains('Choose a program')
+        .click()
     cy.contains(programName).click()
 
     // choose the stage if relevant
     if (stageName) {
-        cy.contains('Stage').click()
+        cy.getWithDataTest('{accessory-sidebar}').contains('Stage').click()
         cy.contains(stageName).click()
     }
 
