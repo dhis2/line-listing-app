@@ -10,7 +10,7 @@ describe('Smoke Test', () => {
     it('loads with visualization id', () => {
         cy.visit('#/R4wAb2yMLik', EXTENDED_TIMEOUT)
 
-        cy.getWithDataTest('{AO-title}', EXTENDED_TIMEOUT)
+        cy.getWithDataTest('{visualization-title}', EXTENDED_TIMEOUT)
             .should('be.visible')
             .and('contain', 'Inpatient: Cases last quarter (case)')
     })

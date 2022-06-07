@@ -82,10 +82,7 @@ const StartScreen = ({ error, setLoadError }) => {
         <div className={styles.outer}>
             <div className={styles.inner}>
                 {error ? (
-                    <div
-                        className={styles.errorContainer}
-                        data-test="start-screen-error-container"
-                    >
+                    <div className={styles.errorContainer}>
                         {isVisualizationError(error) ? (
                             <>
                                 <div className={styles.errorIcon}>
@@ -113,12 +110,9 @@ const StartScreen = ({ error, setLoadError }) => {
                         )}
                     </div>
                 ) : (
-                    <div data-test="start-screen">
+                    <div>
                         <div className={styles.section}>
-                            <h3
-                                className={styles.title}
-                                data-test="start-screen-primary-section-title"
-                            >
+                            <h3 className={styles.title}>
                                 {i18n.t('Getting started')}
                             </h3>
                             <ul className={styles.guide}>
@@ -142,10 +136,7 @@ const StartScreen = ({ error, setLoadError }) => {
                         {/* TODO add a spinner when loading? */}
                         {mostViewed?.length > 0 && (
                             <div className={styles.section}>
-                                <h3
-                                    className={styles.title}
-                                    data-test="start-screen-secondary-section-title"
-                                >
+                                <h3 className={styles.title}>
                                     {i18n.t('Your most viewed line lists')}
                                 </h3>
                                 {mostViewed.map((vis, index) => (
@@ -155,7 +146,6 @@ const StartScreen = ({ error, setLoadError }) => {
                                         onClick={() =>
                                             history.push(`/${vis.id}`)
                                         }
-                                        data-test="start-screen-most-viewed-list-item"
                                     >
                                         <span className={styles.visIcon}>
                                             <VisTypeIcon

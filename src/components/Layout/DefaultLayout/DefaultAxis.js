@@ -105,11 +105,7 @@ const DefaultAxis = ({ axisId, className }) => {
 
     return (
         <div ref={setNodeRef} className={styles.lastDropzone}>
-            <div
-                id={axisId}
-                data-test={`${axisId}-axis`}
-                className={cx(styles.axisContainer, className)}
-            >
+            <div id={axisId} className={cx(styles.axisContainer, className)}>
                 <div className={styles.label}>{getAxisName(axisId)}</div>
                 <SortableContext id={axisId} items={dimensionIds}>
                     <div className={styles.content}>

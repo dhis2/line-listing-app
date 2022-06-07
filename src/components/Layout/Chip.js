@@ -99,8 +99,6 @@ const Chip = ({
 
     const id = Math.random().toString(36)
 
-    const dataTest = `layout-chip-${dimensionId}`
-
     const conditionsTexts = getConditionsTexts({
         conditions,
         metadata,
@@ -149,7 +147,6 @@ const Chip = ({
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div
-                                    data-test={dataTest}
                                     id={id}
                                     onClick={onClick}
                                     ref={ref}
