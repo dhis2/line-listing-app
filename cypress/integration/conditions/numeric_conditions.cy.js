@@ -25,7 +25,7 @@ const setUpTable = () => {
     cy.contains(`${previousYearStr}-01-01`).dblclick()
     cy.contains('Add to Columns').click()
 
-    cy.getWithDataTest('{app-menubar}').contains('Update').click()
+    cy.getWithDataTest('{menubar}').contains('Update').click()
 
     cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
         .find('tbody')
