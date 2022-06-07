@@ -1,47 +1,35 @@
+import {
+    addProgramDimensions,
+    choosePeriod,
+    FIXED,
+    getPreviousYearStr,
+} from '../../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
-
-const previousYearStr = (new Date().getFullYear() - 1).toString()
 
 const dimensionName = 'MCH BCG dose'
 
 const setUpTable = () => {
-    cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
-    cy.contains('Choose a program').click()
-    cy.contains('Child Programme').click()
-    cy.contains('Stage').click()
-    cy.contains('Birth').click()
+    addProgramDimensions({
+        programName: 'Child Programme',
+        stageName: 'Birth',
+        dimensions: [dimensionName],
+    })
 
-    // add the dimension
-    cy.getWithDataTest('{program-dimension-list}')
-        .contains(dimensionName)
-        .click()
-    cy.contains('Add to Columns').click()
+    choosePeriod({
+        periodLabel: 'Report date',
+        category: FIXED,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-01-01`,
+        },
+    })
 
-    // close the program dimensions panel
-    cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
-
-    // choose a limited period - single day
-    cy.contains('Report date').click()
-    cy.contains('Choose from presets').click()
-    cy.contains('Fixed periods').click()
-    cy.getWithDataTest(
-        '{period-dimension-fixed-period-filter-period-type-content}'
-    ).click()
-    cy.contains('Daily').click()
-    cy.getWithDataTest('{period-dimension-fixed-period-filter-year-content}')
-        .clear()
-        .type(previousYearStr)
-    cy.contains(`${previousYearStr}-01-01`).dblclick()
-    cy.contains('Add to Columns').click()
-
-    cy.getWithDataTest('{app-menubar}').contains('Update').click()
+    cy.getWithDataTest('{menubar}').contains('Update').click()
 
     cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
         .find('tbody')
-        .find('tr')
-        .then((row) => {
-            expect(row.length).to.equal(34)
-        })
+        .should('be.visible')
 }
 
 const addConditions = (conditions) => {
@@ -55,87 +43,124 @@ const addConditions = (conditions) => {
 const assertTableMatchesExpectedRows = (expectedRows) => {
     cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
         .find('tbody > tr')
-        .each(($el, index) => {
-            cy.wrap($el)
-                .find('td')
-                .eq(0)
-                .should('contain', expectedRows[index][0])
-            cy.wrap($el)
-                .find('td')
-                .eq(1)
-                .should('contain', expectedRows[index][1])
-        })
+        .should('have.length', expectedRows.length)
+
+    expectedRows.forEach((val) => {
+        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+            .find('tbody')
+            .contains('td', val)
+    })
+}
+
+const assertTooltipContainsEntries = (entries) => {
+    entries.forEach((entry) =>
+        cy.getWithDataTest('{tooltip-content}').contains(entry)
+    )
 }
 
 describe('boolean conditions', () => {
-    it('only Yes', () => {
+    it('Yes only', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         setUpTable()
         addConditions(['Yes'])
 
         assertTableMatchesExpectedRows([
-            ['Feiba CHP', 'Yes'],
-            ['Mosenessie Junction MCHP', 'Yes'],
-            ['Holy Mary Clinic', 'Yes'],
-            ['Conakry Dee CHC', 'Yes'],
-            ['Gbainty Wallah CHP', 'Yes'],
-            ['Banka Makuloh MCHP', 'Yes'],
-            ['Maselleh MCHP', 'Yes'],
-            ['Tombo Wallah CHP', 'Yes'],
-            ['Kuntorloh CHP', 'Yes'],
-            ['Mamusa MCHP', 'Yes'],
-            ['Dankawalie MCHP', 'Yes'],
-            ['Kangama (Kangama) CHP', 'Yes'],
-            ['Kochero MCHP', 'Yes'],
-            ['Yoyema MCHP', 'Yes'],
-            ['Mokotawa CHP', 'Yes'],
-            ['Gao MCHP', 'Yes'],
-            ['Baiwala CHP', 'Yes'],
-            ['Mano Menima CHP', 'Yes'],
-            ['SLC. RHC Port Loko', 'Yes'],
-            ['Woroma CHP', 'Yes'],
-            ['Jormu MCHP', 'Yes'],
-            ['Looking Town MCHP', 'Yes'],
+            'Baiwala CHP',
+            'Banka Makuloh MCHP',
+            'Conakry Dee CHC',
+            'Dankawalie MCHP',
+            'Feiba CHP',
+            'Gao MCHP',
+            'Gbainty Wallah CHP',
+            'Holy Mary Clinic',
+            'Jormu MCHP',
+            'Looking Town MCHP',
+            'Kangama (Kangama) CHP',
+            'Kochero MCHP',
+            'Kuntorloh CHP',
+            'Mamusa MCHP',
+            'Mano Menima CHP',
+            'Maselleh MCHP',
+            'Mokotawa CHP',
+            'Mosenessie Junction MCHP',
+            'SLC. RHC Port Loko',
+            'Tombo Wallah CHP',
+            'Woroma CHP',
+            'Yoyema MCHP',
         ])
+
+        cy.getWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: 1 condition`)
+            .trigger('mouseover')
+
+        assertTooltipContainsEntries(['Program stage: Birth', /\bYes\b/])
     })
 
-    it('only No', () => {
+    it('No only', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         setUpTable()
         addConditions(['No'])
 
         assertTableMatchesExpectedRows([
-            ['Niagorehun CHP', 'No'],
-            ['Masankorie CHP', 'No'],
-            ['Bandajuma Sinneh MCHP', 'No'],
-            ['Niagorehun MCHP', 'No'],
-            ['Yorgbofore MCHP', 'No'],
-            ['Woama MCHP', 'No'],
-            ['Menika MCHP', 'No'],
-            ['Ngiewahun CHP', 'No'],
-            ['Sienga CHP', 'No'],
-            ['Seria MCHP', 'No'],
+            'Bandajuma Sinneh MCHP',
+            'Masankorie CHP',
+            'Ngiewahun CHP',
+            'Niagorehun CHP',
+            'Niagorehun MCHP',
+            'Menika MCHP',
+            'Seria MCHP',
+            'Sienga CHP',
+            'Woama MCHP',
+            'Yorgbofore MCHP',
         ])
+
+        cy.getWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: 1 condition`)
+            .trigger('mouseover')
+
+        assertTooltipContainsEntries(['Program stage: Birth', /\bNo\b/])
     })
 
-    it('No and Not answered', () => {
+    it('Yes and Not answered', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         setUpTable()
-        addConditions(['No', 'Not answered'])
+        addConditions(['Yes', 'Not answered'])
 
         assertTableMatchesExpectedRows([
-            ['Ngelehun CHC', 'Not answered'],
-            ['Ngelehun CHC', 'Not answered'],
-            ['Niagorehun CHP', 'No'],
-            ['Masankorie CHP', 'No'],
-            ['Bandajuma Sinneh MCHP', 'No'],
-            ['Niagorehun MCHP', 'No'],
-            ['Yorgbofore MCHP', 'No'],
-            ['Woama MCHP', 'No'],
-            ['Menika MCHP', 'No'],
-            ['Ngiewahun CHP', 'No'],
-            ['Sienga CHP', 'No'],
-            ['Seria MCHP', 'No'],
+            'Baiwala CHP',
+            'Banka Makuloh MCHP',
+            'Conakry Dee CHC',
+            'Dankawalie MCHP',
+            'Feiba CHP',
+            'Gao MCHP',
+            'Gbainty Wallah CHP',
+            'Holy Mary Clinic',
+            'Jormu MCHP',
+            'Looking Town MCHP',
+            'Kangama (Kangama) CHP',
+            'Kochero MCHP',
+            'Kuntorloh CHP',
+            'Mamusa MCHP',
+            'Mano Menima CHP',
+            'Maselleh MCHP',
+            'Mokotawa CHP',
+            'Mosenessie Junction MCHP',
+            'Ngelehun CHC', //there are 2
+            'Ngelehun CHC',
+            'SLC. RHC Port Loko',
+            'Tombo Wallah CHP',
+            'Woroma CHP',
+            'Yoyema MCHP',
+        ])
+
+        cy.getWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: 2 conditions`)
+            .trigger('mouseover')
+
+        assertTooltipContainsEntries([
+            'Program stage: Birth',
+            /\bYes\b/,
+            /\bNot answered\b/,
         ])
     })
 })
