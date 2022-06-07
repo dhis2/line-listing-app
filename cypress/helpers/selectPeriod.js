@@ -3,7 +3,7 @@ export const RELATIVE = 'relative'
 export const START_END = 'startEnd'
 
 const selectPeriod = ({ periodLabel, category, period }) => {
-    cy.contains(periodLabel).click()
+    cy.getWithDataTest('{main-sidebar}').contains(periodLabel).click()
     switch (category) {
         case FIXED:
             cy.contains('Choose from presets').click()
