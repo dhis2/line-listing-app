@@ -1,78 +1,145 @@
+import {
+    addProgramDimensions,
+    INPUT_EVENT,
+    choosePeriod,
+    FIXED,
+    getPreviousYearStr,
+} from '../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+const dimensionName = 'MCH Apgar Score'
+const periodLabel = 'Report date'
+
+const setUpTable = () => {
+    addProgramDimensions({
+        inputType: INPUT_EVENT,
+        programName: 'Child Programme',
+        stageName: 'Birth',
+        dimensions: [dimensionName],
+    })
+
+    choosePeriod({
+        periodLabel: periodLabel,
+        category: FIXED,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-01-01`,
+        },
+    })
+
+    cy.getWithDataTest('{menubar}').contains('Update').click()
+
+    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+        .find('tbody')
+        .should('be.visible')
+
+    cy.getWithDataTest('{layout-chip}').contains(`${dimensionName}: all`)
+}
+
 describe('event', () => {
-    it('creates an event line list', () => {
+    beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        cy.contains('Program dimensions').click()
-        cy.contains('Choose a program').click()
-        cy.contains('Child Programme').click()
-        cy.contains('Stage').click()
-        cy.contains('Birth').click()
-        cy.contains('Apgar Score').click()
-        cy.contains('Add to Columns').click()
-        cy.contains('Program dimensions').click()
-        cy.contains('Report date').click()
-        cy.contains('Last 12 months').dblclick()
-        cy.contains('Add to Columns').click()
+        setUpTable()
+    })
 
-        cy.contains('Update').click()
-
-        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT).should(
-            'be.visible'
-        )
-
+    it('creates an event line list', () => {
+        // check the correct number of columns
         cy.getWithDataTest('{line-list-table}')
             .find('thead')
             .find('th')
             .its('length')
             .should('equal', 3)
+
+        // check that there is at least 1 row in the table
         cy.getWithDataTest('{line-list-table}')
             .find('tbody')
             .find('tr')
             .its('length')
             .should('be.gte', 1)
 
-        cy.get('th').contains('Organisation unit').should('be.visible')
-        cy.get('th').contains('Apgar Score').should('be.visible')
-        cy.get('th').contains('Report date').should('be.visible')
+        // check the column headers in the table
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains('Organisation unit')
+            .should('be.visible')
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains(dimensionName)
+            .should('be.visible')
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains(periodLabel)
+            .should('be.visible')
 
         //check the chips in the layout
-        cy.getWithDataTest('{layout-chip}')
+        cy.get('#axis-group-1')
+            .findWithDataTest('{layout-chip}')
             .contains('Organisation unit: 1 selected')
+            .should('be.visible')
+
+        cy.get('#axis-group-1')
+            .findWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: all`)
+            .should('be.visible')
+
+        cy.get('#axis-group-1')
+            .findWithDataTest('{layout-chip}')
+            .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })
 
     it('moves a dimension to filter', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        cy.contains('Program dimensions').click()
-        cy.contains('Choose a program').click()
-        cy.contains('Child Programme').click()
-        cy.contains('Stage').click()
-        cy.contains('Birth').click()
-        cy.contains('Apgar Score').click()
-        cy.contains('Add to Columns').click()
-        cy.contains('Program dimensions').click()
-        cy.contains('Report date').click()
-        cy.contains('Last 12 months').dblclick()
-        cy.contains('Add to Columns').click()
-
-        cy.contains('Update').click()
-
+        // move Report date from "Columns" to "Filter"
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-dimension-menu-button-eventDate}')
+            .findWithDataTest('{layout-chip}')
+            .findWithDataTest('{dimension-menu-button-eventDate}')
             .click()
         cy.contains('Move to Filter').click()
+        cy.getWithDataTest('{menubar}').contains('Update').click()
 
-        cy.contains('Update').click()
-
+        // check the number of columns
         cy.getWithDataTest('{line-list-table}')
             .find('thead')
             .find('th')
             .its('length')
             .should('equal', 2)
 
-        cy.get('th').contains('Organisation unit').should('be.visible')
-        cy.get('th').contains('Apgar Score').should('be.visible')
-        cy.get('th').contains('Report date').should('not.exist')
+        // check that there is at least 1 row in the table
+        cy.getWithDataTest('{line-list-table}')
+            .find('tbody')
+            .find('tr')
+            .its('length')
+            .should('be.gte', 1)
+
+        // check the column headers in the table
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains('Organisation unit')
+            .should('be.visible')
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains(dimensionName)
+            .should('be.visible')
+        cy.getWithDataTest('{line-list-table}')
+            .find('th')
+            .contains(periodLabel)
+            .should('not.exist')
+
+        //check the chips in the layout
+        cy.get('#axis-group-1')
+            .findWithDataTest('{layout-chip}')
+            .contains('Organisation unit: 1 selected')
+            .should('be.visible')
+
+        cy.get('#axis-group-1')
+            .findWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: all`)
+            .should('be.visible')
+
+        cy.get('#axis-group-2')
+            .findWithDataTest('{layout-chip}')
+            .contains(`${periodLabel}: 1 selected`)
+            .should('be.visible')
     })
 })

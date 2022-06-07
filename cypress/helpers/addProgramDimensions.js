@@ -1,12 +1,32 @@
-const addProgramDimensions = ({ programName, stageName, dimensions }) => {
+const INPUT_EVENT = 'event'
+const INPUT_ENROLLMENT = 'enrollment'
+
+const addProgramDimensions = ({
+    inputType,
+    programName,
+    stageName,
+    dimensions,
+}) => {
+    // select the desired type: Event or Enrollment
+    cy.getWithDataTest('{main-sidebar}').contains('Input:').click()
+    if (inputType === INPUT_EVENT) {
+        cy.getWithDataTest('{input-event}').click()
+    } else {
+        cy.getWithDataTest('{input-enrollment}').click()
+    }
+
     // open the Program dimensions panel
     cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
 
-    // choose the program and stage
+    // choose the program
     cy.contains('Choose a program').click()
     cy.contains(programName).click()
-    cy.contains('Stage').click()
-    cy.contains(stageName).click()
+
+    // choose the stage if relevant
+    if (stageName) {
+        cy.contains('Stage').click()
+        cy.contains(stageName).click()
+    }
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
@@ -20,4 +40,4 @@ const addProgramDimensions = ({ programName, stageName, dimensions }) => {
     cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
 }
 
-export { addProgramDimensions }
+export { addProgramDimensions, INPUT_EVENT, INPUT_ENROLLMENT }

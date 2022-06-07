@@ -1,5 +1,6 @@
 import {
     addProgramDimensions,
+    INPUT_EVENT,
     choosePeriod,
     FIXED,
     getPreviousYearStr,
@@ -64,6 +65,7 @@ describe('options', () => {
 
         //set up table
         addProgramDimensions({
+            inputType: INPUT_EVENT,
             programName: 'Child Programme',
             stageName: 'Birth',
             dimensions: ['MCH Weight (g)'],

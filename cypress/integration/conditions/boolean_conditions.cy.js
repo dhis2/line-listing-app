@@ -1,5 +1,6 @@
 import {
     addProgramDimensions,
+    INPUT_EVENT,
     choosePeriod,
     FIXED,
     getPreviousYearStr,
@@ -10,6 +11,7 @@ const dimensionName = 'MCH BCG dose'
 
 const setUpTable = () => {
     addProgramDimensions({
+        inputType: INPUT_EVENT,
         programName: 'Child Programme',
         stageName: 'Birth',
         dimensions: [dimensionName],
