@@ -426,6 +426,7 @@ const ConditionsManager = ({
                                         onClick={addCondition}
                                         className={classes.addConditionButton}
                                         disabled={disableAddButton}
+                                        dataTest="button-add-condition"
                                     >
                                         {conditionsList.length
                                             ? i18n.t('Add another condition')
