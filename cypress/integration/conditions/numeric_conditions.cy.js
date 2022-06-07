@@ -1,7 +1,11 @@
-import { addProgramDimensions } from '../../helpers/addProgramDimensions.js'
+import {
+    addProgramDimensions,
+    choosePeriod,
+    FIXED,
+    getPreviousYearStr,
+} from '../../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const previousYearStr = (new Date().getFullYear() - 1).toString()
 const dimensionName = 'MCH Weight (g)'
 
 const setUpTable = () => {
@@ -11,19 +15,15 @@ const setUpTable = () => {
         dimensions: [dimensionName],
     })
 
-    // choose Jan 1 of the previous year as the period
-    cy.contains('Report date').click()
-    cy.contains('Choose from presets').click()
-    cy.contains('Fixed periods').click()
-    cy.getWithDataTest(
-        '{period-dimension-fixed-period-filter-period-type-content}'
-    ).click()
-    cy.contains('Daily').click()
-    cy.getWithDataTest('{period-dimension-fixed-period-filter-year-content}')
-        .clear()
-        .type(previousYearStr)
-    cy.contains(`${previousYearStr}-01-01`).dblclick()
-    cy.contains('Add to Columns').click()
+    choosePeriod({
+        periodLabel: 'Report date',
+        category: FIXED,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-01-01`,
+        },
+    })
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
