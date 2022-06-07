@@ -1,7 +1,7 @@
 import {
-    addProgramDimensions,
+    selectProgramDimensions,
     INPUT_EVENT,
-    choosePeriod,
+    selectPeriod,
     FIXED,
     getPreviousYearStr,
 } from '../helpers/index.js'
@@ -64,7 +64,7 @@ describe('options', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         //set up table
-        addProgramDimensions({
+        selectProgramDimensions({
             inputType: INPUT_EVENT,
             programName: 'Child Programme',
             stageName: 'Birth',
@@ -72,7 +72,7 @@ describe('options', () => {
         })
 
         // choose Jan 1 of the previous year as the period
-        choosePeriod({
+        selectPeriod({
             periodLabel: 'Report date',
             category: FIXED,
             period: {

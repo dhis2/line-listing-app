@@ -1,6 +1,6 @@
 import {
-    addProgramDimensions,
-    choosePeriod,
+    selectProgramDimensions,
+    selectPeriod,
     INPUT_EVENT,
     FIXED,
     getPreviousYearStr,
@@ -10,14 +10,14 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 const dimensionName = 'MCH Weight (g)'
 
 const setUpTable = () => {
-    addProgramDimensions({
+    selectProgramDimensions({
         inputType: INPUT_EVENT,
         programName: 'Child Programme',
         stageName: 'Birth',
         dimensions: [dimensionName],
     })
 
-    choosePeriod({
+    selectPeriod({
         periodLabel: 'Report date',
         category: FIXED,
         period: {

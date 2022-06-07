@@ -1,7 +1,7 @@
 import {
-    addProgramDimensions,
+    selectProgramDimensions,
     INPUT_EVENT,
-    choosePeriod,
+    selectPeriod,
     FIXED,
     getPreviousYearStr,
 } from '../../helpers/index.js'
@@ -11,14 +11,14 @@ const dimensionName = 'MCH BCG dose'
 const periodLabel = 'Report date'
 
 const setUpTable = () => {
-    addProgramDimensions({
+    selectProgramDimensions({
         inputType: INPUT_EVENT,
         programName: 'Child Programme',
         stageName: 'Birth',
         dimensions: [dimensionName],
     })
 
-    choosePeriod({
+    selectPeriod({
         periodLabel,
         category: FIXED,
         period: {

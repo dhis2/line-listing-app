@@ -1,7 +1,7 @@
 import {
-    addProgramDimensions,
+    selectProgramDimensions,
     INPUT_ENROLLMENT,
-    choosePeriod,
+    selectPeriod,
     RELATIVE,
 } from '../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -10,13 +10,13 @@ const dimensionName = 'BCG doses'
 const periodLabel = 'Date of enrollment'
 
 const setUpTable = () => {
-    addProgramDimensions({
+    selectProgramDimensions({
         inputType: INPUT_ENROLLMENT,
         programName: 'Child Programme',
         dimensions: [dimensionName],
     })
 
-    choosePeriod({
+    selectPeriod({
         periodLabel,
         category: RELATIVE,
         period: {

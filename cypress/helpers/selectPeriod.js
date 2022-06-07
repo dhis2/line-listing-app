@@ -2,7 +2,7 @@ export const FIXED = 'fixed'
 export const RELATIVE = 'relative'
 export const START_END = 'startEnd'
 
-const choosePeriod = ({ periodLabel, category, period }) => {
+const selectPeriod = ({ periodLabel, category, period }) => {
     cy.contains(periodLabel).click()
     switch (category) {
         case FIXED:
@@ -51,4 +51,4 @@ const choosePeriod = ({ periodLabel, category, period }) => {
     cy.contains('Add to Columns').click()
 }
 
-export { choosePeriod }
+export { selectPeriod }

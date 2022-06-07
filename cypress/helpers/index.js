@@ -1,9 +1,9 @@
 export {
-    addProgramDimensions,
+    selectProgramDimensions,
     INPUT_EVENT,
     INPUT_ENROLLMENT,
-} from './addProgramDimensions.js'
-export { choosePeriod, FIXED, RELATIVE } from './choosePeriod.js'
+} from './selectProgramDimensions.js'
+export { selectPeriod, FIXED, RELATIVE } from './selectPeriod.js'
 
 const getPreviousYearStr = () => (new Date().getFullYear() - 1).toString()
 
