@@ -8,6 +8,7 @@ import {
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const dimensionName = 'MCH BCG dose'
+const periodLabel = 'Report date'
 
 const setUpTable = () => {
     addProgramDimensions({
@@ -18,7 +19,7 @@ const setUpTable = () => {
     })
 
     choosePeriod({
-        periodLabel: 'Report date',
+        periodLabel,
         category: FIXED,
         period: {
             type: 'Daily',
@@ -37,7 +38,10 @@ const setUpTable = () => {
 const addConditions = (conditions) => {
     cy.getWithDataTest('{layout-chip}').contains(dimensionName).click()
     conditions.forEach((conditionName) => {
-        cy.get('label').contains(conditionName).click()
+        cy.getWithDataTest('{conditions-modal-content}')
+            .findWithDataTest('{dhis2-uicore-checkbox}')
+            .contains(conditionName)
+            .click()
     })
     cy.getWithDataTest('{conditions-modal}').contains('Update').click()
 }

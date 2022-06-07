@@ -38,8 +38,8 @@ const setUpTable = () => {
 
 const addConditions = (conditions) => {
     cy.getWithDataTest('{layout-chip}').contains(dimensionName).click()
-    cy.getWithDataTest('{button-add-condition}').click()
     conditions.forEach(({ conditionName, value }) => {
+        cy.getWithDataTest('{button-add-condition}').click()
         cy.contains('Choose a condition').click()
         cy.contains(conditionName).click()
         if (value) {
@@ -267,6 +267,25 @@ describe('number conditions', () => {
         assertTooltipContainsEntries([
             'Program stage: Birth',
             'Is not empty / not null',
+        ])
+    })
+
+    it('2 conditions: greater than and less than', () => {
+        addConditions([
+            { conditionName: 'greater than (>)', value: '2615' },
+            { conditionName: 'less than (<)', value: '2700' },
+        ])
+
+        assertTableMatchesExpectedRows(['2 627', '2 664'])
+
+        cy.getWithDataTest('{layout-chip}')
+            .contains(`${dimensionName}: 2 conditions`)
+            .trigger('mouseover')
+
+        assertTooltipContainsEntries([
+            'Program stage: Birth',
+            'Greater than (>): 2 615',
+            'Less than (<): 2 700',
         ])
     })
 })
