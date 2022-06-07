@@ -62,9 +62,12 @@ const assertTooltipContainsEntries = (entries) => {
 }
 
 describe('boolean conditions', () => {
-    it('Yes only', () => {
+    beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
         setUpTable()
+    })
+
+    it('Yes only', () => {
         addConditions(['Yes'])
 
         assertTableMatchesExpectedRows([
@@ -100,8 +103,6 @@ describe('boolean conditions', () => {
     })
 
     it('No only', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
         addConditions(['No'])
 
         assertTableMatchesExpectedRows([
@@ -125,8 +126,6 @@ describe('boolean conditions', () => {
     })
 
     it('Yes and Not answered', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
         addConditions(['Yes', 'Not answered'])
 
         assertTableMatchesExpectedRows([

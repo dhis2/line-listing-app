@@ -1,3 +1,5 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
+
 const INPUT_EVENT = 'event'
 const INPUT_ENROLLMENT = 'enrollment'
 
@@ -8,7 +10,9 @@ const selectProgramDimensions = ({
     dimensions,
 }) => {
     // select the desired type: Event or Enrollment
-    cy.getWithDataTest('{main-sidebar}').contains('Input:').click()
+    cy.getWithDataTest('{main-sidebar}', EXTENDED_TIMEOUT)
+        .contains('Input:')
+        .click()
     if (inputType === INPUT_EVENT) {
         cy.getWithDataTest('{input-event}').click()
     } else {
