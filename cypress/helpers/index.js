@@ -4,6 +4,7 @@ export {
     INPUT_ENROLLMENT,
 } from './selectProgramDimensions.js'
 export { selectPeriod, FIXED, RELATIVE } from './selectPeriod.js'
+export { getLineListTable } from './getLineListTable.js'
 
 const getPreviousYearStr = () => (new Date().getFullYear() - 1).toString()
 

@@ -4,6 +4,7 @@ import {
     selectPeriod,
     FIXED,
     getPreviousYearStr,
+    getLineListTable,
 } from '../../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
@@ -30,9 +31,7 @@ const setUpTable = () => {
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-        .find('tbody')
-        .should('be.visible')
+    getLineListTable().find('tbody').should('be.visible')
 }
 
 const addConditions = (conditions) => {
@@ -47,14 +46,12 @@ const addConditions = (conditions) => {
 }
 
 const assertTableMatchesExpectedRows = (expectedRows) => {
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+    getLineListTable()
         .find('tbody > tr')
         .should('have.length', expectedRows.length)
 
     expectedRows.forEach((val) => {
-        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-            .find('tbody')
-            .contains('td', val)
+        getLineListTable().find('tbody').contains('td', val)
     })
 }
 

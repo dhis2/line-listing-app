@@ -3,6 +3,7 @@ import {
     INPUT_ENROLLMENT,
     selectPeriod,
     RELATIVE,
+    getLineListTable,
 } from '../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -41,32 +42,25 @@ describe('enrollment', () => {
     })
     it('creates an enrollment line list', () => {
         // check the number of columns
-        cy.getWithDataTest('{line-list-table}')
-            .find('thead')
-            .find('th')
-            .its('length')
-            .should('equal', 3)
+        getLineListTable().find('th').its('length').should('equal', 3)
 
         // check that there is at least 1 row
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('tr')
             .its('length')
             .should('be.gte', 1)
 
         // check the column headers in the table
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('th')
             .contains('Organisation unit')
             .should('be.visible')
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('th')
             .contains(dimensionName)
             .should('be.visible')
-        cy.getWithDataTest('{line-list-table}')
-            .find('th')
-            .contains(periodLabel)
-            .should('be.visible')
+        getLineListTable().find('th').contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
         cy.get('#axis-group-1')
@@ -96,32 +90,25 @@ describe('enrollment', () => {
         cy.getWithDataTest('{menubar}').contains('Update').click()
 
         // check the number of columns
-        cy.getWithDataTest('{line-list-table}')
-            .find('thead')
-            .find('th')
-            .its('length')
-            .should('equal', 2)
+        getLineListTable().find('th').its('length').should('equal', 2)
 
         // check that there is at least 1 row in the table
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('tr')
             .its('length')
             .should('be.gte', 1)
 
         // check the column headers in the table
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('th')
             .contains('Organisation unit')
             .should('be.visible')
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('th')
             .contains(dimensionName)
             .should('be.visible')
-        cy.getWithDataTest('{line-list-table}')
-            .find('th')
-            .contains(periodLabel)
-            .should('not.exist')
+        getLineListTable().find('th').contains(periodLabel).should('not.exist')
 
         //check the chips in the layout
         cy.get('#axis-group-1')

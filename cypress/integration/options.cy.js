@@ -4,6 +4,7 @@ import {
     selectPeriod,
     FIXED,
     getPreviousYearStr,
+    getLineListTable,
 } from '../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -12,7 +13,7 @@ describe('options', () => {
         cy.visit('#/R4wAb2yMLik', EXTENDED_TIMEOUT)
 
         //assert the default density of table cell
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('td')
             .invoke('css', 'padding')
@@ -27,7 +28,7 @@ describe('options', () => {
         cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
 
         //assert new density of table cell
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('td')
             .invoke('css', 'padding')
@@ -38,7 +39,7 @@ describe('options', () => {
         cy.visit('#/R4wAb2yMLik', EXTENDED_TIMEOUT)
 
         //assert the font size of table cell
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('td')
             .invoke('css', 'font-size')
@@ -53,7 +54,7 @@ describe('options', () => {
         cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
 
         //assert new font size
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody')
             .find('td')
             .invoke('css', 'font-size')
@@ -84,7 +85,7 @@ describe('options', () => {
 
         cy.getWithDataTest('{menubar}').contains('Update').click()
 
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody > tr')
             .eq(0)
             .find('td')
@@ -99,7 +100,7 @@ describe('options', () => {
         cy.contains('Comma').click()
         cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
 
-        cy.getWithDataTest('{line-list-table}')
+        getLineListTable()
             .find('tbody > tr')
             .eq(0)
             .find('td')

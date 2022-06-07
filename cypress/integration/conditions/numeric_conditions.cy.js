@@ -4,6 +4,7 @@ import {
     INPUT_EVENT,
     FIXED,
     getPreviousYearStr,
+    getLineListTable,
 } from '../../helpers/index.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
@@ -29,9 +30,7 @@ const setUpTable = () => {
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-        .find('tbody')
-        .should('be.visible')
+    getLineListTable().find('tbody').should('be.visible')
 
     cy.getWithDataTest('{layout-chip}').contains(`${dimensionName}: all`)
 }
@@ -52,14 +51,12 @@ const addConditions = (conditions) => {
 }
 
 const assertTableMatchesExpectedRows = (expectedRows) => {
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+    getLineListTable()
         .find('tbody > tr')
         .should('have.length', expectedRows.length)
 
     expectedRows.forEach((val) => {
-        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-            .find('tbody')
-            .contains('td', val)
+        getLineListTable().find('tbody').contains('td', val)
     })
 }
 
@@ -200,11 +197,9 @@ describe('number conditions', () => {
     it('is empty / null', () => {
         addConditions([{ conditionName: 'is empty / null' }])
 
-        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-            .find('tbody > tr')
-            .should('have.length', 1)
+        getLineListTable().find('tbody > tr').should('have.length', 1)
 
-        cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+        getLineListTable()
             .find('tbody td')
             .eq(1)
             .invoke('text')
