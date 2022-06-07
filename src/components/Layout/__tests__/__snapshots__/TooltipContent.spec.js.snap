@@ -23,6 +23,7 @@ exports[`TooltipContent Data element: 2 conditions 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -42,6 +43,7 @@ exports[`TooltipContent Data element: 6 conditions 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -81,6 +83,7 @@ exports[`TooltipContent Data element: 8 conditions 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -120,6 +123,7 @@ exports[`TooltipContent Data element: no conditions 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -134,6 +138,7 @@ exports[`TooltipContent Data element: optionSet, 2 conditions but name missing f
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   />
 </div>
 `;
@@ -142,6 +147,7 @@ exports[`TooltipContent Data element: with stage and 1 condition 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -161,6 +167,7 @@ exports[`TooltipContent OU: 1 id and 1 level 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -180,6 +187,7 @@ exports[`TooltipContent OU: 1 id and 1 level, and missing metadata 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -199,6 +207,7 @@ exports[`TooltipContent OU: 1 id and 3 groups 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -218,6 +227,7 @@ exports[`TooltipContent OU: none selected 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -232,6 +242,7 @@ exports[`TooltipContent Period: 2 selected 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
@@ -251,6 +262,7 @@ exports[`TooltipContent Period: none selected 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
