@@ -113,7 +113,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
-                  CYPRESS_networkMode: stub
+                  CYPRESS_networkMode: live
 
     release:
         runs-on: ubuntu-latest
