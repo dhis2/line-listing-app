@@ -139,7 +139,7 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withStage(visualization.programStage?.id)
+        .withStage(visualization.programStage.id)
         .withDisplayProperty(nameProp)
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
