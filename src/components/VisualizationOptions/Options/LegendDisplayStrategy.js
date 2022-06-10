@@ -7,9 +7,9 @@ import { Radio, Field } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOption } from '../../../actions/ui.js'
+import { acSetUiOptions } from '../../../actions/ui.js'
 import { OPTION_LEGEND_DISPLAY_STRATEGY } from '../../../modules/options.js'
-import { sGetUiOption } from '../../../reducers/ui.js'
+import { sGetUiOptions } from '../../../reducers/ui.js'
 import styles from '../styles/VisualizationOptions.module.css'
 import LegendSet from './LegendSet.js'
 
@@ -28,7 +28,7 @@ const LegendDisplayStrategy = ({ value, onChange }) => (
             <Radio
                 key={LEGEND_DISPLAY_STRATEGY_FIXED}
                 label={i18n.t(
-                    'Select a single legend for the entire visualization'
+                    'Choose a single legend for the entire visualization'
                 )}
                 value={LEGEND_DISPLAY_STRATEGY_FIXED}
                 checked={value === LEGEND_DISPLAY_STRATEGY_FIXED}
@@ -51,14 +51,12 @@ LegendDisplayStrategy.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    value: sGetUiOption(state, { id: OPTION_LEGEND_DISPLAY_STRATEGY }),
+    value: sGetUiOptions(state)[OPTION_LEGEND_DISPLAY_STRATEGY],
 })
 
 const mapDispatchToProps = (dispatch) => ({
     onChange: ({ value }) =>
-        dispatch(
-            acSetUiOption({ optionId: OPTION_LEGEND_DISPLAY_STRATEGY, value })
-        ),
+        dispatch(acSetUiOptions({ [OPTION_LEGEND_DISPLAY_STRATEGY]: value })),
 })
 export default connect(
     mapStateToProps,

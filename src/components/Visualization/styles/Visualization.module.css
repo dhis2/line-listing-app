@@ -1,8 +1,16 @@
-.wrapper {
+.dataTableContainer {
     display: flex;
-    flex-direction: row;
-    flex-grow: 0;
     align-items: flex-start;
+    flex-grow: 1;
+    margin-right: 8px;
+}
+
+/* Legend key */
+.legendKeyScrollbox {
+    border: 1px solid var(--colors-grey400);
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 190px;
 }
 
 .fetchIndicator {
