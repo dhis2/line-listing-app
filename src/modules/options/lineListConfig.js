@@ -17,7 +17,8 @@ export default (serverVersion) => [
             ]),
         },
     ]),
-    (serverVersion.minor >= 39 ||
-        (serverVersion.minor === 38 && serverVersion.patch >= 1)) &&
-        getLegendTab(),
+    ...(serverVersion.minor >= 39 ||
+    (serverVersion.minor === 38 && serverVersion.patch >= 1)
+        ? [getLegendTab()]
+        : []),
 ]
