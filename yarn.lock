@@ -2040,12 +2040,12 @@
     react-beautiful-dnd "^10.1.1"
     resize-observer-polyfill "^1.5.1"
 
-"@dhis2/app-adapter@8.3.3":
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-8.3.3.tgz#f3729bec60db014dfdd2fa6b74b5f42a0a46afe2"
-  integrity sha512-L6Ybb672hKxSZu8lftaNGln4js0n/mHBNlJDAT8KUQrnPofCJ2goAb4FoBo2xvxTI5zzg+1bCoLh6C2msaL6sg==
+"@dhis2/app-adapter@9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-9.0.1.tgz#a924e753023f1423819e0d98fa98888cb86181cd"
+  integrity sha512-oTRjUJ5BdjuMBPAVc05CCiNfyOOxWLScvmxrhoEa9EXQQvNWk/C9HDCg2Xs+WIH5qnqeo1SdStw4Q49POPh6Uw==
   dependencies:
-    "@dhis2/pwa" "8.3.3"
+    "@dhis2/pwa" "9.0.1"
     moment "^2.24.0"
 
 "@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.4.0":
@@ -2082,16 +2082,16 @@
   dependencies:
     lodash "^4.17.21"
 
-"@dhis2/app-shell@8.3.3":
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-8.3.3.tgz#c2956a5cd4bf0cee32e8ffe80df9bbcefdbedd5e"
-  integrity sha512-mF+AXwHvQYJDsoljASSBNyw/d3OUDHcdNsCpVWHEIdVKXIyv1PqGfKctQ4THIFznFVMK4+uCWhDGeempwTaQrA==
+"@dhis2/app-shell@9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-9.0.1.tgz#55cf0e21bd9c6f9156592bd8ccbc5e368f562425"
+  integrity sha512-pXZoRfRY1HAOB5EgZFX81N+48z10JMMTCIBpcQuWTk8XlWGJAaPCf9Mq0IK4JPSYXFpgRju1Pj8vnGq5H+4sXA==
   dependencies:
-    "@dhis2/app-adapter" "8.3.3"
+    "@dhis2/app-adapter" "9.0.1"
     "@dhis2/app-runtime" "^3.2.3"
     "@dhis2/d2-i18n" "^1.1.0"
-    "@dhis2/pwa" "8.3.3"
-    "@dhis2/ui" "^7.2.0"
+    "@dhis2/pwa" "9.0.1"
+    "@dhis2/ui" "^8.0.0"
     classnames "^2.2.6"
     moment "^2.29.1"
     prop-types "^15.7.2"
@@ -2103,10 +2103,10 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-"@dhis2/cli-app-scripts@^8.3.3":
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-8.3.3.tgz#3043f85a989f03dd5db1e60c427b94b7a975ca3d"
-  integrity sha512-oFyPp+9rvr5vInOO37AE9rEl3Zm1XOxar/qjcKv841LwCs3iZfJaJsh4PAi+4WtDhdjwhnpSnqQs9hIUfB3VGQ==
+"@dhis2/cli-app-scripts@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-9.0.1.tgz#c1087d5fd120e11d86c181295bbf65d671774171"
+  integrity sha512-SUvL67X04RX0mZReLcinbbNdX5TTUprapFtn84KFuzQkxVDFFnYkh5TDYusWuuMyLl8KD02gK0ZHX69+qArPDQ==
   dependencies:
     "@babel/core" "^7.6.2"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -2115,7 +2115,7 @@
     "@babel/preset-env" "^7.14.7"
     "@babel/preset-react" "^7.0.0"
     "@babel/preset-typescript" "^7.6.0"
-    "@dhis2/app-shell" "8.3.3"
+    "@dhis2/app-shell" "9.0.1"
     "@dhis2/cli-helpers-engine" "^3.2.0"
     "@jest/core" "^27.0.6"
     "@yarnpkg/lockfile" "^1.1.0"
@@ -2240,10 +2240,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-3.1.2.tgz#65b8ad2da8cd2f72bc8b951049a6c9d1b97af3e9"
   integrity sha512-eM0jjLOWvtXWqSFp5YC4DHFpkP8Y1D2eUwGV7MBWjni+o27oesVan+oT7WHeOeLdlAd4acRJrnaaAyB4Ck1wGQ==
 
-"@dhis2/pwa@8.3.3":
-  version "8.3.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-8.3.3.tgz#2475779d0f03c6d28026e3f427e2f86ab666e624"
-  integrity sha512-lEhVJh2UQdj4kYou0pRGyNeSz+cvr/i0D2z3lvYUuvdqiN7V3bs6GJgkmnRVesSZonhS2RsYDuiUzrHABSYJRg==
+"@dhis2/pwa@9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-9.0.1.tgz#c22584ef2cfde48cd8323f1c7196b13b4ff910d6"
+  integrity sha512-/M2x1NBOjCQmU8whDFbrb8HNrssIvTqoeDfV2Xo/25xYNfy3CIzJcq6OVq0/ubxR17vmuPZKObScuY/NHE5KRw==
   dependencies:
     idb "^6.0.0"
     workbox-core "^6.1.5"
@@ -2283,7 +2283,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-8.3.1.tgz#56590dc94600d2b874f5c3f1d7920a5562b22e0e"
   integrity sha512-U77HoGyXpcFcWojWN48+BLkmiBpThELs1h6uuxQWgkT8xGarhWNG1dF8d3+DHZcQY+xRkUESl64JFT21vhLJHA==
 
-"@dhis2/ui@^7.2.0", "@dhis2/ui@^8.3.1":
+"@dhis2/ui@^8.0.0", "@dhis2/ui@^8.3.1":
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-8.3.1.tgz#bc8ebfe45eb5498e6cf48057c368e9d369b4913b"
   integrity sha512-5QL9g/EbD7oxsHVgBonk4iQTYH2X2jwy4v1xgcq/M7qI+XyWPkAloT+I4igQyGIAz0RINTezUmECLqS37WiTVQ==
