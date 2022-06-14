@@ -14,6 +14,7 @@ import {
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
 import {
     acSetUiFromVisualization,
+    acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
@@ -221,6 +222,9 @@ const App = () => {
         dispatch(acSetLoadError(output))
     }
 
+    const onColumnHeaderClick = (dimensionId) =>
+        dispatch(acSetUiOpenDimensionModal(dimensionId))
+
     const onResponsesReceived = (response) => {
         const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
@@ -358,6 +362,9 @@ const App = () => {
                                             visualization={current}
                                             onResponsesReceived={
                                                 onResponsesReceived
+                                            }
+                                            onColumnHeaderClick={
+                                                onColumnHeaderClick
                                             }
                                             onError={onError}
                                         />
