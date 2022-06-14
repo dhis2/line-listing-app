@@ -275,7 +275,7 @@ const valueTypeIsNumeric = (valueType) =>
 
 const useAnalyticsData = ({
     visualization,
-    relativePeriodDate,
+    filters,
     onResponsesReceived,
     pageSize,
     page,
@@ -291,6 +291,7 @@ const useAnalyticsData = ({
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
     const { userSettings } = useCachedDataQuery()
+    const relativePeriodDate = filters?.relativePeriodDate
 
     const doFetch = useCallback(async () => {
         try {

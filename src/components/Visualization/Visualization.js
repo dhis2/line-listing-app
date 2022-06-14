@@ -84,9 +84,9 @@ const getSizeClass = (displayDensity) => {
 const LEGEND_KEY_WIDTH = 196
 
 export const Visualization = ({
+    filters,
     visualization,
     onResponsesReceived,
-    relativePeriodDate,
 }) => {
     const dispatch = useDispatch()
     // TODO remove need for metadata
@@ -100,13 +100,13 @@ export const Visualization = ({
             pageSize: PAGE_SIZE,
         }
     )
-    const isInModal = !!relativePeriodDate
+    const isInModal = !!filters?.relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
     const { fetching, error, data } = useAnalyticsData({
+        filters,
         visualization,
-        relativePeriodDate,
         onResponsesReceived,
         pageSize,
         page,
@@ -444,5 +444,5 @@ Visualization.defaultProps = {
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
-    relativePeriodDate: PropTypes.string,
+    filters: PropTypes.object,
 }
