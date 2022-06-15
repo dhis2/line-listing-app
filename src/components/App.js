@@ -195,7 +195,7 @@ const App = () => {
         setPreviousLocation(location.pathname)
     }
 
-    const onResponseReceived = (response) => {
+    const onResponsesReceived = (response) => {
         const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
@@ -330,8 +330,8 @@ const App = () => {
                                     {current && (
                                         <Visualization
                                             visualization={current}
-                                            onResponseReceived={
-                                                onResponseReceived
+                                            onResponsesReceived={
+                                                onResponsesReceived
                                             }
                                         />
                                     )}
