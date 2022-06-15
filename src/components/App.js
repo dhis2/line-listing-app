@@ -14,14 +14,18 @@ import {
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
 import {
     acSetUiFromVisualization,
+    acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
+    dataAccessError,
     emptyResponseError,
     genericServerError,
+    indicatorError,
+    noPeriodError,
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
@@ -195,6 +199,32 @@ const App = () => {
         setPreviousLocation(location.pathname)
     }
 
+    const onError = (error) => {
+        let output
+
+        if (error.details?.errorCode) {
+            switch (error.details.errorCode) {
+                case 'E7205':
+                    output = noPeriodError()
+                    break
+                case 'E7132':
+                    output = indicatorError()
+                    break
+                case 'E7121':
+                    output = dataAccessError()
+                    break
+                default:
+                    output = genericServerError()
+            }
+        } else {
+            output = genericServerError()
+        }
+        dispatch(acSetLoadError(output))
+    }
+
+    const onColumnHeaderClick = (dimensionId) =>
+        dispatch(acSetUiOpenDimensionModal(dimensionId))
+
     const onResponsesReceived = (response) => {
         const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
@@ -333,6 +363,10 @@ const App = () => {
                                             onResponsesReceived={
                                                 onResponsesReceived
                                             }
+                                            onColumnHeaderClick={
+                                                onColumnHeaderClick
+                                            }
+                                            onError={onError}
                                         />
                                     )}
                                     {current && (
