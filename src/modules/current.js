@@ -2,7 +2,13 @@ import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
-import { options } from './options.js'
+import {
+    options,
+    OPTION_LEGEND_DISPLAY_STRATEGY,
+    OPTION_LEGEND_DISPLAY_STYLE,
+    OPTION_LEGEND_SET,
+    OPTION_SHOW_LEGEND_KEY,
+} from './options.js'
 import { parseUiRepetition } from './ui.js'
 import { extractDimensionIdParts } from './utils.js'
 
@@ -37,7 +43,16 @@ export const getProgramStageFromUi = (ui) =>
           }
         : {}
 
-export const getOptionsFromUi = (ui) => pick(ui.options, Object.keys(options))
+export const getOptionsFromUi = (ui) => {
+    const legend = {
+        strategy: ui.options[OPTION_LEGEND_DISPLAY_STRATEGY],
+        style: ui.options[OPTION_LEGEND_DISPLAY_STYLE],
+        set: ui.options[OPTION_LEGEND_SET],
+        showKey: ui.options[OPTION_SHOW_LEGEND_KEY],
+    }
+
+    return { ...pick(ui.options, Object.keys(options)), legend }
+}
 
 export const getAxesFromUi = (ui) =>
     Object.entries(ui.layout).reduce(

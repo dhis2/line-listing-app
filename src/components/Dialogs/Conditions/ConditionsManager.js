@@ -1,17 +1,6 @@
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '@dhis2/analytics'
-import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { acSetUiConditions } from '../../../actions/ui.js'
-import {
-    OPERATOR_IN,
-    parseConditionsArrayToString,
-    parseConditionsStringToArray,
     VALUE_TYPE_NUMBER,
     VALUE_TYPE_UNIT_INTERVAL,
     VALUE_TYPE_PERCENTAGE,
@@ -32,6 +21,17 @@ import {
     VALUE_TYPE_TIME,
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_ORGANISATION_UNIT,
+} from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { acSetUiConditions } from '../../../actions/ui.js'
+import {
+    OPERATOR_IN,
+    parseConditionsArrayToString,
+    parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'

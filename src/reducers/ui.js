@@ -34,7 +34,6 @@ export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
-export const SET_UI_OPTION = 'SET_UI_OPTION'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
@@ -344,7 +343,6 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiOptions = (state) => sGetUi(state).options
-export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
