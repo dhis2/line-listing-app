@@ -24,7 +24,6 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -37,8 +36,7 @@ import {
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
-import { headersMap } from '../../modules/visualization.js'
-import { sGetMetadata } from '../../reducers/metadata.js'
+import { headersMap, statusNames } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 import { useAvailableWidth } from './useAvailableWidth.js'
@@ -79,8 +77,6 @@ export const Visualization = ({
     onColumnHeaderClick,
     onError,
 }) => {
-    // TODO remove need for metadata
-    const metadata = useSelector(sGetMetadata)
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
         {
@@ -166,8 +162,7 @@ export const Visualization = ({
                 headersMap[DIMENSION_ID_PROGRAM_STATUS],
             ].includes(header?.name)
         ) {
-            // TODO remove metadata use
-            return metadata[value]?.name || value
+            return statusNames[value] || value
         } else if (
             [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)
         ) {
