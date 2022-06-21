@@ -359,6 +359,7 @@ const App = () => {
                                     )}
                                     {current && (
                                         <Visualization
+                                            isVisualizationLoading={isLoading}
                                             visualization={current}
                                             onResponsesReceived={
                                                 onResponsesReceived

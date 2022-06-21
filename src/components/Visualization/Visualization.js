@@ -73,6 +73,7 @@ const LEGEND_KEY_WIDTH = 196
 export const Visualization = ({
     filters,
     visualization,
+    isVisualizationLoading,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
@@ -93,6 +94,7 @@ export const Visualization = ({
     const { fetching, error, data } = useAnalyticsData({
         filters,
         visualization,
+        isVisualizationLoading,
         onResponsesReceived,
         pageSize,
         page,
@@ -408,6 +410,7 @@ Visualization.defaultProps = {
 }
 
 Visualization.propTypes = {
+    isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
