@@ -67,7 +67,7 @@ describe('boolean conditions', () => {
         setUpTable()
     })
 
-    it('Yes only', () => {
+    it('Yes selected', () => {
         addConditions(['Yes'])
 
         assertTableMatchesExpectedRows([
@@ -102,7 +102,7 @@ describe('boolean conditions', () => {
         assertTooltipContainsEntries(['Program stage: Birth', /\bYes\b/])
     })
 
-    it('No only', () => {
+    it('No selected', () => {
         addConditions(['No'])
 
         assertTableMatchesExpectedRows([
@@ -125,7 +125,7 @@ describe('boolean conditions', () => {
         assertTooltipContainsEntries(['Program stage: Birth', /\bNo\b/])
     })
 
-    it('Yes and Not answered', () => {
+    it('Yes and Not answered selected', () => {
         addConditions(['Yes', 'Not answered'])
 
         assertTableMatchesExpectedRows([
