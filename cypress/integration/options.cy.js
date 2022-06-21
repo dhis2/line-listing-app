@@ -1,16 +1,20 @@
+import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
-    selectProgramDimensions,
-    INPUT_EVENT,
-    selectPeriod,
-    FIXED,
-    getPreviousYearStr,
-    getLineListTable,
-} from '../helpers/index.js'
+    TEST_AOS,
+    TEST_ENROLLMENT_DATA,
+    TEST_EVENT_DATA,
+    TEST_RELATIVE_PERIODS,
+} from '../data/index.js'
+import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import { selectRelativePeriod } from '../helpers/period.js'
+import { getLineListTable } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
+
+const TEST_AO_ID = TEST_AOS[0].id
 
 describe('options', () => {
     it('sets comfortable display density', () => {
-        cy.visit('#/R4wAb2yMLik', EXTENDED_TIMEOUT)
+        cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
 
         //assert the default density of table cell
         getLineListTable()
@@ -36,7 +40,7 @@ describe('options', () => {
     })
 
     it('sets small font size', () => {
-        cy.visit('#/R4wAb2yMLik', EXTENDED_TIMEOUT)
+        cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
 
         //assert the font size of table cell
         getLineListTable()
@@ -65,34 +69,24 @@ describe('options', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         //set up table
-        selectProgramDimensions({
-            inputType: INPUT_EVENT,
-            programName: 'Child Programme',
-            stageName: 'Birth',
-            dimensions: ['MCH Weight (g)'],
-        })
+        selectEnrollmentProgramDimensions(TEST_ENROLLMENT_DATA[1])
 
-        // choose Jan 1 of the previous year as the period
-        selectPeriod({
-            periodLabel: 'Report date',
-            category: FIXED,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-01-01`,
-            },
+        selectRelativePeriod({
+            label: TEST_EVENT_DATA[0][DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_RELATIVE_PERIODS[0],
         })
 
         cy.getWithDataTest('{menubar}').contains('Update').click()
 
+        //assert the default dgs space
         getLineListTable()
             .find('tbody > tr')
             .eq(0)
             .find('td')
             .eq(1)
-            .should('contain', '1 232')
+            .should('contain', '2 000 000')
 
-        // // set dgs to comma
+        // set dgs to comma
         cy.getWithDataTest('{menubar}').contains('Options').click()
         cy.getWithDataTest('{dgs-select-content}')
             .findWithDataTest('{dhis2-uicore-select-input}')
@@ -105,6 +99,21 @@ describe('options', () => {
             .eq(0)
             .find('td')
             .eq(1)
-            .should('contain', '1,232')
+            .should('contain', '2,000,000')
+
+        // set dgs to none
+        cy.getWithDataTest('{menubar}').contains('Options').click()
+        cy.getWithDataTest('{dgs-select-content}')
+            .findWithDataTest('{dhis2-uicore-select-input}')
+            .click()
+        cy.contains('None').click()
+        cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
+
+        getLineListTable()
+            .find('tbody > tr')
+            .eq(0)
+            .find('td')
+            .eq(1)
+            .should('contain', '2000000')
     })
 })

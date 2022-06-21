@@ -1,31 +1,21 @@
-import {
-    selectProgramDimensions,
-    selectPeriod,
-    INPUT_EVENT,
-    FIXED,
-    getPreviousYearStr,
-    getLineListTable,
-} from '../../helpers/index.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
+import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
+import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
+import { selectRelativePeriod } from '../../helpers/period.js'
+import { getLineListTable } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const dimensionName = 'MCH Weight (g)'
+const event = TEST_EVENT_DATA[1]
+const dimensionName = event.dimensions[0]
+const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectProgramDimensions({
-        inputType: INPUT_EVENT,
-        programName: 'Child Programme',
-        stageName: 'Birth',
-        dimensions: [dimensionName],
-    })
+    selectEventProgramDimensions(event)
 
-    selectPeriod({
-        periodLabel: 'Report date',
-        category: FIXED,
-        period: {
-            type: 'Daily',
-            year: `${getPreviousYearStr()}`,
-            name: `${getPreviousYearStr()}-01-01`,
-        },
+    selectRelativePeriod({
+        label: periodLabel,
+        period: TEST_RELATIVE_PERIODS[0],
     })
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
@@ -72,132 +62,85 @@ describe('number conditions', () => {
         setUpTable()
     })
     it('equal to', () => {
-        addConditions([{ conditionName: 'equal to (=)', value: '1232' }])
-        assertTableMatchesExpectedRows(['1 232'])
+        addConditions([{ conditionName: 'equal to (=)', value: '12' }])
+        assertTableMatchesExpectedRows(['12'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Equal to (=): 1 232',
-        ])
+        assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
     })
 
     it('greater than', () => {
-        addConditions([{ conditionName: 'greater than (>)', value: '3980' }])
+        addConditions([{ conditionName: 'greater than (>)', value: '12' }])
 
-        assertTableMatchesExpectedRows(['3 988', '3 999'])
+        assertTableMatchesExpectedRows(['2 000 000'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Greater than (>): 3 980',
-        ])
+        assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
     })
 
     it('greater than or equal to', () => {
         addConditions([
-            { conditionName: 'greater than or equal to', value: '3980' },
+            { conditionName: 'greater than or equal to', value: '12' },
         ])
-        assertTableMatchesExpectedRows(['3 988', '3 980', '3 999'])
+        assertTableMatchesExpectedRows(['12', '2 000 000'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
         assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Greater than or equal to (≥): 3 980',
+            stageName,
+            'Greater than or equal to (≥): 12',
         ])
     })
 
     it('less than', () => {
-        addConditions([{ conditionName: 'less than (<)', value: '2615' }])
-        assertTableMatchesExpectedRows(['1 232', '2 561'])
+        addConditions([{ conditionName: 'less than (<)', value: '12' }])
+        assertTableMatchesExpectedRows(['11'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Less than (<): 2 615',
-        ])
+        assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
     })
 
     it('less than or equal to', () => {
-        addConditions([
-            { conditionName: 'less than or equal to', value: '2615' },
-        ])
-        assertTableMatchesExpectedRows(['1 232', '2 561', '2 615'])
+        addConditions([{ conditionName: 'less than or equal to', value: '12' }])
+        assertTableMatchesExpectedRows(['11', '12'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
         assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Less than or equal to (≤): 2 615',
+            stageName,
+            'Less than or equal to (≤): 12',
         ])
     })
 
     it('not equal to', () => {
-        addConditions([{ conditionName: 'not equal to', value: '1232' }])
+        addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        assertTableMatchesExpectedRows([
-            '2 561',
-            '2 615',
-            '2 627',
-            '2 664',
-            '2 721',
-            '2 741',
-            '2 744',
-            '2 779',
-            '2 869',
-            '2 968',
-            '3 044',
-            '3 058',
-            '3 163',
-            '3 168',
-            '3 187',
-            '3 216',
-            '3 240',
-            '3 303',
-            '3 355',
-            '3 400',
-            '3 406',
-            '3 418',
-            '3 673',
-            '3 730',
-            '3 765',
-            '3 807',
-            '3 867',
-            '3 921',
-            '3 952',
-            '3 980',
-            '3 988',
-            '3 999',
-        ])
+        assertTableMatchesExpectedRows(['11', '2 000 000'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Not equal to (≠): 1 232',
-        ])
+        assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
     })
 
     it('is empty / null', () => {
         addConditions([{ conditionName: 'is empty / null' }])
 
-        getLineListTable().find('tbody > tr').should('have.length', 1)
+        getLineListTable().find('tbody > tr').should('have.length', 2)
 
         getLineListTable()
             .find('tbody td')
@@ -210,77 +153,37 @@ describe('number conditions', () => {
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Is empty / null',
-        ])
+        assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
 
     it('is not empty / not null', () => {
         addConditions([{ conditionName: 'is not empty / not null' }])
 
-        assertTableMatchesExpectedRows([
-            '1 232',
-            '2 561',
-            '2 615',
-            '2 627',
-            '2 664',
-            '2 721',
-            '2 741',
-            '2 744',
-            '2 779',
-            '2 869',
-            '2 968',
-            '3 044',
-            '3 058',
-            '3 163',
-            '3 168',
-            '3 187',
-            '3 216',
-            '3 240',
-            '3 303',
-            '3 355',
-            '3 400',
-            '3 406',
-            '3 418',
-            '3 673',
-            '3 730',
-            '3 765',
-            '3 807',
-            '3 867',
-            '3 921',
-            '3 952',
-            '3 980',
-            '3 988',
-            '3 999',
-        ])
+        assertTableMatchesExpectedRows(['11', '12', '2 000 000'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
-        assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Is not empty / not null',
-        ])
+        assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
 
     it('2 conditions: greater than and less than', () => {
         addConditions([
-            { conditionName: 'greater than (>)', value: '2615' },
-            { conditionName: 'less than (<)', value: '2700' },
+            { conditionName: 'greater than (>)', value: '11' },
+            { conditionName: 'less than (<)', value: '13' },
         ])
 
-        assertTableMatchesExpectedRows(['2 627', '2 664'])
+        assertTableMatchesExpectedRows(['12'])
 
         cy.getWithDataTest('{layout-chip}')
             .contains(`${dimensionName}: 2 conditions`)
             .trigger('mouseover')
 
         assertTooltipContainsEntries([
-            'Program stage: Birth',
-            'Greater than (>): 2 615',
-            'Less than (<): 2 700',
+            stageName,
+            'Greater than (>): 11',
+            'Less than (<): 13',
         ])
     })
 })
