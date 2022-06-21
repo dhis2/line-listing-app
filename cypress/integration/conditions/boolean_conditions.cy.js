@@ -147,7 +147,6 @@ describe('boolean conditions', () => {
             'Maselleh MCHP',
             'Mokotawa CHP',
             'Mosenessie Junction MCHP',
-            'Ngelehun CHC', //there are 2
             'Ngelehun CHC',
             'SLC. RHC Port Loko',
             'Tombo Wallah CHP',
