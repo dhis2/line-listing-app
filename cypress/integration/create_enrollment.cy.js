@@ -1,30 +1,18 @@
-import {
-    selectProgramDimensions,
-    INPUT_ENROLLMENT,
-    selectPeriod,
-    RELATIVE,
-    getLineListTable,
-} from '../helpers/index.js'
+import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { TEST_ENROLLMENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
+import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import { selectFixedPeriod } from '../helpers/period.js'
+import { getLineListTable } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const dimensionName = 'BCG doses'
-const periodLabel = 'Date of enrollment'
+const enrollment = TEST_ENROLLMENT_DATA[0]
+const dimensionName = enrollment.dimensions[0]
+const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
 const setUpTable = () => {
-    selectProgramDimensions({
-        inputType: INPUT_ENROLLMENT,
-        programName: 'Child Programme',
-        dimensions: [dimensionName],
-    })
+    selectEnrollmentProgramDimensions(enrollment)
 
-    selectPeriod({
-        periodLabel,
-        category: RELATIVE,
-        period: {
-            type: 'Months',
-            name: 'Last 12 months',
-        },
-    })
+    selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 

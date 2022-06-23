@@ -1,33 +1,18 @@
-import {
-    selectProgramDimensions,
-    INPUT_EVENT,
-    selectPeriod,
-    FIXED,
-    getPreviousYearStr,
-    getLineListTable,
-} from '../helpers/index.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { TEST_EVENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
+import { selectEventProgramDimensions } from '../helpers/dimensions.js'
+import { selectFixedPeriod } from '../helpers/period.js'
+import { getLineListTable } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const dimensionName = 'MCH Apgar Score'
-const periodLabel = 'Report date'
+const event = TEST_EVENT_DATA[0]
+const dimensionName = event.dimensions[0]
+const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const setUpTable = () => {
-    selectProgramDimensions({
-        inputType: INPUT_EVENT,
-        programName: 'Child Programme',
-        stageName: 'Birth',
-        dimensions: [dimensionName],
-    })
+    selectEventProgramDimensions(event)
 
-    selectPeriod({
-        periodLabel: periodLabel,
-        category: FIXED,
-        period: {
-            type: 'Daily',
-            year: `${getPreviousYearStr()}`,
-            name: `${getPreviousYearStr()}-01-01`,
-        },
-    })
+    selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 

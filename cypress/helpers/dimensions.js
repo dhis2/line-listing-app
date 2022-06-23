@@ -46,4 +46,24 @@ const selectProgramDimensions = ({
     cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
 }
 
-export { selectProgramDimensions, INPUT_EVENT, INPUT_ENROLLMENT }
+const selectEventProgramDimensions = ({ programName, stageName, dimensions }) =>
+    selectProgramDimensions({
+        inputType: INPUT_EVENT,
+        programName,
+        stageName,
+        dimensions,
+    })
+
+const selectEnrollmentProgramDimensions = ({
+    programName,
+    stageName,
+    dimensions,
+}) =>
+    selectProgramDimensions({
+        inputType: INPUT_ENROLLMENT,
+        programName,
+        stageName,
+        dimensions,
+    })
+
+export { selectEventProgramDimensions, selectEnrollmentProgramDimensions }
