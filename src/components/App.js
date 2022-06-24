@@ -339,11 +339,7 @@ const App = () => {
                         <div className={classes.mainCenterTitlebar}>
                             <TitleBar />
                         </div>
-                        <div
-                            className={cx(
-                                classes.mainCenterCanvas,
-                            )}
-                        >
+                        <div className={cx(classes.mainCenterCanvas)}>
                             {(initialLoadIsComplete &&
                                 !current &&
                                 !isLoading) ||
