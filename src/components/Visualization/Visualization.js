@@ -235,7 +235,7 @@ export const Visualization = ({
     )
 
     return (
-        <>
+        <div className={styles.pluginContainer}>
             <div
                 className={cx(styles.fetchIndicator, {
                     [styles.fetching]: fetching,
@@ -378,7 +378,7 @@ export const Visualization = ({
                 </DataTable>
             </div>
             {Boolean(uniqueLegendSets.length) && getLegendKey()}
-        </>
+        </div>
     )
 }
 

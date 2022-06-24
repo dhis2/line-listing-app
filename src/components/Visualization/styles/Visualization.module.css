@@ -6,6 +6,12 @@
     min-width: 190px;
 }
 
+.pluginContainer {
+    display: flex;
+    gap: var(--spacers-dp4);
+    min-width: 0;
+}
+
 .fetchIndicator {
     position: relative;
     min-width: 0;
