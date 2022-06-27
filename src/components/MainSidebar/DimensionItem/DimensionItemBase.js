@@ -23,6 +23,7 @@ const DimensionItemBase = ({
             [styles.dragging]: dragging,
         })}
         onClick={onClick}
+        data-test={'dimension-item-base'}
     >
         <div className={styles.iconAndLabelWrapper}>
             <div className={styles.icon}>
