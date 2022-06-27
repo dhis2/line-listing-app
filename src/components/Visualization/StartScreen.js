@@ -146,6 +146,9 @@ const StartScreen = ({ error, setLoadError }) => {
                                         onClick={() =>
                                             history.push(`/${vis.id}`)
                                         }
+                                        data-test={
+                                            'start-screen-most-viewed-list-item'
+                                        }
                                     >
                                         <span className={styles.visIcon}>
                                             <VisTypeIcon
