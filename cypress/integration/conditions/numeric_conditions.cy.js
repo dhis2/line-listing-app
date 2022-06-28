@@ -22,11 +22,11 @@ const setUpTable = () => {
 
     getLineListTable().find('tbody').should('be.visible')
 
-    cy.getWithDataTest('{layout-chip}').contains(`${dimensionName}: all`)
+    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
 
 const addConditions = (conditions) => {
-    cy.getWithDataTest('{layout-chip}').contains(dimensionName).click()
+    cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value }) => {
         cy.getWithDataTest('{button-add-condition}').click()
         cy.contains('Choose a condition').click()
@@ -65,7 +65,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
         assertTableMatchesExpectedRows(['12'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -77,7 +77,7 @@ describe('number conditions', () => {
 
         assertTableMatchesExpectedRows(['2 000 000'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -90,7 +90,7 @@ describe('number conditions', () => {
         ])
         assertTableMatchesExpectedRows(['12', '2 000 000'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -104,7 +104,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
         assertTableMatchesExpectedRows(['11'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -115,7 +115,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
         assertTableMatchesExpectedRows(['11', '12'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -130,7 +130,7 @@ describe('number conditions', () => {
 
         assertTableMatchesExpectedRows(['11', '2 000 000'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -149,7 +149,7 @@ describe('number conditions', () => {
             .invoke('trim')
             .should('equal', '')
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -161,7 +161,7 @@ describe('number conditions', () => {
 
         assertTableMatchesExpectedRows(['11', '12', '2 000 000'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -176,7 +176,7 @@ describe('number conditions', () => {
 
         assertTableMatchesExpectedRows(['12'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 2 conditions`)
             .trigger('mouseover')
 

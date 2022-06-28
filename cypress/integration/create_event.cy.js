@@ -18,7 +18,7 @@ const setUpTable = () => {
 
     getLineListTable().find('tbody').should('be.visible')
 
-    cy.getWithDataTest('{layout-chip}').contains(`${dimensionName}: all`)
+    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
 
 describe('event', () => {
@@ -51,17 +51,17 @@ describe('event', () => {
 
         //check the chips in the layout
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains('Organisation unit: 1 selected')
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${dimensionName}: all`)
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })
@@ -69,7 +69,7 @@ describe('event', () => {
     it('moves a dimension to filter', () => {
         // move Report date from "Columns" to "Filter"
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .findWithDataTest('{dimension-menu-button-eventDate}')
             .click()
         cy.contains('Move to Filter').click()
@@ -98,17 +98,17 @@ describe('event', () => {
 
         //check the chips in the layout
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains('Organisation unit: 1 selected')
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${dimensionName}: all`)
             .should('be.visible')
 
         cy.get('#axis-group-2')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })

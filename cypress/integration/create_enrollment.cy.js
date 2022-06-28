@@ -20,7 +20,7 @@ const setUpTable = () => {
         .find('tbody')
         .should('be.visible')
 
-    cy.getWithDataTest('{layout-chip}').contains(`${dimensionName}: all`)
+    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
 
 describe('enrollment', () => {
@@ -52,17 +52,17 @@ describe('enrollment', () => {
 
         //check the chips in the layout
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains('Organisation unit: 1 selected')
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${dimensionName}: all`)
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })
@@ -100,17 +100,17 @@ describe('enrollment', () => {
 
         //check the chips in the layout
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains('Organisation unit: 1 selected')
             .should('be.visible')
 
         cy.get('#axis-group-1')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${dimensionName}: all`)
             .should('be.visible')
 
         cy.get('#axis-group-2')
-            .findWithDataTest('{layout-chip}')
+            .findBySelLike('layout-chip')
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })

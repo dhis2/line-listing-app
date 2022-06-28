@@ -24,7 +24,7 @@ const setUpTable = () => {
 }
 
 const addConditions = (conditions) => {
-    cy.getWithDataTest('{layout-chip}').contains(dimensionName).click()
+    cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach((conditionName) => {
         cy.getWithDataTest('{conditions-modal-content}')
             .findWithDataTest('{dhis2-uicore-checkbox}')
@@ -61,7 +61,7 @@ describe('boolean conditions', () => {
 
         assertTableMatchesExpectedRows(['2022-01-01'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -73,7 +73,7 @@ describe('boolean conditions', () => {
 
         assertTableMatchesExpectedRows(['2022-01-03'])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
             .trigger('mouseover')
 
@@ -90,7 +90,7 @@ describe('boolean conditions', () => {
             '2022-02-01',
         ])
 
-        cy.getWithDataTest('{layout-chip}')
+        cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 2 conditions`)
             .trigger('mouseover')
 
