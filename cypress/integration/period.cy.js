@@ -68,7 +68,7 @@ describe('period dimension', () => {
             .should('have.class', 'selected')
 
         // TODO:
-        // set dates
+        // set dates + test input validation
         // close modal (add to Columns)
         // check that the old periods were cleared and that the tooltip contains the custom date
         // reopen modal to see that they are still set
