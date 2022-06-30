@@ -19,6 +19,7 @@ const DigitGroupSeparator = () => (
                 { value: SEPARATOR_COMMA, label: i18n.t('Comma') },
             ],
         }}
+        dataTest="dgs"
     />
 )
 

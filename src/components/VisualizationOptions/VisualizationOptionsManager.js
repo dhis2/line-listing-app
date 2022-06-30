@@ -19,10 +19,7 @@ const VisualizationOptionsManager = () => {
 
     return (
         <>
-            <MenuButton
-                data-test={'app-menubar-options-button'}
-                onClick={() => setDialogIsOpen(true)}
-            >
+            <MenuButton onClick={() => setDialogIsOpen(true)}>
                 {i18n.t('Options')}
             </MenuButton>
             {dialogIsOpen && (

@@ -11,10 +11,7 @@ export const Toolbar = () => {
         <div className={cx(classes.sectionToolbar, classes.flexCt)}>
             <VisualizationTypeSelector />
             <div className={cx(classes.toolbarMenubar, classes.flexGrow1)}>
-                <MenuBar
-                    apiObjectName={apiObjectName}
-                    dataTest={'app-menubar'}
-                />
+                <MenuBar apiObjectName={apiObjectName} />
             </div>
         </div>
     )

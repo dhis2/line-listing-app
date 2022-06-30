@@ -4,10 +4,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './InputOption.module.css'
 
-const InputOption = ({ header, description, onClick, selected }) => (
+const InputOption = ({ header, description, onClick, selected, dataTest }) => (
     <div
         className={cx(styles.container, { [styles.selected]: selected })}
         onClick={onClick}
+        data-test={dataTest}
     >
         <Radio checked={selected} />
         <div className={styles.label}>
@@ -22,6 +23,7 @@ InputOption.propTypes = {
     header: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
+    dataTest: PropTypes.string,
 }
 
 export { InputOption }
