@@ -41,4 +41,11 @@ const selectRelativePeriod = ({ label, period }) => {
 
 const getPreviousYearStr = () => (new Date().getFullYear() - 1).toString()
 
-export { selectFixedPeriod, selectRelativePeriod, getPreviousYearStr }
+const getCurrentYearStr = () => new Date().getFullYear().toString()
+
+export {
+    selectFixedPeriod,
+    selectRelativePeriod,
+    getPreviousYearStr,
+    getCurrentYearStr,
+}

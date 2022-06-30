@@ -22,7 +22,10 @@ export const TimeDimensions = () => {
     }))
 
     return (
-        <MainSidebarSection header={i18n.t('Time dimensions')}>
+        <MainSidebarSection
+            header={i18n.t('Time dimensions')}
+            dataTest={'time-dimensions-sidebar'}
+        >
             {draggableDimensions.map((dimension) => (
                 <Tooltip
                     content={dimension.disabledReason}

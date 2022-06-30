@@ -69,6 +69,7 @@ export const DimensionItem = ({
                 selected={selected}
                 stageName={stageName}
                 onClick={onClick}
+                dataTest={`dimension-item-${id}`}
                 contextMenu={
                     !disabled && (
                         <DimensionMenu
