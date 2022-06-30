@@ -1,4 +1,5 @@
-import { getCurrentYearStr } from '../helpers/period.js'
+import { clearInput, typeInput } from '../helpers/common.js'
+import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('period dimension', () => {
@@ -7,12 +8,16 @@ describe('period dimension', () => {
     const TEST_RELATIVE_PERIOD_NAME = 'Last 3 months'
     const TEST_FIXED_PERIOD_NAME = `January ${getCurrentYearStr()}`
 
+    const openModal = () =>
+        cy
+            .getBySel('main-sidebar')
+            .findBySel(`dimension-item-${TEST_DIM_ID}`)
+            .click()
+
     it('opens modal', () => {
         goToStartPage()
 
-        cy.getBySel('main-sidebar')
-            .findBySel(`dimension-item-${TEST_DIM_ID}`)
-            .click()
+        openModal()
 
         cy.getBySel('period-dimension-modal').should('be.visible')
     })
@@ -67,14 +72,77 @@ describe('period dimension', () => {
             .click()
             .should('have.class', 'selected')
 
-        // TODO:
-        // set dates + test input validation
-        // close modal (add to Columns)
-        // check that the old periods were cleared and that the tooltip contains the custom date
-        // reopen modal to see that they are still set
-        // remove one of the dates
-        // close and reopen modal to see that both dates are cleared when one is removed
-        // set dates
-        // change to preset dates and back to custom dates again to see that the custom date was cleared
+        typeInput('start-date-input', `${getPreviousYearStr()}-01-01`)
+        typeInput('end-date-input', `${getCurrentYearStr()}-12-31`)
+
+        cy.contains('Add to Columns').click()
+
+        cy.getBySelLike('layout-chip')
+            .contains(`${TEST_DIM_NAME}: 1 selected`)
+            .trigger('mouseover')
+
+        cy.getBySelLike('tooltip-content').contains(
+            `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
+        )
+
+        openModal()
+    })
+    it('the custom period persists when reopening the modal', () => {
+        cy.getBySel('start-date-input')
+            .find('input')
+            .invoke('val')
+            .should('eq', `${getPreviousYearStr()}-01-01`)
+        cy.getBySel('end-date-input')
+            .find('input')
+            .invoke('val')
+            .should('eq', `${getCurrentYearStr()}-12-31`)
+    })
+    it('the custom period is cleared when one date is removed', () => {
+        clearInput('start-date-input')
+        cy.getBySel('period-dimension-modal-action-confirm')
+            .contains('Update')
+            .click()
+
+        cy.getBySelLike('layout-chip')
+            .containsExact(TEST_DIM_NAME)
+            .trigger('mouseover')
+
+        cy.getBySelLike('tooltip-content').contains('None selected')
+
+        openModal()
+
+        cy.contains('Choose from presets').should('have.class', 'selected')
+    })
+    it('the custom period is cleared when the preset date tab is toggled', () => {
+        cy.contains('Define start - end dates').click()
+
+        typeInput('start-date-input', `${getPreviousYearStr()}-01-01`)
+        typeInput('end-date-input', `${getCurrentYearStr()}-12-31`)
+
+        cy.getBySel('period-dimension-modal-action-confirm')
+            .contains('Update')
+            .click()
+
+        cy.getBySelLike('layout-chip')
+            .contains(`${TEST_DIM_NAME}: 1 selected`)
+            .trigger('mouseover')
+
+        cy.getBySelLike('tooltip-content').contains(
+            `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
+        )
+
+        openModal()
+
+        cy.contains('Choose from presets').click()
+
+        cy.getBySel('period-dimension-modal-action-confirm')
+            .contains('Update')
+            .click()
+
+        cy.getBySelLike('layout-chip')
+            .containsExact(TEST_DIM_NAME)
+            .trigger('mouseover')
+
+        cy.getBySelLike('tooltip-content').contains('None selected')
     })
 })
