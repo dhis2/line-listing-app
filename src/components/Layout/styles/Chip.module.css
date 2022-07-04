@@ -60,6 +60,10 @@
     flex: 1;
 }
 
+.chip:hover {
+    background: #9fdbd5;
+}
+
 .dragging {
     margin: 0;
     padding: 1px 24px 1px 6px;
