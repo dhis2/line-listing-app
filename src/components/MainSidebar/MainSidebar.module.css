@@ -7,8 +7,9 @@
     width: 260px;
 }
 .main {
-    background-color: var(--colors-grey200);
+    background-color: var(--colors-grey100);
     border-right: 1px solid var(--colors-grey400);
+    box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03);
 }
 .accessory {
     background-color: var(--colors-white);
