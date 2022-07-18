@@ -326,8 +326,8 @@ const App = () => {
                     <DialogManager />
                     <div
                         className={cx(
-                            classes.mainCenter,
                             classes.flexGrow1,
+                            classes.minWidth0,
                             classes.flexBasis0,
                             classes.flexCt,
                             classes.flexDirCol
@@ -339,12 +339,7 @@ const App = () => {
                         <div className={classes.mainCenterTitlebar}>
                             <TitleBar />
                         </div>
-                        <div
-                            className={cx(
-                                classes.mainCenterCanvas,
-                                classes.flexGrow1
-                            )}
-                        >
+                        <div className={cx(classes.mainCenterCanvas)}>
                             {(initialLoadIsComplete &&
                                 !current &&
                                 !isLoading) ||
@@ -359,6 +354,7 @@ const App = () => {
                                     )}
                                     {current && (
                                         <Visualization
+                                            isVisualizationLoading={isLoading}
                                             visualization={current}
                                             onResponsesReceived={
                                                 onResponsesReceived
