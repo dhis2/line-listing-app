@@ -81,10 +81,9 @@ describe('period dimension', () => {
         cy.getBySelLike('tooltip-content').contains(
             `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
         )
-
-        openModal(TEST_DIM_ID)
     })
     it('the custom period persists when reopening the modal', () => {
+        openModal(TEST_DIM_ID)
         cy.getBySel('start-date-input')
             .find('input')
             .invoke('val')
