@@ -2,7 +2,11 @@ import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstan
 import { TEST_ENROLLMENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
 import { selectFixedPeriod } from '../helpers/period.js'
-import { getLineListTable } from '../helpers/table.js'
+import {
+    getTableRows,
+    getTableHeaderCells,
+    expectTableToBeVisible,
+} from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const enrollment = TEST_ENROLLMENT_DATA[0]
@@ -16,9 +20,7 @@ const setUpTable = () => {
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
-        .find('tbody')
-        .should('be.visible')
+    expectTableToBeVisible()
 
     cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
@@ -30,25 +32,15 @@ describe('enrollment', () => {
     })
     it('creates an enrollment line list', () => {
         // check the number of columns
-        getLineListTable().find('th').its('length').should('equal', 3)
+        getTableHeaderCells().its('length').should('equal', 3)
 
         // check that there is at least 1 row
-        getLineListTable()
-            .find('tbody')
-            .find('tr')
-            .its('length')
-            .should('be.gte', 1)
+        getTableRows().its('length').should('be.gte', 1)
 
         // check the column headers in the table
-        getLineListTable()
-            .find('th')
-            .contains('Organisation unit')
-            .should('be.visible')
-        getLineListTable()
-            .find('th')
-            .contains(dimensionName)
-            .should('be.visible')
-        getLineListTable().find('th').contains(periodLabel).should('be.visible')
+        getTableHeaderCells().contains('Organisation unit').should('be.visible')
+        getTableHeaderCells().contains(dimensionName).should('be.visible')
+        getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
         cy.get('#axis-group-1')
@@ -78,25 +70,15 @@ describe('enrollment', () => {
         cy.getWithDataTest('{menubar}').contains('Update').click()
 
         // check the number of columns
-        getLineListTable().find('th').its('length').should('equal', 2)
+        getTableHeaderCells().its('length').should('equal', 2)
 
         // check that there is at least 1 row in the table
-        getLineListTable()
-            .find('tbody')
-            .find('tr')
-            .its('length')
-            .should('be.gte', 1)
+        getTableRows().its('length').should('be.gte', 1)
 
         // check the column headers in the table
-        getLineListTable()
-            .find('th')
-            .contains('Organisation unit')
-            .should('be.visible')
-        getLineListTable()
-            .find('th')
-            .contains(dimensionName)
-            .should('be.visible')
-        getLineListTable().find('th').contains(periodLabel).should('not.exist')
+        getTableHeaderCells().contains('Organisation unit').should('be.visible')
+        getTableHeaderCells().contains(dimensionName).should('be.visible')
+        getTableHeaderCells().contains(periodLabel).should('not.exist')
 
         //check the chips in the layout
         cy.get('#axis-group-1')

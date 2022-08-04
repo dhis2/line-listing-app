@@ -2,7 +2,12 @@ import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants
 import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
-import { getLineListTable } from '../../helpers/table.js'
+import {
+    expectTableToBeVisible,
+    expectTableToMatchRows,
+    getTableDataCells,
+    getTableRows,
+} from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const event = TEST_EVENT_DATA[1]
@@ -20,7 +25,7 @@ const setUpTable = () => {
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
-    getLineListTable().find('tbody').should('be.visible')
+    expectTableToBeVisible()
 
     cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
@@ -40,16 +45,6 @@ const addConditions = (conditions) => {
     cy.getWithDataTest('{conditions-modal}').contains('Update').click()
 }
 
-const assertTableMatchesExpectedRows = (expectedRows) => {
-    getLineListTable()
-        .find('tbody > tr')
-        .should('have.length', expectedRows.length)
-
-    expectedRows.forEach((val) => {
-        getLineListTable().find('tbody').contains('td', val)
-    })
-}
-
 const assertTooltipContainsEntries = (entries) => {
     entries.forEach((entry) =>
         cy.getWithDataTest('{tooltip-content}').contains(entry)
@@ -63,7 +58,7 @@ describe('number conditions', () => {
     })
     it('equal to', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
-        assertTableMatchesExpectedRows(['12'])
+        expectTableToMatchRows(['12'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -75,7 +70,7 @@ describe('number conditions', () => {
     it('greater than', () => {
         addConditions([{ conditionName: 'greater than (>)', value: '12' }])
 
-        assertTableMatchesExpectedRows(['2 000 000'])
+        expectTableToMatchRows(['2 000 000'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -88,7 +83,7 @@ describe('number conditions', () => {
         addConditions([
             { conditionName: 'greater than or equal to', value: '12' },
         ])
-        assertTableMatchesExpectedRows(['12', '2 000 000'])
+        expectTableToMatchRows(['12', '2 000 000'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -102,7 +97,7 @@ describe('number conditions', () => {
 
     it('less than', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
-        assertTableMatchesExpectedRows(['11'])
+        expectTableToMatchRows(['11'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -113,7 +108,7 @@ describe('number conditions', () => {
 
     it('less than or equal to', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
-        assertTableMatchesExpectedRows(['11', '12'])
+        expectTableToMatchRows(['11', '12'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -128,7 +123,7 @@ describe('number conditions', () => {
     it('not equal to', () => {
         addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        assertTableMatchesExpectedRows(['11', '2 000 000'])
+        expectTableToMatchRows(['11', '2 000 000'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -140,10 +135,9 @@ describe('number conditions', () => {
     it('is empty / null', () => {
         addConditions([{ conditionName: 'is empty / null' }])
 
-        getLineListTable().find('tbody > tr').should('have.length', 2)
+        getTableRows().should('have.length', 2)
 
-        getLineListTable()
-            .find('tbody td')
+        getTableDataCells()
             .eq(1)
             .invoke('text')
             .invoke('trim')
@@ -159,7 +153,7 @@ describe('number conditions', () => {
     it('is not empty / not null', () => {
         addConditions([{ conditionName: 'is not empty / not null' }])
 
-        assertTableMatchesExpectedRows(['11', '12', '2 000 000'])
+        expectTableToMatchRows(['11', '12', '2 000 000'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -174,7 +168,7 @@ describe('number conditions', () => {
             { conditionName: 'less than (<)', value: '13' },
         ])
 
-        assertTableMatchesExpectedRows(['12'])
+        expectTableToMatchRows(['12'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 2 conditions`)

@@ -2,7 +2,10 @@ import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants
 import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
-import { getLineListTable } from '../../helpers/table.js'
+import {
+    expectTableToBeVisible,
+    expectTableToMatchRows,
+} from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const event = TEST_EVENT_DATA[2]
@@ -20,7 +23,7 @@ const setUpTable = () => {
 
     cy.getWithDataTest('{menubar}').contains('Update').click()
 
-    getLineListTable().find('tbody').should('be.visible')
+    expectTableToBeVisible()
 }
 
 const addConditions = (conditions) => {
@@ -32,16 +35,6 @@ const addConditions = (conditions) => {
             .click()
     })
     cy.getWithDataTest('{conditions-modal}').contains('Update').click()
-}
-
-const assertTableMatchesExpectedRows = (expectedRows) => {
-    getLineListTable()
-        .find('tbody > tr')
-        .should('have.length', expectedRows.length)
-
-    expectedRows.forEach((val) => {
-        getLineListTable().find('tbody').contains('td', val)
-    })
 }
 
 const assertTooltipContainsEntries = (entries) => {
@@ -59,7 +52,7 @@ describe('boolean conditions', () => {
     it('Yes selected', () => {
         addConditions(['Yes'])
 
-        assertTableMatchesExpectedRows(['2022-01-01'])
+        expectTableToMatchRows(['2022-01-01'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -71,7 +64,7 @@ describe('boolean conditions', () => {
     it('No selected', () => {
         addConditions(['No'])
 
-        assertTableMatchesExpectedRows(['2022-01-03'])
+        expectTableToMatchRows(['2022-01-03'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -83,7 +76,7 @@ describe('boolean conditions', () => {
     it('Yes and Not answered selected', () => {
         addConditions(['Yes', 'Not answered'])
 
-        assertTableMatchesExpectedRows([
+        expectTableToMatchRows([
             '2022-01-01',
             '2022-03-01',
             '2022-01-01',
