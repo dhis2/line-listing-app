@@ -60,6 +60,7 @@ const DimensionMenu = ({
                 className={cx(styles.button, {
                     [styles.hidden]: !currentAxisId,
                 })}
+                data-test={'dimension-menu-button'}
             >
                 <IconButton
                     ariaOwns={menuIsOpen ? getMenuId() : null}

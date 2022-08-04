@@ -67,6 +67,7 @@ const Chip = ({
     const items =
         useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
         []
+    const dataTest = `layout-chip-${dimensionId}`
 
     let insertPosition = undefined
     if (over?.id === dimensionId) {
@@ -126,7 +127,6 @@ const Chip = ({
             style={style}
         >
             <div
-                data-test="layout-chip"
                 className={cx(styles.chip, {
                     [styles.chipEmpty]:
                         axisId === AXIS_ID_FILTERS &&
@@ -139,7 +139,7 @@ const Chip = ({
                     [styles.showBlank]: !dimensionName,
                 })}
             >
-                <div className={styles.content}>
+                <div className={styles.content} data-test={dataTest}>
                     {
                         <Tooltip
                             content={renderTooltipContent()}

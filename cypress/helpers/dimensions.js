@@ -3,36 +3,46 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const INPUT_EVENT = 'event'
 const INPUT_ENROLLMENT = 'enrollment'
 
+const selectProgramAndStage = ({ inputType, programName, stageName }) => {
+    // select the desired type: Event or Enrollment
+    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).contains('Input:').click()
+    if (inputType === INPUT_EVENT) {
+        cy.getBySel('input-event').click()
+    } else {
+        cy.getBySel('input-enrollment').click()
+    }
+
+    // open the Program dimensions panel
+    cy.getBySel('main-sidebar').contains('Program dimensions').click()
+
+    // choose the program
+    cy.getBySel('accessory-sidebar').contains('Choose a program').click()
+    cy.contains(programName).click()
+
+    // choose the stage if relevant
+    if (stageName) {
+        cy.getBySel('accessory-sidebar').contains('Stage').click()
+        cy.contains(stageName).click()
+    }
+}
+
+export const selectEventProgram = ({ programName, stageName }) =>
+    selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
+
+// export const selectEnrollmentProgram = ({ programName, stageName }) =>
+//     selectProgramAndStage({
+//         inputType: INPUT_ENROLLMENT,
+//         programName,
+//         stageName,
+//     })
+
 const selectProgramDimensions = ({
     inputType,
     programName,
     stageName,
     dimensions,
 }) => {
-    // select the desired type: Event or Enrollment
-    cy.getWithDataTest('{main-sidebar}', EXTENDED_TIMEOUT)
-        .contains('Input:')
-        .click()
-    if (inputType === INPUT_EVENT) {
-        cy.getWithDataTest('{input-event}').click()
-    } else {
-        cy.getWithDataTest('{input-enrollment}').click()
-    }
-
-    // open the Program dimensions panel
-    cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
-
-    // choose the program
-    cy.getWithDataTest('{accessory-sidebar}')
-        .contains('Choose a program')
-        .click()
-    cy.contains(programName).click()
-
-    // choose the stage if relevant
-    if (stageName) {
-        cy.getWithDataTest('{accessory-sidebar}').contains('Stage').click()
-        cy.contains(stageName).click()
-    }
+    selectProgramAndStage({ inputType, programName, stageName })
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
@@ -43,10 +53,14 @@ const selectProgramDimensions = ({
     })
 
     // close the program dimensions panel
-    cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
+    cy.getBySel('main-sidebar').contains('Program dimensions').click()
 }
 
-const selectEventProgramDimensions = ({ programName, stageName, dimensions }) =>
+export const selectEventProgramDimensions = ({
+    programName,
+    stageName,
+    dimensions,
+}) =>
     selectProgramDimensions({
         inputType: INPUT_EVENT,
         programName,
@@ -54,7 +68,7 @@ const selectEventProgramDimensions = ({ programName, stageName, dimensions }) =>
         dimensions,
     })
 
-const selectEnrollmentProgramDimensions = ({
+export const selectEnrollmentProgramDimensions = ({
     programName,
     stageName,
     dimensions,
@@ -65,5 +79,3 @@ const selectEnrollmentProgramDimensions = ({
         stageName,
         dimensions,
     })
-
-export { selectEventProgramDimensions, selectEnrollmentProgramDimensions }
