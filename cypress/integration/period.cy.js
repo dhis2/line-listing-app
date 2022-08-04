@@ -8,16 +8,13 @@ describe('period dimension', () => {
     const TEST_RELATIVE_PERIOD_NAME = 'Last 3 months'
     const TEST_FIXED_PERIOD_NAME = `January ${getCurrentYearStr()}`
 
-    const openModal = () =>
-        cy
-            .getBySel('main-sidebar')
-            .findBySel(`dimension-item-${TEST_DIM_ID}`)
-            .click()
+    const openModal = (id) =>
+        cy.getBySel('main-sidebar').findBySel(`dimension-item-${id}`).click()
 
     it('opens modal', () => {
         goToStartPage()
 
-        openModal()
+        openModal(TEST_DIM_ID)
 
         cy.getBySel('period-dimension-modal').should('be.visible')
     })
@@ -85,7 +82,7 @@ describe('period dimension', () => {
             `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
         )
 
-        openModal()
+        openModal(TEST_DIM_ID)
     })
     it('the custom period persists when reopening the modal', () => {
         cy.getBySel('start-date-input')
@@ -109,7 +106,7 @@ describe('period dimension', () => {
 
         cy.getBySelLike('tooltip-content').contains('None selected')
 
-        openModal()
+        openModal(TEST_DIM_ID)
 
         cy.contains('Choose from presets').should('have.class', 'selected')
     })
@@ -131,7 +128,7 @@ describe('period dimension', () => {
             `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
         )
 
-        openModal()
+        openModal(TEST_DIM_ID)
 
         cy.contains('Choose from presets').click()
 
