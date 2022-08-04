@@ -15,7 +15,7 @@ const TEST_DIMENSIONS = ['Created by', 'Last updated by']
 
 describe('user dimensions', () => {
     TEST_DIMENSIONS.forEach((dimensionName) => {
-        it(dimensionName, () => {
+        it(`${dimensionName} is added to the layout`, () => {
             // set up table
             cy.visit('/', EXTENDED_TIMEOUT)
             selectEnrollmentProgramDimensions(enrollment)
