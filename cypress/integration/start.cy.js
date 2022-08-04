@@ -2,11 +2,8 @@ import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('viewing the start screen', () => {
-    it('getting started is shown', () => {
+    it('getting started and most viewed section are shown', () => {
         goToStartPage()
-    })
-
-    it('displays most viewed section', () => {
         cy.contains('Your most viewed line lists', EXTENDED_TIMEOUT).should(
             'be.visible'
         )
