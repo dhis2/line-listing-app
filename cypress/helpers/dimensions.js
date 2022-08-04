@@ -53,7 +53,7 @@ const selectProgramDimensions = ({
     })
 
     // close the program dimensions panel
-    cy.getWithDataTest('{main-sidebar}').contains('Program dimensions').click()
+    cy.getBySel('main-sidebar').contains('Program dimensions').click()
 }
 
 export const selectEventProgramDimensions = ({

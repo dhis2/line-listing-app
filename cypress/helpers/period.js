@@ -1,5 +1,5 @@
 const selectFixedPeriod = ({ label, period }) => {
-    cy.getWithDataTest('{main-sidebar}').contains(label).click()
+    cy.getBySel('main-sidebar').contains(label).click()
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
     if (period.type) {
@@ -16,7 +16,7 @@ const selectFixedPeriod = ({ label, period }) => {
 }
 
 const selectRelativePeriod = ({ label, period }) => {
-    cy.getWithDataTest('{main-sidebar}').contains(label).click()
+    cy.getBySel('main-sidebar').contains(label).click()
     cy.contains('Choose from presets').click()
     cy.contains('Relative periods').click()
 
@@ -33,7 +33,7 @@ const selectRelativePeriod = ({ label, period }) => {
 }
 
 /*const selectStartEndDatePeriod = ({label, period}) => {
-    cy.getWithDataTest('{main-sidebar}').contains(label).click()
+    cy.getBySel('main-sidebar').contains(label).click()
     // TODO: implement when a start/end date test is added
     // cy.contains('Define start - end dates').click()
     cy.contains('Add to Columns').click()
