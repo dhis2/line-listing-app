@@ -1,6 +1,7 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { TEST_EVENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
 import { selectEventProgramDimensions } from '../helpers/dimensions.js'
+import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { expectTableToBeVisible, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -18,7 +19,7 @@ describe('new', () => {
 
         selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
 
-        cy.getWithDataTest('{menubar}').contains('Update').click()
+        clickMenubarUpdateButton()
 
         expectTableToBeVisible()
 

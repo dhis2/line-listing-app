@@ -6,6 +6,10 @@ import {
     TEST_RELATIVE_PERIODS,
 } from '../data/index.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import {
+    clickMenubarOptionsButton,
+    clickMenubarUpdateButton,
+} from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
 import { getTableDataCells, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -20,7 +24,7 @@ describe('options', () => {
         getTableDataCells().invoke('css', 'padding').should('equal', '8px')
 
         // set to comfortable density
-        cy.getWithDataTest('{menubar}').contains('Options').click()
+        clickMenubarOptionsButton()
         cy.getWithDataTest('{display-density-select-content}')
             .findWithDataTest('{dhis2-uicore-select-input}')
             .click()
@@ -40,7 +44,7 @@ describe('options', () => {
         getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
 
         // set to small font size
-        cy.getWithDataTest('{menubar}').contains('Options').click()
+        clickMenubarOptionsButton()
         cy.getWithDataTest('{font-size-select-content}')
             .findWithDataTest('{dhis2-uicore-select-input}')
             .click()
@@ -62,13 +66,13 @@ describe('options', () => {
             period: TEST_RELATIVE_PERIODS[0],
         })
 
-        cy.getWithDataTest('{menubar}').contains('Update').click()
+        clickMenubarUpdateButton()
 
         //assert the default dgs space
         getTableRows().eq(0).find('td').eq(1).should('contain', '2 000 000')
 
         // set dgs to comma
-        cy.getWithDataTest('{menubar}').contains('Options').click()
+        clickMenubarOptionsButton()
         cy.getWithDataTest('{dgs-select-content}')
             .findWithDataTest('{dhis2-uicore-select-input}')
             .click()
@@ -78,7 +82,7 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(1).should('contain', '2,000,000')
 
         // set dgs to none
-        cy.getWithDataTest('{menubar}').contains('Options').click()
+        clickMenubarOptionsButton()
         cy.getWithDataTest('{dgs-select-content}')
             .findWithDataTest('{dhis2-uicore-select-input}')
             .click()
