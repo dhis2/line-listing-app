@@ -1,5 +1,5 @@
 import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
-import { TEST_EVENT_DATA } from '../data/index.js'
+import { ANALYTICS_PROGRAM } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import {
     expectAxisToHaveDimension,
@@ -70,7 +70,7 @@ describe('using the layout chip context menu', () => {
 })
 
 describe('using the dimension list context menu', () => {
-    const event = TEST_EVENT_DATA[0]
+    const event = ANALYTICS_PROGRAM
     const TEST_DIM_ID = 'Xd6cKnFMO4L.wkSjJes0DMI' // "Analytics - Integer"
     const openContextMenu = (id) =>
         cy

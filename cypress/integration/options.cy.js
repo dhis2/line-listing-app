@@ -1,9 +1,9 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
+    ANALYTICS_PROGRAM,
     TEST_AOS,
-    TEST_ENROLLMENT_DATA,
-    TEST_EVENT_DATA,
-    TEST_RELATIVE_PERIODS,
+    TEST_DIM_NUMBER,
+    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
 import {
@@ -59,11 +59,14 @@ describe('options', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         //set up table
-        selectEnrollmentProgramDimensions(TEST_ENROLLMENT_DATA[1])
+        selectEnrollmentProgramDimensions({
+            ...ANALYTICS_PROGRAM,
+            dimensions: [TEST_DIM_NUMBER],
+        })
 
         selectRelativePeriod({
-            label: TEST_EVENT_DATA[0][DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_RELATIVE_PERIODS[0],
+            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
         })
 
         clickMenubarUpdateButton()

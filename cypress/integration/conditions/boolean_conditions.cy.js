@@ -1,25 +1,32 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
-import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
+import {
+    ANALYTICS_PROGRAM,
+    TEST_DIM_YESNO,
+    TEST_REL_PE_THIS_YEAR,
+} from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
-import { selectRelativePeriod } from '../../helpers/period.js'
+import {
+    selectRelativePeriod,
+    getCurrentYearStr,
+} from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = TEST_EVENT_DATA[2]
-const dimensionName = event.dimensions[0]
+const event = ANALYTICS_PROGRAM
+const dimensionName = TEST_DIM_YESNO
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions(event)
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
-        period: TEST_RELATIVE_PERIODS[0],
+        period: TEST_REL_PE_THIS_YEAR,
     })
 
     clickMenubarUpdateButton()
@@ -53,7 +60,10 @@ describe('boolean conditions', () => {
     it('Yes selected', () => {
         addConditions(['Yes'])
 
-        expectTableToMatchRows(['2022-01-01'])
+        expectTableToMatchRows([
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-04-19`,
+        ])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -65,7 +75,7 @@ describe('boolean conditions', () => {
     it('No selected', () => {
         addConditions(['No'])
 
-        expectTableToMatchRows(['2022-01-03'])
+        expectTableToMatchRows([`${getCurrentYearStr()}-01-03`])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -78,10 +88,11 @@ describe('boolean conditions', () => {
         addConditions(['Yes', 'Not answered'])
 
         expectTableToMatchRows([
-            '2022-01-01',
-            '2022-03-01',
-            '2022-01-01',
-            '2022-02-01',
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-03-01`,
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-02-01`,
+            `${getCurrentYearStr()}-04-19`,
         ])
 
         cy.getBySelLike('layout-chip')
