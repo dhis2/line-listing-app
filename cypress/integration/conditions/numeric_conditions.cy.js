@@ -60,11 +60,13 @@ const addConditions = (conditions) => {
     cy.getWithDataTest('{conditions-modal}').contains('Update').click()
 }
 
-const assertTooltipContainsEntries = (entries) => {
+const assertTooltipContainsEntries = (entries) =>
     entries.forEach((entry) =>
         cy.getWithDataTest('{tooltip-content}').contains(entry)
     )
-}
+
+const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
 
 describe('number conditions', () => {
     beforeEach(() => {
@@ -75,9 +77,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
         expectTableToMatchRows(['12'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
     })
@@ -87,9 +87,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['2 000 000', '5 557 779 990'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
     })
@@ -100,9 +98,7 @@ describe('number conditions', () => {
         ])
         expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -114,9 +110,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
         expectTableToMatchRows(['11', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
     })
@@ -125,9 +119,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
         expectTableToMatchRows(['11', '12', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -140,9 +132,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
     })
@@ -158,9 +148,7 @@ describe('number conditions', () => {
             .invoke('trim')
             .should('equal', '')
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
@@ -176,9 +164,7 @@ describe('number conditions', () => {
             '3.7',
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
@@ -191,9 +177,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['12'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 2 conditions`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 2 conditions`)
 
         assertTooltipContainsEntries([
             stageName,

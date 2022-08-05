@@ -56,11 +56,13 @@ const addConditions = (conditions) => {
     cy.getWithDataTest('{conditions-modal}').contains('Update').click()
 }
 
-const assertTooltipContainsEntries = (entries) => {
+const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
+
+const assertTooltipContainsEntries = (entries) =>
     entries.forEach((entry) =>
         cy.getWithDataTest('{tooltip-content}').contains(entry)
     )
-}
 
 describe('date conditions (Date)', () => {
     beforeEach(() => {
@@ -80,9 +82,7 @@ describe('date conditions (Date)', () => {
 
         expectTableToMatchRows([TEST_DATE])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
@@ -109,9 +109,7 @@ describe('date conditions (Date)', () => {
 
     //     expectTableToMatchRows([`${getCurrentYearStr()}-01-01`, `${getCurrentYearStr()}-01-02`, `${getCurrentYearStr()}-01-03`])
 
-    //     cy.getBySelLike('layout-chip')
-    //         .contains(`${dimensionName}: 1 condition`)
-    //         .trigger('mouseover')
+    //     assertChipContainsText(`${dimensionName}: 1 condition`)
 
     //     assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
     // })
@@ -131,9 +129,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-01-03`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, `After: ${TEST_DATE}`])
     })
@@ -154,9 +150,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-01-03`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -182,9 +176,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, `Before: ${TEST_DATE}`])
     })
@@ -208,9 +200,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -230,9 +220,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-03-01`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
@@ -255,9 +243,7 @@ describe('date conditions (Date)', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, `Is not empty / not null`])
     })
@@ -279,9 +265,7 @@ describe('date conditions (Date)', () => {
 
         expectTableToMatchRows([`${getPreviousYearStr()}-12-11`])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 2 conditions`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 2 conditions`)
 
         assertTooltipContainsEntries([
             stageName,

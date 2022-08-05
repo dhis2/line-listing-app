@@ -45,9 +45,11 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-const assertTooltipContainsEntries = (entries) => {
+const assertTooltipContainsEntries = (entries) =>
     entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
-}
+
+const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
 
 describe('boolean conditions - Yes/NA', () => {
     const dimensionName = TEST_DIM_YESONLY
@@ -62,9 +64,7 @@ describe('boolean conditions - Yes/NA', () => {
 
         expectTableToMatchRows([`${getCurrentYearStr()}-01-01`])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/])
     })
@@ -80,9 +80,7 @@ describe('boolean conditions - Yes/NA', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bNot answered\b/])
     })
@@ -99,9 +97,7 @@ describe('boolean conditions - Yes/NA', () => {
             `${getCurrentYearStr()}-01-01`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: all`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
     })
@@ -123,9 +119,7 @@ describe('boolean conditions - Yes/No/NA', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/])
     })
@@ -135,9 +129,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         expectTableToMatchRows([`${getCurrentYearStr()}-01-03`])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bNo\b/])
     })
@@ -153,9 +145,7 @@ describe('boolean conditions - Yes/No/NA', () => {
             `${getCurrentYearStr()}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 2 conditions`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 2 conditions`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
     })
@@ -172,9 +162,7 @@ describe('boolean conditions - Yes/No/NA', () => {
             `${getCurrentYearStr()}-01-03`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: all`)
 
         assertTooltipContainsEntries([
             stageName,
