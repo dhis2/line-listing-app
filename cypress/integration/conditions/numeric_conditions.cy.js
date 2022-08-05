@@ -2,9 +2,19 @@ import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_NUMBER,
+    TEST_DIM_UNIT_INTERVAL,
+    TEST_DIM_PERCENTAGE,
+    TEST_DIM_INTEGER,
+    TEST_DIM_POSITIVE_INTEGER,
+    TEST_DIM_NEGATIVE_INTEGER,
+    TEST_DIM_POSITIVE_OR_ZERO,
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
-import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
+import {
+    openDimension,
+    selectEventProgram,
+    selectEventProgramDimensions,
+} from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
@@ -192,3 +202,47 @@ describe('number conditions', () => {
         ])
     })
 })
+
+describe('numeric types', () => {
+    const TEST_OPERATORS = [
+        'equal to (=)',
+        'greater than (>)',
+        'greater than or equal to (≥)',
+        'less than (<)',
+        'less than or equal to (≤)',
+        'not equal to (≠)',
+        'is empty / null',
+        'is not empty / not null',
+        'is one of preset options',
+    ]
+
+    const TEST_TYPES = [
+        TEST_DIM_NUMBER,
+        TEST_DIM_UNIT_INTERVAL,
+        TEST_DIM_PERCENTAGE,
+        TEST_DIM_INTEGER,
+        TEST_DIM_POSITIVE_INTEGER,
+        TEST_DIM_NEGATIVE_INTEGER,
+        TEST_DIM_POSITIVE_OR_ZERO,
+    ]
+
+    TEST_TYPES.forEach((type) => {
+        it(`${type} has all operators`, () => {
+            cy.visit('/', EXTENDED_TIMEOUT)
+
+            selectEventProgram(ANALYTICS_PROGRAM)
+            openDimension(type)
+
+            cy.getWithDataTest('{button-add-condition}').click()
+            cy.contains('Choose a condition').click()
+
+            TEST_OPERATORS.forEach((operator) => {
+                cy.getBySel(
+                    'dhis2-uicore-select-menu-menuwrapper'
+                ).containsExact(operator)
+            })
+        })
+    })
+})
+
+// TODO: Test legend sets / "is one of preset options"
