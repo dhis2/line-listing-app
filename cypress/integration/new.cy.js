@@ -1,12 +1,12 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { TEST_EVENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
-import { selectEventProgramDimensions } from '../helpers/dimensions.js'
+import { ANALYTICS_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
+import { selectEventProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { expectTableToBeVisible, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = TEST_EVENT_DATA[0]
+const event = ANALYTICS_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 describe('new', () => {
@@ -15,9 +15,12 @@ describe('new', () => {
 
         cy.getBySelLike('layout-chip').contains(`Organisation unit: 1 selected`)
 
-        selectEventProgramDimensions(event)
+        selectEventProgram(event)
 
-        selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: TEST_FIX_PE_DEC_LAST_YEAR,
+        })
 
         clickMenubarUpdateButton()
 

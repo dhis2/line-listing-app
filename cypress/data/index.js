@@ -6,7 +6,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { getPreviousYearStr } from '../helpers/period.js'
 
-const ANALYTICS_PROGRAM = {
+export const ANALYTICS_PROGRAM = {
     programName: 'Analytics program',
     //stageName: 'Stage 1 - Repeatable',
     [DIMENSION_ID_EVENT_DATE]: 'Event date (analytics)',
@@ -22,20 +22,9 @@ export const TEST_AOS = [
     },
 ]
 
-export const TEST_EVENT_DATA = [
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Text'],
-    },
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Number'],
-    },
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Yes/no'],
-    },
-]
+export const TEST_DIM_TEXT = 'Analytics - Text'
+export const TEST_DIM_NUMBER = 'Analytics - Number'
+export const TEST_DIM_YESNO = 'Analytics - Yes/no'
 
 export const TEST_ENROLLMENT_DATA = [
     {
@@ -48,17 +37,22 @@ export const TEST_ENROLLMENT_DATA = [
     },
 ]
 
-export const TEST_FIXED_PERIODS = [
-    {
-        //type: 'Monthly',
-        year: `${getPreviousYearStr()}`,
-        name: `December ${getPreviousYearStr()}`,
-    },
-]
+export const TEST_DIM_DATE = 'Analytics - Date'
+export const TEST_DIM_TIME = 'Analytics - Time'
+export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
 
-export const TEST_RELATIVE_PERIODS = [
-    {
-        type: 'Years',
-        name: 'This year',
-    },
-]
+export const TEST_REL_PE_THIS_YEAR = {
+    type: 'Years',
+    name: 'This year',
+}
+
+export const TEST_REL_PE_LAST_12_MONTHS = {
+    //type: 'Months',
+    name: 'Last 12 months',
+}
+
+export const TEST_FIX_PE_DEC_LAST_YEAR = {
+    //type: 'Monthly',
+    year: `${getPreviousYearStr()}`,
+    name: `December ${getPreviousYearStr()}`,
+}

@@ -1,5 +1,9 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
-import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
+import {
+    ANALYTICS_PROGRAM,
+    TEST_DIM_NUMBER,
+    TEST_REL_PE_THIS_YEAR,
+} from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
@@ -11,17 +15,17 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = TEST_EVENT_DATA[1]
-const dimensionName = event.dimensions[0]
+const event = ANALYTICS_PROGRAM
+const dimensionName = TEST_DIM_NUMBER
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions(event)
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
-        period: TEST_RELATIVE_PERIODS[0],
+        period: TEST_REL_PE_THIS_YEAR,
     })
 
     clickMenubarUpdateButton()
@@ -163,7 +167,7 @@ describe('number conditions', () => {
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
 
-    it('2 conditions: greater than and less than', () => {
+    it('2 conditions: greater than + less than', () => {
         addConditions([
             { conditionName: 'greater than (>)', value: '11' },
             { conditionName: 'less than (<)', value: '13' },
