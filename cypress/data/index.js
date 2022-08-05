@@ -33,7 +33,7 @@ export const TEST_DIM_TEXT = 'Analytics - Text'
 
 // booleans
 export const TEST_DIM_YESNO = 'Analytics - Yes/no'
-// VALUE_TYPE_TRUE_ONLY
+export const TEST_DIM_YESONLY = 'Analytics - Yes only'
 
 // dates
 export const TEST_DIM_DATE = 'Analytics - Date'
