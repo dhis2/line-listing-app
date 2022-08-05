@@ -275,8 +275,8 @@ const valueTypeIsNumeric = (valueType) =>
 
 const useAnalyticsData = ({
     visualization,
-    relativePeriodDate,
-    onResponseReceived,
+    filters,
+    onResponsesReceived,
     pageSize,
     page,
     sortField,
@@ -291,6 +291,7 @@ const useAnalyticsData = ({
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
     const { userSettings } = useCachedDataQuery()
+    const relativePeriodDate = filters?.relativePeriodDate
 
     const doFetch = useCallback(async () => {
         try {
@@ -360,7 +361,7 @@ const useAnalyticsData = ({
 
             mounted.current && setError(undefined)
             mounted.current && setData({ headers, rows, ...pager })
-            onResponseReceived(analyticsResponse)
+            onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
         } finally {

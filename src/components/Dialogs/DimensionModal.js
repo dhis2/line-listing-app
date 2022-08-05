@@ -22,7 +22,7 @@ const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
 
     return (
         <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
-            <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
+            <ModalTitle dataTest={`${dataTest}-title`}>{title}</ModalTitle>
             <ModalContent
                 dataTest={`${dataTest}-content`}
                 className={classes.modalContent}

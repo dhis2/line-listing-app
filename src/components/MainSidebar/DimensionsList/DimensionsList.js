@@ -72,6 +72,7 @@ const DimensionsList = ({
 
     return (
         <div
+            data-test="program-dimension-list"
             className={styles.scrollbox}
             onScroll={(event) => {
                 return setIsListEndVisible(isEndReached(event.target))

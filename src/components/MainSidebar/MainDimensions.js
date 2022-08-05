@@ -18,7 +18,10 @@ export const MainDimensions = () => {
     }))
 
     return (
-        <MainSidebarSection header={i18n.t('Main dimensions')}>
+        <MainSidebarSection
+            header={i18n.t('Main dimensions')}
+            dataTest={'main-dimensions-sidebar'}
+        >
             {draggableDimensions.map((dimension) => (
                 <Tooltip
                     content={dimension.disabledReason}

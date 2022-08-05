@@ -51,7 +51,7 @@ const MainSidebar = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.main}>
+            <div className={styles.main} data-test="main-sidebar">
                 <MenuItem
                     icon={<IconArrowRight16 />}
                     label={i18n.t('Input: {{type}}', {
@@ -82,6 +82,7 @@ const MainSidebar = () => {
                     [styles.hidden]: !open,
                     [styles.padded]: selectedTabId === TAB_INPUT,
                 })}
+                data-test="accessory-sidebar"
             >
                 <div className={styles.accessoryInner}>
                     <InputPanel visible={selectedTabId === TAB_INPUT} />

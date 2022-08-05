@@ -24,23 +24,12 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-// TODO this action cannot be used and a callback prop should be passed instead
-import { acSetLoadError } from '../../actions/loader.js'
-// TODO this action cannot be used and a callback prop should be passed instead
-// when the plugin is used in dashboard, this feature should be disabled
-import { acSetUiOpenDimensionModal } from '../../actions/ui.js'
+import { useSelector } from 'react-redux'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../modules/dimensionConstants.js'
-import {
-    dataAccessError,
-    genericServerError,
-    indicatorError,
-    noPeriodError,
-} from '../../modules/error.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -84,11 +73,12 @@ const getSizeClass = (displayDensity) => {
 const LEGEND_KEY_WIDTH = 196
 
 export const Visualization = ({
+    filters,
     visualization,
-    onResponseReceived,
-    relativePeriodDate,
+    onResponsesReceived,
+    onColumnHeaderClick,
+    onError,
 }) => {
-    const dispatch = useDispatch()
     // TODO remove need for metadata
     const metadata = useSelector(sGetMetadata)
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
@@ -100,14 +90,14 @@ export const Visualization = ({
             pageSize: PAGE_SIZE,
         }
     )
-    const isInModal = !!relativePeriodDate
+    const isInModal = !!filters?.relativePeriodDate
     const { availableOuterWidth, availableInnerWidth } =
         useAvailableWidth(isInModal)
 
     const { fetching, error, data } = useAnalyticsData({
+        filters,
         visualization,
-        relativePeriodDate,
-        onResponseReceived,
+        onResponsesReceived,
         pageSize,
         page,
         sortField,
@@ -133,26 +123,8 @@ export const Visualization = ({
         }
     }, [data, visualization])
 
-    if (error) {
-        let output
-        if (error.details?.errorCode) {
-            switch (error.details.errorCode) {
-                case 'E7205':
-                    output = noPeriodError()
-                    break
-                case 'E7132':
-                    output = indicatorError()
-                    break
-                case 'E7121':
-                    output = dataAccessError()
-                    break
-                default:
-                    output = genericServerError()
-            }
-        } else {
-            output = genericServerError()
-        }
-        dispatch(acSetLoadError(output))
+    if (error && onError) {
+        onError(error)
     }
 
     if (!data || error) {
@@ -258,7 +230,11 @@ export const Visualization = ({
         return (
             <span
                 className={cx(styles.headerCell, styles.dimensionModalHandler)}
-                onClick={() => dispatch(acSetUiOpenDimensionModal(dimensionId))}
+                onClick={
+                    onColumnHeaderClick
+                        ? () => onColumnHeaderClick(dimensionId)
+                        : undefined
+                }
             >
                 {headerName}
             </span>
@@ -296,6 +272,7 @@ export const Visualization = ({
                         width="auto"
                         scrollWidth={`${tableOuterWidth}px`}
                         className={styles.dataTable}
+                        dataTest="line-list-table"
                     >
                         <DataTableHead>
                             <DataTableRow>
@@ -438,11 +415,13 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
-    onResponseReceived: Function.prototype,
+    onResponsesReceived: Function.prototype,
 }
 
 Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
-    onResponseReceived: PropTypes.func.isRequired,
-    relativePeriodDate: PropTypes.string,
+    onResponsesReceived: PropTypes.func.isRequired,
+    filters: PropTypes.object,
+    onColumnHeaderClick: PropTypes.func,
+    onError: PropTypes.func,
 }
