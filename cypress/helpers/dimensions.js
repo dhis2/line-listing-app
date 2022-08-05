@@ -29,12 +29,16 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
 export const selectEventProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
-// export const selectEnrollmentProgram = ({ programName, stageName }) =>
-//     selectProgramAndStage({
-//         inputType: INPUT_ENROLLMENT,
-//         programName,
-//         stageName,
-//     })
+export const selectEnrollmentProgram = ({ programName, stageName }) =>
+    selectProgramAndStage({
+        inputType: INPUT_ENROLLMENT,
+        programName,
+        stageName,
+    })
+
+export const openDimension = (dimensionName) => {
+    cy.getBySel('program-dimension-list').contains(dimensionName).click()
+}
 
 const selectProgramDimensions = ({
     inputType,
@@ -46,9 +50,7 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        cy.getWithDataTest('{program-dimension-list}')
-            .contains(dimensionName)
-            .click()
+        openDimension(dimensionName)
         cy.contains('Add to Columns').click()
     })
 

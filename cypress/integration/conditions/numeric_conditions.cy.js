@@ -1,5 +1,9 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
-import { TEST_EVENT_DATA, TEST_RELATIVE_PERIODS } from '../../data/index.js'
+import {
+    ANALYTICS_PROGRAM,
+    TEST_DIM_NUMBER,
+    TEST_REL_PE_THIS_YEAR,
+} from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
@@ -11,17 +15,17 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = TEST_EVENT_DATA[1]
-const dimensionName = event.dimensions[0]
+const event = ANALYTICS_PROGRAM
+const dimensionName = TEST_DIM_NUMBER
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions(event)
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
-        period: TEST_RELATIVE_PERIODS[0],
+        period: TEST_REL_PE_THIS_YEAR,
     })
 
     clickMenubarUpdateButton()
@@ -71,7 +75,7 @@ describe('number conditions', () => {
     it('greater than', () => {
         addConditions([{ conditionName: 'greater than (>)', value: '12' }])
 
-        expectTableToMatchRows(['2 000 000'])
+        expectTableToMatchRows(['2 000 000', '5 557 779 990'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -84,7 +88,7 @@ describe('number conditions', () => {
         addConditions([
             { conditionName: 'greater than or equal to', value: '12' },
         ])
-        expectTableToMatchRows(['12', '2 000 000'])
+        expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -98,7 +102,7 @@ describe('number conditions', () => {
 
     it('less than', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
-        expectTableToMatchRows(['11'])
+        expectTableToMatchRows(['11', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -109,7 +113,7 @@ describe('number conditions', () => {
 
     it('less than or equal to', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
-        expectTableToMatchRows(['11', '12'])
+        expectTableToMatchRows(['11', '12', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -124,7 +128,7 @@ describe('number conditions', () => {
     it('not equal to', () => {
         addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        expectTableToMatchRows(['11', '2 000 000'])
+        expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -136,7 +140,7 @@ describe('number conditions', () => {
     it('is empty / null', () => {
         addConditions([{ conditionName: 'is empty / null' }])
 
-        getTableRows().should('have.length', 2)
+        getTableRows().should('have.length', 1)
 
         getTableDataCells()
             .eq(1)
@@ -154,7 +158,13 @@ describe('number conditions', () => {
     it('is not empty / not null', () => {
         addConditions([{ conditionName: 'is not empty / not null' }])
 
-        expectTableToMatchRows(['11', '12', '2 000 000'])
+        expectTableToMatchRows([
+            '11',
+            '12',
+            '2 000 000',
+            '5 557 779 990',
+            '3.7',
+        ])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -163,7 +173,7 @@ describe('number conditions', () => {
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
 
-    it('2 conditions: greater than and less than', () => {
+    it('2 conditions: greater than + less than', () => {
         addConditions([
             { conditionName: 'greater than (>)', value: '11' },
             { conditionName: 'less than (<)', value: '13' },

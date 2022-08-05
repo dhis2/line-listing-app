@@ -1,5 +1,9 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { TEST_EVENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
+import {
+    ANALYTICS_PROGRAM,
+    TEST_DIM_TEXT,
+    TEST_FIX_PE_DEC_LAST_YEAR,
+} from '../data/index.js'
 import { selectEventProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
@@ -10,14 +14,14 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = TEST_EVENT_DATA[0]
-const dimensionName = event.dimensions[0]
+const event = ANALYTICS_PROGRAM
+const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const setUpTable = () => {
-    selectEventProgramDimensions(event)
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
-    selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
+    selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
 
     clickMenubarUpdateButton()
 

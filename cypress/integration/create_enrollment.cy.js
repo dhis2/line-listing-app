@@ -1,5 +1,9 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { TEST_ENROLLMENT_DATA, TEST_FIXED_PERIODS } from '../data/index.js'
+import {
+    ANALYTICS_PROGRAM,
+    TEST_DIM_TEXT,
+    TEST_FIX_PE_DEC_LAST_YEAR,
+} from '../data/index.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
@@ -10,14 +14,17 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const enrollment = TEST_ENROLLMENT_DATA[0]
-const dimensionName = enrollment.dimensions[0]
+const enrollment = ANALYTICS_PROGRAM
+const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
 const setUpTable = () => {
-    selectEnrollmentProgramDimensions(enrollment)
+    selectEnrollmentProgramDimensions({
+        ...enrollment,
+        dimensions: [dimensionName],
+    })
 
-    selectFixedPeriod({ label: periodLabel, period: TEST_FIXED_PERIODS[0] })
+    selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
 
     clickMenubarUpdateButton()
 
