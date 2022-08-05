@@ -6,7 +6,10 @@ import {
 } from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
-import { selectRelativePeriod } from '../../helpers/period.js'
+import {
+    selectRelativePeriod,
+    getCurrentYearStr,
+} from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
     expectTableToMatchRows,
@@ -57,7 +60,10 @@ describe('boolean conditions', () => {
     it('Yes selected', () => {
         addConditions(['Yes'])
 
-        expectTableToMatchRows(['2022-01-01'])
+        expectTableToMatchRows([
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-04-19`,
+        ])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -69,7 +75,7 @@ describe('boolean conditions', () => {
     it('No selected', () => {
         addConditions(['No'])
 
-        expectTableToMatchRows(['2022-01-03'])
+        expectTableToMatchRows([`${getCurrentYearStr()}-01-03`])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -82,10 +88,11 @@ describe('boolean conditions', () => {
         addConditions(['Yes', 'Not answered'])
 
         expectTableToMatchRows([
-            '2022-01-01',
-            '2022-03-01',
-            '2022-01-01',
-            '2022-02-01',
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-03-01`,
+            `${getCurrentYearStr()}-01-01`,
+            `${getCurrentYearStr()}-02-01`,
+            `${getCurrentYearStr()}-04-19`,
         ])
 
         cy.getBySelLike('layout-chip')

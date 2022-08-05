@@ -75,7 +75,7 @@ describe('number conditions', () => {
     it('greater than', () => {
         addConditions([{ conditionName: 'greater than (>)', value: '12' }])
 
-        expectTableToMatchRows(['2 000 000'])
+        expectTableToMatchRows(['2 000 000', '5 557 779 990'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -88,7 +88,7 @@ describe('number conditions', () => {
         addConditions([
             { conditionName: 'greater than or equal to', value: '12' },
         ])
-        expectTableToMatchRows(['12', '2 000 000'])
+        expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -102,7 +102,7 @@ describe('number conditions', () => {
 
     it('less than', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
-        expectTableToMatchRows(['11'])
+        expectTableToMatchRows(['11', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -113,7 +113,7 @@ describe('number conditions', () => {
 
     it('less than or equal to', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
-        expectTableToMatchRows(['11', '12'])
+        expectTableToMatchRows(['11', '12', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -128,7 +128,7 @@ describe('number conditions', () => {
     it('not equal to', () => {
         addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        expectTableToMatchRows(['11', '2 000 000'])
+        expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
@@ -140,7 +140,7 @@ describe('number conditions', () => {
     it('is empty / null', () => {
         addConditions([{ conditionName: 'is empty / null' }])
 
-        getTableRows().should('have.length', 2)
+        getTableRows().should('have.length', 1)
 
         getTableDataCells()
             .eq(1)
@@ -158,7 +158,13 @@ describe('number conditions', () => {
     it('is not empty / not null', () => {
         addConditions([{ conditionName: 'is not empty / not null' }])
 
-        expectTableToMatchRows(['11', '12', '2 000 000'])
+        expectTableToMatchRows([
+            '11',
+            '12',
+            '2 000 000',
+            '5 557 779 990',
+            '3.7',
+        ])
 
         cy.getBySelLike('layout-chip')
             .contains(`${dimensionName}: 1 condition`)
