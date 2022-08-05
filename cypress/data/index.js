@@ -25,18 +25,6 @@ export const TEST_AOS = [
 export const TEST_DIM_TEXT = 'Analytics - Text'
 export const TEST_DIM_NUMBER = 'Analytics - Number'
 export const TEST_DIM_YESNO = 'Analytics - Yes/no'
-
-export const TEST_ENROLLMENT_DATA = [
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Text'],
-    },
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Number'],
-    },
-]
-
 export const TEST_DIM_DATE = 'Analytics - Date'
 export const TEST_DIM_TIME = 'Analytics - Time'
 export const TEST_DIM_DATETIME = 'Analytics - Date & Time'

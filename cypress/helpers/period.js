@@ -12,7 +12,7 @@ const selectFixedPeriod = ({ label, period }) => {
         .clear()
         .type(period.year)
     cy.contains(period.name).dblclick()
-    cy.contains('Add to Columns').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
 const selectRelativePeriod = ({ label, period }) => {
@@ -29,7 +29,15 @@ const selectRelativePeriod = ({ label, period }) => {
             .click()
     }
     cy.contains(period.name).dblclick()
-    cy.contains('Add to Columns').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
+}
+
+const unselectAllPeriods = ({ label }) => {
+    cy.getBySel('main-sidebar').contains(label).click()
+    cy.contains('Choose from presets').click()
+
+    cy.getBySel('period-dimension-transfer-actions-removeall').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
 /*const selectStartEndDatePeriod = ({label, period}) => {
@@ -46,6 +54,7 @@ const getCurrentYearStr = () => new Date().getFullYear().toString()
 export {
     selectFixedPeriod,
     selectRelativePeriod,
+    unselectAllPeriods,
     getPreviousYearStr,
     getCurrentYearStr,
 }
