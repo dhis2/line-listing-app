@@ -55,9 +55,16 @@ const useMostViewedVisualizations = (username, error, setLoadError) => {
         onError: (error) => setLoadError(error),
     })
 
+    const mostViewedIds = mostViewed.data
+        ? mostViewed.data.mostViewed.map((visualization) => visualization.id)
+        : []
+
     return {
         mostViewed: visualizations.data
-            ? visualizations.data.visualizations.eventVisualizations
+            ? visualizations.data.visualizations.eventVisualizations.sort(
+                  (a, b) =>
+                      mostViewedIds.indexOf(a.id) - mostViewedIds.indexOf(b.id)
+              )
             : undefined,
         loading: mostViewed.loading || visualizations.loading,
         fetching: mostViewed.fetching || visualizations.fetching,
