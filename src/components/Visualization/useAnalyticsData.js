@@ -18,7 +18,6 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { useSelector } from 'react-redux'
 import { BOOLEAN_VALUES, NULL_VALUE } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
@@ -34,7 +33,6 @@ import {
     OUTPUT_TYPE_EVENT,
     headersMap,
 } from '../../modules/visualization.js'
-import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
@@ -276,6 +274,7 @@ const valueTypeIsNumeric = (valueType) =>
 const useAnalyticsData = ({
     visualization,
     filters,
+    isVisualizationLoading: isGlobalLoading,
     onResponsesReceived,
     pageSize,
     page,
@@ -283,7 +282,6 @@ const useAnalyticsData = ({
     sortDirection,
 }) => {
     const dataEngine = useDataEngine()
-    const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)
@@ -360,7 +358,7 @@ const useAnalyticsData = ({
             }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, ...pager })
+            mounted.current && setData({ headers, rows, pager })
             onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
