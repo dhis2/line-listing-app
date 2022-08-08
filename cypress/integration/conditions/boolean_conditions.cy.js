@@ -2,6 +2,7 @@ import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_YESNO,
+    TEST_DIM_YESONLY,
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
@@ -16,12 +17,13 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
+const currentYear = getCurrentYearStr()
+
 const event = ANALYTICS_PROGRAM
-const dimensionName = TEST_DIM_YESNO
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
-const setUpTable = () => {
+const setUpTable = (dimensionName) => {
     selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
@@ -34,71 +36,138 @@ const setUpTable = () => {
     expectTableToBeVisible()
 }
 
-const addConditions = (conditions) => {
+const addConditions = (conditions, dimensionName) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach((conditionName) => {
-        cy.getWithDataTest('{conditions-modal-content}')
-            .findWithDataTest('{dhis2-uicore-checkbox}')
+        cy.getBySel('conditions-modal-content')
+            .findBySel('dhis2-uicore-checkbox')
             .contains(conditionName)
             .click()
     })
-    cy.getWithDataTest('{conditions-modal}').contains('Update').click()
+    cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-const assertTooltipContainsEntries = (entries) => {
-    entries.forEach((entry) =>
-        cy.getWithDataTest('{tooltip-content}').contains(entry)
-    )
-}
+const assertTooltipContainsEntries = (entries) =>
+    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
 
-describe('boolean conditions', () => {
+const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
+
+describe('boolean conditions - Yes/NA', () => {
+    const dimensionName = TEST_DIM_YESONLY
+
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
+        setUpTable(dimensionName)
     })
 
     it('Yes selected', () => {
-        addConditions(['Yes'])
+        addConditions(['Yes'], dimensionName)
+
+        expectTableToMatchRows([`${currentYear}-01-01`])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, /\bYes\b/])
+    })
+
+    it('Not answered selected', () => {
+        addConditions(['Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, /\bNot answered\b/])
+    })
+
+    it('Yes + Not answered selected', () => {
+        addConditions(['Yes', 'Not answered'], dimensionName)
+
+        expectTableToMatchRows([
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-04-19`,
+            `${currentYear}-01-01`,
+        ])
+
+        assertChipContainsText(`${dimensionName}: all`)
+
+        assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
+    })
+})
+
+describe('boolean conditions - Yes/No/NA', () => {
+    const dimensionName = TEST_DIM_YESNO
+
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        setUpTable(dimensionName)
+    })
+
+    it('Yes selected', () => {
+        addConditions(['Yes'], dimensionName)
+
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-04-19`])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/])
     })
 
     it('No selected', () => {
-        addConditions(['No'])
+        addConditions(['No'], dimensionName)
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-01-03`])
+        expectTableToMatchRows([`${currentYear}-01-03`])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, /\bNo\b/])
     })
 
-    it('Yes and Not answered selected', () => {
-        addConditions(['Yes', 'Not answered'])
+    it('Yes + Not answered selected', () => {
+        addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-03-01`,
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${currentYear}-01-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 2 conditions`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 2 conditions`)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
+    })
+
+    it('Yes + No + Not answered selected', () => {
+        addConditions(['Yes', 'No', 'Not answered'], dimensionName)
+
+        expectTableToMatchRows([
+            `${currentYear}-01-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
+            `${currentYear}-01-03`,
+        ])
+
+        assertChipContainsText(`${dimensionName}: all`)
+
+        assertTooltipContainsEntries([
+            stageName,
+            /\bYes\b/,
+            /\bNo\b/,
+            /\bNot answered\b/,
+        ])
     })
 })
