@@ -49,13 +49,11 @@ export const TEST_DIM_DATE = 'Analytics - Date'
 export const TEST_DIM_TIME = 'Analytics - Time'
 export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
 
-// TODO: Add tests for the commented out types below
 // non-filterables
-// COORDINATE
-// AGE
-// FILE
-// IMAGE
+export const TEST_DIM_AGE = 'Analytics - Age'
+export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
 
+// TODO: Add tests for the commented out types below
 // special
 // ORG UNIT
 // OPTION SET
