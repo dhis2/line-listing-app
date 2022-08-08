@@ -54,7 +54,7 @@ const addConditions = (conditions) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value }) => {
         cy.getBySel('button-add-condition').click()
-        cy.contains('Choose a condition').click()
+        cy.contains('Choose a condition type').click()
         cy.contains(conditionName).click()
         if (value) {
             cy.getBySel('conditions-modal-content')
@@ -295,7 +295,7 @@ describe('date types', () => {
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
-            cy.contains('Choose a condition').click()
+            cy.contains('Choose a condition type').click()
 
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('date-condition-type').containsExact(operator)

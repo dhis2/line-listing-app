@@ -39,6 +39,7 @@ export const TEST_DIM_INTEGER = 'Analytics - Integer'
 export const TEST_DIM_POSITIVE_INTEGER = 'Analytics - Positive Integer'
 export const TEST_DIM_NEGATIVE_INTEGER = 'Analytics - Negative Integer'
 export const TEST_DIM_POSITIVE_OR_ZERO = 'Analytics - Positive or Zero Integer'
+export const TEST_DIM_WITH_PRESET = 'Analytics - Number (legend set)'
 
 // booleans
 export const TEST_DIM_YESNO = 'Analytics - Yes/no'
@@ -61,6 +62,11 @@ export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',
     name: 'This year',
+}
+
+export const TEST_REL_PE_LAST_YEAR = {
+    type: 'Years',
+    name: 'Last year',
 }
 
 export const TEST_REL_PE_LAST_12_MONTHS = {

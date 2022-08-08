@@ -51,7 +51,7 @@ const addConditions = (conditions) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value, useCaseSensitive }, index) => {
         cy.getBySel('button-add-condition').click()
-        cy.contains('Choose a condition').click()
+        cy.contains('Choose a condition type').click()
         cy.contains(conditionName).click()
         if (value) {
             cy.getBySel('alphanumeric-condition')
@@ -237,7 +237,7 @@ describe('alphanumeric types', () => {
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
-            cy.contains('Choose a condition').click()
+            cy.contains('Choose a condition type').click()
 
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('alphanumeric-condition-type').containsExact(

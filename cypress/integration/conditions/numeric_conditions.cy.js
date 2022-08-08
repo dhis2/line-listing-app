@@ -9,6 +9,8 @@ import {
     TEST_DIM_NEGATIVE_INTEGER,
     TEST_DIM_POSITIVE_OR_ZERO,
     TEST_REL_PE_THIS_YEAR,
+    TEST_REL_PE_LAST_YEAR,
+    TEST_DIM_WITH_PRESET,
 } from '../../data/index.js'
 import {
     openDimension,
@@ -30,45 +32,47 @@ import {
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const event = ANALYTICS_PROGRAM
-const dimensionName = TEST_DIM_NUMBER
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
-const setUpTable = () => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
-
-    selectRelativePeriod({
-        label: periodLabel,
-        period: TEST_REL_PE_THIS_YEAR,
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-}
-
-const addConditions = (conditions) => {
-    cy.getBySelLike('layout-chip').contains(dimensionName).click()
-    conditions.forEach(({ conditionName, value }) => {
-        cy.getBySel('button-add-condition').click()
-        cy.contains('Choose a condition').click()
-        cy.contains(conditionName).click()
-        if (value) {
-            cy.getBySel('conditions-modal-content')
-                .find('input[value=""]')
-                .type(value)
-        }
-    })
-    cy.getBySel('conditions-modal').contains('Update').click()
-}
-
 describe('number conditions', () => {
+    const dimensionName = TEST_DIM_NUMBER
+
+    const setUpTable = () => {
+        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    }
+
+    const addConditions = (conditions) => {
+        cy.getBySelLike('layout-chip').contains(dimensionName).click()
+        conditions.forEach(({ conditionName, value }) => {
+            cy.getBySel('button-add-condition').click()
+            cy.contains('Choose a condition type').click()
+            cy.contains(conditionName).click()
+            if (value) {
+                cy.getBySel('conditions-modal-content')
+                    .find('input[value=""]')
+                    .type(value)
+            }
+        })
+        cy.getBySel('conditions-modal').contains('Update').click()
+    }
+
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
         setUpTable()
     })
+
     it('equal to', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
 
@@ -186,6 +190,84 @@ describe('number conditions', () => {
     })
 })
 
+describe('preset options', () => {
+    const dimensionName = TEST_DIM_WITH_PRESET
+    const TEST_PRESET = 'Age (COVID-19)'
+
+    const addPreset = (preset, value) => {
+        cy.getBySelLike('layout-chip').contains(dimensionName).click()
+        cy.getBySel('button-add-condition').click()
+        cy.contains('Choose a condition type').click()
+        cy.contains('is one of preset options').click()
+        cy.contains('Choose a set of options').click()
+        cy.contains(preset).click()
+
+        if (value) {
+            cy.contains('Choose options').click()
+            cy.contains(value)
+                .click()
+                .closest('[data-test=dhis2-uicore-layer]')
+                .click('topLeft')
+        }
+
+        cy.getBySel('button-add-condition')
+            .contains('Add another condition')
+            .should('have.css', 'pointer-events', 'none')
+
+        cy.getBySel('conditions-modal').contains('Update').click()
+    }
+
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        selectEventProgram(ANALYTICS_PROGRAM)
+        openDimension(dimensionName)
+        cy.contains('Add to Columns').click()
+
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    })
+
+    it('set only', () => {
+        addPreset(TEST_PRESET)
+
+        expectTableToMatchRows([
+            '2021-11-01',
+            '2021-12-11',
+            '2021-12-10',
+            '2021-11-15',
+        ])
+
+        expectTableToMatchRows(['5 - 14', '5 - 14', '35 - 44', '35 - 44'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, TEST_PRESET])
+    })
+
+    it('set and value', () => {
+        const TEST_VALUE = '5 - 14'
+
+        addPreset(TEST_PRESET, TEST_VALUE)
+
+        expectTableToMatchRows(['2021-12-11', '2021-12-10'])
+
+        expectTableToMatchRows([TEST_VALUE, TEST_VALUE])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, TEST_VALUE])
+    })
+})
+
 describe('numeric types', () => {
     const TEST_OPERATORS = [
         'equal to (=)',
@@ -217,7 +299,7 @@ describe('numeric types', () => {
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
-            cy.contains('Choose a condition').click()
+            cy.contains('Choose a condition type').click()
 
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('numeric-condition-type').containsExact(operator)
@@ -225,5 +307,3 @@ describe('numeric types', () => {
         })
     })
 })
-
-// TODO: Test legend sets / "is one of preset options"
