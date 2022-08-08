@@ -15,6 +15,10 @@ import {
     selectEventProgram,
     selectEventProgramDimensions,
 } from '../../helpers/dimensions.js'
+import {
+    assertChipContainsText,
+    assertTooltipContainsEntries,
+} from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
@@ -66,12 +70,6 @@ const addConditions = (conditions) => {
     })
     cy.getBySel('conditions-modal').contains('Update').click()
 }
-
-const assertTooltipContainsEntries = (entries) =>
-    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
-
-const assertChipContainsText = (suffix) =>
-    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
 
 describe('text conditions', () => {
     const LONG_TEXT_ROW =

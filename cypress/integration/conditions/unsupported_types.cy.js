@@ -6,6 +6,10 @@ import {
     TEST_DIM_COORDINATE,
 } from '../../data/index.js'
 import { openDimension, selectEventProgram } from '../../helpers/dimensions.js'
+import {
+    assertChipContainsText,
+    assertTooltipContainsEntries,
+} from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
@@ -28,12 +32,6 @@ const setUpTable = () => {
     expectTableToBeVisible()
 }
 
-const assertTooltipContainsEntries = (entries) =>
-    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
-
-const assertChipContainsText = (suffix) =>
-    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
-
 describe('unsupported types', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -50,6 +48,7 @@ describe('unsupported types', () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
             selectEventProgram(ANALYTICS_PROGRAM)
+
             openDimension(type.dimension)
 
             cy.getBySel('button-add-condition').should('not.exist')
@@ -60,7 +59,7 @@ describe('unsupported types', () => {
 
             cy.getBySel('conditions-modal').contains('Add to Columns').click()
 
-            assertChipContainsText(`${type.name}: all`)
+            assertChipContainsText(`${type.dimension}: all`)
 
             assertTooltipContainsEntries([
                 stageName,
