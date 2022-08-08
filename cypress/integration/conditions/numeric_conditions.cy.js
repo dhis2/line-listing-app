@@ -219,9 +219,7 @@ describe('numeric types', () => {
             cy.contains('Choose a condition').click()
 
             TEST_OPERATORS.forEach((operator) => {
-                cy.getBySel(
-                    'dhis2-uicore-select-menu-menuwrapper'
-                ).containsExact(operator)
+                cy.getBySel('numeric-condition-type').containsExact(operator)
             })
         })
     })

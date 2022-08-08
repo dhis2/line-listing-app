@@ -123,7 +123,12 @@ const NumericCondition = ({
                 className={classes.operatorSelect}
             >
                 {Object.entries(NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
+                    <SingleSelectOption
+                        key={key}
+                        value={key}
+                        label={value}
+                        dataTest={'numeric-condition-type'}
+                    />
                 ))}
                 <MenuDivider dense />
                 <SingleSelectOption
@@ -131,6 +136,7 @@ const NumericCondition = ({
                     value={OPERATOR_IN}
                     label={i18n.t('is one of preset options')}
                     disabled={numberOfConditions > 1}
+                    dataTest={'numeric-condition-type'}
                 />
             </SingleSelectField>
             {operator &&

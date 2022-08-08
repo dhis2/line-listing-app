@@ -295,9 +295,7 @@ describe('date types', () => {
             cy.contains('Choose a condition').click()
 
             TEST_OPERATORS.forEach((operator) => {
-                cy.getBySel(
-                    'dhis2-uicore-select-menu-menuwrapper'
-                ).containsExact(operator)
+                cy.getBySel('date-condition-type').containsExact(operator)
             })
         })
     })

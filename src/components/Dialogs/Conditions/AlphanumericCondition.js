@@ -70,7 +70,12 @@ const BaseCondition = ({
                 className={classes.operatorSelect}
             >
                 {Object.entries(ALPHA_NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
+                    <SingleSelectOption
+                        key={key}
+                        value={key}
+                        label={value}
+                        dataTest={'alphanumeric-condition-type'}
+                    />
                 ))}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
