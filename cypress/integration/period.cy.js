@@ -6,7 +6,9 @@ describe('period dimension', () => {
     const TEST_DIM_ID = 'eventDate'
     const TEST_DIM_NAME = 'Event date'
     const TEST_RELATIVE_PERIOD_NAME = 'Last 3 months'
-    const TEST_FIXED_PERIOD_NAME = `January ${getCurrentYearStr()}`
+    const TEST_FIXED_PERIOD_NAME = `January ${currentYear}`
+    const currentYear = getCurrentYearStr()
+    const previousYear = getPreviousYearStr()
 
     const openModal = (id) =>
         cy.getBySel('main-sidebar').findBySel(`dimension-item-${id}`).click()
@@ -69,8 +71,8 @@ describe('period dimension', () => {
             .click()
             .should('have.class', 'selected')
 
-        typeInput('start-date-input', `${getPreviousYearStr()}-01-01`)
-        typeInput('end-date-input', `${getCurrentYearStr()}-12-31`)
+        typeInput('start-date-input', `${previousYear}-01-01`)
+        typeInput('end-date-input', `${currentYear}-12-31`)
 
         cy.contains('Add to Columns').click()
 
@@ -79,7 +81,7 @@ describe('period dimension', () => {
             .trigger('mouseover')
 
         cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
+            `January 1, ${previousYear} - December 31, ${currentYear}`
         )
     })
     it('the custom period persists when reopening the modal', () => {
@@ -87,11 +89,11 @@ describe('period dimension', () => {
         cy.getBySel('start-date-input')
             .find('input')
             .invoke('val')
-            .should('eq', `${getPreviousYearStr()}-01-01`)
+            .should('eq', `${previousYear}-01-01`)
         cy.getBySel('end-date-input')
             .find('input')
             .invoke('val')
-            .should('eq', `${getCurrentYearStr()}-12-31`)
+            .should('eq', `${currentYear}-12-31`)
     })
     it('the custom period is cleared when one date is removed', () => {
         clearInput('start-date-input')
@@ -112,8 +114,8 @@ describe('period dimension', () => {
     it('the custom period is cleared when the preset date tab is toggled', () => {
         cy.contains('Define start - end dates').click()
 
-        typeInput('start-date-input', `${getPreviousYearStr()}-01-01`)
-        typeInput('end-date-input', `${getCurrentYearStr()}-12-31`)
+        typeInput('start-date-input', `${previousYear}-01-01`)
+        typeInput('end-date-input', `${currentYear}-12-31`)
 
         cy.getBySel('period-dimension-modal-action-confirm')
             .contains('Update')
@@ -124,7 +126,7 @@ describe('period dimension', () => {
             .trigger('mouseover')
 
         cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${getPreviousYearStr()} - December 31, ${getCurrentYearStr()}`
+            `January 1, ${previousYear} - December 31, ${currentYear}`
         )
 
         openModal(TEST_DIM_ID)

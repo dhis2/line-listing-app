@@ -27,6 +27,8 @@ const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_DATE
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
+const currentYear = getCurrentYearStr()
+const previousYear = getPreviousYearStr()
 
 const setUpTable = () => {
     selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
@@ -71,7 +73,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('exactly', () => {
-        const TEST_DATE = `${getPreviousYearStr()}-12-01`
+        const TEST_DATE = `${previousYear}-12-01`
 
         addConditions([
             {
@@ -98,7 +100,7 @@ describe('date conditions (Date)', () => {
     //         period: TEST_REL_PE_THIS_YEAR,
     //     })
 
-    //     const TEST_DATE = `${getCurrentYearStr()}-01-02`
+    //     const TEST_DATE = `${currentYear}-01-02`
 
     //     addConditions([
     //         {
@@ -107,7 +109,7 @@ describe('date conditions (Date)', () => {
     //         },
     //     ])
 
-    //     expectTableToMatchRows([`${getCurrentYearStr()}-01-01`, `${getCurrentYearStr()}-01-02`, `${getCurrentYearStr()}-01-03`])
+    //     expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-01-02`, `${currentYear}-01-03`])
 
     //     assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -115,7 +117,7 @@ describe('date conditions (Date)', () => {
     // })
 
     it('after', () => {
-        const TEST_DATE = `${getPreviousYearStr()}-12-02`
+        const TEST_DATE = `${previousYear}-12-02`
 
         addConditions([
             {
@@ -124,10 +126,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-01-03`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-01-03`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -135,7 +134,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('after or including', () => {
-        const TEST_DATE = `${getPreviousYearStr()}-12-02`
+        const TEST_DATE = `${previousYear}-12-02`
 
         addConditions([
             {
@@ -145,9 +144,9 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${getPreviousYearStr()}-12-11`,
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-01-03`,
+            `${previousYear}-12-11`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -159,7 +158,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('before', () => {
-        const TEST_DATE = `${getPreviousYearStr()}-12-02`
+        const TEST_DATE = `${previousYear}-12-02`
 
         addConditions([
             {
@@ -169,11 +168,11 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${getPreviousYearStr()}-12-10`,
-            `${getPreviousYearStr()}-11-15`,
-            `${getPreviousYearStr()}-11-01`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${previousYear}-12-10`,
+            `${previousYear}-11-15`,
+            `${previousYear}-11-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -182,7 +181,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('before or including', () => {
-        const TEST_DATE = `${getPreviousYearStr()}-12-02`
+        const TEST_DATE = `${previousYear}-12-02`
 
         addConditions([
             {
@@ -192,12 +191,12 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${getPreviousYearStr()}-12-11`,
-            `${getPreviousYearStr()}-12-10`,
-            `${getPreviousYearStr()}-11-15`,
-            `${getPreviousYearStr()}-11-01`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${previousYear}-12-11`,
+            `${previousYear}-12-10`,
+            `${previousYear}-11-15`,
+            `${previousYear}-11-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -215,10 +214,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-03-01`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-03-01`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -233,14 +229,14 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${getPreviousYearStr()}-12-10`,
-            `${getPreviousYearStr()}-12-11`,
-            `${getPreviousYearStr()}-11-15`,
-            `${getPreviousYearStr()}-11-01`,
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-01-03`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-11`,
+            `${previousYear}-11-15`,
+            `${previousYear}-11-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -249,8 +245,8 @@ describe('date conditions (Date)', () => {
     })
 
     it('2 conditions: after + before or including', () => {
-        const TEST_DATE_BFI = `${getPreviousYearStr()}-12-02`
-        const TEST_DATE_AFT = `${getPreviousYearStr()}-12-01`
+        const TEST_DATE_BFI = `${previousYear}-12-02`
+        const TEST_DATE_AFT = `${previousYear}-12-01`
 
         addConditions([
             {
@@ -263,7 +259,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([`${getPreviousYearStr()}-12-11`])
+        expectTableToMatchRows([`${previousYear}-12-11`])
 
         assertChipContainsText(`${dimensionName}: 2 conditions`)
 

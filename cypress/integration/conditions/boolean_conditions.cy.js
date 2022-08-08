@@ -20,6 +20,7 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 const event = ANALYTICS_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
+const currentYear = getCurrentYearStr()
 
 const setUpTable = (dimensionName) => {
     selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
@@ -62,7 +63,7 @@ describe('boolean conditions - Yes/NA', () => {
     it('Yes selected', () => {
         addConditions(['Yes'], dimensionName)
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-01-01`])
+        expectTableToMatchRows([`${currentYear}-01-01`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -73,11 +74,11 @@ describe('boolean conditions - Yes/NA', () => {
         addConditions(['Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-01-03`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-03-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-04-19`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -89,12 +90,12 @@ describe('boolean conditions - Yes/NA', () => {
         addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-01-03`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-03-01`,
-            `${getCurrentYearStr()}-04-19`,
-            `${getCurrentYearStr()}-01-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-04-19`,
+            `${currentYear}-01-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: all`)
@@ -114,10 +115,7 @@ describe('boolean conditions - Yes/No/NA', () => {
     it('Yes selected', () => {
         addConditions(['Yes'], dimensionName)
 
-        expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-04-19`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-04-19`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -127,7 +125,7 @@ describe('boolean conditions - Yes/No/NA', () => {
     it('No selected', () => {
         addConditions(['No'], dimensionName)
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-01-03`])
+        expectTableToMatchRows([`${currentYear}-01-03`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -138,11 +136,11 @@ describe('boolean conditions - Yes/No/NA', () => {
         addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-03-01`,
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
+            `${currentYear}-01-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
         ])
 
         assertChipContainsText(`${dimensionName}: 2 conditions`)
@@ -154,12 +152,12 @@ describe('boolean conditions - Yes/No/NA', () => {
         addConditions(['Yes', 'No', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-03-01`,
-            `${getCurrentYearStr()}-01-01`,
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-04-19`,
-            `${getCurrentYearStr()}-01-03`,
+            `${currentYear}-01-01`,
+            `${currentYear}-03-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-02-01`,
+            `${currentYear}-04-19`,
+            `${currentYear}-01-03`,
         ])
 
         assertChipContainsText(`${dimensionName}: all`)
