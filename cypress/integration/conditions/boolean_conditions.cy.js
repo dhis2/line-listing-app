@@ -39,7 +39,7 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach((conditionName) => {
         cy.getBySel('conditions-modal-content')
-            .findWithDataTest('{dhis2-uicore-checkbox}')
+            .findBySel('dhis2-uicore-checkbox')
             .contains(conditionName)
             .click()
     })

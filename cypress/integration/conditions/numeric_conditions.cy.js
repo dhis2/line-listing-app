@@ -48,22 +48,20 @@ const setUpTable = () => {
 const addConditions = (conditions) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value }) => {
-        cy.getWithDataTest('{button-add-condition}').click()
+        cy.getBySel('button-add-condition').click()
         cy.contains('Choose a condition').click()
         cy.contains(conditionName).click()
         if (value) {
-            cy.getWithDataTest('{conditions-modal-content}')
+            cy.getBySel('conditions-modal-content')
                 .find('input[value=""]')
                 .type(value)
         }
     })
-    cy.getWithDataTest('{conditions-modal}').contains('Update').click()
+    cy.getBySel('conditions-modal').contains('Update').click()
 }
 
 const assertTooltipContainsEntries = (entries) =>
-    entries.forEach((entry) =>
-        cy.getWithDataTest('{tooltip-content}').contains(entry)
-    )
+    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
 
 const assertChipContainsText = (suffix) =>
     cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
@@ -217,7 +215,7 @@ describe('numeric types', () => {
             selectEventProgram(ANALYTICS_PROGRAM)
             openDimension(type)
 
-            cy.getWithDataTest('{button-add-condition}').click()
+            cy.getBySel('button-add-condition').click()
             cy.contains('Choose a condition').click()
 
             TEST_OPERATORS.forEach((operator) => {
