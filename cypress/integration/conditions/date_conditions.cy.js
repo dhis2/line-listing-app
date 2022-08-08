@@ -23,12 +23,13 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
+const currentYear = getCurrentYearStr()
+const previousYear = getPreviousYearStr()
+
 const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_DATE
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
-const currentYear = getCurrentYearStr()
-const previousYear = getPreviousYearStr()
 
 const setUpTable = () => {
     selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })

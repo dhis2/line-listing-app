@@ -3,12 +3,13 @@ import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('period dimension', () => {
+    const currentYear = getCurrentYearStr()
+    const previousYear = getPreviousYearStr()
+
     const TEST_DIM_ID = 'eventDate'
     const TEST_DIM_NAME = 'Event date'
     const TEST_RELATIVE_PERIOD_NAME = 'Last 3 months'
     const TEST_FIXED_PERIOD_NAME = `January ${currentYear}`
-    const currentYear = getCurrentYearStr()
-    const previousYear = getPreviousYearStr()
 
     const openModal = (id) =>
         cy.getBySel('main-sidebar').findBySel(`dimension-item-${id}`).click()
