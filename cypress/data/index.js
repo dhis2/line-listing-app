@@ -22,23 +22,14 @@ export const TEST_AOS = [
     },
 ]
 
-// alpha-numerics
+// alphanumerics
 export const TEST_DIM_TEXT = 'Analytics - Text'
-// VALUE_TYPE_LETTER
-// VALUE_TYPE_LONG_TEXT
-// VALUE_TYPE_EMAIL
-// VALUE_TYPE_USERNAME
-// VALUE_TYPE_URL
-// VALUE_TYPE_PHONE_NUMBER
-
-// booleans
-export const TEST_DIM_YESNO = 'Analytics - Yes/no'
-export const TEST_DIM_YESONLY = 'Analytics - Yes only'
-
-// dates
-export const TEST_DIM_DATE = 'Analytics - Date'
-export const TEST_DIM_TIME = 'Analytics - Time'
-export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
+export const TEST_DIM_LETTER = 'Analytics - Letter'
+export const TEST_DIM_LONG_TEXT = 'Analytics - Long text'
+export const TEST_DIM_EMAIL = 'Analytics - Email'
+export const TEST_DIM_USERNAME = 'Analytics - Username'
+export const TEST_DIM_URL = 'Analytics - URL'
+export const TEST_DIM_PHONE_NUMBER = 'Analytics - Phone number'
 
 // numerics
 export const TEST_DIM_NUMBER = 'Analytics - Number'
@@ -49,6 +40,16 @@ export const TEST_DIM_POSITIVE_INTEGER = 'Analytics - Positive Integer'
 export const TEST_DIM_NEGATIVE_INTEGER = 'Analytics - Negative Integer'
 export const TEST_DIM_POSITIVE_OR_ZERO = 'Analytics - Positive or Zero Integer'
 
+// booleans
+export const TEST_DIM_YESNO = 'Analytics - Yes/no'
+export const TEST_DIM_YESONLY = 'Analytics - Yes only'
+
+// dates
+export const TEST_DIM_DATE = 'Analytics - Date'
+export const TEST_DIM_TIME = 'Analytics - Time'
+export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
+
+// TODO: Add tests for the commented out types below
 // non-filterables
 // COORDINATE
 // AGE
@@ -57,6 +58,7 @@ export const TEST_DIM_POSITIVE_OR_ZERO = 'Analytics - Positive or Zero Integer'
 
 // special
 // ORG UNIT
+// OPTION SET
 
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',

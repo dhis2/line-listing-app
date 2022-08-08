@@ -73,6 +73,7 @@ describe('number conditions', () => {
     })
     it('equal to', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
+
         expectTableToMatchRows(['12'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -106,6 +107,7 @@ describe('number conditions', () => {
 
     it('less than', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
+
         expectTableToMatchRows(['11', '3.7'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -115,6 +117,7 @@ describe('number conditions', () => {
 
     it('less than or equal to', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
+
         expectTableToMatchRows(['11', '12', '3.7'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)

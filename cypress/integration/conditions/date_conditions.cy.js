@@ -5,6 +5,7 @@ import {
     TEST_DIM_DATE,
     TEST_DIM_TIME,
     TEST_REL_PE_LAST_12_MONTHS,
+    TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
 import {
     openDimension,
@@ -16,6 +17,7 @@ import {
     selectRelativePeriod,
     getPreviousYearStr,
     getCurrentYearStr,
+    unselectAllPeriods,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
@@ -89,31 +91,34 @@ describe('date conditions (Date)', () => {
     })
 
     // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
+    it.skip('is not', () => {
+        unselectAllPeriods({
+            label: periodLabel,
+        })
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_THIS_YEAR,
+        })
 
-    // it('is not', () => {
-    //     unselectAllPeriods({
-    //         label: periodLabel,
-    //     })
-    //     selectRelativePeriod({
-    //         label: periodLabel,
-    //         period: TEST_REL_PE_THIS_YEAR,
-    //     })
+        const TEST_DATE = `${currentYear}-01-02`
 
-    //     const TEST_DATE = `${currentYear}-01-02`
+        addConditions([
+            {
+                conditionName: 'is not',
+                value: TEST_DATE,
+            },
+        ])
 
-    //     addConditions([
-    //         {
-    //             conditionName: 'is not',
-    //             value: TEST_DATE,
-    //         },
-    //     ])
+        expectTableToMatchRows([
+            `${currentYear}-01-01`,
+            `${currentYear}-01-02`,
+            `${currentYear}-01-03`,
+        ])
 
-    //     expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-01-02`, `${currentYear}-01-03`])
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
-    //     assertChipContainsText(`${dimensionName}: 1 condition`)
-
-    //     assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
-    // })
+        assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
+    })
 
     it('after', () => {
         const TEST_DATE = `${previousYear}-12-02`

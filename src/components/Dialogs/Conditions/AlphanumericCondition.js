@@ -61,7 +61,7 @@ const BaseCondition = ({
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} data-test={'alphanumeric-condition'}>
             <SingleSelectField
                 selected={operator}
                 placeholder={i18n.t('Choose a condition type')}
@@ -95,6 +95,7 @@ const BaseCondition = ({
                         onChange={({ checked }) => toggleCaseSensitive(checked)}
                         dense
                         className={classes.caseSensitiveCheckbox}
+                        dataTest={'condition-case-sensitive-checkbox'}
                     />
                 )}
             <Button
