@@ -22,24 +22,41 @@ export const TEST_AOS = [
     },
 ]
 
+// alpha-numerics
 export const TEST_DIM_TEXT = 'Analytics - Text'
-export const TEST_DIM_NUMBER = 'Analytics - Number'
+// VALUE_TYPE_LETTER
+// VALUE_TYPE_LONG_TEXT
+// VALUE_TYPE_EMAIL
+// VALUE_TYPE_USERNAME
+// VALUE_TYPE_URL
+// VALUE_TYPE_PHONE_NUMBER
+
+// booleans
 export const TEST_DIM_YESNO = 'Analytics - Yes/no'
+export const TEST_DIM_YESONLY = 'Analytics - Yes only'
 
-export const TEST_ENROLLMENT_DATA = [
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Text'],
-    },
-    {
-        ...ANALYTICS_PROGRAM,
-        dimensions: ['Analytics - Number'],
-    },
-]
-
+// dates
 export const TEST_DIM_DATE = 'Analytics - Date'
 export const TEST_DIM_TIME = 'Analytics - Time'
 export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
+
+// numerics
+export const TEST_DIM_NUMBER = 'Analytics - Number'
+export const TEST_DIM_UNIT_INTERVAL = 'Analytics - Unit interval'
+export const TEST_DIM_PERCENTAGE = 'Analytics - Percentage'
+export const TEST_DIM_INTEGER = 'Analytics - Integer'
+export const TEST_DIM_POSITIVE_INTEGER = 'Analytics - Positive Integer'
+export const TEST_DIM_NEGATIVE_INTEGER = 'Analytics - Negative Integer'
+export const TEST_DIM_POSITIVE_OR_ZERO = 'Analytics - Positive or Zero Integer'
+
+// non-filterables
+// COORDINATE
+// AGE
+// FILE
+// IMAGE
+
+// special
+// ORG UNIT
 
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',

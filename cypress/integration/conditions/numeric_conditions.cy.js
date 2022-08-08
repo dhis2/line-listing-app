@@ -2,9 +2,19 @@ import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_NUMBER,
+    TEST_DIM_UNIT_INTERVAL,
+    TEST_DIM_PERCENTAGE,
+    TEST_DIM_INTEGER,
+    TEST_DIM_POSITIVE_INTEGER,
+    TEST_DIM_NEGATIVE_INTEGER,
+    TEST_DIM_POSITIVE_OR_ZERO,
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
-import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
+import {
+    openDimension,
+    selectEventProgram,
+    selectEventProgramDimensions,
+} from '../../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
@@ -38,23 +48,23 @@ const setUpTable = () => {
 const addConditions = (conditions) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value }) => {
-        cy.getWithDataTest('{button-add-condition}').click()
+        cy.getBySel('button-add-condition').click()
         cy.contains('Choose a condition').click()
         cy.contains(conditionName).click()
         if (value) {
-            cy.getWithDataTest('{conditions-modal-content}')
+            cy.getBySel('conditions-modal-content')
                 .find('input[value=""]')
                 .type(value)
         }
     })
-    cy.getWithDataTest('{conditions-modal}').contains('Update').click()
+    cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-const assertTooltipContainsEntries = (entries) => {
-    entries.forEach((entry) =>
-        cy.getWithDataTest('{tooltip-content}').contains(entry)
-    )
-}
+const assertTooltipContainsEntries = (entries) =>
+    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
+
+const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
 
 describe('number conditions', () => {
     beforeEach(() => {
@@ -65,9 +75,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'equal to (=)', value: '12' }])
         expectTableToMatchRows(['12'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
     })
@@ -77,9 +85,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['2 000 000', '5 557 779 990'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
     })
@@ -90,9 +96,7 @@ describe('number conditions', () => {
         ])
         expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -104,9 +108,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than (<)', value: '12' }])
         expectTableToMatchRows(['11', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
     })
@@ -115,9 +117,7 @@ describe('number conditions', () => {
         addConditions([{ conditionName: 'less than or equal to', value: '12' }])
         expectTableToMatchRows(['11', '12', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -130,9 +130,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
     })
@@ -148,9 +146,7 @@ describe('number conditions', () => {
             .invoke('trim')
             .should('equal', '')
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
@@ -166,9 +162,7 @@ describe('number conditions', () => {
             '3.7',
         ])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 1 condition`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 1 condition`)
 
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
@@ -181,9 +175,7 @@ describe('number conditions', () => {
 
         expectTableToMatchRows(['12'])
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${dimensionName}: 2 conditions`)
-            .trigger('mouseover')
+        assertChipContainsText(`${dimensionName}: 2 conditions`)
 
         assertTooltipContainsEntries([
             stageName,
@@ -192,3 +184,45 @@ describe('number conditions', () => {
         ])
     })
 })
+
+describe('numeric types', () => {
+    const TEST_OPERATORS = [
+        'equal to (=)',
+        'greater than (>)',
+        'greater than or equal to (≥)',
+        'less than (<)',
+        'less than or equal to (≤)',
+        'not equal to (≠)',
+        'is empty / null',
+        'is not empty / not null',
+        'is one of preset options',
+    ]
+
+    const TEST_TYPES = [
+        TEST_DIM_NUMBER,
+        TEST_DIM_UNIT_INTERVAL,
+        TEST_DIM_PERCENTAGE,
+        TEST_DIM_INTEGER,
+        TEST_DIM_POSITIVE_INTEGER,
+        TEST_DIM_NEGATIVE_INTEGER,
+        TEST_DIM_POSITIVE_OR_ZERO,
+    ]
+
+    TEST_TYPES.forEach((type) => {
+        it(`${type} has all operators`, () => {
+            cy.visit('/', EXTENDED_TIMEOUT)
+
+            selectEventProgram(ANALYTICS_PROGRAM)
+            openDimension(type)
+
+            cy.getBySel('button-add-condition').click()
+            cy.contains('Choose a condition').click()
+
+            TEST_OPERATORS.forEach((operator) => {
+                cy.getBySel('numeric-condition-type').containsExact(operator)
+            })
+        })
+    })
+})
+
+// TODO: Test legend sets / "is one of preset options"

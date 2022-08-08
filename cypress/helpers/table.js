@@ -1,7 +1,6 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const getLineListTable = () =>
-    cy.getWithDataTest('{line-list-table}', EXTENDED_TIMEOUT)
+const getLineListTable = () => cy.getBySel('line-list-table', EXTENDED_TIMEOUT)
 
 export const getTableHeaderCells = () => getLineListTable().find('th')
 

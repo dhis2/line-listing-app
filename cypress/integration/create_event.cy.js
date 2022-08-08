@@ -69,7 +69,7 @@ describe('event', () => {
         // move Report date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
             .findBySelLike('layout-chip')
-            .findWithDataTest('{dimension-menu-button-eventDate}')
+            .findBySel('dimension-menu-button-eventDate')
             .click()
         cy.contains('Move to Filter').click()
         clickMenubarUpdateButton()
