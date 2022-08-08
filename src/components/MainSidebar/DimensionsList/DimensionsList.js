@@ -8,7 +8,7 @@ import styles from './DimensionsList.module.css'
 
 const getNoResultsMessage = (searchTerm, programName) => {
     if (searchTerm) {
-        return i18n.t("No dimensions found for '{{searchTerm}}'", {
+        return i18n.t("No dimensions found for '{{- searchTerm}}'", {
             searchTerm,
         })
     }
