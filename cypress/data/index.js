@@ -53,9 +53,9 @@ export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
 export const TEST_DIM_AGE = 'Analytics - Age'
 export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
 
-// TODO: Add tests for the commented out types below
 // special
-// ORG UNIT
+export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
+// TODO: Add tests for the commented out type below
 // OPTION SET
 
 export const TEST_REL_PE_THIS_YEAR = {
