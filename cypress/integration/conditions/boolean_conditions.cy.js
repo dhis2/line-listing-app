@@ -6,6 +6,10 @@ import {
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
 import { selectEventProgramDimensions } from '../../helpers/dimensions.js'
+import {
+    assertChipContainsText,
+    assertTooltipContainsEntries,
+} from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     selectRelativePeriod,
@@ -46,12 +50,6 @@ const addConditions = (conditions, dimensionName) => {
     })
     cy.getBySel('conditions-modal').contains('Update').click()
 }
-
-const assertTooltipContainsEntries = (entries) =>
-    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
-
-const assertChipContainsText = (suffix) =>
-    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
 
 describe('boolean conditions - Yes/NA', () => {
     const dimensionName = TEST_DIM_YESONLY
