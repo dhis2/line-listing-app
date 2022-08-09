@@ -22,7 +22,7 @@ In the Line Listing app, you currently only have one type of selection which is 
 
 ### Input
 
-(_This is the same as you see in the event report app_). When you open the Input tab you will see below two options:
+(_This is the same as you see in the Event Reports app_). When you open the Input tab you will see below two options:
 
 -   Event (see individual event data from a Tracker program stage or event program)
 -   Enrollment (see data from multiple program stages in a Tracker program)
@@ -31,7 +31,7 @@ In the Line Listing app, you currently only have one type of selection which is 
 
 ### Program Dimensions
 
-(In the event report these are called data dimensions.)
+(In the Event Reports app these are called data dimensions.)
 
 The line list will always be based on the event or tracker programs and you can do analysis on a range of dimensions. For Program with category combinations, you can use program categories and category option group sets as dimensions.
 
