@@ -22,7 +22,10 @@ import {
     assertTooltipContainsEntries,
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
-import { selectRelativePeriod } from '../../helpers/period.js'
+import {
+    getPreviousYearStr,
+    selectRelativePeriod,
+} from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
     expectTableToMatchRows,
@@ -30,6 +33,8 @@ import {
     getTableRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
+
+const previousYear = getPreviousYearStr()
 
 const event = ANALYTICS_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
@@ -240,10 +245,10 @@ describe('preset options', () => {
         addPreset(TEST_PRESET)
 
         expectTableToMatchRows([
-            '2021-11-01',
-            '2021-12-11',
-            '2021-12-10',
-            '2021-11-15',
+            `${previousYear}-11-01`,
+            `${previousYear}-12-11`,
+            `${previousYear}-12-10`,
+            `${previousYear}-11-15`,
         ])
 
         expectTableToMatchRows(['5 - 14', '5 - 14', '35 - 44', '35 - 44'])
@@ -258,7 +263,10 @@ describe('preset options', () => {
 
         addPreset(TEST_PRESET, TEST_VALUE)
 
-        expectTableToMatchRows(['2021-12-11', '2021-12-10'])
+        expectTableToMatchRows([
+            `${previousYear}-12-11`,
+            `${previousYear}-12-10`,
+        ])
 
         expectTableToMatchRows([TEST_VALUE, TEST_VALUE])
 
