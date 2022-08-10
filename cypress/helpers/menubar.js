@@ -3,3 +3,6 @@ export const clickMenubarUpdateButton = () =>
 
 export const clickMenubarOptionsButton = () =>
     cy.getBySel('menubar').contains('Options').click()
+
+export const clickMenubarInterpretationsButton = () =>
+    cy.getBySel('menubar').contains('Interpretations').click()
