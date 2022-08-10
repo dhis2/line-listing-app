@@ -40,8 +40,6 @@ describe('Org unit condition', () => {
 
         setUpTable()
 
-        selectEventProgram(ANALYTICS_PROGRAM)
-
         openDimension(dimensionName)
 
         cy.getBySel('button-add-condition').should('not.exist')
