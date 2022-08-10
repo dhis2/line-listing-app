@@ -31,16 +31,14 @@ const setUpTable = () => {
     expectTableToBeVisible()
 }
 
-describe('unsupported types', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
-    })
+describe('Org unit condition', () => {
     const dimensionName = TEST_DIM_ORG_UNIT
     const orgUnitName = '02 Phongsali'
 
     it('Organisation unit displays correctly', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
+
+        setUpTable()
 
         selectEventProgram(ANALYTICS_PROGRAM)
 
