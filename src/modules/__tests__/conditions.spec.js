@@ -256,7 +256,6 @@ describe('conditions that do not include legend sets or option sets', () => {
     })
 })
 
-// TODO rename to isOperatorCaseSensitive
 describe('checkIsCaseSensitive', () => {
     const tests = [
         {
