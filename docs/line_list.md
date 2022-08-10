@@ -72,7 +72,7 @@ Each dimension can have criteria (filters). Data elements of the type option set
 Numeric values can be compared to filter values using greater than, equal or less than operators. (Optional) For each data element, specify a filter with operators such as "greater than", "in" or "equal" together with a filter value.
 
 > **Note**
-> 
+>
 > The enhancement in this feature is that you can add multiple conditions and there are also different operators which can be used. You can also filter by empty or not empty.
 
 ![](resources/images/image13.png){ width=50% }
@@ -102,7 +102,7 @@ The organisation unit dialog is flexible, offering essentially three ways of sel
 
     > **NOTE**
     >
-    > Please note that as soon as at least one level or group has been selected the org unit tree now acts as the boundary for the levels/groups. Example: if you select CH Mahosot (level 3) and Vientiane Capital org unit (at level 2) in the tree you get all units inside that district._
+    > Please note that as soon as at least one level or group has been selected the org unit tree now acts as the boundary for the levels/groups. Example: if you select CH Mahosot (level 3) and Vientiane Capital org unit (at level 2) in the tree you get all units inside that district.\_
 
 -   The user's organisation units:
     -   User organisation unit: This is a way to dynamically select the org units that the logged in user is associated with.
@@ -157,7 +157,7 @@ You can filter the specific column by directly clicking the data elements or att
 > **Example**
 >
 > In the below screenshot, we have selected AEFI – Headache.
-> 
+>
 > ![](resources/images/image22.png)
 >
 > Once we click on AEFI – Headache we will get a dialog box where we need to select the option we want to filter out. In this we have selected “Yes” only.
