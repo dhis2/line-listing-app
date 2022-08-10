@@ -15,7 +15,15 @@ export const expectTableToBeVisible = () =>
 export const expectTableToMatchRows = (expectedRows) => {
     getTableRows().should('have.length', expectedRows.length)
 
-    expectedRows.forEach((val) => {
-        getTableDataCells().contains(val)
+    expectedRows.forEach((value) => {
+        expectTableToContainValue(value)
     })
+}
+
+export const expectTableToContainValue = (value) => {
+    getTableDataCells().contains(value)
+}
+
+export const expectTableToNotContainValue = (value) => {
+    getTableDataCells().contains(value).should('not.exist')
 }
