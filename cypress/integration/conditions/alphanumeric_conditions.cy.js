@@ -23,6 +23,7 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -244,6 +245,23 @@ describe('alphanumeric types', () => {
                     operator
                 )
             })
+            cy.getBySel('alphanumeric-condition-type')
+                .closest('[data-test=dhis2-uicore-layer]')
+                .click('topLeft')
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

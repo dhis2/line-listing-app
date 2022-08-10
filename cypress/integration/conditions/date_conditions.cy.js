@@ -25,6 +25,7 @@ import {
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -300,6 +301,23 @@ describe('date types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('date-condition-type').containsExact(operator)
             })
+            cy.getBySel('date-condition-type')
+                .closest('[data-test=dhis2-uicore-layer]')
+                .click('topLeft')
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

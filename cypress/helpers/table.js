@@ -20,6 +20,10 @@ export const expectTableToMatchRows = (expectedRows) => {
     })
 }
 
+export const expectTableToContainHeader = (header) => {
+    getTableHeaderCells().contains(header)
+}
+
 export const expectTableToContainValue = (value) => {
     getTableDataCells().contains(value)
 }
