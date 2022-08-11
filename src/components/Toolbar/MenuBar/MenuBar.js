@@ -84,7 +84,7 @@ const MenuBar = ({
         history.push('/')
 
         showAlert({
-            message: i18n.t('"{{deletedObject}}" successfully deleted.', {
+            message: i18n.t('"{{- deletedObject}}" successfully deleted.', {
                 deletedObject: deletedVisualization,
             }),
             options: {

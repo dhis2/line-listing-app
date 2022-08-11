@@ -21,3 +21,9 @@ export const expectAxisToNotHaveDimension = (axisId, dimensionId) => {
         throw new Error('axisId and dimensionId not provided')
     }
 }
+
+export const assertTooltipContainsEntries = (entries) =>
+    entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
+
+export const assertChipContainsText = (suffix) =>
+    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')

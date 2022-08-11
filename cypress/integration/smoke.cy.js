@@ -13,7 +13,7 @@ describe('Smoke Test', () => {
     it('loads with visualization id', () => {
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
-        cy.getWithDataTest('{visualization-title}', EXTENDED_TIMEOUT)
+        cy.getBySel('visualization-title', EXTENDED_TIMEOUT)
             .should('be.visible')
             .and('contain', TEST_AO.name)
     })

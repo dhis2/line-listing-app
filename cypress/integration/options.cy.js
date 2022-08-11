@@ -25,11 +25,11 @@ describe('options', () => {
 
         // set to comfortable density
         clickMenubarOptionsButton()
-        cy.getWithDataTest('{display-density-select-content}')
-            .findWithDataTest('{dhis2-uicore-select-input}')
+        cy.getBySel('display-density-select-content')
+            .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comfortable').click()
-        cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
+        cy.getBySel('options-modal-actions').contains('Update').click()
 
         //assert new density of table cell
         getTableDataCells()
@@ -45,11 +45,11 @@ describe('options', () => {
 
         // set to small font size
         clickMenubarOptionsButton()
-        cy.getWithDataTest('{font-size-select-content}')
-            .findWithDataTest('{dhis2-uicore-select-input}')
+        cy.getBySel('font-size-select-content')
+            .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Small').click()
-        cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
+        cy.getBySel('options-modal-actions').contains('Update').click()
 
         //assert new font size
         getTableDataCells().invoke('css', 'font-size').should('equal', '10px')
@@ -76,21 +76,21 @@ describe('options', () => {
 
         // set dgs to comma
         clickMenubarOptionsButton()
-        cy.getWithDataTest('{dgs-select-content}')
-            .findWithDataTest('{dhis2-uicore-select-input}')
+        cy.getBySel('dgs-select-content')
+            .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comma').click()
-        cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
+        cy.getBySel('options-modal-actions').contains('Update').click()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', '2,000,000')
 
         // set dgs to none
         clickMenubarOptionsButton()
-        cy.getWithDataTest('{dgs-select-content}')
-            .findWithDataTest('{dhis2-uicore-select-input}')
+        cy.getBySel('dgs-select-content')
+            .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('None').click()
-        cy.getWithDataTest('{options-modal-actions}').contains('Update').click()
+        cy.getBySel('options-modal-actions').contains('Update').click()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', '2000000')
     })
