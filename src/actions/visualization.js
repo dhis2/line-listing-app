@@ -9,30 +9,39 @@ import {
 export const acSetVisualization = (value) => {
     const collectedMetadata = getDimensionMetadataFromVisualization(value) || {}
 
-    const metadata = [
+    const dimensions = [
         ...(value.columns || []),
         ...(value.rows || []),
         ...(value.filters || []),
     ]
-        .filter(
-            (dim) => dim.valueType || dim.optionSet?.id || dim.dimensionType
-        )
-        .map((dim) => {
-            const id = formatDimensionId(dim.dimension, dim.programStage?.id)
 
-            return {
-                [id]: {
-                    valueType: dim.valueType,
-                    optionSet: dim.optionSet?.id,
-                    dimensionType: getUiDimensionType({
-                        dimensionId: id,
-                        dimensionType: dim.dimensionType,
-                    }),
-                    name: collectedMetadata[dim.dimension]?.name,
-                    id,
-                },
-            }
+    const metadata = Object.keys(collectedMetadata).reduce((md, id) => {
+        const dimension = dimensions.find((d) => d.dimension === id)
+
+        if (!dimension) {
+            return md
+        }
+
+        const prefixedId = formatDimensionId(
+            dimension.dimension,
+            dimension.programStage?.id
+        )
+
+        md.push({
+            [prefixedId]: {
+                id: prefixedId,
+                name: collectedMetadata[id]?.name,
+                valueType: dimension.valueType,
+                optionSet: dimension.optionSet?.id,
+                dimensionType: getUiDimensionType({
+                    dimensionId: prefixedId,
+                    dimensionType: dimension.dimensionType,
+                }),
+            },
         })
+
+        return md
+    }, [])
 
     return {
         type: SET_VISUALIZATION,
