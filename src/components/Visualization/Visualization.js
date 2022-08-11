@@ -268,6 +268,7 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     >
                                         {formatCellHeader(header)}
                                     </DataTableColumnHeader>
@@ -281,15 +282,16 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     />
                                 )
                             )}
                         </DataTableRow>
                     </DataTableHead>
                     {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                    <DataTableBody>
+                    <DataTableBody dataTest={'table-body'}>
                         {data.rows.map((row, index) => (
-                            <DataTableRow key={index}>
+                            <DataTableRow key={index} dataTest={'table-row'}>
                                 {row.map((value, index) => (
                                     <DataTableCell
                                         key={index}
@@ -306,6 +308,7 @@ export const Visualization = ({
                                                 value
                                             )
                                         }
+                                        dataTest={'table-cell'}
                                     >
                                         <div
                                             style={

@@ -56,6 +56,7 @@ export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
 
 // special
 export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
+export const TEST_DIM_LEGEND_SET = 'Analytics - Number (legend set)'
 // TODO: Add tests for the commented out type below
 // OPTION SET
 
