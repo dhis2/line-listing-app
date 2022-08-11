@@ -1,4 +1,5 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
+import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
 import { formatDimensionId } from '../modules/utils.js'
 import { getDimensionMetadataFromVisualization } from '../modules/visualization.js'
 import {
@@ -7,8 +8,12 @@ import {
 } from '../reducers/visualization.js'
 
 export const acSetVisualization = (value) => {
+    const { program, programStage } = value
+    const timeDimensions = getDynamicTimeDimensionsMetadata(
+        program,
+        programStage
+    )
     const collectedMetadata = getDimensionMetadataFromVisualization(value) || {}
-
     const dimensions = [
         ...(value.columns || []),
         ...(value.rows || []),
@@ -42,6 +47,27 @@ export const acSetVisualization = (value) => {
 
         return md
     }, [])
+
+    // program
+    if (program) {
+        metadata.push({
+            [program.id]: program,
+        })
+    }
+
+    // program stage
+    if (programStage) {
+        metadata.push({
+            [programStage.id]: programStage,
+        })
+    }
+
+    // time dimensions
+    Object.keys(timeDimensions).forEach((timeDimensionId) => {
+        metadata.push({
+            [timeDimensionId]: timeDimensions[timeDimensionId],
+        })
+    })
 
     return {
         type: SET_VISUALIZATION,
