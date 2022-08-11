@@ -4,4 +4,6 @@ const getInterpretationForm = () =>
     cy.getBySel('interpretation-form', EXTENDED_TIMEOUT)
 
 export const expectInterpretationFormToBeVisible = () =>
-    getInterpretationForm().find('input').should('be.visible')
+    getInterpretationForm()
+        .find('input[placeholder="Write an interpretation"]')
+        .should('be.visible')
