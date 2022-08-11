@@ -35,7 +35,6 @@ import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../modules/userSettings.js'
 import {
     getDimensionMetadataFields,
-    getDimensionMetadataFromVisualization,
     transformVisualization,
 } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -284,7 +283,6 @@ const App = () => {
             )
             const metadata = {
                 [program.id]: program,
-                ...getDimensionMetadataFromVisualization(visualization),
                 ...getDynamicTimeDimensionsMetadata(program, programStage),
             }
 
