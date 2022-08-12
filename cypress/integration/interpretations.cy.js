@@ -1,6 +1,9 @@
 import { TEST_AOS } from '../data/index.js'
 import { clearTextarea, typeTextarea } from '../helpers/common.js'
-import { expectInterpretationFormToBeVisible } from '../helpers/interpretations.js'
+import {
+    expectInterpretationFormToBeVisible,
+    expectInterpretationThreadToBeVisible,
+} from '../helpers/interpretations.js'
 import { clickMenubarInterpretationsButton } from '../helpers/menubar.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -9,8 +12,10 @@ const TEST_AO_ID = TEST_AOS[0].id
 const TEST_CANCEL_LABEL = 'Cancel'
 const TEST_POST_INTERPRETATION_LABEL = 'Post interpretation'
 const TEST_WRITE_INTERPRETATION_LABEL = 'Write an interpretation'
+const TEST_WRITE_REPLY_LABEL = 'Write a reply'
 const TEST_INTERPRETATION_TEXT = 'Test interpretation'
 const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
+const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
 describe('interpretations', () => {
     it('opens the interpretations panel when clicking the button in the toolbar', () => {
@@ -30,8 +35,9 @@ describe('interpretations', () => {
     })
 
     it('the rich text editor shows when clicking the input', () => {
-        // TODO click on the input not the div as a click on the avatar does not trigger the same
-        cy.getBySel('interpretation-form').click()
+        cy.getBySel('interpretation-form')
+            .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
+            .click()
 
         cy.getBySel('interpretation-form').should(
             'contain',
@@ -55,7 +61,7 @@ describe('interpretations', () => {
 
     it("it's possible to write a new interpretation text", () => {
         cy.getBySel('interpretation-form')
-            .get(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
+            .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
         typeTextarea('interpretation-form', TEST_INTERPRETATION_TEXT)
@@ -65,8 +71,6 @@ describe('interpretations', () => {
         cy.getBySel('interpretation-form')
             .contains(TEST_POST_INTERPRETATION_LABEL)
             .click()
-
-        expectInterpretationFormToBeVisible()
 
         cy.getBySel('interpretations-list').should(
             'contain',
@@ -94,6 +98,61 @@ describe('interpretations', () => {
         cy.getBySel('interpretations-list').should(
             'contain',
             TEST_INTERPRETATION_TEXT_EDITED
+        )
+    })
+
+    it('the new interpretation can be viewed in the modal', () => {
+        cy.getBySel('interpretations-list')
+            .contains('See interpretation')
+            .click()
+        cy.getBySel('interpretation-modal').should(
+            'contain',
+            'Viewing interpretation:'
+        )
+        cy.getBySel('interpretation-modal').should(
+            'contain',
+            TEST_INTERPRETATION_TEXT_EDITED
+        )
+    })
+
+    it("it's possible to add a comment to the new interpretation", () => {
+        expectInterpretationThreadToBeVisible()
+
+        cy.getBySel('interpretation-modal')
+            .find(`input[placeholder="${TEST_WRITE_REPLY_LABEL}"]`)
+            .click()
+
+        typeTextarea('interpretation-modal', TEST_INTERPRETATION_COMMENT_TEXT)
+    })
+
+    it('the comment can be saved and shows up in the intepretation thread', () => {
+        cy.getBySel('interpretation-modal').contains('Post reply').click()
+
+        cy.getBySel('interpretation-modal').should(
+            'contain',
+            TEST_INTERPRETATION_COMMENT_TEXT
+        )
+    })
+
+    it('the page size can be changed', () => {
+        // change page size for testing that the sorting does not apply to the main view
+        cy.getBySel('interpretation-modal').contains('Rows per page').click()
+        cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
+            .contains('5')
+            .click()
+        cy.getBySel('interpretation-modal')
+            .find('[data-test="dhis2-uiwidgets-pagination-pagesize-select"]')
+            .should('contain', '5')
+    })
+
+    it('the interpretation modal can be closed', () => {
+        cy.contains('Hide interpretation').click()
+    })
+
+    it('the Rows per page change in the modal does not affect the main view', () => {
+        cy.getBySel('dhis2-uiwidgets-pagination-pagesize-select').should(
+            'contain',
+            '100'
         )
     })
 
