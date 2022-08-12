@@ -93,7 +93,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
+    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used https://jira.dhis2.org/browse/DHIS2-13563
     it.skip('is not', () => {
         const TEST_TEXT = 'Text A'
 
@@ -147,7 +147,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used
+    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used https://jira.dhis2.org/browse/DHIS2-13563
     it.skip('does not contain', () => {
         const TEST_TEXT = 'T'
 
@@ -182,7 +182,8 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    it('is not empty / not null', () => {
+    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used. Ticket TBD
+    it.skip('is not empty / not null', () => {
         addConditions([
             {
                 conditionName: 'is not empty / not null',
