@@ -139,7 +139,13 @@ describe('number conditions', () => {
     it('not equal to', () => {
         addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
+        expectTableToMatchRows([
+            '11',
+            '2 000 000',
+            '5 557 779 990',
+            '3.7',
+            '2022-01-01', // the empty row
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
