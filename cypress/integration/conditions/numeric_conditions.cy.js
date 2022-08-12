@@ -317,9 +317,7 @@ describe('numeric types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('numeric-condition-type').containsExact(operator)
             })
-            cy.getBySel('numeric-condition-type')
-                .closest('[data-test=dhis2-uicore-layer]')
-                .click('topLeft')
+            cy.getBySel('numeric-condition-type').closePopper()
             cy.contains('Add to Columns').click()
         })
 
