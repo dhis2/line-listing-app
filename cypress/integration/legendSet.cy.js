@@ -10,13 +10,20 @@ import {
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import {
+    clickOptionsModalUpdateButton,
     clickOptionsTab,
     expectLegendDisplayStrategyToBeByDataItem,
     expectLegendDisplayStyleToBeFill,
     expectLegendDisplayStyleToBeText,
+    expectLegendKeyOptionToBeEnabled,
 } from '../helpers/options.js'
 import { selectRelativePeriod } from '../helpers/period.js'
-import { expectTableToBeVisible } from '../helpers/table.js'
+import {
+    expectLegedKeyToMatchLegendSets,
+    expectLegendKeyToBeHidden,
+    expectLegendKeyToBeVisible,
+    expectTableToBeVisible,
+} from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const event = ANALYTICS_PROGRAM
@@ -84,7 +91,7 @@ describe('Options - Legend', () => {
 
         expectLegendDisplayStyleToBeFill()
 
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         expectTableToBeVisible()
 
@@ -118,7 +125,7 @@ describe('Options - Legend', () => {
 
         expectLegendDisplayStyleToBeText()
 
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         expectTableToBeVisible()
 
@@ -136,22 +143,36 @@ describe('Options - Legend', () => {
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
     })
 
-    // it('legend key is hidden', () => {
-    //     expectLegendKeyToBeHidden()
-    // })
-    // it('verifies that options are persisted', () => {
-    //     clickMenuBarOptionsButton()
-    //     clickOptionsTab(OPTIONS_TAB_LEGEND)
-    //     expectLegendDisplayStrategyToBeByDataItem()
-    // })
-    // it('enables legend key option', () => {
-    //     toggleLegendKeyOption()
-    //     expectLegendKeyOptionToBeEnabled()
-    //     clickOptionsModalUpdateButton()
-    //     expectVisualizationToBeVisible(VIS_TYPE_PIVOT_TABLE)
-    // })
-    // it('legend key is shown with 1 item', () => {
-    //     expectLegendKeyToBeVisible()
-    //     expectLegedKeyItemAmountToBe(1)
-    // })
+    it('legend key is hidden by default', () => {
+        expectLegendKeyToBeHidden()
+    })
+    it('legend key displays correctly when enabled', () => {
+        clickMenubarOptionsButton()
+
+        clickOptionsTab('Legend')
+
+        expectLegendDisplayStrategyToBeByDataItem()
+
+        cy.getBySel('options-modal-content').contains('Show legend key').click()
+
+        expectLegendKeyOptionToBeEnabled()
+
+        clickOptionsModalUpdateButton()
+
+        expectTableToBeVisible()
+
+        expectLegendKeyToBeVisible()
+
+        expectLegedKeyToMatchLegendSets(['Age (COVID-19)'])
+    })
+
+    // TODO:
+    // Use the tests in DV as a foundation
+    // Open AO and check that no legend or legend key is applied
+    // Add a legend with "per data item" strategy
+    // Change strategy to "single legend", pick one from the list
+    // Test both options for the legend style
+    // Test the legend key, that it shows up for a single or multiple items and always displays the name
+    // Being able to save and reload the AO with all options persisting
+    // Being able to apply legends to negative values (but not empty strings)
 })

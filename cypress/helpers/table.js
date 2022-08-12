@@ -19,3 +19,21 @@ export const expectTableToMatchRows = (expectedRows) => {
         getTableDataCells().contains(val)
     })
 }
+
+export const expectLegendKeyToBeHidden = () =>
+    cy.getBySel('visualization-legend-key').should('not.exist')
+
+export const expectLegendKeyToBeVisible = () =>
+    cy.getBySel('visualization-legend-key').should('be.visible')
+
+export const expectLegedKeyToMatchLegendSets = (legendSets) => {
+    cy.getBySel('legend-key-container')
+        .findBySelLike('legend-key-item')
+        .should('have.length', legendSets.length)
+    legendSets.forEach((legendSet) =>
+        cy
+            .getBySel('legend-key-container')
+            .findBySelLike('legend-key-item')
+            .contains(legendSet)
+    )
+}

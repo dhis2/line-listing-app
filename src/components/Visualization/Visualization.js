@@ -229,7 +229,10 @@ export const Visualization = ({
     }
 
     const getLegendKey = () => (
-        <div className={styles.legendKeyScrollbox}>
+        <div
+            className={styles.legendKeyScrollbox}
+            data-test="visualization-legend-key"
+        >
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
     )

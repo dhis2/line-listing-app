@@ -29,3 +29,12 @@ export const expectLegendDisplayStyleToBeFill = () =>
         .getBySel(legendDisplayStyleOptionFillEl)
         .find('[type="radio"]')
         .should('be.checked')
+
+export const expectLegendKeyOptionToBeEnabled = () =>
+    cy
+        .getBySel('option-legend-key')
+        .find('[type="checkbox"]')
+        .should('be.checked')
+
+export const clickOptionsModalUpdateButton = () =>
+    cy.getBySel('options-modal-actions').contains('Update').click()
