@@ -182,7 +182,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used. Ticket TBD
+    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
     it.skip('is not empty / not null', () => {
         addConditions([
             {
