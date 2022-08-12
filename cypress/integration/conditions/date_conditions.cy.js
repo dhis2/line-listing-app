@@ -302,9 +302,7 @@ describe('date types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('date-condition-type').containsExact(operator)
             })
-            cy.getBySel('date-condition-type')
-                .closest('[data-test=dhis2-uicore-layer]')
-                .click('topLeft')
+            cy.getBySel('date-condition-type').closePopper()
             cy.contains('Add to Columns').click()
         })
 

@@ -217,10 +217,7 @@ describe('preset options', () => {
 
         if (value) {
             cy.contains('Choose options').click()
-            cy.contains(value)
-                .click()
-                .closest('[data-test=dhis2-uicore-layer]')
-                .click('topLeft')
+            cy.contains(value).click().closePopper()
         }
 
         cy.getBySel('button-add-condition')

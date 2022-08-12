@@ -246,9 +246,7 @@ describe('alphanumeric types', () => {
                     operator
                 )
             })
-            cy.getBySel('alphanumeric-condition-type')
-                .closest('[data-test=dhis2-uicore-layer]')
-                .click('topLeft')
+            cy.getBySel('alphanumeric-condition-type').closePopper()
             cy.contains('Add to Columns').click()
         })
 
