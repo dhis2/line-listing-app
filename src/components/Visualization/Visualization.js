@@ -105,7 +105,8 @@ export const Visualization = ({
                 .map((header) => header.legendSet)
             const relevantLegendSets = allLegendSets.filter(
                 (e, index) =>
-                    allLegendSets.findIndex((a) => a.id === e.id) === index
+                    allLegendSets.findIndex((a) => a.id === e.id) === index &&
+                    e.legends?.length
             )
             if (relevantLegendSets.length && visualization.legend?.showKey) {
                 setUniqueLegendSets(relevantLegendSets)
