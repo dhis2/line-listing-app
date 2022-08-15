@@ -23,6 +23,7 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -92,7 +93,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
+    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used https://jira.dhis2.org/browse/DHIS2-13563
     it.skip('is not', () => {
         const TEST_TEXT = 'Text A'
 
@@ -146,7 +147,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used
+    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used https://jira.dhis2.org/browse/DHIS2-13563
     it.skip('does not contain', () => {
         const TEST_TEXT = 'T'
 
@@ -181,7 +182,8 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    it('is not empty / not null', () => {
+    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
+    it.skip('is not empty / not null', () => {
         addConditions([
             {
                 conditionName: 'is not empty / not null',
@@ -244,6 +246,21 @@ describe('alphanumeric types', () => {
                     operator
                 )
             })
+            cy.getBySel('alphanumeric-condition-type').closePopper()
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })
