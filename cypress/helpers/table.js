@@ -1,5 +1,12 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+export const expectAOTitleToBeValue = (value) =>
+    cy
+        .getBySel('visualization-title')
+        .should('have.length', 1)
+        .and('be.visible')
+        .and('contain', value)
+
 const getLineListTable = () => cy.getBySel('line-list-table', EXTENDED_TIMEOUT)
 
 export const getTableHeaderCells = () => getLineListTable().find('th')

@@ -4,6 +4,7 @@ import {
     TEST_DIM_LEGEND_SET,
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
+import { typeInput } from '../helpers/common.js'
 import { openDimension, selectEventProgram } from '../helpers/dimensions.js'
 import {
     clickMenubarOptionsButton,
@@ -13,12 +14,15 @@ import {
     clickOptionsModalUpdateButton,
     clickOptionsTab,
     expectLegendDisplayStrategyToBeByDataItem,
+    expectLegendDisplayStrategyToBeFixed,
     expectLegendDisplayStyleToBeFill,
     expectLegendDisplayStyleToBeText,
     expectLegendKeyOptionToBeEnabled,
 } from '../helpers/options.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { expectRouteToBeEmpty } from '../helpers/route.js'
 import {
+    expectAOTitleToBeValue,
     expectLegedKeyToMatchLegendSets,
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
@@ -38,6 +42,8 @@ describe('Options - Legend', () => {
         { value: 60, color: 'rgb(66, 146, 198)' },
         { value: 35, color: 'rgb(158, 202, 225)' },
     ]
+
+    const TEST_LEGEND_SET = { name: 'Alert', color: 'rgb(237, 227, 99)' }
 
     const assertCellsHaveDefaultColors = (selector) =>
         cy
@@ -76,7 +82,7 @@ describe('Options - Legend', () => {
         // all cells have default background and text color
         assertCellsHaveDefaultColors('tr td')
     })
-    it('background color legend is applied', () => {
+    it('background color legend is applied (per data item)', () => {
         clickMenubarOptionsButton()
 
         clickOptionsTab('Legend')
@@ -108,7 +114,7 @@ describe('Options - Legend', () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
     })
-    it('text color legend is applied', () => {
+    it('text color legend is applied (per data item)', () => {
         clickMenubarOptionsButton()
 
         clickOptionsTab('Legend')
@@ -165,14 +171,144 @@ describe('Options - Legend', () => {
 
         expectLegedKeyToMatchLegendSets(['Age (COVID-19)'])
     })
+    it('text color legend is applied (single legend)', () => {
+        clickMenubarOptionsButton()
+
+        clickOptionsTab('Legend')
+
+        cy.getBySel('options-modal-content').should('contain', 'Legend style')
+
+        expectLegendDisplayStrategyToBeByDataItem()
+
+        expectLegendDisplayStyleToBeText()
+
+        cy.getBySel('options-modal-content')
+            .contains('Choose a single legend for the entire visualization')
+            .click()
+
+        cy.getBySel('options-modal-content')
+            .contains('Select from legends')
+            .click()
+
+        cy.getBySel('fixed-legend-set-option')
+            .contains(TEST_LEGEND_SET.name)
+            .click()
+
+        cy.getBySel('options-modal-content')
+            .contains('Legend changes text color')
+            .click()
+
+        expectLegendDisplayStrategyToBeFixed()
+
+        expectLegendDisplayStyleToBeText()
+
+        clickOptionsModalUpdateButton()
+
+        expectTableToBeVisible()
+
+        // affected cells have fixed text color and default background color
+        TEST_CELLS.forEach((cell) =>
+            cy
+                .getBySel('table-body')
+                .contains(cell.value)
+                .should('have.css', 'color', TEST_LEGEND_SET.color)
+                .closest('td')
+                .should('have.css', 'background-color', defaultBackgroundColor)
+        )
+
+        // unaffected cells (date column) have default background and text color
+        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+    })
+    it('background color legend is applied (single legend)', () => {
+        clickMenubarOptionsButton()
+
+        clickOptionsTab('Legend')
+
+        cy.getBySel('options-modal-content').should('contain', 'Legend style')
+
+        expectLegendDisplayStrategyToBeFixed()
+
+        expectLegendDisplayStyleToBeText()
+
+        cy.getBySel('options-modal-content')
+            .contains('Legend changes background color')
+            .click()
+
+        expectLegendDisplayStyleToBeFill()
+
+        clickOptionsModalUpdateButton()
+
+        expectTableToBeVisible()
+
+        // affected cells have default text color and fixed background color
+        TEST_CELLS.forEach((cell) =>
+            cy
+                .getBySel('table-body')
+                .contains(cell.value)
+                .should('have.css', 'color', defaultTextColor)
+                .closest('td')
+                .should('have.css', 'background-color', TEST_LEGEND_SET.color)
+        )
+
+        // unaffected cells (date column) have default background and text color
+        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+    })
+
+    it('options can be saved and loaded', () => {
+        cy.getBySel('menubar').contains('File').click()
+
+        cy.getBySel('file-menu-container').contains('Save').click()
+
+        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+        typeInput('file-menu-saveas-modal-name', AO_NAME)
+
+        cy.getBySel('file-menu-saveas-modal-save').click()
+
+        expectAOTitleToBeValue(AO_NAME)
+
+        expectTableToBeVisible()
+
+        // affected cells have default text color and fixed background color
+        TEST_CELLS.forEach((cell) =>
+            cy
+                .getBySel('table-body')
+                .contains(cell.value)
+                .should('have.css', 'color', defaultTextColor)
+                .closest('td')
+                .should('have.css', 'background-color', TEST_LEGEND_SET.color)
+        )
+
+        // unaffected cells (date column) have default background and text color
+        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+
+        clickMenubarOptionsButton()
+
+        clickOptionsTab('Legend')
+
+        expectLegendDisplayStrategyToBeFixed()
+
+        expectLegendDisplayStyleToBeFill()
+
+        cy.getBySel('fixed-legend-set-select-content').contains(
+            TEST_LEGEND_SET.name
+        )
+
+        cy.getBySel('options-modal-content').closePopper()
+
+        cy.getBySel('menubar').contains('File').click()
+
+        cy.getBySel('file-menu-container').contains('Delete').click()
+
+        cy.getBySel('file-menu-delete-modal')
+            .find('button')
+            .contains('Delete')
+            .click()
+
+        expectRouteToBeEmpty()
+    })
 
     // TODO:
-    // Use the tests in DV as a foundation
-    // Open AO and check that no legend or legend key is applied
-    // Add a legend with "per data item" strategy
-    // Change strategy to "single legend", pick one from the list
-    // Test both options for the legend style
-    // Test the legend key, that it shows up for a single or multiple items and always displays the name
-    // Being able to save and reload the AO with all options persisting
+    //Test that multiple legend sets show up properly in the legend key - requires better test data in the db!
+
     // Being able to apply legends to negative values (but not empty strings)
 })
