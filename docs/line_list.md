@@ -183,3 +183,20 @@ Then, you can define the most recent events and the oldest events you want in th
 Once you click on update you will be able to visualize the events of this repeatable program stage as shown below.
 
 ![](resources/images/image4.png)
+
+### Applying legend colors
+
+You can apply colors to a visualization by using the legend feature, which can be found under `Options` -> `Legend`
+
+![](resources/images/legend-options.png)
+
+| Option                      | Description                                                                                                                                                                                                                                                                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Use legend for chart colors | Applies a legend to the visualization items, which is a value-based color for each item. The legends themselves are configured in the `Maintenance app`.                                                                                                                                                                                                         |
+| Legend type                 | Controls which legend is applied.<br>`Use pre-defined legend per data item` applies a legend to each data element or indicator individually, based on the legend assigned to each one in the `Maintenance app`.<br>`Select a single legend for entire visualization` applies a single legend to all data items, chosen in a drop-down list of available legends. |
+| Legend style                | Controls where the color from the legend is applied, either to the text or the background. You can use this option for scorecards to identify high and low values at a glance.                                                                                                                                                                                   |
+| Show legend key             | Displays a key for the legend on the right side of the visualization, to indicate the value ranges and their respective color.                                                                                                                                                                                                                                   |
+
+Below is an example of a line list with legend colors applied to the background, per data item.
+
+![](resources/images/legend-example.png)
