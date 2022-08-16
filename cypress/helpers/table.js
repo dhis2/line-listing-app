@@ -1,6 +1,6 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-export const expectAOTitleToBeValue = (value) =>
+export const expectAOTitleToContain = (value) =>
     cy
         .getBySel('visualization-title')
         .should('have.length', 1)

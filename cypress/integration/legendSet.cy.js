@@ -22,7 +22,7 @@ import {
 import { selectRelativePeriod } from '../helpers/period.js'
 import { expectRouteToBeEmpty } from '../helpers/route.js'
 import {
-    expectAOTitleToBeValue,
+    expectAOTitleToContain,
     expectLegedKeyToMatchLegendSets,
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
@@ -264,7 +264,7 @@ describe('Options - Legend', () => {
 
         cy.getBySel('file-menu-saveas-modal-save').click()
 
-        expectAOTitleToBeValue(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
 
         expectTableToBeVisible()
 
