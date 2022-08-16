@@ -1,6 +1,7 @@
 import { TEST_AOS } from '../data/index.js'
 import { clearTextarea, typeTextarea } from '../helpers/common.js'
 import {
+    expectInterpretationsButtonToBeEnabled,
     expectInterpretationFormToBeVisible,
     expectInterpretationThreadToBeVisible,
 } from '../helpers/interpretations.js'
@@ -18,23 +19,30 @@ const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
 const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
 describe('interpretations', () => {
-    it('opens the interpretations panel when clicking the button in the toolbar', () => {
+    it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
         cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
+
+        expectInterpretationsButtonToBeEnabled()
 
         clickMenubarInterpretationsButton()
 
         cy.getBySel('details-panel').should('be.visible')
-    })
 
-    it('Interpretations section is visible', () => {
+        clickMenubarInterpretationsButton()
+
+        cy.getBySel('details-panel').should('not.exist')
+
+        clickMenubarInterpretationsButton()
+
+        // Interpretations section is visible
         cy.getBySel('details-panel').should('contain', 'Interpretations')
-    })
 
-    it('default form for adding interpretation is visible', () => {
+        // default form for adding interpretation is visible
         expectInterpretationFormToBeVisible()
     })
 
-    it('the rich text editor shows when clicking the input', () => {
+    it('a new interpretation can be added', () => {
+        // the rich text editor shows when clicking the input
         cy.getBySel('interpretation-form')
             .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
             .click()
@@ -44,9 +52,8 @@ describe('interpretations', () => {
             TEST_POST_INTERPRETATION_LABEL
         )
         cy.getBySel('interpretation-form').should('contain', TEST_CANCEL_LABEL)
-    })
 
-    it('the rich text editor is removed when clicking Cancel', () => {
+        // the rich text editor is removed when clicking Cancel
         cy.getBySel('interpretation-form').contains(TEST_CANCEL_LABEL).click()
 
         cy.getBySel('interpretation-form').should(
@@ -57,17 +64,15 @@ describe('interpretations', () => {
             'not.contain',
             TEST_CANCEL_LABEL
         )
-    })
 
-    it("it's possible to write a new interpretation text", () => {
+        // it's possible to write a new interpretation text
         cy.getBySel('interpretation-form')
             .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
         typeTextarea('interpretation-form', TEST_INTERPRETATION_TEXT)
-    })
 
-    it('the new interpretation can be saved and shows up in the list', () => {
+        // the new interpretation can be saved and shows up in the list
         cy.getBySel('interpretation-form')
             .contains(TEST_POST_INTERPRETATION_LABEL)
             .click()
@@ -101,7 +106,7 @@ describe('interpretations', () => {
         )
     })
 
-    it('the new interpretation can be viewed in the modal', () => {
+    it('the new interpretation can be viewed in the modal and interacted with', () => {
         cy.getBySel('interpretations-list')
             .contains('See interpretation')
             .click()
@@ -113,9 +118,8 @@ describe('interpretations', () => {
             'contain',
             TEST_INTERPRETATION_TEXT_EDITED
         )
-    })
 
-    it("it's possible to add a comment to the new interpretation", () => {
+        // it's possible to add a comment to the new interpretation
         expectInterpretationThreadToBeVisible()
 
         cy.getBySel('interpretation-modal')
@@ -123,19 +127,17 @@ describe('interpretations', () => {
             .click()
 
         typeTextarea('interpretation-modal', TEST_INTERPRETATION_COMMENT_TEXT)
-    })
 
-    it('the comment can be saved and shows up in the intepretation thread', () => {
+        // the comment can be saved and shows up in the interpretation thread
         cy.getBySel('interpretation-modal').contains('Post reply').click()
 
         cy.getBySel('interpretation-modal').should(
             'contain',
             TEST_INTERPRETATION_COMMENT_TEXT
         )
-    })
 
-    it('the page size can be changed', () => {
-        // change page size for testing that the sorting does not apply to the main view
+        // the page size can be changed
+        // (change page size for testing that the sorting does not apply to the main view)
         cy.getBySel('interpretation-modal').contains('Rows per page').click()
         cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
             .contains('5')
@@ -143,13 +145,11 @@ describe('interpretations', () => {
         cy.getBySel('interpretation-modal')
             .find('[data-test="dhis2-uiwidgets-pagination-pagesize-select"]')
             .should('contain', '5')
-    })
 
-    it('the interpretation modal can be closed', () => {
+        // the interpretation modal can be closed
         cy.contains('Hide interpretation').click()
-    })
 
-    it('the Rows per page change in the modal does not affect the main view', () => {
+        // the Rows per page change in the modal does not affect the main view
         cy.getBySel('dhis2-uiwidgets-pagination-pagesize-select').should(
             'contain',
             '100'
