@@ -424,11 +424,9 @@ const ConditionsManager = ({
                                         type="button"
                                         small
                                         onClick={addCondition}
-                                        dataTest={
-                                            'conditions-manager-add-condition'
-                                        }
                                         className={classes.addConditionButton}
                                         disabled={disableAddButton}
+                                        dataTest="button-add-condition"
                                     >
                                         {conditionsList.length
                                             ? i18n.t('Add another condition')
@@ -495,7 +493,7 @@ const ConditionsManager = ({
 
     return dimension ? (
         <DimensionModal
-            dataTest={'dialog-manager-modal'}
+            dataTest="conditions-modal"
             isInLayout={isInLayout}
             onClose={closeModal}
             title={

@@ -132,7 +132,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         case DIMENSION_TYPE_PERIOD:
         case DIMENSION_TYPE_ORGANISATION_UNIT:
             return (
-                <ul className={styles.list}>
+                <ul className={styles.list} data-test="tooltip-content">
                     {itemDisplayNames
                         ? renderItems(itemDisplayNames)
                         : renderNoItemsLabel()}
@@ -140,7 +140,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
             )
         case DIMENSION_TYPE_DATA_ELEMENT: {
             return (
-                <ul className={styles.list}>
+                <ul className={styles.list} data-test="tooltip-content">
                     {stageName && (
                         <li className={styles.item}>
                             {i18n.t('Program stage: {{stageName}}', {
@@ -157,7 +157,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         }
         default: {
             return (
-                <ul className={styles.list}>
+                <ul className={styles.list} data-test="tooltip-content">
                     {conditionsTexts.length
                         ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}

@@ -37,6 +37,9 @@
 .flexGrow1 {
     flex-grow: 1;
 }
+.minWidth0 {
+    min-width: 0;
+}
 
 .flexBasis0 {
     flex-basis: 0%;
@@ -72,7 +75,7 @@
 
 .mainCenterCanvas {
     display: flex;
-    justify-content: space-between;
+    gap: var(--spacers-dp4);
     height: 100%;
     overflow: hidden;
     position: relative;

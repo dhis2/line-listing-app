@@ -61,7 +61,7 @@ const BaseCondition = ({
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} data-test={'alphanumeric-condition'}>
             <SingleSelectField
                 selected={operator}
                 placeholder={i18n.t('Choose a condition type')}
@@ -70,7 +70,12 @@ const BaseCondition = ({
                 className={classes.operatorSelect}
             >
                 {Object.entries(ALPHA_NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
+                    <SingleSelectOption
+                        key={key}
+                        value={key}
+                        label={value}
+                        dataTest={'alphanumeric-condition-type'}
+                    />
                 ))}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
@@ -90,6 +95,7 @@ const BaseCondition = ({
                         onChange={({ checked }) => toggleCaseSensitive(checked)}
                         dense
                         className={classes.caseSensitiveCheckbox}
+                        dataTest={'condition-case-sensitive-checkbox'}
                     />
                 )}
             <Button

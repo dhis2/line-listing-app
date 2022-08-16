@@ -22,6 +22,7 @@ const DisplayDensity = () => (
                 { value: DISPLAY_DENSITY_COMPACT, label: i18n.t('Compact') },
             ],
         }}
+        dataTest="display-density"
     />
 )
 

@@ -24,7 +24,6 @@ import cx from 'classnames'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -37,11 +36,9 @@ import {
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
-import { headersMap } from '../../modules/visualization.js'
-import { sGetMetadata } from '../../reducers/metadata.js'
+import { headersMap, statusNames } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
-import { useAvailableWidth } from './useAvailableWidth.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -70,17 +67,14 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
-const LEGEND_KEY_WIDTH = 196
-
 export const Visualization = ({
     filters,
     visualization,
+    isVisualizationLoading,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
 }) => {
-    // TODO remove need for metadata
-    const metadata = useSelector(sGetMetadata)
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
         {
@@ -90,13 +84,13 @@ export const Visualization = ({
             pageSize: PAGE_SIZE,
         }
     )
+
     const isInModal = !!filters?.relativePeriodDate
-    const { availableOuterWidth, availableInnerWidth } =
-        useAvailableWidth(isInModal)
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
         visualization,
+        isVisualizationLoading,
         onResponsesReceived,
         pageSize,
         page,
@@ -111,7 +105,8 @@ export const Visualization = ({
                 .map((header) => header.legendSet)
             const relevantLegendSets = allLegendSets.filter(
                 (e, index) =>
-                    allLegendSets.findIndex((a) => a.id === e.id) === index
+                    allLegendSets.findIndex((a) => a.id === e.id) === index &&
+                    e.legends?.length
             )
             if (relevantLegendSets.length && visualization.legend?.showKey) {
                 setUniqueLegendSets(relevantLegendSets)
@@ -166,8 +161,7 @@ export const Visualization = ({
                 headersMap[DIMENSION_ID_PROGRAM_STATUS],
             ].includes(header?.name)
         ) {
-            // TODO remove metadata use
-            return metadata[value]?.name || value
+            return statusNames[value] || value
         } else if (
             [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)
         ) {
@@ -196,13 +190,10 @@ export const Visualization = ({
 
     const formatCellHeader = (header) => {
         let headerName = header.column
-        let dimensionId = Number.isInteger(header?.stageOffset)
+
+        const dimensionId = Number.isInteger(header?.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
-
-        const reverseLookupDimensionId = Object.keys(headersMap).find(
-            (key) => headersMap[key] === header.name
-        )
 
         if (Number.isInteger(header.stageOffset)) {
             let postfix
@@ -222,9 +213,6 @@ export const Visualization = ({
             }
 
             headerName = `${header.column} (${postfix})`
-        } else if (reverseLookupDimensionId) {
-            dimensionId = reverseLookupDimensionId
-            headerName = metadata[dimensionId]?.name
         }
 
         return (
@@ -242,174 +230,164 @@ export const Visualization = ({
     }
 
     const getLegendKey = () => (
-        <div className={styles.legendKeyScrollbox}>
+        <div
+            className={styles.legendKeyScrollbox}
+            data-test="visualization-legend-key"
+        >
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
     )
 
-    const tableOuterWidth =
-        uniqueLegendSets.length && visualization.legend?.showKey
-            ? availableOuterWidth - LEGEND_KEY_WIDTH
-            : availableOuterWidth
-
-    const tableCellMaxWidth =
-        uniqueLegendSets.length && visualization.legend?.showKey
-            ? availableInnerWidth - LEGEND_KEY_WIDTH
-            : availableInnerWidth
-
     return (
-        <>
-            <div className={styles.dataTableContainer}>
-                <div
-                    className={cx(styles.fetchIndicator, {
-                        [styles.fetching]: fetching,
-                    })}
+        <div className={styles.pluginContainer}>
+            <div
+                className={cx(styles.fetchIndicator, {
+                    [styles.fetching]: fetching,
+                })}
+            >
+                <DataTable
+                    scrollHeight={isInModal ? 'calc(100vh - 285px)' : '100%'}
+                    scrollWidth={'100%'}
+                    width="auto"
+                    className={styles.dataTable}
+                    dataTest="line-list-table"
                 >
-                    <DataTable
-                        scrollHeight={
-                            isInModal ? 'calc(100vh - 285px)' : '100%'
-                        }
-                        width="auto"
-                        scrollWidth={`${tableOuterWidth}px`}
-                        className={styles.dataTable}
-                    >
-                        <DataTableHead>
-                            <DataTableRow>
-                                {data.headers.map((header, index) =>
-                                    header ? (
-                                        <DataTableColumnHeader
-                                            fixed
-                                            top="0"
-                                            key={header.name}
-                                            name={header.name}
-                                            onSortIconClick={sortData}
-                                            sortDirection={
-                                                header.name === sortField
-                                                    ? sortDirection
-                                                    : 'default'
-                                            }
-                                            className={cx(
-                                                styles.headerCell,
-                                                fontSizeClass,
-                                                sizeClass
-                                            )}
-                                        >
-                                            {formatCellHeader(header)}
-                                        </DataTableColumnHeader>
-                                    ) : (
-                                        <DataTableColumnHeader
-                                            fixed
-                                            top="0"
-                                            key={`undefined_${index}`} // FIXME this is due to pe not being present in headers, needs special handling
-                                            className={cx(
-                                                styles.headerCell,
-                                                fontSizeClass,
-                                                sizeClass
-                                            )}
-                                        />
-                                    )
-                                )}
-                            </DataTableRow>
-                        </DataTableHead>
-                        {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                        <DataTableBody>
-                            {data.rows.map((row, index) => (
-                                <DataTableRow key={index}>
-                                    {row.map((value, index) => (
-                                        <DataTableCell
-                                            key={index}
-                                            className={cx(
-                                                styles.cell,
-                                                fontSizeClass,
-                                                sizeClass
-                                            )}
-                                            backgroundColor={
-                                                visualization.legend?.style ===
-                                                    LEGEND_DISPLAY_STYLE_FILL &&
-                                                getColorByValueFromLegendSet(
-                                                    data.headers[index]
-                                                        .legendSet,
-                                                    value
-                                                )
-                                            }
-                                        >
-                                            <div
-                                                style={
-                                                    visualization.legend
-                                                        ?.style ===
-                                                    LEGEND_DISPLAY_STYLE_TEXT
-                                                        ? {
-                                                              color: getColorByValueFromLegendSet(
-                                                                  data.headers[
-                                                                      index
-                                                                  ].legendSet,
-                                                                  value
-                                                              ),
-                                                          }
-                                                        : {}
-                                                }
-                                            >
-                                                {formatCellValue(
-                                                    value,
-                                                    data.headers[index]
-                                                )}
-                                            </div>
-                                        </DataTableCell>
-                                    ))}
-                                </DataTableRow>
-                            ))}
-                        </DataTableBody>
-                        <DataTableFoot className={styles.stickyFooter}>
-                            <DataTableRow>
-                                <DataTableCell
-                                    colSpan={colSpan}
-                                    staticStyle
-                                    className={styles.footerCell}
-                                >
-                                    <div
+                    <DataTableHead>
+                        <DataTableRow>
+                            {data.headers.map((header, index) =>
+                                header ? (
+                                    <DataTableColumnHeader
+                                        fixed
+                                        top="0"
+                                        key={header.name}
+                                        name={header.name}
+                                        onSortIconClick={sortData}
+                                        sortDirection={
+                                            header.name === sortField
+                                                ? sortDirection
+                                                : 'default'
+                                        }
                                         className={cx(
-                                            styles.stickyNavigation,
+                                            styles.headerCell,
+                                            fontSizeClass,
                                             sizeClass
                                         )}
-                                        style={{
-                                            maxWidth: tableCellMaxWidth,
-                                        }}
+                                        dataTest={'table-header'}
                                     >
-                                        <Pagination
-                                            disabled={fetching}
-                                            page={data.page}
-                                            pageSize={data.pageSize}
-                                            isLastPage={data.isLastPage}
-                                            onPageChange={setPage}
-                                            onPageSizeChange={setPageSize}
-                                            pageSizeSelectText={i18n.t(
-                                                'Rows per page'
-                                            )}
-                                            pageLength={data.rows.length}
-                                            pageSummaryText={({
-                                                firstItem,
-                                                lastItem,
-                                                page,
-                                            }) =>
-                                                i18n.t(
-                                                    'Page {{page}}, row {{firstItem}}-{{lastItem}}',
-                                                    {
-                                                        firstItem,
-                                                        lastItem,
-                                                        page,
-                                                    }
-                                                )
+                                        {formatCellHeader(header)}
+                                    </DataTableColumnHeader>
+                                ) : (
+                                    <DataTableColumnHeader
+                                        fixed
+                                        top="0"
+                                        key={`undefined_${index}`} // FIXME this is due to pe not being present in headers, needs special handling
+                                        className={cx(
+                                            styles.headerCell,
+                                            fontSizeClass,
+                                            sizeClass
+                                        )}
+                                        dataTest={'table-header'}
+                                    />
+                                )
+                            )}
+                        </DataTableRow>
+                    </DataTableHead>
+                    {/* https://jira.dhis2.org/browse/LIBS-278 */}
+                    <DataTableBody dataTest={'table-body'}>
+                        {data.rows.map((row, index) => (
+                            <DataTableRow key={index} dataTest={'table-row'}>
+                                {row.map((value, index) => (
+                                    <DataTableCell
+                                        key={index}
+                                        className={cx(
+                                            styles.cell,
+                                            fontSizeClass,
+                                            sizeClass
+                                        )}
+                                        backgroundColor={
+                                            visualization.legend?.style ===
+                                            LEGEND_DISPLAY_STYLE_FILL
+                                                ? getColorByValueFromLegendSet(
+                                                      data.headers[index]
+                                                          .legendSet,
+                                                      value
+                                                  )
+                                                : undefined
+                                        }
+                                        dataTest={'table-cell'}
+                                    >
+                                        <div
+                                            style={
+                                                visualization.legend?.style ===
+                                                LEGEND_DISPLAY_STYLE_TEXT
+                                                    ? {
+                                                          color: getColorByValueFromLegendSet(
+                                                              data.headers[
+                                                                  index
+                                                              ].legendSet,
+                                                              value
+                                                          ),
+                                                      }
+                                                    : {}
                                             }
-                                        />
-                                    </div>
-                                </DataTableCell>
+                                        >
+                                            {formatCellValue(
+                                                value,
+                                                data.headers[index]
+                                            )}
+                                        </div>
+                                    </DataTableCell>
+                                ))}
                             </DataTableRow>
-                        </DataTableFoot>
-                    </DataTable>
-                </div>
+                        ))}
+                    </DataTableBody>
+                    <DataTableFoot className={styles.stickyFooter}>
+                        <DataTableRow>
+                            <DataTableCell
+                                colSpan={colSpan}
+                                staticStyle
+                                className={styles.footerCell}
+                            >
+                                <div
+                                    className={cx(
+                                        styles.stickyNavigation,
+                                        sizeClass
+                                    )}
+                                >
+                                    <Pagination
+                                        disabled={fetching}
+                                        page={data.pager.page}
+                                        pageSize={data.pager.pageSize}
+                                        isLastPage={data.pager.isLastPage}
+                                        onPageChange={setPage}
+                                        onPageSizeChange={setPageSize}
+                                        pageSizeSelectText={i18n.t(
+                                            'Rows per page'
+                                        )}
+                                        pageLength={data.rows.length}
+                                        pageSummaryText={({
+                                            firstItem,
+                                            lastItem,
+                                            page,
+                                        }) =>
+                                            i18n.t(
+                                                'Page {{page}}, row {{firstItem}}-{{lastItem}}',
+                                                {
+                                                    firstItem,
+                                                    lastItem,
+                                                    page,
+                                                }
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </DataTableCell>
+                        </DataTableRow>
+                    </DataTableFoot>
+                </DataTable>
             </div>
             {Boolean(uniqueLegendSets.length) && getLegendKey()}
-        </>
+        </div>
     )
 }
 
@@ -418,6 +396,7 @@ Visualization.defaultProps = {
 }
 
 Visualization.propTypes = {
+    isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
