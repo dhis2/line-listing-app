@@ -308,7 +308,6 @@ describe('Options - Legend', () => {
     })
 
     // TODO:
-    //Test that multiple legend sets show up properly in the legend key - requires better test data in the db!
-
-    // Being able to apply legends to negative values (but not empty strings)
+    // Test that multiple legend sets show up properly in the legend key - requires better test data in the db!
+    // Being able to apply legends to negative values (but not empty strings)  - requires better test data in the db!
 })
