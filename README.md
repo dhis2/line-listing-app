@@ -49,15 +49,13 @@ In order to run the cypress tests locally make sure you have configured your git
 
 ```
 {
-    "dhis2BaseUrl": "http://localhost:8081",
+    "dhis2BaseUrl": "https://test.e2e.dhis2.org/lytics-apps-dev/",
     "dhis2Username": ...,
     "dhis2Password": ...
 }
 ```
 
 Your desired username and password should be in double quotes.
-
-http://localhost:8081 is a proxy for https://debug.dhis2.org/dev (see package.json)
 
 #### `yarn cypress:live`
 

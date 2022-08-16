@@ -65,6 +65,7 @@ export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
 
 // special
 export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
+export const TEST_DIM_LEGEND_SET = 'Analytics - Number (legend set)'
 
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',

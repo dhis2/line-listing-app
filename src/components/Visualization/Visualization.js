@@ -105,7 +105,8 @@ export const Visualization = ({
                 .map((header) => header.legendSet)
             const relevantLegendSets = allLegendSets.filter(
                 (e, index) =>
-                    allLegendSets.findIndex((a) => a.id === e.id) === index
+                    allLegendSets.findIndex((a) => a.id === e.id) === index &&
+                    e.legends?.length
             )
             if (relevantLegendSets.length && visualization.legend?.showKey) {
                 setUniqueLegendSets(relevantLegendSets)
@@ -229,7 +230,10 @@ export const Visualization = ({
     }
 
     const getLegendKey = () => (
-        <div className={styles.legendKeyScrollbox}>
+        <div
+            className={styles.legendKeyScrollbox}
+            data-test="visualization-legend-key"
+        >
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
     )
@@ -268,6 +272,7 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     >
                                         {formatCellHeader(header)}
                                     </DataTableColumnHeader>
@@ -281,15 +286,16 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     />
                                 )
                             )}
                         </DataTableRow>
                     </DataTableHead>
                     {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                    <DataTableBody>
+                    <DataTableBody dataTest={'table-body'}>
                         {data.rows.map((row, index) => (
-                            <DataTableRow key={index}>
+                            <DataTableRow key={index} dataTest={'table-row'}>
                                 {row.map((value, index) => (
                                     <DataTableCell
                                         key={index}
@@ -300,12 +306,15 @@ export const Visualization = ({
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
-                                                LEGEND_DISPLAY_STYLE_FILL &&
-                                            getColorByValueFromLegendSet(
-                                                data.headers[index].legendSet,
-                                                value
-                                            )
+                                            LEGEND_DISPLAY_STYLE_FILL
+                                                ? getColorByValueFromLegendSet(
+                                                      data.headers[index]
+                                                          .legendSet,
+                                                      value
+                                                  )
+                                                : undefined
                                         }
+                                        dataTest={'table-cell'}
                                     >
                                         <div
                                             style={
