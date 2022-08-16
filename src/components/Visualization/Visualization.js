@@ -306,11 +306,13 @@ export const Visualization = ({
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
-                                                LEGEND_DISPLAY_STYLE_FILL &&
-                                            getColorByValueFromLegendSet(
-                                                data.headers[index].legendSet,
-                                                value
-                                            )
+                                            LEGEND_DISPLAY_STYLE_FILL
+                                                ? getColorByValueFromLegendSet(
+                                                      data.headers[index]
+                                                          .legendSet,
+                                                      value
+                                                  )
+                                                : undefined
                                         }
                                         dataTest={'table-cell'}
                                     >
