@@ -13,10 +13,9 @@
         "format": "d2-style apply",
         "validate-commit": "d2-style check --staged",
         "validate-push": "yarn test",
-        "start-cy-proxy": "BROWSER=none d2-app-scripts start --proxy https://debug.dhis2.org/tracker_dev --proxyPort 8081",
-        "cypress:capture": "start-server-and-test 'yarn start-cy-proxy' http://localhost:3000 'yarn cypress run --env networkMode=capture'",
-        "cypress:stub": "start-server-and-test 'yarn start-cy-proxy' http://localhost:3000 'yarn cypress run --env networkMode=stub'",
-        "cypress:live": "start-server-and-test 'yarn start-cy-proxy' http://localhost:3000 'yarn cypress open --env networkMode=live'"
+        "cypress:capture": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run --env networkMode=capture'",
+        "cypress:stub": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run --env networkMode=stub'",
+        "cypress:live": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --env networkMode=live'"
     },
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^8.3.3",
