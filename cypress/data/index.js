@@ -24,6 +24,11 @@ export const HIV_PROGRAM = {
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
+export const TEST_AO = {
+    id: 'qmuoJ2ROwUb',
+    name: 'List of patients with no treatment initiation date',
+}
+
 export const TEST_AOS = [
     {
         id: 'qmuoJ2ROwUb',

@@ -1,4 +1,4 @@
-import { TEST_AOS } from '../data/index.js'
+import { TEST_AO } from '../data/index.js'
 import { clearTextarea, typeTextarea } from '../helpers/common.js'
 import {
     expectInterpretationsButtonToBeEnabled,
@@ -7,8 +7,6 @@ import {
 } from '../helpers/interpretations.js'
 import { clickMenubarInterpretationsButton } from '../helpers/menubar.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-
-const TEST_AO_ID = TEST_AOS[0].id
 
 const TEST_CANCEL_LABEL = 'Cancel'
 const TEST_POST_INTERPRETATION_LABEL = 'Post interpretation'
