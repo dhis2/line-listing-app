@@ -143,7 +143,7 @@ describe('interpretations', () => {
             .contains('5')
             .click()
         cy.getBySel('interpretation-modal')
-            .find('[data-test="dhis2-uiwidgets-pagination-pagesize-select"]')
+            .findBySel('dhis2-uiwidgets-pagination-pagesize-select')
             .should('contain', '5')
 
         // the interpretation modal can be closed
