@@ -18,7 +18,7 @@ const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
 describe('interpretations', () => {
     it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
-        cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         expectInterpretationsButtonToBeEnabled()
 
