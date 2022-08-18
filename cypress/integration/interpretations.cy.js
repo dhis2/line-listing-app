@@ -79,7 +79,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be edited', () => {
-        cy.getBySel('interpretation-edit-button').first().click()
+        cy.getBySel('interpretation-edit-button').click()
 
         cy.getBySel('interpretations-list').contains('Update')
         cy.getBySel('interpretations-list').contains(TEST_CANCEL_LABEL)
@@ -141,7 +141,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be deleted', () => {
-        cy.getBySel('interpretation-delete-button').first().click()
+        cy.getBySel('interpretation-delete-button').click()
 
         expectInterpretationFormToBeVisible()
 
