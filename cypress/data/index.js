@@ -29,13 +29,6 @@ export const TEST_AO = {
     name: 'List of patients with no treatment initiation date',
 }
 
-export const TEST_AOS = [
-    {
-        id: 'qmuoJ2ROwUb',
-        name: 'List of patients with no treatment initiation date',
-    },
-]
-
 // alphanumerics
 export const TEST_DIM_TEXT = 'Analytics - Text'
 export const TEST_DIM_LETTER = 'Analytics - Letter'
