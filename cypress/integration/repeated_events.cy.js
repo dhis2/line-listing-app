@@ -4,6 +4,7 @@ import {
     openDimension,
     selectEnrollmentProgram,
     selectEnrollmentProgramDimensions,
+    selectEventProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -13,6 +14,9 @@ import {
     getTableDataCells,
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
+
+const getRepeatedEventsTab = () =>
+    cy.getBySel('conditions-modal-content').contains('Repeated events')
 
 const setUpTable = ({ enrollment, dimensionName }) => {
     selectEnrollmentProgramDimensions({
@@ -42,7 +46,7 @@ const setUpTable = ({ enrollment, dimensionName }) => {
 
 const setRepetition = ({ dimensionName, recent, oldest }) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
-    cy.getBySel('conditions-modal-content').contains('Repeated events').click()
+    getRepeatedEventsTab().click()
     cy.getBySel('most-recent-input')
         .find('input')
         .type('{backspace}')
@@ -58,7 +62,7 @@ const setRepetition = ({ dimensionName, recent, oldest }) => {
 
 const expectRepetitionToBe = ({ dimensionName, recent, oldest }) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
-    cy.getBySel('conditions-modal-content').contains('Repeated events').click()
+    getRepeatedEventsTab().click()
     cy.getBySel('most-recent-input')
         .find('input')
         .should('be.visible')
@@ -185,8 +189,7 @@ describe('repeated events', () => {
 
         openDimension('Bednet distributed')
 
-        cy.getBySel('conditions-modal-content')
-            .contains('Repeated events')
+        getRepeatedEventsTab()
             .should('have.class', 'disabled')
             .trigger('mouseover')
 
@@ -194,5 +197,11 @@ describe('repeated events', () => {
             'Only available for repeatable stages'
         )
     })
-    // TODO: Test "Analytics - Percentage" with Event - no repetiton tab is shown
+    it('repetition is hidden for event programs', () => {
+        selectEventProgram(ANALYTICS_PROGRAM)
+
+        openDimension('Analytics - Percentage')
+
+        getRepeatedEventsTab().should('not.exist')
+    })
 })
