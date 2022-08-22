@@ -70,6 +70,9 @@ const expectRepetitionToBe = ({ dimensionName, recent, oldest }) => {
     cy.getBySel('conditions-modal').contains('Hide').click()
 }
 
+const expectHeaderToContainExact = (index, value) =>
+    getTableHeaderCells().eq(index).containsExact(value)
+
 describe('repeated events', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -90,21 +93,18 @@ describe('repeated events', () => {
         result.forEach((value, index) => {
             getTableDataCells().eq(index).contains(value)
         })
-        getTableHeaderCells()
-            .eq(0)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
-            )
-        getTableHeaderCells()
-            .eq(1)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
-            )
-        getTableHeaderCells()
-            .eq(2)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
-            )
+        expectHeaderToContainExact(
+            0,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
+        )
+        expectHeaderToContainExact(
+            2,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+        )
 
         // repetition 0/3 can be set successfully
         setRepetition({ dimensionName, recent: 0, oldest: 3 })
@@ -112,21 +112,18 @@ describe('repeated events', () => {
         result.forEach((value, index) => {
             getTableDataCells().eq(index).contains(value)
         })
-        getTableHeaderCells()
-            .eq(0)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
-            )
-        getTableHeaderCells()
-            .eq(1)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
-            )
-        getTableHeaderCells()
-            .eq(2)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
-            )
+        expectHeaderToContainExact(
+            0,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
+        )
+        expectHeaderToContainExact(
+            2,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
+        )
 
         // repetition 3/3 can be set successfully
         setRepetition({ dimensionName, recent: 3, oldest: 3 })
@@ -134,36 +131,30 @@ describe('repeated events', () => {
         result.forEach((value, index) => {
             getTableDataCells().eq(index).contains(value)
         })
-        getTableHeaderCells()
-            .eq(0)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
-            )
-        getTableHeaderCells()
-            .eq(1)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
-            )
-        getTableHeaderCells()
-            .eq(2)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
-            )
-        getTableHeaderCells()
-            .eq(3)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
-            )
-        getTableHeaderCells()
-            .eq(4)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
-            )
-        getTableHeaderCells()
-            .eq(5)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
-            )
+        expectHeaderToContainExact(
+            0,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
+        )
+        expectHeaderToContainExact(
+            2,
+            'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
+        )
+        expectHeaderToContainExact(
+            3,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
+        )
+        expectHeaderToContainExact(
+            4,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
+        )
+        expectHeaderToContainExact(
+            5,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+        )
     })
     it.skip('repetition out of bounds returns as a empty value', () => {
         // FIXME: Backend issue, the repetition out of bounds is returned as 0 when it should be an empty string
@@ -176,21 +167,18 @@ describe('repeated events', () => {
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
-        getTableHeaderCells()
-            .eq(0)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -9)'
-            )
-        getTableHeaderCells()
-            .eq(5)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent -4)'
-            )
-        getTableHeaderCells()
-            .eq(9)
-            .containsExact(
-                'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
-            )
+        expectHeaderToContainExact(
+            0,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -9)'
+        )
+        expectHeaderToContainExact(
+            5,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -4)'
+        )
+        expectHeaderToContainExact(
+            9,
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+        )
     })
     it('repetition is disabled for non repetable stages', () => {
         selectEnrollmentProgram({ programName: 'MAL-CS' })
