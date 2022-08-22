@@ -160,7 +160,7 @@ describe('repeated events', () => {
             'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it.skip('repetition out of bounds returns as a empty value', () => {
+    it.skip('repetition out of bounds returns as empty value', () => {
         // FIXME: Backend issue, the repetition out of bounds is returned as 0 when it should be an empty string
         const dimensionName = 'Analytics - Percentage'
         setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
