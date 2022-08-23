@@ -72,7 +72,7 @@ Each dimension can have criteria (filters). Data elements of the type option set
 Numeric values can be compared to filter values using greater than, equal or less than operators. (Optional) For each data element, specify a filter with operators such as "greater than", "in" or "equal" together with a filter value.
 
 > **Note**
-> 
+>
 > The enhancement in this feature is that you can add multiple conditions and there are also different operators which can be used. You can also filter by empty or not empty.
 
 ![](resources/images/image13.png){ width=50% }
@@ -102,7 +102,7 @@ The organisation unit dialog is flexible, offering essentially three ways of sel
 
     > **NOTE**
     >
-    > Please note that as soon as at least one level or group has been selected the org unit tree now acts as the boundary for the levels/groups. Example: if you select CH Mahosot (level 3) and Vientiane Capital org unit (at level 2) in the tree you get all units inside that district._
+    > Please note that as soon as at least one level or group has been selected the org unit tree now acts as the boundary for the levels/groups. Example: if you select CH Mahosot (level 3) and Vientiane Capital org unit (at level 2) in the tree you get all units inside that district.\_
 
 -   The user's organisation units:
     -   User organisation unit: This is a way to dynamically select the org units that the logged in user is associated with.
@@ -143,7 +143,7 @@ You can click on the above time dimension to visualize data on different period 
 You have three period options: relative periods, fixed periods and start/end dates. You can combine fixed periods and relative periods in the same table You cannot combine fixed periods and relative periods with start/end dates in the same table Overlapping periods are filtered so that they only appear once.
 
 -   Fixed periods: In the **Select period type** box, select a period type. You can select any number of fixed periods from any period type. Fixed periods can for example be "January 2021".
--   Relative periods: In the lower part of the **Periods** section, select as many relative periods as you like. The names are relative to the current date. This means that if the current month is March and you select **Last month**, the month of February is included in the chart. Relative periods have the advantage that it keeps the data in the report up to date as time goes.
+-   Relative periods: In the lower part of the **Periods** section, select as many relative periods as you like. The names are relative to the current date. This means that if the current month is March and you select **Last month**, the month of February is included in the visualization. Relative periods have the advantage that it keeps the data in the report up to date as time goes.
 -   Start/end dates: Next to Choose form presets, select **Start/end dates**. This period type lets you specify flexible dates for the time span in the report.
 
 ![](resources/images/image21.png)
@@ -157,7 +157,7 @@ You can filter the specific column by directly clicking the data elements or att
 > **Example**
 >
 > In the below screenshot, we have selected AEFI – Headache.
-> 
+>
 > ![](resources/images/image22.png)
 >
 > Once we click on AEFI – Headache we will get a dialog box where we need to select the option we want to filter out. In this we have selected “Yes” only.
@@ -183,3 +183,20 @@ Then, you can define the most recent events and the oldest events you want in th
 Once you click on update you will be able to visualize the events of this repeatable program stage as shown below.
 
 ![](resources/images/image4.png)
+
+### Applying legend colors
+
+You can apply colors to a visualization by using the legend feature, which can be found under `Options` -> `Legend`
+
+![](resources/images/legend-options.png)
+
+| Option                             | Description                                                                                                                                                                                                                                                                                                                                                      |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Use a legend for table cell colors | Applies a legend to the visualization items, which is a value-based color for each item. The legends themselves are configured in the `Maintenance app`.                                                                                                                                                                                                         |
+| Legend style                       | Controls where the color from the legend is applied, either to the text or the background. You can use this option for scorecards to identify high and low values at a glance.                                                                                                                                                                                   |
+| Legend type                        | Controls which legend is applied.<br>`Use pre-defined legend per data item` applies a legend to each data element or indicator individually, based on the legend assigned to each one in the `Maintenance app`.<br>`Select a single legend for entire visualization` applies a single legend to all data items, chosen in a drop-down list of available legends. |
+| Show legend key                    | Displays a key for the legend on the right side of the visualization, to indicate the value ranges and their respective color.                                                                                                                                                                                                                                   |
+
+Below is an example of a line list with legend colors applied to the background, per data item.
+
+![](resources/images/legend-example.png)

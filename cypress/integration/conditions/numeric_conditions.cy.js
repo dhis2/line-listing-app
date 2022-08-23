@@ -28,6 +28,7 @@ import {
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
     getTableDataCells,
     getTableRows,
@@ -138,7 +139,13 @@ describe('number conditions', () => {
     it('not equal to', () => {
         addConditions([{ conditionName: 'not equal to', value: '12' }])
 
-        expectTableToMatchRows(['11', '2 000 000', '5 557 779 990', '3.7'])
+        expectTableToMatchRows([
+            '11',
+            '2 000 000',
+            '5 557 779 990',
+            '3.7',
+            '2022-01-01', // the empty row
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -161,7 +168,8 @@ describe('number conditions', () => {
         assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
 
-    it('is not empty / not null', () => {
+    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
+    it.skip('is not empty / not null', () => {
         addConditions([{ conditionName: 'is not empty / not null' }])
 
         expectTableToMatchRows([
@@ -209,10 +217,7 @@ describe('preset options', () => {
 
         if (value) {
             cy.contains('Choose options').click()
-            cy.contains(value)
-                .click()
-                .closest('[data-test=dhis2-uicore-layer]')
-                .click('topLeft')
+            cy.contains(value).click().closePopper()
         }
 
         cy.getBySel('button-add-condition')
@@ -312,6 +317,21 @@ describe('numeric types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('numeric-condition-type').containsExact(operator)
             })
+            cy.getBySel('numeric-condition-type').closePopper()
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

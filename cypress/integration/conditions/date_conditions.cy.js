@@ -25,6 +25,7 @@ import {
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -88,7 +89,7 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
+    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used https://jira.dhis2.org/browse/DHIS2-13563
     it.skip('is not', () => {
         unselectAllPeriods({
             label: periodLabel,
@@ -223,7 +224,8 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    it('is not empty / not null', () => {
+    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
+    it.skip('is not empty / not null', () => {
         addConditions([
             {
                 conditionName: 'is not empty / not null',
@@ -300,6 +302,21 @@ describe('date types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('date-condition-type').containsExact(operator)
             })
+            cy.getBySel('date-condition-type').closePopper()
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

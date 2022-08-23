@@ -15,12 +15,19 @@ export const ANALYTICS_PROGRAM = {
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
-export const TEST_AOS = [
-    {
-        id: 'qmuoJ2ROwUb',
-        name: 'List of patients with no treatment initiation date',
-    },
-]
+export const HIV_PROGRAM = {
+    programName: 'HIV Case Surveillance',
+    stageName: 'Initial Case Report',
+    [DIMENSION_ID_EVENT_DATE]: 'Initial Case Report',
+    [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
+    [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
+    [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+}
+
+export const TEST_AO = {
+    id: 'qmuoJ2ROwUb',
+    name: 'List of patients with no treatment initiation date',
+}
 
 // alphanumerics
 export const TEST_DIM_TEXT = 'Analytics - Text'
@@ -56,8 +63,7 @@ export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
 
 // special
 export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
-// TODO: Add tests for the commented out type below
-// OPTION SET
+export const TEST_DIM_LEGEND_SET = 'Analytics - Number (legend set)'
 
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',
