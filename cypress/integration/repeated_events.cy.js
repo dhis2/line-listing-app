@@ -161,7 +161,7 @@ describe('repeated events', () => {
         )
     })
     it.skip('repetition out of bounds returns as empty value', () => {
-        // FIXME: Backend issue, the repetition out of bounds is returned as 0 when it should be an empty string
+        // FIXME: Backend issue, the repetition out of bounds is returned as 0 when it should be an empty string, https://jira.dhis2.org/browse/DHIS2-13633
         const dimensionName = 'Analytics - Percentage'
         setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
 
