@@ -1,7 +1,7 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
     ANALYTICS_PROGRAM,
-    TEST_AOS,
+    TEST_AO,
     TEST_DIM_NUMBER,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
@@ -14,11 +14,9 @@ import { selectRelativePeriod } from '../helpers/period.js'
 import { getTableDataCells, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const TEST_AO_ID = TEST_AOS[0].id
-
 describe('options', () => {
     it('sets comfortable display density', () => {
-        cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         //assert the default density of table cell
         getTableDataCells().invoke('css', 'padding').should('equal', '8px')
@@ -38,7 +36,7 @@ describe('options', () => {
     })
 
     it('sets small font size', () => {
-        cy.visit(`#/${TEST_AO_ID}`, EXTENDED_TIMEOUT)
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         //assert the font size of table cell
         getTableDataCells().invoke('css', 'font-size').should('equal', '12px')

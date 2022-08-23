@@ -35,7 +35,7 @@
         "start-server-and-test": "^1.14.0"
     },
     "dependencies": {
-        "@dhis2/analytics": "^23.13.7",
+        "@dhis2/analytics": "^23.13.9",
         "@dhis2/app-runtime": "^3.4.0",
         "@dhis2/ui": "^8.3.1",
         "@dnd-kit/core": "^5.0.3",
