@@ -1,0 +1,701 @@
+# 
+# Translators:
+# trendspotter <jirka.p@volny.cz>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
+"Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "Přidat k {{axisName}}"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Odebrat"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Načítání ..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Skrýt"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Datum začátku"
+
+msgid "End date"
+msgstr "Datum ukončení"
+
+msgid "No items selected"
+msgstr "Nevybrány žádné položky"
+
+msgid "Available options"
+msgstr "Dostupné možnosti"
+
+msgid "Filter options"
+msgstr "Možnosti filtru"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr "Pro dotaz „{{- searchTerm}}“ nebylo nic nalezeno"
+
+msgid "No options"
+msgstr "Žádné možnosti"
+
+msgid "Move to {{axisName}}"
+msgstr "Přesunout na {{axisName}}"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Prostý zdroj dat"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "Schéma metadata ID"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Kód"
+
+msgid "Name"
+msgstr "Název"
+
+msgid "Download"
+msgstr "Stáhnout"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "Levels"
+msgstr "Úrovně"
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "None selected"
+msgstr "Není vybrán žádný"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Událost"
+
+msgid "Enrollment"
+msgstr "Zápis"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "Hlavní rozměry"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "All types"
+msgstr "Všechny typy"
+
+msgid "Data element"
+msgstr "Datový prvek"
+
+msgid "Program attribute"
+msgstr "Atribut programu"
+
+msgid "Program indicator"
+msgstr "Indikátor programu"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Category option group set"
+msgstr "Sada skupin možností kategorie"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Vyčistit"
+
+msgid "Stage"
+msgstr "Fáze"
+
+msgid "All"
+msgstr "Vše"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Vaše dimenze"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Neuložená vizualizace"
+
+msgid "Edited"
+msgstr "Upraveno"
+
+msgid "Interpretations"
+msgstr "Interpretace"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Přejmenování bylo úspěšné"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Vizualizace bez názvu {{visualizationType}}, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Tuto vizualizaci nelze odstranit, protože se používá na jednom nebo více "
+"ovládacích panelech"
+
+msgid "Update"
+msgstr "Aktualizovat"
+
+msgid "Getting started"
+msgstr "Začínáme"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "Řádků na stránku"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Mezisoučty sloupců"
+
+msgid "Columns totals"
+msgstr "Součty sloupců"
+
+msgid "Digit group separator"
+msgstr "Oddělovač skupin číslic"
+
+msgid "None"
+msgstr "Žádný"
+
+msgid "Space"
+msgstr "Mezera"
+
+msgid "Comma"
+msgstr "Čárka"
+
+msgid "Display density"
+msgstr "Hustota zobrazení"
+
+msgid "Comfortable"
+msgstr "Komfortní"
+
+msgid "Normal"
+msgstr "Normální"
+
+msgid "Compact"
+msgstr "Kompaktní"
+
+msgid "Font size"
+msgstr "Velikost písma"
+
+msgid "Large"
+msgstr "Velký"
+
+msgid "Small"
+msgstr "Malý"
+
+msgid "Hide empty rows"
+msgstr "Skrýt prázdné řádky"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Styl Legendy"
+
+msgid "Legend type"
+msgstr "Typ legendy"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Použijte předdefinovanou legendu na datovou položku"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Legenda mění barvu pozadí"
+
+msgid "Legend changes text color"
+msgstr "Legenda mění barvu textu"
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Select from legends"
+msgstr "Vybrat si z legend"
+
+msgid "Loading legends"
+msgstr "Načítání legend"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+"Můžete nastavit minimální nebo maximální hodnotu. To bude platit pro celou "
+"vizualizaci, nebudou se zobrazovat všechny hodnoty mimo minimální / "
+"maximální rozsah"
+
+msgid "Minimum data value"
+msgstr "Minimální hodnota dat"
+
+msgid "Maximum data value"
+msgstr "Maximální hodnota dat"
+
+msgid "Clear min/max limits"
+msgstr "Vymazat minimální / maximální limity"
+
+msgid "Row sub-totals"
+msgstr "Mezisoučty řádků"
+
+msgid "Row totals"
+msgstr "Součty řádků"
+
+msgid "Dimension labels"
+msgstr "Štítky dimenzí"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Zobrazit hierarchii organizačních jednotek"
+
+msgid "Show legend key"
+msgstr "Zobrazit klíč legendy"
+
+msgid "Add a title"
+msgstr "Přidat název"
+
+msgid "Options"
+msgstr "Možnosti"
+
+msgid "Columns"
+msgstr "Sloupce"
+
+msgid "Rows"
+msgstr "Řádky"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr "není"
+
+msgid "contains"
+msgstr "obsahuje"
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr "po"
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr "před"
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Při načítání dat ze serveru došlo k problému."
+
+msgid "No data available"
+msgstr "Údaje nejsou k dispozici"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"Vybrané dimenze nevrátily žádné údaje. Možná nejsou k dispozici žádná data "
+"nebo k nim nemáte přístup."
+
+msgid "Visualization not found"
+msgstr "Vizualizace nenalezena"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Vizualizaci, kterou se pokoušíte zobrazit, nelze najít, ID může být "
+"nesprávné nebo může být odstraněno."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "Není vybrána žádná organizační jednotka"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Žádný přístup"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Něco se pokazilo"
+
+msgid "Organisation unit"
+msgstr "Organizační jednotka"
+
+msgid "Event status"
+msgstr "Stav události"
+
+msgid "Program status"
+msgstr "Stav programu"
+
+msgid "Created by"
+msgstr "Vytvořil"
+
+msgid "Last updated by"
+msgstr "Naposledy aktualizováno uživatelem"
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Organizační jednotka uživatele"
+
+msgid "User sub-units"
+msgstr "Podjednotky uživatele"
+
+msgid "User sub-x2-units"
+msgstr "Jednotky 2. řádu uživatele"
+
+msgid "Table title"
+msgstr "Název tabulky"
+
+msgid "Display"
+msgstr "Zobrazit"
+
+msgid "Empty data"
+msgstr "Prázdná data"
+
+msgid "Totals"
+msgstr "Součty"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Limit values"
+msgstr "Mezní hodnoty"
+
+msgid "Limit number of values"
+msgstr "Omezit počet hodnot"
+
+msgid "Limit minimum/maximum values"
+msgstr "Mezní minimální / maximální hodnoty"
+
+msgid "Style"
+msgstr "Styl"
+
+msgid "Event date"
+msgstr "Datum události"
+
+msgid "Enrollment date"
+msgstr "Datum zápisu"
+
+msgid "Incident date"
+msgstr "Datum incidentu"
+
+msgid "Due/Scheduled date"
+msgstr ""
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktivní"
+
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+msgid "Completed"
+msgstr "Dokončeno"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""
