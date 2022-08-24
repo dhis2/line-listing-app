@@ -19,85 +19,91 @@ msgid "Add to {{axisName}}"
 msgstr "Přidat k {{axisName}}"
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "Vyberte typ podmínky"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "Citlivý na velká písmena"
 
 msgid "Remove"
 msgstr "Odebrat"
 
 msgid "and"
-msgstr ""
+msgstr "a"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
+"Zobrazit položky, které splňují následující podmínky pro tuto datovou "
+"položku:"
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr ""
+msgstr "Tuto dimenzi nelze filtrovat. Zobrazí se všechny hodnoty."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"Zatím žádné podmínky, takže budou zahrnuty všechny hodnoty. Přidejte "
+"podmínku k filtrování výsledků."
 
 msgid "Preset options can't be combined with other conditions"
-msgstr ""
+msgstr "Přednastavené možnosti nelze kombinovat s jinými podmínkami"
 
 msgid "Add another condition"
-msgstr ""
+msgstr "Přidat další podmínku"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Přidat podmínku"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "Opakované události"
 
 msgid "Conditions"
-msgstr ""
+msgstr "Podmínky"
 
 msgid "Only available for repeatable stages"
-msgstr ""
+msgstr "K dispozici pouze pro opakovatelné fáze"
 
 msgid "is one of preset options"
-msgstr ""
+msgstr "je jednou z přednastavených možností"
 
 msgid "Loading..."
 msgstr "Načítání ..."
 
 msgid "Choose a set of options"
-msgstr ""
+msgstr "Vyberte sadu možností"
 
 msgid "No preset option sets for this data item"
 msgstr ""
+"Pro tuto datovou položku nejsou nastaveny žádné přednastavené možnosti"
 
 msgid "Choose options"
-msgstr ""
+msgstr "Vyberte možnosti"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
 msgstr ""
+"Z fází s opakovatelnými událostmi zobrazte hodnoty pro tento datový prvek z:"
 
 msgid "Most recent events:"
-msgstr ""
+msgstr "Nejnovější události:"
 
 msgid "Oldest events:"
-msgstr ""
+msgstr "Nejstarší události:"
 
 msgid "Hide"
 msgstr "Skrýt"
 
 msgid "Show items where the status is:"
-msgstr ""
+msgstr "Zobrazit položky se stavem:"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "Vyberte si z předvoleb"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "Definujte počáteční a koncová data"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
-msgstr ""
+msgstr "Data zahájení a ukončení jsou včetně a budou zahrnuta ve výstupech."
 
 msgid "Start date"
 msgstr "Datum začátku"
@@ -115,7 +121,7 @@ msgid "Filter options"
 msgstr "Možnosti filtru"
 
 msgid "Selected options"
-msgstr ""
+msgstr "Vybrané možnosti"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
 msgstr "Pro dotaz „{{- searchTerm}}“ nebylo nic nalezeno"
@@ -130,7 +136,7 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "HTML+CSS (.html+css)"
-msgstr ""
+msgstr "HTML+CSS (.html+css)"
 
 msgid "Plain data source"
 msgstr "Prostý zdroj dat"
@@ -142,13 +148,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Stáhnout data od tohoto data"
 
 msgid "Metadata ID scheme"
 msgstr "Schéma metadata ID"
@@ -166,7 +172,7 @@ msgid "Download"
 msgstr "Stáhnout"
 
 msgid "all"
-msgstr ""
+msgstr "vše"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
@@ -199,27 +205,29 @@ msgid "None selected"
 msgstr "Není vybrán žádný"
 
 msgid "Showing all values for this dimension"
-msgstr ""
+msgstr "Zobrazují se všechny hodnoty pro tuto dimenzi"
 
 msgid "Program stage: {{stageName}}"
-msgstr ""
+msgstr "Fáze programu: {{stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr ""
+msgstr "Pro '{{- searchTerm}}' nebyly nalezeny žádné dimenze"
 
 msgid "No dimensions found in the {{programName}} program"
-msgstr ""
+msgstr "V programu {{programName}} nebyly nalezeny žádné dimenze"
 
 msgid "No dimensions found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné rozměry"
 
 msgid "Couldn't load dimensions"
-msgstr ""
+msgstr "Dimenze se nepodařilo načíst"
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 msgstr ""
+"Při načítání rozměrů došlo k problému. Zkuste to znovu nebo se obraťte na "
+"správce systému."
 
 msgid "Event"
 msgstr "Událost"
@@ -230,9 +238,11 @@ msgstr "Zápis"
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
+"Podívejte se na data jednotlivých událostí z programové fáze nebo programu "
+"události Tracker."
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr ""
+msgstr "Prohlédněte si data z více fází programu v programu Tracker."
 
 msgid "Main dimensions"
 msgstr "Hlavní rozměry"
@@ -241,10 +251,10 @@ msgid "Input: {{type}}"
 msgstr ""
 
 msgid "Program dimensions"
-msgstr ""
+msgstr "Dimenze programu"
 
 msgid "Search in program"
-msgstr ""
+msgstr "Hledat v programu"
 
 msgid "Type"
 msgstr "Typ"
@@ -268,24 +278,26 @@ msgid "Category option group set"
 msgstr "Sada skupin možností kategorie"
 
 msgid "Could not load programs"
-msgstr ""
+msgstr "Programy nelze načíst"
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"Programy se nepodařilo načíst. Zkuste to znovu nebo se obraťte na správce "
+"systému."
 
 msgid "Choose a program and stage above to add program dimensions."
-msgstr ""
+msgstr "Vyberte program a fázi výše a přidejte rozměry programu."
 
 msgid "Choose a program above to add program dimensions."
-msgstr ""
+msgstr "Vyberte program výše a přidejte dimenze programu."
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Vyberte program"
 
 msgid "Clear program first to choose another"
-msgstr ""
+msgstr "Nejprve vymažte program a vyberte jiný"
 
 msgid "Clear"
 msgstr "Vyčistit"
@@ -297,13 +309,13 @@ msgid "All"
 msgstr "Vše"
 
 msgid "Time dimensions"
-msgstr ""
+msgstr "Časové dimenze"
 
 msgid "Your dimensions"
 msgstr "Vaše dimenze"
 
 msgid "Search your dimensions"
-msgstr ""
+msgstr "Vyhledejte své dimenze"
 
 msgid "Unsaved visualization"
 msgstr "Neuložená vizualizace"
@@ -340,33 +352,35 @@ msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
 msgstr ""
+"Všechny dimenze, které můžete použít k sestavení vizualizací, jsou zobrazeny"
+" v sekcích na levém postranním panelu."
 
 msgid "Add dimensions to the layout above."
-msgstr ""
+msgstr "Přidejte dimenze do výše uvedeného rozložení."
 
 msgid "Click a dimension to add or remove conditions."
-msgstr ""
+msgstr "Kliknutím na dimenzi přidáte nebo odeberete podmínky."
 
 msgid "Your most viewed line lists"
-msgstr ""
+msgstr "Vaše nejsledovanější seznamy řádků"
 
 msgid "most recent"
-msgstr ""
+msgstr "nejnovější"
 
 msgid "oldest"
-msgstr ""
+msgstr "nejstarší"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr ""
+msgstr "nejstarší {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgstr "nejnovější {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "Řádků na stránku"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr ""
+msgstr "Stránka {{page}}, řádek {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Mezisoučty sloupců"
@@ -411,7 +425,7 @@ msgid "Hide empty rows"
 msgstr "Skrýt prázdné řádky"
 
 msgid "Use a legend for table cell colors"
-msgstr ""
+msgstr "Pro barvy buněk tabulky použijte legendu"
 
 msgid "Legend style"
 msgstr "Styl Legendy"
@@ -423,7 +437,7 @@ msgid "Use pre-defined legend per data item"
 msgstr "Použijte předdefinovanou legendu na datovou položku"
 
 msgid "Choose a single legend for the entire visualization"
-msgstr ""
+msgstr "Vyberte jednu legendu pro celou vizualizaci"
 
 msgid "Legend changes background color"
 msgstr "Legenda mění barvu pozadí"
