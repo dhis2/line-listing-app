@@ -205,7 +205,7 @@ const ConditionsManager = ({
         const renderNumericCondition = ({
             enableDecimalSteps,
             allowIntegerOnly,
-        }) => {
+        } = {}) => {
             return (
                 (conditionsList.length && conditionsList) ||
                 (selectedLegendSet && [''])
