@@ -1,0 +1,690 @@
+# 
+# Translators:
+# Raja Fathurrahim, 2022
+# Carwoto Sa'an <carwoto@gmail.com>, 2022
+# phil_dhis2, 2022
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2022
+# Farida Sibuea <farida_sibuea@yahoo.com>, 2022
+# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2022
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Language-Team: Indonesian (https://www.transifex.com/hisp-uio/teams/100509/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "Tambahkan ke {{axisName}}"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Hapus"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Memuat..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Sembunyikan"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Tanggal dimulai"
+
+msgid "End date"
+msgstr "Tanggal berakhir"
+
+msgid "No items selected"
+msgstr ""
+
+msgid "Available options"
+msgstr "Options tersedia"
+
+msgid "Filter options"
+msgstr "Pilihan penyaringan"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr ""
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Sumber data mentah"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "Skema ID metadata"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Kode"
+
+msgid "Name"
+msgstr "Nama"
+
+msgid "Download"
+msgstr "Unduh"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+
+msgid "Levels"
+msgstr "Level"
+
+msgid "Groups"
+msgstr "Banyak grup"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+
+msgid "None selected"
+msgstr "Tidak ada yang terpilih"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Even"
+
+msgid "Enrollment"
+msgstr "Pendaftaran"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "Dimensi utama"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "Tipe"
+
+msgid "All types"
+msgstr "Semua jenis"
+
+msgid "Data element"
+msgstr "Elemen data"
+
+msgid "Program attribute"
+msgstr "Atribut program"
+
+msgid "Program indicator"
+msgstr "Indikator program"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Category option group set"
+msgstr ""
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Hapus"
+
+msgid "Stage"
+msgstr "Stage"
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Dimensi Anda"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Visualisasi belum disimpan"
+
+msgid "Edited"
+msgstr "Diedit"
+
+msgid "Interpretations"
+msgstr "Interpretasi"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Penamaan ulang berhasil"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr ""
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+
+msgid "Update"
+msgstr "Perbarui"
+
+msgid "Getting started"
+msgstr "Mulai"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr ""
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Kolom sub-total"
+
+msgid "Columns totals"
+msgstr "Total kolom"
+
+msgid "Digit group separator"
+msgstr "Pemisah kelompok digit"
+
+msgid "None"
+msgstr "Tidak ada"
+
+msgid "Space"
+msgstr "Spasi"
+
+msgid "Comma"
+msgstr "Koma"
+
+msgid "Display density"
+msgstr "Tampilkan densitas"
+
+msgid "Comfortable"
+msgstr "Nyaman"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Compact"
+msgstr "Padat"
+
+msgid "Font size"
+msgstr "Ukuran huruf"
+
+msgid "Large"
+msgstr "Besar"
+
+msgid "Small"
+msgstr "Kecil"
+
+msgid "Hide empty rows"
+msgstr "Sembunyikan baris kosong"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Gaya legenda"
+
+msgid "Legend type"
+msgstr "Tipe legenda"
+
+msgid "Use pre-defined legend per data item"
+msgstr ""
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr ""
+
+msgid "Legend changes text color"
+msgstr ""
+
+msgid "Legend"
+msgstr "Legenda"
+
+msgid "Select from legends"
+msgstr "Pilih dari legenda"
+
+msgid "Loading legends"
+msgstr "Memuat legenda"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr "Nilai Miinimum"
+
+msgid "Maximum data value"
+msgstr "Nilai maximum"
+
+msgid "Clear min/max limits"
+msgstr ""
+
+msgid "Row sub-totals"
+msgstr ""
+
+msgid "Row totals"
+msgstr ""
+
+msgid "Dimension labels"
+msgstr ""
+
+msgid "Display organisation unit hierarchy"
+msgstr ""
+
+msgid "Show legend key"
+msgstr ""
+
+msgid "Add a title"
+msgstr "Tambahkan judul"
+
+msgid "Options"
+msgstr "Opsi"
+
+msgid "Columns"
+msgstr ""
+
+msgid "Rows"
+msgstr ""
+
+msgid "Filter"
+msgstr "Saring"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr "Setelah"
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr "Sebelum"
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Iya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr ""
+
+msgid "No data available"
+msgstr ""
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+
+msgid "Visualization not found"
+msgstr ""
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "Tidak ada unit organisasi yang dipilih"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Tidak ada akses"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Terjadi kesalahan"
+
+msgid "Organisation unit"
+msgstr "Unit organisasi"
+
+msgid "Event status"
+msgstr "Status Even"
+
+msgid "Program status"
+msgstr "Status program"
+
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr ""
+
+msgid "User sub-units"
+msgstr "Subunit pengguna"
+
+msgid "User sub-x2-units"
+msgstr "Sub-x2-unit pengguna"
+
+msgid "Table title"
+msgstr "Judul tabel"
+
+msgid "Display"
+msgstr ""
+
+msgid "Empty data"
+msgstr ""
+
+msgid "Totals"
+msgstr "Total"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Limit values"
+msgstr "batas nilai"
+
+msgid "Limit number of values"
+msgstr ""
+
+msgid "Limit minimum/maximum values"
+msgstr ""
+
+msgid "Style"
+msgstr "Gaya"
+
+msgid "Event date"
+msgstr "Tanggal Even"
+
+msgid "Enrollment date"
+msgstr "Tanggal pendaftaran"
+
+msgid "Incident date"
+msgstr "Tanggal insiden"
+
+msgid "Due/Scheduled date"
+msgstr ""
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Cancelled"
+msgstr "Dibatalkan"
+
+msgid "Completed"
+msgstr "Selesai"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""
