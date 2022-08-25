@@ -357,7 +357,13 @@ export const Visualization = ({
                                     <Pagination
                                         disabled={fetching}
                                         page={data.pager.page}
-                                        pageSize={data.pager.pageSize}
+                                        // DHIS2-13493: avoid a crash when the pager object in the analytics response is malformed.
+                                        // When that happens pageSize is 0 which causes the crash because the Rows per page select does not have 0 listed as possible option.
+                                        // The backend should always return the value passed in the request, even if there are no rows for the query.
+                                        // The workaround here makes sure that if the pageSize returned is 0 we use a value which can be selected in the Rows per page select.
+                                        pageSize={
+                                            data.pager.pageSize || PAGE_SIZE
+                                        }
                                         isLastPage={data.pager.isLastPage}
                                         onPageChange={setPage}
                                         onPageSizeChange={setPageSize}
