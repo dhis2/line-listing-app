@@ -116,7 +116,7 @@ msgid "Available options"
 msgstr ""
 
 msgid "Filter options"
-msgstr ""
+msgstr "Параметри фільтра"
 
 msgid "Selected options"
 msgstr ""
