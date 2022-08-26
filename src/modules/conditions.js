@@ -1,3 +1,27 @@
+import {
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_LONG_TEXT,
+    VALUE_TYPE_LETTER,
+    VALUE_TYPE_PHONE_NUMBER,
+    VALUE_TYPE_EMAIL,
+    VALUE_TYPE_USERNAME,
+    VALUE_TYPE_URL,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_ORGANISATION_UNIT,
+    formatValue,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
@@ -61,27 +85,6 @@ export const BOOLEAN_VALUES = {
     [FALSE_VALUE]: i18n.t('No'),
     [NULL_VALUE]: i18n.t('Not answered'),
 }
-
-export const VALUE_TYPE_NUMBER = 'NUMBER'
-export const VALUE_TYPE_UNIT_INTERVAL = 'UNIT_INTERVAL'
-export const VALUE_TYPE_PERCENTAGE = 'PERCENTAGE'
-export const VALUE_TYPE_INTEGER = 'INTEGER'
-export const VALUE_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
-export const VALUE_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
-export const VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
-export const VALUE_TYPE_TEXT = 'TEXT'
-export const VALUE_TYPE_LONG_TEXT = 'LONG_TEXT'
-export const VALUE_TYPE_LETTER = 'LETTER'
-export const VALUE_TYPE_PHONE_NUMBER = 'PHONE_NUMBER'
-export const VALUE_TYPE_EMAIL = 'EMAIL'
-export const VALUE_TYPE_USERNAME = 'USERNAME'
-export const VALUE_TYPE_URL = 'URL'
-export const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
-export const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
-export const VALUE_TYPE_DATE = 'DATE'
-export const VALUE_TYPE_TIME = 'TIME'
-export const VALUE_TYPE_DATETIME = 'DATETIME'
-export const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
 
 export const API_TIME_DIVIDER = '.'
 export const UI_TIME_DIVIDER = ':'
@@ -163,10 +166,11 @@ const getOperatorsByValueType = (valueType) => {
 const parseCondition = (conditionItem) =>
     conditionItem.split(':').pop().split(';')
 
-export const getConditions = ({
+export const getConditionsTexts = ({
     conditions = {},
     metadata = {},
     dimension = {},
+    formatValueOptions = {},
 }) => {
     const conditionsList = parseConditionsStringToArray(conditions.condition)
 
@@ -222,8 +226,12 @@ export const getConditions = ({
             operator = condition
         } else {
             const parts = condition.split(':')
+            const valueType =
+                dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
+                    ? VALUE_TYPE_NUMBER
+                    : dimension.valueType
             operator = unprefixOperator(parts[0])
-            value = parts[1]
+            value = formatValue(parts[1], valueType, formatValueOptions)
         }
 
         if (

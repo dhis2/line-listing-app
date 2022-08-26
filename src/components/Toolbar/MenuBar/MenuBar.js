@@ -49,7 +49,6 @@ const visualizationSaveAsMutation = {
 }
 
 const MenuBar = ({
-    dataTest,
     current,
     visualization,
     apiObjectName,
@@ -85,7 +84,7 @@ const MenuBar = ({
         history.push('/')
 
         showAlert({
-            message: i18n.t('"{{deletedObject}}" successfully deleted.', {
+            message: i18n.t('"{{- deletedObject}}" successfully deleted.', {
                 deletedObject: deletedVisualization,
             }),
             options: {
@@ -209,7 +208,7 @@ const MenuBar = ({
     })
 
     return (
-        <div className={classes.menuBar} data-test={dataTest}>
+        <div className={classes.menuBar} data-test="menubar">
             <UpdateVisualizationContainer
                 renderComponent={(handler) => (
                     <UpdateButton
@@ -248,7 +247,6 @@ const MenuBar = ({
 MenuBar.propTypes = {
     apiObjectName: PropTypes.string,
     current: PropTypes.object,
-    dataTest: PropTypes.string,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,

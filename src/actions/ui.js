@@ -19,9 +19,7 @@ import {
     REMOVE_UI_LAYOUT_DIMENSIONS,
     SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
-    SET_UI_OPTION,
     SET_UI_OPTIONS,
-    SET_UI_SORTING,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
@@ -175,11 +173,6 @@ export const acSetUiOptions = (value) => ({
     value,
 })
 
-export const acSetUiOption = (value) => ({
-    type: SET_UI_OPTION,
-    value,
-})
-
 export const acAddUiLayoutDimensions = (value, metadata) => ({
     type: ADD_UI_LAYOUT_DIMENSIONS,
     value,
@@ -219,11 +212,6 @@ export const acSetUiDetailsPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelOpen = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_OPEN,
-    value,
-})
-
-export const acSetUiSorting = (value) => ({
-    type: SET_UI_SORTING,
     value,
 })
 

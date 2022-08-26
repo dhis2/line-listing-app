@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-11T13:59:48.286Z\n"
-"PO-Revision-Date: 2022-05-11T13:59:48.286Z\n"
+"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"PO-Revision-Date: 2022-08-10T09:30:23.126Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -159,112 +159,6 @@ msgstr "Name"
 msgid "Download"
 msgstr "Download"
 
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Write a reply"
-msgstr "Write a reply"
-
-msgid "Post reply"
-msgstr "Post reply"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Could not update comment"
-msgstr "Could not update comment"
-
-msgid "Enter comment text"
-msgstr "Enter comment text"
-
-msgid "Update"
-msgstr "Update"
-
-msgid "Viewing interpretation: {{visualisationName}}"
-msgstr "Viewing interpretation: {{visualisationName}}"
-
-msgid "Could not load interpretation"
-msgstr "Could not load interpretation"
-
-msgid ""
-"The interpretation couldn’t be displayed. Try again or contact your system "
-"administrator."
-msgstr ""
-"The interpretation couldn’t be displayed. Try again or contact your system "
-"administrator."
-
-msgid "Hide interpretation"
-msgstr "Hide interpretation"
-
-msgid "Write an interpretation"
-msgstr "Write an interpretation"
-
-msgid "Post interpretation"
-msgstr "Post interpretation"
-
-msgid "Interpretations"
-msgstr "Interpretations"
-
-msgid "Unlike"
-msgstr "Unlike"
-
-msgid "Like"
-msgstr "Like"
-
-msgid "Reply"
-msgstr "Reply"
-
-msgid "Share"
-msgstr "Share"
-
-msgid "See interpretation"
-msgstr "See interpretation"
-
-msgid "Manage sharing"
-msgstr "Manage sharing"
-
-msgid "Could not update interpretation"
-msgstr "Could not update interpretation"
-
-msgid "Enter interpretation text"
-msgstr "Enter interpretation text"
-
-msgid "Bold text"
-msgstr "Bold text"
-
-msgid "Italic text"
-msgstr "Italic text"
-
-msgid "Link to a URL"
-msgstr "Link to a URL"
-
-msgid "Mention a user"
-msgstr "Mention a user"
-
-msgid "Add emoji"
-msgstr "Add emoji"
-
-msgid "Preview"
-msgstr "Preview"
-
-msgid "Back to write mode"
-msgstr "Back to write mode"
-
-msgid "Too many results. Try refining the search."
-msgstr "Too many results. Try refining the search."
-
-msgid "Search for a user"
-msgstr "Search for a user"
-
-msgid "Searching for \"{{searchText}}\""
-msgstr "Searching for \"{{searchText}}\""
-
-msgid "No results found"
-msgstr "No results found"
-
 msgid "all"
 msgstr "all"
 
@@ -278,29 +172,28 @@ msgid_plural "{{count}} conditions"
 msgstr[0] "{{count}} condition"
 msgstr[1] "{{count}} conditions"
 
-msgid "None selected"
-msgstr "None selected"
-
-msgid "Showing all values for this dimension"
-msgstr "Showing all values for this dimension"
-
-msgid "And 1 other..."
-msgstr "And 1 other..."
-
-msgid "And {{numberOfItems}} others..."
-msgstr "And {{numberOfItems}} others..."
-
 msgid "Levels"
 msgstr "Levels"
 
 msgid "Groups"
 msgstr "Groups"
 
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] "And {{count}} other..."
+msgstr[1] "And {{count}} others..."
+
+msgid "None selected"
+msgstr "None selected"
+
+msgid "Showing all values for this dimension"
+msgstr "Showing all values for this dimension"
+
 msgid "Program stage: {{stageName}}"
 msgstr "Program stage: {{stageName}}"
 
-msgid "No dimensions found for '{{searchTerm}}'"
-msgstr "No dimensions found for '{{searchTerm}}'"
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr "No dimensions found for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{programName}} program"
 msgstr "No dimensions found in the {{programName}} program"
@@ -409,8 +302,11 @@ msgstr "Unsaved visualization"
 msgid "Edited"
 msgstr "Edited"
 
-msgid "\"{{deletedObject}}\" successfully deleted."
-msgstr "\"{{deletedObject}}\" successfully deleted."
+msgid "Interpretations"
+msgstr "Interpretations"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr "\"{{- deletedObject}}\" successfully deleted."
 
 msgid "Rename successful"
 msgstr "Rename successful"
@@ -424,6 +320,9 @@ msgid ""
 msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
+
+msgid "Update"
+msgstr "Update"
 
 msgid "Getting started"
 msgstr "Getting started"
@@ -504,8 +403,8 @@ msgstr "Small"
 msgid "Hide empty rows"
 msgstr "Hide empty rows"
 
-msgid "Use legend for chart colors"
-msgstr "Use legend for chart colors"
+msgid "Use a legend for table cell colors"
+msgstr "Use a legend for table cell colors"
 
 msgid "Legend style"
 msgstr "Legend style"
@@ -516,8 +415,8 @@ msgstr "Legend type"
 msgid "Use pre-defined legend per data item"
 msgstr "Use pre-defined legend per data item"
 
-msgid "Select a single legend for the entire visualization"
-msgstr "Select a single legend for the entire visualization"
+msgid "Choose a single legend for the entire visualization"
+msgstr "Choose a single legend for the entire visualization"
 
 msgid "Legend changes background color"
 msgstr "Legend changes background color"
@@ -691,6 +590,12 @@ msgstr "Add at least one time dimension to the layout."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "There's a problem with at least one selected indicator"
+
+msgid "No access"
+msgstr "No access"
+
+msgid "You don't have access to the requested data"
+msgstr "You don't have access to the requested data"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"

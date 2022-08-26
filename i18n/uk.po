@@ -1,0 +1,707 @@
+# 
+# Translators:
+# Nadiia <semchuk@aph.org.ua>, 2022
+# Wanda <wanda@frontlineaids.org>, 2022
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# Éva Tamási, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Éva Tamási, 2022\n"
+"Language-Team: Ukrainian (https://www.transifex.com/hisp-uio/teams/100509/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Add to {{axisName}}"
+msgstr "Додати до {{axisName}}"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Видалити"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Завантаження..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Приховати"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Початкова дата"
+
+msgid "End date"
+msgstr "Кінцева дата"
+
+msgid "No items selected"
+msgstr ""
+
+msgid "Available options"
+msgstr ""
+
+msgid "Filter options"
+msgstr "Параметри фільтра"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr "Немає параметрів"
+
+msgid "Move to {{axisName}}"
+msgstr ""
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Джерело простих даних"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr "Microsoft Excel"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr "Завантажити дані з цієї дати"
+
+msgid "Metadata ID scheme"
+msgstr "Схема ідентифікатора метаданих"
+
+msgid "ID"
+msgstr "ID (ідентифікатор)"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Name"
+msgstr "Ім’я"
+
+msgid "Download"
+msgstr "Завантажити"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "Levels"
+msgstr "Рівні"
+
+msgid "Groups"
+msgstr "Групи"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "None selected"
+msgstr "Немає вибраного"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Подія"
+
+msgid "Enrollment"
+msgstr "Реєстрація"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "Основні виміри"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "All types"
+msgstr "Всі типи"
+
+msgid "Data element"
+msgstr "Елемент даних"
+
+msgid "Program attribute"
+msgstr ""
+
+msgid "Program indicator"
+msgstr "Програмний індикатор"
+
+msgid "Category"
+msgstr "Категорія"
+
+msgid "Category option group set"
+msgstr "Набір варіантів категорій"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Stage"
+msgstr ""
+
+msgid "All"
+msgstr "Усі"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Ваші виміри"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Незбережена візуалізація"
+
+msgid "Edited"
+msgstr "Відредаговано"
+
+msgid "Interpretations"
+msgstr "Інтерпретації"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Перейменування успішно виконано"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Візуалізація без назви {{visualizationType}}, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Цю візуалізацію неможливо видалити, оскільки вона використовується на одній "
+"або декількох інформаційних панелях"
+
+msgid "Update"
+msgstr "Оновити"
+
+msgid "Getting started"
+msgstr "Початок роботи"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr ""
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Проміжні підсумки стовпців"
+
+msgid "Columns totals"
+msgstr "Підсумки стовпців"
+
+msgid "Digit group separator"
+msgstr "Роздільник груп цифр"
+
+msgid "None"
+msgstr "Немає"
+
+msgid "Space"
+msgstr "Пробіл"
+
+msgid "Comma"
+msgstr "Кома"
+
+msgid "Display density"
+msgstr "Показати щільність"
+
+msgid "Comfortable"
+msgstr "Зручний"
+
+msgid "Normal"
+msgstr "Нормальний"
+
+msgid "Compact"
+msgstr "Компактний"
+
+msgid "Font size"
+msgstr "Розмір шрифту"
+
+msgid "Large"
+msgstr "Великий"
+
+msgid "Small"
+msgstr "Маленький"
+
+msgid "Hide empty rows"
+msgstr "Сховати порожні рядки"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Стиль умовних позначень"
+
+msgid "Legend type"
+msgstr "Тип умовних позначень"
+
+msgid "Use pre-defined legend per data item"
+msgstr ""
+"Використовувати попередньо визначені умовні позначення для кожного елемента "
+"даних"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Умовні позначення змінюють колір тла"
+
+msgid "Legend changes text color"
+msgstr "Умовні позначення змінюють колір тексту"
+
+msgid "Legend"
+msgstr "Умовні позначення"
+
+msgid "Select from legends"
+msgstr "Вибрати з умовних позначень"
+
+msgid "Loading legends"
+msgstr "Завантаження умовних позначень"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+"Можна встановити мінімальне або максимальне значення. Це стосуватиметься "
+"всієї візуалізації, всі значення за межами мінімального/максимального "
+"діапазону не відображатимуться"
+
+msgid "Minimum data value"
+msgstr "Мінімальне значення даних"
+
+msgid "Maximum data value"
+msgstr "Максимальне значення даних"
+
+msgid "Clear min/max limits"
+msgstr "Очистити мінімальні/максимальні межі"
+
+msgid "Row sub-totals"
+msgstr "Проміжні підсумки рядків"
+
+msgid "Row totals"
+msgstr "Підсумки рядків"
+
+msgid "Dimension labels"
+msgstr "Мітки вимірів"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Відображати ієрархію організаційних підрозділів"
+
+msgid "Show legend key"
+msgstr "Показати ключ умовних позначень"
+
+msgid "Add a title"
+msgstr "Додати заголовок"
+
+msgid "Options"
+msgstr "Опції"
+
+msgid "Columns"
+msgstr ""
+
+msgid "Rows"
+msgstr ""
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Так"
+
+msgid "No"
+msgstr "Ні"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Виникла проблема з отриманням даних з сервера."
+
+msgid "No data available"
+msgstr "Немає даних"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"Вибрані виміри не повернули жодних даних. Можливо, дані відсутні або ви не "
+"маєте доступу до них."
+
+msgid "Visualization not found"
+msgstr "Візуалізація не знайдена"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Візуалізація, яку ви намагаєтеся переглянути, не може бути знайдена, "
+"ідентифікатор може бути неправильним, або він міг бути видалений."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr ""
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Немає доступу"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Сталася помилка"
+
+msgid "Organisation unit"
+msgstr "Організаційний підрозділ"
+
+msgid "Event status"
+msgstr "Статус події"
+
+msgid "Program status"
+msgstr "Статус програми"
+
+msgid "Created by"
+msgstr "Автор"
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Організаційний підрозділ користувачів"
+
+msgid "User sub-units"
+msgstr "Одиниці підрозділів користувачів"
+
+msgid "User sub-x2-units"
+msgstr "Підрозділи користувачів 2-го рівня"
+
+msgid "Table title"
+msgstr "Назва таблиці"
+
+msgid "Display"
+msgstr "Відображення"
+
+msgid "Empty data"
+msgstr "Порожні дані"
+
+msgid "Totals"
+msgstr "Підсумки"
+
+msgid "Data"
+msgstr "Дані"
+
+msgid "Limit values"
+msgstr "Обмежити значення"
+
+msgid "Limit number of values"
+msgstr "Обмежити кількість значень"
+
+msgid "Limit minimum/maximum values"
+msgstr "Обмеження мінімальних/максимальних значень"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Event date"
+msgstr "Дата події"
+
+msgid "Enrollment date"
+msgstr "Дата реєстрації"
+
+msgid "Incident date"
+msgstr "Дата інциденту"
+
+msgid "Due/Scheduled date"
+msgstr ""
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Активно"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid "Completed"
+msgstr "Завершено"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

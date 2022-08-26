@@ -1,19 +1,21 @@
-.wrapper {
+/* Legend key */
+.legendKeyScrollbox {
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 190px;
+}
+
+.pluginContainer {
     display: flex;
-    flex-direction: row;
-    flex-grow: 0;
-    align-items: flex-start;
+    gap: var(--spacers-dp4);
+    min-width: 0;
 }
 
 .fetchIndicator {
     position: relative;
+    min-width: 0;
     max-height: 100%;
     display: flex;
-}
-
-/* TODO: can be removed if https://github.com/dhis2/ui/pull/978 gets merged */
-.fetchIndicator > :global(.tablescrollbox) {
-    flex-grow: 0;
 }
 
 .fetchIndicator.fetching::after {

@@ -9,13 +9,13 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { acSetUiOption } from '../../../actions/ui.js'
+import { acSetUiOptions } from '../../../actions/ui.js'
 import {
     OPTION_LEGEND_DISPLAY_STRATEGY,
     OPTION_LEGEND_DISPLAY_STYLE,
     OPTION_LEGEND_SET,
 } from '../../../modules/options.js'
-import { sGetUiOption } from '../../../reducers/ui.js'
+import { sGetUiOptions } from '../../../reducers/ui.js'
 import styles from '../styles/VisualizationOptions.module.css'
 import LegendDisplayStrategy from './LegendDisplayStrategy.js'
 import LegendDisplayStyle from './LegendDisplayStyle.js'
@@ -40,34 +40,30 @@ const Legend = ({
 
         if (checked) {
             onChange({
-                optionId: OPTION_LEGEND_DISPLAY_STRATEGY,
-                value: LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM,
+                [OPTION_LEGEND_DISPLAY_STRATEGY]:
+                    LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM,
             })
             onChange({
-                optionId: OPTION_LEGEND_DISPLAY_STYLE,
-                value: LEGEND_DISPLAY_STYLE_FILL,
+                [OPTION_LEGEND_DISPLAY_STYLE]: LEGEND_DISPLAY_STYLE_FILL,
             })
         } else {
             onChange({
-                optionId: OPTION_LEGEND_DISPLAY_STRATEGY,
-                value: LEGEND_DISPLAY_STRATEGY_FIXED,
+                [OPTION_LEGEND_DISPLAY_STRATEGY]: LEGEND_DISPLAY_STRATEGY_FIXED,
             })
             onChange({
-                optionId: OPTION_LEGEND_SET,
-                value: undefined,
+                [OPTION_LEGEND_SET]: undefined,
             })
             onChange({
-                optionId: OPTION_LEGEND_DISPLAY_STYLE,
-                value: undefined,
+                [OPTION_LEGEND_DISPLAY_STYLE]: undefined,
             })
         }
     }
 
     return (
-        <div className={styles.tabSectionOptionToggleable}>
+        <div className={styles.tabSectionOption}>
             <Checkbox
                 checked={legendEnabled}
-                label={i18n.t('Use legend for chart colors')}
+                label={i18n.t('Use a legend for table cell colors')}
                 onChange={onCheckboxChange}
                 dense
             />
@@ -126,14 +122,12 @@ Legend.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    legendSet: sGetUiOption(state, { id: OPTION_LEGEND_SET }),
-    legendDisplayStrategy: sGetUiOption(state, {
-        id: OPTION_LEGEND_DISPLAY_STRATEGY,
-    }),
+    legendSet: sGetUiOptions(state)[OPTION_LEGEND_SET],
+    legendDisplayStrategy: sGetUiOptions(state)[OPTION_LEGEND_DISPLAY_STRATEGY],
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onChange: (params) => dispatch(acSetUiOption(params)),
+    onChange: (params) => dispatch(acSetUiOptions(params)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Legend)

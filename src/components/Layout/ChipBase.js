@@ -1,13 +1,13 @@
-import { DIMENSION_ID_ORGUNIT, DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_PERIOD,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-    VALUE_TYPE_BOOLEAN,
-    VALUE_TYPE_TRUE_ONLY,
-    getConditions,
-} from '../../modules/conditions.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
 
@@ -16,7 +16,7 @@ const VALUE_TYPE_BOOLEAN_NUM_OPTIONS = 3
 
 // Presentational component used by dnd - do not add redux or dnd functionality
 
-export const ChipBase = ({ dimension, conditions, items, metadata }) => {
+export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
     const { id, name, dimensionType, optionSet, valueType, stageName } =
         dimension
 
@@ -24,41 +24,37 @@ export const ChipBase = ({ dimension, conditions, items, metadata }) => {
         if (
             (id === DIMENSION_ID_ORGUNIT ||
                 dimensionType === DIMENSION_TYPE_PERIOD) &&
-            !items.length
+            !itemsLength
         ) {
             return ''
         }
 
         const all = i18n.t('all')
 
-        if (!conditions.condition && !conditions.legendSet && !items.length) {
+        if (!conditionsLength && !itemsLength) {
             return `: ${all}`
         }
 
-        const conds = getConditions({ conditions, metadata, dimension })
-
         if (
             (valueType === VALUE_TYPE_TRUE_ONLY &&
-                conds.length === VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS) ||
+                conditionsLength === VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS) ||
             (valueType === VALUE_TYPE_BOOLEAN &&
-                conds.length === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
+                conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
         ) {
             return `: ${all}`
         }
 
-        const numberOfConditions = conds.length
-
-        if (optionSet || items.length) {
-            const selected = items.length || numberOfConditions
+        if (optionSet || itemsLength) {
+            const selected = itemsLength || conditionsLength
             const suffix = i18n.t('{{count}} selected', {
                 count: selected,
                 defaultValue: '{{count}} selected',
                 defaultValue_plural: '{{count}} selected',
             })
             return `: ${suffix}`
-        } else if (numberOfConditions) {
+        } else if (conditionsLength) {
             const suffix = i18n.t('{{count}} conditions', {
-                count: numberOfConditions,
+                count: conditionsLength,
                 defaultValue: '{{count}} condition',
                 defaultValue_plural: '{{count}} conditions',
             })
@@ -85,7 +81,7 @@ export const ChipBase = ({ dimension, conditions, items, metadata }) => {
 }
 
 ChipBase.propTypes = {
-    conditions: PropTypes.object,
+    conditionsLength: PropTypes.number,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,
         id: PropTypes.string,
@@ -94,12 +90,5 @@ ChipBase.propTypes = {
         stageName: PropTypes.string,
         valueType: PropTypes.string,
     }),
-    items: PropTypes.array,
-    metadata: PropTypes.object,
-}
-
-ChipBase.defaultProps = {
-    conditions: {},
-    items: [],
-    metadata: {},
+    itemsLength: PropTypes.number,
 }

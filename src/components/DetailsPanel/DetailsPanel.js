@@ -1,4 +1,8 @@
-import { AboutAOUnit, useCachedDataQuery } from '@dhis2/analytics'
+import {
+    AboutAOUnit,
+    InterpretationsUnit,
+    useCachedDataQuery,
+} from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import { stringify } from 'query-string'
 import React from 'react'
@@ -6,7 +10,6 @@ import { connect } from 'react-redux'
 import history from '../../modules/history.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetLoadError } from '../../reducers/loader.js'
-import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/index.js'
 import classes from './styles/DetailsPanel.module.css'
 
 const navigateToOpenModal = (interpretationId, initialFocus) => {
@@ -23,7 +26,7 @@ const DetailsPanel = ({ interpretationsUnitRef, visualization, disabled }) => {
     const { currentUser } = useCachedDataQuery()
 
     return (
-        <div className={classes.panel}>
+        <div className={classes.panel} data-test="details-panel">
             <AboutAOUnit type="eventVisualizations" id={visualization.id} />
             <InterpretationsUnit
                 ref={interpretationsUnitRef}
