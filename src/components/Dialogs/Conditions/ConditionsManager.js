@@ -488,9 +488,11 @@ const ConditionsManager = ({
         )
     }
 
-    console.log(
-        `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
-    ) // TODO: For testing only
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(
+            `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+        )
+    }
 
     return dimension ? (
         <DimensionModal
