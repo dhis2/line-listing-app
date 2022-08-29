@@ -32,6 +32,7 @@ const NumericCondition = ({
     onLegendSetChange,
     enableDecimalSteps,
     dimension,
+    allowIntegerOnly,
 }) => {
     let operator, value
 
@@ -145,7 +146,11 @@ const NumericCondition = ({
                     <Input
                         value={value}
                         type="number"
-                        onChange={({ value }) => setValue(value)}
+                        onChange={({ value }) =>
+                            setValue(
+                                allowIntegerOnly ? parseInt(value, 10) : value
+                            )
+                        }
                         className={classes.numericInput}
                         dense
                         step={enableDecimalSteps ? '0.1' : '1'}
@@ -232,6 +237,7 @@ NumericCondition.propTypes = {
     onChange: PropTypes.func.isRequired,
     onLegendSetChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    allowIntegerOnly: PropTypes.bool,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,
         id: PropTypes.string,
