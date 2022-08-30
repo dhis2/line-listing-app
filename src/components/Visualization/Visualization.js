@@ -302,7 +302,10 @@ export const Visualization = ({
                                         className={cx(
                                             styles.cell,
                                             fontSizeClass,
-                                            sizeClass
+                                            sizeClass,
+                                            {
+                                                [styles.emptyCell]: !value,
+                                            }
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
