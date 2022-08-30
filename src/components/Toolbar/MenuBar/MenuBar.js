@@ -51,7 +51,7 @@ const visualizationSaveAsMutation = {
 const MenuBar = ({
     current,
     visualization,
-    apiObjectName,
+    onShare,
     setCurrent,
     setVisualization,
 }) => {
@@ -220,7 +220,7 @@ const MenuBar = ({
             />
             <FileMenu
                 currentUser={currentUser}
-                fileType={apiObjectName}
+                fileType={'eventVisualization'}
                 fileObject={current}
                 defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
@@ -233,6 +233,7 @@ const MenuBar = ({
                         : undefined
                 }
                 onSaveAs={(details) => onSave(details, true)}
+                onShare={onShare}
                 onDelete={onDelete}
                 onError={onError}
             />
@@ -245,7 +246,7 @@ const MenuBar = ({
 }
 
 MenuBar.propTypes = {
-    apiObjectName: PropTypes.string,
+    onShare: PropTypes.func.isRequired,
     current: PropTypes.object,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,

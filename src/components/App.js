@@ -125,6 +125,11 @@ const App = () => {
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
+    const aboutAOUnitRef = useRef()
+    const onShare = () => {
+        showDetailsPanel && aboutAOUnitRef.current?.refresh()
+    }
+
     const interpretationsUnitRef = useRef()
     const onInterpretationUpdate = () => {
         interpretationsUnitRef.current.refresh()
@@ -301,7 +306,7 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar />
+            <Toolbar onShare={onShare} />
             <div
                 className={cx(
                     classes.sectionMain,
@@ -373,6 +378,7 @@ const App = () => {
                     {showDetailsPanel && current && (
                         <DetailsPanel
                             interpretationsUnitRef={interpretationsUnitRef}
+                            aboutAOUnitRef={aboutAOUnitRef}
                         />
                     )}
                 </div>
