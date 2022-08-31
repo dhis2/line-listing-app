@@ -112,6 +112,11 @@
     padding: 4px 8px;
 }
 
+/* Empty cell */
+.dataTable .emptyCell::after {
+    content: '\00a0';
+}
+
 /* Sizes for the table footer */
 .dataTable .stickyNavigation.sizeComfortable {
     padding: 14px 12px;
