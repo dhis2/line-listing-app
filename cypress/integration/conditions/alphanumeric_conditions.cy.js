@@ -146,7 +146,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used https://jira.dhis2.org/browse/DHIS2- TBA!
+    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used https://jira.dhis2.org/browse/DHIS2-13693
     it.skip('does not contain', () => {
         const TEST_TEXT = 'T'
 
