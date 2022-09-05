@@ -22,6 +22,7 @@ import {
     getPreviousYearStr,
     getCurrentYearStr,
     unselectAllPeriods,
+    selectFixedPeriod,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
@@ -93,9 +94,19 @@ describe('date conditions (Date)', () => {
         unselectAllPeriods({
             label: periodLabel,
         })
-        selectRelativePeriod({
+        selectFixedPeriod({
             label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
         })
 
         const TEST_DATE = `${currentYear}-01-02`
@@ -107,11 +118,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${currentYear}-01-01`,
-            `${currentYear}-01-02`,
-            `${currentYear}-01-03`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-02-01`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
