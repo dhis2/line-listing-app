@@ -89,8 +89,7 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used https://jira.dhis2.org/browse/DHIS2-13563
-    it.skip('is not', () => {
+    it('is not', () => {
         unselectAllPeriods({
             label: periodLabel,
         })
@@ -224,8 +223,7 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
-    it.skip('is not empty / not null', () => {
+    it('is not empty / not null', () => {
         addConditions([
             {
                 conditionName: 'is not empty / not null',
