@@ -4,6 +4,7 @@ import {
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -422,6 +423,7 @@ export const useMainDimensions = () => {
 }
 
 export const useTimeDimensions = () => {
+    const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
@@ -449,8 +451,12 @@ export const useTimeDimensions = () => {
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
+            ...(`${serverVersion.major}.${serverVersion.minor}.${
+                serverVersion.patch || 0
+            }` >= '2.39.0'
+                ? [scheduledDateDim]
+                : []),
             incidentDateDim,
-            scheduledDateDim,
             lastUpdatedDim,
         ]
 
