@@ -27,7 +27,7 @@ const DetailsPanel = ({ interpretationsUnitRef, visualization, disabled }) => {
 
     return (
         <div className={classes.panel} data-test="details-panel">
-            <AboutAOUnit type="eventVisualizations" id={visualization.id} />
+            <AboutAOUnit type="eventVisualization" id={visualization.id} />
             <InterpretationsUnit
                 ref={interpretationsUnitRef}
                 type="eventVisualization"
