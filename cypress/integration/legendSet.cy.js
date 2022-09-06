@@ -20,7 +20,12 @@ import {
     expectLegendDisplayStyleToBeText,
     expectLegendKeyOptionToBeEnabled,
 } from '../helpers/options.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import {
+    getCurrentYearStr,
+    selectFixedPeriod,
+    selectRelativePeriod,
+    unselectAllPeriods,
+} from '../helpers/period.js'
 import { expectRouteToBeEmpty } from '../helpers/route.js'
 import {
     expectAOTitleToContain,
@@ -28,6 +33,7 @@ import {
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
     expectTableToBeVisible,
+    getTableRows,
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -328,6 +334,39 @@ describe('Options - Legend', () => {
         expectLegendKeyToBeVisible()
 
         expectLegedKeyToMatchLegendSets(['Age (COVID-19)', 'Negative'])
+    })
+    it("empty values doesn't display a legend color", () => {
+        const currentYear = getCurrentYearStr()
+
+        unselectAllPeriods({
+            label: periodLabel,
+        })
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(3)
+            .should('have.css', 'background-color', defaultBackgroundColor)
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '')
+
+        getTableRows()
+            .eq(1)
+            .find('td')
+            .eq(3)
+            .should('have.css', 'background-color', 'rgb(189, 0, 38)')
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '-12')
     })
     it('saved AO can be deleted', () => {
         cy.getBySel('menubar').contains('File').click()
