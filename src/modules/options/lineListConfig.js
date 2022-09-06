@@ -19,7 +19,7 @@ export default (serverVersion) => [
     ]),
     ...(`${serverVersion.major}.${serverVersion.minor}.${
         serverVersion.patch || 0
-    }` > '2.38.1'
+    }` >= '2.38.1'
         ? [getLegendTab()]
         : []),
 ]
