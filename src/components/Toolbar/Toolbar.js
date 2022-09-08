@@ -5,17 +5,17 @@ import classes from '../App.module.css'
 import { default as MenuBar } from './MenuBar/MenuBar.js'
 import { default as VisualizationTypeSelector } from './VisualizationTypeSelector/VisualizationTypeSelector.js'
 
-export const Toolbar = ({ onShare }) => {
+export const Toolbar = ({ onFileMenuAction }) => {
     return (
         <div className={cx(classes.sectionToolbar, classes.flexCt)}>
             <VisualizationTypeSelector />
             <div className={cx(classes.toolbarMenubar, classes.flexGrow1)}>
-                <MenuBar onShare={onShare} />
+                <MenuBar onFileMenuAction={onFileMenuAction} />
             </div>
         </div>
     )
 }
 
 Toolbar.propTypes = {
-    onShare: PropTypes.func.isRequired,
+    onFileMenuAction: PropTypes.func.isRequired,
 }

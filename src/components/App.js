@@ -126,7 +126,7 @@ const App = () => {
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
     const aboutAOUnitRef = useRef()
-    const onShare = () => {
+    const onFileMenuAction = () => {
         showDetailsPanel && aboutAOUnitRef.current?.refresh()
     }
 
@@ -306,7 +306,7 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar onShare={onShare} />
+            <Toolbar onFileMenuAction={onFileMenuAction} />
             <div
                 className={cx(
                     classes.sectionMain,

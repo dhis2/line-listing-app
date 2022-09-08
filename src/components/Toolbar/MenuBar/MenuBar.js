@@ -51,7 +51,7 @@ const visualizationSaveAsMutation = {
 const MenuBar = ({
     current,
     visualization,
-    onShare,
+    onFileMenuAction,
     setCurrent,
     setVisualization,
 }) => {
@@ -233,7 +233,8 @@ const MenuBar = ({
                         : undefined
                 }
                 onSaveAs={(details) => onSave(details, true)}
-                onShare={onShare}
+                onShare={onFileMenuAction}
+                onTranslate={onFileMenuAction}
                 onDelete={onDelete}
                 onError={onError}
             />
@@ -246,7 +247,7 @@ const MenuBar = ({
 }
 
 MenuBar.propTypes = {
-    onShare: PropTypes.func.isRequired,
+    onFileMenuAction: PropTypes.func.isRequired,
     current: PropTypes.object,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
