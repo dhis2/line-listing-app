@@ -38,13 +38,6 @@ const unselectAllPeriods = ({ label }) => {
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
-/*const selectStartEndDatePeriod = ({label, period}) => {
-    cy.getBySel('main-sidebar').contains(label).click()
-    // TODO: implement when a start/end date test is added
-    // cy.contains('Define start - end dates').click()
-    cy.contains('Add to Columns').click()
-}*/
-
 const getPreviousYearStr = () => (new Date().getFullYear() - 1).toString()
 
 const getCurrentYearStr = () => new Date().getFullYear().toString()
