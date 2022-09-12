@@ -2,6 +2,7 @@ import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_LEGEND_SET,
+    TEST_DIM_LEGEND_SET_NEGATIVE,
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
@@ -19,7 +20,12 @@ import {
     expectLegendDisplayStyleToBeText,
     expectLegendKeyOptionToBeEnabled,
 } from '../helpers/options.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import {
+    getCurrentYearStr,
+    selectFixedPeriod,
+    selectRelativePeriod,
+    unselectAllPeriods,
+} from '../helpers/period.js'
 import { expectRouteToBeEmpty } from '../helpers/route.js'
 import {
     expectAOTitleToContain,
@@ -27,6 +33,7 @@ import {
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
     expectTableToBeVisible,
+    getTableRows,
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -148,7 +155,6 @@ describe('Options - Legend', () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
     })
-
     it('legend key is hidden by default', () => {
         expectLegendKeyToBeHidden()
     })
@@ -253,7 +259,6 @@ describe('Options - Legend', () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
     })
-
     it('options can be saved and loaded', () => {
         cy.getBySel('menubar').contains('File').click()
 
@@ -292,9 +297,78 @@ describe('Options - Legend', () => {
         cy.getBySel('fixed-legend-set-select-content').contains(
             TEST_LEGEND_SET.name
         )
+    })
+    it('legend is applied to negative values (per data item)', () => {
+        cy.getBySel('options-modal-content')
+            .contains('Use pre-defined legend per data item')
+            .click()
 
-        cy.getBySel('options-modal-content').closePopper()
+        expectLegendDisplayStrategyToBeByDataItem()
 
+        clickOptionsModalUpdateButton()
+
+        openDimension(TEST_DIM_LEGEND_SET_NEGATIVE)
+
+        cy.contains('Add to Columns').click()
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        TEST_CELLS.concat([
+            { value: -50, color: 'rgb(255, 255, 178)' },
+            { value: -35, color: 'rgb(253, 141, 60)' },
+        ]).forEach((cell) =>
+            cy
+                .getBySel('table-body')
+                .contains(cell.value)
+                .should('have.css', 'color', defaultTextColor)
+                .closest('td')
+                .should('have.css', 'background-color', cell.color)
+        )
+
+        // unaffected cells (date column) have default background and text color
+        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+    })
+    it('legend key displays correctly when two items are in use', () => {
+        expectLegendKeyToBeVisible()
+
+        expectLegedKeyToMatchLegendSets(['Age (COVID-19)', 'Negative'])
+    })
+    it("empty values doesn't display a legend color", () => {
+        const currentYear = getCurrentYearStr()
+
+        unselectAllPeriods({
+            label: periodLabel,
+        })
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(3)
+            .should('have.css', 'background-color', defaultBackgroundColor)
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '')
+
+        getTableRows()
+            .eq(1)
+            .find('td')
+            .eq(3)
+            .should('have.css', 'background-color', 'rgb(189, 0, 38)')
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '-12')
+    })
+    it('saved AO can be deleted', () => {
         cy.getBySel('menubar').contains('File').click()
 
         cy.getBySel('file-menu-container').contains('Delete').click()
@@ -306,8 +380,4 @@ describe('Options - Legend', () => {
 
         expectRouteToBeEmpty()
     })
-
-    // TODO:
-    // Test that multiple legend sets show up properly in the legend key - requires better test data in the db!
-    // Being able to apply legends to negative values (but not empty strings)  - requires better test data in the db!
 })
