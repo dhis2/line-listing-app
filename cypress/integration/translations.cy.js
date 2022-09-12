@@ -3,7 +3,7 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const UPDATE_BUTTON_ORIGINAL = 'Update'
 const UPDATE_BUTTON_TRANSLATED = 'Oppdater'
 const WELCOME_MSG_ORIGINAL = 'Getting started'
-const WELCOME_MSG_TRANSLATED = 'TODO - change this' // TODO: Change to what "Getting started" is translated to
+const WELCOME_MSG_TRANSLATED = 'Komme i gang'
 
 const interceptLanguage = () => {
     cy.intercept('**userSettings**', (req) => {
@@ -35,9 +35,7 @@ const interceptLanguage = () => {
 }
 
 describe('Translations', () => {
-    it.skip('translated language display correctly in the app', () => {
-        // FIXME: assert that a translation from the app itself (e.g. "Getting started") is translated
-        // currently not possible as i18n hasn't been configured in the app itself yet
+    it('translated language display correctly in the app', () => {
         interceptLanguage()
 
         cy.visit('/', EXTENDED_TIMEOUT)
