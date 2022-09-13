@@ -50,7 +50,6 @@ import {
 } from '../../modules/tableValues.js'
 import {
     headersMap,
-    statusNames,
     transformVisualization,
 } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
