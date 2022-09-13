@@ -22,9 +22,11 @@ import {
     getPreviousYearStr,
     getCurrentYearStr,
     unselectAllPeriods,
+    selectFixedPeriod,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -88,14 +90,23 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
-    it.skip('is not', () => {
+    it('is not', () => {
         unselectAllPeriods({
             label: periodLabel,
         })
-        selectRelativePeriod({
+        selectFixedPeriod({
             label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
         })
 
         const TEST_DATE = `${currentYear}-01-02`
@@ -107,11 +118,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${currentYear}-01-01`,
-            `${currentYear}-01-02`,
-            `${currentYear}-01-03`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-02-01`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -300,6 +307,21 @@ describe('date types', () => {
             TEST_OPERATORS.forEach((operator) => {
                 cy.getBySel('date-condition-type').containsExact(operator)
             })
+            cy.getBySel('date-condition-type').closePopper()
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

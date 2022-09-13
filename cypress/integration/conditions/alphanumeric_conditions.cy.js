@@ -23,6 +23,7 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
+    expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
@@ -92,8 +93,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used
-    it.skip('is not', () => {
+    it('is not', () => {
         const TEST_TEXT = 'Text A'
 
         addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
@@ -146,8 +146,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "does not contain" is being used
-    it.skip('does not contain', () => {
+    it('does not contain', () => {
         const TEST_TEXT = 'T'
 
         addConditions([
@@ -244,6 +243,21 @@ describe('alphanumeric types', () => {
                     operator
                 )
             })
+            cy.getBySel('alphanumeric-condition-type').closePopper()
+            cy.contains('Add to Columns').click()
+        })
+
+        it(`${type} can be used in a visualization`, () => {
+            selectRelativePeriod({
+                label: periodLabel,
+                period: TEST_REL_PE_THIS_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            expectTableToContainHeader(type)
         })
     })
 })

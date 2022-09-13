@@ -1,7 +1,5 @@
-import { TEST_AOS } from '../data/index.js'
+import { TEST_AO } from '../data/index.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-
-const TEST_AO = TEST_AOS[0]
 
 describe('Smoke Test', () => {
     it('loads', () => {
