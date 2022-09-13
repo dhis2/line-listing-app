@@ -8,7 +8,7 @@ const config = {
 
     entryPoints: {
         app: './src/AppWrapper.js',
-        plugin: './src/components/PluginWrapper.js',
+        plugin: './src/PluginWrapper.js',
     },
 }
 
