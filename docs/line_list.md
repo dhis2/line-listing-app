@@ -137,6 +137,7 @@ This is a new feature in Line Listing app where you will be able to view the dat
 -   Date patient notified in the health system.
 -   Incident date
 -   Last updated on
+-   Scheduled date
 
 You can click on the above time dimension to visualize data on different period dimension, a window will open where you can select one or several periods.
 
