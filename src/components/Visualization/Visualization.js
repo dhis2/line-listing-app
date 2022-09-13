@@ -18,7 +18,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -30,7 +30,11 @@ import {
     getFormattedCellValue,
     getHeaderText,
 } from '../../modules/tableValues.js'
-import { headersMap } from '../../modules/visualization.js'
+import {
+    headersMap,
+    statusNames,
+    transformVisualization,
+} from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 
@@ -63,8 +67,9 @@ const getSizeClass = (displayDensity) => {
 
 export const Visualization = ({
     filters,
-    visualization,
+    visualization: AO,
     isVisualizationLoading,
+    nameProp,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
@@ -81,10 +86,13 @@ export const Visualization = ({
 
     const isInModal = !!filters?.relativePeriodDate
 
+    const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
+
     const { fetching, error, data } = useAnalyticsData({
         filters,
         visualization,
         isVisualizationLoading,
+        nameProp,
         onResponsesReceived,
         pageSize,
         page,
@@ -368,6 +376,7 @@ Visualization.defaultProps = {
 
 Visualization.propTypes = {
     isVisualizationLoading: PropTypes.bool.isRequired,
+    nameProp: PropTypes.string.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
