@@ -93,9 +93,9 @@ describe('repeated events', () => {
 
         // repetition 3/0 can be set successfully
         setRepetition({ dimensionName, recent: 3, oldest: 0 })
-        let result = ['11', '0', '5']
+        let result = ['11', '', '5']
         result.forEach((value, index) => {
-            getTableDataCells().eq(index).contains(value)
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
         expectHeaderToContainExact(
             0,
@@ -131,9 +131,9 @@ describe('repeated events', () => {
 
         // repetition 3/3 can be set successfully
         setRepetition({ dimensionName, recent: 3, oldest: 3 })
-        result = ['56', '0', '100', '11', '0', '5']
+        result = ['56', '0', '100', '11', '', '5']
         result.forEach((value, index) => {
-            getTableDataCells().eq(index).contains(value)
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
         expectHeaderToContainExact(
             0,
@@ -160,14 +160,13 @@ describe('repeated events', () => {
             'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it.skip('repetition out of bounds returns as empty value', () => {
-        // FIXME: Backend issue, the repetition out of bounds is returned as 0 when it should be an empty string, https://jira.dhis2.org/browse/DHIS2-13633
+    it('repetition out of bounds returns as empty value', () => {
         const dimensionName = 'Analytics - Percentage'
         setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
 
         // repetition 10/0 can be set successfully
         setRepetition({ dimensionName, recent: 10, oldest: 0 })
-        const result = ['', '56', '0', '100', '50', '35', '10', '11', '0', '5']
+        const result = ['', '56', '0', '100', '50', '35', '10', '11', '', '5']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
