@@ -10,6 +10,7 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     selectRelativePeriod,
     getPreviousYearStr,
+    selectFixedPeriod,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
@@ -19,28 +20,23 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const setUpTable = (event) => {
-    selectEventProgram(event)
-
-    selectRelativePeriod({
-        label: event[DIMENSION_ID_EVENT_DATE],
-        period: TEST_REL_PE_LAST_YEAR,
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-}
-
 describe('Option set condition', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable(HIV_PROGRAM)
-    })
-
     it('Option set (program attribute) displays correctly', () => {
         const dimensionName = 'Country of birth'
         const optionName = 'Sweden'
+
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        selectEventProgram(HIV_PROGRAM)
+
+        selectRelativePeriod({
+            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
 
         openDimension(dimensionName)
 
@@ -78,11 +74,27 @@ describe('Option set condition', () => {
         ])
     })
 
-    it.skip('Option set (data element) displays correctly', () => {
-        // FIXME: Fails because of https://jira.dhis2.org/browse/DHIS2-13573
-        // The test below is still WIP and untested, as the bug causes the app to crash, so this can only be continued once the bug is fixed
+    it('Option set (data element) displays correctly', () => {
         const dimensionName = 'HIV Facility level testing'
-        const optionName = 'Family planning clinic'
+        const filterOption = 'Family planning clinic'
+        const filteredOutOption = 'Antenatal care clinic'
+        const previousYear = getPreviousYearStr()
+
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        selectEventProgram(HIV_PROGRAM)
+
+        selectFixedPeriod({
+            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: {
+                year: previousYear,
+                name: `January ${previousYear}`,
+            },
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
 
         openDimension(dimensionName)
 
@@ -94,26 +106,28 @@ describe('Option set condition', () => {
 
         expectTableToBeVisible()
 
-        expectTableToNotContainValue(optionName)
+        expectTableToContainValue(filterOption)
+
+        expectTableToContainValue(filteredOutOption)
 
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
         openDimension(dimensionName)
 
         cy.getBySel('option-set-transfer-sourceoptions')
-            .contains(optionName)
+            .contains(filterOption)
             .dblclick()
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
-        assertTooltipContainsEntries([optionName])
+        assertTooltipContainsEntries([filterOption])
 
-        expectTableToContainValue(optionName)
+        expectTableToContainValue(filterOption)
 
-        expectTableToMatchRows([
-            // TODO: To be filled in once the bug above is solved
-        ])
+        expectTableToNotContainValue(filteredOutOption)
+
+        expectTableToMatchRows(['2021-01-01'])
     })
 })

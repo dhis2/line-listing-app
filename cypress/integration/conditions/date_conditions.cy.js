@@ -22,6 +22,7 @@ import {
     getPreviousYearStr,
     getCurrentYearStr,
     unselectAllPeriods,
+    selectFixedPeriod,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
@@ -89,14 +90,23 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
-    // FIXME: This fails due to a backend bug that hides all empty rows when "is not" is being used https://jira.dhis2.org/browse/DHIS2-13563
-    it.skip('is not', () => {
+    it('is not', () => {
         unselectAllPeriods({
             label: periodLabel,
         })
-        selectRelativePeriod({
+        selectFixedPeriod({
             label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
         })
 
         const TEST_DATE = `${currentYear}-01-02`
@@ -108,11 +118,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${currentYear}-01-01`,
-            `${currentYear}-01-02`,
-            `${currentYear}-01-03`,
-        ])
+        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-02-01`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -224,8 +230,7 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    // FIXME: This fails due to a backend bug that shows empty rows when "is not empty" is being used https://jira.dhis2.org/browse/DHIS2-13588
-    it.skip('is not empty / not null', () => {
+    it('is not empty / not null', () => {
         addConditions([
             {
                 conditionName: 'is not empty / not null',
