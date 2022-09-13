@@ -1,3 +1,10 @@
+# [100.2.0](https://github.com/dhis2/line-listing-app/compare/v100.1.0...v100.2.0) (2022-09-13)
+
+
+### Features
+
+* visualize scheduled date (DHIS2-11192) ([#206](https://github.com/dhis2/line-listing-app/issues/206)) ([b657de7](https://github.com/dhis2/line-listing-app/commit/b657de76ddd645af29bd53c6246e839566b129b2)), closes [#200](https://github.com/dhis2/line-listing-app/issues/200) [#202](https://github.com/dhis2/line-listing-app/issues/202) [#203](https://github.com/dhis2/line-listing-app/issues/203) [#191](https://github.com/dhis2/line-listing-app/issues/191) [#204](https://github.com/dhis2/line-listing-app/issues/204) [#205](https://github.com/dhis2/line-listing-app/issues/205) [#201](https://github.com/dhis2/line-listing-app/issues/201)
+
 # [100.1.0](https://github.com/dhis2/line-listing-app/compare/v100.0.0...v100.1.0) (2022-08-26)
 
 
