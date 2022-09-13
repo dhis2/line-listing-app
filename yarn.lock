@@ -2026,10 +2026,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.0.8":
-  version "24.0.8"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.0.8.tgz#a463bef8ea1f10b8581d202583fa3da5e474c9bf"
-  integrity sha512-Jkh23yiEkUz4SYgGItEkM1z4nXqsLUs9aqUl7oihwQmut2iIMHLo2355QsuELcQGP8DFf4Qgu9MT1mrOZADIFA==
+"@dhis2/analytics@^24.1.0":
+  version "24.1.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.1.0.tgz#20690377ea4c22b8d106f27302b5090f5f43722f"
+  integrity sha512-N7hckkRyYEr5js5eDC9Kkblt1PjewUar0eHUQXqG5vJD5z3eTcxD8tsRjP8Ce8lP1oh2J/ch/DujORgpEHu0CA==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
@@ -2049,37 +2049,37 @@
     "@dhis2/pwa" "8.3.3"
     moment "^2.24.0"
 
-"@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.4.0.tgz#cf7661614698b8afd4a46ce2f172d4e065967894"
-  integrity sha512-H8hmismlIxJaOAr6U/E77WI3A6xi09DmLocyB6glalThvCFNkGWJ4BKrU79gz4HSsM7gm70DroGzwPcUtHkMSw==
+"@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.4.4.tgz#87202b82babe6e4b3f29f784e02a3b295960359c"
+  integrity sha512-GTj0H6TLVcw6zo0Vf9aDuPJbsjFfbNWN/SSC9/GF2a0foXdKVSCoc4H5+gW/RhBgYvaSZYwQBA6L+qBaQj7c0Q==
   dependencies:
-    "@dhis2/app-service-alerts" "3.4.0"
-    "@dhis2/app-service-config" "3.4.0"
-    "@dhis2/app-service-data" "3.4.0"
-    "@dhis2/app-service-offline" "3.4.0"
+    "@dhis2/app-service-alerts" "3.4.4"
+    "@dhis2/app-service-config" "3.4.4"
+    "@dhis2/app-service-data" "3.4.4"
+    "@dhis2/app-service-offline" "3.4.4"
 
-"@dhis2/app-service-alerts@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.4.0.tgz#73818e3f373acc4ff5abf77d05b0c3d736eefc82"
-  integrity sha512-AQkUVqSRhL5+BEM7jOeQ0cCbr2Q7KQJ9S2UVYxf56O+WdmOTX1kEYOQmaeJIFDf/2tlGtgDJST2MDJG+8ob5VA==
+"@dhis2/app-service-alerts@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-alerts/-/app-service-alerts-3.4.4.tgz#ccd8848f416e976a01ea11bbbd6e1ae873136777"
+  integrity sha512-o2DHlZIHxJQ4XwJ9uIr0UpMTi3ZK0W6u+FkSnPGwrvF+MCFsxA0+pjN7PfBo4acCQHPBwTZzcyq0WYiEAJM7OA==
 
-"@dhis2/app-service-config@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-3.4.0.tgz#930af9f2a761f1c76a5b90e1a55098a352014b35"
-  integrity sha512-8BBsn2jq7TPzFC63zXMWq+qbvIr5l7QLPqTs7KjaD1aJMt9HbKn7dZdkMBnS/9DtFoH6A6yk2G2oMlF2aou0Rw==
+"@dhis2/app-service-config@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-config/-/app-service-config-3.4.4.tgz#b5773138183bf339055957bdd1d24b54fecc404e"
+  integrity sha512-QCUfptfmwh3Xs16rr7DDTgMBuQIcJpt2CZEc6XROPYMgBBvN3sncA9Rzb7Jf+xblZwUWi0xuZ7PKs49FFS+5kQ==
 
-"@dhis2/app-service-data@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-3.4.0.tgz#53650ffbaac1989f611d38a3b6348488ef636284"
-  integrity sha512-hBZttLvtPiymMk42205qcH9WRHaruiLJFkljcOEqIwPOa6udDvikDxjhEvVkVYvNmLWo8iLPxCXE+3FP3/KHxg==
+"@dhis2/app-service-data@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-data/-/app-service-data-3.4.4.tgz#028236463b82f998ff7bd44e811153f6c1408507"
+  integrity sha512-mJyaSRikY5noXHdpSm3pTPM/ga+6Jp7XgG62J0mSXsVbwYSOJSLQqcponXsTNwaX3IuQHLir83dXe06YjZq70Q==
   dependencies:
     react-query "^3.13.11"
 
-"@dhis2/app-service-offline@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-service-offline/-/app-service-offline-3.4.0.tgz#63b872a9a37dc0d83d51fe9db7c9bc496641c360"
-  integrity sha512-DjVKvbNE7u5bKalvZ3TVK03avD/4IU+l3TL4t4j6+YybaNEq0WwEkgR2Iug9CNvgB73rj7363MQOYe/byGa84A==
+"@dhis2/app-service-offline@3.4.4":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-service-offline/-/app-service-offline-3.4.4.tgz#49d460b22c8eb8357aeef05aee8ed6f8a5c3a953"
+  integrity sha512-wBlaMh7rdlr9RQ02q5vADtk9ixFtfI5ywXmxCPiXPBRftahMqwUpGpD88KPIUpoSPRI0V2LYGv0XQm33+gmKnw==
   dependencies:
     lodash "^4.17.21"
 
@@ -8737,9 +8737,9 @@ hex-color-regex@^1.1.0:
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
 highcharts@^10.2.0:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.2.1.tgz#8723b53a5461c12b61f3ff268c28ff80187b9bf1"
-  integrity sha512-4QwLQwWc0XdBHXc2Uy6IJisAUir+sgQIMyFqYZc3BD9iFSFUdllLkRyoed6y33aPb73LAMZE2qLB5SuLqFE/fg==
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-10.2.0.tgz#646b1c80fb4add9e35e5813bd87419ccdf1fc6b7"
+  integrity sha512-MvLo4dzR2Vo7Y85dsqJ07uabBXSSIRKRRdW4l9IGP55h2jYWNm/m9JBszVVxySH5Lda6g+Ins9NdGppZJpjNCA==
 
 history@^5.3.0:
   version "5.3.0"

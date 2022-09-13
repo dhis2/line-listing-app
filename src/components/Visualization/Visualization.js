@@ -401,6 +401,7 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
+    isVisualizationLoading: false,
     onResponsesReceived: Function.prototype,
 }
 
