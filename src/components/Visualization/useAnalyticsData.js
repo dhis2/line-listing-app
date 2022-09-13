@@ -291,7 +291,7 @@ const useAnalyticsData = ({
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
     const relativePeriodDate = filters?.relativePeriodDate
-
+    console.log('visualization', visualization)
     const doFetch = useCallback(async () => {
         try {
             const analyticsResponse = await fetchAnalyticsData({

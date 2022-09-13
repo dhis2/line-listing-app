@@ -376,6 +376,7 @@ Visualization.defaultProps = {
 Visualization.propTypes = {
     displayProperty: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
+    nameProp: PropTypes.string.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
