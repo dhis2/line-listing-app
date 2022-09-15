@@ -91,8 +91,7 @@ export const UI_TIME_DIVIDER = ':'
 export const API_DATETIME_DIVIDER = 'T'
 export const UI_DATETIME_DIVIDER = ' '
 
-// TODO - consider renaming to addCaseSensitivePrefix
-export const prefixOperator = (operator, isCaseSensitive) => {
+export const addCaseSensitivePrefix = (operator, isCaseSensitive) => {
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE
         return operator
@@ -109,8 +108,7 @@ export const prefixOperator = (operator, isCaseSensitive) => {
     }
 }
 
-// TODO - consider renaming to removeCaseSensitivePrefix
-export const unprefixOperator = (operator) => {
+export const removeCaseSensitivePrefix = (operator) => {
     const isCaseSensitive = checkIsCaseSensitive(operator)
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE, !LIKE -> !LIKE
@@ -236,7 +234,7 @@ export const getConditionsTexts = ({
                 dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
                     ? VALUE_TYPE_NUMBER
                     : dimension.valueType
-            operator = unprefixOperator(parts[0])
+            operator = removeCaseSensitivePrefix(parts[0])
             value = formatValue(parts[1], valueType, formatValueOptions)
         }
 

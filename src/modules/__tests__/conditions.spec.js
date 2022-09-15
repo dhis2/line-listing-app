@@ -1,8 +1,8 @@
 import {
     getConditionsTexts,
     checkIsCaseSensitive,
-    prefixOperator,
-    unprefixOperator,
+    addCaseSensitivePrefix,
+    removeCaseSensitivePrefix,
 } from '../conditions.js'
 
 test('Legend set chosen with no legends selected', () => {
@@ -309,12 +309,17 @@ describe('checkIsCaseSensitive', () => {
     })
 })
 
-describe('prefixOperator', () => {
+describe('addCaseSensitivePrefix', () => {
     const tests = [
         {
             operator: 'LIKE',
             isCaseSensitive: true,
             expected: 'LIKE',
+        },
+        {
+            operator: '!LIKE',
+            isCaseSensitive: true,
+            expected: '!LIKE',
         },
         {
             operator: '!LIKE',
@@ -333,6 +338,11 @@ describe('prefixOperator', () => {
         },
         {
             operator: '!EQ',
+            isCaseSensitive: true,
+            expected: '!EQ',
+        },
+        {
+            operator: '!EQ',
             isCaseSensitive: false,
             expected: '!IEQ',
         },
@@ -346,14 +356,14 @@ describe('prefixOperator', () => {
     tests.forEach((t) => {
         const testname = `${t.operator}: caseSensitive: ${t.isCaseSensitive} should become ${t.expected}`
         test(testname, () => {
-            expect(prefixOperator(t.operator, t.isCaseSensitive)).toEqual(
-                t.expected
-            )
+            expect(
+                addCaseSensitivePrefix(t.operator, t.isCaseSensitive)
+            ).toEqual(t.expected)
         })
     })
 })
 
-describe('unprefixOperator', () => {
+describe('removeCaseSensitivePrefix', () => {
     const tests = [
         {
             operator: 'LIKE',
@@ -392,7 +402,7 @@ describe('unprefixOperator', () => {
     tests.forEach((t) => {
         const testname = `${t.operator} should become ${t.expected}`
         test(testname, () => {
-            expect(unprefixOperator(t.operator)).toEqual(t.expected)
+            expect(removeCaseSensitivePrefix(t.operator)).toEqual(t.expected)
         })
     })
 })
