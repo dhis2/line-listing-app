@@ -70,7 +70,7 @@ describe('enrollment', () => {
     it('moves a dimension to filter', () => {
         // move date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
-            .findWithDataTest('{dimension-menu-button-enrollmentDate}')
+            .findBySel('dimension-menu-button-enrollmentDate')
             .click()
         cy.contains('Move to Filter').click()
 

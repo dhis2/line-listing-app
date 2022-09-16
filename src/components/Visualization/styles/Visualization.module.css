@@ -1,6 +1,5 @@
 /* Legend key */
 .legendKeyScrollbox {
-    border: 1px solid var(--colors-grey400);
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 190px;
@@ -111,6 +110,11 @@
 }
 .dataTable .cell.sizeCompact {
     padding: 4px 8px;
+}
+
+/* Empty cell */
+.dataTable .emptyCell::after {
+    content: '\00a0';
 }
 
 /* Sizes for the table footer */

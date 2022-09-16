@@ -1,0 +1,687 @@
+# 
+# Translators:
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Language-Team: Pashto (https://www.transifex.com/hisp-uio/teams/100509/ps/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ps\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add to {{axisName}}"
+msgstr ""
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "لرې کول"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "د پورته کېدو یا لوډینګ په حال کې"
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "پټ یې کړئ"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "د پیل نېټه"
+
+msgid "End date"
+msgstr "د پای نېټه"
+
+msgid "No items selected"
+msgstr ""
+
+msgid "Available options"
+msgstr ""
+
+msgid "Filter options"
+msgstr ""
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr ""
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "د ډاټا یا مالوماتو ساده سرچینه"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr ""
+
+msgid "ID"
+msgstr "د هویت څرګندونه"
+
+msgid "Code"
+msgstr "کوډ یا شفر"
+
+msgid "Name"
+msgstr "نوم"
+
+msgid "Download"
+msgstr "بارگیری"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Levels"
+msgstr ""
+
+msgid "Groups"
+msgstr "ګروپونه"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "None selected"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "پېښه"
+
+msgid "Enrollment"
+msgstr "شاملول یا نوم لیکنه"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr ""
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "نمونه/ډول"
+
+msgid "All types"
+msgstr ""
+
+msgid "Data element"
+msgstr "د مالوماتو (ډاټا) برخه"
+
+msgid "Program attribute"
+msgstr ""
+
+msgid "Program indicator"
+msgstr ""
+
+msgid "Category"
+msgstr "کټګوري"
+
+msgid "Category option group set"
+msgstr "د کټګورۍ د غوروي د ټولګې ګروپ"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "پاک یې کړئ"
+
+msgid "Stage"
+msgstr "پړاو"
+
+msgid "All"
+msgstr "ټول"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr ""
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr ""
+
+msgid "Edited"
+msgstr ""
+
+msgid "Interpretations"
+msgstr "شفاهي ژباړې"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr ""
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr ""
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+
+msgid "Update"
+msgstr "تجدید یا نوي یې کړئ"
+
+msgid "Getting started"
+msgstr ""
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr ""
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr ""
+
+msgid "Columns totals"
+msgstr ""
+
+msgid "Digit group separator"
+msgstr "د اعدادو د ګروپ جلا کوونکی"
+
+msgid "None"
+msgstr "هېڅ یو"
+
+msgid "Space"
+msgstr "فاصله یا واټن"
+
+msgid "Comma"
+msgstr "کامه (،)"
+
+msgid "Display density"
+msgstr "ګڼوالۍ څرګند کړئ"
+
+msgid "Comfortable"
+msgstr "هوسا"
+
+msgid "Normal"
+msgstr "نورمال"
+
+msgid "Compact"
+msgstr "متراکم"
+
+msgid "Font size"
+msgstr "د ليکنې اندازه"
+
+msgid "Large"
+msgstr "لوی"
+
+msgid "Small"
+msgstr "کوچنۍ"
+
+msgid "Hide empty rows"
+msgstr "خالي یا تش کتارونه پټ کړئ"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr ""
+
+msgid "Legend type"
+msgstr "نوع موضوع تاریخی"
+
+msgid "Use pre-defined legend per data item"
+msgstr ""
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr ""
+
+msgid "Legend changes text color"
+msgstr ""
+
+msgid "Legend"
+msgstr "ليجنډ"
+
+msgid "Select from legends"
+msgstr ""
+
+msgid "Loading legends"
+msgstr ""
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr ""
+
+msgid "Maximum data value"
+msgstr ""
+
+msgid "Clear min/max limits"
+msgstr ""
+
+msgid "Row sub-totals"
+msgstr ""
+
+msgid "Row totals"
+msgstr ""
+
+msgid "Dimension labels"
+msgstr ""
+
+msgid "Display organisation unit hierarchy"
+msgstr ""
+
+msgid "Show legend key"
+msgstr ""
+
+msgid "Add a title"
+msgstr ""
+
+msgid "Options"
+msgstr "ګزینه"
+
+msgid "Columns"
+msgstr ""
+
+msgid "Rows"
+msgstr ""
+
+msgid "Filter"
+msgstr "فیلټر"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "هو"
+
+msgid "No"
+msgstr "نه"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr ""
+
+msgid "No data available"
+msgstr ""
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+
+msgid "Visualization not found"
+msgstr ""
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr ""
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr ""
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "د سازمان واحد"
+
+msgid "Event status"
+msgstr "د پېښې وضعیت او څرنګوالۍ"
+
+msgid "Program status"
+msgstr "د پروګرام وضعیت او څرنګوالۍ"
+
+msgid "Created by"
+msgstr "لخوا ایجاد یا رامنځ ته شوی"
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "کارکوڼکی واحدو سازمان"
+
+msgid "User sub-units"
+msgstr "واحد های فرعی استفاده کننده"
+
+msgid "User sub-x2-units"
+msgstr "واحد های نیم فرعی استفاده کننده"
+
+msgid "Table title"
+msgstr "د جدول عنوان"
+
+msgid "Display"
+msgstr "ښکاره یې کړئ"
+
+msgid "Empty data"
+msgstr ""
+
+msgid "Totals"
+msgstr "مجموعې"
+
+msgid "Data"
+msgstr "مالومات (ډاټا)"
+
+msgid "Limit values"
+msgstr ""
+
+msgid "Limit number of values"
+msgstr ""
+
+msgid "Limit minimum/maximum values"
+msgstr ""
+
+msgid "Style"
+msgstr "طرز یا ډول"
+
+msgid "Event date"
+msgstr "د پېښې نېټه"
+
+msgid "Enrollment date"
+msgstr "د نوم ثبتونې نېټه"
+
+msgid "Incident date"
+msgstr "د پېښې نېټه"
+
+msgid "Scheduled date"
+msgstr "د ټاکل شوي مهالوېش نېټه"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Cancelled"
+msgstr "لغوه شوی"
+
+msgid "Completed"
+msgstr "بشپړ شوی"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

@@ -51,7 +51,12 @@ const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
                 className={classes.operatorSelect}
             >
                 {Object.entries(DATE_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
+                    <SingleSelectOption
+                        key={key}
+                        value={key}
+                        label={value}
+                        dataTest={'date-condition-type'}
+                    />
                 ))}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (

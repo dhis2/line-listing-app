@@ -105,7 +105,8 @@ export const Visualization = ({
                 .map((header) => header.legendSet)
             const relevantLegendSets = allLegendSets.filter(
                 (e, index) =>
-                    allLegendSets.findIndex((a) => a.id === e.id) === index
+                    allLegendSets.findIndex((a) => a.id === e.id) === index &&
+                    e.legends?.length
             )
             if (relevantLegendSets.length && visualization.legend?.showKey) {
                 setUniqueLegendSets(relevantLegendSets)
@@ -229,7 +230,10 @@ export const Visualization = ({
     }
 
     const getLegendKey = () => (
-        <div className={styles.legendKeyScrollbox}>
+        <div
+            className={styles.legendKeyScrollbox}
+            data-test="visualization-legend-key"
+        >
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
     )
@@ -268,6 +272,7 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     >
                                         {formatCellHeader(header)}
                                     </DataTableColumnHeader>
@@ -281,31 +286,38 @@ export const Visualization = ({
                                             fontSizeClass,
                                             sizeClass
                                         )}
+                                        dataTest={'table-header'}
                                     />
                                 )
                             )}
                         </DataTableRow>
                     </DataTableHead>
                     {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                    <DataTableBody>
+                    <DataTableBody dataTest={'table-body'}>
                         {data.rows.map((row, index) => (
-                            <DataTableRow key={index}>
+                            <DataTableRow key={index} dataTest={'table-row'}>
                                 {row.map((value, index) => (
                                     <DataTableCell
                                         key={index}
                                         className={cx(
                                             styles.cell,
                                             fontSizeClass,
-                                            sizeClass
+                                            sizeClass,
+                                            {
+                                                [styles.emptyCell]: !value,
+                                            }
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
-                                                LEGEND_DISPLAY_STYLE_FILL &&
-                                            getColorByValueFromLegendSet(
-                                                data.headers[index].legendSet,
-                                                value
-                                            )
+                                            LEGEND_DISPLAY_STYLE_FILL
+                                                ? getColorByValueFromLegendSet(
+                                                      data.headers[index]
+                                                          .legendSet,
+                                                      value
+                                                  )
+                                                : undefined
                                         }
+                                        dataTest={'table-cell'}
                                     >
                                         <div
                                             style={
@@ -348,7 +360,13 @@ export const Visualization = ({
                                     <Pagination
                                         disabled={fetching}
                                         page={data.pager.page}
-                                        pageSize={data.pager.pageSize}
+                                        // DHIS2-13493: avoid a crash when the pager object in the analytics response is malformed.
+                                        // When that happens pageSize is 0 which causes the crash because the Rows per page select does not have 0 listed as possible option.
+                                        // The backend should always return the value passed in the request, even if there are no rows for the query.
+                                        // The workaround here makes sure that if the pageSize returned is 0 we use a value which can be selected in the Rows per page select.
+                                        pageSize={
+                                            data.pager.pageSize || PAGE_SIZE
+                                        }
                                         isLastPage={data.pager.isLastPage}
                                         onPageChange={setPage}
                                         onPageSizeChange={setPageSize}
@@ -383,6 +401,7 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
+    isVisualizationLoading: false,
     onResponsesReceived: Function.prototype,
 }
 

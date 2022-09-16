@@ -22,14 +22,22 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
     )
 }
 
-const DetailsPanel = ({ interpretationsUnitRef, visualization, disabled }) => {
+const DetailsPanel = ({
+    visualization,
+    aboutAOUnitRenderId,
+    interpretationsUnitRenderId,
+    disabled,
+}) => {
     const { currentUser } = useCachedDataQuery()
 
     return (
-        <div className={classes.panel}>
-            <AboutAOUnit type="eventVisualizations" id={visualization.id} />
+        <div className={classes.panel} data-test="details-panel">
+            <AboutAOUnit
+                type="eventVisualization"
+                id={visualization.id}
+                renderId={aboutAOUnitRenderId}
+            />
             <InterpretationsUnit
-                ref={interpretationsUnitRef}
                 type="eventVisualization"
                 id={visualization.id}
                 currentUser={currentUser}
@@ -40,15 +48,17 @@ const DetailsPanel = ({ interpretationsUnitRef, visualization, disabled }) => {
                     navigateToOpenModal(interpretationId, true)
                 }
                 disabled={disabled}
+                renderId={interpretationsUnitRenderId}
             />
         </div>
     )
 }
 
 DetailsPanel.propTypes = {
-    interpretationsUnitRef: PropTypes.object.isRequired,
     visualization: PropTypes.object.isRequired,
+    aboutAOUnitRenderId: PropTypes.number,
     disabled: PropTypes.bool,
+    interpretationsUnitRenderId: PropTypes.number,
 }
 
 const mapStateToProps = (state) => ({

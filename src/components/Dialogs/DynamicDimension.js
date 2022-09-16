@@ -183,9 +183,11 @@ const DynamicDimension = ({
         </>
     )
 
-    console.log(
-        `dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
-    ) // TODO: For testing only
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(
+            `dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+        )
+    }
 
     return dimension ? (
         <DimensionModal
