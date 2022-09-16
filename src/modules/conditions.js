@@ -91,7 +91,7 @@ export const UI_TIME_DIVIDER = ':'
 export const API_DATETIME_DIVIDER = 'T'
 export const UI_DATETIME_DIVIDER = ' '
 
-export const prefixOperator = (operator, isCaseSensitive) => {
+export const addCaseSensitivePrefix = (operator, isCaseSensitive) => {
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE
         return operator
@@ -108,7 +108,7 @@ export const prefixOperator = (operator, isCaseSensitive) => {
     }
 }
 
-export const unprefixOperator = (operator) => {
+export const removeCaseSensitivePrefix = (operator) => {
     const isCaseSensitive = checkIsCaseSensitive(operator)
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE, !LIKE -> !LIKE
@@ -124,6 +124,10 @@ export const unprefixOperator = (operator) => {
     }
 }
 
+// TODO - in practice this function isn't used for the 'IN' operator
+// but if it were the result would be wrong. The function
+// should probably control for the allowed operators and throw if the
+// operator isn't one of the allowed ones.
 export const checkIsCaseSensitive = (operator) => {
     if (operator[0] === NOT_PREFIX) {
         // !LIKE, !ILIKE, !EQ, !IEQ
@@ -230,7 +234,7 @@ export const getConditionsTexts = ({
                 dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
                     ? VALUE_TYPE_NUMBER
                     : dimension.valueType
-            operator = unprefixOperator(parts[0])
+            operator = removeCaseSensitivePrefix(parts[0])
             value = formatValue(parts[1], valueType, formatValueOptions)
         }
 
