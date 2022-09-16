@@ -358,7 +358,7 @@ export const sGetUiRepetition = (state) =>
 export const sGetUiConditions = (state) =>
     sGetUi(state).conditions || DEFAULT_CONDITIONS
 
-// TODO - should these props be represented in the DEFAULT_UI and EMPTY_UI?
+// TODO - should these props have empty values in the DEFAULT_UI and EMPTY_UI?
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
