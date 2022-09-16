@@ -67,6 +67,7 @@ const Chip = ({
     const items =
         useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
         []
+    const dataTest = `layout-chip-${dimensionId}`
 
     let insertPosition = undefined
     if (over?.id === dimensionId) {
@@ -98,8 +99,6 @@ const Chip = ({
         : undefined
 
     const id = Math.random().toString(36)
-
-    const dataTest = `layout-chip-${dimensionId}`
 
     const conditionsTexts = getConditionsTexts({
         conditions,
@@ -140,7 +139,7 @@ const Chip = ({
                     [styles.showBlank]: !dimensionName,
                 })}
             >
-                <div className={styles.content}>
+                <div className={styles.content} data-test={dataTest}>
                     {
                         <Tooltip
                             content={renderTooltipContent()}
@@ -148,7 +147,6 @@ const Chip = ({
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div
-                                    data-test={dataTest}
                                     id={id}
                                     onClick={onClick}
                                     ref={ref}

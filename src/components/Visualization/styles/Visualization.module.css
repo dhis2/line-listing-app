@@ -1,27 +1,21 @@
-.dataTableContainer {
-    display: flex;
-    align-items: flex-start;
-    flex-grow: 1;
-    margin-right: 8px;
-}
-
 /* Legend key */
 .legendKeyScrollbox {
-    border: 1px solid var(--colors-grey400);
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 190px;
 }
 
-.fetchIndicator {
-    position: relative;
-    max-height: 100%;
+.pluginContainer {
     display: flex;
+    gap: var(--spacers-dp4);
+    min-width: 0;
 }
 
-/* TODO: can be removed if https://github.com/dhis2/ui/pull/978 gets merged */
-.fetchIndicator > :global(.tablescrollbox) {
-    flex-grow: 0;
+.fetchIndicator {
+    position: relative;
+    min-width: 0;
+    max-height: 100%;
+    display: flex;
 }
 
 .fetchIndicator.fetching::after {
@@ -116,6 +110,11 @@
 }
 .dataTable .cell.sizeCompact {
     padding: 4px 8px;
+}
+
+/* Empty cell */
+.dataTable .emptyCell::after {
+    content: '\00a0';
 }
 
 /* Sizes for the table footer */

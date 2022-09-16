@@ -4,6 +4,7 @@ import {
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -11,7 +12,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    // DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -422,6 +423,7 @@ export const useMainDimensions = () => {
 }
 
 export const useTimeDimensions = () => {
+    const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
@@ -435,9 +437,9 @@ export const useTimeDimensions = () => {
     const incidentDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
     )
-    // const scheduledDateDim = useSelector((state) =>
-    //     sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
-    // )
+    const scheduledDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
+    )
     const lastUpdatedDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
     )
@@ -449,8 +451,12 @@ export const useTimeDimensions = () => {
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
+            ...(`${serverVersion.major}.${serverVersion.minor}.${
+                serverVersion.patch || 0
+            }` >= '2.39.0'
+                ? [scheduledDateDim]
+                : []),
             incidentDateDim,
-            // scheduledDateDim,
             lastUpdatedDim,
         ]
 
@@ -476,7 +482,7 @@ export const useTimeDimensions = () => {
         eventDateDim,
         enrollmentDateDim,
         incidentDateDim,
-        // scheduledDateDim,
+        scheduledDateDim,
         lastUpdatedDim,
     ])
 }

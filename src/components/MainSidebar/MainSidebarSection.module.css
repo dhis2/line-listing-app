@@ -5,8 +5,10 @@
 }
 
 .header {
-    color: var(--colors-grey700);
-    font-size: 13px;
+    color: var(--colors-grey600);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
     margin-bottom: var(--spacers-dp8);
 }
 

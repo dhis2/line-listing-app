@@ -202,9 +202,10 @@ const ConditionsManager = ({
             ))
         }
 
-        const renderNumericCondition = () => {
-            const enableDecimalSteps = valueType === VALUE_TYPE_UNIT_INTERVAL
-
+        const renderNumericCondition = ({
+            enableDecimalSteps,
+            allowIntegerOnly,
+        } = {}) => {
             return (
                 (conditionsList.length && conditionsList) ||
                 (selectedLegendSet && [''])
@@ -222,6 +223,7 @@ const ConditionsManager = ({
                             setSelectedLegendSet(value)
                         }
                         enableDecimalSteps={enableDecimalSteps}
+                        allowIntegerOnly={allowIntegerOnly}
                         dimension={dimension}
                     />
                     {getDividerContent(index)}
@@ -234,13 +236,17 @@ const ConditionsManager = ({
         }
 
         switch (valueType) {
-            case VALUE_TYPE_NUMBER:
-            case VALUE_TYPE_UNIT_INTERVAL:
-            case VALUE_TYPE_PERCENTAGE:
+            case VALUE_TYPE_UNIT_INTERVAL: {
+                return renderNumericCondition({ enableDecimalSteps: true })
+            }
             case VALUE_TYPE_INTEGER:
             case VALUE_TYPE_INTEGER_POSITIVE:
             case VALUE_TYPE_INTEGER_NEGATIVE:
             case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE: {
+                return renderNumericCondition({ allowIntegerOnly: true })
+            }
+            case VALUE_TYPE_NUMBER:
+            case VALUE_TYPE_PERCENTAGE: {
                 return renderNumericCondition()
             }
             case VALUE_TYPE_PHONE_NUMBER: {
@@ -424,11 +430,9 @@ const ConditionsManager = ({
                                         type="button"
                                         small
                                         onClick={addCondition}
-                                        dataTest={
-                                            'conditions-manager-add-condition'
-                                        }
                                         className={classes.addConditionButton}
                                         disabled={disableAddButton}
+                                        dataTest="button-add-condition"
                                     >
                                         {conditionsList.length
                                             ? i18n.t('Add another condition')
@@ -473,6 +477,7 @@ const ConditionsManager = ({
                             content={i18n.t(
                                 'Only available for repeatable stages'
                             )}
+                            dataTest={'repeatable-events-tooltip'}
                         >
                             {repeatableTab}
                         </Tooltip>
@@ -489,13 +494,15 @@ const ConditionsManager = ({
         )
     }
 
-    console.log(
-        `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
-    ) // TODO: For testing only
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(
+            `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+        )
+    }
 
     return dimension ? (
         <DimensionModal
-            dataTest={'dialog-manager-modal'}
+            dataTest="conditions-modal"
             isInLayout={isInLayout}
             onClose={closeModal}
             title={

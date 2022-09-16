@@ -1,6 +1,6 @@
 import { Analytics } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
-import { useRef, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
@@ -21,7 +21,6 @@ const useDownloadMenu = (relativePeriodDate) => {
     const { baseUrl } = useConfig()
     const dataEngine = useDataEngine()
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
-    const buttonRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
 
     const download = useCallback(
@@ -144,7 +143,6 @@ const useDownloadMenu = (relativePeriodDate) => {
         toggleOpen: () => setIsOpen(!isOpen),
         disabled: !current,
         download,
-        buttonRef,
     }
 }
 

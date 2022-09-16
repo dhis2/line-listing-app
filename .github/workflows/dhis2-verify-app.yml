@@ -29,7 +29,7 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v1
               with:
-                  node-version: 12.x
+                  node-version: 16.x
 
             - uses: c-hive/gha-yarn-cache@v1
             - run: yarn install --frozen-lockfile
@@ -51,7 +51,7 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v1
               with:
-                  node-version: 12.x
+                  node-version: 16.x
 
             - uses: c-hive/gha-yarn-cache@v1
             - run: yarn install --frozen-lockfile
@@ -70,7 +70,7 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v1
               with:
-                  node-version: 12.x
+                  node-version: 16.x
 
             - uses: c-hive/gha-yarn-cache@v1
             - run: yarn install --frozen-lockfile
@@ -98,7 +98,7 @@ jobs:
 
             - uses: actions/setup-node@v1
               with:
-                  node-version: 12.x
+                  node-version: 16.x
 
             - name: End-to-End tests
               uses: cypress-io/github-action@v2
@@ -113,7 +113,9 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
-                  CYPRESS_networkMode: stub
+                  CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
+                  CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  CYPRESS_networkMode: live
 
     release:
         runs-on: ubuntu-latest
@@ -126,7 +128,7 @@ jobs:
 
             - uses: actions/setup-node@v1
               with:
-                  node-version: 12.x
+                  node-version: 16.x
 
             - uses: actions/download-artifact@v2
               with:

@@ -1,0 +1,704 @@
+# 
+# Translators:
+# Viktor Varland <viktor@dhis2.org>, 2022
+# phil_dhis2, 2022
+# Hamza Assada <7amza.it@gmail.com>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/hisp-uio/teams/100509/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "إضافة إلى {{axisName}}"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "إزلة"
+
+msgid "and"
+msgstr "و"
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "جار التحميل..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "إخفاء"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "تاريخ البداية"
+
+msgid "End date"
+msgstr "تاريخ النهاية"
+
+msgid "No items selected"
+msgstr "لم يتم تحديد عناصر"
+
+msgid "Available options"
+msgstr "الخيارات المتوفرة"
+
+msgid "Filter options"
+msgstr "خيارات التصفية"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr "تحريك إلى {{axisName}}"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "مصدر البيانات الصريحة"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "مخطط ID البيانات الوصفية"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "الكود"
+
+msgid "Name"
+msgstr "الإسم"
+
+msgid "Download"
+msgstr "تنزيل"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "Levels"
+msgstr "المستويات"
+
+msgid "Groups"
+msgstr "المجموعات"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "None selected"
+msgstr "غير محدد"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "حدث"
+
+msgid "Enrollment"
+msgstr "التسجيل"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "الأبعاد الرئيسية"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "النوع"
+
+msgid "All types"
+msgstr "جميع الأنواع"
+
+msgid "Data element"
+msgstr "عنصر البيانات"
+
+msgid "Program attribute"
+msgstr "البرنامج"
+
+msgid "Program indicator"
+msgstr "مؤشرات البرنامج"
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "Category option group set"
+msgstr "حزمة مجموعات خيارات الفئة"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Stage"
+msgstr "المرحلة"
+
+msgid "All"
+msgstr "الجميع"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "الأبعاد الخاصة بك"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "مخطط عرض غير محفوظ"
+
+msgid "Edited"
+msgstr "تم التعديل"
+
+msgid "Interpretations"
+msgstr "التفسيرات"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "تمت إعادة التسمية بنجاح"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "عرض مرئي {{visualizationType}} بلا عنوان ، {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr "لا يمكن حذف هذا المرئيات لأنها مستخدمة في لوحة معلومات واحدة أو أكثر"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Getting started"
+msgstr "الشروع في العمل"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "عدد الصفوف لكل صفحة"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "إجماليات العمود الفرعية"
+
+msgid "Columns totals"
+msgstr "إجماليات الأعمدة"
+
+msgid "Digit group separator"
+msgstr "فاصل مجموعة الخانات الرقمية"
+
+msgid "None"
+msgstr "لا شيء"
+
+msgid "Space"
+msgstr "مسافة"
+
+msgid "Comma"
+msgstr "فاصلة"
+
+msgid "Display density"
+msgstr "كثافة العرض"
+
+msgid "Comfortable"
+msgstr "مريح"
+
+msgid "Normal"
+msgstr "عادي"
+
+msgid "Compact"
+msgstr "مضغوط"
+
+msgid "Font size"
+msgstr "حجم الخط"
+
+msgid "Large"
+msgstr "كبير"
+
+msgid "Small"
+msgstr "صغير"
+
+msgid "Hide empty rows"
+msgstr "إخفاء الصفوف الفارغة"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "نمط مفتاح الإيضاح"
+
+msgid "Legend type"
+msgstr "نوع مفتاح الخريطة"
+
+msgid "Use pre-defined legend per data item"
+msgstr "استخدم مفتاح إيضاح معرف مسبقاً لكل عنصر بيانات"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "المفتاح الإيضاحي يغير من لون الخلفية"
+
+msgid "Legend changes text color"
+msgstr "المفتاح الإيضاحي يغير من لون النص"
+
+msgid "Legend"
+msgstr "مفاتيح إيضاحية"
+
+msgid "Select from legends"
+msgstr "حدد من مفاتيح الإيضاح"
+
+msgid "Loading legends"
+msgstr "تحميل المفاتيح الإيضاحية"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr "القيمة الأدنى"
+
+msgid "Maximum data value"
+msgstr "القيمة الأعلى"
+
+msgid "Clear min/max limits"
+msgstr "ازالة الحدود الدنيا/العليا"
+
+msgid "Row sub-totals"
+msgstr "المجاميع الفرعية للصف"
+
+msgid "Row totals"
+msgstr "إجماليات الصف"
+
+msgid "Dimension labels"
+msgstr "تسميات الأبعاد"
+
+msgid "Display organisation unit hierarchy"
+msgstr "عرض التسلسل الهرمي للوحدة التنظيمية"
+
+msgid "Show legend key"
+msgstr "إظهار المفتاح الإيضاحي"
+
+msgid "Add a title"
+msgstr "إضافة عنوان"
+
+msgid "Options"
+msgstr "الخيارات"
+
+msgid "Columns"
+msgstr "الأعمدة"
+
+msgid "Rows"
+msgstr "الصفوف"
+
+msgid "Filter"
+msgstr "عامل التصفية"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr "ليس"
+
+msgid "contains"
+msgstr "يحتوي على"
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr "بعد"
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr "قبل"
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "No"
+msgstr "لا"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "حدثت مشكلة في الحصول على البيانات من الخادم."
+
+msgid "No data available"
+msgstr "لا توجد بيانات متاحة"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"لم تُرجع الأبعاد المحددة أي بيانات. قد لا تكون هناك بيانات ، أو قد لا يكون "
+"لديك امكانية الوصول إليها."
+
+msgid "Visualization not found"
+msgstr "لم يتم إيجاد عرض مرئي"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"تعذر العثور على المرئيات التي تحاول عرضها، ربما يكون الـ ID غير صحيح أو ربما"
+" تم حذفه."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "لم يتم تحديد أية وحدة تنظيمية"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "لا يمكن الوصول"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
+msgid "Organisation unit"
+msgstr "الوحدة التنظيمية"
+
+msgid "Event status"
+msgstr "حالة الحدث"
+
+msgid "Program status"
+msgstr "حالة البرنامج"
+
+msgid "Created by"
+msgstr "تم الإنشاء بواسطة"
+
+msgid "Last updated by"
+msgstr "آخر تحديث بواسطة"
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "وحدة المنظمة للمستخدم"
+
+msgid "User sub-units"
+msgstr "وحدات المستخدم الفرعية"
+
+msgid "User sub-x2-units"
+msgstr "وحدات المستخدم الفرعية من المستوى الثاني"
+
+msgid "Table title"
+msgstr "عنوان الجدول"
+
+msgid "Display"
+msgstr "العرض"
+
+msgid "Empty data"
+msgstr "بيانات فارغة"
+
+msgid "Totals"
+msgstr "الإجمالي"
+
+msgid "Data"
+msgstr "بيانات"
+
+msgid "Limit values"
+msgstr "حدد حدود القيم"
+
+msgid "Limit number of values"
+msgstr "تحديد حدود عدد القيم"
+
+msgid "Limit minimum/maximum values"
+msgstr "الحد من القيم الدنيا / القصوى"
+
+msgid "Style"
+msgstr "المظهر"
+
+msgid "Event date"
+msgstr "بيانات الحدث"
+
+msgid "Enrollment date"
+msgstr "تاريخ التسجيل"
+
+msgid "Incident date"
+msgstr "تاريخ وقوع الحدث"
+
+msgid "Scheduled date"
+msgstr "التاريخ المقرر"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Cancelled"
+msgstr "تم الإلغاء"
+
+msgid "Completed"
+msgstr "المكتملة"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""
