@@ -4,7 +4,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    // DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
@@ -12,9 +12,6 @@ import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
-
-// TODO: Scheduled date will be implemented soon, hopefully 2.39
-// so it was decided to keep SCHEDULED_DATE code but comment it out
 
 export const getTimeDimensions = () => ({
     [DIMENSION_ID_EVENT_DATE]: {
@@ -38,15 +35,13 @@ export const getTimeDimensions = () => ({
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayIncidentDateLabel',
     },
-    /***** NOT in MVP / 2.38 release *****
     [DIMENSION_ID_SCHEDULED_DATE]: {
         id: DIMENSION_ID_SCHEDULED_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Due/Scheduled date'),
+        name: i18n.t('Scheduled date'),
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayDueDateLabel',
     },
-    */
     [DIMENSION_ID_LAST_UPDATED]: {
         id: DIMENSION_ID_LAST_UPDATED,
         dimensionType: DIMENSION_TYPE_PERIOD,
@@ -95,12 +90,18 @@ export const getDisabledTimeDimensions = (
                     disabledReason
 
                 disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
+
+                disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = disabledReason
             }
             return disabledDimensions
         }
         case OUTPUT_TYPE_ENROLLMENT: {
             const disabledDimensions = {}
             disabledDimensions[DIMENSION_ID_EVENT_DATE] = i18n.t(
+                'Not applicable to enrollments'
+            )
+
+            disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
                 'Not applicable to enrollments'
             )
 
@@ -117,6 +118,7 @@ export const getDisabledTimeDimensions = (
             return {
                 [DIMENSION_ID_EVENT_DATE]: disabledReason,
                 [DIMENSION_ID_ENROLLMENT_DATE]: disabledReason,
+                [DIMENSION_ID_SCHEDULED_DATE]: disabledReason,
                 [DIMENSION_ID_INCIDENT_DATE]: disabledReason,
                 [DIMENSION_ID_LAST_UPDATED]: disabledReason,
             }

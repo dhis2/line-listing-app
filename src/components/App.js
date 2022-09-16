@@ -2,7 +2,7 @@ import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../actions/current.js'
 import {
@@ -112,6 +112,9 @@ const dataStatisticsMutation = {
 
 const App = () => {
     const dataEngine = useDataEngine()
+    const [aboutAOUnitRenderId, setAboutAOUnitRenderId] = useState(1)
+    const [interpretationsUnitRenderId, setInterpretationsUnitRenderId] =
+        useState(1)
     const [data, setData] = useState()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
@@ -125,9 +128,12 @@ const App = () => {
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
-    const interpretationsUnitRef = useRef()
+    const onFileMenuAction = () => {
+        setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
+    }
+
     const onInterpretationUpdate = () => {
-        interpretationsUnitRef.current.refresh()
+        setInterpretationsUnitRenderId(interpretationsUnitRenderId + 1)
     }
 
     const parseLocation = (location) => {
@@ -301,7 +307,7 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar />
+            <Toolbar onFileMenuAction={onFileMenuAction} />
             <div
                 className={cx(
                     classes.sectionMain,
@@ -372,7 +378,10 @@ const App = () => {
                 >
                     {showDetailsPanel && current && (
                         <DetailsPanel
-                            interpretationsUnitRef={interpretationsUnitRef}
+                            aboutAOUnitRenderId={aboutAOUnitRenderId}
+                            interpretationsUnitRenderId={
+                                interpretationsUnitRenderId
+                            }
                         />
                     )}
                 </div>
