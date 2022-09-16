@@ -39,7 +39,7 @@ const NumericCondition = ({
     const dispatch = useDispatch()
 
     const availableLegendSets = useSelector(
-        (state) => sGetMetadataById(state, dimension.id).legendSets
+        (state) => sGetMetadataById(state, dimension.id)?.legendSets
     )
 
     const setAvailableLegendSets = (legendSets) =>

@@ -34,7 +34,7 @@ import {
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
-import { sGetMetadataById } from '../../../reducers/metadata.js'
+import { sGetMetadataById, EMPTY_METADATA } from '../../../reducers/metadata.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
@@ -534,10 +534,14 @@ const mapStateToProps = (state, ownProps) => ({
     conditions: sGetUiConditionsByDimension(state, ownProps.dimension?.id),
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
     inputType: sGetUiInputType(state),
-    stage: sGetMetadataById(
-        state,
-        ownProps.dimension?.id?.substring(0, ownProps.dimension.id.indexOf('.'))
-    ),
+    stage:
+        sGetMetadataById(
+            state,
+            ownProps.dimension?.id?.substring(
+                0,
+                ownProps.dimension.id.indexOf('.')
+            )
+        ) || EMPTY_METADATA,
 })
 
 const mapDispatchToProps = {

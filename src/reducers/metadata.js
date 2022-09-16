@@ -23,5 +23,4 @@ export default (state = EMPTY_METADATA, action) => {
 
 export const sGetMetadata = (state) => state.metadata
 
-export const sGetMetadataById = (state, id) =>
-    state.metadata[id] || EMPTY_METADATA
+export const sGetMetadataById = (state, id) => state.metadata[id]
