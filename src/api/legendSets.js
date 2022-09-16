@@ -29,7 +29,7 @@ const programIndicatorsQuery = {
     },
 }
 
-const legendSetsQuery = {
+const legendSetQuery = {
     resource: 'legendSets',
     id: ({ id }) => id,
     params: {
@@ -44,7 +44,7 @@ const legendSetsQuery = {
 
 export const apiFetchLegendSetById = async ({ dataEngine, id }) => {
     const response = await dataEngine.query(
-        { legendSet: legendSetsQuery },
+        { legendSet: legendSetQuery },
         {
             variables: {
                 id,

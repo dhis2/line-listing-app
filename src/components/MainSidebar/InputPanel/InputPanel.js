@@ -23,12 +23,13 @@ const getLabelForInputType = (type) => {
 }
 
 const InputPanel = ({ visible }) => {
+    const selectedInput = useSelector(sGetUiInput)
+    const dispatch = useDispatch()
+
     if (!visible) {
         return null
     }
 
-    const selectedInput = useSelector(sGetUiInput)
-    const dispatch = useDispatch()
     const setSelectedInput = (input) => {
         if (selectedInput.type !== input.type) {
             dispatch(tSetUiInput(input))
@@ -38,6 +39,7 @@ const InputPanel = ({ visible }) => {
     return (
         <div className={styles.container}>
             <InputOption
+                dataTest="input-event"
                 header={getLabelForInputType(OUTPUT_TYPE_EVENT)}
                 description={i18n.t(
                     'See individual event data from a Tracker program stage or event program.'
@@ -46,6 +48,7 @@ const InputPanel = ({ visible }) => {
                 selected={selectedInput.type === OUTPUT_TYPE_EVENT}
             />
             <InputOption
+                dataTest="input-enrollment"
                 header={getLabelForInputType(OUTPUT_TYPE_ENROLLMENT)}
                 description={i18n.t(
                     'See data from multiple program stages in a Tracker program.'

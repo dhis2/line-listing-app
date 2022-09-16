@@ -34,7 +34,11 @@ const Layout = () => {
             >
                 <LayoutComponent />
             </div>
-            <button className={classes.button} onClick={toggleExpanded}>
+            <button
+                className={classes.button}
+                onClick={toggleExpanded}
+                data-test="layout-height-toggle"
+            >
                 <ButtonIcon color={colors.grey700} />
             </button>
         </div>

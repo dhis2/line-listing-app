@@ -2,7 +2,7 @@ import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../actions/current.js'
 import {
@@ -14,24 +14,26 @@ import {
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
 import {
     acSetUiFromVisualization,
+    acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
+    dataAccessError,
     emptyResponseError,
     genericServerError,
+    indicatorError,
+    noPeriodError,
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
-import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../modules/userSettings.js'
 import {
     getDimensionMetadataFields,
-    getDimensionMetadataFromVisualization,
     transformVisualization,
 } from '../modules/visualization.js'
 import { sGetCurrent } from '../reducers/current.js'
@@ -70,6 +72,7 @@ const visualizationQuery = {
                 'href',
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
+                'legend[set[id,displayName],strategy,style,showKey]',
                 '!interpretations',
                 '!userGroupAccesses',
                 '!publicAccess',
@@ -109,6 +112,9 @@ const dataStatisticsMutation = {
 
 const App = () => {
     const dataEngine = useDataEngine()
+    const [aboutAOUnitRenderId, setAboutAOUnitRenderId] = useState(1)
+    const [interpretationsUnitRenderId, setInterpretationsUnitRenderId] =
+        useState(1)
     const [data, setData] = useState()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
@@ -122,9 +128,12 @@ const App = () => {
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
-    const interpretationsUnitRef = useRef()
+    const onFileMenuAction = () => {
+        setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
+    }
+
     const onInterpretationUpdate = () => {
-        interpretationsUnitRef.current.refresh()
+        setInterpretationsUnitRenderId(interpretationsUnitRenderId + 1)
     }
 
     const parseLocation = (location) => {
@@ -194,7 +203,33 @@ const App = () => {
         setPreviousLocation(location.pathname)
     }
 
-    const onResponseReceived = (response) => {
+    const onError = (error) => {
+        let output
+
+        if (error.details?.errorCode) {
+            switch (error.details.errorCode) {
+                case 'E7205':
+                    output = noPeriodError()
+                    break
+                case 'E7132':
+                    output = indicatorError()
+                    break
+                case 'E7121':
+                    output = dataAccessError()
+                    break
+                default:
+                    output = genericServerError()
+            }
+        } else {
+            output = genericServerError()
+        }
+        dispatch(acSetLoadError(output))
+    }
+
+    const onColumnHeaderClick = (dimensionId) =>
+        dispatch(acSetUiOpenDimensionModal(dimensionId))
+
+    const onResponsesReceived = (response) => {
         const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
@@ -247,19 +282,9 @@ const App = () => {
         if (data?.eventVisualization) {
             dispatch(tSetInitMetadata(rootOrgUnits))
 
-            const { program, programStage } = data.eventVisualization
             const visualization = transformVisualization(
                 data.eventVisualization
             )
-            const metadata = {
-                [program.id]: program,
-                ...getDimensionMetadataFromVisualization(visualization),
-                ...getDynamicTimeDimensionsMetadata(program, programStage),
-            }
-
-            if (programStage?.id) {
-                metadata[programStage.id] = programStage
-            }
 
             dispatch(
                 acAddParentGraphMap(
@@ -268,7 +293,7 @@ const App = () => {
             )
             dispatch(acSetVisualization(visualization))
             dispatch(tSetCurrent(visualization))
-            dispatch(acSetUiFromVisualization(visualization, metadata))
+            dispatch(acSetUiFromVisualization(visualization))
             postDataStatistics({ id: visualization.id })
             dispatch(acClearLoadError())
         }
@@ -282,7 +307,7 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar />
+            <Toolbar onFileMenuAction={onFileMenuAction} />
             <div
                 className={cx(
                     classes.sectionMain,
@@ -295,8 +320,8 @@ const App = () => {
                     <DialogManager />
                     <div
                         className={cx(
-                            classes.mainCenter,
                             classes.flexGrow1,
+                            classes.minWidth0,
                             classes.flexBasis0,
                             classes.flexCt,
                             classes.flexDirCol
@@ -308,12 +333,7 @@ const App = () => {
                         <div className={classes.mainCenterTitlebar}>
                             <TitleBar />
                         </div>
-                        <div
-                            className={cx(
-                                classes.mainCenterCanvas,
-                                classes.flexGrow1
-                            )}
-                        >
+                        <div className={cx(classes.mainCenterCanvas)}>
                             {(initialLoadIsComplete &&
                                 !current &&
                                 !isLoading) ||
@@ -328,10 +348,15 @@ const App = () => {
                                     )}
                                     {current && (
                                         <Visualization
+                                            isVisualizationLoading={isLoading}
                                             visualization={current}
-                                            onResponseReceived={
-                                                onResponseReceived
+                                            onResponsesReceived={
+                                                onResponsesReceived
                                             }
+                                            onColumnHeaderClick={
+                                                onColumnHeaderClick
+                                            }
+                                            onError={onError}
                                         />
                                     )}
                                     {current && (
@@ -353,7 +378,10 @@ const App = () => {
                 >
                     {showDetailsPanel && current && (
                         <DetailsPanel
-                            interpretationsUnitRef={interpretationsUnitRef}
+                            aboutAOUnitRenderId={aboutAOUnitRenderId}
+                            interpretationsUnitRenderId={
+                                interpretationsUnitRenderId
+                            }
                         />
                     )}
                 </div>

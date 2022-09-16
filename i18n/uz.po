@@ -1,0 +1,692 @@
+# 
+# Translators:
+# Ibatov <ibatovk@who.int>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2022\n"
+"Language-Team: Uzbek (Cyrillic) (https://www.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uz@Cyrl\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "{{axisName}} га қўшинг"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Олиб ташлаш"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Юкланмоқда..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Беркитиш"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Бошланиш санаси"
+
+msgid "End date"
+msgstr "Якунланиш санаси"
+
+msgid "No items selected"
+msgstr "Элемент танланмаган"
+
+msgid "Available options"
+msgstr "Мавжуд вариантлар"
+
+msgid "Filter options"
+msgstr "Фильтр вариантлари"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr "Вариант йўқ"
+
+msgid "Move to {{axisName}}"
+msgstr "Ҳаракатланинг {{axisName}} га қараб"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Оддий маълумотлар манбаи"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "МетаМаълумот ID схемаси"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Name"
+msgstr "Исми"
+
+msgid "Download"
+msgstr "Юклаш"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+
+msgid "Levels"
+msgstr "Босқичлар/Қаватлар"
+
+msgid "Groups"
+msgstr "Гуруҳлар"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+
+msgid "None selected"
+msgstr "Бирор нима танланмаган"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Ҳодиса/Тадбир"
+
+msgid "Enrollment"
+msgstr "Рўйхатга олиш"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "Умумий ўлчамлар"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "Тури"
+
+msgid "All types"
+msgstr "Барча турлари"
+
+msgid "Data element"
+msgstr "Маълумотлар элементи"
+
+msgid "Program attribute"
+msgstr "Дастур атрибути"
+
+msgid "Program indicator"
+msgstr "Дастур индикатори"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Category option group set"
+msgstr "Категория вариантлари гуруҳ тўплами"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Тозалаш"
+
+msgid "Stage"
+msgstr "Босқич"
+
+msgid "All"
+msgstr "Барчаси"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Сизнинг созламаларингиз"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Сақланмаган визуализация"
+
+msgid "Edited"
+msgstr "Таҳрирланган"
+
+msgid "Interpretations"
+msgstr "Талқинлар"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Муваффақиятли қайта номлаш"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Номсиз {{visualizationType}} визуализация, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Ушбу визуализацияни ўчириб бўлмайди, чунки у бир ёки бир неча информацияон "
+"панель томонидан фойдаланилмоқда"
+
+msgid "Update"
+msgstr "Янгилаш"
+
+msgid "Getting started"
+msgstr "Иш бошланганида"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "Саҳифада қаторлар"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Устуннинг оралиқ йиғиндилари"
+
+msgid "Columns totals"
+msgstr "Устунлар бўйича йиғинди"
+
+msgid "Digit group separator"
+msgstr "Рақамлар гуруҳини тақсимловчи"
+
+msgid "None"
+msgstr "Йўқ"
+
+msgid "Space"
+msgstr "Оралиқ (майдон)"
+
+msgid "Comma"
+msgstr "Вергул"
+
+msgid "Display density"
+msgstr "Кўриниш зичлиги"
+
+msgid "Comfortable"
+msgstr "Қулай"
+
+msgid "Normal"
+msgstr "Меъёрий"
+
+msgid "Compact"
+msgstr "Зич"
+
+msgid "Font size"
+msgstr "Шрифт ҳажми"
+
+msgid "Large"
+msgstr "Катта"
+
+msgid "Small"
+msgstr "Кичик"
+
+msgid "Hide empty rows"
+msgstr "Бўш қаторларни беркитиш"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Таъриф тури"
+
+msgid "Legend type"
+msgstr "Таъриф тури"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Ҳар бир маълумот учун олдиндан белгиланган таърифдан фойдаланинг"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Таъриф фон рангини ўзгартиради"
+
+msgid "Legend changes text color"
+msgstr "Таъриф матн рангини ўзгартиради"
+
+msgid "Legend"
+msgstr "Таъриф"
+
+msgid "Select from legends"
+msgstr "Таърифлардан сўранг"
+
+msgid "Loading legends"
+msgstr "Таърифлар юкланмоқда"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+"Минимал ёки максимал қийматни белгилашингиз мумкин. Бу бутун кўринишга "
+"тааллуқлидир, минимал/максимал диапазондан ташқарисидаги барча қийматлар "
+"экранда кўрсатилмайди."
+
+msgid "Minimum data value"
+msgstr "Маълумотларнинг минимал қиймати"
+
+msgid "Maximum data value"
+msgstr "Маълумотларнинг максимал қиймати"
+
+msgid "Clear min/max limits"
+msgstr "Минимал/максимал чегараларини аниқлаштиринг"
+
+msgid "Row sub-totals"
+msgstr "Қаторнинг оралиқ йиғиндиси"
+
+msgid "Row totals"
+msgstr "Қатор йиғиндиси"
+
+msgid "Dimension labels"
+msgstr "Ўлчам қийматлари"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Ташкилий бўлим иерархиясини экранда кўрсатиш"
+
+msgid "Show legend key"
+msgstr "Калит таърифни кўрсатинг"
+
+msgid "Add a title"
+msgstr "Сарлавҳа қўшиш"
+
+msgid "Options"
+msgstr "Вариант"
+
+msgid "Columns"
+msgstr "Устунлар"
+
+msgid "Rows"
+msgstr "Қаторлар"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr "эмас"
+
+msgid "contains"
+msgstr "ўз ичига олади"
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr "кейин"
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr "олдин"
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ҳа"
+
+msgid "No"
+msgstr "Йўқ"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Сервердан маълумотларни олишда муаммо юз берди."
+
+msgid "No data available"
+msgstr "Маълумотлар мавжуд эмас"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"Танланган параметрлар асосида ҳеч қандай маълумотлар топилмади. Маълумотлар "
+"йўқ ёки уларгадан фойдаланиш ҳуқуқи мавжуд эмас."
+
+msgid "Visualization not found"
+msgstr "Визуализация топилмади"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Сиз кўрмоқчи бўлган визуализация топилмади, идентификатор нотўғри ёки "
+"ўчирилган бўлиши мумкин."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "Ташкилий бўлим танланмади"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Кириш ҳуқуқи мавжуд эмас"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Нимадир нотўғри бажарилди"
+
+msgid "Organisation unit"
+msgstr "Ташкилий бўлим"
+
+msgid "Event status"
+msgstr "Ҳодиса/тадбир ҳолати"
+
+msgid "Program status"
+msgstr "дастур ҳолати"
+
+msgid "Created by"
+msgstr "Томонидан яратилган"
+
+msgid "Last updated by"
+msgstr "Охирги марта янгиланган"
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Ташкилий бўлим фойдаланувчиси"
+
+msgid "User sub-units"
+msgstr "Фойдаланувчига бўйсунувчи бирликлар"
+
+msgid "User sub-x2-units"
+msgstr "Фойдаланувчига бўйсунувчи 2 поғонадаги бўлимлар"
+
+msgid "Table title"
+msgstr "Жадвал сарлавҳаси"
+
+msgid "Display"
+msgstr "Экранда кўрсатиш"
+
+msgid "Empty data"
+msgstr "Бўш маълумотлар"
+
+msgid "Totals"
+msgstr "Жами"
+
+msgid "Data"
+msgstr "Маълумот"
+
+msgid "Limit values"
+msgstr "Чекланган қийматлар"
+
+msgid "Limit number of values"
+msgstr "Қийматларнинг чекланган сони"
+
+msgid "Limit minimum/maximum values"
+msgstr "Минимал/максимал қийматларни чеклаш"
+
+msgid "Style"
+msgstr "Услуб"
+
+msgid "Event date"
+msgstr "Ҳодиса/Тадбир санаси"
+
+msgid "Enrollment date"
+msgstr "Қайд этилган сана"
+
+msgid "Incident date"
+msgstr "Ҳодиса санаси"
+
+msgid "Scheduled date"
+msgstr "Режалаштирилган сана"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Фаол"
+
+msgid "Cancelled"
+msgstr "Бекор қилинди"
+
+msgid "Completed"
+msgstr "Тўлдирилди"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

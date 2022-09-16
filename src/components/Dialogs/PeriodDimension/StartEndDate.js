@@ -34,6 +34,7 @@ export const StartEndDate = ({ value, setValue }) => {
                     label={i18n.t('Start date')}
                     inputWidth="200px"
                     max="9999-12-31"
+                    dataTest={'start-date-input'}
                 />
                 <div className={styles.icon}>
                     <IconArrowRight16 color={colors.grey500} />
@@ -45,6 +46,7 @@ export const StartEndDate = ({ value, setValue }) => {
                     label={i18n.t('End date')}
                     inputWidth="200px"
                     max="9999-12-31"
+                    dataTest={'end-date-input'}
                 />
             </div>
         </Field>

@@ -19,7 +19,6 @@ import {
     REMOVE_UI_LAYOUT_DIMENSIONS,
     SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
-    SET_UI_OPTION,
     SET_UI_OPTIONS,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
@@ -171,11 +170,6 @@ export const tSetUiStage = (stage) => (dispatch, getState) => {
 
 export const acSetUiOptions = (value) => ({
     type: SET_UI_OPTIONS,
-    value,
-})
-
-export const acSetUiOption = (value) => ({
-    type: SET_UI_OPTION,
     value,
 })
 

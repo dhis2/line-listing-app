@@ -1,4 +1,5 @@
 import { VisualizationOptions } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import React, { useState } from 'react'
 import { getOptionsByType } from '../../modules/options/config.js'
@@ -7,20 +8,18 @@ import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationCon
 
 const VisualizationOptionsManager = () => {
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    const { serverVersion } = useConfig()
 
     const onClick = (handler) => {
         handler()
         setDialogIsOpen(false)
     }
 
-    const optionsConfig = getOptionsByType()
+    const optionsConfig = getOptionsByType({ serverVersion })
 
     return (
         <>
-            <MenuButton
-                data-test={'app-menubar-options-button'}
-                onClick={() => setDialogIsOpen(true)}
-            >
+            <MenuButton onClick={() => setDialogIsOpen(true)}>
                 {i18n.t('Options')}
             </MenuButton>
             {dialogIsOpen && (

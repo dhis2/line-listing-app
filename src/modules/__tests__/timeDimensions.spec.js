@@ -2,7 +2,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    // DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../dimensionConstants.js'
 import {
@@ -185,7 +185,7 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
             expected: [
                 DIMENSION_ID_EVENT_DATE,
                 DIMENSION_ID_ENROLLMENT_DATE,
-                // DIMENSION_ID_SCHEDULED_DATE,
+                DIMENSION_ID_SCHEDULED_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
                 DIMENSION_ID_LAST_UPDATED,
             ],
@@ -240,7 +240,7 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
                 id: '1',
                 hideDueDate: false,
             },
-            expected: [DIMENSION_ID_EVENT_DATE],
+            expected: [DIMENSION_ID_EVENT_DATE, DIMENSION_ID_SCHEDULED_DATE],
         },
         // Event program
         {
@@ -256,6 +256,7 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
             expected: [
                 DIMENSION_ID_ENROLLMENT_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
+                DIMENSION_ID_SCHEDULED_DATE,
             ],
         },
     ])(

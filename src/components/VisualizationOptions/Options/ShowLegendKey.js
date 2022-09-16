@@ -7,7 +7,7 @@ const ShowLegendKey = () => (
     <CheckboxBaseOption
         label={i18n.t('Show legend key')}
         option={{
-            id: OPTION_SHOW_LEGEND_KEY,
+            name: OPTION_SHOW_LEGEND_KEY,
         }}
         dataTest={'option-legend-key'}
     />

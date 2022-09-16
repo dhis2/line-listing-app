@@ -49,10 +49,9 @@ const visualizationSaveAsMutation = {
 }
 
 const MenuBar = ({
-    dataTest,
     current,
     visualization,
-    apiObjectName,
+    onFileMenuAction,
     setCurrent,
     setVisualization,
 }) => {
@@ -85,7 +84,7 @@ const MenuBar = ({
         history.push('/')
 
         showAlert({
-            message: i18n.t('"{{deletedObject}}" successfully deleted.', {
+            message: i18n.t('"{{- deletedObject}}" successfully deleted.', {
                 deletedObject: deletedVisualization,
             }),
             options: {
@@ -209,7 +208,7 @@ const MenuBar = ({
     })
 
     return (
-        <div className={classes.menuBar} data-test={dataTest}>
+        <div className={classes.menuBar} data-test="menubar">
             <UpdateVisualizationContainer
                 renderComponent={(handler) => (
                     <UpdateButton
@@ -221,7 +220,7 @@ const MenuBar = ({
             />
             <FileMenu
                 currentUser={currentUser}
-                fileType={apiObjectName}
+                fileType={'eventVisualization'}
                 fileObject={current}
                 defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
@@ -234,6 +233,8 @@ const MenuBar = ({
                         : undefined
                 }
                 onSaveAs={(details) => onSave(details, true)}
+                onShare={onFileMenuAction}
+                onTranslate={onFileMenuAction}
                 onDelete={onDelete}
                 onError={onError}
             />
@@ -246,9 +247,8 @@ const MenuBar = ({
 }
 
 MenuBar.propTypes = {
-    apiObjectName: PropTypes.string,
+    onFileMenuAction: PropTypes.func.isRequired,
     current: PropTypes.object,
-    dataTest: PropTypes.string,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,
