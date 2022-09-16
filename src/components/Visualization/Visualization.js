@@ -154,6 +154,11 @@ export const Visualization = ({
             page: FIRST_PAGE,
         })
 
+    const reverseLookupDimensionId = (dimensionId) =>
+        Object.keys(headersMap).find(
+            (key) => headersMap[key] === dimensionId
+        )
+
     const formatCellValue = (value, header) => {
         if (
             [
@@ -220,7 +225,10 @@ export const Visualization = ({
                 className={cx(styles.headerCell, styles.dimensionModalHandler)}
                 onClick={
                     onColumnHeaderClick
-                        ? () => onColumnHeaderClick(dimensionId)
+                        ? () =>
+                              onColumnHeaderClick(
+                                  reverseLookupDimensionId(dimensionId) || dimensionId
+                              )
                         : undefined
                 }
             >
