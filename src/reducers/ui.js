@@ -26,7 +26,7 @@ import { getOptionsForUi } from '../modules/options.js'
 import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
-import { sGetMetadata, sGetMetadataById, EMPTY_METADATA } from './metadata.js'
+import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
@@ -399,7 +399,7 @@ export const renderChipsSelector = createSelector(
     [sGetUiLayout, sGetMetadata],
     (layout, metadata) => {
         const layoutItems = Object.values(layout || {}).flat()
-        const dataObjects = [...Object.values(metadata || EMPTY_METADATA)] // TODO: Refactor to not use the whole metadata list
+        const dataObjects = [...Object.values(metadata || {})] // TODO: Refactor to not use the whole metadata list
 
         return layoutItems.every((item) =>
             dataObjects.some((data) => data.id === item)
@@ -429,7 +429,7 @@ export const useMainDimensions = () => {
                 disabledReason,
             }
         })
-    }, [programId, inputType, store])
+    }, [programId, inputType])
 }
 
 export const useTimeDimensions = () => {
@@ -486,7 +486,6 @@ export const useTimeDimensions = () => {
             return null
         }
     }, [
-        store,
         inputType,
         programId,
         programStageId,
