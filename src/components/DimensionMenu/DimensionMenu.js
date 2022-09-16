@@ -93,7 +93,6 @@ DimensionMenu.propTypes = {
     currentAxisId: PropTypes.string,
     dimensionId: PropTypes.string,
     dimensionMetadata: PropTypes.object,
-    dimensionName: PropTypes.string,
 }
 
 export default DimensionMenu
