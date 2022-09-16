@@ -130,7 +130,7 @@ const Chip = ({
                     [styles.showBlank]: !name,
                 })}
             >
-                <div className={styles.content}>
+                <div className={styles.content} data-test={`layout-chip-${id}`}>
                     {
                         <Tooltip
                             content={renderTooltipContent()}
@@ -138,7 +138,6 @@ const Chip = ({
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div
-                                    data-test={`layout-chip-${id}`}
                                     id={Math.random().toString(36)}
                                     onClick={onClick}
                                     ref={ref}
