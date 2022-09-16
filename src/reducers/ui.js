@@ -76,11 +76,6 @@ const EMPTY_UI = {
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
-    sorting: {
-        sortField: null,
-        sortDirection: DEFAULT_SORT_DIRECTION,
-        page: FIRST_PAGE,
-    },
 }
 
 export const DEFAULT_UI = {
@@ -108,11 +103,6 @@ export const DEFAULT_UI = {
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
-    sorting: {
-        sortField: null,
-        sortDirection: DEFAULT_SORT_DIRECTION,
-        page: FIRST_PAGE,
-    },
 }
 
 const getPreselectedUi = (options) => {
@@ -358,24 +348,26 @@ export default (state = EMPTY_UI, action) => {
 
 export const sGetUi = (state) => state.ui
 export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
+export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
-export const sGetUiOptions = (state) => sGetUi(state).options
-export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
+export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
+export const sGetUiOptions = (state) => sGetUi(state).options
+export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
+export const sGetUiRepetition = (state) =>
+    sGetUi(state).repetitionByDimension || {}
+export const sGetUiConditions = (state) =>
+    sGetUi(state).conditions || DEFAULT_CONDITIONS
+
+// TODO - should these props be represented in the DEFAULT_UI and EMPTY_UI?
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
-export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
-export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
-export const sGetUiConditions = (state) =>
-    sGetUi(state).conditions || DEFAULT_CONDITIONS
-export const sGetUiRepetition = (state) =>
-    sGetUi(state).repetitionByDimension || {}
 
 // Selectors level 2
 
