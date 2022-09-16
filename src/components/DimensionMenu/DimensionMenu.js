@@ -24,7 +24,6 @@ const DimensionMenu = ({
     currentAxisId,
     dimensionId,
     dimensionMetadata,
-    dimensionName,
 }) => {
     const dispatch = useDispatch()
     const visType = useSelector(sGetUiType)
@@ -66,9 +65,7 @@ const DimensionMenu = ({
                     ariaOwns={menuIsOpen ? getMenuId() : null}
                     ariaHaspopup={true}
                     onClick={toggleMenu}
-                    dataTest={`dimension-menu-button-${
-                        dimensionName ? dimensionName : dimensionId
-                    }`}
+                    dataTest={`dimension-menu-button-${dimensionId}`}
                 >
                     <IconMore16 />
                 </IconButton>
@@ -83,9 +80,7 @@ const DimensionMenu = ({
                             axisItemHandler={axisItemHandler}
                             removeItemHandler={removeItemHandler}
                             onClose={toggleMenu}
-                            dataTest={`dimension-menu-${
-                                dimensionName ? dimensionName : dimensionId
-                            }`}
+                            dataTest={`dimension-menu-${dimensionId}`}
                         />
                     </Popper>
                 </Layer>
