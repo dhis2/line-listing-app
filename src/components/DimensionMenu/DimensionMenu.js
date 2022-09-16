@@ -20,11 +20,7 @@ const getAxisIdForDimension = (dimensionId, layout) => {
     return axisLayout ? axisLayout[0] : undefined
 }
 
-const DimensionMenu = ({
-    currentAxisId,
-    dimensionId,
-    dimensionMetadata,
-}) => {
+const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const dispatch = useDispatch()
     const visType = useSelector(sGetUiType)
     const layout = useSelector(sGetUiLayout)

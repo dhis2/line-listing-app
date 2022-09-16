@@ -155,9 +155,7 @@ export const Visualization = ({
         })
 
     const reverseLookupDimensionId = (dimensionId) =>
-        Object.keys(headersMap).find(
-            (key) => headersMap[key] === dimensionId
-        )
+        Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
 
     const formatCellValue = (value, header) => {
         if (
@@ -227,7 +225,8 @@ export const Visualization = ({
                     onColumnHeaderClick
                         ? () =>
                               onColumnHeaderClick(
-                                  reverseLookupDimensionId(dimensionId) || dimensionId
+                                  reverseLookupDimensionId(dimensionId) ||
+                                      dimensionId
                               )
                         : undefined
                 }

@@ -28,14 +28,14 @@ const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const testDimensions = [
-        DIMENSION_ID_PROGRAM_STATUS,
-        DIMENSION_ID_EVENT_STATUS,
-        DIMENSION_ID_CREATED_BY,
-        DIMENSION_ID_LAST_UPDATED_BY,
-        DIMENSION_ID_ENROLLMENT_DATE,
-        DIMENSION_ID_INCIDENT_DATE,
-        DIMENSION_ID_SCHEDULED_DATE,
-        DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_CREATED_BY,
+    DIMENSION_ID_LAST_UPDATED_BY,
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
 ]
 
 const setUpTable = () => {
@@ -80,11 +80,17 @@ describe('table', () => {
         getTableRows().its('length').should('be.gte', 1)
 
         // check the column headers in the table
-        getTableHeaderCells().contains('Organisation unit').should('be.visible').click()
+        getTableHeaderCells()
+            .contains('Organisation unit')
+            .should('be.visible')
+            .click()
         cy.getBySelLike('modal-title').contains('Organisation unit')
         cy.getBySelLike('modal-action-cancel').click()
 
-        getTableHeaderCells().contains(dimensionName).should('be.visible').click()
+        getTableHeaderCells()
+            .contains(dimensionName)
+            .should('be.visible')
+            .click()
         cy.getBySelLike('modal-title').contains(dimensionName)
         cy.getBySelLike('modal-action-cancel').click()
 
@@ -95,10 +101,13 @@ describe('table', () => {
         testDimensions.forEach((dimensionId) => {
             const label = event[dimensionId]
 
-            getTableHeaderCells().contains(label).scrollIntoView().should('be.visible').click()
+            getTableHeaderCells()
+                .contains(label)
+                .scrollIntoView()
+                .should('be.visible')
+                .click()
             cy.getBySelLike('modal-title').contains(label)
             cy.getBySelLike('modal-action-cancel').click()
         })
-
     })
 })
