@@ -4,9 +4,9 @@ import {
     USER_ORG_UNIT_GRANDCHILDREN,
     DIMENSION_ID_ORGUNIT,
     getDimensionById,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { DIMENSION_TYPE_OU } from './dimensionConstants.js'
 import { getMainDimensions } from './mainDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
 import { statusNames } from './visualization.js'
@@ -26,7 +26,7 @@ const getOrganisationUnits = () => ({
 const getFixedDimensions = () => ({
     [DIMENSION_ID_ORGUNIT]: {
         ...getDimensionById(DIMENSION_ID_ORGUNIT),
-        dimensionType: DIMENSION_TYPE_OU,
+        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
     },
 })
 

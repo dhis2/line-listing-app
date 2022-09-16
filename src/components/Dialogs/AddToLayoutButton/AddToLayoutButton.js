@@ -54,7 +54,6 @@ const AddToLayoutButton = ({
         <AddToLayoutButton
             component={availableAxes.length > 1 ? renderMenu() : null}
             onClick={() => clickHandler(availableAxes[0])}
-            primary
             dataTest={dataTest}
         >
             {i18n.t(`Add to {{axisName}}`, {

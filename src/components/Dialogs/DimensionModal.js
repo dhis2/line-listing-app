@@ -22,7 +22,7 @@ const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
 
     return (
         <Modal onClose={onClose} dataTest={`${dataTest}`} position="top" large>
-            <ModalTitle dataTest={`${dataTest}-title}`}>{title}</ModalTitle>
+            <ModalTitle dataTest={`${dataTest}-title`}>{title}</ModalTitle>
             <ModalContent
                 dataTest={`${dataTest}-content`}
                 className={classes.modalContent}
@@ -39,21 +39,21 @@ const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
                     >
                         {i18n.t('Hide')}
                     </Button>
-                    <UpdateVisualizationContainer
-                        renderComponent={(handler) =>
-                            isInLayout ? (
+                    {isInLayout ? (
+                        <UpdateVisualizationContainer
+                            renderComponent={(handler) => (
                                 <UpdateButton
                                     onClick={() => onClick(handler)}
                                     dataTest={`${dataTest}-action-confirm`}
                                 />
-                            ) : (
-                                <AddToLayoutButton
-                                    onClick={() => onClick(handler)}
-                                    dataTest={`${dataTest}-action-confirm`}
-                                />
-                            )
-                        }
-                    />
+                            )}
+                        />
+                    ) : (
+                        <AddToLayoutButton
+                            onClick={onClose}
+                            dataTest={`${dataTest}-action-confirm`}
+                        />
+                    )}
                 </ButtonStrip>
             </ModalActions>
         </Modal>

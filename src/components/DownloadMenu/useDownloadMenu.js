@@ -1,6 +1,6 @@
 import { Analytics } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
-import { useRef, useState, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
@@ -21,8 +21,8 @@ const useDownloadMenu = (relativePeriodDate) => {
     const { baseUrl } = useConfig()
     const dataEngine = useDataEngine()
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
-    const buttonRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
+
     const download = useCallback(
         (type, format, idScheme) => {
             if (!current) {
@@ -32,7 +32,7 @@ const useDownloadMenu = (relativePeriodDate) => {
             let req = new analyticsEngine.request()
             let target = '_top'
 
-            const { adaptedVisualization, parameters } =
+            const { adaptedVisualization, headers, parameters } =
                 getAdaptedVisualization(current)
             const path = `${getAnalyticsEndpoint(current.outputType)}/query`
 
@@ -41,6 +41,8 @@ const useDownloadMenu = (relativePeriodDate) => {
                     req = req
                         .fromVisualization(adaptedVisualization)
                         .withProgram(current.program.id)
+                        .withStage(current.programStage.id)
+                        .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
                         .withTableLayout()
@@ -58,6 +60,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                         )
                         .withParameters({
                             ...parameters,
+                            headers,
                             dataIdScheme: ID_SCHEME_NAME,
                             paging: false,
                         }) // only for LL
@@ -79,10 +82,15 @@ const useDownloadMenu = (relativePeriodDate) => {
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
                         .fromVisualization(adaptedVisualization, true)
                         .withProgram(current.program.id)
+                        .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
                         .withOutputIdScheme(idScheme)
-                        .withParameters(parameters)
+                        .withParameters({
+                            ...parameters,
+                            headers,
+                            paging: false,
+                        })
 
                     // TODO options
                     // startDate
@@ -102,13 +110,6 @@ const useDownloadMenu = (relativePeriodDate) => {
                     // collapsedDataDimensions
                     // useOrgUnit (URL)
                     // relativePeriodDate
-                    // TODO LL only
-                    // need to reflect the page and pageSize and sorting shown in the Visualization component?
-                    // NO!
-                    // asc
-                    // desc
-                    // pageSize
-                    // page
                     target = [FILE_FORMAT_CSV, FILE_FORMAT_XLS].includes(format)
                         ? '_top'
                         : '_blank'
@@ -142,7 +143,6 @@ const useDownloadMenu = (relativePeriodDate) => {
         toggleOpen: () => setIsOpen(!isOpen),
         disabled: !current,
         download,
-        buttonRef,
     }
 }
 

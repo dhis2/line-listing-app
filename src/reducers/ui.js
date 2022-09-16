@@ -1,8 +1,10 @@
+/*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -10,7 +12,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
-    // DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
@@ -21,7 +23,7 @@ import {
     getIsMainDimensionDisabled,
 } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
-import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
+import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById, EMPTY_METADATA } from './metadata.js'
@@ -33,8 +35,6 @@ export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
-export const SET_UI_OPTION = 'SET_UI_OPTION'
-export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
 export const SET_UI_LAYOUT = 'SET_UI_LAYOUT'
@@ -49,12 +49,13 @@ export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
 export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
+export const DEFAULT_SORT_DIRECTION = 'asc'
+export const FIRST_PAGE = 1
+export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
 const DEFAULT_DIMENSION_ITEMS = []
-export const DEFAULT_SORT_DIRECTION = 'asc'
-export const FIRST_PAGE = 1
 
 const EMPTY_UI = {
     draggingId: null,
@@ -115,7 +116,9 @@ export const DEFAULT_UI = {
 }
 
 const getPreselectedUi = (options) => {
-    const rootOrgUnitIds = options.rootOrgUnits
+    const { rootOrgUnits, digitGroupSeparator } = options
+
+    const rootOrgUnitIds = rootOrgUnits
         .filter((root) => root.id)
         .map((root) => root.id)
     const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
@@ -128,7 +131,7 @@ const getPreselectedUi = (options) => {
         ...DEFAULT_UI,
         options: {
             ...DEFAULT_UI.options,
-            //digitGroupSeparator,
+            digitGroupSeparator,
         },
         itemsByDimension: {
             ...DEFAULT_UI.itemsByDimension,
@@ -147,12 +150,6 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 input: action.value,
-            }
-        }
-        case SET_UI_SORTING: {
-            return {
-                ...state,
-                sorting: action.value,
             }
         }
         case CLEAR_UI_PROGRAM: {
@@ -341,6 +338,17 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case REMOVE_UI_REPETITION: {
+            const {
+                [action.value]: removedProperty,
+                ...repetitionByDimension
+            } = { ...state.repetitionByDimension }
+
+            return {
+                ...state,
+                repetitionByDimension,
+            }
+        }
         default:
             return state
     }
@@ -353,7 +361,6 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiOptions = (state) => sGetUi(state).options
-export const sGetUiOption = () => {} // TODO: items stored here should be flattened and reintegrated into sGetUiOptions (above)
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
@@ -368,8 +375,6 @@ export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
 export const sGetUiConditions = (state) => sGetUi(state).conditions
 export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
-
-export const sGetUiSorting = (state) => sGetUi(state).sorting
 
 // Selectors level 2
 
@@ -421,18 +426,23 @@ export const useMainDimensions = () => {
         const { metadata } = store.getState()
         const programType = programId && metadata[programId].programType
 
-        return Object.values(getMainDimensions()).map((dimension) => ({
-            ...dimension,
-            disabled: getIsMainDimensionDisabled({
+        return Object.values(getMainDimensions()).map((dimension) => {
+            const disabledReason = getIsMainDimensionDisabled({
                 dimensionId: dimension.id,
                 inputType,
                 programType,
-            }),
-        }))
-    }, [store, programId, inputType])
+            })
+            return {
+                ...dimension,
+                disabled: Boolean(disabledReason),
+                disabledReason,
+            }
+        })
+    }, [programId, inputType, store])
 }
 
 export const useTimeDimensions = () => {
+    const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
@@ -446,9 +456,9 @@ export const useTimeDimensions = () => {
     const incidentDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
     )
-    // const scheduledDateDim = useSelector((state) =>
-    //     sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
-    // )
+    const scheduledDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
+    )
     const lastUpdatedDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
     )
@@ -460,20 +470,26 @@ export const useTimeDimensions = () => {
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
+            ...(`${serverVersion.major}.${serverVersion.minor}.${
+                serverVersion.patch || 0
+            }` >= '2.39.0'
+                ? [scheduledDateDim]
+                : []),
             incidentDateDim,
-            // scheduledDateDim,
             lastUpdatedDim,
         ]
 
         if (timeDimensions.every((dimension) => !!dimension)) {
-            const enabledDimensionIds = getEnabledTimeDimensionIds(
+            const disabledTimeDimensions = getDisabledTimeDimensions(
                 inputType,
                 program,
                 stage
             )
+
             return timeDimensions.map((dimension) => ({
                 ...dimension,
-                disabled: !enabledDimensionIds.has(dimension.id),
+                disabled: Boolean(disabledTimeDimensions[dimension.id]),
+                disabledReason: disabledTimeDimensions[dimension.id],
             }))
         } else {
             return null
@@ -486,7 +502,7 @@ export const useTimeDimensions = () => {
         eventDateDim,
         enrollmentDateDim,
         incidentDateDim,
-        // scheduledDateDim,
+        scheduledDateDim,
         lastUpdatedDim,
     ])
 }

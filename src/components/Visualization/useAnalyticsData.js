@@ -3,16 +3,22 @@ import {
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
     Analytics,
+    useCachedDataQuery,
+    LEGEND_DISPLAY_STRATEGY_FIXED,
+    LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM,
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import {
-    BOOLEAN_VALUES,
-    NULL_VALUE,
-    VALUE_TYPE_BOOLEAN,
-    VALUE_TYPE_TRUE_ONLY,
-} from '../../modules/conditions.js'
+import { BOOLEAN_VALUES, NULL_VALUE } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
@@ -20,13 +26,13 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
+import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
     headersMap,
 } from '../../modules/visualization.js'
-import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
-import { sGetUiSorting } from '../../reducers/ui.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
@@ -123,6 +129,7 @@ const fetchAnalyticsData = async ({
     relativePeriodDate,
     sortField,
     sortDirection,
+    nameProp,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
     const { adaptedVisualization, headers, parameters } =
@@ -136,7 +143,8 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withDisplayProperty('NAME') // TODO from settings ?!
+        .withStage(visualization.programStage.id)
+        .withDisplayProperty(nameProp)
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
@@ -167,11 +175,54 @@ const fetchAnalyticsData = async ({
     return rawResponse
 }
 
+const legendSetsQuery = {
+    resource: 'legendSets',
+    params: ({ ids }) => ({
+        fields: 'id,displayName~rename(name),legends[id,displayName~rename(name),startValue,endValue,color]',
+        filter: `id:in:[${ids.join(',')}]`,
+    }),
+}
+
+const apiFetchLegendSetsByIds = async ({ dataEngine, ids }) => {
+    const legendSetsData = await dataEngine.query(
+        { legendSets: legendSetsQuery },
+        {
+            variables: { ids },
+        }
+    )
+
+    return legendSetsData.legendSets.legendSets
+}
+
+const fetchLegendSets = async ({ legendSetIds, dataEngine }) => {
+    if (!legendSetIds.length) {
+        return []
+    }
+
+    const legendSets = await apiFetchLegendSetsByIds({
+        dataEngine,
+        ids: legendSetIds,
+    })
+
+    return legendSets
+}
+
 const extractHeaders = (analyticsResponse) =>
-    analyticsResponse.headers.map((header, index) => ({
-        ...header,
-        index,
-    }))
+    analyticsResponse.headers.map((header, index) => {
+        const result = { ...header, index }
+        const { dimensionId, programStageId } = extractDimensionIdParts(
+            header.name
+        )
+        if (
+            programStageId &&
+            analyticsResponse.headers.filter((h) =>
+                h.name.includes(dimensionId)
+            ).length > 1
+        ) {
+            result.column += ` - ${analyticsResponse.metaData.items[programStageId].name}`
+        }
+        return result
+    })
 
 const extractRows = (analyticsResponse, headers) => {
     const filteredRows = []
@@ -209,21 +260,36 @@ const extractRows = (analyticsResponse, headers) => {
     return filteredRows
 }
 
+const valueTypeIsNumeric = (valueType) =>
+    [
+        VALUE_TYPE_NUMBER,
+        VALUE_TYPE_UNIT_INTERVAL,
+        VALUE_TYPE_PERCENTAGE,
+        VALUE_TYPE_INTEGER,
+        VALUE_TYPE_INTEGER_POSITIVE,
+        VALUE_TYPE_INTEGER_NEGATIVE,
+        VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    ].includes(valueType)
+
 const useAnalyticsData = ({
     visualization,
-    relativePeriodDate,
-    onResponseReceived,
+    filters,
+    isVisualizationLoading: isGlobalLoading,
+    onResponsesReceived,
     pageSize,
+    page,
+    sortField,
+    sortDirection,
 }) => {
     const dataEngine = useDataEngine()
-    const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
-    const { sortField, sortDirection, page } = useSelector(sGetUiSorting)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)
     const [fetching, setFetching] = useState(true)
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
+    const { userSettings } = useCachedDataQuery()
+    const relativePeriodDate = filters?.relativePeriodDate
 
     const doFetch = useCallback(async () => {
         try {
@@ -235,14 +301,65 @@ const useAnalyticsData = ({
                 sortDirection,
                 sortField,
                 visualization,
+                nameProp:
+                    userSettings[USER_SETTINGS_DISPLAY_PROPERTY].toUpperCase(),
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
             const pager = analyticsResponse.metaData.pager
+            const legendSetIds = []
+            const headerLegendSetMap = headers.reduce(
+                (acc, header) => ({
+                    ...acc,
+                    [header.name]:
+                        analyticsResponse.metaData.items[header.name]
+                            ?.legendSet,
+                }),
+                {}
+            )
+            if (
+                visualization.legend?.strategy ===
+                    LEGEND_DISPLAY_STRATEGY_FIXED &&
+                visualization.legend?.set?.id
+            ) {
+                legendSetIds.push(visualization.legend.set.id)
+            } else if (
+                visualization.legend?.strategy ===
+                LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM
+            ) {
+                Object.values(headerLegendSetMap)
+                    .filter((legendSet) => legendSet)
+                    .forEach((legendSet) => legendSetIds.push(legendSet))
+            }
+
+            const legendSets = await fetchLegendSets({
+                legendSetIds,
+                dataEngine,
+            })
+
+            if (legendSets.length) {
+                headers
+                    .filter((header) => valueTypeIsNumeric(header.valueType))
+                    .forEach((header) => {
+                        switch (visualization.legend.strategy) {
+                            case LEGEND_DISPLAY_STRATEGY_FIXED:
+                                header.legendSet = legendSets[0]
+                                break
+                            case LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM: {
+                                header.legendSet = legendSets.find(
+                                    (legendSet) =>
+                                        legendSet.id ===
+                                        headerLegendSetMap[header.name]
+                                )
+                                break
+                            }
+                        }
+                    })
+            }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, ...pager })
-            onResponseReceived(analyticsResponse)
+            mounted.current && setData({ headers, rows, pager })
+            onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
         } finally {

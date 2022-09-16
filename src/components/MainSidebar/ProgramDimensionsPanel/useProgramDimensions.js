@@ -1,9 +1,12 @@
-import { useDataEngine } from '@dhis2/app-runtime'
-import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
 import {
+    useCachedDataQuery,
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
-} from '../../../modules/dimensionConstants.js'
+} from '@dhis2/analytics'
+import { useDataEngine } from '@dhis2/app-runtime'
+import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
@@ -72,6 +75,7 @@ const createDimensionsQuery = ({
     stageId,
     searchTerm,
     dimensionType,
+    nameProp,
 }) => {
     const resource =
         inputType === OUTPUT_TYPE_EVENT
@@ -80,9 +84,9 @@ const createDimensionsQuery = ({
     const params = {
         pageSize: 50,
         page,
-        fields: DIMENSION_LIST_FIELDS,
+        fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
-        order: 'displayName:asc',
+        order: `${nameProp}:asc`,
     }
 
     if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
@@ -112,7 +116,7 @@ const createDimensionsQuery = ({
      * i.e. `filter=identifiable:token:${searchTerm}` or `query=${searchTerm}`
      */
     if (searchTerm) {
-        params.filter.push(`name:ilike:${searchTerm}`)
+        params.filter.push(`${nameProp}:ilike:${searchTerm}`)
     }
 
     if (dimensionType && dimensionType !== DIMENSION_TYPE_ALL) {
@@ -138,21 +142,21 @@ const transformResponseData = ({
 
     if (inputType === OUTPUT_TYPE_ENROLLMENT) {
         data.dimensions.dimensions.forEach((dimension) => {
-            const dataElementId = dimension.id.split('.')[1]
+            const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (
                 dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
-                dataElementId
+                dimensionId
             ) {
                 const dataElementCount =
-                    deDimensionsMapRef.current.get(dataElementId)
+                    deDimensionsMapRef.current.get(dimensionId)
                 if (dataElementCount) {
                     deDimensionsMapRef.current.set(
-                        dataElementId,
+                        dimensionId,
                         dataElementCount + 1
                     )
                     newDuplicateFound = true
                 } else {
-                    deDimensionsMapRef.current.set(dataElementId, 1)
+                    deDimensionsMapRef.current.set(dimensionId, 1)
                 }
             }
         })
@@ -164,10 +168,12 @@ const transformResponseData = ({
 
     const allDimensionsWithStageLabel = newDuplicateFound
         ? allDimensions.map((dimension) => {
-              const [programStageId, dataElementId] = dimension.id.split('.')
+              const { dimensionId, programStageId } = extractDimensionIdParts(
+                  dimension.id
+              )
               if (
-                  dataElementId &&
-                  deDimensionsMapRef.current.get(dataElementId) > 1
+                  dimensionId &&
+                  deDimensionsMapRef.current.get(dimensionId) > 1
               ) {
                   dimension.stageName = programStageNames?.get(programStageId)
               }
@@ -189,6 +195,7 @@ const useProgramDimensions = ({
     searchTerm,
     dimensionType,
 }) => {
+    const { userSettings } = useCachedDataQuery()
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
@@ -211,6 +218,8 @@ const useProgramDimensions = ({
             }, new Map()),
         [program]
     )
+
+    const nameProp = userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
     const setIsListEndVisible = (isVisible) => {
         if (isVisible !== isListEndVisible) {
@@ -237,6 +246,7 @@ const useProgramDimensions = ({
                         stageId,
                         searchTerm,
                         dimensionType,
+                        nameProp,
                     }),
                 })
 
@@ -263,12 +273,13 @@ const useProgramDimensions = ({
             searchTerm,
             dimensionType,
             isListEndVisible,
+            nameProp,
         ]
     )
 
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, program, stageId, searchTerm, dimensionType])
+    }, [inputType, program, stageId, searchTerm, dimensionType, nameProp])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {

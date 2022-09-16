@@ -13,6 +13,10 @@ import { tSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
+import {
+    aoCreatedInEventReportsApp,
+    layoutHasProgramId,
+} from '../../../modules/layoutValidation.js'
 import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
@@ -45,10 +49,9 @@ const visualizationSaveAsMutation = {
 }
 
 const MenuBar = ({
-    dataTest,
     current,
     visualization,
-    apiObjectName,
+    onFileMenuAction,
     setCurrent,
     setVisualization,
 }) => {
@@ -81,7 +84,7 @@ const MenuBar = ({
         history.push('/')
 
         showAlert({
-            message: i18n.t('"{{deletedObject}}" successfully deleted.', {
+            message: i18n.t('"{{- deletedObject}}" successfully deleted.', {
                 deletedObject: deletedVisualization,
             }),
             options: {
@@ -205,7 +208,7 @@ const MenuBar = ({
     })
 
     return (
-        <div className={classes.menuBar} data-test={dataTest}>
+        <div className={classes.menuBar} data-test="menubar">
             <UpdateVisualizationContainer
                 renderComponent={(handler) => (
                     <UpdateButton
@@ -217,14 +220,21 @@ const MenuBar = ({
             />
             <FileMenu
                 currentUser={currentUser}
-                fileType={apiObjectName}
+                fileType={'eventVisualization'}
                 fileObject={current}
                 defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
-                onSave={!current || current?.legacy ? undefined : onSave}
+                onSave={
+                    layoutHasProgramId(current) &&
+                    !aoCreatedInEventReportsApp(current)
+                        ? onSave
+                        : undefined
+                }
                 onSaveAs={(details) => onSave(details, true)}
+                onShare={onFileMenuAction}
+                onTranslate={onFileMenuAction}
                 onDelete={onDelete}
                 onError={onError}
             />
@@ -237,9 +247,8 @@ const MenuBar = ({
 }
 
 MenuBar.propTypes = {
-    apiObjectName: PropTypes.string,
+    onFileMenuAction: PropTypes.func.isRequired,
     current: PropTypes.object,
-    dataTest: PropTypes.string,
     setCurrent: PropTypes.func,
     setVisualization: PropTypes.func,
     visualization: PropTypes.object,

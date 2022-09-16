@@ -43,6 +43,32 @@ You must run `yarn build` before running `yarn deploy`.<br />
 
 See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
 
+### Cypress tests
+
+In order to run the cypress tests locally make sure you have configured your gitignore'd `cypress.env.json` like so:
+
+```
+{
+    "dhis2BaseUrl": "https://test.e2e.dhis2.org/lytics-apps-dev/",
+    "dhis2Username": ...,
+    "dhis2Password": ...
+}
+```
+
+Your desired username and password should be in double quotes.
+
+#### `yarn cypress:live`
+
+Runs the tests locally in interactive mode.
+
+#### `yarn cypress:capture`
+
+Generates new fixtures, which will be used on CI. Make sure to commit the changes to the fixture files.
+
+#### `yarn cypress:stub`
+
+Runs the tests locally against the fixture files.
+
 ## Learn More
 
 You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).

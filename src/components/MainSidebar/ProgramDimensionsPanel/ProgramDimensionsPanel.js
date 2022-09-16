@@ -1,3 +1,4 @@
+import { useCachedDataQuery, DIMENSION_TYPE_ALL } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
@@ -6,11 +7,11 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { DIMENSION_TYPE_ALL } from '../../../modules/dimensionConstants.js'
 import {
     PROGRAM_TYPE_WITH_REGISTRATION,
     PROGRAM_TYPE_WITHOUT_REGISTRATION,
 } from '../../../modules/programTypes.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -29,10 +30,10 @@ import { ProgramSelect } from './ProgramSelect.js'
 const query = {
     programs: {
         resource: 'programs',
-        params: {
+        params: ({ nameProp }) => ({
             fields: [
                 'id',
-                'displayName~rename(name)',
+                `${nameProp}~rename(name)`,
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
@@ -42,7 +43,7 @@ const query = {
                 'displayEnrollmentDateLabel',
             ],
             paging: false,
-        },
+        }),
     },
 }
 
@@ -51,6 +52,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
+    const { userSettings } = useCachedDataQuery()
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -89,7 +91,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
     useEffect(() => {
         if (visible && !called) {
-            refetch()
+            refetch({
+                nameProp:
+                    userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+            })
         }
     }, [visible, called])
 
@@ -118,7 +123,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     if (fetching) {
         return (
             <CenteredContent>
-                <CircularLoader />
+                <CircularLoader small />
             </CenteredContent>
         )
     }
@@ -158,6 +163,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     </div>
                 )}
             </div>
+
             {isProgramSelectionComplete && (
                 <ProgramDimensionsList
                     inputType={inputType}

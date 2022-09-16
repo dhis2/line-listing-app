@@ -52,7 +52,7 @@ exports[`ER > Options > SelectBaseOption renders the list of options 1`] = `
                         class="jsx-2240447017 jsx-4123978364 root-input"
                       >
                         <div
-                          class="jsx-3691749911 root"
+                          class="jsx-1323585369 root"
                         >
                           Option 3 label
                         </div>

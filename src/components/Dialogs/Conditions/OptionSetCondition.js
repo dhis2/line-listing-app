@@ -8,7 +8,6 @@ import { apiFetchOptions } from '../../../api/options.js'
 import { OPERATOR_IN } from '../../../modules/conditions.js'
 import { useDebounce, useDidUpdateEffect } from '../../../modules/utils.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
-import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import { TransferEmptySelection } from '../common/TransferEmptySelection.js'
 import { TransferLeftHeader } from '../common/TransferLeftHeader.js'
 import { TransferRightHeader } from '../common/TransferRightHeader.js'
@@ -23,7 +22,6 @@ const OptionSetCondition = ({
     condition,
     optionSetId,
     onChange,
-    displayNameProp,
     metadata,
     addMetadata,
 }) => {
@@ -31,7 +29,9 @@ const OptionSetCondition = ({
     const values = parts[1]?.length ? parts[1].split(';') : []
     const selectedOptions = values.map((code) => ({
         code,
-        name: Object.values(metadata).find((item) => item.code === code).name,
+        name:
+            Object.values(metadata).find((item) => item.code === code)?.name ||
+            code,
     }))
     const dataTest = 'option-set'
 
@@ -63,7 +63,6 @@ const OptionSetCondition = ({
         setState((state) => ({ ...state, loading: true }))
         const result = await apiFetchOptions({
             dataEngine,
-            nameProp: displayNameProp,
             page,
             optionSetId,
             searchTerm: state.searchTerm,
@@ -97,7 +96,7 @@ const OptionSetCondition = ({
             selectedOptions.length >= newOptions.length &&
             newOptions.every((newOption) =>
                 selectedOptions.find(
-                    (selectedItem) => selectedItem.value === newOption.value
+                    (selectedItem) => selectedItem.code === newOption.code
                 )
             )
         ) {
@@ -165,14 +164,12 @@ const OptionSetCondition = ({
 OptionSetCondition.propTypes = {
     addMetadata: PropTypes.func.isRequired,
     condition: PropTypes.string.isRequired,
-    displayNameProp: PropTypes.string.isRequired,
     metadata: PropTypes.object.isRequired,
     optionSetId: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-    displayNameProp: sGetSettingsDisplayNameProperty(state),
     metadata: sGetMetadata(state),
 })
 

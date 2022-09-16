@@ -1,4 +1,4 @@
-import { apiFetchItemsByDimension } from '@dhis2/analytics'
+import { apiFetchItemsByDimension, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Transfer, TransferOption } from '@dhis2/ui'
@@ -7,9 +7,9 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { acAddMetadata } from '../../actions/metadata.js'
 import { acSetUiItems } from '../../actions/ui.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import { useDebounce, useDidUpdateEffect } from '../../modules/utils.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetSettingsDisplayNameProperty } from '../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -31,11 +31,11 @@ const DynamicDimension = ({
     dimension,
     isInLayout,
     setUiItems,
-    displayNameProp,
     selectedIds,
     addMetadata,
     metadata,
 }) => {
+    const { userSettings } = useCachedDataQuery()
     const [state, setState] = useState({
         searchTerm: '',
         items: [],
@@ -59,7 +59,7 @@ const DynamicDimension = ({
             dimensionId: dimension.id,
             searchTerm: state.searchTerm,
             page,
-            nameProp: displayNameProp,
+            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
         })
         const newItems = result.dimensionItems?.map(
             ({ id, name, disabled }) => ({
@@ -183,9 +183,11 @@ const DynamicDimension = ({
         </>
     )
 
-    console.log(
-        `dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
-    ) // TODO: For testing only
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(
+            `dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+        )
+    }
 
     return dimension ? (
         <DimensionModal
@@ -201,8 +203,7 @@ const DynamicDimension = ({
 DynamicDimension.propTypes = {
     addMetadata: PropTypes.func.isRequired,
     dimension: PropTypes.object.isRequired,
-    displayNameProp: PropTypes.string.isRequired,
-    isInLayout: PropTypes.array.isRequired,
+    isInLayout: PropTypes.bool.isRequired,
     metadata: PropTypes.object.isRequired,
     selectedIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -213,8 +214,12 @@ const mapStateToProps = (state, ownProps) => ({
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
+<<<<<<< HEAD
     displayNameProp: sGetSettingsDisplayNameProperty(state),
     selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id),
+=======
+    selectedIds: sGetUiItemsByDimension(state, ownProps.dimension?.id) || [],
+>>>>>>> dev
     metadata: sGetMetadata(state),
 })
 

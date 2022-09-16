@@ -6,14 +6,15 @@ import {
     VIS_TYPE_PIVOT_TABLE,
     DIMENSION_ID_ORGUNIT,
     DIMENSION_ID_PERIOD,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_DATA_ELEMENT,
+    DIMENSION_TYPE_PERIOD,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { DEFAULT_CURRENT } from '../reducers/current.js'
 import { DEFAULT_VISUALIZATION } from '../reducers/visualization.js'
 import {
-    DIMENSION_TYPE_PERIOD,
     DIMENSION_ID_CREATED_BY,
-    DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
@@ -93,25 +94,33 @@ export const transformVisualization = (visualization) => {
 }
 
 const transformDimensions = (dimensions, { outputType, type }) =>
-    dimensions.map((dimensionObj) => {
-        if (dimensionObj.dimensionType === 'PROGRAM_DATA_ELEMENT') {
-            return {
-                ...dimensionObj,
-                dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+    dimensions
+        .filter(
+            (dimensionObj) =>
+                !['longitude', 'latitude'].includes(dimensionObj.dimension)
+        )
+        .map((dimensionObj) => {
+            if (
+                dimensionObj.dimensionType ===
+                DIMENSION_TYPE_PROGRAM_DATA_ELEMENT
+            ) {
+                return {
+                    ...dimensionObj,
+                    dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+                }
+            } else if (
+                dimensionObj.dimension === DIMENSION_ID_PERIOD &&
+                type === VIS_TYPE_LINE_LIST
+            ) {
+                return {
+                    ...dimensionObj,
+                    dimension: outputTypeTimeDimensionMap[outputType],
+                    dimensionType: DIMENSION_TYPE_PERIOD,
+                }
+            } else {
+                return dimensionObj
             }
-        } else if (
-            dimensionObj.dimension === DIMENSION_ID_PERIOD &&
-            type === VIS_TYPE_LINE_LIST
-        ) {
-            return {
-                ...dimensionObj,
-                dimension: outputTypeTimeDimensionMap[outputType],
-                dimensionType: DIMENSION_TYPE_PERIOD,
-            }
-        } else {
-            return dimensionObj
-        }
-    })
+        })
 
 export const visTypes = [
     { type: VIS_TYPE_LINE_LIST },
@@ -125,6 +134,22 @@ export const visTypeDescriptions = {
     ),
 }
 
+const defaultRemoveDimensionProps = ['dimensionType', 'valueType']
+
+const removeDimensionPropsBeforeSaving = (
+    axis,
+    props = defaultRemoveDimensionProps
+) =>
+    axis?.map((dim) => {
+        const dimension = Object.assign({}, dim)
+
+        props.forEach((prop) => {
+            delete dimension[prop]
+        })
+
+        return dimension
+    })
+
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)
     const nonSavableOptions = Object.keys(options).filter(
@@ -132,6 +157,18 @@ export const getVisualizationFromCurrent = (current) => {
     )
 
     nonSavableOptions.forEach((option) => delete visualization[option])
+
+    visualization.columns = removeDimensionPropsBeforeSaving(
+        visualization.columns
+    )
+    visualization.filters = removeDimensionPropsBeforeSaving(
+        visualization.filters
+    )
+
+    // When saving a copy of an AO created with the Event Reports app, remove the legacy flag.
+    // This copy won't work in Event Reports app anyway.
+    // This also unlocks the Save button on the copied (and converted to new format) AO in LL app.
+    delete visualization.legacy
 
     return visualization
 }
@@ -152,3 +189,34 @@ export const STATE_EMPTY = 'EMPTY'
 export const STATE_SAVED = 'SAVED'
 export const STATE_UNSAVED = 'UNSAVED'
 export const STATE_DIRTY = 'DIRTY'
+
+export const dimensionMetadataPropMap = {
+    dataElementDimensions: 'dataElement',
+    attributeDimensions: 'attribute',
+    programIndicatorDimensions: 'programIndicator',
+    categoryDimensions: 'category',
+    categoryOptionGroupSetDimensions: 'categoryOptionGroupSet',
+    organisationUnitGroupSetDimensions: 'organisationUnitGroupSet',
+    dataElementGroupSetDimensions: 'dataElementGroupSet',
+}
+
+// Loop through and collect dimension metadata from the visualization
+export const getDimensionMetadataFromVisualization = (visualization) =>
+    Object.entries(dimensionMetadataPropMap).reduce(
+        (metaData, [listName, dimensionName]) => {
+            const dimensionList = visualization[listName] || []
+
+            dimensionList.forEach((dimensionWrapper) => {
+                const dimension = dimensionWrapper[dimensionName]
+                metaData[dimension.id] = dimension
+            })
+
+            return metaData
+        },
+        {}
+    )
+
+export const getDimensionMetadataFields = () =>
+    Object.entries(dimensionMetadataPropMap).map(
+        ([listName, objectName]) => `${listName}[${objectName}[id,name]]`
+    )

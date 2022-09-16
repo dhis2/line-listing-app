@@ -1,6 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
+import { Tooltip } from '@dhis2/ui'
+import cx from 'classnames'
 import React from 'react'
 import { useTimeDimensions } from '../../reducers/ui.js'
+import styles from './common.module.css'
 import { DimensionItem } from './DimensionItem/index.js'
 import { MainSidebarSection } from './MainSidebarSection.js'
 import { useSelectedDimensions } from './SelectedDimensionsContext.js'
@@ -19,13 +22,38 @@ export const TimeDimensions = () => {
     }))
 
     return (
-        <MainSidebarSection header={i18n.t('Time dimensions')}>
+        <MainSidebarSection
+            header={i18n.t('Time dimensions')}
+            dataTest={'time-dimensions-sidebar'}
+        >
             {draggableDimensions.map((dimension) => (
-                <DimensionItem
+                <Tooltip
+                    content={dimension.disabledReason}
+                    openDelay={200}
+                    closeDelay={100}
                     key={dimension.id}
-                    {...dimension}
-                    selected={getIsDimensionSelected(dimension.id)}
-                />
+                >
+                    {({ onMouseOver, onMouseOut, ref }) => (
+                        <span
+                            className={cx(
+                                styles.span,
+                                dimension.disabled && styles.notAllowed
+                            )}
+                            onMouseOver={() =>
+                                dimension.disabled && onMouseOver()
+                            }
+                            onMouseOut={() =>
+                                dimension.disabled && onMouseOut()
+                            }
+                            ref={ref}
+                        >
+                            <DimensionItem
+                                {...dimension}
+                                selected={getIsDimensionSelected(dimension.id)}
+                            />
+                        </span>
+                    )}
+                </Tooltip>
             ))}
         </MainSidebarSection>
     )

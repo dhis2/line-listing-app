@@ -2,7 +2,8 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../modules/dimensionConstants.js'
+} from '@dhis2/analytics'
+import { extractDimensionIdParts } from '../modules/utils.js'
 
 const dataElementsQuery = {
     resource: 'dataElements',
@@ -28,7 +29,7 @@ const programIndicatorsQuery = {
     },
 }
 
-const legendSetsQuery = {
+const legendSetQuery = {
     resource: 'legendSets',
     id: ({ id }) => id,
     params: {
@@ -43,7 +44,7 @@ const legendSetsQuery = {
 
 export const apiFetchLegendSetById = async ({ dataEngine, id }) => {
     const response = await dataEngine.query(
-        { legendSet: legendSetsQuery },
+        { legendSet: legendSetQuery },
         {
             variables: {
                 id,
@@ -75,7 +76,7 @@ export const apiFetchLegendSetsByDimension = async ({
             throw new Error(`${dimensionType} is not a valid dimension type`)
     }
 
-    const [id] = dimensionId.split('.').reverse()
+    const { dimensionId: id } = extractDimensionIdParts(dimensionId)
 
     const response = await dataEngine.query(
         { legendSets: query },

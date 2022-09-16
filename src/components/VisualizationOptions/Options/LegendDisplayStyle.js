@@ -9,19 +9,17 @@ import RadioBaseOption from './RadioBaseOption.js'
 
 const LegendDisplayStyle = () => (
     <RadioBaseOption
-        option={{
-            id: OPTION_LEGEND_DISPLAY_STYLE,
-            items: [
-                {
-                    id: LEGEND_DISPLAY_STYLE_FILL,
-                    label: i18n.t('Legend changes background color'),
-                },
-                {
-                    id: LEGEND_DISPLAY_STYLE_TEXT,
-                    label: i18n.t('Legend changes text color'),
-                },
-            ],
-        }}
+        name={OPTION_LEGEND_DISPLAY_STYLE}
+        items={[
+            {
+                id: LEGEND_DISPLAY_STYLE_FILL,
+                label: i18n.t('Legend changes background color'),
+            },
+            {
+                id: LEGEND_DISPLAY_STYLE_TEXT,
+                label: i18n.t('Legend changes text color'),
+            },
+        ]}
         dataTest={'legend-display-style'}
     />
 )

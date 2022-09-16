@@ -1,3 +1,27 @@
+import {
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_TEXT,
+    VALUE_TYPE_LONG_TEXT,
+    VALUE_TYPE_LETTER,
+    VALUE_TYPE_PHONE_NUMBER,
+    VALUE_TYPE_EMAIL,
+    VALUE_TYPE_USERNAME,
+    VALUE_TYPE_URL,
+    VALUE_TYPE_BOOLEAN,
+    VALUE_TYPE_TRUE_ONLY,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_ORGANISATION_UNIT,
+    formatValue,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
@@ -62,28 +86,12 @@ export const BOOLEAN_VALUES = {
     [NULL_VALUE]: i18n.t('Not answered'),
 }
 
-export const VALUE_TYPE_NUMBER = 'NUMBER'
-export const VALUE_TYPE_UNIT_INTERVAL = 'UNIT_INTERVAL'
-export const VALUE_TYPE_PERCENTAGE = 'PERCENTAGE'
-export const VALUE_TYPE_INTEGER = 'INTEGER'
-export const VALUE_TYPE_INTEGER_POSITIVE = 'INTEGER_POSITIVE'
-export const VALUE_TYPE_INTEGER_NEGATIVE = 'INTEGER_NEGATIVE'
-export const VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE = 'INTEGER_ZERO_OR_POSITIVE'
-export const VALUE_TYPE_TEXT = 'TEXT'
-export const VALUE_TYPE_LONG_TEXT = 'LONG_TEXT'
-export const VALUE_TYPE_LETTER = 'LETTER'
-export const VALUE_TYPE_PHONE_NUMBER = 'PHONE_NUMBER'
-export const VALUE_TYPE_EMAIL = 'EMAIL'
-export const VALUE_TYPE_USERNAME = 'USERNAME'
-export const VALUE_TYPE_URL = 'URL'
-export const VALUE_TYPE_BOOLEAN = 'BOOLEAN'
-export const VALUE_TYPE_TRUE_ONLY = 'TRUE_ONLY'
-export const VALUE_TYPE_DATE = 'DATE'
-export const VALUE_TYPE_TIME = 'TIME'
-export const VALUE_TYPE_DATETIME = 'DATETIME'
-export const VALUE_TYPE_ORGANISATION_UNIT = 'ORGANISATION_UNIT'
+export const API_TIME_DIVIDER = '.'
+export const UI_TIME_DIVIDER = ':'
+export const API_DATETIME_DIVIDER = 'T'
+export const UI_DATETIME_DIVIDER = ' '
 
-export const prefixOperator = (operator, isCaseSensitive) => {
+export const addCaseSensitivePrefix = (operator, isCaseSensitive) => {
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE
         return operator
@@ -100,7 +108,7 @@ export const prefixOperator = (operator, isCaseSensitive) => {
     }
 }
 
-export const unprefixOperator = (operator) => {
+export const removeCaseSensitivePrefix = (operator) => {
     const isCaseSensitive = checkIsCaseSensitive(operator)
     if (isCaseSensitive) {
         // e.g. LIKE -> LIKE, !LIKE -> !LIKE
@@ -116,6 +124,10 @@ export const unprefixOperator = (operator) => {
     }
 }
 
+// TODO - in practice this function isn't used for the 'IN' operator
+// but if it were the result would be wrong. The function
+// should probably control for the allowed operators and throw if the
+// operator isn't one of the allowed ones.
 export const checkIsCaseSensitive = (operator) => {
     if (operator[0] === NOT_PREFIX) {
         // !LIKE, !ILIKE, !EQ, !IEQ
@@ -133,7 +145,8 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_LONG_TEXT:
         case VALUE_TYPE_EMAIL:
         case VALUE_TYPE_USERNAME:
-        case VALUE_TYPE_URL: {
+        case VALUE_TYPE_URL:
+        case VALUE_TYPE_PHONE_NUMBER: {
             return ALPHA_NUMERIC_OPERATORS
         }
         case VALUE_TYPE_DATE:
@@ -148,7 +161,6 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_INTEGER_POSITIVE:
         case VALUE_TYPE_INTEGER_NEGATIVE:
         case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
-        case VALUE_TYPE_PHONE_NUMBER:
         default: {
             return NUMERIC_OPERATORS
         }
@@ -158,10 +170,11 @@ const getOperatorsByValueType = (valueType) => {
 const parseCondition = (conditionItem) =>
     conditionItem.split(':').pop().split(';')
 
-export const getConditions = ({
+export const getConditionsTexts = ({
     conditions = {},
     metadata = {},
     dimension = {},
+    formatValueOptions = {},
 }) => {
     const conditionsList = parseConditionsStringToArray(conditions.condition)
 
@@ -170,9 +183,10 @@ export const getConditions = ({
             return [metadata[conditions.legendSet]?.name]
         } else {
             const legends = parseCondition(conditionsList[0])
-            const allLegends = metadata[conditions.legendSet]?.legends
+            const allLegends = metadata[conditions.legendSet]?.legends || []
+
             const legendNames = legends.map(
-                (legend) => allLegends.find((l) => l.id === legend).name
+                (legend) => allLegends.find((l) => l.id === legend)?.name
             )
             return legendNames
         }
@@ -182,7 +196,7 @@ export const getConditions = ({
         const items = parseCondition(conditionsList[0])
         const itemNames = items.map(
             (code) =>
-                Object.values(metadata).find((item) => item.code === code).name
+                Object.values(metadata).find((item) => item.code === code)?.name
         )
         return itemNames
     }
@@ -216,8 +230,22 @@ export const getConditions = ({
             operator = condition
         } else {
             const parts = condition.split(':')
-            operator = unprefixOperator(parts[0])
-            value = parts[1]
+            const valueType =
+                dimension.dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR
+                    ? VALUE_TYPE_NUMBER
+                    : dimension.valueType
+            operator = removeCaseSensitivePrefix(parts[0])
+            value = formatValue(parts[1], valueType, formatValueOptions)
+        }
+
+        if (
+            value &&
+            [VALUE_TYPE_TIME, VALUE_TYPE_DATETIME].includes(dimension.valueType)
+        ) {
+            value = value.replaceAll(API_TIME_DIVIDER, UI_TIME_DIVIDER)
+        }
+        if (value && dimension.valueType === VALUE_TYPE_DATETIME) {
+            value = value.replaceAll(API_DATETIME_DIVIDER, UI_DATETIME_DIVIDER)
         }
 
         const operatorName = operators[operator]

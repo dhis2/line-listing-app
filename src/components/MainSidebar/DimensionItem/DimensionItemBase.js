@@ -15,6 +15,7 @@ const DimensionItemBase = ({
     stageName,
     contextMenu,
     onClick,
+    dataTest,
 }) => (
     <div
         className={cx(styles.dimensionItem, {
@@ -22,11 +23,10 @@ const DimensionItemBase = ({
             [styles.disabled]: disabled,
             [styles.dragging]: dragging,
         })}
+        onClick={onClick}
+        data-test={dataTest}
     >
-        <div
-            className={styles.iconAndLabelWrapper}
-            onClick={onClick ? onClick : undefined}
-        >
+        <div className={styles.iconAndLabelWrapper}>
             <div className={styles.icon}>
                 <DimensionIcon dimensionType={dimensionType} />
             </div>
@@ -46,6 +46,7 @@ const DimensionItemBase = ({
 DimensionItemBase.propTypes = {
     name: PropTypes.string.isRequired,
     contextMenu: PropTypes.node,
+    dataTest: PropTypes.string,
     dimensionType: PropTypes.string,
     disabled: PropTypes.bool,
     dragging: PropTypes.bool,

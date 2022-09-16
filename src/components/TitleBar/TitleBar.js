@@ -24,7 +24,7 @@ const getTitleText = (titleState, visualization) => {
             return getTitleUnsaved()
         case STATE_SAVED:
         case STATE_DIRTY:
-            return visualization.name
+            return visualization.displayName
         default:
             return ''
     }
@@ -37,7 +37,6 @@ const getSuffix = (titleState) =>
     titleState === STATE_DIRTY ? (
         <div
             className={cx(classes.titleDirty, classes.suffix)}
-            data-test="AO-title-dirty"
         >{`- ${getTitleDirty()}`}</div>
     ) : (
         ''
@@ -49,7 +48,7 @@ export const TitleBar = ({ titleState, titleText }) => {
     )}`
 
     return titleText ? (
-        <div data-test="AO-title" className={classes.titleBar}>
+        <div data-test="visualization-title" className={classes.titleBar}>
             <div className={titleClasses}>
                 {titleText}
                 {getSuffix(titleState)}

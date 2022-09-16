@@ -65,3 +65,7 @@
     border-color: rgba(74, 87, 104, 0.4);
     background-color: transparent;
 }
+.chevron {
+    height: 16px;
+    min-width: 16px;
+}

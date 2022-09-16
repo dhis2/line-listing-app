@@ -4,7 +4,7 @@ import {
     DragOverlay,
     useSensor,
     useSensors,
-    MouseSensor,
+    PointerSensor,
 } from '@dnd-kit/core'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -16,12 +16,15 @@ import {
     acSetUiLayout,
     acSetUiDraggingId,
 } from '../actions/ui.js'
+import { getConditionsTexts } from '../modules/conditions.js'
+import { extractDimensionIdParts } from '../modules/utils.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
     sGetUiItemsByDimension,
     sGetUiDraggingId,
     sGetUiConditionsByDimension,
+    sGetUiOptions,
 } from '../reducers/ui.js'
 import styles from './DndContext.module.css'
 import { ChipBase } from './Layout/ChipBase.js'
@@ -36,6 +39,12 @@ const DIMENSION_PANEL_SOURCE = 'Sortable'
 export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
 export const FIRST = 'first'
 export const LAST = 'last'
+
+const activateAt15pixels = {
+    activationConstraint: {
+        distance: 15,
+    },
+}
 
 function getIntersectionRatio(entry, target) {
     const top = Math.max(target.top, entry.top)
@@ -119,14 +128,11 @@ const OuterDndContext = ({ children }) => {
     const chipConditions = useSelector((state) =>
         sGetUiConditionsByDimension(state, id)
     )
+    const { digitGroupSeparator } = useSelector(sGetUiOptions)
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
-    const mouseSensor = useSensor(MouseSensor, {
-        activationConstraint: {
-            distance: 15,
-        },
-    })
-    const sensors = useSensors(mouseSensor)
+    const sensor = useSensor(PointerSensor, activateAt15pixels)
+    const sensors = useSensors(sensor)
 
     const dispatch = useDispatch()
 
@@ -143,8 +149,8 @@ const OuterDndContext = ({ children }) => {
         if (metadata[id]) {
             dimension = metadata[id]
         } else {
-            const [rawDimensionId] = id.split('.').reverse()
-            dimension = metadata[rawDimensionId]
+            const { dimensionId } = extractDimensionIdParts(id)
+            dimension = metadata[dimensionId]
         }
 
         if (!dimension) {
@@ -158,6 +164,13 @@ const OuterDndContext = ({ children }) => {
                 </div>
             )
         }
+
+        const conditionsTexts = getConditionsTexts({
+            conditions: chipConditions,
+            metadata,
+            dimension,
+            formatValueOptions: { digitGroupSeparator, skipRounding: false },
+        })
 
         return (
             <div
@@ -176,9 +189,8 @@ const OuterDndContext = ({ children }) => {
             >
                 <ChipBase
                     dimension={dimension}
-                    items={chipItems}
-                    conditions={chipConditions}
-                    metadata={metadata}
+                    conditionsLength={conditionsTexts.length}
+                    itemsLength={chipItems.length}
                 />
             </div>
         )

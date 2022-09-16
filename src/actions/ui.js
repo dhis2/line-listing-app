@@ -11,18 +11,15 @@ import {
     getProgramAsMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
-import { getEnabledTimeDimensionIds } from '../modules/timeDimensions.js'
+import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
-import { sGetRootOrgUnits } from '../reducers/settings.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
     SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
-    SET_UI_OPTION,
     SET_UI_OPTIONS,
-    SET_UI_SORTING,
     SET_UI_FROM_VISUALIZATION,
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
@@ -33,6 +30,7 @@ import {
     ADD_UI_PARENT_GRAPH_MAP,
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
+    REMOVE_UI_REPETITION,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -79,10 +77,10 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 const tClearUiProgramRelatedDimensions =
     (inputType, program) => (dispatch, getState) => {
         const { ui, metadata } = getState()
-        const enabledTimeDimensionsIds = getEnabledTimeDimensionIds(
-            inputType,
-            program
+        const disabledTimeDimensionIds = new Set(
+            Object.keys(getDisabledTimeDimensions(inputType, program))
         )
+
         const idsToRemove = ui.layout.columns
             .concat(ui.layout.filters)
             .filter((dimensionId) => {
@@ -100,7 +98,7 @@ const tClearUiProgramRelatedDimensions =
                     })
                 const isDisabledTimeDimension =
                     DIMENSION_IDS_TIME.has(dimension.id) &&
-                    !enabledTimeDimensionsIds.has(dimension.id)
+                    disabledTimeDimensionIds.has(dimension.id)
 
                 return (
                     isProgramDimension ||
@@ -175,11 +173,6 @@ export const acSetUiOptions = (value) => ({
     value,
 })
 
-export const acSetUiOption = (value) => ({
-    type: SET_UI_OPTION,
-    value,
-})
-
 export const acAddUiLayoutDimensions = (value, metadata) => ({
     type: ADD_UI_LAYOUT_DIMENSIONS,
     value,
@@ -222,25 +215,10 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
-export const acSetUiSorting = (value) => ({
-    type: SET_UI_SORTING,
-    value,
-})
-
 export const acSetShowExpandedLayoutPanel = (value) => ({
     type: SET_UI_EXPANDED_LAYOUT_PANEL,
     value,
 })
-
-export const tClearUi = () => (dispatch, getState) => {
-    const rootOrgUnits = sGetRootOrgUnits(getState())
-
-    dispatch(
-        acClearUi({
-            rootOrgUnits,
-        })
-    )
-}
 
 export const acSetUiOpenDimensionModal = (value, metadata) => ({
     type: SET_UI_ACTIVE_MODAL_DIALOG,
@@ -266,5 +244,10 @@ export const acSetUiConditions = (value) => ({
 
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
+    value,
+})
+
+export const acRemoveUiRepetition = (value) => ({
+    type: REMOVE_UI_REPETITION,
     value,
 })

@@ -4,6 +4,7 @@ import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_NORMAL,
     DISPLAY_DENSITY_COMPACT,
+    OPTION_DISPLAY_DENSITY,
 } from '../../../modules/options.js'
 import { default as SelectBaseOption } from './SelectBaseOption.js'
 
@@ -11,7 +12,7 @@ const DisplayDensity = () => (
     <SelectBaseOption
         label={i18n.t('Display density')}
         option={{
-            name: 'displayDensity',
+            name: OPTION_DISPLAY_DENSITY,
             items: [
                 {
                     value: DISPLAY_DENSITY_COMFORTABLE,
@@ -21,6 +22,7 @@ const DisplayDensity = () => (
                 { value: DISPLAY_DENSITY_COMPACT, label: i18n.t('Compact') },
             ],
         }}
+        dataTest="display-density"
     />
 )
 

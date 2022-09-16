@@ -15,7 +15,7 @@
     user-select: none;
     width: fit-content;
     align-items: center;
-    padding: 0 2px 0 6px;
+    padding-right: 2px;
 }
 
 .chipBase {
@@ -24,8 +24,10 @@
     max-width: 360px;
     align-items: center;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 16px;
     color: var(--colors-grey900);
+    margin-right: var(--spacers-dp4);
+    padding: 4px 2px 4px 6px;
 }
 
 .label {
@@ -56,6 +58,10 @@
 .suffix {
     white-space: nowrap;
     flex: 1;
+}
+
+.chip:hover {
+    background: #9fdbd5;
 }
 
 .dragging {

@@ -1,13 +1,6 @@
-import i18n from '@dhis2/d2-i18n'
-import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
-import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { acSetUiConditions } from '../../../actions/ui.js'
 import {
-    OPERATOR_IN,
-    parseConditionsArrayToString,
-    parseConditionsStringToArray,
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
     VALUE_TYPE_NUMBER,
     VALUE_TYPE_UNIT_INTERVAL,
     VALUE_TYPE_PERCENTAGE,
@@ -28,14 +21,20 @@ import {
     VALUE_TYPE_TIME,
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_ORGANISATION_UNIT,
-} from '../../../modules/conditions.js'
+} from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
+import { Button, IconInfo16, Tooltip, TabBar, Tab } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { acSetUiConditions } from '../../../actions/ui.js'
 import {
-    DIMENSION_TYPE_DATA_ELEMENT,
-    DIMENSION_TYPE_PROGRAM_INDICATOR,
-} from '../../../modules/dimensionConstants.js'
+    OPERATOR_IN,
+    parseConditionsArrayToString,
+    parseConditionsStringToArray,
+} from '../../../modules/conditions.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
-import { sGetSettingsDisplayNameProperty } from '../../../reducers/settings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiConditionsByDimension,
@@ -203,9 +202,10 @@ const ConditionsManager = ({
             ))
         }
 
-        const renderNumericCondition = () => {
-            const enableDecimalSteps = valueType === VALUE_TYPE_UNIT_INTERVAL
-
+        const renderNumericCondition = ({
+            enableDecimalSteps,
+            allowIntegerOnly,
+        } = {}) => {
             return (
                 (conditionsList.length && conditionsList) ||
                 (selectedLegendSet && [''])
@@ -223,6 +223,7 @@ const ConditionsManager = ({
                             setSelectedLegendSet(value)
                         }
                         enableDecimalSteps={enableDecimalSteps}
+                        allowIntegerOnly={allowIntegerOnly}
                         dimension={dimension}
                     />
                     {getDividerContent(index)}
@@ -235,13 +236,17 @@ const ConditionsManager = ({
         }
 
         switch (valueType) {
-            case VALUE_TYPE_NUMBER:
-            case VALUE_TYPE_UNIT_INTERVAL:
-            case VALUE_TYPE_PERCENTAGE:
+            case VALUE_TYPE_UNIT_INTERVAL: {
+                return renderNumericCondition({ enableDecimalSteps: true })
+            }
             case VALUE_TYPE_INTEGER:
             case VALUE_TYPE_INTEGER_POSITIVE:
             case VALUE_TYPE_INTEGER_NEGATIVE:
             case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE: {
+                return renderNumericCondition({ allowIntegerOnly: true })
+            }
+            case VALUE_TYPE_NUMBER:
+            case VALUE_TYPE_PERCENTAGE: {
                 return renderNumericCondition()
             }
             case VALUE_TYPE_PHONE_NUMBER: {
@@ -368,7 +373,8 @@ const ConditionsManager = ({
                 {isSupported ? (
                     <p className={commonClasses.paragraph}>
                         {i18n.t(
-                            'Show items that meet the following conditions for this data item:'
+                            'Show items that meet the following conditions for this data item:',
+                            { nsSeparator: '^^' }
                         )}
                     </p>
                 ) : (
@@ -404,7 +410,7 @@ const ConditionsManager = ({
                     ) && (
                         <Tooltip
                             content={i18n.t(
-                                'Preset options can’t be combined with other conditions'
+                                "Preset options can't be combined with other conditions"
                             )}
                             placement="bottom"
                             closeDelay={200}
@@ -424,11 +430,9 @@ const ConditionsManager = ({
                                         type="button"
                                         small
                                         onClick={addCondition}
-                                        dataTest={
-                                            'conditions-manager-add-condition'
-                                        }
                                         className={classes.addConditionButton}
                                         disabled={disableAddButton}
+                                        dataTest="button-add-condition"
                                     >
                                         {conditionsList.length
                                             ? i18n.t('Add another condition')
@@ -473,6 +477,7 @@ const ConditionsManager = ({
                             content={i18n.t(
                                 'Only available for repeatable stages'
                             )}
+                            dataTest={'repeatable-events-tooltip'}
                         >
                             {repeatableTab}
                         </Tooltip>
@@ -489,16 +494,22 @@ const ConditionsManager = ({
         )
     }
 
-    console.log(
-        `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
-    ) // TODO: For testing only
+    if (process.env.NODE_ENV !== 'production') {
+        console.log(
+            `valueType: ${valueType}, dimensionType: ${dimension.dimensionType}, id: ${dimension.id}`
+        )
+    }
 
     return dimension ? (
         <DimensionModal
-            dataTest={'dialog-manager-modal'}
+            dataTest="conditions-modal"
             isInLayout={isInLayout}
             onClose={closeModal}
-            title={dimension.name}
+            title={
+                stage?.name
+                    ? `${dimension.name} - ${stage.name}`
+                    : dimension.name
+            }
         >
             {isRepeatable ? renderTabs() : renderConditions()}
         </DimensionModal>
@@ -522,7 +533,6 @@ const mapStateToProps = (state, ownProps) => ({
     ),
     conditions: sGetUiConditionsByDimension(state, ownProps.dimension?.id),
     dimensionIdsInLayout: sGetDimensionIdsFromLayout(state),
-    displayNameProp: sGetSettingsDisplayNameProperty(state),
     inputType: sGetUiInputType(state),
     stage: sGetMetadataById(
         state,

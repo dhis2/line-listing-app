@@ -11,11 +11,13 @@ const MenuItem = ({
     onClick,
     isCountDisabled,
     selected,
+    dataTest,
 }) => (
     <div
         className={cx(styles.container, { [styles.selected]: selected })}
         onClick={onClick}
         tabIndex="0"
+        data-test={dataTest}
     >
         <div className={styles.icon}>{icon}</div>
         <div className={styles.label}>{label}</div>
@@ -28,7 +30,9 @@ const MenuItem = ({
                 {count}
             </div>
         )}
-        <IconChevronRight16 />
+        <div className={styles.chevron}>
+            <IconChevronRight16 />
+        </div>
     </div>
 )
 
@@ -37,6 +41,7 @@ MenuItem.propTypes = {
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     count: PropTypes.number,
+    dataTest: PropTypes.string,
     isCountDisabled: PropTypes.bool,
     selected: PropTypes.bool,
 }
