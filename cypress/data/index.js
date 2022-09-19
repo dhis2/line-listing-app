@@ -4,6 +4,7 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import { getPreviousYearStr } from '../helpers/period.js'
 
@@ -12,6 +13,7 @@ export const ANALYTICS_PROGRAM = {
     //stageName: 'Stage 1 - Repeatable',
     [DIMENSION_ID_EVENT_DATE]: 'Event date (analytics)',
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (analytics)',
+    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
     [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (analytics)',
     [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
