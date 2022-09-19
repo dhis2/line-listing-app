@@ -1,8 +1,4 @@
 import {
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_EVENT_STATUS,
-    DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
@@ -26,16 +22,6 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
-const testDimensions = [
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_EVENT_STATUS,
-    DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_LAST_UPDATED_BY,
-    DIMENSION_ID_ENROLLMENT_DATE,
-    DIMENSION_ID_INCIDENT_DATE,
-    DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
-]
 
 const setUpTable = () => {
     selectEventProgramDimensions({
@@ -60,10 +46,22 @@ describe('table', () => {
     })
 
     it('click on column header opens the dimension dialog', () => {
+        const testDimensions = [
+            event[DIMENSION_ID_ENROLLMENT_DATE],
+            event[DIMENSION_ID_INCIDENT_DATE],
+            event[DIMENSION_ID_SCHEDULED_DATE],
+            event[DIMENSION_ID_LAST_UPDATED],
+            'Event status',
+            'Program status',
+            'Created by',
+            'Last updated by',
+        ]
+
         // add main and time dimensions
-        testDimensions.forEach((dimensionId) => {
+        testDimensions.forEach((dimension) => {
             cy.getBySel('main-sidebar')
-                .findBySel(`dimension-item-${dimensionId}`)
+                .contains(dimension)
+                .closest(`[data-test*="dimension-item"]`)
                 .find('button')
                 .click({ force: true })
 
@@ -77,13 +75,12 @@ describe('table', () => {
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 11)
 
+        // extend list with the dimensions that were added in other parts of the test
         const labels = [
+            ...testDimensions,
             'Organisation unit',
+            event[DIMENSION_ID_EVENT_DATE],
             dimensionName,
-            'Event status',
-            'Program status',
-            'Created by',
-            'Last updated by',
         ]
 
         // check the column headers in the table
