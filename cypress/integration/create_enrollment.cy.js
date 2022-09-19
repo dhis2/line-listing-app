@@ -1,4 +1,10 @@
-import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_EVENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_SCHEDULED_DATE,
+} from '../../src/modules/dimensionConstants.js'
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_TEXT,
@@ -18,11 +24,74 @@ const enrollment = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
+const isEnabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('not.have.css', 'opacity', '0.5')
+        .and('not.have.css', 'cursor', 'not-allowed')
+
+const isDisabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('have.css', 'opacity', '0.5')
+        .and('have.css', 'cursor', 'not-allowed')
+
 const setUpTable = () => {
+    // switch to Enrollment to toggle the enabled/disabled time dimensions
+    cy.getBySel('main-sidebar').contains('Input: Event').click()
+    cy.getBySel('input-enrollment').click()
+    cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
+
+    // check that the time dimensions are correctly disabled and named
+    isDisabled('dimension-item-eventDate')
+    cy.getBySel('dimension-item-eventDate').contains('Event date')
+
+    isEnabled('dimension-item-enrollmentDate')
+    cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
+
+    isDisabled('dimension-item-scheduledDate')
+    cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+
+    isDisabled('dimension-item-incidentDate')
+    cy.getBySel('dimension-item-incidentDate').contains('Incident date')
+
+    isEnabled('dimension-item-lastUpdated')
+    cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
+
+    // select program
     selectEnrollmentProgramDimensions({
         ...enrollment,
         dimensions: [dimensionName],
     })
+
+    // check that the time dimensions disabled states and names are updated correctly
+
+    isDisabled('dimension-item-eventDate')
+    cy.getBySel('dimension-item-eventDate').contains(
+        enrollment[DIMENSION_ID_EVENT_DATE]
+    )
+
+    isEnabled('dimension-item-enrollmentDate')
+    cy.getBySel('dimension-item-enrollmentDate').contains(
+        enrollment[DIMENSION_ID_ENROLLMENT_DATE]
+    )
+
+    isDisabled('dimension-item-scheduledDate')
+    cy.getBySel('dimension-item-scheduledDate').contains(
+        enrollment[DIMENSION_ID_SCHEDULED_DATE]
+    )
+
+    isEnabled('dimension-item-incidentDate')
+    cy.getBySel('dimension-item-incidentDate').contains(
+        enrollment[DIMENSION_ID_INCIDENT_DATE]
+    )
+
+    isEnabled('dimension-item-lastUpdated')
+    cy.getBySel('dimension-item-lastUpdated').contains(
+        enrollment[DIMENSION_ID_LAST_UPDATED]
+    )
 
     selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
 
