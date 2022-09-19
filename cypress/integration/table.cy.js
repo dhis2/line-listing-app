@@ -48,16 +48,6 @@ const setUpTable = () => {
         period: TEST_FIX_PE_DEC_LAST_YEAR,
     })
 
-    // add main and time dimensions
-    testDimensions.forEach((dimensionId) => {
-        cy.getBySel('main-sidebar')
-            .findBySel(`dimension-item-${dimensionId}`)
-            .find('button')
-            .click({ force: true })
-
-        cy.contains('Add to Columns').click()
-    })
-
     clickMenubarUpdateButton()
 
     expectTableToBeVisible()
@@ -70,13 +60,30 @@ describe('table', () => {
     })
 
     it('click on column header opens the dimension dialog', () => {
+        // add main and time dimensions
+        testDimensions.forEach((dimensionId) => {
+            cy.getBySel('main-sidebar')
+                .findBySel(`dimension-item-${dimensionId}`)
+                .find('button')
+                .click({ force: true })
+
+            cy.contains('Add to Columns').click()
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 11)
 
         const labels = [
             'Organisation unit',
             dimensionName,
-            ...testDimensions.map((dimensionId) => event[dimensionId]),
+            'Event status',
+            'Program status',
+            'Created by',
+            'Last updated by',
         ]
 
         // check the column headers in the table

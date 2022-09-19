@@ -1,8 +1,4 @@
 import {
-    DIMENSION_ID_EVENT_STATUS,
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
@@ -10,13 +6,6 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
 import { getPreviousYearStr } from '../helpers/period.js'
-
-const mainDimensions = {
-    [DIMENSION_ID_EVENT_STATUS]: 'Event status',
-    [DIMENSION_ID_PROGRAM_STATUS]: 'Program status',
-    [DIMENSION_ID_CREATED_BY]: 'Created by',
-    [DIMENSION_ID_LAST_UPDATED_BY]: 'Last updated by',
-}
 
 export const ANALYTICS_PROGRAM = {
     programName: 'Analytics program',
@@ -26,7 +15,6 @@ export const ANALYTICS_PROGRAM = {
     [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (analytics)',
     [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
-    ...mainDimensions,
 }
 
 export const HIV_PROGRAM = {
@@ -36,7 +24,6 @@ export const HIV_PROGRAM = {
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
     [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
-    ...mainDimensions,
 }
 
 export const TEST_AO = {
