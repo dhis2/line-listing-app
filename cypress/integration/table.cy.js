@@ -72,9 +72,6 @@ describe('table', () => {
 
         expectTableToBeVisible()
 
-        // check the correct number of columns
-        getTableHeaderCells().its('length').should('equal', 11)
-
         // extend list with the dimensions that were added in other parts of the test
         const labels = [
             ...testDimensions,
@@ -82,6 +79,9 @@ describe('table', () => {
             event[DIMENSION_ID_EVENT_DATE],
             dimensionName,
         ]
+
+        // check the correct number of columns
+        getTableHeaderCells().its('length').should('equal', labels.length)
 
         // check the column headers in the table
         labels.forEach((label) => {
