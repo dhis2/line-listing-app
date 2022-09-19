@@ -18,7 +18,6 @@ import { selectEventProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import {
-    getTableRows,
     getTableHeaderCells,
     expectTableToBeVisible,
 } from '../helpers/table.js'
@@ -62,8 +61,6 @@ const setUpTable = () => {
     clickMenubarUpdateButton()
 
     expectTableToBeVisible()
-
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
 
 describe('table', () => {
@@ -76,31 +73,14 @@ describe('table', () => {
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 11)
 
-        // check that there is at least 1 row in the table
-        getTableRows().its('length').should('be.gte', 1)
+        const labels = [
+            'Organisation unit',
+            dimensionName,
+            ...testDimensions.map((dimensionId) => event[dimensionId]),
+        ]
 
         // check the column headers in the table
-        getTableHeaderCells()
-            .contains('Organisation unit')
-            .should('be.visible')
-            .click()
-        cy.getBySelLike('modal-title').contains('Organisation unit')
-        cy.getBySelLike('modal-action-cancel').click()
-
-        getTableHeaderCells()
-            .contains(dimensionName)
-            .should('be.visible')
-            .click()
-        cy.getBySelLike('modal-title').contains(dimensionName)
-        cy.getBySelLike('modal-action-cancel').click()
-
-        getTableHeaderCells().contains(periodLabel).should('be.visible').click()
-        cy.getBySelLike('modal-title').contains(periodLabel)
-        cy.getBySelLike('modal-action-cancel').click()
-
-        testDimensions.forEach((dimensionId) => {
-            const label = event[dimensionId]
-
+        labels.forEach((label) => {
             getTableHeaderCells()
                 .contains(label)
                 .scrollIntoView()
