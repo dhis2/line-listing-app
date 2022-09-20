@@ -41,7 +41,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                     req = req
                         .fromVisualization(adaptedVisualization)
                         .withProgram(current.program.id)
-                        .withStage(current.programStage.id)
+                        .withStage(current.programStage?.id)
                         .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
