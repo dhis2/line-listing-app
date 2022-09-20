@@ -45,7 +45,7 @@ See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) fo
 
 ### Cypress tests
 
-In order to run the cypress tests locally make sure you have configured your gitignore'd `cypress.env.json` on the repo root like so:
+In order to run the cypress tests locally make sure you have configured your gitignore'd `cypress.env.json` at the root of the repo like so:
 
 ```
 {
