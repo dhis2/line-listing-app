@@ -18,6 +18,10 @@ export const ANALYTICS_PROGRAM = {
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
+export const AEFI_PROGRAM = {
+    programName: 'Adverse events following immunization',
+}
+
 export const HIV_PROGRAM = {
     programName: 'HIV Case Surveillance',
     stageName: 'Initial Case Report',
