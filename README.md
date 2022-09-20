@@ -45,11 +45,11 @@ See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) fo
 
 ### Cypress tests
 
-In order to run the cypress tests locally make sure you have configured your gitignore'd `cypress.env.json` like so:
+In order to run the cypress tests locally make sure you have configured your gitignore'd `cypress.env.json` on the repo root like so:
 
 ```
 {
-    "dhis2BaseUrl": "https://test.e2e.dhis2.org/lytics-apps-dev/",
+    "dhis2BaseUrl": "https://test.e2e.dhis2.org/analytics-dev/",
     "dhis2Username": ...,
     "dhis2Password": ...
 }
