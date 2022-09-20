@@ -6,13 +6,14 @@ import { selectRelativePeriod } from '../helpers/period.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const program = AEFI_PROGRAM
+const periodLabel = program[DIMENSION_ID_EVENT_DATE]
 
 describe('event without stage', () => {
     it('creates an event line list', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({ programName: AEFI_PROGRAM.programName })
+        selectEventProgram({ programName: program.programName })
 
         selectRelativePeriod({
             label: periodLabel,

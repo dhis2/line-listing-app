@@ -20,6 +20,7 @@ export const ANALYTICS_PROGRAM = {
 
 export const AEFI_PROGRAM = {
     programName: 'Adverse events following immunization',
+    [DIMENSION_ID_EVENT_DATE]: 'Event date',
 }
 
 export const HIV_PROGRAM = {
