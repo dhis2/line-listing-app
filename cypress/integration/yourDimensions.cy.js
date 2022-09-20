@@ -34,6 +34,7 @@ describe('event', () => {
             period: TEST_REL_PE_LAST_YEAR,
         })
 
+        // open the your dimensions sidebar
         cy.getBySel('main-sidebar').contains('Your dimensions').click()
 
         cy.getBySel('your-dimensions-list').contains(dimensionName)
@@ -42,12 +43,14 @@ describe('event', () => {
             .findBySelLike('dimension-item')
             .should('have.length', 12)
 
+        // search the dimensions list
         cy.getBySel('search-dimension-input').find('input').type('Org')
 
         cy.getBySel('your-dimensions-list')
             .findBySelLike('dimension-item')
             .should('have.length', 1)
 
+        // open the dimension modal
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         cy.getBySel('button-add-condition').should('not.exist')
@@ -60,8 +63,10 @@ describe('event', () => {
 
         expectTableToNotContainValue(optionName)
 
+        // check the chip in the layout
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
+        // open the dimension and add a filter
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', 'sti')
