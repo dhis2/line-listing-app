@@ -20,12 +20,7 @@ const getAxisIdForDimension = (dimensionId, layout) => {
     return axisLayout ? axisLayout[0] : undefined
 }
 
-const DimensionMenu = ({
-    currentAxisId,
-    dimensionId,
-    dimensionMetadata,
-    dimensionName,
-}) => {
+const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const dispatch = useDispatch()
     const visType = useSelector(sGetUiType)
     const layout = useSelector(sGetUiLayout)
@@ -66,9 +61,7 @@ const DimensionMenu = ({
                     ariaOwns={menuIsOpen ? getMenuId() : null}
                     ariaHaspopup={true}
                     onClick={toggleMenu}
-                    dataTest={`dimension-menu-button-${
-                        dimensionName ? dimensionName : dimensionId
-                    }`}
+                    dataTest={`dimension-menu-button-${dimensionId}`}
                 >
                     <IconMore16 />
                 </IconButton>
@@ -83,9 +76,7 @@ const DimensionMenu = ({
                             axisItemHandler={axisItemHandler}
                             removeItemHandler={removeItemHandler}
                             onClose={toggleMenu}
-                            dataTest={`dimension-menu-${
-                                dimensionName ? dimensionName : dimensionId
-                            }`}
+                            dataTest={`dimension-menu-${dimensionId}`}
                         />
                     </Popper>
                 </Layer>
@@ -98,7 +89,6 @@ DimensionMenu.propTypes = {
     currentAxisId: PropTypes.string,
     dimensionId: PropTypes.string,
     dimensionMetadata: PropTypes.object,
-    dimensionName: PropTypes.string,
 }
 
 export default DimensionMenu
