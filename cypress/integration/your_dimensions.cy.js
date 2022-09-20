@@ -1,7 +1,7 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { HIV_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { openDimension, selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventProgram } from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -36,7 +36,19 @@ describe('event', () => {
 
         cy.getBySel('main-sidebar').contains('Your dimensions').click()
 
-        openDimension(dimensionName)
+        cy.getBySel('your-dimensions-list').contains(dimensionName)
+
+        cy.getBySel('your-dimensions-list')
+            .findBySelLike('dimension-item')
+            .should('have.length', 12)
+
+        cy.getBySel('search-dimension-input').find('input').type('Org')
+
+        cy.getBySel('your-dimensions-list')
+            .findBySelLike('dimension-item')
+            .should('have.length', 1)
+
+        cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         cy.getBySel('button-add-condition').should('not.exist')
 
@@ -50,7 +62,7 @@ describe('event', () => {
 
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
-        openDimension(dimensionName)
+        cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', 'sti')
 
