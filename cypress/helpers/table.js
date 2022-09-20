@@ -45,7 +45,7 @@ export const expectLegendKeyToBeHidden = () =>
 export const expectLegendKeyToBeVisible = () =>
     cy.getBySel('visualization-legend-key').should('be.visible')
 
-export const expectLegedKeyToMatchLegendSets = (legendSets) => {
+export const expectLegendKeyToMatchLegendSets = (legendSets) => {
     cy.getBySel('legend-key-container')
         .findBySelLike('legend-key-item')
         .should('have.length', legendSets.length)

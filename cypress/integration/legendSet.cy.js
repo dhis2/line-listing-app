@@ -29,7 +29,7 @@ import {
 import { expectRouteToBeEmpty } from '../helpers/route.js'
 import {
     expectAOTitleToContain,
-    expectLegedKeyToMatchLegendSets,
+    expectLegendKeyToMatchLegendSets,
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
     expectTableToBeVisible,
@@ -175,7 +175,7 @@ describe('Options - Legend', () => {
 
         expectLegendKeyToBeVisible()
 
-        expectLegedKeyToMatchLegendSets(['Age (COVID-19)'])
+        expectLegendKeyToMatchLegendSets(['Age (COVID-19)'])
     })
     it('text color legend is applied (single legend)', () => {
         clickMenubarOptionsButton()
@@ -333,7 +333,7 @@ describe('Options - Legend', () => {
     it('legend key displays correctly when two items are in use', () => {
         expectLegendKeyToBeVisible()
 
-        expectLegedKeyToMatchLegendSets(['Age (COVID-19)', 'Negative'])
+        expectLegendKeyToMatchLegendSets(['Age (COVID-19)', 'Negative'])
     })
     it("empty values doesn't display a legend color", () => {
         const currentYear = getCurrentYearStr()
