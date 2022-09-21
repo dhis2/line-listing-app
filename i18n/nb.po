@@ -20,10 +20,10 @@ msgid "Add to {{axisName}}"
 msgstr "Legg til {{axisName}}"
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "Velg en betingelsetype"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "Versalsensitiv"
 
 msgid "Remove"
 msgstr "Fjern"
@@ -33,26 +33,30 @@ msgstr "og"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
+"Vis elementer som oppfyller følgende betingelser for dette datapunktet:"
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr ""
+msgstr "Denne dimensjonen kan ikke filtreres. Alle verdier vises."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"Ingen betingelser ennå, så alle verdier vil bli inkludert. Legg til en "
+"betingelse for å filtrere resultater."
 
 msgid "Preset options can't be combined with other conditions"
 msgstr ""
+"Forhåndsinnstilte alternativer kan ikke kombineres med andre betingelser"
 
 msgid "Add another condition"
-msgstr ""
+msgstr "Legg til en betingelse til"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Legg til betingelse"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "Gjentatte hendelser"
 
 msgid "Conditions"
 msgstr ""
