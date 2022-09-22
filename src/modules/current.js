@@ -22,7 +22,6 @@ export const getDefaultFromUi = (current, ui) => {
     }
 
     return {
-        ...current, // TODO: This turns it in to an "update existing" rather than a "create from scratch" operation, is this intentional?
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
         ...getProgramFromUi(adaptedUi),
