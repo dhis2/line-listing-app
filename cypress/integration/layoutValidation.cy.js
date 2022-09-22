@@ -66,7 +66,7 @@ describe('layout validation', () => {
 
         cy.getBySel('error-container').contains('No stage selected')
     })
-    it('validation succeeds', () => {
+    it('validation succeeds when all above are provided', () => {
         // select a stage
         selectEventProgram({
             programName: HIV_PROGRAM.programName,
