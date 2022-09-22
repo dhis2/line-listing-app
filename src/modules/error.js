@@ -51,6 +51,13 @@ export const noProgramError = () =>
         i18n.t('Choose a program from the Program Dimensions sidebar.')
     )
 
+export const noStageError = () =>
+    visualizationError(
+        EmptyBox,
+        i18n.t('No stage selected'),
+        i18n.t('Choose a stage from the Program Dimensions sidebar.')
+    )
+
 export const noColumnsError = () =>
     visualizationError(
         EmptyBox,

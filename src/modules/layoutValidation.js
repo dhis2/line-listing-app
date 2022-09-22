@@ -11,7 +11,9 @@ import {
     noOrgUnitError,
     noPeriodError,
     noProgramError,
+    noStageError,
 } from './error.js'
+import { OUTPUT_TYPE_EVENT } from './visualization.js'
 
 // Layout validation helper functions
 const isAxisValid = (axis) =>
@@ -58,6 +60,10 @@ const validateLineListLayout = (layout) => {
 
     if (!layout?.program?.id) {
         throw noProgramError()
+    }
+
+    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
+        throw noStageError()
     }
 }
 
