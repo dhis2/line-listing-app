@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import { Button, SingleSelect, SingleSelectOption, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,10 +9,11 @@ import {
     tClearUiProgramStageDimensions,
 } from '../../../actions/ui.js'
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
+import styles from './ProgramSelect.module.css'
 
 const STAGE_ALL = 'STAGE_ALL'
 
-const StageSelect = ({ optional, stages }) => {
+const StageSelect = ({ locked, optional, stages }) => {
     const dispatch = useDispatch()
     const selectedStageId = useSelector(sGetUiProgramStageId)
     const onChange = ({ selected: stageId }) => {
@@ -31,12 +32,14 @@ const StageSelect = ({ optional, stages }) => {
     const selected =
         selectedStageId || (includeShowAllOption ? STAGE_ALL : undefined)
 
-    return (
+    const select = (
         <SingleSelect
-            prefix={i18n.t('Stage')}
+            prefix={locked ? undefined : i18n.t('Stage')}
+            placeholder={locked ? i18n.t('Stage') : undefined}
             dense
             selected={selected}
             onChange={onChange}
+            disabled={locked && !!selected}
         >
             {includeShowAllOption && (
                 <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
@@ -46,10 +49,42 @@ const StageSelect = ({ optional, stages }) => {
             ))}
         </SingleSelect>
     )
+
+    return locked ? (
+        <div className={styles.rows}>
+            <div className={styles.columns}>
+                <div className={styles.stretch}>
+                    {!selected ? (
+                        select
+                    ) : (
+                        <Tooltip
+                            content={i18n.t(
+                                'Clear stage first to choose another'
+                            )}
+                        >
+                            {select}
+                        </Tooltip>
+                    )}
+                </div>
+                {selected && (
+                    <Button
+                        small
+                        secondary
+                        onClick={() => dispatch(tClearUiStage())}
+                    >
+                        {i18n.t('Clear')}
+                    </Button>
+                )}
+            </div>
+        </div>
+    ) : (
+        select
+    )
 }
 
 StageSelect.propTypes = {
     stages: PropTypes.arrayOf(PropTypes.object).isRequired,
+    locked: PropTypes.bool,
     optional: PropTypes.bool,
 }
 
