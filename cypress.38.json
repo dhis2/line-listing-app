@@ -1,0 +1,11 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "projectId": "m5qvjx",
+    "testFiles": "**/*.38.cy.js",
+    "experimentalInteractiveRunEvents": true,
+    "video": false,
+    "env": {
+        "dhis2DatatestPrefix": "dhis2-linelisting",
+        "dhis2ApiVersion": 39
+    }
+}
