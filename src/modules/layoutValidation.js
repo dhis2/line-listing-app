@@ -58,7 +58,7 @@ const validateLineListLayout = (layout) => {
         throw noPeriodError()
     }
 
-    if (!layout?.program?.id) {
+    if (!layoutHasProgramId(layout)) {
         throw noProgramError()
     }
 
