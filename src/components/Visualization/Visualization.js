@@ -118,9 +118,11 @@ export const Visualization = ({
         }
     }, [data, visualization])
 
-    if (error && onError) {
-        onError(error)
-    }
+    useEffect(() => {
+        if (error && onError) {
+            onError(error)
+        }
+    }, [error, onError])
 
     if (!data || error) {
         return null
