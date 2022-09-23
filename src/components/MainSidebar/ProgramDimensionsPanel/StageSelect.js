@@ -32,6 +32,11 @@ const StageSelect = ({ locked, optional, stages }) => {
     const selected =
         selectedStageId || (includeShowAllOption ? STAGE_ALL : undefined)
 
+    const clearStage = () => {
+        dispatch(tClearUiProgramStageDimensions(selectedStageId))
+        dispatch(tClearUiStage())
+    }
+
     const select = (
         <SingleSelect
             prefix={locked ? undefined : i18n.t('Stage')}
@@ -67,11 +72,7 @@ const StageSelect = ({ locked, optional, stages }) => {
                     )}
                 </div>
                 {selected && (
-                    <Button
-                        small
-                        secondary
-                        onClick={() => dispatch(tClearUiStage())}
-                    >
+                    <Button small secondary onClick={clearStage}>
                         {i18n.t('Clear')}
                     </Button>
                 )}
