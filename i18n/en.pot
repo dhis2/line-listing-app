@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
-"PO-Revision-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-09-23T13:57:29.171Z\n"
+"PO-Revision-Date: 2022-09-23T13:57:29.171Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -286,6 +286,9 @@ msgstr "Stage"
 
 msgid "All"
 msgstr "All"
+
+msgid "Clear stage first to choose another"
+msgstr "Clear stage first to choose another"
 
 msgid "Time dimensions"
 msgstr "Time dimensions"
