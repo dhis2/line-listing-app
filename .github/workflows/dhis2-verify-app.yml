@@ -117,7 +117,7 @@ jobs:
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
                   CYPRESS_networkMode: live
-    e2e38:
+    e2e39:
         runs-on: ubuntu-latest
         if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]'"
 
@@ -142,7 +142,7 @@ jobs:
                   wait-on-timeout: 300
                   record: true
                   parallel: true
-                  config-file: cypress.38.json
+                  config-file: cypress.39.json
               env:
                   BROWSER: none
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -154,7 +154,7 @@ jobs:
 
     release:
         runs-on: ubuntu-latest
-        needs: [build, lint, test, e2edev, e2e38]
+        needs: [build, lint, test, e2edev, e2e39]
         if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]'"
         steps:
             - uses: actions/checkout@v2
