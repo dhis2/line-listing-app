@@ -37,7 +37,7 @@ export const selectEnrollmentProgram = ({ programName, stageName }) =>
     })
 
 export const openDimension = (dimensionName) => {
-    cy.getBySel('program-dimension-list').contains(dimensionName).click()
+    cy.getBySel('program-dimensions-list').contains(dimensionName).click()
 }
 
 const selectProgramDimensions = ({

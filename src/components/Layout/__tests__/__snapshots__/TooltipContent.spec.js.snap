@@ -4,6 +4,7 @@ exports[`TooltipContent COGS: 2 items 1`] = `
 <div>
   <ul
     class="list"
+    data-test="tooltip-content"
   >
     <li
       class="item"
