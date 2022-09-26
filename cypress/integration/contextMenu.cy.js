@@ -74,7 +74,7 @@ describe('using the dimension list context menu', () => {
     const TEST_DIM_ID = 'Xd6cKnFMO4L.wkSjJes0DMI' // "Analytics - Integer"
     const openContextMenu = (id) =>
         cy
-            .getBySel('program-dimension-list')
+            .getBySel('program-dimensions-list')
             .findBySel(`dimension-item-${id}`)
             .findBySel('dimension-menu-button')
             .invoke('attr', 'style', 'visibility: initial')
