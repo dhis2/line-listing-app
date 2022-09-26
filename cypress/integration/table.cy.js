@@ -62,8 +62,9 @@ describe('table', () => {
             cy.getBySel('main-sidebar')
                 .contains(dimension)
                 .closest(`[data-test*="dimension-item"]`)
-                .find('button')
-                .click({ force: true })
+                .findBySel('dimension-menu-button')
+                .invoke('attr', 'style', 'visibility: initial')
+                .click()
 
             cy.contains('Add to Columns').click()
         })

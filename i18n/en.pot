@@ -573,6 +573,12 @@ msgstr "No program selected"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Choose a program from the Program Dimensions sidebar."
 
+msgid "No stage selected"
+msgstr "No stage selected"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Choose a stage from the Program Dimensions sidebar."
+
 msgid "Columns is empty"
 msgstr "Columns is empty"
 
