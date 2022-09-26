@@ -142,12 +142,13 @@ jobs:
                   start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
-                  record: false
-                  parallel: false
+                  record: true
+                  parallel: true
                   config-file: cypress.39.json
               env:
                   BROWSER: none
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY_39 }}
                   CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_39 }}
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
