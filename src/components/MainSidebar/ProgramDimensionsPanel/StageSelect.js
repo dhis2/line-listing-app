@@ -45,6 +45,7 @@ const StageSelect = ({ locked, optional, stages }) => {
             selected={selected}
             onChange={onChange}
             disabled={locked && !!selected}
+            dataTest={'stage-select'}
         >
             {includeShowAllOption && (
                 <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
@@ -72,7 +73,12 @@ const StageSelect = ({ locked, optional, stages }) => {
                     )}
                 </div>
                 {selected && (
-                    <Button small secondary onClick={clearStage}>
+                    <Button
+                        small
+                        secondary
+                        onClick={clearStage}
+                        dataTest={'stage-clear-button'}
+                    >
                         {i18n.t('Clear')}
                     </Button>
                 )}

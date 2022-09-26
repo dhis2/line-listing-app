@@ -26,6 +26,7 @@ const ProgramSelect = ({
             onChange={({ selected }) => setSelectedProgramId(selected)}
             placeholder={i18n.t('Choose a program')}
             maxHeight="max(60vh, 460px)"
+            dataTest={'program-select'}
         >
             {programs.map(({ id, name }) => (
                 <SingleSelectOption key={id} label={name} value={id} />
@@ -54,6 +55,7 @@ const ProgramSelect = ({
                         small
                         secondary
                         onClick={() => setSelectedProgramId(undefined)}
+                        dataTest={'program-clear-button'}
                     >
                         {i18n.t('Clear')}
                     </Button>
