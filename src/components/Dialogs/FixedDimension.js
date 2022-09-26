@@ -213,7 +213,7 @@ const FixedDimension = ({
 
     return dimension ? (
         <DimensionModal
-            dataTest={'dialog-manager-modal'}
+            dataTest={'fixed-dimension-modal'}
             isInLayout={isInLayout}
             onClose={closeModal}
             title={dimension.name}

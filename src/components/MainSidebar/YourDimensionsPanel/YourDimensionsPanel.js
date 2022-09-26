@@ -38,6 +38,7 @@ const YourDimensionsPanel = ({ visible }) => {
                     dense
                     placeholder={i18n.t('Search your dimensions')}
                     type={'search'}
+                    dataTest={'search-dimension-input'}
                 />
             </div>
             <DimensionsList
@@ -47,6 +48,7 @@ const YourDimensionsPanel = ({ visible }) => {
                 fetching={fetching}
                 loading={loading}
                 searchTerm={debouncedSearchTerm}
+                dataTest="your-dimensions-list"
             />
         </>
     )
