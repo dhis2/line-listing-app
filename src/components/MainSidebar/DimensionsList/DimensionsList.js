@@ -31,6 +31,7 @@ const DimensionsList = ({
     programName,
     searchTerm,
     setIsListEndVisible,
+    dataTest,
 }) => {
     const scrollBoxRef = useRef()
     const { getIsDimensionSelected } = useSelectedDimensions()
@@ -72,7 +73,7 @@ const DimensionsList = ({
 
     return (
         <div
-            data-test="program-dimension-list"
+            data-test={dataTest}
             className={styles.scrollbox}
             onScroll={(event) => {
                 return setIsListEndVisible(isEndReached(event.target))
@@ -100,6 +101,7 @@ const DimensionsList = ({
 
 DimensionsList.propTypes = {
     setIsListEndVisible: PropTypes.func.isRequired,
+    dataTest: PropTypes.string,
     dimensions: PropTypes.array,
     error: PropTypes.object,
     fetching: PropTypes.bool,
