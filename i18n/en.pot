@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
-"PO-Revision-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-09-22T12:13:43.831Z\n"
+"PO-Revision-Date: 2022-09-22T12:13:43.831Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -569,6 +569,12 @@ msgstr "No program selected"
 
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Choose a program from the Program Dimensions sidebar."
+
+msgid "No stage selected"
+msgstr "No stage selected"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Choose a stage from the Program Dimensions sidebar."
 
 msgid "Columns is empty"
 msgstr "Columns is empty"

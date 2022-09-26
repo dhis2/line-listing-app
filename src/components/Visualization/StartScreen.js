@@ -51,7 +51,10 @@ const StartScreen = ({ error, setLoadError }) => {
         <div className={styles.outer}>
             <div className={styles.inner}>
                 {error ? (
-                    <div className={styles.errorContainer}>
+                    <div
+                        className={styles.errorContainer}
+                        data-test={'error-container'}
+                    >
                         {isVisualizationError(error) ? (
                             <>
                                 <div className={styles.errorIcon}>
