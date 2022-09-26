@@ -81,3 +81,17 @@ export const selectEnrollmentProgramDimensions = ({
         stageName,
         dimensions,
     })
+
+export const dimensionIsEnabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('not.have.css', 'opacity', '0.5')
+        .and('not.have.css', 'cursor', 'not-allowed')
+
+export const dimensionIsDisabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('have.css', 'opacity', '0.5')
+        .and('have.css', 'cursor', 'not-allowed')

@@ -14,7 +14,6 @@ export const ANALYTICS_PROGRAM = {
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (analytics)',
     [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
     [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (analytics)',
-    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
@@ -23,6 +22,7 @@ export const HIV_PROGRAM = {
     stageName: 'Initial Case Report',
     [DIMENSION_ID_EVENT_DATE]: 'Initial Case Report',
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
+    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
     [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
