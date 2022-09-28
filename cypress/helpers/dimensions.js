@@ -82,16 +82,19 @@ export const selectEnrollmentProgramDimensions = ({
         dimensions,
     })
 
+const disabledOpacity = { prop: 'opacity', value: '0.5' }
+const disabledCursor = { prop: 'cursor', value: 'not-allowed' }
+
 export const dimensionIsEnabled = (id) =>
     cy
         .getBySel(id)
         .should('be.visible')
-        .and('not.have.css', 'opacity', '0.5')
-        .and('not.have.css', 'cursor', 'not-allowed')
+        .and('not.have.css', disabledOpacity.prop, disabledOpacity.value)
+        .and('not.have.css', disabledCursor.prop, disabledCursor.value)
 
 export const dimensionIsDisabled = (id) =>
     cy
         .getBySel(id)
         .should('be.visible')
-        .and('have.css', 'opacity', '0.5')
-        .and('have.css', 'cursor', 'not-allowed')
+        .and('have.css', disabledOpacity.prop, disabledOpacity.value)
+        .and('have.css', disabledCursor.prop, disabledCursor.value)
