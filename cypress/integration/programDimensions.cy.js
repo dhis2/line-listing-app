@@ -9,6 +9,7 @@ import { HIV_PROGRAM } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
+    openDimension,
 } from '../helpers/dimensions.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -205,6 +206,35 @@ describe('program dimensions', () => {
                 ...eventDateWithoutStage,
             })
 
+            // add main and time dimensions
+
+            const expectedSelectedDimensions = [
+                'Event date',
+                event[DIMENSION_ID_LAST_UPDATED],
+                'Event status',
+                'Created by',
+                'Last updated by',
+            ]
+
+            const expectedUnselectedDimensions = [
+                event[DIMENSION_ID_ENROLLMENT_DATE],
+                event[DIMENSION_ID_SCHEDULED_DATE],
+                'Program status',
+            ]
+
+            expectedSelectedDimensions
+                .concat(expectedUnselectedDimensions)
+                .forEach((dimension) => {
+                    cy.getBySel('main-sidebar')
+                        .contains(dimension)
+                        .closest(`[data-test*="dimension-item"]`)
+                        .findBySel('dimension-menu-button')
+                        .invoke('attr', 'style', 'visibility: initial')
+                        .click()
+
+                    cy.contains('Add to Columns').click()
+                })
+
             // clear program
 
             cy.getBySel('program-clear-button').click()
@@ -220,9 +250,28 @@ describe('program dimensions', () => {
             cy.getBySel('program-clear-button').should('not.exist')
 
             assertDimensionsForEventWithoutProgramSelected()
+
+            // assert dimensions in layout after program is cleared
+
+            expectedSelectedDimensions.forEach((dimension) => {
+                cy.getBySel('columns-axis')
+                    .findBySelLike('layout-chip')
+                    .contains(dimension)
+                    .should('be.visible')
+            })
+
+            expectedUnselectedDimensions.forEach((dimension) => {
+                cy.getBySel('columns-axis')
+                    .findBySelLike('layout-chip')
+                    .contains(dimension)
+                    .should('not.exist')
+            })
         })
 
         it('stage can be selected and cleared', () => {
+            const TEST_DATA_ELEMENT = 'HIV Age at Diagnosis'
+            const TEST_PROGRAM_ATTRIBUTE = 'Country of birth'
+
             // select program
 
             cy.getBySel('accessory-sidebar')
@@ -254,6 +303,18 @@ describe('program dimensions', () => {
 
             assertDimensionsForEventWithProgramSelected(event)
 
+            // add a data element
+
+            openDimension(TEST_DATA_ELEMENT)
+
+            cy.contains('Add to Columns').click()
+
+            // add a program attribute
+
+            openDimension(TEST_PROGRAM_ATTRIBUTE)
+
+            cy.contains('Add to Columns').click()
+
             // clear stage
 
             cy.getBySel('stage-clear-button').click()
@@ -272,6 +333,18 @@ describe('program dimensions', () => {
                 ...event,
                 ...eventDateWithoutStage,
             })
+
+            // assert that the DE was removed but the PA remained
+
+            cy.getBySel('columns-axis')
+                .findBySelLike('layout-chip')
+                .contains(TEST_DATA_ELEMENT)
+                .should('not.exist')
+
+            cy.getBySel('columns-axis')
+                .findBySelLike('layout-chip')
+                .contains(TEST_PROGRAM_ATTRIBUTE)
+                .should('be.visible')
         })
     })
 
