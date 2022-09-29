@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-09-27T07:24:12.930Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -308,6 +308,9 @@ msgstr "Fáze"
 msgid "All"
 msgstr "Vše"
 
+msgid "Clear stage first to choose another"
+msgstr ""
+
 msgid "Time dimensions"
 msgstr "Časové dimenze"
 
@@ -591,6 +594,12 @@ msgstr "Nevybrán žádný program"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Vyberte program z postranního panelu Rozměry programu."
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr "Sloupce jsou prázdné"
 
@@ -600,14 +609,17 @@ msgstr "Přidejte alespoň jednu položku do sloupců."
 msgid "No organisation unit selected"
 msgstr "Není vybrána žádná organizační jednotka"
 
-msgid "Add at least one organisation unit to the layout."
-msgstr "Přidejte do rozvržení alespoň jednu organizační jednotku."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
+msgstr ""
 
 msgid "No time dimension selected"
 msgstr "Není vybrána žádná časová dimenze"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "Přidejte do rozvržení alespoň jednu časovou dimenzi"
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
+msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "Vyskytl se problém s alespoň jedním vybraným indikátorem"
