@@ -194,7 +194,7 @@ describe('program dimensions', () => {
             cy.contains(event.programName).click()
 
             cy.getBySel('accessory-sidebar').contains(
-                'Choose a program and stage above to add program dimensions.'
+                'Choose a stage above to add program dimensions.'
             )
 
             cy.getBySel('program-select').find('.disabled').should('be.visible')
@@ -320,7 +320,7 @@ describe('program dimensions', () => {
             cy.getBySel('stage-clear-button').click()
 
             cy.getBySel('accessory-sidebar').contains(
-                'Choose a program and stage above to add program dimensions.'
+                'Choose a stage above to add program dimensions.'
             )
 
             cy.getBySel('accessory-sidebar').contains('Stage')
