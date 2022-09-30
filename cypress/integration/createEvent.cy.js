@@ -24,72 +24,171 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
-const dimensionName = TEST_DIM_TEXT
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
-
-const setUpTable = () => {
-    // check that the time dimensions are correctly disabled and named
-    dimensionIsEnabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-    dimensionIsDisabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-    dimensionIsDisabled('dimension-item-scheduledDate')
-    cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
-
-    dimensionIsDisabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
-
-    // select program
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
-
-    // check that the time dimensions disabled states and names are updated correctly
-
-    dimensionIsEnabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains(
-        event[DIMENSION_ID_EVENT_DATE]
-    )
-
-    dimensionIsEnabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains(
-        event[DIMENSION_ID_ENROLLMENT_DATE]
-    )
-
-    dimensionIsEnabled('dimension-item-scheduledDate')
-    cy.getBySel('dimension-item-scheduledDate').contains(
-        event[DIMENSION_ID_SCHEDULED_DATE]
-    )
-
-    dimensionIsEnabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains(
-        event[DIMENSION_ID_INCIDENT_DATE]
-    )
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains(
-        event[DIMENSION_ID_LAST_UPDATED]
-    )
-
-    selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-}
 describe('event', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
     })
 
-    it('creates an event line list', () => {
+    it('creates an event line list (tracker program)', () => {
+        const event = ANALYTICS_PROGRAM
+        const dimensionName = TEST_DIM_TEXT
+        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+
+        // check that the time dimensions are correctly disabled and named
+        dimensionIsEnabled('dimension-item-eventDate')
+        cy.getBySel('dimension-item-eventDate').contains('Event date')
+
+        dimensionIsDisabled('dimension-item-enrollmentDate')
+        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
+
+        dimensionIsDisabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+
+        dimensionIsDisabled('dimension-item-incidentDate')
+        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
+
+        dimensionIsEnabled('dimension-item-lastUpdated')
+        cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
+
+        // select program
+        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+
+        // check that the time dimensions disabled states and names are updated correctly
+
+        dimensionIsEnabled('dimension-item-eventDate')
+        cy.getBySel('dimension-item-eventDate').contains(
+            event[DIMENSION_ID_EVENT_DATE]
+        )
+
+        dimensionIsEnabled('dimension-item-enrollmentDate')
+        cy.getBySel('dimension-item-enrollmentDate').contains(
+            event[DIMENSION_ID_ENROLLMENT_DATE]
+        )
+
+        dimensionIsEnabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains(
+            event[DIMENSION_ID_SCHEDULED_DATE]
+        )
+
+        dimensionIsEnabled('dimension-item-incidentDate')
+        cy.getBySel('dimension-item-incidentDate').contains(
+            event[DIMENSION_ID_INCIDENT_DATE]
+        )
+
+        dimensionIsEnabled('dimension-item-lastUpdated')
+        cy.getBySel('dimension-item-lastUpdated').contains(
+            event[DIMENSION_ID_LAST_UPDATED]
+        )
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: TEST_FIX_PE_DEC_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+
+        // check the correct number of columns
+        getTableHeaderCells().its('length').should('equal', 3)
+
+        // check that there is at least 1 row in the table
+        getTableRows().its('length').should('be.gte', 1)
+
+        // check the column headers in the table
+        getTableHeaderCells().contains('Organisation unit').should('be.visible')
+        getTableHeaderCells().contains(dimensionName).should('be.visible')
+        getTableHeaderCells().contains(periodLabel).should('be.visible')
+
+        //check the chips in the layout
+        cy.getBySel('columns-axis')
+            .findBySelLike('layout-chip')
+            .contains('Organisation unit: 1 selected')
+            .should('be.visible')
+
+        cy.getBySel('columns-axis')
+            .findBySelLike('layout-chip')
+            .contains(`${dimensionName}: all`)
+            .should('be.visible')
+
+        cy.getBySel('columns-axis')
+            .findBySelLike('layout-chip')
+            .contains(`${periodLabel}: 1 selected`)
+            .should('be.visible')
+    })
+
+    it.skip('creates an event line list (event program)', () => {
+        // FIXME: Currently there are no event programs on analytics-dev that return data...
+        const event = {
+            programName: 'COVID-19 Event',
+            [DIMENSION_ID_EVENT_DATE]: 'Date of Report',
+            [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
+            [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
+            [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
+            [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+        }
+        const dimensionName = 'Case Severity' // TODO: Change to something with data
+        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+
+        // check that the time dimensions are correctly disabled and named
+        dimensionIsEnabled('dimension-item-eventDate')
+        cy.getBySel('dimension-item-eventDate').contains('Event date')
+
+        dimensionIsDisabled('dimension-item-enrollmentDate')
+        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
+
+        dimensionIsDisabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+
+        dimensionIsDisabled('dimension-item-incidentDate')
+        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
+
+        dimensionIsEnabled('dimension-item-lastUpdated')
+        cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
+
+        // select program
+        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+
+        // check that the time dimensions disabled states and names are updated correctly
+
+        dimensionIsEnabled('dimension-item-eventDate')
+        cy.getBySel('dimension-item-eventDate').contains(
+            event[DIMENSION_ID_EVENT_DATE]
+        )
+
+        dimensionIsDisabled('dimension-item-enrollmentDate')
+        cy.getBySel('dimension-item-enrollmentDate').contains(
+            event[DIMENSION_ID_ENROLLMENT_DATE]
+        )
+
+        dimensionIsDisabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains(
+            event[DIMENSION_ID_SCHEDULED_DATE]
+        )
+
+        dimensionIsDisabled('dimension-item-incidentDate')
+        cy.getBySel('dimension-item-incidentDate').contains(
+            event[DIMENSION_ID_INCIDENT_DATE]
+        )
+
+        dimensionIsEnabled('dimension-item-lastUpdated')
+        cy.getBySel('dimension-item-lastUpdated').contains(
+            event[DIMENSION_ID_LAST_UPDATED]
+        )
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: TEST_FIX_PE_DEC_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 3)
 
@@ -119,6 +218,23 @@ describe('event', () => {
     })
 
     it('moves a dimension to filter', () => {
+        const event = ANALYTICS_PROGRAM
+        const dimensionName = TEST_DIM_TEXT
+        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+
+        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: TEST_FIX_PE_DEC_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+
         // move Report date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
             .findBySelLike('layout-chip')
