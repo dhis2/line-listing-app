@@ -9,6 +9,7 @@ import {
     ANALYTICS_PROGRAM,
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
+    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import {
     dimensionIsDisabled,
@@ -16,7 +17,7 @@ import {
     selectEventProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectFixedPeriod } from '../helpers/period.js'
+import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -27,6 +28,8 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 describe('event', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
+
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
 
     it('creates an event line list (tracker program)', () => {
@@ -119,8 +122,7 @@ describe('event', () => {
             .should('be.visible')
     })
 
-    it.skip('creates an event line list (event program)', () => {
-        // FIXME: Currently there are no event programs on analytics-dev that return data...
+    it('creates an event line list (event program)', () => {
         const event = {
             programName: 'COVID-19 Event',
             [DIMENSION_ID_EVENT_DATE]: 'Date of Report',
@@ -129,7 +131,7 @@ describe('event', () => {
             [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
             [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
         }
-        const dimensionName = 'Case Severity' // TODO: Change to something with data
+        const dimensionName = 'Case Severity'
         const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
         // check that the time dimensions are correctly disabled and named
@@ -178,9 +180,9 @@ describe('event', () => {
             event[DIMENSION_ID_LAST_UPDATED]
         )
 
-        selectFixedPeriod({
+        selectRelativePeriod({
             label: periodLabel,
-            period: TEST_FIX_PE_DEC_LAST_YEAR,
+            period: TEST_REL_PE_THIS_YEAR,
         })
 
         clickMenubarUpdateButton()
