@@ -291,7 +291,7 @@ msgid "All"
 msgstr "全部"
 
 msgid "Clear stage first to choose another"
-msgstr ""
+msgstr "先清除阶段再选择另一个"
 
 msgid "Time dimensions"
 msgstr "时间维度"
@@ -566,10 +566,10 @@ msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "从程序维度侧栏中选择一个程序。"
 
 msgid "No stage selected"
-msgstr ""
+msgstr "未选择任何阶段"
 
 msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr ""
+msgstr "从程序维度侧栏中选择一个阶段。"
 
 msgid "Columns is empty"
 msgstr "列是空的"
@@ -583,14 +583,14 @@ msgstr "没有选择机构"
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
-msgstr ""
+msgstr "确保将带有至少一个选择的组织单位维度添加到布局中。"
 
 msgid "No time dimension selected"
 msgstr "未选择时间维度"
 
 msgid ""
 "Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
+msgstr "确保在布局中添加至少一个选择的时间维度。"
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "至少一个选定的指标有问题"
