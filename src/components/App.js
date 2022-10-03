@@ -297,8 +297,6 @@ const App = () => {
             dispatch(acSetUiFromVisualization(visualization))
             dispatch(tSetCurrentFromUi({ validateOnly: true }))
             postDataStatistics({ id: visualization.id })
-
-            // dispatch(acClearLoadError())
         }
     }, [data])
 

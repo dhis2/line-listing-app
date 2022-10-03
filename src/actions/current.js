@@ -15,7 +15,6 @@ import {
     acSetVisualizationLoading,
 } from './loader.js'
 import { acSetShowExpandedLayoutPanel } from './ui.js'
-// import { sGetUi } from '../reducers/ui.js'
 
 const acSetCurrent = (value) => ({
     type: SET_CURRENT,
