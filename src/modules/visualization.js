@@ -152,7 +152,6 @@ const removeDimensionPropsBeforeSaving = (
 
 export const getVisualizationFromCurrent = (current) => {
     const visualization = Object.assign({}, current)
-
     const nonSavableOptions = Object.keys(options).filter(
         (option) => !options[option].savable
     )
@@ -165,8 +164,6 @@ export const getVisualizationFromCurrent = (current) => {
     visualization.filters = removeDimensionPropsBeforeSaving(
         visualization.filters
     )
-
-    !visualization.programStage?.id && delete visualization.programStage
 
     // When saving a copy of an AO created with the Event Reports app, remove the legacy flag.
     // This copy won't work in Event Reports app anyway.
