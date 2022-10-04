@@ -101,7 +101,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
-    }, [inputType, selectedProgramId])
+    }, [inputType, selectedProgramId, selectedStageId])
 
     if (!visible || !called) {
         return null
