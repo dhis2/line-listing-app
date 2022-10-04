@@ -29,6 +29,7 @@ const StageSelect = ({ locked, optional, stages }) => {
         }
     }
     const includeShowAllOption = optional && stages.length > 1
+    const canBeCleared = locked && stages.length > 1
     const selected =
         selectedStageId || (includeShowAllOption ? STAGE_ALL : undefined)
 
@@ -64,15 +65,19 @@ const StageSelect = ({ locked, optional, stages }) => {
                         select
                     ) : (
                         <Tooltip
-                            content={i18n.t(
-                                'Clear stage first to choose another'
-                            )}
+                            content={
+                                canBeCleared
+                                    ? i18n.t(
+                                          'Clear stage first to choose another'
+                                      )
+                                    : i18n.t('This program only has one stage')
+                            }
                         >
                             {select}
                         </Tooltip>
                     )}
                 </div>
-                {selected && (
+                {selected && canBeCleared && (
                     <Button
                         small
                         secondary
