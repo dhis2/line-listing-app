@@ -31,7 +31,7 @@ import {
 } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectFixedPeriod } from '../helpers/period.js'
+import { selectFixedPeriod, getPreviousYearStr } from '../helpers/period.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -39,7 +39,6 @@ import {
     getTableDataCells,
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-import { getPreviousYearStr } from '../helpers/period.js'
 
 const event = ANALYTICS_PROGRAM
 const mainAndTimeDimensions = [
