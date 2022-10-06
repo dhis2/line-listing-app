@@ -6,6 +6,13 @@ const config = {
 
     minDHIS2Version: '2.38',
 
+    pwa: {
+        enabled: true,
+        caching: {
+            patternsToOmitFromAppShell: [/.*/],
+        },
+    },
+
     entryPoints: {
         app: './src/AppWrapper.js',
         plugin: './src/PluginWrapper.js',

@@ -2414,12 +2414,12 @@
     react-beautiful-dnd "^10.1.1"
     resize-observer-polyfill "^1.5.1"
 
-"@dhis2/app-adapter@10.1.0-alpha.3":
-  version "10.1.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-10.1.0-alpha.3.tgz#0e43be0f4c4d2802fdc690ca178befa13c9624a4"
-  integrity sha512-9hIHI43xSYcCcquOeMV2XxBv93+hkF16V1MkJJdXAcMjgiHurbtFatb8A1+2suZuMh6g0ydnfTYoYwm/CJl+/g==
+"@dhis2/app-adapter@10.1.0-alpha.6":
+  version "10.1.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-10.1.0-alpha.6.tgz#017a8a4dfb04b869b5131844bb0f28b60544e73d"
+  integrity sha512-q/EjbzdDNDwpITLTajLVDINs9/G84KlLPwo0q6Ic77WNnlGSOHxzFU+qvc0GtGiB8C1pQCHL0d6ehkzkwQSMRw==
   dependencies:
-    "@dhis2/pwa" "10.1.0-alpha.3"
+    "@dhis2/pwa" "10.1.0-alpha.6"
     moment "^2.24.0"
 
 "@dhis2/app-runtime@^3.2.3", "@dhis2/app-runtime@^3.4.4":
@@ -2456,15 +2456,15 @@
   dependencies:
     lodash "^4.17.21"
 
-"@dhis2/app-shell@10.1.0-alpha.3":
-  version "10.1.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.1.0-alpha.3.tgz#1d2cd49395ca22bf87fd1088cdc0570f38941dc0"
-  integrity sha512-XW8cGHZAaUJ11q5y44m50l9xASGop5g5p9ZvsqfmkjSbKPNI/HjgEObOdd71il1WUHjA5w21h3ddBd2QfTLfhg==
+"@dhis2/app-shell@10.1.0-alpha.6":
+  version "10.1.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.1.0-alpha.6.tgz#96c2ff8f1f04883ba68909ceac3ffc625575185c"
+  integrity sha512-fzvl28Nos1JazetNP0xPCHcPMvWjyLqWAt2MDtHVMHRLXLWd/9XgzauV79TKe6FB2DqUEjsdy7SEBfy7c+KIiw==
   dependencies:
-    "@dhis2/app-adapter" "10.1.0-alpha.3"
+    "@dhis2/app-adapter" "10.1.0-alpha.6"
     "@dhis2/app-runtime" "^3.2.3"
     "@dhis2/d2-i18n" "^1.1.0"
-    "@dhis2/pwa" "10.1.0-alpha.3"
+    "@dhis2/pwa" "10.1.0-alpha.6"
     "@dhis2/ui" "^8.0.0"
     classnames "^2.2.6"
     moment "^2.29.1"
@@ -2477,10 +2477,10 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-"@dhis2/cli-app-scripts@^10.1.0-alpha.3":
-  version "10.1.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.1.0-alpha.3.tgz#888e3d0f8cbf01d5b673a0aa6db1ead5f6fab816"
-  integrity sha512-IAAZuNqU/O/HvUYIdNFQpXe2sBshdsEQYr+UMHKxgsrNW/aVa3mxyflFDe5oUOkAsWWyTOQleW3YXb5FZ9IOVw==
+"@dhis2/cli-app-scripts@^10.1.0-alpha.6":
+  version "10.1.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.1.0-alpha.6.tgz#00050ed66c5452f3871e308e2a1d05ff8f9cc643"
+  integrity sha512-WbuG+jXdO3wj7ZQGW+vDjW8GXYJOpg38J+y4khZtobYyYEXmN7S3ryShL3codNpB7H2mVmhbCo3Izys9A5fC4g==
   dependencies:
     "@babel/core" "^7.6.2"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -2489,7 +2489,7 @@
     "@babel/preset-env" "^7.14.7"
     "@babel/preset-react" "^7.0.0"
     "@babel/preset-typescript" "^7.6.0"
-    "@dhis2/app-shell" "10.1.0-alpha.3"
+    "@dhis2/app-shell" "10.1.0-alpha.6"
     "@dhis2/cli-helpers-engine" "^3.2.0"
     "@jest/core" "^27.0.6"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.4"
@@ -2529,6 +2529,7 @@
     webpack "^5.41.1"
     webpack-dev-server "^4.7.4"
     workbox-build "^6.1.5"
+    workbox-webpack-plugin "^6.5.4"
 
 "@dhis2/cli-helpers-engine@^2.3.0":
   version "2.4.0"
@@ -2627,10 +2628,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-3.1.2.tgz#65b8ad2da8cd2f72bc8b951049a6c9d1b97af3e9"
   integrity sha512-eM0jjLOWvtXWqSFp5YC4DHFpkP8Y1D2eUwGV7MBWjni+o27oesVan+oT7WHeOeLdlAd4acRJrnaaAyB4Ck1wGQ==
 
-"@dhis2/pwa@10.1.0-alpha.3":
-  version "10.1.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.1.0-alpha.3.tgz#7fefe1ce48b0fcb2f7a442db115d9a7f85716715"
-  integrity sha512-TPi8n26TaxIpmpbEaXzlzo0VkSum+M5J5LqoE68uHHZOLhSeOB4sIfTUmy5scnUYUdoaFZlbh1Aog2T7zIj+9Q==
+"@dhis2/pwa@10.1.0-alpha.6":
+  version "10.1.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.1.0-alpha.6.tgz#32a7cb97a92f4d5fab08c3927bba80115918c0aa"
+  integrity sha512-BeCLU7aoJXsJAOyIIQyI5mXgwTmaa27MHosiRgnIVYykQn9KN3cp8bjyE4iyPy69zgCDTnEcwi6Tv7tshUWp0A==
   dependencies:
     idb "^6.0.0"
     workbox-core "^6.1.5"
@@ -16846,7 +16847,7 @@ workbox-sw@6.5.4:
   resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-6.5.4.tgz#d93e9c67924dd153a61367a4656ff4d2ae2ed736"
   integrity sha512-vo2RQo7DILVRoH5LjGqw3nphavEjK4Qk+FenXeUsknKn14eCNedHOXWbmnvP4ipKhlE35pvJ4yl4YYf6YsJArA==
 
-workbox-webpack-plugin@^6.4.1:
+workbox-webpack-plugin@^6.4.1, workbox-webpack-plugin@^6.5.4:
   version "6.5.4"
   resolved "https://registry.yarnpkg.com/workbox-webpack-plugin/-/workbox-webpack-plugin-6.5.4.tgz#baf2d3f4b8f435f3469887cf4fba2b7fac3d0fd7"
   integrity sha512-LmWm/zoaahe0EGmMTrSLUi+BjyR3cdGEfU3fS6PN1zKFYbqAKuQ+Oy/27e4VSXsyIwAw8+QDfk1XHNGtZu9nQg==
