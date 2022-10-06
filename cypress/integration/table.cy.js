@@ -86,19 +86,20 @@ const programDimensions = [
 ]
 
 describe('table', () => {
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        // remove org unit
+        cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
+        cy.containsExact('Remove').click()
+    })
     it('click on column header opens the dimension dialog', () => {
         const dimensionName = TEST_DIM_TEXT
-
-        cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgramDimensions({
             ...event,
             dimensions: [dimensionName],
         })
-
-        // remove org unit
-        cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
-        cy.containsExact('Remove').click()
 
         const testDimensions = mainAndTimeDimensions.map(
             (dimension) => dimension.label
@@ -118,7 +119,11 @@ describe('table', () => {
 
         selectFixedPeriod({
             label: periodLabel,
-            period: TEST_FIX_PE_DEC_LAST_YEAR,
+            period: {
+                type: 'Daily',
+                year: `${getPreviousYearStr()}`,
+                name: `${getPreviousYearStr()}-12-10`,
+            },
         })
 
         clickMenubarUpdateButton()
@@ -142,12 +147,7 @@ describe('table', () => {
         })
     })
     it('dimensions display correct values in the visualization', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
         selectEventProgram(event)
-
-        // remove org unit
-        cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
-        cy.containsExact('Remove').click()
 
         mainAndTimeDimensions.forEach(({ label }) => {
             cy.getBySel('main-sidebar')
