@@ -1,9 +1,20 @@
+import { genericClientError } from '../modules/error.js'
+import {
+    layoutHasProgramId,
+    validateLayout,
+} from '../modules/layoutValidation.js'
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
     SET_CURRENT_FROM_UI,
+    sGetCurrentFromUi,
 } from '../reducers/current.js'
-import { sGetUi } from '../reducers/ui.js'
+import {
+    acClearLoadError,
+    acSetLoadError,
+    acSetVisualizationLoading,
+} from './loader.js'
+import { acSetShowExpandedLayoutPanel } from './ui.js'
 
 const acSetCurrent = (value) => ({
     type: SET_CURRENT,
@@ -23,8 +34,29 @@ export const acSetCurrentFromUi = (value) => ({
     value,
 })
 
-export const tSetCurrentFromUi = () => async (dispatch, getState) => {
-    const ui = sGetUi(getState())
+export const tSetCurrentFromUi =
+    ({ validateOnly } = {}) =>
+    (dispatch, getState) => {
+        const state = getState()
+        const currentFromUi = sGetCurrentFromUi(state)
 
-    dispatch(acSetCurrentFromUi(ui))
-}
+        try {
+            validateLayout(currentFromUi)
+            if (!validateOnly) {
+                dispatch(acClearLoadError())
+                dispatch(acSetVisualizationLoading(true))
+            }
+        } catch (error) {
+            dispatch(acSetLoadError(error || genericClientError()))
+        }
+
+        if (!validateOnly) {
+            if (layoutHasProgramId(currentFromUi)) {
+                dispatch(acSetCurrent(currentFromUi))
+            } else {
+                dispatch(acClearCurrent())
+            }
+
+            dispatch(acSetShowExpandedLayoutPanel(false))
+        }
+    }
