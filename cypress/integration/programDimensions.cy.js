@@ -5,7 +5,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM } from '../data/index.js'
+import { HIV_PROGRAM, ANALYTICS_PROGRAM } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
@@ -171,12 +171,12 @@ describe('program dimensions', () => {
     })
 
     describe('event', () => {
-        const event = HIV_PROGRAM
-        const eventDateWithoutStage = {
-            [DIMENSION_ID_EVENT_DATE]: 'Event date',
-        }
-
         it('program can be selected and cleared', () => {
+            const event = HIV_PROGRAM
+            const eventDateWithoutStage = {
+                [DIMENSION_ID_EVENT_DATE]: 'Event date',
+            }
+
             cy.getBySel('accessory-sidebar').contains(
                 'Choose a program above to add program dimensions.'
             )
@@ -200,6 +200,12 @@ describe('program dimensions', () => {
             cy.getBySel('program-select').find('.disabled').should('be.visible')
 
             cy.getBySel('program-clear-button').should('be.visible')
+
+            cy.getBySelLike('program-select').trigger('mouseover')
+
+            cy.getBySelLike('tooltip-content').contains(
+                'Clear program first to choose another'
+            )
 
             assertDimensionsForEventWithProgramSelected({
                 ...event,
@@ -269,6 +275,10 @@ describe('program dimensions', () => {
         })
 
         it('stage can be selected and cleared', () => {
+            const event = HIV_PROGRAM
+            const eventDateWithoutStage = {
+                [DIMENSION_ID_EVENT_DATE]: 'Event date',
+            }
             const TEST_DATA_ELEMENT = 'HIV Age at Diagnosis'
             const TEST_PROGRAM_ATTRIBUTE = 'Country of birth'
 
@@ -293,6 +303,12 @@ describe('program dimensions', () => {
             cy.getBySel('stage-select').find('.disabled').should('be.visible')
 
             cy.getBySel('stage-clear-button').should('be.visible')
+
+            cy.getBySelLike('stage-select').trigger('mouseover')
+
+            cy.getBySelLike('tooltip-content').contains(
+                'Clear stage first to choose another'
+            )
 
             cy.getBySel('accessory-sidebar').contains('All types')
 
@@ -345,6 +361,25 @@ describe('program dimensions', () => {
                 .findBySelLike('layout-chip')
                 .contains(TEST_PROGRAM_ATTRIBUTE)
                 .should('be.visible')
+        })
+        it("stage can't be cleared for event with a single stage", () => {
+            const event = ANALYTICS_PROGRAM
+
+            cy.getBySel('accessory-sidebar')
+                .contains('Choose a program')
+                .click()
+
+            cy.contains(event.programName).click()
+
+            cy.getBySel('stage-select').find('.disabled').should('be.visible')
+
+            cy.getBySel('stage-clear-button').should('not.exist')
+
+            cy.getBySelLike('stage-select').trigger('mouseover')
+
+            cy.getBySelLike('tooltip-content').contains(
+                'This program only has one stage'
+            )
         })
     })
 
