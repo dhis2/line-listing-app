@@ -129,6 +129,7 @@ const FixedDimension = ({
                             }
                             dense
                             className={classes.verticalCheckbox}
+                            dataTest={'program-status-checkbox'}
                         />
                     ))}
                 </div>
@@ -172,6 +173,7 @@ const FixedDimension = ({
                             }
                             dense
                             className={classes.verticalCheckbox}
+                            dataTest={'event-status-checkbox'}
                         />
                     ))}
                 </div>
