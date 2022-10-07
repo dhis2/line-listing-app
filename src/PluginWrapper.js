@@ -54,7 +54,7 @@ const PluginWrapper = () => {
             }}
         >
             <CacheableSectionWrapper
-                id={propsFromParent.itemId}
+                id={propsFromParent.cacheId}
                 cacheNow={propsFromParent.recordOnNextLoad}
             >
                 <Visualization {...propsFromParent} />
