@@ -176,10 +176,8 @@ export const getVisualizationFromCurrent = (current) => {
 }
 
 export const getVisualizationState = (visualization, current) => {
-    if (current === DEFAULT_CURRENT) {
-        return STATE_EMPTY
-    } else if (visualization === DEFAULT_VISUALIZATION) {
-        return STATE_UNSAVED
+    if (visualization === DEFAULT_VISUALIZATION) {
+        return current === DEFAULT_CURRENT ? STATE_EMPTY : STATE_UNSAVED
     } else if (current === visualization) {
         return STATE_SAVED
     } else {
