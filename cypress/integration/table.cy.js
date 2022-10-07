@@ -28,7 +28,6 @@ import {
     TEST_DIM_ORG_UNIT,
     TEST_DIM_COORDINATE,
     TEST_DIM_LEGEND_SET,
-    TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
 import {
     selectEventProgram,
