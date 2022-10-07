@@ -4,7 +4,7 @@ import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { tSetCurrent } from '../actions/current.js'
+import { tSetCurrent, tSetCurrentFromUi } from '../actions/current.js'
 import {
     acClearAll,
     acClearLoadError,
@@ -280,6 +280,7 @@ const App = () => {
 
     useEffect(() => {
         if (data?.eventVisualization) {
+            dispatch(acClearLoadError())
             dispatch(tSetInitMetadata(rootOrgUnits))
 
             const visualization = transformVisualization(
@@ -294,8 +295,8 @@ const App = () => {
             dispatch(acSetVisualization(visualization))
             dispatch(tSetCurrent(visualization))
             dispatch(acSetUiFromVisualization(visualization))
+            dispatch(tSetCurrentFromUi({ validateOnly: true }))
             postDataStatistics({ id: visualization.id })
-            dispatch(acClearLoadError())
         }
     }, [data])
 
