@@ -2,6 +2,7 @@ import { Analytics } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
+import { validateLineListLayout } from '../../modules/layoutValidation.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
     getAnalyticsEndpoint,
@@ -141,7 +142,7 @@ const useDownloadMenu = (relativePeriodDate) => {
     return {
         isOpen,
         toggleOpen: () => setIsOpen(!isOpen),
-        disabled: !current,
+        disabled: !validateLineListLayout(current, { doNotThrow: true }),
         download,
     }
 }

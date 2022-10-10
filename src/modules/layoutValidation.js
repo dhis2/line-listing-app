@@ -24,25 +24,27 @@ const isAxisValid = (axis) =>
         })
     )
 
-const validateDimension = (dimension, error, requireItems) => {
-    if (!(dimension && dimensionIsValid(dimension, { requireItems }))) {
-        throw error
+export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
+    if (!layout) {
+        return false
     }
-}
 
-const validateAxis = (axis, error) => {
-    if (!isAxisValid(axis)) {
-        throw error
+    if (!isAxisValid(layout.columns)) {
+        if (doNotThrow) {
+            return false
+        }
+        throw noColumnsError()
     }
-}
 
-const validateLineListLayout = (layout) => {
-    validateAxis(layout.columns, noColumnsError())
-    validateDimension(
-        layoutGetDimension(layout, DIMENSION_ID_ORGUNIT),
-        noOrgUnitError(),
-        true
-    )
+    const ouDimension = layoutGetDimension(layout, DIMENSION_ID_ORGUNIT)
+    if (
+        !(ouDimension && dimensionIsValid(ouDimension, { requireItems: true }))
+    ) {
+        if (doNotThrow) {
+            return false
+        }
+        throw noOrgUnitError()
+    }
 
     let layoutHasTimeDimension = false
 
@@ -55,16 +57,27 @@ const validateLineListLayout = (layout) => {
     })
 
     if (!layoutHasTimeDimension) {
+        if (doNotThrow) {
+            return false
+        }
         throw noPeriodError()
     }
 
     if (!layoutHasProgramId(layout)) {
+        if (doNotThrow) {
+            return false
+        }
         throw noProgramError()
     }
 
     if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
+        if (doNotThrow) {
+            return false
+        }
         throw noStageError()
     }
+
+    return true
 }
 
 export const validateLayout = (layout) => {
@@ -75,15 +88,9 @@ export const validateLayout = (layout) => {
     }
 }
 
-export const layoutHasProgramId = (layout) => {
-    if (!layout) {
-        return false
-    }
-    switch (layout.type) {
-        case VIS_TYPE_LINE_LIST:
-        default:
-            return Boolean(layout.program?.id)
-    }
-}
+export const layoutHasProgramId = (layout) => Boolean(layout?.program?.id)
 
 export const aoCreatedInEventReportsApp = (layout) => layout.legacy
+
+export const isLayoutValidForSaving = (layout) =>
+    layoutHasProgramId(layout) && !aoCreatedInEventReportsApp(layout)
