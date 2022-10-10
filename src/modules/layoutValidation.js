@@ -37,6 +37,14 @@ const validateAxis = (axis, error) => {
 }
 
 const validateLineListLayout = (layout) => {
+    if (!layoutHasProgramId(layout)) {
+        throw noProgramError()
+    }
+
+    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
+        throw noStageError()
+    }
+
     validateAxis(layout.columns, noColumnsError())
     validateDimension(
         layoutGetDimension(layout, DIMENSION_ID_ORGUNIT),
@@ -56,14 +64,6 @@ const validateLineListLayout = (layout) => {
 
     if (!layoutHasTimeDimension) {
         throw noPeriodError()
-    }
-
-    if (!layoutHasProgramId(layout)) {
-        throw noProgramError()
-    }
-
-    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
-        throw noStageError()
     }
 }
 
