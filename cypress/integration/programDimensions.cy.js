@@ -5,11 +5,12 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, ANALYTICS_PROGRAM } from '../data/index.js'
+import { HIV_PROGRAM, ANALYTICS_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
     openDimension,
+    selectEventProgram,
 } from '../helpers/dimensions.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -442,6 +443,101 @@ describe('program dimensions', () => {
             cy.getBySel('program-select').find('.disabled').should('not.exist')
 
             cy.getBySel('program-clear-button').should('not.exist')
+
+            assertDimensionsForEnrollmentWithoutProgramSelected()
+        })
+    })
+
+    describe('switching input type', () => {
+        it.only('layout is cleared when input type is changed', () => {
+            const event = ANALYTICS_PROGRAM
+            const mainAndTimeDimensions = [
+                { label: 'Organisation unit', expected: true },
+                { label: 'Event status', expected: false },
+                { label: 'Program status', expected: true },
+                { label: 'Created by', expected: true },
+                { label: 'Last updated by', expected: true },
+                {
+                    label: event[DIMENSION_ID_EVENT_DATE],
+                    labelWithoutProgram: 'Event date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_ENROLLMENT_DATE],
+                    labelWithoutProgram: 'Enrollment date',
+                    expected: true,
+                },
+                {
+                    label: event[DIMENSION_ID_SCHEDULED_DATE],
+                    labelWithoutProgram: 'Scheduled date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_INCIDENT_DATE],
+                    labelWithoutProgram: 'Incident date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_LAST_UPDATED],
+                    labelWithoutProgram: 'Last updated on',
+                    expected: true,
+                },
+            ]
+
+            // remove org unit
+            cy.getBySel('layout-chip-ou')
+                .findBySel('dimension-menu-button')
+                .click()
+            cy.containsExact('Remove').click()
+
+            selectEventProgram(ANALYTICS_PROGRAM)
+
+            //assertDimensionsForEventWithProgramSelected(event)
+
+            // add a data element
+
+            openDimension(TEST_DIM_TEXT)
+
+            cy.contains('Add to Columns').click()
+
+            // add main and time dimensions
+
+            mainAndTimeDimensions.forEach(({ label }) => {
+                cy.getBySel('main-sidebar')
+                    .contains(label)
+                    .closest(`[data-test*="dimension-item"]`)
+                    .findBySel('dimension-menu-button')
+                    .invoke('attr', 'style', 'visibility: initial')
+                    .click()
+
+                cy.contains('Add to Columns').click()
+            })
+
+            // change input type
+
+            cy.getBySel('main-sidebar').contains('Input: Event').click()
+
+            cy.getBySel('input-enrollment').click()
+
+            // assert dimensions in layout after program is cleared
+
+            mainAndTimeDimensions.forEach(
+                ({ label, expected, labelWithoutProgram }) => {
+                    if (expected) {
+                        cy.getBySel('columns-axis')
+                            .findBySelLike('layout-chip')
+                            .contains(labelWithoutProgram || label)
+                            .should('be.visible')
+                    } else {
+                        cy.getBySel('columns-axis')
+                            .findBySelLike('layout-chip')
+                            .contains(labelWithoutProgram || label)
+                            .should('not.exist')
+                    }
+                }
+            )
+
+            // assert that dimensions are enabled/disabled correctly
 
             assertDimensionsForEnrollmentWithoutProgramSelected()
         })
