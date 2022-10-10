@@ -3,6 +3,8 @@ import {
     ANALYTICS_PROGRAM,
     TEST_AO,
     TEST_DIM_NUMBER,
+    TEST_DIM_PHONE_NUMBER,
+    TEST_DIM_INTEGER,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
@@ -59,7 +61,7 @@ describe('options', () => {
         //set up table
         selectEnrollmentProgramDimensions({
             ...ANALYTICS_PROGRAM,
-            dimensions: [TEST_DIM_NUMBER],
+            dimensions: [TEST_DIM_NUMBER, TEST_DIM_PHONE_NUMBER, TEST_DIM_INTEGER],
         })
 
         selectRelativePeriod({
@@ -69,8 +71,12 @@ describe('options', () => {
 
         clickMenubarUpdateButton()
 
-        //assert the default dgs space
+        const PHONE_NUMBER = '99887766'
+
+        //assert the default dgs space on number but not phone number
         getTableRows().eq(0).find('td').eq(1).should('contain', '2 000 000')
+        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(3).should('contain', '1 000 000')
 
         // set dgs to comma
         clickMenubarOptionsButton()
@@ -81,6 +87,8 @@ describe('options', () => {
         cy.getBySel('options-modal-actions').contains('Update').click()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', '2,000,000')
+        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(3).should('contain', '1,000,000')
 
         // set dgs to none
         clickMenubarOptionsButton()
@@ -91,5 +99,7 @@ describe('options', () => {
         cy.getBySel('options-modal-actions').contains('Update').click()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', '2000000')
+        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(3).should('contain', '1000000')
     })
 })
