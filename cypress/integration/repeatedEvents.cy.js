@@ -88,12 +88,12 @@ describe('repeated events', () => {
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
         getTableHeaderCells().eq(0).containsExact('Analytics - Percentage')
-        getTableDataCells().eq(0).contains('5')
+        getTableDataCells().eq(0).invoke('text').should('eq', '')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
         // repetition 3/0 can be set successfully
         setRepetition({ dimensionName, recent: 3, oldest: 0 })
-        let result = ['11', '', '5']
+        let result = ['', '5', '']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
@@ -131,7 +131,7 @@ describe('repeated events', () => {
 
         // repetition 3/3 can be set successfully
         setRepetition({ dimensionName, recent: 3, oldest: 3 })
-        result = ['56', '0', '100', '11', '', '5']
+        result = ['56', '0', '100', '', '5', '']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
@@ -165,21 +165,33 @@ describe('repeated events', () => {
         setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
 
         // repetition 10/0 can be set successfully
-        setRepetition({ dimensionName, recent: 10, oldest: 0 })
-        const result = ['', '56', '0', '100', '50', '35', '10', '11', '', '5']
+        setRepetition({ dimensionName, recent: 11, oldest: 0 })
+        const result = [
+            '',
+            '56',
+            '0',
+            '100',
+            '50',
+            '35',
+            '10',
+            '11',
+            '',
+            '5',
+            '',
+        ]
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
         expectHeaderToContainExact(
             0,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -9)'
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -10)'
         )
         expectHeaderToContainExact(
             5,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -4)'
+            'Analytics - Percentage - Stage 1 - Repeatable (most recent -5)'
         )
         expectHeaderToContainExact(
-            9,
+            10,
             'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
