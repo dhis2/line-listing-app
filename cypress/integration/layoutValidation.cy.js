@@ -1,3 +1,4 @@
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { HIV_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -14,8 +15,29 @@ const openContextMenu = (id) =>
         .click()
 
 describe('layout validation', () => {
-    it('columns is required', () => {
+    const event = HIV_PROGRAM
+
+    it('program is required', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('error-container').contains('No program selected')
+    })
+    it('stage is required', () => {
+        // select a program
+        selectEventProgram({ programName: event.programName })
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('error-container').contains('No stage selected')
+    })
+    it('columns is required', () => {
+        // select a stage
+        selectEventProgram({
+            programName: event.programName,
+            stageName: event.stageName,
+        })
 
         // remove org unit
         openContextMenu('ou')
@@ -47,30 +69,11 @@ describe('layout validation', () => {
 
         cy.getBySel('error-container').contains('No time dimension selected')
     })
-    it('program is required', () => {
+    it('validation succeeds when all above are provided', () => {
         // add a time dimension to columns
         selectRelativePeriod({
-            label: 'Event date',
+            label: event[DIMENSION_ID_EVENT_DATE],
             period: TEST_REL_PE_LAST_12_MONTHS,
-        })
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No program selected')
-    })
-    it('stage is required', () => {
-        // select a program
-        selectEventProgram({ programName: HIV_PROGRAM.programName })
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No stage selected')
-    })
-    it('validation succeeds when all above are provided', () => {
-        // select a stage
-        selectEventProgram({
-            programName: HIV_PROGRAM.programName,
-            stageName: HIV_PROGRAM.stageName,
         })
 
         clickMenubarUpdateButton()
