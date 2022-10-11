@@ -225,7 +225,7 @@ describe('number conditions', () => {
 })
 
 describe('integer', () => {
-    const dimensionName = TEST_DIM_INTEGER
+    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
 
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
