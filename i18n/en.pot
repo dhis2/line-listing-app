@@ -703,6 +703,9 @@ msgstr "Cancelled"
 msgid "Completed"
 msgstr "Completed"
 
+msgid "Scheduled"
+msgstr "Scheduled"
+
 msgid "List data from tracked entities and events."
 msgstr "List data from tracked entities and events."
 
