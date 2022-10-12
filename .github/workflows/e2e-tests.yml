@@ -1,26 +1,4 @@
 name: 'dhis2: e2e tests'
-
-# Requirements:
-#
-# - Secrets:
-#     GITHUB_TOKEN
-#     CYPRESS_DHIS2_USERNAME
-#     CYPRESS_DHIS2_PASSWORD
-#
-# - Customize environment variables:
-#     BASE_URL_INSTANCES: Set the base url for the instances, e.g. https://test.e2e.dhis2.org
-#     NAME_PATTERN_LEGACY_INSTANCES: Set the name pattern for your instances. {version} will be replaced by "[majorVersion].[minorVersion]"
-#     NAME_PATTERN_DEV_INSTANCE: Set the name pattern for your dev instance. {version} will be replaced by "dev"
-#     CYPRESS_CONTAINERS: Set the number of parallel Cypress job runs running for each backend version.
-#     TRIGGER_LABELS: Set the labels that will trigger the workflow.
-#
-# - Set status check as required:
-#     We recommend setting "call-e2e-tests-result / e2e-tests-success"  as a required step in your workflow.
-#     This will ensure that one of the following must be true before the PR can be merged:
-#       1) The tests have successfully run
-#       2) The dev took a conscious decision not to run the tests (see e2e-tests-skip.yml)
-#       3) They were skipped due to a special case (see e2e-tests-exception.yml)
-
 on:
     pull_request:
         types: [labeled]
