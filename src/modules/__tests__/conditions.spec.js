@@ -83,24 +83,24 @@ const tests = [
         condition: 'IN:NV',
         expected: ['Not answered'],
     },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'GT:2021-01-16T11.44:LT:2022-05-16T12.00',
-    //     expected: ['After: 2021-01-16 11:44', 'Before: 2022-05-16 12:00'],
-    // },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'NE:NV:GE:2021-01-16T15.45',
-    //     expected: [
-    //         'Is not empty / not null',
-    //         'After or including: 2021-01-16 15:45',
-    //     ],
-    // },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'EQ:NV',
-    //     expected: ['Is empty / null'],
-    // },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'GT:2021-01-16T11.44:LT:2022-05-16T12.00',
+        expected: ['After: 2021-01-16 11:44', 'Before: 2022-05-16 12:00'],
+    },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'NE:NV:GE:2021-01-16T15.45',
+        expected: [
+            'Is not empty / not null',
+            'After or including: 2021-01-16 15:45',
+        ],
+    },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'EQ:NV',
+        expected: ['Is empty / null'],
+    },
     {
         dimensionValueType: 'NUMBER',
         condition: 'GT:31.5:LE:40.9',
