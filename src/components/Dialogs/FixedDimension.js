@@ -22,7 +22,7 @@ import {
     STATUS_CANCELLED,
     STATUS_COMPLETED,
     STATUS_SCHEDULED,
-    statusNames,
+    getStatusNames,
 } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -48,6 +48,7 @@ const FixedDimension = ({
 }) => {
     const { rootOrgUnits } = useCachedDataQuery()
     const { serverVersion } = useConfig()
+    const statusNames = getStatusNames()
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
             dimensionId,
