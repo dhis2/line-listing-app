@@ -6,7 +6,7 @@ on:
 env:
     BASE_URL_INSTANCES: https://test.e2e.dhis2.org
     NAME_PATTERN_LEGACY_INSTANCES: '{version}lytics-dev'
-    NAME_PATTERN_DEV_INSTANCE: analytics-dev
+    NAME_PATTERN_DEV_INSTANCE: dev
     CYPRESS_CONTAINERS: 8
     TRIGGER_LABELS: e2e-tests, testing
 
