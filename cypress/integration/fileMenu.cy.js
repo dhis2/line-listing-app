@@ -145,18 +145,9 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
+        // cleanup
+        cy.getBySel(ITEM_DELETE).click()
+        cy.getBySel('file-menu-delete-modal-delete').click()
     })
 })
-
-// selectEventProgram(event)
-
-// selectFixedPeriod({
-//     label: periodLabel,
-//     period: TEST_FIX_PE_DEC_LAST_YEAR,
-// })
-
-// clickMenubarUpdateButton()
-
-// expectTableToBeVisible()
-
-// getTableRows().its('length').should('be.gte', 1)
