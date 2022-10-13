@@ -49,7 +49,7 @@ export const OPERATOR_NOT_CONTAINS = '!LIKE'
 export const CASE_INSENSITIVE_PREFIX = 'I'
 export const NOT_PREFIX = '!'
 
-export const NUMERIC_OPERATORS = {
+export const getNumericOperators = () => ({
     [OPERATOR_EQUAL]: i18n.t('equal to (=)'),
     [OPERATOR_GREATER]: i18n.t('greater than (>)'),
     [OPERATOR_GREATER_OR_EQUAL]: i18n.t('greater than or equal to (≥)'),
@@ -58,18 +58,18 @@ export const NUMERIC_OPERATORS = {
     [OPERATOR_NOT_EQUAL]: i18n.t('not equal to (≠)'),
     [OPERATOR_EMPTY]: i18n.t('is empty / null'),
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
-}
+})
 
-export const ALPHA_NUMERIC_OPERATORS = {
+export const getAlphaNumericOperators = () => ({
     [OPERATOR_EQUAL]: i18n.t('exactly'),
     [OPERATOR_NOT_EQUAL]: i18n.t('is not'),
     [OPERATOR_CONTAINS]: i18n.t('contains'),
     [OPERATOR_NOT_CONTAINS]: i18n.t('does not contain'),
     [OPERATOR_EMPTY]: i18n.t('is empty / null'),
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
-}
+})
 
-export const DATE_OPERATORS = {
+export const getDateOperators = () => ({
     [OPERATOR_EQUAL]: i18n.t('exactly'),
     [OPERATOR_NOT_EQUAL]: i18n.t('is not'),
     [OPERATOR_GREATER]: i18n.t('after'),
@@ -78,13 +78,13 @@ export const DATE_OPERATORS = {
     [OPERATOR_LESS_OR_EQUAL]: i18n.t('before or including'),
     [OPERATOR_EMPTY]: i18n.t('is empty / null'),
     [OPERATOR_NOT_EMPTY]: i18n.t('is not empty / not null'),
-}
+})
 
-export const BOOLEAN_VALUES = {
+export const getBooleanValues = () => ({
     [TRUE_VALUE]: i18n.t('Yes'),
     [FALSE_VALUE]: i18n.t('No'),
     [NULL_VALUE]: i18n.t('Not answered'),
-}
+})
 
 export const API_TIME_DIVIDER = '.'
 export const UI_TIME_DIVIDER = ':'
@@ -147,12 +147,12 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_USERNAME:
         case VALUE_TYPE_URL:
         case VALUE_TYPE_PHONE_NUMBER: {
-            return ALPHA_NUMERIC_OPERATORS
+            return getAlphaNumericOperators()
         }
         case VALUE_TYPE_DATE:
         case VALUE_TYPE_TIME:
         case VALUE_TYPE_DATETIME: {
-            return DATE_OPERATORS
+            return getDateOperators()
         }
         case VALUE_TYPE_NUMBER:
         case VALUE_TYPE_UNIT_INTERVAL:
@@ -162,7 +162,7 @@ const getOperatorsByValueType = (valueType) => {
         case VALUE_TYPE_INTEGER_NEGATIVE:
         case VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE:
         default: {
-            return NUMERIC_OPERATORS
+            return getNumericOperators()
         }
     }
 }
@@ -208,7 +208,7 @@ export const getConditionsTexts = ({
         conditionsList[0]?.startsWith(OPERATOR_IN)
     ) {
         const values = parseCondition(conditionsList[0])
-        const valueNames = values.map((value) => BOOLEAN_VALUES[value])
+        const valueNames = values.map((value) => getBooleanValues()[value])
         return valueNames
     }
 
