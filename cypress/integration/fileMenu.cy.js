@@ -25,7 +25,7 @@ const defaultItemsMap = {
     [ITEM_DELETE]: false,
 }
 
-const validateItems = (enabledItemsMap) => {
+const assertItems = (enabledItemsMap) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
     Object.keys(itemsMap).forEach((itemName) => {
@@ -41,7 +41,7 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        validateItems({
+        assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
         })
@@ -58,7 +58,7 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        validateItems({
+        assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
             [ITEM_SAVE]: true,
@@ -72,7 +72,7 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        validateItems({
+        assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
             [ITEM_SAVEAS]: true,
@@ -95,7 +95,7 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        validateItems({
+        assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
             [ITEM_SAVEAS]: true,
@@ -134,7 +134,7 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        validateItems({
+        assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
             [ITEM_SAVE]: true,
