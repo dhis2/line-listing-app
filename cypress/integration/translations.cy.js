@@ -1,7 +1,7 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const UPDATE_BUTTON_ORIGINAL = 'Update'
-const UPDATE_BUTTON_TRANSLATED = 'Oppdater'
+const UPDATE_ITEM_ORIGINAL = 'Update'
+const UPDATE_ITEM_TRANSLATED = 'Oppdater'
 const WELCOME_MSG_ORIGINAL = 'Getting started'
 const WELCOME_MSG_TRANSLATED = 'Komme i gang'
 
@@ -49,9 +49,9 @@ describe('Translations', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(UPDATE_BUTTON_TRANSLATED).should('be.visible')
+        cy.contains(UPDATE_ITEM_TRANSLATED).should('be.visible')
 
-        cy.contains(UPDATE_BUTTON_ORIGINAL).should('not.exist')
+        cy.contains(UPDATE_ITEM_ORIGINAL).should('not.exist')
     })
     it('original language display correctly in the app', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -63,8 +63,8 @@ describe('Translations', () => {
     it('original language display correctly in an Analytics component', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(UPDATE_BUTTON_ORIGINAL).should('be.visible')
+        cy.contains(UPDATE_ITEM_ORIGINAL).should('be.visible')
 
-        cy.contains(UPDATE_BUTTON_TRANSLATED).should('not.exist')
+        cy.contains(UPDATE_ITEM_TRANSLATED).should('not.exist')
     })
 })

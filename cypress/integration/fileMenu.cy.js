@@ -1,22 +1,39 @@
+import { typeInput } from '../helpers/common.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const BUTTON_NEW = 'file-menu-new'
-const BUTTON_OPEN = 'file-menu-open'
-const BUTTON_SAVE = 'file-menu-save'
-const BUTTON_SAVEAS = 'file-menu-saveas'
-const BUTTON_RENAME = 'file-menu-rename'
-const BUTTON_TRANSLATE = 'file-menu-translate'
-const BUTTON_SHARING = 'file-menu-sharing'
-const BUTTON_GETLINK = 'file-menu-getlink'
-const BUTTON_DELETE = 'file-menu-delete'
+const ITEM_NEW = 'file-menu-new'
+const ITEM_OPEN = 'file-menu-open'
+const ITEM_SAVE = 'file-menu-save'
+const ITEM_SAVEAS = 'file-menu-saveas'
+const ITEM_RENAME = 'file-menu-rename'
+const ITEM_TRANSLATE = 'file-menu-translate'
+const ITEM_SHARING = 'file-menu-sharing'
+const ITEM_GETLINK = 'file-menu-getlink'
+const ITEM_DELETE = 'file-menu-delete'
 
-const itemIsEnabled = (id) =>
-    cy.getBySel(id).should('have.css', 'cursor', 'pointer')
+const defaultItemsMap = {
+    [ITEM_NEW]: false,
+    [ITEM_OPEN]: false,
+    [ITEM_SAVE]: false,
+    [ITEM_SAVEAS]: false,
+    [ITEM_RENAME]: false,
+    [ITEM_TRANSLATE]: false,
+    [ITEM_SHARING]: false,
+    [ITEM_GETLINK]: false,
+    [ITEM_DELETE]: false,
+}
 
-const itemIsDisabled = (id) =>
-    cy.getBySel(id).should('have.css', 'cursor', 'not-allowed')
+const validateItems = (enabledItemsMap) => {
+    const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
+
+    Object.keys(itemsMap).forEach((itemName) => {
+        itemsMap[itemName]
+            ? cy.getBySel(itemName).should('not.have.class', 'disabled')
+            : cy.getBySel(itemName).should('have.class', 'disabled')
+    })
+}
 
 describe('file menu', () => {
     it('reflects empty state', () => {
@@ -24,15 +41,10 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        itemIsEnabled(BUTTON_NEW)
-        itemIsEnabled(BUTTON_OPEN)
-        itemIsDisabled(BUTTON_SAVE)
-        itemIsDisabled(BUTTON_SAVEAS)
-        itemIsDisabled(BUTTON_RENAME)
-        itemIsDisabled(BUTTON_TRANSLATE)
-        itemIsDisabled(BUTTON_SHARING)
-        itemIsDisabled(BUTTON_GETLINK)
-        itemIsDisabled(BUTTON_DELETE)
+        validateItems({
+            [ITEM_NEW]: true,
+            [ITEM_OPEN]: true,
+        })
     })
 
     it('reflects unsaved state', () => {
@@ -46,15 +58,93 @@ describe('file menu', () => {
 
         cy.getBySel('menubar').contains('File').click()
 
-        itemIsEnabled(BUTTON_NEW)
-        itemIsEnabled(BUTTON_OPEN)
-        itemIsEnabled(BUTTON_SAVE)
-        itemIsDisabled(BUTTON_SAVEAS)
-        itemIsDisabled(BUTTON_RENAME)
-        itemIsDisabled(BUTTON_TRANSLATE)
-        itemIsDisabled(BUTTON_SHARING)
-        itemIsDisabled(BUTTON_GETLINK)
-        itemIsDisabled(BUTTON_DELETE)
+        validateItems({
+            [ITEM_NEW]: true,
+            [ITEM_OPEN]: true,
+            [ITEM_SAVE]: true,
+        })
+    })
+
+    it('reflects saved state', () => {
+        cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
+
+        cy.getBySel('visualization-title').contains('COVAC enrollment')
+
+        cy.getBySel('menubar').contains('File').click()
+
+        validateItems({
+            [ITEM_NEW]: true,
+            [ITEM_OPEN]: true,
+            [ITEM_SAVEAS]: true,
+            [ITEM_RENAME]: true,
+            [ITEM_TRANSLATE]: true,
+            [ITEM_SHARING]: true,
+            [ITEM_GETLINK]: true,
+            [ITEM_DELETE]: true,
+        })
+    })
+
+    it('reflects dirty state (legacy: do not allow saving)', () => {
+        cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
+
+        cy.getBySel('visualization-title').contains('COVAC enrollment')
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('visualization-title').contains('Edited')
+
+        cy.getBySel('menubar').contains('File').click()
+
+        validateItems({
+            [ITEM_NEW]: true,
+            [ITEM_OPEN]: true,
+            [ITEM_SAVEAS]: true,
+            [ITEM_RENAME]: true,
+            [ITEM_TRANSLATE]: true,
+            [ITEM_SHARING]: true,
+            [ITEM_GETLINK]: true,
+            [ITEM_DELETE]: true,
+        })
+    })
+
+    it('reflects dirty state (new: created in this app)', () => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        selectEventProgram({
+            programName: 'Adverse events following immunization',
+        })
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('menubar').contains('File').click()
+
+        cy.getBySel(ITEM_SAVE).click()
+
+        const name = 'Cypress test dirty state'
+
+        typeInput('file-menu-saveas-modal-name-content', name)
+
+        cy.getBySel('file-menu-saveas-modal-save').click()
+
+        cy.getBySel('visualization-title').contains(name)
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('visualization-title').contains('Edited')
+
+        cy.getBySel('menubar').contains('File').click()
+
+        validateItems({
+            [ITEM_NEW]: true,
+            [ITEM_OPEN]: true,
+            [ITEM_SAVE]: true,
+            [ITEM_SAVEAS]: true,
+            [ITEM_RENAME]: true,
+            [ITEM_TRANSLATE]: true,
+            [ITEM_SHARING]: true,
+            [ITEM_GETLINK]: true,
+            [ITEM_DELETE]: true,
+        })
     })
 })
 
