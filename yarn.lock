@@ -2334,10 +2334,10 @@
     update-notifier "^3.0.0"
     yargs "^13.1.0"
 
-"@dhis2/cli-style@^10.4.1":
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-style/-/cli-style-10.4.1.tgz#1186d79f4b4ef2802832a116562041ae50c596dc"
-  integrity sha512-4INZ2T67kZXkykUuNr9TqL0B88HYRYvtc2ctDV0IemK5bSNiwoQrgM6lqMIFHE5T48DEaFTQ3rvrd0nLjsW6Ng==
+"@dhis2/cli-style@^10.4.2":
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-style/-/cli-style-10.4.2.tgz#2e0af5e161fbce567912aaeed0599d74c3dac678"
+  integrity sha512-KVEZ+uJo7isoVZsSYjV3F2DVYuoy2ygdi5akZ5sZkvSgPnHqy9cBCERZTJuNYAPKC44IamLNb2aTPVeXXKfUPA==
   dependencies:
     "@commitlint/cli" "^12.1.4"
     "@commitlint/config-conventional" "^13.1.0"
