@@ -36,7 +36,7 @@ import {
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
-import { headersMap, statusNames } from '../../modules/visualization.js'
+import { getStatusNames, headersMap } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 
@@ -166,7 +166,7 @@ export const Visualization = ({
                 headersMap[DIMENSION_ID_PROGRAM_STATUS],
             ].includes(header?.name)
         ) {
-            return statusNames[value] || value
+            return getStatusNames()[value] || value
         } else if (
             [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)
         ) {
