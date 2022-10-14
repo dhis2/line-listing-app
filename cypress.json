@@ -5,7 +5,6 @@
     "experimentalInteractiveRunEvents": true,
     "video": false,
     "env": {
-        "dhis2DatatestPrefix": "dhis2-linelisting",
-        "dhis2ApiVersion": 39
+        "dhis2DatatestPrefix": "dhis2-linelisting"
     }
 }

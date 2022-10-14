@@ -15,7 +15,7 @@ import { getTableDataCells, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('options', () => {
-    it('sets comfortable display density', () => {
+    it(['>=39'], 'runs >=39', () => {
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         //assert the default density of table cell
@@ -35,7 +35,7 @@ describe('options', () => {
             .should('equal', '16px 12px')
     })
 
-    it('sets small font size', () => {
+    it('always runs', () => {
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         //assert the font size of table cell
@@ -53,7 +53,42 @@ describe('options', () => {
         getTableDataCells().invoke('css', 'font-size').should('equal', '10px')
     })
 
-    it('sets digit group separator', () => {
+    it(['<38'], 'never runs', () => {
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+
+        //assert the font size of table cell
+        getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
+    })
+
+    it(['>38'], 'runs on 39, 40 and DEV', () => {
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+
+        //assert the font size of table cell
+        getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
+    })
+
+    it(['<=39'], 'runs on <=39', () => {
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+
+        //assert the font size of table cell
+        getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
+    })
+
+    it(['>=38'], 'runs >=38', () => {
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+
+        //assert the font size of table cell
+        getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
+    })
+
+    it(['>=38', '<39'], 'runs only on 38', () => {
+        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+
+        //assert the font size of table cell
+        getTableDataCells().invoke('css', 'font-size').should('equal', '12px')
+    })
+
+    it(['dev'], 'runs on dev', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         //set up table

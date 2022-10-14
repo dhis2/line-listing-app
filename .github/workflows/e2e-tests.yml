@@ -111,9 +111,9 @@ jobs:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
-                  CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
                   CYPRESS_networkMode: live
 
     call-e2e-tests-result:
