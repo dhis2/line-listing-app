@@ -8,6 +8,7 @@ import {
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_TEXT,
     VALUE_TYPE_URL,
+    VALUE_TYPE_AGE,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -179,6 +180,8 @@ export const Visualization = ({
                         : 'yyyy-MM-DD'
                 )
             )
+        } else if (header?.valueType === VALUE_TYPE_AGE) {
+            return value && moment(value).format('yyyy-MM-DD')
         } else if (header?.valueType === VALUE_TYPE_URL) {
             return (
                 <a href={value} target="_blank" rel="noreferrer">
