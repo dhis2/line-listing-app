@@ -1,3 +1,10 @@
+# [100.3.0](https://github.com/dhis2/line-listing-app/compare/v100.2.0...v100.3.0) (2022-10-14)
+
+
+### Features
+
+* add "Scheduled" event status (DHIS2-13881) ([#219](https://github.com/dhis2/line-listing-app/issues/219)) ([773fe9f](https://github.com/dhis2/line-listing-app/commit/773fe9f1837b4b969811e9e436de6cfc8abb1a2e)), closes [#184](https://github.com/dhis2/line-listing-app/issues/184) [#178](https://github.com/dhis2/line-listing-app/issues/178)
+
 # [100.2.0](https://github.com/dhis2/line-listing-app/compare/v100.1.0...v100.2.0) (2022-09-13)
 
 
