@@ -4,11 +4,11 @@ const optionsQuery = {
         const filters = [`optionSet.id:eq:${optionSetId}`]
 
         if (searchTerm) {
-            filters.push(`name:ilike:${searchTerm}`)
+            filters.push(`displayName:ilike:${searchTerm}`)
         }
 
         return {
-            fields: 'code,name,id',
+            fields: 'code,displayName~rename(name),id',
             filter: filters,
             paging: true,
             page,

@@ -112,7 +112,8 @@ const NumericCondition = ({
         }
     }, [legendSetId])
 
-    const setValue = (input) => onChange(`${operator}:${input || ''}`)
+    const setValue = (input) =>
+        onChange(`${operator}:${input || input === 0 ? input : ''}`)
 
     return (
         <div className={classes.container}>

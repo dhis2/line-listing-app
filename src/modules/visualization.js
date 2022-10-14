@@ -29,6 +29,7 @@ import { default as options } from './options.js'
 export const STATUS_ACTIVE = 'ACTIVE'
 export const STATUS_CANCELLED = 'CANCELLED'
 export const STATUS_COMPLETED = 'COMPLETED'
+export const STATUS_SCHEDULED = 'SCHEDULE'
 
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
@@ -37,6 +38,7 @@ export const statusNames = {
     [STATUS_ACTIVE]: i18n.t('Active'),
     [STATUS_CANCELLED]: i18n.t('Cancelled'),
     [STATUS_COMPLETED]: i18n.t('Completed'),
+    [STATUS_SCHEDULED]: i18n.t('Scheduled'),
 }
 
 export const headersMap = {
@@ -164,6 +166,8 @@ export const getVisualizationFromCurrent = (current) => {
     visualization.filters = removeDimensionPropsBeforeSaving(
         visualization.filters
     )
+
+    !visualization.programStage?.id && delete visualization.programStage
 
     // When saving a copy of an AO created with the Event Reports app, remove the legacy flag.
     // This copy won't work in Event Reports app anyway.

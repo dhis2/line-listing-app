@@ -118,9 +118,11 @@ export const Visualization = ({
         }
     }, [data, visualization])
 
-    if (error && onError) {
-        onError(error)
-    }
+    useEffect(() => {
+        if (error && onError) {
+            onError(error)
+        }
+    }, [error, onError])
 
     if (!data || error) {
         return null
@@ -153,6 +155,9 @@ export const Visualization = ({
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
+
+    const reverseLookupDimensionId = (dimensionId) =>
+        Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
 
     const formatCellValue = (value, header) => {
         if (
@@ -220,7 +225,11 @@ export const Visualization = ({
                 className={cx(styles.headerCell, styles.dimensionModalHandler)}
                 onClick={
                     onColumnHeaderClick
-                        ? () => onColumnHeaderClick(dimensionId)
+                        ? () =>
+                              onColumnHeaderClick(
+                                  reverseLookupDimensionId(dimensionId) ||
+                                      dimensionId
+                              )
                         : undefined
                 }
             >

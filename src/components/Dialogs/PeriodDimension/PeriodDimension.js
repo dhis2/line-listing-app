@@ -16,7 +16,6 @@ import { SegmentedControl } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
-import { tSetCurrentFromUi } from '../../../actions/current.js'
 import { acSetUiItems } from '../../../actions/ui.js'
 import {
     SYSTEM_SETTINGS_HIDE_DAILY_PERIODS,
@@ -153,11 +152,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
         )
     }
 
-    const primaryOnClick = () => {
-        dispatch(tSetCurrentFromUi())
-        onClose()
-    }
-
     const onSegmentedControlChange = ({ value }) => {
         setEntryMethod(value)
         updatePeriodDimensionItems([])
@@ -168,7 +162,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             dataTest={'period-dimension-modal'}
             isInLayout={isInLayout}
             onClose={onClose}
-            onUpdate={primaryOnClick}
             title={dimension.name}
         >
             <SegmentedControl

@@ -14,8 +14,8 @@ import {
     OPERATOR_NOT_EMPTY,
     OPERATOR_EMPTY,
     ALPHA_NUMERIC_OPERATORS,
-    prefixOperator,
-    unprefixOperator,
+    addCaseSensitivePrefix,
+    removeCaseSensitivePrefix,
     checkIsCaseSensitive,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
@@ -40,7 +40,7 @@ const BaseCondition = ({
     } else {
         const parts = condition.split(':')
         isCaseSensitive = checkIsCaseSensitive(parts[0])
-        operator = unprefixOperator(parts[0])
+        operator = removeCaseSensitivePrefix(parts[0])
         value = parts[1]
     }
 
@@ -48,16 +48,24 @@ const BaseCondition = ({
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
         } else {
-            onChange(`${prefixOperator(input, isCaseSensitive)}:${value || ''}`)
+            onChange(
+                `${addCaseSensitivePrefix(input, isCaseSensitive)}:${
+                    value || ''
+                }`
+            )
         }
     }
 
     const setValue = (input) => {
-        onChange(`${prefixOperator(operator, isCaseSensitive)}:${input || ''}`)
+        onChange(
+            `${addCaseSensitivePrefix(operator, isCaseSensitive)}:${
+                input || ''
+            }`
+        )
     }
 
     const toggleCaseSensitive = (cs) => {
-        onChange(`${prefixOperator(operator, cs)}:${value || ''}`)
+        onChange(`${addCaseSensitivePrefix(operator, cs)}:${value || ''}`)
     }
 
     return (

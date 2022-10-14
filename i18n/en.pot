@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
-"PO-Revision-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-10-07T12:47:41.100Z\n"
+"PO-Revision-Date: 2022-10-07T12:47:41.100Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -286,6 +286,12 @@ msgstr "Stage"
 
 msgid "All"
 msgstr "All"
+
+msgid "Clear stage first to choose another"
+msgstr "Clear stage first to choose another"
+
+msgid "This program only has one stage"
+msgstr "This program only has one stage"
 
 msgid "Time dimensions"
 msgstr "Time dimensions"
@@ -570,6 +576,12 @@ msgstr "No program selected"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Choose a program from the Program Dimensions sidebar."
 
+msgid "No stage selected"
+msgstr "No stage selected"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Choose a stage from the Program Dimensions sidebar."
+
 msgid "Columns is empty"
 msgstr "Columns is empty"
 
@@ -579,14 +591,18 @@ msgstr "Add at least one item to Columns."
 msgid "No organisation unit selected"
 msgstr "No organisation unit selected"
 
-msgid "Add at least one organisation unit to the layout."
-msgstr "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one "
+"selection to the layout."
+msgstr ""
+"Make sure to add the organisation unit dimension with at least one "
+"selection to the layout."
 
 msgid "No time dimension selected"
 msgstr "No time dimension selected"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "Add at least one time dimension to the layout."
+msgid "Make sure to add a time dimension with at least one selection to the layout."
+msgstr "Make sure to add a time dimension with at least one selection to the layout."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "There's a problem with at least one selected indicator"
@@ -686,6 +702,9 @@ msgstr "Cancelled"
 
 msgid "Completed"
 msgstr "Completed"
+
+msgid "Scheduled"
+msgstr "Scheduled"
 
 msgid "List data from tracked entities and events."
 msgstr "List data from tracked entities and events."

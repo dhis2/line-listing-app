@@ -143,12 +143,15 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withStage(visualization.programStage.id)
         .withDisplayProperty(nameProp)
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
         .withIncludeMetadataDetails()
+
+    if (visualization.outputType !== OUTPUT_TYPE_ENROLLMENT) {
+        req = req.withStage(visualization.programStage?.id)
+    }
 
     if (relativePeriodDate) {
         req = req.withRelativePeriodDate(relativePeriodDate)

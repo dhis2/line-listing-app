@@ -37,7 +37,7 @@ export const selectEnrollmentProgram = ({ programName, stageName }) =>
     })
 
 export const openDimension = (dimensionName) => {
-    cy.getBySel('program-dimension-list').contains(dimensionName).click()
+    cy.getBySel('program-dimensions-list').contains(dimensionName).click()
 }
 
 const selectProgramDimensions = ({
@@ -81,3 +81,20 @@ export const selectEnrollmentProgramDimensions = ({
         stageName,
         dimensions,
     })
+
+const disabledOpacity = { prop: 'opacity', value: '0.5' }
+const disabledCursor = { prop: 'cursor', value: 'not-allowed' }
+
+export const dimensionIsEnabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('not.have.css', disabledOpacity.prop, disabledOpacity.value)
+        .and('not.have.css', disabledCursor.prop, disabledCursor.value)
+
+export const dimensionIsDisabled = (id) =>
+    cy
+        .getBySel(id)
+        .should('be.visible')
+        .and('have.css', disabledOpacity.prop, disabledOpacity.value)
+        .and('have.css', disabledCursor.prop, disabledCursor.value)
