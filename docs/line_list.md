@@ -113,7 +113,7 @@ The organisation unit dialog is flexible, offering essentially three ways of sel
 
 #### Event Status
 
-Filters data based on the event status:  **Active**, **Completed**.
+Filters data based on the event status:  **Active**, **Completed**, **Scheduled**.
 
 You can visualize the data for a particular event status
 
