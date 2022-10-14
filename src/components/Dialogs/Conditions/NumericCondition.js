@@ -17,7 +17,10 @@ import {
     apiFetchLegendSetById,
     apiFetchLegendSetsByDimension,
 } from '../../../api/legendSets.js'
-import { NUMERIC_OPERATORS, OPERATOR_IN } from '../../../modules/conditions.js'
+import {
+    getNumericOperators,
+    OPERATOR_IN,
+} from '../../../modules/conditions.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import classes from './styles/Condition.module.css'
 
@@ -124,7 +127,7 @@ const NumericCondition = ({
                 onChange={({ selected }) => onOperatorChange(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.entries(NUMERIC_OPERATORS).map(([key, value]) => (
+                {Object.entries(getNumericOperators()).map(([key, value]) => (
                     <SingleSelectOption
                         key={key}
                         value={key}
