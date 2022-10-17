@@ -73,7 +73,7 @@ describe('getFormattedCellValue', () => {
     })
 
     describe('getFormattedCellValue other types', () => {
-        test('number', () => {
+        test('number with comma', () => {
             const header = {
                 valueType: VALUE_TYPE_NUMBER,
             }
@@ -116,7 +116,7 @@ describe('getFormattedCellValue', () => {
             ).toEqual('3700.5')
         })
 
-        test('integer', () => {
+        test('integer with space', () => {
             const header = {
                 valueType: VALUE_TYPE_INTEGER,
             }
@@ -129,6 +129,21 @@ describe('getFormattedCellValue', () => {
                     visualization: { digitGroupSeparator: 'SPACE' },
                 })
             ).toEqual('3 700 000')
+        })
+
+        test('integer with comma', () => {
+            const header = {
+                valueType: VALUE_TYPE_INTEGER,
+            }
+            const value = 3700000
+
+            expect(
+                getFormattedCellValue({
+                    header,
+                    value,
+                    visualization: { digitGroupSeparator: 'COMMA' },
+                })
+            ).toEqual('3,700,000')
         })
     })
 
