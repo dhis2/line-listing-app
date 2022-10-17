@@ -18,7 +18,7 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { BOOLEAN_VALUES, NULL_VALUE } from '../../modules/conditions.js'
+import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
@@ -51,7 +51,7 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return BOOLEAN_VALUES[rowValue || NULL_VALUE]
+            return getBooleanValues()[rowValue || NULL_VALUE]
         default:
             return header.optionSet
                 ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue

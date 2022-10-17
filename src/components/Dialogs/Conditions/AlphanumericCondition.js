@@ -13,10 +13,10 @@ import {
     CASE_INSENSITIVE_PREFIX,
     OPERATOR_NOT_EMPTY,
     OPERATOR_EMPTY,
-    ALPHA_NUMERIC_OPERATORS,
     addCaseSensitivePrefix,
     removeCaseSensitivePrefix,
     checkIsCaseSensitive,
+    getAlphaNumericOperators,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
@@ -77,14 +77,16 @@ const BaseCondition = ({
                 onChange={({ selected }) => setOperator(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.entries(ALPHA_NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption
-                        key={key}
-                        value={key}
-                        label={value}
-                        dataTest={'alphanumeric-condition-type'}
-                    />
-                ))}
+                {Object.entries(getAlphaNumericOperators()).map(
+                    ([key, value]) => (
+                        <SingleSelectOption
+                            key={key}
+                            value={key}
+                            label={value}
+                            dataTest={'alphanumeric-condition-type'}
+                        />
+                    )
+                )}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
                 <Input
