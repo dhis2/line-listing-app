@@ -1,18 +1,24 @@
 const getInstanceMinorVersion = (dhis2InstanceVersion) => {
     // const regex = /^2\./ //remove "2." from the version
+
+    let v = ''
     console.log(
         '*********************dhis2.InstanceVersion',
-        dhis2InstanceVersion,
-        typeof dhis2InstanceVersion,
-        dhis2InstanceVersion.indexOf,
-        dhis2InstanceVersion.replace,
-        dhis2InstanceVersion.replaceAll
+        v,
+        typeof v,
+        v.indexOf,
+        v.replace,
+        v.replaceAll
     )
-    // if (dhis2InstanceVersion.indexOf('2.') === 0) {
-    return parseInt(dhis2InstanceVersion.slice(2, 4))
-    // } else {
-    // return parseInt(dhis2InstanceVersion.slice(0, 2))
-    // }
+
+    if (typeof dhis2InstanceVersion === Number) {
+        v = dhis2InstanceVersion.toString()
+    }
+    if (dhis2InstanceVersion.indexOf('2.') === 0) {
+        return parseInt(v.slice(2, 4))
+    } else {
+        return parseInt(v.slice(0, 2))
+    }
 }
 
 const getExcludedTags = (dhis2InstanceVersion, minVersion) => {
