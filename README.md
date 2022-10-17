@@ -52,22 +52,45 @@ In order to run the cypress tests locally make sure you have configured your git
     "dhis2BaseUrl": "https://test.e2e.dhis2.org/analytics-dev/",
     "dhis2Username": ...,
     "dhis2Password": ...
+    "dhis2InstanceVersion": "dev"
+}
+```
+
+The `dhis2InstanceVersion` must match the version that is running at the dhis2BaseUrl. You can use 'dev' if that is correct, or else get the rruning instance version from this endpoint: `/api/system/info?fields=version` (which might return something like this: `2.40-SNAPSHOT`)
+
+Here is an alternative configuration for running against 2.38:
+
+```
+{
+    "dhis2BaseUrl": "https://test.e2e.dhis2.org/2.38lytics/",
+    "dhis2Username": ...,
+    "dhis2Password": ...
+    "dhis2InstanceVersion": "2.38"
 }
 ```
 
 Your desired username and password should be in double quotes.
 
-#### `yarn cypress:live`
+#### `yarn cy:open`
 
 Runs the tests locally in interactive mode.
 
-#### `yarn cypress:capture`
+#### `yarn cy:run`
 
-Generates new fixtures, which will be used on CI. Make sure to commit the changes to the fixture files.
+Run the tests without interactive mode
 
-#### `yarn cypress:stub`
+#### Configure Cypress tests to run only on certain versions
 
-Runs the tests locally against the fixture files.
+You can configure tests to run only on certain DHIS2 instance versions. Tags must be formatted with < <= > >=. Here are some examples, if the minimum supported version is 38:
+
+```
+it(['<39'], 'runs on 38 only', () => {test implementation})
+it(['<=39'], 'runs on 38 and 39', () => {test implementation})
+it(['>39'], 'runs on 40 and dev', () => {test implementation})
+it(['>=38'], 'runs on 39, 40 and dev', () => {test implementation})
+```
+
+Tests without tags will run on all instance versions.
 
 ## Learn More
 

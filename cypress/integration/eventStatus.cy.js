@@ -1,4 +1,7 @@
-import { DIMENSION_ID_SCHEDULED_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
+} from '../../src/modules/dimensionConstants.js'
 import { ANALYTICS_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import {
@@ -15,7 +18,7 @@ import {
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
-    it('can be filtered', () => {
+    it(['>=39'], 'can be filtered', () => {
         const event = ANALYTICS_PROGRAM
         const dimensionName = 'Event status'
 
@@ -102,5 +105,62 @@ describe('event status', () => {
         assertChipContainsText(`${dimensionName}: 2 selected`)
 
         assertTooltipContainsEntries(['Scheduled'])
+    })
+
+    it(['<39'], 'can be filtered', () => {
+        const event = ANALYTICS_PROGRAM
+        const dimensionName = 'Event status'
+
+        cy.visit('/', EXTENDED_TIMEOUT)
+
+        selectEventProgram(event)
+
+        selectRelativePeriod({
+            label: event[DIMENSION_ID_LAST_UPDATED],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        cy.getBySel('main-sidebar')
+            .contains(dimensionName)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
+
+        cy.contains('Add to Columns').click()
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        // TODO determine expected once 2.38analytics_dev is available
+        // expectTableToMatchRows(['Active', 'Completed', 'Completed'])
+
+        getTableHeaderCells().contains(dimensionName).should('be.visible')
+
+        cy.getBySel('columns-axis')
+            .findBySelLike('layout-chip')
+            .contains(`${dimensionName}: all`)
+            .should('be.visible')
+
+        // Add filter 'Active'
+
+        cy.getBySel('columns-axis').contains(dimensionName).click()
+
+        cy.getBySel('event-status-checkbox')
+            .contains('Active')
+            .click()
+            .find('[type="checkbox"]')
+            .should('be.checked')
+
+        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+
+        expectTableToBeVisible()
+
+        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
+
+        assertChipContainsText(`${dimensionName}: 1 selected`)
+
+        assertTooltipContainsEntries(['Active'])
     })
 })
