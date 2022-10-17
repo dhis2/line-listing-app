@@ -69,7 +69,6 @@ describe('layout validation', () => {
     it('validation succeeds when all above are provided', () => {
         // select a stage
         selectEventProgram({
-            programName: HIV_PROGRAM.programName,
             stageName: HIV_PROGRAM.stageName,
         })
 
