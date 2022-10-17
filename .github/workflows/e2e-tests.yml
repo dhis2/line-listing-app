@@ -91,7 +91,7 @@ jobs:
                   wait-on-timeout: 300
               env:
                   CI: true
-                  CYPRESS_RECORD_KEY: '6b0bce0d-a4e8-417b-bbee-9157cbe9a999'
+                  CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
                   CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
