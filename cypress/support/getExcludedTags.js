@@ -6,6 +6,13 @@ const getInstanceMinorVersion = (dhis2InstanceVersion) => {
             ? dhis2InstanceVersion.toString()
             : dhis2InstanceVersion
 
+    console.log(
+        'dhis2InstanceVersion',
+        dhis2InstanceVersion,
+        typeof dhis2InstanceVersion
+    )
+    console.log('************** typeof v', v, typeof v, v.indexOf)
+
     if (v.indexOf('2.') === 0) {
         return parseInt(v.slice(2, 4))
     } else {
