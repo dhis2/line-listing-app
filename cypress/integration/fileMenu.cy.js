@@ -14,8 +14,8 @@ const ITEM_GETLINK = 'file-menu-getlink'
 const ITEM_DELETE = 'file-menu-delete'
 
 const defaultItemsMap = {
-    [ITEM_NEW]: false,
-    [ITEM_OPEN]: false,
+    [ITEM_NEW]: true,
+    [ITEM_OPEN]: true,
     [ITEM_SAVE]: false,
     [ITEM_SAVEAS]: false,
     [ITEM_RENAME]: false,
@@ -25,8 +25,10 @@ const defaultItemsMap = {
     [ITEM_DELETE]: false,
 }
 
-const assertItems = (enabledItemsMap) => {
+const assertItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
+
+    cy.getBySel('menubar').contains('File').click()
 
     Object.keys(itemsMap).forEach((itemName) => {
         itemsMap[itemName]
@@ -39,12 +41,7 @@ describe('file menu', () => {
     it('reflects empty state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.getBySel('menubar').contains('File').click()
-
-        assertItems({
-            [ITEM_NEW]: true,
-            [ITEM_OPEN]: true,
-        })
+        assertItems()
     })
 
     it('reflects unsaved state', () => {
@@ -56,11 +53,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        cy.getBySel('menubar').contains('File').click()
-
         assertItems({
-            [ITEM_NEW]: true,
-            [ITEM_OPEN]: true,
             [ITEM_SAVE]: true,
         })
     })
@@ -70,11 +63,7 @@ describe('file menu', () => {
 
         cy.getBySel('visualization-title').contains('COVAC enrollment')
 
-        cy.getBySel('menubar').contains('File').click()
-
         assertItems({
-            [ITEM_NEW]: true,
-            [ITEM_OPEN]: true,
             [ITEM_SAVEAS]: true,
             [ITEM_RENAME]: true,
             [ITEM_TRANSLATE]: true,
@@ -93,11 +82,7 @@ describe('file menu', () => {
 
         cy.getBySel('visualization-title').contains('Edited')
 
-        cy.getBySel('menubar').contains('File').click()
-
         assertItems({
-            [ITEM_NEW]: true,
-            [ITEM_OPEN]: true,
             [ITEM_SAVEAS]: true,
             [ITEM_RENAME]: true,
             [ITEM_TRANSLATE]: true,
@@ -132,8 +117,6 @@ describe('file menu', () => {
 
         cy.getBySel('visualization-title').contains('Edited')
 
-        cy.getBySel('menubar').contains('File').click()
-
         assertItems({
             [ITEM_NEW]: true,
             [ITEM_OPEN]: true,
@@ -146,8 +129,12 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        // cleanup
         cy.getBySel(ITEM_DELETE).click()
+
         cy.getBySel('file-menu-delete-modal-delete').click()
+
+        cy.getBySel('visualization-title').should('not.exist')
+
+        assertItems()
     })
 })
