@@ -103,9 +103,3 @@ jobs:
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
                   CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
                   CYPRESS_networkMode: live
-
-    call-e2e-tests-result:
-        needs: cypress
-        uses: ./.github/workflows/e2e-tests-result.yml
-        with:
-            result: true
