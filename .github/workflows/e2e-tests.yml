@@ -46,6 +46,8 @@ jobs:
               run: |
                   for (( cnt = 1; cnt <= $CYPRESS_CONTAINERS; cnt++)); do containers+=$cnt,; done
                   echo "::set-output name=containers::[ ${containers%,} ]"
+
+            - name: checkout
               uses: actions/checkout@v2
 
             - name: compute-instance-url
