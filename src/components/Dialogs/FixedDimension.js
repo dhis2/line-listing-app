@@ -4,6 +4,7 @@ import {
     DIMENSION_ID_ORGUNIT,
     useCachedDataQuery,
 } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -20,7 +21,8 @@ import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
     STATUS_COMPLETED,
-    statusNames,
+    STATUS_SCHEDULED,
+    getStatusNames,
 } from '../../modules/visualization.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
 import {
@@ -45,6 +47,8 @@ const FixedDimension = ({
     setUiItems,
 }) => {
     const { rootOrgUnits } = useCachedDataQuery()
+    const { serverVersion } = useConfig()
+    const statusNames = getStatusNames()
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
             dimensionId,
@@ -126,6 +130,7 @@ const FixedDimension = ({
                             }
                             dense
                             className={classes.verticalCheckbox}
+                            dataTest={'program-status-checkbox'}
                         />
                     ))}
                 </div>
@@ -138,6 +143,17 @@ const FixedDimension = ({
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
         ]
+
+        if (
+            `${serverVersion.major}.${serverVersion.minor}.${
+                serverVersion.patch || 0
+            }` >= '2.39.0'
+        ) {
+            ALL_STATUSES.push({
+                id: STATUS_SCHEDULED,
+                name: statusNames[STATUS_SCHEDULED],
+            })
+        }
 
         return (
             <>
@@ -158,6 +174,7 @@ const FixedDimension = ({
                             }
                             dense
                             className={classes.verticalCheckbox}
+                            dataTest={'event-status-checkbox'}
                         />
                     ))}
                 </div>

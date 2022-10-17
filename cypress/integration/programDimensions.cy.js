@@ -5,10 +5,12 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, ANALYTICS_PROGRAM } from '../data/index.js'
+import { HIV_PROGRAM, ANALYTICS_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
+    openDimension,
+    selectEventProgram,
 } from '../helpers/dimensions.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -193,7 +195,7 @@ describe('program dimensions', () => {
             cy.contains(event.programName).click()
 
             cy.getBySel('accessory-sidebar').contains(
-                'Choose a program and stage above to add program dimensions.'
+                'Choose a stage above to add program dimensions.'
             )
 
             cy.getBySel('program-select').find('.disabled').should('be.visible')
@@ -211,6 +213,35 @@ describe('program dimensions', () => {
                 ...eventDateWithoutStage,
             })
 
+            // add main and time dimensions
+
+            const expectedSelectedDimensions = [
+                'Event date',
+                event[DIMENSION_ID_LAST_UPDATED],
+                'Event status',
+                'Created by',
+                'Last updated by',
+            ]
+
+            const expectedUnselectedDimensions = [
+                event[DIMENSION_ID_ENROLLMENT_DATE],
+                event[DIMENSION_ID_SCHEDULED_DATE],
+                'Program status',
+            ]
+
+            expectedSelectedDimensions
+                .concat(expectedUnselectedDimensions)
+                .forEach((dimension) => {
+                    cy.getBySel('main-sidebar')
+                        .contains(dimension)
+                        .closest(`[data-test*="dimension-item"]`)
+                        .findBySel('dimension-menu-button')
+                        .invoke('attr', 'style', 'visibility: initial')
+                        .click()
+
+                    cy.contains('Add to Columns').click()
+                })
+
             // clear program
 
             cy.getBySel('program-clear-button').click()
@@ -226,6 +257,22 @@ describe('program dimensions', () => {
             cy.getBySel('program-clear-button').should('not.exist')
 
             assertDimensionsForEventWithoutProgramSelected()
+
+            // assert dimensions in layout after program is cleared
+
+            expectedSelectedDimensions.forEach((dimension) => {
+                cy.getBySel('columns-axis')
+                    .findBySelLike('layout-chip')
+                    .contains(dimension)
+                    .should('be.visible')
+            })
+
+            expectedUnselectedDimensions.forEach((dimension) => {
+                cy.getBySel('columns-axis')
+                    .findBySelLike('layout-chip')
+                    .contains(dimension)
+                    .should('not.exist')
+            })
         })
 
         it('stage can be selected and cleared', () => {
@@ -233,6 +280,8 @@ describe('program dimensions', () => {
             const eventDateWithoutStage = {
                 [DIMENSION_ID_EVENT_DATE]: 'Event date',
             }
+            const TEST_DATA_ELEMENT = 'HIV Age at Diagnosis'
+            const TEST_PROGRAM_ATTRIBUTE = 'Country of birth'
 
             // select program
 
@@ -271,12 +320,24 @@ describe('program dimensions', () => {
 
             assertDimensionsForEventWithProgramSelected(event)
 
+            // add a data element
+
+            openDimension(TEST_DATA_ELEMENT)
+
+            cy.contains('Add to Columns').click()
+
+            // add a program attribute
+
+            openDimension(TEST_PROGRAM_ATTRIBUTE)
+
+            cy.contains('Add to Columns').click()
+
             // clear stage
 
             cy.getBySel('stage-clear-button').click()
 
             cy.getBySel('accessory-sidebar').contains(
-                'Choose a program and stage above to add program dimensions.'
+                'Choose a stage above to add program dimensions.'
             )
 
             cy.getBySel('accessory-sidebar').contains('Stage')
@@ -289,6 +350,18 @@ describe('program dimensions', () => {
                 ...event,
                 ...eventDateWithoutStage,
             })
+
+            // assert that the DE was removed but the PA remained
+
+            cy.getBySel('columns-axis')
+                .findBySelLike('layout-chip')
+                .contains(TEST_DATA_ELEMENT)
+                .should('not.exist')
+
+            cy.getBySel('columns-axis')
+                .findBySelLike('layout-chip')
+                .contains(TEST_PROGRAM_ATTRIBUTE)
+                .should('be.visible')
         })
         it("stage can't be cleared for event with a single stage", () => {
             const event = ANALYTICS_PROGRAM
@@ -370,6 +443,101 @@ describe('program dimensions', () => {
             cy.getBySel('program-select').find('.disabled').should('not.exist')
 
             cy.getBySel('program-clear-button').should('not.exist')
+
+            assertDimensionsForEnrollmentWithoutProgramSelected()
+        })
+    })
+
+    describe('switching input type', () => {
+        it.only('layout is cleared when input type is changed', () => {
+            const event = ANALYTICS_PROGRAM
+            const mainAndTimeDimensions = [
+                { label: 'Organisation unit', expected: true },
+                { label: 'Event status', expected: false },
+                { label: 'Program status', expected: true },
+                { label: 'Created by', expected: true },
+                { label: 'Last updated by', expected: true },
+                {
+                    label: event[DIMENSION_ID_EVENT_DATE],
+                    labelWithoutProgram: 'Event date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_ENROLLMENT_DATE],
+                    labelWithoutProgram: 'Enrollment date',
+                    expected: true,
+                },
+                {
+                    label: event[DIMENSION_ID_SCHEDULED_DATE],
+                    labelWithoutProgram: 'Scheduled date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_INCIDENT_DATE],
+                    labelWithoutProgram: 'Incident date',
+                    expected: false,
+                },
+                {
+                    label: event[DIMENSION_ID_LAST_UPDATED],
+                    labelWithoutProgram: 'Last updated on',
+                    expected: true,
+                },
+            ]
+
+            // remove org unit
+            cy.getBySel('layout-chip-ou')
+                .findBySel('dimension-menu-button')
+                .click()
+            cy.containsExact('Remove').click()
+
+            selectEventProgram(ANALYTICS_PROGRAM)
+
+            //assertDimensionsForEventWithProgramSelected(event)
+
+            // add a data element
+
+            openDimension(TEST_DIM_TEXT)
+
+            cy.contains('Add to Columns').click()
+
+            // add main and time dimensions
+
+            mainAndTimeDimensions.forEach(({ label }) => {
+                cy.getBySel('main-sidebar')
+                    .contains(label)
+                    .closest(`[data-test*="dimension-item"]`)
+                    .findBySel('dimension-menu-button')
+                    .invoke('attr', 'style', 'visibility: initial')
+                    .click()
+
+                cy.contains('Add to Columns').click()
+            })
+
+            // change input type
+
+            cy.getBySel('main-sidebar').contains('Input: Event').click()
+
+            cy.getBySel('input-enrollment').click()
+
+            // assert dimensions in layout after program is cleared
+
+            mainAndTimeDimensions.forEach(
+                ({ label, expected, labelWithoutProgram }) => {
+                    if (expected) {
+                        cy.getBySel('columns-axis')
+                            .findBySelLike('layout-chip')
+                            .contains(labelWithoutProgram || label)
+                            .should('be.visible')
+                    } else {
+                        cy.getBySel('columns-axis')
+                            .findBySelLike('layout-chip')
+                            .contains(labelWithoutProgram || label)
+                            .should('not.exist')
+                    }
+                }
+            )
+
+            // assert that dimensions are enabled/disabled correctly
 
             assertDimensionsForEnrollmentWithoutProgramSelected()
         })
