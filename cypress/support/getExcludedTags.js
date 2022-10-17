@@ -1,17 +1,8 @@
 const getInstanceMinorVersion = (dhis2InstanceVersion) => {
-    // const regex = /^2\./ //remove "2." from the version
-
     const v =
         typeof dhis2InstanceVersion === 'number'
             ? dhis2InstanceVersion.toString()
             : dhis2InstanceVersion
-
-    console.log(
-        'dhis2InstanceVersion',
-        dhis2InstanceVersion,
-        typeof dhis2InstanceVersion
-    )
-    console.log('************** typeof v', v, typeof v, v.indexOf)
 
     if (v.indexOf('2.') === 0) {
         return parseInt(v.slice(2, 4))
