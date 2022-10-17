@@ -11,7 +11,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
-import { headersMap, statusNames } from './visualization.js'
+import { headersMap, getStatusNames } from './visualization.js'
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     if (
@@ -20,7 +20,7 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
             headersMap[DIMENSION_ID_PROGRAM_STATUS],
         ].includes(header.name)
     ) {
-        return statusNames[value] || value
+        return getStatusNames()[value] || value
     }
 
     if ([VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header.valueType)) {
