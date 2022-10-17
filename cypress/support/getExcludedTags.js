@@ -3,6 +3,7 @@ const getInstanceMinorVersion = (dhis2InstanceVersion) => {
     console.log(
         '*********************dhis2.InstanceVersion',
         dhis2InstanceVersion,
+        typeof dhis2InstanceVersion,
         dhis2InstanceVersion.indexOf,
         dhis2InstanceVersion.replace,
         dhis2InstanceVersion.replaceAll
