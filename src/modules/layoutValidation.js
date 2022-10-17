@@ -24,14 +24,14 @@ const isAxisValid = (axis) =>
         })
     )
 
-export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
+export const validateLineListLayout = (layout, { dryRun } = {}) => {
     if (!layout) {
         return false
     }
 
     // program
     if (!layoutHasProgramId(layout)) {
-        if (doNotThrow) {
+        if (dryRun) {
             return false
         }
         throw noProgramError()
@@ -39,7 +39,7 @@ export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
 
     // stage
     if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
-        if (doNotThrow) {
+        if (dryRun) {
             return false
         }
         throw noStageError()
@@ -47,7 +47,7 @@ export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
 
     // columns
     if (!isAxisValid(layout.columns)) {
-        if (doNotThrow) {
+        if (dryRun) {
             return false
         }
         throw noColumnsError()
@@ -58,7 +58,7 @@ export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
     if (
         !(ouDimension && dimensionIsValid(ouDimension, { requireItems: true }))
     ) {
-        if (doNotThrow) {
+        if (dryRun) {
             return false
         }
         throw noOrgUnitError()
@@ -76,7 +76,7 @@ export const validateLineListLayout = (layout, { doNotThrow } = {}) => {
     })
 
     if (!layoutHasTimeDimension) {
-        if (doNotThrow) {
+        if (dryRun) {
             return false
         }
         throw noPeriodError()
