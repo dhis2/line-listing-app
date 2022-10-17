@@ -2,7 +2,7 @@ const getInstanceMinorVersion = (dhis2InstanceVersion) => {
     // const regex = /^2\./ //remove "2." from the version
 
     const v =
-        typeof dhis2InstanceVersion === Number
+        typeof dhis2InstanceVersion === 'number'
             ? dhis2InstanceVersion.toString()
             : dhis2InstanceVersion
 
