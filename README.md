@@ -56,9 +56,9 @@ In order to run the cypress tests locally make sure you have configured your git
 }
 ```
 
-The `dhis2InstanceVersion` must match the version that is running at the dhis2BaseUrl. You can use 'dev' if that is correct, or else get the rruning instance version from this endpoint: `/api/system/info?fields=version` (which might return something like this: `2.40-SNAPSHOT`)
+Make sure that the `dhis2InstanceVersion` matches the version that is running at the dhis2BaseUrl. You can use 'dev' if the instance is dev, or else get the running instance version from this endpoint: `/api/system/info?fields=version` (which might return something like this: `2.40-SNAPSHOT`)
 
-Here is an alternative configuration for running against 2.38:
+Here is an example configuration for running tests against 2.38:
 
 ```
 {
@@ -81,16 +81,16 @@ Run the tests without interactive mode
 
 #### Configure Cypress tests to run only on certain versions
 
-You can configure tests to run only on certain DHIS2 instance versions. Tags must be formatted with < <= > >=. Here are some examples, if the minimum supported version is 38:
+Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.39, then a test for that feature should only run on instances >=2.39, and should not run on instances <=2.39. To configure a test to only run on certain versions, add a tag array as the first argument to the test `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >=. Here are some tag examples, given a minimum supported version of 2.38:
 
 ```
 it(['<39'], 'runs on 38 only', () => {test implementation})
 it(['<=39'], 'runs on 38 and 39', () => {test implementation})
 it(['>39'], 'runs on 40 and dev', () => {test implementation})
-it(['>=38'], 'runs on 39, 40 and dev', () => {test implementation})
+it(['>=39'], 'runs on 39, 40 and dev', () => {test implementation})
 ```
 
-Tests without tags will run on all instance versions.
+Tests without tags will run on all supported versions plus dev.
 
 ## Learn More
 
