@@ -157,7 +157,7 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
+        expectTableToMatchRows([`${getCurrentYearStr()}-05-03`])
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
