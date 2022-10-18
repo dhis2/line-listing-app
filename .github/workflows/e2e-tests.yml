@@ -43,6 +43,7 @@ jobs:
         outputs:
             versions: ${{ steps.legacy-versions.outputs.versions }}
         steps:
+            - uses: actions/checkout@v3
             - name: compute-instance-url
               id: instance-url
               run: |
@@ -66,6 +67,8 @@ jobs:
                 versions: ${{ fromJSON(needs.compute-versions.outputs.versions) }}
                 containers: [1, 2, 3, 4]
         steps:
+            - uses: actions/checkout@v3
+
             - uses: actions/setup-node@v1
               with:
                   node-version: 16.x

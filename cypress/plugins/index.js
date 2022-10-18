@@ -10,10 +10,9 @@ module.exports = (on, config) => {
     networkShim(on)
     chromeAllowXSiteCookies(on)
 
-    const minVersion = d2config.minDHIS2Version.slice(2)
     const excludedTags = getExcludedTags(
         config.env.dhis2InstanceVersion,
-        minVersion
+        d2config.minDHIS2Version
     )
 
     console.log('instanceVersion', config.env.dhis2InstanceVersion)

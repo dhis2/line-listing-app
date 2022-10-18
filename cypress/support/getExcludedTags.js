@@ -1,8 +1,12 @@
-const getInstanceMinorVersion = (dhis2InstanceVersion) => {
+const getInstanceMinorVersion = (dhis2InstanceVersion, mVersion) => {
     const v =
         typeof dhis2InstanceVersion === 'number'
             ? dhis2InstanceVersion.toString()
             : dhis2InstanceVersion
+
+    if (v.toLowerCase() === 'dev') {
+        return mVersion + 3
+    }
 
     if (v.indexOf('2.') === 0) {
         return parseInt(v.slice(2, 4))
@@ -12,8 +16,15 @@ const getInstanceMinorVersion = (dhis2InstanceVersion) => {
 }
 
 const getExcludedTags = (dhis2InstanceVersion, minVersion) => {
-    const mVersion = parseInt(minVersion)
-    const instanceVersion = getInstanceMinorVersion(dhis2InstanceVersion)
+    const mVersion =
+        minVersion.indexOf('2.') === 0
+            ? parseInt(minVersion.slice(2, 4))
+            : parseInt(minVersion.slice(0, 2))
+
+    const instanceVersion = getInstanceMinorVersion(
+        dhis2InstanceVersion,
+        mVersion
+    )
 
     if (instanceVersion < mVersion) {
         throw new Error(
