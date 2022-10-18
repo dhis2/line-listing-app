@@ -4,7 +4,6 @@ import {
     LEGEND_DISPLAY_STYLE_FILL,
     LEGEND_DISPLAY_STYLE_TEXT,
     VALUE_TYPE_URL,
-    VALUE_TYPE_AGE,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
