@@ -61,11 +61,7 @@ export const getTimeDimensionName = (dimension, program, stage) => {
     return name || dimension.name
 }
 
-export const getDisabledTimeDimensions = (
-    inputType,
-    program
-    /*, stage */
-) => {
+export const getDisabledTimeDimensions = (inputType, program, stage) => {
     switch (inputType) {
         case OUTPUT_TYPE_EVENT: {
             const disabledDimensions = {}
@@ -76,12 +72,11 @@ export const getDisabledTimeDimensions = (
                     )
                 }
 
-                // if (stage.hideDueDate === false) {
-                //     disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] =
-                //         i18n.t(
-                //             'Disabled by the selected program stage'
-                //         )
-                // }
+                if (stage?.hideDueDate === true) {
+                    disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
+                        'Disabled by the selected program stage'
+                    )
+                }
             } else {
                 const disabledReason = !program
                     ? i18n.t('No program selected')

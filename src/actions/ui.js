@@ -75,10 +75,10 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 })
 
 const tClearUiProgramRelatedDimensions =
-    (inputType, program) => (dispatch, getState) => {
+    (inputType, program, stage) => (dispatch, getState) => {
         const { ui, metadata } = getState()
         const disabledTimeDimensionIds = new Set(
-            Object.keys(getDisabledTimeDimensions(inputType, program))
+            Object.keys(getDisabledTimeDimensions(inputType, program, stage))
         )
 
         const idsToRemove = ui.layout.columns
@@ -139,7 +139,7 @@ export const tSetUiProgram =
     (dispatch, getState) => {
         const inputType = sGetUiInputType(getState())
         dispatch(acClearUiProgram())
-        dispatch(tClearUiProgramRelatedDimensions(inputType, program))
+        dispatch(tClearUiProgramRelatedDimensions(inputType, program, stage))
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
