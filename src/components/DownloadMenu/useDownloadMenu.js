@@ -142,7 +142,7 @@ const useDownloadMenu = (relativePeriodDate) => {
     return {
         isOpen,
         toggleOpen: () => setIsOpen(!isOpen),
-        disabled: !validateLineListLayout(current, { doNotThrow: true }),
+        disabled: !validateLineListLayout(current, { dryRun: true }),
         download,
     }
 }
