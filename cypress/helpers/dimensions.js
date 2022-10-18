@@ -16,8 +16,10 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
 
     // choose the program
-    cy.getBySel('accessory-sidebar').contains('Choose a program').click()
-    cy.contains(programName).click()
+    if (programName) {
+        cy.getBySel('accessory-sidebar').contains('Choose a program').click()
+        cy.contains(programName).click()
+    }
 
     // choose the stage if relevant
     if (stageName) {
