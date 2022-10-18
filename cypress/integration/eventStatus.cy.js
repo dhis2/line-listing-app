@@ -18,7 +18,7 @@ import {
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
-    it(['>=39'], 'can be filtered', () => {
+    it(['>=39'], 'can be filtered (>=39)', () => {
         const event = ANALYTICS_PROGRAM
         const dimensionName = 'Event status'
 
@@ -107,7 +107,7 @@ describe('event status', () => {
         assertTooltipContainsEntries(['Scheduled'])
     })
 
-    it(['<39'], 'can be filtered', () => {
+    it(['<39'], 'can be filtered (<39)', () => {
         const event = ANALYTICS_PROGRAM
         const dimensionName = 'Event status'
 
