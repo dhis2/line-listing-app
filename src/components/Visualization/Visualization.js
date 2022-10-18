@@ -1,12 +1,8 @@
 import {
-    formatValue,
     getColorByValueFromLegendSet,
     LegendKey,
     LEGEND_DISPLAY_STYLE_FILL,
     LEGEND_DISPLAY_STYLE_TEXT,
-    VALUE_TYPE_DATE,
-    VALUE_TYPE_DATETIME,
-    VALUE_TYPE_TEXT,
     VALUE_TYPE_URL,
     VALUE_TYPE_AGE,
 } from '@dhis2/analytics'
@@ -22,14 +18,8 @@ import {
     Pagination,
 } from '@dhis2/ui'
 import cx from 'classnames'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
-import {
-    DIMENSION_ID_EVENT_STATUS,
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_LAST_UPDATED,
-} from '../../modules/dimensionConstants.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -37,7 +27,11 @@ import {
     FONT_SIZE_NORMAL,
     FONT_SIZE_SMALL,
 } from '../../modules/options.js'
-import { getStatusNames, headersMap } from '../../modules/visualization.js'
+import {
+    getFormattedCellValue,
+    getHeaderText,
+} from '../../modules/tableValues.js'
+import { headersMap } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import { useAnalyticsData } from './useAnalyticsData.js'
 
@@ -161,67 +155,23 @@ export const Visualization = ({
         Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
 
     const formatCellValue = (value, header) => {
-        if (
-            [
-                headersMap[DIMENSION_ID_EVENT_STATUS],
-                headersMap[DIMENSION_ID_PROGRAM_STATUS],
-            ].includes(header?.name)
-        ) {
-            return getStatusNames()[value] || value
-        } else if (
-            [VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header?.valueType)
-        ) {
-            return (
-                value &&
-                moment(value).format(
-                    header.name === headersMap[DIMENSION_ID_LAST_UPDATED] ||
-                        header?.valueType === VALUE_TYPE_DATETIME
-                        ? 'yyyy-MM-DD hh:mm'
-                        : 'yyyy-MM-DD'
-                )
-            )
-        } else if (header?.valueType === VALUE_TYPE_AGE) {
-            return value && moment(value).format('yyyy-MM-DD')
-        } else if (header?.valueType === VALUE_TYPE_URL) {
+        if (header?.valueType === VALUE_TYPE_URL) {
             return (
                 <a href={value} target="_blank" rel="noreferrer">
                     {value}
                 </a>
             )
         } else {
-            return formatValue(value, header?.valueType || VALUE_TYPE_TEXT, {
-                digitGroupSeparator: visualization.digitGroupSeparator,
-                skipRounding: false, // TODO should there be an option for this?
-            })
+            return getFormattedCellValue({ value, header, visualization })
         }
     }
 
     const formatCellHeader = (header) => {
-        let headerName = header.column
+        const headerText = getHeaderText(header)
 
-        const dimensionId = Number.isInteger(header?.stageOffset)
+        const dimensionId = Number.isInteger(header.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
-
-        if (Number.isInteger(header.stageOffset)) {
-            let postfix
-
-            if (header.stageOffset === 0) {
-                postfix = i18n.t('most recent')
-            } else if (header.stageOffset === 1) {
-                postfix = i18n.t('oldest')
-            } else if (header.stageOffset > 1) {
-                postfix = i18n.t('oldest {{repeatEventIndex}}', {
-                    repeatEventIndex: `+${header.stageOffset - 1}`,
-                })
-            } else if (header.stageOffset < 0) {
-                postfix = i18n.t('most recent {{repeatEventIndex}}', {
-                    repeatEventIndex: header.stageOffset,
-                })
-            }
-
-            headerName = `${header.column} (${postfix})`
-        }
 
         return (
             <span
@@ -236,7 +186,7 @@ export const Visualization = ({
                         : undefined
                 }
             >
-                {headerName}
+                {headerText}
             </span>
         )
     }

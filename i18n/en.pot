@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-10-07T12:47:41.100Z\n"
-"PO-Revision-Date: 2022-10-07T12:47:41.100Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"PO-Revision-Date: 2022-10-10T09:31:33.958Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -349,18 +349,6 @@ msgstr "Click a dimension to add or remove conditions."
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
 
-msgid "most recent"
-msgstr "most recent"
-
-msgid "oldest"
-msgstr "oldest"
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr "oldest {{repeatEventIndex}}"
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr "most recent {{repeatEventIndex}}"
-
 msgid "Rows per page"
 msgstr "Rows per page"
 
@@ -672,6 +660,18 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
+
+msgid "most recent"
+msgstr "most recent"
+
+msgid "oldest"
+msgstr "oldest"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "oldest {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "most recent {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "Event date"
