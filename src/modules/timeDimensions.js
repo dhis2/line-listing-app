@@ -72,7 +72,10 @@ export const getDisabledTimeDimensions = (inputType, program, stage) => {
                     )
                 }
 
-                if (stage?.hideDueDate === true) {
+                if (!stage) {
+                    disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] =
+                        i18n.t('No stage selected')
+                } else if (stage.hideDueDate === true) {
                     disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
                         'Disabled by the selected program stage'
                     )
