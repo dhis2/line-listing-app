@@ -3,6 +3,7 @@ import {
     DIMENSION_IDS_TIME,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_SCHEDULED_DATE,
 } from '../modules/dimensionConstants.js'
 import { getIsMainDimensionDisabled } from '../modules/mainDimensions.js'
 import {
@@ -122,7 +123,11 @@ export const tClearUiProgramStageDimensions =
         if (needsClearing) {
             const idsToRemove = state.ui.layout.columns
                 .concat(state.ui.layout.filters)
-                .filter((id) => id.includes(`${stageId}.`))
+                .filter(
+                    (dimensionId) =>
+                        dimensionId.includes(`${stageId}.`) ||
+                        dimensionId === DIMENSION_ID_SCHEDULED_DATE
+                )
             dispatch(acRemoveUiLayoutDimensions(idsToRemove))
             dispatch(acRemoveUiItems(idsToRemove))
         }
