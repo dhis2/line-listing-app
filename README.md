@@ -81,7 +81,7 @@ Run the tests without interactive mode
 
 #### Configure Cypress tests to run only on certain versions
 
-Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.39, then a test for that feature should only run on instances >=2.39, and should not run on instances <=2.39. To configure a test to only run on certain versions, add a tag array as the first argument to the test `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >=. Here are some tag examples, given a minimum supported version of 2.38:
+Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.39, then a test for that feature should only run on instances >=2.39, and should not run on instances <2.39. To configure a test to only run on certain versions, add a tag array as the first argument to the test `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >=. Here are some tag examples, given a minimum supported version of 2.38:
 
 ```
 it(['<39'], 'runs on 38 only', () => {test implementation})
