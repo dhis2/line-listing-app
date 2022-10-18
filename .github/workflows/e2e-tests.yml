@@ -40,17 +40,20 @@ defaults:
 
 jobs:
     compute-versions:
+        if: github.event.pull_request.draft == false
         runs-on: ubuntu-latest
         outputs:
             versions: ${{ steps.legacy-versions.outputs.versions }}
         steps:
-            - uses: actions/checkout@v3
             - name: compute-instance-url
               id: instance-url
               run: |
                   url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_DEV_INSTANCE/"{version}"/dev}
                   echo "url=$url" >> $GITHUB_OUTPUT
                   echo "url: $url"
+
+            - uses: actions/checkout@v3
+
             - id: legacy-versions
               uses: dhis2/action-supported-legacy-versions@v1
               with:
