@@ -38,13 +38,13 @@ const assertItems = (enabledItemsMap = {}) => {
 }
 
 describe('file menu', () => {
-    it('reflects empty state', () => {
+    it('reflects "empty" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         assertItems()
     })
 
-    it('reflects unsaved state', () => {
+    it('reflects "unsaved" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
@@ -58,22 +58,7 @@ describe('file menu', () => {
         })
     })
 
-    it('reflects saved state', () => {
-        cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
-
-        cy.getBySel('visualization-title').contains('COVAC enrollment')
-
-        assertItems({
-            [ITEM_SAVEAS]: true,
-            [ITEM_RENAME]: true,
-            [ITEM_TRANSLATE]: true,
-            [ITEM_SHARING]: true,
-            [ITEM_GETLINK]: true,
-            [ITEM_DELETE]: true,
-        })
-    })
-
-    it('reflects dirty state (legacy: do not allow saving)', () => {
+    it('reflects "dirty" state (legacy: do not allow saving)', () => {
         cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
 
         cy.getBySel('visualization-title').contains('COVAC enrollment')
@@ -92,7 +77,7 @@ describe('file menu', () => {
         })
     })
 
-    it('reflects dirty state (new: created in this app)', () => {
+    it('reflects "saved" and "dirty" state (new: created in this app)', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
@@ -113,10 +98,22 @@ describe('file menu', () => {
 
         cy.getBySel('visualization-title').contains(name)
 
+        // saved state
+        assertItems({
+            [ITEM_SAVEAS]: true,
+            [ITEM_RENAME]: true,
+            [ITEM_TRANSLATE]: true,
+            [ITEM_SHARING]: true,
+            [ITEM_GETLINK]: true,
+            [ITEM_DELETE]: true,
+        })
+
+        // cy.getBySel('file-menu-toggle-layer').first().click()
+        cy.get('body').click(0, 0)
+
         clickMenubarUpdateButton()
 
-        cy.getBySel('visualization-title').contains('Edited')
-
+        // dirty state
         assertItems({
             [ITEM_SAVE]: true,
             [ITEM_SAVEAS]: true,

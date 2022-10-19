@@ -14,7 +14,12 @@ import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
 import { isLayoutValidForSaving } from '../../../modules/layoutValidation.js'
-import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
+import {
+    getVisualizationFromCurrent,
+    getVisualizationState,
+    STATE_DIRTY,
+    STATE_UNSAVED,
+} from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -229,7 +234,13 @@ const MenuBar = ({
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
-                onSave={isLayoutValidForSaving(current) ? onSave : undefined}
+                onSave={
+                    [STATE_UNSAVED, STATE_DIRTY].includes(
+                        getVisualizationState(current, visualization)
+                    ) && isLayoutValidForSaving(current)
+                        ? onSave
+                        : undefined
+                }
                 onSaveAs={(details) => onSave(details, true)}
                 onShare={onFileMenuAction}
                 onTranslate={onFileMenuAction}
