@@ -33,6 +33,7 @@ const ProgramDimensionsList = ({
             loading={loading}
             programName={program.name}
             searchTerm={searchTerm}
+            dataTest="program-dimensions-list"
         />
     )
 }

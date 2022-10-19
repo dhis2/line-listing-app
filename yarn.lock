@@ -2186,10 +2186,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^24.1.0":
-  version "24.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.1.0.tgz#20690377ea4c22b8d106f27302b5090f5f43722f"
-  integrity sha512-N7hckkRyYEr5js5eDC9Kkblt1PjewUar0eHUQXqG5vJD5z3eTcxD8tsRjP8Ce8lP1oh2J/ch/DujORgpEHu0CA==
+"@dhis2/analytics@^24.2.7":
+  version "24.2.7"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-24.2.7.tgz#c2e7796d909bf8e36552138a5cd6e3d414b8d09d"
+  integrity sha512-orEO14qzdTacQZdUVTOHlbZsdsGm3Q2Wjk3ELPBnsPIKq2c+9J4ve34wwc7wBcvVJP/BlW5LEs97G7DdjqurFA==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.0"
     classnames "^2.3.1"
@@ -2522,10 +2522,10 @@
     "@dnd-kit/utilities" "^3.1.0"
     tslib "^2.0.0"
 
-"@dnd-kit/utilities@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@dnd-kit/utilities/-/utilities-3.1.0.tgz#330ef24303da05f85ff20bb8f74b385c96caee58"
-  integrity sha512-2JBdIgjJ7xjMRpKagdMuYKWJdDoVVw9Wc6lfMrLjrq8t4QlMEjtsab5JVUlzWvHgANn7w3Y3VhalFfbp4dQrKg==
+"@dnd-kit/utilities@^3.1.0", "@dnd-kit/utilities@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/utilities/-/utilities-3.2.0.tgz#b3e956ea63a1347c9d0e1316b037ddcc6140acda"
+  integrity sha512-h65/pn2IPCCIWwdlR2BMLqRkDxpTEONA+HQW3n765HBijLYGyrnTCLa2YQt8VVjjSQD6EfFlTE6aS2Q/b6nb2g==
   dependencies:
     tslib "^2.0.0"
 

@@ -122,7 +122,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         case DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET:
         case DIMENSION_TYPE_STATUS:
             return (
-                <ul className={styles.list}>
+                <ul className={styles.list} data-test="tooltip-content">
                     {itemDisplayNames
                         ? renderItems(itemDisplayNames)
                         : renderAllItemsLabel()}

@@ -20,10 +20,10 @@ msgid "Add to {{axisName}}"
 msgstr "Legg til {{axisName}}"
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "Velg en betingelsetype"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "Versalsensitiv"
 
 msgid "Remove"
 msgstr "Fjern"
@@ -33,72 +33,78 @@ msgstr "og"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
+"Vis elementer som oppfyller følgende betingelser for dette datapunktet:"
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr ""
+msgstr "Denne dimensjonen kan ikke filtreres. Alle verdier vises."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"Ingen betingelser ennå, så alle verdier vil bli inkludert. Legg til en "
+"betingelse for å filtrere resultater."
 
 msgid "Preset options can't be combined with other conditions"
-msgstr ""
+msgstr "Forvalgte alternativer kan ikke kombineres med andre betingelser"
 
 msgid "Add another condition"
-msgstr ""
+msgstr "Legg til en betingelse til"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Legg til betingelse"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "Gjentatte hendelser"
 
 msgid "Conditions"
-msgstr ""
+msgstr "Betingelser"
 
 msgid "Only available for repeatable stages"
-msgstr ""
+msgstr "Kun tilgjengelig for repeterbare faser"
 
 msgid "is one of preset options"
-msgstr ""
+msgstr "er et av forvalgte alternativene"
 
 msgid "Loading..."
 msgstr "Laster..."
 
 msgid "Choose a set of options"
-msgstr ""
+msgstr "Velg et sett med alternativer"
 
 msgid "No preset option sets for this data item"
-msgstr ""
+msgstr "Ingen forvalgte alternativsett for dette datapunktet"
 
 msgid "Choose options"
-msgstr ""
+msgstr "Velg alternativ"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
 msgstr ""
+"Fra faser med repeterbare hendelser, vis verdier for dette dataelementet "
+"fra:"
 
 msgid "Most recent events:"
-msgstr ""
+msgstr "Siste hendelser:"
 
 msgid "Oldest events:"
-msgstr ""
+msgstr "Eldste hendelser:"
 
 msgid "Hide"
 msgstr "Skjul"
 
 msgid "Show items where the status is:"
-msgstr ""
+msgstr "Vis elementer der statusen er:"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "Velg blant forvalg"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "Definer start - sluttdatoer"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
+"Start- og sluttdatoer er inklusive og vil bli inkludert i resultatene."
 
 msgid "Start date"
 msgstr "Startdato"
@@ -116,13 +122,13 @@ msgid "Filter options"
 msgstr "Filteralternativ"
 
 msgid "Selected options"
-msgstr ""
+msgstr "Valgte alternativer"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
 msgstr "Ingenting funnet for \"{{- searchTerm}}\""
 
 msgid "No options"
-msgstr ""
+msgstr "Ingen alternativer"
 
 msgid "Move to {{axisName}}"
 msgstr "Flytt til {{axisName}}"
@@ -131,7 +137,7 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "HTML+CSS (.html+css)"
-msgstr ""
+msgstr "HTML+CSS (.html+css)"
 
 msgid "Plain data source"
 msgstr "Ren datakilde"
@@ -143,13 +149,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Last ned data fra denne datoen"
 
 msgid "Metadata ID scheme"
 msgstr "Metadata-ID-ordning"
@@ -167,17 +173,17 @@ msgid "Download"
 msgstr "Last ned"
 
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} valgt"
+msgstr[1] "{{count}} valgt"
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} betingelse"
+msgstr[1] "{{count}} betingelser"
 
 msgid "Levels"
 msgstr "Nivå"
@@ -187,34 +193,36 @@ msgstr "Grupper"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Og {{count}} annen..."
+msgstr[1] "Og {{count}} andre..."
 
 msgid "None selected"
 msgstr "Ingen valgt"
 
 msgid "Showing all values for this dimension"
-msgstr ""
+msgstr "Viser alle verdiene for denne dimensjonen"
 
 msgid "Program stage: {{stageName}}"
-msgstr ""
+msgstr "Programfase: {{stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr ""
+msgstr "Ingen dimensjoner funnet for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{programName}} program"
-msgstr ""
+msgstr "Ingen dimensjoner funnet i programmet {{programName}}"
 
 msgid "No dimensions found"
-msgstr ""
+msgstr "Ingen dimensjoner funnet"
 
 msgid "Couldn't load dimensions"
-msgstr ""
+msgstr "Kunne ikke laste inn dimensjoner"
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 msgstr ""
+"Det oppsto et problem med å laste inn dimensjonene. Prøv igjen, eller "
+"kontakt din systemadministrator."
 
 msgid "Event"
 msgstr "Hendelse"
@@ -225,21 +233,23 @@ msgstr "Registrering"
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
+"Se individuelle hendelsesdata fra en Tracker-programfase eller "
+"hendelsesprogram."
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr ""
+msgstr "Se data fra flere programfaser i et Tracker-program."
 
 msgid "Main dimensions"
 msgstr "Hoveddimensjoner"
 
 msgid "Input: {{type}}"
-msgstr ""
+msgstr "Inndata: {{type}}"
 
 msgid "Program dimensions"
-msgstr ""
+msgstr "Programdimensjoner"
 
 msgid "Search in program"
-msgstr ""
+msgstr "Søk i program"
 
 msgid "Type"
 msgstr "Type"
@@ -263,24 +273,26 @@ msgid "Category option group set"
 msgstr "Kategorialternativgruppesett"
 
 msgid "Could not load programs"
-msgstr ""
+msgstr "Kunne ikke laste programmer"
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
+"systemadministrator."
 
 msgid "Choose a program and stage above to add program dimensions."
-msgstr ""
+msgstr "Velg et program og fase ovenfor for å legge til programdimensjoner."
 
 msgid "Choose a program above to add program dimensions."
-msgstr ""
+msgstr "Velg et program ovenfor for å legge til programdimensjoner."
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Velg et program"
 
 msgid "Clear program first to choose another"
-msgstr ""
+msgstr "Fjern programmet først for å velge et annet"
 
 msgid "Clear"
 msgstr "Fjern"
@@ -289,16 +301,16 @@ msgid "Stage"
 msgstr "Fase"
 
 msgid "All"
-msgstr "Alt"
+msgstr "Alle"
 
 msgid "Time dimensions"
-msgstr ""
+msgstr "Tidsdimensjoner"
 
 msgid "Your dimensions"
 msgstr "Dine dimensjoner"
 
 msgid "Search your dimensions"
-msgstr ""
+msgstr "Søk i dimensjonene dine"
 
 msgid "Unsaved visualization"
 msgstr "Ikke lagret visualisering"
@@ -310,7 +322,7 @@ msgid "Interpretations"
 msgstr "Tolkninger"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" ble slettet."
 
 msgid "Rename successful"
 msgstr "Navneendring vellykket"
@@ -335,33 +347,35 @@ msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
 msgstr ""
+"Alle dimensjoner du kan bruke til å bygge visualiseringer, vises i "
+"seksjonene i venstre sidefelt."
 
 msgid "Add dimensions to the layout above."
-msgstr ""
+msgstr "Legg til dimensjoner i oppsettet ovenfor."
 
 msgid "Click a dimension to add or remove conditions."
-msgstr ""
+msgstr "Klikk på en dimensjon for å legge til eller fjerne betingelser."
 
 msgid "Your most viewed line lists"
-msgstr ""
+msgstr "Dine mest viste linjelister"
 
 msgid "most recent"
-msgstr ""
+msgstr "siste"
 
 msgid "oldest"
-msgstr ""
+msgstr "eldste"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr ""
+msgstr "eldste {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgstr "siste {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "Rader per side"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr ""
+msgstr "Side {{page}}, rad {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Kolonnedelsummer"

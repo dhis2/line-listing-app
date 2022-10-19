@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-09-30T08:21:12.177Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -290,6 +290,12 @@ msgstr "阶段"
 msgid "All"
 msgstr "全部"
 
+msgid "Clear stage first to choose another"
+msgstr "先清除阶段再选择另一个"
+
+msgid "This program only has one stage"
+msgstr "这个项目只有一个阶段"
+
 msgid "Time dimensions"
 msgstr "时间维度"
 
@@ -562,6 +568,12 @@ msgstr "未选择项目"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "从程序维度侧栏中选择一个程序。"
 
+msgid "No stage selected"
+msgstr "未选择任何阶段"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "从程序维度侧栏中选择一个阶段。"
+
 msgid "Columns is empty"
 msgstr "列是空的"
 
@@ -571,14 +583,17 @@ msgstr "将至少一项添加到列。"
 msgid "No organisation unit selected"
 msgstr "没有选择机构"
 
-msgid "Add at least one organisation unit to the layout."
-msgstr "将至少一个组织单位添加到布局中。"
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
+msgstr "确保将带有至少一个选择的组织单位维度添加到布局中。"
 
 msgid "No time dimension selected"
 msgstr "未选择时间维度"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "向布局添加至少一个时间维度。"
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
+msgstr "确保在布局中添加至少一个选择的时间维度。"
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "至少一个选定的指标有问题"
