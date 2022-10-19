@@ -1,10 +1,8 @@
 import { getExcludedTags } from '../../cypress/support/getExcludedTags.js'
 
 describe('get excluded Cypress tags', () => {
-    test('instanceVersion 2.38, minVersion 2.38', () => {
-        const instanceVersion = '2.38'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 2.38', () => {
+        expect(getExcludedTags('2.38')).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -15,10 +13,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 2.39, minVersion 2.38', () => {
-        const instanceVersion = '2.39'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 2.39', () => {
+        expect(getExcludedTags('2.39')).toEqual([
             '<=38',
             '<38',
             '<39',
@@ -29,10 +25,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 2.40, minVersion 2.38', () => {
-        const instanceVersion = '2.40'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 2.40', () => {
+        expect(getExcludedTags('2.40')).toEqual([
             '<=38',
             '<38',
             '<=39',
@@ -43,10 +37,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 2.41-SNAPSHOT, minVersion 2.38', () => {
-        const instanceVersion = '2.41-SNAPSHOT'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 2.41-SNAPSHOT', () => {
+        expect(getExcludedTags('2.41-SNAPSHOT')).toEqual([
             '<=38',
             '<38',
             '<=39',
@@ -57,10 +49,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion dev, minVersion 2.38', () => {
-        const instanceVersion = 'dev'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion dev', () => {
+        expect(getExcludedTags('dev')).toEqual([
             '<=38',
             '<38',
             '<=39',
@@ -71,10 +61,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion number 2.38, minVersion number 2.38', () => {
-        const instanceVersion = 2.38
-        const minVersion = 2.38
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion number 2.38', () => {
+        expect(getExcludedTags(2.38)).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -86,10 +74,8 @@ describe('get excluded Cypress tags', () => {
     })
 
     // unexpected argument forms
-    test('instanceVersion 38, minVersion 38', () => {
-        const instanceVersion = '38'
-        const minVersion = '38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 38', () => {
+        expect(getExcludedTags('38')).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -100,10 +86,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 38-SNAPSHOT.2, minVersion 2.38', () => {
-        const instanceVersion = '38-SNAPSHOT.2'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion 38-SNAPSHOT.2', () => {
+        expect(getExcludedTags('38-SNAPSHOT.2')).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -114,10 +98,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion Dev, minVersion 2.38', () => {
-        const instanceVersion = 'Dev'
-        const minVersion = '2.38'
-        expect(getExcludedTags(instanceVersion, minVersion)).toEqual([
+    test('instanceVersion Dev', () => {
+        expect(getExcludedTags('Dev')).toEqual([
             '<=38',
             '<38',
             '<=39',
@@ -128,11 +110,9 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 37, minVersion 2.38 should throw', () => {
-        const instanceVersion = '37'
-        const minVersion = '2.38'
+    test('instanceVersion 2.37', () => {
         expect(() => {
-            getExcludedTags(instanceVersion, minVersion)
+            getExcludedTags('2.37')
         }).toThrow()
     })
 })

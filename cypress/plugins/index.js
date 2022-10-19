@@ -3,7 +3,6 @@ const {
     chromeAllowXSiteCookies,
 } = require('@dhis2/cypress-plugins')
 const { tagify } = require('cypress-tags')
-const d2config = require('../../d2.config.js')
 const { getExcludedTags } = require('../support/getExcludedTags.js')
 
 module.exports = (on, config) => {
@@ -16,10 +15,7 @@ module.exports = (on, config) => {
         )
     }
 
-    const excludedTags = getExcludedTags(
-        config.env.dhis2InstanceVersion,
-        d2config.minDHIS2Version
-    )
+    const excludedTags = getExcludedTags(config.env.dhis2InstanceVersion)
 
     console.log('instanceVersion', config.env.dhis2InstanceVersion)
     console.log('tags to exclude from testing', excludedTags)
