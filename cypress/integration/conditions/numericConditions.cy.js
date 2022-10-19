@@ -41,46 +41,49 @@ const event = ANALYTICS_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
+const setUpTable = (dimensionName, period) => {
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+
+    selectRelativePeriod({
+        label: periodLabel,
+        period,
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+}
+
+const addConditions = (conditions, dimensionName) => {
+    cy.getBySelLike('layout-chip').contains(dimensionName).click()
+    conditions.forEach(({ conditionName, value }) => {
+        cy.getBySel('button-add-condition').click()
+        cy.contains('Choose a condition type').click()
+        cy.contains(conditionName).click()
+        if (value) {
+            cy.getBySel('conditions-modal-content')
+                .find('input[value=""]')
+                .type(value)
+        }
+    })
+    cy.getBySel('conditions-modal').contains('Update').click()
+}
+
 describe('number conditions', () => {
     const dimensionName = TEST_DIM_NUMBER
 
-    const setUpTable = () => {
-        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
-
-        selectRelativePeriod({
-            label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-    }
-
-    const addConditions = (conditions) => {
-        cy.getBySelLike('layout-chip').contains(dimensionName).click()
-        conditions.forEach(({ conditionName, value }) => {
-            cy.getBySel('button-add-condition').click()
-            cy.contains('Choose a condition type').click()
-            cy.contains(conditionName).click()
-            if (value) {
-                cy.getBySel('conditions-modal-content')
-                    .find('input[value=""]')
-                    .type(value)
-            }
-        })
-        cy.getBySel('conditions-modal').contains('Update').click()
-    }
-
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
+        setUpTable(dimensionName, TEST_REL_PE_THIS_YEAR)
     })
 
     it('equal to', () => {
-        addConditions([{ conditionName: 'equal to (=)', value: '12' }])
+        addConditions(
+            [{ conditionName: 'equal to (=)', value: '12' }],
+            dimensionName
+        )
 
         expectTableToMatchRows(['12'])
 
@@ -90,7 +93,10 @@ describe('number conditions', () => {
     })
 
     it('greater than', () => {
-        addConditions([{ conditionName: 'greater than (>)', value: '12' }])
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '12' }],
+            dimensionName
+        )
 
         expectTableToMatchRows(['2 000 000', '5 557 779 990'])
 
@@ -100,9 +106,10 @@ describe('number conditions', () => {
     })
 
     it('greater than or equal to', () => {
-        addConditions([
-            { conditionName: 'greater than or equal to', value: '12' },
-        ])
+        addConditions(
+            [{ conditionName: 'greater than or equal to', value: '12' }],
+            dimensionName
+        )
         expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -114,7 +121,10 @@ describe('number conditions', () => {
     })
 
     it('less than', () => {
-        addConditions([{ conditionName: 'less than (<)', value: '12' }])
+        addConditions(
+            [{ conditionName: 'less than (<)', value: '12' }],
+            dimensionName
+        )
 
         expectTableToMatchRows(['11', '3.7'])
 
@@ -124,7 +134,10 @@ describe('number conditions', () => {
     })
 
     it('less than or equal to', () => {
-        addConditions([{ conditionName: 'less than or equal to', value: '12' }])
+        addConditions(
+            [{ conditionName: 'less than or equal to', value: '12' }],
+            dimensionName
+        )
 
         expectTableToMatchRows(['11', '12', '3.7'])
 
@@ -137,7 +150,10 @@ describe('number conditions', () => {
     })
 
     it('not equal to', () => {
-        addConditions([{ conditionName: 'not equal to', value: '12' }])
+        addConditions(
+            [{ conditionName: 'not equal to', value: '12' }],
+            dimensionName
+        )
 
         expectTableToMatchRows([
             '11',
@@ -153,7 +169,7 @@ describe('number conditions', () => {
     })
 
     it('is empty / null', () => {
-        addConditions([{ conditionName: 'is empty / null' }])
+        addConditions([{ conditionName: 'is empty / null' }], dimensionName)
 
         getTableRows().should('have.length', 1)
 
@@ -169,7 +185,10 @@ describe('number conditions', () => {
     })
 
     it('is not empty / not null', () => {
-        addConditions([{ conditionName: 'is not empty / not null' }])
+        addConditions(
+            [{ conditionName: 'is not empty / not null' }],
+            dimensionName
+        )
 
         expectTableToMatchRows([
             '11',
@@ -185,10 +204,13 @@ describe('number conditions', () => {
     })
 
     it('2 conditions: greater than + less than', () => {
-        addConditions([
-            { conditionName: 'greater than (>)', value: '11' },
-            { conditionName: 'less than (<)', value: '13' },
-        ])
+        addConditions(
+            [
+                { conditionName: 'greater than (>)', value: '11' },
+                { conditionName: 'less than (<)', value: '13' },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows(['12'])
 
@@ -199,6 +221,54 @@ describe('number conditions', () => {
             'Greater than (>): 11',
             'Less than (<): 13',
         ])
+    })
+})
+
+describe('integer', () => {
+    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
+
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        setUpTable(dimensionName, TEST_REL_PE_LAST_YEAR)
+    })
+
+    it('integer with negative value', () => {
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '-1' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['0', '5', '1', '35'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, 'Greater than (>): -1'])
+    })
+
+    it('integer with positive value', () => {
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '1' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['5', '35'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, 'Greater than (>): 1'])
+    })
+
+    it('integer with 0', () => {
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '0' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['5', '1', '35'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
     })
 })
 

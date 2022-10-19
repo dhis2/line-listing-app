@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {
     NULL_VALUE,
-    DATE_OPERATORS,
     UI_TIME_DIVIDER,
     API_TIME_DIVIDER,
+    getDateOperators,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
@@ -50,7 +50,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
                 onChange={({ selected }) => setOperator(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.entries(DATE_OPERATORS).map(([key, value]) => (
+                {Object.entries(getDateOperators()).map(([key, value]) => (
                     <SingleSelectOption
                         key={key}
                         value={key}
