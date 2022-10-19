@@ -31,7 +31,10 @@ import {
 import history from '../modules/history.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY, USER_SETTINGS_DISPLAY_PROPERTY } from '../modules/userSettings.js'
+import {
+    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
+    USER_SETTINGS_DISPLAY_PROPERTY,
+} from '../modules/userSettings.js'
 import {
     getDimensionMetadataFields,
     transformVisualization,
@@ -352,7 +355,9 @@ const App = () => {
                                         <Visualization
                                             isVisualizationLoading={isLoading}
                                             visualization={current}
-                                            nameProp={userSettings[USER_SETTINGS_DISPLAY_PROPERTY].toUpperCase()}
+                                            nameProp={userSettings[
+                                                USER_SETTINGS_DISPLAY_PROPERTY
+                                            ].toUpperCase()}
                                             onResponsesReceived={
                                                 onResponsesReceived
                                             }
