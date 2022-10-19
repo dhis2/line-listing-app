@@ -10,6 +10,12 @@ module.exports = (on, config) => {
     networkShim(on)
     chromeAllowXSiteCookies(on)
 
+    if (!config.env.dhis2InstanceVersion) {
+        throw new Error(
+            'dhis2InstanceVersion is missing. Check the README for more information.'
+        )
+    }
+
     const excludedTags = getExcludedTags(
         config.env.dhis2InstanceVersion,
         d2config.minDHIS2Version
