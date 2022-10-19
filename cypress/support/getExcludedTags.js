@@ -1,24 +1,21 @@
+const getString = (v) => (typeof v === 'number' ? v.toString() : v)
+
 const extractMinorVersion = (v) =>
     v.indexOf('2.') === 0 ? parseInt(v.slice(2, 4)) : parseInt(v.slice(0, 2))
 
 const getInstanceMinorVersion = (dhis2InstanceVersion, minMinorVersion) => {
-    const v =
-        typeof dhis2InstanceVersion === 'number'
-            ? dhis2InstanceVersion.toString()
-            : dhis2InstanceVersion
-
-    if (v.toLowerCase() === 'dev') {
+    if (dhis2InstanceVersion.toLowerCase() === 'dev') {
         return minMinorVersion + 3
     }
 
-    return extractMinorVersion(v)
+    return extractMinorVersion(dhis2InstanceVersion)
 }
 
 const getExcludedTags = (dhis2InstanceVersion, minVersion) => {
-    const minMinorVersion = extractMinorVersion(minVersion)
+    const minMinorVersion = extractMinorVersion(getString(minVersion))
 
     const instanceVersion = getInstanceMinorVersion(
-        dhis2InstanceVersion,
+        getString(dhis2InstanceVersion),
         minMinorVersion
     )
 
