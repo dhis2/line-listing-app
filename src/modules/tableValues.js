@@ -1,5 +1,6 @@
 import {
     formatValue,
+    VALUE_TYPE_AGE,
     VALUE_TYPE_DATE,
     VALUE_TYPE_DATETIME,
     VALUE_TYPE_TEXT,
@@ -33,6 +34,8 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
                     : 'yyyy-MM-DD'
             )
         )
+    } else if (header?.valueType === VALUE_TYPE_AGE) {
+        return value && moment(value).format('yyyy-MM-DD')
     } else {
         return formatValue(value, header.valueType || VALUE_TYPE_TEXT, {
             digitGroupSeparator: visualization.digitGroupSeparator,
