@@ -86,6 +86,8 @@ jobs:
               env:
                   version: ${{ matrix.versions }}
 
+            - run: chown -R 1001:1001 /github/home/.cache && echo "pwn dat cache"
+
             - name: Cypress run
               uses: cypress-io/github-action@v4
               with:
