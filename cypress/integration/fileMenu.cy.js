@@ -30,8 +30,8 @@ const assertItems = (enabledItemsMap = {}) => {
 
     cy.getBySel('menubar').contains('File').click()
 
-    Object.keys(itemsMap).forEach((itemName) => {
-        itemsMap[itemName]
+    Object.entries(itemsMap).forEach(([itemName, enabled]) => {
+        enabled
             ? cy.getBySel(itemName).should('not.have.class', 'disabled')
             : cy.getBySel(itemName).should('have.class', 'disabled')
     })
