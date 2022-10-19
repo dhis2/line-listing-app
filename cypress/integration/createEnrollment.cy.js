@@ -10,7 +10,11 @@ import {
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
-import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import {
+    dimensionIsDisabled,
+    dimensionIsEnabled,
+    selectEnrollmentProgramDimensions,
+} from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import {
@@ -24,20 +28,6 @@ const enrollment = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
-const isEnabled = (id) =>
-    cy
-        .getBySel(id)
-        .should('be.visible')
-        .and('not.have.css', 'opacity', '0.5')
-        .and('not.have.css', 'cursor', 'not-allowed')
-
-const isDisabled = (id) =>
-    cy
-        .getBySel(id)
-        .should('be.visible')
-        .and('have.css', 'opacity', '0.5')
-        .and('have.css', 'cursor', 'not-allowed')
-
 const setUpTable = () => {
     // switch to Enrollment to toggle the enabled/disabled time dimensions
     cy.getBySel('main-sidebar').contains('Input: Event').click()
@@ -45,19 +35,19 @@ const setUpTable = () => {
     cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
 
     // check that the time dimensions are correctly disabled and named
-    isDisabled('dimension-item-eventDate')
+    dimensionIsDisabled('dimension-item-eventDate')
     cy.getBySel('dimension-item-eventDate').contains('Event date')
 
-    isEnabled('dimension-item-enrollmentDate')
+    dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-    isDisabled('dimension-item-scheduledDate')
+    dimensionIsDisabled('dimension-item-scheduledDate')
     cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
 
-    isDisabled('dimension-item-incidentDate')
+    dimensionIsDisabled('dimension-item-incidentDate')
     cy.getBySel('dimension-item-incidentDate').contains('Incident date')
 
-    isEnabled('dimension-item-lastUpdated')
+    dimensionIsEnabled('dimension-item-lastUpdated')
     cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
     // select program
@@ -68,27 +58,27 @@ const setUpTable = () => {
 
     // check that the time dimensions disabled states and names are updated correctly
 
-    isDisabled('dimension-item-eventDate')
+    dimensionIsDisabled('dimension-item-eventDate')
     cy.getBySel('dimension-item-eventDate').contains(
         enrollment[DIMENSION_ID_EVENT_DATE]
     )
 
-    isEnabled('dimension-item-enrollmentDate')
+    dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains(
         enrollment[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    isDisabled('dimension-item-scheduledDate')
+    dimensionIsDisabled('dimension-item-scheduledDate')
     cy.getBySel('dimension-item-scheduledDate').contains(
         enrollment[DIMENSION_ID_SCHEDULED_DATE]
     )
 
-    isEnabled('dimension-item-incidentDate')
+    dimensionIsEnabled('dimension-item-incidentDate')
     cy.getBySel('dimension-item-incidentDate').contains(
         enrollment[DIMENSION_ID_INCIDENT_DATE]
     )
 
-    isEnabled('dimension-item-lastUpdated')
+    dimensionIsEnabled('dimension-item-lastUpdated')
     cy.getBySel('dimension-item-lastUpdated').contains(
         enrollment[DIMENSION_ID_LAST_UPDATED]
     )

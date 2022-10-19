@@ -22,7 +22,8 @@ export const getDefaultFromUi = (current, ui) => {
     }
 
     return {
-        ...current, // TODO: This turns it in to an "update existing" rather than a "create from scratch" operation, is this intentional?
+        // merge with current if current is a saved visualization to keep id, access etc
+        ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
         ...getProgramFromUi(adaptedUi),
@@ -36,12 +37,9 @@ export const getProgramFromUi = (ui) => ({
     program: { id: ui.program?.id },
 })
 
-export const getProgramStageFromUi = (ui) =>
-    ui.program?.stageId
-        ? {
-              programStage: { id: ui.program?.stageId },
-          }
-        : {}
+export const getProgramStageFromUi = (ui) => ({
+    programStage: { id: ui.program?.stageId },
+})
 
 export const getOptionsFromUi = (ui) => {
     const legend = {

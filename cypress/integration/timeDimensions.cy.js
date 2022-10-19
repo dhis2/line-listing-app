@@ -20,9 +20,9 @@ const event = ANALYTICS_PROGRAM
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
     { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 4 },
-    { id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 6 },
+    { id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 },
     { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 4 },
-    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 13 },
+    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 14 },
 ]
 
 describe('event', () => {

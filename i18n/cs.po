@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-09-30T08:21:12.177Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -248,7 +248,7 @@ msgid "Main dimensions"
 msgstr "Hlavní rozměry"
 
 msgid "Input: {{type}}"
-msgstr ""
+msgstr "Zadejte: {{type}}"
 
 msgid "Program dimensions"
 msgstr "Dimenze programu"
@@ -308,6 +308,12 @@ msgstr "Fáze"
 msgid "All"
 msgstr "Vše"
 
+msgid "Clear stage first to choose another"
+msgstr "Nejprve vymažte fázi, abyste si mohli vybrat jinou"
+
+msgid "This program only has one stage"
+msgstr "Tento program má pouze jednu fázi"
+
 msgid "Time dimensions"
 msgstr "Časové dimenze"
 
@@ -327,7 +333,7 @@ msgid "Interpretations"
 msgstr "Interpretace"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" byl úspěšně odstraněn."
 
 msgid "Rename successful"
 msgstr "Přejmenování bylo úspěšné"
@@ -591,6 +597,12 @@ msgstr "Nevybrán žádný program"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Vyberte program z postranního panelu Rozměry programu."
 
+msgid "No stage selected"
+msgstr "Není vybrána žádná fáze"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Na postranním panelu Dimenze programu vyberte fázi."
+
 msgid "Columns is empty"
 msgstr "Sloupce jsou prázdné"
 
@@ -600,14 +612,21 @@ msgstr "Přidejte alespoň jednu položku do sloupců."
 msgid "No organisation unit selected"
 msgstr "Není vybrána žádná organizační jednotka"
 
-msgid "Add at least one organisation unit to the layout."
-msgstr "Přidejte do rozvržení alespoň jednu organizační jednotku."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
+msgstr ""
+"Ujistěte se, že jste do rozvržení přidali dimenzi organizační jednotky s "
+"alespoň jedním výběrem."
 
 msgid "No time dimension selected"
 msgstr "Není vybrána žádná časová dimenze"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "Přidejte do rozvržení alespoň jednu časovou dimenzi"
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
+msgstr ""
+"Ujistěte se, že jste do rozvržení přidali časovou dimenzi s alespoň jedním "
+"výběrem."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "Vyskytl se problém s alespoň jedním vybraným indikátorem"

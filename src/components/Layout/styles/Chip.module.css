@@ -125,6 +125,10 @@
     background-color: var(--colors-grey300);
 }
 
+.chipEmpty:hover {
+    background-color: var(--colors-grey400);
+}
+
 .leftIcon {
     margin-right: 6px;
     line-height: 0;

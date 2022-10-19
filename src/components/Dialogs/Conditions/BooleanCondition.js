@@ -6,13 +6,14 @@ import {
     NULL_VALUE,
     TRUE_VALUE,
     FALSE_VALUE,
-    BOOLEAN_VALUES,
+    getBooleanValues,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
 const BaseCondition = ({ condition, onChange, showFalseOption }) => {
     const parts = condition.split(':')
     const values = parts[1] || ''
+    const booleanValues = getBooleanValues()
 
     const onCheckboxChange = (input, checked) => {
         const currentValues = values.length ? values.split(';') : []
@@ -31,7 +32,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
         <div className={classes.container}>
             <Checkbox
                 checked={values.includes(TRUE_VALUE)}
-                label={BOOLEAN_VALUES[TRUE_VALUE]}
+                label={booleanValues[TRUE_VALUE]}
                 onChange={({ checked }) =>
                     onCheckboxChange(TRUE_VALUE, checked)
                 }
@@ -41,7 +42,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
             {showFalseOption && (
                 <Checkbox
                     checked={values.includes(FALSE_VALUE)}
-                    label={BOOLEAN_VALUES[FALSE_VALUE]}
+                    label={booleanValues[FALSE_VALUE]}
                     onChange={({ checked }) =>
                         onCheckboxChange(FALSE_VALUE, checked)
                     }
@@ -51,7 +52,7 @@ const BaseCondition = ({ condition, onChange, showFalseOption }) => {
             )}
             <Checkbox
                 checked={values.includes(NULL_VALUE)}
-                label={BOOLEAN_VALUES[NULL_VALUE]}
+                label={booleanValues[NULL_VALUE]}
                 onChange={({ checked }) =>
                     onCheckboxChange(NULL_VALUE, checked)
                 }
