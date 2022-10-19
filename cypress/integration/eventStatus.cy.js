@@ -18,16 +18,16 @@ import {
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
-    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
-        const event = ANALYTICS_PROGRAM
-        const dimensionName = 'Event status'
+    const event = ANALYTICS_PROGRAM
+    const dimensionName = 'Event status'
 
+    const setUpTable = (periodLabel) => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram(event)
 
         selectRelativePeriod({
-            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            label: periodLabel,
             period: TEST_REL_PE_THIS_YEAR,
         })
 
@@ -43,6 +43,10 @@ describe('event status', () => {
         clickMenubarUpdateButton()
 
         expectTableToBeVisible()
+    }
+
+    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
+        setUpTable(event[DIMENSION_ID_SCHEDULED_DATE])
 
         expectTableToMatchRows([
             'Active',
@@ -108,30 +112,7 @@ describe('event status', () => {
     })
 
     it('can be filtered by status ACTIVE', () => {
-        const event = ANALYTICS_PROGRAM
-        const dimensionName = 'Event status'
-
-        cy.visit('/', EXTENDED_TIMEOUT)
-
-        selectEventProgram(event)
-
-        selectRelativePeriod({
-            label: event[DIMENSION_ID_LAST_UPDATED],
-            period: TEST_REL_PE_THIS_YEAR,
-        })
-
-        cy.getBySel('main-sidebar')
-            .contains(dimensionName)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
-
-        cy.contains('Add to Columns').click()
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
+        setUpTable(event[DIMENSION_ID_LAST_UPDATED])
 
         // TODO determine expected once 2.38analytics_dev is available
         // expectTableToMatchRows(['Active', 'Completed', 'Completed'])
