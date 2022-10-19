@@ -118,8 +118,6 @@ describe('file menu', () => {
         cy.getBySel('visualization-title').contains('Edited')
 
         assertItems({
-            [ITEM_NEW]: true,
-            [ITEM_OPEN]: true,
             [ITEM_SAVE]: true,
             [ITEM_SAVEAS]: true,
             [ITEM_RENAME]: true,
