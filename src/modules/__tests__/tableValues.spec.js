@@ -4,6 +4,7 @@ import {
     VALUE_TYPE_NUMBER,
     VALUE_TYPE_INTEGER,
     VALUE_TYPE_USERNAME,
+    VALUE_TYPE_AGE,
 } from '@dhis2/analytics'
 import { getFormattedCellValue, getHeaderText } from '../tableValues.js'
 
@@ -144,6 +145,21 @@ describe('getFormattedCellValue', () => {
                     visualization: { digitGroupSeparator: 'COMMA' },
                 })
             ).toEqual('3,700,000')
+        })
+
+        test('age', () => {
+            const header = {
+                valueType: VALUE_TYPE_AGE,
+            }
+            const value = '2021-12-01 12:25:03.900'
+
+            expect(
+                getFormattedCellValue({
+                    header,
+                    value,
+                    visualization: { digitGroupSeparator: 'COMMA' },
+                })
+            ).toEqual('2021-12-01')
         })
     })
 
