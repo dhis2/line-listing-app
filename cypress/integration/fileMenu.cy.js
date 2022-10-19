@@ -108,7 +108,7 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        // cy.getBySel('file-menu-toggle-layer').first().click()
+        // close menu
         cy.get('body').click(0, 0)
 
         clickMenubarUpdateButton()
