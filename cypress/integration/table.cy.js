@@ -69,7 +69,6 @@ const programDimensions = [
     { label: TEST_DIM_NEGATIVE_INTEGER, value: '-10' },
     { label: TEST_DIM_NUMBER, value: '10' },
     { label: TEST_DIM_LEGEND_SET, value: '10' },
-    { label: 'Analytics - Number (option set)', value: 'one' },
     { label: TEST_DIM_ORG_UNIT, value: 'PHW Phongsali' },
     { label: TEST_DIM_PERCENTAGE, value: '10' },
     { label: TEST_DIM_PHONE_NUMBER, value: '10111213' },
@@ -83,6 +82,76 @@ const programDimensions = [
     { label: TEST_DIM_YESONLY, value: 'Yes' },
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
+
+const assertDimensions = (inputDimensions) => {
+    selectEventProgram(event)
+
+    mainAndTimeDimensions.forEach(({ label }) => {
+        cy.getBySel('main-sidebar')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
+
+        cy.containsExact('Add to Columns').click()
+    })
+
+    inputDimensions.forEach(({ label }) => {
+        cy.getBySel('program-dimensions-list')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
+
+        cy.containsExact('Add to Columns').click()
+    })
+
+    selectFixedPeriod({
+        label: periodLabel,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-12-10`,
+        },
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    const allDimensions = [...mainAndTimeDimensions, ...inputDimensions]
+
+    getTableHeaderCells().its('length').should('eq', allDimensions.length)
+
+    getTableRows().its('length').should('eq', 1)
+
+    // assert the values of the dimensions
+    allDimensions.forEach(({ value }, index) => {
+        getTableDataCells().eq(index).invoke('text').should('eq', value)
+    })
+
+    // check that the URL dimension is wrapped in a link
+    if (
+        allDimensions.includes((dimension) => dimension.label === TEST_DIM_URL)
+    ) {
+        getTableDataCells()
+            .eq(
+                allDimensions.findIndex(
+                    (dimension) => dimension.label === TEST_DIM_URL
+                )
+            )
+            .find('a')
+            .should(
+                'have.attr',
+                'href',
+                allDimensions.find(
+                    (dimension) => dimension.label === TEST_DIM_URL
+                ).value
+            )
+    }
+}
 
 describe('table', () => {
     beforeEach(() => {
@@ -146,68 +215,15 @@ describe('table', () => {
         })
     })
     it('dimensions display correct values in the visualization', () => {
-        selectEventProgram(event)
-
-        mainAndTimeDimensions.forEach(({ label }) => {
-            cy.getBySel('main-sidebar')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
-
-            cy.containsExact('Add to Columns').click()
-        })
-
-        programDimensions.forEach(({ label }) => {
-            cy.getBySel('program-dimensions-list')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
-
-            cy.containsExact('Add to Columns').click()
-        })
-
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-12-10`,
-            },
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        const allDimensions = [...mainAndTimeDimensions, ...programDimensions]
-
-        getTableHeaderCells().its('length').should('eq', allDimensions.length)
-
-        getTableRows().its('length').should('eq', 1)
-
-        // assert the values of the dimensions
-        allDimensions.forEach(({ value }, index) => {
-            getTableDataCells().eq(index).invoke('text').should('eq', value)
-        })
-
-        // check that the URL dimension is wrapped in a link
-        getTableDataCells()
-            .eq(
-                allDimensions.findIndex(
-                    (dimension) => dimension.label === TEST_DIM_URL
-                )
-            )
-            .find('a')
-            .should(
-                'have.attr',
-                'href',
-                allDimensions.find(
-                    (dimension) => dimension.label === TEST_DIM_URL
-                ).value
-            )
+        assertDimensions(programDimensions)
     })
+    it(
+        ['dev'], // https://dhis2.atlassian.net/browse/DHIS2-13872
+        'dimensions display correct values in the visualization',
+        () => {
+            assertDimensions([
+                { label: 'Analytics - Number (option set)', value: 'one' }, // FIXME: re-add this item to the programDimensions array once ready for test in prod
+            ])
+        }
+    )
 })
