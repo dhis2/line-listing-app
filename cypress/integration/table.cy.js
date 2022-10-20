@@ -59,7 +59,7 @@ const mainAndTimeDimensions = [
     { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
 ]
 const programDimensions = [
-    { label: TEST_DIM_AGE, value: '2021-01-01 00:00:00.0' },
+    { label: TEST_DIM_AGE, value: '2021-01-01' },
     { label: TEST_DIM_COORDINATE, value: '[-0.134318,51.509894]' },
     { label: TEST_DIM_DATE, value: '2021-12-01' },
     { label: TEST_DIM_DATETIME, value: '2021-12-01 12:00' },
