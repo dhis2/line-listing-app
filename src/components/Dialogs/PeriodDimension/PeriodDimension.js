@@ -54,9 +54,9 @@ const useIsInLayout = (dimensionId) => {
 }
 
 const useLocalizedStartEndDateFormatter = () => {
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const formatter = new Intl.DateTimeFormat(
-        userSettings[USER_SETTINGS_UI_LOCALE],
+        currentUser.settings[USER_SETTINGS_UI_LOCALE],
         {
             dateStyle: 'long',
         }
