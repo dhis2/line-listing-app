@@ -218,7 +218,7 @@ describe('table', () => {
         assertDimensions(programDimensions)
     })
     it(
-        ['dev'], // https://dhis2.atlassian.net/browse/DHIS2-13872
+        ['dev', '>=40'], // https://dhis2.atlassian.net/browse/DHIS2-13872
         'dimensions display correct values in the visualization',
         () => {
             assertDimensions([
