@@ -9,11 +9,11 @@ name: 'dhis2: e2e tests'
 #
 # - Customize environment variables:
 #     BASE_URL_INSTANCES: Set the base url for the instances, e.g. https://test.e2e.dhis2.org
-#     NAME_PATTERN_LEGACY_INSTANCES: Set the name pattern for your instances. {version} will be replaced by "[majorVersion].[minorVersion]"
+#     NAME_PATTERN_PROD_INSTANCES: Set the name pattern for your instances. {version} will be replaced by "[majorVersion].[minorVersion]"
 #     NAME_PATTERN_DEV_INSTANCE: Set the name pattern for your dev instance. {version} will be replaced by "dev"
 #
 # - Other optional customizations:
-#     containers: Set the matrix containers array for the cypress job. The number of parallel Cypress instances running for each backend version will equal the array length.
+#     containers: Set the matrix containers array for the e2e-prod job. The number of parallel Cypress instances running for each backend version will equal the array length.
 #
 # - Set status check as required:
 #     We recommend setting "e2e-tests-success"  as a required step in your workflow.
@@ -27,7 +27,7 @@ on:
 
 env:
     BASE_URL_INSTANCES: https://test.e2e.dhis2.org
-    NAME_PATTERN_LEGACY_INSTANCES: '{version}lytics'
+    NAME_PATTERN_PROD_INSTANCES: '{version}lytics'
     NAME_PATTERN_DEV_INSTANCE: dev
 
 concurrency:
@@ -39,13 +39,13 @@ defaults:
         shell: bash
 
 jobs:
-    compute-legacy-versions:
+    compute-prod-versions:
         if: '!github.event.push.repository.fork && github.event.pull_request.draft == false'
         runs-on: ubuntu-latest
         outputs:
-            versions: ${{ steps.legacy-versions.outputs.versions }}
+            versions: ${{ steps.prod-versions.outputs.versions }}
         steps:
-            - name: compute-instance-url
+            - name: Compute dev instance url
               id: instance-url
               run: |
                   url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_DEV_INSTANCE/"{version}"/dev}
@@ -54,21 +54,22 @@ jobs:
 
             - uses: actions/checkout@v3
 
-            - id: legacy-versions
+            - name: Output prod version urls
+              id: prod-versions
               uses: dhis2/action-supported-legacy-versions@v1
               with:
                   instance-url-latest: ${{ steps.instance-url.outputs.url }} # can be removed if maxDHIS2Version has been specified
                   username: ${{ secrets.CYPRESS_DHIS2_USERNAME }} # can be removed if maxDHIS2Version has been specified
                   password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }} # can be removed if maxDHIS2Version has been specified
 
-    cypress:
-        needs: compute-legacy-versions
+    e2e-prod:
+        needs: compute-prod-versions
         runs-on: ubuntu-latest
         # container: cypress/browsers:node16.17.0-chrome106
         strategy:
             fail-fast: false
             matrix:
-                versions: ${{ fromJSON(needs.compute-legacy-versions.outputs.versions) }}
+                versions: ${{ fromJSON(needs.compute-prod-versions.outputs.versions) }}
                 containers: [1, 2, 3, 4]
         steps:
             - uses: actions/checkout@v3
@@ -77,16 +78,16 @@ jobs:
               with:
                   node-version: 16.x
 
-            - name: compute-instance-url
+            - name: Compute prod instance url
               id: instance-url
               run: |
-                  url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_LEGACY_INSTANCES/"{version}"/$version}
+                  url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_PROD_INSTANCES/"{version}"/$version}
                   echo "url=$url" >> $GITHUB_OUTPUT
                   echo "url: $url"
               env:
                   version: ${{ matrix.versions }}
 
-            - name: Cypress run
+            - name: Run e2e tests
               uses: cypress-io/github-action@v4
               with:
                   record: true
@@ -112,8 +113,9 @@ jobs:
         outputs:
             version: ${{ steps.instance-version.outputs.version }}
         steps:
-            - uses: dhis2/action-instance-version@v1
+            - name: Output dev version
               id: instance-version
+              uses: dhis2/action-instance-version@v1
               with:
                   instance-url: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
                   username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
@@ -136,7 +138,7 @@ jobs:
               with:
                   node-version: 16.x
 
-            - name: End-to-End tests
+            - name: Run e2e tests
               uses: cypress-io/github-action@v2
               with:
                   start: yarn d2-app-scripts start
@@ -156,10 +158,10 @@ jobs:
                   CYPRESS_networkMode: live
 
     e2e-tests-success:
-        needs: cypress
+        needs: e2e-prod
         if: ${{ success() || failure() }}
         runs-on: ubuntu-latest
         steps:
             - run: if [ $result != 'success' ]; then exit 1; fi;
               env:
-                  result: ${{ needs.cypress.result }}
+                  result: ${{ needs.e2e-prod.result }}

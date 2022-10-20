@@ -8,7 +8,7 @@ DHIS2 officially supports the latest 3 released versions of DHIS2. For example: 
 
 With the minimum supported version of 2.38, the tags will always contain "38", "39", "40" and "41", but the comparison symbols will depend on the current instance version.
 
-Allowed tag formats are ">", ">=", "<", "<="
+Allowed tag comparisons are ">", ">=", "<", "<="
 */
 
 const getString = (v) => (typeof v === 'number' ? v.toString() : v)
