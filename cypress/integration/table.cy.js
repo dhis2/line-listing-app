@@ -69,7 +69,7 @@ const programDimensions = [
     { label: TEST_DIM_NEGATIVE_INTEGER, value: '-10' },
     { label: TEST_DIM_NUMBER, value: '10' },
     { label: TEST_DIM_LEGEND_SET, value: '10' },
-    { label: 'Analytics - Number (option set)', value: '1' }, // FIXME: should be 'one'
+    { label: 'Analytics - Number (option set)', value: 'one' },
     { label: TEST_DIM_ORG_UNIT, value: 'PHW Phongsali' },
     { label: TEST_DIM_PERCENTAGE, value: '10' },
     { label: TEST_DIM_PHONE_NUMBER, value: '10111213' },
