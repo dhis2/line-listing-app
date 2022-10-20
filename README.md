@@ -92,6 +92,20 @@ it(['>=39'], 'runs on 39, 40 and dev', () => { test implementation })
 
 Tests without tags will run on all supported versions plus dev.
 
+## Pull requests
+
+### Open
+
+Pull requests should be set to "draft" until they are ready for review. Why, you ask? Because the e2e test workflow on CI does not run on drafts. This helps to avoid overloading the cypress server unnecessarily, allowing the e2e runs on PRs that are ready to complete more quickly. When it's ready for review, remove the "draft" status and assign someone, and ping that person on the team's "PR" channel in Slack.
+
+### Review
+
+When reviewing, please don't approve until all the required checks have passed.
+
+### Merge
+
+PRs should be squash merged unless there is a good reason to preserve the individual commit history. Make sure the PR commit summary has the correct semantic release keyword (fix, feat, chore, etc). Keep line lengths in the description to <100 in order to avoid lint-commit errors in future PRs that have "merge from master" commits. The summaries and descriptions go into the release notes so make it good!
+
 ## Learn More
 
 You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
