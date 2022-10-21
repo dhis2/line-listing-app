@@ -25,13 +25,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-describe('event', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-    })
-
+const runTests = ({ scheduleDateIsSupported } = {}) => {
     it('creates an event line list (tracker program)', () => {
         const event = ANALYTICS_PROGRAM
         const dimensionName = TEST_DIM_TEXT
@@ -44,8 +38,12 @@ describe('event', () => {
         dimensionIsDisabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+        if (scheduleDateIsSupported) {
+            dimensionIsDisabled('dimension-item-scheduledDate')
+            cy.getBySel('dimension-item-scheduledDate').contains(
+                'Scheduled date'
+            )
+        }
 
         dimensionIsDisabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains('Incident date')
@@ -67,11 +65,12 @@ describe('event', () => {
         cy.getBySel('dimension-item-enrollmentDate').contains(
             event[DIMENSION_ID_ENROLLMENT_DATE]
         )
-
-        dimensionIsEnabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            event[DIMENSION_ID_SCHEDULED_DATE]
-        )
+        if (scheduleDateIsSupported) {
+            dimensionIsEnabled('dimension-item-scheduledDate')
+            cy.getBySel('dimension-item-scheduledDate').contains(
+                event[DIMENSION_ID_SCHEDULED_DATE]
+            )
+        }
 
         dimensionIsEnabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
@@ -127,7 +126,9 @@ describe('event', () => {
             programName: 'COVID-19 Event',
             [DIMENSION_ID_EVENT_DATE]: 'Date of Report',
             [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
-            [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
+            ...(scheduleDateIsSupported
+                ? { [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date' }
+                : {}),
             [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
             [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
         }
@@ -141,8 +142,12 @@ describe('event', () => {
         dimensionIsDisabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+        if (scheduleDateIsSupported) {
+            dimensionIsDisabled('dimension-item-scheduledDate')
+            cy.getBySel('dimension-item-scheduledDate').contains(
+                'Scheduled date'
+            )
+        }
 
         dimensionIsDisabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains('Incident date')
@@ -164,11 +169,12 @@ describe('event', () => {
         cy.getBySel('dimension-item-enrollmentDate').contains(
             event[DIMENSION_ID_ENROLLMENT_DATE]
         )
-
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            event[DIMENSION_ID_SCHEDULED_DATE]
-        )
+        if (scheduleDateIsSupported) {
+            dimensionIsDisabled('dimension-item-scheduledDate')
+            cy.getBySel('dimension-item-scheduledDate').contains(
+                event[DIMENSION_ID_SCHEDULED_DATE]
+            )
+        }
 
         dimensionIsDisabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
@@ -272,4 +278,20 @@ describe('event', () => {
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })
+}
+
+describe(['>=39'], 'event', () => {
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+    })
+    runTests({ scheduleDateIsSupported: true })
+})
+
+describe(['<39'], 'event', () => {
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+    })
+    runTests()
 })
