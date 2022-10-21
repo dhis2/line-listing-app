@@ -355,9 +355,11 @@ const App = () => {
                                         <Visualization
                                             isVisualizationLoading={isLoading}
                                             visualization={current}
-                                            nameProp={currentUser.settings[
-                                                USER_SETTINGS_DISPLAY_PROPERTY
-                                            ].toUpperCase()}
+                                            displayProperty={
+                                                currentUser.settings[
+                                                    USER_SETTINGS_DISPLAY_PROPERTY
+                                                ]
+                                            }
                                             onResponsesReceived={
                                                 onResponsesReceived
                                             }

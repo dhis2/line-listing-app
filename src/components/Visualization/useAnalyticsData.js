@@ -127,7 +127,7 @@ const fetchAnalyticsData = async ({
     relativePeriodDate,
     sortField,
     sortDirection,
-    nameProp,
+    displayProperty,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
     const { adaptedVisualization, headers, parameters } =
@@ -141,7 +141,7 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withDisplayProperty(nameProp)
+        .withDisplayProperty(displayProperty.toUpperCase())
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)

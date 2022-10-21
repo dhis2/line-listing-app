@@ -89,7 +89,7 @@ export const Visualization = ({
     filters,
     visualization: AO,
     isVisualizationLoading,
-    nameProp,
+    displayProperty,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
@@ -131,7 +131,7 @@ export const Visualization = ({
         filters,
         visualization,
         isVisualizationLoading,
-        nameProp,
+        displayProperty,
         onResponsesReceived,
         pageSize,
         // Set first page directly for new visualization to avoid extra request with current page
@@ -440,8 +440,8 @@ Visualization.defaultProps = {
 }
 
 Visualization.propTypes = {
+    displayProperty: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
-    nameProp: PropTypes.string.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
