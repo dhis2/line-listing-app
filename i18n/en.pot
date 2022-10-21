@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
-"PO-Revision-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2022-10-18T07:41:59.599Z\n"
+"PO-Revision-Date: 2022-10-18T07:41:59.599Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -690,6 +690,9 @@ msgstr "Last updated on"
 
 msgid "Disabled by the selected program"
 msgstr "Disabled by the selected program"
+
+msgid "Disabled by the selected program stage"
+msgstr "Disabled by the selected program stage"
 
 msgid "No input type selected"
 msgstr "No input type selected"
