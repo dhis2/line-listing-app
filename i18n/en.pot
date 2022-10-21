@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-25T12:58:18.672Z\n"
-"PO-Revision-Date: 2022-05-25T12:58:18.672Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"PO-Revision-Date: 2022-10-10T09:31:33.958Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -192,8 +192,8 @@ msgstr "Showing all values for this dimension"
 msgid "Program stage: {{stageName}}"
 msgstr "Program stage: {{stageName}}"
 
-msgid "No dimensions found for '{{searchTerm}}'"
-msgstr "No dimensions found for '{{searchTerm}}'"
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr "No dimensions found for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{programName}} program"
 msgstr "No dimensions found in the {{programName}} program"
@@ -266,8 +266,8 @@ msgstr ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 
-msgid "Choose a program and stage above to add program dimensions."
-msgstr "Choose a program and stage above to add program dimensions."
+msgid "Choose a stage above to add program dimensions."
+msgstr "Choose a stage above to add program dimensions."
 
 msgid "Choose a program above to add program dimensions."
 msgstr "Choose a program above to add program dimensions."
@@ -287,6 +287,12 @@ msgstr "Stage"
 msgid "All"
 msgstr "All"
 
+msgid "Clear stage first to choose another"
+msgstr "Clear stage first to choose another"
+
+msgid "This program only has one stage"
+msgstr "This program only has one stage"
+
 msgid "Time dimensions"
 msgstr "Time dimensions"
 
@@ -305,8 +311,8 @@ msgstr "Edited"
 msgid "Interpretations"
 msgstr "Interpretations"
 
-msgid "\"{{deletedObject}}\" successfully deleted."
-msgstr "\"{{deletedObject}}\" successfully deleted."
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr "\"{{- deletedObject}}\" successfully deleted."
 
 msgid "Rename successful"
 msgstr "Rename successful"
@@ -342,18 +348,6 @@ msgstr "Click a dimension to add or remove conditions."
 
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
-
-msgid "most recent"
-msgstr "most recent"
-
-msgid "oldest"
-msgstr "oldest"
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr "oldest {{repeatEventIndex}}"
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr "most recent {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "Rows per page"
@@ -570,6 +564,12 @@ msgstr "No program selected"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Choose a program from the Program Dimensions sidebar."
 
+msgid "No stage selected"
+msgstr "No stage selected"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Choose a stage from the Program Dimensions sidebar."
+
 msgid "Columns is empty"
 msgstr "Columns is empty"
 
@@ -579,14 +579,18 @@ msgstr "Add at least one item to Columns."
 msgid "No organisation unit selected"
 msgstr "No organisation unit selected"
 
-msgid "Add at least one organisation unit to the layout."
-msgstr "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one "
+"selection to the layout."
+msgstr ""
+"Make sure to add the organisation unit dimension with at least one "
+"selection to the layout."
 
 msgid "No time dimension selected"
 msgstr "No time dimension selected"
 
-msgid "Add at least one time dimension to the layout."
-msgstr "Add at least one time dimension to the layout."
+msgid "Make sure to add a time dimension with at least one selection to the layout."
+msgstr "Make sure to add a time dimension with at least one selection to the layout."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "There's a problem with at least one selected indicator"
@@ -657,6 +661,18 @@ msgstr "Limit minimum/maximum values"
 msgid "Style"
 msgstr "Style"
 
+msgid "most recent"
+msgstr "most recent"
+
+msgid "oldest"
+msgstr "oldest"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "oldest {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "most recent {{repeatEventIndex}}"
+
 msgid "Event date"
 msgstr "Event date"
 
@@ -666,8 +682,8 @@ msgstr "Enrollment date"
 msgid "Incident date"
 msgstr "Incident date"
 
-msgid "Due/Scheduled date"
-msgstr "Due/Scheduled date"
+msgid "Scheduled date"
+msgstr "Scheduled date"
 
 msgid "Last updated on"
 msgstr "Last updated on"
@@ -686,6 +702,9 @@ msgstr "Cancelled"
 
 msgid "Completed"
 msgstr "Completed"
+
+msgid "Scheduled"
+msgstr "Scheduled"
 
 msgid "List data from tracked entities and events."
 msgstr "List data from tracked entities and events."

@@ -17,7 +17,10 @@ import {
     apiFetchLegendSetById,
     apiFetchLegendSetsByDimension,
 } from '../../../api/legendSets.js'
-import { NUMERIC_OPERATORS, OPERATOR_IN } from '../../../modules/conditions.js'
+import {
+    getNumericOperators,
+    OPERATOR_IN,
+} from '../../../modules/conditions.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import classes from './styles/Condition.module.css'
 
@@ -32,6 +35,7 @@ const NumericCondition = ({
     onLegendSetChange,
     enableDecimalSteps,
     dimension,
+    allowIntegerOnly,
 }) => {
     let operator, value
 
@@ -111,7 +115,8 @@ const NumericCondition = ({
         }
     }, [legendSetId])
 
-    const setValue = (input) => onChange(`${operator}:${input || ''}`)
+    const setValue = (input) =>
+        onChange(`${operator}:${input || input === 0 ? input : ''}`)
 
     return (
         <div className={classes.container}>
@@ -122,8 +127,13 @@ const NumericCondition = ({
                 onChange={({ selected }) => onOperatorChange(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.entries(NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
+                {Object.entries(getNumericOperators()).map(([key, value]) => (
+                    <SingleSelectOption
+                        key={key}
+                        value={key}
+                        label={value}
+                        dataTest={'numeric-condition-type'}
+                    />
                 ))}
                 <MenuDivider dense />
                 <SingleSelectOption
@@ -131,6 +141,7 @@ const NumericCondition = ({
                     value={OPERATOR_IN}
                     label={i18n.t('is one of preset options')}
                     disabled={numberOfConditions > 1}
+                    dataTest={'numeric-condition-type'}
                 />
             </SingleSelectField>
             {operator &&
@@ -139,7 +150,11 @@ const NumericCondition = ({
                     <Input
                         value={value}
                         type="number"
-                        onChange={({ value }) => setValue(value)}
+                        onChange={({ value }) =>
+                            setValue(
+                                allowIntegerOnly ? parseInt(value, 10) : value
+                            )
+                        }
                         className={classes.numericInput}
                         dense
                         step={enableDecimalSteps ? '0.1' : '1'}
@@ -226,6 +241,7 @@ NumericCondition.propTypes = {
     onChange: PropTypes.func.isRequired,
     onLegendSetChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    allowIntegerOnly: PropTypes.bool,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,
         id: PropTypes.string,

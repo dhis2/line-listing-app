@@ -51,6 +51,13 @@ export const noProgramError = () =>
         i18n.t('Choose a program from the Program Dimensions sidebar.')
     )
 
+export const noStageError = () =>
+    visualizationError(
+        EmptyBox,
+        i18n.t('No stage selected'),
+        i18n.t('Choose a stage from the Program Dimensions sidebar.')
+    )
+
 export const noColumnsError = () =>
     visualizationError(
         EmptyBox,
@@ -62,14 +69,18 @@ export const noOrgUnitError = () =>
     visualizationError(
         DataError,
         i18n.t('No organisation unit selected'),
-        i18n.t('Add at least one organisation unit to the layout.')
+        i18n.t(
+            'Make sure to add the organisation unit dimension with at least one selection to the layout.'
+        )
     )
 
 export const noPeriodError = () =>
     visualizationError(
         PeriodError,
         i18n.t('No time dimension selected'),
-        i18n.t('Add at least one time dimension to the layout.')
+        i18n.t(
+            'Make sure to add a time dimension with at least one selection to the layout.'
+        )
     )
 
 export const indicatorError = () =>

@@ -3,16 +3,16 @@ const selectFixedPeriod = ({ label, period }) => {
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
     if (period.type) {
-        cy.getWithDataTest(
-            '{period-dimension-fixed-period-filter-period-type-content}'
+        cy.getBySel(
+            'period-dimension-fixed-period-filter-period-type-content'
         ).click()
         cy.contains(period.type).click()
     }
-    cy.getWithDataTest('{period-dimension-fixed-period-filter-year-content}')
+    cy.getBySel('period-dimension-fixed-period-filter-year-content')
         .clear()
         .type(period.year)
     cy.contains(period.name).dblclick()
-    cy.contains('Add to Columns').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
 const selectRelativePeriod = ({ label, period }) => {
@@ -21,23 +21,22 @@ const selectRelativePeriod = ({ label, period }) => {
     cy.contains('Relative periods').click()
 
     if (period.type) {
-        cy.getWithDataTest(
-            '{period-dimension-relative-period-filter-content}'
-        ).click()
-        cy.getWithDataTest('{dhis2-uicore-select-menu-menuwrapper}')
+        cy.getBySel('period-dimension-relative-period-filter-content').click()
+        cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
             .containsExact(period.type)
             .click()
     }
     cy.contains(period.name).dblclick()
-    cy.contains('Add to Columns').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
-/*const selectStartEndDatePeriod = ({label, period}) => {
+const unselectAllPeriods = ({ label }) => {
     cy.getBySel('main-sidebar').contains(label).click()
-    // TODO: implement when a start/end date test is added
-    // cy.contains('Define start - end dates').click()
-    cy.contains('Add to Columns').click()
-}*/
+    cy.contains('Choose from presets').click()
+
+    cy.getBySel('period-dimension-transfer-actions-removeall').click()
+    cy.getBySel('period-dimension-modal-action-confirm').click()
+}
 
 const getPreviousYearStr = () => (new Date().getFullYear() - 1).toString()
 
@@ -46,6 +45,7 @@ const getCurrentYearStr = () => new Date().getFullYear().toString()
 export {
     selectFixedPeriod,
     selectRelativePeriod,
+    unselectAllPeriods,
     getPreviousYearStr,
     getCurrentYearStr,
 }

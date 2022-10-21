@@ -1,0 +1,710 @@
+# 
+# Translators:
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2022
+# Karoline Tufte Lien <karoline@dhis2.org>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2022\n"
+"Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add to {{axisName}}"
+msgstr "Legg til {{axisName}}"
+
+msgid "Choose a condition type"
+msgstr "Velg en betingelsetype"
+
+msgid "Case sensitive"
+msgstr "Versalsensitiv"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "and"
+msgstr "og"
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+"Vis elementer som oppfyller følgende betingelser for dette datapunktet:"
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr "Denne dimensjonen kan ikke filtreres. Alle verdier vises."
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+"Ingen betingelser ennå, så alle verdier vil bli inkludert. Legg til en "
+"betingelse for å filtrere resultater."
+
+msgid "Preset options can't be combined with other conditions"
+msgstr "Forvalgte alternativer kan ikke kombineres med andre betingelser"
+
+msgid "Add another condition"
+msgstr "Legg til en betingelse til"
+
+msgid "Add a condition"
+msgstr "Legg til betingelse"
+
+msgid "Repeated events"
+msgstr "Gjentatte hendelser"
+
+msgid "Conditions"
+msgstr "Betingelser"
+
+msgid "Only available for repeatable stages"
+msgstr "Kun tilgjengelig for repeterbare faser"
+
+msgid "is one of preset options"
+msgstr "er et av forvalgte alternativene"
+
+msgid "Loading..."
+msgstr "Laster..."
+
+msgid "Choose a set of options"
+msgstr "Velg et sett med alternativer"
+
+msgid "No preset option sets for this data item"
+msgstr "Ingen forvalgte alternativsett for dette datapunktet"
+
+msgid "Choose options"
+msgstr "Velg alternativ"
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+"Fra faser med repeterbare hendelser, vis verdier for dette dataelementet "
+"fra:"
+
+msgid "Most recent events:"
+msgstr "Siste hendelser:"
+
+msgid "Oldest events:"
+msgstr "Eldste hendelser:"
+
+msgid "Hide"
+msgstr "Skjul"
+
+msgid "Show items where the status is:"
+msgstr "Vis elementer der statusen er:"
+
+msgid "Choose from presets"
+msgstr "Velg blant forvalg"
+
+msgid "Define start - end dates"
+msgstr "Definer start - sluttdatoer"
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+"Start- og sluttdatoer er inklusive og vil bli inkludert i resultatene."
+
+msgid "Start date"
+msgstr "Startdato"
+
+msgid "End date"
+msgstr "Sluttdato"
+
+msgid "No items selected"
+msgstr "Ingen elementer er valgt"
+
+msgid "Available options"
+msgstr "Tilgjengelige alternativer"
+
+msgid "Filter options"
+msgstr "Filteralternativ"
+
+msgid "Selected options"
+msgstr "Valgte alternativer"
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr "Ingenting funnet for \"{{- searchTerm}}\""
+
+msgid "No options"
+msgstr "Ingen alternativer"
+
+msgid "Move to {{axisName}}"
+msgstr "Flytt til {{axisName}}"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML+CSS (.html+css)"
+msgstr "HTML+CSS (.html+css)"
+
+msgid "Plain data source"
+msgstr "Ren datakilde"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr "Microsoft Excel"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr "Last ned data fra denne datoen"
+
+msgid "Metadata ID scheme"
+msgstr "Metadata-ID-ordning"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Kode"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Download"
+msgstr "Last ned"
+
+msgid "all"
+msgstr "alle"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} valgt"
+msgstr[1] "{{count}} valgt"
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] "{{count}} betingelse"
+msgstr[1] "{{count}} betingelser"
+
+msgid "Levels"
+msgstr "Nivå"
+
+msgid "Groups"
+msgstr "Grupper"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] "Og {{count}} annen..."
+msgstr[1] "Og {{count}} andre..."
+
+msgid "None selected"
+msgstr "Ingen valgt"
+
+msgid "Showing all values for this dimension"
+msgstr "Viser alle verdiene for denne dimensjonen"
+
+msgid "Program stage: {{stageName}}"
+msgstr "Programfase: {{stageName}}"
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr "Ingen dimensjoner funnet for '{{- searchTerm}}'"
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr "Ingen dimensjoner funnet i programmet {{programName}}"
+
+msgid "No dimensions found"
+msgstr "Ingen dimensjoner funnet"
+
+msgid "Couldn't load dimensions"
+msgstr "Kunne ikke laste inn dimensjoner"
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+"Det oppsto et problem med å laste inn dimensjonene. Prøv igjen, eller "
+"kontakt din systemadministrator."
+
+msgid "Event"
+msgstr "Hendelse"
+
+msgid "Enrollment"
+msgstr "Registrering"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+"Se individuelle hendelsesdata fra en Tracker-programfase eller "
+"hendelsesprogram."
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr "Se data fra flere programfaser i et Tracker-program."
+
+msgid "Main dimensions"
+msgstr "Hoveddimensjoner"
+
+msgid "Input: {{type}}"
+msgstr "Inndata: {{type}}"
+
+msgid "Program dimensions"
+msgstr "Programdimensjoner"
+
+msgid "Search in program"
+msgstr "Søk i program"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "All types"
+msgstr "Alle typer"
+
+msgid "Data element"
+msgstr "Dataelement"
+
+msgid "Program attribute"
+msgstr "Programattributter"
+
+msgid "Program indicator"
+msgstr "Programindikator"
+
+msgid "Category"
+msgstr "Kategori"
+
+msgid "Category option group set"
+msgstr "Kategorialternativgruppesett"
+
+msgid "Could not load programs"
+msgstr "Kunne ikke laste programmer"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
+"systemadministrator."
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr "Velg et program og fase ovenfor for å legge til programdimensjoner."
+
+msgid "Choose a program above to add program dimensions."
+msgstr "Velg et program ovenfor for å legge til programdimensjoner."
+
+msgid "Choose a program"
+msgstr "Velg et program"
+
+msgid "Clear program first to choose another"
+msgstr "Fjern programmet først for å velge et annet"
+
+msgid "Clear"
+msgstr "Fjern"
+
+msgid "Stage"
+msgstr "Fase"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Time dimensions"
+msgstr "Tidsdimensjoner"
+
+msgid "Your dimensions"
+msgstr "Dine dimensjoner"
+
+msgid "Search your dimensions"
+msgstr "Søk i dimensjonene dine"
+
+msgid "Unsaved visualization"
+msgstr "Ikke lagret visualisering"
+
+msgid "Edited"
+msgstr "Redigert"
+
+msgid "Interpretations"
+msgstr "Tolkninger"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr "\"{{- deletedObject}}\" ble slettet."
+
+msgid "Rename successful"
+msgstr "Navneendring vellykket"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "{{visualizationType}} visualisering uten navn, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Denne visualiseringen kan ikke slettes fordi den brukes på ett eller flere "
+"dashbord"
+
+msgid "Update"
+msgstr "Oppdater"
+
+msgid "Getting started"
+msgstr "Komme i gang"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+"Alle dimensjoner du kan bruke til å bygge visualiseringer, vises i "
+"seksjonene i venstre sidefelt."
+
+msgid "Add dimensions to the layout above."
+msgstr "Legg til dimensjoner i oppsettet ovenfor."
+
+msgid "Click a dimension to add or remove conditions."
+msgstr "Klikk på en dimensjon for å legge til eller fjerne betingelser."
+
+msgid "Your most viewed line lists"
+msgstr "Dine mest viste linjelister"
+
+msgid "most recent"
+msgstr "siste"
+
+msgid "oldest"
+msgstr "eldste"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "eldste {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "siste {{repeatEventIndex}}"
+
+msgid "Rows per page"
+msgstr "Rader per side"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr "Side {{page}}, rad {{firstItem}}-{{lastItem}}"
+
+msgid "Column sub-totals"
+msgstr "Kolonnedelsummer"
+
+msgid "Columns totals"
+msgstr "Kolonnesummer"
+
+msgid "Digit group separator"
+msgstr "Siffergruppeseparator"
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Space"
+msgstr "Mellomrom"
+
+msgid "Comma"
+msgstr "Komma"
+
+msgid "Display density"
+msgstr "Visningstetthet"
+
+msgid "Comfortable"
+msgstr "Komfortabel"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Compact"
+msgstr "Kompakt"
+
+msgid "Font size"
+msgstr "Skriftstørrelse"
+
+msgid "Large"
+msgstr "Stor"
+
+msgid "Small"
+msgstr "Liten"
+
+msgid "Hide empty rows"
+msgstr "Skjul tomme rader"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Tegnforklaringstil"
+
+msgid "Legend type"
+msgstr "Tegnforklaringtype"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Bruk forhåndsdefinert tegnforklaring per datapunkt"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Tegnforklaring endrer bakgrunnsfarge"
+
+msgid "Legend changes text color"
+msgstr "Tegnforklaring endrer tekstfarge"
+
+msgid "Legend"
+msgstr "Tegnforklaring"
+
+msgid "Select from legends"
+msgstr "Velg fra tegnforklaringer"
+
+msgid "Loading legends"
+msgstr "Laster tegnforklaringer"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+"Du kan angi en minimums- eller maksimalverdi. Dette vil gjelde for hele "
+"visualiseringen, alle verdier utenfor minimums-/ maksimalrekkevidden vises "
+"ikke"
+
+msgid "Minimum data value"
+msgstr "Minimum dataverdi"
+
+msgid "Maximum data value"
+msgstr "Maksimal dataverdi"
+
+msgid "Clear min/max limits"
+msgstr "Fjern min/max-grenser"
+
+msgid "Row sub-totals"
+msgstr "Raddelsummer"
+
+msgid "Row totals"
+msgstr "Radsummer"
+
+msgid "Dimension labels"
+msgstr "Dimensjonsetiketter"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Vis organisasjonsenhethierarki"
+
+msgid "Show legend key"
+msgstr "Vis tegnforklaring"
+
+msgid "Add a title"
+msgstr "Legg til en tittel"
+
+msgid "Options"
+msgstr "Alternativ"
+
+msgid "Columns"
+msgstr "Kolonner"
+
+msgid "Rows"
+msgstr "Rader"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr "er ikke"
+
+msgid "contains"
+msgstr "inneholder"
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr "etter"
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr "før"
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nei"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Det oppstod et problem med å hente dataene fra serveren."
+
+msgid "No data available"
+msgstr "Ingen data tilgjengelig"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"De valgte dimensjonene ga ingen data. Det kan være at det er ingen data, "
+"eller du har kanskje ikke tilgang til dem."
+
+msgid "Visualization not found"
+msgstr "Fant ikke visualisering"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Visualiseringen du prøver å vise, ble ikke funnet, ID-en kan være feil, "
+"eller den kan ha blitt slettet."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "Ingen organisasjonsenhet er valgt"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Ingen tilgang"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Noe gikk galt"
+
+msgid "Organisation unit"
+msgstr "Organisasjonsenhet"
+
+msgid "Event status"
+msgstr "Hendelsesstatus"
+
+msgid "Program status"
+msgstr "Programstatus"
+
+msgid "Created by"
+msgstr "Opprettet av"
+
+msgid "Last updated by"
+msgstr "Sist oppdatert av"
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Brukerorganisasjonsenhet"
+
+msgid "User sub-units"
+msgstr "Underenheter"
+
+msgid "User sub-x2-units"
+msgstr "Under-x2-enheter"
+
+msgid "Table title"
+msgstr "Tabelltittel"
+
+msgid "Display"
+msgstr "Vis"
+
+msgid "Empty data"
+msgstr "Tomme data"
+
+msgid "Totals"
+msgstr "Totalsummer"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Limit values"
+msgstr "Begrens verdier"
+
+msgid "Limit number of values"
+msgstr "Begrens antall verdier"
+
+msgid "Limit minimum/maximum values"
+msgstr "Begrens minimum/maksimumsverdier"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Event date"
+msgstr "Hendelsesdato"
+
+msgid "Enrollment date"
+msgstr "Registreringsdato"
+
+msgid "Incident date"
+msgstr "Forekomstdato"
+
+msgid "Scheduled date"
+msgstr "Planlagt dato"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Cancelled"
+msgstr "Kansellert"
+
+msgid "Completed"
+msgstr "Fullført"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

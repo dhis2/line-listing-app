@@ -60,6 +60,10 @@
     flex: 1;
 }
 
+.chip:hover {
+    background: #9fdbd5;
+}
+
 .dragging {
     margin: 0;
     padding: 1px 24px 1px 6px;
@@ -119,6 +123,10 @@
 
 .chipEmpty {
     background-color: var(--colors-grey300);
+}
+
+.chipEmpty:hover {
+    background-color: var(--colors-grey400);
 }
 
 .leftIcon {

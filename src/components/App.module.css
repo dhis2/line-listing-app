@@ -22,7 +22,7 @@
 
 .eventReportsApp {
     height: 100%;
-    background-color: #f4f6f8;
+    background-color: var(--colors-grey300);
     overflow: hidden;
 }
 
@@ -37,6 +37,9 @@
 .flexGrow1 {
     flex-grow: 1;
 }
+.minWidth0 {
+    min-width: 0;
+}
 
 .flexBasis0 {
     flex-basis: 0%;
@@ -46,7 +49,7 @@
 
 .sectionToolbar {
     height: 39px;
-    border-bottom: 1px solid #e0e2e4;
+    border-bottom: 1px solid var(--colors-grey400);
 }
 
 /* Main */
@@ -62,6 +65,7 @@
     transform: scaleX(1);
     transition: width 200ms ease-out;
     border-left: 1px solid var(--colors-grey400);
+    box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03);
 }
 .mainRight.hidden {
     width: 0;
@@ -71,7 +75,7 @@
 
 .mainCenterCanvas {
     display: flex;
-    justify-content: space-between;
+    gap: var(--spacers-dp4);
     height: 100%;
     overflow: hidden;
     position: relative;

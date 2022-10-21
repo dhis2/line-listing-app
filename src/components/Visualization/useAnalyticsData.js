@@ -18,8 +18,7 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import { BOOLEAN_VALUES, NULL_VALUE } from '../../modules/conditions.js'
+import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
@@ -34,7 +33,6 @@ import {
     OUTPUT_TYPE_EVENT,
     headersMap,
 } from '../../modules/visualization.js'
-import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
@@ -53,7 +51,7 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return BOOLEAN_VALUES[rowValue || NULL_VALUE]
+            return getBooleanValues()[rowValue || NULL_VALUE]
         default:
             return header.optionSet
                 ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
@@ -145,12 +143,15 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withStage(visualization.programStage.id)
         .withDisplayProperty(nameProp)
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
         .withIncludeMetadataDetails()
+
+    if (visualization.outputType !== OUTPUT_TYPE_ENROLLMENT) {
+        req = req.withStage(visualization.programStage?.id)
+    }
 
     if (relativePeriodDate) {
         req = req.withRelativePeriodDate(relativePeriodDate)
@@ -276,6 +277,7 @@ const valueTypeIsNumeric = (valueType) =>
 const useAnalyticsData = ({
     visualization,
     filters,
+    isVisualizationLoading: isGlobalLoading,
     onResponsesReceived,
     pageSize,
     page,
@@ -283,7 +285,6 @@ const useAnalyticsData = ({
     sortDirection,
 }) => {
     const dataEngine = useDataEngine()
-    const isGlobalLoading = useSelector(sGetIsVisualizationLoading)
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(dataEngine))
     const mounted = useRef(false)
     const [loading, setLoading] = useState(true)
@@ -360,7 +361,7 @@ const useAnalyticsData = ({
             }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, ...pager })
+            mounted.current && setData({ headers, rows, pager })
             onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)

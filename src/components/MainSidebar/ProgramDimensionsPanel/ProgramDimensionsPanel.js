@@ -101,7 +101,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
-    }, [inputType, selectedProgramId])
+    }, [inputType, selectedProgramId, selectedStageId])
 
     if (!visible || !called) {
         return null
@@ -155,7 +155,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     <div className={styles.helptext}>
                         {requiredStageSelection
                             ? i18n.t(
-                                  'Choose a program and stage above to add program dimensions.'
+                                  'Choose a stage above to add program dimensions.'
                               )
                             : i18n.t(
                                   'Choose a program above to add program dimensions.'

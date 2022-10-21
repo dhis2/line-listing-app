@@ -1,0 +1,692 @@
+# 
+# Translators:
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2022
+# phil_dhis2, 2022
+# Viktor Varland <viktor@dhis2.org>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "Thêm {{tên trục}"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Gỡ"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Đang tải..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Ẩn"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Ngày bắt đầu"
+
+msgid "End date"
+msgstr "Ngày kết thúc"
+
+msgid "No items selected"
+msgstr "Không có mục nào được chọn"
+
+msgid "Available options"
+msgstr "Tùy chọn hiện có"
+
+msgid "Filter options"
+msgstr "Tùy chọn bộ lọc"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr "Di chuyển đến {{axisName}}"
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Nguồn dữ liệu gốc"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "Lược đồ ID siêu dữ liệu"
+
+msgid "ID"
+msgstr "Định danh"
+
+msgid "Code"
+msgstr "Mã"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Download"
+msgstr "Tải về"
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+
+msgid "Levels"
+msgstr "Các cấp độ"
+
+msgid "Groups"
+msgstr "Các nhóm"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+
+msgid "None selected"
+msgstr "Chưa lựa chọn"
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Sự Kiện"
+
+msgid "Enrollment"
+msgstr "Đăng ký"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr "Các chiều chính"
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr "Loại"
+
+msgid "All types"
+msgstr "Các loại"
+
+msgid "Data element"
+msgstr "Phần tử dữ liệu"
+
+msgid "Program attribute"
+msgstr "Chương trình"
+
+msgid "Program indicator"
+msgstr "Quản lý Chỉ số chương trình"
+
+msgid "Category"
+msgstr "Phân loại"
+
+msgid "Category option group set"
+msgstr "Tập nhóm phân loại tùy chọn"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program and stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Xóa"
+
+msgid "Stage"
+msgstr "Giai Đoạn Chương Trình"
+
+msgid "All"
+msgstr "Tất cả"
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Các chiều dữ liệu của bạn"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Không lưu mô hình trực quan hóa"
+
+msgid "Edited"
+msgstr "Chỉnh sửa"
+
+msgid "Interpretations"
+msgstr "Diễn giải "
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Đổi tên thành công"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Mô hình hóa {{visualizationType}} không có tiêu đề, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Không thể xóa hình ảnh trực quan này vì nó được sử dụng trên một hoặc nhiều "
+"trang tổng quan"
+
+msgid "Update"
+msgstr "Cập nhật"
+
+msgid "Getting started"
+msgstr "Bắt đầu"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "Dòng mỗi trang"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Tổng phụ cột"
+
+msgid "Columns totals"
+msgstr "Tổng cột"
+
+msgid "Digit group separator"
+msgstr "Dấu tách nhóm chữ số"
+
+msgid "None"
+msgstr "Không"
+
+msgid "Space"
+msgstr "Khoảng trắng"
+
+msgid "Comma"
+msgstr "Dấu phẩy"
+
+msgid "Display density"
+msgstr "Mật độ hiển thị"
+
+msgid "Comfortable"
+msgstr "Thoải mái"
+
+msgid "Normal"
+msgstr "Thường"
+
+msgid "Compact"
+msgstr "Gọn nhẹ"
+
+msgid "Font size"
+msgstr "Cỡ chữ"
+
+msgid "Large"
+msgstr "Lớn"
+
+msgid "Small"
+msgstr "Nhỏ"
+
+msgid "Hide empty rows"
+msgstr "Ẩn dòng rỗng"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Mẫu chú giải"
+
+msgid "Legend type"
+msgstr "Loại chú giải"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Sử dụng chú giải được xác định trước cho mỗi mục dữ liệu"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Chú giải thay đổi màu nền"
+
+msgid "Legend changes text color"
+msgstr "Chú giải thay đổi màu chữ"
+
+msgid "Legend"
+msgstr "Chú giải"
+
+msgid "Select from legends"
+msgstr "Chọn từ các chú giải"
+
+msgid "Loading legends"
+msgstr "Tải các chú giải"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr "Giá trị dữ liệu tối thiểu"
+
+msgid "Maximum data value"
+msgstr "Giá trị dữ liệu tối đa"
+
+msgid "Clear min/max limits"
+msgstr "Bỏ các giới hạn nhỏ nhất/lớn nhất"
+
+msgid "Row sub-totals"
+msgstr "Tổng phụ dòng"
+
+msgid "Row totals"
+msgstr "Tổng dòng"
+
+msgid "Dimension labels"
+msgstr "Nhãn chiều dữ liệu"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Hiển thị cây đơn vị"
+
+msgid "Show legend key"
+msgstr "Hiển thị khóa chú giải"
+
+msgid "Add a title"
+msgstr "Thêm tiêu đề"
+
+msgid "Options"
+msgstr "Tùy chọn"
+
+msgid "Columns"
+msgstr "Cột"
+
+msgid "Rows"
+msgstr "Dòng"
+
+msgid "Filter"
+msgstr "Bộ lọc"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Có"
+
+msgid "No"
+msgstr "Không"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Có vấn đề khi nhận dữ liệu từ máy chủ."
+
+msgid "No data available"
+msgstr "Không có dữ liệu"
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"Các chiều được chọn không trả về bất kỳ dữ liệu nào. Có thể không có dữ liệu"
+" hoặc bạn có thể không có quyền truy cập dữ liệu."
+
+msgid "Visualization not found"
+msgstr "Mô hình hóa không tìm thấy"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Không thể tìm thấy hình ảnh trực quan mà bạn đang cố gắng xem, ID có thể "
+"không chính xác hoặc có thể đã bị xóa."
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr "Số đơn vị đã chọn"
+
+msgid "Add at least one organisation unit to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid "Add at least one time dimension to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr "Không truy cập"
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Có gì đó không đúng"
+
+msgid "Organisation unit"
+msgstr "Đơn vị"
+
+msgid "Event status"
+msgstr "Trạng thái sự kiện"
+
+msgid "Program status"
+msgstr "Tình trạng chương trình"
+
+msgid "Created by"
+msgstr "Được tạo bởi"
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Đơn vị người dùng"
+
+msgid "User sub-units"
+msgstr "Đơn-vị-con người dùng"
+
+msgid "User sub-x2-units"
+msgstr "Đơn-vị-con-x2 người dùng"
+
+msgid "Table title"
+msgstr "Tiêu đề bảng"
+
+msgid "Display"
+msgstr "Hiển thị"
+
+msgid "Empty data"
+msgstr "Dữ liệu trống"
+
+msgid "Totals"
+msgstr "Tổng"
+
+msgid "Data"
+msgstr "Dữ liệu"
+
+msgid "Limit values"
+msgstr "Giá trị giới hạn"
+
+msgid "Limit number of values"
+msgstr "Giới hạn số lượng giá trị"
+
+msgid "Limit minimum/maximum values"
+msgstr "Giới hạn giá trị nhỏ nhất/lớn nhất"
+
+msgid "Style"
+msgstr "Kiểu dáng"
+
+msgid "Event date"
+msgstr "Ngày sự kiện"
+
+msgid "Enrollment date"
+msgstr "Ngày đăng ký"
+
+msgid "Incident date"
+msgstr "Ngày khởi phát"
+
+msgid "Scheduled date"
+msgstr "Ngày đã hẹn"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Hoạt động"
+
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+msgid "Completed"
+msgstr "Đã hoàn tất"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

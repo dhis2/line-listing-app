@@ -1,4 +1,9 @@
-import { getConditionsTexts } from '../conditions.js'
+import {
+    getConditionsTexts,
+    checkIsCaseSensitive,
+    addCaseSensitivePrefix,
+    removeCaseSensitivePrefix,
+} from '../conditions.js'
 
 test('Legend set chosen with no legends selected', () => {
     const conditions = {
@@ -67,8 +72,6 @@ test('Organisation unit dimension with EQ condition', () => {
     expect(actual).toEqual(['Org unit name'])
 })
 
-//DATETIME tests are disabled until node v16 due to needing support for replaceAll
-
 const tests = [
     {
         dimensionValueType: 'BOOLEAN',
@@ -80,24 +83,24 @@ const tests = [
         condition: 'IN:NV',
         expected: ['Not answered'],
     },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'GT:2021-01-16T11.44:LT:2022-05-16T12.00',
-    //     expected: ['After: 2021-01-16 11:44', 'Before: 2022-05-16 12:00'],
-    // },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'NE:NV:GE:2021-01-16T15.45',
-    //     expected: [
-    //         'Is not empty / not null',
-    //         'After or including: 2021-01-16 15:45',
-    //     ],
-    // },
-    // {
-    //     dimensionValueType: 'DATETIME',
-    //     condition: 'EQ:NV',
-    //     expected: ['Is empty / null'],
-    // },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'GT:2021-01-16T11.44:LT:2022-05-16T12.00',
+        expected: ['After: 2021-01-16 11:44', 'Before: 2022-05-16 12:00'],
+    },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'NE:NV:GE:2021-01-16T15.45',
+        expected: [
+            'Is not empty / not null',
+            'After or including: 2021-01-16 15:45',
+        ],
+    },
+    {
+        dimensionValueType: 'DATETIME',
+        condition: 'EQ:NV',
+        expected: ['Is empty / null'],
+    },
     {
         dimensionValueType: 'NUMBER',
         condition: 'GT:31.5:LE:40.9',
@@ -247,6 +250,157 @@ describe('conditions that do not include legend sets or option sets', () => {
                 formatValueOptions,
             })
             expect(actual).toEqual(t.expected)
+        })
+    })
+})
+
+describe('checkIsCaseSensitive', () => {
+    const tests = [
+        {
+            operator: '!LIKE',
+            expected: true,
+        },
+        {
+            operator: '!ILIKE',
+            expected: false,
+        },
+        {
+            operator: '!EQ',
+            expected: true,
+        },
+        {
+            operator: '!IEQ',
+            expected: false,
+        },
+        {
+            operator: 'LIKE',
+            expected: true,
+        },
+        {
+            operator: 'ILIKE',
+            expected: false,
+        },
+        {
+            operator: 'EQ',
+            expected: true,
+        },
+        {
+            operator: 'IEQ',
+            expected: false,
+        },
+        // The function doesn't handle 'IN' correctly
+        // {
+        //     operator: 'IN',
+        //     expected: true,
+        // },
+        // {
+        //     operator: '!IN',
+        //     expected: true,
+        // },
+    ]
+
+    tests.forEach((t) => {
+        const testname = `${t.operator}: expected: ${t.expected}`
+        test(testname, () => {
+            expect(checkIsCaseSensitive(t.operator)).toEqual(t.expected)
+        })
+    })
+})
+
+describe('addCaseSensitivePrefix', () => {
+    const tests = [
+        {
+            operator: 'LIKE',
+            isCaseSensitive: true,
+            expected: 'LIKE',
+        },
+        {
+            operator: '!LIKE',
+            isCaseSensitive: true,
+            expected: '!LIKE',
+        },
+        {
+            operator: '!LIKE',
+            isCaseSensitive: false,
+            expected: '!ILIKE',
+        },
+        {
+            operator: 'LIKE',
+            isCaseSensitive: false,
+            expected: 'ILIKE',
+        },
+        {
+            operator: 'EQ',
+            isCaseSensitive: true,
+            expected: 'EQ',
+        },
+        {
+            operator: '!EQ',
+            isCaseSensitive: true,
+            expected: '!EQ',
+        },
+        {
+            operator: '!EQ',
+            isCaseSensitive: false,
+            expected: '!IEQ',
+        },
+        {
+            operator: 'EQ',
+            isCaseSensitive: false,
+            expected: 'IEQ',
+        },
+    ]
+
+    tests.forEach((t) => {
+        const testname = `${t.operator}: caseSensitive: ${t.isCaseSensitive} should become ${t.expected}`
+        test(testname, () => {
+            expect(
+                addCaseSensitivePrefix(t.operator, t.isCaseSensitive)
+            ).toEqual(t.expected)
+        })
+    })
+})
+
+describe('removeCaseSensitivePrefix', () => {
+    const tests = [
+        {
+            operator: 'LIKE',
+            expected: 'LIKE',
+        },
+        {
+            operator: '!LIKE',
+            expected: '!LIKE',
+        },
+        {
+            operator: 'ILIKE',
+            expected: 'LIKE',
+        },
+        {
+            operator: '!ILIKE',
+            expected: '!LIKE',
+        },
+        {
+            operator: 'EQ',
+            expected: 'EQ',
+        },
+        {
+            operator: '!EQ',
+            expected: '!EQ',
+        },
+        {
+            operator: 'IEQ',
+            expected: 'EQ',
+        },
+        {
+            operator: '!IEQ',
+            expected: '!EQ',
+        },
+    ]
+
+    tests.forEach((t) => {
+        const testname = `${t.operator} should become ${t.expected}`
+        test(testname, () => {
+            expect(removeCaseSensitivePrefix(t.operator)).toEqual(t.expected)
         })
     })
 })

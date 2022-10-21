@@ -13,10 +13,10 @@ import {
     CASE_INSENSITIVE_PREFIX,
     OPERATOR_NOT_EMPTY,
     OPERATOR_EMPTY,
-    ALPHA_NUMERIC_OPERATORS,
-    prefixOperator,
-    unprefixOperator,
+    addCaseSensitivePrefix,
+    removeCaseSensitivePrefix,
     checkIsCaseSensitive,
+    getAlphaNumericOperators,
 } from '../../../modules/conditions.js'
 import classes from './styles/Condition.module.css'
 
@@ -40,7 +40,7 @@ const BaseCondition = ({
     } else {
         const parts = condition.split(':')
         isCaseSensitive = checkIsCaseSensitive(parts[0])
-        operator = unprefixOperator(parts[0])
+        operator = removeCaseSensitivePrefix(parts[0])
         value = parts[1]
     }
 
@@ -48,20 +48,28 @@ const BaseCondition = ({
         if (input.includes(NULL_VALUE)) {
             onChange(`${input}`)
         } else {
-            onChange(`${prefixOperator(input, isCaseSensitive)}:${value || ''}`)
+            onChange(
+                `${addCaseSensitivePrefix(input, isCaseSensitive)}:${
+                    value || ''
+                }`
+            )
         }
     }
 
     const setValue = (input) => {
-        onChange(`${prefixOperator(operator, isCaseSensitive)}:${input || ''}`)
+        onChange(
+            `${addCaseSensitivePrefix(operator, isCaseSensitive)}:${
+                input || ''
+            }`
+        )
     }
 
     const toggleCaseSensitive = (cs) => {
-        onChange(`${prefixOperator(operator, cs)}:${value || ''}`)
+        onChange(`${addCaseSensitivePrefix(operator, cs)}:${value || ''}`)
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classes.container} data-test={'alphanumeric-condition'}>
             <SingleSelectField
                 selected={operator}
                 placeholder={i18n.t('Choose a condition type')}
@@ -69,9 +77,16 @@ const BaseCondition = ({
                 onChange={({ selected }) => setOperator(selected)}
                 className={classes.operatorSelect}
             >
-                {Object.entries(ALPHA_NUMERIC_OPERATORS).map(([key, value]) => (
-                    <SingleSelectOption key={key} value={key} label={value} />
-                ))}
+                {Object.entries(getAlphaNumericOperators()).map(
+                    ([key, value]) => (
+                        <SingleSelectOption
+                            key={key}
+                            value={key}
+                            label={value}
+                            dataTest={'alphanumeric-condition-type'}
+                        />
+                    )
+                )}
             </SingleSelectField>
             {operator && !operator.includes(NULL_VALUE) && (
                 <Input
@@ -90,6 +105,7 @@ const BaseCondition = ({
                         onChange={({ checked }) => toggleCaseSensitive(checked)}
                         dense
                         className={classes.caseSensitiveCheckbox}
+                        dataTest={'condition-case-sensitive-checkbox'}
                     />
                 )}
             <Button

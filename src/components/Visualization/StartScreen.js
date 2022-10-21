@@ -1,8 +1,4 @@
-import {
-    VisTypeIcon,
-    VIS_TYPE_LINE_LIST,
-    useCachedDataQuery,
-} from '@dhis2/analytics'
+import { VisTypeIcon, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { colors } from '@dhis2/ui'
@@ -28,40 +24,18 @@ const mostViewedQuery = {
     },
 }
 
-const visualizationsQuery = {
-    visualizations: {
-        resource: 'eventVisualizations',
-        params: ({ ids }) => ({
-            filter: `id:in:[${ids.join(',')}]`,
-            fields: ['id', 'displayName~rename(name)', 'type'],
-        }),
-    },
-}
-
 const useMostViewedVisualizations = (username, error, setLoadError) => {
-    const visualizations = useDataQuery(visualizationsQuery, {
-        lazy: true,
-        onError: (error) => setLoadError(error),
-    })
-
     const mostViewed = useDataQuery(mostViewedQuery, {
         lazy: !!error,
         variables: { username },
-        onComplete: (data) => {
-            visualizations.refetch({
-                ids: data.mostViewed.map((obj) => obj.id),
-            })
-        },
         onError: (error) => setLoadError(error),
     })
 
     return {
-        mostViewed: visualizations.data
-            ? visualizations.data.visualizations.eventVisualizations
-            : undefined,
-        loading: mostViewed.loading || visualizations.loading,
-        fetching: mostViewed.fetching || visualizations.fetching,
-        error: mostViewed.error || visualizations.error,
+        mostViewed: mostViewed.data?.mostViewed,
+        loading: mostViewed.loading || mostViewed.loading,
+        fetching: mostViewed.fetching || mostViewed.fetching,
+        error: mostViewed.error || mostViewed.error,
     }
 }
 
@@ -73,16 +47,14 @@ const StartScreen = ({ error, setLoadError }) => {
         setLoadError
     )
 
-    /* TODO remove this when pivot tables are supported */
-    const mostViewed = data?.mostViewed?.filter(
-        (vis) => vis.type === VIS_TYPE_LINE_LIST
-    )
-
     return (
         <div className={styles.outer}>
             <div className={styles.inner}>
                 {error ? (
-                    <div className={styles.errorContainer}>
+                    <div
+                        className={styles.errorContainer}
+                        data-test={'error-container'}
+                    >
                         {isVisualizationError(error) ? (
                             <>
                                 <div className={styles.errorIcon}>
@@ -134,12 +106,12 @@ const StartScreen = ({ error, setLoadError }) => {
                             </ul>
                         </div>
                         {/* TODO add a spinner when loading? */}
-                        {mostViewed?.length > 0 && (
+                        {data.mostViewed?.length > 0 && (
                             <div className={styles.section}>
                                 <h3 className={styles.title}>
                                     {i18n.t('Your most viewed line lists')}
                                 </h3>
-                                {mostViewed.map((vis, index) => (
+                                {data.mostViewed.map((vis, index) => (
                                     <p
                                         key={index}
                                         className={styles.visualization}

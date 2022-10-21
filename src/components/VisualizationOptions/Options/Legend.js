@@ -48,7 +48,7 @@ const Legend = ({
             })
         } else {
             onChange({
-                [OPTION_LEGEND_DISPLAY_STRATEGY]: LEGEND_DISPLAY_STRATEGY_FIXED,
+                [OPTION_LEGEND_DISPLAY_STRATEGY]: undefined,
             })
             onChange({
                 [OPTION_LEGEND_SET]: undefined,
