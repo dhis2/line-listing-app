@@ -54,7 +54,7 @@ const mainAndTimeDimensions = [
     { label: 'Last updated by', value: 'admin' },
     { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
     { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2021-12-01' },
-    { label: event[DIMENSION_ID_SCHEDULED_DATE], value: '2021-11-01' },
+    { label: event[DIMENSION_ID_SCHEDULED_DATE], value: '2021-11-01' }, // FIXME: Needs to be toggled for <39, consider refactoring the "'dev', '>=40'" test at the bottom as well to use the same syntax?
     { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2021-11-01' },
     { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
 ]
