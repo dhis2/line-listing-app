@@ -2024,15 +2024,15 @@
     react-beautiful-dnd "^10.1.1"
     resize-observer-polyfill "^1.5.1"
 
-"@dhis2/app-adapter@10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-10.1.0.tgz#c1bd4340fe277c705fc450c5197318f3934029c2"
-  integrity sha512-FzfDvX9K8pdF6T9SiFLD7Tml0DCmHijCnK7BwDfjLBImjhTWz9qNzmUL7YGvoq+rP6Wu9vF93tGRUROOLYj+Pw==
+"@dhis2/app-adapter@10.1.1":
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-10.1.1.tgz#599662658fe92ef77968e6542b4af4dae009c3d9"
+  integrity sha512-8XWxCab1WJWSTVKcUnyUn1x3DYT7ENm5AxnDr9M1/x8NVesJYTAsTACJj3SqDaDBKFYBrSqpUiT193oaEmJOog==
   dependencies:
-    "@dhis2/pwa" "10.1.0"
+    "@dhis2/pwa" "10.1.1"
     moment "^2.24.0"
 
-"@dhis2/app-runtime@^3.4.4", "@dhis2/app-runtime@^3.5.0":
+"@dhis2/app-runtime@3.6.0", "@dhis2/app-runtime@^3.4.4":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@dhis2/app-runtime/-/app-runtime-3.6.0.tgz#93bacabee12ea621d2cfc7c590cc272be3715f38"
   integrity sha512-ti1b3hsMifj9KbbvAoaMJrxCXSv1g45J4mTy7ovk0elKZLW3eTLwZ9K8/SC8pG7Ntu4aBn9rWWW4A98G/zNP8Q==
@@ -2066,16 +2066,16 @@
   dependencies:
     lodash "^4.17.21"
 
-"@dhis2/app-shell@10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.1.0.tgz#a11ef39d654a070158ca1ea38675709ca5315a87"
-  integrity sha512-Y1cst4+3sn0fn5O97wsZ3/4zMXNE6jEhQ0ageho5sVHyFiUzfDEtggcdkD8ANVcJXNW9HIs+DLkcc/C0YZEZFg==
+"@dhis2/app-shell@10.1.1":
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-10.1.1.tgz#63379e76fcd14ec23d6f185d6fe9ce93d24e6539"
+  integrity sha512-cx4ptrVxEX4lUlWeyzWe1NS9j7JWKboz1lzrdW303sgM+kEfix/PI/PKd9KRqdWarItOMUjcMvZdrH8xoVdnCA==
   dependencies:
-    "@dhis2/app-adapter" "10.1.0"
-    "@dhis2/app-runtime" "^3.5.0"
+    "@dhis2/app-adapter" "10.1.1"
+    "@dhis2/app-runtime" "3.6.0"
     "@dhis2/d2-i18n" "^1.1.0"
-    "@dhis2/pwa" "10.1.0"
-    "@dhis2/ui" "^8.5.0"
+    "@dhis2/pwa" "10.1.1"
+    "@dhis2/ui" "8.6.0"
     classnames "^2.2.6"
     moment "^2.29.1"
     prop-types "^15.7.2"
@@ -2087,10 +2087,10 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-"@dhis2/cli-app-scripts@^10.0.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.1.0.tgz#9d0ce3dcdc3910942a41ad8940a6f958c02caf74"
-  integrity sha512-bKXTTFdvz+C0Sz55Aklsi9Zf1yPfO0YJfKOWXoV+Mhs+o2rM7zMhMuWJQA+j9iFfAqQNyzKJw0pQpLGHA/Wxqg==
+"@dhis2/cli-app-scripts@^10.1.1":
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-10.1.1.tgz#2d3cbf84040a424d0cc76de8ea6cc4e23933ce05"
+  integrity sha512-EAlEgBXBplbprcO6ZUylCYpPRaCcc2UUHCA0zr5zDH93uKkE4avtoRPMFb/bD0FxM7guvjg2aN2e6ERj87cj6w==
   dependencies:
     "@babel/core" "^7.6.2"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -2099,7 +2099,7 @@
     "@babel/preset-env" "^7.14.7"
     "@babel/preset-react" "^7.0.0"
     "@babel/preset-typescript" "^7.6.0"
-    "@dhis2/app-shell" "10.1.0"
+    "@dhis2/app-shell" "10.1.1"
     "@dhis2/cli-helpers-engine" "^3.2.0"
     "@jest/core" "^27.0.6"
     "@yarnpkg/lockfile" "^1.1.0"
@@ -2224,10 +2224,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-3.1.2.tgz#65b8ad2da8cd2f72bc8b951049a6c9d1b97af3e9"
   integrity sha512-eM0jjLOWvtXWqSFp5YC4DHFpkP8Y1D2eUwGV7MBWjni+o27oesVan+oT7WHeOeLdlAd4acRJrnaaAyB4Ck1wGQ==
 
-"@dhis2/pwa@10.1.0":
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.1.0.tgz#764c1f8fe7c4a8a00168769646626e97d0b37500"
-  integrity sha512-C3/Pi9RPfRfa9INeIL+WNbaYpTCDLTQdqZWafi4NBgD/Pq/jvobyTuevZrEeMyzR/uDGrzDjt2d6Cllp00QHEg==
+"@dhis2/pwa@10.1.1":
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-10.1.1.tgz#cd3b414eccb7951e4fba8af50e39289ec40d2549"
+  integrity sha512-v1iphQoDZBsZAay5zVwhb8MyS5g4Dz5OTV0f0KAnp27gLiEn7GoLVsakFq6n/gPpp2QWm2os9nIooLFckTgVmg==
   dependencies:
     idb "^6.0.0"
     workbox-core "^6.1.5"
@@ -2267,7 +2267,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-8.6.0.tgz#05fddb26c90ccc559f1dc4ee2de84fb852231eb5"
   integrity sha512-VwndChdz17D5fbGJx9YrdE1aiv6eNNnpjQKJ9dkcuEvBIA4nZt4m+E4xllHrSa5WhJjX8DAAo7Sjr36WvzzDJw==
 
-"@dhis2/ui@^8.3.1", "@dhis2/ui@^8.4.1", "@dhis2/ui@^8.5.0":
+"@dhis2/ui@8.6.0", "@dhis2/ui@^8.3.1", "@dhis2/ui@^8.4.1":
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-8.6.0.tgz#dcdc45c42e9415fe7a4c2c3fee932a0b9dc9b638"
   integrity sha512-fH0uD7TrupgpG9nf2kX2suoMtdWC+EoVhC36j/w8t+6IED5P85kUK2otlFIrwdOQY5VJrzjGkH0JjIgx7IM43w==
