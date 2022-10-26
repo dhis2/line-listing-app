@@ -6,17 +6,17 @@
 # Djibril Dione <dione.djibril@gmail.com>, 2022
 # Yayra Gomado <ygomado@hispwca.org>, 2022
 # Edem Kossi <ekossi@hispwca.org>, 2022
-# Yao Selom Saka <ysaka@hispwca.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
+"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,7 +281,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a program and stage above to add program dimensions."
+msgid "Choose a stage above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program above to add program dimensions."
@@ -301,6 +301,12 @@ msgstr "Etape"
 
 msgid "All"
 msgstr "Tout"
+
+msgid "Clear stage first to choose another"
+msgstr ""
+
+msgid "This program only has one stage"
+msgstr ""
 
 msgid "Time dimensions"
 msgstr ""
@@ -354,18 +360,6 @@ msgid "Click a dimension to add or remove conditions."
 msgstr ""
 
 msgid "Your most viewed line lists"
-msgstr ""
-
-msgid "most recent"
-msgstr ""
-
-msgid "oldest"
-msgstr ""
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr ""
-
-msgid "most recent {{repeatEventIndex}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -583,6 +577,12 @@ msgstr ""
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr ""
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr ""
 
@@ -592,13 +592,16 @@ msgstr ""
 msgid "No organisation unit selected"
 msgstr "Aucune unité d'organisation sélectionnée"
 
-msgid "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
 
 msgid "No time dimension selected"
 msgstr ""
 
-msgid "Add at least one time dimension to the layout."
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
@@ -670,6 +673,18 @@ msgstr "Valeurs seuils minimales/maximales"
 msgid "Style"
 msgstr "Style"
 
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
 msgid "Event date"
 msgstr "Date d'événement"
 
@@ -699,6 +714,9 @@ msgstr "Annulé"
 
 msgid "Completed"
 msgstr "Terminé"
+
+msgid "Scheduled"
+msgstr "Planifié"
 
 msgid "List data from tracked entities and events."
 msgstr ""
