@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -267,7 +267,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a program and stage above to add program dimensions."
+msgid "Choose a stage above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program above to add program dimensions."
@@ -287,6 +287,12 @@ msgstr "阶段"
 
 msgid "All"
 msgstr "全部"
+
+msgid "Clear stage first to choose another"
+msgstr ""
+
+msgid "This program only has one stage"
+msgstr ""
 
 msgid "Time dimensions"
 msgstr ""
@@ -338,18 +344,6 @@ msgid "Click a dimension to add or remove conditions."
 msgstr ""
 
 msgid "Your most viewed line lists"
-msgstr ""
-
-msgid "most recent"
-msgstr ""
-
-msgid "oldest"
-msgstr ""
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr ""
-
-msgid "most recent {{repeatEventIndex}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -560,6 +554,12 @@ msgstr ""
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr ""
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr ""
 
@@ -569,13 +569,16 @@ msgstr ""
 msgid "No organisation unit selected"
 msgstr "没有选择机构"
 
-msgid "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
 
 msgid "No time dimension selected"
 msgstr ""
 
-msgid "Add at least one time dimension to the layout."
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
@@ -647,6 +650,18 @@ msgstr "限制最大最小值"
 msgid "Style"
 msgstr "风格"
 
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
 msgid "Event date"
 msgstr "事故日期"
 
@@ -676,6 +691,9 @@ msgstr "已取消"
 
 msgid "Completed"
 msgstr "完成"
+
+msgid "Scheduled"
+msgstr "已经调度"
 
 msgid "List data from tracked entities and events."
 msgstr ""

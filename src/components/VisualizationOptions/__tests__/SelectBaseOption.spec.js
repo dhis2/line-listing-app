@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -25,7 +25,7 @@ describe('ER > Options > SelectBaseOption', () => {
             ],
         }
 
-        const { container } = render(
+        const { getByText } = render(
             <Provider store={mockStore(store)}>
                 <SelectBaseOption
                     dataTest="testing-prefix"
@@ -34,6 +34,13 @@ describe('ER > Options > SelectBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+
+        expect(getByText('Option 3 label')).toBeTruthy()
+
+        const option2 = screen.queryByText('Option 2 label')
+        expect(option2).toBeNull()
+
+        const option1 = screen.queryByText('Option 1 label')
+        expect(option1).toBeNull()
     })
 })
