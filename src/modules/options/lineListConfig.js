@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import React from 'react'
 import DigitGroupSeparator from '../../components/VisualizationOptions/Options/DigitGroupSeparator.js'
 import DisplayDensity from '../../components/VisualizationOptions/Options/DisplayDensity.js'

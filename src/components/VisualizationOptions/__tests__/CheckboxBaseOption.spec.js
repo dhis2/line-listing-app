@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -20,7 +20,7 @@ describe('ER > Options > CheckboxBaseOption', () => {
             name: 'theOptionName',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <CheckboxBaseOption
                     dataTest="testing-prefix"
@@ -30,7 +30,13 @@ describe('ER > Options > CheckboxBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+
+        const inputNode = screen.getByLabelText('Should I?', {
+            selector: 'input',
+        })
+
+        expect(inputNode.checked).toBeFalsy()
+        expect(inputNode.name).toEqual('theOptionName')
     })
 
     it('renders checkbox with value: true, inverted: false', () => {
@@ -46,7 +52,7 @@ describe('ER > Options > CheckboxBaseOption', () => {
             name: 'theOptionName',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <CheckboxBaseOption
                     dataTest="testing-prefix"
@@ -56,7 +62,12 @@ describe('ER > Options > CheckboxBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+        const inputNode = screen.getByLabelText('Should I?', {
+            selector: 'input',
+        })
+
+        expect(inputNode.checked).toBeTruthy()
+        expect(inputNode.name).toEqual('theOptionName')
     })
 
     it('renders checkbox with value: false, inverted: true', () => {
@@ -72,7 +83,7 @@ describe('ER > Options > CheckboxBaseOption', () => {
             name: 'theOptionName',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <CheckboxBaseOption
                     dataTest="testing-prefix"
@@ -82,7 +93,12 @@ describe('ER > Options > CheckboxBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+        const inputNode = screen.getByLabelText('Should I?', {
+            selector: 'input',
+        })
+
+        expect(inputNode.checked).toBeTruthy()
+        expect(inputNode.name).toEqual('theOptionName')
     })
 
     it('renders checkbox with value: false, inverted: false', () => {
@@ -98,7 +114,7 @@ describe('ER > Options > CheckboxBaseOption', () => {
             name: 'theOptionName',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <CheckboxBaseOption
                     dataTest="testing-prefix"
@@ -108,6 +124,11 @@ describe('ER > Options > CheckboxBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+        const inputNode = screen.getByLabelText('Should I?', {
+            selector: 'input',
+        })
+
+        expect(inputNode.checked).toBeFalsy()
+        expect(inputNode.name).toEqual('theOptionName')
     })
 })
