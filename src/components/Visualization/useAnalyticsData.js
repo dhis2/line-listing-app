@@ -276,7 +276,7 @@ const useAnalyticsData = ({
     visualization,
     filters,
     isVisualizationLoading: isGlobalLoading,
-    nameProp,
+    displayProperty,
     onResponsesReceived,
     pageSize,
     page,
@@ -302,7 +302,7 @@ const useAnalyticsData = ({
                 sortDirection,
                 sortField,
                 visualization,
-                nameProp,
+                displayProperty,
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
