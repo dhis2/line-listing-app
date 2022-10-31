@@ -2,15 +2,15 @@
 # Translators:
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
-# 晓东 林 <13981924470@126.com>, 2022
 # easylin <lin_xd@126.com>, 2022
+# 晓东 林 <13981924470@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-30T08:21:12.177Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
+"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -269,8 +269,8 @@ msgid ""
 "administrator."
 msgstr "无法检索程序。重试或联系您的系统管理员。"
 
-msgid "Choose a program and stage above to add program dimensions."
-msgstr "选择上面的项目和阶段以添加项目维度。"
+msgid "Choose a stage above to add program dimensions."
+msgstr ""
 
 msgid "Choose a program above to add program dimensions."
 msgstr "选择上面的项目以添加项目维度"
@@ -347,18 +347,6 @@ msgstr "单击维度以添加或删除条件。"
 
 msgid "Your most viewed line lists"
 msgstr "您浏览次数最多的行列表"
-
-msgid "most recent"
-msgstr "最近的"
-
-msgid "oldest"
-msgstr "最老的"
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr "最早的 {{repeatEventIndex}}"
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr "最近的 {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "行每页"
@@ -664,6 +652,18 @@ msgstr "限制最大最小值"
 msgid "Style"
 msgstr "风格"
 
+msgid "most recent"
+msgstr "最近的"
+
+msgid "oldest"
+msgstr "最老的"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "最早的 {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "最近的 {{repeatEventIndex}}"
+
 msgid "Event date"
 msgstr "事件日期"
 
@@ -693,6 +693,9 @@ msgstr "已取消"
 
 msgid "Completed"
 msgstr "完成"
+
+msgid "Scheduled"
+msgstr "已经调度"
 
 msgid "List data from tracked entities and events."
 msgstr "列出来自被跟踪实体和事件的数据。"
