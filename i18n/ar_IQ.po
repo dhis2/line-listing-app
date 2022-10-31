@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2022\n"
 "Language-Team: Arabic (Iraq) (https://www.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -281,7 +281,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a program and stage above to add program dimensions."
+msgid "Choose a stage above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program above to add program dimensions."
@@ -301,6 +301,12 @@ msgstr ""
 
 msgid "All"
 msgstr "الجميع"
+
+msgid "Clear stage first to choose another"
+msgstr ""
+
+msgid "This program only has one stage"
+msgstr ""
 
 msgid "Time dimensions"
 msgstr ""
@@ -352,18 +358,6 @@ msgid "Click a dimension to add or remove conditions."
 msgstr ""
 
 msgid "Your most viewed line lists"
-msgstr ""
-
-msgid "most recent"
-msgstr ""
-
-msgid "oldest"
-msgstr ""
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr ""
-
-msgid "most recent {{repeatEventIndex}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -574,6 +568,12 @@ msgstr ""
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr ""
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr ""
 
@@ -583,13 +583,16 @@ msgstr ""
 msgid "No organisation unit selected"
 msgstr ""
 
-msgid "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
 
 msgid "No time dimension selected"
 msgstr ""
 
-msgid "Add at least one time dimension to the layout."
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
@@ -661,6 +664,18 @@ msgstr ""
 msgid "Style"
 msgstr "المظهر"
 
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
 msgid "Event date"
 msgstr "بيانات الحدث"
 
@@ -670,7 +685,7 @@ msgstr "تاريخ التسجيل"
 msgid "Incident date"
 msgstr "تاريخ الواقعة"
 
-msgid "Due/Scheduled date"
+msgid "Scheduled date"
 msgstr ""
 
 msgid "Last updated on"
@@ -690,6 +705,9 @@ msgstr "تم الإلغاء"
 
 msgid "Completed"
 msgstr "مكتمل"
+
+msgid "Scheduled"
+msgstr "تمت جدولته"
 
 msgid "List data from tracked entities and events."
 msgstr ""

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-06T11:12:41.461Z\n"
+"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2022\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -282,8 +282,8 @@ msgstr ""
 "Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
 "systemadministrator."
 
-msgid "Choose a program and stage above to add program dimensions."
-msgstr "Velg et program og fase ovenfor for å legge til programdimensjoner."
+msgid "Choose a stage above to add program dimensions."
+msgstr ""
 
 msgid "Choose a program above to add program dimensions."
 msgstr "Velg et program ovenfor for å legge til programdimensjoner."
@@ -302,6 +302,12 @@ msgstr "Fase"
 
 msgid "All"
 msgstr "Alle"
+
+msgid "Clear stage first to choose another"
+msgstr "Fjern programfase først for å velge en annen"
+
+msgid "This program only has one stage"
+msgstr ""
 
 msgid "Time dimensions"
 msgstr "Tidsdimensjoner"
@@ -358,18 +364,6 @@ msgstr "Klikk på en dimensjon for å legge til eller fjerne betingelser."
 
 msgid "Your most viewed line lists"
 msgstr "Dine mest viste linjelister"
-
-msgid "most recent"
-msgstr "siste"
-
-msgid "oldest"
-msgstr "eldste"
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr "eldste {{repeatEventIndex}}"
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr "siste {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "Rader per side"
@@ -586,6 +580,12 @@ msgstr ""
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr ""
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr ""
 
@@ -595,13 +595,16 @@ msgstr ""
 msgid "No organisation unit selected"
 msgstr "Ingen organisasjonsenhet er valgt"
 
-msgid "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
 
 msgid "No time dimension selected"
 msgstr ""
 
-msgid "Add at least one time dimension to the layout."
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
@@ -673,6 +676,18 @@ msgstr "Begrens minimum/maksimumsverdier"
 msgid "Style"
 msgstr "Stil"
 
+msgid "most recent"
+msgstr "siste"
+
+msgid "oldest"
+msgstr "eldste"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "eldste {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "siste {{repeatEventIndex}}"
+
 msgid "Event date"
 msgstr "Hendelsesdato"
 
@@ -702,6 +717,9 @@ msgstr "Kansellert"
 
 msgid "Completed"
 msgstr "Fullført"
+
+msgid "Scheduled"
+msgstr "Planlagt"
 
 msgid "List data from tracked entities and events."
 msgstr ""

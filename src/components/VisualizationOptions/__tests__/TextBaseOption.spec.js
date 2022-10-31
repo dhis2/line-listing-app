@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -20,7 +20,7 @@ describe('ER > Options > TextBaseOption', () => {
             name: 'theTime',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <TextBaseOption
                     dataTest="testing-prefix"
@@ -33,7 +33,14 @@ describe('ER > Options > TextBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+
+        const inputNode = screen.getByLabelText('Current time', {
+            selector: 'input',
+        })
+
+        expect(inputNode.disabled).toBeFalsy()
+        expect(inputNode.type).toEqual('time')
+        expect(inputNode.name).toEqual('theTime')
     })
 
     it('renders disabled input with type time', () => {
@@ -49,7 +56,7 @@ describe('ER > Options > TextBaseOption', () => {
             name: 'theTime',
         }
 
-        const { container } = render(
+        render(
             <Provider store={mockStore(store)}>
                 <TextBaseOption
                     dataTest="testing-prefix"
@@ -62,6 +69,13 @@ describe('ER > Options > TextBaseOption', () => {
                 />
             </Provider>
         )
-        expect(container).toMatchSnapshot()
+
+        const inputNode = screen.getByLabelText('Current time', {
+            selector: 'input',
+        })
+
+        expect(inputNode.disabled).toBeTruthy()
+        expect(inputNode.type).toEqual('time')
+        expect(inputNode.name).toEqual('theTime')
     })
 })
