@@ -85,7 +85,7 @@ describe('options', () => {
         getTableDataCells()
             .invoke('css', 'font-size')
             .then((fontSize) => parseInt(fontSize))
-            .should('be.gt', REGULAR_FONT_SIZE)
+            .should('be.lt', REGULAR_FONT_SIZE)
     })
 
     it('sets digit group separator', () => {
