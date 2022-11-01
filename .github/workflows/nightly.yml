@@ -75,7 +75,7 @@ jobs:
               id: slack
               uses: slackapi/slack-github-action@v1.23.0
               with:
-                  channel-id: 'G01PW9YGZD2'
-                  slack-message: "e2e dev nightly build failed. Latest commit message is: \n${{ github.event.head_commit.message }}"
+                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+                  slack-message: ':x: e2e dev nightly build failed. :x: ${{ github.ref }}'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
