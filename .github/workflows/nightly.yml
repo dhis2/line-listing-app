@@ -75,20 +75,7 @@ jobs:
               id: slack
               uses: slackapi/slack-github-action@v1.23.0
               with:
-                # For posting a rich message using Block Kit
-                payload: |
-                {
-                    "text": "GitHub Action nightly build result",
-                    "blocks": [
-                    {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": "Latest e2e test run on dev failed and needs investigation :detective-duck:. \n Commit message: ${{ github.event.head_commit.message }}"
-                        }
-                    }
-                    ]
-                }
+                  slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.head_commit.message }}"
               env:
-                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-                SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+                  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+                  SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
