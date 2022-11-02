@@ -74,6 +74,6 @@ jobs:
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':x: e2e dev nightly build failed. :x: ${{ github.ref }}'
+                  slack-message: ':x: Line-listing-app e2e nightly build failed on branch: ${{ github.ref }} :x:'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
