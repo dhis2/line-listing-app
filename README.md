@@ -1,4 +1,4 @@
-This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
+![Nightly build](https://github.com/dhis2/line-listing-app/actions/workflows/nightly.yml/badge.svg)
 
 ## Available Scripts
 
@@ -108,8 +108,4 @@ PRs should be squash merged unless there is a good reason to preserve the indivi
 
 ## Learn More
 
-You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
-
-You can learn more about the runtime in the [DHIS2 Application Runtime Documentation](https://runtime.dhis2.nu/).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
