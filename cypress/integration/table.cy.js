@@ -219,7 +219,7 @@ describe(['<40'], 'table', () => {
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
             label: 'Analytics - Number (option set)',
-            value: 1,
+            value: '1',
         })
         assertColumnHeaders()
     })
