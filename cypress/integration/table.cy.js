@@ -54,7 +54,6 @@ const mainAndTimeDimensions = [
     { label: 'Last updated by', value: 'admin' },
     { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
     { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2021-12-01' },
-    { label: event[DIMENSION_ID_SCHEDULED_DATE], value: '2021-11-01' },
     { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2021-11-01' },
     { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
 ]
@@ -83,7 +82,61 @@ const programDimensions = [
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
 
-const assertDimensions = (inputDimensions) => {
+const assertColumnHeaders = () => {
+    const dimensionName = TEST_DIM_TEXT
+
+    selectEventProgramDimensions({
+        ...event,
+        dimensions: [dimensionName],
+    })
+
+    const testDimensions = mainAndTimeDimensions.map(
+        (dimension) => dimension.label
+    )
+
+    // add main and time dimensions
+    testDimensions.forEach((label) => {
+        cy.getBySel('main-sidebar')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
+
+        cy.contains('Add to Columns').click()
+    })
+
+    selectFixedPeriod({
+        label: periodLabel,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-12-10`,
+        },
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    const labels = [dimensionName, ...testDimensions]
+
+    // check the correct number of columns
+    getTableHeaderCells().its('length').should('equal', labels.length)
+
+    // check the column headers in the table
+    labels.forEach((label) => {
+        getTableHeaderCells()
+            .contains(label)
+            .scrollIntoView()
+            .should('be.visible')
+            .click()
+        cy.getBySelLike('modal-title').contains(label)
+        cy.getBySelLike('modal-action-cancel').click()
+    })
+}
+
+const assertDimensions = () => {
     selectEventProgram(event)
 
     mainAndTimeDimensions.forEach(({ label }) => {
@@ -97,7 +150,7 @@ const assertDimensions = (inputDimensions) => {
         cy.containsExact('Add to Columns').click()
     })
 
-    inputDimensions.forEach(({ label }) => {
+    programDimensions.forEach(({ label }) => {
         cy.getBySel('program-dimensions-list')
             .contains(label)
             .closest(`[data-test*="dimension-item"]`)
@@ -121,7 +174,7 @@ const assertDimensions = (inputDimensions) => {
 
     expectTableToBeVisible()
 
-    const allDimensions = [...mainAndTimeDimensions, ...inputDimensions]
+    const allDimensions = [...mainAndTimeDimensions, ...programDimensions]
 
     getTableHeaderCells().its('length').should('eq', allDimensions.length)
 
@@ -153,77 +206,44 @@ const assertDimensions = (inputDimensions) => {
     }
 }
 
-describe('table', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+const init = () => {
+    cy.visit('/', EXTENDED_TIMEOUT)
 
-        // remove org unit
-        cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
-        cy.containsExact('Remove').click()
-    })
+    // remove org unit
+    cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
+    cy.containsExact('Remove').click()
+}
+
+describe(['<40'], 'table', () => {
+    beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
-        const dimensionName = TEST_DIM_TEXT
-
-        selectEventProgramDimensions({
-            ...event,
-            dimensions: [dimensionName],
+        programDimensions.push({
+            label: 'Analytics - Number (option set)',
+            value: '1',
         })
-
-        const testDimensions = mainAndTimeDimensions.map(
-            (dimension) => dimension.label
-        )
-
-        // add main and time dimensions
-        testDimensions.forEach((label) => {
-            cy.getBySel('main-sidebar')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
-
-            cy.contains('Add to Columns').click()
-        })
-
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-12-10`,
-            },
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        const labels = [dimensionName, ...testDimensions]
-
-        // check the correct number of columns
-        getTableHeaderCells().its('length').should('equal', labels.length)
-
-        // check the column headers in the table
-        labels.forEach((label) => {
-            getTableHeaderCells()
-                .contains(label)
-                .scrollIntoView()
-                .should('be.visible')
-                .click()
-            cy.getBySelLike('modal-title').contains(label)
-            cy.getBySelLike('modal-action-cancel').click()
-        })
+        assertColumnHeaders()
     })
     it('dimensions display correct values in the visualization', () => {
-        assertDimensions(programDimensions)
+        assertDimensions()
     })
-    it(
-        ['dev', '>=40'], // https://dhis2.atlassian.net/browse/DHIS2-13872
-        'dimensions display correct values in the visualization',
-        () => {
-            assertDimensions([
-                { label: 'Analytics - Number (option set)', value: 'one' }, // FIXME: re-add this item to the programDimensions array once ready for test in prod
-            ])
-        }
-    )
+})
+
+describe(['>=40'], 'table', () => {
+    beforeEach(init)
+    it('click on column header opens the dimension dialog', () => {
+        // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
+        mainAndTimeDimensions.push({
+            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            value: '2021-11-01',
+        })
+        // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+        programDimensions.push({
+            label: 'Analytics - Number (option set)',
+            value: 'one',
+        })
+        assertColumnHeaders()
+    })
+    it('dimensions display correct values in the visualization', () => {
+        assertDimensions()
+    })
 })
