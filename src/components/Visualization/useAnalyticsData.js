@@ -26,6 +26,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
@@ -130,6 +131,7 @@ const fetchAnalyticsData = async ({
     sortField,
     sortDirection,
     nameProp,
+    options,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
     const { adaptedVisualization, headers, parameters } =
@@ -141,6 +143,7 @@ const fetchAnalyticsData = async ({
             headers,
             totalPages: false,
             ...parameters,
+            ...options,
         })
         .withProgram(visualization.program.id)
         .withDisplayProperty(nameProp)
@@ -148,6 +151,10 @@ const fetchAnalyticsData = async ({
         .withPageSize(pageSize)
         .withPage(page)
         .withIncludeMetadataDetails()
+
+    if (visualization.showHierarchy) {
+        req = req.withHierarchyMeta(visualization.showHierarchy)
+    }
 
     if (visualization.outputType !== OUTPUT_TYPE_ENROLLMENT) {
         req = req.withStage(visualization.programStage?.id)
@@ -293,6 +300,7 @@ const useAnalyticsData = ({
     const [data, setData] = useState(null)
     const { userSettings } = useCachedDataQuery()
     const relativePeriodDate = filters?.relativePeriodDate
+    const options = getRequestOptions(visualization, filters, userSettings)
 
     const doFetch = useCallback(async () => {
         try {
@@ -306,6 +314,7 @@ const useAnalyticsData = ({
                 visualization,
                 nameProp:
                     userSettings[USER_SETTINGS_DISPLAY_PROPERTY].toUpperCase(),
+                options,
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
