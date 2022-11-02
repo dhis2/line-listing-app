@@ -228,14 +228,15 @@ describe(['<40'], 'table', () => {
     })
 })
 
-describe(['dev', '>=40'], 'table', () => {
-    // https://dhis2.atlassian.net/browse/DHIS2-13872
+describe(['>=40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
+        // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
             label: event[DIMENSION_ID_SCHEDULED_DATE],
             value: '2021-11-01',
         })
+        // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({
             label: 'Analytics - Number (option set)',
             value: 'one',
