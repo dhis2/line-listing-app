@@ -5,6 +5,7 @@ import {
     useSensor,
     useSensors,
     PointerSensor,
+    MouseSensor,
 } from '@dnd-kit/core'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -132,8 +133,9 @@ const OuterDndContext = ({ children }) => {
     const { digitGroupSeparator } = useSelector(sGetUiOptions)
 
     // Wait 15px movement before starting drag, so that click event isn't overridden
-    const sensor = useSensor(PointerSensor, activateAt15pixels)
-    const sensors = useSensors(sensor)
+    const pointerSensor = useSensor(PointerSensor, activateAt15pixels)
+    const mouseSensor = useSensor(MouseSensor, activateAt15pixels)
+    const sensors = useSensors(pointerSensor, mouseSensor)
 
     const dispatch = useDispatch()
 

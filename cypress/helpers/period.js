@@ -12,6 +12,7 @@ const selectFixedPeriod = ({ label, period }) => {
         .clear()
         .type(period.year)
     cy.contains(period.name).dblclick()
+    assertSelectedPeriodInModal(period.name)
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
@@ -20,6 +21,8 @@ const selectRelativePeriod = ({ label, period }) => {
     cy.contains('Choose from presets').click()
     cy.contains('Relative periods').click()
 
+    console.log('jj period', period)
+
     if (period.type) {
         cy.getBySel('period-dimension-relative-period-filter-content').click()
         cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
@@ -27,7 +30,21 @@ const selectRelativePeriod = ({ label, period }) => {
             .click()
     }
     cy.contains(period.name).dblclick()
+    assertSelectedPeriodInModal(period.name)
     cy.getBySel('period-dimension-modal-action-confirm').click()
+}
+
+const assertSelectedPeriodInModal = (periodName) => {
+    cy.getBySelLike('period-dimension-transfer-pickedoptions').should(
+        'contain',
+        periodName
+    )
+}
+
+const clickPeriodModalUpdateButton = () => {
+    cy.getBySel('period-dimension-modal-action-confirm')
+        .contains('Update')
+        .click()
 }
 
 const unselectAllPeriods = ({ label }) => {
@@ -48,4 +65,6 @@ export {
     unselectAllPeriods,
     getPreviousYearStr,
     getCurrentYearStr,
+    assertSelectedPeriodInModal,
+    clickPeriodModalUpdateButton,
 }

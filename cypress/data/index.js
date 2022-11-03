@@ -34,6 +34,7 @@ export const TEST_AO = {
 
 // alphanumerics
 export const TEST_DIM_TEXT = 'Analytics - Text'
+export const TEST_DIM_TEXT_ID = 'Xd6cKnFMO4L.xvAx38xKF4x'
 export const TEST_DIM_LETTER = 'Analytics - Letter'
 export const TEST_DIM_LONG_TEXT = 'Analytics - Long text'
 export const TEST_DIM_EMAIL = 'Analytics - Email'

@@ -61,7 +61,13 @@ export const DimensionItem = ({
         : undefined
 
     return (
-        <div {...attributes} {...listeners} ref={setNodeRef} style={style}>
+        <div
+            data-test={draggableId}
+            {...attributes}
+            {...listeners}
+            ref={setNodeRef}
+            style={style}
+        >
             <DimensionItemBase
                 name={name}
                 dimensionType={dimensionType}

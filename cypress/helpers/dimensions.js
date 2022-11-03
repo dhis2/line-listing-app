@@ -3,7 +3,11 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const INPUT_EVENT = 'event'
 const INPUT_ENROLLMENT = 'enrollment'
 
-const selectProgramAndStage = ({ inputType, programName, stageName }) => {
+export const selectProgramAndStage = ({
+    inputType,
+    programName,
+    stageName,
+}) => {
     // select the desired type: Event or Enrollment
     cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).contains('Input:').click()
     if (inputType === INPUT_EVENT) {

@@ -1,5 +1,10 @@
 import { clearInput, typeInput } from '../helpers/common.js'
-import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
+import {
+    getCurrentYearStr,
+    getPreviousYearStr,
+    assertSelectedPeriod,
+    clickPeriodModalUpdateButton,
+} from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('period dimension', () => {
@@ -44,10 +49,7 @@ describe('period dimension', () => {
             .contains(TEST_RELATIVE_PERIOD_NAME)
             .dblclick()
 
-        cy.getBySelLike('period-dimension-transfer-pickedoptions').should(
-            'contain',
-            TEST_RELATIVE_PERIOD_NAME
-        )
+        assertSelectedPeriod(TEST_RELATIVE_PERIOD_NAME)
     })
     it('a fixed period can be added', () => {
         cy.getBySel('period-dimension-fixed-periods-button')
@@ -62,10 +64,7 @@ describe('period dimension', () => {
             .contains(TEST_FIXED_PERIOD_NAME)
             .dblclick()
 
-        cy.getBySelLike('period-dimension-transfer-pickedoptions').should(
-            'contain',
-            TEST_FIXED_PERIOD_NAME
-        )
+        assertSelectedPeriod(TEST_FIXED_PERIOD_NAME)
     })
     it('a custom period can be selected', () => {
         cy.contains('Define start - end dates')
@@ -134,9 +133,7 @@ describe('period dimension', () => {
 
         cy.contains('Choose from presets').click()
 
-        cy.getBySel('period-dimension-modal-action-confirm')
-            .contains('Update')
-            .click()
+        clickPeriodModalUpdateButton()
 
         cy.getBySelLike('layout-chip')
             .containsExact(TEST_DIM_NAME)
