@@ -75,6 +75,8 @@ describe('event', () => {
             .contains(optionName)
             .dblclick()
 
+        cy.getBySelLike('transfer-pickedoptions').contains(optionName)
+
         cy.getBySel('dynamic-dimension-modal').contains('Update').click()
 
         // check the chip in the layout
