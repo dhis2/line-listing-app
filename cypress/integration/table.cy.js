@@ -210,7 +210,9 @@ const init = () => {
     cy.visit('/', EXTENDED_TIMEOUT)
 
     // remove org unit
-    cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
+    cy.getBySel('layout-chip-ou', EXTENDED_TIMEOUT)
+        .findBySel('dimension-menu-button')
+        .click()
     cy.containsExact('Remove').click()
 }
 

@@ -94,6 +94,7 @@ jobs:
               uses: cypress-io/github-action@v4
               with:
                   record: true
+                  video: true
                   parallel: true
                   group: e2e-chrome-parallel-${{ matrix.versions }}
                   browser: chrome
@@ -151,6 +152,7 @@ jobs:
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: true
+                  video: true
                   parallel: true
                   group: e2e-chrome-parallel-dev
               env:
