@@ -3,7 +3,6 @@
     "projectId": "m5qvjx",
     "testFiles": "**/*.cy.js",
     "experimentalInteractiveRunEvents": true,
-    "video": true,
     "env": {
         "dhis2DatatestPrefix": "dhis2-linelisting"
     }
