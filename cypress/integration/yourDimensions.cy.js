@@ -70,6 +70,7 @@ describe('event', () => {
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', 'sti')
+        cy.getBySelLike('transfer-sourceoptions').contains(optionName)
 
         cy.getBySelLike('transfer-sourceoptions')
             .contains(optionName)
