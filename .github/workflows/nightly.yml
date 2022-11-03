@@ -51,6 +51,7 @@ jobs:
                   wait-on-timeout: 300
                   record: true
                   parallel: true
+                  video: true
               env:
                   BROWSER: none
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
