@@ -199,9 +199,10 @@ describe('interpretations', () => {
     })
 
     after(() => {
-        // TODO delete AO
         cy.getBySel('menubar').contains('File').click()
 
         cy.getBySel('file-menu-container').contains('Delete').click()
+
+        cy.getBySel('file-menu-delete-modal-delete').contains('Delete').click()
     })
 })
