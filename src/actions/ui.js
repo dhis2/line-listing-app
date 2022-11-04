@@ -3,6 +3,7 @@ import {
     DIMENSION_IDS_TIME,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_SCHEDULED_DATE,
 } from '../modules/dimensionConstants.js'
 import { getIsMainDimensionDisabled } from '../modules/mainDimensions.js'
 import {
@@ -75,10 +76,10 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
 })
 
 const tClearUiProgramRelatedDimensions =
-    (inputType, program) => (dispatch, getState) => {
+    (inputType, program, stage) => (dispatch, getState) => {
         const { ui, metadata } = getState()
         const disabledTimeDimensionIds = new Set(
-            Object.keys(getDisabledTimeDimensions(inputType, program))
+            Object.keys(getDisabledTimeDimensions(inputType, program, stage))
         )
 
         const idsToRemove = ui.layout.columns
@@ -122,7 +123,11 @@ export const tClearUiProgramStageDimensions =
         if (needsClearing) {
             const idsToRemove = state.ui.layout.columns
                 .concat(state.ui.layout.filters)
-                .filter((id) => id.includes(`${stageId}.`))
+                .filter(
+                    (dimensionId) =>
+                        dimensionId.includes(`${stageId}.`) ||
+                        dimensionId === DIMENSION_ID_SCHEDULED_DATE
+                )
             dispatch(acRemoveUiLayoutDimensions(idsToRemove))
             dispatch(acRemoveUiItems(idsToRemove))
         }
@@ -139,7 +144,7 @@ export const tSetUiProgram =
     (dispatch, getState) => {
         const inputType = sGetUiInputType(getState())
         dispatch(acClearUiProgram())
-        dispatch(tClearUiProgramRelatedDimensions(inputType, program))
+        dispatch(tClearUiProgramRelatedDimensions(inputType, program, stage))
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {

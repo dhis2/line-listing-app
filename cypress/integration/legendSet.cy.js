@@ -41,7 +41,7 @@ const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_LEGEND_SET
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
-describe('Options - Legend', () => {
+describe(['>=39'], 'Options - Legend', () => {
     const defaultBackgroundColor = 'rgb(255, 255, 255)'
     const defaultTextColor = 'rgb(33, 41, 52)'
 

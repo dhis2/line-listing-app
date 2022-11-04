@@ -54,7 +54,6 @@ const mainAndTimeDimensions = [
     { label: 'Last updated by', value: 'admin' },
     { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
     { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2021-12-01' },
-    { label: event[DIMENSION_ID_SCHEDULED_DATE], value: '2021-11-01' },
     { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2021-11-01' },
     { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
 ]
@@ -69,7 +68,6 @@ const programDimensions = [
     { label: TEST_DIM_NEGATIVE_INTEGER, value: '-10' },
     { label: TEST_DIM_NUMBER, value: '10' },
     { label: TEST_DIM_LEGEND_SET, value: '10' },
-    { label: 'Analytics - Number (option set)', value: '1' }, // FIXME: should be 'one'
     { label: TEST_DIM_ORG_UNIT, value: 'PHW Phongsali' },
     { label: TEST_DIM_PERCENTAGE, value: '10' },
     { label: TEST_DIM_PHONE_NUMBER, value: '10111213' },
@@ -84,117 +82,113 @@ const programDimensions = [
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
 
-describe('table', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+const assertColumnHeaders = () => {
+    const dimensionName = TEST_DIM_TEXT
 
-        // remove org unit
-        cy.getBySel('layout-chip-ou').findBySel('dimension-menu-button').click()
-        cy.containsExact('Remove').click()
+    selectEventProgramDimensions({
+        ...event,
+        dimensions: [dimensionName],
     })
-    it('click on column header opens the dimension dialog', () => {
-        const dimensionName = TEST_DIM_TEXT
 
-        selectEventProgramDimensions({
-            ...event,
-            dimensions: [dimensionName],
-        })
+    const testDimensions = mainAndTimeDimensions.map(
+        (dimension) => dimension.label
+    )
 
-        const testDimensions = mainAndTimeDimensions.map(
-            (dimension) => dimension.label
-        )
+    // add main and time dimensions
+    testDimensions.forEach((label) => {
+        cy.getBySel('main-sidebar')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
 
-        // add main and time dimensions
-        testDimensions.forEach((label) => {
-            cy.getBySel('main-sidebar')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
-
-            cy.contains('Add to Columns').click()
-        })
-
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-12-10`,
-            },
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        const labels = [dimensionName, ...testDimensions]
-
-        // check the correct number of columns
-        getTableHeaderCells().its('length').should('equal', labels.length)
-
-        // check the column headers in the table
-        labels.forEach((label) => {
-            getTableHeaderCells()
-                .contains(label)
-                .scrollIntoView()
-                .should('be.visible')
-                .click()
-            cy.getBySelLike('modal-title').contains(label)
-            cy.getBySelLike('modal-action-cancel').click()
-        })
+        cy.contains('Add to Columns').click()
     })
-    it('dimensions display correct values in the visualization', () => {
-        selectEventProgram(event)
 
-        mainAndTimeDimensions.forEach(({ label }) => {
-            cy.getBySel('main-sidebar')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
+    selectFixedPeriod({
+        label: periodLabel,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-12-10`,
+        },
+    })
 
-            cy.containsExact('Add to Columns').click()
-        })
+    clickMenubarUpdateButton()
 
-        programDimensions.forEach(({ label }) => {
-            cy.getBySel('program-dimensions-list')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
+    expectTableToBeVisible()
 
-            cy.containsExact('Add to Columns').click()
-        })
+    const labels = [dimensionName, ...testDimensions]
 
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-12-10`,
-            },
-        })
+    // check the correct number of columns
+    getTableHeaderCells().its('length').should('equal', labels.length)
 
-        clickMenubarUpdateButton()
+    // check the column headers in the table
+    labels.forEach((label) => {
+        getTableHeaderCells()
+            .contains(label)
+            .scrollIntoView()
+            .should('be.visible')
+            .click()
+        cy.getBySelLike('modal-title').contains(label)
+        cy.getBySelLike('modal-action-cancel').click()
+    })
+}
 
-        expectTableToBeVisible()
+const assertDimensions = () => {
+    selectEventProgram(event)
 
-        const allDimensions = [...mainAndTimeDimensions, ...programDimensions]
+    mainAndTimeDimensions.forEach(({ label }) => {
+        cy.getBySel('main-sidebar')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
 
-        getTableHeaderCells().its('length').should('eq', allDimensions.length)
+        cy.containsExact('Add to Columns').click()
+    })
 
-        getTableRows().its('length').should('eq', 1)
+    programDimensions.forEach(({ label }) => {
+        cy.getBySel('program-dimensions-list')
+            .contains(label)
+            .closest(`[data-test*="dimension-item"]`)
+            .findBySel('dimension-menu-button')
+            .invoke('attr', 'style', 'visibility: initial')
+            .click()
 
-        // assert the values of the dimensions
-        allDimensions.forEach(({ value }, index) => {
-            getTableDataCells().eq(index).invoke('text').should('eq', value)
-        })
+        cy.containsExact('Add to Columns').click()
+    })
 
-        // check that the URL dimension is wrapped in a link
+    selectFixedPeriod({
+        label: periodLabel,
+        period: {
+            type: 'Daily',
+            year: `${getPreviousYearStr()}`,
+            name: `${getPreviousYearStr()}-12-10`,
+        },
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    const allDimensions = [...mainAndTimeDimensions, ...programDimensions]
+
+    getTableHeaderCells().its('length').should('eq', allDimensions.length)
+
+    getTableRows().its('length').should('eq', 1)
+
+    // assert the values of the dimensions
+    allDimensions.forEach(({ value }, index) => {
+        getTableDataCells().eq(index).invoke('text').should('eq', value)
+    })
+
+    // check that the URL dimension is wrapped in a link
+    if (
+        allDimensions.includes((dimension) => dimension.label === TEST_DIM_URL)
+    ) {
         getTableDataCells()
             .eq(
                 allDimensions.findIndex(
@@ -209,5 +203,49 @@ describe('table', () => {
                     (dimension) => dimension.label === TEST_DIM_URL
                 ).value
             )
+    }
+}
+
+const init = () => {
+    cy.visit('/', EXTENDED_TIMEOUT)
+
+    // remove org unit
+    cy.getBySel('layout-chip-ou', EXTENDED_TIMEOUT)
+        .findBySel('dimension-menu-button')
+        .click()
+    cy.containsExact('Remove').click()
+}
+
+describe(['<40'], 'table', () => {
+    beforeEach(init)
+    it('click on column header opens the dimension dialog', () => {
+        programDimensions.push({
+            label: 'Analytics - Number (option set)',
+            value: '1',
+        })
+        assertColumnHeaders()
+    })
+    it('dimensions display correct values in the visualization', () => {
+        assertDimensions()
+    })
+})
+
+describe(['>=40'], 'table', () => {
+    beforeEach(init)
+    it('click on column header opens the dimension dialog', () => {
+        // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
+        mainAndTimeDimensions.push({
+            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            value: '2021-11-01',
+        })
+        // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+        programDimensions.push({
+            label: 'Analytics - Number (option set)',
+            value: 'one',
+        })
+        assertColumnHeaders()
+    })
+    it('dimensions display correct values in the visualization', () => {
+        assertDimensions()
     })
 })

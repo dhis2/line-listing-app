@@ -1,3 +1,5 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
+
 const getAxisSelector = (axisId) => `${axisId}-axis`
 const getDimensionChipSelector = (dimensionId) => `layout-chip-${dimensionId}`
 
@@ -26,4 +28,7 @@ export const assertTooltipContainsEntries = (entries) =>
     entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
 
 export const assertChipContainsText = (suffix) =>
-    cy.getBySelLike('layout-chip').contains(suffix).trigger('mouseover')
+    cy
+        .getBySelLike('layout-chip')
+        .contains(suffix, EXTENDED_TIMEOUT)
+        .trigger('mouseover')
