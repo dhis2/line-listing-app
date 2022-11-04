@@ -1,6 +1,4 @@
-import {
-    DIMENSION_ID_EVENT_DATE,
-} from '../../src/modules/dimensionConstants.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
     ANALYTICS_PROGRAM,
     TEST_DIM_TEXT,
@@ -15,7 +13,7 @@ import {
 } from '../helpers/interpretations.js'
 import {
     clickMenubarInterpretationsButton,
-    clickMenubarUpdateButton
+    clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -29,32 +27,43 @@ const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
 const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
 describe('interpretations', () => {
-   before(() => {
-       cy.visit('/', EXTENDED_TIMEOUT)
-       cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+    // Use a flag to ensure the visualisation is not created multiple times
+    let created = false
+    // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
+    beforeEach(() => {
+        if (!created) {
+            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
 
-        const event = ANALYTICS_PROGRAM
-        const dimensionName = TEST_DIM_TEXT
-        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+            const event = ANALYTICS_PROGRAM
+            const dimensionName = TEST_DIM_TEXT
+            const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
-        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+            selectEventProgramDimensions({
+                ...event,
+                dimensions: [dimensionName],
+            })
 
-        selectFixedPeriod({
-            label: periodLabel,
-            period: TEST_FIX_PE_DEC_LAST_YEAR,
-        })
+            selectFixedPeriod({
+                label: periodLabel,
+                period: TEST_FIX_PE_DEC_LAST_YEAR,
+            })
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        // TODO extract into a helper function?
-        cy.getBySel('menubar').contains('File').click()
+            // TODO extract into a helper function?
+            cy.getBySel('menubar').contains('File').click()
 
-        cy.getBySel('file-menu-container').contains('Save').click()
+            cy.getBySel('file-menu-container').contains('Save').click()
 
-        const AO_NAME = `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
-        typeInput('file-menu-saveas-modal-name', AO_NAME)
+            const AO_NAME = `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
+            typeInput('file-menu-saveas-modal-name', AO_NAME)
 
-        cy.getBySel('file-menu-saveas-modal-save').click()
+            cy.getBySel('file-menu-saveas-modal-save').click()
+
+            // Toggle to `true` to prevent re-creation
+            created = true
+        }
     })
 
     it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
