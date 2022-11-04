@@ -7,8 +7,10 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import {
     ANALYTICS_PROGRAM,
+    TEST_AO,
     TEST_DIM_TEXT,
     TEST_DIM_TEXT_ID,
+    TEST_DIM_NUMBER,
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_LAST_12_MONTHS,
 } from '../data/index.js'
@@ -30,6 +32,18 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+const asyncGetLayoutColumnsRect = () => {
+    return cy.get('#axis-group-1').then(($el) => {
+        return $el.get(0).getBoundingClientRect()
+    })
+}
+
+const asyncGetLayoutFiltersRect = () => {
+    return cy.get('#axis-group-2').then(($el) => {
+        return $el.get(0).getBoundingClientRect()
+    })
+}
+
 describe('dnd', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -37,7 +51,7 @@ describe('dnd', () => {
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
 
-    it('creates an event line list with dnd', () => {
+    it.skip('creates an event line list with dnd', () => {
         const event = ANALYTICS_PROGRAM
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = event[DIMENSION_ID_ENROLLMENT_DATE]
@@ -46,9 +60,7 @@ describe('dnd', () => {
 
         selectProgramAndStage({ inputType, programName, stageName })
 
-        cy.get('#axis-group-1').then(($el) => {
-            const layoutRect = $el.get(0).getBoundingClientRect()
-
+        asyncGetLayoutColumnsRect().then((layoutRect) => {
             // dnd the dimension to the layout
             cy.getBySel(`dimension-item-${TEST_DIM_TEXT_ID}`).mouseMoveTo(
                 layoutRect.left + layoutRect.width / 2,
@@ -107,81 +119,67 @@ describe('dnd', () => {
     })
 
     it('moves a dimension to filter with dnd', () => {
-        const event = ANALYTICS_PROGRAM
-        const dimensionName = TEST_DIM_TEXT
-        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+        cy.visit('#/WlJLOk3tACv', EXTENDED_TIMEOUT)
 
-        selectEventProgramDimensions({
-            ...event,
-            dimensions: [dimensionName],
-        })
+        //initial
+        getTableHeaderCells().its('length').should('equal', 11)
+        // assert that the enrollment date is in the layout Columns
+        // layout columns contains Enrollment Date & Analytics - Number
+        // column positions for Enrollment Date and Analytics - Number
 
-        selectFixedPeriod({
-            label: periodLabel,
-            period: TEST_FIX_PE_DEC_LAST_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-
-        cy.get('#axis-group-2').then(($el) => {
-            const layoutRect = $el.get(0).getBoundingClientRect()
-
-            // dnd the event date to the layout
+        asyncGetLayoutFiltersRect().then((filtersRect) => {
+            // dnd the enrollment date to the layout
             cy.getBySel('columns-axis')
-                .findBySel('layout-chip-eventDate')
+                .findBySel('layout-chip-enrollmentDate')
                 .mouseMoveTo(
-                    layoutRect.left + layoutRect.width / 2,
-                    layoutRect.top + layoutRect.height / 2
+                    filtersRect.left + filtersRect.width / 2,
+                    filtersRect.top + filtersRect.height / 2
                 )
 
+            // assert that the enrollment date is in the layout Filter
+            // layout columns contains Analytics - Number
+            // column positionAnalytics - Number
+
             // dnd the Analytics-Text to the first position
-
-            cy.get('#axis-group-1').then((columnsLayoutEl) => {
-                const columnsLayoutRect = columnsLayoutEl
-                    .get(0)
-                    .getBoundingClientRect()
-
-                cy.getBySel(`dimension-item-${TEST_DIM_TEXT_ID}`).mouseMoveTo(
-                    columnsLayoutRect.left + 3,
-                    columnsLayoutRect.top + 3
+            asyncGetLayoutColumnsRect().then((columnsRect) => {
+                console.log('jj columnsRect', columnsRect)
+                cy.contains(`${TEST_DIM_NUMBER}: 1 condition`).mouseMoveBy(
+                    0,
+                    50
                 )
 
                 clickMenubarUpdateButton()
 
                 // check the number of columns
-                getTableHeaderCells().its('length').should('equal', 2)
+                getTableHeaderCells().its('length').should('equal', 10)
 
                 // check that there is at least 1 row in the table
-                getTableRows().its('length').should('be.gte', 1)
+                getTableRows().its('length').should('equal', 1)
 
                 // check the column headers in the table
                 getTableHeaderCells()
                     .contains('Organisation unit')
                     .should('be.visible')
-                getTableHeaderCells()
-                    .contains(dimensionName)
-                    .should('be.visible')
-                getTableHeaderCells().contains(periodLabel).should('not.exist')
+                // getTableHeaderCells()
+                //     .contains(dimensionName)
+                //     .should('be.visible')
+                // getTableHeaderCells().contains(periodLabel).should('not.exist')
 
-                //check the chips in the layout
-                cy.getBySel('columns-axis')
-                    .findBySelLike('layout-chip')
-                    .contains('Organisation unit: 1 selected')
-                    .should('be.visible')
+                // //check the chips in the layout
+                // cy.getBySel('columns-axis')
+                //     .findBySelLike('layout-chip')
+                //     .contains('Organisation unit: 1 selected')
+                //     .should('be.visible')
 
-                cy.getBySel('columns-axis')
-                    .findBySelLike('layout-chip')
-                    .contains(`${dimensionName}: all`)
-                    .should('be.visible')
+                // cy.getBySel('columns-axis')
+                //     .findBySelLike('layout-chip')
+                //     .contains(`${dimensionName}: all`)
+                //     .should('be.visible')
 
-                cy.getBySel('filters-axis')
-                    .findBySelLike('layout-chip')
-                    .contains(`${periodLabel}: 1 selected`)
-                    .should('be.visible')
+                // cy.getBySel('filters-axis')
+                //     .findBySelLike('layout-chip')
+                //     .contains(`${periodLabel}: 1 selected`)
+                //     .should('be.visible')
             })
         })
     })
