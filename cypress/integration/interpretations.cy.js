@@ -8,13 +8,15 @@ import {
 import { clickMenubarInterpretationsButton } from '../helpers/menubar.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const TEST_CANCEL_LABEL = 'Cancel'
-const TEST_POST_INTERPRETATION_LABEL = 'Post interpretation'
-const TEST_WRITE_INTERPRETATION_LABEL = 'Write an interpretation'
-const TEST_WRITE_REPLY_LABEL = 'Write a reply'
-const TEST_INTERPRETATION_TEXT = 'Test interpretation'
+const CANCEL_LABEL = 'Cancel'
+const POST_INTERPRETATION_LABEL = 'Post interpretation'
+const WRITE_INTERPRETATION_LABEL = 'Write an interpretation'
+const WRITE_REPLY_LABEL = 'Write a reply'
+const TEST_INTERPRETATION_TEXT =
+    'Interpretation at ' + new Date().toUTCString().slice(-12, -4)
 const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
-const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
+const TEST_INTERPRETATION_COMMENT_TEXT =
+    'Reply at ' + new Date().toUTCString().slice(-12, -4)
 
 describe('interpretations', () => {
     it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
@@ -42,37 +44,40 @@ describe('interpretations', () => {
     it('a new interpretation can be added', () => {
         // the rich text editor shows when clicking the input
         cy.getBySel('interpretation-form')
-            .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
+            .find(`input[placeholder="${WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
-        cy.getBySel('interpretation-form').contains(
-            TEST_POST_INTERPRETATION_LABEL
-        )
-        cy.getBySel('interpretation-form').contains(TEST_CANCEL_LABEL)
+        cy.getBySel('interpretation-form').contains(POST_INTERPRETATION_LABEL)
+        cy.getBySel('interpretation-form').contains(CANCEL_LABEL)
 
         // the rich text editor is removed when clicking Cancel
-        cy.getBySel('interpretation-form').contains(TEST_CANCEL_LABEL).click()
+        cy.getBySel('interpretation-form').contains(CANCEL_LABEL).click()
 
         cy.getBySel('interpretation-form').should(
             'not.contain',
-            TEST_POST_INTERPRETATION_LABEL
+            POST_INTERPRETATION_LABEL
         )
-        cy.getBySel('interpretation-form').should(
-            'not.contain',
-            TEST_CANCEL_LABEL
-        )
+        cy.getBySel('interpretation-form').should('not.contain', CANCEL_LABEL)
+
+        cy.intercept(
+            'POST',
+            /\/interpretations\/eventVisualization\/[A-Za-z0-9]{11}/
+        ).as('postInterpretation')
 
         // it's possible to write a new interpretation text
         cy.getBySel('interpretation-form')
-            .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
+            .find(`input[placeholder="${WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
         typeTextarea('interpretation-form', TEST_INTERPRETATION_TEXT)
 
         // the new interpretation can be saved and shows up in the list
         cy.getBySel('interpretation-form')
-            .contains(TEST_POST_INTERPRETATION_LABEL)
+            .contains(POST_INTERPRETATION_LABEL)
             .click()
+        cy.wait('@postInterpretation')
+            .its('response.statusCode')
+            .should('eq', 201)
 
         cy.getBySel('interpretations-list').contains(TEST_INTERPRETATION_TEXT)
         cy.getBySel('interpretations-list').contains('See interpretation')
@@ -82,12 +87,18 @@ describe('interpretations', () => {
         cy.getBySel('interpretation-edit-button').click()
 
         cy.getBySel('interpretations-list').contains('Update')
-        cy.getBySel('interpretations-list').contains(TEST_CANCEL_LABEL)
+        cy.getBySel('interpretations-list').contains(CANCEL_LABEL)
 
         clearTextarea('interpretations-list')
         typeTextarea('interpretations-list', TEST_INTERPRETATION_TEXT_EDITED)
 
+        cy.intercept('PUT', /\/interpretations\/[A-Za-z0-9]{11}/).as(
+            'updateInterpretation'
+        )
         cy.getBySel('interpretations-list').contains('Update').click()
+        cy.wait('@updateInterpretation')
+            .its('response.statusCode')
+            .should('eq', 204)
 
         expectInterpretationFormToBeVisible()
 
@@ -109,7 +120,7 @@ describe('interpretations', () => {
         expectInterpretationThreadToBeVisible()
 
         cy.getBySel('interpretation-modal')
-            .find(`input[placeholder="${TEST_WRITE_REPLY_LABEL}"]`)
+            .find(`input[placeholder="${WRITE_REPLY_LABEL}"]`)
             .click()
 
         typeTextarea('interpretation-modal', TEST_INTERPRETATION_COMMENT_TEXT)
