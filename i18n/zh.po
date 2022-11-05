@@ -2,15 +2,15 @@
 # Translators:
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
-# easylin <lin_xd@126.com>, 2022
 # 晓东 林 <13981924470@126.com>, 2022
+# easylin <lin_xd@126.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2022-10-18T07:41:59.599Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -270,7 +270,7 @@ msgid ""
 msgstr "无法检索程序。重试或联系您的系统管理员。"
 
 msgid "Choose a stage above to add program dimensions."
-msgstr ""
+msgstr "选择上面的一个阶段以添加项目维度。"
 
 msgid "Choose a program above to add program dimensions."
 msgstr "选择上面的项目以添加项目维度"
@@ -681,6 +681,9 @@ msgstr "最后更新时间"
 
 msgid "Disabled by the selected program"
 msgstr "被所选程序禁用"
+
+msgid "Disabled by the selected program stage"
+msgstr "被选定的项目阶段禁用"
 
 msgid "No input type selected"
 msgstr "未选择输入类型"
