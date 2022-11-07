@@ -407,7 +407,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         }
 
         beforeEach(() => {
-            cy.getBySel('main-sidebar').contains('Input: Event').click()
+            cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+                .contains('Input: Event')
+                .click()
 
             cy.getBySel('input-enrollment').click()
 
@@ -465,7 +467,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
     })
 
     describe('switching input type', () => {
-        it.only('layout is cleared when input type is changed', () => {
+        it('layout is cleared when input type is changed', () => {
             const event = ANALYTICS_PROGRAM
             const mainAndTimeDimensions = [
                 { label: 'Organisation unit', expected: true },
