@@ -31,7 +31,9 @@ const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 const setUpTable = ({ scheduleDateIsSupported } = {}) => {
     console.log(`scheduleDateIsSupported: ${scheduleDateIsSupported}`)
     // switch to Enrollment to toggle the enabled/disabled time dimensions
-    cy.getBySel('main-sidebar').contains('Input: Event').click()
+    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+        .contains('Input: Event')
+        .click()
     cy.getBySel('input-enrollment').click()
     cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
 
