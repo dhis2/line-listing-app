@@ -467,7 +467,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
     })
 
     describe('switching input type', () => {
-        it('layout is cleared when input type is changed', () => {
+        it.only('layout is cleared when input type is changed', () => {
             const event = ANALYTICS_PROGRAM
             const mainAndTimeDimensions = [
                 { label: 'Organisation unit', expected: true },
