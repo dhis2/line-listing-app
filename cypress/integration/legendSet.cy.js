@@ -260,7 +260,7 @@ describe(['>=39'], 'Options - Legend', () => {
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
     })
     it('options can be saved and loaded', () => {
-        cy.getBySel('menubar').contains('File').click()
+        cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
 
         cy.getBySel('file-menu-container').contains('Save').click()
 

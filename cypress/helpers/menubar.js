@@ -1,8 +1,10 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
+
 export const clickMenubarUpdateButton = () =>
-    cy.getBySel('menubar').contains('Update').click()
+    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Update').click()
 
 export const clickMenubarOptionsButton = () =>
-    cy.getBySel('menubar').contains('Options').click()
+    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Options').click()
 
 export const clickMenubarInterpretationsButton = () =>
-    cy.getBySel('menubar').contains('Interpretations').click()
+    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Interpretations').click()

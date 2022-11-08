@@ -17,12 +17,15 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const downloadIsEnabled = () =>
     cy
-        .getBySel('menubar')
+        .getBySel('menubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('not.have.attr', 'disabled')
 
 const downloadIsDisabled = () =>
-    cy.getBySel('menubar').contains('Download').should('have.attr', 'disabled')
+    cy
+        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .contains('Download')
+        .should('have.attr', 'disabled')
 
 describe('download', () => {
     it('download button enables when required dimensions are selected (event)', () => {
