@@ -40,11 +40,7 @@ const stageName = 'Stage 1 - Repeatable'
 const periodLabel = event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
 const setUpTable = () => {
-    selectEventProgramDimensions({
-        programName: event.programName,
-        stageName,
-        dimensions: [dimensionName],
-    })
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -302,7 +298,7 @@ describe('date types', () => {
         it(`${type} has all operators`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram({ programName: event.programName })
+            selectEventProgram(ANALYTICS_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

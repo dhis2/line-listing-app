@@ -17,6 +17,10 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+const event = HIV_PROGRAM
+const periodLabel =
+    event.stages['Initial Case Report'][DIMENSION_ID_EVENT_DATE].label
+
 describe('event', () => {
     it('Your dimensions can be used and filtered by', () => {
         const dimensionName = 'Organisation Unit Types'
@@ -25,14 +29,12 @@ describe('event', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: HIV_PROGRAM.programName,
-            stageName: HIV_PROGRAM.stages['Initial Case Report'].stageName,
+            ...event,
+            stageName: 'Initial Case Report',
         })
 
         selectRelativePeriod({
-            label: HIV_PROGRAM.stages['Initial Case Report'][
-                DIMENSION_ID_EVENT_DATE
-            ].label,
+            label: periodLabel,
             period: TEST_REL_PE_LAST_YEAR,
         })
 

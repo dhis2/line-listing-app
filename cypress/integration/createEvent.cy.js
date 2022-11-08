@@ -54,7 +54,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
         // select program
         selectEventProgramDimensions({
-            programName: event.programName,
+            ...event,
             dimensions: [dimensionName],
         })
 
@@ -166,7 +166,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
         // select program
         selectEventProgramDimensions({
-            programName: event.programName,
+            ...event,
             dimensions: [dimensionName],
         })
 

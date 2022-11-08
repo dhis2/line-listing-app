@@ -31,16 +31,13 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 const event = ANALYTICS_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const stageName = 'Stage 1 - Repeatable'
+const periodLabel = event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
 const setUpTable = () => {
-    selectEventProgramDimensions({
-        programName: event.programName,
-        stageName,
-        dimensions: [dimensionName],
-    })
+    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
-        label: event.stages[stageName][DIMENSION_ID_EVENT_DATE].label,
+        label: periodLabel,
         period: TEST_REL_PE_THIS_YEAR,
     })
 
@@ -252,7 +249,7 @@ describe('alphanumeric types', () => {
 
         it(`${type} can be used in a visualization`, () => {
             selectRelativePeriod({
-                label: event.stages[stageName][DIMENSION_ID_EVENT_DATE].label,
+                label: periodLabel,
                 period: TEST_REL_PE_THIS_YEAR,
             })
 

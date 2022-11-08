@@ -93,7 +93,7 @@ describe('options', () => {
 
         //set up table
         selectEnrollmentProgramDimensions({
-            programName: ANALYTICS_PROGRAM.programName,
+            ...ANALYTICS_PROGRAM,
             dimensions: [
                 TEST_DIM_NUMBER,
                 TEST_DIM_PHONE_NUMBER,

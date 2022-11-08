@@ -25,16 +25,16 @@ const currentYear = getCurrentYearStr()
 
 const event = ANALYTICS_PROGRAM
 const stageName = 'Stage 1 - Repeatable'
+const periodLabel = event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
 const setUpTable = (dimensionName) => {
     selectEventProgramDimensions({
-        programName: event.programName,
-        stageName,
+        ...event,
         dimensions: [dimensionName],
     })
 
     selectRelativePeriod({
-        label: event.stages[stageName][DIMENSION_ID_EVENT_DATE].label,
+        label: periodLabel,
         period: TEST_REL_PE_THIS_YEAR,
     })
 

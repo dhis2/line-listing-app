@@ -43,8 +43,7 @@ const periodLabel = event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
 const setUpTable = (dimensionName, period) => {
     selectEventProgramDimensions({
-        programName: event.programName,
-        stageName,
+        ...event,
         dimensions: [dimensionName],
     })
 

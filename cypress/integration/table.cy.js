@@ -104,7 +104,7 @@ const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
     selectEventProgramDimensions({
-        programName: event.programName,
+        ...event,
         dimensions: [dimensionName],
     })
 
@@ -114,7 +114,6 @@ const assertColumnHeaders = () => {
 
     // add main and time dimensions
     testDimensions.forEach((label) => {
-        console.log('here')
         cy.getBySel('main-sidebar')
             .contains(label)
             .closest(`[data-test*="dimension-item"]`)

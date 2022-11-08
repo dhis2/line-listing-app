@@ -35,7 +35,7 @@ describe('download', () => {
 
         selectEventProgram({
             programName: HIV_PROGRAM.programName,
-            stageName: HIV_PROGRAM.stages['Initial Case Report'].stageName,
+            stageName: 'Initial Case Report',
         })
 
         clickMenubarUpdateButton()
@@ -59,9 +59,7 @@ describe('download', () => {
 
         downloadIsDisabled()
 
-        selectEnrollmentProgram({
-            programName: ANALYTICS_PROGRAM.programName,
-        })
+        selectEnrollmentProgram(ANALYTICS_PROGRAM)
 
         clickMenubarUpdateButton()
 
