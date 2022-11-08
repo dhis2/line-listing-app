@@ -5,194 +5,183 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, ANALYTICS_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
-    dimensionIsDisabled,
-    dimensionIsEnabled,
+    HIV_PROGRAM,
+    ANALYTICS_PROGRAM,
+    ENROLLMENT_ANALYTICS_PROGRAM,
+    TEST_DIM_TEXT,
+} from '../data/index.js'
+import {
     assertDimensionEnabledState,
     openDimension,
     selectEventProgram,
 } from '../helpers/dimensions.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const assertEventBasics = () => {
-    dimensionIsEnabled('dimension-item-ou')
-    cy.getBySel('dimension-item-ou').contains('Organisation unit')
+const baseDimensions = [
+    {
+        label: 'Organisation unit',
+        dataTestId: 'dimension-item-ou',
+        enabled: true,
+    },
+    {
+        label: 'Created by',
+        dataTestId: 'dimension-item-createdBy',
+        enabled: true,
+    },
+    {
+        label: 'Last updated by',
+        dataTestId: 'dimension-item-lastUpdatedBy',
+        enabled: true,
+    },
+]
 
-    dimensionIsEnabled('dimension-item-eventStatus')
-    cy.getBySel('dimension-item-eventStatus').contains('Event status')
+const getNoProgram = (isEvent) => ({
+    [DIMENSION_ID_EVENT_DATE]: {
+        label: 'Event date',
+        dataTestId: 'dimension-item-eventDate',
+        enabled: isEvent,
+    },
+    [DIMENSION_ID_ENROLLMENT_DATE]: {
+        label: 'Enrollment date',
+        dataTestId: 'dimension-item-enrollmentDate',
+        enabled: !isEvent,
+    },
+    [DIMENSION_ID_SCHEDULED_DATE]: {
+        label: 'Scheduled date',
+        dataTestId: 'dimension-item-scheduledDate',
+        enabled: false,
+    },
+    [DIMENSION_ID_INCIDENT_DATE]: {
+        label: 'Incident date',
+        dataTestId: 'dimension-item-incidentDate',
+        enabled: false,
+    },
+    [DIMENSION_ID_LAST_UPDATED]: {
+        label: 'Last updated on',
+        dataTestId: 'dimension-item-lastUpdated',
+        enabled: true,
+    },
+})
 
-    dimensionIsEnabled('dimension-item-createdBy')
-    cy.getBySel('dimension-item-createdBy').contains('Created by')
+const assertDimensionsForEvent = (scheduleDateIsSupported, program, stage) => {
+    const dims = program.stages && stage ? program.stages[stage] : program
 
-    dimensionIsEnabled('dimension-item-lastUpdatedBy')
-    cy.getBySel('dimension-item-lastUpdatedBy').contains('Last updated by')
-}
-
-const assertDimensionsForEventWithoutProgramSelected = (
-    scheduleDateIsSupported
-) => {
-    assertEventBasics()
-    dimensionIsDisabled('dimension-item-programStatus')
-    cy.getBySel('dimension-item-programStatus').contains('Program status')
-
-    dimensionIsEnabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-    dimensionIsDisabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-    if (scheduleDateIsSupported) {
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
-    }
-
-    dimensionIsDisabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
-}
-
-const assertDimensionsForEventWithProgramSelected = (
-    program,
-    stageName,
-    scheduleDateIsSupported
-) => {
-    assertEventBasics()
-
-    dimensionIsEnabled('dimension-item-programStatus')
-    cy.getBySel('dimension-item-programStatus').contains('Program status')
-
-    assertDimensionEnabledState(
-        'dimension-item-eventDate',
-        program.stages[stageName][DIMENSION_ID_EVENT_DATE].enabled
-    )
-    cy.getBySel('dimension-item-eventDate').contains(
-        program.stages[stageName][DIMENSION_ID_EVENT_DATE].label
-    )
-
-    assertDimensionEnabledState(
-        'dimension-item-enrollmentDate',
-        program.stages[stageName][DIMENSION_ID_ENROLLMENT_DATE].enabled
-    )
-    cy.getBySel('dimension-item-enrollmentDate').contains(
-        program.stages[stageName][DIMENSION_ID_ENROLLMENT_DATE].label
-    )
-
-    if (scheduleDateIsSupported) {
-        assertDimensionEnabledState(
-            'dimension-item-scheduledDate',
-            program.stages[stageName][DIMENSION_ID_SCHEDULED_DATE].enabled
+    baseDimensions
+        .concat([
+            {
+                label: 'Program status',
+                dataTestId: 'dimension-item-programStatus',
+                enabled: Boolean(program.stages),
+            },
+            {
+                label: 'Event status',
+                dataTestId: 'dimension-item-eventStatus',
+                enabled: true,
+            },
+            {
+                label: dims[DIMENSION_ID_EVENT_DATE].label,
+                dataTestId: 'dimension-item-eventDate',
+                enabled: dims[DIMENSION_ID_EVENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_ENROLLMENT_DATE].label,
+                dataTestId: 'dimension-item-enrollmentDate',
+                enabled: dims[DIMENSION_ID_ENROLLMENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_SCHEDULED_DATE].label,
+                dataTestId: 'dimension-item-scheduledDate',
+                enabled: dims[DIMENSION_ID_SCHEDULED_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_INCIDENT_DATE].label,
+                dataTestId: 'dimension-item-incidentDate',
+                enabled: dims[DIMENSION_ID_INCIDENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_LAST_UPDATED].label,
+                dataTestId: 'dimension-item-lastUpdated',
+                enabled: dims[DIMENSION_ID_LAST_UPDATED].enabled,
+            },
+        ])
+        .filter(({ dataTestId }) =>
+            Boolean(
+                scheduleDateIsSupported ||
+                    dataTestId !== 'dimension-item-scheduledDate'
+            )
         )
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            program.stages[stageName][DIMENSION_ID_SCHEDULED_DATE].label
+        .forEach(({ label, dataTestId, enabled }) => {
+            // assert that the enabled state is correct and the label is correct
+            assertDimensionEnabledState(dataTestId, enabled)
+            cy.getBySel(dataTestId).contains(label)
+        })
+}
+
+const assertDimensionsForEnrollment = (scheduleDateIsSupported, dims) => {
+    baseDimensions
+        .concat([
+            {
+                label: 'Event status',
+                dataTestId: 'dimension-item-eventStatus',
+                enabled: false,
+            },
+            {
+                label: 'Program status',
+                dataTestId: 'dimension-item-programStatus',
+                enabled: true,
+            },
+            {
+                label: dims[DIMENSION_ID_EVENT_DATE].label,
+                dataTestId: 'dimension-item-eventDate',
+                enabled: dims[DIMENSION_ID_EVENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_ENROLLMENT_DATE].label,
+                dataTestId: 'dimension-item-enrollmentDate',
+                enabled: dims[DIMENSION_ID_ENROLLMENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_SCHEDULED_DATE].label,
+                dataTestId: 'dimension-item-scheduledDate',
+                enabled: dims[DIMENSION_ID_SCHEDULED_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_INCIDENT_DATE].label,
+                dataTestId: 'dimension-item-incidentDate',
+                enabled: dims[DIMENSION_ID_INCIDENT_DATE].enabled,
+            },
+            {
+                label: dims[DIMENSION_ID_LAST_UPDATED].label,
+                dataTestId: 'dimension-item-lastUpdated',
+                enabled: dims[DIMENSION_ID_LAST_UPDATED].enabled,
+            },
+        ])
+        .filter(({ dataTestId }) =>
+            Boolean(
+                scheduleDateIsSupported ||
+                    dataTestId !== 'dimension-item-scheduledDate'
+            )
         )
-    }
-
-    assertDimensionEnabledState(
-        'dimension-item-incidentDate',
-        program.stages[stageName][DIMENSION_ID_INCIDENT_DATE].enabled
-    )
-    cy.getBySel('dimension-item-incidentDate').contains(
-        program.stages[stageName][DIMENSION_ID_INCIDENT_DATE].label
-    )
-
-    assertDimensionEnabledState(
-        'dimension-item-lastUpdated',
-        program.stages[stageName][DIMENSION_ID_LAST_UPDATED].enabled
-    )
-    cy.getBySel('dimension-item-lastUpdated').contains(
-        program.stages[stageName][DIMENSION_ID_LAST_UPDATED].label
-    )
-}
-
-const assertEnrollmentBasics = () => {
-    dimensionIsEnabled('dimension-item-ou')
-    cy.getBySel('dimension-item-ou').contains('Organisation unit')
-
-    dimensionIsDisabled('dimension-item-eventStatus')
-    cy.getBySel('dimension-item-eventStatus').contains('Event status')
-
-    dimensionIsEnabled('dimension-item-programStatus')
-    cy.getBySel('dimension-item-programStatus').contains('Program status')
-
-    dimensionIsEnabled('dimension-item-createdBy')
-    cy.getBySel('dimension-item-createdBy').contains('Created by')
-
-    dimensionIsEnabled('dimension-item-lastUpdatedBy')
-    cy.getBySel('dimension-item-lastUpdatedBy').contains('Last updated by')
-}
-
-const assertDimensionsForEnrollmentWithoutProgramSelected = (
-    scheduleDateIsSupported
-) => {
-    assertEnrollmentBasics()
-
-    dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-    dimensionIsEnabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-    if (scheduleDateIsSupported) {
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
-    }
-
-    dimensionIsDisabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
-}
-
-const assertDimensionsForEnrollmentWithProgramSelected = (
-    program,
-    stageName,
-    scheduleDateIsSupported
-) => {
-    assertEnrollmentBasics()
-
-    dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains(
-        program.stages[stageName][DIMENSION_ID_EVENT_DATE].label
-    )
-
-    dimensionIsEnabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains(
-        program.stages[stageName][DIMENSION_ID_ENROLLMENT_DATE].label
-    )
-
-    if (scheduleDateIsSupported) {
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            program.stages[stageName][DIMENSION_ID_SCHEDULED_DATE].label
-        )
-    }
-
-    dimensionIsDisabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains(
-        program.stages[stageName][DIMENSION_ID_INCIDENT_DATE].label
-    )
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains(
-        program.stages[stageName][DIMENSION_ID_LAST_UPDATED].label
-    )
+        .forEach(({ label, dataTestId, enabled }) => {
+            assertDimensionEnabledState(dataTestId, enabled)
+            cy.getBySel(dataTestId).contains(label)
+        })
 }
 
 const runTests = ({ scheduleDateIsSupported } = {}) => {
     describe('event', () => {
         it('program can be selected and cleared', () => {
+            const program = HIV_PROGRAM
             cy.getBySel('accessory-sidebar').contains(
                 'Choose a program above to add program dimensions.'
             )
 
             cy.getBySel('program-clear-button').should('not.exist')
 
-            assertDimensionsForEventWithoutProgramSelected(
-                scheduleDateIsSupported
+            assertDimensionsForEvent(
+                scheduleDateIsSupported,
+                getNoProgram(true)
             )
 
             // select program
@@ -201,7 +190,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .contains('Choose a program')
                 .click()
 
-            cy.contains(HIV_PROGRAM.programName).click()
+            cy.contains(program.programName).click()
 
             cy.getBySel('accessory-sidebar').contains(
                 'Choose a stage above to add program dimensions.'
@@ -217,35 +206,36 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 'Clear program first to choose another'
             )
 
-            assertDimensionsForEventWithProgramSelected(
-                HIV_PROGRAM,
-                'No stage',
-                scheduleDateIsSupported
+            assertDimensionsForEvent(
+                scheduleDateIsSupported,
+                program,
+                'No stage'
             )
 
             // add main and time dimensions
 
             const expectedSelectedDimensions = [
-                HIV_PROGRAM.stages['No stage'][DIMENSION_ID_EVENT_DATE].label,
-                HIV_PROGRAM.stages['No stage'][DIMENSION_ID_LAST_UPDATED].label,
+                program.stages['No stage'][DIMENSION_ID_EVENT_DATE].label,
+                program.stages['No stage'][DIMENSION_ID_LAST_UPDATED].label,
                 'Event status',
                 'Created by',
                 'Last updated by',
             ]
 
             const expectedUnselectedDimensions = [
-                HIV_PROGRAM.stages['No stage'][DIMENSION_ID_ENROLLMENT_DATE]
-                    .label,
-
+                program.stages['No stage'][DIMENSION_ID_ENROLLMENT_DATE].label,
                 'Program status',
             ]
 
-            // if (scheduleDateIsSupported) {
-            //     expectedUnselectedDimensions.push(
-            //         HIV_PROGRAM.stages['No stage'][DIMENSION_ID_SCHEDULED_DATE]
-            //             .label
-            //     )
-            // }
+            if (
+                scheduleDateIsSupported &&
+                program.stages['No stage'][DIMENSION_ID_SCHEDULED_DATE].enabled
+            ) {
+                expectedUnselectedDimensions.push(
+                    program.stages['No stage'][DIMENSION_ID_SCHEDULED_DATE]
+                        .label
+                )
+            }
 
             expectedSelectedDimensions
                 .concat(expectedUnselectedDimensions)
@@ -274,8 +264,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             cy.getBySel('program-clear-button').should('not.exist')
 
-            assertDimensionsForEventWithoutProgramSelected(
-                scheduleDateIsSupported
+            assertDimensionsForEvent(
+                scheduleDateIsSupported,
+                getNoProgram(true)
             )
 
             // assert dimensions in layout after program is cleared
@@ -298,6 +289,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         it('stage can be selected and cleared', () => {
             const TEST_DATA_ELEMENT = 'HIV Age at Diagnosis'
             const TEST_PROGRAM_ATTRIBUTE = 'Country of birth'
+            const program = HIV_PROGRAM
+            const stage = 'Initial Case Report'
+            const nostage = 'No stage'
 
             // select program
 
@@ -305,7 +299,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .contains('Choose a program')
                 .click()
 
-            cy.contains(HIV_PROGRAM.programName).click()
+            cy.contains(program.programName).click()
 
             cy.getBySel('accessory-sidebar').contains('Stage')
 
@@ -315,9 +309,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             cy.getBySel('accessory-sidebar').contains('Stage').click()
 
-            cy.contains(
-                HIV_PROGRAM.stages['Initial Case Report'].stageName
-            ).click()
+            cy.contains(program.stages[stage].stageName).click()
 
             cy.getBySel('stage-select').find('.disabled').should('be.visible')
 
@@ -336,11 +328,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .its('length')
                 .should('be.gte', 1)
 
-            assertDimensionsForEventWithProgramSelected(
-                HIV_PROGRAM,
-                'Initial Case Report',
-                scheduleDateIsSupported
-            )
+            assertDimensionsForEvent(scheduleDateIsSupported, program, stage)
 
             // add a data element
 
@@ -368,13 +356,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             cy.getBySel('stage-clear-button').should('not.exist')
 
-            assertDimensionsForEventWithProgramSelected(
-                HIV_PROGRAM,
-                'No stage',
-                scheduleDateIsSupported
-            )
+            assertDimensionsForEvent(scheduleDateIsSupported, program, nostage)
 
-            // assert that the DE was removed but the PA remained
+            // assert that the Data Element was removed but the Program Attribute remained
 
             cy.getBySel('columns-axis')
                 .findBySelLike('layout-chip')
@@ -425,8 +409,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             cy.getBySel('program-clear-button').should('not.exist')
 
-            assertDimensionsForEnrollmentWithoutProgramSelected(
-                scheduleDateIsSupported
+            assertDimensionsForEnrollment(
+                scheduleDateIsSupported,
+                getNoProgram(false)
             )
 
             // select program
@@ -434,7 +419,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .contains('Choose a program')
                 .click()
 
-            cy.contains(HIV_PROGRAM.programName).click()
+            cy.contains(ENROLLMENT_ANALYTICS_PROGRAM.programName).click()
 
             cy.getBySel('program-select').find('.disabled').should('be.visible')
 
@@ -447,10 +432,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .its('length')
                 .should('be.gte', 1)
 
-            assertDimensionsForEnrollmentWithProgramSelected(
-                HIV_PROGRAM,
-                'No stage',
-                scheduleDateIsSupported
+            assertDimensionsForEnrollment(
+                scheduleDateIsSupported,
+                ENROLLMENT_ANALYTICS_PROGRAM
             )
 
             // clear program
@@ -467,15 +451,17 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             cy.getBySel('program-clear-button').should('not.exist')
 
-            assertDimensionsForEnrollmentWithoutProgramSelected(
-                scheduleDateIsSupported
+            assertDimensionsForEnrollment(
+                scheduleDateIsSupported,
+                getNoProgram(false)
             )
         })
     })
 
     describe('switching input type', () => {
         it('layout is cleared when input type is changed', () => {
-            const stageName = 'Stage 1 - Repeatable'
+            const program = ANALYTICS_PROGRAM
+            const stage = 'Stage 1 - Repeatable'
             const mainAndTimeDimensions = [
                 { label: 'Organisation unit', expected: true },
                 { label: 'Event status', expected: false },
@@ -483,30 +469,25 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 { label: 'Created by', expected: true },
                 { label: 'Last updated by', expected: true },
                 {
-                    label: ANALYTICS_PROGRAM.stages[stageName][
-                        DIMENSION_ID_EVENT_DATE
-                    ].label,
+                    label: program.stages[stage][DIMENSION_ID_EVENT_DATE].label,
                     labelWithoutProgram: 'Event date',
                     expected: false,
                 },
                 {
-                    label: ANALYTICS_PROGRAM.stages[stageName][
-                        DIMENSION_ID_ENROLLMENT_DATE
-                    ].label,
+                    label: program.stages[stage][DIMENSION_ID_ENROLLMENT_DATE]
+                        .label,
                     labelWithoutProgram: 'Enrollment date',
                     expected: true,
                 },
                 {
-                    label: ANALYTICS_PROGRAM.stages[stageName][
-                        DIMENSION_ID_INCIDENT_DATE
-                    ].label,
+                    label: program.stages[stage][DIMENSION_ID_INCIDENT_DATE]
+                        .label,
                     labelWithoutProgram: 'Incident date',
                     expected: false,
                 },
                 {
-                    label: ANALYTICS_PROGRAM.stages[stageName][
-                        DIMENSION_ID_LAST_UPDATED
-                    ].label,
+                    label: program.stages[stage][DIMENSION_ID_LAST_UPDATED]
+                        .label,
                     labelWithoutProgram: 'Last updated on',
                     expected: true,
                 },
@@ -514,9 +495,8 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             if (scheduleDateIsSupported) {
                 mainAndTimeDimensions.push({
-                    label: ANALYTICS_PROGRAM.stages[stageName][
-                        DIMENSION_ID_SCHEDULED_DATE
-                    ].label,
+                    label: program.stages[stage][DIMENSION_ID_SCHEDULED_DATE]
+                        .label,
                     labelWithoutProgram: 'Scheduled date',
                     expected: false,
                 })
@@ -530,10 +510,10 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             selectEventProgram({
                 programName: ANALYTICS_PROGRAM.programName,
-                stageName: ANALYTICS_PROGRAM.stages[stageName].stageName,
+                stageName: ANALYTICS_PROGRAM.stages[stage].stageName,
             })
 
-            //assertDimensionsForEventWithProgramSelected(event)
+            //assertDimensionsForEvent(event)
 
             // add a data element
 
@@ -580,8 +560,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
             // assert that dimensions are enabled/disabled correctly
 
-            assertDimensionsForEnrollmentWithoutProgramSelected(
-                scheduleDateIsSupported
+            assertDimensionsForEnrollment(
+                scheduleDateIsSupported,
+                getNoProgram(false)
             )
         })
     })
