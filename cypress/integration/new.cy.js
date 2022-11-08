@@ -13,7 +13,9 @@ describe('new', () => {
     it('creates a new line list', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.getBySelLike('layout-chip').contains(`Organisation unit: 1 selected`)
+        cy.getBySelLike('layout-chip', EXTENDED_TIMEOUT).contains(
+            `Organisation unit: 1 selected`
+        )
 
         selectEventProgram(event)
 
