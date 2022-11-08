@@ -1,6 +1,7 @@
 import { clearInput, typeInput } from '../helpers/common.js'
 import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('period dimension', () => {
     const currentYear = getCurrentYearStr()
@@ -12,7 +13,10 @@ describe('period dimension', () => {
     const TEST_FIXED_PERIOD_NAME = `January ${currentYear}`
 
     const openModal = (id) =>
-        cy.getBySel('main-sidebar').findBySel(`dimension-item-${id}`).click()
+        cy
+            .getBySel('main-sidebar', EXTENDED_TIMEOUT)
+            .findBySel(`dimension-item-${id}`)
+            .click()
 
     it('opens modal', () => {
         goToStartPage()
