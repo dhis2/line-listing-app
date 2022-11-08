@@ -2,8 +2,8 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 export const expectInterpretationsButtonToBeEnabled = () =>
     cy
-        .getBySel('menubar')
-        .contains('Interpretations', EXTENDED_TIMEOUT)
+        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .contains('Interpretations')
         .should('be.enabled')
 
 export const expectInterpretationFormToBeVisible = () =>
