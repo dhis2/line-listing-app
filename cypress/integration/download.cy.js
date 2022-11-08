@@ -32,7 +32,7 @@ describe('download', () => {
 
         selectEventProgram({
             programName: HIV_PROGRAM.programName,
-            stageName: HIV_PROGRAM.stageName,
+            stageName: HIV_PROGRAM.stages['Initial Case Report'].stageName,
         })
 
         clickMenubarUpdateButton()
@@ -40,7 +40,9 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectRelativePeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: HIV_PROGRAM.stages['Initial Case Report'][
+                DIMENSION_ID_EVENT_DATE
+            ].label,
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 
@@ -63,7 +65,9 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectRelativePeriod({
-            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            label: ANALYTICS_PROGRAM.stages['Stage 1 - Repeatable'][
+                DIMENSION_ID_ENROLLMENT_DATE
+            ].label,
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 

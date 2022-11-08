@@ -20,6 +20,7 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
+const stageName = 'Initial Case Report'
 describe('Option set condition', () => {
     it('Option set (program attribute) displays correctly', () => {
         const dimensionName = 'Country of birth'
@@ -27,10 +28,13 @@ describe('Option set condition', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(HIV_PROGRAM)
+        selectEventProgram({
+            programName: HIV_PROGRAM.programName,
+            stageName: HIV_PROGRAM.stages[stageName].stageName,
+        })
 
         selectRelativePeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: HIV_PROGRAM.stages[stageName][DIMENSION_ID_EVENT_DATE].label,
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -82,10 +86,13 @@ describe('Option set condition', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(HIV_PROGRAM)
+        selectEventProgram({
+            programName: HIV_PROGRAM.programName,
+            stageName: HIV_PROGRAM.stages[stageName].stageName,
+        })
 
         selectFixedPeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: HIV_PROGRAM.stages[stageName][DIMENSION_ID_EVENT_DATE].label,
             period: {
                 year: previousYear,
                 name: `January ${previousYear}`,

@@ -20,7 +20,6 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
     { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 4 },
@@ -30,8 +29,12 @@ const timeDimensions = [
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
-        selectEventProgram(event)
-        const label = event[dimension.id]
+        selectEventProgram({
+            programName: ANALYTICS_PROGRAM.programName,
+            stageName: ANALYTICS_PROGRAM.stages.stage1Repeatable.stageName,
+        })
+        const label =
+            ANALYTICS_PROGRAM.stages.stage1Repeatable[dimension.id].label
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
         clickMenubarUpdateButton()

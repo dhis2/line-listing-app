@@ -100,3 +100,6 @@ export const dimensionIsDisabled = (id) =>
         .should('be.visible')
         .and('have.css', disabledOpacity.prop, disabledOpacity.value)
         .and('have.css', disabledCursor.prop, disabledCursor.value)
+
+export const assertDimensionEnabledState = (id, expectEnabled) =>
+    expectEnabled ? dimensionIsEnabled(id) : dimensionIsDisabled(id)

@@ -38,11 +38,15 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 const previousYear = getPreviousYearStr()
 
 const event = ANALYTICS_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
+const periodLabel = event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
 const setUpTable = (dimensionName, period) => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventProgramDimensions({
+        programName: event.programName,
+        stageName,
+        dimensions: [dimensionName],
+    })
 
     selectRelativePeriod({
         label: periodLabel,

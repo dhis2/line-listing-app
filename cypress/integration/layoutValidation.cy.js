@@ -15,8 +15,6 @@ const openContextMenu = (id) =>
         .click()
 
 describe('layout validation', () => {
-    const eventProgram = HIV_PROGRAM
-
     it('program is required', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
@@ -26,7 +24,7 @@ describe('layout validation', () => {
     })
     it('stage is required', () => {
         // select a program
-        selectEventProgram({ programName: eventProgram.programName })
+        selectEventProgram({ programName: HIV_PROGRAM.programName })
 
         clickMenubarUpdateButton()
 
@@ -35,7 +33,7 @@ describe('layout validation', () => {
     it('columns is required', () => {
         // select a stage
         selectEventProgram({
-            stageName: eventProgram.stageName,
+            stageName: HIV_PROGRAM.stages['Initial Case Report'].stageName,
         })
 
         // remove org unit
@@ -71,7 +69,9 @@ describe('layout validation', () => {
     it('validation succeeds when all above are provided', () => {
         // add a time dimension to columns
         selectRelativePeriod({
-            label: eventProgram[DIMENSION_ID_EVENT_DATE],
+            label: HIV_PROGRAM.stages['Initial Case Report'][
+                DIMENSION_ID_EVENT_DATE
+            ].label,
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 

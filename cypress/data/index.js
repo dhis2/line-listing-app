@@ -9,22 +9,83 @@ import { getPreviousYearStr } from '../helpers/period.js'
 
 export const ANALYTICS_PROGRAM = {
     programName: 'Analytics program',
-    //stageName: 'Stage 1 - Repeatable',
-    [DIMENSION_ID_EVENT_DATE]: 'Event date (analytics)',
-    [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (analytics)',
-    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
-    [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (analytics)',
-    [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+    stages: {
+        'Stage 1 - Repeatable': {
+            stageName: 'Stage 1 - Repeatable',
+            [DIMENSION_ID_EVENT_DATE]: {
+                label: 'Event date (analytics)',
+                enabled: true,
+            },
+            [DIMENSION_ID_ENROLLMENT_DATE]: {
+                label: 'Enrollment date (analytics)',
+                enabled: true,
+            },
+            [DIMENSION_ID_SCHEDULED_DATE]: {
+                label: 'Scheduled date (analytics)',
+                enabled: true,
+            },
+            [DIMENSION_ID_INCIDENT_DATE]: {
+                label: 'Incident date (analytics)',
+                enabled: true,
+            },
+            [DIMENSION_ID_LAST_UPDATED]: {
+                label: 'Last updated on',
+                enabled: true,
+            },
+        },
+    },
 }
 
 export const HIV_PROGRAM = {
     programName: 'HIV Case Surveillance',
-    stageName: 'Initial Case Report',
-    [DIMENSION_ID_EVENT_DATE]: 'Initial Case Report',
-    [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
-    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
-    [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
-    [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+    stages: {
+        'No stage': {
+            stageName: 'No stage',
+            [DIMENSION_ID_EVENT_DATE]: {
+                label: 'Event date',
+                enabled: true,
+            },
+            [DIMENSION_ID_ENROLLMENT_DATE]: {
+                label: 'Enrollment date',
+                enabled: true,
+            },
+            [DIMENSION_ID_SCHEDULED_DATE]: {
+                label: 'Scheduled date',
+                enabled: false,
+            },
+            [DIMENSION_ID_INCIDENT_DATE]: {
+                label: 'Incident date',
+                enabled: false,
+            },
+            [DIMENSION_ID_LAST_UPDATED]: {
+                label: 'Last updated on',
+                enabled: true,
+            },
+        },
+        'Initial Case Report': {
+            stageName: 'Initial Case Report',
+            [DIMENSION_ID_EVENT_DATE]: {
+                label: 'Initial Case Report',
+                enabled: true,
+            },
+            [DIMENSION_ID_ENROLLMENT_DATE]: {
+                label: 'Enrollment date',
+                enabled: true,
+            },
+            [DIMENSION_ID_SCHEDULED_DATE]: {
+                label: 'Scheduled date',
+                enabled: false,
+            },
+            [DIMENSION_ID_INCIDENT_DATE]: {
+                label: 'Incident date',
+                enabled: false,
+            },
+            [DIMENSION_ID_LAST_UPDATED]: {
+                label: 'Last updated on',
+                enabled: true,
+            },
+        },
+    },
 }
 
 export const TEST_AO = {
