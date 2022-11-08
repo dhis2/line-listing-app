@@ -31,10 +31,11 @@ const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
         selectEventProgram({
             programName: ANALYTICS_PROGRAM.programName,
-            stageName: ANALYTICS_PROGRAM.stages.stage1Repeatable.stageName,
+            stageName:
+                ANALYTICS_PROGRAM.stages['Stage 1 - Repeatable'].stageName,
         })
         const label =
-            ANALYTICS_PROGRAM.stages.stage1Repeatable[dimension.id].label
+            ANALYTICS_PROGRAM.stages['Stage 1 - Repeatable'][dimension.id].label
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
         clickMenubarUpdateButton()

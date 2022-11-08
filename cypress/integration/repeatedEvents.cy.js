@@ -1,5 +1,8 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import {
+    ENROLLMENT_ANALYTICS_PROGRAM,
+    TEST_REL_PE_LAST_YEAR,
+} from '../data/index.js'
 import {
     openDimension,
     selectEnrollmentProgram,
@@ -25,7 +28,7 @@ const setUpTable = ({ enrollment, dimensionName }) => {
     })
 
     selectRelativePeriod({
-        label: enrollment[DIMENSION_ID_ENROLLMENT_DATE],
+        label: enrollment[DIMENSION_ID_ENROLLMENT_DATE].label,
         period: TEST_REL_PE_LAST_YEAR,
     })
 
@@ -83,7 +86,7 @@ describe('repeated events', () => {
     })
     it('can use repetition for an enrollment program', () => {
         const dimensionName = 'Analytics - Percentage'
-        setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
+        setUpTable({ enrollment: ENROLLMENT_ANALYTICS_PROGRAM, dimensionName })
 
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
@@ -162,7 +165,7 @@ describe('repeated events', () => {
     })
     it('repetition out of bounds returns as empty value', () => {
         const dimensionName = 'Analytics - Percentage'
-        setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
+        setUpTable({ enrollment: ENROLLMENT_ANALYTICS_PROGRAM, dimensionName })
 
         // repetition 10/0 can be set successfully
         setRepetition({ dimensionName, recent: 11, oldest: 0 })
@@ -209,7 +212,7 @@ describe('repeated events', () => {
         )
     })
     it('repetition is hidden for event programs', () => {
-        selectEventProgram(ANALYTICS_PROGRAM)
+        selectEventProgram(ENROLLMENT_ANALYTICS_PROGRAM)
 
         openDimension('Analytics - Percentage')
 

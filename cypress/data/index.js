@@ -60,31 +60,6 @@ export const ENROLLMENT_ANALYTICS_PROGRAM = {
     },
 }
 
-export const ENROLLMENT_HIV_PROGRAM = {
-    programName: 'HIV Case Surveillance',
-
-    [DIMENSION_ID_EVENT_DATE]: {
-        label: 'Event date',
-        enabled: false,
-    },
-    [DIMENSION_ID_ENROLLMENT_DATE]: {
-        label: 'Enrollment date',
-        enabled: true,
-    },
-    [DIMENSION_ID_SCHEDULED_DATE]: {
-        label: 'Scheduled date',
-        enabled: false,
-    },
-    [DIMENSION_ID_INCIDENT_DATE]: {
-        label: 'Incident date',
-        enabled: false,
-    },
-    [DIMENSION_ID_LAST_UPDATED]: {
-        label: 'Last updated on',
-        enabled: true,
-    },
-}
-
 export const HIV_PROGRAM = {
     programName: 'HIV Case Surveillance',
     stages: {

@@ -44,7 +44,8 @@ import {
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const event = ANALYTICS_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const periodLabel =
+    event.stages['Stage 1 - Repeatable'][DIMENSION_ID_EVENT_DATE].label
 
 const mainAndTimeDimensions = [
     { label: 'Organisation unit', value: 'PHW Phongsali' },
@@ -52,10 +53,27 @@ const mainAndTimeDimensions = [
     { label: 'Program status', value: 'Active' },
     { label: 'Created by', value: 'admin' },
     { label: 'Last updated by', value: 'admin' },
-    { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
-    { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2021-12-01' },
-    { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2021-11-01' },
-    { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
+    {
+        label: event.stages['Stage 1 - Repeatable'][DIMENSION_ID_EVENT_DATE]
+            .label,
+        value: '2021-12-10',
+    },
+    {
+        label: event.stages['Stage 1 - Repeatable'][
+            DIMENSION_ID_ENROLLMENT_DATE
+        ].label,
+        value: '2021-12-01',
+    },
+    {
+        label: event.stages['Stage 1 - Repeatable'][DIMENSION_ID_INCIDENT_DATE]
+            .label,
+        value: '2021-11-01',
+    },
+    {
+        label: event.stages['Stage 1 - Repeatable'][DIMENSION_ID_LAST_UPDATED]
+            .label,
+        value: '2022-02-18 02:20',
+    },
 ]
 const programDimensions = [
     { label: TEST_DIM_AGE, value: '2021-01-01' },
@@ -86,7 +104,7 @@ const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
     selectEventProgramDimensions({
-        ...event,
+        programName: event.programName,
         dimensions: [dimensionName],
     })
 
@@ -96,6 +114,7 @@ const assertColumnHeaders = () => {
 
     // add main and time dimensions
     testDimensions.forEach((label) => {
+        console.log('here')
         cy.getBySel('main-sidebar')
             .contains(label)
             .closest(`[data-test*="dimension-item"]`)
@@ -235,7 +254,9 @@ describe(['>=40'], 'table', () => {
     it('click on column header opens the dimension dialog', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
-            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            label: event.stages['Stage 1 - Repeatable'][
+                DIMENSION_ID_SCHEDULED_DATE
+            ].label,
             value: '2021-11-01',
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872

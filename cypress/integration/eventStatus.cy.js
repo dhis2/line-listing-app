@@ -46,7 +46,10 @@ describe('event status', () => {
     }
 
     it(['>=39'], 'can be filtered by status SCHEDULED', () => {
-        setUpTable(event[DIMENSION_ID_SCHEDULED_DATE])
+        setUpTable(
+            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_SCHEDULED_DATE]
+                .label
+        )
 
         expectTableToMatchRows([
             'Active',
@@ -112,7 +115,10 @@ describe('event status', () => {
     })
 
     it('can be filtered by status ACTIVE', () => {
-        setUpTable(event[DIMENSION_ID_LAST_UPDATED])
+        setUpTable(
+            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_LAST_UPDATED]
+                .label
+        )
 
         // TODO determine expected once 2.38analytics_dev is available
         // expectTableToMatchRows(['Active', 'Completed', 'Completed'])

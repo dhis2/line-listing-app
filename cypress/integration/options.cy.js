@@ -93,7 +93,7 @@ describe('options', () => {
 
         //set up table
         selectEnrollmentProgramDimensions({
-            ...ANALYTICS_PROGRAM,
+            programName: ANALYTICS_PROGRAM.programName,
             dimensions: [
                 TEST_DIM_NUMBER,
                 TEST_DIM_PHONE_NUMBER,
@@ -102,7 +102,9 @@ describe('options', () => {
         })
 
         selectRelativePeriod({
-            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            label: ANALYTICS_PROGRAM.stages['Stage 1 - Repeatable'][
+                DIMENSION_ID_ENROLLMENT_DATE
+            ].label,
             period: TEST_REL_PE_THIS_YEAR,
         })
 
