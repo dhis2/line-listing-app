@@ -28,9 +28,10 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const runTests = ({ scheduleDateIsSupported } = {}) => {
     it('creates an event line list (tracker program)', () => {
         const event = ANALYTICS_PROGRAM
+        const stageName = 'Stage 1 - Repeatable'
         const dimensionName = TEST_DIM_TEXT
         const periodLabel =
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_EVENT_DATE].label
+            event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
         // check that the time dimensions are correctly disabled and named
         dimensionIsEnabled('dimension-item-eventDate')
@@ -62,33 +63,28 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
         dimensionIsEnabled('dimension-item-eventDate')
         cy.getBySel('dimension-item-eventDate').contains(
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_EVENT_DATE].label
+            event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
         )
 
         dimensionIsEnabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains(
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_ENROLLMENT_DATE]
-                .label
+            event.stages[stageName][DIMENSION_ID_ENROLLMENT_DATE].label
         )
         if (scheduleDateIsSupported) {
             dimensionIsEnabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
-                event.stages['Stage 1 - Repeatable'][
-                    DIMENSION_ID_SCHEDULED_DATE
-                ].label
+                event.stages[stageName][DIMENSION_ID_SCHEDULED_DATE].label
             )
         }
 
         dimensionIsEnabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_INCIDENT_DATE]
-                .label
+            event.stages[stageName][DIMENSION_ID_INCIDENT_DATE].label
         )
 
         dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_LAST_UPDATED]
-                .label
+            event.stages[stageName][DIMENSION_ID_LAST_UPDATED].label
         )
 
         selectFixedPeriod({
@@ -239,9 +235,10 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
     it('moves a dimension to filter', () => {
         const event = ANALYTICS_PROGRAM
+        const stageName = 'Stage 1 - Repeatable'
         const dimensionName = TEST_DIM_TEXT
         const periodLabel =
-            event.stages['Stage 1 - Repeatable'][DIMENSION_ID_EVENT_DATE].label
+            event.stages[stageName][DIMENSION_ID_EVENT_DATE].label
 
         selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
 
