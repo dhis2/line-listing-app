@@ -97,15 +97,6 @@ export const dataAccessError = () =>
         i18n.t("You don't have access to the requested data")
     )
 
-export const scheduleDateIsDisabledError = () =>
-    visualizationError(
-        GenericError,
-        genericErrorTitle,
-        i18n.t(
-            'Schedule date has been disabled for this program stage, please use another time dimension'
-        )
-    )
-
 export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 
