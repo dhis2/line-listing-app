@@ -1,9 +1,6 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { acSetLoadError } from '../../../actions/loader.js'
-import { scheduleDateIsDisabledError } from '../../../modules/error.js'
 import { DimensionIcon } from './DimensionIcon.js'
 import styles from './DimensionItemBase.module.css'
 
@@ -19,39 +16,32 @@ const DimensionItemBase = ({
     contextMenu,
     onClick,
     dataTest,
-}) => {
-    const dispatch = useDispatch()
-
-    if (selected && disabled) {
-        dispatch(acSetLoadError(scheduleDateIsDisabledError()))
-    }
-    return (
-        <div
-            className={cx(styles.dimensionItem, {
-                [styles.selected]: selected,
-                [styles.disabled]: disabled,
-                [styles.dragging]: dragging,
-            })}
-            onClick={onClick}
-            data-test={dataTest}
-        >
-            <div className={styles.iconAndLabelWrapper}>
-                <div className={styles.icon}>
-                    <DimensionIcon dimensionType={dimensionType} />
-                </div>
-
-                <div className={styles.label}>
-                    <span className={styles.primary}>{name}</span>
-                    {stageName && (
-                        <span className={styles.secondary}>{stageName}</span>
-                    )}
-                </div>
+}) => (
+    <div
+        className={cx(styles.dimensionItem, {
+            [styles.selected]: selected,
+            [styles.disabled]: disabled,
+            [styles.dragging]: dragging,
+        })}
+        onClick={onClick}
+        data-test={dataTest}
+    >
+        <div className={styles.iconAndLabelWrapper}>
+            <div className={styles.icon}>
+                <DimensionIcon dimensionType={dimensionType} />
             </div>
 
-            {contextMenu && contextMenu}
+            <div className={styles.label}>
+                <span className={styles.primary}>{name}</span>
+                {stageName && (
+                    <span className={styles.secondary}>{stageName}</span>
+                )}
+            </div>
         </div>
-    )
-}
+
+        {contextMenu && contextMenu}
+    </div>
+)
 
 DimensionItemBase.propTypes = {
     name: PropTypes.string.isRequired,
