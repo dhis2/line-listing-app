@@ -24,7 +24,6 @@ const DimensionItemBase = ({
 
     if (selected && disabled) {
         dispatch(acSetLoadError(scheduleDateIsDisabledError()))
-        return null
     }
     return (
         <div
