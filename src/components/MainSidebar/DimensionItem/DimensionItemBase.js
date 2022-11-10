@@ -1,6 +1,9 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { acSetLoadError } from '../../../actions/loader.js'
+import { scheduleDateIsDisabledError } from '../../../modules/error.js'
 import { DimensionIcon } from './DimensionIcon.js'
 import styles from './DimensionItemBase.module.css'
 
@@ -17,8 +20,11 @@ const DimensionItemBase = ({
     onClick,
     dataTest,
 }) => {
+    const dispatch = useDispatch()
+
     if (selected && disabled) {
-        throw new Error(`${name} is invalid`)
+        dispatch(acSetLoadError(scheduleDateIsDisabledError()))
+        return null
     }
     return (
         <div
