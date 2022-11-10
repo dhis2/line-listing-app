@@ -83,6 +83,7 @@ const useDownloadMenu = (relativePeriodDate) => {
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
                         .fromVisualization(adaptedVisualization, true)
                         .withProgram(current.program.id)
+                        .withStage(current.programStage?.id)
                         .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
