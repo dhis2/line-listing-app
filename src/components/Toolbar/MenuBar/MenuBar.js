@@ -13,7 +13,10 @@ import { tSetCurrent } from '../../../actions/current.js'
 import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
-import { isLayoutValidForSaving } from '../../../modules/layoutValidation.js'
+import {
+    isLayoutValidForSave,
+    isLayoutValidForSaveAs,
+} from '../../../modules/layoutValidation.js'
 import {
     getVisualizationFromCurrent,
     getVisualizationState,
@@ -234,11 +237,19 @@ const MenuBar = ({
                 onSave={
                     [STATE_UNSAVED, STATE_DIRTY].includes(
                         getVisualizationState(current, visualization)
-                    ) && isLayoutValidForSaving(current)
+                    ) &&
+                    isLayoutValidForSave({
+                        program: current?.program,
+                        legacy: visualization?.legacy,
+                    })
                         ? onSave
                         : undefined
                 }
-                onSaveAs={(details) => onSave(details, true)}
+                onSaveAs={
+                    isLayoutValidForSaveAs(current)
+                        ? (details) => onSave(details, true)
+                        : undefined
+                }
                 onShare={onFileMenuAction}
                 onTranslate={onFileMenuAction}
                 onDelete={onDelete}
