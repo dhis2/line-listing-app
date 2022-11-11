@@ -209,12 +209,6 @@ const MenuBar = ({
         onError,
     })
 
-    const fileMenuObject = {
-        id: visualization?.id,
-        access: visualization?.access,
-        ...current,
-    }
-
     return (
         <div className={classes.menuBar} data-test="menubar">
             <UpdateVisualizationContainer
@@ -229,7 +223,10 @@ const MenuBar = ({
             <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
-                fileObject={fileMenuObject}
+                fileObject={{
+                    ...visualization,
+                    ...current,
+                }}
                 defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
