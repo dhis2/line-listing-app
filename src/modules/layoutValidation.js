@@ -95,7 +95,9 @@ export const validateLayout = (layout) => {
 
 export const layoutHasProgramId = (layout) => Boolean(layout?.program?.id)
 
-export const aoCreatedInEventReportsApp = (layout) => layout.legacy
+export const aoCreatedInEventReportsApp = (layout) => layout?.legacy
 
-export const isLayoutValidForSaving = (layout) =>
+export const isLayoutValidForSave = (layout) =>
     layoutHasProgramId(layout) && !aoCreatedInEventReportsApp(layout)
+
+export const isLayoutValidForSaveAs = (layout) => layoutHasProgramId(layout)
