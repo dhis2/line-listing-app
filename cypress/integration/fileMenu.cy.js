@@ -80,6 +80,7 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         assertDownloadIsDisabled()
+
         assertFileMenuItems()
     })
 
@@ -204,8 +205,11 @@ describe('file menu', () => {
 
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
+
         cy.getBySel('visualization-title').contains('Edited')
+
         assertDownloadIsEnabled()
+
         assertFileMenuItems({
             [ITEM_SAVE]: true,
             [ITEM_SAVEAS]: true,
@@ -215,12 +219,16 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
 
         // "dirty, valid: save" state
         cy.getBySel('stage-clear-button').click()
+
         clickMenubarUpdateButton()
+
         assertDownloadIsDisabled()
+
         assertFileMenuItems({
             [ITEM_SAVE]: true,
             [ITEM_SAVEAS]: true,
@@ -230,12 +238,16 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
 
         // "dirty, no program" state
         cy.getBySel('program-clear-button').click()
+
         clickMenubarUpdateButton()
+
         assertDownloadIsDisabled()
+
         assertFileMenuItems({
             [ITEM_RENAME]: true,
             [ITEM_TRANSLATE]: true,
@@ -267,8 +279,11 @@ describe('file menu', () => {
 
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
+
         cy.getBySel('visualization-title').contains('Edited')
+
         assertDownloadIsEnabled()
+
         assertFileMenuItems({
             [ITEM_SAVEAS]: true,
             [ITEM_RENAME]: true,
@@ -277,14 +292,18 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
 
         // "dirty, valid: save" state
         unselectAllPeriods({
             label: 'Date of registration',
         })
+
         clickMenubarUpdateButton()
+
         assertDownloadIsDisabled()
+
         assertFileMenuItems({
             [ITEM_SAVEAS]: true,
             [ITEM_RENAME]: true,
@@ -293,13 +312,18 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
 
         // "dirty, no program" state
         cy.getBySel('main-sidebar').contains('Program dimensions').click()
+
         cy.getBySel('program-clear-button').click()
+
         clickMenubarUpdateButton()
+
         assertDownloadIsDisabled()
+
         assertFileMenuItems({
             [ITEM_RENAME]: true,
             [ITEM_TRANSLATE]: true,
@@ -307,6 +331,7 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
     })
 })
