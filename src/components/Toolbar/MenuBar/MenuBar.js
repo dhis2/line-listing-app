@@ -84,7 +84,7 @@ const MenuBar = ({
     }
 
     const onDelete = () => {
-        const deletedVisualization = current.name
+        const deletedVisualization = visualization?.name
 
         history.push('/')
 
