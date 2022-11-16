@@ -40,7 +40,9 @@ describe('Translations', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(WELCOME_MSG_TRANSLATED).should('be.visible')
+        cy.contains(WELCOME_MSG_TRANSLATED, EXTENDED_TIMEOUT).should(
+            'be.visible'
+        )
 
         cy.contains(WELCOME_MSG_ORIGINAL).should('not.exist')
     })
@@ -49,21 +51,25 @@ describe('Translations', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(UPDATE_BUTTON_TRANSLATED).should('be.visible')
+        cy.contains(UPDATE_BUTTON_TRANSLATED, EXTENDED_TIMEOUT).should(
+            'be.visible'
+        )
 
         cy.contains(UPDATE_BUTTON_ORIGINAL).should('not.exist')
     })
     it('original language display correctly in the app', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(WELCOME_MSG_ORIGINAL).should('be.visible')
+        cy.contains(WELCOME_MSG_ORIGINAL, EXTENDED_TIMEOUT).should('be.visible')
 
         cy.contains(WELCOME_MSG_TRANSLATED).should('not.exist')
     })
     it('original language display correctly in an Analytics component', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        cy.contains(UPDATE_BUTTON_ORIGINAL).should('be.visible')
+        cy.contains(UPDATE_BUTTON_ORIGINAL, EXTENDED_TIMEOUT).should(
+            'be.visible'
+        )
 
         cy.contains(UPDATE_BUTTON_TRANSLATED).should('not.exist')
     })

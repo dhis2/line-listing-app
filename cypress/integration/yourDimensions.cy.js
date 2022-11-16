@@ -70,10 +70,16 @@ describe('event', () => {
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', 'sti')
+        cy.getBySelLike('transfer-sourceoptions')
+            .findBySelLike('transfer-option')
+            .should('have.length', 1)
+        cy.getBySelLike('transfer-sourceoptions').contains(optionName)
 
         cy.getBySelLike('transfer-sourceoptions')
             .contains(optionName)
             .dblclick()
+
+        cy.getBySelLike('transfer-pickedoptions').contains(optionName)
 
         cy.getBySel('dynamic-dimension-modal').contains('Update').click()
 

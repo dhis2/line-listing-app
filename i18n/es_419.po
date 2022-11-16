@@ -1,23 +1,22 @@
 # 
 # Translators:
-# easylin <lin_xd@126.com>, 2022
-# 晓东 林 <13981924470@126.com>, 2022
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2022\n"
-"Language-Team: Chinese (China) (https://www.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "添加到 {{axisName}}"
+msgstr ""
 
 msgid "Choose a condition type"
 msgstr ""
@@ -26,7 +25,7 @@ msgid "Case sensitive"
 msgstr ""
 
 msgid "Remove"
-msgstr "移除"
+msgstr ""
 
 msgid "and"
 msgstr ""
@@ -86,7 +85,7 @@ msgid "Oldest events:"
 msgstr ""
 
 msgid "Hide"
-msgstr "隐藏"
+msgstr ""
 
 msgid "Show items where the status is:"
 msgstr ""
@@ -101,19 +100,19 @@ msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
 
 msgid "Start date"
-msgstr "起始日期"
+msgstr ""
 
 msgid "End date"
-msgstr "结束日期"
+msgstr ""
 
 msgid "No items selected"
 msgstr ""
 
 msgid "Available options"
-msgstr "可用选项"
+msgstr ""
 
 msgid "Filter options"
-msgstr "过滤选项"
+msgstr "Opciones"
 
 msgid "Selected options"
 msgstr ""
@@ -128,43 +127,43 @@ msgid "Move to {{axisName}}"
 msgstr ""
 
 msgid "HTML"
-msgstr "HTML"
+msgstr ""
 
 msgid "HTML+CSS (.html+css)"
 msgstr ""
 
 msgid "Plain data source"
-msgstr "普通数据源"
+msgstr ""
 
 msgid "JSON"
-msgstr "JSON"
+msgstr ""
 
 msgid "XML"
-msgstr "XML"
+msgstr ""
 
 msgid "Microsoft Excel"
 msgstr ""
 
 msgid "CSV"
-msgstr "CSV"
+msgstr ""
 
 msgid "Download data from this date"
 msgstr ""
 
 msgid "Metadata ID scheme"
-msgstr "元数据ID方案"
+msgstr ""
 
 msgid "ID"
-msgstr "Id"
+msgstr ""
 
 msgid "Code"
-msgstr "代码"
+msgstr ""
 
 msgid "Name"
-msgstr "名称"
+msgstr "Nombre"
 
 msgid "Download"
-msgstr "下载"
+msgstr ""
 
 msgid "all"
 msgstr ""
@@ -172,23 +171,29 @@ msgstr ""
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
 msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
 msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Levels"
-msgstr "等级"
+msgstr ""
 
 msgid "Groups"
-msgstr "组"
+msgstr ""
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
 msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "None selected"
-msgstr "没有选择"
+msgstr ""
 
 msgid "Showing all values for this dimension"
 msgstr ""
@@ -214,10 +219,10 @@ msgid ""
 msgstr ""
 
 msgid "Event"
-msgstr "事件"
+msgstr "Evento"
 
 msgid "Enrollment"
-msgstr "报名"
+msgstr ""
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -227,7 +232,7 @@ msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
 msgid "Main dimensions"
-msgstr "主要维度"
+msgstr ""
 
 msgid "Input: {{type}}"
 msgstr ""
@@ -239,25 +244,25 @@ msgid "Search in program"
 msgstr ""
 
 msgid "Type"
-msgstr "类型"
+msgstr ""
 
 msgid "All types"
 msgstr ""
 
 msgid "Data element"
-msgstr "数据元"
+msgstr ""
 
 msgid "Program attribute"
-msgstr "项目属性"
+msgstr ""
 
 msgid "Program indicator"
-msgstr "项目指标"
+msgstr ""
 
 msgid "Category"
-msgstr "分类"
+msgstr ""
 
 msgid "Category option group set"
-msgstr "分类选项组集"
+msgstr ""
 
 msgid "Could not load programs"
 msgstr ""
@@ -280,13 +285,13 @@ msgid "Clear program first to choose another"
 msgstr ""
 
 msgid "Clear"
-msgstr "清除"
+msgstr "Limpiar"
 
 msgid "Stage"
-msgstr "阶段"
+msgstr ""
 
 msgid "All"
-msgstr "全部"
+msgstr "Todos"
 
 msgid "Clear stage first to choose another"
 msgstr ""
@@ -298,25 +303,25 @@ msgid "Time dimensions"
 msgstr ""
 
 msgid "Your dimensions"
-msgstr "你的维度"
+msgstr ""
 
 msgid "Search your dimensions"
 msgstr ""
 
 msgid "Unsaved visualization"
-msgstr "没有保存可视化"
+msgstr ""
 
 msgid "Edited"
-msgstr "编辑"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "注释"
+msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
 
 msgid "Rename successful"
-msgstr "重命名成功"
+msgstr ""
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
 msgstr ""
@@ -327,10 +332,10 @@ msgid ""
 msgstr ""
 
 msgid "Update"
-msgstr "更新"
+msgstr "Actualizar"
 
 msgid "Getting started"
-msgstr "开始"
+msgstr ""
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
@@ -347,82 +352,82 @@ msgid "Your most viewed line lists"
 msgstr ""
 
 msgid "Rows per page"
-msgstr "行每页"
+msgstr ""
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
 
 msgid "Column sub-totals"
-msgstr "列小计"
+msgstr ""
 
 msgid "Columns totals"
-msgstr "列合计"
+msgstr ""
 
 msgid "Digit group separator"
-msgstr "数字分隔符"
+msgstr ""
 
 msgid "None"
-msgstr "无"
+msgstr "Ninguno"
 
 msgid "Space"
-msgstr "空格"
+msgstr ""
 
 msgid "Comma"
-msgstr "逗号"
+msgstr ""
 
 msgid "Display density"
-msgstr "显示稀密度"
+msgstr ""
 
 msgid "Comfortable"
-msgstr "舒适"
+msgstr ""
 
 msgid "Normal"
-msgstr "适度"
+msgstr ""
 
 msgid "Compact"
-msgstr "紧凑"
+msgstr ""
 
 msgid "Font size"
-msgstr "字体大小"
+msgstr ""
 
 msgid "Large"
-msgstr "较大"
+msgstr ""
 
 msgid "Small"
-msgstr "小"
+msgstr ""
 
 msgid "Hide empty rows"
-msgstr "隐藏空行"
+msgstr ""
 
 msgid "Use a legend for table cell colors"
 msgstr ""
 
 msgid "Legend style"
-msgstr "图例风格"
+msgstr ""
 
 msgid "Legend type"
-msgstr "图例类型"
+msgstr ""
 
 msgid "Use pre-defined legend per data item"
-msgstr "每个数据项使用预定义的图例"
+msgstr ""
 
 msgid "Choose a single legend for the entire visualization"
 msgstr ""
 
 msgid "Legend changes background color"
-msgstr "图例改变背景色"
+msgstr ""
 
 msgid "Legend changes text color"
-msgstr "图例改变文本颜色"
+msgstr ""
 
 msgid "Legend"
-msgstr "图例"
+msgstr ""
 
 msgid "Select from legends"
-msgstr "从图例选择"
+msgstr ""
 
 msgid "Loading legends"
-msgstr "载入图例"
+msgstr ""
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
@@ -431,34 +436,34 @@ msgid ""
 msgstr ""
 
 msgid "Minimum data value"
-msgstr "最小值"
+msgstr ""
 
 msgid "Maximum data value"
-msgstr "最大值"
+msgstr ""
 
 msgid "Clear min/max limits"
-msgstr "清除最大最小值"
+msgstr ""
 
 msgid "Row sub-totals"
-msgstr "行小计"
+msgstr ""
 
 msgid "Row totals"
-msgstr "行合计"
+msgstr ""
 
 msgid "Dimension labels"
-msgstr "维度标签"
+msgstr ""
 
 msgid "Display organisation unit hierarchy"
-msgstr "显示机构层次"
+msgstr ""
 
 msgid "Show legend key"
 msgstr ""
 
 msgid "Add a title"
-msgstr "添加标题"
+msgstr ""
 
 msgid "Options"
-msgstr "选项"
+msgstr ""
 
 msgid "Columns"
 msgstr ""
@@ -467,7 +472,7 @@ msgid "Rows"
 msgstr ""
 
 msgid "Filter"
-msgstr "筛选"
+msgstr ""
 
 msgid "equal to (=)"
 msgstr ""
@@ -506,22 +511,22 @@ msgid "does not contain"
 msgstr ""
 
 msgid "after"
-msgstr "后"
+msgstr ""
 
 msgid "after or including"
 msgstr ""
 
 msgid "before"
-msgstr "前"
+msgstr ""
 
 msgid "before or including"
 msgstr ""
 
 msgid "Yes"
-msgstr "是"
+msgstr "Sí"
 
 msgid "No"
-msgstr "否"
+msgstr "No"
 
 msgid "Not answered"
 msgstr ""
@@ -530,15 +535,15 @@ msgid "There is a problem with this visualization."
 msgstr ""
 
 msgid "There was a problem getting the data from the server."
-msgstr "从服务器获取数据有问题"
+msgstr ""
 
 msgid "No data available"
-msgstr "没有值"
+msgstr ""
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
-msgstr "选择的维度没有返回任何值，可能没有数据，或者没有访问权限"
+msgstr ""
 
 msgid "Visualization not found"
 msgstr ""
@@ -567,7 +572,7 @@ msgid "Add at least one item to Columns."
 msgstr ""
 
 msgid "No organisation unit selected"
-msgstr "没有选择机构"
+msgstr ""
 
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
@@ -585,28 +590,28 @@ msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
 msgid "No access"
-msgstr "不能访问"
+msgstr ""
 
 msgid "You don't have access to the requested data"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "出了些问题"
+msgstr "Algo ha ido mal"
 
 msgid "Organisation unit"
-msgstr "机构"
+msgstr ""
 
 msgid "Event status"
-msgstr "事件状态"
+msgstr "Estado del evento"
 
 msgid "Program status"
-msgstr "项目状态"
+msgstr ""
 
 msgid "Created by"
-msgstr "创建自"
+msgstr ""
 
 msgid "Last updated by"
-msgstr "最近更新者"
+msgstr ""
 
 msgid "Not applicable to event programs"
 msgstr ""
@@ -615,40 +620,40 @@ msgid "Not applicable to enrollments"
 msgstr ""
 
 msgid "User organisation unit"
-msgstr "用户所在机构"
+msgstr ""
 
 msgid "User sub-units"
-msgstr "下属机构"
+msgstr ""
 
 msgid "User sub-x2-units"
-msgstr "二级下属机构"
+msgstr ""
 
 msgid "Table title"
-msgstr "表标题"
+msgstr ""
 
 msgid "Display"
-msgstr "显示"
+msgstr ""
 
 msgid "Empty data"
 msgstr ""
 
 msgid "Totals"
-msgstr "总共"
+msgstr ""
 
 msgid "Data"
-msgstr "数据"
+msgstr "Datos"
 
 msgid "Limit values"
-msgstr "限值"
+msgstr ""
 
 msgid "Limit number of values"
-msgstr "限定值数量"
+msgstr ""
 
 msgid "Limit minimum/maximum values"
-msgstr "限制最大最小值"
+msgstr ""
 
 msgid "Style"
-msgstr "风格"
+msgstr ""
 
 msgid "most recent"
 msgstr ""
@@ -663,16 +668,16 @@ msgid "most recent {{repeatEventIndex}}"
 msgstr ""
 
 msgid "Event date"
-msgstr "事故日期"
+msgstr "Fecha de evento"
 
 msgid "Enrollment date"
-msgstr "报名日期"
+msgstr "Fecha de inscripción"
 
 msgid "Incident date"
-msgstr "事件日期"
+msgstr "Fecha del incidente"
 
 msgid "Scheduled date"
-msgstr "调度日期"
+msgstr ""
 
 msgid "Last updated on"
 msgstr ""
@@ -680,20 +685,23 @@ msgstr ""
 msgid "Disabled by the selected program"
 msgstr ""
 
+msgid "Disabled by the selected program stage"
+msgstr ""
+
 msgid "No input type selected"
 msgstr ""
 
 msgid "Active"
-msgstr "活动的"
+msgstr "Activo"
 
 msgid "Cancelled"
-msgstr "已取消"
+msgstr "Cancelar"
 
 msgid "Completed"
-msgstr "完成"
+msgstr "Completado"
 
 msgid "Scheduled"
-msgstr "已经调度"
+msgstr ""
 
 msgid "List data from tracked entities and events."
 msgstr ""

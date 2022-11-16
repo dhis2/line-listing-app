@@ -124,11 +124,10 @@ const OuterDndContext = ({ children }) => {
 
     const layout = useSelector(sGetUiLayout)
     const metadata = useSelector(sGetMetadata)
-    const chipItems =
-        useSelector((state) => sGetUiItemsByDimension(state, id)) || []
-
-    const chipConditions =
-        useSelector((state) => sGetUiConditionsByDimension(state, id)) || {}
+    const chipItems = useSelector((state) => sGetUiItemsByDimension(state, id))
+    const chipConditions = useSelector((state) =>
+        sGetUiConditionsByDimension(state, id)
+    )
     const { digitGroupSeparator } = useSelector(sGetUiOptions)
 
     // Wait 15px movement before starting drag, so that click event isn't overridden

@@ -41,7 +41,7 @@ describe('interpretations', () => {
 
     it('a new interpretation can be added', () => {
         // the rich text editor shows when clicking the input
-        cy.getBySel('interpretation-form')
+        cy.getBySel('interpretation-form', EXTENDED_TIMEOUT)
             .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
@@ -79,7 +79,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be edited', () => {
-        cy.getBySel('interpretation-edit-button').click()
+        cy.getBySel('interpretation-edit-button', EXTENDED_TIMEOUT).click()
 
         cy.getBySel('interpretations-list').contains('Update')
         cy.getBySel('interpretations-list').contains(TEST_CANCEL_LABEL)
@@ -97,7 +97,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be viewed in the modal and interacted with', () => {
-        cy.getBySel('interpretations-list')
+        cy.getBySel('interpretations-list', EXTENDED_TIMEOUT)
             .contains('See interpretation')
             .click()
         cy.getBySel('interpretation-modal').contains('Viewing interpretation:')
@@ -141,7 +141,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be deleted', () => {
-        cy.getBySel('interpretation-delete-button').click()
+        cy.getBySel('interpretation-delete-button', EXTENDED_TIMEOUT).click()
 
         expectInterpretationFormToBeVisible()
 

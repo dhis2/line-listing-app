@@ -34,12 +34,12 @@ export const STATUS_SCHEDULED = 'SCHEDULE'
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 
-export const statusNames = {
+export const getStatusNames = () => ({
     [STATUS_ACTIVE]: i18n.t('Active'),
     [STATUS_CANCELLED]: i18n.t('Cancelled'),
     [STATUS_COMPLETED]: i18n.t('Completed'),
     [STATUS_SCHEDULED]: i18n.t('Scheduled'),
-}
+})
 
 export const headersMap = {
     [DIMENSION_ID_ORGUNIT]: 'ouname',
@@ -129,12 +129,12 @@ export const visTypes = [
     { type: VIS_TYPE_PIVOT_TABLE, disabled: true },
 ]
 
-export const visTypeDescriptions = {
+export const getVisTypeDescriptions = () => ({
     [VIS_TYPE_LINE_LIST]: i18n.t('List data from tracked entities and events.'),
     [VIS_TYPE_PIVOT_TABLE]: i18n.t(
         'Explore data with manipulatable columns, rows, and aggregations.'
     ),
-}
+})
 
 const defaultRemoveDimensionProps = ['dimensionType', 'valueType']
 
@@ -178,10 +178,8 @@ export const getVisualizationFromCurrent = (current) => {
 }
 
 export const getVisualizationState = (visualization, current) => {
-    if (current === DEFAULT_CURRENT) {
-        return STATE_EMPTY
-    } else if (visualization === DEFAULT_VISUALIZATION) {
-        return STATE_UNSAVED
+    if (visualization === DEFAULT_VISUALIZATION) {
+        return current === DEFAULT_CURRENT ? STATE_EMPTY : STATE_UNSAVED
     } else if (current === visualization) {
         return STATE_SAVED
     } else {

@@ -35,13 +35,6 @@ import { StartEndDate } from './StartEndDate.js'
 
 export const OPTION_PRESETS = 'PRESETS'
 export const OPTION_START_END_DATES = 'START_END_DATES'
-const segmentedControlOptions = [
-    { label: i18n.t('Choose from presets'), value: OPTION_PRESETS },
-    {
-        label: i18n.t('Define start - end dates'),
-        value: OPTION_START_END_DATES,
-    },
-]
 
 const isStartEndDate = (id) => {
     const parts = id.split('_')
@@ -116,9 +109,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
     const excludedPeriodTypes = useExcludedPeriods()
-    const selectedIds =
-        useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
-        []
+    const selectedIds = useSelector((state) =>
+        sGetUiItemsByDimension(state, dimension?.id)
+    )
     const [entryMethod, setEntryMethod] = useState(
         selectedIds.filter((id) => isStartEndDate(id)).length
             ? OPTION_START_END_DATES
@@ -165,7 +158,16 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             title={dimension.name}
         >
             <SegmentedControl
-                options={segmentedControlOptions}
+                options={[
+                    {
+                        label: i18n.t('Choose from presets'),
+                        value: OPTION_PRESETS,
+                    },
+                    {
+                        label: i18n.t('Define start - end dates'),
+                        value: OPTION_START_END_DATES,
+                    },
+                ]}
                 selected={entryMethod}
                 onChange={onSegmentedControlChange}
             ></SegmentedControl>

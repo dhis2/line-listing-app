@@ -214,7 +214,7 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
                 id: '1',
                 hideDueDate: true,
             },
-            expected: [],
+            expected: [DIMENSION_ID_SCHEDULED_DATE],
         },
         // Hiding the incident date
         {
@@ -227,7 +227,7 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
                 id: '1',
                 hideDueDate: true,
             },
-            expected: [DIMENSION_ID_INCIDENT_DATE],
+            expected: [DIMENSION_ID_INCIDENT_DATE, DIMENSION_ID_SCHEDULED_DATE],
         },
         // input type enrollment
         {

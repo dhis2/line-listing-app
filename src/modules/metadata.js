@@ -9,7 +9,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions } from './mainDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
-import { statusNames } from './visualization.js'
+import { getStatusNames } from './visualization.js'
 
 const formatObject = (object) =>
     Object.entries(object).reduce(
@@ -35,7 +35,7 @@ export const getDefaultMetadata = () => ({
     ...getDefaultTimeDimensionsMetadata(),
     ...getFixedDimensions(),
     ...formatObject(getOrganisationUnits()),
-    ...formatObject(statusNames),
+    ...formatObject(getStatusNames()),
 })
 
 export const getDefaultTimeDimensionsMetadata = () => {

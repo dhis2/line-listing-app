@@ -55,10 +55,4 @@ DimensionItemBase.propTypes = {
     onClick: PropTypes.func,
 }
 
-DimensionItemBase.defaultProps = {
-    conditions: [],
-    items: [],
-    onClick: Function.prototype,
-}
-
 export { DimensionItemBase }
