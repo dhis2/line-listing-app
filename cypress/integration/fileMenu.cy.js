@@ -28,7 +28,7 @@ const defaultItemsMap = {
 const assertItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
-    cy.getBySel('menubar').contains('File').click()
+    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
 
     Object.entries(itemsMap).forEach(([itemName, enabled]) => {
         enabled
@@ -61,7 +61,9 @@ describe('file menu', () => {
     it('reflects "dirty" state (legacy: do not allow saving)', () => {
         cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
 
-        cy.getBySel('visualization-title').contains('COVAC enrollment')
+        cy.getBySel('visualization-title', EXTENDED_TIMEOUT).contains(
+            'COVAC enrollment'
+        )
 
         clickMenubarUpdateButton()
 
