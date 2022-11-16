@@ -24,7 +24,7 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // choose the stage if relevant
     if (stageName) {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.contains(stageName).click()
+        cy.containsExact(stageName).click()
     }
 }
 
