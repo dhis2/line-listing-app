@@ -30,7 +30,7 @@ const defaultItemsMap = {
 const assertFileMenuItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
-    cy.getBySel('menubar').contains('File').click()
+    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
 
     Object.entries(itemsMap).forEach(([itemName, enabled]) => {
         enabled
