@@ -407,7 +407,9 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         }
 
         beforeEach(() => {
-            cy.getBySel('main-sidebar').contains('Input: Event').click()
+            cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+                .contains('Input: Event')
+                .click()
 
             cy.getBySel('input-enrollment').click()
 
