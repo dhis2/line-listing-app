@@ -371,7 +371,7 @@ exports[`ChipBase Period: 1 selected 1`] = `
       <span
         class="primary"
       >
-        Event date (analytics)
+        Event date (e2e)
       </span>
     </span>
     <span
@@ -409,7 +409,7 @@ exports[`ChipBase Period: none selected 1`] = `
       <span
         class="primary"
       >
-        Event date (analytics)
+        Event date (e2e)
       </span>
     </span>
     <span
