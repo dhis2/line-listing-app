@@ -49,13 +49,12 @@ describe('event status', () => {
         setUpTable(event[DIMENSION_ID_SCHEDULED_DATE])
 
         expectTableToMatchRows([
+            'Completed',
+            'Completed',
+            'Completed',
+            'Completed',
+            'Completed',
             'Active',
-            'Scheduled',
-            'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
         ])
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
