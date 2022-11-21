@@ -2,11 +2,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import {
-    HIV_PROGRAM,
-    E2E_PROGRAM,
-    TEST_REL_PE_LAST_12_MONTHS,
-} from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
 import {
     selectEnrollmentProgram,
     selectEventProgram,
@@ -34,8 +30,8 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectEventProgram({
-            programName: HIV_PROGRAM.programName,
-            stageName: HIV_PROGRAM.stageName,
+            programName: E2E_PROGRAM.programName,
+            stageName: E2E_PROGRAM.stageName,
         })
 
         clickMenubarUpdateButton()
@@ -43,7 +39,7 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectRelativePeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 
