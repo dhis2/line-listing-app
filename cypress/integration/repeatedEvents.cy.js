@@ -1,5 +1,5 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import {
     openDimension,
     selectEnrollmentProgram,
@@ -82,12 +82,12 @@ describe('repeated events', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
     it('can use repetition for an enrollment program', () => {
-        const dimensionName = 'Analytics - Percentage'
-        setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
+        const dimensionName = 'E2E - Percentage'
+        setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
-        getTableHeaderCells().eq(0).containsExact('Analytics - Percentage')
+        getTableHeaderCells().eq(0).containsExact('E2E - Percentage')
         getTableDataCells().eq(0).invoke('text').should('eq', '')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
@@ -99,15 +99,15 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -2)'
         )
         expectHeaderToContainExact(
             1,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
             2,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
 
         // repetition 0/3 can be set successfully
@@ -118,15 +118,15 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest)'
         )
         expectHeaderToContainExact(
             1,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
         expectHeaderToContainExact(
             2,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest +2)'
         )
 
         // repetition 3/3 can be set successfully
@@ -137,32 +137,32 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest)'
         )
         expectHeaderToContainExact(
             1,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest +1)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
         expectHeaderToContainExact(
             2,
-            'Analytics - Percentage - Stage 1 - Repeatable (oldest +2)'
+            'E2E - Percentage - Stage 1 - Repeatable (oldest +2)'
         )
         expectHeaderToContainExact(
             3,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -2)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -2)'
         )
         expectHeaderToContainExact(
             4,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -1)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
             5,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
     it('repetition out of bounds returns as empty value', () => {
-        const dimensionName = 'Analytics - Percentage'
-        setUpTable({ enrollment: ANALYTICS_PROGRAM, dimensionName })
+        const dimensionName = 'E2E - Percentage'
+        setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
         // repetition 10/0 can be set successfully
         setRepetition({ dimensionName, recent: 11, oldest: 0 })
@@ -184,15 +184,15 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -10)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -10)'
         )
         expectHeaderToContainExact(
             5,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent -5)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -5)'
         )
         expectHeaderToContainExact(
             10,
-            'Analytics - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
     it('repetition is disabled for non repetable stages', () => {
@@ -209,9 +209,9 @@ describe('repeated events', () => {
         )
     })
     it('repetition is hidden for event programs', () => {
-        selectEventProgram(ANALYTICS_PROGRAM)
+        selectEventProgram(E2E_PROGRAM)
 
-        openDimension('Analytics - Percentage')
+        openDimension('E2E - Percentage')
 
         getRepeatedEventsTab().should('not.exist')
     })

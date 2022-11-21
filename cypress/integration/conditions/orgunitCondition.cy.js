@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_ORG_UNIT,
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
@@ -14,7 +14,7 @@ import { selectRelativePeriod } from '../../helpers/period.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 

@@ -1,5 +1,5 @@
 import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
-import { ANALYTICS_PROGRAM } from '../data/index.js'
+import { E2E_PROGRAM } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import {
     expectAxisToHaveDimension,
@@ -70,8 +70,8 @@ describe('using the layout chip context menu', () => {
 })
 
 describe('using the dimension list context menu', () => {
-    const event = ANALYTICS_PROGRAM
-    const TEST_DIM_ID = 'Xd6cKnFMO4L.wkSjJes0DMI' // "Analytics - Integer"
+    const event = E2E_PROGRAM
+    const TEST_DIM_ID = 'jfuXZB3A1ko.q3WWkESCxCK' // "E2E - Integer"
     const openContextMenu = (id) =>
         cy
             .getBySel('program-dimensions-list')

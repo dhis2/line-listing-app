@@ -7,8 +7,8 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { getPreviousYearStr } from '../helpers/period.js'
 
-export const ANALYTICS_PROGRAM = {
-    programName: 'Analytics program',
+export const E2E_PROGRAM = {
+    programName: 'E2E program',
     //stageName: 'Stage 1 - Repeatable',
     [DIMENSION_ID_EVENT_DATE]: 'Event date (analytics)',
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (analytics)',
@@ -33,40 +33,40 @@ export const TEST_AO = {
 }
 
 // alphanumerics
-export const TEST_DIM_TEXT = 'Analytics - Text'
-export const TEST_DIM_LETTER = 'Analytics - Letter'
-export const TEST_DIM_LONG_TEXT = 'Analytics - Long text'
-export const TEST_DIM_EMAIL = 'Analytics - Email'
-export const TEST_DIM_USERNAME = 'Analytics - Username'
-export const TEST_DIM_URL = 'Analytics - URL'
-export const TEST_DIM_PHONE_NUMBER = 'Analytics - Phone number'
+export const TEST_DIM_TEXT = 'E2E - Text'
+export const TEST_DIM_LETTER = 'E2E - Letter'
+export const TEST_DIM_LONG_TEXT = 'E2E - Long text'
+export const TEST_DIM_EMAIL = 'E2E - Email'
+export const TEST_DIM_USERNAME = 'E2E - Username'
+export const TEST_DIM_URL = 'E2E - URL'
+export const TEST_DIM_PHONE_NUMBER = 'E2E - Phone number'
 
 // numerics
-export const TEST_DIM_NUMBER = 'Analytics - Number'
-export const TEST_DIM_UNIT_INTERVAL = 'Analytics - Unit interval'
-export const TEST_DIM_PERCENTAGE = 'Analytics - Percentage'
-export const TEST_DIM_INTEGER = 'Analytics - Integer'
-export const TEST_DIM_POSITIVE_INTEGER = 'Analytics - Positive Integer'
-export const TEST_DIM_NEGATIVE_INTEGER = 'Analytics - Negative Integer'
-export const TEST_DIM_POSITIVE_OR_ZERO = 'Analytics - Positive or Zero Integer'
-export const TEST_DIM_WITH_PRESET = 'Analytics - Number (legend set)'
+export const TEST_DIM_NUMBER = 'E2E - Number'
+export const TEST_DIM_UNIT_INTERVAL = 'E2E - Unit interval'
+export const TEST_DIM_PERCENTAGE = 'E2E - Percentage'
+export const TEST_DIM_INTEGER = 'E2E - Integer'
+export const TEST_DIM_POSITIVE_INTEGER = 'E2E - Positive Integer'
+export const TEST_DIM_NEGATIVE_INTEGER = 'E2E - Negative Integer'
+export const TEST_DIM_POSITIVE_OR_ZERO = 'E2E - Positive or Zero Integer'
+export const TEST_DIM_WITH_PRESET = 'E2E - Number (legend set)'
 
 // booleans
-export const TEST_DIM_YESNO = 'Analytics - Yes/no'
-export const TEST_DIM_YESONLY = 'Analytics - Yes only'
+export const TEST_DIM_YESNO = 'E2E - Yes/no'
+export const TEST_DIM_YESONLY = 'E2E - Yes only'
 
 // dates
-export const TEST_DIM_DATE = 'Analytics - Date'
-export const TEST_DIM_TIME = 'Analytics - Time'
-export const TEST_DIM_DATETIME = 'Analytics - Date & Time'
+export const TEST_DIM_DATE = 'E2E - Date'
+export const TEST_DIM_TIME = 'E2E - Time'
+export const TEST_DIM_DATETIME = 'E2E - Date & Time'
 
 // non-filterables
-export const TEST_DIM_AGE = 'Analytics - Age'
-export const TEST_DIM_COORDINATE = 'Analytics - Coordinate'
+export const TEST_DIM_AGE = 'E2E - Age'
+export const TEST_DIM_COORDINATE = 'E2E - Coordinate'
 
 // special
-export const TEST_DIM_ORG_UNIT = 'Analytics - Organisation unit'
-export const TEST_DIM_LEGEND_SET = 'Analytics - Number (legend set)'
+export const TEST_DIM_ORG_UNIT = 'E2E - Organisation unit'
+export const TEST_DIM_LEGEND_SET = 'E2E - Number (legend set)'
 export const TEST_DIM_LEGEND_SET_NEGATIVE = TEST_DIM_NEGATIVE_INTEGER
 
 export const TEST_REL_PE_THIS_YEAR = {

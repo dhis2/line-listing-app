@@ -5,7 +5,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, ANALYTICS_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
+import { HIV_PROGRAM, E2E_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
@@ -380,7 +380,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .should('be.visible')
         })
         it("stage can't be cleared for event with a single stage", () => {
-            const event = ANALYTICS_PROGRAM
+            const event = E2E_PROGRAM
 
             cy.getBySel('accessory-sidebar')
                 .contains('Choose a program')
@@ -468,7 +468,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
     describe('switching input type', () => {
         it.only('layout is cleared when input type is changed', () => {
-            const event = ANALYTICS_PROGRAM
+            const event = E2E_PROGRAM
             const mainAndTimeDimensions = [
                 { label: 'Organisation unit', expected: true },
                 { label: 'Event status', expected: false },
@@ -511,7 +511,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 .click()
             cy.containsExact('Remove').click()
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventProgram(E2E_PROGRAM)
 
             //assertDimensionsForEventWithProgramSelected(event)
 

@@ -1,6 +1,6 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_AO,
     TEST_DIM_NUMBER,
     TEST_DIM_PHONE_NUMBER,
@@ -93,7 +93,7 @@ describe('options', () => {
 
         //set up table
         selectEnrollmentProgramDimensions({
-            ...ANALYTICS_PROGRAM,
+            ...E2E_PROGRAM,
             dimensions: [
                 TEST_DIM_NUMBER,
                 TEST_DIM_PHONE_NUMBER,
@@ -102,7 +102,7 @@ describe('options', () => {
         })
 
         selectRelativePeriod({
-            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
             period: TEST_REL_PE_THIS_YEAR,
         })
 

@@ -2,7 +2,7 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
@@ -18,7 +18,7 @@ import {
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
-    const event = ANALYTICS_PROGRAM
+    const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
     const setUpTable = (periodLabel) => {

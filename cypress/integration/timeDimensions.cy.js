@@ -5,7 +5,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
@@ -20,7 +20,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
     { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 4 },

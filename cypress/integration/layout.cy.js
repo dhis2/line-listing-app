@@ -1,5 +1,5 @@
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LETTER,
     TEST_DIM_LONG_TEXT,
@@ -20,7 +20,7 @@ describe('layout', () => {
     it('expansion caret can be toggled', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
         selectEventProgramDimensions({
-            ...ANALYTICS_PROGRAM,
+            ...E2E_PROGRAM,
             dimensions: [
                 TEST_DIM_TEXT,
                 TEST_DIM_LETTER,

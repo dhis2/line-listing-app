@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LETTER,
     TEST_DIM_LONG_TEXT,
@@ -28,7 +28,7 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
@@ -232,7 +232,7 @@ describe('alphanumeric types', () => {
         it(`${type} has all operators`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

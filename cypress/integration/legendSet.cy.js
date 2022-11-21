@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_LEGEND_SET,
     TEST_DIM_LEGEND_SET_NEGATIVE,
     TEST_REL_PE_LAST_YEAR,
@@ -37,7 +37,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_LEGEND_SET
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
@@ -71,7 +71,7 @@ describe(['>=39'], 'Options - Legend', () => {
     it('no legend is applied by default', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(ANALYTICS_PROGRAM)
+        selectEventProgram(E2E_PROGRAM)
 
         selectRelativePeriod({
             label: periodLabel,

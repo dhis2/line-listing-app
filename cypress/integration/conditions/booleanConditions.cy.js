@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_YESNO,
     TEST_DIM_YESONLY,
     TEST_REL_PE_THIS_YEAR,
@@ -23,7 +23,7 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const currentYear = getCurrentYearStr()
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 

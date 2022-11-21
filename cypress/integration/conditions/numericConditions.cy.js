@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_NUMBER,
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
@@ -37,7 +37,7 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const previousYear = getPreviousYearStr()
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
@@ -299,7 +299,7 @@ describe('preset options', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(ANALYTICS_PROGRAM)
+        selectEventProgram(E2E_PROGRAM)
         openDimension(dimensionName)
         cy.contains('Add to Columns').click()
 
@@ -377,7 +377,7 @@ describe('numeric types', () => {
         it(`${type} has all operators`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

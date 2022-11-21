@@ -4,7 +4,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import {
     HIV_PROGRAM,
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_REL_PE_LAST_12_MONTHS,
 } from '../data/index.js'
 import {
@@ -58,7 +58,7 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectEnrollmentProgram({
-            programName: ANALYTICS_PROGRAM.programName,
+            programName: E2E_PROGRAM.programName,
         })
 
         clickMenubarUpdateButton()
@@ -66,7 +66,7 @@ describe('download', () => {
         downloadIsDisabled()
 
         selectRelativePeriod({
-            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 

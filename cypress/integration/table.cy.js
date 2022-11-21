@@ -6,7 +6,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LONG_TEXT,
     TEST_DIM_EMAIL,
@@ -43,7 +43,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const mainAndTimeDimensions = [
@@ -74,7 +74,7 @@ const programDimensions = [
     { label: TEST_DIM_POSITIVE_INTEGER, value: '10' },
     { label: TEST_DIM_POSITIVE_OR_ZERO, value: '0' },
     { label: TEST_DIM_TEXT, value: 'Text A' },
-    { label: 'Analytics - Text (option set)', value: 'COVID 19-AstraZeneca' },
+    { label: 'E2E - Text (option set)', value: 'COVID 19-AstraZeneca' },
     { label: TEST_DIM_TIME, value: '14:01' },
     { label: TEST_DIM_URL, value: 'https://debug.dhis2.org/tracker_dev/' },
     { label: TEST_DIM_USERNAME, value: 'admin' },
@@ -220,7 +220,7 @@ describe(['<40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
-            label: 'Analytics - Number (option set)',
+            label: 'E2E - Number (option set)',
             value: '1',
         })
         assertColumnHeaders()
@@ -240,7 +240,7 @@ describe(['>=40'], 'table', () => {
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({
-            label: 'Analytics - Number (option set)',
+            label: 'E2E - Number (option set)',
             value: 'one',
         })
         assertColumnHeaders()
