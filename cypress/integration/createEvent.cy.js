@@ -27,9 +27,9 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const runTests = ({ scheduleDateIsSupported } = {}) => {
     it('creates an event line list (tracker program)', () => {
-        const event = E2E_PROGRAM
+        const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
-        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+        const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
         // check that the time dimensions are correctly disabled and named
         dimensionIsEnabled('dimension-item-eventDate')
@@ -44,7 +44,6 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
                 'Scheduled date'
             )
         }
-
         dimensionIsDisabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains('Incident date')
 
@@ -52,34 +51,37 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
-        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+        selectEventProgramDimensions({
+            ...eventProgram,
+            dimensions: [dimensionName],
+        })
 
         // check that the time dimensions disabled states and names are updated correctly
 
         dimensionIsEnabled('dimension-item-eventDate')
         cy.getBySel('dimension-item-eventDate').contains(
-            event[DIMENSION_ID_EVENT_DATE]
+            eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
         dimensionIsEnabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains(
-            event[DIMENSION_ID_ENROLLMENT_DATE]
+            eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
         if (scheduleDateIsSupported) {
             dimensionIsEnabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
-                event[DIMENSION_ID_SCHEDULED_DATE]
+                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
             )
         }
 
         dimensionIsEnabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
-            event[DIMENSION_ID_INCIDENT_DATE]
+            eventProgram[DIMENSION_ID_INCIDENT_DATE]
         )
 
         dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
-            event[DIMENSION_ID_LAST_UPDATED]
+            eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
 
         selectFixedPeriod({
@@ -122,18 +124,18 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
     })
 
     it('creates an event line list (event program)', () => {
-        const event = {
-            programName: 'COVID-19 Event',
-            [DIMENSION_ID_EVENT_DATE]: 'Date of Report',
+        const eventProgram = {
+            programName: 'Inpatient morbidity and mortality',
+            [DIMENSION_ID_EVENT_DATE]: 'Report date',
             [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
             ...(scheduleDateIsSupported
                 ? { [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date' }
                 : {}),
-            [DIMENSION_ID_INCIDENT_DATE]: 'Incident date',
+            [DIMENSION_ID_INCIDENT_DATE]: 'Date of Discharge',
             [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
         }
-        const dimensionName = 'Case Severity'
-        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+        const dimensionName = 'Mode of Discharge'
+        const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
         // check that the time dimensions are correctly disabled and named
         dimensionIsEnabled('dimension-item-eventDate')
@@ -156,34 +158,37 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
-        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+        selectEventProgramDimensions({
+            ...eventProgram,
+            dimensions: [dimensionName],
+        })
 
         // check that the time dimensions disabled states and names are updated correctly
 
         dimensionIsEnabled('dimension-item-eventDate')
         cy.getBySel('dimension-item-eventDate').contains(
-            event[DIMENSION_ID_EVENT_DATE]
+            eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
         dimensionIsDisabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains(
-            event[DIMENSION_ID_ENROLLMENT_DATE]
+            eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
         if (scheduleDateIsSupported) {
             dimensionIsDisabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
-                event[DIMENSION_ID_SCHEDULED_DATE]
+                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
             )
         }
 
         dimensionIsDisabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
-            event[DIMENSION_ID_INCIDENT_DATE]
+            eventProgram[DIMENSION_ID_INCIDENT_DATE]
         )
 
         dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
-            event[DIMENSION_ID_LAST_UPDATED]
+            eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
 
         selectRelativePeriod({
@@ -226,11 +231,14 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
     })
 
     it('moves a dimension to filter', () => {
-        const event = E2E_PROGRAM
+        const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
-        const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+        const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+        selectEventProgramDimensions({
+            ...eventProgram,
+            dimensions: [dimensionName],
+        })
 
         selectFixedPeriod({
             label: periodLabel,

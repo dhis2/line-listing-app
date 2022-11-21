@@ -10,10 +10,10 @@ import { getPreviousYearStr } from '../helpers/period.js'
 export const E2E_PROGRAM = {
     programName: 'E2E program',
     //stageName: 'Stage 1 - Repeatable',
-    [DIMENSION_ID_EVENT_DATE]: 'Event date (analytics)',
-    [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (analytics)',
-    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (analytics)',
-    [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (analytics)',
+    [DIMENSION_ID_EVENT_DATE]: 'Event date (e2e)',
+    [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date (e2e)',
+    [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date (e2e)',
+    [DIMENSION_ID_INCIDENT_DATE]: 'Incident date (e2e)',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
