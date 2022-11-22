@@ -28,8 +28,8 @@ export const HIV_PROGRAM = {
 }
 
 export const TEST_AO = {
-    id: 'qmuoJ2ROwUb',
-    name: 'List of patients with no treatment initiation date',
+    id: 'R4wAb2yMLik',
+    name: 'Inpatient: Cases last quarter (case)',
 }
 
 // alphanumerics
