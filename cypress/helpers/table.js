@@ -20,6 +20,7 @@ export const expectTableToBeVisible = () =>
     getLineListTable().find('tbody').should('be.visible')
 
 export const expectTableToMatchRows = (expectedRows) => {
+    console.log('expectedRows', expectedRows)
     getTableRows().should('have.length', expectedRows.length)
 
     expectedRows.forEach((value) => {

@@ -98,12 +98,9 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-12-25`,
-        ])
+        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
 
-        expectTableToMatchRows(['Active', 'Scheduled'])
+        expectTableToMatchRows(['Active'])
 
         assertChipContainsText(`${dimensionName}: 2 selected`)
 
@@ -137,7 +134,7 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-05-03`])
+        expectTableToMatchRows([`${getCurrentYearStr()}-11-18`])
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
