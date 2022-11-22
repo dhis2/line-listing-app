@@ -98,7 +98,7 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: 'Adverse events following immunization',
+            programName: 'Child Programme',
         })
 
         clickMenubarUpdateButton()
@@ -114,12 +114,12 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -136,7 +136,7 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: 'Adverse events following immunization',
+            programName: 'Child Programme',
         })
 
         clickMenubarUpdateButton()
@@ -159,12 +159,12 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -190,12 +190,12 @@ describe('file menu', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -260,9 +260,11 @@ describe('file menu', () => {
     })
 
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
-        cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
+        cy.visit('/#/TIuOzZ0ID0V', EXTENDED_TIMEOUT)
 
-        cy.getBySel('visualization-title').contains('COVAC enrollment')
+        cy.getBySel('visualization-title').contains(
+            'Inpatient: Cases 5 to 15 years this year (case)'
+        )
 
         // saved
         assertDownloadIsEnabled()
@@ -297,7 +299,7 @@ describe('file menu', () => {
 
         // "dirty, valid: save" state
         unselectAllPeriods({
-            label: 'Date of registration',
+            label: 'Report date',
         })
 
         clickMenubarUpdateButton()
