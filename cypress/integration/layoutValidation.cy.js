@@ -1,5 +1,5 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
+import { CHILD_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
 import { selectEventProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -15,7 +15,7 @@ const openContextMenu = (id) =>
         .click()
 
 describe('layout validation', () => {
-    const eventProgram = HIV_PROGRAM
+    const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -26,7 +26,7 @@ describe('layout validation', () => {
     })
     it('stage is required', () => {
         // select a program
-        selectEventProgram({ programName: eventProgram.programName })
+        selectEventProgram({ programName: trackerProgram.programName })
 
         clickMenubarUpdateButton()
 
@@ -35,7 +35,7 @@ describe('layout validation', () => {
     it('columns is required', () => {
         // select a stage
         selectEventProgram({
-            stageName: eventProgram.stageName,
+            stageName: trackerProgram.stageName,
         })
 
         // remove org unit
@@ -71,7 +71,7 @@ describe('layout validation', () => {
     it('validation succeeds when all above are provided', () => {
         // add a time dimension to columns
         selectRelativePeriod({
-            label: eventProgram[DIMENSION_ID_EVENT_DATE],
+            label: trackerProgram[DIMENSION_ID_EVENT_DATE],
             period: TEST_REL_PE_LAST_12_MONTHS,
         })
 
