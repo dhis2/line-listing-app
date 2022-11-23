@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -151,13 +151,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Télécharger les données à partir de cette date"
 
 msgid "Metadata ID scheme"
 msgstr "Schéma ID des métadata"
@@ -327,7 +327,7 @@ msgid "Interpretations"
 msgstr "Interprétations"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" supprimé avec succès."
 
 msgid "Rename successful"
 msgstr "Renommer avec succès"
@@ -701,6 +701,9 @@ msgid "Last updated on"
 msgstr ""
 
 msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
 msgstr ""
 
 msgid "No input type selected"
