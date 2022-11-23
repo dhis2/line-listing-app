@@ -144,7 +144,7 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it(['>=2.39'], 'repetition out of bounds returns as empty value', () => {
+    it(['>=39'], 'repetition out of bounds returns as empty value', () => {
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
@@ -167,7 +167,7 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it(['<=2.38'], 'repetition out of bounds returns as 0', () => {
+    it(['>37', '<39'], 'repetition out of bounds returns as 0', () => {
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
