@@ -23,9 +23,9 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const event = E2E_PROGRAM
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
-    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 4 },
-    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 4 },
-    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 14 },
+    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 13 },
+    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 13 },
+    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 15 },
 ]
 
 const assertTimeDimension = (dimension) => {
@@ -70,7 +70,7 @@ describe(['>=39'], 'time dimensions', () => {
     })
 
     timeDimensions
-        .concat([{ id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 }])
+        .concat([{ id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 6 }])
         .forEach((dimension) => {
             assertTimeDimension(dimension)
         })
@@ -86,7 +86,7 @@ describe(['>=39'], 'time dimensions', () => {
         scheduleDateHasTooltip('No program selected')
 
         // select a program
-        selectEventProgram({ programName: 'Immunization Registry' })
+        selectEventProgram({ programName: 'Child Programme' })
 
         // both are still disabled when a program but no stage is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
@@ -96,7 +96,7 @@ describe(['>=39'], 'time dimensions', () => {
 
         // select a stage which has hideDueDate = false
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Immunization').click()
+        cy.containsExact('Birth').click()
 
         // schedule date is enabled when a stage that doesn't hide it is selected
         dimensionIsEnabled('dimension-item-scheduledDate')
@@ -111,7 +111,7 @@ describe(['>=39'], 'time dimensions', () => {
 
         // select a stage which has hideDueDate = true
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Birth details').click()
+        cy.containsExact('Baby Postnatal').click()
 
         // schedule date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
