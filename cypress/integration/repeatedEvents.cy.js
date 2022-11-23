@@ -88,31 +88,27 @@ describe('repeated events', () => {
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
         getTableHeaderCells().eq(0).containsExact('E2E - Percentage')
-        getTableDataCells().eq(0).invoke('text').should('eq', '')
+        getTableDataCells().eq(0).invoke('text').should('eq', '46')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
         // repetition 3/0 can be set successfully
-        setRepetition({ dimensionName, recent: 3, oldest: 0 })
-        let result = ['', '5', '']
+        setRepetition({ dimensionName, recent: 2, oldest: 0 })
+        let result = ['45', '46']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -2)'
-        )
-        expectHeaderToContainExact(
-            1,
             'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
-            2,
+            1,
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
 
         // repetition 0/3 can be set successfully
-        setRepetition({ dimensionName, recent: 0, oldest: 3 })
-        result = ['56', '0', '100']
+        setRepetition({ dimensionName, recent: 0, oldest: 2 })
+        result = ['45', '46']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).contains(value)
         })
@@ -124,14 +120,10 @@ describe('repeated events', () => {
             1,
             'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
-        expectHeaderToContainExact(
-            2,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest +2)'
-        )
 
         // repetition 3/3 can be set successfully
-        setRepetition({ dimensionName, recent: 3, oldest: 3 })
-        result = ['56', '0', '100', '', '5', '']
+        setRepetition({ dimensionName, recent: 2, oldest: 2 })
+        result = ['45', '46', '45', '46']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
@@ -144,14 +136,6 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
         expectHeaderToContainExact(
-            2,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest +2)'
-        )
-        expectHeaderToContainExact(
-            3,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -2)'
-        )
-        expectHeaderToContainExact(
             4,
             'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
         )
@@ -160,45 +144,56 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it('repetition out of bounds returns as empty value', () => {
+    it(['>=2.39'], 'repetition out of bounds returns as empty value', () => {
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
-        // repetition 10/0 can be set successfully
-        setRepetition({ dimensionName, recent: 11, oldest: 0 })
-        const result = [
-            '',
-            '56',
-            '0',
-            '100',
-            '50',
-            '35',
-            '10',
-            '11',
-            '',
-            '5',
-            '',
-        ]
+        // repetition 6/0 can be set successfully
+        setRepetition({ dimensionName, recent: 6, oldest: 0 })
+        const result = ['', '', '', '', '45', '46']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -10)'
-        )
-        expectHeaderToContainExact(
-            5,
             'E2E - Percentage - Stage 1 - Repeatable (most recent -5)'
         )
         expectHeaderToContainExact(
-            10,
+            2,
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -3)'
+        )
+        expectHeaderToContainExact(
+            5,
+            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
+        )
+    })
+    it(['<=2.38'], 'repetition out of bounds returns as 0', () => {
+        const dimensionName = 'E2E - Percentage'
+        setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
+
+        // repetition 6/0 can be set successfully
+        setRepetition({ dimensionName, recent: 6, oldest: 0 })
+        const result = ['0', '0', '0', '0', '45', '46']
+        result.forEach((value, index) => {
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
+        })
+        expectHeaderToContainExact(
+            0,
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -5)'
+        )
+        expectHeaderToContainExact(
+            2,
+            'E2E - Percentage - Stage 1 - Repeatable (most recent -3)'
+        )
+        expectHeaderToContainExact(
+            5,
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
     it('repetition is disabled for non repetable stages', () => {
-        selectEnrollmentProgram({ programName: 'MAL-CS' })
+        selectEnrollmentProgram({ programName: 'Child Programme' })
 
-        openDimension('Bednet distributed')
+        openDimension('MCH Apgar Score')
 
         getRepeatedEventsTab()
             .should('have.class', 'disabled')
@@ -208,7 +203,7 @@ describe('repeated events', () => {
             'Only available for repeatable stages'
         )
     })
-    it('repetition is hidden for event programs', () => {
+    it('repetition is hidden when input = event', () => {
         selectEventProgram(E2E_PROGRAM)
 
         openDimension('E2E - Percentage')

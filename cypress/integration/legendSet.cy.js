@@ -46,11 +46,14 @@ describe(['>=39'], 'Options - Legend', () => {
     const defaultTextColor = 'rgb(33, 41, 52)'
 
     const TEST_CELLS = [
-        { value: 60, color: 'rgb(66, 146, 198)' },
-        { value: 35, color: 'rgb(158, 202, 225)' },
+        { value: 56, color: 'rgb(120, 198, 121)' },
+        { value: 35, color: 'rgb(217, 240, 163)' },
     ]
 
-    const TEST_LEGEND_SET = { name: 'Alert', color: 'rgb(237, 227, 99)' }
+    const TEST_LEGEND_SET = {
+        name: 'CORE - Population by District',
+        color: 'rgb(255, 255, 178)',
+    }
 
     const assertCellsHaveDefaultColors = (selector) =>
         cy
@@ -175,7 +178,7 @@ describe(['>=39'], 'Options - Legend', () => {
 
         expectLegendKeyToBeVisible()
 
-        expectLegendKeyToMatchLegendSets(['Age (COVID-19)'])
+        expectLegendKeyToMatchLegendSets(['Age 10y interval'])
     })
     it('text color legend is applied (single legend)', () => {
         clickMenubarOptionsButton()
@@ -300,10 +303,16 @@ describe(['>=39'], 'Options - Legend', () => {
     })
     it('legend is applied to negative values (per data item)', () => {
         cy.getBySel('options-modal-content')
-            .contains('Use pre-defined legend per data item')
+            .contains('Choose a single legend for the entire visualization')
             .click()
 
-        expectLegendDisplayStrategyToBeByDataItem()
+        expectLegendDisplayStrategyToBeFixed()
+
+        cy.getBySel('fixed-legend-set-select-content')
+            .contains('CORE - Population by District')
+            .click()
+
+        cy.get('[data-label="Stock Difference"]').click()
 
         clickOptionsModalUpdateButton()
 
@@ -315,17 +324,11 @@ describe(['>=39'], 'Options - Legend', () => {
 
         expectTableToBeVisible()
 
-        TEST_CELLS.concat([
-            { value: -50, color: 'rgb(255, 255, 178)' },
-            { value: -35, color: 'rgb(253, 141, 60)' },
-        ]).forEach((cell) =>
-            cy
-                .getBySel('table-body')
-                .contains(cell.value)
-                .should('have.css', 'color', defaultTextColor)
-                .closest('td')
-                .should('have.css', 'background-color', cell.color)
-        )
+        cy.getBySel('table-body')
+            .containsExact(-10)
+            .should('have.css', 'color', defaultTextColor)
+            .closest('td')
+            .should('have.css', 'background-color', 'rgb(0, 255, 255)')
 
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(2)')
