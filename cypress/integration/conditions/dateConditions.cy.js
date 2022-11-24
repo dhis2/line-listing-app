@@ -34,13 +34,16 @@ import { EXTENDED_TIMEOUT } from '../../support/util.js'
 const currentYear = getCurrentYearStr()
 const previousYear = getPreviousYearStr()
 
-const event = E2E_PROGRAM
+const trackerProgram = E2E_PROGRAM
 const dimensionName = TEST_DIM_DATE
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventWithProgramDimensions({
+        ...trackerProgram,
+        dimensions: [dimensionName],
+    })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -177,9 +180,10 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
+            `${previousYear}-12-23`,
+            `${previousYear}-12-22`,
             `${previousYear}-12-10`,
             `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
             `${currentYear}-02-01`,
             `${currentYear}-04-19`,
         ])
@@ -200,10 +204,11 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-11`,
+            `${previousYear}-12-23`,
+            `${previousYear}-12-22`,
             `${previousYear}-12-10`,
             `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
+            `${previousYear}-12-11`,
             `${currentYear}-02-01`,
             `${currentYear}-04-19`,
         ])
@@ -238,14 +243,15 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
+            `${previousYear}-12-23`,
+            `${previousYear}-12-22`,
             `${previousYear}-12-10`,
-            `${previousYear}-12-11`,
             `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
-            `${currentYear}-01-01`,
-            `${currentYear}-01-03`,
+            `${previousYear}-12-11`,
             `${currentYear}-02-01`,
             `${currentYear}-04-19`,
+            `${currentYear}-01-03`,
+            `${currentYear}-01-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
