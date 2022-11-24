@@ -88,9 +88,11 @@ describe(['>=39'], 'time dimensions', () => {
         // select a program
         selectEventProgram({ programName: 'Child Programme' })
 
-        // both are still disabled when a program but no stage is selected
+        // scheduled date is still disabled when a program but no stage is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+
+        // incident date is enabled because Child Programme has show incident date = true
+        dimensionIsEnabled('dimension-item-incidentDate')
 
         cy.getBySelLike('tooltip-content').contains('No stage selected')
 
@@ -100,22 +102,24 @@ describe(['>=39'], 'time dimensions', () => {
 
         // schedule date is enabled when a stage that doesn't hide it is selected
         dimensionIsEnabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+
+        // incident date is still enabled, stage is not relevant
+        dimensionIsEnabled('dimension-item-incidentDate')
 
         cy.getBySel('stage-clear-button').click()
 
         // both are disabled when the stage is cleared
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+        dimensionIsEnabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('No stage selected')
 
-        // select a stage which has hideDueDate = true
+        // select a stage that has hideDueDate = true
         cy.getBySel('accessory-sidebar').contains('Stage').click()
         cy.containsExact('Baby Postnatal').click()
 
         // schedule date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+        dimensionIsEnabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('Disabled by the selected program stage')
     })
 })
