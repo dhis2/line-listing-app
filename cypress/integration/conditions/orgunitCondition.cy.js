@@ -17,12 +17,12 @@ import { selectRelativePeriod } from '../../helpers/period.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = E2E_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const trackerProgram = E2E_PROGRAM
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventWithProgram(event)
+    selectEventWithProgram(trackerProgram)
 
     selectRelativePeriod({
         label: periodLabel,
@@ -36,7 +36,7 @@ const setUpTable = () => {
 
 describe('Org unit condition', () => {
     const dimensionName = TEST_DIM_ORG_UNIT
-    const orgUnitName = '02 Phongsali'
+    const orgUnitName = 'Koinadugu'
 
     it('Organisation unit displays correctly', () => {
         cy.visit('/', EXTENDED_TIMEOUT)

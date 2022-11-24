@@ -13,7 +13,6 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     selectRelativePeriod,
     getPreviousYearStr,
-    selectFixedPeriod,
 } from '../../helpers/period.js'
 import {
     expectTableToBeVisible,
@@ -24,9 +23,10 @@ import {
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 describe('Option set condition', () => {
-    it('Option set (program attribute) displays correctly', () => {
-        const dimensionName = 'Country of birth'
-        const optionName = 'Sweden'
+    it('Option set (number) displays correctly', () => {
+        const dimensionName = 'E2E - Number (option set)'
+        const filteredOutOptionName = 'Four'
+        const filteredOptionName = 'Eight'
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
@@ -51,48 +51,49 @@ describe('Option set condition', () => {
 
         expectTableToBeVisible()
 
-        expectTableToNotContainValue(optionName)
+        expectTableToContainValue(filteredOutOptionName)
+        expectTableToContainValue(filteredOptionName)
 
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
         openDimension(dimensionName)
 
-        typeInput('option-set-left-header-filter-input-field', 'swe')
+        typeInput(
+            'option-set-left-header-filter-input-field',
+            filteredOptionName
+        )
 
         cy.getBySel('option-set-transfer-sourceoptions')
-            .contains(optionName)
+            .contains(filteredOptionName)
             .dblclick()
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
-        assertTooltipContainsEntries([optionName])
+        assertTooltipContainsEntries([filteredOptionName])
 
-        expectTableToContainValue(optionName)
+        expectTableToNotContainValue(filteredOutOptionName)
+        expectTableToContainValue(filteredOptionName)
 
         expectTableToMatchRows([
-            `${getPreviousYearStr()}-05-05`,
-            `${getPreviousYearStr()}-08-12`,
+            `${getPreviousYearStr()}-12-23`,
+            `${getPreviousYearStr()}-12-22`,
         ])
     })
 
-    it('Option set (data element) displays correctly', () => {
-        const dimensionName = 'HIV Facility level testing'
-        const filterOption = 'Family planning clinic'
-        const filteredOutOption = 'Antenatal care clinic'
-        const previousYear = getPreviousYearStr()
+    it('Option set (text) displays correctly', () => {
+        const dimensionName = 'E2E - Text (option set)'
+        const filteredOutOptionName = 'COVID 19 - Moderna'
+        const filteredOptionName = 'COVID 19 - AstraZeneca'
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
         selectEventWithProgram(E2E_PROGRAM)
 
-        selectFixedPeriod({
+        selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: {
-                year: previousYear,
-                name: `January ${previousYear}`,
-            },
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()
@@ -109,28 +110,31 @@ describe('Option set condition', () => {
 
         expectTableToBeVisible()
 
-        expectTableToContainValue(filterOption)
-
-        expectTableToContainValue(filteredOutOption)
+        expectTableToContainValue(filteredOutOptionName)
+        expectTableToContainValue(filteredOptionName)
 
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
         openDimension(dimensionName)
 
+        typeInput(
+            'option-set-left-header-filter-input-field',
+            filteredOptionName
+        )
+
         cy.getBySel('option-set-transfer-sourceoptions')
-            .contains(filterOption)
+            .contains(filteredOptionName)
             .dblclick()
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
-        assertTooltipContainsEntries([filterOption])
+        assertTooltipContainsEntries([filteredOptionName])
 
-        expectTableToContainValue(filterOption)
+        expectTableToNotContainValue(filteredOutOptionName)
+        expectTableToContainValue(filteredOptionName)
 
-        expectTableToNotContainValue(filteredOutOption)
-
-        expectTableToMatchRows(['2021-01-01'])
+        expectTableToMatchRows([`${getPreviousYearStr()}-12-10`])
     })
 })
