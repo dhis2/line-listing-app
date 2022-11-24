@@ -180,12 +180,13 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-23`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-10`,
             `${previousYear}-11-15`,
-            `${currentYear}-02-01`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
             `${currentYear}-04-19`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -204,13 +205,14 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-23`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-10`,
-            `${previousYear}-11-15`,
             `${previousYear}-12-11`,
-            `${currentYear}-02-01`,
+            `${previousYear}-11-15`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
             `${currentYear}-04-19`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -243,15 +245,16 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-23`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-10`,
-            `${previousYear}-11-15`,
             `${previousYear}-12-11`,
-            `${currentYear}-02-01`,
+            `${previousYear}-11-15`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
             `${currentYear}-04-19`,
-            `${currentYear}-01-03`,
             `${currentYear}-01-01`,
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
