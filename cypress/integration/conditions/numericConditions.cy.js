@@ -238,7 +238,16 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['0', '5', '1', '35'])
+        expectTableToMatchRows([
+            '46',
+            '45',
+            '0',
+            '35',
+            '1',
+            '4 900 000',
+            '1',
+            '0',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -251,7 +260,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['5', '35'])
+        expectTableToMatchRows(['46', '45', '35', '4 900 000'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -264,7 +273,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['5', '1', '35'])
+        expectTableToMatchRows(['46', '45', '35', '1', '4 900 000', '1'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
