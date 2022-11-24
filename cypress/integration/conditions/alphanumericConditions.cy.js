@@ -99,11 +99,12 @@ describe('text conditions', () => {
         addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
 
         expectTableToMatchRows([
-            '9000000',
-            '2022-03-01',
-            'Text A-2',
-            '2022-02-01',
             LONG_TEXT,
+            '9000000',
+            'Text A-2',
+            '2022-03-01',
+            '2022-02-01',
+            'Text E',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -121,7 +122,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['Text A', 'Text A-2', LONG_TEXT])
+        expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text A-2', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -139,7 +140,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['Text A', 'Text A-2'])
+        expectTableToMatchRows(['Text A', 'Text A-2', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -187,7 +188,13 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['9000000', 'Text A-2', 'Text A', LONG_TEXT])
+        expectTableToMatchRows([
+            LONG_TEXT,
+            'Text A',
+            '9000000',
+            'Text A-2',
+            'Text E',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -200,7 +207,7 @@ describe('text conditions', () => {
             { conditionName: 'is not', value: 'Text A-2' },
         ])
 
-        expectTableToMatchRows(['Text A', LONG_TEXT])
+        expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 2 conditions`)
 
