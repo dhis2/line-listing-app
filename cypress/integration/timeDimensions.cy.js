@@ -22,10 +22,10 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const event = E2E_PROGRAM
 const timeDimensions = [
-    { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
-    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 13 },
-    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 13 },
-    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 15 },
+    { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
+    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
+    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 12 },
+    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 14 },
 ]
 
 const assertTimeDimension = (dimension) => {

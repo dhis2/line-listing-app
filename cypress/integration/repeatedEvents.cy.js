@@ -81,7 +81,7 @@ describe('repeated events', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
-    it('can use repetition for an enrollment program', () => {
+    it('can use repetition for enrollments', () => {
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
@@ -91,7 +91,7 @@ describe('repeated events', () => {
         getTableDataCells().eq(0).invoke('text').should('eq', '46')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
-        // repetition 3/0 can be set successfully
+        // repetition 2/0 can be set successfully
         setRepetition({ dimensionName, recent: 2, oldest: 0 })
         let result = ['45', '46']
         result.forEach((value, index) => {
@@ -106,7 +106,7 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
 
-        // repetition 0/3 can be set successfully
+        // repetition 0/2 can be set successfully
         setRepetition({ dimensionName, recent: 0, oldest: 2 })
         result = ['45', '46']
         result.forEach((value, index) => {
@@ -121,7 +121,7 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
 
-        // repetition 3/3 can be set successfully
+        // repetition 2/2 can be set successfully
         setRepetition({ dimensionName, recent: 2, oldest: 2 })
         result = ['45', '46', '45', '46']
         result.forEach((value, index) => {
@@ -136,11 +136,11 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
         )
         expectHeaderToContainExact(
-            4,
+            2,
             'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
-            5,
+            3,
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })

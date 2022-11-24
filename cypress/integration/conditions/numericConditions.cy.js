@@ -98,7 +98,7 @@ describe('number conditions', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['2 000 000', '5 557 779 990'])
+        expectTableToMatchRows(['2 000 000', '5 557 779 990', '5 123 123'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -110,7 +110,12 @@ describe('number conditions', () => {
             [{ conditionName: 'greater than or equal to', value: '12' }],
             dimensionName
         )
-        expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
+        expectTableToMatchRows([
+            '12',
+            '2 000 000',
+            '5 557 779 990',
+            '5 123 123',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -156,11 +161,12 @@ describe('number conditions', () => {
         )
 
         expectTableToMatchRows([
+            '3.7',
             '11',
+            '2022-01-01', // the empty row
             '2 000 000',
             '5 557 779 990',
-            '3.7',
-            '2022-01-01', // the empty row
+            '5 123 123',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -191,11 +197,12 @@ describe('number conditions', () => {
         )
 
         expectTableToMatchRows([
+            '3.7',
             '11',
             '12',
             '2 000 000',
             '5 557 779 990',
-            '3.7',
+            '5 123 123',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -238,16 +245,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows([
-            '46',
-            '45',
-            '0',
-            '35',
-            '1',
-            '4 900 000',
-            '1',
-            '0',
-        ])
+        expectTableToMatchRows(['56', '1', '0', '35', '0', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -260,7 +258,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['46', '45', '35', '4 900 000'])
+        expectTableToMatchRows(['56', '35', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -273,7 +271,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['46', '45', '35', '1', '4 900 000', '1'])
+        expectTableToMatchRows(['56', '1', '35', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -283,7 +281,7 @@ describe('integer', () => {
 
 describe('preset options', () => {
     const dimensionName = TEST_DIM_WITH_PRESET
-    const TEST_PRESET = 'Age (COVID-19)'
+    const TEST_PRESET = 'Age 10y interval'
 
     const addPreset = (preset, value) => {
         cy.getBySelLike('layout-chip').contains(dimensionName).click()
@@ -328,13 +326,24 @@ describe('preset options', () => {
         addPreset(TEST_PRESET)
 
         expectTableToMatchRows([
-            `${previousYear}-11-01`,
+            `${previousYear}-01-01`,
             `${previousYear}-12-11`,
-            `${previousYear}-12-10`,
+            `${previousYear}-01-02`,
             `${previousYear}-11-15`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
         ])
 
-        expectTableToMatchRows(['5 - 14', '5 - 14', '35 - 44', '35 - 44'])
+        expectTableToMatchRows([
+            '50 - 60',
+            '10 - 20',
+            '0 - 10',
+            '30 - 40',
+            '10 - 20',
+            '40 - 50',
+            '40 - 50',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -342,7 +351,7 @@ describe('preset options', () => {
     })
 
     it('set and value', () => {
-        const TEST_VALUE = '5 - 14'
+        const TEST_VALUE = '10 - 20'
 
         addPreset(TEST_PRESET, TEST_VALUE)
 

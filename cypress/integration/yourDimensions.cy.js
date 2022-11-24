@@ -22,8 +22,9 @@ const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 describe('event', () => {
     it('Your dimensions can be used and filtered by', () => {
-        const dimensionName = 'Facility Ownership'
-        const optionName = 'Private Clinic'
+        const dimensionName = 'Facility Type'
+        const filteredOutItemName = 'MCHP'
+        const filteredItemName = 'CHC'
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
@@ -61,25 +62,23 @@ describe('event', () => {
 
         expectTableToBeVisible()
 
-        expectTableToNotContainValue(optionName)
-
         // check the chip in the layout
         cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 
         // open the dimension and add a filter
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
-        typeInput('left-header-filter-input-field', 'clinic')
+        typeInput('left-header-filter-input-field', filteredItemName)
         cy.getBySelLike('transfer-sourceoptions')
             .findBySelLike('transfer-option')
             .should('have.length', 1)
-        cy.getBySelLike('transfer-sourceoptions').contains(optionName)
+        cy.getBySelLike('transfer-sourceoptions').contains(filteredItemName)
 
         cy.getBySelLike('transfer-sourceoptions')
-            .contains(optionName)
+            .contains(filteredItemName)
             .dblclick()
 
-        cy.getBySelLike('transfer-pickedoptions').contains(optionName)
+        cy.getBySelLike('transfer-pickedoptions').contains(filteredItemName)
 
         cy.getBySel('dynamic-dimension-modal').contains('Update').click()
 
@@ -87,14 +86,18 @@ describe('event', () => {
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
         // check the chip tooltip
-        assertTooltipContainsEntries([optionName])
+        assertTooltipContainsEntries([filteredItemName])
 
         // check the label in the column header
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
         // check the value in the table
-        expectTableToContainValue(optionName)
+        expectTableToContainValue(filteredItemName)
+        expectTableToNotContainValue(filteredOutItemName)
 
-        expectTableToMatchRows([`${getPreviousYearStr()}-11-05`])
+        expectTableToMatchRows([
+            `${getPreviousYearStr()}-01-01`,
+            `${getPreviousYearStr()}-12-11`,
+        ])
     })
 })
