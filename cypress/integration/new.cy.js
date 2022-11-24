@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { expectTableToBeVisible, getTableRows } from '../helpers/table.js'
@@ -17,7 +17,7 @@ describe('new', () => {
             `Organisation unit: 1 selected`
         )
 
-        selectEventProgram(event)
+        selectEventWithProgram(event)
 
         selectFixedPeriod({
             label: periodLabel,

@@ -6,7 +6,7 @@ import {
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { openDimension, selectEventProgram } from '../helpers/dimensions.js'
+import { openDimension, selectEventWithProgram } from '../helpers/dimensions.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
@@ -74,7 +74,7 @@ describe(['>=39'], 'Options - Legend', () => {
     it('no legend is applied by default', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(E2E_PROGRAM)
+        selectEventWithProgram(E2E_PROGRAM)
 
         selectRelativePeriod({
             label: periodLabel,

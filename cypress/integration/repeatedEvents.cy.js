@@ -4,7 +4,7 @@ import {
     openDimension,
     selectEnrollmentProgram,
     selectEnrollmentProgramDimensions,
-    selectEventProgram,
+    selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -204,7 +204,7 @@ describe('repeated events', () => {
         )
     })
     it('repetition is hidden when input = event', () => {
-        selectEventProgram(E2E_PROGRAM)
+        selectEventWithProgram(E2E_PROGRAM)
 
         openDimension('E2E - Percentage')
 

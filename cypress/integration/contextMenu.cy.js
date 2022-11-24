@@ -1,6 +1,6 @@
 import { AXIS_ID_COLUMNS, AXIS_ID_FILTERS } from '@dhis2/analytics'
 import { E2E_PROGRAM } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import {
     expectAxisToHaveDimension,
     expectAxisToNotHaveDimension,
@@ -82,7 +82,7 @@ describe('using the dimension list context menu', () => {
 
     it('adds item', () => {
         goToStartPage()
-        selectEventProgram(event)
+        selectEventWithProgram(event)
 
         expectAxisToNotHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
         expectAxisToNotHaveDimension(AXIS_ID_FILTERS, TEST_DIM_ID)

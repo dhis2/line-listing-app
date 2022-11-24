@@ -9,8 +9,8 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
@@ -40,7 +40,7 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -298,7 +298,7 @@ describe('date types', () => {
         it(`${type} has all operators`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram(E2E_PROGRAM)
+            selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

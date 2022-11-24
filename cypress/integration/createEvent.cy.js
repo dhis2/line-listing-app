@@ -14,7 +14,7 @@ import {
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
-    selectEventProgramDimensions,
+    selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
@@ -51,7 +51,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
-        selectEventProgramDimensions({
+        selectEventWithProgramDimensions({
             ...eventProgram,
             dimensions: [dimensionName],
         })
@@ -158,7 +158,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
-        selectEventProgramDimensions({
+        selectEventWithProgramDimensions({
             ...eventProgram,
             dimensions: [dimensionName],
         })
@@ -235,7 +235,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        selectEventProgramDimensions({
+        selectEventWithProgramDimensions({
             ...eventProgram,
             dimensions: [dimensionName],
         })

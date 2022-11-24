@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { CHILD_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
@@ -26,7 +26,7 @@ describe('layout validation', () => {
     })
     it('stage is required', () => {
         // select a program
-        selectEventProgram({ programName: trackerProgram.programName })
+        selectEventWithProgram({ programName: trackerProgram.programName })
 
         clickMenubarUpdateButton()
 
@@ -34,7 +34,7 @@ describe('layout validation', () => {
     })
     it('columns is required', () => {
         // select a stage
-        selectEventProgram({
+        selectEventWithProgram({
             stageName: trackerProgram.stageName,
         })
 

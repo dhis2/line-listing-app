@@ -1,7 +1,10 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../../data/index.js'
 import { typeInput } from '../../helpers/common.js'
-import { openDimension, selectEventProgram } from '../../helpers/dimensions.js'
+import {
+    openDimension,
+    selectEventWithProgram,
+} from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -27,10 +30,10 @@ describe('Option set condition', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(HIV_PROGRAM)
+        selectEventWithProgram(E2E_PROGRAM)
 
         selectRelativePeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -82,10 +85,10 @@ describe('Option set condition', () => {
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(HIV_PROGRAM)
+        selectEventWithProgram(E2E_PROGRAM)
 
         selectFixedPeriod({
-            label: HIV_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
             period: {
                 year: previousYear,
                 name: `January ${previousYear}`,

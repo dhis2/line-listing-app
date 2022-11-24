@@ -5,7 +5,7 @@ import {
 import { E2E_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
 import {
     selectEnrollmentProgram,
-    selectEventProgram,
+    selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -29,7 +29,7 @@ describe('download', () => {
 
         downloadIsDisabled()
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: E2E_PROGRAM.programName,
             stageName: E2E_PROGRAM.stageName,
         })

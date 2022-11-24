@@ -4,7 +4,10 @@ import {
     TEST_DIM_ORG_UNIT,
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
-import { openDimension, selectEventProgram } from '../../helpers/dimensions.js'
+import {
+    openDimension,
+    selectEventWithProgram,
+} from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -19,7 +22,7 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgram(event)
+    selectEventWithProgram(event)
 
     selectRelativePeriod({
         label: periodLabel,

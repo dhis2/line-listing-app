@@ -9,7 +9,7 @@ import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
-    selectEventProgram,
+    selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -30,7 +30,7 @@ const timeDimensions = [
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
-        selectEventProgram(event)
+        selectEventWithProgram(event)
         const label = event[dimension.id]
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
@@ -86,7 +86,7 @@ describe(['>=39'], 'time dimensions', () => {
         scheduleDateHasTooltip('No program selected')
 
         // select a program
-        selectEventProgram({ programName: 'Child Programme' })
+        selectEventWithProgram({ programName: 'Child Programme' })
 
         // scheduled date is still disabled when a program but no stage is selected
         dimensionIsDisabled('dimension-item-scheduledDate')

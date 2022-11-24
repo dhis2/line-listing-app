@@ -3,7 +3,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -24,7 +24,7 @@ describe('event status', () => {
     const setUpTable = (periodLabel) => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(event)
+        selectEventWithProgram(event)
 
         selectRelativePeriod({
             label: periodLabel,

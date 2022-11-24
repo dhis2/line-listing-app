@@ -13,13 +13,13 @@ import {
     TEST_DIM_INTEGER,
     TEST_DIM_POSITIVE_INTEGER,
 } from '../data/index.js'
-import { selectEventProgramDimensions } from '../helpers/dimensions.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('layout', () => {
     it('expansion caret can be toggled', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
-        selectEventProgramDimensions({
+        selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [
                 TEST_DIM_TEXT,

@@ -1,6 +1,6 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, unselectAllPeriods } from '../helpers/period.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -97,7 +97,7 @@ describe('file menu', () => {
     it('reflects "unsaved, valid: save" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: 'Child Programme',
         })
 
@@ -113,7 +113,7 @@ describe('file menu', () => {
     it('reflects "unsaved, valid: data" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: 'Child Programme',
             stageName: 'Birth',
         })
@@ -135,7 +135,7 @@ describe('file menu', () => {
     it('reflects "saved, valid: save" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: 'Child Programme',
         })
 
@@ -158,7 +158,7 @@ describe('file menu', () => {
     it('reflects "saved, valid: data" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: 'Child Programme',
             stageName: 'Birth',
         })
@@ -189,7 +189,7 @@ describe('file menu', () => {
     it('reflects "dirty" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
+        selectEventWithProgram({
             programName: 'Child Programme',
             stageName: 'Birth',
         })

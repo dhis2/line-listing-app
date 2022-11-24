@@ -30,8 +30,8 @@ import {
     TEST_DIM_LEGEND_SET,
 } from '../data/index.js'
 import {
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, getPreviousYearStr } from '../helpers/period.js'
@@ -85,7 +85,7 @@ const programDimensions = [
 const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
-    selectEventProgramDimensions({
+    selectEventWithProgramDimensions({
         ...event,
         dimensions: [dimensionName],
     })
@@ -137,7 +137,7 @@ const assertColumnHeaders = () => {
 }
 
 const assertDimensions = () => {
-    selectEventProgram(event)
+    selectEventWithProgram(event)
 
     mainAndTimeDimensions.forEach(({ label }) => {
         cy.getBySel('main-sidebar')

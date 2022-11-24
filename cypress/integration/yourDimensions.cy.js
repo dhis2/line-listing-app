@@ -1,7 +1,7 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { HIV_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -17,17 +17,17 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = HIV_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const trackerProgram = E2E_PROGRAM
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 describe('event', () => {
     it('Your dimensions can be used and filtered by', () => {
-        const dimensionName = 'Organisation Unit Types'
-        const optionName = 'HIV STI Health Facilities 2017'
+        const dimensionName = 'Facility Ownership'
+        const optionName = 'Private Clinic'
 
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram(event)
+        selectEventWithProgram(trackerProgram)
 
         selectRelativePeriod({
             label: periodLabel,
@@ -41,14 +41,14 @@ describe('event', () => {
 
         cy.getBySel('your-dimensions-list')
             .findBySelLike('dimension-item')
-            .should('have.length', 12)
+            .should('have.length', 4)
 
         // search the dimensions list
-        cy.getBySel('search-dimension-input').find('input').type('Org')
+        cy.getBySel('search-dimension-input').find('input').type('facility')
 
         cy.getBySel('your-dimensions-list')
             .findBySelLike('dimension-item')
-            .should('have.length', 1)
+            .should('have.length', 2)
 
         // open the dimension modal
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
@@ -69,7 +69,7 @@ describe('event', () => {
         // open the dimension and add a filter
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
-        typeInput('left-header-filter-input-field', 'sti')
+        typeInput('left-header-filter-input-field', 'clinic')
         cy.getBySelLike('transfer-sourceoptions')
             .findBySelLike('transfer-option')
             .should('have.length', 1)
@@ -95,6 +95,6 @@ describe('event', () => {
         // check the value in the table
         expectTableToContainValue(optionName)
 
-        expectTableToMatchRows([`${getPreviousYearStr()}-09-20`])
+        expectTableToMatchRows([`${getPreviousYearStr()}-11-05`])
     })
 })
