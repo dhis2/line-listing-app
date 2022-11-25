@@ -45,14 +45,26 @@ describe(['>=39'], 'Options - Legend', () => {
     const defaultBackgroundColor = 'rgb(255, 255, 255)'
     const defaultTextColor = 'rgb(33, 41, 52)'
 
-    const TEST_CELLS = [
-        { value: 56, color: 'rgb(120, 198, 121)' },
-        { value: 35, color: 'rgb(217, 240, 163)' },
-    ]
+    const TEST_LEGEND_AGE = {
+        name: 'Age 10y interval',
+        cells: [
+            { value: 10, color: 'rgb(255, 255, 229)' },
+            { value: 56, color: 'rgb(120, 198, 121)' },
+        ],
+    }
 
-    const TEST_LEGEND_SET = {
-        name: 'CORE - Population by District',
-        color: 'rgb(255, 255, 178)',
+    const TEST_LEGEND_E2E = {
+        name: 'E2E legend',
+        cells: {
+            positive: [
+                { value: 10, color: 'rgb(209, 229, 240)' },
+                { value: 56, color: 'rgb(103, 169, 207)' },
+            ],
+            negative: [
+                { value: -10, color: 'rgb(253, 219, 199)' },
+                { value: -56, color: 'rgb(239, 138, 98)' },
+            ],
+        },
     }
 
     const assertCellsHaveDefaultColors = (selector) =>
@@ -80,6 +92,12 @@ describe(['>=39'], 'Options - Legend', () => {
             label: periodLabel,
             period: TEST_REL_PE_LAST_YEAR,
         })
+
+        cy.getBySel('columns-axis')
+            .findBySelLike('layout-chip')
+            .findBySel('dimension-menu-button-eventDate')
+            .click()
+        cy.contains('Move to Filter').click()
 
         clickMenubarUpdateButton()
 
@@ -112,7 +130,7 @@ describe(['>=39'], 'Options - Legend', () => {
         expectTableToBeVisible()
 
         // affected cells have default text color and custom background color
-        TEST_CELLS.forEach((cell) =>
+        TEST_LEGEND_AGE.cells.forEach((cell) =>
             cy
                 .getBySel('table-body')
                 .contains(cell.value)
@@ -122,7 +140,7 @@ describe(['>=39'], 'Options - Legend', () => {
         )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('text color legend is applied (per data item)', () => {
         clickMenubarOptionsButton()
@@ -146,7 +164,7 @@ describe(['>=39'], 'Options - Legend', () => {
         expectTableToBeVisible()
 
         // affected cells have custom text color and default background color
-        TEST_CELLS.forEach((cell) =>
+        TEST_LEGEND_AGE.cells.forEach((cell) =>
             cy
                 .getBySel('table-body')
                 .contains(cell.value)
@@ -156,7 +174,7 @@ describe(['>=39'], 'Options - Legend', () => {
         )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('legend key is hidden by default', () => {
         expectLegendKeyToBeHidden()
@@ -178,7 +196,7 @@ describe(['>=39'], 'Options - Legend', () => {
 
         expectLegendKeyToBeVisible()
 
-        expectLegendKeyToMatchLegendSets(['Age 10y interval'])
+        expectLegendKeyToMatchLegendSets([TEST_LEGEND_AGE.name])
     })
     it('text color legend is applied (single legend)', () => {
         clickMenubarOptionsButton()
@@ -200,7 +218,7 @@ describe(['>=39'], 'Options - Legend', () => {
             .click()
 
         cy.getBySel('fixed-legend-set-option')
-            .contains(TEST_LEGEND_SET.name)
+            .contains(TEST_LEGEND_E2E.name)
             .click()
 
         cy.getBySel('options-modal-content')
@@ -216,17 +234,17 @@ describe(['>=39'], 'Options - Legend', () => {
         expectTableToBeVisible()
 
         // affected cells have fixed text color and default background color
-        TEST_CELLS.forEach((cell) =>
+        TEST_LEGEND_E2E.cells.positive.forEach((cell) =>
             cy
                 .getBySel('table-body')
                 .contains(cell.value)
-                .should('have.css', 'color', TEST_LEGEND_SET.color)
+                .should('have.css', 'color', cell.color)
                 .closest('td')
                 .should('have.css', 'background-color', defaultBackgroundColor)
         )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('background color legend is applied (single legend)', () => {
         clickMenubarOptionsButton()
@@ -250,17 +268,17 @@ describe(['>=39'], 'Options - Legend', () => {
         expectTableToBeVisible()
 
         // affected cells have default text color and fixed background color
-        TEST_CELLS.forEach((cell) =>
+        TEST_LEGEND_E2E.cells.positive.forEach((cell) =>
             cy
                 .getBySel('table-body')
                 .contains(cell.value)
                 .should('have.css', 'color', defaultTextColor)
                 .closest('td')
-                .should('have.css', 'background-color', TEST_LEGEND_SET.color)
+                .should('have.css', 'background-color', cell.color)
         )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('options can be saved and loaded', () => {
         cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
@@ -277,17 +295,17 @@ describe(['>=39'], 'Options - Legend', () => {
         expectTableToBeVisible()
 
         // affected cells have default text color and fixed background color
-        TEST_CELLS.forEach((cell) =>
+        TEST_LEGEND_E2E.cells.positive.forEach((cell) =>
             cy
                 .getBySel('table-body')
                 .contains(cell.value)
                 .should('have.css', 'color', defaultTextColor)
                 .closest('td')
-                .should('have.css', 'background-color', TEST_LEGEND_SET.color)
+                .should('have.css', 'background-color', cell.color)
         )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
 
         clickMenubarOptionsButton()
 
@@ -298,21 +316,15 @@ describe(['>=39'], 'Options - Legend', () => {
         expectLegendDisplayStyleToBeFill()
 
         cy.getBySel('fixed-legend-set-select-content').contains(
-            TEST_LEGEND_SET.name
+            TEST_LEGEND_E2E.name
         )
     })
     it('legend is applied to negative values (per data item)', () => {
         cy.getBySel('options-modal-content')
-            .contains('Choose a single legend for the entire visualization')
+            .contains('Use pre-defined legend per data item')
             .click()
 
-        expectLegendDisplayStrategyToBeFixed()
-
-        cy.getBySel('fixed-legend-set-select-content')
-            .contains('CORE - Population by District')
-            .click()
-
-        cy.get('[data-label="Stock Difference"]').click()
+        expectLegendDisplayStrategyToBeByDataItem()
 
         clickOptionsModalUpdateButton()
 
@@ -324,21 +336,27 @@ describe(['>=39'], 'Options - Legend', () => {
 
         expectTableToBeVisible()
 
-        cy.getBySel('table-body')
-            .containsExact(-10)
-            .should('have.css', 'color', defaultTextColor)
-            .closest('td')
-            .should('have.css', 'background-color', 'rgb(0, 255, 255)')
+        TEST_LEGEND_E2E.cells.negative.forEach((cell) =>
+            cy
+                .getBySel('table-body')
+                .contains(cell.value)
+                .should('have.css', 'color', defaultTextColor)
+                .closest('td')
+                .should('have.css', 'background-color', cell.color)
+        )
 
         // unaffected cells (date column) have default background and text color
-        assertCellsHaveDefaultColors('tr td:nth-child(2)')
+        assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('legend key displays correctly when two items are in use', () => {
         expectLegendKeyToBeVisible()
 
-        expectLegendKeyToMatchLegendSets(['Age (COVID-19)', 'Negative'])
+        expectLegendKeyToMatchLegendSets([
+            TEST_LEGEND_AGE.name,
+            TEST_LEGEND_E2E.name,
+        ])
     })
-    it("empty values doesn't display a legend color", () => {
+    it('empty values do not display a legend color', () => {
         const currentYear = getCurrentYearStr()
 
         unselectAllPeriods({
@@ -354,19 +372,19 @@ describe(['>=39'], 'Options - Legend', () => {
         })
 
         getTableRows()
-            .eq(0)
+            .eq(1)
             .find('td')
-            .eq(3)
+            .eq(2)
             .should('have.css', 'background-color', defaultBackgroundColor)
             .invoke('text')
             .invoke('trim')
             .should('equal', '')
 
         getTableRows()
-            .eq(1)
+            .eq(2)
             .find('td')
-            .eq(3)
-            .should('have.css', 'background-color', 'rgb(189, 0, 38)')
+            .eq(2)
+            .should('have.css', 'background-color', 'rgb(253, 219, 199)')
             .invoke('text')
             .invoke('trim')
             .should('equal', '-12')
