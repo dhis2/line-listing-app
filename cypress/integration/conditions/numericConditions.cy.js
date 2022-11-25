@@ -154,7 +154,27 @@ describe('number conditions', () => {
         ])
     })
 
-    it('not equal to', () => {
+    // 2.38.1
+    it(['>37', '<39'], 'not equal to', () => {
+        addConditions(
+            [{ conditionName: 'not equal to', value: '12' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows([
+            '3.7',
+            '11',
+            '2 000 000',
+            '5 557 779 990',
+            '5 123 123',
+        ])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
+    })
+
+    it(['>=39'], 'not equal to', () => {
         addConditions(
             [{ conditionName: 'not equal to', value: '12' }],
             dimensionName

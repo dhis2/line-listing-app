@@ -93,7 +93,19 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
-    it('is not', () => {
+    it(['>37', '<39'], 'is not', () => {
+        const TEST_TEXT = 'Text A'
+
+        addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
+
+        expectTableToMatchRows([LONG_TEXT, '9000000', 'Text A-2', 'Text E'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, `Is not: ${TEST_TEXT}`])
+    })
+
+    it(['>=39'], 'is not', () => {
         const TEST_TEXT = 'Text A'
 
         addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
@@ -147,7 +159,27 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    it('does not contain', () => {
+    it(['>37', '<39'], 'does not contain', () => {
+        const TEST_TEXT = 'T'
+
+        addConditions([
+            {
+                conditionName: 'does not contain',
+                value: TEST_TEXT,
+            },
+        ])
+
+        expectTableToMatchRows(['9000000'])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([
+            stageName,
+            `Does not contain: ${TEST_TEXT}`,
+        ])
+    })
+
+    it(['>=39'], 'does not contain', () => {
         const TEST_TEXT = 'T'
 
         addConditions([

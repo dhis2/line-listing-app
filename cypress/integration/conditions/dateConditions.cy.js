@@ -93,7 +93,43 @@ describe('date conditions (Date)', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
-    it('is not', () => {
+    // 2.38.1
+    it(['>37', '<39'], 'is not', () => {
+        unselectAllPeriods({
+            label: periodLabel,
+        })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
+        })
+
+        const TEST_DATE = `${currentYear}-01-02`
+
+        addConditions([
+            {
+                conditionName: 'is not',
+                value: TEST_DATE,
+            },
+        ])
+
+        expectTableToMatchRows([`${currentYear}-02-01`])
+
+        assertChipContainsText(`${dimensionName}: 1 condition`)
+
+        assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
+    })
+
+    it(['>=39'], 'is not', () => {
         unselectAllPeriods({
             label: periodLabel,
         })
