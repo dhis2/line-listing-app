@@ -13,7 +13,7 @@ const getNoResultsMessage = (searchTerm, programName) => {
         })
     }
     if (programName) {
-        return i18n.t('No dimensions found in the {{programName}} program', {
+        return i18n.t('No dimensions found in the {{- programName}} program', {
             programName,
         })
     }
