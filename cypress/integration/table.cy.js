@@ -43,8 +43,8 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = E2E_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const trackerProgram = E2E_PROGRAM
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 const mainAndTimeDimensions = [
     { label: 'Organisation unit', value: 'Baoma Station CHP' },
@@ -52,10 +52,16 @@ const mainAndTimeDimensions = [
     { label: 'Program status', value: 'Active' },
     { label: 'Created by', value: 'Traore, John (admin)' },
     { label: 'Last updated by', value: 'Traore, John (admin)' },
-    { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
-    { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2022-01-18' },
-    { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2022-01-10' },
-    { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-11-18 03:19' },
+    { label: trackerProgram[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_ENROLLMENT_DATE],
+        value: '2022-01-18',
+    },
+    { label: trackerProgram[DIMENSION_ID_INCIDENT_DATE], value: '2022-01-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
+        value: '2022-11-18 03:19',
+    },
 ]
 const programDimensions = [
     { label: TEST_DIM_AGE, value: '2021-01-01' },
@@ -86,7 +92,7 @@ const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
     selectEventWithProgramDimensions({
-        ...event,
+        ...trackerProgram,
         dimensions: [dimensionName],
     })
 
@@ -137,7 +143,7 @@ const assertColumnHeaders = () => {
 }
 
 const assertDimensions = () => {
-    selectEventWithProgram(event)
+    selectEventWithProgram(trackerProgram)
 
     mainAndTimeDimensions.forEach(({ label }) => {
         cy.getBySel('main-sidebar')
@@ -216,7 +222,8 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-describe(['<40'], 'table', () => {
+// TODO: set >=38 when 2.38.2 is released (creating this test for 2.38.2 is too much hassle)
+describe(['>=39', '<40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
@@ -235,7 +242,7 @@ describe(['>=40'], 'table', () => {
     it('click on column header opens the dimension dialog', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
-            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: '2021-11-01',
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872

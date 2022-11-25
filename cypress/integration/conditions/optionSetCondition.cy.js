@@ -22,7 +22,11 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-describe('Option set condition', () => {
+// TODO: enable for 38+ when numeric option set has been figured out
+// there was a bug in 38 showing the code instead of name
+// it's supposed to be fixed in 39, but the test fails due to the same issue
+
+describe(['>=40'], 'Option set condition', () => {
     it('Option set (number) displays correctly', () => {
         const dimensionName = 'E2E - Number (option set)'
         const filteredOutOptionName = 'Four'

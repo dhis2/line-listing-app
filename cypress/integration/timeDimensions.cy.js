@@ -54,7 +54,9 @@ const assertTimeDimension = (dimension) => {
             .should('be.visible')
     })
 }
-describe(['<39'], 'time dimensions', () => {
+
+// TODO: enable when 2.38.2 is released
+describe(['>37', '<39'], 'time dimensions', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })

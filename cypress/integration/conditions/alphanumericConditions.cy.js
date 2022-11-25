@@ -93,6 +93,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
+    // 2.38.1
     it(['>37', '<39'], 'is not', () => {
         const TEST_TEXT = 'Text A'
 
@@ -159,6 +160,7 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
+    // 2.38.1
     it(['>37', '<39'], 'does not contain', () => {
         const TEST_TEXT = 'T'
 
