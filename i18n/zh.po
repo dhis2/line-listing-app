@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-18T07:41:59.599Z\n"
+"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -195,14 +195,14 @@ msgstr "没有选择"
 msgid "Showing all values for this dimension"
 msgstr "显示此维度的所有值"
 
-msgid "Program stage: {{stageName}}"
-msgstr "项目阶段：{{stageName}}"
+msgid "Program stage: {{- stageName}}"
+msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "未找到“{{- searchTerm}}”的维度"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr "在 {{programName}} 项目中找不到维度"
+msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "未找到维度"
