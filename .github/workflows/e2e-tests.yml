@@ -121,7 +121,7 @@ jobs:
               id: instance-version
               uses: dhis2/action-instance-version@v1
               with:
-                  instance-url: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
+                  instance-url: https://test.e2e.dhis2.org/analytics-dev
                   username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
 
