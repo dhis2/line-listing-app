@@ -243,12 +243,12 @@ describe(['>=40'], 'table', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
-            value: '2021-11-01',
+            value: '2021-12-10',
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({
             label: 'E2E - Number (option set)',
-            value: 'one',
+            value: 'One',
         })
         assertColumnHeaders()
     })
