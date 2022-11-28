@@ -20,7 +20,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = E2E_PROGRAM
+const trackerProgram = E2E_PROGRAM
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
     { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
@@ -30,8 +30,8 @@ const timeDimensions = [
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
-        selectEventWithProgram(event)
-        const label = event[dimension.id]
+        selectEventWithProgram(trackerProgram)
+        const label = trackerProgram[dimension.id]
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
         clickMenubarUpdateButton()
@@ -55,7 +55,17 @@ const assertTimeDimension = (dimension) => {
     })
 }
 
-describe('time dimensions', () => {
+describe(['>37', '<39'], 'time dimensions', () => {
+    beforeEach(() => {
+        cy.visit('/', EXTENDED_TIMEOUT)
+    })
+
+    timeDimensions.forEach((dimension) => {
+        assertTimeDimension(dimension)
+    })
+})
+
+describe(['>=39'], 'time dimensions', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
@@ -65,6 +75,7 @@ describe('time dimensions', () => {
         .forEach((dimension) => {
             assertTimeDimension(dimension)
         })
+
     it('scheduled date disabled state is set based on stage setting ', () => {
         const scheduleDateHasTooltip = (tooltip) => {
             cy.getBySelLike('dimension-item-scheduledDate').trigger('mouseover')
