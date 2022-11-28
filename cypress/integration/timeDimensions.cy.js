@@ -55,20 +55,7 @@ const assertTimeDimension = (dimension) => {
     })
 }
 
-// TODO: remove this and enable the next test for 2.38 when 2.38.2 is released
-describe(['>37', '<39'], 'time dimensions', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-    })
-
-    timeDimensions
-        .filter((dim) => dim.id !== DIMENSION_ID_LAST_UPDATED)
-        .forEach((dimension) => {
-            assertTimeDimension(dimension)
-        })
-})
-
-describe(['>=39'], 'time dimensions', () => {
+describe('time dimensions', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })

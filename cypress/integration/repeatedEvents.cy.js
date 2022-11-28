@@ -144,36 +144,13 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it(['>=39'], 'repetition out of bounds returns as empty value', () => {
+    it('repetition out of bounds returns as empty value', () => {
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
         // repetition 6/0 can be set successfully
         setRepetition({ dimensionName, recent: 6, oldest: 0 })
         const result = ['', '', '', '', '45', '46']
-        result.forEach((value, index) => {
-            getTableDataCells().eq(index).invoke('text').should('eq', value)
-        })
-        expectHeaderToContainExact(
-            0,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -5)'
-        )
-        expectHeaderToContainExact(
-            2,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -3)'
-        )
-        expectHeaderToContainExact(
-            5,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
-        )
-    })
-    it(['>37', '<39'], 'repetition out of bounds returns as 0', () => {
-        const dimensionName = 'E2E - Percentage'
-        setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
-
-        // repetition 6/0 can be set successfully
-        setRepetition({ dimensionName, recent: 6, oldest: 0 })
-        const result = ['0', '0', '0', '0', '45', '46']
         result.forEach((value, index) => {
             getTableDataCells().eq(index).invoke('text').should('eq', value)
         })
