@@ -384,10 +384,10 @@ describe(['>=39'], 'Options - Legend', () => {
             .eq(2)
             .find('td')
             .eq(2)
-            .should('have.css', 'background-color', 'rgb(253, 219, 199)')
+            .should('not.have.css', 'background-color', defaultBackgroundColor)
             .invoke('text')
             .invoke('trim')
-            .should('equal', '-12')
+            .should('not.equal', '')
     })
     it('saved AO can be deleted', () => {
         cy.getBySel('menubar').contains('File').click()
