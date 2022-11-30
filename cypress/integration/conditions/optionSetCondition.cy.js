@@ -72,7 +72,13 @@ const assertNumericOptionSet = ({
         .contains(selectorFilteredOptionName)
         .dblclick()
 
+    cy.getBySel('option-set-transfer-pickedoptions').contains(
+        selectorFilteredOptionName
+    )
+
     cy.getBySel('conditions-modal').contains('Update').click()
+
+    expectTableToBeVisible()
 
     assertChipContainsText(`${dimensionName}: 1 selected`)
 
