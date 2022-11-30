@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
+"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -28,85 +28,97 @@ msgid "Add to {{axisName}}"
 msgstr "Ajouter à {{nomdel'axe}} "
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "Choisir un type de condition"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "Respecter les majuscules et les minuscules"
 
 msgid "Remove"
 msgstr "Supprimer"
 
 msgid "and"
-msgstr ""
+msgstr "et"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
+"Afficher les éléments qui répondent aux conditions suivantes pour cet "
+"élément de données :"
 
 msgid "This dimension can't be filtered. All values will be shown."
 msgstr ""
+"Cette dimension ne peut pas être filtrée. Toutes les valeurs seront "
+"affichées."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"Pas encore de conditions, donc toutes les valeurs seront incluses. Ajoutez "
+"une condition pour filtrer les résultats."
 
 msgid "Preset options can't be combined with other conditions"
 msgstr ""
+"Les options prédéfinies ne peuvent pas être combinées avec d'autres "
+"conditions."
 
 msgid "Add another condition"
-msgstr ""
+msgstr "Ajouter une autre condition"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Ajouter une condition"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "Événements répétés"
 
 msgid "Conditions"
-msgstr ""
+msgstr "Conditions"
 
 msgid "Only available for repeatable stages"
-msgstr ""
+msgstr "Disponible uniquement pour les étapes répétables"
 
 msgid "is one of preset options"
-msgstr ""
+msgstr "est l'une des options prédéfinies"
 
 msgid "Loading..."
 msgstr "Chargement…"
 
 msgid "Choose a set of options"
-msgstr ""
+msgstr "Choisir un ensemble d'options"
 
 msgid "No preset option sets for this data item"
-msgstr ""
+msgstr "Aucun ensemble d'options prédéfinies pour cet élément de données"
 
 msgid "Choose options"
-msgstr ""
+msgstr "Choisir des options"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
 msgstr ""
+"Pour les es étapes avec des événements répétables, afficher les valeurs pour"
+" cet élément de données à partir :"
 
 msgid "Most recent events:"
-msgstr ""
+msgstr "Des événements les plus récents :"
 
 msgid "Oldest events:"
-msgstr ""
+msgstr "Des événements les plus anciens :"
 
 msgid "Hide"
 msgstr "Masquer"
 
 msgid "Show items where the status is:"
-msgstr ""
+msgstr "Afficher les items dont le statut est :"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "Choisir parmi les prédéfinis"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "Définir les dates de début et de fin"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
+"Les dates de début et de fin sont inclusives et seront incluses dans les "
+"résultats."
 
 msgid "Start date"
 msgstr "Date de début"
@@ -124,7 +136,7 @@ msgid "Filter options"
 msgstr "Options de filtre"
 
 msgid "Selected options"
-msgstr ""
+msgstr "Options sélectionnées"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
 msgstr "Rien retrouvé pour \"{{- searchTerm}}\""
@@ -139,7 +151,7 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "HTML+CSS (.html+css)"
-msgstr ""
+msgstr "HTML+CSS (.html+css)"
 
 msgid "Plain data source"
 msgstr "Source de données brutes"
@@ -175,19 +187,19 @@ msgid "Download"
 msgstr "Télécharger"
 
 msgid "all"
-msgstr ""
+msgstr "Tout"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{nombre}} sélectionnés"
+msgstr[2] "{{nombre}} sélectionnés"
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{{count}} condition"
+msgstr[1] "{{nombre}} conditions"
+msgstr[2] "{{nombre}} colonnes"
 
 msgid "Levels"
 msgstr "Niveaux"
@@ -197,35 +209,37 @@ msgstr "Groupes"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Et {{nombre}} autre..."
+msgstr[1] "And {{count}} other..."
+msgstr[2] "Et {{numberOfItems}} autres..."
 
 msgid "None selected"
 msgstr "Aucune sélection"
 
 msgid "Showing all values for this dimension"
-msgstr ""
+msgstr "Affichage de toutes les valeurs pour cette dimension"
 
-msgid "Program stage: {{stageName}}"
-msgstr ""
+msgid "Program stage: {{- stageName}}"
+msgstr "Étape du programme : {{- Nom de l'étape}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr ""
+msgstr "Aucune dimension trouvée pour '{{- Terme de recherche}}'"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr ""
+msgid "No dimensions found in the {{- programName}} program"
+msgstr "Aucune dimension trouvée dans le programme {{- nomduprogramme}}"
 
 msgid "No dimensions found"
-msgstr ""
+msgstr "Aucune dimension trouvée"
 
 msgid "Couldn't load dimensions"
-msgstr ""
+msgstr "Impossible de charger les dimensions"
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 msgstr ""
+"Un problème est survenu lors du chargement des dimensions. Essayez à "
+"nouveau, ou contactez votre administrateur système."
 
 msgid "Event"
 msgstr "Évènement"
@@ -236,21 +250,24 @@ msgstr "Enrôlement"
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
+"Voir les données des événements individuels d'une étape du programme Tracker"
+" ou d'un programme d'événement."
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
+"Voir les données de plusieurs étapes du programme dans un programme Tracker."
 
 msgid "Main dimensions"
 msgstr "Dimensions principales"
 
 msgid "Input: {{type}}"
-msgstr ""
+msgstr "Entrée : {{type}}"
 
 msgid "Program dimensions"
-msgstr ""
+msgstr "Dimensions du programme"
 
 msgid "Search in program"
-msgstr ""
+msgstr "Recherche dans le programme"
 
 msgid "Type"
 msgstr "Type"
@@ -274,24 +291,28 @@ msgid "Category option group set"
 msgstr "Ensemble de groupes d'option de catégorie"
 
 msgid "Could not load programs"
-msgstr ""
+msgstr "Impossible de charger les programmes"
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"Les programmes n'ont pas pu être récupérés. Réessayez ou contactez votre "
+"administrateur système."
 
 msgid "Choose a stage above to add program dimensions."
 msgstr ""
+"Choisissez une étape ci-dessus pour ajouter les dimensions du programme."
 
 msgid "Choose a program above to add program dimensions."
 msgstr ""
+"Choisissez un programme ci-dessus pour ajouter les dimensions du programme."
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Choisir un programme"
 
 msgid "Clear program first to choose another"
-msgstr ""
+msgstr "Effacer d'abord le programme pour en choisir un autre"
 
 msgid "Clear"
 msgstr "Effacer"
@@ -303,19 +324,19 @@ msgid "All"
 msgstr "Tout"
 
 msgid "Clear stage first to choose another"
-msgstr ""
+msgstr "Effacer d'abord l'étape pour en choisir une autre"
 
 msgid "This program only has one stage"
-msgstr ""
+msgstr "Ce programme ne comporte qu'un seul stade"
 
 msgid "Time dimensions"
-msgstr ""
+msgstr "Dimensions temporelles"
 
 msgid "Your dimensions"
 msgstr "Votre dimensions"
 
 msgid "Search your dimensions"
-msgstr ""
+msgstr "Rechercher vos dimensions"
 
 msgid "Unsaved visualization"
 msgstr "Visualisation non enregistrée"
@@ -352,21 +373,23 @@ msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
 msgstr ""
+"Toutes les dimensions que vous pouvez utiliser pour créer des visualisations"
+" sont affichées dans la barre latérale gauche"
 
 msgid "Add dimensions to the layout above."
-msgstr ""
+msgstr "Ajouter des dimensions à la disposition ci-dessus"
 
 msgid "Click a dimension to add or remove conditions."
-msgstr ""
+msgstr "Cliquez sur une dimension pour ajouter ou supprimer des conditions."
 
 msgid "Your most viewed line lists"
-msgstr ""
+msgstr "Vos listes de lignes les plus consultées"
 
 msgid "Rows per page"
 msgstr "Lignes par page"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr ""
+msgstr "Page {{page}}, ligne {{premierItem}}-{{dernierItem}}"
 
 msgid "Column sub-totals"
 msgstr "Sous-totaux de colonne"
@@ -411,7 +434,7 @@ msgid "Hide empty rows"
 msgstr "Cacher lignes vides"
 
 msgid "Use a legend for table cell colors"
-msgstr ""
+msgstr "Utiliser une légende pour les couleurs des cellules du tableau"
 
 msgid "Legend style"
 msgstr "Style de légende"
@@ -423,7 +446,7 @@ msgid "Use pre-defined legend per data item"
 msgstr "Utiliser une légende prédéfinie par élément de données"
 
 msgid "Choose a single legend for the entire visualization"
-msgstr ""
+msgstr "Choisir une seule légende pour l'ensemble de la visualisation"
 
 msgid "Legend changes background color"
 msgstr "La légende change la couleur d'arrière-plan"
@@ -489,31 +512,31 @@ msgid "Filter"
 msgstr "Filtre"
 
 msgid "equal to (=)"
-msgstr ""
+msgstr "égal à (=)"
 
 msgid "greater than (>)"
-msgstr ""
+msgstr "supérieur à (>)"
 
 msgid "greater than or equal to (≥)"
-msgstr ""
+msgstr "supérieur ou égal à (≥)"
 
 msgid "less than (<)"
-msgstr ""
+msgstr "inférieur à (<)"
 
 msgid "less than or equal to (≤)"
-msgstr ""
+msgstr "inférieur ou égal à (≤)"
 
 msgid "not equal to (≠)"
-msgstr ""
+msgstr "n'est pas égal à (≠)"
 
 msgid "is empty / null"
-msgstr ""
+msgstr "est vide / nul"
 
 msgid "is not empty / not null"
-msgstr ""
+msgstr "n'est pas vide / nul"
 
 msgid "exactly"
-msgstr ""
+msgstr "exactement"
 
 msgid "is not"
 msgstr "n'est pas"
@@ -522,19 +545,19 @@ msgid "contains"
 msgstr "contient"
 
 msgid "does not contain"
-msgstr ""
+msgstr "ne contient pas"
 
 msgid "after"
 msgstr "après"
 
 msgid "after or including"
-msgstr ""
+msgstr "après ou comprenant"
 
 msgid "before"
 msgstr "avant"
 
 msgid "before or including"
-msgstr ""
+msgstr "avant ou comprenant"
 
 msgid "Yes"
 msgstr "Oui"
@@ -543,10 +566,10 @@ msgid "No"
 msgstr "Non"
 
 msgid "Not answered"
-msgstr ""
+msgstr "Pas de réponse"
 
 msgid "There is a problem with this visualization."
-msgstr ""
+msgstr "Il y a un problème avec cette visualisation."
 
 msgid "There was a problem getting the data from the server."
 msgstr "Un problème est survenu lors de l'obtention des données du serveur."
@@ -572,22 +595,22 @@ msgstr ""
 "l'identifiant est peut-être incorrect ou a pu être supprimé"
 
 msgid "No program selected"
-msgstr ""
+msgstr "Aucun programme sélectionné"
 
 msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
+msgstr "Choisir un programme dans la barre latérale Dimensions du programme."
 
 msgid "No stage selected"
-msgstr ""
+msgstr "Aucun stade sélectionné"
 
 msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr ""
+msgstr "Choisir un stade dans la barre latérale Dimensions du programme."
 
 msgid "Columns is empty"
-msgstr ""
+msgstr "'Colonnes' est vide"
 
 msgid "Add at least one item to Columns."
-msgstr ""
+msgstr "Ajouter au moins un élément à Colonnes"
 
 msgid "No organisation unit selected"
 msgstr "Aucune unité d'organisation sélectionnée"
@@ -596,22 +619,26 @@ msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
 msgstr ""
+"Assurez-vous d'ajouter la dimension d'unité d'organisation avec au moins une"
+" sélection à la disposition."
 
 msgid "No time dimension selected"
-msgstr ""
+msgstr "Aucune dimension temporelle sélectionnée"
 
 msgid ""
 "Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
+"Assurez-vous d'ajouter une dimension temporelle avec au moins une sélection "
+"à la disposition."
 
 msgid "There's a problem with at least one selected indicator"
-msgstr ""
+msgstr "Il y a un problème avec au moins un indicateur sélectionné"
 
 msgid "No access"
 msgstr "Pas d'accès"
 
 msgid "You don't have access to the requested data"
-msgstr ""
+msgstr "Vous n'avez pas accès aux données demandées"
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
@@ -632,10 +659,10 @@ msgid "Last updated by"
 msgstr "Dernière mise à jour par"
 
 msgid "Not applicable to event programs"
-msgstr ""
+msgstr "Non applicable aux programmes d'événements"
 
 msgid "Not applicable to enrollments"
-msgstr ""
+msgstr "Non applicable aux inscriptions"
 
 msgid "User organisation unit"
 msgstr "Unités d'organisation de l'utilisateur"
@@ -674,16 +701,16 @@ msgid "Style"
 msgstr "Style"
 
 msgid "most recent"
-msgstr ""
+msgstr "plus récent"
 
 msgid "oldest"
-msgstr ""
+msgstr "plus ancien"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr ""
+msgstr "plus ancien {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgstr "plus récent {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "Date d'événement"
@@ -698,16 +725,16 @@ msgid "Scheduled date"
 msgstr "Date programmée"
 
 msgid "Last updated on"
-msgstr ""
+msgstr "Dernière mise à jour le"
 
 msgid "Disabled by the selected program"
-msgstr ""
+msgstr "Désactivé par le programme sélectionné"
 
 msgid "Disabled by the selected program stage"
-msgstr ""
+msgstr "Désactivé par le stade du programme sélectionné"
 
 msgid "No input type selected"
-msgstr ""
+msgstr "Aucun type d'entrée sélectionné"
 
 msgid "Active"
 msgstr "Actif"
@@ -722,7 +749,9 @@ msgid "Scheduled"
 msgstr "Planifié"
 
 msgid "List data from tracked entities and events."
-msgstr ""
+msgstr "Lister les données des entités suivies et des événements."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr ""
+"Explorez les données avec des colonnes, des lignes et des agrégations "
+"faciles à manipuler."
