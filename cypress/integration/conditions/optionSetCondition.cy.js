@@ -73,7 +73,8 @@ const assertNumericOptionSet = ({
         .dblclick()
 
     cy.getBySel('option-set-transfer-pickedoptions').contains(
-        selectorFilteredOptionName
+        selectorFilteredOptionName,
+        EXTENDED_TIMEOUT
     )
 
     cy.getBySel('conditions-modal').contains('Update').click()
