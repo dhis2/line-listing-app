@@ -3,6 +3,8 @@
     "projectId": "m5qvjx",
     "testFiles": "**/*.cy.js",
     "experimentalInteractiveRunEvents": true,
+    "viewportWidth": 1280,
+    "viewportHeight": 800,
     "env": {
         "dhis2DatatestPrefix": "dhis2-linelisting"
     }
