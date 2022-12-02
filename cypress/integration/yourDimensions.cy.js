@@ -38,7 +38,10 @@ describe('event', () => {
         // open the your dimensions sidebar
         cy.getBySel('main-sidebar').contains('Your dimensions').click()
 
-        cy.getBySel('your-dimensions-list').contains(dimensionName)
+        cy.getBySel('your-dimensions-list').contains(
+            dimensionName,
+            EXTENDED_TIMEOUT
+        )
 
         cy.getBySel('your-dimensions-list')
             .findBySelLike('dimension-item')
