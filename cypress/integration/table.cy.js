@@ -6,7 +6,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LONG_TEXT,
     TEST_DIM_EMAIL,
@@ -30,8 +30,8 @@ import {
     TEST_DIM_LEGEND_SET,
 } from '../data/index.js'
 import {
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, getPreviousYearStr } from '../helpers/period.js'
@@ -43,23 +43,29 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const trackerProgram = E2E_PROGRAM
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 const mainAndTimeDimensions = [
-    { label: 'Organisation unit', value: 'PHW Phongsali' },
+    { label: 'Organisation unit', value: 'Baoma Station CHP' },
     { label: 'Event status', value: 'Completed' },
     { label: 'Program status', value: 'Active' },
-    { label: 'Created by', value: 'admin' },
-    { label: 'Last updated by', value: 'admin' },
-    { label: event[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
-    { label: event[DIMENSION_ID_ENROLLMENT_DATE], value: '2021-12-01' },
-    { label: event[DIMENSION_ID_INCIDENT_DATE], value: '2021-11-01' },
-    { label: event[DIMENSION_ID_LAST_UPDATED], value: '2022-02-18 02:20' },
+    { label: 'Created by', value: 'Traore, John (admin)' },
+    { label: 'Last updated by', value: 'Traore, John (admin)' },
+    { label: trackerProgram[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_ENROLLMENT_DATE],
+        value: '2022-01-18',
+    },
+    { label: trackerProgram[DIMENSION_ID_INCIDENT_DATE], value: '2022-01-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
+        value: '2022-11-18 03:19',
+    },
 ]
 const programDimensions = [
     { label: TEST_DIM_AGE, value: '2021-01-01' },
-    { label: TEST_DIM_COORDINATE, value: '[-0.134318,51.509894]' },
+    { label: TEST_DIM_COORDINATE, value: '[-0.090380,51.538034]' },
     { label: TEST_DIM_DATE, value: '2021-12-01' },
     { label: TEST_DIM_DATETIME, value: '2021-12-01 12:00' },
     { label: TEST_DIM_EMAIL, value: 'email@address.com' },
@@ -68,13 +74,13 @@ const programDimensions = [
     { label: TEST_DIM_NEGATIVE_INTEGER, value: '-10' },
     { label: TEST_DIM_NUMBER, value: '10' },
     { label: TEST_DIM_LEGEND_SET, value: '10' },
-    { label: TEST_DIM_ORG_UNIT, value: 'PHW Phongsali' },
+    { label: TEST_DIM_ORG_UNIT, value: 'Ngelehun CHC' },
     { label: TEST_DIM_PERCENTAGE, value: '10' },
     { label: TEST_DIM_PHONE_NUMBER, value: '10111213' },
     { label: TEST_DIM_POSITIVE_INTEGER, value: '10' },
     { label: TEST_DIM_POSITIVE_OR_ZERO, value: '0' },
     { label: TEST_DIM_TEXT, value: 'Text A' },
-    { label: 'Analytics - Text (option set)', value: 'COVID 19-AstraZeneca' },
+    { label: 'E2E - Text (option set)', value: 'COVID 19 - AstraZeneca' },
     { label: TEST_DIM_TIME, value: '14:01' },
     { label: TEST_DIM_URL, value: 'https://debug.dhis2.org/tracker_dev/' },
     { label: TEST_DIM_USERNAME, value: 'admin' },
@@ -85,8 +91,8 @@ const programDimensions = [
 const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
-    selectEventProgramDimensions({
-        ...event,
+    selectEventWithProgramDimensions({
+        ...trackerProgram,
         dimensions: [dimensionName],
     })
 
@@ -137,7 +143,7 @@ const assertColumnHeaders = () => {
 }
 
 const assertDimensions = () => {
-    selectEventProgram(event)
+    selectEventWithProgram(trackerProgram)
 
     mainAndTimeDimensions.forEach(({ label }) => {
         cy.getBySel('main-sidebar')
@@ -216,11 +222,12 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-describe(['<40'], 'table', () => {
+// TODO: set >=38 when 2.38.2 is released (creating this test for 2.38.2 is too much hassle)
+describe(['>=39', '<40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
-            label: 'Analytics - Number (option set)',
+            label: 'E2E - Number (option set)',
             value: '1',
         })
         assertColumnHeaders()
@@ -235,13 +242,13 @@ describe(['>=40'], 'table', () => {
     it('click on column header opens the dimension dialog', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
-            label: event[DIMENSION_ID_SCHEDULED_DATE],
-            value: '2021-11-01',
+            label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
+            value: '2021-12-10',
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({
-            label: 'Analytics - Number (option set)',
-            value: 'one',
+            label: 'E2E - Number (option set)',
+            value: 'One',
         })
         assertColumnHeaders()
     })

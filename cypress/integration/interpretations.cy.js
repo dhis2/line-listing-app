@@ -1,11 +1,11 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
 import { clearTextarea, typeInput, typeTextarea } from '../helpers/common.js'
-import { selectEventProgramDimensions } from '../helpers/dimensions.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import {
     expectInterpretationsButtonToBeEnabled,
     expectInterpretationFormToBeVisible,
@@ -35,12 +35,12 @@ describe('interpretations', () => {
             cy.visit('/', EXTENDED_TIMEOUT)
             cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
 
-            const event = ANALYTICS_PROGRAM
+            const trackerProgram = E2E_PROGRAM
             const dimensionName = TEST_DIM_TEXT
-            const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+            const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
-            selectEventProgramDimensions({
-                ...event,
+            selectEventWithProgramDimensions({
+                ...trackerProgram,
                 dimensions: [dimensionName],
             })
 

@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LETTER,
     TEST_DIM_LONG_TEXT,
@@ -12,8 +12,8 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
@@ -28,13 +28,13 @@ import {
 } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -74,7 +74,7 @@ const addConditions = (conditions) => {
 
 describe('text conditions', () => {
     const LONG_TEXT =
-        'Lorem_ ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam vulputate ut pharetra sit. At consectetur lorem donec massa sapien faucibus et molestie ac. Vitae ultricies leo integer malesuada. Id neque aliquam vestibulum morbi. Massa eget'
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
@@ -99,11 +99,12 @@ describe('text conditions', () => {
         addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
 
         expectTableToMatchRows([
-            '9000000',
-            '2022-03-01',
-            'Text A-2',
-            '2022-02-01',
             LONG_TEXT,
+            '9000000',
+            'Text A-2',
+            '2022-03-01',
+            '2022-02-01',
+            'Text E',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -121,7 +122,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['Text A', 'Text A-2', LONG_TEXT])
+        expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text A-2', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -139,7 +140,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['Text A', 'Text A-2'])
+        expectTableToMatchRows(['Text A', 'Text A-2', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -187,7 +188,13 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['9000000', 'Text A-2', 'Text A', LONG_TEXT])
+        expectTableToMatchRows([
+            LONG_TEXT,
+            'Text A',
+            '9000000',
+            'Text A-2',
+            'Text E',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -200,7 +207,7 @@ describe('text conditions', () => {
             { conditionName: 'is not', value: 'Text A-2' },
         ])
 
-        expectTableToMatchRows(['Text A', LONG_TEXT])
+        expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text E'])
 
         assertChipContainsText(`${dimensionName}: 2 conditions`)
 
@@ -232,7 +239,7 @@ describe('alphanumeric types', () => {
         it(`${type} has all operators`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
