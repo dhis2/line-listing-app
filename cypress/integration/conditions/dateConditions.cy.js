@@ -180,7 +180,6 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-11-15`,
             `${previousYear}-12-10`,
             `${previousYear}-12-22`,
             `${previousYear}-12-23`,
@@ -206,7 +205,6 @@ describe('date conditions (Date)', () => {
 
         expectTableToMatchRows([
             `${previousYear}-12-11`,
-            `${previousYear}-11-15`,
             `${previousYear}-12-10`,
             `${previousYear}-12-22`,
             `${previousYear}-12-23`,
@@ -246,7 +244,6 @@ describe('date conditions (Date)', () => {
 
         expectTableToMatchRows([
             `${previousYear}-12-11`,
-            `${previousYear}-11-15`,
             `${previousYear}-12-10`,
             `${previousYear}-12-22`,
             `${previousYear}-12-23`,
