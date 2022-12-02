@@ -196,13 +196,13 @@ msgid "Showing all values for this dimension"
 msgstr "显示此维度的所有值"
 
 msgid "Program stage: {{- stageName}}"
-msgstr ""
+msgstr "项目阶段：{{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "未找到“{{- searchTerm}}”的维度"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr ""
+msgstr "在 {{- programName}} 项目中找不到维度"
 
 msgid "No dimensions found"
 msgstr "未找到维度"
