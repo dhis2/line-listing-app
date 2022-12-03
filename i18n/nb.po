@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2022\n"
 "Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -202,14 +202,14 @@ msgstr "Ingen valgt"
 msgid "Showing all values for this dimension"
 msgstr "Viser alle verdiene for denne dimensjonen"
 
-msgid "Program stage: {{stageName}}"
-msgstr "Programfase: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
+msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "Ingen dimensjoner funnet for '{{- searchTerm}}'"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr "Ingen dimensjoner funnet i programmet {{programName}}"
+msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Ingen dimensjoner funnet"
@@ -704,6 +704,9 @@ msgid "Last updated on"
 msgstr ""
 
 msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
 msgstr ""
 
 msgid "No input type selected"
