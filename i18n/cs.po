@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-09-30T08:21:12.177Z\n"
+"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: trendspotter <jirka.p@volny.cz>, 2022\n"
 "Language-Team: Czech (https://www.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -207,14 +207,14 @@ msgstr "Není vybrán žádný"
 msgid "Showing all values for this dimension"
 msgstr "Zobrazují se všechny hodnoty pro tuto dimenzi"
 
-msgid "Program stage: {{stageName}}"
-msgstr "Fáze programu: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
+msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "Pro '{{- searchTerm}}' nebyly nalezeny žádné dimenze"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr "V programu {{programName}} nebyly nalezeny žádné dimenze"
+msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Nebyly nalezeny žádné rozměry"
@@ -287,8 +287,8 @@ msgstr ""
 "Programy se nepodařilo načíst. Zkuste to znovu nebo se obraťte na správce "
 "systému."
 
-msgid "Choose a program and stage above to add program dimensions."
-msgstr "Vyberte program a fázi výše a přidejte rozměry programu."
+msgid "Choose a stage above to add program dimensions."
+msgstr ""
 
 msgid "Choose a program above to add program dimensions."
 msgstr "Vyberte program výše a přidejte dimenze programu."
@@ -369,18 +369,6 @@ msgstr "Kliknutím na dimenzi přidáte nebo odeberete podmínky."
 
 msgid "Your most viewed line lists"
 msgstr "Vaše nejsledovanější seznamy řádků"
-
-msgid "most recent"
-msgstr "nejnovější"
-
-msgid "oldest"
-msgstr "nejstarší"
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr "nejstarší {{repeatEventIndex}}"
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr "nejnovější {{repeatEventIndex}}"
 
 msgid "Rows per page"
 msgstr "Řádků na stránku"
@@ -697,6 +685,18 @@ msgstr "Mezní minimální / maximální hodnoty"
 msgid "Style"
 msgstr "Styl"
 
+msgid "most recent"
+msgstr "nejnovější"
+
+msgid "oldest"
+msgstr "nejstarší"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "nejstarší {{repeatEventIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "nejnovější {{repeatEventIndex}}"
+
 msgid "Event date"
 msgstr "Datum události"
 
@@ -715,6 +715,9 @@ msgstr "Naposledy aktualizováno dne"
 msgid "Disabled by the selected program"
 msgstr "Vypnuto vybraným programem"
 
+msgid "Disabled by the selected program stage"
+msgstr ""
+
 msgid "No input type selected"
 msgstr "Není vybrán žádný typ vstupu"
 
@@ -726,6 +729,9 @@ msgstr "Zrušeno"
 
 msgid "Completed"
 msgstr "Dokončeno"
+
+msgid "Scheduled"
+msgstr "Naplánováno"
 
 msgid "List data from tracked entities and events."
 msgstr "Seznam dat z trasovaných entit a událostí."
