@@ -70,7 +70,9 @@ const assertNumericOptionSet = ({
 
     cy.getBySel('option-set-transfer-sourceoptions')
         .contains(selectorFilteredOptionName)
-        .dblclick()
+        .click()
+
+    cy.getBySel('option-set-transfer-actions-addindividual').click()
 
     cy.getBySel('option-set-transfer-pickedoptions').contains(
         selectorFilteredOptionName,
