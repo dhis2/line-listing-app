@@ -1,5 +1,5 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
 import { selectEnrollmentProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
@@ -9,7 +9,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const enrollment = ANALYTICS_PROGRAM
+const enrollment = E2E_PROGRAM
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 const TEST_DIMENSIONS = ['Created by', 'Last updated by']
 

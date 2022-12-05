@@ -5,11 +5,11 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
-    selectEventProgram,
+    selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -20,18 +20,18 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const trackerProgram = E2E_PROGRAM
 const timeDimensions = [
-    { id: DIMENSION_ID_EVENT_DATE, rowsLength: 6 },
-    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 4 },
-    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 4 },
+    { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
+    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
+    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 12 },
     { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 14 },
 ]
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
-        selectEventProgram(event)
-        const label = event[dimension.id]
+        selectEventWithProgram(trackerProgram)
+        const label = trackerProgram[dimension.id]
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
         clickMenubarUpdateButton()
@@ -54,7 +54,8 @@ const assertTimeDimension = (dimension) => {
             .should('be.visible')
     })
 }
-describe(['<39'], 'time dimensions', () => {
+
+describe(['>37', '<39'], 'time dimensions', () => {
     beforeEach(() => {
         cy.visit('/', EXTENDED_TIMEOUT)
     })
@@ -70,10 +71,11 @@ describe(['>=39'], 'time dimensions', () => {
     })
 
     timeDimensions
-        .concat([{ id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 }])
+        .concat([{ id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 6 }])
         .forEach((dimension) => {
             assertTimeDimension(dimension)
         })
+
     it('scheduled date disabled state is set based on stage setting ', () => {
         const scheduleDateHasTooltip = (tooltip) => {
             cy.getBySelLike('dimension-item-scheduledDate').trigger('mouseover')
@@ -86,36 +88,40 @@ describe(['>=39'], 'time dimensions', () => {
         scheduleDateHasTooltip('No program selected')
 
         // select a program
-        selectEventProgram({ programName: 'Immunization Registry' })
+        selectEventWithProgram({ programName: 'Child Programme' })
 
-        // both are still disabled when a program but no stage is selected
+        // scheduled date is still disabled when a program but no stage is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+
+        // incident date is enabled because Child Programme has show incident date = true
+        dimensionIsEnabled('dimension-item-incidentDate')
 
         cy.getBySelLike('tooltip-content').contains('No stage selected')
 
         // select a stage which has hideDueDate = false
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Immunization').click()
+        cy.containsExact('Birth').click()
 
         // schedule date is enabled when a stage that doesn't hide it is selected
         dimensionIsEnabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+
+        // incident date is still enabled, stage is not relevant
+        dimensionIsEnabled('dimension-item-incidentDate')
 
         cy.getBySel('stage-clear-button').click()
 
         // both are disabled when the stage is cleared
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+        dimensionIsEnabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('No stage selected')
 
-        // select a stage which has hideDueDate = true
+        // select a stage that has hideDueDate = true
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Birth details').click()
+        cy.containsExact('Baby Postnatal').click()
 
         // schedule date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
+        dimensionIsEnabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('Disabled by the selected program stage')
     })
 })

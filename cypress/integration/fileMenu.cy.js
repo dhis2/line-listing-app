@@ -1,8 +1,9 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, unselectAllPeriods } from '../helpers/period.js'
+import { expectTableToBeVisible } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const ITEM_NEW = 'file-menu-new'
@@ -97,8 +98,8 @@ describe('file menu', () => {
     it('reflects "unsaved, valid: save" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
-            programName: 'Adverse events following immunization',
+        selectEventWithProgram({
+            programName: 'Child Programme',
         })
 
         clickMenubarUpdateButton()
@@ -113,13 +114,13 @@ describe('file menu', () => {
     it('reflects "unsaved, valid: data" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+        selectEventWithProgram({
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -135,8 +136,8 @@ describe('file menu', () => {
     it('reflects "saved, valid: save" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
-            programName: 'Adverse events following immunization',
+        selectEventWithProgram({
+            programName: 'Child Programme',
         })
 
         clickMenubarUpdateButton()
@@ -158,13 +159,13 @@ describe('file menu', () => {
     it('reflects "saved, valid: data" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+        selectEventWithProgram({
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -189,13 +190,13 @@ describe('file menu', () => {
     it('reflects "dirty" state', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        selectEventProgram({
-            programName: 'Adverse events following immunization',
-            stageName: 'AEFI',
+        selectEventWithProgram({
+            programName: 'Child Programme',
+            stageName: 'Birth',
         })
 
         selectRelativePeriod({
-            label: 'Report compilation date',
+            label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
 
@@ -260,9 +261,11 @@ describe('file menu', () => {
     })
 
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
-        cy.visit('/#/ZTrsv19jw9U', EXTENDED_TIMEOUT)
+        cy.visit('/#/TIuOzZ0ID0V', EXTENDED_TIMEOUT)
 
-        cy.getBySel('visualization-title').contains('COVAC enrollment')
+        cy.getBySel('visualization-title').contains(
+            'Inpatient: Cases 5 to 15 years this year (case)'
+        )
 
         // saved
         assertDownloadIsEnabled()
@@ -275,6 +278,7 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
         closeFileMenu()
 
         // "dirty, valid: data" state
@@ -283,6 +287,9 @@ describe('file menu', () => {
         cy.getBySel('visualization-title').contains('Edited')
 
         assertDownloadIsEnabled()
+
+        // if we don't do this file menu opens in the wrong place
+        expectTableToBeVisible()
 
         assertFileMenuItems({
             [ITEM_SAVEAS]: true,
@@ -297,7 +304,7 @@ describe('file menu', () => {
 
         // "dirty, valid: save" state
         unselectAllPeriods({
-            label: 'Date of registration',
+            label: 'Report date',
         })
 
         clickMenubarUpdateButton()

@@ -6,7 +6,7 @@ describe('ChipBase', () => {
     test('Period: none selected', () => {
         const dimension = {
             id: 'eventDate',
-            name: 'Event date (analytics)',
+            name: 'Event date (e2e)',
             dimensionType: 'PERIOD',
         }
 
@@ -22,7 +22,7 @@ describe('ChipBase', () => {
     test('Period: 1 selected', () => {
         const dimension = {
             id: 'eventDate',
-            name: 'Event date (analytics)',
+            name: 'Event date (e2e)',
             dimensionType: 'PERIOD',
         }
 

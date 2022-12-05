@@ -28,8 +28,8 @@ on:
 
 env:
     BASE_URL_INSTANCES: https://test.e2e.dhis2.org
-    NAME_PATTERN_PROD_INSTANCES: '{version}lytics'
-    NAME_PATTERN_DEV_INSTANCE: dev
+    NAME_PATTERN_PROD_INSTANCES: 'analytics-{version}'
+    NAME_PATTERN_DEV_INSTANCE: analytics-dev
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -121,7 +121,7 @@ jobs:
               id: instance-version
               uses: dhis2/action-instance-version@v1
               with:
-                  instance-url: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
+                  instance-url: https://test.e2e.dhis2.org/analytics-dev
                   username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
 
@@ -159,7 +159,7 @@ jobs:
                   BROWSER: none
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-                  CYPRESS_dhis2BaseUrl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
+                  CYPRESS_dhis2BaseUrl: https://test.e2e.dhis2.org/analytics-dev
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
                   CYPRESS_dhis2InstanceVersion: ${{ needs.compute-dev-version.outputs.version }}
