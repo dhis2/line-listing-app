@@ -68,15 +68,17 @@ const assertNumericOptionSet = ({
         selectorFilteredOptionName
     )
 
+    cy.getBySel('option-set-left-header-filter-input-field')
+        .find('input')
+        .should('have.value', selectorFilteredOptionName)
+
     cy.getBySel('option-set-transfer-leftside')
         .get('[data-test="dhis2-uicore-circularloader"]', EXTENDED_TIMEOUT)
         .should('not.exist')
 
     cy.getBySel('option-set-transfer-sourceoptions')
         .contains(selectorFilteredOptionName)
-        .click()
-
-    cy.getBySel('option-set-transfer-actions-addindividual').click()
+        .dblclick()
 
     cy.getBySel('option-set-transfer-pickedoptions').contains(
         selectorFilteredOptionName,
