@@ -20,6 +20,7 @@ import {
     expectTableToMatchRows,
     expectTableToNotContainValue,
 } from '../../helpers/table.js'
+import { searchAndSelectInTransfer } from '../../helpers/transfer.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 // TODO: enable for 38+ when numeric option set has been figured out
@@ -63,27 +64,7 @@ const assertNumericOptionSet = ({
 
     openDimension(dimensionName)
 
-    typeInput(
-        'option-set-left-header-filter-input-field',
-        selectorFilteredOptionName
-    )
-
-    cy.getBySel('option-set-left-header-filter-input-field')
-        .find('input')
-        .should('have.value', selectorFilteredOptionName)
-
-    cy.getBySel('option-set-transfer-leftside')
-        .get('[data-test="dhis2-uicore-circularloader"]', EXTENDED_TIMEOUT)
-        .should('not.exist')
-
-    cy.getBySel('option-set-transfer-sourceoptions')
-        .contains(selectorFilteredOptionName)
-        .dblclick()
-
-    cy.getBySel('option-set-transfer-pickedoptions').contains(
-        selectorFilteredOptionName,
-        EXTENDED_TIMEOUT
-    )
+    searchAndSelectInTransfer(selectorFilteredOptionName)
 
     cy.getBySel('conditions-modal').contains('Update').click()
 
