@@ -1,11 +1,14 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_REL_PE_THIS_YEAR,
     TEST_DIM_AGE,
     TEST_DIM_COORDINATE,
 } from '../../data/index.js'
-import { openDimension, selectEventProgram } from '../../helpers/dimensions.js'
+import {
+    openDimension,
+    selectEventWithProgram,
+} from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -15,12 +18,12 @@ import { selectRelativePeriod } from '../../helpers/period.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgram(event)
+    selectEventWithProgram(event)
 
     selectRelativePeriod({
         label: periodLabel,
@@ -47,7 +50,7 @@ describe('unsupported types', () => {
         it(`${type.name} displays correctly`, () => {
             cy.visit('/', EXTENDED_TIMEOUT)
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventWithProgram(E2E_PROGRAM)
 
             openDimension(type.dimension)
 
