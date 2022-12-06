@@ -435,6 +435,7 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
+    displayProperty: 'name',
     isVisualizationLoading: false,
     onResponsesReceived: Function.prototype,
 }
