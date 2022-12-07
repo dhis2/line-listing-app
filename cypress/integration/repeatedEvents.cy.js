@@ -187,7 +187,7 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.exist')
     })
-    it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
+    it.only('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
         cy.visit('/#/Y6N29ifTfn2', EXTENDED_TIMEOUT)
 
         cy.getBySel('visualization-title').contains(
@@ -196,8 +196,6 @@ describe('repeated events', () => {
 
         cy.getBySel('columns-axis').contains('WHOMCH Hemoglobin value').click()
 
-        getRepeatedEventsTab()
-            .should('not.have.class', 'disabled')
-            .trigger('mouseover')
+        getRepeatedEventsTab().should('not.have.class', 'disabled')
     })
 })
