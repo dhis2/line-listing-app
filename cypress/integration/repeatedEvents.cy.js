@@ -187,7 +187,7 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.exist')
     })
-    it.only('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
+    it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
         cy.visit('/#/Y6N29ifTfn2', EXTENDED_TIMEOUT)
 
         cy.getBySel('visualization-title').contains(
