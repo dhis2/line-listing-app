@@ -1,10 +1,14 @@
-import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_EVENT_DATE,
+} from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import {
     openDimension,
     selectEnrollmentProgram,
     selectEnrollmentProgramDimensions,
     selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -143,6 +147,24 @@ describe('repeated events', () => {
             3,
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
+
+        // switch back to event, check that repetition is cleared
+        selectEventWithProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [dimensionName],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        // no repetition in header
+        expectHeaderToContainExact(0, dimensionName)
     })
     it('repetition out of bounds returns as empty value', () => {
         const dimensionName = 'E2E - Percentage'
