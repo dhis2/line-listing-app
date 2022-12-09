@@ -1,6 +1,5 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../../data/index.js'
-import { typeInput } from '../../helpers/common.js'
 import {
     openDimension,
     selectEventWithProgram,
@@ -143,14 +142,7 @@ describe('Option set condition', () => {
 
         openDimension(dimensionName)
 
-        typeInput(
-            'option-set-left-header-filter-input-field',
-            filteredOptionName
-        )
-
-        cy.getBySel('option-set-transfer-sourceoptions')
-            .contains(filteredOptionName)
-            .dblclick()
+        searchAndSelectInTransfer(filteredOptionName)
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
