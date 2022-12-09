@@ -26,7 +26,10 @@ const selectRelativePeriod = ({ label, period }) => {
             .containsExact(period.type)
             .click()
     }
-    cy.contains(period.name).dblclick()
+    cy.getBySelLike('period-dimension-transfer-sourceoptions')
+            .contains(period.name)
+            .dblclick()
+
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
