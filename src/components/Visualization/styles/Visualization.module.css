@@ -83,7 +83,7 @@
     padding: 12px 12px;
 }
 .dataTable .headerCell.sizeNormal {
-    padding: 4px 8px;
+    padding: 4px 2px 2px 6px;
 }
 .dataTable .headerCell.sizeCompact {
     padding: 0px 8px;
@@ -106,7 +106,7 @@
     padding: 16px 12px;
 }
 .dataTable .cell.sizeNormal {
-    padding: 8px 8px;
+    padding: 8px 2px 6px 6px;
 }
 .dataTable .cell.sizeCompact {
     padding: 4px 8px;
