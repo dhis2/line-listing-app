@@ -20,7 +20,9 @@ describe('options', () => {
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
         // assert the default density of table cell
-        getTableDataCells().invoke('css', 'padding').should('equal', '8px')
+        getTableDataCells()
+            .invoke('css', 'padding')
+            .should('equal', '8px 2px 6px 6px')
 
         // set to comfortable density
         clickMenubarOptionsButton()
@@ -33,7 +35,7 @@ describe('options', () => {
         // assert comfortable density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '16px 12px')
+            .should('equal', '10px 4px 8px 8px')
 
         // set to compact density
         clickMenubarOptionsButton()
@@ -44,7 +46,9 @@ describe('options', () => {
         cy.getBySel('options-modal-actions').contains('Update').click()
 
         // assert compact density
-        getTableDataCells().invoke('css', 'padding').should('equal', '4px 8px')
+        getTableDataCells()
+            .invoke('css', 'padding')
+            .should('equal', '6px 2px 4px 6px')
     })
 
     it('sets font size', () => {

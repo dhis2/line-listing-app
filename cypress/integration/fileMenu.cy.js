@@ -52,7 +52,10 @@ const assertDownloadIsDisabled = () =>
         .contains('Download')
         .should('have.attr', 'disabled')
 
-const closeFileMenu = () => cy.get('body').click(0, 0)
+const closeFileMenu = () => {
+    cy.getBySel('file-menu-toggle-layer').click()
+    cy.getBySel('file-menu-container').should('not.exist')
+}
 
 const saveVisualization = (name) => {
     cy.getBySel('menubar').contains('File').click()
