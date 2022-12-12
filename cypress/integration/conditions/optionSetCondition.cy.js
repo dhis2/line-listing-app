@@ -107,7 +107,7 @@ describe('Option set condition', () => {
         })
     })
 
-    it.only('Option set (text) displays correctly', () => {
+    it('Option set (text) displays correctly', () => {
         const dimensionName = 'E2E - Text (option set)'
         const filteredOutOptionName = 'COVID 19 - Moderna'
         const filteredOptionName = 'COVID 19 - AstraZeneca'
