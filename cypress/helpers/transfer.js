@@ -13,7 +13,13 @@ export const searchAndSelectInOptionsTransfer = (name) => {
         1
     )
 
-    cy.getBySel('option-set-transfer-sourceoptions').contains(name).dblclick()
+    cy.getBySel('option-set-transfer-leftside')
+        .get('[data-test="dhis2-uicore-circularloader"]', EXTENDED_TIMEOUT)
+        .should('not.exist')
 
-    cy.getBySel('option-set-transfer-pickedoptions').contains(name)
+    cy.getBySel('option-set-transfer-sourceoptions')
+        .containsExact(name)
+        .dblclick()
+
+    cy.getBySel('option-set-transfer-pickedoptions').containsExact(name)
 }
