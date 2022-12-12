@@ -231,7 +231,8 @@ export const Visualization = ({
                                         className={cx(
                                             styles.headerCell,
                                             fontSizeClass,
-                                            sizeClass
+                                            sizeClass,
+                                            'bordered'
                                         )}
                                         dataTest={'table-header'}
                                     >
@@ -266,7 +267,8 @@ export const Visualization = ({
                                             sizeClass,
                                             {
                                                 [styles.emptyCell]: !value,
-                                            }
+                                            },
+                                            'bordered'
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
