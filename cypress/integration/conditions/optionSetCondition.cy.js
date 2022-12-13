@@ -19,7 +19,7 @@ import {
     expectTableToMatchRows,
     expectTableToNotContainValue,
 } from '../../helpers/table.js'
-import { searchAndSelectInTransfer } from '../../helpers/transfer.js'
+import { searchAndSelectInOptionsTransfer } from '../../helpers/transfer.js'
 import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 // TODO: enable for 38+ when numeric option set has been figured out
@@ -63,7 +63,7 @@ const assertNumericOptionSet = ({
 
     openDimension(dimensionName)
 
-    searchAndSelectInTransfer(selectorFilteredOptionName)
+    searchAndSelectInOptionsTransfer(selectorFilteredOptionName)
 
     cy.getBySel('conditions-modal').contains('Update').click()
 
@@ -142,7 +142,7 @@ describe('Option set condition', () => {
 
         openDimension(dimensionName)
 
-        searchAndSelectInTransfer(filteredOptionName)
+        searchAndSelectInOptionsTransfer(filteredOptionName)
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
