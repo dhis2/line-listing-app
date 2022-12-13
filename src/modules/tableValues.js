@@ -40,12 +40,12 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         return formatValue(
             value,
             header.valueType || VALUE_TYPE_TEXT,
-            !header.optionSet
-                ? {
+            header.optionSet
+                ? {}
+                : {
                       digitGroupSeparator: visualization.digitGroupSeparator,
                       skipRounding: false,
                   }
-                : {}
         )
     }
 }
