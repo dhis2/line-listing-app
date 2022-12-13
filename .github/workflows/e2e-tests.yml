@@ -77,9 +77,9 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 16.x
+                  node-version: 18.x
 
             - name: Compute prod instance url
               id: instance-url
@@ -91,16 +91,14 @@ jobs:
                   version: ${{ matrix.versions }}
 
             - name: Run e2e tests
-              uses: cypress-io/github-action@v4
+              uses: cypress-io/github-action@v5
               with:
                   start: yarn d2-app-scripts start
-                  wait-on: http://localhost:3000
+                  wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: true
-                  video: true
                   parallel: true
                   browser: chrome
-                  headless: true
                   group: e2e-chrome-parallel-${{ matrix.versions }}
               env:
                   CI: true
@@ -141,23 +139,21 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 16.x
+                  node-version: 18.x
 
             - name: Run e2e tests
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: true
-                  video: true
                   parallel: true
                   browser: chrome
-                  headless: true
                   group: e2e-chrome-parallel-dev
               env:
                   BROWSER: none
