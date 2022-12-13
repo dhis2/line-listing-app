@@ -17,7 +17,7 @@ import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import { DimensionIcon } from '../DimensionItem/DimensionIcon.js'
 import styles from './ProgramDimensionsFilter.module.css'
-import { StageSelect } from './StageSelect.js'
+import { StageFilter } from './StageFilter.js'
 
 const SingleSelectOption = ({ label, active, value, icon, onClick }) => (
     <div
@@ -44,88 +44,82 @@ const ProgramDimensionsFilter = ({
     setSearchTerm,
     dimensionType,
     setDimensionType,
-}) => {
-    const inputType = useSelector(sGetUiInputType)
-    const showStageSelect =
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
-
-    return (
-        <div className={styles.container}>
-            <Input
-                value={searchTerm}
-                onChange={({ value }) => setSearchTerm(value)}
-                dense
-                type={'search'}
-                placeholder={i18n.t('Search in program')}
+    stageFilter,
+    setStageFilter,
+}) => (
+    <div className={styles.container}>
+        <Input
+            value={searchTerm}
+            onChange={({ value }) => setSearchTerm(value)}
+            dense
+            type={'search'}
+            placeholder={i18n.t('Search in program')}
+        />
+        <SingleSelect
+            prefix={i18n.t('Type')}
+            selected={dimensionType}
+            onChange={({ selected }) => setDimensionType(selected)}
+            dense
+        >
+            <SingleSelectOption
+                label={i18n.t('All types')}
+                value={DIMENSION_TYPE_ALL}
             />
-            <SingleSelect
-                prefix={i18n.t('Type')}
-                selected={dimensionType}
-                onChange={({ selected }) => setDimensionType(selected)}
-                dense
-            >
-                <SingleSelectOption
-                    label={i18n.t('All types')}
-                    value={DIMENSION_TYPE_ALL}
-                />
-                <Divider />
-                <SingleSelectOption
-                    label={i18n.t('Data element')}
-                    value={DIMENSION_TYPE_DATA_ELEMENT}
-                    icon={
-                        <DimensionIcon
-                            dimensionType={DIMENSION_TYPE_DATA_ELEMENT}
-                        />
-                    }
-                />
-                {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
-                    <SingleSelectOption
-                        label={i18n.t('Program attribute')}
-                        value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
-                        icon={
-                            <DimensionIcon
-                                dimensionType={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
-                            />
-                        }
+            <Divider />
+            <SingleSelectOption
+                label={i18n.t('Data element')}
+                value={DIMENSION_TYPE_DATA_ELEMENT}
+                icon={
+                    <DimensionIcon
+                        dimensionType={DIMENSION_TYPE_DATA_ELEMENT}
                     />
-                )}
+                }
+            />
+            {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
                 <SingleSelectOption
-                    label={i18n.t('Program indicator')}
-                    value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                    label={i18n.t('Program attribute')}
+                    value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
                     icon={
                         <DimensionIcon
-                            dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                            dimensionType={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
                         />
                     }
                 />
-                <SingleSelectOption
-                    label={i18n.t('Category')}
-                    value={DIMENSION_TYPE_CATEGORY}
-                    icon={
-                        <DimensionIcon
-                            dimensionType={DIMENSION_TYPE_CATEGORY}
-                        />
-                    }
-                />
-                <SingleSelectOption
-                    label={i18n.t('Category option group set')}
-                    value={DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET}
-                    icon={
-                        <DimensionIcon
-                            dimensionType={
-                                DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
-                            }
-                        />
-                    }
-                />
-            </SingleSelect>
-            {showStageSelect && (
-                <StageSelect stages={program.programStages} optional />
             )}
-        </div>
-    )
-}
+            <SingleSelectOption
+                label={i18n.t('Program indicator')}
+                value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                icon={
+                    <DimensionIcon
+                        dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                    />
+                }
+            />
+            <SingleSelectOption
+                label={i18n.t('Category')}
+                value={DIMENSION_TYPE_CATEGORY}
+                icon={<DimensionIcon dimensionType={DIMENSION_TYPE_CATEGORY} />}
+            />
+            <SingleSelectOption
+                label={i18n.t('Category option group set')}
+                value={DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET}
+                icon={
+                    <DimensionIcon
+                        dimensionType={DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET}
+                    />
+                }
+            />
+        </SingleSelect>
+        {useSelector(sGetUiInputType) === OUTPUT_TYPE_ENROLLMENT &&
+            dimensionType === DIMENSION_TYPE_DATA_ELEMENT && (
+                <StageFilter
+                    stages={program.programStages}
+                    selected={stageFilter}
+                    setSelected={setStageFilter}
+                />
+            )}
+    </div>
+)
 
 ProgramDimensionsFilter.propTypes = {
     program: PropTypes.object.isRequired,
@@ -133,6 +127,8 @@ ProgramDimensionsFilter.propTypes = {
     searchTerm: PropTypes.string,
     setDimensionType: PropTypes.func,
     setSearchTerm: PropTypes.func,
+    setStageFilter: PropTypes.func,
+    stageFilter: PropTypes.string,
 }
 
 export { ProgramDimensionsFilter }
