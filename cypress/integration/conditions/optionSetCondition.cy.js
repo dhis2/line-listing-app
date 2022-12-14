@@ -85,8 +85,8 @@ const assertNumericOptionSet = ({
 describe('Option set condition', () => {
     it(['>37', '<39'], 'Option set (number) displays correctly (2.38)', () => {
         assertNumericOptionSet({
-            tableFilteredOptionName: 'Ei ght',
-            tableFilteredOutOptionName: 'F our',
+            tableFilteredOptionName: 'Eight',
+            tableFilteredOutOptionName: 'Four',
             selectorFilteredOptionName: 'Eight',
         })
     })
@@ -101,8 +101,8 @@ describe('Option set condition', () => {
 
     it(['>=40'], 'Option set (number) displays correctly (2.40+)', () => {
         assertNumericOptionSet({
-            tableFilteredOptionName: 'Ei ght',
-            tableFilteredOutOptionName: 'F our',
+            tableFilteredOptionName: 'Eight',
+            tableFilteredOutOptionName: 'Four',
             selectorFilteredOptionName: 'Eight',
         })
     })

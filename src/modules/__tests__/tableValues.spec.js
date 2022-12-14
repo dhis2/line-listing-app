@@ -5,6 +5,7 @@ import {
     VALUE_TYPE_INTEGER,
     VALUE_TYPE_USERNAME,
     VALUE_TYPE_AGE,
+    VALUE_TYPE_TEXT,
 } from '@dhis2/analytics'
 import { getFormattedCellValue, getHeaderText } from '../tableValues.js'
 
@@ -160,6 +161,38 @@ describe('getFormattedCellValue', () => {
                     visualization: { digitGroupSeparator: 'COMMA' },
                 })
             ).toEqual('2021-12-01')
+        })
+
+        test('numeric option set', () => {
+            const header = {
+                valueType: VALUE_TYPE_NUMBER,
+                optionSet: 'a1b2c3d4',
+            }
+            const value = 'Fifty-five'
+
+            expect(
+                getFormattedCellValue({
+                    header,
+                    value,
+                    visualization: { digitGroupSeparator: 'COMMA' },
+                })
+            ).toEqual('Fifty-five')
+        })
+
+        test('text option set', () => {
+            const header = {
+                valueType: VALUE_TYPE_TEXT,
+                optionSet: 'a1b2c3d4',
+            }
+            const value = 'Option five'
+
+            expect(
+                getFormattedCellValue({
+                    header,
+                    value,
+                    visualization: { digitGroupSeparator: 'COMMA' },
+                })
+            ).toEqual('Option five')
         })
     })
 
