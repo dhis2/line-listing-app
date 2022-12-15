@@ -37,10 +37,16 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     } else if (header?.valueType === VALUE_TYPE_AGE) {
         return value && moment(value).format('yyyy-MM-DD')
     } else {
-        return formatValue(value, header.valueType || VALUE_TYPE_TEXT, {
-            digitGroupSeparator: visualization.digitGroupSeparator,
-            skipRounding: false,
-        })
+        return formatValue(
+            value,
+            header.valueType || VALUE_TYPE_TEXT,
+            header.optionSet
+                ? {}
+                : {
+                      digitGroupSeparator: visualization.digitGroupSeparator,
+                      skipRounding: false,
+                  }
+        )
     }
 }
 
