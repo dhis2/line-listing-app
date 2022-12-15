@@ -37,21 +37,21 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: 16.x
+                  node-version: 18.x
 
             - name: Run e2e tests
-              uses: cypress-io/github-action@v2
+              uses: cypress-io/github-action@v5
               with:
                   start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   record: true
                   parallel: true
-                  video: true
+                  browser: chrome
               env:
                   BROWSER: none
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,6 +75,6 @@ jobs:
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':x: Line-listing-app e2e nightly build failed on branch: ${{ github.ref }} :x:'
+                  slack-message: ':x: Line-listing-app e2e nightly build <https://cloud.cypress.io/projects/m5qvjx/runs?branches=[{"label":"dev","suggested":false,"value":"dev"}]|failed>'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

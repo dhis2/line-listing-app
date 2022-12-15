@@ -1,8 +1,7 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_AO,
-    TEST_DIM_NUMBER,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
     TEST_REL_PE_THIS_YEAR,
@@ -20,8 +19,10 @@ describe('options', () => {
     it('sets display density', () => {
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
-        //assert the default density of table cell
-        getTableDataCells().invoke('css', 'padding').should('equal', '8px')
+        // assert the default density of table cell
+        getTableDataCells()
+            .invoke('css', 'padding')
+            .should('equal', '8px 2px 6px 6px')
 
         // set to comfortable density
         clickMenubarOptionsButton()
@@ -31,10 +32,10 @@ describe('options', () => {
         cy.contains('Comfortable').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        //assert comfortable density
+        // assert comfortable density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '16px 12px')
+            .should('equal', '10px 4px 8px 8px')
 
         // set to compact density
         clickMenubarOptionsButton()
@@ -44,8 +45,10 @@ describe('options', () => {
         cy.contains('Compact').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        //assert compact density
-        getTableDataCells().invoke('css', 'padding').should('equal', '4px 8px')
+        // assert compact density
+        getTableDataCells()
+            .invoke('css', 'padding')
+            .should('equal', '6px 2px 4px 6px')
     })
 
     it('sets font size', () => {
@@ -53,7 +56,7 @@ describe('options', () => {
 
         cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
 
-        //assert the font size of table cell
+        // assert the font size of table cell
         getTableDataCells()
             .invoke('css', 'font-size')
             .then((fontSize) => parseInt(fontSize))
@@ -81,7 +84,7 @@ describe('options', () => {
         cy.contains('Large').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        //assert large font size
+        // assert large font size
         getTableDataCells()
             .invoke('css', 'font-size')
             .then((fontSize) => parseInt(fontSize))
@@ -91,29 +94,24 @@ describe('options', () => {
     it('sets digit group separator', () => {
         cy.visit('/', EXTENDED_TIMEOUT)
 
-        //set up table
+        // set up table
         selectEnrollmentProgramDimensions({
-            ...ANALYTICS_PROGRAM,
-            dimensions: [
-                TEST_DIM_NUMBER,
-                TEST_DIM_PHONE_NUMBER,
-                TEST_DIM_INTEGER,
-            ],
+            ...E2E_PROGRAM,
+            dimensions: [TEST_DIM_PHONE_NUMBER, TEST_DIM_INTEGER],
         })
 
         selectRelativePeriod({
-            label: ANALYTICS_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
             period: TEST_REL_PE_THIS_YEAR,
         })
 
         clickMenubarUpdateButton()
 
-        const PHONE_NUMBER = '99887766'
+        const PHONE_NUMBER = '555-1212'
 
-        //assert the default dgs space on number but not phone number
-        getTableRows().eq(0).find('td').eq(1).should('contain', '2 000 000')
-        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(3).should('contain', '1 000 000')
+        // assert the default dgs space on number but not phone number
+        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
 
         // set dgs to comma
         clickMenubarOptionsButton()
@@ -123,9 +121,8 @@ describe('options', () => {
         cy.contains('Comma').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', '2,000,000')
-        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(3).should('contain', '1,000,000')
+        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('contain', '333,333,444')
 
         // set dgs to none
         clickMenubarOptionsButton()
@@ -135,9 +132,8 @@ describe('options', () => {
         cy.contains('None').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', '2000000')
-        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(3).should('contain', '1000000')
+        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('contain', '333333444')
 
         // set dgs to space
         clickMenubarOptionsButton()
@@ -147,8 +143,7 @@ describe('options', () => {
         cy.contains('Space').click()
         cy.getBySel('options-modal-actions').contains('Update').click()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', '2 000 000')
-        getTableRows().eq(0).find('td').eq(2).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(3).should('contain', '1 000 000')
+        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
     })
 })

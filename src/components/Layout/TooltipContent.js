@@ -143,7 +143,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
                 <ul className={styles.list} data-test="tooltip-content">
                     {stageName && (
                         <li className={styles.item}>
-                            {i18n.t('Program stage: {{stageName}}', {
+                            {i18n.t('Program stage: {{- stageName}}', {
                                 stageName,
                                 nsSeparator: '^^',
                             })}

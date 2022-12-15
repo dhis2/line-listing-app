@@ -11,27 +11,18 @@ import {
 import { sGetUiProgramStageId } from '../../../reducers/ui.js'
 import styles from './ProgramSelect.module.css'
 
-const STAGE_ALL = 'STAGE_ALL'
-
-const StageSelect = ({ locked, optional, stages }) => {
+const StageSelect = ({ stages }) => {
     const dispatch = useDispatch()
     const selectedStageId = useSelector(sGetUiProgramStageId)
     const onChange = ({ selected: stageId }) => {
-        if (stageId === STAGE_ALL) {
-            dispatch(tClearUiStage())
-        } else {
-            const stage = stages.find(({ id }) => id === stageId)
-            dispatch(tSetUiStage(stage))
-        }
+        const stage = stages.find(({ id }) => id === stageId)
+        dispatch(tSetUiStage(stage))
 
-        if (!optional && selectedStageId) {
+        if (selectedStageId) {
             dispatch(tClearUiProgramStageDimensions(selectedStageId))
         }
     }
-    const includeShowAllOption = optional && stages.length > 1
-    const canBeCleared = locked && stages.length > 1
-    const selected =
-        selectedStageId || (includeShowAllOption ? STAGE_ALL : undefined)
+    const canBeCleared = stages.length > 1
 
     const clearStage = () => {
         dispatch(tClearUiProgramStageDimensions(selectedStageId))
@@ -40,28 +31,24 @@ const StageSelect = ({ locked, optional, stages }) => {
 
     const select = (
         <SingleSelect
-            prefix={locked ? undefined : i18n.t('Stage')}
-            placeholder={locked ? i18n.t('Stage') : undefined}
+            placeholder={i18n.t('Stage')}
             dense
-            selected={selected}
+            selected={selectedStageId}
             onChange={onChange}
-            disabled={locked && !!selected}
+            disabled={!!selectedStageId}
             dataTest={'stage-select'}
         >
-            {includeShowAllOption && (
-                <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
-            )}
             {stages.map(({ id, name }) => (
                 <SingleSelectOption label={name} key={id} value={id} />
             ))}
         </SingleSelect>
     )
 
-    return locked ? (
+    return (
         <div className={styles.rows}>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
-                    {!selected ? (
+                    {!selectedStageId ? (
                         select
                     ) : (
                         <Tooltip
@@ -77,7 +64,7 @@ const StageSelect = ({ locked, optional, stages }) => {
                         </Tooltip>
                     )}
                 </div>
-                {selected && canBeCleared && (
+                {selectedStageId && canBeCleared && (
                     <Button
                         small
                         secondary
@@ -89,15 +76,11 @@ const StageSelect = ({ locked, optional, stages }) => {
                 )}
             </div>
         </div>
-    ) : (
-        select
     )
 }
 
 StageSelect.propTypes = {
     stages: PropTypes.arrayOf(PropTypes.object).isRequired,
-    locked: PropTypes.bool,
-    optional: PropTypes.bool,
 }
 
 export { StageSelect }
