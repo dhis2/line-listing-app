@@ -115,13 +115,19 @@ describe(['>=39'], 'time dimensions', () => {
         dimensionIsEnabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('No stage selected')
 
-        // select a stage that has hideDueDate = true
+        // select a program with a stage that has hideDueDate = true
+        cy.getBySel('program-clear-button').click()
+
+        selectEventWithProgram({
+            programName: 'Malaria case diagnosis, treatment and investigation',
+        })
+
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Baby Postnatal').click()
+        cy.containsExact('Case outcome').click()
 
         // schedule date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsEnabled('dimension-item-incidentDate')
+        dimensionIsDisabled('dimension-item-incidentDate')
         scheduleDateHasTooltip('Disabled by the selected program stage')
     })
 })

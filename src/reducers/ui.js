@@ -50,6 +50,7 @@ export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
+export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -335,6 +336,12 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 repetitionByDimension,
+            }
+        }
+        case CLEAR_UI_REPETITION: {
+            return {
+                ...state,
+                repetitionByDimension: EMPTY_UI.repetitionByDimension,
             }
         }
         default:

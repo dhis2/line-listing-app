@@ -62,7 +62,7 @@ const ProgramSelect = ({
                 )}
             </div>
             {showStageSelect && (
-                <StageSelect stages={selectedProgram.programStages} locked />
+                <StageSelect stages={selectedProgram.programStages} />
             )}
         </div>
     )
