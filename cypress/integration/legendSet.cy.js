@@ -27,6 +27,7 @@ import {
     unselectAllPeriods,
 } from '../helpers/period.js'
 import { expectRouteToBeEmpty } from '../helpers/route.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
     expectLegendKeyToMatchLegendSets,
@@ -84,7 +85,7 @@ describe(['>=39'], 'Options - Legend', () => {
             })
 
     it('no legend is applied by default', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
 

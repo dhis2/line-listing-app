@@ -6,18 +6,19 @@ import {
     TEST_DIM_INTEGER,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
+import { goToAO } from '../helpers/common.js'
 import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { getTableDataCells, getTableRows } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('options', () => {
     it('sets display density', () => {
-        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+        goToAO(TEST_AO.id)
 
         // assert the default density of table cell
         getTableDataCells()
@@ -54,7 +55,7 @@ describe('options', () => {
     it('sets font size', () => {
         const REGULAR_FONT_SIZE = 12
 
-        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+        goToAO(TEST_AO.id)
 
         // assert the font size of table cell
         getTableDataCells()
@@ -92,7 +93,7 @@ describe('options', () => {
     })
 
     it('sets digit group separator', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         // set up table
         selectEnrollmentProgramDimensions({

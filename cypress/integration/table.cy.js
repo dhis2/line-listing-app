@@ -35,6 +35,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, getPreviousYearStr } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -213,7 +214,7 @@ const assertDimensions = () => {
 }
 
 const init = () => {
-    cy.visit('/', EXTENDED_TIMEOUT)
+    goToStartPage()
 
     // remove org unit
     cy.getBySel('layout-chip-ou', EXTENDED_TIMEOUT)

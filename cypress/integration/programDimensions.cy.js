@@ -12,6 +12,7 @@ import {
     openDimension,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const assertDimensionsForEventWithoutProgramSelected = (
@@ -567,7 +568,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
 describe(['>=39'], 'program dimensions', () => {
     beforeEach(() => {
-        cy.visit('/')
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
         cy.getBySel('main-sidebar').contains('Program dimensions').click()
     })
@@ -577,7 +578,7 @@ describe(['>=39'], 'program dimensions', () => {
 
 describe(['<39'], 'program dimensions', () => {
     beforeEach(() => {
-        cy.visit('/')
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
         cy.getBySel('main-sidebar').contains('Program dimensions').click()
     })

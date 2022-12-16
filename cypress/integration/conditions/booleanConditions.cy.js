@@ -15,11 +15,11 @@ import {
     selectRelativePeriod,
     getCurrentYearStr,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const currentYear = getCurrentYearStr()
 
@@ -55,7 +55,7 @@ describe('boolean conditions - Yes/NA', () => {
     const dimensionName = TEST_DIM_YESONLY
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName)
     })
 
@@ -109,7 +109,7 @@ describe('boolean conditions - Yes/No/NA', () => {
     const dimensionName = TEST_DIM_YESNO
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName)
     })
 

@@ -18,6 +18,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -290,7 +291,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
 describe(['>=39'], 'event', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
     runTests({ scheduleDateIsSupported: true })
@@ -298,7 +299,7 @@ describe(['>=39'], 'event', () => {
 
 describe(['<39'], 'event', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
     runTests()

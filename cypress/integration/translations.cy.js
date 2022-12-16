@@ -1,3 +1,4 @@
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const UPDATE_BUTTON_ORIGINAL = 'Update'
@@ -38,7 +39,7 @@ describe('Translations', () => {
     it('translated language display correctly in the app', () => {
         interceptLanguage()
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         cy.contains(WELCOME_MSG_TRANSLATED, EXTENDED_TIMEOUT).should(
             'be.visible'
@@ -49,7 +50,7 @@ describe('Translations', () => {
     it('translated language display correctly in an Analytics component', () => {
         interceptLanguage()
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         cy.contains(UPDATE_BUTTON_TRANSLATED, EXTENDED_TIMEOUT).should(
             'be.visible'
@@ -58,14 +59,14 @@ describe('Translations', () => {
         cy.contains(UPDATE_BUTTON_ORIGINAL).should('not.exist')
     })
     it('original language display correctly in the app', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         cy.contains(WELCOME_MSG_ORIGINAL, EXTENDED_TIMEOUT).should('be.visible')
 
         cy.contains(WELCOME_MSG_TRANSLATED).should('not.exist')
     })
     it('original language display correctly in an Analytics component', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         cy.contains(UPDATE_BUTTON_ORIGINAL, EXTENDED_TIMEOUT).should(
             'be.visible'
