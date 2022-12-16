@@ -21,7 +21,7 @@ name: 'dhis2: e2e tests'
 on:
     push:
         branches:
-            - dev
+            - master
     pull_request:
         types: [opened, synchronize, reopened, ready_for_review]
     workflow_dispatch:
