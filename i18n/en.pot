@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
-"PO-Revision-Date: 2022-11-25T12:25:46.264Z\n"
+"POT-Creation-Date: 2022-12-20T09:17:33.674Z\n"
+"PO-Revision-Date: 2022-12-20T09:17:33.674Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -348,6 +348,12 @@ msgstr "Click a dimension to add or remove conditions."
 
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
+
+msgid "Not available offline"
+msgstr "Not available offline"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Rows per page"
 msgstr "Rows per page"
