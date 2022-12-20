@@ -16,6 +16,7 @@ import {
     VALUE_TYPE_PHONE_NUMBER,
     VALUE_TYPE_URL,
 } from '@dhis2/analytics'
+import { useOnlineStatus } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -26,6 +27,7 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
+    Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -85,6 +87,19 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
+const PaginationComponent = ({ offline, ...props }) =>
+    offline ? (
+        <Tooltip content={i18n.t('Not available offline')}>
+            <Pagination {...props} />
+        </Tooltip>
+    ) : (
+        <Pagination {...props} />
+    )
+
+PaginationComponent.propTypes = {
+    offline: PropTypes.bool,
+}
+
 export const Visualization = ({
     filters,
     visualization: AO,
@@ -112,6 +127,7 @@ export const Visualization = ({
             }),
         []
     )
+    const { offline } = useOnlineStatus()
 
     const { headers } = getAdaptedVisualization(visualization)
 
@@ -285,7 +301,9 @@ export const Visualization = ({
                                         name={header.name}
                                         onSortIconClick={sortData}
                                         sortDirection={
-                                            header.name === sortField
+                                            offline
+                                                ? undefined
+                                                : header.name === sortField
                                                 ? sortDirection
                                                 : 'default'
                                         }
@@ -391,8 +409,9 @@ export const Visualization = ({
                                         sizeClass
                                     )}
                                 >
-                                    <Pagination
-                                        disabled={fetching}
+                                    <PaginationComponent
+                                        offline={offline}
+                                        disabled={offline || fetching}
                                         page={data.pager.page}
                                         // DHIS2-13493: avoid a crash when the pager object in the analytics response is malformed.
                                         // When that happens pageSize is 0 which causes the crash because the Rows per page select does not have 0 listed as possible option.
