@@ -18,7 +18,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -79,6 +79,33 @@ export const Visualization = ({
         }
     )
 
+    const sortData = ({ name, direction }) =>
+        setSorting({
+            sortField: name,
+            sortDirection: direction,
+            pageSize,
+            page: FIRST_PAGE,
+        })
+
+    const setPage = useCallback(
+        (pageNum) =>
+            setSorting({
+                sortField,
+                sortDirection,
+                pageSize,
+                page: pageNum,
+            }),
+        [sortField, sortDirection, pageSize]
+    )
+
+    const setPageSize = (pageSizeNum) =>
+        setSorting({
+            sortField,
+            sortDirection,
+            pageSize: pageSizeNum,
+            page: FIRST_PAGE,
+        })
+
     const isInModal = !!filters?.relativePeriodDate
 
     const { fetching, error, data } = useAnalyticsData({
@@ -91,6 +118,9 @@ export const Visualization = ({
         sortField,
         sortDirection,
     })
+
+    // reset page
+    useEffect(() => setPage(FIRST_PAGE), [visualization, filters, setPage])
 
     useEffect(() => {
         if (data && visualization) {
@@ -125,30 +155,6 @@ export const Visualization = ({
     const sizeClass = getSizeClass(visualization.displayDensity)
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
-
-    const sortData = ({ name, direction }) =>
-        setSorting({
-            sortField: name,
-            sortDirection: direction,
-            pageSize,
-            page: FIRST_PAGE,
-        })
-
-    const setPage = (pageNum) =>
-        setSorting({
-            sortField,
-            sortDirection,
-            pageSize,
-            page: pageNum,
-        })
-
-    const setPageSize = (pageSizeNum) =>
-        setSorting({
-            sortField,
-            sortDirection,
-            pageSize: pageSizeNum,
-            page: FIRST_PAGE,
-        })
 
     const reverseLookupDimensionId = (dimensionId) =>
         Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
