@@ -98,11 +98,13 @@ export const Visualization = ({
         isVisualizationLoading,
         onResponsesReceived,
         pageSize,
+        // Set first page directly for new visualization to avoid extra request with current page
         page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
     })
 
+    // Reset page for new visualizations
     useEffect(() => {
         visualizationRef.current = visualization
         setPage(FIRST_PAGE)
