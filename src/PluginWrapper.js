@@ -1,6 +1,5 @@
 import { useCacheableSection, CacheableSection } from '@dhis2/app-runtime'
 import { CenteredContent, CircularLoader, Layer } from '@dhis2/ui'
-import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
@@ -33,16 +32,16 @@ const CacheableSectionWrapper = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cacheNow])
 
-    useEffect(() => {
-        const listener = postRobot.on(
-            'removeCachedData',
-            // todo: check domain too; differs based on deployment env though
-            { window: window.top },
-            () => remove()
-        )
-
-        return () => listener.cancel()
-    }, [remove])
+    //    useEffect(() => {
+    //        const listener = postRobot.on(
+    //            'removeCachedData',
+    //            // todo: check domain too; differs based on deployment env though
+    //            { window: window.top },
+    //            () => remove()
+    //        )
+    //
+    //        return () => listener.cancel()
+    //    }, [remove])
 
     useEffect(() => {
         // Synchronize cache state on load or prop update
@@ -70,41 +69,66 @@ CacheableSectionWrapper.propTypes = {
 const PluginWrapper = () => {
     const [propsFromParent, setPropsFromParent] = useState()
 
-    const receivePropsFromParent = (event) => setPropsFromParent(event.data)
-
     useEffect(() => {
-        postRobot
-            .send(window.top, 'getProps')
-            .then(receivePropsFromParent)
-            .catch((err) => console.error(err))
+        const onMessage = (e) => {
+            console.log('message received in iframe via channel', e)
+            let data
 
-        // Allow parent to update props
-        const listener = postRobot.on(
-            'newProps',
-            { window: window.top /* Todo: check domain */ },
-            receivePropsFromParent
-        )
+            try {
+                data = JSON.parse(e.data)
+            } catch (err) {
+                console.log('Event data is not a serialised JSON object')
+            }
 
-        return () => listener.cancel()
+            if (data.type === 'DHIS2') {
+                switch (data.command) {
+                    case 'removeCachedData':
+                        console.log('removeCachedData not implemented')
+                        break
+                    case 'sendProps':
+                        setPropsFromParent(data.payload)
+                        break
+                }
+            }
+        }
+
+        window.addEventListener('message', (e) => {
+            console.log('message received in iframe', e)
+            if (e.data === 'sendPort' && e.ports && e.ports.length) {
+                e.ports[0].onmessage = onMessage
+
+                e.ports[0].postMessage(
+                    JSON.stringify({ type: 'DHIS2', command: 'requestProps' })
+                )
+            }
+        })
+
+        window.parent.postMessage('requestPort', '*')
+
+        return () => window.removeEventListener('message', onMessage)
     }, [])
 
-    return propsFromParent ? (
-        <div
-            style={{
-                display: 'flex',
-                height: '100%',
-                overflow: 'hidden',
-            }}
-        >
-            <CacheableSectionWrapper
-                id={propsFromParent.cacheId}
-                cacheNow={propsFromParent.recordOnNextLoad}
-                isParentCached={propsFromParent.isParentCached}
-            >
-                <Visualization {...propsFromParent} />
-            </CacheableSectionWrapper>
+    return (
+        <div>
+            {propsFromParent ? (
+                <div
+                    style={{
+                        display: 'flex',
+                        height: '100%',
+                        overflow: 'hidden',
+                    }}
+                >
+                    <CacheableSectionWrapper
+                        id={propsFromParent.cacheId}
+                        cacheNow={propsFromParent.recordOnNextLoad}
+                        isParentCached={propsFromParent.isParentCached}
+                    >
+                        <Visualization {...propsFromParent} />
+                    </CacheableSectionWrapper>
+                </div>
+            ) : null}
         </div>
-    ) : null
+    )
 }
 
 export default PluginWrapper
