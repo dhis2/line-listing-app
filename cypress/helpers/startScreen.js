@@ -1,8 +1,10 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-export const goToStartPage = () => {
+export const goToStartPage = (skipEval) => {
     cy.visit('/', EXTENDED_TIMEOUT).log(Cypress.env('dhis2BaseUrl'))
-    expectStartScreenToBeVisible()
+    if (!skipEval) {
+        expectStartScreenToBeVisible()
+    }
 }
 
 export const expectStartScreenToBeVisible = () =>
