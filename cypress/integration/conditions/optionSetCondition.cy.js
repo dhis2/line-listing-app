@@ -13,6 +13,7 @@ import {
     selectRelativePeriod,
     getPreviousYearStr,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainValue,
@@ -20,7 +21,6 @@ import {
     expectTableToNotContainValue,
 } from '../../helpers/table.js'
 import { searchAndSelectInOptionsTransfer } from '../../helpers/transfer.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 // TODO: enable for 38+ when numeric option set has been figured out
 // there was a bug in 38 showing the code instead of name
@@ -33,7 +33,7 @@ const assertNumericOptionSet = ({
 }) => {
     const dimensionName = 'E2E - Number (option set)'
 
-    cy.visit('/', EXTENDED_TIMEOUT)
+    goToStartPage()
 
     selectEventWithProgram(E2E_PROGRAM)
 
@@ -112,7 +112,7 @@ describe('Option set condition', () => {
         const filteredOutOptionName = 'COVID 19 - Moderna'
         const filteredOptionName = 'COVID 19 - AstraZeneca'
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
 

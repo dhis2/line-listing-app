@@ -17,11 +17,11 @@ import {
     TEST_DIM_WITH_PRESET,
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('layout', () => {
     it('expansion caret can be toggled', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [

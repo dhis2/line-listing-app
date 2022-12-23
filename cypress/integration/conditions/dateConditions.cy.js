@@ -24,12 +24,12 @@ import {
     unselectAllPeriods,
     selectFixedPeriod,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const currentYear = getCurrentYearStr()
 const previousYear = getPreviousYearStr()
@@ -72,7 +72,7 @@ const addConditions = (conditions) => {
 
 describe('date conditions (Date)', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable()
     })
 
@@ -302,7 +302,7 @@ describe('date types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)

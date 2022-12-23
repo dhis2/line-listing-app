@@ -8,6 +8,7 @@ import {
 } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, getPreviousYearStr } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableHeaderCells,
     expectTableToBeVisible,
@@ -26,7 +27,7 @@ describe('event', () => {
         const filteredOutItemName = 'MCHP'
         const filteredItemName = 'CHC'
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(trackerProgram)
 

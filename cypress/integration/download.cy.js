@@ -9,6 +9,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const downloadIsEnabled = () =>
@@ -25,7 +26,7 @@ const downloadIsDisabled = () =>
 
 describe('download', () => {
     it('download button enables when required dimensions are selected (event)', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         downloadIsDisabled()
 
@@ -49,7 +50,7 @@ describe('download', () => {
     })
 
     it('download button enables when required dimensions are selected (enrollment)', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         downloadIsDisabled()
 

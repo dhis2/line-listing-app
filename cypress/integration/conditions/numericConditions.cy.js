@@ -26,6 +26,7 @@ import {
     getPreviousYearStr,
     selectRelativePeriod,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
@@ -33,7 +34,6 @@ import {
     getTableDataCells,
     getTableRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const previousYear = getPreviousYearStr()
 
@@ -75,7 +75,7 @@ describe('number conditions', () => {
     const dimensionName = TEST_DIM_NUMBER
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_THIS_YEAR)
     })
 
@@ -235,7 +235,7 @@ describe('integer', () => {
     const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_LAST_YEAR)
     })
 
@@ -304,7 +304,7 @@ describe('preset options', () => {
     }
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
         openDimension(dimensionName)
@@ -393,7 +393,7 @@ describe('numeric types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)

@@ -16,6 +16,7 @@ import {
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const TEST_CANCEL_LABEL = 'Cancel'
@@ -32,7 +33,7 @@ describe('interpretations', () => {
     // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
     beforeEach(() => {
         if (!created) {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
             cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
 
             const trackerProgram = E2E_PROGRAM

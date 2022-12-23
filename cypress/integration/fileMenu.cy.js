@@ -1,8 +1,9 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
-import { typeInput } from '../helpers/common.js'
+import { goToAO, typeInput } from '../helpers/common.js'
 import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, unselectAllPeriods } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -81,7 +82,7 @@ const deleteVisualization = () => {
 
 describe('file menu', () => {
     it('reflects "empty" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         assertDownloadIsDisabled()
 
@@ -89,7 +90,7 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, no program" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         clickMenubarUpdateButton()
 
@@ -99,7 +100,7 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, valid: save" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram({
             programName: 'Child Programme',
@@ -115,7 +116,7 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, valid: data" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram({
             programName: 'Child Programme',
@@ -137,7 +138,7 @@ describe('file menu', () => {
     })
 
     it('reflects "saved, valid: save" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram({
             programName: 'Child Programme',
@@ -160,7 +161,7 @@ describe('file menu', () => {
     })
 
     it('reflects "saved, valid: data" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram({
             programName: 'Child Programme',
@@ -191,7 +192,7 @@ describe('file menu', () => {
     })
 
     it('reflects "dirty" state', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram({
             programName: 'Child Programme',
@@ -264,7 +265,7 @@ describe('file menu', () => {
     })
 
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
-        cy.visit('/#/TIuOzZ0ID0V', EXTENDED_TIMEOUT)
+        goToAO('TIuOzZ0ID0V')
 
         cy.getBySel('visualization-title').contains(
             'Inpatient: Cases 5 to 15 years this year (case)'

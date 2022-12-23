@@ -14,8 +14,8 @@ import {
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const trackerProgram = E2E_PROGRAM
 const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
@@ -39,7 +39,7 @@ describe('Org unit condition', () => {
     const orgUnitName = 'Koinadugu'
 
     it('Organisation unit displays correctly', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         setUpTable()
 
