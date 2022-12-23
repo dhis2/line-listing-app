@@ -1,6 +1,6 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_DATETIME,
     TEST_DIM_DATE,
     TEST_DIM_TIME,
@@ -9,8 +9,8 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
@@ -24,23 +24,26 @@ import {
     unselectAllPeriods,
     selectFixedPeriod,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const currentYear = getCurrentYearStr()
 const previousYear = getPreviousYearStr()
 
-const event = ANALYTICS_PROGRAM
+const trackerProgram = E2E_PROGRAM
 const dimensionName = TEST_DIM_DATE
-const periodLabel = event[DIMENSION_ID_EVENT_DATE]
+const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventWithProgramDimensions({
+        ...trackerProgram,
+        dimensions: [dimensionName],
+    })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -69,7 +72,7 @@ const addConditions = (conditions) => {
 
 describe('date conditions (Date)', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable()
     })
 
@@ -178,10 +181,11 @@ describe('date conditions (Date)', () => {
 
         expectTableToMatchRows([
             `${previousYear}-12-10`,
-            `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
-            `${currentYear}-02-01`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
             `${currentYear}-04-19`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -202,10 +206,11 @@ describe('date conditions (Date)', () => {
         expectTableToMatchRows([
             `${previousYear}-12-11`,
             `${previousYear}-12-10`,
-            `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
-            `${currentYear}-02-01`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
             `${currentYear}-04-19`,
+            `${currentYear}-02-01`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -238,14 +243,15 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-10`,
             `${previousYear}-12-11`,
-            `${previousYear}-11-15`,
-            `${previousYear}-11-01`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
+            `${currentYear}-04-19`,
             `${currentYear}-01-01`,
             `${currentYear}-01-03`,
             `${currentYear}-02-01`,
-            `${currentYear}-04-19`,
+            `${currentYear}-03-01`,
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -296,9 +302,9 @@ describe('date types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

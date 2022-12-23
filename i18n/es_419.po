@@ -1,707 +1,710 @@
 # 
 # Translators:
-# phil_dhis2, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
-# 晓东 林 <13981924470@126.com>, 2022
-# easylin <lin_xd@126.com>, 2022
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
+"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "添加到 {{axisName}}"
+msgstr ""
 
 msgid "Choose a condition type"
-msgstr "选择条件类型"
+msgstr ""
 
 msgid "Case sensitive"
-msgstr "区分大小写"
+msgstr ""
 
 msgid "Remove"
-msgstr "移除"
+msgstr ""
 
 msgid "and"
-msgstr "和"
+msgstr ""
 
 msgid "Show items that meet the following conditions for this data item:"
-msgstr "显示满足此数据项以下条件的项："
+msgstr ""
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr "无法过滤此维度。将显示所有值。"
+msgstr ""
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
-msgstr "尚无条件，因此将包含所有值。添加条件以过滤结果。"
+msgstr ""
 
 msgid "Preset options can't be combined with other conditions"
-msgstr "预设选项不能与其他条件组合"
+msgstr ""
 
 msgid "Add another condition"
-msgstr "添加另一个条件"
+msgstr ""
 
 msgid "Add a condition"
-msgstr "添加条件"
+msgstr ""
 
 msgid "Repeated events"
-msgstr "重复事件"
+msgstr ""
 
 msgid "Conditions"
-msgstr "条件"
+msgstr ""
 
 msgid "Only available for repeatable stages"
-msgstr "仅适用于可重复阶段"
+msgstr ""
 
 msgid "is one of preset options"
-msgstr "是预设选项之一"
+msgstr ""
 
 msgid "Loading..."
-msgstr "载入....."
+msgstr ""
 
 msgid "Choose a set of options"
-msgstr "选择一组选项"
+msgstr ""
 
 msgid "No preset option sets for this data item"
-msgstr "此数据项没有预设选项集"
+msgstr ""
 
 msgid "Choose options"
-msgstr "选择选项"
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
-msgstr "从具有可重复事件的阶段，显示此数据元素的值来自："
+msgstr ""
 
 msgid "Most recent events:"
-msgstr "最近的事件："
+msgstr ""
 
 msgid "Oldest events:"
-msgstr "最古老的事件："
+msgstr ""
 
 msgid "Hide"
-msgstr "隐藏"
+msgstr ""
 
 msgid "Show items where the status is:"
-msgstr "显示状态为的项目："
+msgstr ""
 
 msgid "Choose from presets"
-msgstr "从预设中选择"
+msgstr ""
 
 msgid "Define start - end dates"
-msgstr "定义开始 - 结束日期"
+msgstr ""
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
-msgstr "开始和结束日期包括在内，并将包含在输出中。"
+msgstr ""
 
 msgid "Start date"
-msgstr "开始日期"
+msgstr ""
 
 msgid "End date"
-msgstr "结束日期"
+msgstr ""
 
 msgid "No items selected"
-msgstr "没有选择条目"
+msgstr ""
 
 msgid "Available options"
-msgstr "可用选项"
+msgstr ""
 
 msgid "Filter options"
-msgstr "过滤选项"
+msgstr "Opciones"
 
 msgid "Selected options"
-msgstr "选定的选项"
+msgstr ""
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr "没有找到“{{- searchTerm}}”"
+msgstr ""
 
 msgid "No options"
-msgstr "没有选项"
+msgstr ""
 
 msgid "Move to {{axisName}}"
-msgstr "移动到 {{axisName}}"
+msgstr ""
 
 msgid "HTML"
-msgstr "HTML"
+msgstr ""
 
 msgid "HTML+CSS (.html+css)"
-msgstr "HTML+CSS (.html+css)"
+msgstr ""
 
 msgid "Plain data source"
-msgstr "普通数据源"
+msgstr ""
 
 msgid "JSON"
-msgstr "JSON"
+msgstr ""
 
 msgid "XML"
-msgstr "XML"
+msgstr ""
 
 msgid "Microsoft Excel"
-msgstr "微软Excel"
+msgstr ""
 
 msgid "CSV"
-msgstr "CSV"
+msgstr ""
 
 msgid "Download data from this date"
-msgstr "从该日期下载数据"
+msgstr ""
 
 msgid "Metadata ID scheme"
-msgstr "元数据ID方案"
+msgstr ""
 
 msgid "ID"
-msgstr "Id"
+msgstr ""
 
 msgid "Code"
-msgstr "代码"
+msgstr ""
 
 msgid "Name"
-msgstr "名称"
+msgstr "Nombre"
 
 msgid "Download"
-msgstr "下载"
+msgstr ""
 
 msgid "all"
-msgstr "全部"
+msgstr ""
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
-msgstr[0] "已选择 {{count}} 个"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
-msgstr[0] "{{count}} 个条件"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "Levels"
-msgstr "等级"
+msgstr ""
 
 msgid "Groups"
-msgstr "组"
+msgstr ""
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] "还有 {{count}} 个人..."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 msgid "None selected"
-msgstr "没有选择"
+msgstr ""
 
 msgid "Showing all values for this dimension"
-msgstr "显示此维度的所有值"
+msgstr ""
 
-msgid "Program stage: {{- stageName}}"
-msgstr "项目阶段：{{- stageName}}"
+msgid "Program stage: {{stageName}}"
+msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "未找到“{{- searchTerm}}”的维度"
+msgstr ""
 
-msgid "No dimensions found in the {{- programName}} program"
-msgstr "在 {{- programName}} 项目中找不到维度"
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
 
 msgid "No dimensions found"
-msgstr "未找到维度"
+msgstr ""
 
 msgid "Couldn't load dimensions"
-msgstr "无法加载维度"
+msgstr ""
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
-msgstr "加载维度时出现问题。再试一次，或联系您的系统管理员。"
+msgstr ""
 
 msgid "Event"
-msgstr "事件"
+msgstr "Evento"
 
 msgid "Enrollment"
-msgstr "报名"
+msgstr ""
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
-msgstr "查看来自跟踪项目阶段或事件项目的单个事件数据。"
+msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr "在 Tracker 程序中查看来自多个程序阶段的数据。"
+msgstr ""
 
 msgid "Main dimensions"
-msgstr "主要维度"
+msgstr ""
 
 msgid "Input: {{type}}"
-msgstr "输入: {{type}}"
+msgstr ""
 
 msgid "Program dimensions"
-msgstr "程序维度"
+msgstr ""
 
 msgid "Search in program"
-msgstr "在项目中搜索"
+msgstr ""
 
 msgid "Type"
-msgstr "类型"
+msgstr ""
 
 msgid "All types"
-msgstr "所有类型"
+msgstr ""
 
 msgid "Data element"
-msgstr "数据元"
+msgstr ""
 
 msgid "Program attribute"
-msgstr "项目属性"
+msgstr ""
 
 msgid "Program indicator"
-msgstr "项目指标"
+msgstr ""
 
 msgid "Category"
-msgstr "分类"
+msgstr ""
 
 msgid "Category option group set"
-msgstr "分类选项组集"
+msgstr ""
 
 msgid "Could not load programs"
-msgstr "无法加载项目"
+msgstr ""
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
-msgstr "无法检索程序。重试或联系您的系统管理员。"
+msgstr ""
 
 msgid "Choose a stage above to add program dimensions."
-msgstr "选择上面的一个阶段以添加项目维度。"
+msgstr ""
 
 msgid "Choose a program above to add program dimensions."
-msgstr "选择上面的项目以添加项目维度"
+msgstr ""
 
 msgid "Choose a program"
-msgstr "选择一个程序"
+msgstr ""
 
 msgid "Clear program first to choose another"
-msgstr "先清除项目再选择另一个"
+msgstr ""
 
 msgid "Clear"
-msgstr "清除"
+msgstr "Limpiar"
 
 msgid "Stage"
-msgstr "阶段"
+msgstr ""
 
 msgid "All"
-msgstr "全部"
+msgstr "Todos"
 
 msgid "Clear stage first to choose another"
-msgstr "先清除阶段再选择另一个"
+msgstr ""
 
 msgid "This program only has one stage"
-msgstr "这个项目只有一个阶段"
+msgstr ""
 
 msgid "Time dimensions"
-msgstr "时间维度"
+msgstr ""
 
 msgid "Your dimensions"
-msgstr "你的维度"
+msgstr ""
 
 msgid "Search your dimensions"
-msgstr "搜索您的维度"
+msgstr ""
 
 msgid "Unsaved visualization"
-msgstr "没有保存可视化"
+msgstr ""
 
 msgid "Edited"
-msgstr "编辑"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "解释"
+msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr "“{{- deletedObject}}”已成功删除。"
+msgstr ""
 
 msgid "Rename successful"
-msgstr "重命名成功"
+msgstr ""
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "无标题的{{visualizationType}}可视化，{{date}}"
+msgstr ""
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
-msgstr "无法删除此可视化，因为它已在一个或多个仪表板上使用"
+msgstr ""
 
 msgid "Update"
-msgstr "更新"
+msgstr "Actualizar"
 
 msgid "Getting started"
-msgstr "开始"
+msgstr ""
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
-msgstr "可用于构建可视化的所有维度都显示在左侧边栏中的部分中。"
+msgstr ""
 
 msgid "Add dimensions to the layout above."
-msgstr "在上面的布局中添加维度。"
+msgstr ""
 
 msgid "Click a dimension to add or remove conditions."
-msgstr "单击维度以添加或删除条件。"
+msgstr ""
 
 msgid "Your most viewed line lists"
-msgstr "您浏览次数最多的行列表"
+msgstr ""
 
 msgid "Rows per page"
-msgstr "行每页"
+msgstr ""
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr "第 {{page}} 页，第 {{firstItem}}-{{lastItem}} 行"
+msgstr ""
 
 msgid "Column sub-totals"
-msgstr "列小计"
+msgstr ""
 
 msgid "Columns totals"
-msgstr "列合计"
+msgstr ""
 
 msgid "Digit group separator"
-msgstr "数字分隔符"
+msgstr ""
 
 msgid "None"
-msgstr "没有"
+msgstr "Ninguno"
 
 msgid "Space"
-msgstr "空格"
+msgstr ""
 
 msgid "Comma"
-msgstr "逗号"
+msgstr ""
 
 msgid "Display density"
-msgstr "显示稀密度"
+msgstr ""
 
 msgid "Comfortable"
-msgstr "舒适"
+msgstr ""
 
 msgid "Normal"
-msgstr "适度"
+msgstr ""
 
 msgid "Compact"
-msgstr "紧凑"
+msgstr ""
 
 msgid "Font size"
-msgstr "字体大小"
+msgstr ""
 
 msgid "Large"
-msgstr "较大"
+msgstr ""
 
 msgid "Small"
-msgstr "小"
+msgstr ""
 
 msgid "Hide empty rows"
-msgstr "隐藏空行"
+msgstr ""
 
 msgid "Use a legend for table cell colors"
-msgstr "为表格单元格颜色使用图例"
+msgstr ""
 
 msgid "Legend style"
-msgstr "图例风格"
+msgstr ""
 
 msgid "Legend type"
-msgstr "图例类型"
+msgstr ""
 
 msgid "Use pre-defined legend per data item"
-msgstr "每个数据项使用预定义的图例"
+msgstr ""
 
 msgid "Choose a single legend for the entire visualization"
-msgstr "为整个可视化选择一个图例"
+msgstr ""
 
 msgid "Legend changes background color"
-msgstr "图例改变背景色"
+msgstr ""
 
 msgid "Legend changes text color"
-msgstr "图例改变文本颜色"
+msgstr ""
 
 msgid "Legend"
-msgstr "图例"
+msgstr ""
 
 msgid "Select from legends"
-msgstr "从图例选择"
+msgstr ""
 
 msgid "Loading legends"
-msgstr "载入图例"
+msgstr ""
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
 "visualization, all values outside of the minimum/maximum range will not be "
 "displayed"
-msgstr "您可以设置最小值或最大值。这将应用于整个可视化，不会显示超出最小/最大范围的所有值"
+msgstr ""
 
 msgid "Minimum data value"
-msgstr "最小值"
+msgstr ""
 
 msgid "Maximum data value"
-msgstr "最大值"
+msgstr ""
 
 msgid "Clear min/max limits"
-msgstr "清除最大最小值"
+msgstr ""
 
 msgid "Row sub-totals"
-msgstr "行小计"
+msgstr ""
 
 msgid "Row totals"
-msgstr "行合计"
+msgstr ""
 
 msgid "Dimension labels"
-msgstr "维度标签"
+msgstr ""
 
 msgid "Display organisation unit hierarchy"
-msgstr "显示机构层次"
+msgstr ""
 
 msgid "Show legend key"
-msgstr "显示图例键值"
+msgstr ""
 
 msgid "Add a title"
-msgstr "添加标题"
+msgstr ""
 
 msgid "Options"
-msgstr "选项"
+msgstr ""
 
 msgid "Columns"
-msgstr "列"
+msgstr ""
 
 msgid "Rows"
-msgstr "行"
+msgstr ""
 
 msgid "Filter"
-msgstr "过滤器"
+msgstr ""
 
 msgid "equal to (=)"
-msgstr "等于 (=)"
+msgstr ""
 
 msgid "greater than (>)"
-msgstr "大于 (>)"
+msgstr ""
 
 msgid "greater than or equal to (≥)"
-msgstr "大于或等于 (≥)"
+msgstr ""
 
 msgid "less than (<)"
-msgstr "小于 (<)"
+msgstr ""
 
 msgid "less than or equal to (≤)"
-msgstr "小于或等于 (≤)"
+msgstr ""
 
 msgid "not equal to (≠)"
-msgstr "不等于 (≠)"
+msgstr ""
 
 msgid "is empty / null"
-msgstr "为空/空"
+msgstr ""
 
 msgid "is not empty / not null"
-msgstr "不为空/不为空"
+msgstr ""
 
 msgid "exactly"
-msgstr "确切地"
+msgstr ""
 
 msgid "is not"
-msgstr "不是"
+msgstr ""
 
 msgid "contains"
-msgstr "包含"
+msgstr ""
 
 msgid "does not contain"
-msgstr "不含"
+msgstr ""
 
 msgid "after"
-msgstr "后"
+msgstr ""
 
 msgid "after or including"
-msgstr "之后或包括"
+msgstr ""
 
 msgid "before"
-msgstr "前"
+msgstr ""
 
 msgid "before or including"
-msgstr "之前或包括"
+msgstr ""
 
 msgid "Yes"
-msgstr "是"
+msgstr "Sí"
 
 msgid "No"
-msgstr "否"
+msgstr "No"
 
 msgid "Not answered"
-msgstr "没有回答"
+msgstr ""
 
 msgid "There is a problem with this visualization."
-msgstr "此可视化存在问题。"
+msgstr ""
 
 msgid "There was a problem getting the data from the server."
-msgstr "从服务器获取数据有问题"
+msgstr ""
 
 msgid "No data available"
-msgstr "没有值"
+msgstr ""
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
-msgstr "选择的维度没有返回任何值，可能没有数据，或者没有访问权限"
+msgstr ""
 
 msgid "Visualization not found"
-msgstr "找不到可视化"
+msgstr ""
 
 msgid ""
 "The visualization you are trying to view could not be found, the ID could be"
 " incorrect or it could have been deleted."
-msgstr "找不到您尝试查看的可视化文件，该ID可能不正确或已被删除。"
+msgstr ""
 
 msgid "No program selected"
-msgstr "未选择项目"
+msgstr ""
 
 msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "从程序维度侧栏中选择一个程序。"
+msgstr ""
 
 msgid "No stage selected"
-msgstr "未选择任何阶段"
+msgstr ""
 
 msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "从程序维度侧栏中选择一个阶段。"
+msgstr ""
 
 msgid "Columns is empty"
-msgstr "列是空的"
+msgstr ""
 
 msgid "Add at least one item to Columns."
-msgstr "将至少一项添加到列。"
+msgstr ""
 
 msgid "No organisation unit selected"
-msgstr "没有选择机构"
+msgstr ""
 
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
-msgstr "确保将带有至少一个选择的组织单位维度添加到布局中。"
+msgstr ""
 
 msgid "No time dimension selected"
-msgstr "未选择时间维度"
+msgstr ""
 
 msgid ""
 "Make sure to add a time dimension with at least one selection to the layout."
-msgstr "确保在布局中添加至少一个选择的时间维度。"
+msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
-msgstr "至少一个选定的指标有问题"
+msgstr ""
 
 msgid "No access"
-msgstr "不能访问"
+msgstr ""
 
 msgid "You don't have access to the requested data"
-msgstr "您无权访问请求的数据"
+msgstr ""
 
 msgid "Something went wrong"
-msgstr "出问题了"
+msgstr "Algo ha ido mal"
 
 msgid "Organisation unit"
-msgstr "机构"
+msgstr ""
 
 msgid "Event status"
-msgstr "事件状态"
+msgstr "Estado del evento"
 
 msgid "Program status"
-msgstr "项目状态"
+msgstr ""
 
 msgid "Created by"
-msgstr "创建人"
+msgstr ""
 
 msgid "Last updated by"
-msgstr "最近更新者"
+msgstr ""
 
 msgid "Not applicable to event programs"
-msgstr "不适用于活动节目"
+msgstr ""
 
 msgid "Not applicable to enrollments"
-msgstr "不适用于招生"
+msgstr ""
 
 msgid "User organisation unit"
-msgstr "用户所在机构"
+msgstr ""
 
 msgid "User sub-units"
-msgstr "我的下属机构"
+msgstr ""
 
 msgid "User sub-x2-units"
-msgstr "用户二级下属机构"
+msgstr ""
 
 msgid "Table title"
-msgstr "表标题"
+msgstr ""
 
 msgid "Display"
-msgstr "显示"
+msgstr ""
 
 msgid "Empty data"
-msgstr "空数据"
+msgstr ""
 
 msgid "Totals"
-msgstr "总共"
+msgstr ""
 
 msgid "Data"
-msgstr "数据"
+msgstr "Datos"
 
 msgid "Limit values"
-msgstr "限值"
+msgstr ""
 
 msgid "Limit number of values"
-msgstr "限定值数量"
+msgstr ""
 
 msgid "Limit minimum/maximum values"
-msgstr "限制最大最小值"
+msgstr ""
 
 msgid "Style"
-msgstr "风格"
+msgstr ""
 
 msgid "most recent"
-msgstr "最近的"
+msgstr ""
 
 msgid "oldest"
-msgstr "最老的"
+msgstr ""
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr "最早的 {{repeatEventIndex}}"
+msgstr ""
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr "最近的 {{repeatEventIndex}}"
+msgstr ""
 
 msgid "Event date"
-msgstr "事件日期"
+msgstr "Fecha de evento"
 
 msgid "Enrollment date"
-msgstr "报名日期"
+msgstr "Fecha de inscripción"
 
 msgid "Incident date"
-msgstr "事件日期"
+msgstr "Fecha del incidente"
 
 msgid "Scheduled date"
-msgstr "调度日期"
+msgstr ""
 
 msgid "Last updated on"
-msgstr "最后更新时间"
+msgstr ""
 
 msgid "Disabled by the selected program"
-msgstr "被所选程序禁用"
+msgstr ""
 
 msgid "Disabled by the selected program stage"
-msgstr "被选定的项目阶段禁用"
+msgstr ""
 
 msgid "No input type selected"
-msgstr "未选择输入类型"
+msgstr ""
 
 msgid "Active"
-msgstr "活跃的"
+msgstr "Activo"
 
 msgid "Cancelled"
-msgstr "已取消"
+msgstr "Cancelar"
 
 msgid "Completed"
-msgstr "完成"
+msgstr "Completado"
 
 msgid "Scheduled"
-msgstr "已经调度"
+msgstr ""
 
 msgid "List data from tracked entities and events."
-msgstr "列出来自被跟踪实体和事件的数据。"
+msgstr ""
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
-msgstr "使用可操作的列、行和聚合探索数据。"
+msgstr ""

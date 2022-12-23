@@ -1,4 +1,8 @@
-import { useCachedDataQuery, DIMENSION_TYPE_ALL } from '@dhis2/analytics'
+import {
+    useCachedDataQuery,
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+} from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
@@ -57,6 +61,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         lazy: true,
     })
     const [searchTerm, setSearchTerm] = useState('')
+    const [stageFilter, setStageFilter] = useState()
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
     const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
@@ -101,6 +106,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     useEffect(() => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
+        setStageFilter()
     }, [inputType, selectedProgramId, selectedStageId])
 
     if (!visible || !called) {
@@ -150,6 +156,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
                         setSearchTerm={setSearchTerm}
                         dimensionType={dimensionType}
                         setDimensionType={setDimensionType}
+                        stageFilter={stageFilter}
+                        setStageFilter={setStageFilter}
                     />
                 ) : (
                     <div className={styles.helptext}>
@@ -170,7 +178,14 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     program={selectedProgram}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
-                    stageId={selectedStageId}
+                    stageId={
+                        inputType === OUTPUT_TYPE_ENROLLMENT &&
+                        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                            ? stageFilter
+                            : inputType === OUTPUT_TYPE_EVENT
+                            ? selectedStageId
+                            : undefined
+                    }
                 />
             )}
         </div>

@@ -1,5 +1,8 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
-import { getDynamicTimeDimensionsMetadata } from '../modules/metadata.js'
+import {
+    getDynamicTimeDimensionsMetadata,
+    getProgramAsMetadata,
+} from '../modules/metadata.js'
 import { formatDimensionId } from '../modules/utils.js'
 import { getDimensionMetadataFromVisualization } from '../modules/visualization.js'
 import {
@@ -50,9 +53,7 @@ export const acSetVisualization = (value) => {
 
     // program
     if (program) {
-        metadata.push({
-            [program.id]: program,
-        })
+        metadata.push(getProgramAsMetadata(program))
     }
 
     // program stage

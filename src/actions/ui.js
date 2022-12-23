@@ -32,6 +32,7 @@ import {
     SET_UI_CONDITIONS,
     SET_UI_REPETITION,
     REMOVE_UI_REPETITION,
+    CLEAR_UI_REPETITION,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -136,6 +137,7 @@ export const tClearUiProgramStageDimensions =
 export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
     dispatch(tClearUiProgramRelatedDimensions(value.type))
+    dispatch(acClearUiRepetition())
     dispatch(acSetUiInput(value, getDefaultTimeDimensionsMetadata()))
 }
 
@@ -255,4 +257,8 @@ export const acSetUiRepetition = (value) => ({
 export const acRemoveUiRepetition = (value) => ({
     type: REMOVE_UI_REPETITION,
     value,
+})
+
+export const acClearUiRepetition = () => ({
+    type: CLEAR_UI_REPETITION,
 })

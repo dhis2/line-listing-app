@@ -24,11 +24,11 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // choose the stage if relevant
     if (stageName) {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.contains(stageName).click()
+        cy.containsExact(stageName).click()
     }
 }
 
-export const selectEventProgram = ({ programName, stageName }) =>
+export const selectEventWithProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
 export const selectEnrollmentProgram = ({ programName, stageName }) =>
@@ -60,7 +60,7 @@ const selectProgramDimensions = ({
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
 }
 
-export const selectEventProgramDimensions = ({
+export const selectEventWithProgramDimensions = ({
     programName,
     stageName,
     dimensions,

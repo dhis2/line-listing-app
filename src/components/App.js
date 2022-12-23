@@ -129,11 +129,12 @@ const App = () => {
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
     const onFileMenuAction = () => {
-        setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
+        showDetailsPanel && setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
     }
 
     const onInterpretationUpdate = () => {
-        setInterpretationsUnitRenderId(interpretationsUnitRenderId + 1)
+        showDetailsPanel &&
+            setInterpretationsUnitRenderId(interpretationsUnitRenderId + 1)
     }
 
     const parseLocation = (location) => {

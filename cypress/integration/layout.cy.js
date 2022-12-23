@@ -1,5 +1,5 @@
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_DIM_LETTER,
     TEST_DIM_LONG_TEXT,
@@ -12,15 +12,18 @@ import {
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
     TEST_DIM_POSITIVE_INTEGER,
+    TEST_DIM_NEGATIVE_INTEGER,
+    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_WITH_PRESET,
 } from '../data/index.js'
-import { selectEventProgramDimensions } from '../helpers/dimensions.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('layout', () => {
     it('expansion caret can be toggled', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        selectEventProgramDimensions({
-            ...ANALYTICS_PROGRAM,
+        goToStartPage()
+        selectEventWithProgramDimensions({
+            ...E2E_PROGRAM,
             dimensions: [
                 TEST_DIM_TEXT,
                 TEST_DIM_LETTER,
@@ -34,6 +37,9 @@ describe('layout', () => {
                 TEST_DIM_PERCENTAGE,
                 TEST_DIM_INTEGER,
                 TEST_DIM_POSITIVE_INTEGER,
+                TEST_DIM_NEGATIVE_INTEGER,
+                TEST_DIM_POSITIVE_OR_ZERO,
+                TEST_DIM_WITH_PRESET,
             ],
         })
 
@@ -44,13 +50,13 @@ describe('layout', () => {
         cy.getBySel('layout-height-toggle').click()
 
         cy.getBySel('columns-axis')
-            .contains(TEST_DIM_POSITIVE_INTEGER)
+            .contains(TEST_DIM_WITH_PRESET)
             .should('not.be.visible')
 
         cy.getBySel('layout-height-toggle').click()
 
         cy.getBySel('columns-axis')
-            .contains(TEST_DIM_POSITIVE_INTEGER)
+            .contains(TEST_DIM_WITH_PRESET)
             .should('be.visible')
     })
 })

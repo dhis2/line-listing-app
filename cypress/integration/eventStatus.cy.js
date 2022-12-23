@@ -2,29 +2,29 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
-import { ANALYTICS_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
+import { selectEventWithProgram } from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
 } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, getCurrentYearStr } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableHeaderCells,
     expectTableToBeVisible,
     expectTableToMatchRows,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
-    const event = ANALYTICS_PROGRAM
+    const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
     const setUpTable = (periodLabel) => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
-        selectEventProgram(event)
+        selectEventWithProgram(event)
 
         selectRelativePeriod({
             label: periodLabel,
@@ -49,13 +49,12 @@ describe('event status', () => {
         setUpTable(event[DIMENSION_ID_SCHEDULED_DATE])
 
         expectTableToMatchRows([
+            'Completed',
+            'Completed',
+            'Completed',
+            'Completed',
+            'Completed',
             'Active',
-            'Scheduled',
-            'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
         ])
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
@@ -99,12 +98,9 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([
-            `${getCurrentYearStr()}-02-01`,
-            `${getCurrentYearStr()}-12-25`,
-        ])
+        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
 
-        expectTableToMatchRows(['Active', 'Scheduled'])
+        expectTableToMatchRows(['Active'])
 
         assertChipContainsText(`${dimensionName}: 2 selected`)
 
@@ -138,7 +134,7 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-05-03`])
+        expectTableToMatchRows([`${getCurrentYearStr()}-11-18`])
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 

@@ -1,11 +1,22 @@
-import { TEST_AO } from '../data/index.js'
-import { clearTextarea, typeTextarea } from '../helpers/common.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    E2E_PROGRAM,
+    TEST_DIM_TEXT,
+    TEST_FIX_PE_DEC_LAST_YEAR,
+} from '../data/index.js'
+import { clearTextarea, typeInput, typeTextarea } from '../helpers/common.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import {
     expectInterpretationsButtonToBeEnabled,
     expectInterpretationFormToBeVisible,
     expectInterpretationThreadToBeVisible,
 } from '../helpers/interpretations.js'
-import { clickMenubarInterpretationsButton } from '../helpers/menubar.js'
+import {
+    clickMenubarInterpretationsButton,
+    clickMenubarUpdateButton,
+} from '../helpers/menubar.js'
+import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const TEST_CANCEL_LABEL = 'Cancel'
@@ -17,9 +28,46 @@ const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
 const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
 describe('interpretations', () => {
-    it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
-        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+    // Use a flag to ensure the visualisation is not created multiple times
+    let created = false
+    // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
+    beforeEach(() => {
+        if (!created) {
+            goToStartPage()
+            cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
 
+            const trackerProgram = E2E_PROGRAM
+            const dimensionName = TEST_DIM_TEXT
+            const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
+
+            selectEventWithProgramDimensions({
+                ...trackerProgram,
+                dimensions: [dimensionName],
+            })
+
+            selectFixedPeriod({
+                label: periodLabel,
+                period: TEST_FIX_PE_DEC_LAST_YEAR,
+            })
+
+            clickMenubarUpdateButton()
+
+            // TODO extract into a helper function?
+            cy.getBySel('menubar').contains('File').click()
+
+            cy.getBySel('file-menu-container').contains('Save').click()
+
+            const AO_NAME = `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
+            typeInput('file-menu-saveas-modal-name', AO_NAME)
+
+            cy.getBySel('file-menu-saveas-modal-save').click()
+
+            // Toggle to `true` to prevent re-creation
+            created = true
+        }
+    })
+
+    it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
         expectInterpretationsButtonToBeEnabled()
 
         clickMenubarInterpretationsButton()
@@ -41,7 +89,7 @@ describe('interpretations', () => {
 
     it('a new interpretation can be added', () => {
         // the rich text editor shows when clicking the input
-        cy.getBySel('interpretation-form')
+        cy.getBySel('interpretation-form', EXTENDED_TIMEOUT)
             .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
             .click()
 
@@ -79,7 +127,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be edited', () => {
-        cy.getBySel('interpretation-edit-button').click()
+        cy.getBySel('interpretation-edit-button', EXTENDED_TIMEOUT).click()
 
         cy.getBySel('interpretations-list').contains('Update')
         cy.getBySel('interpretations-list').contains(TEST_CANCEL_LABEL)
@@ -97,7 +145,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be viewed in the modal and interacted with', () => {
-        cy.getBySel('interpretations-list')
+        cy.getBySel('interpretations-list', EXTENDED_TIMEOUT)
             .contains('See interpretation')
             .click()
         cy.getBySel('interpretation-modal').contains('Viewing interpretation:')
@@ -141,7 +189,7 @@ describe('interpretations', () => {
     })
 
     it('the new interpretation can be deleted', () => {
-        cy.getBySel('interpretation-delete-button').click()
+        cy.getBySel('interpretation-delete-button', EXTENDED_TIMEOUT).click()
 
         expectInterpretationFormToBeVisible()
 
@@ -149,5 +197,13 @@ describe('interpretations', () => {
             'not.contain',
             TEST_INTERPRETATION_TEXT_EDITED
         )
+    })
+
+    after(() => {
+        cy.getBySel('menubar').contains('File').click()
+
+        cy.getBySel('file-menu-container').contains('Delete').click()
+
+        cy.getBySel('file-menu-delete-modal-delete').contains('Delete').click()
     })
 })

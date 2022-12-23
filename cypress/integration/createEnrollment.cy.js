@@ -6,7 +6,7 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
@@ -17,6 +17,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -24,13 +25,15 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const enrollment = ANALYTICS_PROGRAM
+const enrollment = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
-const setUpTable = () => {
+const setUpTable = ({ scheduleDateIsSupported } = {}) => {
     // switch to Enrollment to toggle the enabled/disabled time dimensions
-    cy.getBySel('main-sidebar').contains('Input: Event').click()
+    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+        .contains('Input: Event')
+        .click()
     cy.getBySel('input-enrollment').click()
     cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
 
@@ -41,8 +44,10 @@ const setUpTable = () => {
     dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-    dimensionIsDisabled('dimension-item-scheduledDate')
-    cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+    if (scheduleDateIsSupported) {
+        dimensionIsDisabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
+    }
 
     dimensionIsDisabled('dimension-item-incidentDate')
     cy.getBySel('dimension-item-incidentDate').contains('Incident date')
@@ -68,10 +73,12 @@ const setUpTable = () => {
         enrollment[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    dimensionIsDisabled('dimension-item-scheduledDate')
-    cy.getBySel('dimension-item-scheduledDate').contains(
-        enrollment[DIMENSION_ID_SCHEDULED_DATE]
-    )
+    if (scheduleDateIsSupported) {
+        dimensionIsDisabled('dimension-item-scheduledDate')
+        cy.getBySel('dimension-item-scheduledDate').contains(
+            enrollment[DIMENSION_ID_SCHEDULED_DATE]
+        )
+    }
 
     dimensionIsEnabled('dimension-item-incidentDate')
     cy.getBySel('dimension-item-incidentDate').contains(
@@ -92,11 +99,7 @@ const setUpTable = () => {
     cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
 }
 
-describe('enrollment', () => {
-    beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
-        setUpTable()
-    })
+const runTests = () => {
     it('creates an enrollment line list', () => {
         // check the number of columns
         getTableHeaderCells().its('length').should('equal', 3)
@@ -163,4 +166,20 @@ describe('enrollment', () => {
             .contains(`${periodLabel}: 1 selected`)
             .should('be.visible')
     })
+}
+
+describe(['>=39'], 'enrollment', () => {
+    beforeEach(() => {
+        goToStartPage()
+        setUpTable({ scheduleDateIsSupported: true })
+    })
+    runTests()
+})
+
+describe(['<39'], 'enrollment', () => {
+    beforeEach(() => {
+        goToStartPage()
+        setUpTable()
+    })
+    runTests()
 })
