@@ -3,6 +3,7 @@ import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
 import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible, getTableRows } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
@@ -11,7 +12,7 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 describe('new', () => {
     it('creates a new line list', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         cy.getBySelLike('layout-chip', EXTENDED_TIMEOUT).contains(
             `Organisation unit: 1 selected`
