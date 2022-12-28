@@ -3,8 +3,8 @@ import { CHILD_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
 import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const openContextMenu = (id) =>
     cy
@@ -18,7 +18,7 @@ describe('layout validation', () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         clickMenubarUpdateButton()
 

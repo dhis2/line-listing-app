@@ -17,6 +17,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -169,7 +170,7 @@ const runTests = () => {
 
 describe(['>=39'], 'enrollment', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable({ scheduleDateIsSupported: true })
     })
     runTests()
@@ -177,7 +178,7 @@ describe(['>=39'], 'enrollment', () => {
 
 describe(['<39'], 'enrollment', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable()
     })
     runTests()
