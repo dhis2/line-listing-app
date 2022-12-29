@@ -16,9 +16,9 @@ import {
     TEST_DIM_NUMBER,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_DIM_YESNO,
     TEST_DIM_YESONLY,
     TEST_DIM_DATE,
@@ -28,6 +28,8 @@ import {
     TEST_DIM_ORG_UNIT,
     TEST_DIM_COORDINATE,
     TEST_DIM_LEGEND_SET,
+    TEST_DIM_NUMBER_OPTIONSET,
+    TEST_DIM_TEXT_OPTIONSET,
 } from '../data/index.js'
 import {
     selectEventWithProgram,
@@ -72,16 +74,16 @@ const programDimensions = [
     { label: TEST_DIM_EMAIL, value: 'email@address.com' },
     { label: TEST_DIM_INTEGER, value: '10' },
     { label: TEST_DIM_LONG_TEXT, value: 'Long text A' },
-    { label: TEST_DIM_NEGATIVE_INTEGER, value: '-10' },
+    { label: TEST_DIM_INTEGER_NEGATIVE, value: '-10' },
     { label: TEST_DIM_NUMBER, value: '10' },
     { label: TEST_DIM_LEGEND_SET, value: '10' },
     { label: TEST_DIM_ORG_UNIT, value: 'Ngelehun CHC' },
     { label: TEST_DIM_PERCENTAGE, value: '10' },
     { label: TEST_DIM_PHONE_NUMBER, value: '10111213' },
-    { label: TEST_DIM_POSITIVE_INTEGER, value: '10' },
-    { label: TEST_DIM_POSITIVE_OR_ZERO, value: '0' },
+    { label: TEST_DIM_INTEGER_POSITIVE, value: '10' },
+    { label: TEST_DIM_INTEGER_ZERO_OR_POSITIVE, value: '0' },
     { label: TEST_DIM_TEXT, value: 'Text A' },
-    { label: 'E2E - Text (option set)', value: 'COVID 19 - AstraZeneca' },
+    { label: TEST_DIM_TEXT_OPTIONSET, value: 'COVID 19 - AstraZeneca' },
     { label: TEST_DIM_TIME, value: '14:01' },
     { label: TEST_DIM_URL, value: 'https://debug.dhis2.org/tracker_dev/' },
     { label: TEST_DIM_USERNAME, value: 'admin' },
@@ -228,7 +230,7 @@ describe(['>=39', '<40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
-            label: 'E2E - Number (option set)',
+            label: TEST_DIM_NUMBER_OPTIONSET,
             value: '1',
         })
         assertColumnHeaders()
@@ -248,7 +250,7 @@ describe(['>=40'], 'table', () => {
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({
-            label: 'E2E - Number (option set)',
+            label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
         assertColumnHeaders()

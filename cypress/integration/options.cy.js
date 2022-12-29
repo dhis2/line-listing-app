@@ -23,7 +23,7 @@ describe('options', () => {
         // assert the default density of table cell
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '8px 2px 6px 6px')
+            .should('equal', '8px 6px 6px')
 
         // set to comfortable density
         clickMenubarOptionsButton()
@@ -36,7 +36,7 @@ describe('options', () => {
         // assert comfortable density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '10px 4px 8px 8px')
+            .should('equal', '10px 8px 8px')
 
         // set to compact density
         clickMenubarOptionsButton()
@@ -49,7 +49,7 @@ describe('options', () => {
         // assert compact density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '6px 2px 4px 6px')
+            .should('equal', '6px 6px 4px')
     })
 
     it('sets font size', () => {

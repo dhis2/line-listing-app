@@ -5,9 +5,9 @@ import {
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_REL_PE_THIS_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_DIM_WITH_PRESET,
@@ -232,7 +232,7 @@ describe('number conditions', () => {
 })
 
 describe('integer', () => {
-    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
+    const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
         goToStartPage()
@@ -386,9 +386,9 @@ describe('numeric types', () => {
         TEST_DIM_UNIT_INTERVAL,
         TEST_DIM_PERCENTAGE,
         TEST_DIM_INTEGER,
-        TEST_DIM_POSITIVE_INTEGER,
-        TEST_DIM_NEGATIVE_INTEGER,
-        TEST_DIM_POSITIVE_OR_ZERO,
+        TEST_DIM_INTEGER_POSITIVE,
+        TEST_DIM_INTEGER_NEGATIVE,
+        TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     ]
 
     TEST_TYPES.forEach((type) => {
