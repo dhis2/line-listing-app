@@ -103,10 +103,10 @@
     line-height: 12px;
 }
 .dataTable .cell.sizeComfortable {
-    padding: 10px 8px 8px 8px;
+    padding: 10px 8px 8px;
 }
 .dataTable .cell.sizeNormal {
-    padding: 8px 6px 6px 6px;
+    padding: 8px 6px 6px;
 }
 .dataTable .cell.sizeCompact {
     padding: 6px 6px 4px 6px;
