@@ -23,10 +23,14 @@ import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { getTableDataCells } from '../helpers/table.js'
 
+const shouldHaveWhiteSpace = (index, value) =>
+    getTableDataCells()
+        .eq(index)
+        .invoke('css', 'white-space')
+        .should('equal', value)
+
 describe('value', () => {
     it('has the correct white-space css', () => {
-        goToStartPage()
-
         const programDimensionsWithWrap = [
             TEST_DIM_TEXT,
             TEST_DIM_TEXT_OPTIONSET,
@@ -50,6 +54,8 @@ describe('value', () => {
             ...programDimensionsWithoutWrap,
         ]
 
+        goToStartPage()
+
         selectEventWithProgramDimensions({
             programName: E2E_PROGRAM.programName,
             dimensions: programDimensions,
@@ -61,12 +67,6 @@ describe('value', () => {
         })
 
         clickMenubarUpdateButton()
-
-        const shouldHaveWhiteSpace = (index, value) =>
-            getTableDataCells()
-                .eq(index)
-                .invoke('css', 'white-space')
-                .should('equal', value)
 
         const dimensions = [
             'Organisation unit name',
