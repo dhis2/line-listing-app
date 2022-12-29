@@ -62,7 +62,6 @@ describe('value', () => {
                 .invoke('css', 'white-space')
                 .should('equal', value)
 
-        console.log(getTableDataCells().all())
         ;[0, 1, 2, 3].forEach((index) => shouldHaveWhiteSpace(index, 'normal'))
         ;[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].forEach((index) =>
             shouldHaveWhiteSpace(index, 'nowrap')
