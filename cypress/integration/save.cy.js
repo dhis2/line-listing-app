@@ -54,18 +54,22 @@ describe('save', () => {
 
     it('new AO without name saves correctly', () => {
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
-        const EXPECTED_AO_NAME = 'Untitled Line list visualization, 29 Dec 2022'
+        const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list visualization'
+        const EXPECTED_AO_NAME_PART_2 = '29 Dec' // locally the date is "29 Dec 2022" but on CI it's "29 Dec, 2022" with a comma, so it's split into two parts to cater for both cases
         const UPDATED_AO_NAME = `TEST ${new Date().toLocaleString()}`
         setupTable()
 
         // save without a name
         saveVisualization()
-        expectAOTitleToContain(EXPECTED_AO_NAME)
+        expectAOTitleToContain(EXPECTED_AO_NAME_PART_1)
+        expectAOTitleToContain(EXPECTED_AO_NAME_PART_2)
         expectTableToBeVisible()
 
         // save as without name change
         saveVisualizationAs()
-        expectAOTitleToContain(EXPECTED_AO_NAME + ' (copy)')
+        expectAOTitleToContain(EXPECTED_AO_NAME_PART_1)
+        expectAOTitleToContain(EXPECTED_AO_NAME_PART_2)
+        expectAOTitleToContain('(copy)')
         expectTableToBeVisible()
 
         // save as with name change
