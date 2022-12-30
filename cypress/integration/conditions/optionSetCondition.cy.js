@@ -1,5 +1,10 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
-import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../../data/index.js'
+import {
+    E2E_PROGRAM,
+    TEST_DIM_NUMBER_OPTIONSET,
+    TEST_DIM_TEXT_OPTIONSET,
+    TEST_REL_PE_LAST_YEAR,
+} from '../../data/index.js'
 import {
     openDimension,
     selectEventWithProgram,
@@ -31,7 +36,7 @@ const assertNumericOptionSet = ({
     tableFilteredOutOptionName,
     selectorFilteredOptionName,
 }) => {
-    const dimensionName = 'E2E - Number (option set)'
+    const dimensionName = TEST_DIM_NUMBER_OPTIONSET
 
     goToStartPage()
 
@@ -108,7 +113,7 @@ describe('Option set condition', () => {
     })
 
     it('Option set (text) displays correctly', () => {
-        const dimensionName = 'E2E - Text (option set)'
+        const dimensionName = TEST_DIM_TEXT_OPTIONSET
         const filteredOutOptionName = 'COVID 19 - Moderna'
         const filteredOptionName = 'COVID 19 - AstraZeneca'
 

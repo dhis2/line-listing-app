@@ -3,6 +3,17 @@ import {
     LegendKey,
     LEGEND_DISPLAY_STYLE_FILL,
     LEGEND_DISPLAY_STYLE_TEXT,
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_PHONE_NUMBER,
     VALUE_TYPE_URL,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
@@ -165,6 +176,21 @@ export const Visualization = ({
         }
     }
 
+    const cellValueShouldNotWrap = (header) =>
+        [
+            VALUE_TYPE_NUMBER,
+            VALUE_TYPE_INTEGER,
+            VALUE_TYPE_INTEGER_POSITIVE,
+            VALUE_TYPE_INTEGER_NEGATIVE,
+            VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+            VALUE_TYPE_PERCENTAGE,
+            VALUE_TYPE_UNIT_INTERVAL,
+            VALUE_TYPE_TIME,
+            VALUE_TYPE_DATE,
+            VALUE_TYPE_DATETIME,
+            VALUE_TYPE_PHONE_NUMBER,
+        ].includes(header.valueType) && !header.optionSet
+
     const formatCellHeader = (header) => {
         const headerText = getHeaderText(header)
 
@@ -267,6 +293,10 @@ export const Visualization = ({
                                             sizeClass,
                                             {
                                                 [styles.emptyCell]: !value,
+                                                [styles.nowrap]:
+                                                    cellValueShouldNotWrap(
+                                                        data.headers[index]
+                                                    ),
                                             },
                                             'bordered'
                                         )}
