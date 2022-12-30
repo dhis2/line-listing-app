@@ -17,7 +17,10 @@ import {
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, unselectAllPeriods } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { expectTableToBeVisible } from '../helpers/table.js'
+import {
+    expectAOTitleToContain,
+    expectTableToBeVisible,
+} from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const defaultItemsMap = {
@@ -127,9 +130,11 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization(
-            `TEST ${new Date().toLocaleString()} - "saved, valid: save" state`
-        )
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: save" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         assertDownloadIsDisabled()
 
@@ -158,9 +163,11 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization(
-            `TEST ${new Date().toLocaleString()} - "saved, valid: data" state`
-        )
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: data" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         assertDownloadIsEnabled()
 
@@ -173,6 +180,7 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
+        closeFileMenu()
         deleteVisualization()
         assertFileMenuItems()
     })
@@ -192,13 +200,16 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization(`TEST ${new Date().toLocaleString()} - "dirty" state`)
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "dirty" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
 
         cy.getBySel('visualization-title').contains('Edited')
-
         assertDownloadIsEnabled()
 
         assertFileMenuItems({
@@ -247,6 +258,7 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
+        closeFileMenu()
         deleteVisualization()
         assertFileMenuItems()
     })
