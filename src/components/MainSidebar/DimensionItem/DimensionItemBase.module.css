@@ -3,7 +3,8 @@
     color: var(--colors-grey900);
     fill: var(--colors-grey800);
     display: flex;
-    padding: 2px var(--spacers-dp8);
+    justify-content: space-between;
+    padding: 2px var(--spacers-dp4) 2px var(--spacers-dp8);
     margin: 0;
     border-radius: 3px;
     cursor: pointer;
