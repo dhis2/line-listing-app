@@ -4,8 +4,9 @@ import {
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
-import { clearTextarea, typeInput, typeTextarea } from '../helpers/common.js'
+import { clearTextarea, typeTextarea } from '../helpers/common.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import { deleteVisualization, saveVisualization } from '../helpers/fileMenu.js'
 import {
     expectInterpretationsButtonToBeEnabled,
     expectInterpretationFormToBeVisible,
@@ -52,15 +53,9 @@ describe('interpretations', () => {
 
             clickMenubarUpdateButton()
 
-            // TODO extract into a helper function?
-            cy.getBySel('menubar').contains('File').click()
-
-            cy.getBySel('file-menu-container').contains('Save').click()
-
-            const AO_NAME = `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
-            typeInput('file-menu-saveas-modal-name', AO_NAME)
-
-            cy.getBySel('file-menu-saveas-modal-save').click()
+            saveVisualization(
+                `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
+            )
 
             // Toggle to `true` to prevent re-creation
             created = true
@@ -200,10 +195,6 @@ describe('interpretations', () => {
     })
 
     after(() => {
-        cy.getBySel('menubar').contains('File').click()
-
-        cy.getBySel('file-menu-container').contains('Delete').click()
-
-        cy.getBySel('file-menu-delete-modal-delete').contains('Delete').click()
+        deleteVisualization()
     })
 })
