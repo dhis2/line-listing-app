@@ -82,11 +82,6 @@ export const TEST_REL_PE_LAST_YEAR = {
     name: 'Last year',
 }
 
-export const TEST_REL_PE_LAST_12_MONTHS = {
-    //type: 'Months',
-    name: 'Last 12 months',
-}
-
 export const TEST_FIX_PE_DEC_LAST_YEAR = {
     //type: 'Monthly',
     year: `${getPreviousYearStr()}`,

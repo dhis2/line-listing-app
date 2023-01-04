@@ -1,5 +1,5 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { CHILD_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
+import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { selectEventWithProgram } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
@@ -72,7 +72,7 @@ describe('layout validation', () => {
         // add a time dimension to columns
         selectRelativePeriod({
             label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_12_MONTHS,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()
