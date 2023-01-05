@@ -21,12 +21,15 @@ import {
 } from '../helpers/table.js'
 
 const trackerProgram = E2E_PROGRAM
+
+// Note: The rowsLengths needs to be updated when events are changed or added to the database
 const timeDimensions = [
     { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
-    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
-    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 12 },
-    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 11 },
+    { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 13 },
+    { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 13 },
+    { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 12 },
 ]
+const scheduleDateDimension = { id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 }
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
@@ -70,11 +73,9 @@ describe(['>=39'], 'time dimensions', () => {
         goToStartPage()
     })
 
-    timeDimensions
-        .concat([{ id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 6 }])
-        .forEach((dimension) => {
-            assertTimeDimension(dimension)
-        })
+    timeDimensions.concat([scheduleDateDimension]).forEach((dimension) => {
+        assertTimeDimension(dimension)
+    })
 
     it('scheduled date disabled state is set based on stage setting ', () => {
         const scheduleDateHasTooltip = (tooltip) => {
