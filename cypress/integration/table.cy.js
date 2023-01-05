@@ -75,7 +75,7 @@ const mainAndTimeDimensions = [
     },
     {
         label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
-        value: `${currentYear}-01-04 02:04`,
+        value: '2023-01-04 02:04',
     },
 ]
 const programDimensions = [
