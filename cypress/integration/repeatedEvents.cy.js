@@ -214,7 +214,7 @@ describe('repeated events', () => {
         goToAO('WrIV7ZoYECj')
 
         cy.getBySel('visualization-title').contains(
-            'E2E: Enrollment - Last 12 months - Hemoglobin (repeated)'
+            'E2E: Enrollment - Hemoglobin (repeated)'
         )
 
         cy.getBySel('columns-axis').contains('WHOMCH Hemoglobin value').click()
