@@ -102,7 +102,7 @@ describe(['>=39'], 'time dimensions', () => {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
         cy.containsExact('Birth').click()
 
-        // schedule date is enabled when a stage that doesn't hide it is selected
+        // scheduled date is enabled when a stage that doesn't hide it is selected
         dimensionIsEnabled('dimension-item-scheduledDate')
 
         // incident date is still enabled, stage is not relevant
@@ -125,7 +125,7 @@ describe(['>=39'], 'time dimensions', () => {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
         cy.containsExact('Case outcome').click()
 
-        // schedule date is disabled when a stage that hides it is selected
+        // scheduled date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
         dimensionIsDisabled('dimension-item-incidentDate')
         scheduledDateHasTooltip('Disabled by the selected program stage')

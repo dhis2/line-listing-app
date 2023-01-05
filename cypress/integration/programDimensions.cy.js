@@ -28,7 +28,7 @@ Test data used:
         Incident date: disabled
 
 Note that scheduled date can be toggled per program stage, but thus requires a stage to be selected before being enabled.
-I.e. Schedule date works like this:
+I.e. Scheduled date works like this:
     no stage: disabled
     stage without scheduled date: disabled
     stage with scheduled date: enabled
