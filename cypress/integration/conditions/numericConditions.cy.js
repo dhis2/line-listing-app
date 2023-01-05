@@ -5,9 +5,9 @@ import {
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_REL_PE_THIS_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_DIM_WITH_PRESET,
@@ -26,6 +26,7 @@ import {
     getPreviousYearStr,
     selectRelativePeriod,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
@@ -33,7 +34,6 @@ import {
     getTableDataCells,
     getTableRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const previousYear = getPreviousYearStr()
 
@@ -75,7 +75,7 @@ describe('number conditions', () => {
     const dimensionName = TEST_DIM_NUMBER
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_THIS_YEAR)
     })
 
@@ -232,10 +232,10 @@ describe('number conditions', () => {
 })
 
 describe('integer', () => {
-    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
+    const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_LAST_YEAR)
     })
 
@@ -304,7 +304,7 @@ describe('preset options', () => {
     }
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
         openDimension(dimensionName)
@@ -386,14 +386,14 @@ describe('numeric types', () => {
         TEST_DIM_UNIT_INTERVAL,
         TEST_DIM_PERCENTAGE,
         TEST_DIM_INTEGER,
-        TEST_DIM_POSITIVE_INTEGER,
-        TEST_DIM_NEGATIVE_INTEGER,
-        TEST_DIM_POSITIVE_OR_ZERO,
+        TEST_DIM_INTEGER_POSITIVE,
+        TEST_DIM_INTEGER_NEGATIVE,
+        TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     ]
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)

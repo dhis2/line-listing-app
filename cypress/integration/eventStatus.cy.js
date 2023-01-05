@@ -10,19 +10,19 @@ import {
 } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, getCurrentYearStr } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableHeaderCells,
     expectTableToBeVisible,
     expectTableToMatchRows,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('event status', () => {
     const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
     const setUpTable = (periodLabel) => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         selectEventWithProgram(event)
 

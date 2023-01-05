@@ -15,8 +15,8 @@ import {
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import { selectRelativePeriod } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
@@ -37,7 +37,7 @@ const setUpTable = () => {
 
 describe('unsupported types', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable()
     })
 
@@ -48,7 +48,7 @@ describe('unsupported types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type.name} displays correctly`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
 
