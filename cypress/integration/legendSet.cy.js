@@ -363,8 +363,8 @@ describe(['>=39'], 'Options - Legend', () => {
             },
         })
 
-        getTableRows()
-            .eq(1)
+        getTableRows() // the first row should be empty and not have the legend background color
+            .eq(0)
             .find('td')
             .eq(2)
             .should('have.css', 'background-color', defaultBackgroundColor)
@@ -372,8 +372,8 @@ describe(['>=39'], 'Options - Legend', () => {
             .invoke('trim')
             .should('equal', '')
 
-        getTableRows()
-            .eq(2)
+        getTableRows() // the second row should not be empty and have the legend background color
+            .eq(1)
             .find('td')
             .eq(2)
             .should('not.have.css', 'background-color', defaultBackgroundColor)
