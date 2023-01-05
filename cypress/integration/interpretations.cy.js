@@ -4,8 +4,9 @@ import {
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
-import { clearTextarea, typeInput, typeTextarea } from '../helpers/common.js'
+import { clearTextarea, typeTextarea } from '../helpers/common.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import { deleteVisualization, saveVisualization } from '../helpers/fileMenu.js'
 import {
     expectInterpretationsButtonToBeEnabled,
     expectInterpretationFormToBeVisible,
@@ -16,6 +17,7 @@ import {
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const TEST_CANCEL_LABEL = 'Cancel'
@@ -32,7 +34,7 @@ describe('interpretations', () => {
     // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
     beforeEach(() => {
         if (!created) {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
             cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
 
             const trackerProgram = E2E_PROGRAM
@@ -51,15 +53,9 @@ describe('interpretations', () => {
 
             clickMenubarUpdateButton()
 
-            // TODO extract into a helper function?
-            cy.getBySel('menubar').contains('File').click()
-
-            cy.getBySel('file-menu-container').contains('Save').click()
-
-            const AO_NAME = `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
-            typeInput('file-menu-saveas-modal-name', AO_NAME)
-
-            cy.getBySel('file-menu-saveas-modal-save').click()
+            saveVisualization(
+                `INTERPRETATIONS TEST ${new Date().toLocaleString()}`
+            )
 
             // Toggle to `true` to prevent re-creation
             created = true
@@ -199,10 +195,6 @@ describe('interpretations', () => {
     })
 
     after(() => {
-        cy.getBySel('menubar').contains('File').click()
-
-        cy.getBySel('file-menu-container').contains('Delete').click()
-
-        cy.getBySel('file-menu-delete-modal-delete').contains('Delete').click()
+        deleteVisualization()
     })
 })
