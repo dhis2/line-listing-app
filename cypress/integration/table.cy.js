@@ -36,7 +36,11 @@ import {
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectFixedPeriod, getPreviousYearStr } from '../helpers/period.js'
+import {
+    selectFixedPeriod,
+    getPreviousYearStr,
+    getCurrentYearStr,
+} from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
@@ -48,6 +52,8 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const trackerProgram = E2E_PROGRAM
 const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
+const currentYear = getCurrentYearStr()
+const previousYear = getPreviousYearStr()
 
 const mainAndTimeDimensions = [
     { label: 'Organisation unit', value: 'Baoma Station CHP' },
@@ -55,22 +61,28 @@ const mainAndTimeDimensions = [
     { label: 'Program status', value: 'Active' },
     { label: 'Created by', value: 'Traore, John (admin)' },
     { label: 'Last updated by', value: 'Traore, John (admin)' },
-    { label: trackerProgram[DIMENSION_ID_EVENT_DATE], value: '2021-12-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_EVENT_DATE],
+        value: `${previousYear}-12-10`,
+    },
     {
         label: trackerProgram[DIMENSION_ID_ENROLLMENT_DATE],
-        value: '2022-01-18',
+        value: `${currentYear}-01-18`,
     },
-    { label: trackerProgram[DIMENSION_ID_INCIDENT_DATE], value: '2022-01-10' },
+    {
+        label: trackerProgram[DIMENSION_ID_INCIDENT_DATE],
+        value: `${currentYear}-01-10`,
+    },
     {
         label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
-        value: '2022-11-18 03:19',
+        value: '2023-01-04 02:04',
     },
 ]
 const programDimensions = [
-    { label: TEST_DIM_AGE, value: '2021-01-01' },
+    { label: TEST_DIM_AGE, value: '1991-01-01' },
     { label: TEST_DIM_COORDINATE, value: '[-0.090380,51.538034]' },
-    { label: TEST_DIM_DATE, value: '2021-12-01' },
-    { label: TEST_DIM_DATETIME, value: '2021-12-01 12:00' },
+    { label: TEST_DIM_DATE, value: '1991-12-01' },
+    { label: TEST_DIM_DATETIME, value: '1991-12-01 12:00' },
     { label: TEST_DIM_EMAIL, value: 'email@address.com' },
     { label: TEST_DIM_INTEGER, value: '10' },
     { label: TEST_DIM_LONG_TEXT, value: 'Long text A' },
@@ -246,7 +258,7 @@ describe(['>=40'], 'table', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
-            value: '2021-12-10',
+            value: `${previousYear}-12-10`,
         })
         // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
         programDimensions.push({

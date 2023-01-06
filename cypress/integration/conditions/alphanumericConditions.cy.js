@@ -20,7 +20,10 @@ import {
     assertTooltipContainsEntries,
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
-import { selectRelativePeriod } from '../../helpers/period.js'
+import {
+    getCurrentYearStr,
+    selectRelativePeriod,
+} from '../../helpers/period.js'
 import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
@@ -32,6 +35,7 @@ const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
+const currentYear = getCurrentYearStr()
 
 const setUpTable = () => {
     selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
@@ -102,8 +106,8 @@ describe('text conditions', () => {
             LONG_TEXT,
             '9000000',
             'Text A-2',
-            '2022-03-01',
-            '2022-02-01',
+            `${currentYear}-03-01`, // empty row, use value in date column
+            `${currentYear}-02-01`, // empty row, use value in date column
             'Text E',
         ])
 
@@ -157,7 +161,11 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['2022-03-01', '2022-02-01', '9000000'])
+        expectTableToMatchRows([
+            `${currentYear}-03-01`, // empty row, use value in date column
+            `${currentYear}-02-01`, // empty row, use value in date column
+            '9000000',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -174,7 +182,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['2022-03-01', '2022-02-01'])
+        expectTableToMatchRows([`${currentYear}-03-01`, `${currentYear}-02-01`]) // empty row, use value in date column
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 

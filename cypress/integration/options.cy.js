@@ -1,20 +1,21 @@
-import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
     TEST_AO,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
-    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
-import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import { getCurrentYearStr, selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { getTableDataCells, getTableRows } from '../helpers/table.js'
+
+const currentYear = getCurrentYearStr()
 
 describe('options', () => {
     it('sets display density', () => {
@@ -96,14 +97,17 @@ describe('options', () => {
         goToStartPage()
 
         // set up table
-        selectEnrollmentProgramDimensions({
+        selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [TEST_DIM_PHONE_NUMBER, TEST_DIM_INTEGER],
         })
 
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
+        selectFixedPeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: {
+                year: currentYear,
+                name: `April ${currentYear}`,
+            },
         })
 
         clickMenubarUpdateButton()
