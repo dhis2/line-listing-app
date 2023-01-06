@@ -4,8 +4,8 @@ import {
     TEST_DIM_DATETIME,
     TEST_DIM_DATE,
     TEST_DIM_TIME,
-    TEST_REL_PE_LAST_12_MONTHS,
     TEST_REL_PE_THIS_YEAR,
+    TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../../data/index.js'
 import {
     openDimension,
@@ -20,7 +20,6 @@ import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     selectRelativePeriod,
     getPreviousYearStr,
-    getCurrentYearStr,
     unselectAllPeriods,
     selectFixedPeriod,
 } from '../../helpers/period.js'
@@ -31,7 +30,6 @@ import {
     expectTableToMatchRows,
 } from '../../helpers/table.js'
 
-const currentYear = getCurrentYearStr()
 const previousYear = getPreviousYearStr()
 
 const trackerProgram = E2E_PROGRAM
@@ -45,9 +43,9 @@ const setUpTable = () => {
         dimensions: [dimensionName],
     })
 
-    selectRelativePeriod({
+    selectFixedPeriod({
         label: periodLabel,
-        period: TEST_REL_PE_LAST_12_MONTHS,
+        period: TEST_FIX_PE_DEC_LAST_YEAR,
     })
 
     clickMenubarUpdateButton()
@@ -77,7 +75,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('exactly', () => {
-        const TEST_DATE = `${previousYear}-12-01`
+        const TEST_DATE = '1991-05-21'
 
         addConditions([
             {
@@ -94,25 +92,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('is not', () => {
-        unselectAllPeriods({
-            label: periodLabel,
-        })
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                year: currentYear,
-                name: `January ${currentYear}`,
-            },
-        })
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                year: currentYear,
-                name: `February ${currentYear}`,
-            },
-        })
-
-        const TEST_DATE = `${currentYear}-01-02`
+        const TEST_DATE = '1991-05-20'
 
         addConditions([
             {
@@ -121,7 +101,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-02-01`])
+        expectTableToMatchRows(['1991-05-21', '1991-12-01', '1991-12-02'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -129,7 +109,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('after', () => {
-        const TEST_DATE = `${previousYear}-12-02`
+        const TEST_DATE = '1991-05-21'
 
         addConditions([
             {
@@ -138,7 +118,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-01-03`])
+        expectTableToMatchRows(['1991-12-01', '1991-12-02'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -146,7 +126,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('after or including', () => {
-        const TEST_DATE = `${previousYear}-12-02`
+        const TEST_DATE = '1991-05-21'
 
         addConditions([
             {
@@ -155,11 +135,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${previousYear}-12-11`,
-            `${currentYear}-01-01`,
-            `${currentYear}-01-03`,
-        ])
+        expectTableToMatchRows(['1991-05-21', '1991-12-01', '1991-12-02'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -170,7 +146,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('before', () => {
-        const TEST_DATE = `${previousYear}-12-02`
+        const TEST_DATE = '1991-12-02'
 
         addConditions([
             {
@@ -179,14 +155,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${previousYear}-12-10`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-23`,
-            `${currentYear}-04-19`,
-            `${currentYear}-02-01`,
-            `${currentYear}-03-01`,
-        ])
+        expectTableToMatchRows(['1991-05-20', '1991-05-21', '1991-12-01'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -194,7 +163,7 @@ describe('date conditions (Date)', () => {
     })
 
     it('before or including', () => {
-        const TEST_DATE = `${previousYear}-12-02`
+        const TEST_DATE = '1991-05-21'
 
         addConditions([
             {
@@ -203,15 +172,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([
-            `${previousYear}-12-11`,
-            `${previousYear}-12-10`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-23`,
-            `${currentYear}-04-19`,
-            `${currentYear}-02-01`,
-            `${currentYear}-03-01`,
-        ])
+        expectTableToMatchRows(['1991-05-20', '1991-05-21'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -222,13 +183,24 @@ describe('date conditions (Date)', () => {
     })
 
     it('is empty / null', () => {
+        unselectAllPeriods({ label: periodLabel })
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                type: 'Yearly',
+                year: previousYear,
+                name: previousYear,
+            },
+        })
+
         addConditions([
             {
                 conditionName: 'is empty / null',
             },
         ])
 
-        expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-03-01`])
+        expectTableToMatchRows([`${previousYear}-01-02`])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -236,6 +208,17 @@ describe('date conditions (Date)', () => {
     })
 
     it('is not empty / not null', () => {
+        unselectAllPeriods({ label: periodLabel })
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                type: 'Yearly',
+                year: previousYear,
+                name: previousYear,
+            },
+        })
+
         addConditions([
             {
                 conditionName: 'is not empty / not null',
@@ -243,15 +226,12 @@ describe('date conditions (Date)', () => {
         ])
 
         expectTableToMatchRows([
-            `${previousYear}-12-11`,
-            `${previousYear}-12-10`,
-            `${previousYear}-12-22`,
-            `${previousYear}-12-23`,
-            `${currentYear}-04-19`,
-            `${currentYear}-01-01`,
-            `${currentYear}-01-03`,
-            `${currentYear}-02-01`,
-            `${currentYear}-03-01`,
+            '1990-07-17',
+            '1990-11-12',
+            '1991-12-01',
+            '1991-12-02',
+            '1991-05-20',
+            '1991-05-21',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -260,8 +240,8 @@ describe('date conditions (Date)', () => {
     })
 
     it('2 conditions: after + before or including', () => {
-        const TEST_DATE_BFI = `${previousYear}-12-02`
-        const TEST_DATE_AFT = `${previousYear}-12-01`
+        const TEST_DATE_AFT = '1991-05-20'
+        const TEST_DATE_BFI = '1991-12-01'
 
         addConditions([
             {
@@ -274,7 +254,7 @@ describe('date conditions (Date)', () => {
             },
         ])
 
-        expectTableToMatchRows([`${previousYear}-12-11`])
+        expectTableToMatchRows(['1991-05-21', '1991-12-01'])
 
         assertChipContainsText(`${dimensionName}: 2 conditions`)
 

@@ -15,7 +15,7 @@ import {
     TEST_DIM_DATE,
     TEST_DIM_DATETIME,
     TEST_DIM_PHONE_NUMBER,
-    TEST_REL_PE_LAST_12_MONTHS,
+    TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -63,7 +63,7 @@ describe('value', () => {
 
         selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_12_MONTHS,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()

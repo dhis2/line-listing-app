@@ -24,6 +24,7 @@ import {
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     getPreviousYearStr,
+    getCurrentYearStr,
     selectRelativePeriod,
 } from '../../helpers/period.js'
 import { goToStartPage } from '../../helpers/startScreen.js'
@@ -36,6 +37,7 @@ import {
 } from '../../helpers/table.js'
 
 const previousYear = getPreviousYearStr()
+const currentYear = getCurrentYearStr()
 
 const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
@@ -163,7 +165,7 @@ describe('number conditions', () => {
         expectTableToMatchRows([
             '3.7',
             '11',
-            '2022-01-01', // the empty row
+            `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
             '5 557 779 990',
             '5 123 123',
