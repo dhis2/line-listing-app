@@ -86,7 +86,7 @@ describe(['>=39'], 'time dimensions', () => {
     })
 
     it('scheduled date disabled state is set based on stage setting ', () => {
-        const scheduleDateHasTooltip = (tooltip) => {
+        const scheduledDateHasTooltip = (tooltip) => {
             cy.getBySelLike('dimension-item-scheduledDate').trigger('mouseover')
             cy.getBySelLike('tooltip-content').contains(tooltip)
         }
@@ -94,7 +94,7 @@ describe(['>=39'], 'time dimensions', () => {
         // both are disabled by default
         dimensionIsDisabled('dimension-item-scheduledDate')
         dimensionIsDisabled('dimension-item-incidentDate')
-        scheduleDateHasTooltip('No program selected')
+        scheduledDateHasTooltip('No program selected')
 
         // select a program
         selectEventWithProgram({ programName: 'Child Programme' })
@@ -111,7 +111,7 @@ describe(['>=39'], 'time dimensions', () => {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
         cy.containsExact('Birth').click()
 
-        // schedule date is enabled when a stage that doesn't hide it is selected
+        // scheduled date is enabled when a stage that doesn't hide it is selected
         dimensionIsEnabled('dimension-item-scheduledDate')
 
         // incident date is still enabled, stage is not relevant
@@ -122,7 +122,7 @@ describe(['>=39'], 'time dimensions', () => {
         // both are disabled when the stage is cleared
         dimensionIsDisabled('dimension-item-scheduledDate')
         dimensionIsEnabled('dimension-item-incidentDate')
-        scheduleDateHasTooltip('No stage selected')
+        scheduledDateHasTooltip('No stage selected')
 
         // select a program with a stage that has hideDueDate = true
         cy.getBySel('program-clear-button').click()
@@ -134,10 +134,10 @@ describe(['>=39'], 'time dimensions', () => {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
         cy.containsExact('Case outcome').click()
 
-        // schedule date is disabled when a stage that hides it is selected
+        // scheduled date is disabled when a stage that hides it is selected
         dimensionIsDisabled('dimension-item-scheduledDate')
         dimensionIsDisabled('dimension-item-incidentDate')
-        scheduleDateHasTooltip('Disabled by the selected program stage')
+        scheduledDateHasTooltip('Disabled by the selected program stage')
     })
 })
 // TODO: add tests for disabling incidentDate per program, e.g. enabled for Analytics program, disabled for HIV Case Surveillance
