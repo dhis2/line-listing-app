@@ -1,9 +1,13 @@
+import { AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
+import {
+    acAddUiLayoutDimensions,
+    acSetUiOpenDimensionModal,
+} from '../../../actions/ui.js'
 import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
 import { DimensionItemBase } from './DimensionItemBase.js'
 
@@ -29,9 +33,42 @@ export const DimensionItem = ({
         },
     }
 
+    const preventSingleClick = useRef(false)
+    const singleClickTimer = useRef(null)
+    const delay = 300
+
     const onClick = disabled
         ? undefined
-        : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+        : () => {
+              singleClickTimer.current = setTimeout(() => {
+                  if (!preventSingleClick.current) {
+                      dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+                  }
+              }, delay)
+          }
+
+    const onDoubleClick = disabled
+        ? undefined
+        : () => {
+              clearTimeout(singleClickTimer.current)
+              preventSingleClick.current = true
+
+              !selected &&
+                  dispatch(
+                      acAddUiLayoutDimensions(
+                          {
+                              [id]: {
+                                  axisId: AXIS_ID_COLUMNS,
+                              },
+                          },
+                          dimensionMetadata
+                      )
+                  )
+
+              setTimeout(() => {
+                  preventSingleClick.current = false
+              }, delay)
+          }
 
     const {
         attributes,
@@ -69,6 +106,7 @@ export const DimensionItem = ({
                 selected={selected}
                 stageName={stageName}
                 onClick={onClick}
+                onDoubleClick={onDoubleClick}
                 dataTest={`dimension-item-${id}`}
                 contextMenu={
                     !disabled && (

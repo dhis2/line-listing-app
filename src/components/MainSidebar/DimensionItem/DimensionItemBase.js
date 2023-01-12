@@ -15,6 +15,7 @@ const DimensionItemBase = ({
     stageName,
     contextMenu,
     onClick,
+    onDoubleClick,
     dataTest,
 }) => (
     <div
@@ -24,6 +25,7 @@ const DimensionItemBase = ({
             [styles.dragging]: dragging,
         })}
         onClick={onClick}
+        onDoubleClick={onDoubleClick}
         data-test={dataTest}
     >
         <div className={styles.iconAndLabelWrapper}>
@@ -53,6 +55,7 @@ DimensionItemBase.propTypes = {
     selected: PropTypes.bool,
     stageName: PropTypes.string,
     onClick: PropTypes.func,
+    onDoubleClick: PropTypes.func,
 }
 
 export { DimensionItemBase }
