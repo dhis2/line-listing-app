@@ -1,10 +1,17 @@
+import { IconAdd16, IconCross16 } from '@dhis2/ui'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
-import DimensionMenu from '../../DimensionMenu/DimensionMenu.js'
+import {
+    acAddUiLayoutDimensions,
+    acRemoveUiLayoutDimensions,
+    acSetUiOpenDimensionModal,
+} from '../../../actions/ui.js'
+import IconButton from '../../IconButton/IconButton.js'
+import styles from './DimensionItem.module.css'
 import { DimensionItemBase } from './DimensionItemBase.js'
 
 export const DimensionItem = ({
@@ -72,15 +79,46 @@ export const DimensionItem = ({
                 dataTest={`dimension-item-${id}`}
                 contextMenu={
                     !disabled && (
-                        <DimensionMenu
-                            dimensionId={id}
-                            dimensionMetadata={dimensionMetadata}
+                        // <DimensionMenu
+                        //     dimensionId={id}
+                        //     dimensionMetadata={dimensionMetadata}
+                        // />
+
+                        <AddButton
+                            icon={selected ? <IconCross16 /> : <IconAdd16 />}
+                            onClick={(e) => {
+                                e && e.stopPropagation()
+
+                                if (!selected) {
+                                    dispatch(
+                                        acAddUiLayoutDimensions(
+                                            { [id]: { axisId: 'columns' } },
+                                            dimensionMetadata
+                                        )
+                                    )
+                                } else {
+                                    dispatch(acRemoveUiLayoutDimensions(id))
+                                }
+                            }}
                         />
                     )
                 }
             />
         </div>
     )
+}
+
+const AddButton = ({ onClick, icon }) => {
+    return (
+        <div className={cx(styles.hidden)}>
+            <IconButton onClick={onClick}>{icon}</IconButton>
+        </div>
+    )
+}
+
+AddButton.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    icon: PropTypes.object,
 }
 
 DimensionItem.propTypes = {
