@@ -49,7 +49,10 @@ import {
 } from '../../modules/tableValues.js'
 import { headersMap } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
-import { useAnalyticsData } from './useAnalyticsData.js'
+import {
+    getAdaptedVisualization,
+    useAnalyticsData,
+} from './useAnalyticsData.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -104,6 +107,18 @@ export const Visualization = ({
             }),
         []
     )
+
+    const { headers } = getAdaptedVisualization(visualization)
+
+    if (headers && sortField) {
+        // reset sorting if current sortField has been removed from Columns DHIS2-13948
+        if (!headers.includes(sortField)) {
+            setSorting({
+                sortField: null,
+                sortDirection: DEFAULT_SORT_DIRECTION,
+            })
+        }
+    }
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
