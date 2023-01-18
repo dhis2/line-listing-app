@@ -1,9 +1,7 @@
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
-    DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
-    DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
