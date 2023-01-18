@@ -29,7 +29,13 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    useCallback,
+    useReducer,
+} from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -81,26 +87,22 @@ export const Visualization = ({
     onError,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
-    const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
-        {
+    const [{ sortField, sortDirection, pageSize, page }, setSorting] =
+        useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
             sortDirection: DEFAULT_SORT_DIRECTION,
             page: FIRST_PAGE,
             pageSize: PAGE_SIZE,
-        }
-    )
+        })
 
     const visualizationRef = useRef(visualization)
 
     const setPage = useCallback(
         (pageNum) =>
             setSorting({
-                sortField,
-                sortDirection,
-                pageSize,
                 page: pageNum,
             }),
-        [sortField, sortDirection, pageSize]
+        []
     )
 
     const { fetching, error, data } = useAnalyticsData({
@@ -159,14 +161,11 @@ export const Visualization = ({
         setSorting({
             sortField: name,
             sortDirection: direction,
-            pageSize,
             page: FIRST_PAGE,
         })
 
     const setPageSize = (pageSizeNum) =>
         setSorting({
-            sortField,
-            sortDirection,
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
