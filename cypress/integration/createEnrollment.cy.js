@@ -1,9 +1,7 @@
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
-    DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
-    DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
@@ -64,9 +62,7 @@ const setUpTable = ({ scheduledDateIsSupported } = {}) => {
     // check that the time dimensions disabled states and names are updated correctly
 
     dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains(
-        enrollment[DIMENSION_ID_EVENT_DATE]
-    )
+    cy.getBySel('dimension-item-eventDate').contains('Event date')
 
     dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains(
@@ -75,9 +71,7 @@ const setUpTable = ({ scheduledDateIsSupported } = {}) => {
 
     if (scheduledDateIsSupported) {
         dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            enrollment[DIMENSION_ID_SCHEDULED_DATE]
-        )
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
     }
 
     dimensionIsEnabled('dimension-item-incidentDate')
