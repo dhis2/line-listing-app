@@ -35,9 +35,14 @@ import {
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
-import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import {
+    clickMenubarOptionsButton,
+    clickMenubarUpdateButton,
+} from '../helpers/menubar.js'
+import { clickOptionsModalUpdateButton } from '../helpers/options.js'
 import {
     selectFixedPeriod,
+    selectRelativePeriod,
     getPreviousYearStr,
     getCurrentYearStr,
 } from '../helpers/period.js'
@@ -227,6 +232,104 @@ const assertDimensions = () => {
     }
 }
 
+const assertSorting = () => {
+    cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
+    cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as('getAnalyticsSortDesc')
+
+    // remove any DGS to allow numeric value comparison
+    clickMenubarOptionsButton()
+
+    cy.getBySel('dgs-select-content')
+        .findBySel('dhis2-uicore-select-input')
+        .click()
+    cy.contains('None').click()
+    clickOptionsModalUpdateButton()
+
+    selectEventWithProgramDimensions({
+        ...trackerProgram,
+        dimensions: [TEST_DIM_INTEGER],
+    })
+
+    // filter empty/null values on E2E - Integer dimension
+    // this helps with the value comparison when sorting
+    cy.getBySelLike('layout-chip').contains(TEST_DIM_INTEGER).click()
+    cy.getBySel('button-add-condition').click()
+    cy.contains('Choose a condition type').click()
+    cy.contains('is not empty / not null').click()
+    cy.getBySel('conditions-modal').contains('Update').click()
+
+    mainAndTimeDimensions
+        .filter((dimension) => dimension.label === 'Organisation unit')
+        .forEach(({ label }) => {
+            cy.getBySel('main-sidebar')
+                .contains(label)
+                .closest(`[data-test*="dimension-item"]`)
+                .findBySel('dimension-menu-button')
+                .invoke('attr', 'style', 'visibility: initial')
+                .click()
+
+            cy.containsExact('Add to Columns').click()
+        })
+
+    selectRelativePeriod({
+        label: periodLabel,
+        period: {
+            type: 'Years',
+            name: 'This year',
+        },
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
+
+    // wait for table to be sorted
+    cy.wait('@getAnalyticsSortAsc')
+
+    getTableRows()
+        .eq(0)
+        .find('td')
+        .eq(0)
+        .invoke('text')
+        .then(parseInt)
+        .then(($cell0Value) =>
+            getTableRows()
+                .eq(1)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .then(parseInt)
+                .then(($cell1Value) =>
+                    expect($cell0Value).to.be.lessThan($cell1Value)
+                )
+        )
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
+
+    // wait for table to be sorted
+    cy.wait('@getAnalyticsSortDesc')
+
+    getTableRows()
+        .eq(0)
+        .find('td')
+        .eq(0)
+        .invoke('text')
+        .then(parseInt)
+        .then(($cell0Value) =>
+            getTableRows()
+                .eq(1)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .then(parseInt)
+                .then(($cell1Value) =>
+                    expect($cell0Value).to.be.greaterThan($cell1Value)
+                )
+        )
+}
+
 const init = () => {
     goToStartPage()
 
@@ -269,5 +372,8 @@ describe(['>=40'], 'table', () => {
     })
     it('dimensions display correct values in the visualization', () => {
         assertDimensions()
+    })
+    it('data can be sorted', () => {
+        assertSorting()
     })
 })
