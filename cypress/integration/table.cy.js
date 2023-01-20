@@ -233,9 +233,6 @@ const assertDimensions = () => {
 }
 
 const assertSorting = () => {
-    cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
-    cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as('getAnalyticsSortDesc')
-
     // remove any DGS to allow numeric value comparison
     clickMenubarOptionsButton()
 
@@ -283,6 +280,8 @@ const assertSorting = () => {
 
     expectTableToBeVisible()
 
+    cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
+
     getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
 
     // wait for table to be sorted
@@ -305,6 +304,8 @@ const assertSorting = () => {
                     expect($cell0Value).to.be.lessThan($cell1Value)
                 )
         )
+
+    cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as('getAnalyticsSortDesc')
 
     getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
 
