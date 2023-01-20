@@ -280,6 +280,12 @@ export const Visualization = ({
                                                 ? sortDirection
                                                 : 'default'
                                         }
+                                        sortIconTitle={i18n.t(
+                                            'Sort by {{column}}',
+                                            {
+                                                column: getHeaderText(header),
+                                            }
+                                        )}
                                         className={cx(
                                             styles.headerCell,
                                             fontSizeClass,
