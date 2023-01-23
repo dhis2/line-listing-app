@@ -105,7 +105,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     ],
             })
         }
-    }, [visible, called, refetch, userSettings])
+    }, [visible, called, refetch])
 
     useEffect(() => {
         setSearchTerm('')
