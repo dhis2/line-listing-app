@@ -1,4 +1,4 @@
-import { IconAdd16, IconCross16 } from '@dhis2/ui'
+import { IconAdd16, IconCross16, Tooltip } from '@dhis2/ui'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import cx from 'classnames'
@@ -84,7 +84,7 @@ export const DimensionItem = ({
                         //     dimensionMetadata={dimensionMetadata}
                         // />
 
-                        <AddButton
+                        <ActionButton
                             icon={selected ? <IconCross16 /> : <IconAdd16 />}
                             onClick={(e) => {
                                 e && e.stopPropagation()
@@ -108,15 +108,17 @@ export const DimensionItem = ({
     )
 }
 
-const AddButton = ({ onClick, icon }) => {
+const ActionButton = ({ onClick, icon }) => {
     return (
         <div className={cx(styles.hidden)}>
-            <IconButton onClick={onClick}>{icon}</IconButton>
+            <Tooltip content={'Add to Columns'} placement="top" openDelay={500}>
+                <IconButton onClick={onClick}>{icon}</IconButton>
+            </Tooltip>
         </div>
     )
 }
 
-AddButton.propTypes = {
+ActionButton.propTypes = {
     onClick: PropTypes.func.isRequired,
     icon: PropTypes.object,
 }
