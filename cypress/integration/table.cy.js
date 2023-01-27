@@ -346,7 +346,8 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-describe(['>=38', '<40'], 'table', () => {
+// TODO: set >=38 when 2.38.2 is released (creating this test for 2.38.2 is too much hassle
+describe(['>=39', '<40'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog', () => {
         programDimensions.push({
