@@ -50,6 +50,7 @@ import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableDataCells,
 } from '../helpers/table.js'
@@ -287,6 +288,8 @@ const assertSorting = () => {
     // wait for table to be sorted
     cy.wait('@getAnalyticsSortAsc')
 
+    expectTableToBeUpdated()
+
     getTableRows()
         .eq(0)
         .find('td')
@@ -311,6 +314,8 @@ const assertSorting = () => {
 
     // wait for table to be sorted
     cy.wait('@getAnalyticsSortDesc')
+
+    expectTableToBeUpdated()
 
     getTableRows()
         .eq(0)
