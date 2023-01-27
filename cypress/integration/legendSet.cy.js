@@ -5,8 +5,8 @@ import {
     TEST_DIM_LEGEND_SET_NEGATIVE,
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
-import { typeInput } from '../helpers/common.js'
 import { openDimension, selectEventWithProgram } from '../helpers/dimensions.js'
+import { deleteVisualization, saveVisualization } from '../helpers/fileMenu.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
@@ -29,14 +29,13 @@ import {
 import { expectRouteToBeEmpty } from '../helpers/route.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
-    expectAOTitleToContain,
     expectLegendKeyToMatchLegendSets,
     expectLegendKeyToBeHidden,
     expectLegendKeyToBeVisible,
     expectTableToBeVisible,
     getTableRows,
+    expectAOTitleToContain,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_LEGEND_SET
@@ -282,17 +281,9 @@ describe(['>=39'], 'Options - Legend', () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('options can be saved and loaded', () => {
-        cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
-
-        cy.getBySel('file-menu-container').contains('Save').click()
-
         const AO_NAME = `TEST ${new Date().toLocaleString()}`
-        typeInput('file-menu-saveas-modal-name', AO_NAME)
-
-        cy.getBySel('file-menu-saveas-modal-save').click()
-
+        saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
-
         expectTableToBeVisible()
 
         // affected cells have default text color and fixed background color
@@ -372,8 +363,8 @@ describe(['>=39'], 'Options - Legend', () => {
             },
         })
 
-        getTableRows()
-            .eq(1)
+        getTableRows() // the first row should be empty and not have the legend background color
+            .eq(0)
             .find('td')
             .eq(2)
             .should('have.css', 'background-color', defaultBackgroundColor)
@@ -381,8 +372,8 @@ describe(['>=39'], 'Options - Legend', () => {
             .invoke('trim')
             .should('equal', '')
 
-        getTableRows()
-            .eq(2)
+        getTableRows() // the second row should not be empty and have the legend background color
+            .eq(1)
             .find('td')
             .eq(2)
             .should('not.have.css', 'background-color', defaultBackgroundColor)
@@ -391,14 +382,7 @@ describe(['>=39'], 'Options - Legend', () => {
             .should('not.equal', '')
     })
     it('saved AO can be deleted', () => {
-        cy.getBySel('menubar').contains('File').click()
-
-        cy.getBySel('file-menu-container').contains('Delete').click()
-
-        cy.getBySel('file-menu-delete-modal')
-            .find('button')
-            .contains('Delete')
-            .click()
+        deleteVisualization()
 
         expectRouteToBeEmpty()
     })

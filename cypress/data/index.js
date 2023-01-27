@@ -40,15 +40,18 @@ export const TEST_DIM_EMAIL = 'E2E - Email'
 export const TEST_DIM_USERNAME = 'E2E - Username'
 export const TEST_DIM_URL = 'E2E - URL'
 export const TEST_DIM_PHONE_NUMBER = 'E2E - Phone number'
+export const TEST_DIM_NUMBER_OPTIONSET = 'E2E - Number (option set)'
+export const TEST_DIM_TEXT_OPTIONSET = 'E2E - Text (option set)'
 
 // numerics
 export const TEST_DIM_NUMBER = 'E2E - Number'
 export const TEST_DIM_UNIT_INTERVAL = 'E2E - Unit interval'
 export const TEST_DIM_PERCENTAGE = 'E2E - Percentage'
 export const TEST_DIM_INTEGER = 'E2E - Integer'
-export const TEST_DIM_POSITIVE_INTEGER = 'E2E - Positive Integer'
-export const TEST_DIM_NEGATIVE_INTEGER = 'E2E - Negative Integer'
-export const TEST_DIM_POSITIVE_OR_ZERO = 'E2E - Positive or Zero Integer'
+export const TEST_DIM_INTEGER_POSITIVE = 'E2E - Positive Integer'
+export const TEST_DIM_INTEGER_NEGATIVE = 'E2E - Negative Integer'
+export const TEST_DIM_INTEGER_ZERO_OR_POSITIVE =
+    'E2E - Positive or Zero Integer'
 export const TEST_DIM_WITH_PRESET = 'E2E - Number (legend set)'
 
 // booleans
@@ -67,7 +70,7 @@ export const TEST_DIM_COORDINATE = 'E2E - Coordinate'
 // special
 export const TEST_DIM_ORG_UNIT = 'E2E - Organisation unit'
 export const TEST_DIM_LEGEND_SET = 'E2E - Number (legend set)'
-export const TEST_DIM_LEGEND_SET_NEGATIVE = TEST_DIM_NEGATIVE_INTEGER
+export const TEST_DIM_LEGEND_SET_NEGATIVE = TEST_DIM_INTEGER_NEGATIVE
 
 export const TEST_REL_PE_THIS_YEAR = {
     type: 'Years',
@@ -77,11 +80,6 @@ export const TEST_REL_PE_THIS_YEAR = {
 export const TEST_REL_PE_LAST_YEAR = {
     type: 'Years',
     name: 'Last year',
-}
-
-export const TEST_REL_PE_LAST_12_MONTHS = {
-    //type: 'Months',
-    name: 'Last 12 months',
 }
 
 export const TEST_FIX_PE_DEC_LAST_YEAR = {

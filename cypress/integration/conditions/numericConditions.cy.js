@@ -5,9 +5,9 @@ import {
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_REL_PE_THIS_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_DIM_WITH_PRESET,
@@ -24,6 +24,7 @@ import {
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     getPreviousYearStr,
+    getCurrentYearStr,
     selectRelativePeriod,
 } from '../../helpers/period.js'
 import { goToStartPage } from '../../helpers/startScreen.js'
@@ -36,6 +37,7 @@ import {
 } from '../../helpers/table.js'
 
 const previousYear = getPreviousYearStr()
+const currentYear = getCurrentYearStr()
 
 const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
@@ -163,7 +165,7 @@ describe('number conditions', () => {
         expectTableToMatchRows([
             '3.7',
             '11',
-            '2022-01-01', // the empty row
+            `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
             '5 557 779 990',
             '5 123 123',
@@ -232,7 +234,7 @@ describe('number conditions', () => {
 })
 
 describe('integer', () => {
-    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
+    const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
         goToStartPage()
@@ -386,9 +388,9 @@ describe('numeric types', () => {
         TEST_DIM_UNIT_INTERVAL,
         TEST_DIM_PERCENTAGE,
         TEST_DIM_INTEGER,
-        TEST_DIM_POSITIVE_INTEGER,
-        TEST_DIM_NEGATIVE_INTEGER,
-        TEST_DIM_POSITIVE_OR_ZERO,
+        TEST_DIM_INTEGER_POSITIVE,
+        TEST_DIM_INTEGER_NEGATIVE,
+        TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     ]
 
     TEST_TYPES.forEach((type) => {

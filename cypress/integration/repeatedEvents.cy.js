@@ -211,10 +211,10 @@ describe('repeated events', () => {
         getRepeatedEventsTab().should('not.exist')
     })
     it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
-        goToAO('Y6N29ifTfn2')
+        goToAO('WrIV7ZoYECj')
 
         cy.getBySel('visualization-title').contains(
-            'E2E: Enrollment - Last 12 months - Hemoglobin (repeated)'
+            'E2E: Enrollment - Hemoglobin (repeated)'
         )
 
         cy.getBySel('columns-axis').contains('WHOMCH Hemoglobin value').click()

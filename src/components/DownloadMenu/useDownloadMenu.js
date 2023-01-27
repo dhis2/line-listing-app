@@ -3,6 +3,7 @@ import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
+import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
     getAnalyticsEndpoint,
@@ -42,7 +43,6 @@ const useDownloadMenu = (relativePeriodDate) => {
                     req = req
                         .fromVisualization(adaptedVisualization)
                         .withProgram(current.program.id)
-                        .withStage(current.programStage?.id)
                         .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
@@ -83,7 +83,6 @@ const useDownloadMenu = (relativePeriodDate) => {
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
                         .fromVisualization(adaptedVisualization, true)
                         .withProgram(current.program.id)
-                        .withStage(current.programStage?.id)
                         .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
@@ -120,6 +119,10 @@ const useDownloadMenu = (relativePeriodDate) => {
 
             // TODO add common parameters
             // if there are for both event/enrollment and PT/LL
+
+            if (current.outputType !== OUTPUT_TYPE_ENROLLMENT) {
+                req = req.withStage(current.programStage?.id)
+            }
 
             if (relativePeriodDate) {
                 req = req.withRelativePeriodDate(relativePeriodDate)

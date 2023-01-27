@@ -1,9 +1,7 @@
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
-    DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
-    DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
@@ -29,7 +27,7 @@ const enrollment = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
-const setUpTable = ({ scheduleDateIsSupported } = {}) => {
+const setUpTable = ({ scheduledDateIsSupported } = {}) => {
     // switch to Enrollment to toggle the enabled/disabled time dimensions
     cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
         .contains('Input: Event')
@@ -44,7 +42,7 @@ const setUpTable = ({ scheduleDateIsSupported } = {}) => {
     dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-    if (scheduleDateIsSupported) {
+    if (scheduledDateIsSupported) {
         dimensionIsDisabled('dimension-item-scheduledDate')
         cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
     }
@@ -64,20 +62,16 @@ const setUpTable = ({ scheduleDateIsSupported } = {}) => {
     // check that the time dimensions disabled states and names are updated correctly
 
     dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains(
-        enrollment[DIMENSION_ID_EVENT_DATE]
-    )
+    cy.getBySel('dimension-item-eventDate').contains('Event date')
 
     dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains(
         enrollment[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    if (scheduleDateIsSupported) {
+    if (scheduledDateIsSupported) {
         dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            enrollment[DIMENSION_ID_SCHEDULED_DATE]
-        )
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
     }
 
     dimensionIsEnabled('dimension-item-incidentDate')
@@ -171,7 +165,7 @@ const runTests = () => {
 describe(['>=39'], 'enrollment', () => {
     beforeEach(() => {
         goToStartPage()
-        setUpTable({ scheduleDateIsSupported: true })
+        setUpTable({ scheduledDateIsSupported: true })
     })
     runTests()
 })
