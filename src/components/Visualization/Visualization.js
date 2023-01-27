@@ -254,6 +254,7 @@ export const Visualization = ({
     return (
         <div className={styles.pluginContainer}>
             <div
+                data-test="line-list-loading-indicator"
                 className={cx(styles.fetchIndicator, {
                     [styles.fetching]: fetching,
                 })}
