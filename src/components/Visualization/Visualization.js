@@ -29,7 +29,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -90,7 +90,18 @@ export const Visualization = ({
         }
     )
 
-    const isInModal = !!filters?.relativePeriodDate
+    const visualizationRef = useRef(visualization)
+
+    const setPage = useCallback(
+        (pageNum) =>
+            setSorting({
+                sortField,
+                sortDirection,
+                pageSize,
+                page: pageNum,
+            }),
+        [sortField, sortDirection, pageSize]
+    )
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
@@ -98,10 +109,17 @@ export const Visualization = ({
         isVisualizationLoading,
         onResponsesReceived,
         pageSize,
-        page,
+        // Set first page directly for new visualization to avoid extra request with current page
+        page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
     })
+
+    // Reset page for new visualizations
+    useEffect(() => {
+        visualizationRef.current = visualization
+        setPage(FIRST_PAGE)
+    }, [visualization, setPage])
 
     useEffect(() => {
         if (data && visualization) {
@@ -143,14 +161,6 @@ export const Visualization = ({
             sortDirection: direction,
             pageSize,
             page: FIRST_PAGE,
-        })
-
-    const setPage = (pageNum) =>
-        setSorting({
-            sortField,
-            sortDirection,
-            pageSize,
-            page: pageNum,
         })
 
     const setPageSize = (pageSizeNum) =>
@@ -224,6 +234,8 @@ export const Visualization = ({
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
     )
+
+    const isInModal = !!filters?.relativePeriodDate
 
     return (
         <div className={styles.pluginContainer}>
