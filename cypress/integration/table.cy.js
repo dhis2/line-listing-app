@@ -346,17 +346,18 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-// TODO: set >=38 when 2.38.2 is released (creating this test for 2.38.2 is too much hassle
-describe(['>=39', '<40'], 'table', () => {
+// 2.38
+describe(['>=38', '<39'], 'table', () => {
     beforeEach(init)
-    it('click on column header opens the dimension dialog', () => {
-        programDimensions.push({
-            label: TEST_DIM_NUMBER_OPTIONSET,
-            value: '1',
-        })
+    it('click on column header opens the dimension dialog (2.38)', () => {
         assertColumnHeaders()
     })
-    it('dimensions display correct values in the visualization', () => {
+
+    it('dimensions display correct values in the visualization (2.38)', () => {
+        programDimensions.push({
+            label: TEST_DIM_NUMBER_OPTIONSET,
+            value: 'One',
+        })
         assertDimensions()
     })
     it('data can be sorted', () => {
@@ -364,25 +365,47 @@ describe(['>=39', '<40'], 'table', () => {
     })
 })
 
+// 2.39
+describe(['>=39', '<40'], 'table', () => {
+    beforeEach(init)
+    it('click on column header opens the dimension dialog (2.39)', () => {
+        assertColumnHeaders()
+    })
+    // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+    // when this is fixed in 2.39 backend, this test will fail
+    // then remove this test and merge tests for 38 and 39
+    it('dimensions display correct values in the visualization (2.39)', () => {
+        programDimensions.push({
+            label: TEST_DIM_NUMBER_OPTIONSET,
+            value: '1',
+        })
+        assertDimensions()
+    })
+    it('data can be sorted (2.39)', () => {
+        assertSorting()
+    })
+})
+
+// 2.40
 describe(['>=40'], 'table', () => {
     beforeEach(init)
-    it('click on column header opens the dimension dialog', () => {
+    it('click on column header opens the dimension dialog (2.40)', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: `${previousYear}-12-10`,
         })
-        // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+        assertColumnHeaders()
+    })
+    it('dimensions display correct values in the visualization (2.40)', () => {
+        // bug:
         programDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
-        assertColumnHeaders()
-    })
-    it('dimensions display correct values in the visualization', () => {
         assertDimensions()
     })
-    it('data can be sorted', () => {
+    it('data can be sorted (2.40)', () => {
         assertSorting()
     })
 })
