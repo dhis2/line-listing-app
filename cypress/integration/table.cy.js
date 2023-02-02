@@ -35,9 +35,14 @@ import {
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
-import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import {
+    clickMenubarOptionsButton,
+    clickMenubarUpdateButton,
+} from '../helpers/menubar.js'
+import { clickOptionsModalUpdateButton } from '../helpers/options.js'
 import {
     selectFixedPeriod,
+    selectRelativePeriod,
     getPreviousYearStr,
     getCurrentYearStr,
 } from '../helpers/period.js'
@@ -45,6 +50,7 @@ import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableDataCells,
 } from '../helpers/table.js'
@@ -227,6 +233,109 @@ const assertDimensions = () => {
     }
 }
 
+const assertSorting = () => {
+    // remove any DGS to allow numeric value comparison
+    clickMenubarOptionsButton()
+
+    cy.getBySel('dgs-select-content')
+        .findBySel('dhis2-uicore-select-input')
+        .click()
+    cy.contains('None').click()
+    clickOptionsModalUpdateButton()
+
+    selectEventWithProgramDimensions({
+        ...trackerProgram,
+        dimensions: [TEST_DIM_INTEGER],
+    })
+
+    // filter empty/null values on E2E - Integer dimension
+    // this helps with the value comparison when sorting
+    cy.getBySelLike('layout-chip').contains(TEST_DIM_INTEGER).click()
+    cy.getBySel('button-add-condition').click()
+    cy.contains('Choose a condition type').click()
+    cy.contains('is not empty / not null').click()
+    cy.getBySel('conditions-modal').contains('Update').click()
+
+    mainAndTimeDimensions
+        .filter((dimension) => dimension.label === 'Organisation unit')
+        .forEach(({ label }) => {
+            cy.getBySel('main-sidebar')
+                .contains(label)
+                .closest(`[data-test*="dimension-item"]`)
+                .findBySel('dimension-menu-button')
+                .invoke('attr', 'style', 'visibility: initial')
+                .click()
+
+            cy.containsExact('Add to Columns').click()
+        })
+
+    selectRelativePeriod({
+        label: periodLabel,
+        period: {
+            type: 'Years',
+            name: 'This year',
+        },
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
+
+    // wait for table to be sorted
+    cy.wait('@getAnalyticsSortAsc')
+
+    expectTableToBeUpdated()
+
+    getTableRows()
+        .eq(0)
+        .find('td')
+        .eq(0)
+        .invoke('text')
+        .then(parseInt)
+        .then(($cell0Value) =>
+            getTableRows()
+                .eq(1)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .then(parseInt)
+                .then(($cell1Value) =>
+                    expect($cell0Value).to.be.lessThan($cell1Value)
+                )
+        )
+
+    cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as('getAnalyticsSortDesc')
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
+
+    // wait for table to be sorted
+    cy.wait('@getAnalyticsSortDesc')
+
+    expectTableToBeUpdated()
+
+    getTableRows()
+        .eq(0)
+        .find('td')
+        .eq(0)
+        .invoke('text')
+        .then(parseInt)
+        .then(($cell0Value) =>
+            getTableRows()
+                .eq(1)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .then(parseInt)
+                .then(($cell1Value) =>
+                    expect($cell0Value).to.be.greaterThan($cell1Value)
+                )
+        )
+}
+
 const init = () => {
     goToStartPage()
 
@@ -237,37 +346,66 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-// TODO: set >=38 when 2.38.2 is released (creating this test for 2.38.2 is too much hassle)
+// 2.38
+describe(['>=38', '<39'], 'table', () => {
+    beforeEach(init)
+    it('click on column header opens the dimension dialog (2.38)', () => {
+        assertColumnHeaders()
+    })
+
+    it('dimensions display correct values in the visualization (2.38)', () => {
+        programDimensions.push({
+            label: TEST_DIM_NUMBER_OPTIONSET,
+            value: 'One',
+        })
+        assertDimensions()
+    })
+    it('data can be sorted', () => {
+        assertSorting()
+    })
+})
+
+// 2.39
 describe(['>=39', '<40'], 'table', () => {
     beforeEach(init)
-    it('click on column header opens the dimension dialog', () => {
+    it('click on column header opens the dimension dialog (2.39)', () => {
+        assertColumnHeaders()
+    })
+    // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+    // when this is fixed in 2.39 backend, this test will fail
+    // then remove this test and merge tests for 38 and 39
+    it('dimensions display correct values in the visualization (2.39)', () => {
         programDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: '1',
         })
-        assertColumnHeaders()
-    })
-    it('dimensions display correct values in the visualization', () => {
         assertDimensions()
+    })
+    it('data can be sorted (2.39)', () => {
+        assertSorting()
     })
 })
 
+// 2.40
 describe(['>=40'], 'table', () => {
     beforeEach(init)
-    it('click on column header opens the dimension dialog', () => {
+    it('click on column header opens the dimension dialog (2.40)', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         mainAndTimeDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: `${previousYear}-12-10`,
         })
-        // bug: https://dhis2.atlassian.net/browse/DHIS2-13872
+        assertColumnHeaders()
+    })
+    it('dimensions display correct values in the visualization (2.40)', () => {
+        // bug:
         programDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
-        assertColumnHeaders()
-    })
-    it('dimensions display correct values in the visualization', () => {
         assertDimensions()
+    })
+    it('data can be sorted (2.40)', () => {
+        assertSorting()
     })
 })

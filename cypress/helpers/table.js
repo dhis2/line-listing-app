@@ -19,6 +19,13 @@ export const getTableDataCells = () =>
 export const expectTableToBeVisible = () =>
     getLineListTable().find('tbody').should('be.visible')
 
+export const expectTableToBeUpdated = () =>
+    cy.getBySel('line-list-loading-indicator').should(($div) => {
+        const className = $div[0].className
+
+        expect(className).to.not.match(/Visualization_fetching*/)
+    })
+
 export const expectTableToMatchRows = (expectedRows) => {
     getTableRows().should('have.length', expectedRows.length)
 
