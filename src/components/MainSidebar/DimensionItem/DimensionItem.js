@@ -1,7 +1,6 @@
 import { IconAdd16 } from '@dhis2/ui'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -10,8 +9,7 @@ import {
     acRemoveUiLayoutDimensions,
     acSetUiOpenDimensionModal,
 } from '../../../actions/ui.js'
-import IconButton from '../../IconButton/IconButton.js'
-import styles from './DimensionItem.module.css'
+import { DimensionActionButton } from './DimensionActionButton.js'
 import { DimensionItemBase } from './DimensionItemBase.js'
 
 // Joe prefers this icon as the one in ui is too light
@@ -97,7 +95,7 @@ export const DimensionItem = ({
                 dataTest={`dimension-item-${id}`}
                 contextMenu={
                     !disabled && (
-                        <ActionButton
+                        <DimensionActionButton
                             icon={
                                 selected ? (
                                     <IconCross16 />
@@ -125,19 +123,6 @@ export const DimensionItem = ({
             />
         </div>
     )
-}
-
-const ActionButton = ({ onClick, icon }) => {
-    return (
-        <div className={cx(styles.hidden)}>
-            <IconButton onClick={onClick}>{icon}</IconButton>
-        </div>
-    )
-}
-
-ActionButton.propTypes = {
-    onClick: PropTypes.func.isRequired,
-    icon: PropTypes.object,
 }
 
 DimensionItem.propTypes = {
