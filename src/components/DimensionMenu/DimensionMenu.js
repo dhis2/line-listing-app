@@ -26,6 +26,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     const layout = useSelector(sGetUiLayout)
 
     const axisId = currentAxisId || getAxisIdForDimension(dimensionId, layout)
+
     const buttonRef = useRef()
     const [menuIsOpen, setMenuIsOpen] = useState(false)
 
@@ -46,6 +47,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
     }
 
     const removeItemHandler = (id) => dispatch(acRemoveUiLayoutDimensions(id))
+
     return (
         <>
             <div
