@@ -124,14 +124,36 @@ const runTests = () => {
     })
 
     it('moves a dimension to filter', () => {
+        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
+
+        // sort on enrollment date column
+        getTableHeaderCells().find(`button[title*="${periodLabel}"]`).click()
+
+        // verify that the analytics request contains "asc" for enrollment date field
+        cy.wait('@getAnalytics').then(({ request }) => {
+            const url = new URL(request.url)
+
+            expect(url.searchParams.has('asc')).to.be.true
+            expect(url.searchParams.get('asc')).to.equal(
+                DIMENSION_ID_ENROLLMENT_DATE.toLowerCase()
+            )
+        })
+
         // move date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
             .findBySel('dimension-menu-button-enrollmentDate')
             .click()
         cy.contains('Move to Filter').click()
 
-        cy.contains('Update').click()
         clickMenubarUpdateButton()
+
+        // verify that the analytics request does not contain "asc"
+        // the sorting needs to be reset when a dimension used to sort is removed from "Columns"
+        cy.wait('@getAnalytics').then(({ request }) => {
+            const url = new URL(request.url)
+
+            expect(url.searchParams.has('asc')).to.be.false
+        })
 
         // check the number of columns
         getTableHeaderCells().its('length').should('equal', 2)
