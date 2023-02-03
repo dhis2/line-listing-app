@@ -9,8 +9,8 @@ import {
     acRemoveUiLayoutDimensions,
     acSetUiOpenDimensionModal,
 } from '../../../actions/ui.js'
-import { DimensionActionButton } from './DimensionActionButton.js'
 import { DimensionItemBase } from './DimensionItemBase.js'
+import { DimensionItemButton } from './DimensionItemButton.js'
 
 // Joe prefers this icon as the one in ui is too light
 const IconSubtract16 = () => (
@@ -92,7 +92,8 @@ export const DimensionItem = ({
                 dataTest={`dimension-item-${id}`}
                 contextMenu={
                     !disabled && (
-                        <DimensionActionButton
+                        <DimensionItemButton
+                            dataTest={`dimension-item-button`}
                             icon={
                                 selected ? (
                                     <IconSubtract16 />

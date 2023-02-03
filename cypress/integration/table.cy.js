@@ -109,6 +109,15 @@ const programDimensions = [
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
 
+const addDimensionToColumns = (id, label) =>
+    cy
+        .getBySel(id)
+        .contains(label)
+        .closest(`[data-test*="dimension-item"]`)
+        .findBySel('dimension-item-button')
+        .invoke('attr', 'style', 'visibility: initial')
+        .click()
+
 const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
@@ -122,16 +131,9 @@ const assertColumnHeaders = () => {
     )
 
     // add main and time dimensions
-    testDimensions.forEach((label) => {
-        cy.getBySel('main-sidebar')
-            .contains(label)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
-
-        cy.contains('Add to Columns').click()
-    })
+    testDimensions.forEach((label) =>
+        addDimensionToColumns('main-sidebar', label)
+    )
 
     selectFixedPeriod({
         label: periodLabel,
@@ -166,27 +168,13 @@ const assertColumnHeaders = () => {
 const assertDimensions = () => {
     selectEventWithProgram(trackerProgram)
 
-    mainAndTimeDimensions.forEach(({ label }) => {
-        cy.getBySel('main-sidebar')
-            .contains(label)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
+    mainAndTimeDimensions.forEach(({ label }) =>
+        addDimensionToColumns('main-sidebar', label)
+    )
 
-        cy.containsExact('Add to Columns').click()
-    })
-
-    programDimensions.forEach(({ label }) => {
-        cy.getBySel('program-dimensions-list')
-            .contains(label)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
-
-        cy.containsExact('Add to Columns').click()
-    })
+    programDimensions.forEach(({ label }) =>
+        addDimensionToColumns('program-dimensions-list', label)
+    )
 
     selectFixedPeriod({
         label: periodLabel,
@@ -258,16 +246,7 @@ const assertSorting = () => {
 
     mainAndTimeDimensions
         .filter((dimension) => dimension.label === 'Organisation unit')
-        .forEach(({ label }) => {
-            cy.getBySel('main-sidebar')
-                .contains(label)
-                .closest(`[data-test*="dimension-item"]`)
-                .findBySel('dimension-menu-button')
-                .invoke('attr', 'style', 'visibility: initial')
-                .click()
-
-            cy.containsExact('Add to Columns').click()
-        })
+        .forEach(({ label }) => addDimensionToColumns('main-sidebar', label))
 
     selectRelativePeriod({
         label: periodLabel,
