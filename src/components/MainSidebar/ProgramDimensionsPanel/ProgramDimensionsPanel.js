@@ -87,6 +87,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
             const program = filteredPrograms?.find(({ id }) => id === programId)
             const stage =
                 // auto-select if a program only has a single stage
+                // and input type is Event
+                inputType === OUTPUT_TYPE_EVENT &&
                 program?.programStages.length === 1
                     ? program.programStages[0]
                     : undefined
@@ -101,7 +103,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
             })
         }
-    }, [visible, called])
+    }, [visible, called, refetch, userSettings])
 
     useEffect(() => {
         setSearchTerm('')

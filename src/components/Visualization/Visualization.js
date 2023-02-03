@@ -29,7 +29,13 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    useCallback,
+    useReducer,
+} from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -43,7 +49,10 @@ import {
 } from '../../modules/tableValues.js'
 import { headersMap } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
-import { useAnalyticsData } from './useAnalyticsData.js'
+import {
+    getAdaptedVisualization,
+    useAnalyticsData,
+} from './useAnalyticsData.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -81,16 +90,35 @@ export const Visualization = ({
     onError,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
-    const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
-        {
+    const [{ sortField, sortDirection, pageSize, page }, setSorting] =
+        useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
             sortDirection: DEFAULT_SORT_DIRECTION,
             page: FIRST_PAGE,
             pageSize: PAGE_SIZE,
-        }
+        })
+
+    const visualizationRef = useRef(visualization)
+
+    const setPage = useCallback(
+        (pageNum) =>
+            setSorting({
+                page: pageNum,
+            }),
+        []
     )
 
-    const isInModal = !!filters?.relativePeriodDate
+    const { headers } = getAdaptedVisualization(visualization)
+
+    if (headers && sortField) {
+        // reset sorting if current sortField has been removed from Columns DHIS2-13948
+        if (!headers.includes(sortField)) {
+            setSorting({
+                sortField: null,
+                sortDirection: DEFAULT_SORT_DIRECTION,
+            })
+        }
+    }
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
@@ -98,10 +126,17 @@ export const Visualization = ({
         isVisualizationLoading,
         onResponsesReceived,
         pageSize,
-        page,
+        // Set first page directly for new visualization to avoid extra request with current page
+        page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
     })
+
+    // Reset page for new visualizations
+    useEffect(() => {
+        visualizationRef.current = visualization
+        setPage(FIRST_PAGE)
+    }, [visualization, setPage])
 
     useEffect(() => {
         if (data && visualization) {
@@ -141,22 +176,11 @@ export const Visualization = ({
         setSorting({
             sortField: name,
             sortDirection: direction,
-            pageSize,
             page: FIRST_PAGE,
-        })
-
-    const setPage = (pageNum) =>
-        setSorting({
-            sortField,
-            sortDirection,
-            pageSize,
-            page: pageNum,
         })
 
     const setPageSize = (pageSizeNum) =>
         setSorting({
-            sortField,
-            sortDirection,
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
@@ -225,9 +249,12 @@ export const Visualization = ({
         </div>
     )
 
+    const isInModal = !!filters?.relativePeriodDate
+
     return (
         <div className={styles.pluginContainer}>
             <div
+                data-test="line-list-loading-indicator"
                 className={cx(styles.fetchIndicator, {
                     [styles.fetching]: fetching,
                 })}
@@ -254,6 +281,12 @@ export const Visualization = ({
                                                 ? sortDirection
                                                 : 'default'
                                         }
+                                        sortIconTitle={i18n.t(
+                                            'Sort by {{column}}',
+                                            {
+                                                column: getHeaderText(header),
+                                            }
+                                        )}
                                         className={cx(
                                             styles.headerCell,
                                             fontSizeClass,

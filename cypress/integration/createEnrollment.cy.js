@@ -1,9 +1,7 @@
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
-    DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
-    DIMENSION_ID_SCHEDULED_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
@@ -64,9 +62,7 @@ const setUpTable = ({ scheduledDateIsSupported } = {}) => {
     // check that the time dimensions disabled states and names are updated correctly
 
     dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains(
-        enrollment[DIMENSION_ID_EVENT_DATE]
-    )
+    cy.getBySel('dimension-item-eventDate').contains('Event date')
 
     dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains(
@@ -75,9 +71,7 @@ const setUpTable = ({ scheduledDateIsSupported } = {}) => {
 
     if (scheduledDateIsSupported) {
         dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            enrollment[DIMENSION_ID_SCHEDULED_DATE]
-        )
+        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
     }
 
     dimensionIsEnabled('dimension-item-incidentDate')
@@ -130,14 +124,36 @@ const runTests = () => {
     })
 
     it('moves a dimension to filter', () => {
+        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
+
+        // sort on enrollment date column
+        getTableHeaderCells().find(`button[title*="${periodLabel}"]`).click()
+
+        // verify that the analytics request contains "asc" for enrollment date field
+        cy.wait('@getAnalytics').then(({ request }) => {
+            const url = new URL(request.url)
+
+            expect(url.searchParams.has('asc')).to.be.true
+            expect(url.searchParams.get('asc')).to.equal(
+                DIMENSION_ID_ENROLLMENT_DATE.toLowerCase()
+            )
+        })
+
         // move date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
             .findBySel('dimension-menu-button-enrollmentDate')
             .click()
         cy.contains('Move to Filter').click()
 
-        cy.contains('Update').click()
         clickMenubarUpdateButton()
+
+        // verify that the analytics request does not contain "asc"
+        // the sorting needs to be reset when a dimension used to sort is removed from "Columns"
+        cy.wait('@getAnalytics').then(({ request }) => {
+            const url = new URL(request.url)
+
+            expect(url.searchParams.has('asc')).to.be.false
+        })
 
         // check the number of columns
         getTableHeaderCells().its('length').should('equal', 2)
