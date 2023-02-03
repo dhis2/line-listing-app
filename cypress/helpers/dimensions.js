@@ -67,7 +67,8 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        clickAddRemoveProgramDimension(dimensionName)
+        openDimension(dimensionName)
+        cy.contains('Add to Columns').click()
     })
 
     // close the program dimensions panel
