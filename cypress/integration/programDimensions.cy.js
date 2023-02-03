@@ -7,6 +7,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
+    clickAddRemoveMainDimension,
     dimensionIsDisabled,
     dimensionIsEnabled,
     openDimension,
@@ -330,16 +331,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             expectedSelectedDimensions
                 .concat(expectedUnselectedDimensions)
-                .forEach((dimension) => {
-                    cy.getBySel('main-sidebar')
-                        .contains(dimension)
-                        .closest(`[data-test*="dimension-item"]`)
-                        .findBySel('dimension-menu-button')
-                        .invoke('attr', 'style', 'visibility: initial')
-                        .click()
-
-                    cy.contains('Add to Columns').click()
-                })
+                .forEach((dimension) => clickAddRemoveMainDimension(dimension))
 
             // clear program
 
@@ -616,16 +608,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             // add main and time dimensions
 
-            mainAndTimeDimensions.forEach(({ label }) => {
-                cy.getBySel('main-sidebar')
-                    .contains(label)
-                    .closest(`[data-test*="dimension-item"]`)
-                    .findBySel('dimension-menu-button')
-                    .invoke('attr', 'style', 'visibility: initial')
-                    .click()
-
-                cy.contains('Add to Columns').click()
-            })
+            mainAndTimeDimensions.forEach(({ label }) =>
+                clickAddRemoveMainDimension(label)
+            )
 
             // change input type
 

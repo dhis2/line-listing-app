@@ -3,7 +3,10 @@ import {
     DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM } from '../data/index.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    clickAddRemoveMainDimension,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -28,14 +31,7 @@ describe('event status', () => {
 
         selectEventWithProgram(event)
 
-        cy.getBySel('main-sidebar')
-            .contains(dimensionName)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
-
-        cy.contains('Add to Columns').click()
+        clickAddRemoveMainDimension(dimensionName)
     }
 
     // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442
