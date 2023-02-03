@@ -100,3 +100,18 @@ export const dimensionIsDisabled = (id) =>
         .should('be.visible')
         .and('have.css', disabledOpacity.prop, disabledOpacity.value)
         .and('have.css', disabledCursor.prop, disabledCursor.value)
+
+const addDimensionToColumns = (id, label) =>
+    cy
+        .getBySel(id)
+        .contains(label)
+        .closest(`[data-test*="dimension-item"]`)
+        .findBySel('dimension-item-button')
+        .invoke('attr', 'style', 'visibility: initial')
+        .click()
+
+export const addMainAndTimeDimensionToColumns = (label) =>
+    addDimensionToColumns('main-sidebar', label)
+
+export const addProgramDimensionToColumns = (label) =>
+    addDimensionToColumns('program-dimensions-list', label)

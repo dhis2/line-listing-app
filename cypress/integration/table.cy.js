@@ -32,6 +32,8 @@ import {
     TEST_DIM_TEXT_OPTIONSET,
 } from '../data/index.js'
 import {
+    addMainAndTimeDimensionToColumns,
+    addProgramDimensionToColumns,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
@@ -109,15 +111,6 @@ const programDimensions = [
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
 
-const addDimensionToColumns = (id, label) =>
-    cy
-        .getBySel(id)
-        .contains(label)
-        .closest(`[data-test*="dimension-item"]`)
-        .findBySel('dimension-item-button')
-        .invoke('attr', 'style', 'visibility: initial')
-        .click()
-
 const assertColumnHeaders = () => {
     const dimensionName = TEST_DIM_TEXT
 
@@ -131,9 +124,7 @@ const assertColumnHeaders = () => {
     )
 
     // add main and time dimensions
-    testDimensions.forEach((label) =>
-        addDimensionToColumns('main-sidebar', label)
-    )
+    testDimensions.forEach((label) => addMainAndTimeDimensionToColumns(label))
 
     selectFixedPeriod({
         label: periodLabel,
@@ -169,11 +160,11 @@ const assertDimensions = () => {
     selectEventWithProgram(trackerProgram)
 
     mainAndTimeDimensions.forEach(({ label }) =>
-        addDimensionToColumns('main-sidebar', label)
+        addMainAndTimeDimensionToColumns(label)
     )
 
     programDimensions.forEach(({ label }) =>
-        addDimensionToColumns('program-dimensions-list', label)
+        addProgramDimensionToColumns(label)
     )
 
     selectFixedPeriod({
@@ -246,7 +237,7 @@ const assertSorting = () => {
 
     mainAndTimeDimensions
         .filter((dimension) => dimension.label === 'Organisation unit')
-        .forEach(({ label }) => addDimensionToColumns('main-sidebar', label))
+        .forEach(({ label }) => addMainAndTimeDimensionToColumns(label))
 
     selectRelativePeriod({
         label: periodLabel,
