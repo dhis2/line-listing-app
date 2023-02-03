@@ -12,7 +12,7 @@ import {
 import { DimensionItemBase } from './DimensionItemBase.js'
 import { DimensionItemButton } from './DimensionItemButton.js'
 
-// Joe prefers this icon as the one in ui is too light
+// TODO: import from `ui` when available
 const IconSubtract16 = () => (
     <svg
         width="16"
