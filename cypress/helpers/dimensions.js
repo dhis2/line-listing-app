@@ -47,7 +47,7 @@ const clickAddRemoveDimension = (id, label) =>
         .getBySel(id)
         .contains(label)
         .closest(`[data-test*="dimension-item"]`)
-        .findBySel('item-button')
+        .findBySelLike('item-button')
         .invoke('attr', 'style', 'visibility: initial')
         .click()
 
@@ -67,8 +67,7 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        openDimension(dimensionName)
-        cy.contains('Add to Columns').click()
+        clickAddRemoveProgramDimension(dimensionName)
     })
 
     // close the program dimensions panel
