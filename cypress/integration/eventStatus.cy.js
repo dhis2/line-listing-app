@@ -4,7 +4,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM } from '../data/index.js'
 import {
-    addMainAndTimeDimensionToColumns,
+    clickAddRemoveMainDimension,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import {
@@ -31,7 +31,7 @@ describe('event status', () => {
 
         selectEventWithProgram(event)
 
-        addMainAndTimeDimensionToColumns(dimensionName)
+        clickAddRemoveMainDimension(dimensionName)
     }
 
     // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442

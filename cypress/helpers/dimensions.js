@@ -42,6 +42,21 @@ export const openDimension = (dimensionName) => {
     cy.getBySel('program-dimensions-list').contains(dimensionName).click()
 }
 
+const clickAddRemoveDimension = (id, label) =>
+    cy
+        .getBySel(id)
+        .contains(label)
+        .closest(`[data-test*="dimension-item"]`)
+        .findBySel('dimension-item-button')
+        .invoke('attr', 'style', 'visibility: initial')
+        .click()
+
+export const clickAddRemoveMainDimension = (label) =>
+    clickAddRemoveDimension('main-sidebar', label)
+
+export const clickAddRemoveProgramDimension = (label) =>
+    clickAddRemoveDimension('program-dimensions-list', label)
+
 const selectProgramDimensions = ({
     inputType,
     programName,
@@ -52,8 +67,7 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        openDimension(dimensionName)
-        cy.contains('Add to Columns').click()
+        clickAddRemoveProgramDimension(dimensionName)
     })
 
     // close the program dimensions panel
@@ -100,18 +114,3 @@ export const dimensionIsDisabled = (id) =>
         .should('be.visible')
         .and('have.css', disabledOpacity.prop, disabledOpacity.value)
         .and('have.css', disabledCursor.prop, disabledCursor.value)
-
-const addDimensionToColumns = (id, label) =>
-    cy
-        .getBySel(id)
-        .contains(label)
-        .closest(`[data-test*="dimension-item"]`)
-        .findBySel('dimension-item-button')
-        .invoke('attr', 'style', 'visibility: initial')
-        .click()
-
-export const addMainAndTimeDimensionToColumns = (label) =>
-    addDimensionToColumns('main-sidebar', label)
-
-export const addProgramDimensionToColumns = (label) =>
-    addDimensionToColumns('program-dimensions-list', label)

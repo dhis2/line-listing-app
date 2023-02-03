@@ -7,7 +7,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_DIM_TEXT } from '../data/index.js'
 import {
-    addMainAndTimeDimensionToColumns,
+    clickAddRemoveMainDimension,
     dimensionIsDisabled,
     dimensionIsEnabled,
     openDimension,
@@ -331,9 +331,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             expectedSelectedDimensions
                 .concat(expectedUnselectedDimensions)
-                .forEach((dimension) =>
-                    addMainAndTimeDimensionToColumns(dimension)
-                )
+                .forEach((dimension) => clickAddRemoveMainDimension(dimension))
 
             // clear program
 
@@ -611,7 +609,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             // add main and time dimensions
 
             mainAndTimeDimensions.forEach(({ label }) =>
-                addMainAndTimeDimensionToColumns(label)
+                clickAddRemoveMainDimension(label)
             )
 
             // change input type
