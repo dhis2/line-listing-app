@@ -47,7 +47,7 @@ const clickAddRemoveDimension = (id, label) =>
         .getBySel(id)
         .contains(label)
         .closest(`[data-test*="dimension-item"]`)
-        .findBySel('dimension-item-button')
+        .findBySel('item-button')
         .invoke('attr', 'style', 'visibility: initial')
         .click()
 

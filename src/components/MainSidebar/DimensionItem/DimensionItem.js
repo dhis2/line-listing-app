@@ -93,7 +93,7 @@ export const DimensionItem = ({
                 contextMenu={
                     !disabled && (
                         <DimensionItemButton
-                            dataTest={`dimension-item-button`}
+                            dataTest={`item-button-${id}`}
                             icon={
                                 selected ? (
                                     <IconSubtract16 />
