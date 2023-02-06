@@ -118,6 +118,8 @@ export const Visualization = ({
             pageSize: PAGE_SIZE,
         })
 
+    const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
+
     const visualizationRef = useRef(visualization)
 
     const setPage = useCallback(
@@ -140,8 +142,6 @@ export const Visualization = ({
             })
         }
     }
-
-    const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
