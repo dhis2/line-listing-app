@@ -349,6 +349,9 @@ msgstr "Click a dimension to add or remove conditions."
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
 
+msgid "Not available offline"
+msgstr "Not available offline"
+
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 

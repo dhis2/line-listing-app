@@ -56,7 +56,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -100,10 +100,12 @@ const ProgramDimensionsPanel = ({ visible }) => {
         if (visible && !called) {
             refetch({
                 nameProp:
-                    userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+                    currentUser.settings[
+                        DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                    ],
             })
         }
-    }, [visible, called, refetch, userSettings])
+    }, [visible, called, refetch])
 
     useEffect(() => {
         setSearchTerm('')
