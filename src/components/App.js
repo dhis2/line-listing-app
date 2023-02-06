@@ -31,7 +31,10 @@ import {
 import history from '../modules/history.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../modules/userSettings.js'
+import {
+    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
+    USER_SETTINGS_DISPLAY_PROPERTY,
+} from '../modules/userSettings.js'
 import {
     getDimensionMetadataFields,
     transformVisualization,
@@ -124,7 +127,7 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
-    const { systemSettings, rootOrgUnits, userSettings } = useCachedDataQuery()
+    const { systemSettings, rootOrgUnits, currentUser } = useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
@@ -158,7 +161,7 @@ const App = () => {
                     variables: {
                         id,
                         nameProp:
-                            userSettings[
+                            currentUser.settings[
                                 DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                             ],
                     },
@@ -352,6 +355,11 @@ const App = () => {
                                         <Visualization
                                             isVisualizationLoading={isLoading}
                                             visualization={current}
+                                            displayProperty={
+                                                currentUser.settings[
+                                                    USER_SETTINGS_DISPLAY_PROPERTY
+                                                ]
+                                            }
                                             onResponsesReceived={
                                                 onResponsesReceived
                                             }

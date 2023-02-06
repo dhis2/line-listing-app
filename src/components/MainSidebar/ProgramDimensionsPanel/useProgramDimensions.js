@@ -195,7 +195,7 @@ const useProgramDimensions = ({
     searchTerm,
     dimensionType,
 }) => {
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
@@ -219,7 +219,8 @@ const useProgramDimensions = ({
         [program]
     )
 
-    const nameProp = userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
+    const nameProp =
+        currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
     const setIsListEndVisible = (isVisible) => {
         if (isVisible !== isListEndVisible) {

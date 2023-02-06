@@ -16,6 +16,7 @@ import {
     VALUE_TYPE_PHONE_NUMBER,
     VALUE_TYPE_URL,
 } from '@dhis2/analytics'
+import { useOnlineStatus } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -26,12 +27,14 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
+    Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, {
     useState,
     useEffect,
+    useMemo,
     useRef,
     useCallback,
     useReducer,
@@ -47,7 +50,10 @@ import {
     getFormattedCellValue,
     getHeaderText,
 } from '../../modules/tableValues.js'
-import { headersMap } from '../../modules/visualization.js'
+import {
+    headersMap,
+    transformVisualization,
+} from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import {
     getAdaptedVisualization,
@@ -81,10 +87,24 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
+const PaginationComponent = ({ offline, ...props }) =>
+    offline ? (
+        <Tooltip content={i18n.t('Not available offline')}>
+            <Pagination {...props} />
+        </Tooltip>
+    ) : (
+        <Pagination {...props} />
+    )
+
+PaginationComponent.propTypes = {
+    offline: PropTypes.bool,
+}
+
 export const Visualization = ({
     filters,
-    visualization,
+    visualization: AO,
     isVisualizationLoading,
+    displayProperty,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
@@ -98,6 +118,8 @@ export const Visualization = ({
             pageSize: PAGE_SIZE,
         })
 
+    const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
+
     const visualizationRef = useRef(visualization)
 
     const setPage = useCallback(
@@ -107,6 +129,7 @@ export const Visualization = ({
             }),
         []
     )
+    const { offline } = useOnlineStatus()
 
     const { headers } = getAdaptedVisualization(visualization)
 
@@ -124,6 +147,7 @@ export const Visualization = ({
         filters,
         visualization,
         isVisualizationLoading,
+        displayProperty,
         onResponsesReceived,
         pageSize,
         // Set first page directly for new visualization to avoid extra request with current page
@@ -277,7 +301,9 @@ export const Visualization = ({
                                         name={header.name}
                                         onSortIconClick={sortData}
                                         sortDirection={
-                                            header.name === sortField
+                                            offline
+                                                ? undefined
+                                                : header.name === sortField
                                                 ? sortDirection
                                                 : 'default'
                                         }
@@ -383,8 +409,9 @@ export const Visualization = ({
                                         sizeClass
                                     )}
                                 >
-                                    <Pagination
-                                        disabled={fetching}
+                                    <PaginationComponent
+                                        offline={offline}
+                                        disabled={offline || fetching}
                                         page={data.pager.page}
                                         // DHIS2-13493: avoid a crash when the pager object in the analytics response is malformed.
                                         // When that happens pageSize is 0 which causes the crash because the Rows per page select does not have 0 listed as possible option.
@@ -427,11 +454,13 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
+    displayProperty: 'name',
     isVisualizationLoading: false,
     onResponsesReceived: Function.prototype,
 }
 
 Visualization.propTypes = {
+    displayProperty: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,

@@ -12,12 +12,15 @@ import styles from './YourDimensionsPanel.module.css'
 const YourDimensionsPanel = ({ visible }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const debouncedSearchTerm = useDebounce(searchTerm)
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const { loading, fetching, error, dimensions, setIsListEndVisible } =
         useYourDimensions({
             visible,
             searchTerm: debouncedSearchTerm,
-            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+            nameProp:
+                currentUser.settings[
+                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                ],
         })
 
     if (!visible) {
