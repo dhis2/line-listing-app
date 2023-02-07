@@ -1,3 +1,10 @@
+# [100.5.0](https://github.com/dhis2/line-listing-app/compare/v100.4.0...v100.5.0) (2023-02-07)
+
+
+### Features
+
+* v100.5.0 ([#327](https://github.com/dhis2/line-listing-app/issues/327)) ([ba9a998](https://github.com/dhis2/line-listing-app/commit/ba9a99861ae9ce982964206e99e436a33e5783e3)), closes [#312](https://github.com/dhis2/line-listing-app/issues/312) [#317](https://github.com/dhis2/line-listing-app/issues/317) [#316](https://github.com/dhis2/line-listing-app/issues/316) [#319](https://github.com/dhis2/line-listing-app/issues/319) [#313](https://github.com/dhis2/line-listing-app/issues/313) [#322](https://github.com/dhis2/line-listing-app/issues/322) [#314](https://github.com/dhis2/line-listing-app/issues/314) [#324](https://github.com/dhis2/line-listing-app/issues/324)
+
 # [100.4.0](https://github.com/dhis2/line-listing-app/compare/v100.3.1...v100.4.0) (2022-12-15)
 
 
