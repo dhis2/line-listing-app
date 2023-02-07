@@ -3,7 +3,6 @@ import {
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
     Analytics,
-    useCachedDataQuery,
     LEGEND_DISPLAY_STRATEGY_FIXED,
     LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM,
     VALUE_TYPE_NUMBER,
@@ -26,7 +25,6 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
-import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -129,7 +127,7 @@ const fetchAnalyticsData = async ({
     relativePeriodDate,
     sortField,
     sortDirection,
-    nameProp,
+    displayProperty,
 }) => {
     // TODO must be reviewed when PT comes around. Most likely LL and PT have quite different handling
     const { adaptedVisualization, headers, parameters } =
@@ -143,7 +141,7 @@ const fetchAnalyticsData = async ({
             ...parameters,
         })
         .withProgram(visualization.program.id)
-        .withDisplayProperty(nameProp)
+        .withDisplayProperty(displayProperty.toUpperCase())
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
@@ -278,6 +276,7 @@ const useAnalyticsData = ({
     visualization,
     filters,
     isVisualizationLoading: isGlobalLoading,
+    displayProperty,
     onResponsesReceived,
     pageSize,
     page,
@@ -291,7 +290,6 @@ const useAnalyticsData = ({
     const [fetching, setFetching] = useState(true)
     const [error, setError] = useState(undefined)
     const [data, setData] = useState(null)
-    const { userSettings } = useCachedDataQuery()
     const relativePeriodDate = filters?.relativePeriodDate
 
     const doFetch = useCallback(async () => {
@@ -304,8 +302,7 @@ const useAnalyticsData = ({
                 sortDirection,
                 sortField,
                 visualization,
-                nameProp:
-                    userSettings[USER_SETTINGS_DISPLAY_PROPERTY].toUpperCase(),
+                displayProperty,
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)

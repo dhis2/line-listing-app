@@ -3,6 +3,7 @@ import {
     DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { goToAO } from '../helpers/common.js'
 import {
     openDimension,
     selectEnrollmentProgram,
@@ -12,12 +13,12 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableHeaderCells,
     expectTableToBeVisible,
     getTableDataCells,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const getRepeatedEventsTab = () =>
     cy.getBySel('conditions-modal-content').contains('Repeated events')
@@ -83,7 +84,7 @@ const expectHeaderToContainExact = (index, value) =>
 
 describe('repeated events', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
     })
     it('can use repetition for enrollments', () => {
         const dimensionName = 'E2E - Percentage'
@@ -210,10 +211,10 @@ describe('repeated events', () => {
         getRepeatedEventsTab().should('not.exist')
     })
     it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
-        cy.visit('/#/Y6N29ifTfn2', EXTENDED_TIMEOUT)
+        goToAO('WrIV7ZoYECj')
 
         cy.getBySel('visualization-title').contains(
-            'E2E: Enrollment - Last 12 months - Hemoglobin (repeated)'
+            'E2E: Enrollment - Hemoglobin (repeated)'
         )
 
         cy.getBySel('columns-axis').contains('WHOMCH Hemoglobin value').click()

@@ -67,7 +67,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
                 </IconButton>
             </div>
             {menuIsOpen && (
-                <Layer onClick={(_, e) => toggleMenu(e)}>
+                <Layer onBackdropClick={(_, e) => toggleMenu(e)}>
                     <Popper reference={buttonRef} placement="bottom-start">
                         <MenuItems
                             dimensionId={dimensionId}

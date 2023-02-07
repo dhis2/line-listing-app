@@ -11,17 +11,17 @@ import {
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_DIM_WITH_PRESET,
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('layout', () => {
     it('expansion caret can be toggled', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [
@@ -36,15 +36,15 @@ describe('layout', () => {
                 TEST_DIM_UNIT_INTERVAL,
                 TEST_DIM_PERCENTAGE,
                 TEST_DIM_INTEGER,
-                TEST_DIM_POSITIVE_INTEGER,
-                TEST_DIM_NEGATIVE_INTEGER,
-                TEST_DIM_POSITIVE_OR_ZERO,
+                TEST_DIM_INTEGER_POSITIVE,
+                TEST_DIM_INTEGER_NEGATIVE,
+                TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
                 TEST_DIM_WITH_PRESET,
             ],
         })
 
         cy.getBySel('columns-axis')
-            .contains(TEST_DIM_POSITIVE_INTEGER)
+            .contains(TEST_DIM_INTEGER_POSITIVE)
             .should('be.visible')
 
         cy.getBySel('layout-height-toggle').click()

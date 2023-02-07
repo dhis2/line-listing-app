@@ -1,60 +1,84 @@
 import {
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import { E2E_PROGRAM } from '../data/index.js'
+import {
+    clickAddRemoveMainDimension,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
 } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod, getCurrentYearStr } from '../helpers/period.js'
+import { getCurrentYearStr, selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableHeaderCells,
     expectTableToBeVisible,
     expectTableToMatchRows,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+
+const currentYear = getCurrentYearStr()
 
 describe('event status', () => {
     const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
-    const setUpTable = (periodLabel) => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+    const setUpTable = () => {
+        goToStartPage()
 
         selectEventWithProgram(event)
 
-        selectRelativePeriod({
-            label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
+        clickAddRemoveMainDimension(dimensionName)
+    }
+
+    // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442
+    it.skip(['>=39'], 'can be filtered by status SCHEDULED', () => {
+        setUpTable()
+
+        selectFixedPeriod({
+            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
         })
 
-        cy.getBySel('main-sidebar')
-            .contains(dimensionName)
-            .closest(`[data-test*="dimension-item"]`)
-            .findBySel('dimension-menu-button')
-            .invoke('attr', 'style', 'visibility: initial')
-            .click()
+        selectFixedPeriod({
+            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
+        })
 
-        cy.contains('Add to Columns').click()
+        selectFixedPeriod({
+            label: event[DIMENSION_ID_SCHEDULED_DATE],
+            period: {
+                year: currentYear,
+                name: `December ${currentYear}`,
+            },
+        })
 
         clickMenubarUpdateButton()
 
         expectTableToBeVisible()
-    }
-
-    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
-        setUpTable(event[DIMENSION_ID_SCHEDULED_DATE])
 
         expectTableToMatchRows([
             'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
-            'Completed',
             'Active',
+            'Completed',
+            'Completed',
+            'Scheduled',
+        ])
+        expectTableToMatchRows([
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-12-25`,
         ])
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
@@ -78,7 +102,8 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
+        expectTableToMatchRows([`${currentYear}-02-01`])
+        expectTableToMatchRows(['Active'])
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 
@@ -98,9 +123,8 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-02-01`])
-
-        expectTableToMatchRows(['Active'])
+        expectTableToMatchRows([`${currentYear}-02-01`, `${currentYear}-12-25`])
+        expectTableToMatchRows(['Active', 'Scheduled'])
 
         assertChipContainsText(`${dimensionName}: 2 selected`)
 
@@ -108,9 +132,42 @@ describe('event status', () => {
     })
 
     it('can be filtered by status ACTIVE', () => {
-        setUpTable(event[DIMENSION_ID_LAST_UPDATED])
+        setUpTable()
 
-        // TODO determine expected once 2.38analytics_dev is available
+        selectFixedPeriod({
+            label: event[DIMENSION_ID_EVENT_DATE],
+            period: {
+                year: currentYear,
+                name: `January ${currentYear}`,
+            },
+        })
+
+        selectFixedPeriod({
+            label: event[DIMENSION_ID_EVENT_DATE],
+            period: {
+                year: currentYear,
+                name: `February ${currentYear}`,
+            },
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        expectTableToMatchRows([
+            'Completed',
+            'Active',
+            'Completed',
+            'Completed',
+        ])
+        expectTableToMatchRows([
+            `${currentYear}-01-03`,
+            `${currentYear}-02-01`,
+            `${currentYear}-01-01`,
+            `${currentYear}-01-01`,
+        ])
+
+        // TODO: determine expected once 2.38analytics_dev is available
         // expectTableToMatchRows(['Active', 'Completed', 'Completed'])
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
@@ -134,7 +191,8 @@ describe('event status', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows([`${getCurrentYearStr()}-11-18`])
+        expectTableToMatchRows([`${currentYear}-02-01`])
+        expectTableToMatchRows(['Active'])
 
         assertChipContainsText(`${dimensionName}: 1 selected`)
 

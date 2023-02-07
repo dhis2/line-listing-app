@@ -18,6 +18,7 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
     getTableHeaderCells,
@@ -25,7 +26,7 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const runTests = ({ scheduleDateIsSupported } = {}) => {
+const runTests = ({ scheduledDateIsSupported } = {}) => {
     it('creates an event line list (tracker program)', () => {
         const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
@@ -38,7 +39,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         dimensionIsDisabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-        if (scheduleDateIsSupported) {
+        if (scheduledDateIsSupported) {
             dimensionIsDisabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
                 'Scheduled date'
@@ -67,7 +68,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-enrollmentDate').contains(
             eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
-        if (scheduleDateIsSupported) {
+        if (scheduledDateIsSupported) {
             dimensionIsEnabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
                 eventProgram[DIMENSION_ID_SCHEDULED_DATE]
@@ -128,7 +129,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
             programName: 'Inpatient morbidity and mortality',
             [DIMENSION_ID_EVENT_DATE]: 'Report date',
             [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
-            ...(scheduleDateIsSupported
+            ...(scheduledDateIsSupported
                 ? { [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date' }
                 : {}),
             [DIMENSION_ID_INCIDENT_DATE]: 'Date of Discharge',
@@ -144,7 +145,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         dimensionIsDisabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
 
-        if (scheduleDateIsSupported) {
+        if (scheduledDateIsSupported) {
             dimensionIsDisabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
                 'Scheduled date'
@@ -174,7 +175,7 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-enrollmentDate').contains(
             eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
-        if (scheduleDateIsSupported) {
+        if (scheduledDateIsSupported) {
             dimensionIsDisabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
                 eventProgram[DIMENSION_ID_SCHEDULED_DATE]
@@ -290,15 +291,15 @@ const runTests = ({ scheduleDateIsSupported } = {}) => {
 
 describe(['>=39'], 'event', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
-    runTests({ scheduleDateIsSupported: true })
+    runTests({ scheduledDateIsSupported: true })
 })
 
 describe(['<39'], 'event', () => {
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
     })
     runTests()

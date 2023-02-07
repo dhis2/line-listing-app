@@ -1,28 +1,30 @@
-import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
     TEST_AO,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
-    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
-import { selectEnrollmentProgramDimensions } from '../helpers/dimensions.js'
+import { goToAO } from '../helpers/common.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import { getCurrentYearStr, selectFixedPeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { getTableDataCells, getTableRows } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+
+const currentYear = getCurrentYearStr()
 
 describe('options', () => {
     it('sets display density', () => {
-        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+        goToAO(TEST_AO.id)
 
         // assert the default density of table cell
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '8px 2px 6px 6px')
+            .should('equal', '8px 6px 6px')
 
         // set to comfortable density
         clickMenubarOptionsButton()
@@ -35,7 +37,7 @@ describe('options', () => {
         // assert comfortable density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '10px 4px 8px 8px')
+            .should('equal', '10px 8px 8px')
 
         // set to compact density
         clickMenubarOptionsButton()
@@ -48,13 +50,13 @@ describe('options', () => {
         // assert compact density
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '6px 2px 4px 6px')
+            .should('equal', '6px 6px 4px')
     })
 
     it('sets font size', () => {
         const REGULAR_FONT_SIZE = 12
 
-        cy.visit(`#/${TEST_AO.id}`, EXTENDED_TIMEOUT)
+        goToAO(TEST_AO.id)
 
         // assert the font size of table cell
         getTableDataCells()
@@ -92,17 +94,20 @@ describe('options', () => {
     })
 
     it('sets digit group separator', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
         // set up table
-        selectEnrollmentProgramDimensions({
+        selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [TEST_DIM_PHONE_NUMBER, TEST_DIM_INTEGER],
         })
 
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
+        selectFixedPeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: {
+                year: currentYear,
+                name: `April ${currentYear}`,
+            },
         })
 
         clickMenubarUpdateButton()

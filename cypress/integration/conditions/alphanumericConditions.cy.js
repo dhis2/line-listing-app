@@ -20,18 +20,22 @@ import {
     assertTooltipContainsEntries,
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
-import { selectRelativePeriod } from '../../helpers/period.js'
+import {
+    getCurrentYearStr,
+    selectRelativePeriod,
+} from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
     expectTableToMatchRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
+const currentYear = getCurrentYearStr()
 
 const setUpTable = () => {
     selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
@@ -77,7 +81,7 @@ describe('text conditions', () => {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable()
     })
 
@@ -102,8 +106,8 @@ describe('text conditions', () => {
             LONG_TEXT,
             '9000000',
             'Text A-2',
-            '2022-03-01',
-            '2022-02-01',
+            `${currentYear}-03-01`, // empty row, use value in date column
+            `${currentYear}-02-01`, // empty row, use value in date column
             'Text E',
         ])
 
@@ -157,7 +161,11 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['2022-03-01', '2022-02-01', '9000000'])
+        expectTableToMatchRows([
+            `${currentYear}-03-01`, // empty row, use value in date column
+            `${currentYear}-02-01`, // empty row, use value in date column
+            '9000000',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -174,7 +182,7 @@ describe('text conditions', () => {
             },
         ])
 
-        expectTableToMatchRows(['2022-03-01', '2022-02-01'])
+        expectTableToMatchRows([`${currentYear}-03-01`, `${currentYear}-02-01`]) // empty row, use value in date column
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -237,7 +245,7 @@ describe('alphanumeric types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)
