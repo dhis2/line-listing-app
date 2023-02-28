@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-10-18T07:41:59.599Z\n"
-"PO-Revision-Date: 2022-10-18T07:41:59.599Z\n"
+"POT-Creation-Date: 2023-01-20T08:48:33.330Z\n"
+"PO-Revision-Date: 2023-01-20T08:48:33.330Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -189,14 +189,14 @@ msgstr "None selected"
 msgid "Showing all values for this dimension"
 msgstr "Showing all values for this dimension"
 
-msgid "Program stage: {{stageName}}"
-msgstr "Program stage: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
+msgstr "Program stage: {{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "No dimensions found for '{{- searchTerm}}'"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr "No dimensions found in the {{programName}} program"
+msgid "No dimensions found in the {{- programName}} program"
+msgstr "No dimensions found in the {{- programName}} program"
 
 msgid "No dimensions found"
 msgstr "No dimensions found"
@@ -348,6 +348,12 @@ msgstr "Click a dimension to add or remove conditions."
 
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
+
+msgid "Not available offline"
+msgstr "Not available offline"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Rows per page"
 msgstr "Rows per page"

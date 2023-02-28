@@ -24,26 +24,47 @@ const isAxisValid = (axis) =>
         })
     )
 
-const validateDimension = (dimension, error, requireItems) => {
-    if (!(dimension && dimensionIsValid(dimension, { requireItems }))) {
-        throw error
+export const validateLineListLayout = (layout, { dryRun } = {}) => {
+    if (!layout) {
+        return false
     }
-}
 
-const validateAxis = (axis, error) => {
-    if (!isAxisValid(axis)) {
-        throw error
+    // program
+    if (!layoutHasProgramId(layout)) {
+        if (dryRun) {
+            return false
+        }
+        throw noProgramError()
     }
-}
 
-const validateLineListLayout = (layout) => {
-    validateAxis(layout.columns, noColumnsError())
-    validateDimension(
-        layoutGetDimension(layout, DIMENSION_ID_ORGUNIT),
-        noOrgUnitError(),
-        true
-    )
+    // stage
+    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
+        if (dryRun) {
+            return false
+        }
+        throw noStageError()
+    }
 
+    // columns
+    if (!isAxisValid(layout.columns)) {
+        if (dryRun) {
+            return false
+        }
+        throw noColumnsError()
+    }
+
+    // organisation unit
+    const ouDimension = layoutGetDimension(layout, DIMENSION_ID_ORGUNIT)
+    if (
+        !(ouDimension && dimensionIsValid(ouDimension, { requireItems: true }))
+    ) {
+        if (dryRun) {
+            return false
+        }
+        throw noOrgUnitError()
+    }
+
+    // time dimension
     let layoutHasTimeDimension = false
 
     DIMENSION_IDS_TIME.forEach((dimensionId) => {
@@ -55,16 +76,13 @@ const validateLineListLayout = (layout) => {
     })
 
     if (!layoutHasTimeDimension) {
+        if (dryRun) {
+            return false
+        }
         throw noPeriodError()
     }
 
-    if (!layoutHasProgramId(layout)) {
-        throw noProgramError()
-    }
-
-    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
-        throw noStageError()
-    }
+    return true
 }
 
 export const validateLayout = (layout) => {
@@ -75,15 +93,11 @@ export const validateLayout = (layout) => {
     }
 }
 
-export const layoutHasProgramId = (layout) => {
-    if (!layout) {
-        return false
-    }
-    switch (layout.type) {
-        case VIS_TYPE_LINE_LIST:
-        default:
-            return Boolean(layout.program?.id)
-    }
-}
+export const layoutHasProgramId = (layout) => Boolean(layout?.program?.id)
 
-export const aoCreatedInEventReportsApp = (layout) => layout.legacy
+export const aoCreatedInEventReportsApp = (layout) => layout?.legacy
+
+export const isLayoutValidForSave = (layout) =>
+    layoutHasProgramId(layout) && !aoCreatedInEventReportsApp(layout)
+
+export const isLayoutValidForSaveAs = (layout) => layoutHasProgramId(layout)

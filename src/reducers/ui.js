@@ -50,6 +50,11 @@ export const ADD_UI_PARENT_GRAPH_MAP = 'ADD_UI_PARENT_GRAPH_MAP'
 export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
+export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
+
+const DEFAULT_CONDITIONS = {}
+const DEFAULT_DIMENSION_CONDITIONS = {}
+const DEFAULT_DIMENSION_ITEMS = []
 
 const EMPTY_UI = {
     draggingId: null,
@@ -69,6 +74,7 @@ const EMPTY_UI = {
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
+    conditions: DEFAULT_CONDITIONS,
 }
 
 export const DEFAULT_UI = {
@@ -95,7 +101,7 @@ export const DEFAULT_UI = {
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
-    conditions: {},
+    conditions: DEFAULT_CONDITIONS,
 }
 
 const getPreselectedUi = (options) => {
@@ -332,6 +338,12 @@ export default (state = EMPTY_UI, action) => {
                 repetitionByDimension,
             }
         }
+        case CLEAR_UI_REPETITION: {
+            return {
+                ...state,
+                repetitionByDimension: EMPTY_UI.repetitionByDimension,
+            }
+        }
         default:
             return state
     }
@@ -341,23 +353,26 @@ export default (state = EMPTY_UI, action) => {
 
 export const sGetUi = (state) => state.ui
 export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
+export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
-export const sGetUiOptions = (state) => sGetUi(state).options
-export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiLayout = (state) => sGetUi(state).layout
+export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
+export const sGetUiOptions = (state) => sGetUi(state).options
+export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
+export const sGetUiRepetition = (state) =>
+    sGetUi(state).repetitionByDimension || {}
+export const sGetUiConditions = (state) =>
+    sGetUi(state).conditions || DEFAULT_CONDITIONS
+
+// TODO - should these props have empty values in the DEFAULT_UI and EMPTY_UI?
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
-export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
-export const sGetUiParentGraphMap = (state) => sGetUi(state).parentGraphMap
-export const sGetUiConditions = (state) => sGetUi(state).conditions || {}
-export const sGetUiRepetition = (state) =>
-    sGetUi(state).repetitionByDimension || {}
 
 // Selectors level 2
 
@@ -367,7 +382,9 @@ export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 
 export const sGetUiItemsByDimension = (state, dimension) =>
-    sGetUiItems(state)[dimension] || DEFAULT_UI.itemsByDimension[dimension]
+    sGetUiItems(state)[dimension] ||
+    DEFAULT_UI.itemsByDimension[dimension] ||
+    DEFAULT_DIMENSION_ITEMS
 
 export const sGetDimensionIdsFromLayout = (state) =>
     Object.values(sGetUiLayout(state)).reduce(
@@ -379,7 +396,7 @@ export const sGetUiDimensionIdsByAxisId = (state, axisId) =>
     sGetUiLayout(state)[axisId]
 
 export const sGetUiConditionsByDimension = (state, dimension) =>
-    sGetUiConditions(state)[dimension]
+    sGetUiConditions(state)[dimension] || DEFAULT_DIMENSION_CONDITIONS
 
 export const sGetUiRepetitionByDimension = (state, dimensionId) =>
     sGetUiRepetition(state)[dimensionId]

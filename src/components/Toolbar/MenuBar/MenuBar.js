@@ -2,7 +2,7 @@ import {
     FileMenu,
     useCachedDataQuery,
     VIS_TYPE_LINE_LIST,
-    visTypeDisplayNames,
+    getDisplayNameByVisType,
 } from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -14,10 +14,15 @@ import { acSetVisualization } from '../../../actions/visualization.js'
 import { getAlertTypeByStatusCode } from '../../../modules/error.js'
 import history from '../../../modules/history.js'
 import {
-    aoCreatedInEventReportsApp,
-    layoutHasProgramId,
+    isLayoutValidForSave,
+    isLayoutValidForSaveAs,
 } from '../../../modules/layoutValidation.js'
-import { getVisualizationFromCurrent } from '../../../modules/visualization.js'
+import {
+    getVisualizationFromCurrent,
+    getVisualizationState,
+    STATE_DIRTY,
+    STATE_UNSAVED,
+} from '../../../modules/visualization.js'
 import { sGetCurrent } from '../../../reducers/current.js'
 import { sGetVisualization } from '../../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
@@ -79,7 +84,7 @@ const MenuBar = ({
     }
 
     const onDelete = () => {
-        const deletedVisualization = current.name
+        const deletedVisualization = visualization?.name
 
         history.push('/')
 
@@ -137,7 +142,7 @@ const MenuBar = ({
             visualization.name ||
             // new visualization with no name provided in Save dialog
             i18n.t('Untitled {{visualizationType}} visualization, {{date}}', {
-                visualizationType: visTypeDisplayNames(VIS_TYPE_LINE_LIST),
+                visualizationType: getDisplayNameByVisType(VIS_TYPE_LINE_LIST),
                 date: new Date().toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: 'short',
@@ -221,18 +226,30 @@ const MenuBar = ({
             <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
-                fileObject={current}
+                fileObject={{
+                    ...visualization,
+                    ...current,
+                }}
                 defaultFilterVisType={VIS_TYPE_LINE_LIST}
                 onOpen={onOpen}
                 onNew={onNew}
                 onRename={onRename}
                 onSave={
-                    layoutHasProgramId(current) &&
-                    !aoCreatedInEventReportsApp(current)
+                    [STATE_UNSAVED, STATE_DIRTY].includes(
+                        getVisualizationState(current, visualization)
+                    ) &&
+                    isLayoutValidForSave({
+                        program: current?.program,
+                        legacy: visualization?.legacy,
+                    })
                         ? onSave
                         : undefined
                 }
-                onSaveAs={(details) => onSave(details, true)}
+                onSaveAs={
+                    isLayoutValidForSaveAs(current)
+                        ? (details) => onSave(details, true)
+                        : undefined
+                }
                 onShare={onFileMenuAction}
                 onTranslate={onFileMenuAction}
                 onDelete={onDelete}

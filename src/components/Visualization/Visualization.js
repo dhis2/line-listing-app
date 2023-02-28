@@ -3,8 +3,20 @@ import {
     LegendKey,
     LEGEND_DISPLAY_STYLE_FILL,
     LEGEND_DISPLAY_STYLE_TEXT,
+    VALUE_TYPE_NUMBER,
+    VALUE_TYPE_INTEGER,
+    VALUE_TYPE_INTEGER_POSITIVE,
+    VALUE_TYPE_INTEGER_NEGATIVE,
+    VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    VALUE_TYPE_PERCENTAGE,
+    VALUE_TYPE_UNIT_INTERVAL,
+    VALUE_TYPE_TIME,
+    VALUE_TYPE_DATE,
+    VALUE_TYPE_DATETIME,
+    VALUE_TYPE_PHONE_NUMBER,
     VALUE_TYPE_URL,
 } from '@dhis2/analytics'
+import { useOnlineStatus } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -15,10 +27,18 @@ import {
     DataTableBody,
     DataTableFoot,
     Pagination,
+    Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
+import React, {
+    useState,
+    useEffect,
+    useMemo,
+    useRef,
+    useCallback,
+    useReducer,
+} from 'react'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -30,9 +50,15 @@ import {
     getFormattedCellValue,
     getHeaderText,
 } from '../../modules/tableValues.js'
-import { headersMap } from '../../modules/visualization.js'
+import {
+    getHeadersMap,
+    transformVisualization,
+} from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
-import { useAnalyticsData } from './useAnalyticsData.js'
+import {
+    getAdaptedVisualization,
+    useAnalyticsData,
+} from './useAnalyticsData.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -61,36 +87,80 @@ const getSizeClass = (displayDensity) => {
     }
 }
 
+const PaginationComponent = ({ offline, ...props }) =>
+    offline ? (
+        <Tooltip content={i18n.t('Not available offline')}>
+            <Pagination {...props} />
+        </Tooltip>
+    ) : (
+        <Pagination {...props} />
+    )
+
+PaginationComponent.propTypes = {
+    offline: PropTypes.bool,
+}
+
 export const Visualization = ({
     filters,
-    visualization,
+    visualization: AO,
     isVisualizationLoading,
+    displayProperty,
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
-    const [{ sortField, sortDirection, pageSize, page }, setSorting] = useState(
-        {
+    const [{ sortField, sortDirection, pageSize, page }, setSorting] =
+        useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
             sortDirection: DEFAULT_SORT_DIRECTION,
             page: FIRST_PAGE,
             pageSize: PAGE_SIZE,
-        }
-    )
+        })
 
-    const isInModal = !!filters?.relativePeriodDate
+    const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
+
+    const visualizationRef = useRef(visualization)
+
+    const setPage = useCallback(
+        (pageNum) =>
+            setSorting({
+                page: pageNum,
+            }),
+        []
+    )
+    const { offline } = useOnlineStatus()
+
+    const { headers } = getAdaptedVisualization(visualization)
+
+    if (headers && sortField) {
+        // reset sorting if current sortField has been removed from Columns DHIS2-13948
+        if (!headers.includes(sortField)) {
+            setSorting({
+                sortField: null,
+                sortDirection: DEFAULT_SORT_DIRECTION,
+            })
+        }
+    }
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
         visualization,
         isVisualizationLoading,
+        displayProperty,
         onResponsesReceived,
         pageSize,
-        page,
+        // Set first page directly for new visualization to avoid extra request with current page
+        page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
     })
+
+    // Reset page for new visualizations
+    useEffect(() => {
+        visualizationRef.current = visualization
+        setPage(FIRST_PAGE)
+    }, [visualization, setPage])
 
     useEffect(() => {
         if (data && visualization) {
@@ -130,28 +200,23 @@ export const Visualization = ({
         setSorting({
             sortField: name,
             sortDirection: direction,
-            pageSize,
             page: FIRST_PAGE,
-        })
-
-    const setPage = (pageNum) =>
-        setSorting({
-            sortField,
-            sortDirection,
-            pageSize,
-            page: pageNum,
         })
 
     const setPageSize = (pageSizeNum) =>
         setSorting({
-            sortField,
-            sortDirection,
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
 
+    const dimensionHeadersMap = getHeadersMap({
+        showHierarchy: visualization.showHierarchy,
+    })
+
     const reverseLookupDimensionId = (dimensionId) =>
-        Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
+        Object.keys(dimensionHeadersMap).find(
+            (key) => dimensionHeadersMap[key] === dimensionId
+        )
 
     const formatCellValue = (value, header) => {
         if (header?.valueType === VALUE_TYPE_URL) {
@@ -164,6 +229,21 @@ export const Visualization = ({
             return getFormattedCellValue({ value, header, visualization })
         }
     }
+
+    const cellValueShouldNotWrap = (header) =>
+        [
+            VALUE_TYPE_NUMBER,
+            VALUE_TYPE_INTEGER,
+            VALUE_TYPE_INTEGER_POSITIVE,
+            VALUE_TYPE_INTEGER_NEGATIVE,
+            VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+            VALUE_TYPE_PERCENTAGE,
+            VALUE_TYPE_UNIT_INTERVAL,
+            VALUE_TYPE_TIME,
+            VALUE_TYPE_DATE,
+            VALUE_TYPE_DATETIME,
+            VALUE_TYPE_PHONE_NUMBER,
+        ].includes(header.valueType) && !header.optionSet
 
     const formatCellHeader = (header) => {
         const headerText = getHeaderText(header)
@@ -199,9 +279,12 @@ export const Visualization = ({
         </div>
     )
 
+    const isInModal = !!filters?.relativePeriodDate
+
     return (
         <div className={styles.pluginContainer}>
             <div
+                data-test="line-list-loading-indicator"
                 className={cx(styles.fetchIndicator, {
                     [styles.fetching]: fetching,
                 })}
@@ -224,14 +307,23 @@ export const Visualization = ({
                                         name={header.name}
                                         onSortIconClick={sortData}
                                         sortDirection={
-                                            header.name === sortField
+                                            offline
+                                                ? undefined
+                                                : header.name === sortField
                                                 ? sortDirection
                                                 : 'default'
                                         }
+                                        sortIconTitle={i18n.t(
+                                            'Sort by {{column}}',
+                                            {
+                                                column: getHeaderText(header),
+                                            }
+                                        )}
                                         className={cx(
                                             styles.headerCell,
                                             fontSizeClass,
-                                            sizeClass
+                                            sizeClass,
+                                            'bordered'
                                         )}
                                         dataTest={'table-header'}
                                     >
@@ -266,7 +358,12 @@ export const Visualization = ({
                                             sizeClass,
                                             {
                                                 [styles.emptyCell]: !value,
-                                            }
+                                                [styles.nowrap]:
+                                                    cellValueShouldNotWrap(
+                                                        data.headers[index]
+                                                    ),
+                                            },
+                                            'bordered'
                                         )}
                                         backgroundColor={
                                             visualization.legend?.style ===
@@ -318,8 +415,9 @@ export const Visualization = ({
                                         sizeClass
                                     )}
                                 >
-                                    <Pagination
-                                        disabled={fetching}
+                                    <PaginationComponent
+                                        offline={offline}
+                                        disabled={offline || fetching}
                                         page={data.pager.page}
                                         // DHIS2-13493: avoid a crash when the pager object in the analytics response is malformed.
                                         // When that happens pageSize is 0 which causes the crash because the Rows per page select does not have 0 listed as possible option.
@@ -362,11 +460,13 @@ export const Visualization = ({
 }
 
 Visualization.defaultProps = {
+    displayProperty: 'name',
     isVisualizationLoading: false,
     onResponsesReceived: Function.prototype,
 }
 
 Visualization.propTypes = {
+    displayProperty: PropTypes.string.isRequired,
     isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,

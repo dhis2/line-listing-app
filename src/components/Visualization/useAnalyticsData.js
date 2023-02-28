@@ -32,7 +32,7 @@ import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
-    headersMap,
+    getHeadersMap,
 } from '../../modules/visualization.js'
 
 const analyticsApiEndpointMap = {
@@ -94,13 +94,17 @@ const getAdaptedVisualization = (visualization) => {
     const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
     const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
 
+    const dimensionHeadersMap = getHeadersMap({
+        showHierarchy: visualization.showHierarchy,
+    })
+
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
         ...visualization[AXIS_ID_ROWS],
     ].map(({ dimension, programStage, repetition }) => {
         const headerId = programStage?.id
             ? `${programStage.id}.${dimension}`
-            : headersMap[dimension] || dimension
+            : dimensionHeadersMap[dimension] || dimension
 
         if (repetition?.indexes?.length) {
             return repetition.indexes.map((index) =>
@@ -151,10 +155,6 @@ const fetchAnalyticsData = async ({
         .withPageSize(pageSize)
         .withPage(page)
         .withIncludeMetadataDetails()
-
-    if (visualization.showHierarchy) {
-        req = req.withHierarchyMeta(visualization.showHierarchy)
-    }
 
     if (visualization.outputType !== OUTPUT_TYPE_ENROLLMENT) {
         req = req.withStage(visualization.programStage?.id)

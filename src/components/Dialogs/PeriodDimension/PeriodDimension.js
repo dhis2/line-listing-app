@@ -54,9 +54,9 @@ const useIsInLayout = (dimensionId) => {
 }
 
 const useLocalizedStartEndDateFormatter = () => {
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const formatter = new Intl.DateTimeFormat(
-        userSettings[USER_SETTINGS_UI_LOCALE],
+        currentUser.settings[USER_SETTINGS_UI_LOCALE],
         {
             dateStyle: 'long',
         }
@@ -109,9 +109,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
     const excludedPeriodTypes = useExcludedPeriods()
-    const selectedIds =
-        useSelector((state) => sGetUiItemsByDimension(state, dimension?.id)) ||
-        []
+    const selectedIds = useSelector((state) =>
+        sGetUiItemsByDimension(state, dimension?.id)
+    )
     const [entryMethod, setEntryMethod] = useState(
         selectedIds.filter((id) => isStartEndDate(id)).length
             ? OPTION_START_END_DATES

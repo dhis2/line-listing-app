@@ -1,0 +1,710 @@
+# 
+# Translators:
+# Jaime Bosque <jaime.bosque@dhis2.org>, 2022
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_419\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+msgid "Add to {{axisName}}"
+msgstr ""
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "No items selected"
+msgstr ""
+
+msgid "Available options"
+msgstr ""
+
+msgid "Filter options"
+msgstr "Opciones"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr ""
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr ""
+
+msgid "JSON"
+msgstr ""
+
+msgid "XML"
+msgstr ""
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr ""
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Download"
+msgstr ""
+
+msgid "all"
+msgstr ""
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{count}} conditions"
+msgid_plural "{{count}} conditions"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Levels"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "None selected"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "Program stage: {{stageName}}"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{programName}} program"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Evento"
+
+msgid "Enrollment"
+msgstr ""
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "Main dimensions"
+msgstr ""
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Search in program"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "All types"
+msgstr ""
+
+msgid "Data element"
+msgstr ""
+
+msgid "Program attribute"
+msgstr ""
+
+msgid "Program indicator"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Category option group set"
+msgstr ""
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a stage above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program above to add program dimensions."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "Clear program first to choose another"
+msgstr ""
+
+msgid "Clear"
+msgstr "Limpiar"
+
+msgid "Stage"
+msgstr ""
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Clear stage first to choose another"
+msgstr ""
+
+msgid "This program only has one stage"
+msgstr ""
+
+msgid "Time dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr ""
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr ""
+
+msgid "Edited"
+msgstr ""
+
+msgid "Interpretations"
+msgstr ""
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr ""
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr ""
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Getting started"
+msgstr ""
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "Rows per page"
+msgstr ""
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr ""
+
+msgid "Columns totals"
+msgstr ""
+
+msgid "Digit group separator"
+msgstr ""
+
+msgid "None"
+msgstr "Ninguno"
+
+msgid "Space"
+msgstr ""
+
+msgid "Comma"
+msgstr ""
+
+msgid "Display density"
+msgstr ""
+
+msgid "Comfortable"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "Font size"
+msgstr ""
+
+msgid "Large"
+msgstr ""
+
+msgid "Small"
+msgstr ""
+
+msgid "Hide empty rows"
+msgstr ""
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr ""
+
+msgid "Legend type"
+msgstr ""
+
+msgid "Use pre-defined legend per data item"
+msgstr ""
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr ""
+
+msgid "Legend changes text color"
+msgstr ""
+
+msgid "Legend"
+msgstr ""
+
+msgid "Select from legends"
+msgstr ""
+
+msgid "Loading legends"
+msgstr ""
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr ""
+
+msgid "Maximum data value"
+msgstr ""
+
+msgid "Clear min/max limits"
+msgstr ""
+
+msgid "Row sub-totals"
+msgstr ""
+
+msgid "Row totals"
+msgstr ""
+
+msgid "Dimension labels"
+msgstr ""
+
+msgid "Display organisation unit hierarchy"
+msgstr ""
+
+msgid "Show legend key"
+msgstr ""
+
+msgid "Add a title"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Columns"
+msgstr ""
+
+msgid "Rows"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr ""
+
+msgid "contains"
+msgstr ""
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr ""
+
+msgid "No data available"
+msgstr ""
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+
+msgid "Visualization not found"
+msgstr ""
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr ""
+
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
+msgstr ""
+
+msgid "No time dimension selected"
+msgstr ""
+
+msgid ""
+"Make sure to add a time dimension with at least one selection to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "No access"
+msgstr ""
+
+msgid "You don't have access to the requested data"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Algo ha ido mal"
+
+msgid "Organisation unit"
+msgstr ""
+
+msgid "Event status"
+msgstr "Estado del evento"
+
+msgid "Program status"
+msgstr ""
+
+msgid "Created by"
+msgstr ""
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "Not applicable to event programs"
+msgstr ""
+
+msgid "Not applicable to enrollments"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr ""
+
+msgid "User sub-units"
+msgstr ""
+
+msgid "User sub-x2-units"
+msgstr ""
+
+msgid "Table title"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "Empty data"
+msgstr ""
+
+msgid "Totals"
+msgstr ""
+
+msgid "Data"
+msgstr "Datos"
+
+msgid "Limit values"
+msgstr ""
+
+msgid "Limit number of values"
+msgstr ""
+
+msgid "Limit minimum/maximum values"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Event date"
+msgstr "Fecha de evento"
+
+msgid "Enrollment date"
+msgstr "Fecha de inscripción"
+
+msgid "Incident date"
+msgstr "Fecha del incidente"
+
+msgid "Scheduled date"
+msgstr ""
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
+msgstr ""
+
+msgid "No input type selected"
+msgstr ""
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Cancelled"
+msgstr "Cancelar"
+
+msgid "Completed"
+msgstr "Completado"
+
+msgid "Scheduled"
+msgstr ""
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

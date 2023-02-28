@@ -16,37 +16,32 @@ const DimensionItemBase = ({
     contextMenu,
     onClick,
     dataTest,
-}) => {
-    if (selected && disabled) {
-        throw new Error(`${name} is invalid`)
-    }
-    return (
-        <div
-            className={cx(styles.dimensionItem, {
-                [styles.selected]: selected,
-                [styles.disabled]: disabled,
-                [styles.dragging]: dragging,
-            })}
-            onClick={onClick}
-            data-test={dataTest}
-        >
-            <div className={styles.iconAndLabelWrapper}>
-                <div className={styles.icon}>
-                    <DimensionIcon dimensionType={dimensionType} />
-                </div>
-
-                <div className={styles.label}>
-                    <span className={styles.primary}>{name}</span>
-                    {stageName && (
-                        <span className={styles.secondary}>{stageName}</span>
-                    )}
-                </div>
+}) => (
+    <div
+        className={cx(styles.dimensionItem, {
+            [styles.selected]: selected,
+            [styles.disabled]: disabled,
+            [styles.dragging]: dragging,
+        })}
+        onClick={onClick}
+        data-test={dataTest}
+    >
+        <div className={styles.iconAndLabelWrapper}>
+            <div className={styles.icon}>
+                <DimensionIcon dimensionType={dimensionType} />
             </div>
 
-            {contextMenu && contextMenu}
+            <div className={styles.label}>
+                <span className={styles.primary}>{name}</span>
+                {stageName && (
+                    <span className={styles.secondary}>{stageName}</span>
+                )}
+            </div>
         </div>
-    )
-}
+
+        {contextMenu && contextMenu}
+    </div>
+)
 
 DimensionItemBase.propTypes = {
     name: PropTypes.string.isRequired,
@@ -58,12 +53,6 @@ DimensionItemBase.propTypes = {
     selected: PropTypes.bool,
     stageName: PropTypes.string,
     onClick: PropTypes.func,
-}
-
-DimensionItemBase.defaultProps = {
-    conditions: [],
-    items: [],
-    onClick: Function.prototype,
 }
 
 export { DimensionItemBase }

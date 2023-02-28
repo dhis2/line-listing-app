@@ -1,4 +1,8 @@
-import { useCachedDataQuery, DIMENSION_TYPE_ALL } from '@dhis2/analytics'
+import {
+    useCachedDataQuery,
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+} from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
@@ -52,11 +56,12 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
     const [searchTerm, setSearchTerm] = useState('')
+    const [stageFilter, setStageFilter] = useState()
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
     const debouncedSearchTerm = useDebounce(searchTerm)
     const filteredPrograms = data?.programs.programs.filter(
@@ -82,6 +87,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
             const program = filteredPrograms?.find(({ id }) => id === programId)
             const stage =
                 // auto-select if a program only has a single stage
+                // and input type is Event
+                inputType === OUTPUT_TYPE_EVENT &&
                 program?.programStages.length === 1
                     ? program.programStages[0]
                     : undefined
@@ -93,14 +100,17 @@ const ProgramDimensionsPanel = ({ visible }) => {
         if (visible && !called) {
             refetch({
                 nameProp:
-                    userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+                    currentUser.settings[
+                        DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                    ],
             })
         }
-    }, [visible, called])
+    }, [visible, called, refetch])
 
     useEffect(() => {
         setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
+        setStageFilter()
     }, [inputType, selectedProgramId, selectedStageId])
 
     if (!visible || !called) {
@@ -150,6 +160,8 @@ const ProgramDimensionsPanel = ({ visible }) => {
                         setSearchTerm={setSearchTerm}
                         dimensionType={dimensionType}
                         setDimensionType={setDimensionType}
+                        stageFilter={stageFilter}
+                        setStageFilter={setStageFilter}
                     />
                 ) : (
                     <div className={styles.helptext}>
@@ -170,7 +182,14 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     program={selectedProgram}
                     dimensionType={dimensionType}
                     searchTerm={debouncedSearchTerm}
-                    stageId={selectedStageId}
+                    stageId={
+                        inputType === OUTPUT_TYPE_ENROLLMENT &&
+                        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                            ? stageFilter
+                            : inputType === OUTPUT_TYPE_EVENT
+                            ? selectedStageId
+                            : undefined
+                    }
                 />
             )}
         </div>

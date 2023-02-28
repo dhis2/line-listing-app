@@ -20,9 +20,9 @@ const renderLimit = 5
 
 export const TooltipContent = ({ dimension, conditionsTexts }) => {
     const metadata = useSelector(sGetMetadata)
-    const itemIds =
-        useSelector((state) => sGetUiItemsByDimension(state, dimension.id)) ||
-        []
+    const itemIds = useSelector((state) =>
+        sGetUiItemsByDimension(state, dimension.id)
+    )
 
     const getNameList = (idList, label, metadata) =>
         idList.reduce(
@@ -143,7 +143,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
                 <ul className={styles.list} data-test="tooltip-content">
                     {stageName && (
                         <li className={styles.item}>
-                            {i18n.t('Program stage: {{stageName}}', {
+                            {i18n.t('Program stage: {{- stageName}}', {
                                 stageName,
                                 nsSeparator: '^^',
                             })}

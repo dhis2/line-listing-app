@@ -24,11 +24,11 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // choose the stage if relevant
     if (stageName) {
         cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.contains(stageName).click()
+        cy.containsExact(stageName).click()
     }
 }
 
-export const selectEventProgram = ({ programName, stageName }) =>
+export const selectEventWithProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
 export const selectEnrollmentProgram = ({ programName, stageName }) =>
@@ -42,6 +42,21 @@ export const openDimension = (dimensionName) => {
     cy.getBySel('program-dimensions-list').contains(dimensionName).click()
 }
 
+const clickAddRemoveDimension = (id, label) =>
+    cy
+        .getBySel(id)
+        .contains(label)
+        .closest(`[data-test*="dimension-item"]`)
+        .findBySelLike('item-button')
+        .invoke('attr', 'style', 'visibility: initial')
+        .click()
+
+export const clickAddRemoveMainDimension = (label) =>
+    clickAddRemoveDimension('main-sidebar', label)
+
+export const clickAddRemoveProgramDimension = (label) =>
+    clickAddRemoveDimension('program-dimensions-list', label)
+
 const selectProgramDimensions = ({
     inputType,
     programName,
@@ -52,15 +67,14 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        openDimension(dimensionName)
-        cy.contains('Add to Columns').click()
+        clickAddRemoveProgramDimension(dimensionName)
     })
 
     // close the program dimensions panel
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
 }
 
-export const selectEventProgramDimensions = ({
+export const selectEventWithProgramDimensions = ({
     programName,
     stageName,
     dimensions,

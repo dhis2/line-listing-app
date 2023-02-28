@@ -1,21 +1,21 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
-    ANALYTICS_PROGRAM,
+    E2E_PROGRAM,
     TEST_DIM_NUMBER,
     TEST_DIM_UNIT_INTERVAL,
     TEST_DIM_PERCENTAGE,
     TEST_DIM_INTEGER,
-    TEST_DIM_POSITIVE_INTEGER,
-    TEST_DIM_NEGATIVE_INTEGER,
-    TEST_DIM_POSITIVE_OR_ZERO,
+    TEST_DIM_INTEGER_POSITIVE,
+    TEST_DIM_INTEGER_NEGATIVE,
+    TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     TEST_REL_PE_THIS_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_DIM_WITH_PRESET,
 } from '../../data/index.js'
 import {
     openDimension,
-    selectEventProgram,
-    selectEventProgramDimensions,
+    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
@@ -24,8 +24,10 @@ import {
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
 import {
     getPreviousYearStr,
+    getCurrentYearStr,
     selectRelativePeriod,
 } from '../../helpers/period.js'
+import { goToStartPage } from '../../helpers/startScreen.js'
 import {
     expectTableToBeVisible,
     expectTableToContainHeader,
@@ -33,16 +35,16 @@ import {
     getTableDataCells,
     getTableRows,
 } from '../../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../../support/util.js'
 
 const previousYear = getPreviousYearStr()
+const currentYear = getCurrentYearStr()
 
-const event = ANALYTICS_PROGRAM
+const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = (dimensionName, period) => {
-    selectEventProgramDimensions({ ...event, dimensions: [dimensionName] })
+    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
 
     selectRelativePeriod({
         label: periodLabel,
@@ -75,7 +77,7 @@ describe('number conditions', () => {
     const dimensionName = TEST_DIM_NUMBER
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_THIS_YEAR)
     })
 
@@ -98,7 +100,7 @@ describe('number conditions', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['2 000 000', '5 557 779 990'])
+        expectTableToMatchRows(['2 000 000', '5 557 779 990', '5 123 123'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -110,7 +112,12 @@ describe('number conditions', () => {
             [{ conditionName: 'greater than or equal to', value: '12' }],
             dimensionName
         )
-        expectTableToMatchRows(['12', '2 000 000', '5 557 779 990'])
+        expectTableToMatchRows([
+            '12',
+            '2 000 000',
+            '5 557 779 990',
+            '5 123 123',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -156,11 +163,12 @@ describe('number conditions', () => {
         )
 
         expectTableToMatchRows([
+            '3.7',
             '11',
+            `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
             '5 557 779 990',
-            '3.7',
-            '2022-01-01', // the empty row
+            '5 123 123',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -191,11 +199,12 @@ describe('number conditions', () => {
         )
 
         expectTableToMatchRows([
+            '3.7',
             '11',
             '12',
             '2 000 000',
             '5 557 779 990',
-            '3.7',
+            '5 123 123',
         ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
@@ -225,10 +234,10 @@ describe('number conditions', () => {
 })
 
 describe('integer', () => {
-    const dimensionName = TEST_DIM_POSITIVE_OR_ZERO
+    const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
         setUpTable(dimensionName, TEST_REL_PE_LAST_YEAR)
     })
 
@@ -238,7 +247,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['0', '5', '1', '35'])
+        expectTableToMatchRows(['56', '1', '0', '35', '0', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -251,7 +260,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['5', '35'])
+        expectTableToMatchRows(['56', '35', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -264,7 +273,7 @@ describe('integer', () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['5', '1', '35'])
+        expectTableToMatchRows(['56', '1', '35', '45', '46'])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -274,7 +283,7 @@ describe('integer', () => {
 
 describe('preset options', () => {
     const dimensionName = TEST_DIM_WITH_PRESET
-    const TEST_PRESET = 'Age (COVID-19)'
+    const TEST_PRESET = 'Age 10y interval'
 
     const addPreset = (preset, value) => {
         cy.getBySelLike('layout-chip').contains(dimensionName).click()
@@ -297,9 +306,9 @@ describe('preset options', () => {
     }
 
     beforeEach(() => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        goToStartPage()
 
-        selectEventProgram(ANALYTICS_PROGRAM)
+        selectEventWithProgram(E2E_PROGRAM)
         openDimension(dimensionName)
         cy.contains('Add to Columns').click()
 
@@ -319,13 +328,24 @@ describe('preset options', () => {
         addPreset(TEST_PRESET)
 
         expectTableToMatchRows([
-            `${previousYear}-11-01`,
+            `${previousYear}-01-01`,
             `${previousYear}-12-11`,
-            `${previousYear}-12-10`,
+            `${previousYear}-01-02`,
             `${previousYear}-11-15`,
+            `${previousYear}-12-10`,
+            `${previousYear}-12-22`,
+            `${previousYear}-12-23`,
         ])
 
-        expectTableToMatchRows(['5 - 14', '5 - 14', '35 - 44', '35 - 44'])
+        expectTableToMatchRows([
+            '50 - 60',
+            '10 - 20',
+            '0 - 10',
+            '30 - 40',
+            '10 - 20',
+            '40 - 50',
+            '40 - 50',
+        ])
 
         assertChipContainsText(`${dimensionName}: 1 condition`)
 
@@ -333,7 +353,7 @@ describe('preset options', () => {
     })
 
     it('set and value', () => {
-        const TEST_VALUE = '5 - 14'
+        const TEST_VALUE = '10 - 20'
 
         addPreset(TEST_PRESET, TEST_VALUE)
 
@@ -368,16 +388,16 @@ describe('numeric types', () => {
         TEST_DIM_UNIT_INTERVAL,
         TEST_DIM_PERCENTAGE,
         TEST_DIM_INTEGER,
-        TEST_DIM_POSITIVE_INTEGER,
-        TEST_DIM_NEGATIVE_INTEGER,
-        TEST_DIM_POSITIVE_OR_ZERO,
+        TEST_DIM_INTEGER_POSITIVE,
+        TEST_DIM_INTEGER_NEGATIVE,
+        TEST_DIM_INTEGER_ZERO_OR_POSITIVE,
     ]
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            goToStartPage()
 
-            selectEventProgram(ANALYTICS_PROGRAM)
+            selectEventWithProgram(E2E_PROGRAM)
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

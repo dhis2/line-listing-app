@@ -1,58 +1,19 @@
-import { HIV_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
-import { selectEventProgram } from '../helpers/dimensions.js'
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import {
+    clickAddRemoveMainDimension,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
+import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
-
-const openContextMenu = (id) =>
-    cy
-        .getBySel('main-sidebar')
-        .findBySel(`dimension-item-${id}`)
-        .findBySel('dimension-menu-button')
-        .invoke('attr', 'style', 'visibility: initial')
-        .click()
 
 describe('layout validation', () => {
-    it('columns is required', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+    const trackerProgram = CHILD_PROGRAM
 
-        // remove org unit
-        openContextMenu('ou')
-        cy.containsExact('Remove').click()
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('Columns is empty')
-    })
-    it('org unit dimension is required', () => {
-        // add something other than org unit to columns
-        openContextMenu('lastUpdatedBy')
-        cy.containsExact('Add to Columns').click()
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No organisation unit selected')
-    })
-    it('time dimension is required', () => {
-        // remove previously added dimension
-        openContextMenu('lastUpdatedBy')
-        cy.containsExact('Remove').click()
-
-        // add org unit to columns
-        openContextMenu('ou')
-        cy.containsExact('Add to Columns').click()
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No time dimension selected')
-    })
     it('program is required', () => {
-        // add a time dimension to columns
-        selectRelativePeriod({
-            label: 'Event date',
-            period: TEST_REL_PE_LAST_12_MONTHS,
-        })
+        goToStartPage()
 
         clickMenubarUpdateButton()
 
@@ -60,16 +21,49 @@ describe('layout validation', () => {
     })
     it('stage is required', () => {
         // select a program
-        selectEventProgram({ programName: HIV_PROGRAM.programName })
+        selectEventWithProgram({ programName: trackerProgram.programName })
 
         clickMenubarUpdateButton()
 
         cy.getBySel('error-container').contains('No stage selected')
     })
-    it('validation succeeds when all above are provided', () => {
+    it('columns is required', () => {
         // select a stage
-        selectEventProgram({
-            stageName: HIV_PROGRAM.stageName,
+        selectEventWithProgram({
+            stageName: trackerProgram.stageName,
+        })
+
+        // remove org unit
+        clickAddRemoveMainDimension('Organisation unit')
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('error-container').contains('Columns is empty')
+    })
+    it('org unit dimension is required', () => {
+        // add something other than org unit to columns
+        clickAddRemoveMainDimension('Last updated by')
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('error-container').contains('No organisation unit selected')
+    })
+    it('time dimension is required', () => {
+        // remove previously added dimension
+        clickAddRemoveMainDimension('Last updated by')
+
+        // add org unit to columns
+        clickAddRemoveMainDimension('Organisation unit')
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('error-container').contains('No time dimension selected')
+    })
+    it('validation succeeds when all above are provided', () => {
+        // add a time dimension to columns
+        selectRelativePeriod({
+            label: trackerProgram[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()
