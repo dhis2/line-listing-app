@@ -35,7 +35,7 @@ const DynamicDimension = ({
     addMetadata,
     metadata,
 }) => {
-    const { userSettings } = useCachedDataQuery()
+    const { currentUser } = useCachedDataQuery()
     const [state, setState] = useState({
         searchTerm: '',
         items: [],
@@ -59,7 +59,10 @@ const DynamicDimension = ({
             dimensionId: dimension.id,
             searchTerm: state.searchTerm,
             page,
-            nameProp: userSettings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY],
+            nameProp:
+                currentUser.settings[
+                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                ],
         })
         const newItems = result.dimensionItems?.map(
             ({ id, name, disabled }) => ({

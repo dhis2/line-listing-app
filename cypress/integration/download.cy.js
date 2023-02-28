@@ -2,7 +2,7 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
-import { E2E_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
+import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import {
     selectEnrollmentProgram,
     selectEventWithProgram,
@@ -41,7 +41,7 @@ describe('download', () => {
 
         selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_12_MONTHS,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()
@@ -64,7 +64,7 @@ describe('download', () => {
 
         selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_REL_PE_LAST_12_MONTHS,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()

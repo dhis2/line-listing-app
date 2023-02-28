@@ -1,18 +1,13 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { CHILD_PROGRAM, TEST_REL_PE_LAST_12_MONTHS } from '../data/index.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import {
+    clickAddRemoveMainDimension,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
-
-const openContextMenu = (id) =>
-    cy
-        .getBySel('main-sidebar')
-        .findBySel(`dimension-item-${id}`)
-        .findBySel('dimension-menu-button')
-        .invoke('attr', 'style', 'visibility: initial')
-        .click()
 
 describe('layout validation', () => {
     const trackerProgram = CHILD_PROGRAM
@@ -39,8 +34,7 @@ describe('layout validation', () => {
         })
 
         // remove org unit
-        openContextMenu('ou')
-        cy.containsExact('Remove').click()
+        clickAddRemoveMainDimension('Organisation unit')
 
         clickMenubarUpdateButton()
 
@@ -48,8 +42,7 @@ describe('layout validation', () => {
     })
     it('org unit dimension is required', () => {
         // add something other than org unit to columns
-        openContextMenu('lastUpdatedBy')
-        cy.containsExact('Add to Columns').click()
+        clickAddRemoveMainDimension('Last updated by')
 
         clickMenubarUpdateButton()
 
@@ -57,12 +50,10 @@ describe('layout validation', () => {
     })
     it('time dimension is required', () => {
         // remove previously added dimension
-        openContextMenu('lastUpdatedBy')
-        cy.containsExact('Remove').click()
+        clickAddRemoveMainDimension('Last updated by')
 
         // add org unit to columns
-        openContextMenu('ou')
-        cy.containsExact('Add to Columns').click()
+        clickAddRemoveMainDimension('Organisation unit')
 
         clickMenubarUpdateButton()
 
@@ -72,7 +63,7 @@ describe('layout validation', () => {
         // add a time dimension to columns
         selectRelativePeriod({
             label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_12_MONTHS,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()

@@ -2,7 +2,7 @@ import {
     FileMenu,
     useCachedDataQuery,
     VIS_TYPE_LINE_LIST,
-    visTypeDisplayNames,
+    getDisplayNameByVisType,
 } from '@dhis2/analytics'
 import { useDataMutation, useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -142,7 +142,7 @@ const MenuBar = ({
             visualization.name ||
             // new visualization with no name provided in Save dialog
             i18n.t('Untitled {{visualizationType}} visualization, {{date}}', {
-                visualizationType: visTypeDisplayNames(VIS_TYPE_LINE_LIST),
+                visualizationType: getDisplayNameByVisType(VIS_TYPE_LINE_LIST),
                 date: new Date().toLocaleDateString(undefined, {
                     year: 'numeric',
                     month: 'short',

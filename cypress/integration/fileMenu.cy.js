@@ -1,21 +1,27 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
-import { goToAO, typeInput } from '../helpers/common.js'
+import { goToAO } from '../helpers/common.js'
 import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    ITEM_NEW,
+    ITEM_OPEN,
+    ITEM_SAVE,
+    ITEM_SAVEAS,
+    ITEM_RENAME,
+    ITEM_TRANSLATE,
+    ITEM_SHARING,
+    ITEM_GETLINK,
+    ITEM_DELETE,
+    saveVisualization,
+    deleteVisualization,
+} from '../helpers/fileMenu.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod, unselectAllPeriods } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { expectTableToBeVisible } from '../helpers/table.js'
+import {
+    expectAOTitleToContain,
+    expectTableToBeVisible,
+} from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-
-const ITEM_NEW = 'file-menu-new'
-const ITEM_OPEN = 'file-menu-open'
-const ITEM_SAVE = 'file-menu-save'
-const ITEM_SAVEAS = 'file-menu-saveas'
-const ITEM_RENAME = 'file-menu-rename'
-const ITEM_TRANSLATE = 'file-menu-translate'
-const ITEM_SHARING = 'file-menu-sharing'
-const ITEM_GETLINK = 'file-menu-getlink'
-const ITEM_DELETE = 'file-menu-delete'
 
 const defaultItemsMap = {
     [ITEM_NEW]: true,
@@ -56,28 +62,6 @@ const assertDownloadIsDisabled = () =>
 const closeFileMenu = () => {
     cy.getBySel('file-menu-toggle-layer').click()
     cy.getBySel('file-menu-container').should('not.exist')
-}
-
-const saveVisualization = (name) => {
-    cy.getBySel('menubar').contains('File').click()
-
-    cy.getBySel(ITEM_SAVE).click()
-
-    typeInput('file-menu-saveas-modal-name-content', name)
-
-    cy.getBySel('file-menu-saveas-modal-save').click()
-
-    cy.getBySel('visualization-title').contains(name)
-}
-
-const deleteVisualization = () => {
-    cy.getBySel(ITEM_DELETE).click()
-
-    cy.getBySel('file-menu-delete-modal-delete').click()
-
-    cy.getBySel('visualization-title').should('not.exist')
-
-    assertFileMenuItems()
 }
 
 describe('file menu', () => {
@@ -146,7 +130,11 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization('Cypress test "saved, valid: save" state')
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: save" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         assertDownloadIsDisabled()
 
@@ -175,7 +163,11 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization('Cypress test "saved, valid: data" state')
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: data" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         assertDownloadIsEnabled()
 
@@ -188,7 +180,9 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
+        closeFileMenu()
         deleteVisualization()
+        assertFileMenuItems()
     })
 
     it('reflects "dirty" state', () => {
@@ -206,13 +200,16 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        saveVisualization('Cypress test "dirty" state')
+        const AO_NAME = `TEST ${new Date().toLocaleString()} - "dirty" state`
+
+        saveVisualization(AO_NAME)
+
+        expectAOTitleToContain(AO_NAME)
 
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
 
         cy.getBySel('visualization-title').contains('Edited')
-
         assertDownloadIsEnabled()
 
         assertFileMenuItems({
@@ -261,7 +258,9 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
+        closeFileMenu()
         deleteVisualization()
+        assertFileMenuItems()
     })
 
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
