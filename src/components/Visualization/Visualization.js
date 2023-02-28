@@ -39,6 +39,7 @@ import React, {
     useCallback,
     useReducer,
 } from 'react'
+import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -209,9 +210,7 @@ export const Visualization = ({
             page: FIRST_PAGE,
         })
 
-    const dimensionHeadersMap = getHeadersMap({
-        showHierarchy: visualization.showHierarchy,
-    })
+    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
 
     const reverseLookupDimensionId = (dimensionId) =>
         Object.keys(dimensionHeadersMap).find(

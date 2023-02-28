@@ -25,6 +25,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -91,9 +92,7 @@ const getAdaptedVisualization = (visualization) => {
     const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
     const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
 
-    const dimensionHeadersMap = getHeadersMap({
-        showHierarchy: visualization.showHierarchy,
-    })
+    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
 
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
