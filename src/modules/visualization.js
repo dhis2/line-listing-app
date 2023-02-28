@@ -54,6 +54,16 @@ export const headersMap = {
     [DIMENSION_ID_LAST_UPDATED]: 'lastupdated',
 }
 
+export const getHeadersMap = ({ showHierarchy }) => {
+    const map = Object.assign({}, headersMap)
+
+    if (showHierarchy) {
+        map[DIMENSION_ID_ORGUNIT] = 'ounamehierarchy'
+    }
+
+    return map
+}
+
 export const outputTypeTimeDimensionMap = {
     [OUTPUT_TYPE_EVENT]: DIMENSION_ID_EVENT_DATE,
     [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_ID_ENROLLMENT_DATE,

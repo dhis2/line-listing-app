@@ -51,7 +51,7 @@ import {
     getHeaderText,
 } from '../../modules/tableValues.js'
 import {
-    headersMap,
+    getHeadersMap,
     transformVisualization,
 } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
@@ -209,8 +209,14 @@ export const Visualization = ({
             page: FIRST_PAGE,
         })
 
+    const dimensionHeadersMap = getHeadersMap({
+        showHierarchy: visualization.showHierarchy,
+    })
+
     const reverseLookupDimensionId = (dimensionId) =>
-        Object.keys(headersMap).find((key) => headersMap[key] === dimensionId)
+        Object.keys(dimensionHeadersMap).find(
+            (key) => dimensionHeadersMap[key] === dimensionId
+        )
 
     const formatCellValue = (value, header) => {
         if (header?.valueType === VALUE_TYPE_URL) {
