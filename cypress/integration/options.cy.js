@@ -24,7 +24,7 @@ describe('options', () => {
         // assert the default density of table cell
         getTableDataCells()
             .invoke('css', 'padding')
-            .should('equal', '8px 6px 6px')
+            .should('equal', '7px 6px 5px')
 
         // set to comfortable density
         clickMenubarOptionsButton()
