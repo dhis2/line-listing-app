@@ -16,7 +16,7 @@ import {
     VALUE_TYPE_PHONE_NUMBER,
     VALUE_TYPE_URL,
 } from '@dhis2/analytics'
-import { useOnlineStatus } from '@dhis2/app-runtime'
+import { useDhis2ConnectionStatus } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTable,
@@ -129,7 +129,7 @@ export const Visualization = ({
             }),
         []
     )
-    const { offline } = useOnlineStatus()
+    const { isDisconnected: offline } = useDhis2ConnectionStatus()
 
     const { headers } = getAdaptedVisualization(visualization)
 
