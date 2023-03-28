@@ -19,9 +19,13 @@ import {
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import {
+    selectRelativePeriod,
+    selectFixedPeriod,
+    getPreviousYearStr,
+} from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { getTableDataCells } from '../helpers/table.js'
+import { expectTableToMatchRows, getTableDataCells } from '../helpers/table.js'
 
 const shouldHaveWhiteSpace = (index, value) =>
     getTableDataCells()
@@ -80,5 +84,42 @@ describe('value', () => {
         programDimensionsWithoutWrap.forEach((dim) =>
             shouldHaveWhiteSpace(dimensions.indexOf(dim), 'nowrap')
         )
+    })
+})
+
+describe('option sets', () => {
+    it('empty values are left empty', () => {
+        const previousYear = getPreviousYearStr()
+
+        goToStartPage()
+
+        selectEventWithProgramDimensions({
+            programName: 'TB program',
+            stageName: 'Sputum smear microscopy test',
+            dimensions: ['TB smear microscopy test outcome'],
+        })
+
+        selectFixedPeriod({
+            label: 'Report date',
+            period: {
+                year: `${previousYear}`,
+                name: `June ${previousYear}`,
+            },
+        })
+
+        cy.getBySel('columns-axis')
+            .findBySel('dimension-menu-button-ou')
+            .click()
+
+        cy.contains('Move to Filter').click()
+
+        clickMenubarUpdateButton()
+
+        expectTableToMatchRows([
+            `${previousYear}-06-01`,
+            `${previousYear}-06-28`,
+        ])
+
+        expectTableToMatchRows(['Negative', ''])
     })
 })
