@@ -2,13 +2,7 @@ name: 'build-lint-test'
 
 on:
     workflow_call:
-      inputs:
-          config-path:
-              required: true
-              type: string
-      secrets:
-          envPAT:
-          required: true
+
 
 jobs:
     build:
