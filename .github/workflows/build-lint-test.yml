@@ -3,7 +3,6 @@ name: 'build-lint-test'
 on:
     workflow_call:
 
-
 jobs:
     build:
         runs-on: ubuntu-latest
