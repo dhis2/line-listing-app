@@ -14,7 +14,7 @@ env:
 
 jobs:
     call-workflow-build-lint-test:
-        uses: ./.github/workflows/build-lint-test@dev
+        uses: ./.github/workflows/build-lint-test.yml
 
     release:
         runs-on: ubuntu-latest
