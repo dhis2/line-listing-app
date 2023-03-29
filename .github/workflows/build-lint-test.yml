@@ -1,0 +1,65 @@
+name: 'build-lint-test'
+
+on:
+    workflow_call:
+      inputs:
+          config-path:
+              required: true
+              type: string
+      secrets:
+          envPAT:
+          required: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 16.x
+
+            - uses: c-hive/gha-yarn-cache@v1
+            - run: yarn install --frozen-lockfile
+
+            - name: Build
+              run: yarn d2-app-scripts build
+
+            - uses: actions/upload-artifact@v2
+              with:
+                  name: app-build
+                  path: |
+                      **/build
+                      !**/node_modules
+                  retention-days: 1
+
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 16.x
+
+            - uses: c-hive/gha-yarn-cache@v1
+            - run: yarn install --frozen-lockfile
+
+            - name: Generate translations
+              run: yarn d2-app-scripts i18n generate
+
+            - name: Lint
+              run: yarn d2-style check
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 16.x
+
+            - uses: c-hive/gha-yarn-cache@v1
+            - run: yarn install --frozen-lockfile
+
+            - name: Test
+              run: yarn d2-app-scripts test
