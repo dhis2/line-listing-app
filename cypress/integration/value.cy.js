@@ -19,9 +19,17 @@ import {
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import {
+    selectRelativePeriod,
+    selectFixedPeriod,
+    getCurrentYearStr,
+} from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { getTableDataCells } from '../helpers/table.js'
+import {
+    expectTableToMatchRows,
+    getTableDataCells,
+    getTableRows,
+} from '../helpers/table.js'
 
 const shouldHaveWhiteSpace = (index, value) =>
     getTableDataCells()
@@ -80,5 +88,50 @@ describe('value', () => {
         programDimensionsWithoutWrap.forEach((dim) =>
             shouldHaveWhiteSpace(dimensions.indexOf(dim), 'nowrap')
         )
+    })
+})
+
+describe('option sets', () => {
+    it('empty values are left empty', () => {
+        const currentYear = getCurrentYearStr()
+
+        goToStartPage()
+
+        selectEventWithProgramDimensions({
+            programName: 'TB program',
+            stageName: 'Sputum smear microscopy test',
+            dimensions: ['TB smear microscopy test outcome'],
+        })
+
+        selectFixedPeriod({
+            label: 'Report date',
+            period: {
+                year: `${currentYear}`,
+                name: `June ${currentYear}`,
+            },
+        })
+
+        cy.getBySel('columns-axis')
+            .findBySel('dimension-menu-button-ou')
+            .click()
+
+        cy.contains('Move to Filter').click()
+
+        clickMenubarUpdateButton()
+
+        cy.getBySel('table-header').eq(0).find('button').click()
+
+        expectTableToMatchRows([`${currentYear}-06-01`, `${currentYear}-06-28`])
+
+        const result = ['Negative', '']
+
+        result.forEach((value, index) => {
+            getTableRows()
+                .eq(index)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .should('eq', value)
+        })
     })
 })
