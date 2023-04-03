@@ -22,7 +22,7 @@ import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import {
     selectRelativePeriod,
     selectFixedPeriod,
-    getPreviousYearStr,
+    getCurrentYearStr,
 } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToMatchRows, getTableDataCells } from '../helpers/table.js'
@@ -89,7 +89,7 @@ describe('value', () => {
 
 describe('option sets', () => {
     it('empty values are left empty', () => {
-        const previousYear = getPreviousYearStr()
+        const currentYear = getCurrentYearStr()
 
         goToStartPage()
 
@@ -102,8 +102,8 @@ describe('option sets', () => {
         selectFixedPeriod({
             label: 'Report date',
             period: {
-                year: `${previousYear}`,
-                name: `June ${previousYear}`,
+                year: `${currentYear}`,
+                name: `June ${currentYear}`,
             },
         })
 
@@ -115,10 +115,7 @@ describe('option sets', () => {
 
         clickMenubarUpdateButton()
 
-        expectTableToMatchRows([
-            `${previousYear}-06-01`,
-            `${previousYear}-06-28`,
-        ])
+        expectTableToMatchRows([`${currentYear}-06-01`, `${currentYear}-06-28`])
 
         expectTableToMatchRows(['Negative', ''])
     })
