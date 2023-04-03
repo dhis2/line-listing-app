@@ -25,7 +25,11 @@ import {
     getCurrentYearStr,
 } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { expectTableToMatchRows, getTableDataCells } from '../helpers/table.js'
+import {
+    expectTableToMatchRows,
+    getTableDataCells,
+    getTableRows,
+} from '../helpers/table.js'
 
 const shouldHaveWhiteSpace = (index, value) =>
     getTableDataCells()
@@ -115,8 +119,19 @@ describe('option sets', () => {
 
         clickMenubarUpdateButton()
 
+        cy.getBySel('table-header').eq(0).find('button').click()
+
         expectTableToMatchRows([`${currentYear}-06-01`, `${currentYear}-06-28`])
 
-        expectTableToMatchRows(['Negative', ''])
+        const result = ['Negative', '']
+
+        result.forEach((value, index) => {
+            getTableRows()
+                .eq(index)
+                .find('td')
+                .eq(0)
+                .invoke('text')
+                .should('eq', value)
+        })
     })
 })
