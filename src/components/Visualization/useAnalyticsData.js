@@ -51,10 +51,17 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
             return getBooleanValues()[rowValue || NULL_VALUE]
-        default:
-            return header.optionSet
-                ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
-                : metaDataItems[rowValue]?.name || rowValue
+        default: {
+            if (!rowValue) {
+                return rowValue
+            }
+            if (header.optionSet) {
+                return (
+                    findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                )
+            }
+            return metaDataItems[rowValue]?.name || rowValue
+        }
     }
 }
 

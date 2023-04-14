@@ -373,8 +373,11 @@ describe(['>=39'], 'Options - Legend', () => {
             )
         })
 
-        getTableRows() // the first row should be empty and not have the legend background color
-            .eq(0)
+        // sort the table, as the backend returns the response in a random order
+        cy.getBySel('table-header').eq(2).find('button').click()
+
+        getTableRows() // the third row should be empty and not have the legend background color
+            .eq(2)
             .find('td')
             .eq(2)
             .should('have.css', 'background-color', defaultBackgroundColor)
@@ -382,8 +385,8 @@ describe(['>=39'], 'Options - Legend', () => {
             .invoke('trim')
             .should('equal', '')
 
-        getTableRows() // the second row should not be empty and have the legend background color
-            .eq(1)
+        getTableRows() // the first row should not be empty and have the legend background color
+            .eq(0)
             .find('td')
             .eq(2)
             .should('not.have.css', 'background-color', defaultBackgroundColor)
