@@ -39,12 +39,14 @@ export const selectEnrollmentProgram = ({ programName, stageName }) =>
     })
 
 export const openDimension = (dimensionName) => {
-    cy.getBySel('program-dimensions-list').contains(dimensionName).click()
+    cy.getBySel('program-dimensions-list', EXTENDED_TIMEOUT)
+        .contains(dimensionName)
+        .click()
 }
 
 const clickAddRemoveDimension = (id, label) =>
     cy
-        .getBySel(id)
+        .getBySel(id, EXTENDED_TIMEOUT)
         .contains(label)
         .closest(`[data-test*="dimension-item"]`)
         .findBySelLike('item-button')
