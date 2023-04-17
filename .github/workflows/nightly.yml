@@ -49,4 +49,3 @@ jobs:
                   slack-message: ':x: Line-listing-app e2e nightly build <https://cloud.cypress.io/projects/m5qvjx/runs?branches=[{"label":"dev","suggested":false,"value":"dev"}]|failed>'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
