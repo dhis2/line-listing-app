@@ -1,4 +1,4 @@
-name: 'PR-lint-title-commits'
+name: 'dhis2: verify (commits)'
 
 on:
     pull_request:
