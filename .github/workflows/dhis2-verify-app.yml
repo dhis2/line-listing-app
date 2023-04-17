@@ -133,6 +133,6 @@ jobs:
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':small_circle: Line-listing-app build <dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Adev|failed>'
+                  slack-message: ':small_circle: Line-listing-app release <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster|failed>'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
