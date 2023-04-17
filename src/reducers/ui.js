@@ -43,6 +43,8 @@ export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
+export const SET_UI_EXPANDED_VISUALIZATION_CANVAS =
+    'SET_UI_EXPANDED_VISUALIZATION_CANVAS'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
@@ -98,6 +100,7 @@ export const DEFAULT_UI = {
     showAccessoryPanel: false,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
+    showExpandedVisualizationCanvas: false,
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -131,6 +134,7 @@ const getPreselectedUi = (options) => {
 }
 
 export default (state = EMPTY_UI, action) => {
+    console.log('action type', action.type)
     switch (action.type) {
         case SET_UI_DRAGGING_ID: {
             return { ...state, draggingId: action.value }
@@ -255,6 +259,12 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
+        case SET_UI_EXPANDED_VISUALIZATION_CANVAS: {
+            return {
+                ...state,
+                showExpandedVisualizationCanvas: action.value,
+            }
+        }
         case SET_UI_EXPANDED_LAYOUT_PANEL: {
             return { ...state, showExpandedLayoutPanel: action.value }
         }
@@ -371,6 +381,9 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
+export const sGetUiShowExpandedVisualizationCanvas = (state) =>
+    // TODO: having a default value in the state would be nicer
+    sGetUi(state).showExpandedVisualizationCanvas ?? false
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 

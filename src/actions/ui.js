@@ -25,6 +25,7 @@ import {
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
     SET_UI_ACCESSORY_PANEL_OPEN,
+    SET_UI_EXPANDED_VISUALIZATION_CANVAS,
     SET_UI_EXPANDED_LAYOUT_PANEL,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
@@ -219,6 +220,11 @@ export const acSetUiDetailsPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelOpen = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_OPEN,
+    value,
+})
+
+export const acSetUiExpandedVisualizationCanvas = (value) => ({
+    type: SET_UI_EXPANDED_VISUALIZATION_CANVAS,
     value,
 })
 
