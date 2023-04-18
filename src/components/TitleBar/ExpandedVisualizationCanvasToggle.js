@@ -15,8 +15,8 @@ export const ExpandedVisualizationCanvasToggle = () => {
     const dispatch = useDispatch()
     const isExpanded = useSelector(sGetUiShowExpandedVisualizationCanvas)
     const tooltipText = isExpanded
-        ? i18n.t('Show selection controls')
-        : i18n.t('Expand visualisation canvas')
+        ? i18n.t('Show panels')
+        : i18n.t('Expand visualization and hide panels')
     const icon = isExpanded ? <IconFullscreenExit16 /> : <IconFullscreen16 />
     const onClick = useCallback(
         () => dispatch(acSetUiExpandedVisualizationCanvas(!isExpanded)),
