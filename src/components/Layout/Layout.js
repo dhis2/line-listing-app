@@ -4,7 +4,10 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
 import { LAYOUT_TYPE_LINE_LIST } from '../../modules/layout.js'
-import { sGetUiShowExpandedLayoutPanel } from '../../reducers/ui.js'
+import {
+    sGetUiShowExpandedLayoutPanel,
+    sGetUiShowExpandedVisualizationCanvas,
+} from '../../reducers/ui.js'
 import LineListLayout from './LineListLayout/LineListLayout.js'
 import classes from './styles/Layout.module.css'
 
@@ -16,6 +19,7 @@ const Layout = () => {
     const isExpanded = useSelector((state) =>
         sGetUiShowExpandedLayoutPanel(state)
     )
+    const isHidden = useSelector(sGetUiShowExpandedVisualizationCanvas)
     const dispatch = useDispatch()
     const toggleExpanded = () =>
         dispatch(acSetShowExpandedLayoutPanel(!isExpanded))
@@ -26,7 +30,11 @@ const Layout = () => {
     const ButtonIcon = isExpanded ? IconChevronUp16 : IconChevronDown16
 
     return (
-        <div className={classes.container}>
+        <div
+            className={cx(classes.container, {
+                [classes.hidden]: isHidden,
+            })}
+        >
             <div
                 className={cx(classes.overflowContainer, {
                     [classes.expanded]: isExpanded,
