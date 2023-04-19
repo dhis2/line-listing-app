@@ -390,12 +390,9 @@ export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
-    sGetUi(state).showExpandedLayoutPanel ?? false
-export const sGetSetUiSidebarHidden = (state) =>
-    // TODO: having a default value in the state would be nicer
-    sGetUi(state).hideMainSideBar ?? false
+    sGetUi(state).showExpandedLayoutPanel
+export const sGetSetUiSidebarHidden = (state) => sGetUi(state).hideMainSideBar
 export const sGetSetUiLayoutPanelHidden = (state) =>
-    // TODO: having a default value in the state would be nicer
     sGetUi(state).hideLayoutPanel ?? false
 export const sGetUiShowExpandedVisualizationCanvas = (state) =>
     sGetSetUiSidebarHidden(state) && sGetSetUiLayoutPanelHidden(state)

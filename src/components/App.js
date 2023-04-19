@@ -17,6 +17,7 @@ import {
     acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
+    acSetUiExpandedVisualizationCanvas,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
@@ -201,8 +202,11 @@ const App = () => {
             )
             dispatch(acSetVisualizationLoading(false))
         }
-
+        /* When creating a new visualisation it's convenient to have
+         * a lot of space for adding/viewing dimensions */
         dispatch(acSetShowExpandedLayoutPanel(!isExisting))
+        // Initialise sidebar and layout panel state to visible
+        dispatch(acSetUiExpandedVisualizationCanvas(false))
         setInitialLoadIsComplete(true)
         setPreviousLocation(location.pathname)
     }
