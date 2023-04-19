@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-04-18T07:31:18.743Z\n"
-"PO-Revision-Date: 2023-04-18T07:31:18.743Z\n"
+"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"PO-Revision-Date: 2023-04-19T13:36:14.629Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -332,6 +332,27 @@ msgid ""
 msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
+
+msgid "Show layout"
+msgstr "Show layout"
+
+msgid "Hide layout"
+msgstr "Hide layout"
+
+msgid "Show dimensions sidebar"
+msgstr "Show dimensions sidebar"
+
+msgid "Hide dimensions sidebar"
+msgstr "Hide dimensions sidebar"
+
+msgid "Hide interpretations and details"
+msgstr "Hide interpretations and details"
+
+msgid "Show interpretations and details"
+msgstr "Show interpretations and details"
+
+msgid "View"
+msgstr "View"
 
 msgid "Update"
 msgstr "Update"
