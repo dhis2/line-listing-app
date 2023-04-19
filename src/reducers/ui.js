@@ -45,6 +45,8 @@ export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const SET_UI_EXPANDED_VISUALIZATION_CANVAS =
     'SET_UI_EXPANDED_VISUALIZATION_CANVAS'
+export const SET_UI_SIDEBAR_HIDDEN = 'SET_UI_SIDEBAR_HIDDEN'
+export const SET_UI_LAYOUT_PANEL_HIDDEN = 'SET_UI_LAYOUT_PANEL_HIDDEN'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
@@ -100,7 +102,8 @@ export const DEFAULT_UI = {
     showAccessoryPanel: false,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
-    showExpandedVisualizationCanvas: false,
+    hideMainSideBar: false,
+    hideLayoutPanel: false,
     activeModalDialog: null,
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -259,10 +262,17 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
+        case SET_UI_SIDEBAR_HIDDEN: {
+            return { ...state, hideMainSideBar: action.value }
+        }
+        case SET_UI_LAYOUT_PANEL_HIDDEN: {
+            return { ...state, hideLayoutPanel: action.value }
+        }
         case SET_UI_EXPANDED_VISUALIZATION_CANVAS: {
             return {
                 ...state,
-                showExpandedVisualizationCanvas: action.value,
+                hideMainSideBar: action.value,
+                hideLayoutPanel: action.value,
             }
         }
         case SET_UI_EXPANDED_LAYOUT_PANEL: {
@@ -380,10 +390,15 @@ export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
-    sGetUi(state).showExpandedLayoutPanel
-export const sGetUiShowExpandedVisualizationCanvas = (state) =>
+    sGetUi(state).showExpandedLayoutPanel ?? false
+export const sGetSetUiSidebarHidden = (state) =>
     // TODO: having a default value in the state would be nicer
-    sGetUi(state).showExpandedVisualizationCanvas ?? false
+    sGetUi(state).hideMainSideBar ?? false
+export const sGetSetUiLayoutPanelHidden = (state) =>
+    // TODO: having a default value in the state would be nicer
+    sGetUi(state).hideLayoutPanel ?? false
+export const sGetUiShowExpandedVisualizationCanvas = (state) =>
+    sGetSetUiSidebarHidden(state) && sGetSetUiLayoutPanelHidden(state)
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 

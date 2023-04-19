@@ -42,6 +42,8 @@ import {
     REMOVE_UI_ITEMS,
     sGetUiProgramId,
     sGetUiInputType,
+    SET_UI_SIDEBAR_HIDDEN,
+    SET_UI_LAYOUT_PANEL_HIDDEN,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -220,6 +222,15 @@ export const acSetUiDetailsPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelOpen = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_OPEN,
+    value,
+})
+
+export const acSetUiSidebarHidden = (value) => ({
+    type: SET_UI_SIDEBAR_HIDDEN,
+    value,
+})
+export const acSetUiLayoutPanelHidden = (value) => ({
+    type: SET_UI_LAYOUT_PANEL_HIDDEN,
     value,
 })
 
