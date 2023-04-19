@@ -3,15 +3,12 @@ import { IconVisualizationLinelist16 } from '@dhis2/ui'
 import cx from 'classnames'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {
-    sGetUiShowExpandedVisualizationCanvas,
-    sGetUiType,
-} from '../../../reducers/ui.js'
+import { sGetSetUiSidebarHidden, sGetUiType } from '../../../reducers/ui.js'
 import classes from './styles/VisualizationTypeSelector.module.css'
 
 const VisualizationTypeSelector = () => {
     const visualizationType = useSelector(sGetUiType)
-    const isHidden = useSelector(sGetUiShowExpandedVisualizationCanvas)
+    const isHidden = useSelector(sGetSetUiSidebarHidden)
 
     return (
         <div className={cx(classes.container, { [classes.hidden]: isHidden })}>
