@@ -256,9 +256,9 @@ const MenuBar = ({
                 onDelete={onDelete}
                 onError={onError}
             />
+            <ViewDropDown />
             <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
-            <ViewDropDown />
             <div className={classes.flexGrow} />
             <InterpretationsButton />
         </div>
