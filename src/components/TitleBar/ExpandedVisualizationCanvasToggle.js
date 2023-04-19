@@ -24,7 +24,7 @@ export const ExpandedVisualizationCanvasToggle = () => {
     )
 
     return (
-        <Tooltip content={tooltipText}>
+        <Tooltip content={tooltipText} closeDelay={0}>
             {({ onMouseOver, onMouseOut, ref }) => (
                 <span
                     onMouseOver={onMouseOver}
