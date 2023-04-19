@@ -31,6 +31,7 @@ import UpdateVisualizationContainer from '../../UpdateButton/UpdateVisualization
 import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager.js'
 import { InterpretationsButton } from './InterpretationsButton.js'
 import classes from './styles/MenuBar.module.css'
+import ViewDropDown from './ViewDropDown.js'
 
 const visualizationSaveMutation = {
     type: 'create',
@@ -257,6 +258,7 @@ const MenuBar = ({
             />
             <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
+            <ViewDropDown />
             <div className={classes.flexGrow} />
             <InterpretationsButton />
         </div>
