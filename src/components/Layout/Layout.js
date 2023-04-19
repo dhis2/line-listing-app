@@ -34,6 +34,7 @@ const Layout = () => {
             className={cx(classes.container, {
                 [classes.hidden]: isHidden,
             })}
+            data-test="layout-container"
         >
             <div
                 className={cx(classes.overflowContainer, {

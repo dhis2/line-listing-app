@@ -24,7 +24,11 @@ export const ExpandedVisualizationCanvasToggle = () => {
     )
 
     return (
-        <Tooltip content={tooltipText} closeDelay={0}>
+        <Tooltip
+            dataTest="fullscreen-toggle-tooltip"
+            content={tooltipText}
+            closeDelay={0}
+        >
             {({ onMouseOver, onMouseOut, ref }) => (
                 <span
                     onMouseOver={onMouseOver}
@@ -32,7 +36,12 @@ export const ExpandedVisualizationCanvasToggle = () => {
                     ref={ref}
                     className={classes.tooltipAnchor}
                 >
-                    <Button icon={icon} small onClick={onClick} />
+                    <Button
+                        icon={icon}
+                        small
+                        onClick={onClick}
+                        dataTest="fullscreen-toggler"
+                    />
                 </span>
             )}
         </Tooltip>
