@@ -1,3 +1,4 @@
+const { tagify } = require('cypress-tags')
 const d2config = require('../../d2.config.js')
 /*
 The list of excluded tags returned by getExcludedTags are the tags that cypress will ignore when running the test suite. So if a test is tagged with one of the tags in the excluded list, then that test will not run.
@@ -87,4 +88,15 @@ const getExcludedTags = (v) => {
     return excludeTags
 }
 
-module.exports = { getExcludedTags }
+const excludeByVersionTags = (on, config) => {
+    const excludedTags = getExcludedTags(config.env.dhis2InstanceVersion)
+
+    console.log('instanceVersion', config.env.dhis2InstanceVersion)
+    console.log('tags to exclude from testing', excludedTags)
+
+    config.env.CYPRESS_EXCLUDE_TAGS = excludedTags.join(',')
+
+    on('file:preprocessor', tagify(config))
+}
+
+module.exports = { excludeByVersionTags, getExcludedTags }
