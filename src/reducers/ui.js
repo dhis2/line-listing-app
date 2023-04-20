@@ -43,10 +43,10 @@ export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
-export const SET_UI_EXPANDED_VISUALIZATION_CANVAS =
-    'SET_UI_EXPANDED_VISUALIZATION_CANVAS'
-export const SET_UI_SIDEBAR_HIDDEN = 'SET_UI_SIDEBAR_HIDDEN'
-export const SET_UI_LAYOUT_PANEL_HIDDEN = 'SET_UI_LAYOUT_PANEL_HIDDEN'
+export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
+    'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
+export const TOGGLE_UI_SIDEBAR_HIDDEN = 'TOGGLE_UI_SIDEBAR_HIDDEN'
+export const TOGGLE_UI_LAYOUT_PANEL_HIDDEN = 'TOGGLE_UI_LAYOUT_PANEL_HIDDEN'
 export const SET_UI_ACTIVE_MODAL_DIALOG = 'SET_UI_ACTIVE_MODAL_DIALOG'
 export const SET_UI_ITEMS = 'SET_UI_ITEMS'
 export const REMOVE_UI_ITEMS = 'REMOVE_UI_ITEMS'
@@ -137,7 +137,6 @@ const getPreselectedUi = (options) => {
 }
 
 export default (state = EMPTY_UI, action) => {
-    console.log('action type', action.type)
     switch (action.type) {
         case SET_UI_DRAGGING_ID: {
             return { ...state, draggingId: action.value }
@@ -262,17 +261,19 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
-        case SET_UI_SIDEBAR_HIDDEN: {
-            return { ...state, hideMainSideBar: action.value }
+        case TOGGLE_UI_SIDEBAR_HIDDEN: {
+            return { ...state, hideMainSideBar: !state.hideMainSideBar }
         }
-        case SET_UI_LAYOUT_PANEL_HIDDEN: {
-            return { ...state, hideLayoutPanel: action.value }
+        case TOGGLE_UI_LAYOUT_PANEL_HIDDEN: {
+            return { ...state, hideLayoutPanel: !state.hideLayoutPanel }
         }
-        case SET_UI_EXPANDED_VISUALIZATION_CANVAS: {
+        case TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS: {
+            // Toggle both to `true` unless both already are
+            const nextValue = !(state.hideMainSideBar && state.hideLayoutPanel)
             return {
                 ...state,
-                hideMainSideBar: action.value,
-                hideLayoutPanel: action.value,
+                hideMainSideBar: nextValue,
+                hideLayoutPanel: nextValue,
             }
         }
         case SET_UI_EXPANDED_LAYOUT_PANEL: {
@@ -391,11 +392,12 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
-export const sGetSetUiSidebarHidden = (state) => sGetUi(state).hideMainSideBar
-export const sGetSetUiLayoutPanelHidden = (state) =>
+export const sGetUiSidebarHidden = (state) =>
+    sGetUi(state).hideMainSideBar ?? false
+export const sGetUiLayoutPanelHidden = (state) =>
     sGetUi(state).hideLayoutPanel ?? false
 export const sGetUiShowExpandedVisualizationCanvas = (state) =>
-    sGetSetUiSidebarHidden(state) && sGetSetUiLayoutPanelHidden(state)
+    sGetUiSidebarHidden(state) && sGetUiLayoutPanelHidden(state)
 export const sGetUiActiveModalDialog = (state) =>
     sGetUi(state).activeModalDialog
 

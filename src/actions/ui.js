@@ -25,7 +25,6 @@ import {
     CLEAR_UI,
     SET_UI_DETAILS_PANEL_OPEN,
     SET_UI_ACCESSORY_PANEL_OPEN,
-    SET_UI_EXPANDED_VISUALIZATION_CANVAS,
     SET_UI_EXPANDED_LAYOUT_PANEL,
     SET_UI_ACTIVE_MODAL_DIALOG,
     SET_UI_ITEMS,
@@ -42,8 +41,9 @@ import {
     REMOVE_UI_ITEMS,
     sGetUiProgramId,
     sGetUiInputType,
-    SET_UI_SIDEBAR_HIDDEN,
-    SET_UI_LAYOUT_PANEL_HIDDEN,
+    TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
+    TOGGLE_UI_SIDEBAR_HIDDEN,
+    TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -225,18 +225,16 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
-export const acSetUiSidebarHidden = (value) => ({
-    type: SET_UI_SIDEBAR_HIDDEN,
-    value,
-})
-export const acSetUiLayoutPanelHidden = (value) => ({
-    type: SET_UI_LAYOUT_PANEL_HIDDEN,
-    value,
+export const acToggleUiSidebarHidden = () => ({
+    type: TOGGLE_UI_SIDEBAR_HIDDEN,
 })
 
-export const acSetUiExpandedVisualizationCanvas = (value) => ({
-    type: SET_UI_EXPANDED_VISUALIZATION_CANVAS,
-    value,
+export const acToggleUiLayoutPanelHidden = () => ({
+    type: TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
+})
+
+export const acToggleUiExpandedVisualizationCanvas = () => ({
+    type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
 })
 
 export const acSetShowExpandedLayoutPanel = (value) => ({

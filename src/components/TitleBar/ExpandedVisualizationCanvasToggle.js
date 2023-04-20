@@ -7,7 +7,7 @@ import {
 } from '@dhis2/ui'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { acSetUiExpandedVisualizationCanvas } from '../../actions/ui.js'
+import { acToggleUiExpandedVisualizationCanvas } from '../../actions/ui.js'
 import { sGetUiShowExpandedVisualizationCanvas } from '../../reducers/ui.js'
 import classes from './styles/ExpandedVisualizationCanvasToggle.module.css'
 
@@ -19,8 +19,8 @@ export const ExpandedVisualizationCanvasToggle = () => {
         : i18n.t('Expand visualization and hide panels')
     const icon = isExpanded ? <IconFullscreenExit16 /> : <IconFullscreen16 />
     const onClick = useCallback(
-        () => dispatch(acSetUiExpandedVisualizationCanvas(!isExpanded)),
-        [dispatch, isExpanded]
+        () => dispatch(acToggleUiExpandedVisualizationCanvas()),
+        [dispatch]
     )
 
     return (

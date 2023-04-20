@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
 import { LAYOUT_TYPE_LINE_LIST } from '../../modules/layout.js'
 import {
-    sGetSetUiLayoutPanelHidden,
+    sGetUiLayoutPanelHidden,
     sGetUiShowExpandedLayoutPanel,
 } from '../../reducers/ui.js'
 import LineListLayout from './LineListLayout/LineListLayout.js'
@@ -19,7 +19,7 @@ const Layout = () => {
     const isExpanded = useSelector((state) =>
         sGetUiShowExpandedLayoutPanel(state)
     )
-    const isHidden = useSelector(sGetSetUiLayoutPanelHidden)
+    const isHidden = useSelector(sGetUiLayoutPanelHidden)
     const dispatch = useDispatch()
     const toggleExpanded = () =>
         dispatch(acSetShowExpandedLayoutPanel(!isExpanded))

@@ -3,21 +3,21 @@ import { FlyoutMenu, Layer, MenuItem, Popper } from '@dhis2/ui'
 import React, { useCallback, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-    acSetUiSidebarHidden,
-    acSetUiLayoutPanelHidden,
+    acToggleUiSidebarHidden,
+    acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
 } from '../../../actions/ui.js'
 import {
-    sGetSetUiLayoutPanelHidden,
-    sGetSetUiSidebarHidden,
+    sGetUiLayoutPanelHidden,
+    sGetUiSidebarHidden,
     sGetUiShowDetailsPanel,
 } from '../../../reducers/ui.js'
 import MenuButton from './MenuButton.js'
 
 export default function ViewDropDown() {
     const dispatch = useDispatch()
-    const isSidebarHidden = useSelector(sGetSetUiSidebarHidden)
-    const isLayoutPanelHidden = useSelector(sGetSetUiLayoutPanelHidden)
+    const isSidebarHidden = useSelector(sGetUiSidebarHidden)
+    const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
     const [isOpen, setIsOpen] = useState(false)
     const buttonRef = useRef()
@@ -27,14 +27,14 @@ export default function ViewDropDown() {
     }, [setIsOpen])
 
     const toggleLayoutPanelHidden = useCallback(() => {
-        dispatch(acSetUiLayoutPanelHidden(!isLayoutPanelHidden))
+        dispatch(acToggleUiLayoutPanelHidden())
         toggleMenuOpen()
-    }, [dispatch, isLayoutPanelHidden, toggleMenuOpen])
+    }, [dispatch, toggleMenuOpen])
 
     const toggleSidebarHidden = useCallback(() => {
-        dispatch(acSetUiSidebarHidden(!isSidebarHidden))
+        dispatch(acToggleUiSidebarHidden())
         toggleMenuOpen()
-    }, [dispatch, isSidebarHidden, toggleMenuOpen])
+    }, [dispatch, toggleMenuOpen])
 
     const toggleDetailsPanelOpen = useCallback(() => {
         dispatch(acSetUiDetailsPanelOpen(!isDetailsPanelOpen))
