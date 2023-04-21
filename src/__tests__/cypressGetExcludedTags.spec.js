@@ -1,4 +1,4 @@
-import { getExcludedTags } from '../../cypress/support/getExcludedTags.js'
+import { getExcludedTags } from '../../cypress/plugins/excludeByVersionTags.js'
 
 describe('get excluded Cypress tags', () => {
     test('instanceVersion 2.38', () => {
