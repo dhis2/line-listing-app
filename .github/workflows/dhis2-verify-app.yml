@@ -79,6 +79,7 @@ jobs:
         needs: [build, lint, test]
         uses: dhis2/data-visualizer-app/.github/workflows/e2e-prod.yml@dev
         secrets:
+            baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
