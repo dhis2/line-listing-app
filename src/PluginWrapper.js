@@ -4,6 +4,7 @@ import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
+import { getPWAInstallationStatus } from './modules/getPWAInstallationStatus.js'
 
 const LoadingMask = () => {
     return (
@@ -67,6 +68,10 @@ CacheableSectionWrapper.propTypes = {
     isParentCached: PropTypes.bool,
 }
 
+const sendInstallationStatus = (installationStatus) => {
+    postRobot.send(window.parent, 'installationStatus', { installationStatus })
+}
+
 const PluginWrapper = () => {
     const [propsFromParent, setPropsFromParent] = useState()
 
@@ -77,6 +82,12 @@ const PluginWrapper = () => {
             .send(window.parent, 'getProps')
             .then(receivePropsFromParent)
             .catch((err) => console.error(err))
+
+        // Get & send PWA installation status now, and also prepare to send
+        // future updates (installing/ready)
+        getPWAInstallationStatus({
+            onStateChange: sendInstallationStatus,
+        }).then(sendInstallationStatus)
 
         // Allow parent to update props
         const listener = postRobot.on(
