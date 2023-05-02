@@ -14,7 +14,11 @@ export default (serverVersion) => [
                 <DisplayDensity />,
                 <FontSize />,
                 <DigitGroupSeparator />,
-                <ShowHierarchy />,
+                `${serverVersion.major}.${serverVersion.minor}.${
+                    serverVersion.patch || 0
+                }` >= '2.40.0' ? (
+                    <ShowHierarchy />
+                ) : null,
             ]),
         },
     ]),
