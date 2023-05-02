@@ -1,4 +1,5 @@
 ![Nightly build](https://github.com/dhis2/line-listing-app/actions/workflows/nightly.yml/badge.svg)
+![Release build](https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml/badge.svg?branch=master)
 
 ## Available Scripts
 
