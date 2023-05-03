@@ -8,6 +8,7 @@ export const OPTION_MEASURE_CRITERIA = 'measureCriteria'
 export const OPTION_FONT_SIZE = 'fontSize'
 export const OPTION_DIGIT_GROUP_SEPARATOR = 'digitGroupSeparator'
 export const OPTION_DISPLAY_DENSITY = 'displayDensity'
+export const OPTION_SHOW_HIERARCHY = 'showHierarchy'
 export const DISPLAY_DENSITY_COMFORTABLE = 'COMFORTABLE'
 export const DISPLAY_DENSITY_NORMAL = 'NORMAL'
 export const DISPLAY_DENSITY_COMPACT = 'COMPACT'
@@ -56,6 +57,11 @@ export const options = {
         requestable: false,
         savable: true,
     },
+    [OPTION_SHOW_HIERARCHY]: {
+        defaultValue: false,
+        requestable: true,
+        savable: true,
+    },
     // TODO: Limit the number of rows shown in the table
     // TODO: Only show the [top/bottom] x rows
 }
@@ -67,6 +73,12 @@ export const getOptionsForUi = () => {
         map[option] = props.defaultValue
         return map
     }, {})
+}
+
+export const getOptionsForRequest = () => {
+    return Object.entries(options).filter(
+        (entry) => entry[1].requestable // entry = [option, props]
+    )
 }
 
 export const getOptionsFromVisualization = (visualization) => {

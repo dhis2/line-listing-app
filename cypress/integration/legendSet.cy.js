@@ -355,6 +355,8 @@ describe(['>=39'], 'Options - Legend', () => {
             label: periodLabel,
         })
 
+        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
+
         selectFixedPeriod({
             label: periodLabel,
             period: {
@@ -362,9 +364,20 @@ describe(['>=39'], 'Options - Legend', () => {
                 name: `January ${currentYear}`,
             },
         })
+        cy.wait('@getAnalytics').then(({ request }) => {
+            const url = new URL(request.url)
 
-        getTableRows() // the first row should be empty and not have the legend background color
-            .eq(0)
+            // verify that the request url is correct, as the response from this request has been inconsistent when running on Cypress Dashboard
+            expect(url.search).to.equal(
+                '?dimension=ou%3AUSER_ORGUNIT,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&headers=ouname,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&totalPages=false&eventDate=202301&displayProperty=NAME&outputType=EVENT&pageSize=100&page=1&includeMetadataDetails=true&stage=jfuXZB3A1ko'
+            )
+        })
+
+        // sort the table, as the backend returns the response in a random order
+        cy.getBySel('table-header').eq(2).find('button').click()
+
+        getTableRows() // the third row should be empty and not have the legend background color
+            .eq(2)
             .find('td')
             .eq(2)
             .should('have.css', 'background-color', defaultBackgroundColor)
@@ -372,8 +385,8 @@ describe(['>=39'], 'Options - Legend', () => {
             .invoke('trim')
             .should('equal', '')
 
-        getTableRows() // the second row should not be empty and have the legend background color
-            .eq(1)
+        getTableRows() // the first row should not be empty and have the legend background color
+            .eq(0)
             .find('td')
             .eq(2)
             .should('not.have.css', 'background-color', defaultBackgroundColor)

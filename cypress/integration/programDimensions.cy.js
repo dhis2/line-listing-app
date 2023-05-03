@@ -403,7 +403,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             cy.getBySel('accessory-sidebar').contains('All types')
 
-            cy.getBySel('program-dimensions-list')
+            cy.getBySel('program-dimensions-list', EXTENDED_TIMEOUT)
                 .findBySelLike('dimension-item')
                 .its('length')
                 .should('be.gte', 1)
@@ -517,7 +517,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             cy.getBySel('accessory-sidebar').contains('All types')
 
-            cy.getBySel('program-dimensions-list')
+            cy.getBySel('program-dimensions-list', EXTENDED_TIMEOUT)
                 .findBySelLike('dimension-item')
                 .its('length')
                 .should('be.gte', 1)

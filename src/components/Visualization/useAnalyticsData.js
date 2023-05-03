@@ -25,11 +25,12 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
-    headersMap,
+    getHeadersMap,
 } from '../../modules/visualization.js'
 
 const analyticsApiEndpointMap = {
@@ -50,10 +51,17 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
             return getBooleanValues()[rowValue || NULL_VALUE]
-        default:
-            return header.optionSet
-                ? findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
-                : metaDataItems[rowValue]?.name || rowValue
+        default: {
+            if (!rowValue) {
+                return rowValue
+            }
+            if (header.optionSet) {
+                return (
+                    findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                )
+            }
+            return metaDataItems[rowValue]?.name || rowValue
+        }
     }
 }
 
@@ -91,13 +99,15 @@ const getAdaptedVisualization = (visualization) => {
     const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
     const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
 
+    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
+
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
         ...visualization[AXIS_ID_ROWS],
     ].map(({ dimension, programStage, repetition }) => {
         const headerId = programStage?.id
             ? `${programStage.id}.${dimension}`
-            : headersMap[dimension] || dimension
+            : dimensionHeadersMap[dimension] || dimension
 
         if (repetition?.indexes?.length) {
             return repetition.indexes.map((index) =>
