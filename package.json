@@ -20,8 +20,8 @@
     "devDependencies": {
         "@dhis2/cli-app-scripts": "^10.3.7",
         "@dhis2/cli-style": "^10.4.3",
-        "@dhis2/cypress-commands": "^10.0.1",
-        "@dhis2/cypress-plugins": "^10.0.1",
+        "@dhis2/cypress-commands": "^10.0.2",
+        "@dhis2/cypress-plugins": "^10.0.2",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
         "cypress": "^12.10.0",
