@@ -2184,17 +2184,17 @@
     semver "^7.3.5"
     yargs "^16.2.0"
 
-"@dhis2/cypress-commands@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/cypress-commands/-/cypress-commands-9.0.2.tgz#676870ccb2d5fe3811d5f480c7edf2f0b8507255"
-  integrity sha512-G6H9bOpjxqa2X+pc5vJqiwZLp+8utuac/BMRehb/8T6CeIWF4r6keCTq9HTof47szC+06JbsB2ZiviInmZGXJA==
+"@dhis2/cypress-commands@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/cypress-commands/-/cypress-commands-10.0.1.tgz#0b934c84e774fdbd30f9ca2dcdccf0443c8499a0"
+  integrity sha512-GdQOj+vTO7fIwGO85jTyfGVTtO6zhGnEbuLEctW1Bpy5drba2bsLA/rbiO09TpAf8qZOH3EqSFyDMw+qu+2KNA==
   dependencies:
     jscodeshift "^0.11.0"
 
-"@dhis2/cypress-plugins@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/cypress-plugins/-/cypress-plugins-9.0.2.tgz#6cbd58b2ce26a08e70045b81835504cd9ef6d8c9"
-  integrity sha512-FhHW5+8HBKIJwAl5fEv6lapTo76LLR9LtoS8iy4crc5RZnHlWgVqXeqG1sBFix93yd8nCFfYvOIP8+Y+x9mi5A==
+"@dhis2/cypress-plugins@^10.0.1":
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/cypress-plugins/-/cypress-plugins-10.0.1.tgz#735ccfbbdfe4cc9ad102decf9a71df2b5b56ac2d"
+  integrity sha512-siWpoJlZOnrEcfZhXP4nDe9Uh9lQtjPr6/HI+16ORt9W2PPffp6e78Xc6hMM94j3hwl23Czu0LXSfUcZdymL6Q==
 
 "@dhis2/d2-i18n@^1.1.1":
   version "1.1.1"
