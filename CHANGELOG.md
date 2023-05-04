@@ -1,3 +1,10 @@
+## [100.6.1](https://github.com/dhis2/line-listing-app/compare/v100.6.0...v100.6.1) (2023-05-04)
+
+
+### Bug Fixes
+
+* add 2.40.0 toggle to show hierarchy option ([#351](https://github.com/dhis2/line-listing-app/issues/351)) ([1362075](https://github.com/dhis2/line-listing-app/commit/13620751487d77589f85f27aa7d80aa34efb8520))
+
 # [100.6.0](https://github.com/dhis2/line-listing-app/compare/v100.5.0...v100.6.0) (2023-05-03)
 
 
