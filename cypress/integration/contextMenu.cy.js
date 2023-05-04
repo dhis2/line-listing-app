@@ -25,6 +25,7 @@ describe('using the layout chip context menu', () => {
         expectAxisToNotHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
     })
     it('removes item', () => {
+        goToStartPage()
         openContextMenu(TEST_DIM_ID)
         cy.containsExact('Remove').click()
         expectAxisToNotHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
