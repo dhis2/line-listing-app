@@ -68,7 +68,7 @@ const addConditions = (conditions) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-describe('date conditions (Date)', () => {
+describe('date conditions (Date)', { testIsolation: false }, () => {
     beforeEach(() => {
         goToStartPage()
         setUpTable()
@@ -266,7 +266,7 @@ describe('date conditions (Date)', () => {
     })
 })
 
-describe('date types', () => {
+describe('date types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',

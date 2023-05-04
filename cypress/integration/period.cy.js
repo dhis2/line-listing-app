@@ -3,7 +3,7 @@ import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-describe('period dimension', () => {
+describe('period dimension', { testIsolation: false }, () => {
     const currentYear = getCurrentYearStr()
     const previousYear = getPreviousYearStr()
 

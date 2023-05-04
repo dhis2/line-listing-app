@@ -73,7 +73,7 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-describe('number conditions', () => {
+describe('number conditions', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_NUMBER
 
     beforeEach(() => {
@@ -233,7 +233,7 @@ describe('number conditions', () => {
     })
 })
 
-describe('integer', () => {
+describe('integer', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
@@ -281,7 +281,7 @@ describe('integer', () => {
     })
 })
 
-describe('preset options', () => {
+describe('preset options', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_WITH_PRESET
     const TEST_PRESET = 'Age 10y interval'
 
@@ -370,7 +370,7 @@ describe('preset options', () => {
     })
 })
 
-describe('numeric types', () => {
+describe('numeric types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'equal to (=)',
         'greater than (>)',
