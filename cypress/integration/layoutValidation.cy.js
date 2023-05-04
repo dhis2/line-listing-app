@@ -9,7 +9,7 @@ import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
-describe('layout validation', () => {
+describe('layout validation', { testIsolation: false }, () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {

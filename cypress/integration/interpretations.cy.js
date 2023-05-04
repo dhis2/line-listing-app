@@ -28,7 +28,7 @@ const TEST_INTERPRETATION_TEXT = 'Test interpretation'
 const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
 const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
-describe('interpretations', () => {
+describe('interpretations', { testIsolation: false }, () => {
     // Use a flag to ensure the visualisation is not created multiple times
     let created = false
     // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
