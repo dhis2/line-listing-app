@@ -22,7 +22,7 @@ const trackerProgram = E2E_PROGRAM
 const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 describe('event', () => {
-    it('Your dimensions can be used and filtered by', () => {
+    it.only('Your dimensions can be used and filtered by', () => {
         const dimensionName = 'Facility Type'
         const filteredOutItemName = 'MCHP'
         const filteredItemName = 'CHC'
@@ -73,10 +73,18 @@ describe('event', () => {
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', filteredItemName)
-        cy.getBySelLike('transfer-sourceoptions')
-            .findBySelLike('transfer-option')
-            .should('have.length', 1)
-        cy.getBySelLike('transfer-sourceoptions').contains(filteredItemName)
+
+        cy.getBySelLike('transfer-sourceoptions').should(($elems) => {
+            // First is the actual container, second intersection detector wrapper
+            expect($elems).to.have.lengthOf(2)
+            const $container = $elems.first()
+            expect($container).to.have.class('container')
+            // Ensure intersection detector wrapper is excluded from options
+            const $options = $container.find('[data-test*="transfer-option"]')
+            // Ensure the only remaining option is the one matching the filter
+            expect($options).to.have.lengthOf(1)
+            expect($options.first()).to.have.text(filteredItemName)
+        })
 
         cy.getBySelLike('transfer-sourceoptions')
             .contains(filteredItemName)
