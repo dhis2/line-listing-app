@@ -14,7 +14,7 @@
         "format": "d2-style apply",
         "validate-commit": "d2-style check --staged",
         "validate-push": "yarn test",
-        "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --env networkMode=live'",
+        "cy:open": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress open --e2e --browser electron --env networkMode=live'",
         "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run --env networkMode=live'"
     },
     "devDependencies": {
