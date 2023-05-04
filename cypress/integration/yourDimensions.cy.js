@@ -81,8 +81,9 @@ describe('event', () => {
             expect($container).to.have.class('container')
             // Ensure the intersection detector wrapper is excluded from options
             const $options = $container.find('[data-test*="transfer-option"]')
-            // Ensure the only remaining option is the one matching the filter
+            // Ensure the only option remains
             expect($options).to.have.lengthOf(1)
+            // And it matches the filter
             expect($options.first()).to.have.text(filteredItemName)
         })
 
