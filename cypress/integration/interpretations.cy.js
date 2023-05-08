@@ -134,9 +134,17 @@ describe('interpretations', { testIsolation: false }, () => {
 
         expectInterpretationFormToBeVisible()
 
+        cy.getBySel('interpretations-list')
+            .contains('Update')
+            .should('have.class', 'loading')
+
         cy.getBySel('interpretations-list').contains(
             TEST_INTERPRETATION_TEXT_EDITED
         )
+
+        cy.getBySel('interpretations-list')
+            .contains('Update')
+            .should('not.exist')
     })
 
     it('the new interpretation can be viewed in the modal and interacted with', () => {
