@@ -207,3 +207,13 @@ Below is an example of a line list with legend colors applied to the background,
 You can show the full hierarchy path for organisation units by enabling the **Show organisation unit hierarchy** option in `Options` -> `Style`. When this is enabled, sorting on the organisation unit column will sort the organisation units alphabetically starting from the top level.
 
 ![](resources/images/org-unit-hierarchy.png)
+
+### View options
+
+To allow more space for the line list itself, there are various ways to hide panels on the top and sides:
+
+1. The "full screen button" in the title bar will hide the main sidebar on the left and the layout panel at the top of the screen.
+2. If the interpretations panel is expanded on the right, this can be hidden by clicking the "interpretations button" just below the user profile menu.
+3. Each panel can also be shown/hidden by using the "View menu" in the main toolbar.
+
+![](resources/images/view-options.png)
