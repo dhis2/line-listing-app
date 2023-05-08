@@ -7,6 +7,7 @@ import {
     acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
 } from '../../../actions/ui.js'
+import { sGetCurrentId } from '../../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,
     sGetUiSidebarHidden,
@@ -19,6 +20,7 @@ export default function ViewDropDown() {
     const isSidebarHidden = useSelector(sGetUiSidebarHidden)
     const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
+    const id = useSelector(sGetCurrentId)
     const [isOpen, setIsOpen] = useState(false)
     const buttonRef = useRef()
 
@@ -71,6 +73,7 @@ export default function ViewDropDown() {
                             <MenuItem
                                 label={toggleDetailsPanelText}
                                 onClick={toggleDetailsPanelOpen}
+                                disabled={!id}
                             />
                         </FlyoutMenu>
                     </Popper>
