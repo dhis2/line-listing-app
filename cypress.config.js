@@ -26,8 +26,8 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.cy.js',
         viewportWidth: 1280,
         viewportHeight: 800,
-        video: false,
-        // videoUploadOnPasses: false,
+        video: true,
+        videoUploadOnPasses: false,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',
