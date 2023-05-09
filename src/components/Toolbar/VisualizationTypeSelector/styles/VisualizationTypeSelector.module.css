@@ -8,8 +8,8 @@
 }
 
 .button {
-    height: 38px;
-    padding: 7px var(--spacers-dp8);
+    height: 32px;
+    padding: 4px var(--spacers-dp8);
     display: flex;
     align-items: center;
     justify-content: flex-start;
