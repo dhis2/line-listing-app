@@ -56,6 +56,7 @@ import { default as TitleBar } from './TitleBar/TitleBar.js'
 import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
 import { Visualization } from './Visualization/Visualization.js'
+import { ToolbarV2 } from './ToolbarV2/ToolbarV2.js'
 
 const visualizationQuery = {
     eventVisualization: {
@@ -310,6 +311,7 @@ const App = () => {
             )}
         >
             <Toolbar onFileMenuAction={onFileMenuAction} />
+            <ToolbarV2 onFileMenuAction={onFileMenuAction} />
             <div
                 className={cx(
                     classes.sectionMain,
