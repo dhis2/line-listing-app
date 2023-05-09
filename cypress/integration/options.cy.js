@@ -1,19 +1,36 @@
-import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_EVENT_DATE,
+} from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
     TEST_AO,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
+    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
-import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import {
+    selectEnrollmentProgramDimensions,
+    selectEventWithProgramDimensions,
+} from '../helpers/dimensions.js'
+import { saveVisualization } from '../helpers/fileMenu.js'
 import {
     clickMenubarOptionsButton,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
-import { getCurrentYearStr, selectFixedPeriod } from '../helpers/period.js'
+import {
+    getCurrentYearStr,
+    selectFixedPeriod,
+    selectRelativePeriod,
+} from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { getTableDataCells, getTableRows } from '../helpers/table.js'
+import {
+    expectAOTitleToContain,
+    expectTableToBeVisible,
+    getTableDataCells,
+    getTableRows,
+} from '../helpers/table.js'
 
 const currentYear = getCurrentYearStr()
 
@@ -150,5 +167,62 @@ describe('options', () => {
 
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
+    })
+
+    it('sets organisation unit hierarchy', () => {
+        const NAME_WITHOUT_HIERARCHY = 'Ngelehun CHC'
+        const NAME_WITH_HIERARCHY = 'Sierra Leone / Bo / Badjia / Ngelehun CHC'
+
+        goToStartPage()
+
+        // set up table
+        selectEnrollmentProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [TEST_DIM_INTEGER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        // create new AO - no hierarchy is shown
+        clickMenubarUpdateButton()
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(0)
+            .containsExact(NAME_WITHOUT_HIERARCHY)
+
+        // enable show hierarchy - hierarchy is shown
+        clickMenubarOptionsButton()
+        cy.getBySel('options-modal-content')
+            .contains('Display organisation unit hierarchy')
+            .click()
+            .find('[type="checkbox"]')
+            .should('be.checked')
+        cy.getBySel('options-modal-actions').contains('Update').click()
+        getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
+
+        // save / load - hierarchy is still shown
+        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+        getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
+
+        // disable show hierarchy - no hierarchy is shown
+        clickMenubarOptionsButton()
+        cy.getBySel('options-modal-content')
+            .contains('Display organisation unit hierarchy')
+            .click()
+            .find('[type="checkbox"]')
+            .should('not.be.checked')
+        cy.getBySel('options-modal-actions').contains('Update').click()
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(0)
+            .containsExact(NAME_WITHOUT_HIERARCHY)
     })
 })
