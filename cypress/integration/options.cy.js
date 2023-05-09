@@ -168,7 +168,9 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
     })
+})
 
+describe(['>=40'], 'ou hierarchy', () => {
     it('sets organisation unit hierarchy', () => {
         const NAME_WITHOUT_HIERARCHY = 'Ngelehun CHC'
         const NAME_WITH_HIERARCHY = 'Sierra Leone / Bo / Badjia / Ngelehun CHC'
