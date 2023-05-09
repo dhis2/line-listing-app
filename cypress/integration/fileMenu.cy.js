@@ -64,7 +64,7 @@ const closeFileMenu = () => {
     cy.getBySel('file-menu-container').should('not.exist')
 }
 
-describe('file menu', () => {
+describe('file menu', { testIsolation: false }, () => {
     it('reflects "empty" state', () => {
         goToStartPage()
 
