@@ -27,7 +27,6 @@ module.exports = defineConfig({
         viewportWidth: 1280,
         viewportHeight: 800,
         video: false,
-        // videoUploadOnPasses: false,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',
