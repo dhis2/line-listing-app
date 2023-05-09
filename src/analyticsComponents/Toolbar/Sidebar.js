@@ -1,9 +1,23 @@
+import { colors } from '@dhis2/ui-constants'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 export const Sidebar = ({ children, isHidden }) => (
-    <div className={cx('container', { isHidden })}>{children}</div>
+    <div className={cx('container', { isHidden })}>
+        {children}
+        <style jsx>{`
+            div {
+                width: 260px;
+                display: flex;
+                align-items: center;
+                border-right: 1px solid ${colors.grey400};
+            }
+            div.isHidden {
+                display: none;
+            }
+        `}</style>
+    </div>
 )
 
 Sidebar.propTypes = {
