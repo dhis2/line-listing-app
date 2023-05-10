@@ -8,7 +8,7 @@ export const Main = ({ children }) => (
             div {
                 flex-grow: 1;
                 display: flex;
-                align-items: center;
+                align-items: stretch;
             }
         `}</style>
     </div>

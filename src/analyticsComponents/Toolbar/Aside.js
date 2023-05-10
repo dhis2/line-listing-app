@@ -8,7 +8,7 @@ export const Aside = ({ children }) => (
             div {
                 flex-grow: 0;
                 display: flex;
-                align-items: center;
+                align-items: stretch;
             }
         `}</style>
     </div>
