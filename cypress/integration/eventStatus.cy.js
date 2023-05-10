@@ -34,7 +34,8 @@ describe('event status', () => {
         clickAddRemoveMainDimension(dimensionName)
     }
 
-    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
+    // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442
+    it.skip(['>=39'], 'can be filtered by status SCHEDULED', () => {
         setUpTable()
 
         selectFixedPeriod({
