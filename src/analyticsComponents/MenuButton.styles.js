@@ -1,4 +1,4 @@
-import { colors, spacers } from '@dhis2/ui-constants'
+import { colors, spacers, theme } from '@dhis2/ui-constants'
 import css from 'styled-jsx/css'
 
 export default css`
@@ -15,16 +15,23 @@ export default css`
         cursor: pointer;
     }
 
-    button:hover:enabled {
+    button:hover:enabled,
+    button:active {
         background-color: ${colors.grey200};
     }
 
-    button:disabled {
-        color: ${colors.grey400};
-        cursor: not-allowed;
+    button:focus {
+        outline: 3px solid ${theme.focus};
+        outline-offset: -3px;
     }
 
-    button:focus {
+    /* Prevent focus styles when mouse clicking */
+    button:focus:not(:focus-visible) {
         outline: none;
+    }
+
+    button:disabled {
+        color: ${colors.grey500};
+        cursor: not-allowed;
     }
 `

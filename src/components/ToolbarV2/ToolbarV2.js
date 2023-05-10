@@ -3,13 +3,16 @@ import React from 'react'
 import { Toolbar } from '../../analyticsComponents/index.js'
 import { AppLogo } from './AppLogo.js'
 import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
+import { UpdateButton } from './UpdateButton.js'
 
 export const ToolbarV2 = ({ onFileMenuAction }) => {
     onFileMenuAction
     return (
         <Toolbar>
             <AppLogo />
-            <Toolbar.Main>Main content</Toolbar.Main>
+            <Toolbar.Main>
+                <UpdateButton />
+            </Toolbar.Main>
             <InterpretationsAndDetailsToggler />
         </Toolbar>
     )
