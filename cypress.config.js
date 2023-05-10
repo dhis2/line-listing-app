@@ -28,6 +28,8 @@ module.exports = defineConfig({
         viewportHeight: 800,
         video: true,
         videoUploadOnPasses: false,
+        experimentalMemoryManagement: true,
+        numTestsKeptInMemory: 20,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',
