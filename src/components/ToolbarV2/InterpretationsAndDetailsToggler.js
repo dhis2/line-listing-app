@@ -1,7 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiDetailsPanelOpen } from '../../actions/ui.js'
-import { InterpretationsAndDetailsToggler as UiInterpretationsAndDetailsToggler } from '../../analyticsComponents/index.js'
+import {
+    InterpretationsAndDetailsToggler as UiInterpretationsAndDetailsToggler,
+    Toolbar,
+} from '../../analyticsComponents/index.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import { sGetUiShowDetailsPanel } from '../../reducers/ui.js'
 
@@ -14,10 +17,12 @@ export const InterpretationsAndDetailsToggler = () => {
     }
 
     return (
-        <UiInterpretationsAndDetailsToggler
-            disabled={!id}
-            onClick={onClick}
-            isShowing={showDetailsPanel}
-        />
+        <Toolbar.Aside>
+            <UiInterpretationsAndDetailsToggler
+                disabled={!id}
+                onClick={onClick}
+                isShowing={showDetailsPanel}
+            />
+        </Toolbar.Aside>
     )
 }

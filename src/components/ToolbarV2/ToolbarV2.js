@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Toolbar } from '../../analyticsComponents/index.js'
-import { default as VisualizationTypeSelector } from '../Toolbar/VisualizationTypeSelector/VisualizationTypeSelector.js'
+import { AppLogo } from './AppLogo.js'
 import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
 
 export const ToolbarV2 = ({ onFileMenuAction }) => {
     onFileMenuAction
     return (
         <Toolbar>
-            <Toolbar.Sidebar>
-                <VisualizationTypeSelector />
-            </Toolbar.Sidebar>
+            <AppLogo />
             <Toolbar.Main>Main content</Toolbar.Main>
-            <Toolbar.Aside>
-                <InterpretationsAndDetailsToggler />
-            </Toolbar.Aside>
+            <InterpretationsAndDetailsToggler />
         </Toolbar>
     )
 }
