@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Toolbar } from '../../analyticsComponents/index.js'
 import { default as VisualizationTypeSelector } from '../Toolbar/VisualizationTypeSelector/VisualizationTypeSelector.js'
+import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
 
 export const ToolbarV2 = ({ onFileMenuAction }) => {
     onFileMenuAction
@@ -11,7 +12,9 @@ export const ToolbarV2 = ({ onFileMenuAction }) => {
                 <VisualizationTypeSelector />
             </Toolbar.Sidebar>
             <Toolbar.Main>Main content</Toolbar.Main>
-            <Toolbar.Aside>Aside content</Toolbar.Aside>
+            <Toolbar.Aside>
+                <InterpretationsAndDetailsToggler />
+            </Toolbar.Aside>
         </Toolbar>
     )
 }

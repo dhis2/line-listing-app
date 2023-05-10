@@ -153,9 +153,6 @@ msgstr "ID"
 msgid "Code"
 msgstr "Code"
 
-msgid "Name"
-msgstr "Name"
-
 msgid "Download"
 msgstr "Download"
 
@@ -234,9 +231,6 @@ msgstr "Program dimensions"
 
 msgid "Search in program"
 msgstr "Search in program"
-
-msgid "Type"
-msgstr "Type"
 
 msgid "All types"
 msgstr "All types"
@@ -639,9 +633,6 @@ msgstr "Event status"
 
 msgid "Program status"
 msgstr "Program status"
-
-msgid "Created by"
-msgstr "Created by"
 
 msgid "Last updated by"
 msgstr "Last updated by"
