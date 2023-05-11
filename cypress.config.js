@@ -29,7 +29,7 @@ module.exports = defineConfig({
         video: true,
         videoUploadOnPasses: false,
         experimentalMemoryManagement: true,
-        numTestsKeptInMemory: 10,
+        numTestsKeptInMemory: 4,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',
