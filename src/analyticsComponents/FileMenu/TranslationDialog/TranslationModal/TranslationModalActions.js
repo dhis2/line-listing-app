@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, ButtonStrip, ModalActions } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { OfflineTooltip } from '../../OfflineTooltip.js'
+import { OfflineTooltip } from '../OfflineTooltip.js'
 
 const SaveButton = ({ disabled, loading, onClick }) => (
     <Button primary onClick={onClick} loading={loading} disabled={disabled}>

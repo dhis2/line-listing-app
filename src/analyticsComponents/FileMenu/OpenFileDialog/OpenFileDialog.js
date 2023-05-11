@@ -25,10 +25,6 @@ import React, {
     useState,
 } from 'react'
 import {
-    VIS_TYPE_GROUP_ALL,
-    VIS_TYPE_GROUP_CHARTS,
-} from '../../modules/visTypes.js'
-import {
     CreatedByFilter,
     CREATED_BY_ALL,
     CREATED_BY_ALL_BUT_CURRENT_USER,
@@ -40,6 +36,7 @@ import { styles } from './OpenFileDialog.styles.js'
 import { PaginationControls } from './PaginationControls.js'
 import { getTranslatedString, AOTypeMap } from './utils.js'
 import { VisTypeFilter } from './VisTypeFilter.js'
+import { VIS_TYPE_GROUP_ALL, VIS_TYPE_GROUP_CHARTS } from './visTypes.js'
 
 const getQuery = (type) => ({
     files: {
