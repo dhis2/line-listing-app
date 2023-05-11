@@ -1,3 +1,59 @@
+## [100.6.1](https://github.com/dhis2/line-listing-app/compare/v100.6.0...v100.6.1) (2023-05-04)
+
+
+### Bug Fixes
+
+* add 2.40.0 toggle to show hierarchy option ([#351](https://github.com/dhis2/line-listing-app/issues/351)) ([1362075](https://github.com/dhis2/line-listing-app/commit/13620751487d77589f85f27aa7d80aa34efb8520))
+
+# [100.6.0](https://github.com/dhis2/line-listing-app/compare/v100.5.0...v100.6.0) (2023-05-03)
+
+
+### Features
+
+* v100.6.0 ([#347](https://github.com/dhis2/line-listing-app/issues/347)) ([319bb1b](https://github.com/dhis2/line-listing-app/commit/319bb1b2c34e0c658e34c3f2dcc268e4461507c0)), closes [#328](https://github.com/dhis2/line-listing-app/issues/328) [#331](https://github.com/dhis2/line-listing-app/issues/331) [#333](https://github.com/dhis2/line-listing-app/issues/333) [#332](https://github.com/dhis2/line-listing-app/issues/332) [#336](https://github.com/dhis2/line-listing-app/issues/336) [#337](https://github.com/dhis2/line-listing-app/issues/337) [#342](https://github.com/dhis2/line-listing-app/issues/342) [#340](https://github.com/dhis2/line-listing-app/issues/340) [#339](https://github.com/dhis2/line-listing-app/issues/339) [#329](https://github.com/dhis2/line-listing-app/issues/329)
+
+# [100.5.0](https://github.com/dhis2/line-listing-app/compare/v100.4.0...v100.5.0) (2023-02-07)
+
+
+### Features
+
+* v100.5.0 ([#327](https://github.com/dhis2/line-listing-app/issues/327)) ([ba9a998](https://github.com/dhis2/line-listing-app/commit/ba9a99861ae9ce982964206e99e436a33e5783e3)), closes [#312](https://github.com/dhis2/line-listing-app/issues/312) [#317](https://github.com/dhis2/line-listing-app/issues/317) [#316](https://github.com/dhis2/line-listing-app/issues/316) [#319](https://github.com/dhis2/line-listing-app/issues/319) [#313](https://github.com/dhis2/line-listing-app/issues/313) [#322](https://github.com/dhis2/line-listing-app/issues/322) [#314](https://github.com/dhis2/line-listing-app/issues/314) [#324](https://github.com/dhis2/line-listing-app/issues/324)
+
+# [100.4.0](https://github.com/dhis2/line-listing-app/compare/v100.3.1...v100.4.0) (2022-12-15)
+
+
+### Features
+
+* v100.4.0 ([#310](https://github.com/dhis2/line-listing-app/issues/310)) ([6e04c4a](https://github.com/dhis2/line-listing-app/commit/6e04c4a8ff56da8596ee329b7f939d2aa1e3327d)), closes [#286](https://github.com/dhis2/line-listing-app/issues/286) [#269](https://github.com/dhis2/line-listing-app/issues/269) [#291](https://github.com/dhis2/line-listing-app/issues/291) [#285](https://github.com/dhis2/line-listing-app/issues/285) [#296](https://github.com/dhis2/line-listing-app/issues/296) [#289](https://github.com/dhis2/line-listing-app/issues/289) [#298](https://github.com/dhis2/line-listing-app/issues/298) [#302](https://github.com/dhis2/line-listing-app/issues/302) [#301](https://github.com/dhis2/line-listing-app/issues/301) [#306](https://github.com/dhis2/line-listing-app/issues/306) [#299](https://github.com/dhis2/line-listing-app/issues/299) [#303](https://github.com/dhis2/line-listing-app/issues/303) [#308](https://github.com/dhis2/line-listing-app/issues/308) [#307](https://github.com/dhis2/line-listing-app/issues/307) [#309](https://github.com/dhis2/line-listing-app/issues/309) [#297](https://github.com/dhis2/line-listing-app/issues/297) [#304](https://github.com/dhis2/line-listing-app/issues/304)
+
+## [100.3.1](https://github.com/dhis2/line-listing-app/compare/v100.3.0...v100.3.1) (2022-11-16)
+
+
+### Bug Fixes
+
+* v100.3.1 ([#277](https://github.com/dhis2/line-listing-app/issues/277)) ([fe16e26](https://github.com/dhis2/line-listing-app/commit/fe16e26572aac0a459069e867d37346a8d9beb9f)), closes [#249](https://github.com/dhis2/line-listing-app/issues/249) [#230](https://github.com/dhis2/line-listing-app/issues/230) [#254](https://github.com/dhis2/line-listing-app/issues/254) [#244](https://github.com/dhis2/line-listing-app/issues/244) [#257](https://github.com/dhis2/line-listing-app/issues/257) [#256](https://github.com/dhis2/line-listing-app/issues/256)
+
+# [100.3.0](https://github.com/dhis2/line-listing-app/compare/v100.2.0...v100.3.0) (2022-10-14)
+
+
+### Features
+
+* add "Scheduled" event status (DHIS2-13881) ([#219](https://github.com/dhis2/line-listing-app/issues/219)) ([773fe9f](https://github.com/dhis2/line-listing-app/commit/773fe9f1837b4b969811e9e436de6cfc8abb1a2e)), closes [#184](https://github.com/dhis2/line-listing-app/issues/184) [#178](https://github.com/dhis2/line-listing-app/issues/178)
+
+# [100.2.0](https://github.com/dhis2/line-listing-app/compare/v100.1.0...v100.2.0) (2022-09-13)
+
+
+### Features
+
+* visualize scheduled date (DHIS2-11192) ([#206](https://github.com/dhis2/line-listing-app/issues/206)) ([b657de7](https://github.com/dhis2/line-listing-app/commit/b657de76ddd645af29bd53c6246e839566b129b2)), closes [#200](https://github.com/dhis2/line-listing-app/issues/200) [#202](https://github.com/dhis2/line-listing-app/issues/202) [#203](https://github.com/dhis2/line-listing-app/issues/203) [#191](https://github.com/dhis2/line-listing-app/issues/191) [#204](https://github.com/dhis2/line-listing-app/issues/204) [#205](https://github.com/dhis2/line-listing-app/issues/205) [#201](https://github.com/dhis2/line-listing-app/issues/201)
+
+# [100.1.0](https://github.com/dhis2/line-listing-app/compare/v100.0.0...v100.1.0) (2022-08-26)
+
+
+### Features
+
+* legend set table coloring support in line listing (DHIS2-75) ([#199](https://github.com/dhis2/line-listing-app/issues/199)) ([5d9feb1](https://github.com/dhis2/line-listing-app/commit/5d9feb116a4a58b77a8359e74fc3b96df6c817e0)), closes [#148](https://github.com/dhis2/line-listing-app/issues/148) [#149](https://github.com/dhis2/line-listing-app/issues/149) [#156](https://github.com/dhis2/line-listing-app/issues/156) [#157](https://github.com/dhis2/line-listing-app/issues/157) [#153](https://github.com/dhis2/line-listing-app/issues/153) [#143](https://github.com/dhis2/line-listing-app/issues/143) [#164](https://github.com/dhis2/line-listing-app/issues/164) [#158](https://github.com/dhis2/line-listing-app/issues/158) [#168](https://github.com/dhis2/line-listing-app/issues/168) [#121](https://github.com/dhis2/line-listing-app/issues/121) [#177](https://github.com/dhis2/line-listing-app/issues/177) [#179](https://github.com/dhis2/line-listing-app/issues/179) [#181](https://github.com/dhis2/line-listing-app/issues/181) [#180](https://github.com/dhis2/line-listing-app/issues/180) [#182](https://github.com/dhis2/line-listing-app/issues/182) [#183](https://github.com/dhis2/line-listing-app/issues/183) [#179](https://github.com/dhis2/line-listing-app/issues/179) [#186](https://github.com/dhis2/line-listing-app/issues/186) [#188](https://github.com/dhis2/line-listing-app/issues/188) [#187](https://github.com/dhis2/line-listing-app/issues/187) [#185](https://github.com/dhis2/line-listing-app/issues/185) [#190](https://github.com/dhis2/line-listing-app/issues/190) [#176](https://github.com/dhis2/line-listing-app/issues/176) [#172](https://github.com/dhis2/line-listing-app/issues/172) [#195](https://github.com/dhis2/line-listing-app/issues/195) [#189](https://github.com/dhis2/line-listing-app/issues/189) [#192](https://github.com/dhis2/line-listing-app/issues/192) [#194](https://github.com/dhis2/line-listing-app/issues/194) [#198](https://github.com/dhis2/line-listing-app/issues/198)
+
 # [100.0.0](https://github.com/dhis2/line-listing-app/compare/v99.9.9...v100.0.0) (2022-05-18)
 
 
