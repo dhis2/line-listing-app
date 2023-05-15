@@ -26,6 +26,7 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
+import ViewDropDown from './ViewDropDown.js'
 
 const BigColoredDiv = ({ color }) => (
     <div
@@ -269,9 +270,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onDelete={onDelete}
                 onError={onError}
             />
-            <HoverMenuBar.Dropdown label="Label green">
-                <BigColoredDiv color="green" />
-            </HoverMenuBar.Dropdown>
+            <ViewDropDown />
             <HoverMenuBar.Dropdown label="Label blue" disabled>
                 <BigColoredDiv color="blue" />
             </HoverMenuBar.Dropdown>
