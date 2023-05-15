@@ -8,6 +8,7 @@ import {
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
 import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,
     sGetUiSidebarHidden,
@@ -19,6 +20,7 @@ export default function ViewDropDown() {
     const isSidebarHidden = useSelector(sGetUiSidebarHidden)
     const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
+    const id = useSelector(sGetCurrentId)
 
     const toggleLayoutPanelHidden = useCallback(() => {
         dispatch(acToggleUiLayoutPanelHidden())
@@ -56,6 +58,7 @@ export default function ViewDropDown() {
                 <MenuItem
                     label={toggleDetailsPanelText}
                     onClick={toggleDetailsPanelOpen}
+                    disabled={!id}
                 />
             </Menu>
         </HoverMenuBar.Dropdown>
