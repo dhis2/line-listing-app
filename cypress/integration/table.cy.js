@@ -30,6 +30,7 @@ import {
     TEST_DIM_LEGEND_SET,
     TEST_DIM_NUMBER_OPTIONSET,
     TEST_DIM_TEXT_OPTIONSET,
+    TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
@@ -241,10 +242,7 @@ const assertSorting = () => {
 
     selectRelativePeriod({
         label: periodLabel,
-        period: {
-            type: 'Years',
-            name: 'This year',
-        },
+        period: TEST_REL_PE_THIS_YEAR,
     })
 
     clickMenubarUpdateButton()
