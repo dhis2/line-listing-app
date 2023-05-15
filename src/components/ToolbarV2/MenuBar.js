@@ -26,6 +26,7 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
+import { ToolbarDownloadDropdown } from '../DownloadMenuV2/ToolbarDownloadDropdown.js'
 import ViewDropDown from './ViewDropDown.js'
 
 const BigColoredDiv = ({ color }) => (
@@ -274,9 +275,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
             <HoverMenuBar.Dropdown label="Label blue" disabled>
                 <BigColoredDiv color="blue" />
             </HoverMenuBar.Dropdown>
-            <HoverMenuBar.Dropdown label="Label magenta">
-                <BigColoredDiv color="magenta" />
-            </HoverMenuBar.Dropdown>
+            <ToolbarDownloadDropdown />
         </HoverMenuBar>
     )
 }

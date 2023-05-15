@@ -9,6 +9,12 @@ export const useHoverMenuBarState = () => {
         setOpenedDropdownEl(null)
     }, [])
 
+    const closeMenuByDocumentClick = useCallback((event) => {
+        console.log(event.target, event.currentTarget)
+        setIsInHoverMode(false)
+        setOpenedDropdownEl(null)
+    }, [])
+
     const onDropDownButtonClick = useCallback(
         (event) => {
             if (!isInHoverMode) {
@@ -32,13 +38,15 @@ export const useHoverMenuBarState = () => {
 
     useEffect(() => {
         if (isInHoverMode) {
-            document.addEventListener('click', closeMenu, { once: true })
+            document.addEventListener('click', closeMenuByDocumentClick, {
+                once: true,
+            })
         }
 
         return () => {
-            document.removeEventListener('click', closeMenu)
+            document.removeEventListener('click', closeMenuByDocumentClick)
         }
-    }, [closeMenu, isInHoverMode])
+    }, [closeMenuByDocumentClick, isInHoverMode])
 
     return {
         closeMenu,

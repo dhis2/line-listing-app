@@ -5,12 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
 "PO-Revision-Date: 2023-06-07T12:54:13.099Z\n"
-=======
-"POT-Creation-Date: 2023-05-11T09:01:07.810Z\n"
-"PO-Revision-Date: 2023-05-11T09:01:07.810Z\n"
 
 msgid "Delete {{fileType}}"
 msgstr "Delete {{fileType}}"
@@ -212,6 +208,60 @@ msgstr ""
 msgid "New line list"
 msgstr "New line list"
 
+msgid "Pivot table"
+msgstr "Pivot table"
+
+msgid "Area"
+msgstr "Area"
+
+msgid "Stacked area"
+msgstr "Stacked area"
+
+msgid "Bar"
+msgstr "Bar"
+
+msgid "Stacked bar"
+msgstr "Stacked bar"
+
+msgid "Column"
+msgstr "Column"
+
+msgid "Year over year (column)"
+msgstr "Year over year (column)"
+
+msgid "Stacked column"
+msgstr "Stacked column"
+
+msgid "Gauge"
+msgstr "Gauge"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Line list"
+msgstr "Line list"
+
+msgid "Year over year (line)"
+msgstr "Year over year (line)"
+
+msgid "Pie"
+msgstr "Pie"
+
+msgid "Radar"
+msgstr "Radar"
+
+msgid "Scatter"
+msgstr "Scatter"
+
+msgid "Single value"
+msgstr "Single value"
+
+msgid "All types"
+msgstr "All types"
+
+msgid "All charts"
+msgstr "All charts"
+
 msgid "Rename {{fileType}}"
 msgstr "Rename {{fileType}}"
 
@@ -226,6 +276,9 @@ msgstr "{{- objectName}} (copy)"
 
 msgid "Save {{fileType}} as"
 msgstr "Save {{fileType}} as"
+
+msgid "Not available offline"
+msgstr "Not available offline"
 
 msgid "Translating to"
 msgstr "Translating to"
@@ -421,6 +474,9 @@ msgstr "Code"
 msgid "Download"
 msgstr "Download"
 
+msgid "View"
+msgstr "View"
+
 msgid "all"
 msgstr "all"
 
@@ -496,9 +552,6 @@ msgstr "Program dimensions"
 
 msgid "Search in program"
 msgstr "Search in program"
-
-msgid "All types"
-msgstr "All types"
 
 msgid "Data element"
 msgstr "Data element"
@@ -610,12 +663,6 @@ msgstr "Hide interpretations and details"
 msgid "Show interpretations and details"
 msgstr "Show interpretations and details"
 
-msgid "View"
-msgstr "View"
-
-msgid "Line list"
-msgstr "Line list"
-
 msgid "Getting started"
 msgstr "Getting started"
 
@@ -634,9 +681,6 @@ msgstr "Click a dimension to add or remove conditions."
 
 msgid "Your most viewed line lists"
 msgstr "Your most viewed line lists"
-
-msgid "Not available offline"
-msgstr "Not available offline"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"

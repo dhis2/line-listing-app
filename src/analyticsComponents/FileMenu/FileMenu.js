@@ -123,8 +123,6 @@ export const FileMenu = ({
     const iconActiveColor = colors.grey700
     const iconInactiveColor = colors.grey500
 
-    console.log('henkie', onSaveAs, fileObject.id)
-
     return (
         <>
             <OpenFileDialog
