@@ -72,7 +72,6 @@ jobs:
             fail-fast: false
             matrix:
                 versions: ${{ fromJSON(needs.compute-prod-versions.outputs.versions) }}
-                containers: [1, 2]
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
