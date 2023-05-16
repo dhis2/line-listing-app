@@ -81,7 +81,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                containers: [1, 2]
+                containers: [1, 2, 3, 4]
 
         steps:
             - name: Checkout
@@ -118,7 +118,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                containers: [1, 2]
+                containers: [1, 2, 3, 4]
 
         steps:
             - name: Checkout
@@ -154,7 +154,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                containers: [1, 2]
+                containers: [1, 2, 3, 4]
 
         steps:
             - name: Checkout
