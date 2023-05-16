@@ -201,3 +201,9 @@ You can apply colors to a visualization by using the legend feature, which can b
 Below is an example of a line list with legend colors applied to the background, per data item.
 
 ![](resources/images/legend-example.png)
+
+### Showing the organisation unit hierarchy
+
+You can show the full hierarchy path for organisation units by enabling the **Show organisation unit hierarchy** option in `Options` -> `Style`. When this is enabled, sorting on the organisation unit column will sort the organisation units alphabetically starting from the top level.
+
+![](resources/images/org-unit-hierarchy.png)
