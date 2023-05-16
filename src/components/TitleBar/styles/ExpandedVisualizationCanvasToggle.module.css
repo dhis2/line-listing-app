@@ -4,5 +4,13 @@
 }
 
 .tooltipAnchor > :global(button.small.icon-only) {
-    padding: 6px 4px 6px 5px;
+    padding: 6px 5px;
+}
+
+.tooltipAnchor > :global(button.small.icon-only) > :global(span.button-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0 !important;
+    font-size: unset;
 }
