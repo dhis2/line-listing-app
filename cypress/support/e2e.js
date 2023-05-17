@@ -65,6 +65,7 @@ Cypress.Commands.add('login', (user) => {
                     expect(response.body.username).to.eq(user.name)
                 })
             },
+            cacheAcrossSpecs: true,
         }
     )
 })
