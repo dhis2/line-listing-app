@@ -1,6 +1,8 @@
 name: 'dhis2: verify (app)'
 
 on:
+    schedule:
+        - cron: '10 3,6,9,12,15,18,21,23 * * *'
     pull_request:
         types: ['opened', 'edited', 'reopened', 'synchronize']
     push:

@@ -1,10 +1,10 @@
 import '@this-dot/cypress-indexeddb'
-import { updateBaseUrlIndexedDb } from './updateBaseUrlIndexedDb.js'
+// import { updateBaseUrlIndexedDb } from './updateBaseUrlIndexedDb.js'
 import './commands.js'
 
-const appName = 'Line Listing'
-const baseUrlDbName = 'dhis2-base-url-db'
-const baseUrlStoreName = 'dhis2-base-url-store'
+// const appName = 'Line Listing'
+// const baseUrlDbName = 'dhis2-base-url-db'
+// const baseUrlStoreName = 'dhis2-base-url-store'
 
 /**
  * Custom login command, can be used to login or switch between sessions.
