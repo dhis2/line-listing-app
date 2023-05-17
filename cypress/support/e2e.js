@@ -1,5 +1,5 @@
 import '@this-dot/cypress-indexeddb'
-import { updateBaseUrlIndexedDb } from './updateBaseUrlIndexedDb.js'
+// import { updateBaseUrlIndexedDb } from './updateBaseUrlIndexedDb.js'
 import './commands.js'
 
 enableAutoLogin()
