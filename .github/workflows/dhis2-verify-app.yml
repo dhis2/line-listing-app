@@ -110,6 +110,7 @@ jobs:
                   CYPRESS_networkMode: live
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  DEBUG: 'cypress:*'
 
     e2e-v39:
         runs-on: ubuntu-latest
@@ -147,6 +148,7 @@ jobs:
                   CYPRESS_networkMode: live
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  DEBUG: 'cypress:*'
     e2e-v40:
         runs-on: ubuntu-latest
         if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]'"
@@ -183,6 +185,7 @@ jobs:
                   CYPRESS_networkMode: live
                   CYPRESS_dhis2Username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
                   CYPRESS_dhis2Password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+                  DEBUG: 'cypress:*'
 
     release:
         runs-on: ubuntu-latest
