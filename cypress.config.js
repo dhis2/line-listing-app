@@ -6,6 +6,14 @@ const {
 
 // This function will be modified when we add plugins
 async function setupNodeEvents(on, config) {
+    on('task', {
+        // Log to console during a run
+        log(message) {
+            console.log(message)
+
+            return null
+        },
+    })
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
 
