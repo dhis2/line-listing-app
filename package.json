@@ -24,6 +24,7 @@
         "@dhis2/cypress-plugins": "^10.0.2",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
+        "@this-dot/cypress-indexeddb": "^2.0.1",
         "cypress": "^12.10.0",
         "cypress-tags": "^1.1.2",
         "enzyme": "^3.11.0",
