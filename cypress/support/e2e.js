@@ -41,10 +41,10 @@ Cypress.Commands.add('login', (user) => {
         {
             validate: () => {
                 // Check indexedDB is updated correctly
-                // cy.openIndexedDb(baseUrlDbName)
-                //     .createObjectStore(baseUrlStoreName)
-                //     .readItem('Line Listing')
-                //     .should('deep.equal', { appName, baseUrl: user.server })
+                cy.openIndexedDb(baseUrlDbName)
+                    .createObjectStore(baseUrlStoreName)
+                    .readItem('Line Listing')
+                    .should('deep.equal', { appName, baseUrl: user.server })
 
                 // Check API is returning the expected response
                 cy.request(`${user.server}/api/me`).should((response) => {
