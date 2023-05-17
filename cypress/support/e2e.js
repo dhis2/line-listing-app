@@ -44,7 +44,7 @@ Cypress.Commands.add('login', (user) => {
             })
 
             // Set base url for the app platform
-            // window.localStorage.setItem('DHIS2_BASE_URL', user.server)
+            window.localStorage.setItem('DHIS2_BASE_URL', user.server)
         },
         {
             validate: () => {
