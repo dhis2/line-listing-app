@@ -43,22 +43,9 @@ Cypress.Commands.add('login', (user) => {
 
             // Set base url for the app platform
             window.localStorage.setItem('DHIS2_BASE_URL', user.server)
-            // Update indexDB to the correct baseUrl value if needed
-            updateBaseUrlIndexedDb({
-                appName,
-                baseUrlDbName,
-                baseUrlStoreName,
-                baseUrl: user.server,
-            })
         },
         {
             validate: () => {
-                // Check indexedDB is updated correctly
-                cy.openIndexedDb(baseUrlDbName)
-                    .createObjectStore(baseUrlStoreName)
-                    .readItem('Line Listing')
-                    .should('deep.equal', { appName, baseUrl: user.server })
-
                 // Check API is returning the expected response
                 cy.request(`${user.server}/api/me`).should((response) => {
                     expect(response.status).to.eq(200)
@@ -68,6 +55,23 @@ Cypress.Commands.add('login', (user) => {
             cacheAcrossSpecs: true,
         }
     )
+})
+
+before(() => {
+    const baseUrl = Cypress.env('dhis2BaseUrl')
+    // Update indexDB to the correct baseUrl value if needed
+    updateBaseUrlIndexedDb({
+        appName,
+        baseUrlDbName,
+        baseUrlStoreName,
+        baseUrl,
+    })
+
+    // Check indexedDB is updated correctly
+    cy.openIndexedDb(baseUrlDbName)
+        .createObjectStore(baseUrlStoreName)
+        .readItem('Line Listing')
+        .should('deep.equal', { appName, baseUrl })
 })
 
 // Log in before each test, if not already logged in
