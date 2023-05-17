@@ -25,6 +25,8 @@ Cypress.on('uncaught:exception', (err) => {
  * https://docs.cypress.io/api/commands/session
  */
 Cypress.Commands.add('login', (user) => {
+    window.localStorage.removeItem('DHIS2_BASE_URL')
+
     cy.session(
         user,
         () => {
@@ -42,7 +44,7 @@ Cypress.Commands.add('login', (user) => {
             })
 
             // Set base url for the app platform
-            window.localStorage.setItem('DHIS2_BASE_URL', user.server)
+            // window.localStorage.setItem('DHIS2_BASE_URL', user.server)
         },
         {
             validate: () => {
