@@ -1,8 +1,10 @@
-// import { enableAutoLogin } from '@dhis2/cypress-commands'
-
+import '@this-dot/cypress-indexeddb'
+import { updateBaseUrlIndexedDb } from './updateBaseUrlIndexedDb.js'
 import './commands.js'
 
-// enableAutoLogin()
+const appName = 'Line Listing'
+const baseUrlDbName = 'dhis2-base-url-db'
+const baseUrlStoreName = 'dhis2-base-url-store'
 
 /**
  * Custom login command, can be used to login or switch between sessions.
@@ -10,8 +12,6 @@ import './commands.js'
  * https://docs.cypress.io/api/commands/session
  */
 Cypress.Commands.add('login', (user) => {
-    window.localStorage.removeItem('DHIS2_BASE_URL')
-
     cy.session(
         user,
         () => {
@@ -30,10 +30,24 @@ Cypress.Commands.add('login', (user) => {
 
             // Set base url for the app platform
             window.localStorage.setItem('DHIS2_BASE_URL', user.server)
+            // Update indexDB to the correct baseUrl value if needed
+            updateBaseUrlIndexedDb({
+                appName,
+                baseUrlDbName,
+                baseUrlStoreName,
+                baseUrl: user.server,
+            })
         },
         {
             validate: () => {
-                cy.request(`${user.server}/api/me`).then((response) => {
+                // Check indexedDB is updated correctly
+                cy.openIndexedDb(baseUrlDbName)
+                    .createObjectStore(baseUrlStoreName)
+                    .readItem('Line Listing')
+                    .should('deep.equal', { appName, baseUrl: user.server })
+
+                // Check API is returning the expected response
+                cy.request(`${user.server}/api/me`).should((response) => {
                     expect(response.status).to.eq(200)
                     expect(response.body.username).to.eq(user.name)
                 })
