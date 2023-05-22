@@ -22,7 +22,7 @@ const trackerProgram = E2E_PROGRAM
 const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
 describe('event', () => {
-    it.only('Your dimensions can be used and filtered by', () => {
+    it('Your dimensions can be used and filtered by', () => {
         const dimensionName = 'Facility Type'
         const filteredOutItemName = 'MCHP'
         const filteredItemName = 'CHC'
