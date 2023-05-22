@@ -13,7 +13,6 @@ export const expectStartScreenToBeVisible = () => {
         password: Cypress.env('dhis2Password'),
         server: Cypress.env('dhis2BaseUrl'),
     }
-    cy.task('log', `ENV VARS:\n ${JSON.stringify(user, null, 4)}`)
 
     cy.request(`${user.server}/api/me`).should((response) => {
         expect(response.status).to.eq(200)
