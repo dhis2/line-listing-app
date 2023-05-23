@@ -3,6 +3,10 @@
     border-right: 1px solid var(--colors-grey400);
 }
 
+.container.hidden {
+    display: none;
+}
+
 .button {
     height: 38px;
     padding: 7px var(--spacers-dp8);

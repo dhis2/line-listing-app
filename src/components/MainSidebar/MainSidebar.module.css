@@ -1,6 +1,9 @@
 .container {
     display: flex;
 }
+.container.hidden {
+    display: none;
+}
 .main,
 .accessory {
     box-sizing: border-box;
