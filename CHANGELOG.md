@@ -1,3 +1,10 @@
+# [100.7.0](https://github.com/dhis2/line-listing-app/compare/v100.6.2...v100.7.0) (2023-05-23)
+
+
+### Features
+
+* allow expanding visualization and hiding panels ([#344](https://github.com/dhis2/line-listing-app/issues/344)) ([4af769c](https://github.com/dhis2/line-listing-app/commit/4af769cdfccb3ae1b3c0e23977e6099248f59496))
+
 ## [100.6.2](https://github.com/dhis2/line-listing-app/compare/v100.6.1...v100.6.2) (2023-05-22)
 
 
