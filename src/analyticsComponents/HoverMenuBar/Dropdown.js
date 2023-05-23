@@ -1,4 +1,3 @@
-import { Card } from '@dhis2-ui/card'
 import { Popper } from '@dhis2-ui/popper'
 import { Portal } from '@dhis2-ui/portal'
 import PropTypes from 'prop-types'
@@ -24,20 +23,18 @@ export const Dropdown = ({ children, label, disabled }) => {
             {isOpen && (
                 <Portal>
                     <Popper placement="bottom-start" reference={buttonRef}>
-                        <Card>
-                            {/* Support render props for children that need access to the full dropdown state. One example is menu items that call `event.preventDefault()` in
+                        {/* Support render props for children that need access to the full dropdown state. One example is menu items that call `event.preventDefault()` in
                             their `onClick` handler: these will need to call
                             `closeMenu` themselves because the click event will
                             not bubble up to the document. */}
-                            {typeof children === 'function'
-                                ? children({
-                                      closeMenu,
-                                      isOpen,
-                                      onClick,
-                                      onMouseOver,
-                                  })
-                                : children}
-                        </Card>
+                        {typeof children === 'function'
+                            ? children({
+                                  closeMenu,
+                                  isOpen,
+                                  onClick,
+                                  onMouseOver,
+                              })
+                            : children}
                     </Popper>
                 </Portal>
             )}
