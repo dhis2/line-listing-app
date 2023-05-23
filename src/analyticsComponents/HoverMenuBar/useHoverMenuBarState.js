@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const useHoverMenuBarState = () => {
     const [openedDropdownEl, setOpenedDropdownEl] = useState(null)
+    const [openedSubMenuEl, setOpenedSubMenuEl] = useState(null)
     const [isInHoverMode, setIsInHoverMode] = useState(false)
 
     const closeMenu = useCallback(() => {
@@ -36,6 +37,14 @@ export const useHoverMenuBarState = () => {
         [isInHoverMode]
     )
 
+    const onSubMenuAnchorMouseEnter = useCallback((event) => {
+        setOpenedSubMenuEl(event.currentTarget)
+    }, [])
+
+    const onMenuItemMouseEnter = useCallback(() => {
+        setOpenedSubMenuEl(null)
+    }, [])
+
     useEffect(() => {
         if (isInHoverMode) {
             document.addEventListener('click', closeMenuByDocumentClick, {
@@ -52,6 +61,9 @@ export const useHoverMenuBarState = () => {
         closeMenu,
         onDropDownButtonClick,
         onDropDownButtonMouseOver,
+        onSubMenuAnchorMouseEnter,
+        onMenuItemMouseEnter,
+        openedSubMenuEl,
         openedDropdownEl,
     }
 }

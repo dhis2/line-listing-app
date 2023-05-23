@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
-"PO-Revision-Date: 2023-06-07T12:54:13.099Z\n"
+"POT-Creation-Date: 2023-05-22T15:35:38.209Z\n"
+"PO-Revision-Date: 2023-05-22T15:35:38.209Z\n"
 
 msgid "Delete {{fileType}}"
 msgstr "Delete {{fileType}}"
@@ -438,6 +438,15 @@ msgstr "No options"
 msgid "Move to {{axisName}}"
 msgstr "Move to {{axisName}}"
 
+msgid "Metadata ID scheme"
+msgstr "Metadata ID scheme"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Code"
+
 msgid "HTML"
 msgstr "HTML"
 
@@ -462,20 +471,8 @@ msgstr "CSV"
 msgid "Download data from this date"
 msgstr "Download data from this date"
 
-msgid "Metadata ID scheme"
-msgstr "Metadata ID scheme"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Code"
-msgstr "Code"
-
 msgid "Download"
 msgstr "Download"
-
-msgid "View"
-msgstr "View"
 
 msgid "all"
 msgstr "all"
@@ -662,6 +659,9 @@ msgstr "Hide interpretations and details"
 
 msgid "Show interpretations and details"
 msgstr "Show interpretations and details"
+
+msgid "View"
+msgstr "View"
 
 msgid "Getting started"
 msgstr "Getting started"
