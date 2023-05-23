@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Caroline Hesthagen Holen <caroline@devotta.no>, 2022
-# Karoline Tufte Lien <karoline@dhis2.org>, 2022
+# Karoline Tufte Lien <karoline@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
+"POT-Creation-Date: 2023-01-20T08:48:33.330Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2022\n"
-"Language-Team: Norwegian Bokmål (https://www.transifex.com/hisp-uio/teams/100509/nb/)\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
+"Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -203,13 +203,13 @@ msgid "Showing all values for this dimension"
 msgstr "Viser alle verdiene for denne dimensjonen"
 
 msgid "Program stage: {{- stageName}}"
-msgstr ""
+msgstr "Programfase: {{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "Ingen dimensjoner funnet for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr ""
+msgstr "Ingen dimensjoner funnet i programmet {{- programName}}"
 
 msgid "No dimensions found"
 msgstr "Ingen dimensjoner funnet"
@@ -283,7 +283,7 @@ msgstr ""
 "systemadministrator."
 
 msgid "Choose a stage above to add program dimensions."
-msgstr ""
+msgstr "Velg en fase ovenfor for å legge til programdimensjoner."
 
 msgid "Choose a program above to add program dimensions."
 msgstr "Velg et program ovenfor for å legge til programdimensjoner."
@@ -307,7 +307,7 @@ msgid "Clear stage first to choose another"
 msgstr "Fjern programfase først for å velge en annen"
 
 msgid "This program only has one stage"
-msgstr ""
+msgstr "Dette programmet har bare en fase"
 
 msgid "Time dimensions"
 msgstr "Tidsdimensjoner"
@@ -365,6 +365,12 @@ msgstr "Klikk på en dimensjon for å legge til eller fjerne betingelser."
 msgid "Your most viewed line lists"
 msgstr "Dine mest viste linjelister"
 
+msgid "Not available offline"
+msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr ""
+
 msgid "Rows per page"
 msgstr "Rader per side"
 
@@ -414,7 +420,7 @@ msgid "Hide empty rows"
 msgstr "Skjul tomme rader"
 
 msgid "Use a legend for table cell colors"
-msgstr ""
+msgstr "Bruk en tegnforklaring for tabellcellefarger"
 
 msgid "Legend style"
 msgstr "Tegnforklaringstil"
@@ -426,7 +432,7 @@ msgid "Use pre-defined legend per data item"
 msgstr "Bruk forhåndsdefinert tegnforklaring per datapunkt"
 
 msgid "Choose a single legend for the entire visualization"
-msgstr ""
+msgstr "Velg en enkelt tegnforklaring for hele visualiseringen"
 
 msgid "Legend changes background color"
 msgstr "Tegnforklaring endrer bakgrunnsfarge"
@@ -492,31 +498,31 @@ msgid "Filter"
 msgstr "Filter"
 
 msgid "equal to (=)"
-msgstr ""
+msgstr "lik (=)"
 
 msgid "greater than (>)"
-msgstr ""
+msgstr "større enn (>)"
 
 msgid "greater than or equal to (≥)"
-msgstr ""
+msgstr "større enn eller lik (≥)"
 
 msgid "less than (<)"
-msgstr ""
+msgstr "mindre enn (<)"
 
 msgid "less than or equal to (≤)"
-msgstr ""
+msgstr "mindre enn eller lik (≤)"
 
 msgid "not equal to (≠)"
-msgstr ""
+msgstr "ikke lik (≠)"
 
 msgid "is empty / null"
-msgstr ""
+msgstr "er tom / null"
 
 msgid "is not empty / not null"
-msgstr ""
+msgstr "er ikke tom / ikke null"
 
 msgid "exactly"
-msgstr ""
+msgstr "nøyaktig"
 
 msgid "is not"
 msgstr "er ikke"
@@ -525,19 +531,19 @@ msgid "contains"
 msgstr "inneholder"
 
 msgid "does not contain"
-msgstr ""
+msgstr "inneholder ikke"
 
 msgid "after"
 msgstr "etter"
 
 msgid "after or including"
-msgstr ""
+msgstr "etter eller inkludert"
 
 msgid "before"
 msgstr "før"
 
 msgid "before or including"
-msgstr ""
+msgstr "før eller inkludert"
 
 msgid "Yes"
 msgstr "Ja"
@@ -546,10 +552,10 @@ msgid "No"
 msgstr "Nei"
 
 msgid "Not answered"
-msgstr ""
+msgstr "Ikke besvart"
 
 msgid "There is a problem with this visualization."
-msgstr ""
+msgstr "Det er et problem med denne visualiseringen."
 
 msgid "There was a problem getting the data from the server."
 msgstr "Det oppstod et problem med å hente dataene fra serveren."
@@ -575,22 +581,22 @@ msgstr ""
 "eller den kan ha blitt slettet."
 
 msgid "No program selected"
-msgstr ""
+msgstr "Ingen program valgt"
 
 msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
+msgstr "Velg et program fra sidefelt for programdimensjoner"
 
 msgid "No stage selected"
-msgstr ""
+msgstr "Ingen fase valgt"
 
 msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr ""
+msgstr "Velg en fase fra sidefelt for programdimensjoner"
 
 msgid "Columns is empty"
-msgstr ""
+msgstr "Kolonnene er tomme"
 
 msgid "Add at least one item to Columns."
-msgstr ""
+msgstr "Legg til minst ett element i kolonner."
 
 msgid "No organisation unit selected"
 msgstr "Ingen organisasjonsenhet er valgt"
@@ -599,22 +605,24 @@ msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
 msgstr ""
+"Sørg for å legge til organisasjonsenhetsdimensjonen med minst ett valg i "
+"oppsettet."
 
 msgid "No time dimension selected"
-msgstr ""
+msgstr "Ingen tidsdimensjon er valgt"
 
 msgid ""
 "Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
+msgstr "Sørg for å legge til en tidsdimensjon med minst ett valg i oppsettet."
 
 msgid "There's a problem with at least one selected indicator"
-msgstr ""
+msgstr "Det er et problem med minst én valgt indikator"
 
 msgid "No access"
 msgstr "Ingen tilgang"
 
 msgid "You don't have access to the requested data"
-msgstr ""
+msgstr "Du har ikke tilgang til de forespurte dataene"
 
 msgid "Something went wrong"
 msgstr "Noe gikk galt"
@@ -635,10 +643,10 @@ msgid "Last updated by"
 msgstr "Sist oppdatert av"
 
 msgid "Not applicable to event programs"
-msgstr ""
+msgstr "Gjelder ikke hendelsesprogrammer"
 
 msgid "Not applicable to enrollments"
-msgstr ""
+msgstr "Gjelder ikke registreringer"
 
 msgid "User organisation unit"
 msgstr "Brukerorganisasjonsenhet"
@@ -701,16 +709,16 @@ msgid "Scheduled date"
 msgstr "Planlagt dato"
 
 msgid "Last updated on"
-msgstr ""
+msgstr "Sist oppdatert den"
 
 msgid "Disabled by the selected program"
-msgstr ""
+msgstr "Deaktivert av det valgte programmet"
 
 msgid "Disabled by the selected program stage"
-msgstr ""
+msgstr "Deaktivert av den valgte programfasen"
 
 msgid "No input type selected"
-msgstr ""
+msgstr "Ingen inndatatype valgt"
 
 msgid "Active"
 msgstr "Aktiv"
@@ -725,7 +733,7 @@ msgid "Scheduled"
 msgstr "Planlagt"
 
 msgid "List data from tracked entities and events."
-msgstr ""
+msgstr "Liste over data fra sporede enheter og hendelser."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
-msgstr ""
+msgstr "Utforsk data med manipulerbare kolonner, rader og aggregeringer."

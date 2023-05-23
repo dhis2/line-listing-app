@@ -1,17 +1,17 @@
 # 
 # Translators:
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2022
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2022
 # phil_dhis2, 2022
 # Viktor Varland <viktor@dhis2.org>, 2022
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2023-01-20T08:48:33.330Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/hisp-uio/teams/100509/vi/)\n"
+"Last-Translator: Mai Nguyen <thanhmai.jica@gmail.com>, 2023\n"
+"Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -173,7 +173,7 @@ msgstr ""
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
-msgstr[0] ""
+msgstr[0] "Đã chọn {{đếm}}"
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
@@ -195,13 +195,13 @@ msgstr "Chưa lựa chọn"
 msgid "Showing all values for this dimension"
 msgstr ""
 
-msgid "Program stage: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
-msgid "No dimensions found in the {{programName}} program"
+msgid "No dimensions found in the {{- programName}} program"
 msgstr ""
 
 msgid "No dimensions found"
@@ -348,6 +348,12 @@ msgid "Click a dimension to add or remove conditions."
 msgstr ""
 
 msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "Not available offline"
+msgstr ""
+
+msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -686,6 +692,9 @@ msgid "Last updated on"
 msgstr ""
 
 msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
 msgstr ""
 
 msgid "No input type selected"
