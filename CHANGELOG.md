@@ -1,3 +1,10 @@
+## [100.6.2](https://github.com/dhis2/line-listing-app/compare/v100.6.1...v100.6.2) (2023-05-22)
+
+
+### Bug Fixes
+
+* bump cli-app-scripts to 10.3.8 for LIBS-499 fix ([#352](https://github.com/dhis2/line-listing-app/issues/352)) ([747a131](https://github.com/dhis2/line-listing-app/commit/747a131b1601a6827e12a17a3d02c344c3436445))
+
 ## [100.6.1](https://github.com/dhis2/line-listing-app/compare/v100.6.0...v100.6.1) (2023-05-04)
 
 
