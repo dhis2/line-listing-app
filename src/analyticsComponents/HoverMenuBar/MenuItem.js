@@ -22,10 +22,6 @@ const MenuItem = ({
     toggleSubMenu,
 }) => {
     const menuItemRef = useRef()
-    console.log(
-        'should attach the toggle: ',
-        !disabled && !!children && toggleSubMenu
-    )
 
     return (
         <>
@@ -43,9 +39,7 @@ const MenuItem = ({
                     !disabled && !children && onClick ? onClick : undefined
                 }
                 onMouseEnter={
-                    !disabled && !!children && toggleSubMenu
-                        ? toggleSubMenu
-                        : undefined
+                    !disabled && toggleSubMenu ? toggleSubMenu : undefined
                 }
             >
                 {icon && <span className="icon">{icon}</span>}
