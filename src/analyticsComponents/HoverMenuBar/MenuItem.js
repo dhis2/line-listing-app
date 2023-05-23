@@ -4,7 +4,7 @@ import { IconChevronRight24 } from '@dhis2/ui-icons'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-import { Menu } from './Menu.js'
+import { Menu, useHoverMenuContext } from './Menu.js'
 import styles from './MenuItem.styles.js'
 
 const MenuItem = ({
@@ -14,14 +14,17 @@ const MenuItem = ({
     className,
     destructive,
     disabled,
-    dense,
-    active,
     dataTest,
     label,
-    showSubMenu,
-    toggleSubMenu,
 }) => {
-    const menuItemRef = useRef()
+    const ref = useRef()
+    const {
+        onSubmenuAnchorMouseEnter,
+        onMenuItemMouseEnter,
+        openedSubMenuEl,
+        dense,
+    } = useHoverMenuContext()
+    const isSubMenuOpen = openedSubMenuEl === ref.current
 
     return (
         <>
@@ -30,16 +33,20 @@ const MenuItem = ({
                     destructive,
                     disabled,
                     dense,
-                    active: active || showSubMenu,
+                    active: isSubMenuOpen,
                     'with-chevron': children,
                 })}
-                ref={menuItemRef}
+                ref={ref}
                 data-test={dataTest}
                 onClick={
                     !disabled && !children && onClick ? onClick : undefined
                 }
                 onMouseEnter={
-                    !disabled && toggleSubMenu ? toggleSubMenu : undefined
+                    disabled
+                        ? undefined
+                        : children
+                        ? onSubmenuAnchorMouseEnter
+                        : onMenuItemMouseEnter
                 }
             >
                 {icon && <span className="icon">{icon}</span>}
@@ -54,9 +61,9 @@ const MenuItem = ({
 
                 <style jsx>{styles}</style>
             </li>
-            {children && showSubMenu && (
+            {children && isSubMenuOpen && (
                 <Portal>
-                    <Popper placement="right-start" reference={menuItemRef}>
+                    <Popper placement="right-start" reference={ref}>
                         <Menu dense={dense}>{children}</Menu>
                     </Popper>
                 </Portal>
@@ -70,7 +77,6 @@ MenuItem.defaultProps = {
 }
 
 MenuItem.propTypes = {
-    active: PropTypes.bool,
     /**
      * Nested menu items can become submenus.
      * See `showSubMenu` and `toggleSubMenu` props, and 'Children' demo
@@ -78,17 +84,12 @@ MenuItem.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     dataTest: PropTypes.string,
-    dense: PropTypes.bool,
     destructive: PropTypes.bool,
     disabled: PropTypes.bool,
     /** An icon for the left side of the menu item */
     icon: PropTypes.node,
     /** Text in the menu item */
     label: PropTypes.node,
-    /** When true, nested menu items are shown in a Popper */
-    showSubMenu: PropTypes.bool,
-    /** On click, this function is called (without args) */
-    toggleSubMenu: PropTypes.func,
     /** Click handler */
     onClick: PropTypes.func,
 }

@@ -19,7 +19,7 @@ const DownloadMenu = ({ download, hoverable }) => {
 
     return (
         <MenuComponent>
-            <MenuSectionHeader label={i18n.t('HTML')} />
+            <MenuSectionHeader label={i18n.t('HTML')} hideDivider />
             <MenuItemComponent
                 label={i18n.t('HTML+CSS (.html+css)')}
                 onClick={() =>

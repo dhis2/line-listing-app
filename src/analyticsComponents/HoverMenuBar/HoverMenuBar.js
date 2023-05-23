@@ -15,6 +15,7 @@ const HoverMenuBarContext = createContext({
     closeMenu: throwErrorIfNotInitialized,
     onDropDownButtonClick: throwErrorIfNotInitialized,
     onDropDownButtonMouseOver: throwErrorIfNotInitialized,
+    setLastHoveredSubMenuEl: throwErrorIfNotInitialized,
     openedDropdownEl: null,
 })
 
@@ -22,6 +23,7 @@ const useHoverMenuBarContext = () => useContext(HoverMenuBarContext)
 
 const HoverMenuBar = ({ children }) => {
     const [openedDropdownEl, setOpenedDropdownEl] = useState(null)
+    const [lastHoveredSubMenuEl, setLastHoveredSubMenuEl] = useState(null)
     const [isInHoverMode, setIsInHoverMode] = useState(false)
 
     const closeMenu = useCallback(() => {
@@ -29,11 +31,19 @@ const HoverMenuBar = ({ children }) => {
         setOpenedDropdownEl(null)
     }, [])
 
-    const closeMenuByDocumentClick = useCallback((event) => {
-        console.log(event.target, event.currentTarget)
-        setIsInHoverMode(false)
-        setOpenedDropdownEl(null)
-    }, [])
+    const onDocumentClick = useCallback(
+        (event) => {
+            const isClickOnOpenedSubMenuAnchor =
+                lastHoveredSubMenuEl &&
+                (lastHoveredSubMenuEl === event.target ||
+                    lastHoveredSubMenuEl.contains(event.target))
+
+            if (!isClickOnOpenedSubMenuAnchor) {
+                closeMenu()
+            }
+        },
+        [closeMenu, lastHoveredSubMenuEl]
+    )
 
     const onDropDownButtonClick = useCallback(
         (event) => {
@@ -67,15 +77,15 @@ const HoverMenuBar = ({ children }) => {
 
     useEffect(() => {
         if (isInHoverMode) {
-            document.addEventListener('click', closeMenuByDocumentClick, {
+            document.addEventListener('click', onDocumentClick, {
                 once: true,
             })
         }
 
         return () => {
-            document.removeEventListener('click', closeMenuByDocumentClick)
+            document.removeEventListener('click', onDocumentClick)
         }
-    }, [closeMenuByDocumentClick, isInHoverMode])
+    }, [onDocumentClick, isInHoverMode])
 
     return (
         <HoverMenuBarContext.Provider
@@ -84,6 +94,7 @@ const HoverMenuBar = ({ children }) => {
                 onDropDownButtonClick,
                 onDropDownButtonMouseOver,
                 openedDropdownEl,
+                setLastHoveredSubMenuEl,
             }}
         >
             <div onKeyDown={closeMenuWithEsc}>
