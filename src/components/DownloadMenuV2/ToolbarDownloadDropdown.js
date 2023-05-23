@@ -12,7 +12,7 @@ const ToolbarDownloadDropdown = () => {
             label={i18n.t('Download')}
             disabled={isDownloadDisabled}
         >
-            <DownloadMenu download={download} />
+            <DownloadMenu download={download} hoverable />
         </HoverMenuBar.Dropdown>
     )
 }

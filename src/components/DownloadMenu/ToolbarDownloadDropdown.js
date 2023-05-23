@@ -1,8 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import { Layer, Popper } from '@dhis2/ui'
 import React, { useRef } from 'react'
+import { DownloadMenu } from '../DownloadMenuV2/DownloadMenu.js'
 import { default as MenuButton } from '../Toolbar/MenuBar/MenuButton.js'
-import { DownloadMenu } from './DownloadMenu.js'
 import { useDownloadMenu } from './useDownloadMenu.js'
 const ToolbarDownloadDropdown = () => {
     const buttonRef = useRef()
