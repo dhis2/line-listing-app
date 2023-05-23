@@ -1,5 +1,5 @@
-import { useContext, useRef } from 'react'
-import { HoverMenuBarContext } from './HoverMenuBarContext.js'
+import { useRef } from 'react'
+import { useHoverMenuBarContext } from './HoverMenuBar.js'
 
 export const useHoverMenubarDropdown = () => {
     const buttonRef = useRef()
@@ -8,7 +8,7 @@ export const useHoverMenubarDropdown = () => {
         onDropDownButtonClick,
         onDropDownButtonMouseOver,
         openedDropdownEl,
-    } = useContext(HoverMenuBarContext)
+    } = useHoverMenuBarContext()
 
     return {
         buttonRef,
