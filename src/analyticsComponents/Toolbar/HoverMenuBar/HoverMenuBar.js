@@ -90,7 +90,6 @@ const HoverMenuBar = ({ children }) => {
     return (
         <HoverMenuBarContext.Provider
             value={{
-                closeMenu,
                 onDropDownButtonClick,
                 onDropDownButtonMouseOver,
                 openedDropdownEl,

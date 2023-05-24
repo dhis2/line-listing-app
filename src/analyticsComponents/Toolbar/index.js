@@ -7,4 +7,7 @@ Toolbar.Aside = Aside
 Toolbar.Main = Main
 Toolbar.Sidebar = Sidebar
 
+export * from './HoverMenuBar/index.js'
+export { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
 export { Toolbar }
+export { UpdateButton } from './UpdateButton.js'

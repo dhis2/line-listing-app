@@ -14,7 +14,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import i18n from '../../locales/index.js'
-import { HoverMenuBar } from '../HoverMenuBar/HoverMenuBar.js'
+import { HoverMenuBar } from '../Toolbar/index.js'
 import { DeleteDialog } from './DeleteDialog.js'
 import { GetLinkDialog } from './GetLinkDialog.js'
 import { OpenFileDialog } from './OpenFileDialog/OpenFileDialog.js'
