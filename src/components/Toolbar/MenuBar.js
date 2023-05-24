@@ -1,36 +1,33 @@
 import {
-    FileMenu,
-    useCachedDataQuery,
     VIS_TYPE_LINE_LIST,
     getDisplayNameByVisType,
+    useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useDataMutation, useAlert } from '@dhis2/app-runtime'
+import { useAlert, useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React from 'react'
-import { connect } from 'react-redux'
-import { tSetCurrent } from '../../../actions/current.js'
-import { acSetVisualization } from '../../../actions/visualization.js'
-import { getAlertTypeByStatusCode } from '../../../modules/error.js'
-import history from '../../../modules/history.js'
+import React, { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { tSetCurrent } from '../../actions/current.js'
+import { acSetVisualization } from '../../actions/visualization.js'
+import { FileMenu } from '../../analyticsComponents/FileMenu/FileMenu.js'
+import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import { getAlertTypeByStatusCode } from '../../modules/error.js'
+import history from '../../modules/history.js'
 import {
     isLayoutValidForSave,
     isLayoutValidForSaveAs,
-} from '../../../modules/layoutValidation.js'
+} from '../../modules/layoutValidation.js'
 import {
-    getVisualizationFromCurrent,
-    getVisualizationState,
     STATE_DIRTY,
     STATE_UNSAVED,
-} from '../../../modules/visualization.js'
-import { sGetCurrent } from '../../../reducers/current.js'
-import { sGetVisualization } from '../../../reducers/visualization.js'
-import { ToolbarDownloadDropdown } from '../../DownloadMenu/index.js'
-import UpdateButton from '../../UpdateButton/UpdateButton.js'
-import UpdateVisualizationContainer from '../../UpdateButton/UpdateVisualizationContainer.js'
-import VisualizationOptionsManager from '../../VisualizationOptions/VisualizationOptionsManager.js'
-import { InterpretationsButton } from './InterpretationsButton.js'
-import classes from './styles/MenuBar.module.css'
+    getVisualizationFromCurrent,
+    getVisualizationState,
+} from '../../modules/visualization.js'
+import { sGetCurrent } from '../../reducers/current.js'
+import { sGetVisualization } from '../../reducers/visualization.js'
+import { ToolbarDownloadDropdown } from '../DownloadMenu/index.js'
+import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager.js'
 import ViewDropDown from './ViewDropDown.js'
 
 const visualizationSaveMutation = {
@@ -54,17 +51,29 @@ const visualizationSaveAsMutation = {
     },
 }
 
-const MenuBar = ({
-    current,
-    visualization,
-    onFileMenuAction,
-    setCurrent,
-    setVisualization,
-}) => {
+export const MenuBar = ({ onFileMenuAction }) => {
+    const dispatch = useDispatch()
+    const current = useSelector(sGetCurrent)
+    const visualization = useSelector(sGetVisualization)
     const { currentUser } = useCachedDataQuery()
+
     const { show: showAlert } = useAlert(
         ({ message }) => message,
         ({ options }) => options
+    )
+
+    const setCurrent = useCallback(
+        (visualization) => {
+            dispatch(tSetCurrent(visualization))
+        },
+        [dispatch]
+    )
+
+    const setVisualization = useCallback(
+        (visualization) => {
+            dispatch(acSetVisualization(visualization))
+        },
+        [dispatch]
     )
 
     const onOpen = (id) => {
@@ -186,8 +195,7 @@ const MenuBar = ({
     }
 
     const onError = (error) => {
-        // TODO remove once tested
-        console.log('Error:', error)
+        console.error('Error:', error)
 
         const message =
             error.errorCode === 'E4030'
@@ -214,16 +222,7 @@ const MenuBar = ({
     })
 
     return (
-        <div className={classes.menuBar} data-test="menubar">
-            <UpdateVisualizationContainer
-                renderComponent={(handler) => (
-                    <UpdateButton
-                        className={classes.updateButton}
-                        onClick={handler}
-                        small
-                    />
-                )}
-            />
+        <HoverMenuBar>
             <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
@@ -259,28 +258,10 @@ const MenuBar = ({
             <ViewDropDown />
             <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
-            <div className={classes.flexGrow} />
-            <InterpretationsButton />
-        </div>
+        </HoverMenuBar>
     )
 }
 
 MenuBar.propTypes = {
     onFileMenuAction: PropTypes.func.isRequired,
-    current: PropTypes.object,
-    setCurrent: PropTypes.func,
-    setVisualization: PropTypes.func,
-    visualization: PropTypes.object,
 }
-
-const mapStateToProps = (state) => ({
-    current: sGetCurrent(state),
-    visualization: sGetVisualization(state),
-})
-
-const mapDispatchToProps = {
-    setCurrent: tSetCurrent,
-    setVisualization: acSetVisualization,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

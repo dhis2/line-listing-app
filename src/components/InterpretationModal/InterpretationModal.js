@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetCurrent } from '../../reducers/current.js'
-import { ModalDownloadDropdown } from '../DownloadMenuV2/index.js'
+import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { Visualization } from '../Visualization/Visualization.js'
 import {
     useInterpretationQueryParams,

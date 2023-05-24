@@ -1,30 +1,19 @@
 import i18n from '@dhis2/d2-i18n'
-import { Layer, Popper } from '@dhis2/ui'
-import React, { useRef } from 'react'
-import { DownloadMenu } from '../DownloadMenuV2/DownloadMenu.js'
-import { default as MenuButton } from '../Toolbar/MenuBar/MenuButton.js'
-import { useDownloadMenu } from './useDownloadMenu.js'
+import React from 'react'
+import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import { DownloadMenu } from './DownloadMenu.js'
+import { useDownload } from './useDownload.js'
+
 const ToolbarDownloadDropdown = () => {
-    const buttonRef = useRef()
-    const { isOpen, toggleOpen, disabled, download } = useDownloadMenu()
+    const { isDownloadDisabled, download } = useDownload()
 
     return (
-        <>
-            <MenuButton
-                ref={buttonRef}
-                onClick={toggleOpen}
-                disabled={disabled}
-            >
-                {i18n.t('Download')}
-            </MenuButton>
-            {isOpen && (
-                <Layer onBackdropClick={toggleOpen}>
-                    <Popper reference={buttonRef} placement="bottom-start">
-                        <DownloadMenu download={download} />
-                    </Popper>
-                </Layer>
-            )}
-        </>
+        <HoverMenuBar.Dropdown
+            label={i18n.t('Download')}
+            disabled={isDownloadDisabled}
+        >
+            <DownloadMenu download={download} hoverable />
+        </HoverMenuBar.Dropdown>
     )
 }
 

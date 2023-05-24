@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-05-24T10:22:49.314Z\n"
-"PO-Revision-Date: 2023-05-24T10:22:49.314Z\n"
+"POT-Creation-Date: 2023-05-24T12:06:53.264Z\n"
+"PO-Revision-Date: 2023-05-24T12:06:53.264Z\n"
 
 msgid "Delete {{fileType}}"
 msgstr "Delete {{fileType}}"
@@ -622,9 +622,6 @@ msgstr "Unsaved visualization"
 
 msgid "Edited"
 msgstr "Edited"
-
-msgid "Interpretations"
-msgstr "Interpretations"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr "\"{{- deletedObject}}\" successfully deleted."
