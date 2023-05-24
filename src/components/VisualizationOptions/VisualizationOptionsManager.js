@@ -2,7 +2,7 @@ import { VisualizationOptions } from '@dhis2/analytics'
 import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import React, { useState } from 'react'
-import { HoverMenuBar } from '../../analyticsComponents/HoverMenuBar/HoverMenuBar.js'
+import { HoverMenuBar } from '../../analyticsComponents/index.js'
 import { getOptionsByType } from '../../modules/options/config.js'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
@@ -16,8 +16,6 @@ const VisualizationOptionsManager = () => {
     }
 
     const optionsConfig = getOptionsByType({ serverVersion })
-
-    console.log(optionsConfig)
 
     return (
         <>
