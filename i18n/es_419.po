@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Jaime Bosque <jaime.bosque@dhis2.org>, 2022
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-10T14:59:09.020Z\n"
+"POT-Creation-Date: 2023-01-20T08:48:33.330Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Jaime Bosque <jaime.bosque@dhis2.org>, 2022\n"
-"Language-Team: Spanish (Latin America) (https://www.transifex.com/hisp-uio/teams/100509/es_419/)\n"
+"Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
+"Language-Team: Spanish (Latin America) (https://app.transifex.com/hisp-uio/teams/100509/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -198,13 +199,13 @@ msgstr ""
 msgid "Showing all values for this dimension"
 msgstr ""
 
-msgid "Program stage: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
-msgid "No dimensions found in the {{programName}} program"
+msgid "No dimensions found in the {{- programName}} program"
 msgstr ""
 
 msgid "No dimensions found"
@@ -222,7 +223,7 @@ msgid "Event"
 msgstr "Evento"
 
 msgid "Enrollment"
-msgstr ""
+msgstr "Inscripción"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -351,8 +352,14 @@ msgstr ""
 msgid "Your most viewed line lists"
 msgstr ""
 
-msgid "Rows per page"
+msgid "Not available offline"
 msgstr ""
+
+msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "Filas por página"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
@@ -599,7 +606,7 @@ msgid "Something went wrong"
 msgstr "Algo ha ido mal"
 
 msgid "Organisation unit"
-msgstr ""
+msgstr "Unidad organizativa"
 
 msgid "Event status"
 msgstr "Estado del evento"

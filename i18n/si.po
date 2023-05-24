@@ -1,23 +1,22 @@
 # 
 # Translators:
-# Cherise Beek <cherise.beek@gmail.com>, 2022
-# Rica Zamora Duchateau, 2023
+# Malinda Wijeratne, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2023-01-20T08:48:33.330Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Rica Zamora Duchateau, 2023\n"
-"Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
+"Last-Translator: Malinda Wijeratne, 2023\n"
+"Language-Team: Sinhala (https://app.transifex.com/hisp-uio/teams/100509/si/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
+"Language: si\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Voeg toe aan {{axisName}}"
+msgstr ""
 
 msgid "Choose a condition type"
 msgstr ""
@@ -26,7 +25,7 @@ msgid "Case sensitive"
 msgstr ""
 
 msgid "Remove"
-msgstr "Verwijderen"
+msgstr "ඉවත් කරන්"
 
 msgid "and"
 msgstr ""
@@ -86,7 +85,7 @@ msgid "Oldest events:"
 msgstr ""
 
 msgid "Hide"
-msgstr "Verbergen"
+msgstr ""
 
 msgid "Show items where the status is:"
 msgstr ""
@@ -101,10 +100,10 @@ msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
 
 msgid "Start date"
-msgstr "Startdatum"
+msgstr ""
 
 msgid "End date"
-msgstr "Einddatum"
+msgstr ""
 
 msgid "No items selected"
 msgstr ""
@@ -122,7 +121,7 @@ msgid "Nothing found for \"{{- searchTerm}}\""
 msgstr ""
 
 msgid "No options"
-msgstr "Geen opties"
+msgstr ""
 
 msgid "Move to {{axisName}}"
 msgstr ""
@@ -134,37 +133,37 @@ msgid "HTML+CSS (.html+css)"
 msgstr ""
 
 msgid "Plain data source"
-msgstr "Gewone gegevensbron"
+msgstr ""
 
 msgid "JSON"
-msgstr "JSON"
+msgstr ""
 
 msgid "XML"
-msgstr "XML"
+msgstr ""
 
 msgid "Microsoft Excel"
 msgstr ""
 
 msgid "CSV"
-msgstr "CSV"
+msgstr ""
 
 msgid "Download data from this date"
 msgstr ""
 
 msgid "Metadata ID scheme"
-msgstr "Schema van metadata-id"
+msgstr ""
 
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 msgid "Name"
-msgstr "Naam"
+msgstr ""
 
 msgid "Download"
-msgstr "Downloaden"
+msgstr ""
 
 msgid "all"
 msgstr ""
@@ -183,7 +182,7 @@ msgid "Levels"
 msgstr ""
 
 msgid "Groups"
-msgstr "Groepen"
+msgstr ""
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
@@ -191,7 +190,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "None selected"
-msgstr "Geen geselecteerd"
+msgstr ""
 
 msgid "Showing all values for this dimension"
 msgstr ""
@@ -217,7 +216,7 @@ msgid ""
 msgstr ""
 
 msgid "Event"
-msgstr "Gebeurtenis"
+msgstr ""
 
 msgid "Enrollment"
 msgstr ""
@@ -230,7 +229,7 @@ msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
 msgid "Main dimensions"
-msgstr "Hoofddimensies"
+msgstr ""
 
 msgid "Input: {{type}}"
 msgstr ""
@@ -242,22 +241,22 @@ msgid "Search in program"
 msgstr ""
 
 msgid "Type"
-msgstr "Soort"
+msgstr ""
 
 msgid "All types"
 msgstr ""
 
 msgid "Data element"
-msgstr "Informatieonderdeel"
+msgstr ""
 
 msgid "Program attribute"
 msgstr ""
 
 msgid "Program indicator"
-msgstr "Programmaindicator"
+msgstr ""
 
 msgid "Category"
-msgstr "Categorie"
+msgstr ""
 
 msgid "Category option group set"
 msgstr ""
@@ -286,10 +285,10 @@ msgid "Clear"
 msgstr ""
 
 msgid "Stage"
-msgstr "Stadium"
+msgstr ""
 
 msgid "All"
-msgstr "Alle"
+msgstr ""
 
 msgid "Clear stage first to choose another"
 msgstr ""
@@ -301,7 +300,7 @@ msgid "Time dimensions"
 msgstr ""
 
 msgid "Your dimensions"
-msgstr "Uw dimensies"
+msgstr ""
 
 msgid "Search your dimensions"
 msgstr ""
@@ -310,19 +309,19 @@ msgid "Unsaved visualization"
 msgstr ""
 
 msgid "Edited"
-msgstr "Bewerkt"
+msgstr ""
 
 msgid "Interpretations"
-msgstr "Interpretaties"
+msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
 
 msgid "Rename successful"
-msgstr "Hernoeming geslaagd"
+msgstr ""
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Ongetitelde {{visualizationType}} visualisatie, {{date}}"
+msgstr ""
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
@@ -330,7 +329,7 @@ msgid ""
 msgstr ""
 
 msgid "Update"
-msgstr "Bijwerken"
+msgstr ""
 
 msgid "Getting started"
 msgstr ""
@@ -350,7 +349,7 @@ msgid "Your most viewed line lists"
 msgstr ""
 
 msgid "Not available offline"
-msgstr "Niet beschikbaar offline"
+msgstr "මාර්ග අපගතව නොතිබේ"
 
 msgid "Sort by {{column}}"
 msgstr ""
@@ -371,7 +370,7 @@ msgid "Digit group separator"
 msgstr ""
 
 msgid "None"
-msgstr "Geen"
+msgstr ""
 
 msgid "Space"
 msgstr ""
@@ -425,7 +424,7 @@ msgid "Legend changes text color"
 msgstr ""
 
 msgid "Legend"
-msgstr "Legenda"
+msgstr ""
 
 msgid "Select from legends"
 msgstr ""
@@ -461,13 +460,13 @@ msgid "Display organisation unit hierarchy"
 msgstr ""
 
 msgid "Show legend key"
-msgstr "Toon legendasleutel"
+msgstr ""
 
 msgid "Add a title"
 msgstr ""
 
 msgid "Options"
-msgstr "Opties"
+msgstr ""
 
 msgid "Columns"
 msgstr ""
@@ -476,7 +475,7 @@ msgid "Rows"
 msgstr ""
 
 msgid "Filter"
-msgstr "Filter"
+msgstr ""
 
 msgid "equal to (=)"
 msgstr ""
@@ -506,10 +505,10 @@ msgid "exactly"
 msgstr ""
 
 msgid "is not"
-msgstr "is niet"
+msgstr ""
 
 msgid "contains"
-msgstr "bevat"
+msgstr ""
 
 msgid "does not contain"
 msgstr ""
@@ -527,10 +526,10 @@ msgid "before or including"
 msgstr ""
 
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 msgid "No"
-msgstr "Nee"
+msgstr ""
 
 msgid "Not answered"
 msgstr ""
@@ -594,25 +593,25 @@ msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
 msgid "No access"
-msgstr "Geen toegang"
+msgstr "පිවිසිය නොහැක"
 
 msgid "You don't have access to the requested data"
 msgstr ""
 
 msgid "Something went wrong"
-msgstr "Er is iets fout gegaan."
+msgstr ""
 
 msgid "Organisation unit"
-msgstr "Organisatieëenheid"
+msgstr ""
 
 msgid "Event status"
-msgstr "Gebeurtenisstatus"
+msgstr ""
 
 msgid "Program status"
-msgstr "Programmastatus"
+msgstr ""
 
 msgid "Created by"
-msgstr "Gecreëerd door"
+msgstr ""
 
 msgid "Last updated by"
 msgstr ""
@@ -642,10 +641,10 @@ msgid "Empty data"
 msgstr ""
 
 msgid "Totals"
-msgstr "Totalen"
+msgstr ""
 
 msgid "Data"
-msgstr "Gegevens"
+msgstr ""
 
 msgid "Limit values"
 msgstr ""
@@ -657,7 +656,7 @@ msgid "Limit minimum/maximum values"
 msgstr ""
 
 msgid "Style"
-msgstr "Stijl"
+msgstr ""
 
 msgid "most recent"
 msgstr ""
@@ -696,13 +695,13 @@ msgid "No input type selected"
 msgstr ""
 
 msgid "Active"
-msgstr "Actief"
+msgstr ""
 
 msgid "Cancelled"
-msgstr "Geannuleerd"
+msgstr ""
 
 msgid "Completed"
-msgstr "Voltooid"
+msgstr ""
 
 msgid "Scheduled"
 msgstr ""
