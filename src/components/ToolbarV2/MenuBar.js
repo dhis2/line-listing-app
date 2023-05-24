@@ -27,24 +27,8 @@ import {
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { ToolbarDownloadDropdown } from '../DownloadMenuV2/ToolbarDownloadDropdown.js'
+import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManagerV2.js'
 import ViewDropDown from './ViewDropDown.js'
-
-const BigColoredDiv = ({ color }) => (
-    <div
-        style={{
-            backgroundColor: color,
-            color: 'white',
-            width: 200,
-            height: 400,
-        }}
-    >
-        A big {color} div
-    </div>
-)
-
-BigColoredDiv.propTypes = {
-    color: PropTypes.string.isRequired,
-}
 
 const visualizationSaveMutation = {
     type: 'create',
@@ -272,9 +256,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onError={onError}
             />
             <ViewDropDown />
-            <HoverMenuBar.Dropdown label="Label blue" disabled>
-                <BigColoredDiv color="blue" />
-            </HoverMenuBar.Dropdown>
+            <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
         </HoverMenuBar>
     )
