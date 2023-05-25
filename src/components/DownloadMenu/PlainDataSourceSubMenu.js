@@ -1,8 +1,8 @@
+import { HoverMenuListItem } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { MenuItem, MenuSectionHeader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { HoverMenuListItem } from '../../analyticsComponents/index.js'
 import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_UID,

@@ -1,11 +1,8 @@
+import { HoverMenuList, HoverMenuListItem } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { FlyoutMenu, MenuItem, MenuSectionHeader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-    HoverMenuList,
-    HoverMenuListItem,
-} from '../../analyticsComponents/index.js'
 import {
     DOWNLOAD_TYPE_TABLE,
     FILE_FORMAT_HTML_CSS,

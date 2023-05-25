@@ -1,6 +1,6 @@
+import { Toolbar as AnalyticsToolbar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Toolbar as AnalyticsToolbar } from '../../analyticsComponents/index.js'
 import { AppLogo } from './AppLogo.js'
 import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
 import { MenuBar } from './MenuBar.js'

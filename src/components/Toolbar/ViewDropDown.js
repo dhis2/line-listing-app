@@ -1,3 +1,8 @@
+import {
+    HoverMenuDropdown,
+    HoverMenuList,
+    HoverMenuListItem,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,11 +11,6 @@ import {
     acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import {
-    HoverMenuDropdown,
-    HoverMenuList,
-    HoverMenuListItem,
-} from '../../analyticsComponents/index.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,

@@ -2,6 +2,8 @@ import {
     VIS_TYPE_LINE_LIST,
     getDisplayNameByVisType,
     useCachedDataQuery,
+    FileMenu,
+    HoverMenubar,
 } from '@dhis2/analytics'
 import { useAlert, useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -10,8 +12,6 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../../actions/current.js'
 import { acSetVisualization } from '../../actions/visualization.js'
-import { FileMenu } from '../../analyticsComponents/FileMenu/FileMenu.js'
-import { HoverMenubar } from '../../analyticsComponents/index.js'
 import { getAlertTypeByStatusCode } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import {

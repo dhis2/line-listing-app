@@ -1,7 +1,7 @@
+import { UpdateButton as UiUpdateButton } from '@dhis2/analytics'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { tSetCurrentFromUi } from '../../actions/current.js'
-import { UpdateButton as UiUpdateButton } from '../../analyticsComponents/index.js'
 
 export const UpdateButton = () => {
     const dispatch = useDispatch()

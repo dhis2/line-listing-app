@@ -1,12 +1,12 @@
-import { VisualizationOptions } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
-import i18n from '@dhis2/d2-i18n'
-import React, { useState } from 'react'
 import {
+    VisualizationOptions,
     HoverMenuDropdown,
     HoverMenuList,
     HoverMenuListItem,
-} from '../../analyticsComponents/index.js'
+} from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import React, { useState } from 'react'
 import { getOptionsByType } from '../../modules/options/config.js'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
