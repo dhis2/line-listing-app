@@ -4,16 +4,7 @@ const {
     excludeByVersionTags,
 } = require('./cypress/plugins/excludeByVersionTags.js')
 
-// This function will be modified when we add plugins
 async function setupNodeEvents(on, config) {
-    on('task', {
-        // Log to console during a run
-        log(message) {
-            console.log(message)
-
-            return null
-        },
-    })
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
 
@@ -34,10 +25,19 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.cy.js',
         viewportWidth: 1280,
         viewportHeight: 800,
+        // Record video
         video: true,
+        /* Only compress and upload videos for failures.
+         * This will save execution time and reduce the risk
+         * out-of-memory issues on the CI machine */
         videoUploadOnPasses: false,
+        // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
+        // Set to a low number to reduce the risk of out-of-memory issues
         numTestsKeptInMemory: 4,
+        /* When allowing 2 retries on CI, the test suite will pass if
+         * it's flaky. And/but we also get to identify flaky tests on the
+         * Cypress Dashboard. */
         retries: {
             runMode: 2,
             openMode: 0,
