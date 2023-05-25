@@ -4,10 +4,10 @@ import { IconChevronRight24 } from '@dhis2/ui-icons'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
-import { Menu, useHoverMenuContext } from './Menu.js'
-import styles from './MenuItem.styles.js'
+import { HoverMenuList, useHoverMenuListContext } from './HoverMenuList.js'
+import styles from './HoverMenuListItem.styles.js'
 
-const MenuItem = ({
+const HoverMenuListItem = ({
     onClick,
     children,
     icon,
@@ -23,7 +23,7 @@ const MenuItem = ({
         onMenuItemMouseEnter,
         openedSubMenuEl,
         dense,
-    } = useHoverMenuContext()
+    } = useHoverMenuListContext()
     const isSubMenuOpen = openedSubMenuEl === ref.current
 
     return (
@@ -64,7 +64,7 @@ const MenuItem = ({
             {children && isSubMenuOpen && (
                 <Portal>
                     <Popper placement="right-start" reference={ref}>
-                        <Menu dense={dense}>{children}</Menu>
+                        <HoverMenuList dense={dense}>{children}</HoverMenuList>
                     </Popper>
                 </Portal>
             )}
@@ -72,11 +72,11 @@ const MenuItem = ({
     )
 }
 
-MenuItem.defaultProps = {
+HoverMenuListItem.defaultProps = {
     dataTest: 'dhis2-uicore-menuitem',
 }
 
-MenuItem.propTypes = {
+HoverMenuListItem.propTypes = {
     /**
      * Nested menu items can become submenus.
      * See `showSubMenu` and `toggleSubMenu` props, and 'Children' demo
@@ -94,4 +94,4 @@ MenuItem.propTypes = {
     onClick: PropTypes.func,
 }
 
-export { MenuItem }
+export { HoverMenuListItem }

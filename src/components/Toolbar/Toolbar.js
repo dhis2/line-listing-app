@@ -9,10 +9,8 @@ import { UpdateButton } from './UpdateButton.js'
 export const Toolbar = ({ onFileMenuAction }) => (
     <AnalyticsToolbar>
         <AppLogo />
-        <AnalyticsToolbar.Main>
-            <UpdateButton />
-            <MenuBar onFileMenuAction={onFileMenuAction} />
-        </AnalyticsToolbar.Main>
+        <UpdateButton />
+        <MenuBar onFileMenuAction={onFileMenuAction} />
         <InterpretationsAndDetailsToggler />
     </AnalyticsToolbar>
 )

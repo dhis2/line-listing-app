@@ -2,7 +2,11 @@ import { VisualizationOptions } from '@dhis2/analytics'
 import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import React, { useState } from 'react'
-import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import {
+    HoverMenuDropdown,
+    HoverMenuList,
+    HoverMenuListItem,
+} from '../../analyticsComponents/index.js'
 import { getOptionsByType } from '../../modules/options/config.js'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
@@ -19,10 +23,10 @@ const VisualizationOptionsManager = () => {
 
     return (
         <>
-            <HoverMenuBar.Dropdown label={i18n.t('Options')}>
-                <HoverMenuBar.Menu dataTest="file-menu-container">
+            <HoverMenuDropdown label={i18n.t('Options')}>
+                <HoverMenuList dataTest="file-menu-container">
                     {optionsConfig.map(({ label, key }) => (
-                        <HoverMenuBar.MenuItem
+                        <HoverMenuListItem
                             key={key}
                             label={label}
                             onClick={() => {
@@ -30,8 +34,8 @@ const VisualizationOptionsManager = () => {
                             }}
                         />
                     ))}
-                </HoverMenuBar.Menu>
-            </HoverMenuBar.Dropdown>
+                </HoverMenuList>
+            </HoverMenuDropdown>
             {selectedOptionConfigKey && (
                 <UpdateVisualizationContainer
                     renderComponent={(handler) => (

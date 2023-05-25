@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { MenuItem, MenuSectionHeader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import { HoverMenuListItem } from '../../analyticsComponents/index.js'
 import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_UID,
@@ -17,7 +17,7 @@ export const PlainDataSourceSubMenu = ({
     label,
     ...menuItemProps
 }) => {
-    const MenuItemComponent = hoverable ? HoverMenuBar.MenuItem : MenuItem
+    const MenuItemComponent = hoverable ? HoverMenuListItem : MenuItem
 
     return (
         <MenuItemComponent label={label} {...menuItemProps}>

@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../../actions/current.js'
 import { acSetVisualization } from '../../actions/visualization.js'
 import { FileMenu } from '../../analyticsComponents/FileMenu/FileMenu.js'
-import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import { HoverMenubar } from '../../analyticsComponents/index.js'
 import { getAlertTypeByStatusCode } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import {
@@ -222,7 +222,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
 
     return (
-        <HoverMenuBar>
+        <HoverMenubar>
             <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
@@ -258,7 +258,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
             <ViewDropDown />
             <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
-        </HoverMenuBar>
+        </HoverMenubar>
     )
 }
 

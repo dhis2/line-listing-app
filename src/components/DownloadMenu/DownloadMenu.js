@@ -2,7 +2,10 @@ import i18n from '@dhis2/d2-i18n'
 import { FlyoutMenu, MenuItem, MenuSectionHeader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import {
+    HoverMenuList,
+    HoverMenuListItem,
+} from '../../analyticsComponents/index.js'
 import {
     DOWNLOAD_TYPE_TABLE,
     FILE_FORMAT_HTML_CSS,
@@ -14,8 +17,8 @@ import {
 import { PlainDataSourceSubMenu } from './PlainDataSourceSubMenu.js'
 
 const DownloadMenu = ({ download, hoverable }) => {
-    const MenuComponent = hoverable ? HoverMenuBar.Menu : FlyoutMenu
-    const MenuItemComponent = hoverable ? HoverMenuBar.MenuItem : MenuItem
+    const MenuComponent = hoverable ? HoverMenuList : FlyoutMenu
+    const MenuItemComponent = hoverable ? HoverMenuListItem : MenuItem
 
     return (
         <MenuComponent>

@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { Menu, MenuItem } from '@dhis2/ui'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -7,7 +6,11 @@ import {
     acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { HoverMenuBar } from '../../analyticsComponents/index.js'
+import {
+    HoverMenuDropdown,
+    HoverMenuList,
+    HoverMenuListItem,
+} from '../../analyticsComponents/index.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,
@@ -45,22 +48,22 @@ export default function ViewDropDown() {
         : i18n.t('Show interpretations and details')
 
     return (
-        <HoverMenuBar.Dropdown label={i18n.t('View')}>
-            <Menu>
-                <MenuItem
+        <HoverMenuDropdown label={i18n.t('View')}>
+            <HoverMenuList>
+                <HoverMenuListItem
                     label={toggleLayoutPanelText}
                     onClick={toggleLayoutPanelHidden}
                 />
-                <MenuItem
+                <HoverMenuListItem
                     label={toggleSidebarText}
                     onClick={toggleSidebarHidden}
                 />
-                <MenuItem
+                <HoverMenuListItem
                     label={toggleDetailsPanelText}
                     onClick={toggleDetailsPanelOpen}
                     disabled={!id}
                 />
-            </Menu>
-        </HoverMenuBar.Dropdown>
+            </HoverMenuList>
+        </HoverMenuDropdown>
     )
 }

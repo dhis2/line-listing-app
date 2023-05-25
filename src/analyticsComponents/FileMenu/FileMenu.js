@@ -14,7 +14,11 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import i18n from '../../locales/index.js'
-import { HoverMenuBar } from '../Toolbar/index.js'
+import {
+    HoverMenuDropdown,
+    HoverMenuList,
+    HoverMenuListItem,
+} from '../Toolbar/index.js'
 import { DeleteDialog } from './DeleteDialog.js'
 import { GetLinkDialog } from './GetLinkDialog.js'
 import { OpenFileDialog } from './OpenFileDialog/OpenFileDialog.js'
@@ -136,22 +140,22 @@ export const FileMenu = ({
                 onNew={onNew}
                 currentUser={currentUser}
             />
-            <HoverMenuBar.Dropdown label={i18n.t('File')}>
-                <HoverMenuBar.Menu dataTest="file-menu-container">
-                    <HoverMenuBar.MenuItem
+            <HoverMenuDropdown label={i18n.t('File')}>
+                <HoverMenuList dataTest="file-menu-container">
+                    <HoverMenuListItem
                         label={i18n.t('New')}
                         icon={<IconAdd24 color={iconActiveColor} />}
                         onClick={onNew}
                         dataTest="file-menu-new"
                     />
                     <MenuDivider />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Open…')}
                         icon={<IconLaunch24 color={iconActiveColor} />}
                         onClick={onMenuItemClick('open')}
                         dataTest="file-menu-open"
                     />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={
                             fileObject?.id ? i18n.t('Save') : i18n.t('Save…')
                         }
@@ -177,7 +181,7 @@ export const FileMenu = ({
                         }
                         dataTest="file-menu-save"
                     />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Save as…')}
                         icon={
                             <IconSave24
@@ -192,7 +196,7 @@ export const FileMenu = ({
                         onClick={onMenuItemClick('saveas')}
                         dataTest="file-menu-saveas"
                     />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Rename…')}
                         icon={
                             <IconEdit24
@@ -209,7 +213,7 @@ export const FileMenu = ({
                         onClick={onMenuItemClick('rename')}
                         dataTest="file-menu-rename"
                     />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Translate…')}
                         icon={
                             <IconTranslate24
@@ -227,7 +231,7 @@ export const FileMenu = ({
                         dataTest="file-menu-translate"
                     />
                     <MenuDivider />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Share…')}
                         icon={
                             <IconShare24
@@ -244,7 +248,7 @@ export const FileMenu = ({
                         onClick={onMenuItemClick('sharing')}
                         dataTest="file-menu-sharing"
                     />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Get link…')}
                         icon={
                             <IconLink24
@@ -260,7 +264,7 @@ export const FileMenu = ({
                         dataTest="file-menu-getlink"
                     />
                     <MenuDivider />
-                    <HoverMenuBar.MenuItem
+                    <HoverMenuListItem
                         label={i18n.t('Delete')}
                         destructive
                         icon={
@@ -278,8 +282,8 @@ export const FileMenu = ({
                         onClick={onMenuItemClick('delete')}
                         dataTest="file-menu-delete"
                     />
-                </HoverMenuBar.Menu>
-            </HoverMenuBar.Dropdown>
+                </HoverMenuList>
+            </HoverMenuDropdown>
             {renderDialog()}
         </>
     )
