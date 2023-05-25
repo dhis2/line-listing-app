@@ -288,7 +288,7 @@ msgid "Stage"
 msgstr ""
 
 msgid "All"
-msgstr ""
+msgstr "සියල්ල"
 
 msgid "Clear stage first to choose another"
 msgstr ""
@@ -526,10 +526,10 @@ msgid "before or including"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
+msgstr "ඔව්"
 
 msgid "No"
-msgstr ""
+msgstr "නැත"
 
 msgid "Not answered"
 msgstr ""
@@ -641,7 +641,7 @@ msgid "Empty data"
 msgstr ""
 
 msgid "Totals"
-msgstr ""
+msgstr "එකතු"
 
 msgid "Data"
 msgstr ""
