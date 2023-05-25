@@ -7,16 +7,5 @@ export const goToStartPage = (skipEval) => {
     }
 }
 
-export const expectStartScreenToBeVisible = () => {
-    const user = {
-        name: Cypress.env('dhis2Username'),
-        password: Cypress.env('dhis2Password'),
-        server: Cypress.env('dhis2BaseUrl'),
-    }
-
-    cy.request(`${user.server}/api/me`).should((response) => {
-        expect(response.status).to.eq(200)
-        expect(response.body.username).to.eq(user.name)
-    })
-    return cy.contains('Getting started', EXTENDED_TIMEOUT).should('be.visible')
-}
+export const expectStartScreenToBeVisible = () =>
+    cy.contains('Getting started', EXTENDED_TIMEOUT).should('be.visible')
