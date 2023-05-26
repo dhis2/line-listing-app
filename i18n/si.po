@@ -160,7 +160,7 @@ msgid "Code"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "නම"
 
 msgid "Download"
 msgstr ""
@@ -256,7 +256,7 @@ msgid "Program indicator"
 msgstr ""
 
 msgid "Category"
-msgstr ""
+msgstr "කාණ්ඩය"
 
 msgid "Category option group set"
 msgstr ""
@@ -394,10 +394,10 @@ msgid "Font size"
 msgstr ""
 
 msgid "Large"
-msgstr ""
+msgstr "ලොකු"
 
 msgid "Small"
-msgstr ""
+msgstr "කුඩා"
 
 msgid "Hide empty rows"
 msgstr ""
@@ -644,7 +644,7 @@ msgid "Totals"
 msgstr "එකතු"
 
 msgid "Data"
-msgstr ""
+msgstr "දත්ත"
 
 msgid "Limit values"
 msgstr ""
