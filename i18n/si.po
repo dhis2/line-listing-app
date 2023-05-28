@@ -25,10 +25,10 @@ msgid "Case sensitive"
 msgstr ""
 
 msgid "Remove"
-msgstr "ඉවත් කරන්"
+msgstr "ඉවත් කරන්න"
 
 msgid "and"
-msgstr ""
+msgstr "සහ"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
@@ -157,13 +157,13 @@ msgid "ID"
 msgstr ""
 
 msgid "Code"
-msgstr ""
+msgstr "කේත කරන්න"
 
 msgid "Name"
 msgstr "නම"
 
 msgid "Download"
-msgstr ""
+msgstr "බාගත කරන්න"
 
 msgid "all"
 msgstr ""
