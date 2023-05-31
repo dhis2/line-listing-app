@@ -11,6 +11,7 @@ import {
     sGetUiInputType,
     sGetUiShowAccessoryPanel,
     sGetUiProgramId,
+    sGetUiSidebarHidden,
 } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
@@ -34,6 +35,7 @@ const MainSidebar = () => {
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
+    const isHidden = useSelector(sGetUiSidebarHidden)
     const [selectedTabId, setSelectedTabId] = useState(null)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
@@ -50,7 +52,7 @@ const MainSidebar = () => {
     const { counts } = useSelectedDimensions()
 
     return (
-        <div className={styles.container}>
+        <div className={cx(styles.container, { [styles.hidden]: isHidden })}>
             <div className={styles.main} data-test="main-sidebar">
                 <MenuItem
                     icon={<IconArrowRight16 />}

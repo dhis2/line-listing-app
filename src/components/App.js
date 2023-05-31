@@ -201,7 +201,8 @@ const App = () => {
             )
             dispatch(acSetVisualizationLoading(false))
         }
-
+        /* When creating a new visualisation it's convenient to have
+         * a lot of space for adding/viewing dimensions */
         dispatch(acSetShowExpandedLayoutPanel(!isExisting))
         setInitialLoadIsComplete(true)
         setPreviousLocation(location.pathname)

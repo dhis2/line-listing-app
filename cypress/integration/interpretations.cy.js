@@ -15,6 +15,7 @@ import {
 import {
     clickMenubarInterpretationsButton,
     clickMenubarUpdateButton,
+    clickMenubarViewButton,
 } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -80,6 +81,29 @@ describe('interpretations', { testIsolation: false }, () => {
 
         // default form for adding interpretation is visible
         expectInterpretationFormToBeVisible()
+    })
+
+    it('the interpretations panel can be toggled by clicking the option in the view menu', () => {
+        // Hiding (the interpretations panel is open at the start of the test)
+        clickMenubarViewButton()
+
+        cy.getBySel('dhis2-uicore-menuitem')
+            .contains('Hide interpretations and details')
+            .should('be.visible')
+            .click()
+
+        cy.getBySel('details-panel').should('not.exist')
+
+        // Showing
+        clickMenubarViewButton()
+
+        cy.getBySel('dhis2-uicore-menuitem')
+            .contains('Show interpretations and details')
+            .should('be.visible')
+            .click()
+
+        cy.getBySel('details-panel').should('be.visible')
+        cy.getBySel('details-panel').contains('Interpretations')
     })
 
     it('a new interpretation can be added', () => {

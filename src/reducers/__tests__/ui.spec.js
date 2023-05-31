@@ -7,6 +7,9 @@ import reducer, {
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
     SET_UI_REPETITION,
+    TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
+    TOGGLE_UI_SIDEBAR_HIDDEN,
+    TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
 } from '../ui.js'
 
 describe('reducer: store.ui', () => {
@@ -171,6 +174,90 @@ describe('reducer: store.ui', () => {
             }
 
             expect(actualState).toEqual(expectedState)
+        })
+    })
+
+    describe(`reducer: ${TOGGLE_UI_LAYOUT_PANEL_HIDDEN}`, () => {
+        it('toggles true to false', () => {
+            expect(
+                reducer(
+                    { hideLayoutPanel: true },
+                    { type: TOGGLE_UI_LAYOUT_PANEL_HIDDEN }
+                )
+            ).toEqual({ hideLayoutPanel: false })
+        })
+        it('toggles false to true', () => {
+            expect(
+                reducer(
+                    { hideLayoutPanel: false },
+                    { type: TOGGLE_UI_LAYOUT_PANEL_HIDDEN }
+                )
+            ).toEqual({ hideLayoutPanel: true })
+        })
+    })
+    describe(`reducer: ${TOGGLE_UI_SIDEBAR_HIDDEN}`, () => {
+        it('toggles true to false', () => {
+            expect(
+                reducer(
+                    { hideMainSideBar: true },
+                    { type: TOGGLE_UI_SIDEBAR_HIDDEN }
+                )
+            ).toEqual({ hideMainSideBar: false })
+        })
+        it('toggles false to true', () => {
+            expect(
+                reducer(
+                    { hideMainSideBar: false },
+                    { type: TOGGLE_UI_SIDEBAR_HIDDEN }
+                )
+            ).toEqual({ hideMainSideBar: true })
+        })
+    })
+    describe(`reducer: ${TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS}`, () => {
+        it('toggles both hideLayoutPanel and hideMainSideBar to true if both are false', () => {
+            expect(
+                reducer(
+                    {
+                        hideLayoutPanel: false,
+                        hideMainSideBar: false,
+                    },
+                    { type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS }
+                )
+            ).toEqual({ hideLayoutPanel: true, hideMainSideBar: true })
+        })
+
+        it('toggles both hideLayoutPanel and hideMainSideBar to true if one of them is true', () => {
+            expect(
+                reducer(
+                    {
+                        hideLayoutPanel: true,
+                        hideMainSideBar: false,
+                    },
+                    { type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS }
+                )
+            ).toEqual({ hideLayoutPanel: true, hideMainSideBar: true })
+
+            expect(
+                reducer(
+                    {
+                        hideLayoutPanel: false,
+                        hideMainSideBar: true,
+                    },
+                    { type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS }
+                )
+            ).toEqual({ hideLayoutPanel: true, hideMainSideBar: true })
+        })
+
+        it('toggles both hideLayoutPanel and hideMainSideBar to false if both are true', () => {
+            expect(
+                reducer(
+                    {
+                        hideLayoutPanel: true,
+                        hideMainSideBar: true,
+                    },
+                    { type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS }
+                )
+            ).toEqual({ hideLayoutPanel: false, hideMainSideBar: false })
         })
     })
 })

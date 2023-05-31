@@ -11,6 +11,7 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
+import { ExpandedVisualizationCanvasToggle } from './ExpandedVisualizationCanvasToggle.js'
 import classes from './styles/TitleBar.module.css'
 
 export const getTitleUnsaved = () => i18n.t('Unsaved visualization')
@@ -49,9 +50,14 @@ export const TitleBar = ({ titleState, titleText }) => {
 
     return titleText ? (
         <div data-test="visualization-title" className={classes.titleBar}>
-            <div className={titleClasses}>
-                {titleText}
-                {getSuffix(titleState)}
+            <div className={classes.buttonContainer}>
+                <ExpandedVisualizationCanvasToggle />
+            </div>
+            <div className={classes.titleContainer}>
+                <div className={titleClasses}>
+                    {titleText}
+                    {getSuffix(titleState)}
+                </div>
             </div>
         </div>
     ) : null

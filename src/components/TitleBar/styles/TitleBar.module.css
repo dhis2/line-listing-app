@@ -1,5 +1,19 @@
 .titleBar {
     display: flex;
+    justify-content: flex-start;
+    /* Same amount of whitespace as fullscreen button */
+    padding-inline-end: 28px;
+}
+
+.titleBar > .buttonContainer {
+    display: flex;
+    flex-grow: 0;
+    padding: 0 4px;
+}
+
+.titleBar > .titleContainer {
+    display: flex;
+    flex-grow: 1;
     justify-content: center;
 }
 
