@@ -58,8 +58,8 @@ Cypress.Commands.add('login', (user) => {
 // Log in before each test, if not already logged in
 beforeEach(() => {
     cy.login({
-        name: Cypress.env('dhis2Username'),
+        username: Cypress.env('dhis2Username'),
         password: Cypress.env('dhis2Password'),
-        server: Cypress.env('dhis2BaseUrl'),
+        baseUrl: Cypress.env('dhis2BaseUrl'),
     })
 })
