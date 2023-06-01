@@ -39,7 +39,7 @@ module.exports = defineConfig({
          * it's flaky. And/but we also get to identify flaky tests on the
          * Cypress Dashboard. */
         retries: {
-            runMode: 2,
+            runMode: 0,
             openMode: 0,
         },
     },
