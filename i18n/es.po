@@ -288,7 +288,7 @@ msgid "Choose a program above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Elige un programa"
 
 msgid "Clear program first to choose another"
 msgstr ""
