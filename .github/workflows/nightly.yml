@@ -13,7 +13,6 @@ name: 'dhis2: nightly'
 on:
     schedule:
         - cron: '20 2 * * 1-5'
-    workflow_dispatch:
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -25,7 +24,6 @@ defaults:
 
 jobs:
     call-workflow-e2e-dev:
-        if: github.ref == 'refs/heads/dev'
         uses: dhis2/data-visualizer-app/.github/workflows/e2e-dev.yml@dev
         secrets:
             baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
