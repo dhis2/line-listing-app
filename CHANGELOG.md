@@ -1,3 +1,10 @@
+## [100.7.2](https://github.com/dhis2/line-listing-app/compare/v100.7.1...v100.7.2) (2023-06-06)
+
+
+### Bug Fixes
+
+* dont need to check branch since workflow only runs on default ([#376](https://github.com/dhis2/line-listing-app/issues/376)) ([220f655](https://github.com/dhis2/line-listing-app/commit/220f65556053073026b22252b6595aa4d218dac2))
+
 ## [100.7.1](https://github.com/dhis2/line-listing-app/compare/v100.7.0...v100.7.1) (2023-06-05)
 
 
