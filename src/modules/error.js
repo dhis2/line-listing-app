@@ -74,15 +74,6 @@ export const noOrgUnitError = () =>
         )
     )
 
-export const noPeriodError = () =>
-    visualizationError(
-        PeriodError,
-        i18n.t('No time dimension selected'),
-        i18n.t(
-            'Make sure to add a time dimension with at least one selection to the layout.'
-        )
-    )
-
 export const indicatorError = () =>
     visualizationError(
         DataError,

@@ -48,17 +48,6 @@ describe('layout validation', () => {
 
         cy.getBySel('error-container').contains('No organisation unit selected')
     })
-    it('time dimension is required', () => {
-        // remove previously added dimension
-        clickAddRemoveMainDimension('Last updated by')
-
-        // add org unit to columns
-        clickAddRemoveMainDimension('Organisation unit')
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No time dimension selected')
-    })
     it('validation succeeds when all above are provided', () => {
         // add a time dimension to columns
         selectRelativePeriod({
