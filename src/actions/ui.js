@@ -17,6 +17,8 @@ import { sGetMetadataById } from '../reducers/metadata.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
+    CLEAR_UI_SORTING,
+    SET_UI_SORTING,
     SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
     SET_UI_OPTIONS,
@@ -256,6 +258,15 @@ export const acSetUiConditions = (value) => ({
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
     value,
+})
+
+export const acSetUiDataSorting = (value) => ({
+    type: SET_UI_SORTING,
+    value,
+})
+
+export const acClearUiDataSorting = () => ({
+    type: CLEAR_UI_SORTING,
 })
 
 export const acRemoveUiRepetition = (value) => ({

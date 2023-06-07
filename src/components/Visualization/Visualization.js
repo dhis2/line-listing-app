@@ -123,6 +123,7 @@ export const Visualization = ({
     displayProperty,
     onResponsesReceived,
     onColumnHeaderClick,
+    onDataSorted,
     onError,
     forDashboard,
 }) => {
@@ -141,13 +142,13 @@ export const Visualization = ({
         paginationMaxWidth: 0,
         noticeBoxMaxWidth: 0,
     })
-    const [{ sortField, sortDirection, pageSize, page }, setSorting] =
-        useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
-            sortField: null,
-            sortDirection: DEFAULT_SORT_DIRECTION,
+    const [{ pageSize, page }, setPaging] = useReducer(
+        (paging, newPaging) => ({ ...paging, ...newPaging }),
+        {
             page: FIRST_PAGE,
             pageSize: PAGE_SIZE,
-        })
+        }
+    )
 
     const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
     const isInModal = !!filters?.relativePeriodDate
@@ -214,7 +215,7 @@ export const Visualization = ({
 
     const setPage = useCallback(
         (pageNum) =>
-            setSorting({
+            setPaging({
                 page: pageNum,
             }),
         []
@@ -223,12 +224,32 @@ export const Visualization = ({
 
     const { headers } = getAdaptedVisualization(visualization)
 
+    const getSorting = (visualization) => {
+        if (
+            visualization &&
+            visualization.sorting &&
+            visualization.sorting.length
+        ) {
+            return {
+                sortField: visualization.sorting[0].dimensionId,
+                sortDirection: visualization.sorting[0].direction,
+            }
+        } else {
+            return {
+                sortField: null,
+                sortDirection: DEFAULT_SORT_DIRECTION,
+            }
+        }
+    }
+
+    const { sortField, sortDirection } = getSorting(visualization)
+
     if (headers && sortField) {
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
         if (!headers.includes(sortField)) {
-            setSorting({
-                sortField: null,
-                sortDirection: DEFAULT_SORT_DIRECTION,
+            onDataSorted({
+                dimensionId: null,
+                direction: DEFAULT_SORT_DIRECTION,
             })
         }
     }
@@ -309,15 +330,16 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
-    const sortData = ({ name, direction }) =>
-        setSorting({
-            sortField: name,
-            sortDirection: direction,
+    const sortData = ({ name, direction }) => {
+        onDataSorted({ dimensionId: name, direction })
+
+        setPaging({
             page: FIRST_PAGE,
         })
+    }
 
     const setPageSize = (pageSizeNum) =>
-        setSorting({
+        setPaging({
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
@@ -531,7 +553,7 @@ export const Visualization = ({
                                                     : 'default'
                                             }
                                             sortIconTitle={i18n.t(
-                                                'Sort by {{column}}',
+                                                'Sort by "{{column}}" and update',
                                                 {
                                                     column: getHeaderText(
                                                         header
@@ -667,6 +689,7 @@ export const Visualization = ({
 Visualization.defaultProps = {
     displayProperty: 'name',
     isVisualizationLoading: false,
+    onDataSorted: Function.prototype,
     onResponsesReceived: Function.prototype,
 }
 
@@ -678,5 +701,6 @@ Visualization.propTypes = {
     filters: PropTypes.object,
     forDashboard: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
+    onDataSorted: PropTypes.func,
     onError: PropTypes.func,
 }
