@@ -49,11 +49,11 @@ describe('layout validation', () => {
         cy.getBySel('error-container').contains('No organisation unit selected')
     })
     it('validation succeeds when all above are provided', () => {
-        // add a time dimension to columns
-        selectRelativePeriod({
-            label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_YEAR,
-        })
+        // remove previously added dimension
+        clickAddRemoveMainDimension('Last updated by')
+
+        // add org unit to columns
+        clickAddRemoveMainDimension('Organisation unit')
 
         clickMenubarUpdateButton()
 
