@@ -142,14 +142,6 @@ export const Visualization = ({
         paginationMaxWidth: 0,
         noticeBoxMaxWidth: 0,
     })
-    const [{ pageSize, page }, setPaging] = useReducer(
-        (paging, newPaging) => ({ ...paging, ...newPaging }),
-        {
-            page: FIRST_PAGE,
-            pageSize: PAGE_SIZE,
-        }
-    )
-
     const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
     const isInModal = !!filters?.relativePeriodDate
     const hasTimeDimension = useMemo(
@@ -213,17 +205,6 @@ export const Visualization = ({
         [sizeObserver]
     )
 
-    const setPage = useCallback(
-        (pageNum) =>
-            setPaging({
-                page: pageNum,
-            }),
-        []
-    )
-    const { isDisconnected: offline } = useDhis2ConnectionStatus()
-
-    const { headers } = getAdaptedVisualization(visualization)
-
     const getSorting = (visualization) => {
         if (
             visualization &&
@@ -242,7 +223,30 @@ export const Visualization = ({
         }
     }
 
-    const { sortField, sortDirection } = getSorting(visualization)
+    const [{ sortField, sortDirection }, setSorting] = useReducer(
+        (sorting, newSorting) => ({ ...sorting, ...newSorting }),
+        visualization,
+        getSorting
+    )
+
+    const [{ pageSize, page }, setPaging] = useReducer(
+        (paging, newPaging) => ({ ...paging, ...newPaging }),
+        {
+            page: FIRST_PAGE,
+            pageSize: PAGE_SIZE,
+        }
+    )
+
+    const setPage = useCallback(
+        (pageNum) =>
+            setPaging({
+                page: pageNum,
+            }),
+        []
+    )
+    const { isDisconnected: offline } = useDhis2ConnectionStatus()
+
+    const { headers } = getAdaptedVisualization(visualization)
 
     if (headers && sortField) {
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
@@ -332,6 +336,11 @@ export const Visualization = ({
 
     const sortData = ({ name, direction }) => {
         onDataSorted({ dimensionId: name, direction })
+
+        setSorting({
+            sortField: name,
+            sortDirection: direction,
+        })
 
         setPaging({
             page: FIRST_PAGE,
