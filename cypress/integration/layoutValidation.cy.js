@@ -1,11 +1,9 @@
-import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { CHILD_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
