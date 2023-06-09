@@ -6,11 +6,12 @@ import {
     E2E_PROGRAM,
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_LAST_YEAR,
+    TEST_DIM_INTEGER,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
-    selectEventWithProgram,
+    selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
@@ -27,7 +28,9 @@ import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
+    getTableHeaderCells,
 } from '../helpers/table.js'
 
 const event = E2E_PROGRAM
@@ -35,7 +38,10 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const setupTable = () => {
     goToStartPage()
-    selectEventWithProgram(event)
+    selectEventWithProgramDimensions({
+        ...event,
+        dimensions: [TEST_DIM_INTEGER],
+    })
     openProgramDimensionsSidebar()
     selectFixedPeriod({
         label: periodLabel,
@@ -131,6 +137,38 @@ describe('save', () => {
         saveVisualizationAs()
         expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
+
+        deleteVisualization()
+    })
+
+    it('new AO with sorted table saves correctly', () => {
+        const AO_NAME = `TEST SORTING ${new Date().toLocaleString()}`
+        setupTable()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // apply sorting
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        cy.intercept('POST', /eventVisualizations\?/).as('saveAO')
+        cy.intercept('GET', /eventVisualizations\/[a-zA-Z0-9]+\?/).as('loadAO')
+
+        saveVisualizationAs(AO_NAME)
+
+        cy.wait('@saveAO')
+            .its('request.body')
+            .should('have.property', 'sorting')
+
+        //        cy.wait('@loadAO')
+        //            .its('response.body')
+        //            .should('have.property', 'sorting')
 
         deleteVisualization()
     })
