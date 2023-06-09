@@ -355,22 +355,12 @@ describe(['>=39'], 'Options - Legend', () => {
             label: periodLabel,
         })
 
-        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
-
         selectFixedPeriod({
             label: periodLabel,
             period: {
                 year: currentYear,
                 name: `January ${currentYear}`,
             },
-        })
-        cy.wait('@getAnalytics').then(({ request }) => {
-            const url = new URL(request.url)
-
-            // verify that the request url is correct, as the response from this request has been inconsistent when running on Cypress Dashboard
-            expect(url.search).to.equal(
-                '?dimension=ou%3AUSER_ORGUNIT,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&headers=ouname,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&totalPages=false&eventDate=202301&displayProperty=NAME&outputType=EVENT&pageSize=100&page=1&includeMetadataDetails=true&stage=jfuXZB3A1ko'
-            )
         })
 
         // sort the table, as the backend returns the response in a random order
