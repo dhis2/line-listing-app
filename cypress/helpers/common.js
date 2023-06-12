@@ -15,5 +15,5 @@ export const clearTextarea = (target) =>
 export const goToAO = (id) => {
     cy.visit(`#/${id}`, EXTENDED_TIMEOUT).log(Cypress.env('dhis2BaseUrl'))
     expectRouteToEqual(id)
-    cy.getBySel('visualization-title', EXTENDED_TIMEOUT).should('be.visible')
+    cy.getBySel('titlebar', EXTENDED_TIMEOUT).should('be.visible')
 }

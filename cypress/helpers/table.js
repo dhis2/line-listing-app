@@ -2,7 +2,7 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 export const expectAOTitleToContain = (value) =>
     cy
-        .getBySel('visualization-title')
+        .getBySel('titlebar')
         .should('have.length', 1)
         .and('be.visible')
         .and('contain', value)
