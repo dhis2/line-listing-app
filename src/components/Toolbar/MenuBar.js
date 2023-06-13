@@ -3,7 +3,7 @@ import {
     getDisplayNameByVisType,
     useCachedDataQuery,
     FileMenu,
-    HoverMenubar,
+    HoverMenuBar,
 } from '@dhis2/analytics'
 import { useAlert, useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
@@ -222,7 +222,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
 
     return (
-        <HoverMenubar>
+        <HoverMenuBar>
             <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
@@ -258,7 +258,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
             <ViewDropDown />
             <VisualizationOptionsManager />
             <ToolbarDownloadDropdown />
-        </HoverMenubar>
+        </HoverMenuBar>
     )
 }
 
