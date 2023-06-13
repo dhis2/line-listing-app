@@ -57,9 +57,16 @@ Cypress.Commands.add('login', (user) => {
 
 // Log in before each test, if not already logged in
 beforeEach(() => {
-    cy.login({
-        username: Cypress.env('dhis2Username'),
-        password: Cypress.env('dhis2Password'),
-        baseUrl: Cypress.env('dhis2BaseUrl'),
+    const baseUrl = Cypress.env('dhis2BaseUrl')
+    const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const envVariableName = computeEnvVariableName(instanceVersion)
+    const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, baseUrl)
+    cy.setCookie(name, value, options)
+
+    cy.getAllCookies().should((cookies) => {
+        expect(findSessionCookieForBaseUrl(baseUrl, cookies)).to.exist
+        expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
     })
 })
