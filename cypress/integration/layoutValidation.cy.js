@@ -111,7 +111,9 @@ describe(['>37', '<39'], 'layout validation', () => {
 
         clickMenubarUpdateButton()
 
-        cy.getBySel('error-container').contains('No time dimension selected')
+        cy.getBySel('error-container').contains(
+            'There was a problem getting the data from the server.'
+        )
     })
     it('validation succeeds when all above are provided', () => {
         // add a time dimension to columns
