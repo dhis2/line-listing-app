@@ -16,6 +16,11 @@ Cypress.on('uncaught:exception', (err) => {
         return false
     }
 // enableAutoLogin()
+// '2.39' or 39?
+const computeEnvVariableName = (instanceVersion) =>
+    typeof instanceVersion === 'number'
+        ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
+        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
 
 /**
  * Custom login command, can be used to login or switch between sessions.
