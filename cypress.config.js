@@ -46,6 +46,5 @@ module.exports = defineConfig({
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',
         networkMode: 'live',
-        dhis2ApiVersion: '41',
     },
 })
