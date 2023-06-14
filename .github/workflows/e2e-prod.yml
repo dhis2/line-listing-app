@@ -75,6 +75,9 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 16.x
+            - uses: browser-actions/setup-chrome@latest
+            - run: |
+                  echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
 
             - name: Compute prod instance url
               id: instance-url
