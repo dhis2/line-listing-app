@@ -75,7 +75,9 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 16.x
-            - uses: browser-actions/setup-chrome@latest
+            - uses: browser-actions/setup-chrome@v1
+              with:
+                  chrome-version: stable
             - run: |
                   echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
 
