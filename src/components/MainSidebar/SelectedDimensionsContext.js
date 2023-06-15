@@ -39,7 +39,7 @@ export const SelectedDimensionsProvider = ({ children }) => {
         const allSelectedIdsSet = new Set(allSelectedIds)
         const counts = allSelectedIds.reduce(
             (acc, id) => {
-                const { dimensionType } = metadata[id] || {}
+                const { dimensionType } = metadata[id] ?? {}
 
                 if (DIMENSION_TYPES_PROGRAM.has(dimensionType)) {
                     acc.program += 1
