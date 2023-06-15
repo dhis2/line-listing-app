@@ -1,3 +1,11 @@
+## [100.7.4](https://github.com/dhis2/line-listing-app/compare/v100.7.3...v100.7.4) (2023-06-15)
+
+
+### Bug Fixes
+
+* avoid crash when missing metadata ([ec74230](https://github.com/dhis2/line-listing-app/commit/ec74230a7668c4369d4c8f30093b413f4c064b38))
+* use nullish instead ([4be2930](https://github.com/dhis2/line-listing-app/commit/4be2930f9747cad6a7d222b69d69baf4de496492))
+
 ## [100.7.3](https://github.com/dhis2/line-listing-app/compare/v100.7.2...v100.7.3) (2023-06-14)
 
 
