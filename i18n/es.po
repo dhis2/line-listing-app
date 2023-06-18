@@ -117,7 +117,7 @@ msgid "End date"
 msgstr "Fecha final"
 
 msgid "No items selected"
-msgstr ""
+msgstr "No hay elementos seleccionados"
 
 msgid "Available options"
 msgstr ""
@@ -129,7 +129,7 @@ msgid "Selected options"
 msgstr ""
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr ""
+msgstr "No se encontró nada para \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr ""
@@ -267,7 +267,7 @@ msgid "Program attribute"
 msgstr "Atributo de Programa"
 
 msgid "Program indicator"
-msgstr ""
+msgstr "Indicador de Programa"
 
 msgid "Category"
 msgstr "Categoría"
@@ -347,6 +347,8 @@ msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
+"Esta visualización no puede ser eliminada porque es utilizada en uno o más "
+"tableros"
 
 msgid "Show layout"
 msgstr ""
@@ -453,7 +455,7 @@ msgid "Legend type"
 msgstr "Tipo de leyenda"
 
 msgid "Use pre-defined legend per data item"
-msgstr ""
+msgstr "Utilizar leyenda predefinida por elemento de datos"
 
 msgid "Choose a single legend for the entire visualization"
 msgstr ""
@@ -471,7 +473,7 @@ msgid "Select from legends"
 msgstr ""
 
 msgid "Loading legends"
-msgstr ""
+msgstr "Cargando leyendas"
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
@@ -480,28 +482,28 @@ msgid ""
 msgstr ""
 
 msgid "Minimum data value"
-msgstr ""
+msgstr "Valor mínimo de datos"
 
 msgid "Maximum data value"
-msgstr ""
+msgstr "Valor máximo de datos"
 
 msgid "Clear min/max limits"
-msgstr ""
+msgstr "Borrar límites mín/máx"
 
 msgid "Row sub-totals"
-msgstr ""
+msgstr "Subtotales de fila"
 
 msgid "Row totals"
 msgstr ""
 
 msgid "Dimension labels"
-msgstr ""
+msgstr "Etiquetas de dimensión"
 
 msgid "Display organisation unit hierarchy"
-msgstr ""
+msgstr "Mostrar jerarquía de unidades organizativas"
 
 msgid "Show legend key"
-msgstr ""
+msgstr "Mostrar clave de leyenda"
 
 msgid "Add a title"
 msgstr "Añadir un título"
@@ -510,10 +512,10 @@ msgid "Options"
 msgstr "Opciones"
 
 msgid "Columns"
-msgstr ""
+msgstr "Columnas"
 
 msgid "Rows"
-msgstr ""
+msgstr "Filas"
 
 msgid "Filter"
 msgstr "filtro"
@@ -579,23 +581,27 @@ msgid "There is a problem with this visualization."
 msgstr ""
 
 msgid "There was a problem getting the data from the server."
-msgstr ""
+msgstr "Hubo un problema al obtener los datos del servidor."
 
 msgid "No data available"
-msgstr ""
+msgstr "No hay datos disponibles"
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
 msgstr ""
+"Las dimensiones seleccionadas no devolvieron ningún dato. Puede que no haya "
+"datos o que no tenga acceso a ellos."
 
 msgid "Visualization not found"
-msgstr ""
+msgstr "Visualización no encontrada"
 
 msgid ""
 "The visualization you are trying to view could not be found, the ID could be"
 " incorrect or it could have been deleted."
 msgstr ""
+"La visualización que esta tratando de ver no fue encontrada, el ID podría "
+"ser incorrecto o podría haberse eliminado."
 
 msgid "No program selected"
 msgstr ""
@@ -691,10 +697,10 @@ msgid "Limit values"
 msgstr "Valores límite"
 
 msgid "Limit number of values"
-msgstr ""
+msgstr "Número límite de valores"
 
 msgid "Limit minimum/maximum values"
-msgstr ""
+msgstr "Limitar valores mínimos/máximos"
 
 msgid "Style"
 msgstr "Estilo"
