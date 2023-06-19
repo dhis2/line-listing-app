@@ -67,7 +67,7 @@ Cypress.Commands.add('login', (user) => {
             validate: () => {
                 cy.validateUserIsLoggedIn(user)
             },
-            cacheAcrossSpecs: true,
+            cacheAcrossSpecs: false,
         }
     )
 })
