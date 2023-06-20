@@ -8,11 +8,11 @@ name: 'dhis2: nightly'
 #     CYPRESS_DHIS2_PASSWORD
 #     CYPRESS_RECORD_KEY
 #
-# This workflow runs the e2e tests on the default branch against dev at 2:20am M-F
+# This workflow runs the e2e tests on the default branch against dev at 6:20am M-F
 
 on:
     schedule:
-        - cron: '20 2 * * 1-5'
+        - cron: '20 6 * * 1-5'
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
