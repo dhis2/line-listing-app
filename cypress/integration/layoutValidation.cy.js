@@ -1,15 +1,13 @@
-import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { CHILD_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
-describe(['>=39'], 'layout validation', () => {
+describe('layout validation', () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
@@ -54,73 +52,6 @@ describe(['>=39'], 'layout validation', () => {
 
         // add org unit to columns
         clickAddRemoveMainDimension('Organisation unit')
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-    })
-})
-
-// FIXME: Special handling of 2.38 since it does not yet allow a LL be created without selecting a period first.
-// It's currently in 2.38dev but hasn't been released yet. Once released, remove this describe and reunify everything to the describe above
-describe(['>37', '<39'], 'layout validation', () => {
-    const trackerProgram = CHILD_PROGRAM
-
-    it('program is required', () => {
-        goToStartPage()
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No program selected')
-    })
-    it('stage is required', () => {
-        // select a program
-        selectEventWithProgram({ programName: trackerProgram.programName })
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No stage selected')
-    })
-    it('columns is required', () => {
-        // select a stage
-        selectEventWithProgram({
-            stageName: trackerProgram.stageName,
-        })
-
-        // remove org unit
-        clickAddRemoveMainDimension('Organisation unit')
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('Columns is empty')
-    })
-    it('org unit dimension is required', () => {
-        // add something other than org unit to columns
-        clickAddRemoveMainDimension('Last updated by')
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No organisation unit selected')
-    })
-    it('time dimension is required', () => {
-        // remove previously added dimension
-        clickAddRemoveMainDimension('Last updated by')
-
-        // add org unit to columns
-        clickAddRemoveMainDimension('Organisation unit')
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains(
-            'There was a problem getting the data from the server.'
-        )
-    })
-    it('validation succeeds when all above are provided', () => {
-        // add a time dimension to columns
-        selectRelativePeriod({
-            label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_YEAR,
-        })
 
         clickMenubarUpdateButton()
 
