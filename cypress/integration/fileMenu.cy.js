@@ -209,7 +209,7 @@ describe('file menu', () => {
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
 
-        cy.getBySel('visualization-title').contains('Edited')
+        cy.getBySel('titlebar').contains('Edited')
         assertDownloadIsEnabled()
 
         assertFileMenuItems({
@@ -266,7 +266,7 @@ describe('file menu', () => {
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
         goToAO('TIuOzZ0ID0V')
 
-        cy.getBySel('visualization-title').contains(
+        cy.getBySel('titlebar').contains(
             'Inpatient: Cases 5 to 15 years this year (case)'
         )
 
@@ -287,7 +287,7 @@ describe('file menu', () => {
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
 
-        cy.getBySel('visualization-title').contains('Edited')
+        cy.getBySel('titlebar').contains('Edited')
 
         assertDownloadIsEnabled()
 
