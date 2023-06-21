@@ -1,8 +1,5 @@
 import './commands.js'
 
-enableAutoLogin()
-// enableNetworkShim()
-
 const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
@@ -15,52 +12,60 @@ Cypress.on('uncaught:exception', (err) => {
         // returning false here prevents Cypress from failing the test
         return false
     }
-// enableAutoLogin()
+})
+
+const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'
+const SESSION_COOKIE_NAME = 'JSESSIONID'
+const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
+
 // '2.39' or 39?
 const computeEnvVariableName = (instanceVersion) =>
     typeof instanceVersion === 'number'
         ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
         : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
 
-/**
- * Custom login command, can be used to login or switch between sessions.
- * Will cache and restore cookies, localStorage, and sessionStorage. See:
- * https://docs.cypress.io/api/commands/session
- */
-Cypress.Commands.add('login', (user) => {
-    cy.session(
-        user,
-        () => {
-            // Login via API
-            cy.request({
-                url: `${user.server}/dhis-web-commons-security/login.action`,
-                method: 'POST',
-                form: true,
-                followRedirect: true,
-                body: {
-                    j_username: user.name,
-                    j_password: user.password,
-                    '2fa_code': '',
-                },
-            })
-
-            // Set base url for the app platform
-            window.localStorage.setItem('DHIS2_BASE_URL', user.server)
-        },
-        {
-            validate: () => {
-                // Check API is returning the expected response
-                cy.request(`${user.server}/api/me`).should((response) => {
-                    expect(response.status).to.eq(200)
-                    expect(response.body.username).to.eq(user.name)
-                })
-            },
-            cacheAcrossSpecs: false,
-        }
+const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
+    cookies.find(
+        (cookie) =>
+            cookie.name === SESSION_COOKIE_NAME && baseUrl.includes(cookie.path)
     )
+
+before(() => {
+    const username = Cypress.env('dhis2Username')
+    const password = Cypress.env('dhis2Password')
+    const baseUrl = Cypress.env('dhis2BaseUrl')
+    const instanceVersion = Cypress.env('dhis2InstanceVersion')
+
+    cy.request({
+        url: `${baseUrl}/${LOGIN_ENDPOINT}`,
+        method: 'POST',
+        form: true,
+        followRedirect: true,
+        body: {
+            j_username: username,
+            j_password: password,
+            '2fa_code': '',
+        },
+    }).should((response) => {
+        expect(response.status).to.eq(200)
+    })
+
+    cy.getAllCookies()
+        .should((cookies) => {
+            expect(cookies.length).to.be.at.least(1)
+        })
+        .then((cookies) => {
+            const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
+                baseUrl,
+                cookies
+            )
+            Cypress.env(
+                computeEnvVariableName(instanceVersion),
+                JSON.stringify(sessionCookieForBaseUrl)
+            )
+        })
 })
 
-// Log in before each test, if not already logged in
 beforeEach(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
