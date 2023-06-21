@@ -70,14 +70,9 @@ CacheableSectionWrapper.propTypes = {
     isParentCached: PropTypes.bool,
 }
 
-const sendInstallationStatus = (installationStatus) => {
-    postRobot.send(window.parent, 'installationStatus', { installationStatus })
-}
-
-const PluginWrapper = () => {
-    const [propsFromParent, setPropsFromParent] = useState()
-
-    const receivePropsFromParent = (event) => setPropsFromParent(event.data)
+const PluginWrapper = (props) => {
+    const { onInstallationStatusChange, ...otherProps } = props
+    const [propsFromParent, setPropsFromParent] = useState(otherProps)
 
     const onDataSorted = useCallback(
         (sorting) => {
@@ -101,27 +96,14 @@ const PluginWrapper = () => {
         [propsFromParent]
     )
 
+    useEffect(() => setPropsFromParent(otherProps), [otherProps])
+
     useEffect(() => {
-        postRobot
-            .send(window.parent, 'getProps')
-            .then(receivePropsFromParent)
-            .catch((err) => console.error(err))
-
-        // Get & send PWA installation status now, and also prepare to send
-        // future updates (installing/ready)
+        // Get & send PWA installation status now
         getPWAInstallationStatus({
-            onStateChange: sendInstallationStatus,
-        }).then(sendInstallationStatus)
-
-        // Allow parent to update props
-        const listener = postRobot.on(
-            'newProps',
-            { window: window.parent /* Todo: check domain */ },
-            receivePropsFromParent
-        )
-
-        return () => listener.cancel()
-    }, [])
+            onStateChange: onInstallationStatusChange,
+        }).then(onInstallationStatusChange)
+    }, [onInstallationStatusChange])
 
     return propsFromParent ? (
         <div
@@ -144,6 +126,10 @@ const PluginWrapper = () => {
             <CssVariables colors spacers elevations />
         </div>
     ) : null
+}
+
+PluginWrapper.propTypes = {
+    onInstallationStatusChange: PropTypes.func,
 }
 
 export default PluginWrapper
