@@ -216,6 +216,7 @@ const assertDimensions = () => {
 const assertSorting = () => {
     // remove any DGS to allow numeric value comparison
     clickMenubarOptionsButton()
+    cy.getBySel('options-menu-list').contains('Style').click()
 
     cy.getBySel('dgs-select-content')
         .findBySel('dhis2-uicore-select-input')

@@ -24,7 +24,7 @@ const VisualizationOptionsManager = () => {
     return (
         <>
             <HoverMenuDropdown label={i18n.t('Options')}>
-                <HoverMenuList dataTest="file-menu-container">
+                <HoverMenuList dataTest="options-menu-list">
                     {optionsConfig.map(({ label, key }) => (
                         <HoverMenuListItem
                             key={key}
