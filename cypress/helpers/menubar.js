@@ -18,6 +18,16 @@ export const clickMenubarOptionsButton = () =>
         .contains('Options')
         .click()
 
+export const openStyleOptionsModal = () => {
+    clickMenubarOptionsButton()
+    return cy.getBySel('options-menu-list').contains('Style').click()
+}
+
+export const openLegendOptionsModal = () => {
+    clickMenubarOptionsButton()
+    return cy.getBySel('options-menu-list').contains('Legend').click()
+}
+
 export const clickMenubarInterpretationsButton = () =>
     cy
         .getBySel('dhis2-analytics-toolbar', EXTENDED_TIMEOUT)

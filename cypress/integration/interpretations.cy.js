@@ -93,7 +93,7 @@ describe('interpretations', { testIsolation: false }, () => {
         // Hiding (the interpretations panel is open at the start of the test)
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Hide interpretations and details')
             .should('be.visible')
             .click()
@@ -103,7 +103,7 @@ describe('interpretations', { testIsolation: false }, () => {
         // Showing
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Show interpretations and details')
             .should('be.visible')
             .click()

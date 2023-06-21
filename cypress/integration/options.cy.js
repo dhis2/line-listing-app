@@ -16,7 +16,7 @@ import {
 } from '../helpers/dimensions.js'
 import { saveVisualization } from '../helpers/fileMenu.js'
 import {
-    clickMenubarOptionsButton,
+    openStyleOptionsModal,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
 import {
@@ -44,7 +44,7 @@ describe('options', () => {
             .should('equal', '7px 6px 5px')
 
         // set to comfortable density
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -57,7 +57,7 @@ describe('options', () => {
             .should('equal', '10px 8px 8px')
 
         // set to compact density
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -82,7 +82,7 @@ describe('options', () => {
             .should('equal', REGULAR_FONT_SIZE)
 
         // set to small font size
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -96,7 +96,7 @@ describe('options', () => {
             .should('be.lt', REGULAR_FONT_SIZE)
 
         // set to large font size
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -136,7 +136,7 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
 
         // set dgs to comma
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -147,7 +147,7 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(2).should('contain', '333,333,444')
 
         // set dgs to none
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -158,7 +158,7 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(2).should('contain', '333333444')
 
         // set dgs to space
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
@@ -197,7 +197,7 @@ describe(['>=40'], 'ou hierarchy', () => {
             .containsExact(NAME_WITHOUT_HIERARCHY)
 
         // enable show hierarchy - hierarchy is shown
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()
@@ -214,7 +214,7 @@ describe(['>=40'], 'ou hierarchy', () => {
         getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
 
         // disable show hierarchy - no hierarchy is shown
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()

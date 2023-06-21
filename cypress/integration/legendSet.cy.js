@@ -8,8 +8,8 @@ import {
 import { openDimension, selectEventWithProgram } from '../helpers/dimensions.js'
 import { deleteVisualization, saveVisualization } from '../helpers/fileMenu.js'
 import {
-    clickMenubarOptionsButton,
     clickMenubarUpdateButton,
+    openLegendOptionsModal,
 } from '../helpers/menubar.js'
 import {
     clickOptionsModalUpdateButton,
@@ -115,9 +115,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td')
     })
     it('background color legend is applied (per data item)', () => {
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         cy.getBySel('options-modal-content')
             .contains('Use a legend for table cell colors')
@@ -147,9 +145,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('text color legend is applied (per data item)', () => {
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
 
@@ -184,9 +180,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         expectLegendKeyToBeHidden()
     })
     it('legend key displays correctly when enabled', () => {
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         expectLegendDisplayStrategyToBeByDataItem()
 
@@ -203,9 +197,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         expectLegendKeyToMatchLegendSets([TEST_LEGEND_AGE.name])
     })
     it('text color legend is applied (single legend)', () => {
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
 
@@ -251,9 +243,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('background color legend is applied (single legend)', () => {
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
 
@@ -303,9 +293,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
 
-        clickMenubarOptionsButton()
-
-        clickOptionsTab('Legend')
+        openLegendOptionsModal()
 
         expectLegendDisplayStrategyToBeFixed()
 
