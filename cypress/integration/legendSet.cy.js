@@ -13,7 +13,6 @@ import {
 } from '../helpers/menubar.js'
 import {
     clickOptionsModalUpdateButton,
-    clickOptionsTab,
     expectLegendDisplayStrategyToBeByDataItem,
     expectLegendDisplayStrategyToBeFixed,
     expectLegendDisplayStyleToBeFill,
