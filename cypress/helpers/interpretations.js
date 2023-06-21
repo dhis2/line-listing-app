@@ -2,7 +2,7 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 export const expectInterpretationsButtonToBeEnabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Interpretations')
         .should('be.enabled')
 
