@@ -38,7 +38,9 @@ const defaultItemsMap = {
 const assertFileMenuItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
-    cy.getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT).contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('File')
+        .click()
 
     Object.entries(itemsMap).forEach(([itemName, enabled]) => {
         enabled
