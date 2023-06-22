@@ -41,7 +41,11 @@ const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_LEGEND_SET
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
-describe(['>=39'], 'Options - Legend', () => {
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
+describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
     const defaultBackgroundColor = 'rgb(255, 255, 255)'
     const defaultTextColor = 'rgb(33, 41, 52)'
 
