@@ -68,6 +68,8 @@ const addConditions = (conditions) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
 describe('date conditions (Date)', { testIsolation: false }, () => {
     beforeEach(() => {
         goToStartPage()
@@ -266,7 +268,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 })
 
-describe('date types', { testIsolation: false }, () => {
+describe('date types', () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',

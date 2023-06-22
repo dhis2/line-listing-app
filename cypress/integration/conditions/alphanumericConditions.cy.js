@@ -76,6 +76,8 @@ const addConditions = (conditions) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
 describe('text conditions', { testIsolation: false }, () => {
     const LONG_TEXT =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
@@ -223,7 +225,7 @@ describe('text conditions', { testIsolation: false }, () => {
     })
 })
 
-describe('alphanumeric types', { testIsolation: false }, () => {
+describe('alphanumeric types', () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',

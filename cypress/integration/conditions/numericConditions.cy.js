@@ -73,6 +73,8 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
 describe('number conditions', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_NUMBER
 
@@ -233,7 +235,7 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 })
 
-describe('integer', { testIsolation: false }, () => {
+describe('integer', () => {
     const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
@@ -280,8 +282,7 @@ describe('integer', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
     })
 })
-
-describe('preset options', { testIsolation: false }, () => {
+describe('preset options', () => {
     const dimensionName = TEST_DIM_WITH_PRESET
     const TEST_PRESET = 'Age 10y interval'
 
@@ -370,7 +371,7 @@ describe('preset options', { testIsolation: false }, () => {
     })
 })
 
-describe('numeric types', { testIsolation: false }, () => {
+describe('numeric types', () => {
     const TEST_OPERATORS = [
         'equal to (=)',
         'greater than (>)',
