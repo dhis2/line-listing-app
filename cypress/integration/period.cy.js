@@ -3,6 +3,10 @@ import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
 describe('period dimension', { testIsolation: false }, () => {
     const currentYear = getCurrentYearStr()
     const previousYear = getPreviousYearStr()

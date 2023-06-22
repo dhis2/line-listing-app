@@ -29,11 +29,17 @@ const TEST_INTERPRETATION_TEXT = 'Test interpretation'
 const TEST_INTERPRETATION_TEXT_EDITED = `${TEST_INTERPRETATION_TEXT} (edited)`
 const TEST_INTERPRETATION_COMMENT_TEXT = 'Reply to test interpretation'
 
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
 describe('interpretations', { testIsolation: false }, () => {
     // Use a flag to ensure the visualisation is not created multiple times
     let created = false
     // Use the `beforeEach` hook to ensure the visualisation is being created after the login takes place
     beforeEach(() => {
+        /* NOTE: Due to this `created` flag, the code below will only run during the first test,
+         * which makes this a test with sequential tests, even though it does not look like one */
         if (!created) {
             goToStartPage()
             cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
