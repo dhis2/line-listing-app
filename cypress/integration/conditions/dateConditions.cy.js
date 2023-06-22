@@ -268,7 +268,9 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 })
 
-describe('date types', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('date types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',

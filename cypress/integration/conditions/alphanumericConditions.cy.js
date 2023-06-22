@@ -224,8 +224,9 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
     })
 })
-
-describe('alphanumeric types', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('alphanumeric types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',

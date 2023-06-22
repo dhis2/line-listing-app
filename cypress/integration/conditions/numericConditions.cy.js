@@ -235,7 +235,9 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 })
 
-describe('integer', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('integer', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_INTEGER_ZERO_OR_POSITIVE
 
     beforeEach(() => {
@@ -282,7 +284,10 @@ describe('integer', () => {
         assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
     })
 })
-describe('preset options', () => {
+
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('preset options', { testIsolation: false }, () => {
     const dimensionName = TEST_DIM_WITH_PRESET
     const TEST_PRESET = 'Age 10y interval'
 
@@ -371,7 +376,9 @@ describe('preset options', () => {
     })
 })
 
-describe('numeric types', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('numeric types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'equal to (=)',
         'greater than (>)',
