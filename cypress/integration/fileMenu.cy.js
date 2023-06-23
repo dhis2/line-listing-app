@@ -300,7 +300,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        assertDownloadIsDisabled()
+        assertDownloadIsEnabled()
 
         assertFileMenuItems({
             [ITEM_SAVEAS]: true,
