@@ -1,3 +1,10 @@
+# [100.8.0](https://github.com/dhis2/line-listing-app/compare/v100.7.5...v100.8.0) (2023-06-23)
+
+
+### Features
+
+* remove period validation (DHIS2-15015) ([#381](https://github.com/dhis2/line-listing-app/issues/381)) ([efb9803](https://github.com/dhis2/line-listing-app/commit/efb98039c8d5467063cd94316015593d1da34e69))
+
 ## [100.7.5](https://github.com/dhis2/line-listing-app/compare/v100.7.4...v100.7.5) (2023-06-19)
 
 
