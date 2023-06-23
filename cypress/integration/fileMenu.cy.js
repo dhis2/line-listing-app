@@ -45,6 +45,9 @@ const assertFileMenuItems = (enabledItemsMap = {}) => {
             ? cy.getBySel(itemName).should('not.have.class', 'disabled')
             : cy.getBySel(itemName).should('have.class', 'disabled')
     })
+
+    cy.getBySel('file-menu-toggle-layer').click()
+    cy.getBySel('file-menu-container').should('not.exist')
 }
 
 const assertDownloadIsEnabled = () =>
@@ -58,11 +61,6 @@ const assertDownloadIsDisabled = () =>
         .getBySel('menubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('have.attr', 'disabled')
-
-const closeFileMenu = () => {
-    cy.getBySel('file-menu-toggle-layer').click()
-    cy.getBySel('file-menu-container').should('not.exist')
-}
 
 describe('file menu', () => {
     it('reflects "empty" state', () => {
@@ -180,7 +178,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
         deleteVisualization()
         assertFileMenuItems()
     })
@@ -222,8 +219,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
-
         // "dirty, valid: save" state
         cy.getBySel('stage-clear-button').click()
 
@@ -241,8 +236,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
-
         // "dirty, no program" state
         cy.getBySel('program-clear-button').click()
 
@@ -258,7 +251,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
         deleteVisualization()
         assertFileMenuItems()
     })
@@ -282,8 +274,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
-
         // "dirty, valid: data" state
         clickMenubarUpdateButton()
 
@@ -303,8 +293,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
-
         // "dirty, valid: save" state
         unselectAllPeriods({
             label: 'Report date',
@@ -323,8 +311,6 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        closeFileMenu()
-
         // "dirty, no program" state
         cy.getBySel('main-sidebar').contains('Program dimensions').click()
 
@@ -341,7 +327,5 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
-
-        closeFileMenu()
     })
 })

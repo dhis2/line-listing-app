@@ -7,7 +7,11 @@ import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
-describe('layout validation', () => {
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
+describe('layout validation', { testIsolation: false }, () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
