@@ -48,7 +48,7 @@ const assertFileMenuItems = (enabledItemsMap = {}) => {
             : cy.getBySel(itemName).should('have.class', 'disabled')
     })
 
-    cy.getBySel('file-menu-toggle-layer').click()
+    cy.get('body').click()
     cy.getBySel('file-menu-container').should('not.exist')
 }
 
