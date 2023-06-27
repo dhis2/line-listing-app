@@ -1,10 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    DataError,
-    EmptyBox,
-    GenericError,
-    PeriodError,
-} from '../assets/ErrorIcons.js'
+import { DataError, EmptyBox, GenericError } from '../assets/ErrorIcons.js'
 
 const visualizationError = (icon, title, description) => ({
     icon,
@@ -71,15 +66,6 @@ export const noOrgUnitError = () =>
         i18n.t('No organisation unit selected'),
         i18n.t(
             'Make sure to add the organisation unit dimension with at least one selection to the layout.'
-        )
-    )
-
-export const noPeriodError = () =>
-    visualizationError(
-        PeriodError,
-        i18n.t('No time dimension selected'),
-        i18n.t(
-            'Make sure to add a time dimension with at least one selection to the layout.'
         )
     )
 

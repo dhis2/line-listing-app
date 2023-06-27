@@ -41,7 +41,11 @@ const event = E2E_PROGRAM
 const dimensionName = TEST_DIM_LEGEND_SET
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
-describe(['>=39'], 'Options - Legend', () => {
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
+describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
     const defaultBackgroundColor = 'rgb(255, 255, 255)'
     const defaultTextColor = 'rgb(33, 41, 52)'
 
@@ -355,22 +359,12 @@ describe(['>=39'], 'Options - Legend', () => {
             label: periodLabel,
         })
 
-        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
-
         selectFixedPeriod({
             label: periodLabel,
             period: {
                 year: currentYear,
                 name: `January ${currentYear}`,
             },
-        })
-        cy.wait('@getAnalytics').then(({ request }) => {
-            const url = new URL(request.url)
-
-            // verify that the request url is correct, as the response from this request has been inconsistent when running on Cypress Dashboard
-            expect(url.search).to.equal(
-                '?dimension=ou%3AUSER_ORGUNIT,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&headers=ouname,jfuXZB3A1ko.BEs9h9LOIao,jfuXZB3A1ko.vjEosHW6sAB&totalPages=false&eventDate=202301&displayProperty=NAME&outputType=EVENT&pageSize=100&page=1&includeMetadataDetails=true&stage=jfuXZB3A1ko'
-            )
         })
 
         // sort the table, as the backend returns the response in a random order

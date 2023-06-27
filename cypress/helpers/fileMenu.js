@@ -42,5 +42,5 @@ export const deleteVisualization = () => {
 
     cy.getBySel('file-menu-delete-modal-delete').click()
 
-    cy.getBySel('visualization-title').should('not.exist')
+    cy.getBySel('titlebar').should('not.exist')
 }

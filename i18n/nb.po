@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Caroline Hesthagen Holen <caroline@devotta.no>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -634,13 +634,6 @@ msgid ""
 msgstr ""
 "Sørg for å legge til organisasjonsenhetsdimensjonen med minst ett valg i "
 "oppsettet."
-
-msgid "No time dimension selected"
-msgstr "Ingen tidsdimensjon er valgt"
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr "Sørg for å legge til en tidsdimensjon med minst ett valg i oppsettet."
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "Det er et problem med minst én valgt indikator"

@@ -1,15 +1,17 @@
-import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { CHILD_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
+import { CHILD_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
-describe('layout validation', () => {
+/* This files constains sequential tests, which means that some test steps
+ * depend on a previous step. With test isolation switched on (the default setting)
+ * each step (`it` block) will start off in a fresh window, and that breaks this kind
+ * of test. So `testIsolation` was set to false here. */
+describe('layout validation', { testIsolation: false }, () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
@@ -48,23 +50,12 @@ describe('layout validation', () => {
 
         cy.getBySel('error-container').contains('No organisation unit selected')
     })
-    it('time dimension is required', () => {
+    it('validation succeeds when all above are provided', () => {
         // remove previously added dimension
         clickAddRemoveMainDimension('Last updated by')
 
         // add org unit to columns
         clickAddRemoveMainDimension('Organisation unit')
-
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No time dimension selected')
-    })
-    it('validation succeeds when all above are provided', () => {
-        // add a time dimension to columns
-        selectRelativePeriod({
-            label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_YEAR,
-        })
 
         clickMenubarUpdateButton()
 

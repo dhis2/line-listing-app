@@ -13,7 +13,7 @@ describe('Smoke Test', () => {
     it('loads with visualization id', () => {
         goToAO(TEST_AO.id)
 
-        cy.getBySel('visualization-title', EXTENDED_TIMEOUT)
+        cy.getBySel('titlebar', EXTENDED_TIMEOUT)
             .should('be.visible')
             .and('contain', TEST_AO.name)
     })

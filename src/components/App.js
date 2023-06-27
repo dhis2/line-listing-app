@@ -25,7 +25,6 @@ import {
     emptyResponseError,
     genericServerError,
     indicatorError,
-    noPeriodError,
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
@@ -213,9 +212,6 @@ const App = () => {
 
         if (error.details?.errorCode) {
             switch (error.details.errorCode) {
-                case 'E7205':
-                    output = noPeriodError()
-                    break
                 case 'E7132':
                     output = indicatorError()
                     break

@@ -73,10 +73,19 @@ describe('event', () => {
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
 
         typeInput('left-header-filter-input-field', filteredItemName)
-        cy.getBySelLike('transfer-sourceoptions')
-            .findBySelLike('transfer-option')
-            .should('have.length', 1)
-        cy.getBySelLike('transfer-sourceoptions').contains(filteredItemName)
+
+        cy.getBySelLike('transfer-sourceoptions').should(($elems) => {
+            // First is the actual container, second intersection detector wrapper
+            expect($elems).to.have.lengthOf(2)
+            const $container = $elems.first()
+            expect($container).to.have.class('container')
+            // Ensure the intersection detector wrapper is excluded from options
+            const $options = $container.find('[data-test*="transfer-option"]')
+            // Ensure the only option remains
+            expect($options).to.have.lengthOf(1)
+            // And it matches the filter
+            expect($options.first()).to.have.text(filteredItemName)
+        })
 
         cy.getBySelLike('transfer-sourceoptions')
             .contains(filteredItemName)

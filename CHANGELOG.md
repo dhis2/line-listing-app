@@ -1,3 +1,32 @@
+## [100.8.1](https://github.com/dhis2/line-listing-app/compare/v100.8.0...v100.8.1) (2023-06-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([a34895f](https://github.com/dhis2/line-listing-app/commit/a34895faabcd2952eb591403ce1e4b2706ac6c15))
+
+# [100.8.0](https://github.com/dhis2/line-listing-app/compare/v100.7.5...v100.8.0) (2023-06-23)
+
+
+### Features
+
+* remove period validation (DHIS2-15015) ([#381](https://github.com/dhis2/line-listing-app/issues/381)) ([efb9803](https://github.com/dhis2/line-listing-app/commit/efb98039c8d5467063cd94316015593d1da34e69))
+
+## [100.7.5](https://github.com/dhis2/line-listing-app/compare/v100.7.4...v100.7.5) (2023-06-19)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([459d978](https://github.com/dhis2/line-listing-app/commit/459d9785743fc869a3e5effdd2b5f8f625fdae05))
+
+## [100.7.4](https://github.com/dhis2/line-listing-app/compare/v100.7.3...v100.7.4) (2023-06-15)
+
+
+### Bug Fixes
+
+* avoid crash when missing metadata ([ec74230](https://github.com/dhis2/line-listing-app/commit/ec74230a7668c4369d4c8f30093b413f4c064b38))
+* use nullish instead ([4be2930](https://github.com/dhis2/line-listing-app/commit/4be2930f9747cad6a7d222b69d69baf4de496492))
+
 ## [100.7.3](https://github.com/dhis2/line-listing-app/compare/v100.7.2...v100.7.3) (2023-06-14)
 
 

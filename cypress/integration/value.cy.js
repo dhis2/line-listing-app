@@ -30,6 +30,7 @@ import {
     getTableDataCells,
     getTableRows,
 } from '../helpers/table.js'
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const shouldHaveWhiteSpace = (index, value) =>
     getTableDataCells()
@@ -119,7 +120,10 @@ describe('option sets', () => {
 
         clickMenubarUpdateButton()
 
-        cy.getBySel('table-header').eq(0).find('button').click()
+        cy.getBySel('table-header', EXTENDED_TIMEOUT)
+            .eq(0)
+            .find('button')
+            .click()
 
         expectTableToMatchRows([`${currentYear}-06-01`, `${currentYear}-06-28`])
 

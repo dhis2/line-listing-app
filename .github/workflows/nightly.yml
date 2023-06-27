@@ -8,11 +8,11 @@ name: 'dhis2: nightly'
 #     CYPRESS_DHIS2_PASSWORD
 #     CYPRESS_RECORD_KEY
 #
-# This workflow runs the e2e tests on the default branch against dev at 2:20am M-F
+# This workflow runs the e2e tests on the default branch against dev at 6:20am M-F
 
 on:
     schedule:
-        - cron: '20 2 * * 1-5'
+        - cron: '20 6 * * 1-5'
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -24,7 +24,7 @@ defaults:
 
 jobs:
     call-workflow-e2e-dev:
-        uses: dhis2/data-visualizer-app/.github/workflows/e2e-dev.yml@dev
+        uses: ./.github/workflows/e2e-dev.yml
         secrets:
             baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
@@ -44,6 +44,6 @@ jobs:
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':x: Line-listing-app e2e nightly build <https://cloud.cypress.io/projects/m5qvjx/runs?branches=[{"label":"dev","suggested":false,"value":"dev"}]|failed>'
+                  slack-message: ':x: Line-listing-app e2e nightly build <https://cloud.cypress.io/projects/m5qvjx/runs?branches=[{"label":"master","suggested":false,"value":"master"}]|failed>'
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

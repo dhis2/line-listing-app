@@ -76,7 +76,9 @@ const addConditions = (conditions) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-describe('text conditions', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('text conditions', { testIsolation: false }, () => {
     const LONG_TEXT =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
@@ -222,8 +224,9 @@ describe('text conditions', () => {
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
     })
 })
-
-describe('alphanumeric types', () => {
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe('alphanumeric types', { testIsolation: false }, () => {
     const TEST_OPERATORS = [
         'exactly',
         'is not',
