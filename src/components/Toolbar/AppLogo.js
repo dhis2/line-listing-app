@@ -13,7 +13,7 @@ export const AppLogo = () => {
         <ToolbarSidebar isHidden={isHidden}>
             <span className={classes.container}>
                 <IconVisualizationLinelist16 color="#4a5768" />
-                {i18n.t('Line list')}
+                <span className={classes.appName}>{i18n.t('Line list')}</span>
             </span>
         </ToolbarSidebar>
     )
