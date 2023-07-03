@@ -19,14 +19,21 @@ const DownloadMenu = ({ download, hoverable }) => {
 
     return (
         <MenuComponent>
-            <MenuSectionHeader label={i18n.t('HTML')} hideDivider />
+            <MenuSectionHeader
+                label={i18n.t('HTML')}
+                hideDivider
+                dense={hoverable}
+            />
             <MenuItemComponent
                 label={i18n.t('HTML+CSS (.html+css)')}
                 onClick={() =>
                     download(DOWNLOAD_TYPE_TABLE, FILE_FORMAT_HTML_CSS)
                 }
             />
-            <MenuSectionHeader label={i18n.t('Plain data source')} />
+            <MenuSectionHeader
+                label={i18n.t('Plain data source')}
+                dense={hoverable}
+            />
             <PlainDataSourceSubMenu
                 hoverable={hoverable}
                 download={download}
