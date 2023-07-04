@@ -47,6 +47,7 @@ const query = {
                 'displayEnrollmentDateLabel',
             ],
             paging: false,
+            filter: 'access.data.read:eq:true',
         }),
     },
 }
