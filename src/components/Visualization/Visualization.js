@@ -250,7 +250,8 @@ export const Visualization = ({
 
     if (headers && sortField) {
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
-        if (!headers.includes(sortField)) {
+        // flat() is needed here for repeated events where the dimension ids are nested in an array
+        if (!headers.flat().includes(sortField)) {
             onDataSorted({
                 dimensionId: null,
                 direction: DEFAULT_SORT_DIRECTION,
