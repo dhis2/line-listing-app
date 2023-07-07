@@ -26,7 +26,14 @@ export const getDefaultFromUi = (current, ui) => {
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
-        sorting: adaptedUi.sorting ? [adaptedUi.sorting] : undefined,
+        sorting: adaptedUi.sorting
+            ? [
+                  {
+                      ...adaptedUi.sorting,
+                      direction: adaptedUi.sorting.direction.toUpperCase(),
+                  },
+              ]
+            : undefined,
         ...getProgramFromUi(adaptedUi),
         ...getProgramStageFromUi(adaptedUi),
         ...getAxesFromUi(adaptedUi),

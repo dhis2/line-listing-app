@@ -212,8 +212,8 @@ export const Visualization = ({
             visualization.sorting.length
         ) {
             return {
-                sortField: visualization.sorting[0].dimensionId,
-                sortDirection: visualization.sorting[0].direction,
+                sortField: visualization.sorting[0].dimension,
+                sortDirection: visualization.sorting[0].direction.toLowerCase(),
             }
         } else {
             return {
@@ -253,7 +253,7 @@ export const Visualization = ({
         // flat() is needed here for repeated events where the dimension ids are nested in an array
         if (!headers.flat().includes(sortField)) {
             onDataSorted({
-                dimensionId: null,
+                dimension: null,
                 direction: DEFAULT_SORT_DIRECTION,
             })
         }
@@ -336,7 +336,7 @@ export const Visualization = ({
     const colSpan = String(Math.max(data.headers.length, 1))
 
     const sortData = ({ name, direction }) => {
-        onDataSorted({ dimensionId: name, direction })
+        onDataSorted({ dimension: name, direction })
 
         setSorting({
             sortField: name,
