@@ -166,9 +166,9 @@ describe('save', () => {
             .its('request.body')
             .should('have.property', 'sorting')
 
-        //        cy.wait('@loadAO')
-        //            .its('response.body')
-        //            .should('have.property', 'sorting')
+        cy.wait('@loadAO')
+            .its('response.body')
+            .should('have.property', 'sorting')
 
         deleteVisualization()
     })
