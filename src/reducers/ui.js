@@ -13,7 +13,6 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
@@ -23,6 +22,10 @@ import {
     getIsMainDimensionDisabled,
 } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
+import {
+    getIsProgramDimensionDisabled,
+    getProgramDimensions,
+} from '../modules/programDimensions.js'
 import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
@@ -466,12 +469,13 @@ export const useMainDimensions = () => {
     }, [programId, inputType])
 }
 
-export const useTimeDimensions = () => {
+export const useProgramDimensions = () => {
     const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
+
     const eventDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_EVENT_DATE)
     )
@@ -484,14 +488,16 @@ export const useTimeDimensions = () => {
     const scheduledDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
     )
-    const lastUpdatedDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
-    )
 
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
         const stage = metadata[programStageId]
+        const disabledTimeDimensions = getDisabledTimeDimensions(
+            inputType,
+            program,
+            stage
+        )
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
@@ -501,24 +507,20 @@ export const useTimeDimensions = () => {
                 ? [scheduledDateDim]
                 : []),
             incidentDateDim,
-            lastUpdatedDim,
-        ]
+        ].filter(
+            (dimension) => !!dimension && !disabledTimeDimensions[dimension.id]
+        )
 
-        if (timeDimensions.every((dimension) => !!dimension)) {
-            const disabledTimeDimensions = getDisabledTimeDimensions(
-                inputType,
-                program,
-                stage
-            )
+        const programDimensions = Object.values(getProgramDimensions()).filter(
+            (dimension) =>
+                !getIsProgramDimensionDisabled({
+                    dimensionId: dimension.id,
+                    inputType,
+                    programType: program?.programType,
+                })
+        )
 
-            return timeDimensions.map((dimension) => ({
-                ...dimension,
-                disabled: Boolean(disabledTimeDimensions[dimension.id]),
-                disabledReason: disabledTimeDimensions[dimension.id],
-            }))
-        } else {
-            return null
-        }
+        return programDimensions.concat(timeDimensions)
     }, [
         inputType,
         programId,
@@ -527,6 +529,5 @@ export const useTimeDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
-        lastUpdatedDim,
     ])
 }

@@ -22,7 +22,6 @@ import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
 } from './SelectedDimensionsContext.js'
-import { TimeDimensions } from './TimeDimensions.js'
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
@@ -77,7 +76,6 @@ const MainSidebar = () => {
                     onClick={() => onClick(TAB_YOUR)}
                 />
                 <MainDimensions />
-                <TimeDimensions />
             </div>
             <div
                 className={cx(styles.accessory, {

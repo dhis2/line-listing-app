@@ -26,8 +26,9 @@ import {
     sGetUiProgramId,
     sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
+import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.js'
+import { ProgramDimensions } from './ProgramDimensions.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
-import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
@@ -148,6 +149,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     requiredStageSelection={requiredStageSelection}
                 />
             </div>
+            <div>
+                <ProgramDimensions />
+            </div>
             <div
                 className={cx(styles.section, {
                     [styles.bordered]: !!selectedProgramId,
@@ -177,7 +181,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
             </div>
 
             {isProgramSelectionComplete && (
-                <ProgramDimensionsList
+                <ProgramDataDimensionsList
                     inputType={inputType}
                     program={selectedProgram}
                     dimensionType={dimensionType}

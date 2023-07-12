@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
-"PO-Revision-Date: 2023-06-07T12:54:13.099Z\n"
+"POT-Creation-Date: 2023-07-12T12:15:44.396Z\n"
+"PO-Revision-Date: 2023-07-12T12:15:44.397Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -223,8 +223,8 @@ msgstr "See individual event data from a Tracker program stage or event program.
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
 
-msgid "Main dimensions"
-msgstr "Main dimensions"
+msgid "Global dimensions"
+msgstr "Global dimensions"
 
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
@@ -292,9 +292,6 @@ msgstr "Clear stage first to choose another"
 
 msgid "This program only has one stage"
 msgstr "This program only has one stage"
-
-msgid "Time dimensions"
-msgstr "Time dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
@@ -597,12 +594,6 @@ msgstr "No program selected"
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr "Choose a program from the Program Dimensions sidebar."
 
-msgid "No stage selected"
-msgstr "No stage selected"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Choose a stage from the Program Dimensions sidebar."
-
 msgid "Columns is empty"
 msgstr "Columns is empty"
 
@@ -631,14 +622,8 @@ msgstr "You don't have access to the requested data"
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-msgid "Organisation unit"
-msgstr "Organisation unit"
-
-msgid "Event status"
-msgstr "Event status"
-
-msgid "Program status"
-msgstr "Program status"
+msgid "Last updated on"
+msgstr "Last updated on"
 
 msgid "Created by"
 msgstr "Created by"
@@ -688,6 +673,15 @@ msgstr "Limit minimum/maximum values"
 msgid "Style"
 msgstr "Style"
 
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Program status"
+msgstr "Program status"
+
 msgid "most recent"
 msgstr "most recent"
 
@@ -711,9 +705,6 @@ msgstr "Incident date"
 
 msgid "Scheduled date"
 msgstr "Scheduled date"
-
-msgid "Last updated on"
-msgstr "Last updated on"
 
 msgid "Disabled by the selected program"
 msgstr "Disabled by the selected program"

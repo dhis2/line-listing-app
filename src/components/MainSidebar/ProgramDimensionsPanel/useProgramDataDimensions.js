@@ -63,7 +63,7 @@ const reducer = (state, action) => {
             }
         default:
             throw new Error(
-                'Invalid action passed to useProgramDimensions reducer function'
+                'Invalid action passed to useProgramDataDimensions reducer function'
             )
     }
 }
@@ -188,7 +188,7 @@ const transformResponseData = ({
     }
 }
 
-const useProgramDimensions = ({
+const useProgramDataDimensions = ({
     inputType,
     program,
     stageId,
@@ -296,4 +296,4 @@ const useProgramDimensions = ({
     }
 }
 
-export { useProgramDimensions, createDimensionsQuery }
+export { useProgramDataDimensions, createDimensionsQuery }

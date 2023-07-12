@@ -5,7 +5,6 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
@@ -42,11 +41,6 @@ export const getTimeDimensions = () => ({
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayDueDateLabel',
     },
-    [DIMENSION_ID_LAST_UPDATED]: {
-        id: DIMENSION_ID_LAST_UPDATED,
-        dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Last updated on'),
-    },
 })
 
 export const getTimeDimensionName = (dimension, program, stage) => {
@@ -72,10 +66,7 @@ export const getDisabledTimeDimensions = (inputType, program, stage) => {
                     )
                 }
 
-                if (!stage) {
-                    disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] =
-                        i18n.t('No stage selected')
-                } else if (stage.hideDueDate === true) {
+                if (stage?.hideDueDate === true) {
                     disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
                         'Disabled by the selected program stage'
                     )
@@ -118,7 +109,6 @@ export const getDisabledTimeDimensions = (inputType, program, stage) => {
                 [DIMENSION_ID_ENROLLMENT_DATE]: disabledReason,
                 [DIMENSION_ID_SCHEDULED_DATE]: disabledReason,
                 [DIMENSION_ID_INCIDENT_DATE]: disabledReason,
-                [DIMENSION_ID_LAST_UPDATED]: disabledReason,
             }
         }
     }

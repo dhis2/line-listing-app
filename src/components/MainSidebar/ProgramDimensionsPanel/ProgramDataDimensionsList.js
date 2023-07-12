@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { DimensionsList } from '../DimensionsList/index.js'
-import { useProgramDimensions } from './useProgramDimensions.js'
+import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
-const ProgramDimensionsList = ({
+const ProgramDataDimensionsList = ({
     inputType,
     program,
     stageId,
@@ -11,7 +11,7 @@ const ProgramDimensionsList = ({
     dimensionType,
 }) => {
     const { dimensions, loading, fetching, error, setIsListEndVisible } =
-        useProgramDimensions({
+        useProgramDataDimensions({
             inputType,
             program,
             stageId,
@@ -38,7 +38,7 @@ const ProgramDimensionsList = ({
     )
 }
 
-ProgramDimensionsList.propTypes = {
+ProgramDataDimensionsList.propTypes = {
     inputType: PropTypes.string.isRequired,
     program: PropTypes.object.isRequired,
     dimensionType: PropTypes.string,
@@ -46,4 +46,4 @@ ProgramDimensionsList.propTypes = {
     stageId: PropTypes.string,
 }
 
-export { ProgramDimensionsList }
+export { ProgramDataDimensionsList }
