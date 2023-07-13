@@ -35,7 +35,7 @@ const MainSidebar = () => {
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const isHidden = useSelector(sGetUiSidebarHidden)
-    const [selectedTabId, setSelectedTabId] = useState(null)
+    const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {

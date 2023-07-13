@@ -102,7 +102,7 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_PROGRAM_STATUS]: [],
     },
     options: getOptionsForUi(),
-    showAccessoryPanel: false,
+    showAccessoryPanel: true,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
