@@ -7,6 +7,7 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
+import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
     sGetUiShowAccessoryPanel,
@@ -34,6 +35,9 @@ const MainSidebar = () => {
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
+    const program = useSelector((state) =>
+        sGetMetadataById(state, selectedProgramId)
+    )
     const isHidden = useSelector(sGetUiSidebarHidden)
     const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
@@ -61,6 +65,7 @@ const MainSidebar = () => {
                     })}
                     onClick={() => onClick(TAB_INPUT)}
                     selected={open && selectedTabId === TAB_INPUT}
+                    subtitle={program?.name}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}

@@ -44,7 +44,7 @@
 .label {
     flex-grow: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     font-size: 14px;
     line-height: 16px;
 }
@@ -68,4 +68,9 @@
 .chevron {
     height: 16px;
     min-width: 16px;
+}
+.subtitle {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-top: var(--spacers-dp4);
 }
