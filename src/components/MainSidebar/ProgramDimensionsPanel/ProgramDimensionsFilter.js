@@ -48,6 +48,7 @@ const ProgramDimensionsFilter = ({
     setStageFilter,
 }) => (
     <div className={styles.container}>
+        <div className={styles.header}>{i18n.t('Program data dimensions')}</div>
         <Input
             value={searchTerm}
             onChange={({ value }) => setSearchTerm(value)}

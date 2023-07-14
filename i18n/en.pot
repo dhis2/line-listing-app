@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-07-12T12:15:44.396Z\n"
-"PO-Revision-Date: 2023-07-12T12:15:44.397Z\n"
+"POT-Creation-Date: 2023-07-14T12:45:51.633Z\n"
+"PO-Revision-Date: 2023-07-14T12:45:51.634Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -217,6 +217,16 @@ msgstr "Event"
 msgid "Enrollment"
 msgstr "Enrollment"
 
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
@@ -232,8 +242,11 @@ msgstr "Input: {{type}}"
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
-msgid "Search in program"
-msgstr "Search in program"
+msgid "Program data dimensions"
+msgstr "Program data dimensions"
+
+msgid "Search data dimensions"
+msgstr "Search data dimensions"
 
 msgid "Type"
 msgstr "Type"
@@ -256,42 +269,17 @@ msgstr "Category"
 msgid "Category option group set"
 msgstr "Category option group set"
 
-msgid "Could not load programs"
-msgstr "Could not load programs"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Choose a stage above to add program dimensions."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Choose a program above to add program dimensions."
+msgid "Choose an input to get started adding program dimensions."
+msgstr "Choose an input to get started adding program dimensions."
 
 msgid "Choose a program"
 msgstr "Choose a program"
-
-msgid "Clear program first to choose another"
-msgstr "Clear program first to choose another"
-
-msgid "Clear"
-msgstr "Clear"
 
 msgid "Stage"
 msgstr "Stage"
 
 msgid "All"
 msgstr "All"
-
-msgid "Clear stage first to choose another"
-msgstr "Clear stage first to choose another"
-
-msgid "This program only has one stage"
-msgstr "This program only has one stage"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
