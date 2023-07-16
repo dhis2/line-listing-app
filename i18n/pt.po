@@ -1,19 +1,19 @@
 # 
 # Translators:
-# David Júnior <davidjr.mondlane@gmail.com>, 2022
 # Ge Joao <gsimango@saudigitus.org>, 2022
 # phil_dhis2, 2022
 # Fernando Jorge Bade, 2023
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2023
-# Sheila André <sandre@saudigitus.org>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2023
+# David Júnior <davidjr.mondlane@gmail.com>, 2023
+# Sheila André <sandre@saudigitus.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Sheila André <sandre@saudigitus.org>, 2023\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -285,7 +285,7 @@ msgid "Choose a program above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Escolha um programa"
 
 msgid "Clear program first to choose another"
 msgstr ""
@@ -393,7 +393,7 @@ msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Rows per page"
-msgstr ""
+msgstr "Linhas por página"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
@@ -624,13 +624,6 @@ msgstr "Nenhuma unidade organizacional selecionada"
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
-msgstr ""
-
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
