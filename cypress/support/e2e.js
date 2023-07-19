@@ -18,11 +18,11 @@ const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'
 const SESSION_COOKIE_NAME = 'JSESSIONID'
 const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
 
-// '2.39' or 39?
+// handles '2.39', '2.39.0.1-rc' and 39 (number)
 const computeEnvVariableName = (instanceVersion) =>
     typeof instanceVersion === 'number'
         ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
-        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
+        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.')[1]}`
 
 const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
     cookies.find(

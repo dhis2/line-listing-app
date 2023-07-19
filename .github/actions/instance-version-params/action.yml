@@ -1,0 +1,18 @@
+name: 'Get Params For A Version'
+description: 'Based on the current DHIS2 Core version, this action outputs variables needed to spin up docker'
+inputs:
+    version:
+        description: 'A version which also matches a tag on Docker Hub, i.e. "2.38.4.3-rc"'
+        required: true
+outputs:
+    dhis2-docker-hub-image-tag:
+        description: 'Docker Hub Image tag for provided version, i.e. "dhis2/core:2.38.4.3-rc"'
+    dhis2-db-dump-url:
+        description: 'URL to the database dump for provided version, i.e. "https://databases.dhis2.org/sierra-leone/2.38.4/dhis2-db-sierra-leone.sql.gz"'
+    dhis2-db-cache-key:
+        description: 'GitHub Actions cache key for provided version, i.e. "dhis2-core-v38-db-dump". This key can be used to save and restore from the cache.'
+    dhis2-api-version:
+        description: 'DHIS2 Core instance API version, i.e. "38"'
+runs:
+    using: 'node16'
+    main: './dist/index.js'

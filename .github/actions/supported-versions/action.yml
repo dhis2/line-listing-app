@@ -1,0 +1,15 @@
+name: 'Get Supported Stable Versions'
+description: 'Retrieve the exact version numbers of the supported stable DHIS2 Core releases'
+inputs:
+    release-candidates:
+        description: 'Comma delimited list of release candidate versions. Each version string must match a tag on DockerHub, i.e. "2.38.4.3-rc"'
+        required: false
+        default: ''
+    config-dir:
+        description: 'Relative directory for the d2.config file'
+outputs:
+    versions:
+        description: 'JSON stringified array of version strings, including patch and hotfix numbers.'
+runs:
+    using: 'node16'
+    main: './dist/index.js'

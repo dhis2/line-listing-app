@@ -1,0 +1,15 @@
+name: 'Generate Analytics Tables'
+description: 'Generate analytics tables in the local DHIS2 Core instance'
+inputs:
+    dhis2-username:
+        description: 'A valid username to sign in to the DHIS2 core instance'
+        required: true
+    dhis2-password:
+        description: 'The password belonging to the user who signs in to the DHIS2 core instance'
+        required: true
+    dhis2-api-version:
+        description: 'The API version to be used when issuing requests'
+        required: true
+runs:
+    using: 'node16'
+    main: './dist/index.js'
