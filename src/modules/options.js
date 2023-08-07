@@ -60,7 +60,7 @@ export const options = {
     },
     [OPTION_SHOW_HIERARCHY]: {
         defaultValue: false,
-        requestable: true,
+        requestable: false,
         savable: true,
     },
     [OPTION_SKIP_ROUNDING]: {
