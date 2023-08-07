@@ -9,6 +9,7 @@ export const OPTION_FONT_SIZE = 'fontSize'
 export const OPTION_DIGIT_GROUP_SEPARATOR = 'digitGroupSeparator'
 export const OPTION_DISPLAY_DENSITY = 'displayDensity'
 export const OPTION_SHOW_HIERARCHY = 'showHierarchy'
+export const OPTION_SKIP_ROUNDING = 'skipRounding'
 export const DISPLAY_DENSITY_COMFORTABLE = 'COMFORTABLE'
 export const DISPLAY_DENSITY_NORMAL = 'NORMAL'
 export const DISPLAY_DENSITY_COMPACT = 'COMPACT'
@@ -58,6 +59,11 @@ export const options = {
         savable: true,
     },
     [OPTION_SHOW_HIERARCHY]: {
+        defaultValue: false,
+        requestable: true,
+        savable: true,
+    },
+    [OPTION_SKIP_ROUNDING]: {
         defaultValue: false,
         requestable: true,
         savable: true,

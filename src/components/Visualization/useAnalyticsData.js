@@ -94,7 +94,8 @@ const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 const getAnalyticsEndpoint = (outputType) => analyticsApiEndpointMap[outputType]
 
 const getAdaptedVisualization = (visualization) => {
-    const parameters = {}
+    const options = getRequestOptions(visualization)
+    const parameters = { ...options }
 
     const adaptDimensions = (dimensions) => {
         const adaptedDimensions = []
@@ -123,7 +124,7 @@ const getAdaptedVisualization = (visualization) => {
     const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
     const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
 
-    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
+    const dimensionHeadersMap = getHeadersMap(options)
 
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
