@@ -287,7 +287,7 @@ msgid "Category"
 msgstr "Categoría"
 
 msgid "Category option group set"
-msgstr "Grupo de opciones de categoría establecido"
+msgstr "Set de grupos de categorías de opciones"
 
 msgid "Could not load programs"
 msgstr "No se pudieron cargar los programas"
