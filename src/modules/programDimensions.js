@@ -49,6 +49,5 @@ export const getIsProgramDimensionDisabled = ({
     ) {
         return true
     }
-
     return false
 }
