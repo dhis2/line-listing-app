@@ -77,10 +77,9 @@ const InputPanel = ({ visible }) => {
         if (programId !== selectedProgramId) {
             const program = filteredPrograms?.find(({ id }) => id === programId)
             const stage =
-                // auto-select if a program only has a single stage
-                // and input type is Event
+                // auto-select first stage if input type is Event
                 selectedInput.type === OUTPUT_TYPE_EVENT &&
-                program?.programStages.length === 1
+                program?.programStages.length
                     ? program.programStages[0]
                     : undefined
             dispatch(tSetUiProgram({ program, stage }))
