@@ -1,6 +1,6 @@
 {
     "name": "line-listing-app",
-    "version": "100.8.1",
+    "version": "100.9.0",
     "description": "DHIS2 Line Listing",
     "license": "BSD-3-Clause",
     "private": true,
@@ -36,9 +36,9 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "^24.9.3",
+        "@dhis2/analytics": "^26.0.7",
         "@dhis2/app-runtime": "^3.4.4",
-        "@dhis2/ui": "^8.4.1",
+        "@dhis2/ui": "^8.13.13",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
         "@dnd-kit/utilities": "^3.2.0",

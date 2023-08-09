@@ -1,3 +1,17 @@
+# [100.9.0](https://github.com/dhis2/line-listing-app/compare/v100.8.2...v100.9.0) (2023-08-09)
+
+
+### Features
+
+* toolbar UI update (DHIS2-15167) ([#368](https://github.com/dhis2/line-listing-app/issues/368)) ([6c54186](https://github.com/dhis2/line-listing-app/commit/6c5418636f2b8687d2b2f42293074236a0ba2407))
+
+## [100.8.2](https://github.com/dhis2/line-listing-app/compare/v100.8.1...v100.8.2) (2023-07-16)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([0b0c46e](https://github.com/dhis2/line-listing-app/commit/0b0c46e3ebb174511f17fec4e4d20636dcdf19eb))
+
 ## [100.8.1](https://github.com/dhis2/line-listing-app/compare/v100.8.0...v100.8.1) (2023-06-25)
 
 
