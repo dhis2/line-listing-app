@@ -39,8 +39,8 @@ import {
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import {
-    clickMenubarOptionsButton,
     clickMenubarUpdateButton,
+    openStyleOptionsModal,
 } from '../helpers/menubar.js'
 import { clickOptionsModalUpdateButton } from '../helpers/options.js'
 import {
@@ -215,7 +215,7 @@ const assertDimensions = () => {
 
 const assertSorting = () => {
     // remove any DGS to allow numeric value comparison
-    clickMenubarOptionsButton()
+    openStyleOptionsModal()
 
     cy.getBySel('dgs-select-content')
         .findBySel('dhis2-uicore-select-input')

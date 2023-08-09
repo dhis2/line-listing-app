@@ -69,7 +69,7 @@ describe('layout', () => {
         // Hiding
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Hide layout')
             .should('be.visible')
             .click()
@@ -79,7 +79,7 @@ describe('layout', () => {
         // Showing
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Show layout')
             .should('be.visible')
             .click()
