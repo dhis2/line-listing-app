@@ -7,12 +7,15 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
+import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
     sGetUiShowAccessoryPanel,
     sGetUiProgramId,
     sGetUiSidebarHidden,
+    sGetUiProgramStageId,
 } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
@@ -35,9 +38,20 @@ const MainSidebar = () => {
     const open = useSelector(sGetUiShowAccessoryPanel)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
+    const selectedStageId = useSelector(sGetUiProgramStageId)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
+    const stage = useSelector((state) =>
+        sGetMetadataById(state, selectedStageId)
+    )
+    const subtitle =
+        selectedInputType === OUTPUT_TYPE_EVENT &&
+        program?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
+        program?.name &&
+        stage?.name
+            ? `${program.name} - ${stage.name}`
+            : program?.name
     const isHidden = useSelector(sGetUiSidebarHidden)
     const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
@@ -65,7 +79,7 @@ const MainSidebar = () => {
                     })}
                     onClick={() => onClick(TAB_INPUT)}
                     selected={open && selectedTabId === TAB_INPUT}
-                    subtitle={program?.name}
+                    subtitle={subtitle}
                 />
                 <MenuItem
                     icon={<IconFolder16 />}
