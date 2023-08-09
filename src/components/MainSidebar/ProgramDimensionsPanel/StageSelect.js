@@ -1,5 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,11 +24,11 @@ const StageSelect = ({ stages }) => {
     }
 
     return (
-        <div className={styles.rows}>
+        <div className={cx(styles.rows, styles.stage)}>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
                     <SingleSelect
-                        placeholder={i18n.t('Stage')}
+                        prefix={i18n.t('Stage')}
                         dense
                         selected={selectedStageId}
                         onChange={onChange}
