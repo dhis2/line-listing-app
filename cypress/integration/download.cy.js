@@ -9,13 +9,13 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const downloadIsEnabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('not.have.attr', 'disabled')
 
 const downloadIsDisabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('have.attr', 'disabled')
 

@@ -38,7 +38,9 @@ const defaultItemsMap = {
 const assertFileMenuItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('File')
+        .click()
 
     Object.entries(itemsMap).forEach(([itemName, enabled]) => {
         enabled
@@ -46,19 +48,19 @@ const assertFileMenuItems = (enabledItemsMap = {}) => {
             : cy.getBySel(itemName).should('have.class', 'disabled')
     })
 
-    cy.getBySel('file-menu-toggle-layer').click()
+    cy.get('body').click()
     cy.getBySel('file-menu-container').should('not.exist')
 }
 
 const assertDownloadIsEnabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('not.have.attr', 'disabled')
 
 const assertDownloadIsDisabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('have.attr', 'disabled')
 
