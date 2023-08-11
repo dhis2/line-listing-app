@@ -9,30 +9,38 @@ import getDataTab from './tabs/data.js'
 import getLegendTab from './tabs/legend.js'
 import getStyleTab from './tabs/style.js'
 
-export default (serverVersion) => [
-    getDataTab([
-        getDisplayTemplate({
-            content: React.Children.toArray([<SkipRounding />]),
-        }),
-    ]),
-    getStyleTab([
-        {
-            key: 'style-section-1',
-            content: React.Children.toArray([
-                <DisplayDensity />,
-                <FontSize />,
-                <DigitGroupSeparator />,
-                `${serverVersion.major}.${serverVersion.minor}.${
-                    serverVersion.patch || 0
-                }` >= '2.40.0' ? (
-                    <ShowHierarchy />
-                ) : null,
-            ]),
-        },
-    ]),
-    ...(`${serverVersion.major}.${serverVersion.minor}.${
+export default (serverVersion) => {
+    const currentVersion = `${serverVersion.major}.${serverVersion.minor}.${
         serverVersion.patch || 0
-    }` >= '2.39.0'
-        ? [getLegendTab()]
-        : []),
-]
+    }`
+
+    const optionsConfig = [
+        getStyleTab([
+            {
+                key: 'style-section-1',
+                content: React.Children.toArray([
+                    <DisplayDensity />,
+                    <FontSize />,
+                    <DigitGroupSeparator />,
+                    currentVersion >= '2.40.0' ? <ShowHierarchy /> : null,
+                ]),
+            },
+        ]),
+    ]
+
+    if (currentVersion >= '2.39.0') {
+        optionsConfig.push(getLegendTab())
+    }
+
+    if (currentVersion >= '2.41.0') {
+        optionsConfig.unshift(
+            getDataTab([
+                getDisplayTemplate({
+                    content: React.Children.toArray([<SkipRounding />]),
+                }),
+            ])
+        )
+    }
+
+    return optionsConfig
+}

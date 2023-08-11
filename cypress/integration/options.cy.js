@@ -180,38 +180,6 @@ describe('options', () => {
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
     })
-
-    it('sets skip rounding', () => {
-        goToStartPage()
-
-        // set up table
-        selectEventWithProgramDimensions({
-            ...E2E_PROGRAM,
-            dimensions: [TEST_DIM_NUMBER],
-        })
-
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        getTableHeaderCells()
-            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
-            .click()
-
-        expectTableToBeUpdated()
-
-        getTableRows().eq(0).find('td').eq(1).should('contain', 3.7)
-
-        openDataOptionsModal()
-
-        cy.getBySel('skip-rounding').click()
-        clickOptionsModalUpdateButton()
-
-        getTableRows().eq(0).find('td').eq(1).should('contain', 3.65)
-    })
 })
 
 describe(['>=40'], 'ou hierarchy', () => {
@@ -273,5 +241,39 @@ describe(['>=40'], 'ou hierarchy', () => {
             .find('td')
             .eq(0)
             .containsExact(NAME_WITHOUT_HIERARCHY)
+    })
+})
+
+describe(['>=41'], 'skip rounding', () => {
+    it('sets skip rounding', () => {
+        goToStartPage()
+
+        // set up table
+        selectEventWithProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        getTableRows().eq(0).find('td').eq(1).should('contain', 3.7)
+
+        openDataOptionsModal()
+
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
+
+        getTableRows().eq(0).find('td').eq(1).should('contain', 3.65)
     })
 })
