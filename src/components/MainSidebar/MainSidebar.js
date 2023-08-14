@@ -35,7 +35,8 @@ const TAB_YOUR = 'YOUR'
 
 const MainSidebar = () => {
     const dispatch = useDispatch()
-    const open = useSelector(sGetUiShowAccessoryPanel)
+    const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
+    const open = useSelector(sGetUiShowAccessoryPanel) && Boolean(selectedTabId)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
@@ -53,7 +54,6 @@ const MainSidebar = () => {
             ? `${program.name} - ${stage.name}`
             : program?.name
     const isHidden = useSelector(sGetUiSidebarHidden)
-    const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
