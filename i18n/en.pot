@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-07-14T12:45:51.633Z\n"
-"PO-Revision-Date: 2023-07-14T12:45:51.634Z\n"
+"POT-Creation-Date: 2023-08-14T11:47:32.229Z\n"
+"PO-Revision-Date: 2023-08-14T11:47:32.230Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -236,11 +236,14 @@ msgstr "See data from multiple program stages in a Tracker program."
 msgid "Global dimensions"
 msgstr "Global dimensions"
 
+msgid "Program dimensions"
+msgstr "Program dimensions"
+
 msgid "Input: {{type}}"
 msgstr "Input: {{type}}"
 
-msgid "Program dimensions"
-msgstr "Program dimensions"
+msgid "Choose an input first"
+msgstr "Choose an input first"
 
 msgid "Program data dimensions"
 msgstr "Program data dimensions"
@@ -579,8 +582,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "No program selected"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Choose a program from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
+msgstr "Choose a program from the Input sidebar."
 
 msgid "Columns is empty"
 msgstr "Columns is empty"
