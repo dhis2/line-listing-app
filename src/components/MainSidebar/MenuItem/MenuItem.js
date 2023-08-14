@@ -9,14 +9,17 @@ const MenuItem = ({
     label,
     count,
     onClick,
-    isCountDisabled,
+    disabled,
     selected,
     dataTest,
     subtitle,
 }) => (
     <div
-        className={cx(styles.container, { [styles.selected]: selected })}
-        onClick={onClick}
+        className={cx(styles.container, {
+            [styles.selected]: selected,
+            [styles.disabled]: disabled,
+        })}
+        onClick={!disabled && onClick}
         tabIndex="0"
         data-test={dataTest}
     >
@@ -28,7 +31,7 @@ const MenuItem = ({
         {typeof count === 'number' && (
             <div
                 className={cx(styles.count, {
-                    [styles.dashed]: isCountDisabled,
+                    [styles.dashed]: disabled,
                 })}
             >
                 {count}
@@ -46,7 +49,7 @@ MenuItem.propTypes = {
     onClick: PropTypes.func.isRequired,
     count: PropTypes.number,
     dataTest: PropTypes.string,
-    isCountDisabled: PropTypes.bool,
+    disabled: PropTypes.bool,
     selected: PropTypes.bool,
     subtitle: PropTypes.string,
 }

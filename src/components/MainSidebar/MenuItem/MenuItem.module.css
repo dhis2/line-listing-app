@@ -34,6 +34,11 @@
     width: 4px;
     background: linear-gradient(180deg, #1565c0 0%, #0650a3 100%);
 }
+.container.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
 .icon {
     flex-grow: 0;
     display: flex;

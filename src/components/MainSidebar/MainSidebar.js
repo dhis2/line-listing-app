@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconArrowRight16, IconFolder16 } from '@dhis2/ui'
+import { IconArrowRight16, IconFolder16, Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -67,6 +67,16 @@ const MainSidebar = () => {
         }
     }
     const { counts } = useSelectedDimensions()
+    const programDimensionsItem = (
+        <MenuItem
+            icon={<IconFolder16 />}
+            label={i18n.t('Program dimensions')}
+            onClick={() => onClick(TAB_PROGRAM)}
+            selected={open && selectedTabId === TAB_PROGRAM}
+            count={counts.program}
+            disabled={!selectedProgramId}
+        />
+    )
 
     return (
         <div className={cx(styles.container, { [styles.hidden]: isHidden })}>
@@ -81,14 +91,27 @@ const MainSidebar = () => {
                     selected={open && selectedTabId === TAB_INPUT}
                     subtitle={subtitle}
                 />
-                <MenuItem
-                    icon={<IconFolder16 />}
-                    label={i18n.t('Program dimensions')}
-                    onClick={() => onClick(TAB_PROGRAM)}
-                    selected={open && selectedTabId === TAB_PROGRAM}
-                    count={counts.program}
-                    isCountDisabled={!selectedProgramId}
-                />
+                {!selectedProgramId ? (
+                    <Tooltip
+                        dataTest={'no-input-tooltip'}
+                        content={i18n.t('Choose an input first')}
+                        closeDelay={0}
+                        placement="bottom"
+                    >
+                        {({ onMouseOver, onMouseOut, ref }) => (
+                            <span
+                                onMouseOver={onMouseOver}
+                                onMouseOut={onMouseOut}
+                                ref={ref}
+                            >
+                                {programDimensionsItem}
+                            </span>
+                        )}
+                    </Tooltip>
+                ) : (
+                    programDimensionsItem
+                )}
+
                 <YourDimensionsMenuItem
                     selected={open && selectedTabId === TAB_YOUR}
                     count={counts.your}
