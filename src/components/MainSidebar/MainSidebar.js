@@ -1,13 +1,19 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconArrowRight16, IconFolder16, Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+    acSetUiAccessoryPanelActiveTab,
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
+import {
+    ACCESSORY_PANEL_TAB_INPUT,
+    ACCESSORY_PANEL_TAB_PROGRAM,
+    ACCESSORY_PANEL_TAB_YOUR,
+} from '../../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
@@ -16,6 +22,7 @@ import {
     sGetUiProgramId,
     sGetUiSidebarHidden,
     sGetUiProgramStageId,
+    sGetUiAccessoryPanelActiveTab,
 } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
@@ -29,13 +36,9 @@ import {
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
-const TAB_INPUT = 'INPUT'
-const TAB_PROGRAM = 'PROGRAM'
-const TAB_YOUR = 'YOUR'
-
 const MainSidebar = () => {
     const dispatch = useDispatch()
-    const [selectedTabId, setSelectedTabId] = useState(TAB_INPUT)
+    const selectedTabId = useSelector(sGetUiAccessoryPanelActiveTab)
     const open = useSelector(sGetUiShowAccessoryPanel) && Boolean(selectedTabId)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
@@ -55,6 +58,8 @@ const MainSidebar = () => {
             : program?.name
     const isHidden = useSelector(sGetUiSidebarHidden)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
+    const setSelectedTabId = (id) =>
+        dispatch(acSetUiAccessoryPanelActiveTab(id))
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
         if (open && id === selectedTabId) {
@@ -71,8 +76,8 @@ const MainSidebar = () => {
         <MenuItem
             icon={<IconFolder16 />}
             label={i18n.t('Program dimensions')}
-            onClick={() => onClick(TAB_PROGRAM)}
-            selected={open && selectedTabId === TAB_PROGRAM}
+            onClick={() => onClick(ACCESSORY_PANEL_TAB_PROGRAM)}
+            selected={open && selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
             count={counts.program}
             disabled={!selectedProgramId}
         />
@@ -87,8 +92,10 @@ const MainSidebar = () => {
                         type: getLabelForInputType(selectedInputType),
                         nsSeparator: '^^',
                     })}
-                    onClick={() => onClick(TAB_INPUT)}
-                    selected={open && selectedTabId === TAB_INPUT}
+                    onClick={() => onClick(ACCESSORY_PANEL_TAB_INPUT)}
+                    selected={
+                        open && selectedTabId === ACCESSORY_PANEL_TAB_INPUT
+                    }
                     subtitle={subtitle}
                 />
                 {!selectedProgramId ? (
@@ -113,25 +120,32 @@ const MainSidebar = () => {
                 )}
 
                 <YourDimensionsMenuItem
-                    selected={open && selectedTabId === TAB_YOUR}
+                    selected={
+                        open && selectedTabId === ACCESSORY_PANEL_TAB_YOUR
+                    }
                     count={counts.your}
-                    onClick={() => onClick(TAB_YOUR)}
+                    onClick={() => onClick(ACCESSORY_PANEL_TAB_YOUR)}
                 />
                 <MainDimensions />
             </div>
             <div
                 className={cx(styles.accessory, {
                     [styles.hidden]: !open,
-                    [styles.padded]: selectedTabId === TAB_INPUT,
+                    [styles.padded]:
+                        selectedTabId === ACCESSORY_PANEL_TAB_INPUT,
                 })}
                 data-test="accessory-sidebar"
             >
                 <div className={styles.accessoryInner}>
-                    <InputPanel visible={selectedTabId === TAB_INPUT} />
-                    <ProgramDimensionsPanel
-                        visible={selectedTabId === TAB_PROGRAM}
+                    <InputPanel
+                        visible={selectedTabId === ACCESSORY_PANEL_TAB_INPUT}
                     />
-                    <YourDimensionsPanel visible={selectedTabId === TAB_YOUR} />
+                    <ProgramDimensionsPanel
+                        visible={selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
+                    />
+                    <YourDimensionsPanel
+                        visible={selectedTabId === ACCESSORY_PANEL_TAB_YOUR}
+                    />
                 </div>
             </div>
         </div>

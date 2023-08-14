@@ -44,6 +44,7 @@ import {
     TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
     TOGGLE_UI_SIDEBAR_HIDDEN,
     TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
+    SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -222,6 +223,11 @@ export const acSetUiDetailsPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelOpen = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_OPEN,
+    value,
+})
+
+export const acSetUiAccessoryPanelActiveTab = (value) => ({
+    type: SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
     value,
 })
 
