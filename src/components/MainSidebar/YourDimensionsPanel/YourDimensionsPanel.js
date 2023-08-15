@@ -30,6 +30,8 @@ const YourDimensionsPanel = ({ visible }) => {
         return null
     }
 
+    // TODO: Our backend filter, 'dimensionType:eq:ORGANISATION_UNIT_GROUP_SET' is currently ignored in the backend (possibly a bug)
+    // To counter this temporarily the .filter was added in the meantime. Remove this once the backend starts to return the correct result again!
     const draggableDimensions = dimensions
         ?.filter(
             (dimension) =>
