@@ -1,4 +1,7 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
+import {
+    DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+    useCachedDataQuery,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -27,10 +30,16 @@ const YourDimensionsPanel = ({ visible }) => {
         return null
     }
 
-    const draggableDimensions = dimensions.map((dimension) => ({
-        draggableId: `your-${dimension.id}`,
-        ...dimension,
-    }))
+    const draggableDimensions = dimensions
+        ?.filter(
+            (dimension) =>
+                dimension.dimensionType ===
+                DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET
+        )
+        .map((dimension) => ({
+            draggableId: `your-${dimension.id}`,
+            ...dimension,
+        }))
 
     return (
         <>
