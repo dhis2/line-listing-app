@@ -35,6 +35,7 @@ import {
 import {
     clickAddRemoveMainDimension,
     clickAddRemoveProgramDataDimension,
+    clickAddRemoveProgramDimension,
     openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
@@ -65,12 +66,18 @@ const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 const currentYear = getCurrentYearStr()
 const previousYear = getPreviousYearStr()
 
-const mainAndTimeDimensions = [
+const mainDimensions = [
+    {
+        label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
+        value: '2023-01-04 02:04',
+    },
+    { label: 'Created by', value: 'Traore, John (admin)' },
+    { label: 'Last updated by', value: 'Traore, John (admin)' },
+]
+const programDimensions = [
     { label: 'Organisation unit', value: 'Baoma Station CHP' },
     { label: 'Event status', value: 'Completed' },
     { label: 'Program status', value: 'Active' },
-    { label: 'Created by', value: 'Traore, John (admin)' },
-    { label: 'Last updated by', value: 'Traore, John (admin)' },
     {
         label: trackerProgram[DIMENSION_ID_EVENT_DATE],
         value: `${previousYear}-12-10`,
@@ -83,12 +90,8 @@ const mainAndTimeDimensions = [
         label: trackerProgram[DIMENSION_ID_INCIDENT_DATE],
         value: `${currentYear}-01-10`,
     },
-    {
-        label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
-        value: '2023-01-04 02:04',
-    },
 ]
-const programDimensions = [
+const programDataDimensions = [
     { label: TEST_DIM_AGE, value: '1991-01-01' },
     { label: TEST_DIM_COORDINATE, value: '[-0.090380,51.538034]' },
     { label: TEST_DIM_DATE, value: '1991-12-01' },
@@ -121,12 +124,19 @@ const assertColumnHeaders = () => {
         dimensions: [dimensionName],
     })
 
-    const testDimensions = mainAndTimeDimensions.map(
+    const testMainDimensions = mainDimensions.map(
+        (dimension) => dimension.label
+    )
+
+    const testProgramDimensions = programDimensions.map(
         (dimension) => dimension.label
     )
 
     // add main and time dimensions
-    testDimensions.forEach((label) => clickAddRemoveMainDimension(label))
+    testMainDimensions.forEach((label) => clickAddRemoveMainDimension(label))
+    testProgramDimensions.forEach((label) =>
+        clickAddRemoveProgramDimension(label)
+    )
 
     selectFixedPeriod({
         label: periodLabel,
@@ -141,7 +151,11 @@ const assertColumnHeaders = () => {
 
     expectTableToBeVisible()
 
-    const labels = [dimensionName, ...testDimensions]
+    const labels = [
+        dimensionName,
+        ...testMainDimensions,
+        ...testProgramDimensions,
+    ]
 
     // check the correct number of columns
     getTableHeaderCells().its('length').should('equal', labels.length)
@@ -163,11 +177,13 @@ const assertDimensions = () => {
 
     openProgramDimensionsSidebar()
 
-    mainAndTimeDimensions.forEach(
-        ({ label }) => clickAddRemoveMainDimension(label) // FIXME: Will fail as the dimensions have moved
-    )
+    mainDimensions.forEach(({ label }) => clickAddRemoveMainDimension(label))
 
     programDimensions.forEach(({ label }) =>
+        clickAddRemoveProgramDimension(label)
+    )
+
+    programDataDimensions.forEach(({ label }) =>
         clickAddRemoveProgramDataDimension(label)
     )
 
@@ -184,7 +200,11 @@ const assertDimensions = () => {
 
     expectTableToBeVisible()
 
-    const allDimensions = [...mainAndTimeDimensions, ...programDimensions]
+    const allDimensions = [
+        ...mainDimensions,
+        ...programDimensions,
+        ...programDataDimensions,
+    ]
 
     getTableHeaderCells().its('length').should('eq', allDimensions.length)
 
@@ -239,9 +259,9 @@ const assertSorting = () => {
     cy.contains('is not empty / not null').click()
     cy.getBySel('conditions-modal').contains('Update').click()
 
-    mainAndTimeDimensions
+    programDimensions
         .filter((dimension) => dimension.label === 'Organisation unit')
-        .forEach(({ label }) => clickAddRemoveMainDimension(label))
+        .forEach(({ label }) => clickAddRemoveProgramDimension(label))
 
     selectRelativePeriod({
         label: periodLabel,
@@ -324,7 +344,7 @@ describe(['>=38', '<39'], 'table', () => {
     })
 
     it('dimensions display correct values in the visualization (2.38)', () => {
-        programDimensions.push({
+        programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
@@ -339,14 +359,14 @@ describe(['>=39'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog (>=2.39)', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
-        mainAndTimeDimensions.push({
+        programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: `${previousYear}-12-10`,
         })
         assertColumnHeaders()
     })
     it('dimensions display correct values in the visualization (>=2.39)', () => {
-        programDimensions.push({
+        programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
