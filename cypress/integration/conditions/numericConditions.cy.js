@@ -14,6 +14,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
@@ -315,6 +316,7 @@ describe('preset options', { testIsolation: false }, () => {
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
+        openProgramDimensionsSidebar()
         openDimension(dimensionName)
         cy.contains('Add to Columns').click()
 
@@ -406,6 +408,7 @@ describe('numeric types', { testIsolation: false }, () => {
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
+            openProgramDimensionsSidebar()
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

@@ -1,6 +1,6 @@
 import { E2E_PROGRAM } from '../data/index.js'
 import {
-    selectEnrollmentProgram,
+    selectEnrollmentWithProgram,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -27,7 +27,6 @@ describe('download', () => {
 
         selectEventWithProgram({
             programName: E2E_PROGRAM.programName,
-            stageName: E2E_PROGRAM.stageName,
         })
 
         clickMenubarUpdateButton()
@@ -40,7 +39,7 @@ describe('download', () => {
 
         downloadIsDisabled()
 
-        selectEnrollmentProgram({
+        selectEnrollmentWithProgram({
             programName: E2E_PROGRAM.programName,
         })
 

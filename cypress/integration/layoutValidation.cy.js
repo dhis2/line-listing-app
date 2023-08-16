@@ -27,7 +27,7 @@ describe('layout validation', { testIsolation: false }, () => {
 
         clickMenubarUpdateButton()
 
-        cy.getBySel('error-container').contains('No stage selected')
+        cy.getBySel('error-container').contains('No stage selected') // FIXME: will fail, stage is auto-selected now
     })
     it('columns is required', () => {
         // select a stage

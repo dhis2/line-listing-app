@@ -35,6 +35,7 @@ import {
 import {
     clickAddRemoveMainDimension,
     clickAddRemoveProgramDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
@@ -160,8 +161,10 @@ const assertColumnHeaders = () => {
 const assertDimensions = () => {
     selectEventWithProgram(trackerProgram)
 
-    mainAndTimeDimensions.forEach(({ label }) =>
-        clickAddRemoveMainDimension(label)
+    openProgramDimensionsSidebar()
+
+    mainAndTimeDimensions.forEach(
+        ({ label }) => clickAddRemoveMainDimension(label) // FIXME: Will fail as the dimensions have moved
     )
 
     programDimensions.forEach(({ label }) =>

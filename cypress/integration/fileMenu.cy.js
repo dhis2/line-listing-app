@@ -1,6 +1,9 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     ITEM_NEW,
     ITEM_OPEN,
@@ -104,8 +107,9 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',
@@ -153,8 +157,9 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',
@@ -189,8 +194,9 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',

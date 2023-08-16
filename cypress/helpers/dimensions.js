@@ -5,15 +5,11 @@ const INPUT_ENROLLMENT = 'enrollment'
 
 const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // select the desired type: Event or Enrollment
-    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).contains('Input:').click()
     if (inputType === INPUT_EVENT) {
         cy.getBySel('input-event').click()
     } else {
         cy.getBySel('input-enrollment').click()
     }
-
-    // open the Program dimensions panel
-    cy.getBySel('main-sidebar').contains('Program dimensions').click()
 
     // choose the program
     if (programName) {
@@ -23,7 +19,7 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
 
     // choose the stage if relevant
     if (stageName) {
-        cy.getBySel('accessory-sidebar').contains('Stage').click()
+        cy.getBySel('stage-select').click()
         cy.containsExact(stageName).click()
     }
 }
@@ -31,12 +27,16 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
 export const selectEventWithProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
-export const selectEnrollmentProgram = ({ programName, stageName }) =>
+export const selectEnrollmentWithProgram = ({ programName }) =>
     selectProgramAndStage({
         inputType: INPUT_ENROLLMENT,
         programName,
-        stageName,
     })
+
+export const openProgramDimensionsSidebar = () => {
+    cy.getBySel('main-sidebar').contains('Program dimensions').click()
+    cy.getBySel('program-dimensions').should('be.visible')
+}
 
 export const openDimension = (dimensionName) => {
     cy.getBySel('program-dimensions-list', EXTENDED_TIMEOUT)
@@ -67,13 +67,12 @@ const selectProgramDimensions = ({
 }) => {
     selectProgramAndStage({ inputType, programName, stageName })
 
+    openProgramDimensionsSidebar()
+
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
         clickAddRemoveProgramDimension(dimensionName)
     })
-
-    // close the program dimensions panel
-    cy.getBySel('main-sidebar').contains('Program dimensions').click()
 }
 
 export const selectEventWithProgramDimensions = ({
@@ -88,7 +87,7 @@ export const selectEventWithProgramDimensions = ({
         dimensions,
     })
 
-export const selectEnrollmentProgramDimensions = ({
+export const selectEnrollmentWithProgramDimensions = ({
     programName,
     stageName,
     dimensions,

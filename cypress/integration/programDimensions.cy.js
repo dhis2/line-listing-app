@@ -11,6 +11,7 @@ import {
     dimensionIsDisabled,
     dimensionIsEnabled,
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -37,12 +38,11 @@ I.e. Scheduled date works like this:
 
 const TEST_PROGRAM = {
     programName: 'WHO RMNCH Tracker',
-    noStage: {
-        [DIMENSION_ID_EVENT_DATE]: 'Event date',
+    defaultStage: {
+        [DIMENSION_ID_EVENT_DATE]: 'Event date', // TODO: probably needs to change to "Date of birth" as stage is now preselected
         [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
         [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
         [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
-        [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
     },
     stage: {
         stageName: 'First antenatal care visit',
@@ -50,7 +50,6 @@ const TEST_PROGRAM = {
         [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
         [DIMENSION_ID_SCHEDULED_DATE]: 'Appointment date',
         [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
-        [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
     },
 }
 
@@ -310,7 +309,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             )
 
             assertDimensionsForEventWithProgramSelected(
-                trackerProgram.noStage,
+                trackerProgram.defaultStage,
                 scheduledDateIsSupported
             )
 
@@ -320,13 +319,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
                 'Event status',
                 'Created by',
                 'Last updated by',
-                TEST_PROGRAM.noStage[DIMENSION_ID_EVENT_DATE],
-                TEST_PROGRAM.noStage[DIMENSION_ID_LAST_UPDATED],
+                TEST_PROGRAM.defaultStage[DIMENSION_ID_EVENT_DATE],
+                TEST_PROGRAM.defaultStage[DIMENSION_ID_LAST_UPDATED],
             ]
 
             const expectedUnselectedDimensions = [
                 'Program status',
-                TEST_PROGRAM.noStage[DIMENSION_ID_ENROLLMENT_DATE],
+                TEST_PROGRAM.defaultStage[DIMENSION_ID_ENROLLMENT_DATE],
             ]
 
             expectedSelectedDimensions
@@ -440,7 +439,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             cy.getBySel('stage-clear-button').should('not.exist')
 
             assertDimensionsForEventWithProgramSelected(
-                TEST_PROGRAM.noStage,
+                TEST_PROGRAM.defaultStage,
                 scheduledDateIsSupported
             )
 
@@ -481,10 +480,6 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         const trackerProgram = TEST_PROGRAM
 
         beforeEach(() => {
-            cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-                .contains('Input: Event')
-                .click()
-
             cy.getBySel('input-enrollment').click()
 
             cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
@@ -523,7 +518,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
                 .should('be.gte', 1)
 
             assertDimensionsForEnrollmentWithProgramSelected(
-                trackerProgram.noStage,
+                trackerProgram.defaultStage,
                 scheduledDateIsSupported
             )
 
@@ -601,6 +596,8 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             )
 
             // add a data element
+
+            openProgramDimensionsSidebar()
 
             openDimension(TEST_DIM_TEXT)
 

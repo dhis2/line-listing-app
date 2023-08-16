@@ -11,7 +11,7 @@ import {
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
-    selectEnrollmentProgramDimensions,
+    selectEnrollmentWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
@@ -21,7 +21,6 @@ import {
     getTableHeaderCells,
     expectTableToBeVisible,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const enrollment = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
@@ -29,9 +28,6 @@ const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
 const setUpTable = ({ scheduledDateIsSupported } = {}) => {
     // switch to Enrollment to toggle the enabled/disabled time dimensions
-    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-        .contains('Input: Event')
-        .click()
     cy.getBySel('input-enrollment').click()
     cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
 
@@ -54,7 +50,7 @@ const setUpTable = ({ scheduledDateIsSupported } = {}) => {
     cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
     // select program
-    selectEnrollmentProgramDimensions({
+    selectEnrollmentWithProgramDimensions({
         ...enrollment,
         dimensions: [dimensionName],
     })

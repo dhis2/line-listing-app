@@ -6,6 +6,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../../helpers/dimensions.js'
 import {
@@ -23,6 +24,8 @@ const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
     selectEventWithProgram(trackerProgram)
+
+    openProgramDimensionsSidebar()
 
     selectRelativePeriod({
         label: periodLabel,

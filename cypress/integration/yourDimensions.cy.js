@@ -1,7 +1,10 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { typeInput } from '../helpers/common.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
@@ -30,6 +33,8 @@ describe('event', () => {
         goToStartPage()
 
         selectEventWithProgram(trackerProgram)
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: periodLabel,

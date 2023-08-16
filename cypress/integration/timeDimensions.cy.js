@@ -9,6 +9,7 @@ import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import {
     dimensionIsDisabled,
     dimensionIsEnabled,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -25,6 +26,7 @@ const trackerProgram = E2E_PROGRAM
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
         selectEventWithProgram(trackerProgram)
+        openProgramDimensionsSidebar()
         const label = trackerProgram[dimension.id]
         selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
 
@@ -105,7 +107,7 @@ describe(['>=39'], 'time dimensions', () => {
         // incident date is enabled because Child Programme has show incident date = true
         dimensionIsEnabled('dimension-item-incidentDate')
 
-        cy.getBySelLike('tooltip-content').contains('No stage selected')
+        cy.getBySelLike('tooltip-content').contains('No stage selected') // FIXME: will fail, stage is auto-selected now
 
         // select a stage which has hideDueDate = false
         cy.getBySel('accessory-sidebar').contains('Stage').click()
@@ -122,7 +124,7 @@ describe(['>=39'], 'time dimensions', () => {
         // both are disabled when the stage is cleared
         dimensionIsDisabled('dimension-item-scheduledDate')
         dimensionIsEnabled('dimension-item-incidentDate')
-        scheduledDateHasTooltip('No stage selected')
+        scheduledDateHasTooltip('No stage selected') // FIXME: will fail, stage is auto-selected now
 
         // select a program with a stage that has hideDueDate = true
         cy.getBySel('program-clear-button').click()

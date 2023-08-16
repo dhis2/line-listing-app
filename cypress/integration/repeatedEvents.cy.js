@@ -6,8 +6,9 @@ import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
     openDimension,
-    selectEnrollmentProgram,
-    selectEnrollmentProgramDimensions,
+    openProgramDimensionsSidebar,
+    selectEnrollmentWithProgram,
+    selectEnrollmentWithProgramDimensions,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
@@ -24,7 +25,7 @@ const getRepeatedEventsTab = () =>
     cy.getBySel('conditions-modal-content').contains('Repeated events')
 
 const setUpTable = ({ enrollment, dimensionName }) => {
-    selectEnrollmentProgramDimensions({
+    selectEnrollmentWithProgramDimensions({
         ...enrollment,
         dimensions: [dimensionName],
     })
@@ -191,7 +192,9 @@ describe('repeated events', () => {
         )
     })
     it('repetition is disabled for non repetable stages', () => {
-        selectEnrollmentProgram({ programName: 'Child Programme' })
+        selectEnrollmentWithProgram({ programName: 'Child Programme' })
+
+        openProgramDimensionsSidebar()
 
         openDimension('MCH Apgar Score')
 
@@ -205,6 +208,8 @@ describe('repeated events', () => {
     })
     it('repetition is hidden when input = event', () => {
         selectEventWithProgram(E2E_PROGRAM)
+
+        openProgramDimensionsSidebar()
 
         openDimension('E2E - Percentage')
 

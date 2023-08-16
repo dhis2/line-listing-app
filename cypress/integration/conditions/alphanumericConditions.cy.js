@@ -12,6 +12,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
@@ -251,6 +252,7 @@ describe('alphanumeric types', { testIsolation: false }, () => {
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
+            openProgramDimensionsSidebar()
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
