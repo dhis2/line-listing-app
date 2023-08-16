@@ -33,6 +33,11 @@ export const selectEnrollmentWithProgram = ({ programName }) =>
         programName,
     })
 
+export const openInputSidebar = () => {
+    cy.getBySel('main-sidebar').contains('Input:').click()
+    cy.getBySel('input-panel').should('be.visible')
+}
+
 export const openProgramDimensionsSidebar = () => {
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
     cy.getBySel('program-dimensions').should('be.visible')
@@ -57,6 +62,9 @@ export const clickAddRemoveMainDimension = (label) =>
     clickAddRemoveDimension('main-sidebar', label)
 
 export const clickAddRemoveProgramDimension = (label) =>
+    clickAddRemoveDimension('program-dimensions', label)
+
+export const clickAddRemoveProgramDataDimension = (label) =>
     clickAddRemoveDimension('program-dimensions-list', label)
 
 const selectProgramDimensions = ({
@@ -71,7 +79,7 @@ const selectProgramDimensions = ({
 
     // add the dimensions as columns
     dimensions.forEach((dimensionName) => {
-        clickAddRemoveProgramDimension(dimensionName)
+        clickAddRemoveProgramDataDimension(dimensionName)
     })
 }
 

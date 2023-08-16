@@ -34,7 +34,7 @@ import {
 } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
-    clickAddRemoveProgramDimension,
+    clickAddRemoveProgramDataDimension,
     openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
@@ -168,7 +168,7 @@ const assertDimensions = () => {
     )
 
     programDimensions.forEach(({ label }) =>
-        clickAddRemoveProgramDimension(label)
+        clickAddRemoveProgramDataDimension(label)
     )
 
     selectFixedPeriod({

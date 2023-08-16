@@ -1,6 +1,8 @@
 import { CHILD_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
+    clickAddRemoveProgramDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -21,22 +23,14 @@ describe('layout validation', { testIsolation: false }, () => {
 
         cy.getBySel('error-container').contains('No program selected')
     })
-    it('stage is required', () => {
-        // select a program
+    it('columns is required', () => {
+        // select a program (without selecting stage, should auto-select)
         selectEventWithProgram({ programName: trackerProgram.programName })
 
-        clickMenubarUpdateButton()
-
-        cy.getBySel('error-container').contains('No stage selected') // FIXME: will fail, stage is auto-selected now
-    })
-    it('columns is required', () => {
-        // select a stage
-        selectEventWithProgram({
-            stageName: trackerProgram.stageName,
-        })
+        openProgramDimensionsSidebar()
 
         // remove org unit
-        clickAddRemoveMainDimension('Organisation unit')
+        clickAddRemoveProgramDimension('Organisation unit')
 
         clickMenubarUpdateButton()
 
@@ -55,7 +49,7 @@ describe('layout validation', { testIsolation: false }, () => {
         clickAddRemoveMainDimension('Last updated by')
 
         // add org unit to columns
-        clickAddRemoveMainDimension('Organisation unit')
+        clickAddRemoveProgramDimension('Organisation unit')
 
         clickMenubarUpdateButton()
 

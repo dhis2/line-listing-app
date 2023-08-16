@@ -138,7 +138,7 @@ const InputPanel = ({ visible }) => {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-test="input-panel">
             <InputOption
                 dataTest="input-event"
                 header={getLabelForInputType(OUTPUT_TYPE_EVENT)}

@@ -6,6 +6,7 @@ import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
     openDimension,
+    openInputSidebar,
     openProgramDimensionsSidebar,
     selectEnrollmentWithProgram,
     selectEnrollmentWithProgramDimensions,
@@ -151,6 +152,7 @@ describe('repeated events', () => {
         )
 
         // switch back to event, check that repetition is cleared
+        openInputSidebar()
         selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [dimensionName],

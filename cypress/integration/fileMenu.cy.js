@@ -86,22 +86,6 @@ describe('file menu', () => {
         assertFileMenuItems()
     })
 
-    it('reflects "unsaved, valid: save" state', () => {
-        goToStartPage()
-
-        selectEventWithProgram({
-            programName: 'Child Programme',
-        })
-
-        clickMenubarUpdateButton()
-
-        assertDownloadIsDisabled()
-
-        assertFileMenuItems({
-            [ITEM_SAVE]: true,
-        })
-    })
-
     it('reflects "unsaved, valid: data" state', () => {
         goToStartPage()
 
