@@ -23,7 +23,6 @@ import {
     getIsProgramDimensionDisabled,
     getProgramDimensions,
 } from '../modules/programDimensions.js'
-import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
@@ -478,12 +477,6 @@ export const useProgramDimensions = () => {
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
-        const stage = metadata[programStageId]
-        const disabledTimeDimensions = getDisabledTimeDimensions(
-            inputType,
-            program,
-            stage
-        )
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
@@ -493,9 +486,7 @@ export const useProgramDimensions = () => {
                 ? [scheduledDateDim]
                 : []),
             incidentDateDim,
-        ].filter(
-            (dimension) => !!dimension && !disabledTimeDimensions[dimension.id]
-        )
+        ].filter((dimension) => !!dimension)
 
         const programDimensions = Object.values(getProgramDimensions()).filter(
             (dimension) =>

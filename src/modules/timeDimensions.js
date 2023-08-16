@@ -6,8 +6,6 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
 } from './dimensionConstants.js'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
@@ -53,63 +51,4 @@ export const getTimeDimensionName = (dimension, program, stage) => {
             : stage?.[dimension.nameProperty]
 
     return name || dimension.name
-}
-
-export const getDisabledTimeDimensions = (inputType, program, stage) => {
-    switch (inputType) {
-        case OUTPUT_TYPE_EVENT: {
-            const disabledDimensions = {}
-            if (program?.programType === PROGRAM_TYPE_WITH_REGISTRATION) {
-                if (program.displayIncidentDate === false) {
-                    disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = i18n.t(
-                        'Disabled by the selected program'
-                    )
-                }
-
-                if (stage?.hideDueDate === true) {
-                    disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
-                        'Disabled by the selected program stage'
-                    )
-                }
-            } else {
-                const disabledReason = !program
-                    ? i18n.t('No program selected')
-                    : i18n.t('Not applicable to event programs')
-                disabledDimensions[DIMENSION_ID_ENROLLMENT_DATE] =
-                    disabledReason
-
-                disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
-
-                disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = disabledReason
-            }
-            return disabledDimensions
-        }
-        case OUTPUT_TYPE_ENROLLMENT: {
-            const disabledDimensions = {}
-            disabledDimensions[DIMENSION_ID_EVENT_DATE] = i18n.t(
-                'Not applicable to enrollments'
-            )
-
-            disabledDimensions[DIMENSION_ID_SCHEDULED_DATE] = i18n.t(
-                'Not applicable to enrollments'
-            )
-
-            if (!program || program.displayIncidentDate === false) {
-                const disabledReason = !program
-                    ? i18n.t('No program selected')
-                    : i18n.t('Disabled by the selected program')
-                disabledDimensions[DIMENSION_ID_INCIDENT_DATE] = disabledReason
-            }
-            return disabledDimensions
-        }
-        default: {
-            const disabledReason = i18n.t('No input type selected')
-            return {
-                [DIMENSION_ID_EVENT_DATE]: disabledReason,
-                [DIMENSION_ID_ENROLLMENT_DATE]: disabledReason,
-                [DIMENSION_ID_SCHEDULED_DATE]: disabledReason,
-                [DIMENSION_ID_INCIDENT_DATE]: disabledReason,
-            }
-        }
-    }
 }
