@@ -24,30 +24,3 @@ export const getMainDimensions = () => ({
         name: i18n.t('Last updated by'),
     },
 })
-
-// TODO: Remove fn completely if it's obsolete?
-export const getIsMainDimensionDisabled = () =>
-    // {
-    //     dimensionId,
-    //     inputType,
-    //     programType,
-    // }
-    {
-        // if (
-        //     dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
-        //     inputType === OUTPUT_TYPE_EVENT
-        // ) {
-        //     if (!programType) {
-        //         return i18n.t('No program selected')
-        //     } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
-        //         return i18n.t('Not applicable to event programs')
-        //     }
-        // } else if (
-        //     dimensionId === DIMENSION_ID_EVENT_STATUS &&
-        //     inputType === OUTPUT_TYPE_ENROLLMENT
-        // ) {
-        //     return i18n.t('Not applicable to enrollments')
-        // }
-
-        return false
-    }

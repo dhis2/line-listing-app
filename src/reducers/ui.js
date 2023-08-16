@@ -17,10 +17,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
 import { getFilteredLayout } from '../modules/layout.js'
-import {
-    getMainDimensions,
-    getIsMainDimensionDisabled,
-} from '../modules/mainDimensions.js'
+import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
 import {
     getIsProgramDimensionDisabled,
@@ -456,29 +453,7 @@ export const renderChipsSelector = createSelector(
 )
 
 // Selector based hooks
-export const useMainDimensions = () => {
-    const store = useStore()
-    const programId = useSelector(sGetUiProgramId)
-    const inputType = useSelector(sGetUiInputType)
-
-    return useMemo(() => {
-        const { metadata } = store.getState()
-        const programType = programId && metadata[programId].programType
-
-        return Object.values(getMainDimensions()).map((dimension) => {
-            const disabledReason = getIsMainDimensionDisabled({
-                dimensionId: dimension.id,
-                inputType,
-                programType,
-            })
-            return {
-                ...dimension,
-                disabled: Boolean(disabledReason),
-                disabledReason,
-            }
-        })
-    }, [programId, inputType])
-}
+export const useMainDimensions = () => Object.values(getMainDimensions())
 
 export const useProgramDimensions = () => {
     const { serverVersion } = useConfig()
