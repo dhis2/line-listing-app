@@ -1,8 +1,14 @@
-// Gotcha regarding cy.getBySel('program-dimensions')
-// Note that opening a period with won't work with "Last updated by", as it's in "main-dimensions-sidebar", not "program-dimensions"
+// "Last updated on" is in the sidebar while all the others are in program dimensiions
+const openPeriod = (label) => {
+    if (label === 'Last updated on') {
+        cy.getBySel('main-dimensions-sidebar').contains(label).click()
+    } else {
+        cy.getBySel('program-dimensions').contains(label).click()
+    }
+}
 
 const selectFixedPeriod = ({ label, period }) => {
-    cy.getBySel('program-dimensions').contains(label).click()
+    openPeriod(label)
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
     if (period.type) {
@@ -25,7 +31,7 @@ const selectFixedPeriod = ({ label, period }) => {
 }
 
 const selectRelativePeriod = ({ label, period }) => {
-    cy.getBySel('program-dimensions').contains(label).click()
+    openPeriod(label)
     cy.contains('Choose from presets').click()
     cy.contains('Relative periods').click()
 
@@ -42,7 +48,7 @@ const selectRelativePeriod = ({ label, period }) => {
 }
 
 const unselectAllPeriods = ({ label }) => {
-    cy.getBySel('program-dimensions').contains(label).click()
+    openPeriod(label)
     cy.contains('Choose from presets').click()
 
     cy.getBySel('period-dimension-transfer-actions-removeall').click()

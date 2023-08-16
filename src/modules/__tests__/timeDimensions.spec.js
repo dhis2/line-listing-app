@@ -4,16 +4,7 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
 } from '../dimensionConstants.js'
-import {
-    PROGRAM_TYPE_WITH_REGISTRATION,
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-} from '../programTypes.js'
-import {
-    getTimeDimensionName,
-    getDisabledTimeDimensions,
-    getTimeDimensions,
-} from '../timeDimensions.js'
-import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from '../visualization.js'
+import { getTimeDimensionName, getTimeDimensions } from '../timeDimensions.js'
 
 describe('ER > Dimensions > getTimeDimensionName', () => {
     const timeDimensions = getTimeDimensions()
@@ -152,104 +143,4 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
             getTimeDimensionName(scheduledDateDimension, program, stage)
         ).toEqual(scheduledDateDimension.name)
     })
-})
-
-describe('ER > Dimensions > getDisabledTimeDimensions', () => {
-    test.each([
-        // Nothing populated
-        {
-            inputType: undefined,
-            program: {
-                programType: undefined,
-                displayIncidentDate: undefined,
-            },
-            stage: {
-                id: '1',
-            },
-            expected: [
-                DIMENSION_ID_EVENT_DATE,
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_SCHEDULED_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-            ],
-        },
-        // Max enabled - with registration / tracker
-        {
-            inputType: OUTPUT_TYPE_EVENT,
-            program: {
-                programType: PROGRAM_TYPE_WITH_REGISTRATION,
-                displayIncidentDate: true,
-            },
-            stage: {
-                id: '1',
-                hideDueDate: false,
-            },
-            expected: [],
-        },
-        // Hiding the due date
-        {
-            inputType: OUTPUT_TYPE_EVENT,
-            program: {
-                programType: PROGRAM_TYPE_WITH_REGISTRATION,
-                displayIncidentDate: true,
-            },
-            stage: {
-                id: '1',
-                hideDueDate: true,
-            },
-            expected: [DIMENSION_ID_SCHEDULED_DATE],
-        },
-        // Hiding the incident date
-        {
-            inputType: OUTPUT_TYPE_EVENT,
-            program: {
-                programType: PROGRAM_TYPE_WITH_REGISTRATION,
-                displayIncidentDate: false,
-            },
-            stage: {
-                id: '1',
-                hideDueDate: true,
-            },
-            expected: [DIMENSION_ID_INCIDENT_DATE, DIMENSION_ID_SCHEDULED_DATE],
-        },
-        // input type enrollment
-        {
-            inputType: OUTPUT_TYPE_ENROLLMENT,
-            program: {
-                programType: PROGRAM_TYPE_WITH_REGISTRATION,
-                displayIncidentDate: true,
-            },
-            stage: {
-                id: '1',
-                hideDueDate: false,
-            },
-            expected: [DIMENSION_ID_EVENT_DATE, DIMENSION_ID_SCHEDULED_DATE],
-        },
-        // Event program
-        {
-            inputType: OUTPUT_TYPE_EVENT,
-            program: {
-                programType: PROGRAM_TYPE_WITHOUT_REGISTRATION,
-                displayIncidentDate: true,
-            },
-            stage: {
-                id: '1',
-                hideDueDate: false,
-            },
-            expected: [
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_SCHEDULED_DATE,
-            ],
-        },
-    ])(
-        'returns expected IDs for inputType $inputType, programType $program.programType with displayIncidentDate $program.displayIncidentDate and stage.hideDueDate $stage.hideDueDate',
-        ({ inputType, program, stage, expected }) => {
-            const actual = Object.keys(
-                getDisabledTimeDimensions(inputType, program, stage)
-            )
-
-            expect(actual).toEqual(expected)
-        }
-    )
 })

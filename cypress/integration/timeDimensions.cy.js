@@ -7,8 +7,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_REL_PE_THIS_YEAR } from '../data/index.js'
 import {
-    dimensionIsDisabled,
-    dimensionIsEnabled,
+    openInputSidebar,
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
@@ -88,58 +87,28 @@ describe(['>=39'], 'time dimensions', () => {
     })
 
     it('scheduled date disabled state is set based on stage setting ', () => {
-        const scheduledDateHasTooltip = (tooltip) => {
-            cy.getBySelLike('dimension-item-scheduledDate').trigger('mouseover')
-            cy.getBySelLike('tooltip-content').contains(tooltip)
-        }
-
-        // both are disabled by default
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
-        scheduledDateHasTooltip('No program selected')
-
-        // select a program
+        // select a program, the default stage has hideDueDate = false
         selectEventWithProgram({ programName: 'Child Programme' })
+        openProgramDimensionsSidebar()
 
-        // scheduled date is still disabled when a program but no stage is selected
-        dimensionIsDisabled('dimension-item-scheduledDate')
+        // scheduled date is shown when a program is selected as stage is auto-selected
+        cy.getBySel('dimension-item-scheduledDate').should('exist')
 
-        // incident date is enabled because Child Programme has show incident date = true
-        dimensionIsEnabled('dimension-item-incidentDate')
-
-        cy.getBySelLike('tooltip-content').contains('No stage selected') // FIXME: will fail, stage is auto-selected now
-
-        // select a stage which has hideDueDate = false
-        cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Birth').click()
-
-        // scheduled date is enabled when a stage that doesn't hide it is selected
-        dimensionIsEnabled('dimension-item-scheduledDate')
-
-        // incident date is still enabled, stage is not relevant
-        dimensionIsEnabled('dimension-item-incidentDate')
-
-        cy.getBySel('stage-clear-button').click()
-
-        // both are disabled when the stage is cleared
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsEnabled('dimension-item-incidentDate')
-        scheduledDateHasTooltip('No stage selected') // FIXME: will fail, stage is auto-selected now
+        // incident date is shown because Child Programme has show incident date = true
+        cy.getBySel('dimension-item-incidentDate').should('exist')
 
         // select a program with a stage that has hideDueDate = true
-        cy.getBySel('program-clear-button').click()
+        openInputSidebar()
+        cy.getBySel('accessory-sidebar').contains('Child Programme').click()
+        cy.contains(
+            'Malaria case diagnosis, treatment and investigation'
+        ).click()
 
-        selectEventWithProgram({
-            programName: 'Malaria case diagnosis, treatment and investigation',
-        })
+        // scheduled date is hidden when a stage that hides it is selected
+        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
-        cy.getBySel('accessory-sidebar').contains('Stage').click()
-        cy.containsExact('Case outcome').click()
-
-        // scheduled date is disabled when a stage that hides it is selected
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        dimensionIsDisabled('dimension-item-incidentDate')
-        scheduledDateHasTooltip('Disabled by the selected program stage')
+        // incident date is shown because the program has hideDueDate = true
+        cy.getBySel('dimension-item-incidentDate').should('not.exist')
     })
 })
 // TODO: add tests for disabling incidentDate per program, e.g. enabled for Analytics program, disabled for HIV Case Surveillance
