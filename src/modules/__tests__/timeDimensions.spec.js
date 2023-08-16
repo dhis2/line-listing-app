@@ -20,9 +20,7 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
     const eventDateDimension = timeDimensions[DIMENSION_ID_EVENT_DATE]
     const enrollmentDateDimension = timeDimensions[DIMENSION_ID_ENROLLMENT_DATE]
     const incidentDateDimension = timeDimensions[DIMENSION_ID_INCIDENT_DATE]
-    /***** NOT in MVP / 2.38 release *****
     const scheduledDateDimension = timeDimensions[DIMENSION_ID_SCHEDULED_DATE]
-    */
 
     it('uses default names normally', () => {
         const program = {
@@ -66,9 +64,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
+        expect(
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
     it('uses displayEnrollmentDateLabel from program for enrollment date', () => {
         const program = {
@@ -94,9 +92,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
+        expect(
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
     it('uses displayDueDateLabel from stage for scheduled date', () => {
         const program = {
@@ -122,9 +120,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(stage.displayDueDateLabel)
+        expect(
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(stage.displayDueDateLabel)
     })
     it('uses displayIncidentDateLabel from program for incident date', () => {
         const program = {
@@ -150,9 +148,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(program.displayIncidentDateLabel)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
+        expect(
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
 })
 
