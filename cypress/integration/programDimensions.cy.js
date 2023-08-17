@@ -182,9 +182,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
                 'Program status',
                 program[DIMENSION_ID_EVENT_DATE],
                 program[DIMENSION_ID_ENROLLMENT_DATE],
-                program[DIMENSION_ID_SCHEDULED_DATE],
                 program[DIMENSION_ID_INCIDENT_DATE],
             ]
+            if (scheduledDateIsSupported) {
+                expectedUnselectedDimensions.push(
+                    program[DIMENSION_ID_SCHEDULED_DATE]
+                )
+            }
 
             expectedSelectedDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
@@ -283,8 +287,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
             const expectedUnselectedDimensions = [
                 program.defaultStage[DIMENSION_ID_EVENT_DATE],
-                program.defaultStage[DIMENSION_ID_SCHEDULED_DATE],
             ]
+
+            if (scheduledDateIsSupported) {
+                expectedUnselectedDimensions.push(
+                    program.defaultStage[DIMENSION_ID_SCHEDULED_DATE]
+                )
+            }
 
             expectedSelectedMainDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
