@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-08-16T11:56:29.510Z\n"
-"PO-Revision-Date: 2023-08-16T11:56:29.511Z\n"
+"POT-Creation-Date: 2023-08-17T07:08:23.034Z\n"
+"PO-Revision-Date: 2023-08-17T07:08:23.034Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -690,21 +690,6 @@ msgstr "Incident date"
 
 msgid "Scheduled date"
 msgstr "Scheduled date"
-
-msgid "Disabled by the selected program"
-msgstr "Disabled by the selected program"
-
-msgid "Disabled by the selected program stage"
-msgstr "Disabled by the selected program stage"
-
-msgid "Not applicable to event programs"
-msgstr "Not applicable to event programs"
-
-msgid "Not applicable to enrollments"
-msgstr "Not applicable to enrollments"
-
-msgid "No input type selected"
-msgstr "No input type selected"
 
 msgid "Active"
 msgstr "Active"
