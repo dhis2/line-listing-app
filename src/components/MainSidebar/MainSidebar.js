@@ -80,6 +80,7 @@ const MainSidebar = () => {
             selected={open && selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
             count={counts.program}
             disabled={!selectedProgramId}
+            dataTest="program-dimensions-button"
         />
     )
 
