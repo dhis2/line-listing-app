@@ -11,7 +11,7 @@ export const ITEM_GETLINK = 'file-menu-getlink'
 export const ITEM_DELETE = 'file-menu-delete'
 
 export const saveVisualization = (name) => {
-    cy.getBySel('menubar').contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
 
     cy.getBySel(ITEM_SAVE).click()
 
@@ -23,7 +23,7 @@ export const saveVisualization = (name) => {
 }
 
 export const saveVisualizationAs = (name) => {
-    cy.getBySel('menubar').contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
 
     cy.getBySel(ITEM_SAVEAS).click()
 
@@ -36,7 +36,7 @@ export const saveVisualizationAs = (name) => {
 }
 
 export const deleteVisualization = () => {
-    cy.getBySel('menubar').contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
 
     cy.getBySel(ITEM_DELETE).click()
 

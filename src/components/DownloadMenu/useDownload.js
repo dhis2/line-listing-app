@@ -1,6 +1,6 @@
 import { Analytics } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
-import { useState, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
@@ -18,12 +18,11 @@ import {
     FILE_FORMAT_XLS,
 } from './constants.js'
 
-const useDownloadMenu = (relativePeriodDate) => {
+const useDownload = (relativePeriodDate) => {
     const current = useSelector(sGetCurrent)
     const { baseUrl } = useConfig()
     const dataEngine = useDataEngine()
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
-    const [isOpen, setIsOpen] = useState(false)
 
     const download = useCallback(
         (type, format, idScheme) => {
@@ -138,17 +137,14 @@ const useDownloadMenu = (relativePeriodDate) => {
             )
 
             window.open(url, target)
-            setIsOpen(false)
         },
-        [current, relativePeriodDate]
+        [current, relativePeriodDate, analyticsEngine, baseUrl]
     )
 
     return {
-        isOpen,
-        toggleOpen: () => setIsOpen(!isOpen),
-        disabled: !validateLineListLayout(current, { dryRun: true }),
+        isDownloadDisabled: !validateLineListLayout(current, { dryRun: true }),
         download,
     }
 }
 
-export { useDownloadMenu }
+export { useDownload }
