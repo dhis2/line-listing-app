@@ -19,7 +19,7 @@ const MenuItem = ({
             [styles.selected]: selected,
             [styles.disabled]: disabled,
         })}
-        onClick={!disabled && onClick}
+        onClick={!disabled ? onClick : null}
         tabIndex="0"
         data-test={dataTest}
     >
