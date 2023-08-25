@@ -33,6 +33,8 @@ const StageSelect = ({ stages }) => {
                         selected={selectedStageId}
                         onChange={onChange}
                         dataTest={'stage-select'}
+                        filterable
+                        noMatchText={i18n.t('No stages found')}
                     >
                         {stages.map(({ id, name }) => (
                             <SingleSelectOption
