@@ -27,6 +27,7 @@ const ProgramSelect = ({
                         maxHeight="max(60vh, 460px)"
                         dataTest={'program-select'}
                         filterable
+                        noMatchText={i18n.t('No programs found')}
                     >
                         {programs.map(({ id, name }) => (
                             <SingleSelectOption
