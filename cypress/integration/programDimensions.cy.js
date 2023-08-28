@@ -1,3 +1,4 @@
+import { AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_EVENT_DATE,
@@ -11,45 +12,11 @@ import {
     openDimension,
     openInputSidebar,
     openProgramDimensionsSidebar,
+    selectEnrollmentWithProgramDimensions,
 } from '../helpers/dimensions.js'
+import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-
-/*
-Test data used:
-    E2E program
-        Stages: 1 (i.e. stage is auto-selected)
-        Scheduled date: enabled (for selected stage)
-        Incident date: enabled
-
-    WHO RMNCH Tracker
-        Stages: >1
-        Scheduled date: enabled (for selected stage)
-        Incident date: disabled
-
-Note that scheduled date can be toggled per program stage.
-I.e. Scheduled date works like this:
-    stage without scheduled date: disabled
-    stage with scheduled date: enabled
-*/
-
-const TEST_PROGRAM = {
-    programName: 'WHO RMNCH Tracker',
-    defaultStage: {
-        stageName: 'Previous deliveries',
-        [DIMENSION_ID_EVENT_DATE]: 'Date of birth',
-        [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
-        [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
-        [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
-    },
-    stage: {
-        stageName: 'First antenatal care visit',
-        [DIMENSION_ID_EVENT_DATE]: 'Date of visit',
-        [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
-        [DIMENSION_ID_SCHEDULED_DATE]: 'Appointment date',
-        [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
-    },
-}
 
 const assertDimensionsForEventWithoutProgramSelected = () => {
     cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
@@ -143,6 +110,42 @@ export const programDimensionsIsDisabled = () =>
         .and('have.css', 'cursor', 'not-allowed')
 
 const runTests = ({ scheduledDateIsSupported } = {}) => {
+    /*
+Test data used:
+    E2E program
+        Stages: 1 (i.e. stage is auto-selected)
+        Scheduled date: enabled (for selected stage)
+        Incident date: enabled
+
+    WHO RMNCH Tracker
+        Stages: >1
+        Scheduled date: enabled (for selected stage)
+        Incident date: disabled
+
+Note that scheduled date can be toggled per program stage.
+I.e. Scheduled date works like this:
+    stage without scheduled date: disabled
+    stage with scheduled date: enabled
+*/
+
+    const TEST_PROGRAM = {
+        programName: 'WHO RMNCH Tracker',
+        defaultStage: {
+            stageName: 'Previous deliveries',
+            [DIMENSION_ID_EVENT_DATE]: 'Date of birth',
+            [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
+            [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
+            [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
+        },
+        stage: {
+            stageName: 'First antenatal care visit',
+            [DIMENSION_ID_EVENT_DATE]: 'Date of visit',
+            [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of first visit',
+            [DIMENSION_ID_SCHEDULED_DATE]: 'Appointment date',
+            [DIMENSION_ID_INCIDENT_DATE]: 'Date of incident',
+        },
+    }
+
     describe('event', () => {
         it('program can be selected and cleared', () => {
             const program = E2E_PROGRAM
@@ -477,6 +480,56 @@ describe(['<39'], 'program dimensions', () => {
     })
 
     runTests()
+})
+
+describe('counting selection', () => {
+    beforeEach(() => {
+        goToStartPage()
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
+    })
+
+    const verifyProgramDimensionsCount = (amount) =>
+        cy.getBySel('program-dimensions-button').contains(amount)
+
+    it('counts selection in enrollment correctly', () => {
+        verifyProgramDimensionsCount(1)
+
+        selectEnrollmentWithProgramDimensions({
+            programName: 'Child Programme',
+            dimensions: [
+                'MCH Infant Feeding', // first duplicate, which can be found by the data element name. full id: A03MvHHogjR.X8zyunlgUfM
+                'Baby Postnatal', // second duplicate, which can be found by the stage name. full id: ZzYYXq4fJie.X8zyunlgUfM
+                'MCH Infant HIV Test Result',
+            ],
+        })
+
+        verifyProgramDimensionsCount(4)
+
+        const programDimensions = [
+            'Program status',
+            'Date of enrollment',
+            'Date of birth',
+        ]
+        programDimensions.forEach((dimension) =>
+            clickAddRemoveProgramDimension(dimension)
+        )
+
+        verifyProgramDimensionsCount(7)
+
+        const mainDimensions = [
+            'Last updated on',
+            'Created by',
+            'Last updated by',
+        ]
+        mainDimensions.forEach((dimension) =>
+            clickAddRemoveMainDimension(dimension)
+        )
+
+        verifyProgramDimensionsCount(7)
+
+        expectAxisToHaveDimension(AXIS_ID_COLUMNS, 'A03MvHHogjR.X8zyunlgUfM') // MCH Infant Feeding Birth,
+        expectAxisToHaveDimension(AXIS_ID_COLUMNS, 'ZzYYXq4fJie.X8zyunlgUfM') // MCH Infant Feeding Baby Postnatal,
+    })
 })
 
 // TODO: add tests for search, type filtering and selecting dimensions

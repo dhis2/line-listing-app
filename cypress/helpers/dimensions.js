@@ -97,13 +97,11 @@ export const selectEventWithProgramDimensions = ({
 
 export const selectEnrollmentWithProgramDimensions = ({
     programName,
-    stageName,
     dimensions,
 }) =>
     selectProgramDimensions({
         inputType: INPUT_ENROLLMENT,
         programName,
-        stageName,
         dimensions,
     })
 
