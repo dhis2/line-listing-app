@@ -6,6 +6,7 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_IDS_TIME,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
@@ -123,3 +124,11 @@ export const getDisabledTimeDimensions = (inputType, program, stage) => {
         }
     }
 }
+
+export const isAoWithTimeDimension = ({ columns }) =>
+    columns.some(
+        ({ dimension, items }) =>
+            DIMENSION_IDS_TIME.has(dimension) &&
+            Array.isArray(items) &&
+            items.length > 0
+    )
