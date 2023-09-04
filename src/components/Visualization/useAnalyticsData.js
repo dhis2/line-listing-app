@@ -148,6 +148,9 @@ const fetchAnalyticsData = async ({
         .withParameters({
             headers,
             totalPages: false,
+            ...(headers.some((header) => Array.isArray(header))
+                ? { rowContext: true }
+                : {}),
             ...parameters,
         })
         .withProgram(visualization.program.id)
@@ -271,6 +274,8 @@ const extractRows = (analyticsResponse, headers) => {
     return filteredRows
 }
 
+const extractRowContext = (analyticsResponse) => analyticsResponse.rowContext
+
 const valueTypeIsNumeric = (valueType) =>
     [
         VALUE_TYPE_NUMBER,
@@ -316,6 +321,7 @@ const useAnalyticsData = ({
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
+            const rowContext = extractRowContext(analyticsResponse)
             const pager = analyticsResponse.metaData.pager
             const legendSetIds = []
             const headerLegendSetMap = headers.reduce(
@@ -368,7 +374,7 @@ const useAnalyticsData = ({
             }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, pager })
+            mounted.current && setData({ headers, rows, pager, rowContext })
             onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)

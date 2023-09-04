@@ -64,6 +64,7 @@ import {
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
+const NOT_DEFINED_VALUE = 'ND'
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -280,6 +281,13 @@ export const Visualization = ({
 
     const isInModal = !!filters?.relativePeriodDate
 
+    const cellIsUndefined = (rowIndex, columnIndex) => {
+        const row = (data?.rowContext || {})[rowIndex]
+        if (row && row[columnIndex]?.valueStatus == NOT_DEFINED_VALUE) {
+            return true
+        }
+    }
+
     return (
         <div className={styles.pluginContainer}>
             <div
@@ -346,11 +354,11 @@ export const Visualization = ({
                     </DataTableHead>
                     {/* https://jira.dhis2.org/browse/LIBS-278 */}
                     <DataTableBody dataTest={'table-body'}>
-                        {data.rows.map((row, index) => (
-                            <DataTableRow key={index} dataTest={'table-row'}>
-                                {row.map((value, index) => (
+                        {data.rows.map((row, rowIndex) => (
+                            <DataTableRow key={rowIndex} dataTest={'table-row'}>
+                                {row.map((value, columnIndex) => (
                                     <DataTableCell
-                                        key={index}
+                                        key={columnIndex}
                                         className={cx(
                                             styles.cell,
                                             fontSizeClass,
@@ -359,7 +367,14 @@ export const Visualization = ({
                                                 [styles.emptyCell]: !value,
                                                 [styles.nowrap]:
                                                     cellValueShouldNotWrap(
-                                                        data.headers[index]
+                                                        data.headers[
+                                                            columnIndex
+                                                        ]
+                                                    ),
+                                                [styles.undefinedCell]:
+                                                    cellIsUndefined(
+                                                        rowIndex,
+                                                        columnIndex
                                                     ),
                                             },
                                             'bordered'
@@ -368,7 +383,7 @@ export const Visualization = ({
                                             visualization.legend?.style ===
                                             LEGEND_DISPLAY_STYLE_FILL
                                                 ? getColorByValueFromLegendSet(
-                                                      data.headers[index]
+                                                      data.headers[columnIndex]
                                                           .legendSet,
                                                       value
                                                   )
@@ -383,7 +398,7 @@ export const Visualization = ({
                                                     ? {
                                                           color: getColorByValueFromLegendSet(
                                                               data.headers[
-                                                                  index
+                                                                  columnIndex
                                                               ].legendSet,
                                                               value
                                                           ),
@@ -393,7 +408,7 @@ export const Visualization = ({
                                         >
                                             {formatCellValue(
                                                 value,
-                                                data.headers[index]
+                                                data.headers[columnIndex]
                                             )}
                                         </div>
                                     </DataTableCell>
