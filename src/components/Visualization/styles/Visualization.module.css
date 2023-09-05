@@ -48,6 +48,14 @@
     transition: max-width 200ms ease-out;
 }
 
+.visualizationContainer {
+    display: flex;
+    flex-direction: column;
+}
+.noTimeDimensionWarning {
+    padding-bottom: var(--spacers-dp12);
+}
+
 .stickyFooter {
     position: sticky;
     bottom: 0;
