@@ -1,4 +1,4 @@
-import { DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
+import { DIMENSION_TYPE_PERIOD, layoutGetAllDimensions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_EVENT_DATE,
@@ -125,10 +125,11 @@ export const getDisabledTimeDimensions = (inputType, program, stage) => {
     }
 }
 
-export const isAoWithTimeDimension = ({ columns }) =>
-    columns.some(
-        ({ dimension, items }) =>
-            DIMENSION_IDS_TIME.has(dimension) &&
+export const isAoWithTimeDimension = (ao) =>
+    layoutGetAllDimensions(ao).some(
+        ({ dimensionType, dimension, items }) =>
+            (dimensionType === DIMENSION_TYPE_PERIOD ||
+                DIMENSION_IDS_TIME.has(dimension)) &&
             Array.isArray(items) &&
             items.length > 0
     )
