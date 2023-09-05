@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
-"PO-Revision-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T15:03:08.292Z\n"
+"PO-Revision-Date: 2023-09-05T15:03:08.292Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -378,6 +378,16 @@ msgstr "Your most viewed line lists"
 
 msgid "Not available offline"
 msgstr "Not available offline"
+
+msgid "Unable to show data snapshot"
+msgstr "Unable to show data snapshot"
+
+msgid ""
+"The table below could contain data which was not available when the "
+"interpretation was written."
+msgstr ""
+"The table below could contain data which was not available when the "
+"interpretation was written."
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
