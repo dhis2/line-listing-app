@@ -29,7 +29,7 @@
 
 .operatorSelect {
     flex: 0 1 auto;
-    min-width: 180px;
+    min-width: 204px;
     margin-right: var(--spacers-dp4);
 }
 
