@@ -50,7 +50,7 @@ const findOptionSetItem = (optionSetId, code, metaDataItems) => {
     if (optionSetMetaData) {
         const optionId = optionSetMetaData.options.find(
             (option) => option.code === code
-        )?.id
+        )?.uid
 
         if (optionId) {
             return metaDataItems[optionId]
