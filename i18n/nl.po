@@ -1,15 +1,16 @@
 # 
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2022
-# Rica Zamora Duchateau, 2022
+# Rica Zamora Duchateau, 2023
+# Charel van den Elsen, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Rica Zamora Duchateau, 2022\n"
-"Language-Team: Dutch (https://www.transifex.com/hisp-uio/teams/100509/nl/)\n"
+"Last-Translator: Charel van den Elsen, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,88 +18,97 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Voeg toe aan {{axisName}}"
+msgstr "Voeg toe aan {{axisNaam}}"
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "Kies een voorwaardetype"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "Hoofdlettergevoelig"
 
 msgid "Remove"
 msgstr "Verwijderen"
 
 msgid "and"
-msgstr ""
+msgstr "En"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
+"Items weergeven die voldoen aan de volgende voorwaarden voor dit "
+"gegevensitem:"
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr ""
+msgstr "Deze dimensie kan niet worden gefilterd. Alle waarden worden getoond."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"Er zijn nog geen voorwaarden, dus alle waarden worden meegenomen. Voeg een "
+"voorwaarde toe om resultaten te filteren."
 
 msgid "Preset options can't be combined with other conditions"
 msgstr ""
+"Vooraf ingestelde opties kunnen niet worden gecombineerd met andere "
+"voorwaarden"
 
 msgid "Add another condition"
-msgstr ""
+msgstr "Voeg nog een voorwaarde toe"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Voeg een voorwaarde toe"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "Herhaalde gebeurtenissen"
 
 msgid "Conditions"
-msgstr ""
+msgstr "Voorwaarden"
 
 msgid "Only available for repeatable stages"
-msgstr ""
+msgstr "Alleen beschikbaar voor herhaalbare stadia"
 
 msgid "is one of preset options"
-msgstr ""
+msgstr "is een van de vooraf ingestelde opties"
 
 msgid "Loading..."
-msgstr ""
+msgstr "Bezig met laden..."
 
 msgid "Choose a set of options"
-msgstr ""
+msgstr "Kies een reeks opties"
 
 msgid "No preset option sets for this data item"
-msgstr ""
+msgstr "Er zijn geen vooraf ingestelde optiereeksen voor dit gegevensitem"
 
 msgid "Choose options"
-msgstr ""
+msgstr "Kies opties"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
 msgstr ""
+"Toon waarden voor dit gegevenselement uit stadia met herhaalbare "
+"gebeurtenissen:"
 
 msgid "Most recent events:"
-msgstr ""
+msgstr "Meest recente gebeurtenissen:"
 
 msgid "Oldest events:"
-msgstr ""
+msgstr "Oudste gebeurtenissen:"
 
 msgid "Hide"
 msgstr "Verbergen"
 
 msgid "Show items where the status is:"
-msgstr ""
+msgstr "Items tonen waarvan de status is:"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "Kies uit voorinstellingen"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "Definieer begin- en einddatums"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
+"Begin- en einddatums zijn inclusief en worden opgenomen in de outputs."
 
 msgid "Start date"
 msgstr "Startdatum"
@@ -107,31 +117,31 @@ msgid "End date"
 msgstr "Einddatum"
 
 msgid "No items selected"
-msgstr ""
+msgstr "Geen items geselecteerd"
 
 msgid "Available options"
-msgstr ""
+msgstr "Beschikbare opties"
 
 msgid "Filter options"
-msgstr ""
+msgstr "Filter opties"
 
 msgid "Selected options"
-msgstr ""
+msgstr "Geselecteerde opties"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr ""
+msgstr "Niets gevonden voor \"{{- zoekTerm}}\""
 
 msgid "No options"
 msgstr "Geen opties"
 
 msgid "Move to {{axisName}}"
-msgstr ""
+msgstr "Ga naar {{axisNaam}}"
 
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 msgid "HTML+CSS (.html+css)"
-msgstr ""
+msgstr "HTML+CSS (.html+css)"
 
 msgid "Plain data source"
 msgstr "Gewone gegevensbron"
@@ -143,13 +153,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Download gegevens van deze datum"
 
 msgid "Metadata ID scheme"
 msgstr "Schema van metadata-id"
@@ -167,91 +177,95 @@ msgid "Download"
 msgstr "Downloaden"
 
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} geselecteerd"
+msgstr[1] "{{count}} geselecteerd"
 
 msgid "{{count}} conditions"
 msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{{count}} voorwaarde"
+msgstr[1] "{{count}} voorwaarden"
 
 msgid "Levels"
-msgstr ""
+msgstr "Niveaus"
 
 msgid "Groups"
 msgstr "Groepen"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En {{count}} andere..."
+msgstr[1] "En {{count}} anderen..."
 
 msgid "None selected"
 msgstr "Geen geselecteerd"
 
 msgid "Showing all values for this dimension"
-msgstr ""
+msgstr "Alle waarden voor deze dimensie weergeven"
 
-msgid "Program stage: {{stageName}}"
-msgstr ""
+msgid "Program stage: {{- stageName}}"
+msgstr "Programmafase: {{- faseNaam}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr ""
+msgstr "Geen afmetingen gevonden voor '{{- zoekTerm}}'"
 
-msgid "No dimensions found in the {{programName}} program"
-msgstr ""
+msgid "No dimensions found in the {{- programName}} program"
+msgstr "Geen dimensies gevonden in het programma {{- programmaNaam}}"
 
 msgid "No dimensions found"
-msgstr ""
+msgstr "Geen afmetingen gevonden"
 
 msgid "Couldn't load dimensions"
-msgstr ""
+msgstr "Kan dimensies niet laden"
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 msgstr ""
+"Er is een probleem opgetreden bij het laden van de dimensies. Probeer het "
+"opnieuw of neem contact op met uw systeembeheerder."
 
 msgid "Event"
 msgstr "Gebeurtenis"
 
 msgid "Enrollment"
-msgstr ""
+msgstr "Inschrijving"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
+"Bekijk individuele gebeurtenisgegevens van een Tracker-programmafase of "
+"evenementprogramma."
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr ""
+msgstr "Bekijk gegevens van meerdere programmafasen in een Tracker-programma."
 
 msgid "Main dimensions"
 msgstr "Hoofddimensies"
 
 msgid "Input: {{type}}"
-msgstr ""
+msgstr "Invoer: {{type}}"
 
 msgid "Program dimensions"
-msgstr ""
+msgstr "Programma dimensies"
 
 msgid "Search in program"
-msgstr ""
+msgstr "Zoek in programma"
 
 msgid "Type"
 msgstr "Soort"
 
 msgid "All types"
-msgstr ""
+msgstr "Alle typen"
 
 msgid "Data element"
 msgstr "Informatieonderdeel"
 
 msgid "Program attribute"
-msgstr ""
+msgstr "Programma kenmerk"
 
 msgid "Program indicator"
 msgstr "Programmaindicator"
@@ -260,30 +274,32 @@ msgid "Category"
 msgstr "Categorie"
 
 msgid "Category option group set"
-msgstr ""
+msgstr "Categorieoptie groepsinstelling"
 
 msgid "Could not load programs"
-msgstr ""
+msgstr "Kan programma's niet laden"
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"De programma's konden niet worden opgehaald. Probeer het opnieuw of neem "
+"contact op met uw systeembeheerder."
 
-msgid "Choose a program and stage above to add program dimensions."
-msgstr ""
+msgid "Choose a stage above to add program dimensions."
+msgstr "Kies hierboven een fase om programmadimensies toe te voegen."
 
 msgid "Choose a program above to add program dimensions."
-msgstr ""
+msgstr "Kies hierboven een programma om programmadimensies toe te voegen."
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Kies een programma"
 
 msgid "Clear program first to choose another"
-msgstr ""
+msgstr "Wis eerst het programma om een ander te kiezen"
 
 msgid "Clear"
-msgstr ""
+msgstr "Duidelijk"
 
 msgid "Stage"
 msgstr "Stadium"
@@ -291,17 +307,29 @@ msgstr "Stadium"
 msgid "All"
 msgstr "Alle"
 
+msgid "Clear stage first to choose another"
+msgstr "Wis eerst dit stadium om een andere te kiezen"
+
+msgid "This program only has one stage"
+msgstr "Dit programma heeft maar één fase"
+
 msgid "Time dimensions"
-msgstr ""
+msgstr "Tijd dimensies"
 
 msgid "Your dimensions"
 msgstr "Uw dimensies"
 
 msgid "Search your dimensions"
-msgstr ""
+msgstr "Zoek uw dimensies"
+
+msgid "Show panels"
+msgstr "Deelvensters tonen"
+
+msgid "Expand visualization and hide panels"
+msgstr "Vouw de visualisatie uit en verberg deelvensters"
 
 msgid "Unsaved visualization"
-msgstr ""
+msgstr "Niet-opgeslagen visualisatie"
 
 msgid "Edited"
 msgstr "Bewerkt"
@@ -310,7 +338,7 @@ msgid "Interpretations"
 msgstr "Interpretaties"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- verwijderdObject}}\" succesvol verwijderd."
 
 msgid "Rename successful"
 msgstr "Hernoeming geslaagd"
@@ -322,188 +350,210 @@ msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
+"Deze visualisatie kan niet worden verwijderd omdat deze wordt gebruikt op "
+"een of meer dashboards"
+
+msgid "Show layout"
+msgstr "Lay-out tonen"
+
+msgid "Hide layout"
+msgstr "Lay-out verbergen"
+
+msgid "Show dimensions sidebar"
+msgstr "Toon dementies van zijbalk"
+
+msgid "Hide dimensions sidebar"
+msgstr "Dimensies zijbalk verbergen"
+
+msgid "Hide interpretations and details"
+msgstr "Verberg interpretaties en details"
+
+msgid "Show interpretations and details"
+msgstr "Toon interpretaties en details"
+
+msgid "View"
+msgstr "Weergave"
 
 msgid "Update"
 msgstr "Bijwerken"
 
 msgid "Getting started"
-msgstr ""
+msgstr "Aan de slag"
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
 msgstr ""
+"Alle dimensies die u kunt gebruiken om visualisaties te bouwen, worden "
+"weergegeven in de secties in de linkerzijbalk."
 
 msgid "Add dimensions to the layout above."
-msgstr ""
+msgstr "Voeg dimensies toe aan de bovenstaande lay-out."
 
 msgid "Click a dimension to add or remove conditions."
-msgstr ""
+msgstr "Klik op een dimensie om voorwaarden toe te voegen of te verwijderen."
 
 msgid "Your most viewed line lists"
-msgstr ""
+msgstr "Uw meest bekeken regellijsten"
 
-msgid "most recent"
-msgstr ""
+msgid "Not available offline"
+msgstr "Niet beschikbaar offline"
 
-msgid "oldest"
-msgstr ""
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr ""
-
-msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgid "Sort by {{column}}"
+msgstr "Sorteren op {{kolom}}"
 
 msgid "Rows per page"
-msgstr ""
+msgstr "Rijen per pagina"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr ""
+msgstr "Pagina {{pagina}}, rij {{eersteItem}}-{{laatsteItem}}"
 
 msgid "Column sub-totals"
-msgstr ""
+msgstr "Kolom subtotalen"
 
 msgid "Columns totals"
-msgstr ""
+msgstr "Kolommen totalen"
 
 msgid "Digit group separator"
-msgstr ""
+msgstr "Scheidingsteken voor cijfergroepen"
 
 msgid "None"
 msgstr "Geen"
 
 msgid "Space"
-msgstr ""
+msgstr "Ruimte"
 
 msgid "Comma"
-msgstr ""
+msgstr "Komma"
 
 msgid "Display density"
-msgstr ""
+msgstr "Dichtheid weergeven"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "Comfortabel"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
 msgid "Compact"
-msgstr ""
+msgstr "Compact"
 
 msgid "Font size"
-msgstr ""
+msgstr "Lettertypegrootte"
 
 msgid "Large"
-msgstr ""
+msgstr "Groot"
 
 msgid "Small"
-msgstr ""
+msgstr "Klein"
 
 msgid "Hide empty rows"
-msgstr ""
+msgstr "Verberg lege rijen"
 
 msgid "Use a legend for table cell colors"
-msgstr ""
+msgstr "Gebruik een legenda voor tabelcelkleuren"
 
 msgid "Legend style"
-msgstr ""
+msgstr "Legenda stijl"
 
 msgid "Legend type"
-msgstr ""
+msgstr "Legenda type"
 
 msgid "Use pre-defined legend per data item"
-msgstr ""
+msgstr "Gebruik vooraf gedefinieerde legenda per gegevensitem"
 
 msgid "Choose a single legend for the entire visualization"
-msgstr ""
+msgstr "Kies een enkele legenda voor de gehele visualisatie"
 
 msgid "Legend changes background color"
-msgstr ""
+msgstr "Legenda verandert achtergrondkleur"
 
 msgid "Legend changes text color"
-msgstr ""
+msgstr "Legenda verandert tekstkleur"
 
 msgid "Legend"
 msgstr "Legenda"
 
 msgid "Select from legends"
-msgstr ""
+msgstr "Kies uit legenda's"
 
 msgid "Loading legends"
-msgstr ""
+msgstr "Legenda's laden"
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
 "visualization, all values outside of the minimum/maximum range will not be "
 "displayed"
 msgstr ""
+"U kunt een minimale of maximale waarde instellen. Dit is van toepassing op "
+"de gehele visualisatie, alle waarden buiten het minimale/maximale bereik "
+"worden niet weergegeven"
 
 msgid "Minimum data value"
-msgstr ""
+msgstr "Minimale gegevenswaarde"
 
 msgid "Maximum data value"
-msgstr ""
+msgstr "Maximale gegevenswaarde"
 
 msgid "Clear min/max limits"
-msgstr ""
+msgstr "Verwijder min/max limieten"
 
 msgid "Row sub-totals"
-msgstr ""
+msgstr "Rij subtotalen"
 
 msgid "Row totals"
-msgstr ""
+msgstr "Rij totalen"
 
 msgid "Dimension labels"
-msgstr ""
+msgstr "Maatlabels"
 
 msgid "Display organisation unit hierarchy"
-msgstr ""
+msgstr "Hiërarchie van organisatie-eenheden weergeven"
 
 msgid "Show legend key"
 msgstr "Toon legendasleutel"
 
 msgid "Add a title"
-msgstr ""
+msgstr "Voeg een titel toe"
 
 msgid "Options"
 msgstr "Opties"
 
 msgid "Columns"
-msgstr ""
+msgstr "Kolommen"
 
 msgid "Rows"
-msgstr ""
+msgstr "Rijen"
 
 msgid "Filter"
 msgstr "Filter"
 
 msgid "equal to (=)"
-msgstr ""
+msgstr "gelijk aan (=)"
 
 msgid "greater than (>)"
-msgstr ""
+msgstr "groter dan (>)"
 
 msgid "greater than or equal to (≥)"
-msgstr ""
+msgstr "groter dan of gelijk aan (≥)"
 
 msgid "less than (<)"
-msgstr ""
+msgstr "minder dan (<)"
 
 msgid "less than or equal to (≤)"
-msgstr ""
+msgstr "Minder dan of gelijk aan (≤)"
 
 msgid "not equal to (≠)"
-msgstr ""
+msgstr "niet gelijk aan (≠)"
 
 msgid "is empty / null"
-msgstr ""
+msgstr "is leeg / nul"
 
 msgid "is not empty / not null"
-msgstr ""
+msgstr "is niet leeg / niet nul"
 
 msgid "exactly"
-msgstr ""
+msgstr "precies"
 
 msgid "is not"
 msgstr "is niet"
@@ -512,19 +562,19 @@ msgid "contains"
 msgstr "bevat"
 
 msgid "does not contain"
-msgstr ""
+msgstr "bevat geen"
 
 msgid "after"
-msgstr ""
+msgstr "na"
 
 msgid "after or including"
-msgstr ""
+msgstr "na of inclusief"
 
 msgid "before"
-msgstr ""
+msgstr "voor"
 
 msgid "before or including"
-msgstr ""
+msgstr "voor of inclusief"
 
 msgid "Yes"
 msgstr "Ja"
@@ -533,62 +583,71 @@ msgid "No"
 msgstr "Nee"
 
 msgid "Not answered"
-msgstr ""
+msgstr "Niet geantwoord"
 
 msgid "There is a problem with this visualization."
-msgstr ""
+msgstr "Er is een probleem met deze visualisatie."
 
 msgid "There was a problem getting the data from the server."
 msgstr ""
+"Er is een probleem opgetreden bij het ophalen van de gegevens van de server."
 
 msgid "No data available"
-msgstr ""
+msgstr "Geen gegevens beschikbaar"
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
 msgstr ""
+"De geselecteerde dimensies hebben geen gegevens geretourneerd. Mogelijk zijn"
+" er geen gegevens of hebt u er geen toegang toe."
 
 msgid "Visualization not found"
-msgstr ""
+msgstr "Visualisatie niet gevonden"
 
 msgid ""
 "The visualization you are trying to view could not be found, the ID could be"
 " incorrect or it could have been deleted."
 msgstr ""
+"De visualisatie die u probeert te bekijken, kan niet worden gevonden, de ID "
+"is mogelijk onjuist of is mogelijk verwijderd."
 
 msgid "No program selected"
-msgstr ""
+msgstr "Geen programma geselecteerd"
 
 msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
+msgstr "Kies een programma uit de zijbalk Programma-dimensies."
+
+msgid "No stage selected"
+msgstr "Geen fase geselecteerd"
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr "Kies een fase in de zijbalk Programma-dimensies."
 
 msgid "Columns is empty"
-msgstr ""
+msgstr "Kolommen zijn leeg"
 
 msgid "Add at least one item to Columns."
-msgstr ""
+msgstr "Voeg ten minste één item toe aan Kolommen."
 
 msgid "No organisation unit selected"
-msgstr ""
+msgstr "Geen organisatie-eenheid geselecteerd"
 
-msgid "Add at least one organisation unit to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
-
-msgid "No time dimension selected"
-msgstr ""
-
-msgid "Add at least one time dimension to the layout."
-msgstr ""
+"Zorg ervoor dat u de organisatie-eenheiddimensie met ten minste één selectie"
+" aan de lay-out toevoegt."
 
 msgid "There's a problem with at least one selected indicator"
-msgstr ""
+msgstr "Er is een probleem met ten minste één geselecteerde indicator"
 
 msgid "No access"
 msgstr "Geen toegang"
 
 msgid "You don't have access to the requested data"
-msgstr ""
+msgstr "U heeft geen toegang tot de gevraagde gegevens"
 
 msgid "Something went wrong"
 msgstr "Er is iets fout gegaan."
@@ -606,31 +665,31 @@ msgid "Created by"
 msgstr "Gecreëerd door"
 
 msgid "Last updated by"
-msgstr ""
+msgstr "Laatst bijgewerkt door"
 
 msgid "Not applicable to event programs"
-msgstr ""
+msgstr "Niet van toepassing op evenementenprogramma's"
 
 msgid "Not applicable to enrollments"
-msgstr ""
+msgstr "Niet van toepassing op inschrijvingen"
 
 msgid "User organisation unit"
-msgstr ""
+msgstr "Gebruikersorganisatie-eenheid"
 
 msgid "User sub-units"
-msgstr ""
+msgstr "Subeenheden van gebruikers"
 
 msgid "User sub-x2-units"
-msgstr ""
+msgstr "Gebruiker sub-x2-eenheden"
 
 msgid "Table title"
-msgstr ""
+msgstr "Tabel titel"
 
 msgid "Display"
-msgstr ""
+msgstr "Weergave"
 
 msgid "Empty data"
-msgstr ""
+msgstr "Lege gegevens"
 
 msgid "Totals"
 msgstr "Totalen"
@@ -639,37 +698,52 @@ msgid "Data"
 msgstr "Gegevens"
 
 msgid "Limit values"
-msgstr ""
+msgstr "Grenswaarden"
 
 msgid "Limit number of values"
-msgstr ""
+msgstr "Limiet aantal waarden"
 
 msgid "Limit minimum/maximum values"
-msgstr ""
+msgstr "Limiet minimum/maximum waarden"
 
 msgid "Style"
 msgstr "Stijl"
 
+msgid "most recent"
+msgstr "meest recente"
+
+msgid "oldest"
+msgstr "oudste"
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr "oudste {{herhaalGebeurtenisIndex}}"
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr "meest recente {{herhaalGebeurtenisIndex}}"
+
 msgid "Event date"
-msgstr ""
+msgstr "Evenement datum"
 
 msgid "Enrollment date"
-msgstr ""
+msgstr "Inschrijvingsdatum"
 
 msgid "Incident date"
-msgstr ""
+msgstr "Incident datum"
 
-msgid "Due/Scheduled date"
-msgstr ""
+msgid "Scheduled date"
+msgstr "Geplande datum"
 
 msgid "Last updated on"
-msgstr ""
+msgstr "Laatst geupdate op"
 
 msgid "Disabled by the selected program"
-msgstr ""
+msgstr "Uitgeschakeld door het geselecteerde programma"
+
+msgid "Disabled by the selected program stage"
+msgstr "Uitgeschakeld door de geselecteerde programmafase"
 
 msgid "No input type selected"
-msgstr ""
+msgstr "Geen ingangstype geselecteerd"
 
 msgid "Active"
 msgstr "Actief"
@@ -680,8 +754,12 @@ msgstr "Geannuleerd"
 msgid "Completed"
 msgstr "Voltooid"
 
+msgid "Scheduled"
+msgstr "Gepland"
+
 msgid "List data from tracked entities and events."
 msgstr ""
+"Maak een lijst van gegevens van getraceerde entiteiten en gebeurtenissen."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
-msgstr ""
+msgstr "Verken gegevens met manipuleerbare kolommen, rijen en aggregaties."

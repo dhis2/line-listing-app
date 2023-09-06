@@ -5,11 +5,9 @@ import {
     VIS_TYPE_LINE_LIST,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
-import { DIMENSION_IDS_TIME } from './dimensionConstants.js'
 import {
     noColumnsError,
     noOrgUnitError,
-    noPeriodError,
     noProgramError,
     noStageError,
 } from './error.js'
@@ -62,24 +60,6 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
             return false
         }
         throw noOrgUnitError()
-    }
-
-    // time dimension
-    let layoutHasTimeDimension = false
-
-    DIMENSION_IDS_TIME.forEach((dimensionId) => {
-        const dimension = layoutGetDimension(layout, dimensionId)
-
-        if (dimension && dimensionIsValid(dimension, { requireItems: true })) {
-            layoutHasTimeDimension = true
-        }
-    })
-
-    if (!layoutHasTimeDimension) {
-        if (dryRun) {
-            return false
-        }
-        throw noPeriodError()
     }
 
     return true

@@ -1,3 +1,74 @@
+## [100.9.1](https://github.com/dhis2/line-listing-app/compare/v100.9.0...v100.9.1) (2023-08-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#422](https://github.com/dhis2/line-listing-app/issues/422)) ([2556576](https://github.com/dhis2/line-listing-app/commit/255657693998969a3489132d42357d7edc1763a0))
+
+# [100.9.0](https://github.com/dhis2/line-listing-app/compare/v100.8.2...v100.9.0) (2023-08-09)
+
+
+### Features
+
+* toolbar UI update (DHIS2-15167) ([#368](https://github.com/dhis2/line-listing-app/issues/368)) ([6c54186](https://github.com/dhis2/line-listing-app/commit/6c5418636f2b8687d2b2f42293074236a0ba2407))
+
+## [100.8.2](https://github.com/dhis2/line-listing-app/compare/v100.8.1...v100.8.2) (2023-07-16)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([0b0c46e](https://github.com/dhis2/line-listing-app/commit/0b0c46e3ebb174511f17fec4e4d20636dcdf19eb))
+
+## [100.8.1](https://github.com/dhis2/line-listing-app/compare/v100.8.0...v100.8.1) (2023-06-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([a34895f](https://github.com/dhis2/line-listing-app/commit/a34895faabcd2952eb591403ce1e4b2706ac6c15))
+
+# [100.8.0](https://github.com/dhis2/line-listing-app/compare/v100.7.5...v100.8.0) (2023-06-23)
+
+
+### Features
+
+* remove period validation (DHIS2-15015) ([#381](https://github.com/dhis2/line-listing-app/issues/381)) ([efb9803](https://github.com/dhis2/line-listing-app/commit/efb98039c8d5467063cd94316015593d1da34e69))
+
+## [100.7.5](https://github.com/dhis2/line-listing-app/compare/v100.7.4...v100.7.5) (2023-06-19)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([459d978](https://github.com/dhis2/line-listing-app/commit/459d9785743fc869a3e5effdd2b5f8f625fdae05))
+
+## [100.7.4](https://github.com/dhis2/line-listing-app/compare/v100.7.3...v100.7.4) (2023-06-15)
+
+
+### Bug Fixes
+
+* avoid crash when missing metadata ([ec74230](https://github.com/dhis2/line-listing-app/commit/ec74230a7668c4369d4c8f30093b413f4c064b38))
+* use nullish instead ([4be2930](https://github.com/dhis2/line-listing-app/commit/4be2930f9747cad6a7d222b69d69baf4de496492))
+
+## [100.7.3](https://github.com/dhis2/line-listing-app/compare/v100.7.2...v100.7.3) (2023-06-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([a805715](https://github.com/dhis2/line-listing-app/commit/a8057155f4639678d86ac65820eb19ad3d0d0609))
+
+## [100.7.2](https://github.com/dhis2/line-listing-app/compare/v100.7.1...v100.7.2) (2023-06-06)
+
+
+### Bug Fixes
+
+* dont need to check branch since workflow only runs on default ([#376](https://github.com/dhis2/line-listing-app/issues/376)) ([220f655](https://github.com/dhis2/line-listing-app/commit/220f65556053073026b22252b6595aa4d218dac2))
+
+## [100.7.1](https://github.com/dhis2/line-listing-app/compare/v100.7.0...v100.7.1) (2023-06-05)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([c58a65e](https://github.com/dhis2/line-listing-app/commit/c58a65e03961567ec21751ba8fd75a5bb3d45aff))
+
 # [100.7.0](https://github.com/dhis2/line-listing-app/compare/v100.6.2...v100.7.0) (2023-05-23)
 
 

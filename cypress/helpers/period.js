@@ -6,12 +6,18 @@ const selectFixedPeriod = ({ label, period }) => {
         cy.getBySel(
             'period-dimension-fixed-period-filter-period-type-content'
         ).click()
-        cy.contains(period.type).click()
+        cy.getBySelLike(
+            'period-dimension-fixed-period-filter-period-type-option'
+        )
+            .contains(period.type)
+            .click()
     }
     cy.getBySel('period-dimension-fixed-period-filter-year-content')
         .clear()
         .type(period.year)
-    cy.contains(period.name).dblclick()
+    cy.getBySel('period-dimension-transfer-option-content')
+        .contains(period.name)
+        .dblclick()
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 

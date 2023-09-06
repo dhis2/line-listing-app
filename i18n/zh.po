@@ -1,17 +1,17 @@
 # 
 # Translators:
 # phil_dhis2, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
-# 晓东 林 <13981924470@126.com>, 2022
-# easylin <lin_xd@126.com>, 2022
+# 晓东 林 <13981924470@126.com>, 2023
+# Viktor Varland <viktor@dhis2.org>, 2023
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-11-25T12:25:46.264Z\n"
+"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/hisp-uio/teams/100509/zh/)\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -305,6 +305,12 @@ msgstr "你的维度"
 msgid "Search your dimensions"
 msgstr "搜索您的维度"
 
+msgid "Show panels"
+msgstr "显示面板"
+
+msgid "Expand visualization and hide panels"
+msgstr "展开可视化并隐藏面板"
+
 msgid "Unsaved visualization"
 msgstr "没有保存可视化"
 
@@ -328,6 +334,27 @@ msgid ""
 "dashboards"
 msgstr "无法删除此可视化，因为它已在一个或多个仪表板上使用"
 
+msgid "Show layout"
+msgstr "显示布局"
+
+msgid "Hide layout"
+msgstr "隐藏布局"
+
+msgid "Show dimensions sidebar"
+msgstr "显示维度边栏"
+
+msgid "Hide dimensions sidebar"
+msgstr "隐藏维度边栏"
+
+msgid "Hide interpretations and details"
+msgstr "隐藏注释和详情"
+
+msgid "Show interpretations and details"
+msgstr "显示注释和详情"
+
+msgid "View"
+msgstr "查看"
+
 msgid "Update"
 msgstr "更新"
 
@@ -347,6 +374,12 @@ msgstr "单击维度以添加或删除条件。"
 
 msgid "Your most viewed line lists"
 msgstr "您浏览次数最多的行列表"
+
+msgid "Not available offline"
+msgstr "离线不可用"
+
+msgid "Sort by {{column}}"
+msgstr "按{{列}}排序"
 
 msgid "Rows per page"
 msgstr "行每页"
@@ -575,13 +608,6 @@ msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
 msgstr "确保将带有至少一个选择的组织单位维度添加到布局中。"
-
-msgid "No time dimension selected"
-msgstr "未选择时间维度"
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr "确保在布局中添加至少一个选择的时间维度。"
 
 msgid "There's a problem with at least one selected indicator"
 msgstr "至少一个选定的指标有问题"

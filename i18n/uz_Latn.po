@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Yury Rogachev <yury@dhis2.org>, 2022
+# Yury Rogachev <yury@dhis2.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-10-10T09:31:33.958Z\n"
+"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2022\n"
-"Language-Team: Uzbek (Latin) (https://www.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2023\n"
+"Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -192,13 +192,13 @@ msgstr "Biror nima tanlanmagan"
 msgid "Showing all values for this dimension"
 msgstr ""
 
-msgid "Program stage: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
-msgid "No dimensions found in the {{programName}} program"
+msgid "No dimensions found in the {{- programName}} program"
 msgstr ""
 
 msgid "No dimensions found"
@@ -302,6 +302,12 @@ msgstr "Sizning sozlamalaringiz"
 msgid "Search your dimensions"
 msgstr ""
 
+msgid "Show panels"
+msgstr ""
+
+msgid "Expand visualization and hide panels"
+msgstr ""
+
 msgid "Unsaved visualization"
 msgstr "Saqlanmagan vizualizatsiya"
 
@@ -327,6 +333,27 @@ msgstr ""
 "Ushbu vizualizatsiyani oʼchirib boʼlmaydi, chunki u bir yoki bir necha "
 "informatsiyaon panel tomonidan foydalanilmoqda"
 
+msgid "Show layout"
+msgstr ""
+
+msgid "Hide layout"
+msgstr ""
+
+msgid "Show dimensions sidebar"
+msgstr ""
+
+msgid "Hide dimensions sidebar"
+msgstr ""
+
+msgid "Hide interpretations and details"
+msgstr "Talqinlar va tavsilotlarni berkitish"
+
+msgid "Show interpretations and details"
+msgstr "Talqinlar va tavsilotlarni koʼrsatish"
+
+msgid "View"
+msgstr "Koʼrik"
+
 msgid "Update"
 msgstr "Янгилаш"
 
@@ -345,6 +372,12 @@ msgid "Click a dimension to add or remove conditions."
 msgstr ""
 
 msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "Not available offline"
+msgstr ""
+
+msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -683,6 +716,9 @@ msgid "Last updated on"
 msgstr ""
 
 msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
 msgstr ""
 
 msgid "No input type selected"

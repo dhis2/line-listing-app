@@ -213,7 +213,7 @@ describe('repeated events', () => {
     it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
         goToAO('WrIV7ZoYECj')
 
-        cy.getBySel('visualization-title').contains(
+        cy.getBySel('titlebar').contains(
             'E2E: Enrollment - Hemoglobin (repeated)'
         )
 

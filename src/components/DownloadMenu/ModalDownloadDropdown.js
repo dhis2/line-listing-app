@@ -1,20 +1,23 @@
 import i18n from '@dhis2/d2-i18n'
 import { DropdownButton } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { DownloadMenu } from './DownloadMenu.js'
 import styles from './ModalDownloadDropdown.module.css'
-import { useDownloadMenu } from './useDownloadMenu.js'
+import { useDownload } from './useDownload.js'
 
 const ModalDownloadDropdown = ({ relativePeriodDate }) => {
-    const { isOpen, toggleOpen, disabled, download } =
-        useDownloadMenu(relativePeriodDate)
+    const { isDownloadDisabled, download } = useDownload(relativePeriodDate)
+    const [isOpen, setIsOpen] = useState(false)
+    const toggleOpen = useCallback(() => {
+        setIsOpen((currentIsOpen) => !currentIsOpen)
+    }, [])
 
     return (
         <div className={styles.container}>
             <DropdownButton
                 component={<DownloadMenu download={download} />}
-                disabled={disabled}
+                disabled={isDownloadDisabled}
                 onClick={toggleOpen}
                 open={isOpen}
                 secondary

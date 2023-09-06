@@ -49,7 +49,7 @@ export const TitleBar = ({ titleState, titleText }) => {
     )}`
 
     return titleText ? (
-        <div data-test="visualization-title" className={classes.titleBar}>
+        <div data-test="titlebar" className={classes.titleBar}>
             <div className={classes.buttonContainer}>
                 <ExpandedVisualizationCanvasToggle />
             </div>
