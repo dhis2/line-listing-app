@@ -205,23 +205,17 @@ export const Visualization = ({
         [sizeObserver]
     )
 
-    const getSorting = (visualization) => {
-        if (
-            visualization &&
-            visualization.sorting &&
-            visualization.sorting.length
-        ) {
-            return {
-                sortField: visualization.sorting[0].dimension,
-                sortDirection: visualization.sorting[0].direction.toLowerCase(),
-            }
-        } else {
-            return {
-                sortField: null,
-                sortDirection: DEFAULT_SORT_DIRECTION,
-            }
-        }
-    }
+    const getSorting = (visualization) =>
+        visualization?.sorting?.length
+            ? {
+                  sortField: visualization.sorting[0].dimension,
+                  sortDirection:
+                      visualization.sorting[0].direction.toLowerCase(),
+              }
+            : {
+                  sortField: null,
+                  sortDirection: DEFAULT_SORT_DIRECTION,
+              }
 
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
@@ -255,6 +249,11 @@ export const Visualization = ({
             onDataSorted({
                 dimension: null,
                 direction: DEFAULT_SORT_DIRECTION,
+            })
+
+            setSorting({
+                sortField: null,
+                sortDirection: DEFAULT_SORT_DIRECTION,
             })
         }
     }
