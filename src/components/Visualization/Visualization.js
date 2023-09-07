@@ -215,6 +215,30 @@ export const Visualization = ({
         sortDirection,
     })
 
+    const fetchContainerRef = useRef(null)
+    const dataTableHeadRef = useRef(null)
+    const dataTableFootRef = useRef(null)
+    const fetchIndicatorTop = useMemo(() => {
+        if (
+            !fetching ||
+            !fetchContainerRef?.current ||
+            !dataTableHeadRef?.current ||
+            !dataTableFootRef?.current
+        ) {
+            return 'calc(50% - 12px)'
+        }
+
+        const containerHeight = fetchContainerRef.current.clientHeight
+        const headHeight = dataTableHeadRef.current.offsetHeight
+        const footHeight = dataTableFootRef.current.offsetHeight
+        // tbody height excluding the parts hidden by scrolling
+        const visibleBodyHeight = containerHeight - headHeight - footHeight
+        // 12 px is half the loader height
+        const top = Math.round(headHeight + visibleBodyHeight / 2 - 12)
+
+        return `${top}px`
+    }, [fetching])
+
     // Reset page for new visualizations
     useEffect(() => {
         visualizationRef.current = visualization
@@ -339,11 +363,16 @@ export const Visualization = ({
     return (
         <div className={styles.pluginContainer} ref={containerCallbackRef}>
             <div
-                data-test="line-list-loading-indicator"
-                className={cx(styles.fetchIndicator, {
+                data-test="line-list-fetch-container"
+                className={cx(styles.fetchContainer, {
                     [styles.fetching]: fetching,
                 })}
+                ref={fetchContainerRef}
             >
+                <div
+                    className={styles.fetchIndicator}
+                    style={{ top: fetchIndicatorTop }}
+                />
                 <div className={styles.visualizationContainer}>
                     {shouldShowTimeDimensionWarning && (
                         <div
@@ -360,7 +389,6 @@ export const Visualization = ({
                             </NoticeBox>
                         </div>
                     )}
-
                     <DataTable
                         scrollHeight={getDataTableScrollHeight(
                             isInModal,
@@ -372,7 +400,7 @@ export const Visualization = ({
                         dataTest="line-list-table"
                         ref={dataTableRef}
                     >
-                        <DataTableHead>
+                        <DataTableHead ref={dataTableHeadRef}>
                             <DataTableRow>
                                 {data.headers.map((header, index) =>
                                     header ? (
@@ -484,7 +512,10 @@ export const Visualization = ({
                                 </DataTableRow>
                             ))}
                         </DataTableBody>
-                        <DataTableFoot className={styles.stickyFooter}>
+                        <DataTableFoot
+                            className={styles.stickyFooter}
+                            ref={dataTableFootRef}
+                        >
                             <DataTableRow>
                                 <DataTableCell
                                     colSpan={colSpan}
