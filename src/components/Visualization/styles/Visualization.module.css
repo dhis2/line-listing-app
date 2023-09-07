@@ -11,21 +11,23 @@
     min-width: 0;
 }
 
-.fetchIndicator {
+.fetchContainer {
+    display: flex;
+    align-self: flex-start;
     position: relative;
+    height: auto;
     min-width: 0;
     max-height: 100%;
-    display: flex;
+    background-color: red;
 }
 
-.fetchIndicator.fetching::after {
+.fetchContainer.fetching > .fetchIndicator {
     content: '';
     position: absolute;
-    top: calc(50% - 24px);
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 48px;
-    border-width: 6px;
+    left: calc(50% - 12px);
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
     border-style: solid;
     border-color: rgba(110, 122, 138, 0.15) rgba(110, 122, 138, 0.15)
         rgb(20, 124, 215);
@@ -35,16 +37,17 @@
     animation-iteration-count: infinite;
     animation-name: rotation;
     animation-timing-function: linear;
+    z-index: 1;
 }
 
-.fetchIndicator.fetching tbody::before {
+.fetchContainer.fetching tbody::before {
     content: '';
     position: absolute;
     inset: 0px;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.fetchIndicator :global(.tablescrollbox) {
+.fetchContainer :global(.tablescrollbox) {
     transition: max-width 200ms ease-out;
 }
 
