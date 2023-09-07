@@ -127,8 +127,8 @@
         45deg,
         var(--colors-grey300) 0,
         var(--colors-grey300) 0.8px,
-        var(--colors-grey200) 0,
-        var(--colors-grey200) 50%
+        var(--colors-white) 0,
+        var(--colors-white) 50%
     );
     background-size: 8px 8px;
 }
