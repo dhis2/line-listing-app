@@ -310,6 +310,50 @@ export const Visualization = ({
         }
     }
 
+    const renderCellContent = ({ columnIndex, value, isUndefined, props }) => (
+        <DataTableCell
+            {...props}
+            key={columnIndex}
+            className={cx(
+                styles.cell,
+                fontSizeClass,
+                sizeClass,
+                {
+                    [styles.emptyCell]: !value,
+                    [styles.nowrap]: cellValueShouldNotWrap(
+                        data.headers[columnIndex]
+                    ),
+                    [styles.undefinedCell]: isUndefined,
+                },
+                'bordered'
+            )}
+            backgroundColor={
+                visualization.legend?.style === LEGEND_DISPLAY_STYLE_FILL
+                    ? getColorByValueFromLegendSet(
+                          data.headers[columnIndex].legendSet,
+                          value
+                      )
+                    : undefined
+            }
+            dataTest={'table-cell'}
+        >
+            <div
+                style={
+                    visualization.legend?.style === LEGEND_DISPLAY_STYLE_TEXT
+                        ? {
+                              color: getColorByValueFromLegendSet(
+                                  data.headers[columnIndex].legendSet,
+                                  value
+                              ),
+                          }
+                        : {}
+                }
+            >
+                {formatCellValue(value, data.headers[columnIndex])}
+            </div>
+        </DataTableCell>
+    )
+
     return (
         <div className={styles.pluginContainer} ref={containerCallbackRef}>
             <div
@@ -378,63 +422,29 @@ export const Visualization = ({
                     <DataTableBody dataTest={'table-body'}>
                         {data.rows.map((row, rowIndex) => (
                             <DataTableRow key={rowIndex} dataTest={'table-row'}>
-                                {row.map((value, columnIndex) => (
-                                    <DataTableCell
-                                        key={columnIndex}
-                                        className={cx(
-                                            styles.cell,
-                                            fontSizeClass,
-                                            sizeClass,
-                                            {
-                                                [styles.emptyCell]: !value,
-                                                [styles.nowrap]:
-                                                    cellValueShouldNotWrap(
-                                                        data.headers[
-                                                            columnIndex
-                                                        ]
-                                                    ),
-                                                [styles.undefinedCell]:
-                                                    cellIsUndefined(
-                                                        rowIndex,
-                                                        columnIndex
-                                                    ),
-                                            },
-                                            'bordered'
-                                        )}
-                                        backgroundColor={
-                                            visualization.legend?.style ===
-                                            LEGEND_DISPLAY_STYLE_FILL
-                                                ? getColorByValueFromLegendSet(
-                                                      data.headers[columnIndex]
-                                                          .legendSet,
-                                                      value
-                                                  )
-                                                : undefined
-                                        }
-                                        dataTest={'table-cell'}
-                                    >
-                                        <div
-                                            style={
-                                                visualization.legend?.style ===
-                                                LEGEND_DISPLAY_STYLE_TEXT
-                                                    ? {
-                                                          color: getColorByValueFromLegendSet(
-                                                              data.headers[
-                                                                  columnIndex
-                                                              ].legendSet,
-                                                              value
-                                                          ),
-                                                      }
-                                                    : {}
-                                            }
-                                        >
-                                            {formatCellValue(
-                                                value,
-                                                data.headers[columnIndex]
+                                {row.map((value, columnIndex) =>
+                                    cellIsUndefined(rowIndex, columnIndex) ? (
+                                        <Tooltip
+                                            content={i18n.t(
+                                                'No repeated event'
                                             )}
-                                        </div>
-                                    </DataTableCell>
-                                ))}
+                                        >
+                                            {(props) =>
+                                                renderCellContent({
+                                                    columnIndex,
+                                                    value,
+                                                    isUndefined: true,
+                                                    props,
+                                                })
+                                            }
+                                        </Tooltip>
+                                    ) : (
+                                        renderCellContent({
+                                            columnIndex,
+                                            value,
+                                        })
+                                    )
+                                )}
                             </DataTableRow>
                         ))}
                     </DataTableBody>
