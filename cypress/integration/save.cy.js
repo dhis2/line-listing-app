@@ -180,17 +180,15 @@ describe('save', () => {
             .eq(1)
             .invoke('text')
             .then(parseInt)
-            .then(($cell0Value) =>
-                getTableRows()
-                    .eq(1)
-                    .find('td')
-                    .eq(1)
-                    .invoke('text')
-                    .then(parseInt)
-                    .then(($cell1Value) =>
-                        expect($cell0Value).to.be.lessThan($cell1Value)
-                    )
-            )
+            .then(($cell0Value) => expect($cell0Value).to.equal(10))
+
+        getTableRows()
+            .eq(3)
+            .find('td')
+            .eq(1)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell3Value) => expect($cell3Value).to.equal(46))
 
         deleteVisualization()
     })
@@ -224,6 +222,8 @@ describe('save', () => {
         cy.wait('@saveAO')
             .its('request.body')
             .should('not.have.property', 'sorting')
+
+        expectTableToBeVisible()
 
         deleteVisualization()
     })
