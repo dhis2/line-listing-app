@@ -304,7 +304,6 @@ export const Visualization = ({
     )
 
     const isInModal = !!filters?.relativePeriodDate
-    console.log('render', paginationMaxWidth)
 
     return (
         <div className={styles.pluginContainer} ref={containerCallbackRef}>
