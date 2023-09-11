@@ -345,10 +345,12 @@ export const Visualization = ({
                         >
                             <NoticeBox
                                 warning
-                                title={i18n.t('Unable to show data snapshot')}
+                                title={i18n.t(
+                                    'Interpretation has no time dimension'
+                                )}
                             >
                                 {i18n.t(
-                                    'The table below could contain data which was not available when the interpretation was written.'
+                                    'This line list may show data that was not available when the interpretation was written.'
                                 )}
                             </NoticeBox>
                         </div>
