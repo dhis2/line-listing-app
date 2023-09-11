@@ -12,6 +12,7 @@ import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
     selectEventWithProgramDimensions,
+    clickAddRemoveProgramDimension,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
@@ -190,6 +191,39 @@ describe('save', () => {
                         expect($cell0Value).to.be.lessThan($cell1Value)
                     )
             )
+
+        deleteVisualization()
+    })
+
+    it('new AO saves correctly after adding/removing sorting', () => {
+        const AO_NAME = `TEST SORTING TOGGLING ${new Date().toLocaleString()}`
+        setupTable()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // apply sorting
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        // remove dimension with sorting
+        cy.getBySel('main-sidebar').contains('Program dimensions').click()
+        clickAddRemoveProgramDimension(TEST_DIM_INTEGER)
+        clickMenubarUpdateButton()
+        expectTableToBeUpdated()
+
+        cy.intercept('POST', /eventVisualizations\?/).as('saveAO')
+
+        saveVisualizationAs(AO_NAME)
+
+        cy.wait('@saveAO')
+            .its('request.body')
+            .should('not.have.property', 'sorting')
 
         deleteVisualization()
     })
