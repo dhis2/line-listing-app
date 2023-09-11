@@ -66,7 +66,7 @@ import {
     useAnalyticsData,
 } from './useAnalyticsData.js'
 
-export const DEFAULT_SORT_DIRECTION = 'asc'
+export const DEFAULT_SORT_DIRECTION = 'default'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
 
