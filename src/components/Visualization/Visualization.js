@@ -125,11 +125,14 @@ export const Visualization = ({
     const visualizationRef = useRef(visualization)
 
     const containerCallbackRef = useCallback((node) => {
-        if (node === null || node.clientWidth === 0) {
+        if (node === null) {
             return
         }
 
         const adjustSize = () => {
+            if (node.clientWidth === 0) {
+                return
+            }
             const containerInnerWidth = node.clientWidth
             const scrollBox = node.querySelector('.tablescrollbox')
             const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
@@ -301,6 +304,7 @@ export const Visualization = ({
     )
 
     const isInModal = !!filters?.relativePeriodDate
+    console.log('render', paginationMaxWidth)
 
     return (
         <div className={styles.pluginContainer} ref={containerCallbackRef}>
