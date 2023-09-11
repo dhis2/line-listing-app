@@ -31,6 +31,7 @@ import {
     expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableHeaderCells,
+    getTableRows,
 } from '../helpers/table.js'
 
 const event = E2E_PROGRAM
@@ -169,6 +170,26 @@ describe('save', () => {
         cy.wait('@loadAO')
             .its('response.body')
             .should('have.property', 'sorting')
+
+        expectTableToBeVisible()
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(1)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell0Value) =>
+                getTableRows()
+                    .eq(1)
+                    .find('td')
+                    .eq(1)
+                    .invoke('text')
+                    .then(parseInt)
+                    .then(($cell1Value) =>
+                        expect($cell0Value).to.be.lessThan($cell1Value)
+                    )
+            )
 
         deleteVisualization()
     })
