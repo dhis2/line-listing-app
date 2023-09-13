@@ -111,6 +111,7 @@ export const Visualization = ({
     onError,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
+    const [paginationMaxWidth, setPaginationMaxWidth] = useState(0)
     const [{ sortField, sortDirection, pageSize, page }, setSorting] =
         useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
@@ -122,6 +123,27 @@ export const Visualization = ({
     const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
 
     const visualizationRef = useRef(visualization)
+
+    const containerCallbackRef = useCallback((node) => {
+        if (node === null || node.clientWidth === 0) {
+            return
+        }
+
+        const adjustSize = () => {
+            const containerInnerWidth = node.clientWidth
+            const scrollBox = node.querySelector('.tablescrollbox')
+            const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
+
+            setPaginationMaxWidth(containerInnerWidth - scrollbarWidth)
+        }
+
+        const sizeObserver = new window.ResizeObserver(adjustSize)
+        sizeObserver.observe(node)
+
+        adjustSize()
+
+        return sizeObserver.disconnect
+    }, [])
 
     const setPage = useCallback(
         (pageNum) =>
@@ -281,7 +303,7 @@ export const Visualization = ({
     const isInModal = !!filters?.relativePeriodDate
 
     return (
-        <div className={styles.pluginContainer}>
+        <div className={styles.pluginContainer} ref={containerCallbackRef}>
             <div
                 data-test="line-list-loading-indicator"
                 className={cx(styles.fetchIndicator, {
@@ -413,6 +435,7 @@ export const Visualization = ({
                                         styles.stickyNavigation,
                                         sizeClass
                                     )}
+                                    style={{ maxWidth: paginationMaxWidth }}
                                 >
                                     <PaginationComponent
                                         offline={offline}
