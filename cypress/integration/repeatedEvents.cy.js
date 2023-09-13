@@ -226,7 +226,7 @@ describe('repeated events', () => {
     it('undefined values display properly for a repeated event', () => {
         const TEST_CELL = {
             row: 6,
-            column: 1,
+            column: 3,
         }
         goToAO('WrIV7ZoYECj')
 
