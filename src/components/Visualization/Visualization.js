@@ -42,7 +42,6 @@ import React, {
     useCallback,
     useReducer,
 } from 'react'
-import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -56,7 +55,11 @@ import {
 } from '../../modules/tableValues.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
-    getHeadersMap,
+    getDefaultSorting,
+    getSortingFromVisualization,
+} from '../../modules/ui.js'
+import {
+    getDimensionIdFromHeaderName,
     transformVisualization,
 } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
@@ -66,7 +69,6 @@ import {
     useAnalyticsData,
 } from './useAnalyticsData.js'
 
-export const DEFAULT_SORT_DIRECTION = 'default'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
 
@@ -205,17 +207,17 @@ export const Visualization = ({
         [sizeObserver]
     )
 
-    const getSorting = (visualization) =>
-        visualization?.sorting?.length
-            ? {
-                  sortField: visualization.sorting[0].dimension,
-                  sortDirection:
-                      visualization.sorting[0].direction.toLowerCase(),
-              }
-            : {
-                  sortField: null,
-                  sortDirection: DEFAULT_SORT_DIRECTION,
-              }
+    const defaultSorting = getDefaultSorting()
+
+    const getSorting = (visualization) => {
+        const sorting =
+            getSortingFromVisualization(visualization) || defaultSorting
+
+        return {
+            sortField: sorting.dimension,
+            sortDirection: sorting.direction,
+        }
+    }
 
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
@@ -246,14 +248,11 @@ export const Visualization = ({
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
         // flat() is needed here for repeated events where the dimension ids are nested in an array
         if (!headers.flat().includes(sortField)) {
-            onDataSorted({
-                dimension: null,
-                direction: DEFAULT_SORT_DIRECTION,
-            })
+            onDataSorted(defaultSorting)
 
             setSorting({
-                sortField: null,
-                sortDirection: DEFAULT_SORT_DIRECTION,
+                sortField: defaultSorting.dimension,
+                sortDirection: defaultSorting.direction,
             })
         }
     }
@@ -335,7 +334,10 @@ export const Visualization = ({
     const colSpan = String(Math.max(data.headers.length, 1))
 
     const sortData = ({ name, direction }) => {
-        onDataSorted({ dimension: name, direction })
+        onDataSorted({
+            dimension: name,
+            direction,
+        })
 
         setSorting({
             sortField: name,
@@ -352,13 +354,6 @@ export const Visualization = ({
             pageSize: pageSizeNum,
             page: FIRST_PAGE,
         })
-
-    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
-
-    const reverseLookupDimensionId = (dimensionId) =>
-        Object.keys(dimensionHeadersMap).find(
-            (key) => dimensionHeadersMap[key] === dimensionId
-        )
 
     const formatCellValue = (value, header) => {
         if (header?.valueType === VALUE_TYPE_URL) {
@@ -390,7 +385,7 @@ export const Visualization = ({
     const formatCellHeader = (header) => {
         const headerText = getHeaderText(header)
 
-        const dimensionId = Number.isInteger(header.stageOffset)
+        const headerName = Number.isInteger(header.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
 
@@ -401,8 +396,10 @@ export const Visualization = ({
                     onColumnHeaderClick
                         ? () =>
                               onColumnHeaderClick(
-                                  reverseLookupDimensionId(dimensionId) ||
-                                      dimensionId
+                                  getDimensionIdFromHeaderName(
+                                      headerName,
+                                      visualization
+                                  ) || headerName
                               )
                         : undefined
                 }

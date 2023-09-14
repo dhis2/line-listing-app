@@ -11,6 +11,21 @@ import {
 } from './options.js'
 import { parseUiRepetition } from './ui.js'
 import { extractDimensionIdParts } from './utils.js'
+import { getDimensionIdFromHeaderName } from './visualization.js'
+
+const getAdaptedUiSorting = (sorting, visualization) =>
+    sorting
+        ? [
+              {
+                  dimension:
+                      getDimensionIdFromHeaderName(
+                          sorting.dimension,
+                          visualization
+                      ) || sorting.dimension,
+                  direction: sorting.direction.toUpperCase(),
+              },
+          ]
+        : undefined
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -19,6 +34,7 @@ export const getDefaultFromUi = (current, ui) => {
             ...getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
         },
         itemsByDimension: getItemsByDimensionFromUi(ui),
+        sorting: getAdaptedUiSorting(ui.sorting, current),
     }
 
     return {
@@ -26,14 +42,7 @@ export const getDefaultFromUi = (current, ui) => {
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
-        sorting: adaptedUi.sorting
-            ? [
-                  {
-                      ...adaptedUi.sorting,
-                      direction: adaptedUi.sorting.direction.toUpperCase(),
-                  },
-              ]
-            : undefined,
+        sorting: adaptedUi.sorting,
         ...getProgramFromUi(adaptedUi),
         ...getProgramStageFromUi(adaptedUi),
         ...getAxesFromUi(adaptedUi),
