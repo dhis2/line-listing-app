@@ -207,17 +207,20 @@ export const Visualization = ({
         [sizeObserver]
     )
 
-    const defaultSorting = getDefaultSorting()
+    const defaultSorting = useMemo(() => getDefaultSorting(), [])
 
-    const getSorting = (visualization) => {
-        const sorting =
-            getSortingFromVisualization(visualization) || defaultSorting
+    const getSorting = useCallback(
+        (visualization) => {
+            const sorting =
+                getSortingFromVisualization(visualization) || defaultSorting
 
-        return {
-            sortField: sorting.dimension,
-            sortDirection: sorting.direction,
-        }
-    }
+            return {
+                sortField: sorting.dimension,
+                sortDirection: sorting.direction,
+            }
+        },
+        [defaultSorting]
+    )
 
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
@@ -294,8 +297,11 @@ export const Visualization = ({
     // Reset page for new visualizations
     useEffect(() => {
         visualizationRef.current = visualization
+
+        // Reset page and sorting when a different visualization is loaded
         setPage(FIRST_PAGE)
-    }, [visualization, setPage])
+        setSorting(getSorting(visualization))
+    }, [visualization, getSorting, setPage, setSorting])
 
     useEffect(() => {
         if (data && visualization) {
