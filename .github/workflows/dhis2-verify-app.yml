@@ -157,10 +157,11 @@ jobs:
 
     report-release-success:
         runs-on: ubuntu-latest
-        needs: lint
+        needs: release
         if: |
             success() &&
-            !cancelled()
+            !cancelled()  &&
+            github.ref == 'refs/heads/master'
         steps:
             - name: Checkout code
               uses: actions/checkout@master
