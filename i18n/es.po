@@ -5,7 +5,7 @@
 # Pablo Pajuelo Cabezas <pablo@dhis2.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # ericbp <ericbarredap@gmail.com>, 2022
-# phil_dhis2, 2022
+# Philip Larsen Donnelly, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Prabhjot Singh, 2023
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2023
@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
+"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Añadir a {{Nombredeleje}}"
+msgstr "Añadir a {{axisName}} "
 
 msgid "Choose a condition type"
 msgstr "Elija un tipo de condición"
@@ -145,7 +145,7 @@ msgid "No options"
 msgstr "Sin opciones"
 
 msgid "Move to {{axisName}}"
-msgstr "Mover a {{Nombredeleje}}"
+msgstr "Mover a {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -220,7 +220,7 @@ msgid "Showing all values for this dimension"
 msgstr "Mostrando todos los valores para esta dimensión"
 
 msgid "Program stage: {{- stageName}}"
-msgstr "Fase del programa: {{- stageName}}"
+msgstr "Etapa del programa: {{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "No se encontraron dimensiones para '{{- searchTerm}}'"
@@ -260,7 +260,7 @@ msgid "Main dimensions"
 msgstr "Dimensiones principales"
 
 msgid "Input: {{type}}"
-msgstr "Tipo de entrada}}"
+msgstr "Entrada: {{type}}"
 
 msgid "Program dimensions"
 msgstr "Dimensiones del programa"
@@ -315,7 +315,7 @@ msgid "Clear"
 msgstr "Limpiar"
 
 msgid "Stage"
-msgstr "Fase"
+msgstr "Etapa"
 
 msgid "All"
 msgstr "Todos"
@@ -347,8 +347,8 @@ msgstr "Visualización no guardada"
 msgid "Edited"
 msgstr "Editado"
 
-msgid "Interpretations"
-msgstr "Interpretaciones"
+msgid "Line list"
+msgstr "Listados"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr "\"{{- deleteObject}}\" se eliminó con éxito."
@@ -413,7 +413,7 @@ msgid "Not available offline"
 msgstr "No disponible sin conexión a internet"
 
 msgid "Sort by {{column}}"
-msgstr "Ordenar por {{columna}}"
+msgstr "Ordenar por {{column}}"
 
 msgid "Rows per page"
 msgstr "Filas por página"
@@ -684,7 +684,7 @@ msgid "Not applicable to enrollments"
 msgstr "No aplicable a inscripciones"
 
 msgid "User organisation unit"
-msgstr "Usuario de unidad organizativa"
+msgstr "Unidad organizativa del usuario"
 
 msgid "User sub-units"
 msgstr "Subunidades de usuario"
