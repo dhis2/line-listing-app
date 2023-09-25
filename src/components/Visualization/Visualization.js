@@ -304,10 +304,8 @@ export const Visualization = ({
     const isInModal = !!filters?.relativePeriodDate
 
     const cellIsUndefined = (rowIndex, columnIndex) => {
-        const row = (data?.rowContext || {})[rowIndex]
-        if (row && row[columnIndex]?.valueStatus == NOT_DEFINED_VALUE) {
-            return true
-        }
+        const row = (data.rowContext || {})[rowIndex]
+        return row && row[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
     }
 
     const renderCellContent = ({ columnIndex, value, isUndefined, props }) => (
