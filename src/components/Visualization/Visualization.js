@@ -64,8 +64,9 @@ import {
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
-// min width of "Rows per page" select + 2 * padding
-export const PAGINATION_MIN_WIDTH = 194
+// +/- min width of "Rows per page" select + 2 * padding
+// + 30% in case label text are longer than English
+export const PAGINATION_MIN_WIDTH = 250
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
