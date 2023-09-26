@@ -45,7 +45,7 @@ const excludedDimensions = [
 ]
 
 const findOptionSetItem = (optionSetId, code, metaDataItems) => {
-    const optionSetMetaData = metaDataItems[optionSetId]
+    const optionSetMetaData = metaDataItems?.[optionSetId]
 
     if (optionSetMetaData) {
         const optionId = optionSetMetaData.options.find(
