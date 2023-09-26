@@ -64,6 +64,8 @@ import {
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
+// min width of "Rows per page" select + 2 * padding
+export const PAGINATION_MIN_WIDTH = 194
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -136,8 +138,12 @@ export const Visualization = ({
             const containerInnerWidth = node.clientWidth
             const scrollBox = node.querySelector('.tablescrollbox')
             const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
+            const maxWidth = Math.max(
+                containerInnerWidth - scrollbarWidth,
+                PAGINATION_MIN_WIDTH
+            )
 
-            setPaginationMaxWidth(containerInnerWidth - scrollbarWidth)
+            setPaginationMaxWidth(maxWidth)
         }
 
         const sizeObserver = new window.ResizeObserver(adjustSize)
@@ -438,7 +444,10 @@ export const Visualization = ({
                                         styles.stickyNavigation,
                                         sizeClass
                                     )}
-                                    style={{ maxWidth: paginationMaxWidth }}
+                                    style={{
+                                        maxWidth: paginationMaxWidth,
+                                        minWidth: PAGINATION_MIN_WIDTH,
+                                    }}
                                 >
                                     <PaginationComponent
                                         offline={offline}
