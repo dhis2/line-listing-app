@@ -24,7 +24,7 @@
         "@dhis2/cypress-plugins": "^10.0.2",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
-        "cypress": "^12.13.0",
+        "cypress": "^13.2.0",
         "cypress-tags": "^1.1.2",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
@@ -38,7 +38,7 @@
     "dependencies": {
         "@dhis2/analytics": "^26.0.7",
         "@dhis2/app-runtime": "^3.4.4",
-        "@dhis2/ui": "^8.14.1",
+        "@dhis2/ui": "^8.14.5",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
         "@dnd-kit/utilities": "^3.2.0",
