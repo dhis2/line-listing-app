@@ -126,6 +126,7 @@ export const Visualization = ({
     onError,
 }) => {
     const noTimeDimensionWarningRef = useRef(null)
+    const dataTableRef = useRef(null)
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [paginationMaxWidth, setPaginationMaxWidth] = useState(0)
     const [{ sortField, sortDirection, pageSize, page }, setSorting] =
@@ -342,6 +343,10 @@ export const Visualization = ({
                         <div
                             className={styles.noTimeDimensionWarning}
                             ref={noTimeDimensionWarningRef}
+                            style={{
+                                maxWidth:
+                                    dataTableRef.current?.offsetWidth ?? '100%',
+                            }}
                         >
                             <NoticeBox warning>
                                 {i18n.t(
@@ -360,6 +365,7 @@ export const Visualization = ({
                         width="auto"
                         className={styles.dataTable}
                         dataTest="line-list-table"
+                        ref={dataTableRef}
                     >
                         <DataTableHead>
                             <DataTableRow>
