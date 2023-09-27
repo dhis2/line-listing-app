@@ -343,12 +343,7 @@ export const Visualization = ({
                             className={styles.noTimeDimensionWarning}
                             ref={noTimeDimensionWarningRef}
                         >
-                            <NoticeBox
-                                warning
-                                title={i18n.t(
-                                    'Interpretation has no time dimension'
-                                )}
-                            >
+                            <NoticeBox warning>
                                 {i18n.t(
                                     'This line list may show data that was not available when the interpretation was written.'
                                 )}
