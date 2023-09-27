@@ -51,6 +51,7 @@
 .visualizationContainer {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
 }
 .noTimeDimensionWarning {
     padding-bottom: var(--spacers-dp12);
