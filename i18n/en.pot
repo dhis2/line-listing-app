@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-14T09:28:59.952Z\n"
-"PO-Revision-Date: 2023-09-14T09:28:59.952Z\n"
+"POT-Creation-Date: 2023-09-27T14:21:34.503Z\n"
+"PO-Revision-Date: 2023-09-27T14:21:34.503Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -378,9 +378,6 @@ msgstr "Your most viewed line lists"
 
 msgid "Not available offline"
 msgstr "Not available offline"
-
-msgid "Interpretation has no time dimension"
-msgstr "Interpretation has no time dimension"
 
 msgid ""
 "This line list may show data that was not available when the interpretation "
