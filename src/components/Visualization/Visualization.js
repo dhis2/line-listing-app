@@ -128,7 +128,10 @@ export const Visualization = ({
     const noTimeDimensionWarningRef = useRef(null)
     const dataTableRef = useRef(null)
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
-    const [paginationMaxWidth, setPaginationMaxWidth] = useState(0)
+    const [measuredDimensions, setMeasuredDimensions] = useState({
+        paginationMaxWidth: 0,
+        noticeBoxMaxWidth: 0,
+    })
     const [{ sortField, sortDirection, pageSize, page }, setSorting] =
         useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
@@ -159,12 +162,15 @@ export const Visualization = ({
             const containerInnerWidth = node.clientWidth
             const scrollBox = node.querySelector('.tablescrollbox')
             const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
-            const maxWidth = Math.max(
+            const paginationMaxWidth = Math.max(
                 containerInnerWidth - scrollbarWidth,
                 PAGINATION_MIN_WIDTH
             )
 
-            setPaginationMaxWidth(maxWidth)
+            setMeasuredDimensions({
+                paginationMaxWidth,
+                noticeBoxMaxWidth: scrollBox.offsetWidth,
+            })
         }
 
         const sizeObserver = new window.ResizeObserver(adjustSize)
@@ -344,8 +350,7 @@ export const Visualization = ({
                             className={styles.noTimeDimensionWarning}
                             ref={noTimeDimensionWarningRef}
                             style={{
-                                maxWidth:
-                                    dataTableRef.current?.offsetWidth ?? '100%',
+                                maxWidth: measuredDimensions.noticeBoxMaxWidth,
                             }}
                         >
                             <NoticeBox warning>
@@ -492,7 +497,8 @@ export const Visualization = ({
                                             sizeClass
                                         )}
                                         style={{
-                                            maxWidth: paginationMaxWidth,
+                                            maxWidth:
+                                                measuredDimensions.paginationMaxWidth,
                                             minWidth: PAGINATION_MIN_WIDTH,
                                         }}
                                     >
