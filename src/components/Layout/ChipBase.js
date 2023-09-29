@@ -29,10 +29,10 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
             return ''
         }
 
-        const all = i18n.t('all')
+        const all = i18n.t('All')
 
         if (!conditionsLength && !itemsLength) {
-            return `: ${all}`
+            return `${all}`
         }
 
         if (
@@ -41,24 +41,24 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
             (valueType === VALUE_TYPE_BOOLEAN &&
                 conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
         ) {
-            return `: ${all}`
+            return `${all}`
         }
 
         if (optionSet || itemsLength) {
             const selected = itemsLength || conditionsLength
-            const suffix = i18n.t('{{count}} selected', {
+            const suffix = i18n.t('{{count}}', {
                 count: selected,
-                defaultValue: '{{count}} selected',
-                defaultValue_plural: '{{count}} selected',
+                defaultValue: '{{count}}',
+                defaultValue_plural: '{{count}}',
             })
-            return `: ${suffix}`
+            return `${suffix}`
         } else if (conditionsLength) {
-            const suffix = i18n.t('{{count}} conditions', {
+            const suffix = i18n.t('{{count}}', {
                 count: conditionsLength,
-                defaultValue: '{{count}} condition',
-                defaultValue_plural: '{{count}} conditions',
+                defaultValue: '{{count}}',
+                defaultValue_plural: '{{count}}',
             })
-            return `: ${suffix}`
+            return `${suffix}`
         }
 
         return ''
@@ -75,7 +75,9 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
                     <span className={styles.secondary}>{stageName}</span>
                 )}
             </span>
-            <span className={styles.suffix}>{getChipSuffix()}</span>
+            {getChipSuffix() && (
+                <span className={styles.suffix}>{getChipSuffix()}</span>
+            )}
         </div>
     )
 }
