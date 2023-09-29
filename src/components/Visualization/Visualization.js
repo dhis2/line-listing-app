@@ -64,6 +64,9 @@ import {
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
+// +/- min width of "Rows per page" select + 2 * padding
+// + 30% in case label text are longer than English
+export const PAGINATION_MIN_WIDTH = 250
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -111,6 +114,7 @@ export const Visualization = ({
     onError,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
+    const [paginationMaxWidth, setPaginationMaxWidth] = useState(0)
     const [{ sortField, sortDirection, pageSize, page }, setSorting] =
         useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
             sortField: null,
@@ -122,6 +126,34 @@ export const Visualization = ({
     const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
 
     const visualizationRef = useRef(visualization)
+
+    const containerCallbackRef = useCallback((node) => {
+        if (node === null) {
+            return
+        }
+
+        const adjustSize = () => {
+            if (node.clientWidth === 0) {
+                return
+            }
+            const containerInnerWidth = node.clientWidth
+            const scrollBox = node.querySelector('.tablescrollbox')
+            const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
+            const maxWidth = Math.max(
+                containerInnerWidth - scrollbarWidth,
+                PAGINATION_MIN_WIDTH
+            )
+
+            setPaginationMaxWidth(maxWidth)
+        }
+
+        const sizeObserver = new window.ResizeObserver(adjustSize)
+        sizeObserver.observe(node)
+
+        adjustSize()
+
+        return sizeObserver.disconnect
+    }, [])
 
     const setPage = useCallback(
         (pageNum) =>
@@ -281,7 +313,7 @@ export const Visualization = ({
     const isInModal = !!filters?.relativePeriodDate
 
     return (
-        <div className={styles.pluginContainer}>
+        <div className={styles.pluginContainer} ref={containerCallbackRef}>
             <div
                 data-test="line-list-loading-indicator"
                 className={cx(styles.fetchIndicator, {
@@ -413,6 +445,10 @@ export const Visualization = ({
                                         styles.stickyNavigation,
                                         sizeClass
                                     )}
+                                    style={{
+                                        maxWidth: paginationMaxWidth,
+                                        minWidth: PAGINATION_MIN_WIDTH,
+                                    }}
                                 >
                                     <PaginationComponent
                                         offline={offline}

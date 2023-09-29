@@ -1,3 +1,10 @@
+## [100.9.2](https://github.com/dhis2/line-listing-app/compare/v100.9.1...v100.9.2) (2023-09-15)
+
+
+### Bug Fixes
+
+* always have the full pagination in view ([#431](https://github.com/dhis2/line-listing-app/issues/431)) ([05d3d79](https://github.com/dhis2/line-listing-app/commit/05d3d7921577a3a8d357c3e28aaf4ca0f952525e))
+
 ## [100.9.1](https://github.com/dhis2/line-listing-app/compare/v100.9.0...v100.9.1) (2023-08-21)
 
 
