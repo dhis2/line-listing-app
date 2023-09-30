@@ -1,15 +1,15 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2022
-# phil_dhis2, 2022
+# Philip Larsen Donnelly, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2022-08-10T09:30:23.126Z\n"
+"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: phil_dhis2, 2022\n"
-"Language-Team: Tetum (Tetun) (https://www.transifex.com/hisp-uio/teams/100509/tet/)\n"
+"Last-Translator: Philip Larsen Donnelly, 2022\n"
+"Language-Team: Tetum (Tetun) (https://app.transifex.com/hisp-uio/teams/100509/tet/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -193,13 +193,13 @@ msgstr ""
 msgid "Showing all values for this dimension"
 msgstr ""
 
-msgid "Program stage: {{stageName}}"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
-msgid "No dimensions found in the {{programName}} program"
+msgid "No dimensions found in the {{- programName}} program"
 msgstr ""
 
 msgid "No dimensions found"
@@ -267,7 +267,7 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a program and stage above to add program dimensions."
+msgid "Choose a stage above to add program dimensions."
 msgstr ""
 
 msgid "Choose a program above to add program dimensions."
@@ -288,6 +288,12 @@ msgstr ""
 msgid "All"
 msgstr "Hotu"
 
+msgid "Clear stage first to choose another"
+msgstr ""
+
+msgid "This program only has one stage"
+msgstr ""
+
 msgid "Time dimensions"
 msgstr ""
 
@@ -297,14 +303,20 @@ msgstr ""
 msgid "Search your dimensions"
 msgstr ""
 
+msgid "Show panels"
+msgstr ""
+
+msgid "Expand visualization and hide panels"
+msgstr ""
+
 msgid "Unsaved visualization"
 msgstr ""
 
 msgid "Edited"
 msgstr ""
 
-msgid "Interpretations"
-msgstr "Interpretasoens"
+msgid "Line list"
+msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
@@ -318,6 +330,27 @@ msgstr ""
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
+msgstr ""
+
+msgid "Show layout"
+msgstr ""
+
+msgid "Hide layout"
+msgstr ""
+
+msgid "Show dimensions sidebar"
+msgstr ""
+
+msgid "Hide dimensions sidebar"
+msgstr ""
+
+msgid "Hide interpretations and details"
+msgstr ""
+
+msgid "Show interpretations and details"
+msgstr ""
+
+msgid "View"
 msgstr ""
 
 msgid "Update"
@@ -340,16 +373,10 @@ msgstr ""
 msgid "Your most viewed line lists"
 msgstr ""
 
-msgid "most recent"
+msgid "Not available offline"
 msgstr ""
 
-msgid "oldest"
-msgstr ""
-
-msgid "oldest {{repeatEventIndex}}"
-msgstr ""
-
-msgid "most recent {{repeatEventIndex}}"
+msgid "Sort by {{column}}"
 msgstr ""
 
 msgid "Rows per page"
@@ -560,6 +587,12 @@ msgstr ""
 msgid "Choose a program from the Program Dimensions sidebar."
 msgstr ""
 
+msgid "No stage selected"
+msgstr ""
+
+msgid "Choose a stage from the Program Dimensions sidebar."
+msgstr ""
+
 msgid "Columns is empty"
 msgstr ""
 
@@ -569,13 +602,9 @@ msgstr ""
 msgid "No organisation unit selected"
 msgstr ""
 
-msgid "Add at least one organisation unit to the layout."
-msgstr ""
-
-msgid "No time dimension selected"
-msgstr ""
-
-msgid "Add at least one time dimension to the layout."
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
@@ -647,6 +676,18 @@ msgstr ""
 msgid "Style"
 msgstr "Estilu"
 
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
 msgid "Event date"
 msgstr ""
 
@@ -656,13 +697,16 @@ msgstr ""
 msgid "Incident date"
 msgstr ""
 
-msgid "Due/Scheduled date"
+msgid "Scheduled date"
 msgstr ""
 
 msgid "Last updated on"
 msgstr ""
 
 msgid "Disabled by the selected program"
+msgstr ""
+
+msgid "Disabled by the selected program stage"
 msgstr ""
 
 msgid "No input type selected"
@@ -675,6 +719,9 @@ msgid "Cancelled"
 msgstr ""
 
 msgid "Completed"
+msgstr ""
+
+msgid "Scheduled"
 msgstr ""
 
 msgid "List data from tracked entities and events."
