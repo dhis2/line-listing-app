@@ -23,8 +23,10 @@ import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
     dataAccessError,
     emptyResponseError,
+    eventAccessError,
     genericServerError,
     indicatorError,
+    orgUnitAccessError,
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
@@ -216,7 +218,14 @@ const App = () => {
                     output = indicatorError()
                     break
                 case 'E7121':
+                case 'E7123':
                     output = dataAccessError()
+                    break
+                case 'E7120':
+                    output = orgUnitAccessError()
+                    break
+                case 'E7217':
+                    output = eventAccessError()
                     break
                 default:
                     output = genericServerError()
