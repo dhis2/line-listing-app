@@ -7,6 +7,10 @@ inputs:
         default: ''
     config-dir:
         description: 'Relative directory for the d2.config file'
+    broken-versions:
+        description: 'Comma delimeted lists of known broken versions. If a supported stable version is in this list it will be excluded. Each version string must match a tag on DockerHub, i.e. "2.38.4.3-rc"'
+            required: false
+            default: ''
 outputs:
     versions:
         description: 'JSON stringified array of version strings, including patch and hotfix numbers.'

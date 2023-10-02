@@ -2725,8 +2725,9 @@ function isValidVersionString(versionString, isRC) {
     }
     // RCs must end with `-rc`, others must not
     if (
-        (isRC && !versionString.endsWith('-rc')) ||
-        (!isRC && versionString.endsWith('-rc'))
+        typeof isRC === 'boolean' &&
+        ((isRC && !versionString.endsWith('-rc')) ||
+            (!isRC && versionString.endsWith('-rc')))
     ) {
         return false
     }
@@ -2778,6 +2779,26 @@ function getReleaseCandidates() {
     return rcVersions
 }
 
+function getBrokenVersions() {
+    const inputValue = core.getInput('broken-versions')
+
+    if (!inputValue) {
+        return []
+    }
+
+    const brokenVersions = inputValue.split(',').map((str) => str.trim())
+
+    for (const brokenVersion of brokenVersions) {
+        if (!isValidVersionString(brokenVersion)) {
+            throw new Error(
+                `The string "${brokenVersion}" provided to \`broken-versions\` is not a valid version`
+            )
+        }
+    }
+
+    return brokenVersions
+}
+
 function getStableVersions() {
     const httpClient = new HttpClient()
     return httpClient
@@ -2799,11 +2820,12 @@ function computeFullVersionName({
         : patchVersionName
 }
 
-function computeSupportedVersions(
+function computeSupportedVersions({
     stableVersions,
     minDHIS2Version = '',
-    releaseCandidates = []
-) {
+    releaseCandidates = [],
+    brokenVersions = [],
+} = {}) {
     const minDHIS2VersionNumber = minDHIS2Version.split('.')[1] ?? 0
     const latestVersion = stableVersions.find(({ latest }) => latest)?.version
     const stableVersionsLookup = stableVersions.reduce((acc, versionObj) => {
@@ -2834,9 +2856,14 @@ function computeSupportedVersions(
         const versionObj =
             versionReleaseCandidate ?? stableVersionsLookup.get(currentVersion)
         const { fullName, supported } = versionObj
+        const isBroken = brokenVersions.some(
+            (brokenVersion) => brokenVersion === fullName
+        )
 
         if (supported && currentVersion >= minDHIS2VersionNumber) {
-            supportedVersions.push(fullName)
+            if (!isBroken) {
+                supportedVersions.push(fullName)
+            }
         } else {
             isSupported = false
         }
@@ -2851,12 +2878,14 @@ async function main() {
     try {
         const minDHIS2Version = getMinDHIS2Version()
         const releaseCandidates = getReleaseCandidates()
+        const brokenVersions = getBrokenVersions()
         const stableVersions = await getStableVersions()
-        const supportedVersions = computeSupportedVersions(
+        const supportedVersions = computeSupportedVersions({
             stableVersions,
             minDHIS2Version,
-            releaseCandidates
-        )
+            releaseCandidates,
+            brokenVersions,
+        })
 
         core.notice(
             'The following supported versions were detected: ' +
@@ -2875,6 +2904,7 @@ module.exports = {
     getMinDHIS2Version,
     getReleaseCandidates,
     getStableVersions,
+    getBrokenVersions,
     computeSupportedVersions,
     main,
     STABLE_VERSIONS_URL,

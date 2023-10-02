@@ -5,6 +5,7 @@ import {
     isValidVersionString,
     getMinDHIS2Version,
     getReleaseCandidates,
+    getBrokenVersions,
     getStableVersions,
     computeSupportedVersions,
     main,
@@ -78,6 +79,28 @@ describe('Custom GitHub JS Action - Supported Versions', () => {
             expect(getReleaseCandidates()).toEqual([])
         })
     })
+    describe('getBrokenVersions', () => {
+        it('returns an array of broken versions if one is supplied', () => {
+            const brokenVersion1 = '2.39.2.1'
+            jest.spyOn(core, 'getInput').mockReturnValueOnce(brokenVersion1)
+            expect(getBrokenVersions()).toEqual([brokenVersion1])
+        })
+        it('returns an array of broken versions if multiple are supplied', () => {
+            const brokenVersion1 = '2.39.2.1'
+            const brokenVersion2 = '2.37.9.1'
+            jest.spyOn(core, 'getInput').mockReturnValueOnce(
+                `${brokenVersion1},${brokenVersion2}`
+            )
+            expect(getBrokenVersions()).toEqual([
+                brokenVersion1,
+                brokenVersion2,
+            ])
+        })
+        it('returns an empty array when input is empty', () => {
+            jest.spyOn(core, 'getInput').mockReturnValueOnce('')
+            expect(getBrokenVersions()).toEqual([])
+        })
+    })
 
     describe('getStableVersions', () => {
         it('calls the right URL to get the stable versions and returns the versions array', async () => {
@@ -93,32 +116,35 @@ describe('Custom GitHub JS Action - Supported Versions', () => {
 
     describe('computeSupportedVersions', () => {
         it('should produce the correct output given a known input', () => {
-            expect(computeSupportedVersions(versionsFixture.versions)).toEqual([
-                '2.40.0.1',
-                '2.39.2.1',
-                '2.38.4.3',
-                '2.37.9.1',
-            ])
-        })
-        it('should Produces the right output when a minDHIS2Version is provided', () => {
             expect(
-                computeSupportedVersions(versionsFixture.versions, '2.38')
+                computeSupportedVersions({
+                    stableVersions: versionsFixture.versions,
+                })
+            ).toEqual(['2.40.0.1', '2.39.2.1', '2.38.4.3', '2.37.9.1'])
+        })
+        it('should omit lower versions when a minDHIS2Version is provided', () => {
+            expect(
+                computeSupportedVersions({
+                    stableVersions: versionsFixture.versions,
+                    minDHIS2Version: '2.38',
+                })
             ).toEqual(['2.40.0.1', '2.39.2.1', '2.38.4.3'])
         })
-        it('should produce the right output when a release candidate is provided', () => {
+        it('should replace a stables version with RCs when releaseCandidates are provided', () => {
             expect(
-                computeSupportedVersions(versionsFixture.versions, undefined, [
-                    '2.40.0.2-rc',
-                ])
-            ).toEqual(['2.40.0.2-rc', '2.39.2.1', '2.38.4.3', '2.37.9.1'])
-        })
-        it('should produce the right output when multiple release candidates are provided', () => {
-            expect(
-                computeSupportedVersions(versionsFixture.versions, undefined, [
-                    '2.40.0.2-rc',
-                    '2.39.2.2-rc',
-                ])
+                computeSupportedVersions({
+                    stableVersions: versionsFixture.versions,
+                    releaseCandidates: ['2.40.0.2-rc', '2.39.2.2-rc'],
+                })
             ).toEqual(['2.40.0.2-rc', '2.39.2.2-rc', '2.38.4.3', '2.37.9.1'])
+        })
+        it('should omit broken versions when brokenVersions are provided', () => {
+            expect(
+                computeSupportedVersions({
+                    stableVersions: versionsFixture.versions,
+                    brokenVersions: ['2.39.2.1', '2.37.9.1'],
+                })
+            ).toEqual(['2.40.0.1', '2.38.4.3'])
         })
     })
 
