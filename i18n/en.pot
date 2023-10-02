@@ -625,11 +625,21 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "There's a problem with at least one selected indicator"
 
-msgid "No access"
-msgstr "No access"
+msgid "Restricted access"
+msgstr "Restricted access"
 
-msgid "You don't have access to the requested data"
-msgstr "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr "You don’t have access to one or more of the chosen organisation units."
+
+msgid "You don’t have access to event analytics. Contact a system administrator."
+msgstr "You don’t have access to event analytics. Contact a system administrator."
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
