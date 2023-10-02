@@ -17,8 +17,9 @@ function isValidVersionString(versionString, isRC) {
     }
     // RCs must end with `-rc`, others must not
     if (
-        (isRC && !versionString.endsWith('-rc')) ||
-        (!isRC && versionString.endsWith('-rc'))
+        typeof isRC === 'boolean' &&
+        ((isRC && !versionString.endsWith('-rc')) ||
+            (!isRC && versionString.endsWith('-rc')))
     ) {
         return false
     }
