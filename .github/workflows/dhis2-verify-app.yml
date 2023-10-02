@@ -56,7 +56,7 @@ jobs:
               id: supported-versions
               uses: ./.github/actions/supported-versions
               with:
-                broken-versions: '2.39.2.1'
+                  broken-versions: '2.39.2.1'
         outputs:
             versions: ${{ steps.supported-versions.outputs.versions }}
 
