@@ -114,7 +114,7 @@ jobs:
                   sudo mkdir -p opt/dump
                   sudo chown -R $USER:$(id -g) opt/dump && sudo chmod -R ugo+rwx opt/dump
                   sudo ls -laR opt/dump
-                  sudo pg_dump -Fc -Z 9 --no-owner --no-privileges 'postgresql://dhis:dhis@127.0.0.1:5432/dhis' >db-dump/dump.pgc
+                  sudo pg_dump -Fc -Z 9 --no-owner --no-privileges 'postgresql://dhis:dhis@127.0.0.1:5432/dhis' >dump/dump.pgc
             - name: Save DB dump in GitHub Actions Cache
               if: ${{ steps.check-if-db-cache-exists.outputs.cache-hit != 'true' }}
               uses: actions/cache/save@v3
