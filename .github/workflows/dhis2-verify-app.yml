@@ -81,7 +81,7 @@ jobs:
               id: check-if-db-cache-exists
               run: |
                   gh extension install actions/gh-actions-cache
-                  KEY=${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}-${{ github.ref }}
+                  KEY=${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}
                   CACHE_HIT=$(gh actions-cache list --key $KEY | grep -q $KEY && echo 'true' || echo 'false')
                   if [ "$CACHE_HIT" == 'true' ]
                   then
@@ -121,7 +121,7 @@ jobs:
               id: cached-db-dump
               with:
                   path: opt/dump/dump.pgc
-                  key: ${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}-${{ github.ref }}
+                  key: ${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}
 
     integration:
         runs-on: ubuntu-latest
@@ -150,7 +150,7 @@ jobs:
               id: cached-db-dump
               with:
                   path: opt/dump/dump.pgc
-                  key: ${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}-${{ github.ref }}
+                  key: ${{ steps.instance-version-params.outputs.dhis2-db-cache-key }}
             - name: End-to-End tests
               uses: cypress-io/github-action@v5
               with:
