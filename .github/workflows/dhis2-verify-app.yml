@@ -9,7 +9,7 @@ on:
             - 'dev'
 
 concurrency:
-    group: ${{ github.workflow}}-${{ github.ref }}
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 env:
     GIT_AUTHOR_NAME: '@dhis2-bot'
