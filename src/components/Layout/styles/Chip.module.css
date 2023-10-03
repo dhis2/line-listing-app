@@ -24,10 +24,10 @@
     max-width: 360px;
     align-items: center;
     font-size: 13px;
-    line-height: 13px;
+    line-height: 15px;
     color: var(--colors-teal900);
     margin-right: 2px;
-    padding: 2px 2px 2px 4px;
+    padding: 1px 2px 1px 4px;
 }
 
 .label {
@@ -46,7 +46,7 @@
 
 .secondary {
     font-size: 13px;
-    line-height: 13px;
+    line-height: 15px;
     flex: 1 2.3 auto;
     color: var(--colors-teal600);
     padding-left: 6px;
