@@ -1,15 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2022
-# Hamza Assada <7amza.it@gmail.com>, 2023
+# Philip Larsen Donnelly, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
+# Hamza Assada <7amza.it@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -331,8 +331,8 @@ msgstr "مخطط عرض غير محفوظ"
 msgid "Edited"
 msgstr "تم التعديل"
 
-msgid "Interpretations"
-msgstr "التفسيرات"
+msgid "Line list"
+msgstr "قائمة سطور"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
@@ -625,13 +625,6 @@ msgstr "لم يتم تحديد أية وحدة تنظيمية"
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
-msgstr ""
-
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
