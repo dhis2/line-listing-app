@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: KRG HIS <antonia.bezenchek@informa.pro>, 2023\n"
 "Language-Team: Arabic (Iraq) (https://app.transifex.com/hisp-uio/teams/100509/ar_IQ/)\n"
@@ -329,8 +329,8 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
-msgid "Interpretations"
-msgstr "التفسيرات"
+msgid "Line list"
+msgstr "قائمة السطور"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
@@ -619,13 +619,6 @@ msgstr ""
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
-msgstr ""
-
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
 msgstr ""
 
 msgid "There's a problem with at least one selected indicator"
