@@ -122,7 +122,6 @@
 }
 
 .dataTable .undefinedCell {
-    background-color: var(--colors-grey200);
     background-image: repeating-linear-gradient(
         45deg,
         var(--colors-grey300) 0,
