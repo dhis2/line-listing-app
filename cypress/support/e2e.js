@@ -36,6 +36,19 @@ before(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
 
+    if (!username) {
+        console.error('username not found')
+    }
+    if (!password) {
+        console.error('password not found')
+    }
+    if (!baseUrl) {
+        console.error('baseUrl not found')
+    }
+    if (!instanceVersion) {
+        console.error('instanceVersion not found')
+    }
+
     cy.request({
         url: `${baseUrl}/${LOGIN_ENDPOINT}`,
         method: 'POST',
