@@ -173,6 +173,12 @@ jobs:
                   DHIS2_IMAGE: ${{ steps.instance-version-params.outputs.dhis2-docker-hub-image-tag }}
                   DHIS2_DB_DUMP_URL: ${{ steps.instance-version-params.outputs.dhis2-db-dump-url }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Save videos as artifact
+              uses: actions/upload-artifact@v2
+              if: always()
+              with:
+                  name: cypress-videos
+                  path: cypress/videos
 
     release:
         runs-on: ubuntu-latest
