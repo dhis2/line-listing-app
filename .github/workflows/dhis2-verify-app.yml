@@ -161,6 +161,10 @@ jobs:
                   parallel: true
                   browser: chrome
                   group: e2e-chrome-parallel-${{ matrix.versions }}
+                  spec: |
+                      cypress/integration/contextMenu.cy.js
+                      cypress/integration/interpretations.cy.js
+                      cypress/integration/translations.cy.js
               env:
                   BROWSER: none
                   CI: true
@@ -173,6 +177,7 @@ jobs:
                   DHIS2_IMAGE: ${{ steps.instance-version-params.outputs.dhis2-docker-hub-image-tag }}
                   DHIS2_DB_DUMP_URL: ${{ steps.instance-version-params.outputs.dhis2-db-dump-url }}
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            # This can be removed once Cypress Cloud starts working again
             - name: Save videos as artifact
               uses: actions/upload-artifact@v2
               if: always()
