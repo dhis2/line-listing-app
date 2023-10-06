@@ -1,3 +1,19 @@
+## [100.9.4](https://github.com/dhis2/line-listing-app/compare/v100.9.3...v100.9.4) (2023-10-03)
+
+
+### Bug Fixes
+
+* make "greater than or equal to" render on a single line for conditions (DHIS2-14030) ([#430](https://github.com/dhis2/line-listing-app/issues/430)) ([4886533](https://github.com/dhis2/line-listing-app/commit/488653342a92828255fdb0b8604df89adc97b6b2))
+
+## [100.9.3](https://github.com/dhis2/line-listing-app/compare/v100.9.2...v100.9.3) (2023-10-03)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([3aa158d](https://github.com/dhis2/line-listing-app/commit/3aa158de83d4786d17f1210a513cada97af32838))
+* ensure pagination max-width is correct in interpretations modal ([#434](https://github.com/dhis2/line-listing-app/issues/434)) ([2b733f1](https://github.com/dhis2/line-listing-app/commit/2b733f16c426617469c4c43aeaec5d9c0f049923))
+* lack of access show the generic "something went wrong" error (DHIS2-15737) ([#429](https://github.com/dhis2/line-listing-app/issues/429)) ([995ae74](https://github.com/dhis2/line-listing-app/commit/995ae7483d67a0b73a55dafa75f3fafae1a41727))
+
 ## [100.9.2](https://github.com/dhis2/line-listing-app/compare/v100.9.1...v100.9.2) (2023-09-15)
 
 

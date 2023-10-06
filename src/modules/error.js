@@ -71,9 +71,29 @@ export const indicatorError = () =>
 
 export const dataAccessError = () =>
     visualizationError(
-        GenericError,
-        i18n.t('No access'),
-        i18n.t("You don't have access to the requested data")
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to the data in this visualization. Contact a system administrator.'
+        )
+    )
+
+export const orgUnitAccessError = () =>
+    visualizationError(
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to one or more of the chosen organisation units.'
+        )
+    )
+
+export const eventAccessError = () =>
+    visualizationError(
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to event analytics. Contact a system administrator.'
+        )
     )
 
 export const getAlertTypeByStatusCode = (statusCode) =>
