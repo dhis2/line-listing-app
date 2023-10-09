@@ -1,6 +1,12 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
+const checkDhis2CoreInstance = () => {
+    cy.visit('http://localhost:8080')
+    cy.contains('DHIS 2 Demo - Sierra Leone - Dashboard').should('be.visible')
+}
+
 export const goToStartPage = (skipEval) => {
+    checkDhis2CoreInstance()
     cy.intercept('GET', '**/system/info**', (req) => {
         expect(req.url).to.equal('http://localhost:8080/api/system/info')
     }).as('systemInfoRequest')
