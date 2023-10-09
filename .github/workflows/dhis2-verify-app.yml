@@ -168,8 +168,6 @@ jobs:
                   parallel: true
                   browser: chrome
                   group: e2e-chrome-parallel-${{ matrix.versions }}
-                  spec: |
-                      cypress/integration/contextMenu.cy.js
               env:
                   BROWSER: none
                   CI: true
