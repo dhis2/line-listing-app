@@ -7,7 +7,7 @@ const config = {
     minDHIS2Version: '2.38',
 
     pwa: {
-        enabled: true,
+        enabled: false,
         caching: {
             patternsToOmitFromAppShell: [/.*/],
         },
