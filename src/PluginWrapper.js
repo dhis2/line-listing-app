@@ -1,6 +1,5 @@
 import { useCacheableSection, CacheableSection } from '@dhis2/app-runtime'
 import { CenteredContent, CircularLoader, Layer } from '@dhis2/ui'
-import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
@@ -35,17 +34,6 @@ const CacheableSectionWrapper = ({
     }, [cacheNow])
 
     useEffect(() => {
-        const listener = postRobot.on(
-            'removeCachedData',
-            // todo: check domain too; differs based on deployment env though
-            { window: window.parent },
-            () => remove()
-        )
-
-        return () => listener.cancel()
-    }, [remove])
-
-    useEffect(() => {
         // Synchronize cache state on load or prop update
         // -- a back-up to imperative `removeCachedData`
         if (!isParentCached && isCached) {
@@ -69,7 +57,8 @@ CacheableSectionWrapper.propTypes = {
 }
 
 const PluginWrapper = (props) => {
-    const { onInstallationStatusChange, ...propsFromParent } = props
+    const { onInstallationStatusChange, onPropsReceived, ...propsFromParent } =
+        props
 
     useEffect(() => {
         // Get & send PWA installation status now
@@ -78,27 +67,34 @@ const PluginWrapper = (props) => {
         }).then(onInstallationStatusChange)
     }, [onInstallationStatusChange])
 
-    return propsFromParent ? (
-        <div
-            style={{
-                display: 'flex',
-                height: '100%',
-                overflow: 'hidden',
-            }}
-        >
-            <CacheableSectionWrapper
-                id={propsFromParent.cacheId}
-                cacheNow={propsFromParent.recordOnNextLoad}
-                isParentCached={propsFromParent.isParentCached}
+    if (propsFromParent) {
+        onPropsReceived()
+
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    height: '100%',
+                    overflow: 'hidden',
+                }}
             >
-                <Visualization {...propsFromParent} />
-            </CacheableSectionWrapper>
-        </div>
-    ) : null
+                <CacheableSectionWrapper
+                    id={propsFromParent.cacheId}
+                    cacheNow={propsFromParent.recordOnNextLoad}
+                    isParentCached={propsFromParent.isParentCached}
+                >
+                    <Visualization {...propsFromParent} />
+                </CacheableSectionWrapper>
+            </div>
+        )
+    } else {
+        return null
+    }
 }
 
 PluginWrapper.propTypes = {
     onInstallationStatusChange: PropTypes.func,
+    onPropsReceived: PropTypes.func,
 }
 
 export default PluginWrapper
