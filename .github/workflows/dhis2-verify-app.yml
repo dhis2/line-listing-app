@@ -154,7 +154,7 @@ jobs:
             - name: End-to-End tests
               uses: cypress-io/github-action@v5
               with:
-                  start: docker compose up -d, yarn d2-app-scripts start
+                  start: docker compose up -d, yarn start
                   wait-on: 'http://localhost:8080/dhis-web-commons/security/login.action, http://localhost:3000'
                   wait-on-timeout: 1200
                   record: true
