@@ -52,9 +52,7 @@ const findOptionSetItem = (optionSetId, code, metaDataItems) => {
             (option) => option.code === code
         )?.uid
 
-        if (optionId) {
-            return metaDataItems[optionId]
-        }
+        return metaDataItems[optionId]
     }
 
     return undefined
