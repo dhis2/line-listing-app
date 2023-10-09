@@ -14,8 +14,6 @@ describe('using the layout chip context menu', () => {
             .click()
 
     it('moves item', () => {
-        goToStartPage()
-
         cy.intercept('GET', '**/system/info**', (req) => {
             expect(req.url).to.equal('http://localhost:8080/api/system/info')
         }).as('systemInfoRequest')
@@ -35,6 +33,8 @@ describe('using the layout chip context menu', () => {
         cy.log(`dhis2InstanceVersion: ${cypressEnv.dhis2InstanceVersion}`)
         cy.log(`dhis2Password: ${cypressEnv.dhis2Password}`)
         cy.log(`dhis2Username: ${cypressEnv.dhis2Username}`)
+
+        goToStartPage()
 
         expectAxisToHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
         expectAxisToNotHaveDimension(AXIS_ID_FILTERS, TEST_DIM_ID)
