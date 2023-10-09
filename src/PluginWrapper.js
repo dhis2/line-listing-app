@@ -1,6 +1,5 @@
 import { useCacheableSection, CacheableSection } from '@dhis2/app-runtime'
 import { CenteredContent, CircularLoader, CssVariables, Layer } from '@dhis2/ui'
-import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
@@ -37,17 +36,6 @@ const CacheableSectionWrapper = ({
     }, [cacheNow])
 
     useEffect(() => {
-        const listener = postRobot.on(
-            'removeCachedData',
-            // todo: check domain too; differs based on deployment env though
-            { window: window.parent },
-            () => remove()
-        )
-
-        return () => listener.cancel()
-    }, [remove])
-
-    useEffect(() => {
         // Synchronize cache state on load or prop update
         // -- a back-up to imperative `removeCachedData`
         if (!isParentCached && isCached) {
@@ -71,7 +59,7 @@ CacheableSectionWrapper.propTypes = {
 }
 
 const PluginWrapper = (props) => {
-    const { onInstallationStatusChange, ...otherProps } = props
+    const { onInstallationStatusChange, onPropsReceived, ...otherProps } = props
     const [propsFromParent, setPropsFromParent] = useState(otherProps)
 
     const onDataSorted = useCallback(
@@ -105,31 +93,38 @@ const PluginWrapper = (props) => {
         }).then(onInstallationStatusChange)
     }, [onInstallationStatusChange])
 
-    return propsFromParent ? (
-        <div
-            style={{
-                display: 'flex',
-                height: '100%',
-                overflow: 'hidden',
-            }}
-        >
-            <CacheableSectionWrapper
-                id={propsFromParent.cacheId}
-                cacheNow={propsFromParent.recordOnNextLoad}
-                isParentCached={propsFromParent.isParentCached}
+    if (propsFromParent) {
+        onPropsReceived()
+
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    height: '100%',
+                    overflow: 'hidden',
+                }}
             >
-                <Visualization
-                    {...propsFromParent}
-                    onDataSorted={onDataSorted}
-                />
-            </CacheableSectionWrapper>
-            <CssVariables colors spacers elevations />
-        </div>
-    ) : null
+                <CacheableSectionWrapper
+                    id={propsFromParent.cacheId}
+                    cacheNow={propsFromParent.recordOnNextLoad}
+                    isParentCached={propsFromParent.isParentCached}
+                >
+                    <Visualization
+                        {...propsFromParent}
+                        onDataSorted={onDataSorted}
+                    />
+                </CacheableSectionWrapper>
+                <CssVariables colors spacers elevations />
+            </div>
+        )
+    } else {
+        return null
+    }
 }
 
 PluginWrapper.propTypes = {
     onInstallationStatusChange: PropTypes.func,
+    onPropsReceived: PropTypes.func,
 }
 
 export default PluginWrapper
