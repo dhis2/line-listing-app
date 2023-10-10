@@ -140,7 +140,7 @@ jobs:
             fail-fast: false
             matrix:
                 versions: ${{ fromJSON(needs.retrieve-supported-versions.outputs.versions) }}
-                containers: [1, 2, 3, 4]
+                containers: [1, 2]
         steps:
             - name: Check out repository
               uses: actions/checkout@v3
