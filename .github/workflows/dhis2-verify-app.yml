@@ -110,6 +110,8 @@ jobs:
                   dhis2-api-version: ${{ steps.instance-version-params.outputs.dhis2-api-version }}
             - name: Create database dump
               if: ${{ steps.check-if-db-cache-exists.outputs.cache-hit != 'true' }}
+              # Backing up to a `.pgc` file would be preferable because this is faster to restore
+              # But doing so seems to result in missing data. In any case the e2e suite is no longer passing
               # run: |
               #     sudo mkdir -p opt/dump
               #     sudo chown -R $USER:$(id -g) opt/dump && sudo chmod -R ugo+rwx opt/dump
