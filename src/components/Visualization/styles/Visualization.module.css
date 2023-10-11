@@ -1,14 +1,36 @@
 /* Legend key */
+.legendKeyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.legendKeyWrapper {
+    border: 1px solid #d5dde5; /* FIXME: should use var(--colors-grey400) but the color is not being parsed */
+    overflow: auto;
+    height: 100%;
+}
+
+.legendKey {
+    height: 100%;
+}
+
 .legendKeyScrollbox {
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 190px;
 }
 
+.legendKeyToggle {
+    margin: 1px 4px 3px 0;
+}
+
 .pluginContainer {
     display: flex;
-    gap: var(--spacers-dp4);
+    justify-content: space-between;
+    gap: 4px; /* FIXME: should use var(--spacers-dp4) but the spacer is not being parsed */
     min-width: 0;
+    flex-grow: 1;
 }
 
 .fetchIndicator {

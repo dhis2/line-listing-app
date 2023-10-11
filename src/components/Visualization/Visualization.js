@@ -28,6 +28,8 @@ import {
     DataTableFoot,
     Pagination,
     Tooltip,
+    Button,
+    IconLegend24,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -112,8 +114,10 @@ export const Visualization = ({
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
+    forDashboard,
 }) => {
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
+    const [showLegendKey, setShowLegendKey] = useState(false)
     const [paginationMaxWidth, setPaginationMaxWidth] = useState(0)
     const [{ sortField, sortDirection, pageSize, page }, setSorting] =
         useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
@@ -205,13 +209,15 @@ export const Visualization = ({
                     allLegendSets.findIndex((a) => a.id === e.id) === index &&
                     e.legends?.length
             )
-            if (relevantLegendSets.length && visualization.legend?.showKey) {
+            if (relevantLegendSets.length) {
                 setUniqueLegendSets(relevantLegendSets)
             } else {
                 setUniqueLegendSets([])
             }
+            setShowLegendKey(visualization.legend?.showKey)
         } else {
             setUniqueLegendSets([])
+            setShowLegendKey(false)
         }
     }, [data, visualization])
 
@@ -301,14 +307,45 @@ export const Visualization = ({
         )
     }
 
-    const getLegendKey = () => (
-        <div
-            className={styles.legendKeyScrollbox}
-            data-test="visualization-legend-key"
-        >
-            <LegendKey legendSets={uniqueLegendSets} />
-        </div>
-    )
+    const getLegendKey = () => {
+        if (uniqueLegendSets.length && forDashboard) {
+            return (
+                <div className={styles.legendKeyContainer}>
+                    <div className={styles.legendKeyToggle}>
+                        <Button
+                            small
+                            secondary
+                            onClick={() => {
+                                setShowLegendKey(!showLegendKey)
+                                // incremementRenderId() // FIXME: copied over from DV, is this needed or not?
+                            }}
+                            icon={<IconLegend24 />}
+                            toggled={showLegendKey}
+                        />
+                    </div>
+                    {showLegendKey && (
+                        <div
+                            className={styles.legendKeyWrapper}
+                            data-test="visualization-legend-key"
+                        >
+                            <div className={styles.wrapper}>
+                                <LegendKey legendSets={uniqueLegendSets} />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )
+        } else if (uniqueLegendSets.length) {
+            return (
+                <div
+                    className={styles.legendKeyScrollbox}
+                    data-test="visualization-legend-key"
+                >
+                    <LegendKey legendSets={uniqueLegendSets} />
+                </div>
+            )
+        }
+    }
 
     const isInModal = !!filters?.relativePeriodDate
 
@@ -489,7 +526,7 @@ export const Visualization = ({
                     </DataTableFoot>
                 </DataTable>
             </div>
-            {Boolean(uniqueLegendSets.length) && getLegendKey()}
+            {getLegendKey()}
         </div>
     )
 }
@@ -506,6 +543,7 @@ Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
+    forDashboard: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
     onError: PropTypes.func,
 }
