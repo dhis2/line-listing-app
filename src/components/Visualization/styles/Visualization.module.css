@@ -25,6 +25,12 @@
     margin: 1px 4px 3px 0;
 }
 
+@media print {
+    .legendKeyToggle {
+        display: none;
+    }
+}
+
 .pluginContainer {
     display: flex;
     justify-content: space-between;
