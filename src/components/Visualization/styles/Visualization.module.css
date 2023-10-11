@@ -6,7 +6,7 @@
 }
 
 .legendKeyWrapper {
-    border: 1px solid #d5dde5; /* FIXME: should use var(--colors-grey400) but the color is not being parsed */
+    border: 1px solid var(--colors-grey400);
     overflow: auto;
     height: 100%;
 }
@@ -28,7 +28,7 @@
 .pluginContainer {
     display: flex;
     justify-content: space-between;
-    gap: 4px; /* FIXME: should use var(--spacers-dp4) but the spacer is not being parsed */
+    gap: var(--spacers-dp4);
     min-width: 0;
     flex-grow: 1;
 }
