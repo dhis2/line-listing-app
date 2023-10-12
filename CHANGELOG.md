@@ -1,3 +1,10 @@
+## [100.9.4](https://github.com/dhis2/line-listing-app/compare/v100.9.3...v100.9.4) (2023-10-03)
+
+
+### Bug Fixes
+
+* make "greater than or equal to" render on a single line for conditions (DHIS2-14030) ([#430](https://github.com/dhis2/line-listing-app/issues/430)) ([4886533](https://github.com/dhis2/line-listing-app/commit/488653342a92828255fdb0b8604df89adc97b6b2))
+
 ## [100.9.3](https://github.com/dhis2/line-listing-app/compare/v100.9.2...v100.9.3) (2023-10-03)
 
 
