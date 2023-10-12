@@ -149,6 +149,7 @@ export const Visualization = ({
     const shouldShowTimeDimensionWarning = isInModal && !hasTimeDimension
 
     const visualizationRef = useRef(visualization)
+    const legendKeyRef = useRef(null)
 
     const containerCallbackRef = useCallback((node) => {
         if (node === null) {
@@ -162,8 +163,12 @@ export const Visualization = ({
             const containerInnerWidth = node.clientWidth
             const scrollBox = node.querySelector('.tablescrollbox')
             const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
+            const legendKeyWidth =
+                legendKeyRef.current?.offsetWidth > 0
+                    ? legendKeyRef.current.offsetWidth + 4
+                    : 0
             const paginationMaxWidth = Math.max(
-                containerInnerWidth - scrollbarWidth,
+                containerInnerWidth - scrollbarWidth - legendKeyWidth,
                 PAGINATION_MIN_WIDTH
             )
 
@@ -355,6 +360,7 @@ export const Visualization = ({
         <div
             className={styles.legendKeyScrollbox}
             data-test="visualization-legend-key"
+            ref={legendKeyRef}
         >
             <LegendKey legendSets={uniqueLegendSets} />
         </div>
