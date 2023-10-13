@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
-"PO-Revision-Date: 2023-09-05T07:20:57.111Z\n"
+"POT-Creation-Date: 2023-10-13T11:49:28.269Z\n"
+"PO-Revision-Date: 2023-10-13T11:49:28.269Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -640,6 +640,16 @@ msgstr "You don’t have access to event analytics. Contact a system administrat
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+
+msgid "There's a syntax problem with the analytics request."
+msgstr "There's a syntax problem with the analytics request."
 
 msgid "Organisation unit"
 msgstr "Organisation unit"

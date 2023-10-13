@@ -21,6 +21,8 @@ import {
 import { acSetVisualization } from '../actions/visualization.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
+    analyticsGenerationError,
+    analyticsRequestError,
     dataAccessError,
     emptyResponseError,
     eventAccessError,
@@ -226,6 +228,12 @@ const App = () => {
                     break
                 case 'E7217':
                     output = eventAccessError()
+                    break
+                case 'E7144':
+                    output = analyticsGenerationError()
+                    break
+                case 'E7145':
+                    output = analyticsRequestError()
                     break
                 default:
                     output = genericServerError()
