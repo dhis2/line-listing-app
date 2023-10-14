@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -658,11 +658,20 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Il y a un problème avec au moins un indicateur sélectionné"
 
-msgid "No access"
-msgstr "Pas d'accès"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "Vous n'avez pas accès aux données demandées"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
