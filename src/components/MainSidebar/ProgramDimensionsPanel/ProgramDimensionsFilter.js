@@ -114,7 +114,7 @@ const ProgramDimensionsFilter = ({
         {useSelector(sGetUiInputType) === OUTPUT_TYPE_ENROLLMENT &&
             dimensionType === DIMENSION_TYPE_DATA_ELEMENT && (
                 <StageFilter
-                    stages={program.programStages}
+                    stages={program?.programStages}
                     selected={stageFilter}
                     setSelected={setStageFilter}
                 />

@@ -10,6 +10,7 @@ import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
@@ -89,7 +90,10 @@ const createDimensionsQuery = ({
         order: `${nameProp}:asc`,
     }
 
-    if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
+    if (
+        programId &&
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
+    ) {
         params.programId = programId
     }
 
@@ -99,7 +103,9 @@ const createDimensionsQuery = ({
 
     if (
         stageId &&
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            inputType
+        ) &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
         // This works because data element IDs have the following notation:
@@ -140,7 +146,9 @@ const transformResponseData = ({
     const pager = data.dimensions.pager
     let newDuplicateFound = false
 
-    if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+    if (
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
+    ) {
         data.dimensions.dimensions.forEach((dimension) => {
             const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (

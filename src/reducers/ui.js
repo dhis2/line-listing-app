@@ -32,8 +32,10 @@ export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
 export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
+export const CLEAR_UI_ENTITY_TYPE = 'CLEAR_UI_ENTITY_TYPE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
+export const UPDATE_UI_ENTITY_TYPE_ID = 'UPDATE_UI_ENTITY_TYPE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
@@ -72,6 +74,7 @@ const EMPTY_UI = {
         id: undefined,
         stageId: undefined,
     },
+    entityType: { id: undefined },
     layout: {
         columns: [],
         filters: [],
@@ -90,6 +93,7 @@ export const DEFAULT_UI = {
         type: OUTPUT_TYPE_EVENT,
     },
     program: {},
+    entityType: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -165,6 +169,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case CLEAR_UI_ENTITY_TYPE: {
+            return {
+                ...state,
+                entityType: EMPTY_UI.entityType,
+            }
+        }
         case UPDATE_UI_PROGRAM_ID: {
             return {
                 ...state,
@@ -180,6 +190,15 @@ export default (state = EMPTY_UI, action) => {
                 program: {
                     ...state.program,
                     stageId: action.value,
+                },
+            }
+        }
+        case UPDATE_UI_ENTITY_TYPE_ID: {
+            return {
+                ...state,
+                entityType: {
+                    ...state.entityType,
+                    id: action.value,
                 },
             }
         }
@@ -386,6 +405,7 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
+export const sGetUiEntityType = (state) => sGetUi(state).entityType
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiOptions = (state) => sGetUi(state).options
@@ -418,6 +438,7 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
+export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state).id
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||

@@ -10,6 +10,7 @@ const ProgramSelect = ({
     setSelectedProgramId,
     requiredStageSelection,
     selectedProgram,
+    prefix,
 }) => {
     const showStageSelect = selectedProgram && requiredStageSelection
 
@@ -28,8 +29,9 @@ const ProgramSelect = ({
                         dataTest={'program-select'}
                         filterable
                         noMatchText={i18n.t('No programs found')}
+                        prefix={prefix}
                     >
-                        {programs.map(({ id, name }) => (
+                        {programs?.map(({ id, name }) => (
                             <SingleSelectOption
                                 key={id}
                                 label={name}
@@ -49,6 +51,7 @@ const ProgramSelect = ({
 ProgramSelect.propTypes = {
     programs: PropTypes.array.isRequired,
     setSelectedProgramId: PropTypes.func.isRequired,
+    prefix: PropTypes.string,
     requiredStageSelection: PropTypes.bool,
     selectedProgram: PropTypes.object,
 }

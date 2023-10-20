@@ -12,7 +12,10 @@ import {
     getProgramAsMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
@@ -44,6 +47,8 @@ import {
     TOGGLE_UI_SIDEBAR_HIDDEN,
     TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
     SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
+    UPDATE_UI_ENTITY_TYPE_ID,
+    CLEAR_UI_ENTITY_TYPE,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -67,6 +72,11 @@ export const acClearUiStageId = (metadata) => ({
     metadata,
 })
 
+export const acClearUiEntityType = () => ({
+    type: CLEAR_UI_ENTITY_TYPE,
+    metadata: getDefaultTimeDimensionsMetadata(),
+})
+
 export const acUpdateUiProgramId = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_ID,
     value,
@@ -75,6 +85,12 @@ export const acUpdateUiProgramId = (value, metadata) => ({
 
 export const acUpdateUiProgramStageId = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_STAGE_ID,
+    value,
+    metadata,
+})
+
+export const acUpdateUiEntityTypeId = (value, metadata) => ({
+    type: UPDATE_UI_ENTITY_TYPE_ID,
     value,
     metadata,
 })
@@ -131,9 +147,12 @@ export const tSetUiInput = (value) => (dispatch) => {
 
 export const tSetUiProgram =
     ({ program, stage }) =>
-    (dispatch) => {
+    (dispatch, getState) => {
+        const state = getState()
         dispatch(acClearUiProgram())
-        dispatch(tClearUiProgramRelatedDimensions())
+        if (sGetUiInputType(state) !== OUTPUT_TYPE_TRACKED_ENTITY) {
+            dispatch(tClearUiProgramRelatedDimensions())
+        }
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
@@ -142,6 +161,17 @@ export const tSetUiProgram =
                 })
             )
         stage && dispatch(acUpdateUiProgramStageId(stage.id))
+    }
+
+export const tSetUiEntityType =
+    ({ type }) =>
+    (dispatch) => {
+        dispatch(acClearUiProgram())
+        dispatch(tClearUiProgramRelatedDimensions())
+        dispatch(acClearUiEntityType())
+        // TODO: clear uiEntityTypeRelatedDimensions
+        dispatch(acUpdateUiEntityTypeId(type.id))
+        // TODO: store metadata as well?)
     }
 
 export const tClearUiStage = () => (dispatch, getState) => {

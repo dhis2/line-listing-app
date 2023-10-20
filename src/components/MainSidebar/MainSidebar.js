@@ -23,6 +23,7 @@ import {
     sGetUiSidebarHidden,
     sGetUiProgramStageId,
     sGetUiAccessoryPanelActiveTab,
+    sGetUiEntityTypeId,
 } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
@@ -43,6 +44,7 @@ const MainSidebar = () => {
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
+    const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
@@ -79,7 +81,7 @@ const MainSidebar = () => {
             onClick={() => onClick(ACCESSORY_PANEL_TAB_PROGRAM)}
             selected={open && selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
             count={counts.program}
-            disabled={!selectedProgramId}
+            disabled={!(selectedProgramId || selectedEntityTypeId)}
             dataTest="program-dimensions-button"
         />
     )
@@ -99,7 +101,7 @@ const MainSidebar = () => {
                     }
                     subtitle={subtitle}
                 />
-                {!selectedProgramId ? (
+                {!(selectedProgramId || selectedEntityTypeId) ? (
                     <Tooltip
                         dataTest={'no-input-tooltip'}
                         content={i18n.t('Choose an input first')}
