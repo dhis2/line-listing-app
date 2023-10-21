@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -319,10 +319,10 @@ msgid "Search your dimensions"
 msgstr "Søk i dimensjonene dine"
 
 msgid "Show panels"
-msgstr ""
+msgstr "Vis paneler"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "Utvid visualisering og skjul paneler"
 
 msgid "Unsaved visualization"
 msgstr "Ikke lagret visualisering"
@@ -350,16 +350,16 @@ msgstr ""
 "dashbord"
 
 msgid "Show layout"
-msgstr ""
+msgstr "Vis oppsett"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "Skjul oppsett"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "Vis dimensjonssidefeltet"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "Skjul dimensjonssidefeltet"
 
 msgid "Hide interpretations and details"
 msgstr "Skjul tolkninger og detaljer"
@@ -393,10 +393,10 @@ msgid "Your most viewed line lists"
 msgstr "Dine mest viste linjelister"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Ikke tilgjengelig i frakoblet modus"
 
 msgid "Sort by {{column}}"
-msgstr ""
+msgstr "Sorter etter {{column}}"
 
 msgid "Rows per page"
 msgstr "Rader per side"
@@ -638,11 +638,20 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Det er et problem med minst én valgt indikator"
 
-msgid "No access"
-msgstr "Ingen tilgang"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "Du har ikke tilgang til de forespurte dataene"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Noe gikk galt"
