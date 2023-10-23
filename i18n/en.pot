@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-19T07:07:22.993Z\n"
-"PO-Revision-Date: 2023-10-19T07:07:22.993Z\n"
+"POT-Creation-Date: 2023-10-23T10:02:43.699Z\n"
+"PO-Revision-Date: 2023-10-23T10:02:43.700Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -290,6 +290,9 @@ msgstr "Category option group set"
 
 msgid "Choose an input to get started adding program dimensions."
 msgstr "Choose an input to get started adding program dimensions."
+
+msgid "Program"
+msgstr "Program"
 
 msgid "Choose a program"
 msgstr "Choose a program"
