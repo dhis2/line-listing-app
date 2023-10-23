@@ -1,7 +1,6 @@
 # 
 # Translators:
 # Alison Andrade <aandrade@ippfwhr.org>, 2022
-# William Aviles <waviles@clintonhealthaccess.org>, 2022
 # Pablo Pajuelo Cabezas <pablo@dhis2.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # ericbp <ericbarredap@gmail.com>, 2022
@@ -17,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -654,11 +653,20 @@ msgstr "Asegúrese de agregar al menos una dimensión de unidad organizativa"
 msgid "There's a problem with at least one selected indicator"
 msgstr "Hay un problema con al menos un indicador seleccionado"
 
-msgid "No access"
-msgstr "Sin acceso"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "No tienes acceso a los datos solicitados"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Algo ha ido mal"

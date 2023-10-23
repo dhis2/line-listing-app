@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: 晓东 林 <13981924470@126.com>, 2023\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -612,11 +612,20 @@ msgstr "确保将带有至少一个选择的组织单位维度添加到布局中
 msgid "There's a problem with at least one selected indicator"
 msgstr "至少一个选定的指标有问题"
 
-msgid "No access"
-msgstr "不能访问"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "您无权访问请求的数据"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "出问题了"
