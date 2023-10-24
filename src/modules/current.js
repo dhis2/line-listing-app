@@ -26,12 +26,17 @@ export const getDefaultFromUi = (current, ui) => {
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
+        ...getEntityTypeFromUi(adaptedUi),
         ...getProgramFromUi(adaptedUi),
         ...getProgramStageFromUi(adaptedUi),
         ...getAxesFromUi(adaptedUi),
         ...getOptionsFromUi(adaptedUi),
     }
 }
+
+export const getEntityTypeFromUi = (ui) => ({
+    entityType: { id: ui.entityType?.id },
+})
 
 export const getProgramFromUi = (ui) => ({
     program: { id: ui.program?.id },

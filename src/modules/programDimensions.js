@@ -9,7 +9,11 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from './visualization.js'
 
 export const getProgramDimensions = () => ({
     [DIMENSION_ID_ORGUNIT]: {
@@ -45,7 +49,7 @@ export const getIsProgramDimensionDisabled = ({
         }
     } else if (
         dimensionId === DIMENSION_ID_EVENT_STATUS &&
-        inputType === OUTPUT_TYPE_ENROLLMENT
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
     ) {
         return true
     }

@@ -8,7 +8,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
 import { extractDimensionIdParts } from '../../../modules/utils.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,
@@ -65,7 +68,11 @@ const DefaultAxis = ({ axisId, className }) => {
             return dimension
         })
 
-        if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        if (
+            [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+                inputType
+            )
+        ) {
             dimensions.forEach((dimension) => {
                 const { dimensionId } = extractDimensionIdParts(dimension.id)
                 if (

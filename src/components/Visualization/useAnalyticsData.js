@@ -30,12 +30,14 @@ import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
     getHeadersMap,
 } from '../../modules/visualization.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
     [OUTPUT_TYPE_EVENT]: 'events',
+    [OUTPUT_TYPE_TRACKED_ENTITY]: 'trackedEntities',
 }
 
 const excludedDimensions = [
@@ -150,7 +152,7 @@ const fetchAnalyticsData = async ({
             totalPages: false,
             ...parameters,
         })
-        .withProgram(visualization.program.id)
+        .withProgram(visualization.program.id) // TODO: this needs to be changed for TE as program isn't mandatory, but TET is?
         .withDisplayProperty(displayProperty.toUpperCase())
         .withOutputType(visualization.outputType)
         .withPageSize(pageSize)

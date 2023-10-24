@@ -13,7 +13,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import { DimensionIcon } from '../DimensionItem/DimensionIcon.js'
 import styles from './ProgramDimensionsFilter.module.css'
@@ -111,7 +114,9 @@ const ProgramDimensionsFilter = ({
                 }
             />
         </SingleSelect>
-        {useSelector(sGetUiInputType) === OUTPUT_TYPE_ENROLLMENT &&
+        {[OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            useSelector(sGetUiInputType)
+        ) &&
             dimensionType === DIMENSION_TYPE_DATA_ELEMENT && (
                 <StageFilter
                     stages={program?.programStages}

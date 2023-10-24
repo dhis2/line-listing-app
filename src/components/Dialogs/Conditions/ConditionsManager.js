@@ -33,7 +33,10 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetDimensionIdsFromLayout,
@@ -364,8 +367,9 @@ const ConditionsManager = ({
             selectedLegendSet)
 
     const isRepeatable =
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            inputType
+        ) && dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT
 
     const renderConditions = () => (
         <>

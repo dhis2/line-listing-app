@@ -128,7 +128,11 @@ const ProgramDimensionsPanel = ({ visible }) => {
                             dimensionType={dimensionType}
                             searchTerm={debouncedSearchTerm}
                             stageId={
-                                inputType === OUTPUT_TYPE_ENROLLMENT &&
+                                [
+                                    OUTPUT_TYPE_ENROLLMENT,
+                                    OUTPUT_TYPE_TRACKED_ENTITY,
+                                ].includes(inputType) ===
+                                    OUTPUT_TYPE_ENROLLMENT &&
                                 dimensionType === DIMENSION_TYPE_DATA_ELEMENT
                                     ? stageFilter
                                     : inputType === OUTPUT_TYPE_EVENT
@@ -195,8 +199,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
                                     dimensionType={dimensionType}
                                     searchTerm={debouncedSearchTerm}
                                     stageId={
-                                        // FIXME: references like this to ENROLLMENT only needs to be changed to ENROLLMENT || TRACKED_ENTITY
-                                        inputType === OUTPUT_TYPE_ENROLLMENT &&
+                                        [
+                                            OUTPUT_TYPE_ENROLLMENT,
+                                            OUTPUT_TYPE_TRACKED_ENTITY,
+                                        ].includes(inputType) &&
                                         dimensionType ===
                                             DIMENSION_TYPE_DATA_ELEMENT
                                             ? stageFilter
