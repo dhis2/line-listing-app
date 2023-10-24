@@ -39,13 +39,13 @@ The line list will always be based on the event or tracker programs and you can 
 >
 > In the Line Listing app, all the dimensions related to a tracker or an event program are present in the program dimension component.
 
--   Select Program Dimension
+-   Choose a program
 
     Select program: All the event and tracker programs will be visible in the drop down.
 
-    If you have selected the Event in the Input tab, then for tracker programs under program dimension you need to select the program stage to get all the data elements, attributes for that particular stage. In this case you are not allowed to select data from the cross – stage for the tracker program.
+    If you have selected the Event, then for tracker programs you need to select the program stage to get all the data elements, attributes for that particular stage. In this case you are not allowed to select data from the cross – stage for the tracker program.
 
-If you select the event program you don’t have to select the stage unlike the event report app where you have to select the stage for the event program also.
+If you select the event program you don’t have to select the stage (unlike the event report app where you have to select the stage for the event program also).
 
 ![](resources/images/image9.png)
 
@@ -91,7 +91,7 @@ The line list will be displayed as a table with one row per event. Each dimensio
 
 All **Organisation Unit group sets** are present under **Your dimension** component for further evaluation or analysis.
 
-### Main Dimensions
+### Main and Program Dimensions
 
 #### Select Organization Unit
 
