@@ -4,7 +4,7 @@
     max-height: 100%;
 }
 .section {
-    padding: var(--spacers-dp12) var(--spacers-dp8);
+    padding: var(--spacers-dp12) var(--spacers-dp8) var(--spacers-dp4);
 }
 .helptext {
     padding: var(--spacers-dp16) var(--spacers-dp24) 0;
