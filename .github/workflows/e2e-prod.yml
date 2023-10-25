@@ -66,10 +66,8 @@ jobs:
         needs: compute-prod-versions
         runs-on: ubuntu-latest
         strategy:
-            fail-fast: false
             matrix:
                 versions: ${{ fromJSON(needs.compute-prod-versions.outputs.versions) }}
-                containers: [1, 2]
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -96,14 +94,11 @@ jobs:
                   start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
-                  record: true
-                  parallel: true
                   browser: chrome
                   group: e2e-chrome-parallel-${{ matrix.versions }}
               env:
                   CI: true
                   BROWSER: none
-                  CYPRESS_RECORD_KEY: ${{ secrets.recordkey }}
                   CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
                   CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
                   CYPRESS_dhis2Username: ${{ secrets.username }}
