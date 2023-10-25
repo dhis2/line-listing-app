@@ -4,7 +4,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './InputOption.module.css'
 
-const InputOption = ({ header, description, onClick, selected, dataTest }) => (
+const InputOption = ({
+    header,
+    description,
+    onClick,
+    selected,
+    dataTest,
+    children,
+}) => (
     <div
         className={cx(styles.container, { [styles.selected]: selected })}
         onClick={onClick}
@@ -14,6 +21,7 @@ const InputOption = ({ header, description, onClick, selected, dataTest }) => (
         <div className={styles.label}>
             <div className={styles.header}>{header}</div>
             <div className={styles.description}>{description}</div>
+            {children}
         </div>
     </div>
 )
@@ -23,6 +31,7 @@ InputOption.propTypes = {
     header: PropTypes.string.isRequired,
     selected: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
+    children: PropTypes.node,
     dataTest: PropTypes.string,
 }
 

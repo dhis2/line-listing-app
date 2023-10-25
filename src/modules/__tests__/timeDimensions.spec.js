@@ -3,7 +3,6 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
 } from '../dimensionConstants.js'
 import {
     PROGRAM_TYPE_WITH_REGISTRATION,
@@ -11,7 +10,7 @@ import {
 } from '../programTypes.js'
 import {
     getTimeDimensionName,
-    getDisabledTimeDimensions,
+    getHiddenTimeDimensions,
     getTimeDimensions,
 } from '../timeDimensions.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from '../visualization.js'
@@ -21,10 +20,7 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
     const eventDateDimension = timeDimensions[DIMENSION_ID_EVENT_DATE]
     const enrollmentDateDimension = timeDimensions[DIMENSION_ID_ENROLLMENT_DATE]
     const incidentDateDimension = timeDimensions[DIMENSION_ID_INCIDENT_DATE]
-    /***** NOT in MVP / 2.38 release *****
     const scheduledDateDimension = timeDimensions[DIMENSION_ID_SCHEDULED_DATE]
-    */
-    const lastUpdatedDimension = timeDimensions[DIMENSION_ID_LAST_UPDATED]
 
     it('uses default names normally', () => {
         const program = {
@@ -68,12 +64,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
         expect(
-            getTimeDimensionName(lastUpdatedDimension, program, stage)
-        ).toEqual(lastUpdatedDimension.name)
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
     it('uses displayEnrollmentDateLabel from program for enrollment date', () => {
         const program = {
@@ -99,12 +92,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
         expect(
-            getTimeDimensionName(lastUpdatedDimension, program, stage)
-        ).toEqual(lastUpdatedDimension.name)
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
     it('uses displayDueDateLabel from stage for scheduled date', () => {
         const program = {
@@ -130,12 +120,9 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(incidentDateDimension.name)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(stage.displayDueDateLabel)
         expect(
-            getTimeDimensionName(lastUpdatedDimension, program, stage)
-        ).toEqual(lastUpdatedDimension.name)
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(stage.displayDueDateLabel)
     })
     it('uses displayIncidentDateLabel from program for incident date', () => {
         const program = {
@@ -161,16 +148,13 @@ describe('ER > Dimensions > getTimeDimensionName', () => {
         expect(
             getTimeDimensionName(incidentDateDimension, program, stage)
         ).toEqual(program.displayIncidentDateLabel)
-        // expect(
-        //     getTimeDimensionName(scheduledDateDimension, program, stage)
-        // ).toEqual(scheduledDateDimension.name)
         expect(
-            getTimeDimensionName(lastUpdatedDimension, program, stage)
-        ).toEqual(lastUpdatedDimension.name)
+            getTimeDimensionName(scheduledDateDimension, program, stage)
+        ).toEqual(scheduledDateDimension.name)
     })
 })
 
-describe('ER > Dimensions > getDisabledTimeDimensions', () => {
+describe('ER > Dimensions > getHiddenTimeDimensions', () => {
     test.each([
         // Nothing populated
         {
@@ -187,7 +171,6 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
                 DIMENSION_ID_ENROLLMENT_DATE,
                 DIMENSION_ID_SCHEDULED_DATE,
                 DIMENSION_ID_INCIDENT_DATE,
-                DIMENSION_ID_LAST_UPDATED,
             ],
         },
         // Max enabled - with registration / tracker
@@ -261,12 +244,9 @@ describe('ER > Dimensions > getDisabledTimeDimensions', () => {
         },
     ])(
         'returns expected IDs for inputType $inputType, programType $program.programType with displayIncidentDate $program.displayIncidentDate and stage.hideDueDate $stage.hideDueDate',
-        ({ inputType, program, stage, expected }) => {
-            const actual = Object.keys(
-                getDisabledTimeDimensions(inputType, program, stage)
+        ({ inputType, program, stage, expected }) =>
+            expect(getHiddenTimeDimensions(inputType, program, stage)).toEqual(
+                expected
             )
-
-            expect(actual).toEqual(expected)
-        }
     )
 })

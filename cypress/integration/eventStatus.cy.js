@@ -4,7 +4,8 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM } from '../data/index.js'
 import {
-    clickAddRemoveMainDimension,
+    clickAddRemoveProgramDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import {
@@ -31,11 +32,12 @@ describe('event status', () => {
 
         selectEventWithProgram(event)
 
-        clickAddRemoveMainDimension(dimensionName)
+        openProgramDimensionsSidebar()
+
+        clickAddRemoveProgramDimension(dimensionName)
     }
 
-    // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442
-    it.skip(['>=39'], 'can be filtered by status SCHEDULED', () => {
+    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
         setUpTable()
 
         selectFixedPeriod({

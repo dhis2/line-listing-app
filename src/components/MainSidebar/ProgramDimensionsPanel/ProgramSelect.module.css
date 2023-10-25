@@ -11,3 +11,6 @@
 .stretch {
     flex-grow: 1;
 }
+.stage {
+    margin-left: var(--spacers-dp8);
+}
