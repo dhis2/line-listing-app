@@ -5,7 +5,11 @@ import {
     TEST_DIM_LEGEND_SET_NEGATIVE,
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
-import { openDimension, selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    openDimension,
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import { deleteVisualization, saveVisualization } from '../helpers/fileMenu.js'
 import {
     clickMenubarUpdateButton,
@@ -90,6 +94,8 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: periodLabel,

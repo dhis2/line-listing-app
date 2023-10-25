@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Malinda Wijeratne, 2023\n"
 "Language-Team: Sinhala (https://app.transifex.com/hisp-uio/teams/100509/si/)\n"
@@ -317,7 +317,7 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
-msgid "Interpretations"
+msgid "Line list"
 msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
@@ -609,20 +609,22 @@ msgid ""
 " to the layout."
 msgstr ""
 
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
-
 msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
-msgid "No access"
-msgstr "පිවිසිය නොහැක"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
 
 msgid "Something went wrong"

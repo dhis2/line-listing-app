@@ -43,6 +43,7 @@ module.exports = defineConfig({
             openMode: 0,
         },
         defaultCommandTimeout: 15000,
+        experimentalRunAllSpecs: true,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',

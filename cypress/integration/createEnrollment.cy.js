@@ -8,11 +8,7 @@ import {
     TEST_DIM_TEXT,
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
-import {
-    dimensionIsDisabled,
-    dimensionIsEnabled,
-    selectEnrollmentProgramDimensions,
-} from '../helpers/dimensions.js'
+import { selectEnrollmentWithProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -21,65 +17,35 @@ import {
     getTableHeaderCells,
     expectTableToBeVisible,
 } from '../helpers/table.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const enrollment = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = enrollment[DIMENSION_ID_ENROLLMENT_DATE]
 
-const setUpTable = ({ scheduledDateIsSupported } = {}) => {
-    // switch to Enrollment to toggle the enabled/disabled time dimensions
-    cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-        .contains('Input: Event')
-        .click()
-    cy.getBySel('input-enrollment').click()
-    cy.getBySel('main-sidebar').contains('Input: Enrollment').click()
+const setUpTable = () => {
+    cy.getBySel('dimension-item-lastUpdated').contains(
+        enrollment[DIMENSION_ID_LAST_UPDATED]
+    )
 
-    // check that the time dimensions are correctly disabled and named
-    dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-    dimensionIsEnabled('dimension-item-enrollmentDate')
-    cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-    if (scheduledDateIsSupported) {
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
-    }
-
-    dimensionIsDisabled('dimension-item-incidentDate')
-    cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-    dimensionIsEnabled('dimension-item-lastUpdated')
-    cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
-
-    // select program
-    selectEnrollmentProgramDimensions({
+    // switch to Enrollment and select a program
+    selectEnrollmentWithProgramDimensions({
         ...enrollment,
         dimensions: [dimensionName],
     })
 
-    // check that the time dimensions disabled states and names are updated correctly
+    // check that the time dimensions are shown with the correct names
+    cy.getBySel('dimension-item-eventDate').should('not.exist')
 
-    dimensionIsDisabled('dimension-item-eventDate')
-    cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-    dimensionIsEnabled('dimension-item-enrollmentDate')
     cy.getBySel('dimension-item-enrollmentDate').contains(
         enrollment[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    if (scheduledDateIsSupported) {
-        dimensionIsDisabled('dimension-item-scheduledDate')
-        cy.getBySel('dimension-item-scheduledDate').contains('Scheduled date')
-    }
+    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
-    dimensionIsEnabled('dimension-item-incidentDate')
     cy.getBySel('dimension-item-incidentDate').contains(
         enrollment[DIMENSION_ID_INCIDENT_DATE]
     )
 
-    dimensionIsEnabled('dimension-item-lastUpdated')
     cy.getBySel('dimension-item-lastUpdated').contains(
         enrollment[DIMENSION_ID_LAST_UPDATED]
     )
@@ -184,15 +150,7 @@ const runTests = () => {
     })
 }
 
-describe(['>=39'], 'enrollment', () => {
-    beforeEach(() => {
-        goToStartPage()
-        setUpTable({ scheduledDateIsSupported: true })
-    })
-    runTests()
-})
-
-describe(['<39'], 'enrollment', () => {
+describe('enrollment', () => {
     beforeEach(() => {
         goToStartPage()
         setUpTable()

@@ -11,11 +11,7 @@ import {
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
-import {
-    dimensionIsDisabled,
-    dimensionIsEnabled,
-    selectEventWithProgramDimensions,
-} from '../helpers/dimensions.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -32,24 +28,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        // check that the time dimensions are correctly disabled and named
-        dimensionIsEnabled('dimension-item-eventDate')
-        cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-        if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                'Scheduled date'
-            )
-        }
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-        dimensionIsEnabled('dimension-item-lastUpdated')
-        cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
+        cy.getBySel('dimension-item-lastUpdated').contains(
+            eventProgram[DIMENSION_ID_LAST_UPDATED]
+        )
 
         // select program
         selectEventWithProgramDimensions({
@@ -57,30 +38,24 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             dimensions: [dimensionName],
         })
 
-        // check that the time dimensions disabled states and names are updated correctly
-
-        dimensionIsEnabled('dimension-item-eventDate')
+        // check that the time dimensions are shown with the correct names
         cy.getBySel('dimension-item-eventDate').contains(
             eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
-        dimensionIsEnabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains(
             eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
         if (scheduledDateIsSupported) {
-            dimensionIsEnabled('dimension-item-scheduledDate')
             cy.getBySel('dimension-item-scheduledDate').contains(
                 eventProgram[DIMENSION_ID_SCHEDULED_DATE]
             )
         }
 
-        dimensionIsEnabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
             eventProgram[DIMENSION_ID_INCIDENT_DATE]
         )
 
-        dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
             eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
@@ -138,24 +113,6 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         const dimensionName = 'Mode of Discharge'
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        // check that the time dimensions are correctly disabled and named
-        dimensionIsEnabled('dimension-item-eventDate')
-        cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-        if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                'Scheduled date'
-            )
-        }
-
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-        dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
@@ -164,30 +121,20 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             dimensions: [dimensionName],
         })
 
-        // check that the time dimensions disabled states and names are updated correctly
+        // check that the time dimensions are shown with the correct names
 
-        dimensionIsEnabled('dimension-item-eventDate')
         cy.getBySel('dimension-item-eventDate').contains(
             eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains(
-            eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
-        )
+        cy.getBySel('dimension-item-enrollmentDate').should('not.exist')
+
         if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
-            )
+            cy.getBySel('dimension-item-scheduledDate').should('not.exist')
         }
 
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains(
-            eventProgram[DIMENSION_ID_INCIDENT_DATE]
-        )
+        cy.getBySel('dimension-item-incidentDate').should('not.exist')
 
-        dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
             eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
