@@ -29,6 +29,7 @@ env:
     BASE_URL_INSTANCES: https://test.e2e.dhis2.org
     NAME_PATTERN_PROD_INSTANCES: 'analytics-{version}'
     NAME_PATTERN_DEV_INSTANCE: analytics-dev
+    DHIS2_INSTANCE: https://test.e2e.dhis2.org/analytics-2.40
 
 concurrency:
     group: e2e-prod-${{ github.workflow}}-${{ github.ref }}
@@ -39,35 +40,9 @@ defaults:
         shell: bash
 
 jobs:
-    compute-prod-versions:
-        if: "!github.event.push.repository.fork && (github.event.pull_request.draft == false || github.action == 'workflow_dispatch')"
-        runs-on: ubuntu-latest
-        outputs:
-            versions: ${{ steps.prod-versions.outputs.versions }}
-        steps:
-            - name: Compute dev instance url
-              id: instance-url
-              run: |
-                  url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_DEV_INSTANCE/"{version}"/dev}
-                  echo "url=$url" >> $GITHUB_OUTPUT
-                  echo "url: $url"
-
-            - uses: actions/checkout@v3
-
-            - name: Output prod version urls
-              id: prod-versions
-              uses: dhis2/action-supported-legacy-versions@v1
-              with:
-                  instance-url-latest: ${{ steps.instance-url.outputs.url }} # can be removed if maxDHIS2Version has been specified
-                  username: ${{ secrets.username }}
-                  password: ${{ secrets.password }}
-
     e2e-prod:
-        needs: compute-prod-versions
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                versions: ${{ fromJSON(needs.compute-prod-versions.outputs.versions) }}
+
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -82,11 +57,11 @@ jobs:
             - name: Compute prod instance url
               id: instance-url
               run: |
-                  url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_PROD_INSTANCES/"{version}"/$version}
+                  url=${DHIS2_INSTANCE}
                   echo "url=$url" >> $GITHUB_OUTPUT
                   echo "url: $url"
               env:
-                  version: ${{ matrix.versions }}
+                  version: 2.40
 
             - name: Run e2e tests
               uses: cypress-io/github-action@v5
@@ -95,12 +70,11 @@ jobs:
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300
                   browser: chrome
-                  group: e2e-chrome-parallel-${{ matrix.versions }}
               env:
                   CI: true
                   BROWSER: none
                   CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
-                  CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
+                  CYPRESS_dhis2InstanceVersion: 2.40
                   CYPRESS_dhis2Username: ${{ secrets.username }}
                   CYPRESS_dhis2Password: ${{ secrets.password }}
                   CYPRESS_networkMode: live
