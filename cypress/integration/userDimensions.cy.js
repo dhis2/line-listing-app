@@ -1,6 +1,9 @@
 import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
-import { selectEnrollmentProgram } from '../helpers/dimensions.js'
+import {
+    openProgramDimensionsSidebar,
+    selectEnrollmentWithProgram,
+} from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -18,7 +21,8 @@ describe('user dimensions', () => {
         it(`${dimensionName} is added to the layout`, () => {
             // set up table
             goToStartPage()
-            selectEnrollmentProgram(enrollment)
+            selectEnrollmentWithProgram(enrollment)
+            openProgramDimensionsSidebar()
             selectFixedPeriod({
                 label: periodLabel,
                 period: TEST_FIX_PE_DEC_LAST_YEAR,

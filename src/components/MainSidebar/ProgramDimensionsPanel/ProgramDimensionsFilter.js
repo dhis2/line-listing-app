@@ -48,12 +48,13 @@ const ProgramDimensionsFilter = ({
     setStageFilter,
 }) => (
     <div className={styles.container}>
+        <div className={styles.header}>{i18n.t('Program data dimensions')}</div>
         <Input
             value={searchTerm}
             onChange={({ value }) => setSearchTerm(value)}
             dense
             type={'search'}
-            placeholder={i18n.t('Search in program')}
+            placeholder={i18n.t('Search data dimensions')}
         />
         <SingleSelect
             prefix={i18n.t('Type')}

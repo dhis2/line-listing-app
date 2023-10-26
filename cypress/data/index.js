@@ -19,7 +19,7 @@ export const E2E_PROGRAM = {
 
 export const CHILD_PROGRAM = {
     programName: 'Child Programme',
-    stageName: 'Birth',
+    //stageName: 'Birth', // auto-selected as it's the first one
     [DIMENSION_ID_EVENT_DATE]: 'Report date',
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
     [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',

@@ -7,6 +7,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../../helpers/dimensions.js'
 import {
@@ -36,6 +37,8 @@ describe('Option set condition', () => {
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
@@ -90,6 +93,8 @@ describe('Option set condition', () => {
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
