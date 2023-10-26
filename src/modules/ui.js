@@ -89,6 +89,10 @@ const getConditionsFromVisualization = (vis) =>
             {}
         )
 
+export const ACCESSORY_PANEL_TAB_INPUT = 'INPUT'
+export const ACCESSORY_PANEL_TAB_PROGRAM = 'PROGRAM'
+export const ACCESSORY_PANEL_TAB_YOUR = 'YOUR'
+
 // Repetition
 
 export const PROP_MOST_RECENT = 'mostRecent'

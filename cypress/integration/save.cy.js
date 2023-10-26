@@ -1,6 +1,9 @@
 import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     deleteVisualization,
     saveVisualization,
@@ -20,6 +23,7 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const setupTable = () => {
     goToStartPage()
     selectEventWithProgram(event)
+    openProgramDimensionsSidebar()
     selectFixedPeriod({
         label: periodLabel,
         period: TEST_FIX_PE_DEC_LAST_YEAR,

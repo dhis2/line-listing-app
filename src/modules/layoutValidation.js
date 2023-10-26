@@ -5,13 +5,7 @@ import {
     VIS_TYPE_LINE_LIST,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
-import {
-    noColumnsError,
-    noOrgUnitError,
-    noProgramError,
-    noStageError,
-} from './error.js'
-import { OUTPUT_TYPE_EVENT } from './visualization.js'
+import { noColumnsError, noOrgUnitError, noProgramError } from './error.js'
 
 // Layout validation helper functions
 const isAxisValid = (axis) =>
@@ -33,14 +27,6 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
             return false
         }
         throw noProgramError()
-    }
-
-    // stage
-    if (layout.outputType === OUTPUT_TYPE_EVENT && !layout?.programStage?.id) {
-        if (dryRun) {
-            return false
-        }
-        throw noStageError()
     }
 
     // columns

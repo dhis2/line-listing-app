@@ -1,10 +1,14 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { createContext, useMemo, useContext } from 'react'
 import { useSelector, useStore } from 'react-redux'
 import {
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionConstants.js'
+import { getTimeDimensions } from '../../modules/timeDimensions.js'
 import { sGetUiLayout } from '../../reducers/ui.js'
 
 const SelectedDimensionsContext = createContext({
@@ -41,7 +45,15 @@ export const SelectedDimensionsProvider = ({ children }) => {
             (acc, id) => {
                 const { dimensionType } = metadata[id] ?? {}
 
-                if (DIMENSION_TYPES_PROGRAM.has(dimensionType)) {
+                if (
+                    DIMENSION_TYPES_PROGRAM.has(dimensionType) ||
+                    [
+                        DIMENSION_ID_ORGUNIT,
+                        DIMENSION_ID_EVENT_STATUS,
+                        DIMENSION_ID_PROGRAM_STATUS,
+                        ...Object.keys(getTimeDimensions()),
+                    ].includes(id)
+                ) {
                     acc.program += 1
                 }
 

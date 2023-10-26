@@ -63,7 +63,7 @@ const reducer = (state, action) => {
             }
         default:
             throw new Error(
-                'Invalid action passed to useProgramDimensions reducer function'
+                'Invalid action passed to useProgramDataDimensions reducer function'
             )
     }
 }
@@ -188,7 +188,7 @@ const transformResponseData = ({
     }
 }
 
-const useProgramDimensions = ({
+const useProgramDataDimensions = ({
     inputType,
     program,
     stageId,
@@ -210,6 +210,8 @@ const useProgramDimensions = ({
         },
         dispatch,
     ] = useReducer(reducer, initialState)
+
+    const programId = useMemo(() => program.id, [program])
     const programStageNames = useMemo(
         () =>
             program.programStages?.reduce((acc, stage) => {
@@ -222,11 +224,17 @@ const useProgramDimensions = ({
     const nameProp =
         currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
-    const setIsListEndVisible = (isVisible) => {
-        if (isVisible !== isListEndVisible) {
-            dispatch({ type: ACTIONS_SET_LIST_END_VISIBLE, payload: isVisible })
-        }
-    }
+    const setIsListEndVisible = useCallback(
+        (isVisible) => {
+            if (isVisible !== isListEndVisible) {
+                dispatch({
+                    type: ACTIONS_SET_LIST_END_VISIBLE,
+                    payload: isVisible,
+                })
+            }
+        },
+        [isListEndVisible]
+    )
 
     const fetchDimensions = useCallback(
         async (shouldReset) => {
@@ -243,7 +251,7 @@ const useProgramDimensions = ({
                     dimensions: createDimensionsQuery({
                         inputType,
                         page,
-                        programId: program.id,
+                        programId,
                         stageId,
                         searchTerm,
                         dimensionType,
@@ -267,20 +275,22 @@ const useProgramDimensions = ({
             }
         },
         [
+            dimensions,
+            engine,
+            programStageNames,
             inputType,
             nextPage,
-            program,
+            programId,
             stageId,
             searchTerm,
             dimensionType,
-            isListEndVisible,
             nameProp,
         ]
     )
 
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, program, stageId, searchTerm, dimensionType, nameProp])
+    }, [inputType, programId, stageId, searchTerm, dimensionType, nameProp])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {
@@ -296,4 +306,4 @@ const useProgramDimensions = ({
     }
 }
 
-export { useProgramDimensions, createDimensionsQuery }
+export { useProgramDataDimensions, createDimensionsQuery }

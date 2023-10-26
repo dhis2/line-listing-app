@@ -217,23 +217,39 @@ msgstr "Event"
 msgid "Enrollment"
 msgstr "Enrollment"
 
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
 
-msgid "Main dimensions"
-msgstr "Main dimensions"
-
-msgid "Input: {{type}}"
-msgstr "Input: {{type}}"
+msgid "Global dimensions"
+msgstr "Global dimensions"
 
 msgid "Program dimensions"
 msgstr "Program dimensions"
 
-msgid "Search in program"
-msgstr "Search in program"
+msgid "Input: {{type}}"
+msgstr "Input: {{type}}"
+
+msgid "Choose an input first"
+msgstr "Choose an input first"
+
+msgid "Program data dimensions"
+msgstr "Program data dimensions"
+
+msgid "Search data dimensions"
+msgstr "Search data dimensions"
 
 msgid "Type"
 msgstr "Type"
@@ -256,30 +272,14 @@ msgstr "Category"
 msgid "Category option group set"
 msgstr "Category option group set"
 
-msgid "Could not load programs"
-msgstr "Could not load programs"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Choose a stage above to add program dimensions."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Choose a program above to add program dimensions."
+msgid "Choose an input to get started adding program dimensions."
+msgstr "Choose an input to get started adding program dimensions."
 
 msgid "Choose a program"
 msgstr "Choose a program"
 
-msgid "Clear program first to choose another"
-msgstr "Clear program first to choose another"
-
-msgid "Clear"
-msgstr "Clear"
+msgid "No programs found"
+msgstr "No programs found"
 
 msgid "Stage"
 msgstr "Stage"
@@ -287,14 +287,8 @@ msgstr "Stage"
 msgid "All"
 msgstr "All"
 
-msgid "Clear stage first to choose another"
-msgstr "Clear stage first to choose another"
-
-msgid "This program only has one stage"
-msgstr "This program only has one stage"
-
-msgid "Time dimensions"
-msgstr "Time dimensions"
+msgid "No stages found"
+msgstr "No stages found"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
@@ -594,14 +588,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "No program selected"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Choose a program from the Program Dimensions sidebar."
-
-msgid "No stage selected"
-msgstr "No stage selected"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
+msgstr "Choose a program from the Input sidebar."
 
 msgid "Columns is empty"
 msgstr "Columns is empty"
@@ -660,17 +648,14 @@ msgstr "Event status"
 msgid "Program status"
 msgstr "Program status"
 
+msgid "Last updated on"
+msgstr "Last updated on"
+
 msgid "Created by"
 msgstr "Created by"
 
 msgid "Last updated by"
 msgstr "Last updated by"
-
-msgid "Not applicable to event programs"
-msgstr "Not applicable to event programs"
-
-msgid "Not applicable to enrollments"
-msgstr "Not applicable to enrollments"
 
 msgid "User organisation unit"
 msgstr "User organisation unit"
@@ -708,6 +693,15 @@ msgstr "Limit minimum/maximum values"
 msgid "Style"
 msgstr "Style"
 
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Program status"
+msgstr "Program status"
+
 msgid "most recent"
 msgstr "most recent"
 
@@ -731,18 +725,6 @@ msgstr "Incident date"
 
 msgid "Scheduled date"
 msgstr "Scheduled date"
-
-msgid "Last updated on"
-msgstr "Last updated on"
-
-msgid "Disabled by the selected program"
-msgstr "Disabled by the selected program"
-
-msgid "Disabled by the selected program stage"
-msgstr "Disabled by the selected program stage"
-
-msgid "No input type selected"
-msgstr "No input type selected"
 
 msgid "Active"
 msgstr "Active"

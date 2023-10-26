@@ -11,7 +11,7 @@ import {
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
-    selectEnrollmentProgramDimensions,
+    selectEnrollmentWithProgramDimensions,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
 import { saveVisualization } from '../helpers/fileMenu.js'
@@ -178,7 +178,7 @@ describe(['>=40'], 'ou hierarchy', () => {
         goToStartPage()
 
         // set up table
-        selectEnrollmentProgramDimensions({
+        selectEnrollmentWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [TEST_DIM_INTEGER],
         })

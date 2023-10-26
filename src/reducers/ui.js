@@ -13,17 +13,17 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
 import { getFilteredLayout } from '../modules/layout.js'
-import {
-    getMainDimensions,
-    getIsMainDimensionDisabled,
-} from '../modules/mainDimensions.js'
+import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
-import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
+import {
+    getIsProgramDimensionDisabled,
+    getProgramDimensions,
+} from '../modules/programDimensions.js'
+import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
 import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
@@ -42,6 +42,8 @@ export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
+export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
+    'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
     'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
@@ -99,7 +101,8 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_PROGRAM_STATUS]: [],
     },
     options: getOptionsForUi(),
-    showAccessoryPanel: false,
+    showAccessoryPanel: true,
+    accessoryPanelActiveTab: 'INPUT',
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -261,6 +264,12 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
+        case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
+            return {
+                ...state,
+                accessoryPanelActiveTab: action.value,
+            }
+        }
         case TOGGLE_UI_SIDEBAR_HIDDEN: {
             return { ...state, hideMainSideBar: !state.hideMainSideBar }
         }
@@ -390,6 +399,8 @@ export const sGetUiConditions = (state) =>
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
+export const sGetUiAccessoryPanelActiveTab = (state) =>
+    sGetUi(state).accessoryPanelActiveTab
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
@@ -442,36 +453,15 @@ export const renderChipsSelector = createSelector(
 )
 
 // Selector based hooks
-export const useMainDimensions = () => {
-    const store = useStore()
-    const programId = useSelector(sGetUiProgramId)
-    const inputType = useSelector(sGetUiInputType)
+export const useMainDimensions = () => Object.values(getMainDimensions())
 
-    return useMemo(() => {
-        const { metadata } = store.getState()
-        const programType = programId && metadata[programId].programType
-
-        return Object.values(getMainDimensions()).map((dimension) => {
-            const disabledReason = getIsMainDimensionDisabled({
-                dimensionId: dimension.id,
-                inputType,
-                programType,
-            })
-            return {
-                ...dimension,
-                disabled: Boolean(disabledReason),
-                disabledReason,
-            }
-        })
-    }, [programId, inputType])
-}
-
-export const useTimeDimensions = () => {
+export const useProgramDimensions = () => {
     const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
+
     const eventDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_EVENT_DATE)
     )
@@ -484,14 +474,16 @@ export const useTimeDimensions = () => {
     const scheduledDateDim = useSelector((state) =>
         sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
     )
-    const lastUpdatedDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
-    )
 
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
         const stage = metadata[programStageId]
+        const hiddenTimeDimensions = getHiddenTimeDimensions(
+            inputType,
+            program,
+            stage
+        )
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
@@ -501,24 +493,21 @@ export const useTimeDimensions = () => {
                 ? [scheduledDateDim]
                 : []),
             incidentDateDim,
-            lastUpdatedDim,
-        ]
+        ].filter(
+            (dimension) =>
+                !!dimension && !hiddenTimeDimensions.includes(dimension.id)
+        )
 
-        if (timeDimensions.every((dimension) => !!dimension)) {
-            const disabledTimeDimensions = getDisabledTimeDimensions(
-                inputType,
-                program,
-                stage
-            )
+        const programDimensions = Object.values(getProgramDimensions()).filter(
+            (dimension) =>
+                !getIsProgramDimensionDisabled({
+                    dimensionId: dimension.id,
+                    inputType,
+                    programType: program?.programType,
+                })
+        )
 
-            return timeDimensions.map((dimension) => ({
-                ...dimension,
-                disabled: Boolean(disabledTimeDimensions[dimension.id]),
-                disabledReason: disabledTimeDimensions[dimension.id],
-            }))
-        } else {
-            return null
-        }
+        return programDimensions.concat(timeDimensions)
     }, [
         inputType,
         programId,
@@ -527,6 +516,5 @@ export const useTimeDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
-        lastUpdatedDim,
     ])
 }

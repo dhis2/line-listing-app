@@ -2,12 +2,10 @@ import {
     USER_ORG_UNIT,
     USER_ORG_UNIT_CHILDREN,
     USER_ORG_UNIT_GRANDCHILDREN,
-    DIMENSION_ID_ORGUNIT,
-    getDimensionById,
-    DIMENSION_TYPE_ORGANISATION_UNIT,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions } from './mainDimensions.js'
+import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
 import { getStatusNames } from './visualization.js'
 
@@ -23,17 +21,10 @@ const getOrganisationUnits = () => ({
     [USER_ORG_UNIT_GRANDCHILDREN]: i18n.t('User sub-x2-units'),
 })
 
-const getFixedDimensions = () => ({
-    [DIMENSION_ID_ORGUNIT]: {
-        ...getDimensionById(DIMENSION_ID_ORGUNIT),
-        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
-    },
-})
-
 export const getDefaultMetadata = () => ({
     ...getMainDimensions(),
+    ...getProgramDimensions(),
     ...getDefaultTimeDimensionsMetadata(),
-    ...getFixedDimensions(),
     ...formatObject(getOrganisationUnits()),
     ...formatObject(getStatusNames()),
 })
