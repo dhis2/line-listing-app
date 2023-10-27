@@ -92,6 +92,7 @@ const getConditionsFromVisualization = (vis) =>
 export const ACCESSORY_PANEL_TAB_INPUT = 'INPUT'
 export const ACCESSORY_PANEL_TAB_PROGRAM = 'PROGRAM'
 export const ACCESSORY_PANEL_TAB_YOUR = 'YOUR'
+export const ACCESSORY_PANEL_TAB_TRACKED_ENTITY = 'TRACKED_ENTITY'
 
 // Repetition
 

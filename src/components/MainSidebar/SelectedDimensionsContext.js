@@ -15,6 +15,7 @@ const SelectedDimensionsContext = createContext({
     counts: {
         your: 0,
         program: 0,
+        trackedEntity: 0,
     },
     getIsDimensionSelected: () => {
         throw new Error('Context not initialized correctly')
@@ -60,9 +61,10 @@ export const SelectedDimensionsProvider = ({ children }) => {
                 if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
+                // TODO: add count for TE dimensions here
                 return acc
             },
-            { program: 0, your: 0 }
+            { program: 0, your: 0, trackedEntity: 0 }
         )
 
         return {
