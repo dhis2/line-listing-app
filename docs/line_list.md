@@ -4,7 +4,7 @@ The Line Listing app is a new app that replaces the line listing functionality i
 
 > **NOTE**
 >
-> There will be a forward compatibility with the Event Reports app, which means that you can open the existing event reports of type line list in the Line Listing app, but you cannot save them with the same name in the Line Listing app.
+> There will be a forward compatibility with the Event Reports app, which means that you can open the existing event reports of type line list in the Line Listing app, but you cannot save changes to them in the Line Listing app.
 
 ### Creating and editing a line list
 
@@ -24,8 +24,8 @@ In the Line Listing app, you currently only have one type of selection which is 
 
 (_This is the same as you see in the Event Reports app_). When you open the Input tab you will see below two options:
 
--   Event (see individual event data from a Tracker program stage or event program)
--   Enrollment (see data from multiple program stages in a Tracker program)
+-   Event (see individual event data from an event program or a tracker program stage)
+-   Enrollment (see data from multiple stages in a tracker program)
 
 ![](resources/images/image7.png)
 
@@ -33,19 +33,19 @@ In the Line Listing app, you currently only have one type of selection which is 
 
 (In the Event Reports app these are called data dimensions.)
 
-The line list will always be based on the event or tracker programs and you can do analysis on a range of dimensions. For Program with category combinations, you can use program categories and category option group sets as dimensions.
+The line list will always be based on event or tracker programs and you can do analysis on a range of dimensions. For programs with category combinations, you can use program categories and category option group sets as dimensions.
 
 > **Tip**
 >
 > In the Line Listing app, all the dimensions related to a tracker or an event program are present in the program dimension component.
 
--   Select Program Dimension
+-   Choose a program
 
     Select program: All the event and tracker programs will be visible in the drop down.
 
-    If you have selected the Event in the Input tab, then for tracker programs under program dimension you need to select the program stage to get all the data elements, attributes for that particular stage. In this case you are not allowed to select data from the cross – stage for the tracker program.
+    If you have selected the Event, then for tracker programs you need to select the program stage to get all the data elements, attributes for that particular stage. To be able to select data from multiple stages you need to select "Enrollment" as the input type.
 
-If you select the event program you don’t have to select the stage unlike the event report app where you have to select the stage for the event program also.
+If you select an event program you don’t have to select the stage (unlike the Event Reports app).
 
 ![](resources/images/image9.png)
 
@@ -53,15 +53,15 @@ If you select Enrollment in the Input tab then all data elements associated with
 
 ![](resources/images/image8.png)
 
-If you want to filter the data, by data elements, program attribute, program indicators, category, category option group set you can do it by clicking on the dropdown option.
+If you want to filter the data, by data elements, program attribute, program indicators, category, category option group set you can do so by clicking on the dropdown option.
 
 ![](resources/images/image11.png)
 
-The data elements can be added by clicking on a dimension, by dragging and dropping a dimension to the layout area or by hovering over a dimension and using on its context menu (three dots).
+There are multiple ways to add data elements to the layout. They can be added by hovering over the dimension and clicking the plus icon or by dragging and dropping a dimension straight to the layout area.
 
 ![](resources/images/image10.png)
 
-Alternatively, you can click on the respective data element and you can then choose to add it in column or filter as shown in below figure.
+Alternatively, you can click on the respective data element and then choose to add it in column or filter as shown in below figure.
 
 ![](resources/images/image6.png){ width=50% }
 
@@ -91,9 +91,9 @@ The line list will be displayed as a table with one row per event. Each dimensio
 
 All **Organisation Unit group sets** are present under **Your dimension** component for further evaluation or analysis.
 
-### Main Dimensions
+### Main and Program Dimensions
 
-#### Select Organization Unit
+#### Select Organisation Unit
 
 The organisation unit dialog is flexible, offering essentially three ways of selecting organisation units:
 

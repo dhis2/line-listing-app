@@ -1,3 +1,10 @@
+# [100.10.0](https://github.com/dhis2/line-listing-app/compare/v100.9.5...v100.10.0) (2023-10-26)
+
+
+### Features
+
+* event/enrollment ui changes to prepare for TEI cross-program support (DHIS2-15454) ([#415](https://github.com/dhis2/line-listing-app/issues/415)) ([53fa071](https://github.com/dhis2/line-listing-app/commit/53fa071aeee37b537563d8ac2fb76d9959ab9931))
+
 ## [100.9.5](https://github.com/dhis2/line-listing-app/compare/v100.9.4...v100.9.5) (2023-10-22)
 
 
