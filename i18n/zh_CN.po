@@ -219,6 +219,14 @@ msgstr "事件"
 msgid "Enrollment"
 msgstr "报名"
 
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -226,16 +234,22 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
-msgstr "主要维度"
-
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -259,28 +273,14 @@ msgstr "分类"
 msgid "Category option group set"
 msgstr "分类选项组集"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
+msgid "No programs found"
 msgstr ""
-
-msgid "Clear"
-msgstr "清除"
 
 msgid "Stage"
 msgstr "阶段"
@@ -288,13 +288,7 @@ msgstr "阶段"
 msgid "All"
 msgstr "全部"
 
-msgid "Clear stage first to choose another"
-msgstr ""
-
-msgid "This program only has one stage"
-msgstr ""
-
-msgid "Time dimensions"
+msgid "No stages found"
 msgstr ""
 
 msgid "Your dimensions"
@@ -584,13 +578,7 @@ msgstr ""
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -628,26 +616,14 @@ msgstr ""
 msgid "Something went wrong"
 msgstr "出了些问题"
 
-msgid "Organisation unit"
-msgstr "机构"
-
-msgid "Event status"
-msgstr "事件状态"
-
-msgid "Program status"
-msgstr "项目状态"
+msgid "Last updated on"
+msgstr ""
 
 msgid "Created by"
 msgstr "创建自"
 
 msgid "Last updated by"
 msgstr "最近更新者"
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
-msgstr ""
 
 msgid "User organisation unit"
 msgstr "用户所在机构"
@@ -685,6 +661,15 @@ msgstr "限制最大最小值"
 msgid "Style"
 msgstr "风格"
 
+msgid "Organisation unit"
+msgstr "机构"
+
+msgid "Event status"
+msgstr "事件状态"
+
+msgid "Program status"
+msgstr "项目状态"
+
 msgid "most recent"
 msgstr ""
 
@@ -708,18 +693,6 @@ msgstr "事件日期"
 
 msgid "Scheduled date"
 msgstr "调度日期"
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
-msgstr ""
 
 msgid "Active"
 msgstr "活动的"
