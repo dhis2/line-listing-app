@@ -12,7 +12,7 @@ export const TrackedEntityDimensionsMenuItem = ({
 }) => (
     <MenuItem
         icon={<IconFolder16 />}
-        label={i18n.t(`{{itemName}} dimensions`, {
+        label={i18n.t(`{{- itemName}} dimensions`, {
             itemName: name,
         })}
         onClick={onClick}
