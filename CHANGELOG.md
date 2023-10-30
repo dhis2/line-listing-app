@@ -1,3 +1,13 @@
+## [100.10.1](https://github.com/dhis2/line-listing-app/compare/v100.10.0...v100.10.1) (2023-10-30)
+
+
+### Bug Fixes
+
+* allow opening interpretations for AOs without a time dimension (DHIS2-15781) ([7c8239d](https://github.com/dhis2/line-listing-app/commit/7c8239d01ba9c56ac0ff5ad01a7032773babb06d))
+* correctly center the table spinner (DHIS2-13947, DHIS2-13946) ([0bea200](https://github.com/dhis2/line-listing-app/commit/0bea2007a3c6d1607e9592411f06c99b40892d61))
+* take legend-key into account when computing pagination max-width (DHIS2-15465) ([9445d6a](https://github.com/dhis2/line-listing-app/commit/9445d6a5481971a2a18a929c35f59b09f29a7924))
+* upgrade @dhis2/analytics to latest ([52027a0](https://github.com/dhis2/line-listing-app/commit/52027a0946feb57c1ecb045c24de20332ccae2a8))
+
 # [100.10.0](https://github.com/dhis2/line-listing-app/compare/v100.9.5...v100.10.0) (2023-10-26)
 
 
