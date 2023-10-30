@@ -1,5 +1,4 @@
 .scrollbox {
-    height: calc(100% - 57px);
     overflow-y: auto;
 }
 .list {
