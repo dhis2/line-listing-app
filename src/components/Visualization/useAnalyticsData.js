@@ -26,6 +26,7 @@ import {
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
+import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -163,7 +164,7 @@ const fetchAnalyticsData = async ({
         req = req.withStage(visualization.programStage?.id)
     }
 
-    if (relativePeriodDate) {
+    if (relativePeriodDate && isAoWithTimeDimension(visualization)) {
         req = req.withRelativePeriodDate(relativePeriodDate)
     }
 

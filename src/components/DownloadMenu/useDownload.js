@@ -3,6 +3,7 @@ import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
+import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
@@ -123,7 +124,7 @@ const useDownload = (relativePeriodDate) => {
                 req = req.withStage(current.programStage?.id)
             }
 
-            if (relativePeriodDate) {
+            if (relativePeriodDate && isAoWithTimeDimension(current)) {
                 req = req.withRelativePeriodDate(relativePeriodDate)
             }
 

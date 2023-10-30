@@ -20,7 +20,7 @@ export const expectTableToBeVisible = () =>
     getLineListTable().find('tbody').should('be.visible')
 
 export const expectTableToBeUpdated = () =>
-    cy.getBySel('line-list-loading-indicator').should(($div) => {
+    cy.getBySel('line-list-fetch-container').should(($div) => {
         const className = $div[0].className
 
         expect(className).to.not.match(/Visualization_fetching*/)
