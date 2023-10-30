@@ -63,7 +63,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
 
             if (isListEndVisible && !isLastPage && !fetching) {
                 refetch({
-                    page: data.page + 1,
+                    page: pager.page + 1,
                     searchTerm,
                     nameProp,
                 })

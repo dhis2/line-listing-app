@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-27T07:29:27.533Z\n"
-"PO-Revision-Date: 2023-10-27T07:29:27.533Z\n"
+"POT-Creation-Date: 2023-10-30T10:21:56.025Z\n"
+"PO-Revision-Date: 2023-10-30T10:21:56.026Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -314,6 +314,12 @@ msgstr "Choose a type"
 
 msgid "No types found"
 msgstr "No types found"
+
+msgid "{{itemName}} dimensions"
+msgstr "{{itemName}} dimensions"
+
+msgid "Search dimensions"
+msgstr "Search dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
