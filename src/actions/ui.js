@@ -139,6 +139,7 @@ export const tClearUiProgramStageDimensions =
     }
 
 export const tSetUiInput = (value) => (dispatch) => {
+    dispatch(acClearUiEntityType())
     dispatch(acClearUiProgram())
     dispatch(tClearUiProgramRelatedDimensions())
     dispatch(acClearUiRepetition())
