@@ -1,3 +1,10 @@
+## [100.10.2](https://github.com/dhis2/line-listing-app/compare/v100.10.1...v100.10.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* **deps:** platform fixes for login redirect [DHIS2-15320] ([#366](https://github.com/dhis2/line-listing-app/issues/366)) ([dde8a92](https://github.com/dhis2/line-listing-app/commit/dde8a923fc2635664cc82ed01449a8e1f5c71301))
+
 ## [100.10.1](https://github.com/dhis2/line-listing-app/compare/v100.10.0...v100.10.1) (2023-10-30)
 
 
