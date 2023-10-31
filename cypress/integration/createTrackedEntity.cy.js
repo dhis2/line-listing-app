@@ -37,6 +37,8 @@ const setUpTable = () => {
     // switch to Tracked entity and select a type
     selectTrackedEntityWithType('Person')
 
+    cy.getBySel('input-panel-button-subtitle').contains('Person')
+
     // TODO: check that reg ou and reg date are shown
 
     // add a TET dimension

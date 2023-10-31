@@ -117,6 +117,7 @@ const MainSidebar = () => {
                         open && selectedTabId === ACCESSORY_PANEL_TAB_INPUT
                     }
                     subtitle={getSubtitle()}
+                    dataTest="input-panel-button"
                 />
                 {!(selectedProgramId || selectedEntityTypeId) ? (
                     <Tooltip
