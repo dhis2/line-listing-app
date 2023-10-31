@@ -24,6 +24,11 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     }
 }
 
+export const selectProgramForTE = (programName) => {
+    cy.getBySel('accessory-sidebar').contains('Program').click()
+    cy.contains(programName).click()
+}
+
 export const selectEventWithProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
@@ -32,6 +37,12 @@ export const selectEnrollmentWithProgram = ({ programName }) =>
         inputType: INPUT_ENROLLMENT,
         programName,
     })
+
+export const selectTrackedEntityWithType = (typeName) => {
+    cy.getBySel('input-tracked-entity').click()
+    cy.getBySel('accessory-sidebar').contains('Choose a type').click()
+    cy.contains(typeName).click()
+}
 
 export const openInputSidebar = () => {
     cy.getBySel('main-sidebar').contains('Input:').click()
@@ -66,6 +77,9 @@ export const clickAddRemoveProgramDimension = (label) =>
 
 export const clickAddRemoveProgramDataDimension = (label) =>
     clickAddRemoveDimension('program-dimensions-list', label)
+
+export const clickAddRemoveTrackedEntityDimensions = (label) =>
+    clickAddRemoveDimension('tracked-entity-dimensions-list', label)
 
 const selectProgramDimensions = ({
     inputType,
