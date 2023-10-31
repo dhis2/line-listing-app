@@ -128,6 +128,7 @@ describe('event', () => {
         const getListChildren = () => getList().find('div[role="button"]')
         const shouldLoadNextPage = (nextPage, nextListLenght) => {
             cy.getBySel('dimensions-list-load-more').should('exist')
+            // The loader is appended below the "viewport" so we need another scroll
             getList().scrollTo('bottom')
             cy.getBySel('dimensions-list-load-more').should('be.visible')
             cy.wait('@getDimensions')
@@ -162,13 +163,14 @@ describe('event', () => {
         getList().scrollTo('bottom')
         shouldLoadNextPage(4, 200)
 
-        // Note this is the last page with only 10 items
+        // This is the last page with only 10 items
         getList().scrollTo('bottom')
         shouldLoadNextPage(5, 210)
 
         // Nothing should happen once the end has been reached
         getList().scrollTo('bottom')
         cy.getBySel('dimensions-list-load-more').should('not.exist')
+        getListChildren().should('have.length', 210)
         cy.get('@getDimensions.all').then((interceptions) => {
             const hasRequestedPageSix = interceptions.some(
                 ({ request }) => request.query.page === '6'
