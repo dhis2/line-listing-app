@@ -90,7 +90,10 @@ const DimensionsList = ({
                     />
                 ))}
                 {fetching && (
-                    <div className={styles.loadMoreWrap}>
+                    <div
+                        className={styles.loadMoreWrap}
+                        data-test="dimensions-list-load-more"
+                    >
                         <CircularLoader small />
                     </div>
                 )}
