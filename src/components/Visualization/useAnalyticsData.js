@@ -160,7 +160,7 @@ const fetchAnalyticsData = async ({
         .withPage(page)
         .withIncludeMetadataDetails()
 
-    if (visualization.outputType !== OUTPUT_TYPE_ENROLLMENT) {
+    if (visualization.outputType === OUTPUT_TYPE_EVENT) {
         req = req.withStage(visualization.programStage?.id)
     }
 
