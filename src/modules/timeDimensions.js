@@ -1,10 +1,11 @@
-import { DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
+import { DIMENSION_TYPE_PERIOD, layoutGetAllDimensions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_IDS_TIME,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
 import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
@@ -93,3 +94,12 @@ export const getHiddenTimeDimensions = (inputType, program, stage) => {
         }
     }
 }
+
+export const isAoWithTimeDimension = (ao) =>
+    layoutGetAllDimensions(ao).some(
+        ({ dimensionType, dimension, items }) =>
+            (dimensionType === DIMENSION_TYPE_PERIOD ||
+                DIMENSION_IDS_TIME.has(dimension)) &&
+            Array.isArray(items) &&
+            items.length > 0
+    )
