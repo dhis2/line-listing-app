@@ -29,7 +29,7 @@ const query = {
 
 const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
     const [isListEndVisible, setIsListEndVisible] = useState(false)
-    const [dimensions, setDimensions] = useState([])
+    const [dimensions, setDimensions] = useState(null)
     const { data, error, loading, fetching, called, refetch } = useDataQuery(
         query,
         {
@@ -54,7 +54,7 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
             })
         }
         // Reset when filter changes
-        setDimensions([])
+        setDimensions(null)
     }, [searchTerm, nameProp, id, visible])
 
     useEffect(() => {
@@ -76,17 +76,17 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
     useEffect(() => {
         if (data) {
             setDimensions((currDimensions) => [
-                ...currDimensions,
+                ...(currDimensions ?? []),
                 ...data.dimensions.dimensions,
             ])
         }
     }, [data])
 
     return {
-        loading,
+        loading: dimensions ? false : loading,
         fetching,
         error,
-        dimensions,
+        dimensions: dimensions ?? [],
         setIsListEndVisible,
     }
 }
