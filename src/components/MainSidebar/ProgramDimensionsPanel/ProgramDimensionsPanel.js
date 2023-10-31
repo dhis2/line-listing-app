@@ -82,7 +82,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         },
     }
     const { currentUser } = useCachedDataQuery()
-    const { fetching, error, data, refetch, called } = useDataQuery(query, {
+    const { data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
     // FIXME: the fetching should be consolidated with the fetching in InputPanel and not be duplicated like this
