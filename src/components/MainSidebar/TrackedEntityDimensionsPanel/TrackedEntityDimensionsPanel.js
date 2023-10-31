@@ -55,7 +55,7 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
                 fetching={fetching}
                 loading={loading}
                 searchTerm={debouncedSearchTerm}
-                dataTest="tracked-entity-dimensions-list"
+                dataTest="tracked-entity-dimensions"
             />
         </>
     )

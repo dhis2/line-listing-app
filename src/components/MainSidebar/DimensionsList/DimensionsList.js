@@ -81,7 +81,7 @@ const DimensionsList = ({
             onMouseDown={(event) => event.preventDefault()}
             ref={scrollBoxRef}
         >
-            <div className={styles.list}>
+            <div className={styles.list} data-test={`${dataTest}-list`}>
                 {dimensions.map((dimension) => (
                     <DimensionItem
                         key={dimension.id}

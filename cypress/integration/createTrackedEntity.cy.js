@@ -1,4 +1,8 @@
-import { DIMENSION_ID_ENROLLMENT_DATE } from '../../src/modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_LAST_UPDATED,
+} from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
     TEST_DIM_TEXT,
@@ -43,6 +47,9 @@ const setUpTable = () => {
 
     // add a TET dimension
     cy.getBySel('main-sidebar').contains('Person dimensions').click()
+    cy.getBySel('tracked-entity-dimensions-list')
+        .children()
+        .should('have.length', 50)
     clickAddRemoveTrackedEntityDimensions(dimensionName)
 
     // select a program and add program dimensions
@@ -50,7 +57,29 @@ const setUpTable = () => {
 
     selectProgramForTE(program.programName)
 
+    cy.getBySel('dimension-item-eventDate').should('not.exist')
+
+    cy.getBySel('dimension-item-enrollmentDate').contains(
+        program[DIMENSION_ID_ENROLLMENT_DATE]
+    )
+
+    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
+
+    cy.getBySel('dimension-item-incidentDate').contains(
+        program[DIMENSION_ID_INCIDENT_DATE]
+    )
+
+    cy.getBySel('dimension-item-lastUpdated').contains(
+        program[DIMENSION_ID_LAST_UPDATED]
+    )
+
     selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
+
+    // Go back to person dimensions to verify that they're still listed properly
+    cy.getBySel('main-sidebar').contains('Person dimensions').click()
+    cy.getBySel('tracked-entity-dimensions-list')
+        .children()
+        .should('have.length', 50)
 
     clickMenubarUpdateButton()
 
