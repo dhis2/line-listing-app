@@ -8,7 +8,11 @@ import {
     DIMENSION_IDS_TIME,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
@@ -75,7 +79,8 @@ export const getHiddenTimeDimensions = (inputType, program, stage) => {
             }
             return hiddenDimensions
         }
-        case OUTPUT_TYPE_ENROLLMENT: {
+        case OUTPUT_TYPE_ENROLLMENT:
+        case OUTPUT_TYPE_TRACKED_ENTITY: {
             hiddenDimensions.push(DIMENSION_ID_EVENT_DATE)
             hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
 
