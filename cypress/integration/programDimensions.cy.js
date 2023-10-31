@@ -13,6 +13,7 @@ import {
     openInputSidebar,
     openProgramDimensionsSidebar,
     selectEnrollmentWithProgramDimensions,
+    selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -460,6 +461,42 @@ I.e. Scheduled date works like this:
                     .contains(dimension)
                     .should('not.exist')
             })
+        })
+    })
+    describe('lazy loading', () => {
+        it.only('loads more pages when scrolling down until last one is found', () => {
+            const getList = () => cy.getBySel('program-dimensions-list')
+            const getListChildren = () => getList().find('div[role="button"]')
+            const shouldLoadMoreItems = (nextListLenght) => {
+                cy.getBySel('dimensions-list-load-more').should('exist')
+                // The loader is appended below the "viewport" so we need another scroll
+                getList().scrollTo('bottom')
+                cy.getBySel('dimensions-list-load-more').should('be.visible')
+                getListChildren().should('have.length', nextListLenght)
+            }
+
+            goToStartPage()
+            selectEventWithProgram({
+                programName:
+                    'Malaria case diagnosis, treatment and investigation',
+            })
+            programDimensionsIsEnabled()
+            cy.getBySel('program-dimensions-button').click()
+
+            getListChildren().should('have.length', 50)
+
+            // Subsequent pages should be fetched when scrolling down
+            getList().scrollTo('bottom')
+            shouldLoadMoreItems(100)
+
+            // This is the last page with only 6 items
+            getList().scrollTo('bottom')
+            shouldLoadMoreItems(106)
+
+            // Nothing should happen once the end has been reached
+            getList().scrollTo('bottom')
+            cy.getBySel('dimensions-list-load-more').should('not.exist')
+            getListChildren().should('have.length', 106)
         })
     })
 }
