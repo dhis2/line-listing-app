@@ -134,7 +134,7 @@ describe('Your dimensions', () => {
             cy.wait('@getDimensions')
                 .its('request.query.page')
                 .should('eq', nextPage.toString())
-            getListChildren().should('have.length', nextListLenght)
+            getListChildren().should('have.length', nextListLength)
         }
 
         cy.intercept(
