@@ -25,7 +25,7 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 const trackerProgram = E2E_PROGRAM
 const periodLabel = trackerProgram[DIMENSION_ID_EVENT_DATE]
 
-describe('event', () => {
+describe('Your dimensions', () => {
     const dimensionName = 'Facility Type'
     const filteredOutItemName = 'MCHP'
     const filteredItemName = 'CHC'
@@ -46,7 +46,7 @@ describe('event', () => {
         cy.getBySel('main-sidebar').contains('Your dimensions').click()
     }
 
-    it('Your dimensions can be used and filtered by', () => {
+    it('can be used and filtered', () => {
         openYourDimensionsPanel()
 
         cy.getBySel('your-dimensions-list').contains(
@@ -123,10 +123,10 @@ describe('event', () => {
             `${getPreviousYearStr()}-12-11`,
         ])
     })
-    it('Your dimension list lazy loads', () => {
+    it('list lazy loads', () => {
         const getList = () => cy.getBySel('your-dimensions-list')
         const getListChildren = () => getList().find('div[role="button"]')
-        const shouldLoadNextPage = (nextPage, nextListLenght) => {
+        const shouldLoadNextPage = (nextPage, nextListLength) => {
             cy.getBySel('dimensions-list-load-more').should('exist')
             // The loader is appended below the "viewport" so we need another scroll
             getList().scrollTo('bottom')

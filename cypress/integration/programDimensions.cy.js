@@ -464,15 +464,15 @@ I.e. Scheduled date works like this:
         })
     })
     describe('lazy loading', () => {
-        it.only('loads more pages when scrolling down until last one is found', () => {
+        it('loads more pages when scrolling down until last one is found', () => {
             const getList = () => cy.getBySel('program-dimensions-list')
             const getListChildren = () => getList().find('div[role="button"]')
-            const shouldLoadMoreItems = (nextListLenght) => {
+            const shouldLoadMoreItems = (nextListLength) => {
                 cy.getBySel('dimensions-list-load-more').should('exist')
                 // The loader is appended below the "viewport" so we need another scroll
                 getList().scrollTo('bottom')
                 cy.getBySel('dimensions-list-load-more').should('be.visible')
-                getListChildren().should('have.length', nextListLenght)
+                getListChildren().should('have.length', nextListLength)
             }
 
             goToStartPage()
