@@ -16,7 +16,8 @@ const configureStore = (middleware) => {
 
     if (
         !window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-        process.env.NODE_ENV !== 'production'
+        process.env.NODE_ENV !== 'production' &&
+        !window?.Cypress
     ) {
         middleware.push(createLogger())
     }
