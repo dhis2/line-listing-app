@@ -5,11 +5,13 @@ import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 const TRACKED_ENTITY_DIMENSIONS_RESOURCE =
     'analytics/trackedEntities/query/dimensions'
 
+const TRACKED_ENTITY_DIMENSIONS_FILTER = 'dimensionType:eq:PROGRAM_ATTRIBUTE'
+
 const query = {
     dimensions: {
         resource: TRACKED_ENTITY_DIMENSIONS_RESOURCE,
         params: ({ page, searchTerm, nameProp, id }) => {
-            const filters = []
+            const filters = [TRACKED_ENTITY_DIMENSIONS_FILTER]
 
             if (searchTerm) {
                 filters.push(`${nameProp}:ilike:${searchTerm}`)
@@ -19,7 +21,7 @@ const query = {
                 pageSize: 50,
                 page,
                 fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
-                ...(filters.length ? { filter: filters } : {}),
+                filter: filters,
                 order: `${nameProp}:asc`,
                 trackedEntityType: id,
             }
