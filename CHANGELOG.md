@@ -1,3 +1,10 @@
+## [100.10.3](https://github.com/dhis2/line-listing-app/compare/v100.10.2...v100.10.3) (2023-11-01)
+
+
+### Bug Fixes
+
+* your- and program-dimensions list lazy loading ([#453](https://github.com/dhis2/line-listing-app/issues/453)) ([a7341f8](https://github.com/dhis2/line-listing-app/commit/a7341f8de1d1cb25d07bdb19f05121c1ddacb9c2))
+
 ## [100.10.2](https://github.com/dhis2/line-listing-app/compare/v100.10.1...v100.10.2) (2023-10-31)
 
 

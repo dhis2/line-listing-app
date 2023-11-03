@@ -308,6 +308,7 @@ const useProgramDataDimensions = ({
 
     return {
         loading,
+        fetching,
         error,
         dimensions,
         setIsListEndVisible,
