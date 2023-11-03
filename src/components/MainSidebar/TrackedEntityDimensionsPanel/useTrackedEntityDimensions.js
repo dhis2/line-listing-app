@@ -32,21 +32,20 @@ const query = {
 const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
     const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
-    const { data, error, loading, fetching, called, refetch } = useDataQuery(
-        query,
-        {
-            lazy: true,
-        }
-    )
+    const { data, error, loading, fetching, refetch } = useDataQuery(query, {
+        lazy: true,
+    })
 
     useEffect(() => {
         // Delay initial fetch until component comes into view
-        if (visible && !called) {
+        if (visible && !dimensions) {
             refetch({ page: 1, nameProp, id })
         }
-    }, [visible, called, id])
+    }, [visible])
 
     useEffect(() => {
+        // Reset when filter changes
+        setDimensions(null)
         if (visible) {
             refetch({
                 page: 1,
@@ -55,9 +54,7 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
                 id,
             })
         }
-        // Reset when filter changes
-        setDimensions(null)
-    }, [searchTerm, nameProp, id, visible])
+    }, [searchTerm, id])
 
     useEffect(() => {
         if (data) {
