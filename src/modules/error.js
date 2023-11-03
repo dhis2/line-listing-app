@@ -53,13 +53,6 @@ export const noProgramError = () =>
         i18n.t('Choose a program from the Input sidebar.')
     )
 
-export const noProgramForTEError = () =>
-    visualizationError(
-        EmptyBox,
-        i18n.t('No program selected'),
-        i18n.t('Choose a program from the Program dimensions sidebar.')
-    )
-
 export const noColumnsError = () =>
     visualizationError(
         EmptyBox,

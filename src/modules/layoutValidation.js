@@ -10,7 +10,6 @@ import {
     noEntityTypeError,
     noOrgUnitError,
     noProgramError,
-    noProgramForTEError,
 } from './error.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
@@ -44,11 +43,9 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
         if (dryRun) {
             return false
         }
-        if (layout.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-            throw noProgramForTEError()
+        if (layout.outputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
+            throw noProgramError()
         }
-
-        throw noProgramError()
     }
 
     // columns
