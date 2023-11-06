@@ -14,11 +14,15 @@ import {
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
+    renameVisualization,
     resaveVisualization,
     saveVisualization,
     saveVisualizationAs,
 } from '../helpers/fileMenu.js'
-import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import {
+    clickMenubarUpdateButton,
+    clickMenubarInterpretationsButton,
+} from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
@@ -40,6 +44,59 @@ const setupTable = () => {
     clickMenubarUpdateButton()
     expectTableToBeVisible()
 }
+
+describe('rename', () => {
+    it('replace existing name works correctly', () => {
+        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
+        const UPDATED_AO_NAME = AO_NAME + ' 2'
+        setupTable()
+
+        // save
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // rename the AO, changing name only
+        renameVisualization(UPDATED_AO_NAME)
+        expectTableToBeVisible()
+
+        deleteVisualization()
+    })
+
+    it('add non existing description works correctly', () => {
+        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
+        const AO_DESC = 'with description'
+        const AO_DESC_UPDATED = AO_DESC + ' edited'
+        setupTable()
+
+        // save
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // rename the AO, adding a description
+        renameVisualization(AO_NAME, AO_DESC)
+
+        clickMenubarInterpretationsButton()
+        cy.getBySel('details-panel').should('be.visible')
+        cy.getBySel('details-panel').contains(AO_DESC)
+        clickMenubarInterpretationsButton()
+
+        expectTableToBeVisible()
+
+        // rename the AO, replacing the description
+        renameVisualization(AO_NAME, AO_DESC_UPDATED)
+
+        clickMenubarInterpretationsButton()
+        cy.getBySel('details-panel').should('be.visible')
+        cy.getBySel('details-panel').contains(AO_DESC_UPDATED)
+        clickMenubarInterpretationsButton()
+
+        expectTableToBeVisible()
+
+        deleteVisualization()
+    })
+})
 
 describe('save', () => {
     it('new AO with name saves correctly', () => {
