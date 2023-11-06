@@ -12,7 +12,6 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -49,6 +48,7 @@ const ProgramDimensionsFilter = ({
     setDimensionType,
     stageFilter,
     setStageFilter,
+    showProgramAttribute,
 }) => (
     <div className={styles.container}>
         <div className={styles.header}>{i18n.t('Program data dimensions')}</div>
@@ -79,7 +79,7 @@ const ProgramDimensionsFilter = ({
                     />
                 }
             />
-            {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
+            {showProgramAttribute && (
                 <SingleSelectOption
                     label={i18n.t('Program attribute')}
                     value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
@@ -134,6 +134,7 @@ ProgramDimensionsFilter.propTypes = {
     setDimensionType: PropTypes.func,
     setSearchTerm: PropTypes.func,
     setStageFilter: PropTypes.func,
+    showProgramAttribute: PropTypes.bool,
     stageFilter: PropTypes.string,
 }
 

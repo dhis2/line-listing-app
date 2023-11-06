@@ -113,6 +113,10 @@ const createDimensionsQuery = ({
         params.filter.push(`id:startsWith:${stageId}`)
     }
 
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        params.filter.push('dimensionType:ne:PROGRAM_ATTRIBUTE')
+    }
+
     /*
      * TODO: currently no matches on shortname are captured
      * if this is required we would need the backend add support for this, because

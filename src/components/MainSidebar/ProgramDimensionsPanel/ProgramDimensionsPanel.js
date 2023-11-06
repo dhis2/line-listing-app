@@ -10,7 +10,10 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from '../../../modules/programTypes.js'
+import {
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+    PROGRAM_TYPE_WITH_REGISTRATION,
+} from '../../../modules/programTypes.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
@@ -119,6 +122,10 @@ const ProgramDimensionsPanel = ({ visible }) => {
                                 setDimensionType={setDimensionType}
                                 stageFilter={stageFilter}
                                 setStageFilter={setStageFilter}
+                                showProgramAttribute={
+                                    selectedProgram.programType ===
+                                    PROGRAM_TYPE_WITH_REGISTRATION
+                                }
                             />
                         </div>
 
