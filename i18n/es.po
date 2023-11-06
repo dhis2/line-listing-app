@@ -9,16 +9,16 @@
 # Prabhjot Singh, 2023
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2023
-# Janeth Cruz, 2023
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # Yury Rogachev <yury@dhis2.org>, 2023
+# Janeth Cruz, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2023\n"
+"Last-Translator: Janeth Cruz, 2023\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -247,6 +247,16 @@ msgstr "Evento"
 msgid "Enrollment"
 msgstr "Inscripción"
 
+msgid "Could not load programs"
+msgstr "No se pudieron cargar los programas"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"No se pudieron recuperar los programas. Vuelva a intentarlo o póngase en "
+"contacto con el administrador del sistema."
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -256,17 +266,23 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Vea datos de múltiples etapas del programa en un programa Tracker."
 
-msgid "Main dimensions"
-msgstr "Dimensiones principales"
-
-msgid "Input: {{type}}"
-msgstr "Entrada: {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "Dimensiones del programa"
 
-msgid "Search in program"
-msgstr "Buscar en el programa"
+msgid "Input: {{type}}"
+msgstr "Entrada: {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "Tipo"
@@ -289,30 +305,14 @@ msgstr "Categoría"
 msgid "Category option group set"
 msgstr "Set de grupos de categorías de opciones"
 
-msgid "Could not load programs"
-msgstr "No se pudieron cargar los programas"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
-"No se pudieron recuperar los programas. Vuelva a intentarlo o póngase en "
-"contacto con el administrador del sistema."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Elija una etapa de arriba para agregar dimensiones del programa."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Elija un programa de arriba para agregar dimensiones de programa."
 
 msgid "Choose a program"
 msgstr "Elige un programa"
 
-msgid "Clear program first to choose another"
-msgstr "Borrar programa primero para elegir otro"
-
-msgid "Clear"
-msgstr "Limpiar"
+msgid "No programs found"
+msgstr "No se han encontrado programas"
 
 msgid "Stage"
 msgstr "Etapa"
@@ -320,14 +320,8 @@ msgstr "Etapa"
 msgid "All"
 msgstr "Todos"
 
-msgid "Clear stage first to choose another"
-msgstr "Borrar la etapa primero para elegir otra"
-
-msgid "This program only has one stage"
-msgstr "Este programa solo tiene una etapa."
-
-msgid "Time dimensions"
-msgstr "Dimensiones de tiempo"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "Dimensiones propias"
@@ -627,14 +621,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "Ningún programa seleccionado"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Elija un programa de la barra lateral Dimensiones del programa."
-
-msgid "No stage selected"
-msgstr "Ninguna etapa seleccionada"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Elija una etapa de la barra lateral Dimensiones de programa."
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "Las columnas están vacías"
@@ -671,26 +659,14 @@ msgstr ""
 msgid "Something went wrong"
 msgstr "Algo ha ido mal"
 
-msgid "Organisation unit"
-msgstr "Unidad organizativa"
-
-msgid "Event status"
-msgstr "Estado del evento"
-
-msgid "Program status"
-msgstr "Estado del programa"
+msgid "Last updated on"
+msgstr "Ultima actualización en"
 
 msgid "Created by"
 msgstr "Creado por"
 
 msgid "Last updated by"
 msgstr "Última actualización hecha por"
-
-msgid "Not applicable to event programs"
-msgstr "No aplicable a programas de eventos."
-
-msgid "Not applicable to enrollments"
-msgstr "No aplicable a inscripciones"
 
 msgid "User organisation unit"
 msgstr "Unidad organizativa del usuario"
@@ -728,6 +704,15 @@ msgstr "Limitar valores mínimos/máximos"
 msgid "Style"
 msgstr "Estilo"
 
+msgid "Organisation unit"
+msgstr "Unidad organizativa"
+
+msgid "Event status"
+msgstr "Estado del evento"
+
+msgid "Program status"
+msgstr "Estado del programa"
+
 msgid "most recent"
 msgstr "más reciente"
 
@@ -751,18 +736,6 @@ msgstr "Fecha del incidente"
 
 msgid "Scheduled date"
 msgstr "Fecha planificada"
-
-msgid "Last updated on"
-msgstr "Ultima actualización en"
-
-msgid "Disabled by the selected program"
-msgstr "Deshabilitado por el programa seleccionado"
-
-msgid "Disabled by the selected program stage"
-msgstr "Deshabilitado por la etapa de programa seleccionada"
-
-msgid "No input type selected"
-msgstr "No se seleccionó ningún tipo de entrada"
 
 msgid "Active"
 msgstr "Activo"
