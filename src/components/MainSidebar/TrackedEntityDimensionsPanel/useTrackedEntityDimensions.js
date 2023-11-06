@@ -10,7 +10,7 @@ const TRACKED_ENTITY_DIMENSIONS_FILTER = 'dimensionType:eq:PROGRAM_ATTRIBUTE'
 const query = {
     dimensions: {
         resource: TRACKED_ENTITY_DIMENSIONS_RESOURCE,
-        params: ({ page, searchTerm, nameProp, id }) => {
+        params: ({ page, searchTerm, nameProp, id, programId }) => {
             const filters = [TRACKED_ENTITY_DIMENSIONS_FILTER]
 
             if (searchTerm) {
@@ -24,12 +24,19 @@ const query = {
                 filter: filters,
                 order: `${nameProp}:asc`,
                 trackedEntityType: id,
+                ...(programId ? { program: programId } : {}),
             }
         },
     },
 }
 
-const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
+const useTrackedEntityDimensions = ({
+    visible,
+    searchTerm,
+    nameProp,
+    id,
+    programId,
+}) => {
     const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
@@ -39,7 +46,7 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
     useEffect(() => {
         // Delay initial fetch until component comes into view
         if (visible && !dimensions) {
-            refetch({ page: 1, nameProp, id })
+            refetch({ page: 1, nameProp, id, programId })
         }
     }, [visible])
 
@@ -52,9 +59,10 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
                 searchTerm,
                 nameProp,
                 id,
+                programId,
             })
         }
-    }, [searchTerm, id])
+    }, [searchTerm, id, programId])
 
     useEffect(() => {
         if (data) {
@@ -67,6 +75,7 @@ const useTrackedEntityDimensions = ({ visible, searchTerm, nameProp, id }) => {
                     searchTerm,
                     nameProp,
                     id,
+                    programId,
                 })
             }
         }

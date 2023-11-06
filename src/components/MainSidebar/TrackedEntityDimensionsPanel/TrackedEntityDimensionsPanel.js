@@ -8,11 +8,13 @@ import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/us
 import { useDebounce } from '../../../modules/utils.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import { DimensionsList } from '../DimensionsList/index.js'
+import { ProgramFilter } from './ProgramFilter.js'
 import styles from './TrackedEntityDimensionsPanel.module.css'
 import { useTrackedEntityDimensions } from './useTrackedEntityDimensions.js'
 
 const TrackedEntityDimensionsPanel = ({ visible }) => {
     const [searchTerm, setSearchTerm] = useState('')
+    const [selectedProgramId, setSelectedProgramId] = useState(null)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const debouncedSearchTerm = useDebounce(searchTerm)
     const { currentUser } = useCachedDataQuery()
@@ -25,6 +27,7 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
                     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                 ],
             id: selectedEntityTypeId,
+            programId: selectedProgramId,
         })
 
     if (!visible) {
@@ -38,7 +41,7 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
 
     return (
         <>
-            <div className={styles.search}>
+            <div className={styles.filters}>
                 <Input
                     value={searchTerm}
                     onChange={({ value }) => setSearchTerm(value)}
@@ -47,6 +50,12 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
                     type={'search'}
                     dataTest={'search-te-dimension-input'}
                 />
+                <div className={styles.programSelect}>
+                    <ProgramFilter
+                        setSelectedProgramId={setSelectedProgramId}
+                        selectedProgramId={selectedProgramId}
+                    />
+                </div>
             </div>
             <DimensionsList
                 setIsListEndVisible={setIsListEndVisible}

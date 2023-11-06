@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-10-31T09:17:03.298Z\n"
-"PO-Revision-Date: 2023-10-31T09:17:03.298Z\n"
+"POT-Creation-Date: 2023-11-06T13:31:25.203Z\n"
+"PO-Revision-Date: 2023-11-06T13:31:25.203Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -317,6 +317,12 @@ msgstr "No types found"
 
 msgid "{{- itemName}} dimensions"
 msgstr "{{- itemName}} dimensions"
+
+msgid "Filter by program usage"
+msgstr "Filter by program usage"
+
+msgid "Clear"
+msgstr "Clear"
 
 msgid "Search dimensions"
 msgstr "Search dimensions"
@@ -634,9 +640,6 @@ msgstr "No program selected"
 
 msgid "Choose a program from the Input sidebar."
 msgstr "Choose a program from the Input sidebar."
-
-msgid "Choose a program from the Program dimensions sidebar."
-msgstr "Choose a program from the Program dimensions sidebar."
 
 msgid "Columns is empty"
 msgstr "Columns is empty"
