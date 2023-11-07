@@ -4,19 +4,20 @@ import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, SingleSelect, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
+import { useSelector } from 'react-redux'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import styles from '../ProgramDimensionsPanel/ProgramSelect.module.css'
 
 const query = {
     programs: {
         resource: 'programs',
-        params: ({ nameProp }) => ({
+        params: ({ nameProp, selectedEntityTypeId }) => ({
             fields: ['id', `${nameProp}~rename(name)`],
             paging: false,
             filter: [
                 'access.data.read:eq:true',
-                `programType:eq:${PROGRAM_TYPE_WITH_REGISTRATION}`,
+                `trackedEntityType.id:eq:${selectedEntityTypeId}`,
             ],
         }),
     },
@@ -24,6 +25,7 @@ const query = {
 
 const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
     const { currentUser } = useCachedDataQuery()
+    const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const { fetching, error, data, refetch, called } = useDataQuery(query, {
         lazy: true,
     })
@@ -36,9 +38,10 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                     currentUser.settings[
                         DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                     ],
+                selectedEntityTypeId,
             })
         }
-    }, [called, currentUser, refetch])
+    }, [called, currentUser, refetch, selectedEntityTypeId])
 
     return (
         <div className={styles.rows}>

@@ -67,7 +67,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
     const query = {
         programs: {
             resource: 'programs',
-            params: ({ nameProp }) => ({
+            params: ({ nameProp, selectedEntityTypeId }) => ({
                 fields: [
                     'id',
                     `${nameProp}~rename(name)`,
@@ -80,26 +80,30 @@ const ProgramDimensionsPanel = ({ visible }) => {
                     'displayEnrollmentDateLabel',
                 ],
                 paging: false,
-                filter: 'access.data.read:eq:true',
+                filter: [
+                    'access.data.read:eq:true',
+                    `trackedEntityType.id:eq:${selectedEntityTypeId}`,
+                ],
             }),
         },
     }
     const { currentUser } = useCachedDataQuery()
-    const { data, refetch, called } = useDataQuery(query, {
+    const { data, refetch } = useDataQuery(query, {
         lazy: true,
     })
     // FIXME: the fetching should be consolidated with the fetching in InputPanel and not be duplicated like this
 
     useEffect(() => {
-        if (visible && !called) {
+        if (visible && inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
             refetch({
                 nameProp:
                     currentUser.settings[
                         DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                     ],
+                selectedEntityTypeId,
             })
         }
-    }, [visible, called, refetch])
+    }, [visible, refetch, selectedEntityTypeId])
 
     if (!visible) {
         return null
