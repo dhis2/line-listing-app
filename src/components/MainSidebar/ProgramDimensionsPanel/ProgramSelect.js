@@ -30,6 +30,7 @@ const ProgramSelect = ({
                         filterable
                         noMatchText={i18n.t('No programs found')}
                         prefix={prefix}
+                        empty={i18n.t('No programs found')}
                     >
                         {programs?.map(({ id, name }) => (
                             <SingleSelectOption
