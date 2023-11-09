@@ -373,6 +373,13 @@ msgstr "Your most viewed line lists"
 msgid "Not available offline"
 msgstr "Not available offline"
 
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 

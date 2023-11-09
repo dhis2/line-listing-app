@@ -218,6 +218,14 @@ msgstr "Hodisa/Tadbir"
 msgid "Enrollment"
 msgstr "Roʼyxatga olish"
 
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -225,16 +233,22 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
-msgstr "Umumiy oʼlchamlar"
-
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -258,28 +272,14 @@ msgstr "Kategoriya"
 msgid "Category option group set"
 msgstr "Kategoriya variantlari guruh toʼplami"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
+msgid "No programs found"
 msgstr ""
-
-msgid "Clear"
-msgstr "Аниқ"
 
 msgid "Stage"
 msgstr "Босқич"
@@ -287,13 +287,7 @@ msgstr "Босқич"
 msgid "All"
 msgstr "Barchasi"
 
-msgid "Clear stage first to choose another"
-msgstr ""
-
-msgid "This program only has one stage"
-msgstr ""
-
-msgid "Time dimensions"
+msgid "No stages found"
 msgstr ""
 
 msgid "Your dimensions"
@@ -589,13 +583,7 @@ msgstr ""
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -633,25 +621,13 @@ msgstr ""
 msgid "Something went wrong"
 msgstr "Nimadir notoʼgʼri bajarildi"
 
-msgid "Organisation unit"
-msgstr "Ташкилий бирлик"
-
-msgid "Event status"
-msgstr "Hodisa/Tadbir holati"
-
-msgid "Program status"
-msgstr "dastur holati"
+msgid "Last updated on"
+msgstr ""
 
 msgid "Created by"
 msgstr "Томонидан яратилган"
 
 msgid "Last updated by"
-msgstr ""
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
 msgstr ""
 
 msgid "User organisation unit"
@@ -690,6 +666,15 @@ msgstr "Minimal/maksimal qiymatlarni cheklash"
 msgid "Style"
 msgstr "Услуб"
 
+msgid "Organisation unit"
+msgstr "Ташкилий бирлик"
+
+msgid "Event status"
+msgstr "Hodisa/Tadbir holati"
+
+msgid "Program status"
+msgstr "dastur holati"
+
 msgid "most recent"
 msgstr ""
 
@@ -713,18 +698,6 @@ msgstr "Hodisa sanasi"
 
 msgid "Scheduled date"
 msgstr "Rejalashtirilgan sana"
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
-msgstr ""
 
 msgid "Active"
 msgstr "Faol"
