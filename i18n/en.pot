@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-06T13:31:25.203Z\n"
-"PO-Revision-Date: 2023-11-06T13:31:25.203Z\n"
+"POT-Creation-Date: 2023-11-08T09:17:14.125Z\n"
+"PO-Revision-Date: 2023-11-08T09:17:14.125Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -220,16 +220,6 @@ msgstr "Enrollment"
 msgid "Tracked entity"
 msgstr "Tracked entity"
 
-msgid "Could not load programs"
-msgstr "Could not load programs"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-
 msgid "Could not load types"
 msgstr "Could not load types"
 
@@ -293,6 +283,16 @@ msgstr "Choose an input to get started adding program dimensions."
 
 msgid "Program"
 msgstr "Program"
+
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
 
 msgid "Choose a program"
 msgstr "Choose a program"

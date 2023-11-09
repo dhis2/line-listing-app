@@ -1,20 +1,13 @@
 import {
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
-    useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { tSetUiProgram } from '../../../actions/ui.js'
-import {
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-    PROGRAM_TYPE_WITH_REGISTRATION,
-} from '../../../modules/programTypes.js'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { useSelector } from 'react-redux'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -35,7 +28,6 @@ import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
 const ProgramDimensionsPanel = ({ visible }) => {
-    const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
@@ -63,47 +55,6 @@ const ProgramDimensionsPanel = ({ visible }) => {
         setDimensionType(DIMENSION_TYPE_ALL)
         setStageFilter()
     }, [inputType, selectedProgramId, selectedStageId])
-
-    const query = {
-        programs: {
-            resource: 'programs',
-            params: ({ nameProp, selectedEntityTypeId }) => ({
-                fields: [
-                    'id',
-                    `${nameProp}~rename(name)`,
-                    'enrollmentDateLabel',
-                    'incidentDateLabel',
-                    'programType',
-                    'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel,repeatable]',
-                    'displayIncidentDate',
-                    'displayIncidentDateLabel',
-                    'displayEnrollmentDateLabel',
-                ],
-                paging: false,
-                filter: [
-                    'access.data.read:eq:true',
-                    `trackedEntityType.id:eq:${selectedEntityTypeId}`,
-                ],
-            }),
-        },
-    }
-    const { currentUser } = useCachedDataQuery()
-    const { data, refetch } = useDataQuery(query, {
-        lazy: true,
-    })
-    // FIXME: the fetching should be consolidated with the fetching in InputPanel and not be duplicated like this
-
-    useEffect(() => {
-        if (visible && inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-            refetch({
-                nameProp:
-                    currentUser.settings[
-                        DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
-                    ],
-                selectedEntityTypeId,
-            })
-        }
-    }, [visible, refetch, selectedEntityTypeId])
 
     if (!visible) {
         return null
@@ -162,28 +113,13 @@ const ProgramDimensionsPanel = ({ visible }) => {
             </div>
         )
     } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-        const filteredPrograms = data?.programs.programs.filter(
-            ({ programType }) =>
-                programType !== PROGRAM_TYPE_WITHOUT_REGISTRATION
-        )
-        const setSelectedProgramId = (programId) => {
-            if (programId !== selectedProgramId) {
-                const program = filteredPrograms?.find(
-                    ({ id }) => id === programId
-                )
-                dispatch(tSetUiProgram({ program }))
-            }
-        }
-
         return (
             <div className={styles.container}>
                 {isProgramSelectionComplete() ? (
                     <>
                         <div className={cx(styles.section, styles.bordered)}>
                             <ProgramSelect
-                                programs={filteredPrograms}
                                 selectedProgram={selectedProgram}
-                                setSelectedProgramId={setSelectedProgramId}
                                 prefix={i18n.t('Program')}
                             />
                         </div>
