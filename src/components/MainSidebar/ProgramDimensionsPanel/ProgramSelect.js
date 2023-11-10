@@ -6,10 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import {
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-    PROGRAM_TYPE_WITH_REGISTRATION,
-} from '../../../modules/programTypes.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -46,7 +43,7 @@ const query = {
                     ? [`trackedEntityType.id:eq:${selectedEntityTypeId}`]
                     : []),
                 ...(inputType === OUTPUT_TYPE_ENROLLMENT
-                    ? [`programType:eq:${PROGRAM_TYPE_WITHOUT_REGISTRATION}`]
+                    ? [`programType:eq:${PROGRAM_TYPE_WITH_REGISTRATION}`]
                     : []),
             ],
         }),
@@ -65,14 +62,13 @@ const ProgramSelect = ({ prefix }) => {
     const { fetching, error, data, refetch } = useDataQuery(query, {
         lazy: true,
     })
-    const showStageSelect = selectedProgram && requiredStageSelection
 
     const programs = data?.programs.programs
-
     const programType = selectedProgram?.programType
     const requiredStageSelection =
         inputType === OUTPUT_TYPE_EVENT &&
         programType === PROGRAM_TYPE_WITH_REGISTRATION
+    const showStageSelect = selectedProgram && requiredStageSelection
 
     const setSelectedProgramId = (programId) => {
         if (programId !== selectedProgramId) {
@@ -115,7 +111,7 @@ const ProgramSelect = ({ prefix }) => {
                 <div className={styles.stretch}>
                     <SingleSelect
                         dense
-                        selected={selectedProgram?.id}
+                        selected={selectedProgram?.id || ''}
                         onChange={({ selected }) =>
                             setSelectedProgramId(selected)
                         }
@@ -128,14 +124,23 @@ const ProgramSelect = ({ prefix }) => {
                         empty={i18n.t('No programs found')}
                         loading={fetching}
                     >
+                        {selectedProgram?.id && (
+                            <SingleSelectOption
+                                key={selectedProgram?.id}
+                                label={selectedProgram?.name}
+                                value={selectedProgram?.id}
+                            />
+                        )}
                         {!fetching &&
-                            programs?.map(({ id, name }) => (
-                                <SingleSelectOption
-                                    key={id}
-                                    label={name}
-                                    value={id}
-                                />
-                            ))}
+                            programs
+                                ?.filter(({ id }) => id !== selectedProgram?.id)
+                                .map(({ id, name }) => (
+                                    <SingleSelectOption
+                                        key={id}
+                                        label={name}
+                                        value={id}
+                                    />
+                                ))}
                     </SingleSelect>
                 </div>
             </div>

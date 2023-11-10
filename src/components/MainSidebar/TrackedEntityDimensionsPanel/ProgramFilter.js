@@ -62,7 +62,7 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                     ) : (
                         <SingleSelect
                             dense
-                            selected={selectedProgramId}
+                            selected={selectedProgramId || ''}
                             onChange={({ selected }) =>
                                 setSelectedProgramId(selected)
                             }

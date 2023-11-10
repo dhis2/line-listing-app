@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-08T09:17:14.125Z\n"
-"PO-Revision-Date: 2023-11-08T09:17:14.125Z\n"
+"POT-Creation-Date: 2023-11-10T09:10:14.120Z\n"
+"PO-Revision-Date: 2023-11-10T09:10:14.120Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -220,16 +220,6 @@ msgstr "Enrollment"
 msgid "Tracked entity"
 msgstr "Tracked entity"
 
-msgid "Could not load types"
-msgstr "Could not load types"
-
-msgid ""
-"The types couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"The types couldn't be retrieved. Try again or contact your system "
-"administrator."
-
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
@@ -308,6 +298,16 @@ msgstr "All"
 
 msgid "No stages found"
 msgstr "No stages found"
+
+msgid "Could not load types"
+msgstr "Could not load types"
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
 
 msgid "Choose a type"
 msgstr "Choose a type"
