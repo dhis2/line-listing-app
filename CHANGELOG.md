@@ -1,3 +1,34 @@
+## [100.10.4](https://github.com/dhis2/line-listing-app/compare/v100.10.3...v100.10.4) (2023-11-05)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([db0115f](https://github.com/dhis2/line-listing-app/commit/db0115f72c88c3355562f847e1134cfc4873ac04))
+
+## [100.10.3](https://github.com/dhis2/line-listing-app/compare/v100.10.2...v100.10.3) (2023-11-01)
+
+
+### Bug Fixes
+
+* your- and program-dimensions list lazy loading ([#453](https://github.com/dhis2/line-listing-app/issues/453)) ([a7341f8](https://github.com/dhis2/line-listing-app/commit/a7341f8de1d1cb25d07bdb19f05121c1ddacb9c2))
+
+## [100.10.2](https://github.com/dhis2/line-listing-app/compare/v100.10.1...v100.10.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* **deps:** platform fixes for login redirect [DHIS2-15320] ([#366](https://github.com/dhis2/line-listing-app/issues/366)) ([dde8a92](https://github.com/dhis2/line-listing-app/commit/dde8a923fc2635664cc82ed01449a8e1f5c71301))
+
+## [100.10.1](https://github.com/dhis2/line-listing-app/compare/v100.10.0...v100.10.1) (2023-10-30)
+
+
+### Bug Fixes
+
+* allow opening interpretations for AOs without a time dimension (DHIS2-15781) ([7c8239d](https://github.com/dhis2/line-listing-app/commit/7c8239d01ba9c56ac0ff5ad01a7032773babb06d))
+* correctly center the table spinner (DHIS2-13947, DHIS2-13946) ([0bea200](https://github.com/dhis2/line-listing-app/commit/0bea2007a3c6d1607e9592411f06c99b40892d61))
+* take legend-key into account when computing pagination max-width (DHIS2-15465) ([9445d6a](https://github.com/dhis2/line-listing-app/commit/9445d6a5481971a2a18a929c35f59b09f29a7924))
+* upgrade @dhis2/analytics to latest ([52027a0](https://github.com/dhis2/line-listing-app/commit/52027a0946feb57c1ecb045c24de20332ccae2a8))
+
 # [100.10.0](https://github.com/dhis2/line-listing-app/compare/v100.9.5...v100.10.0) (2023-10-26)
 
 

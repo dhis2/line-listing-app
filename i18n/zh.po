@@ -2,15 +2,15 @@
 # Translators:
 # Philip Larsen Donnelly, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
-# easylin <lin_xd@126.com>, 2023
 # 晓东 林 <13981924470@126.com>, 2023
+# easylin <lin_xd@126.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: 晓东 林 <13981924470@126.com>, 2023\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -221,6 +221,14 @@ msgstr "事件"
 msgid "Enrollment"
 msgstr "报名"
 
+msgid "Could not load programs"
+msgstr "无法加载项目"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr "无法检索程序。重试或联系您的系统管理员。"
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr "查看来自跟踪项目阶段或事件项目的单个事件数据。"
@@ -228,17 +236,23 @@ msgstr "查看来自跟踪项目阶段或事件项目的单个事件数据。"
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "在 Tracker 程序中查看来自多个程序阶段的数据。"
 
-msgid "Main dimensions"
-msgstr "主要维度"
-
-msgid "Input: {{type}}"
-msgstr "输入: {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "程序维度"
 
-msgid "Search in program"
-msgstr "在项目中搜索"
+msgid "Input: {{type}}"
+msgstr "输入: {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "类型"
@@ -261,28 +275,14 @@ msgstr "分类"
 msgid "Category option group set"
 msgstr "分类选项组集"
 
-msgid "Could not load programs"
-msgstr "无法加载项目"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr "无法检索程序。重试或联系您的系统管理员。"
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "选择上面的一个阶段以添加项目维度。"
-
-msgid "Choose a program above to add program dimensions."
-msgstr "选择上面的项目以添加项目维度"
+msgid "Choose an input to get started adding program dimensions."
+msgstr ""
 
 msgid "Choose a program"
 msgstr "选择一个程序"
 
-msgid "Clear program first to choose another"
-msgstr "先清除项目再选择另一个"
-
-msgid "Clear"
-msgstr "清除"
+msgid "No programs found"
+msgstr "找不到项目"
 
 msgid "Stage"
 msgstr "阶段"
@@ -290,14 +290,8 @@ msgstr "阶段"
 msgid "All"
 msgstr "全部"
 
-msgid "Clear stage first to choose another"
-msgstr "先清除阶段再选择另一个"
-
-msgid "This program only has one stage"
-msgstr "这个项目只有一个阶段"
-
-msgid "Time dimensions"
-msgstr "时间维度"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "你的维度"
@@ -586,14 +580,8 @@ msgstr "找不到您尝试查看的可视化文件，该ID可能不正确或已�
 msgid "No program selected"
 msgstr "未选择项目"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "从程序维度侧栏中选择一个程序。"
-
-msgid "No stage selected"
-msgstr "未选择任何阶段"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "从程序维度侧栏中选择一个阶段。"
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "列是空的"
@@ -613,43 +601,31 @@ msgid "There's a problem with at least one selected indicator"
 msgstr "至少一个选定的指标有问题"
 
 msgid "Restricted access"
-msgstr ""
+msgstr "禁止访问"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
 "administrator."
-msgstr ""
+msgstr "您无权访问此可视化中的数据。联系系统管理员。"
 
 msgid "You don’t have access to one or more of the chosen organisation units."
-msgstr ""
+msgstr "您无权访问一个或多个选定的组织机构。"
 
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
-msgstr ""
+msgstr "您无权访问事件分析。联系系统管理员。"
 
 msgid "Something went wrong"
 msgstr "出问题了"
 
-msgid "Organisation unit"
-msgstr "机构"
-
-msgid "Event status"
-msgstr "事件状态"
-
-msgid "Program status"
-msgstr "项目状态"
+msgid "Last updated on"
+msgstr "最后更新时间"
 
 msgid "Created by"
 msgstr "创建人"
 
 msgid "Last updated by"
 msgstr "最近更新者"
-
-msgid "Not applicable to event programs"
-msgstr "不适用于活动节目"
-
-msgid "Not applicable to enrollments"
-msgstr "不适用于招生"
 
 msgid "User organisation unit"
 msgstr "用户所在机构"
@@ -687,6 +663,15 @@ msgstr "限制最大最小值"
 msgid "Style"
 msgstr "风格"
 
+msgid "Organisation unit"
+msgstr "机构"
+
+msgid "Event status"
+msgstr "事件状态"
+
+msgid "Program status"
+msgstr "项目状态"
+
 msgid "most recent"
 msgstr "最近的"
 
@@ -710,18 +695,6 @@ msgstr "事件日期"
 
 msgid "Scheduled date"
 msgstr "调度日期"
-
-msgid "Last updated on"
-msgstr "最后更新时间"
-
-msgid "Disabled by the selected program"
-msgstr "被所选程序禁用"
-
-msgid "Disabled by the selected program stage"
-msgstr "被选定的项目阶段禁用"
-
-msgid "No input type selected"
-msgstr "未选择输入类型"
 
 msgid "Active"
 msgstr "活跃的"
