@@ -32,7 +32,16 @@ describe(['>=41'], 'tracked entity', () => {
     //runTests()
 })
 
+describe(['<41'], 'tracked entity', () => {
+    it("is hidden and doesn't show up", () => {
+        goToStartPage()
+        cy.getBySel('tracked-entity-button').should('not.exist')
+        cy.getBySel('input-tracked-entity').should('not.exist')
+    })
+})
+
 const setUpTable = () => {
+    cy.getBySel('tracked-entity-button').should('not.exist')
     cy.getBySel('main-sidebar')
         .contains('Person dimensions')
         .should('not.exist')
