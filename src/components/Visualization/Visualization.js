@@ -128,8 +128,14 @@ export const Visualization = ({
     onError,
     forDashboard,
 }) => {
+    const containerRef = useRef(null)
     const noTimeDimensionWarningRef = useRef(null)
     const dataTableRef = useRef(null)
+    const fetchContainerRef = useRef(null)
+    const dataTableHeadRef = useRef(null)
+    const dataTableFootRef = useRef(null)
+    const legendKeyRef = useRef(null)
+
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [showLegendKey, setShowLegendKey] = useState(false)
     const [measuredDimensions, setMeasuredDimensions] = useState({
@@ -153,42 +159,65 @@ export const Visualization = ({
     const shouldShowTimeDimensionWarning = isInModal && !hasTimeDimension
 
     const visualizationRef = useRef(visualization)
-    const legendKeyRef = useRef(null)
 
-    const containerCallbackRef = useCallback((node) => {
-        if (node === null) {
-            return
-        }
+    const sizeObserver = useMemo(
+        () =>
+            new window.ResizeObserver(() => {
+                if (
+                    !containerRef?.current ||
+                    containerRef.current.clientWidth === 0
+                ) {
+                    return
+                }
+                console.log('running adjust size')
+                const containerInnerWidth = containerRef.current.clientWidth
+                const scrollBox =
+                    containerRef.current.querySelector('.tablescrollbox')
+                const scrollbarWidth =
+                    scrollBox.offsetWidth - scrollBox.clientWidth
+                const legendKeyWidth =
+                    legendKeyRef.current?.offsetWidth > 0
+                        ? legendKeyRef.current.offsetWidth + 4
+                        : 0
+                const paginationMaxWidth = Math.max(
+                    containerInnerWidth - scrollbarWidth - legendKeyWidth,
+                    PAGINATION_MIN_WIDTH
+                )
 
-        const adjustSize = () => {
-            if (node.clientWidth === 0) {
+                setMeasuredDimensions({
+                    paginationMaxWidth,
+                    noticeBoxMaxWidth: scrollBox.offsetWidth,
+                })
+            }),
+        []
+    )
+
+    const mountAndObserveContainerRef = useCallback(
+        (node) => {
+            if (node === null) {
                 return
             }
-            const containerInnerWidth = node.clientWidth
-            const scrollBox = node.querySelector('.tablescrollbox')
-            const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
-            const legendKeyWidth =
-                legendKeyRef.current?.offsetWidth > 0
-                    ? legendKeyRef.current.offsetWidth + 4
-                    : 0
-            const paginationMaxWidth = Math.max(
-                containerInnerWidth - scrollbarWidth - legendKeyWidth,
-                PAGINATION_MIN_WIDTH
-            )
 
-            setMeasuredDimensions({
-                paginationMaxWidth,
-                noticeBoxMaxWidth: scrollBox.offsetWidth,
-            })
-        }
+            containerRef.current = node
+            sizeObserver.observe(node)
 
-        const sizeObserver = new window.ResizeObserver(adjustSize)
-        sizeObserver.observe(node)
+            return sizeObserver.disconnect
+        },
+        [sizeObserver]
+    )
 
-        adjustSize()
+    const observeVisualizationContainerRef = useCallback(
+        (node) => {
+            if (node === null) {
+                return
+            }
 
-        return sizeObserver.disconnect
-    }, [])
+            sizeObserver.observe(node)
+
+            return sizeObserver.disconnect
+        },
+        [sizeObserver]
+    )
 
     const setPage = useCallback(
         (pageNum) =>
@@ -224,9 +253,6 @@ export const Visualization = ({
         sortDirection,
     })
 
-    const fetchContainerRef = useRef(null)
-    const dataTableHeadRef = useRef(null)
-    const dataTableFootRef = useRef(null)
     const fetchIndicatorTop = useMemo(() => {
         if (
             !fetching ||
@@ -363,8 +389,8 @@ export const Visualization = ({
     }
 
     const getLegendKey = () =>
-        forDashboard ? (
-            <div className={styles.legendKeyContainer}>
+        forDashboard || 1 === 1 ? (
+            <div className={styles.legendKeyContainer} ref={legendKeyRef}>
                 <div className={styles.legendKeyToggle}>
                     <Button
                         small
@@ -381,7 +407,6 @@ export const Visualization = ({
                     <div
                         className={styles.legendKeyWrapper}
                         data-test="visualization-legend-key"
-                        ref={legendKeyRef}
                     >
                         <div className={styles.wrapper}>
                             <LegendKey legendSets={uniqueLegendSets} />
@@ -400,7 +425,10 @@ export const Visualization = ({
         )
 
     return (
-        <div className={styles.pluginContainer} ref={containerCallbackRef}>
+        <div
+            className={styles.pluginContainer}
+            ref={mountAndObserveContainerRef}
+        >
             <div
                 data-test="line-list-fetch-container"
                 className={cx(styles.fetchContainer, {
@@ -412,7 +440,10 @@ export const Visualization = ({
                     className={styles.fetchIndicator}
                     style={{ top: fetchIndicatorTop }}
                 />
-                <div className={styles.visualizationContainer}>
+                <div
+                    className={styles.visualizationContainer}
+                    ref={observeVisualizationContainerRef}
+                >
                     {shouldShowTimeDimensionWarning && (
                         <div
                             className={styles.noTimeDimensionWarning}
