@@ -21,7 +21,7 @@ const program = E2E_PROGRAM
 const dimensionName = TEST_DIM_TEXT
 const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
-describe('tracked entity', () => {
+describe(['>=41'], 'tracked entity', () => {
     beforeEach(() => {
         goToStartPage()
         setUpTable()

@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -29,6 +30,7 @@ export const getLabelForInputType = (type) => {
 
 export const InputPanel = ({ visible }) => {
     const dispatch = useDispatch()
+    const { serverVersion } = useConfig()
     const selectedInput = useSelector(sGetUiInput)?.type
 
     if (!visible) {
@@ -65,17 +67,23 @@ export const InputPanel = ({ visible }) => {
             >
                 {selectedInput === OUTPUT_TYPE_ENROLLMENT && <ProgramSelect />}
             </InputOption>
-            <InputOption
-                dataTest="input-tracked-entity"
-                header={getLabelForInputType(OUTPUT_TYPE_TRACKED_ENTITY)}
-                description={i18n.t(
-                    'See individual tracked entities from one or more Tracker program.'
-                )}
-                onClick={() => setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)}
-                selected={selectedInput === OUTPUT_TYPE_TRACKED_ENTITY}
-            >
-                {selectedInput === OUTPUT_TYPE_TRACKED_ENTITY && <TypeSelect />}
-            </InputOption>
+            {`${serverVersion.major}.${serverVersion.minor}.${
+                serverVersion.patch || 0
+            }` >= '2.41.0' && (
+                <InputOption
+                    dataTest="input-tracked-entity"
+                    header={getLabelForInputType(OUTPUT_TYPE_TRACKED_ENTITY)}
+                    description={i18n.t(
+                        'See individual tracked entities from one or more Tracker program.'
+                    )}
+                    onClick={() => setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)}
+                    selected={selectedInput === OUTPUT_TYPE_TRACKED_ENTITY}
+                >
+                    {selectedInput === OUTPUT_TYPE_TRACKED_ENTITY && (
+                        <TypeSelect />
+                    )}
+                </InputOption>
+            )}
         </div>
     )
 }
