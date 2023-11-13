@@ -389,7 +389,7 @@ export const Visualization = ({
     }
 
     const getLegendKey = () =>
-        forDashboard || 1 === 1 ? (
+        forDashboard ? (
             <div className={styles.legendKeyContainer} ref={legendKeyRef}>
                 <div className={styles.legendKeyToggle}>
                     <Button
