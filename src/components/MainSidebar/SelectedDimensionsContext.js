@@ -1,4 +1,7 @@
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+} from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { createContext, useMemo, useContext } from 'react'
 import { useSelector, useStore } from 'react-redux'
@@ -9,7 +12,8 @@ import {
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionConstants.js'
 import { getTimeDimensions } from '../../modules/timeDimensions.js'
-import { sGetUiLayout } from '../../reducers/ui.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
+import { sGetUiInputType, sGetUiLayout } from '../../reducers/ui.js'
 
 const SelectedDimensionsContext = createContext({
     counts: {
@@ -24,6 +28,7 @@ const SelectedDimensionsContext = createContext({
 
 export const SelectedDimensionsProvider = ({ children }) => {
     const layout = useSelector(sGetUiLayout)
+    const selectedInputType = useSelector(sGetUiInputType)
     const store = useStore()
 
     const providerValue = useMemo(() => {
@@ -47,6 +52,11 @@ export const SelectedDimensionsProvider = ({ children }) => {
                 const { dimensionType } = metadata[id] ?? {}
 
                 if (
+                    dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE &&
+                    selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
+                ) {
+                    acc.trackedEntity += 1
+                } else if (
                     DIMENSION_TYPES_PROGRAM.has(dimensionType) ||
                     [
                         DIMENSION_ID_ORGUNIT,
@@ -56,9 +66,7 @@ export const SelectedDimensionsProvider = ({ children }) => {
                     ].includes(id)
                 ) {
                     acc.program += 1
-                }
-
-                if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
+                } else if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
                 // TODO: add count for TE dimensions here
