@@ -3,11 +3,7 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
-import {
-    E2E_PROGRAM,
-    TEST_DIM_TEXT,
-    TEST_FIX_PE_DEC_LAST_YEAR,
-} from '../data/index.js'
+import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
 import {
     clickAddRemoveTrackedEntityDimensions,
     selectProgramForTE,
@@ -18,7 +14,7 @@ import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
 const program = E2E_PROGRAM
-const dimensionName = TEST_DIM_TEXT
+const dimensionName = 'City'
 const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
 describe(['>=41'], 'tracked entity', () => {
