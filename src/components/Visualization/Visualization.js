@@ -397,7 +397,6 @@ export const Visualization = ({
                         secondary
                         onClick={() => {
                             setShowLegendKey(!showLegendKey)
-                            // incremementRenderId() // FIXME: copied over from DV, is this needed or not?
                         }}
                         icon={<IconLegend24 />}
                         toggled={showLegendKey}
