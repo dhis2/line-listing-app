@@ -414,13 +414,15 @@ export const Visualization = ({
                 )}
             </div>
         ) : (
-            <div
-                className={styles.legendKeyScrollbox}
-                data-test="visualization-legend-key"
-                ref={legendKeyRef}
-            >
-                <LegendKey legendSets={uniqueLegendSets} />
-            </div>
+            showLegendKey && (
+                <div
+                    className={styles.legendKeyScrollbox}
+                    data-test="visualization-legend-key"
+                    ref={legendKeyRef}
+                >
+                    <LegendKey legendSets={uniqueLegendSets} />
+                </div>
+            )
         )
 
     return (
