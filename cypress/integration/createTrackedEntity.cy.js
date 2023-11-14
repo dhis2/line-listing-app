@@ -58,7 +58,7 @@ const setUpTable = () => {
     cy.getBySel('main-sidebar').contains('Person dimensions').click()
     cy.getBySel('tracked-entity-dimensions-list')
         .children()
-        .should('have.length', 50)
+        .should('have.length', 33)
     clickAddRemoveTrackedEntityDimensions(dimensionName)
 
     // select a program and add program dimensions
@@ -88,7 +88,7 @@ const setUpTable = () => {
     cy.getBySel('main-sidebar').contains('Person dimensions').click()
     cy.getBySel('tracked-entity-dimensions-list')
         .children()
-        .should('have.length', 50)
+        .should('have.length', 33)
 
     clickMenubarUpdateButton()
 
