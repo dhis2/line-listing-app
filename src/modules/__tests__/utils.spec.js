@@ -1,59 +1,114 @@
 import { formatDimensionId, extractDimensionIdParts } from '../utils.js'
+import { OUTPUT_TYPE_ENROLLMENT } from '../visualization.js'
 
 describe('formatDimensionId', () => {
     it('returns correct result when only dimensionId is used', () => {
-        const dimensionId = 'myDimensionId'
+        const dimensionId = 'did'
 
-        expect(formatDimensionId(dimensionId)).toEqual('myDimensionId')
+        expect(formatDimensionId(dimensionId)).toEqual('did')
     })
     it('returns correct result when both programStageId and dimensionId are used', () => {
-        const dimensionId = 'myDimensionId'
-        const programStageId = 'myProgramStageId'
+        const dimensionId = 'did'
+        const programStageId = 'sid'
 
         expect(formatDimensionId(dimensionId, programStageId)).toEqual(
-            'myProgramStageId.myDimensionId'
+            'sid.did'
         )
     })
 })
 
 describe('extractDimensionIdParts', () => {
-    it('returns correct result when only dimensionId is used', () => {
-        const input = 'myDimensionId'
+    it('returns correct result for: dimensionId', () => {
+        const id = 'did'
+        const output = extractDimensionIdParts(id)
 
-        expect(extractDimensionIdParts(input).dimensionId).toEqual(
-            'myDimensionId'
-        )
-        expect(extractDimensionIdParts(input).programStageId).toBeFalsy()
-        expect(extractDimensionIdParts(input).repetitionIndex).toBeUndefined()
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toBeFalsy()
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result when both programStageId and dimensionId are used', () => {
-        const input = 'myProgramStageId.myDimensionId'
+    it('returns correct result for: stageId + dimensionId', () => {
+        const id = 'sid.did'
+        const output = extractDimensionIdParts(id)
 
-        expect(extractDimensionIdParts(input).dimensionId).toEqual(
-            'myDimensionId'
-        )
-        expect(extractDimensionIdParts(input).programStageId).toEqual(
-            'myProgramStageId'
-        )
-        expect(extractDimensionIdParts(input).repetitionIndex).toBeUndefined()
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result when both programStageId and dimensionId are used with repetitionIndex', () => {
-        const input = 'myProgramStageId[3].myDimensionId'
+    it('returns correct result for: stageId + dimensionId + repetitionIndex', () => {
+        const id = 'sid[3].did'
+        const output = extractDimensionIdParts(id)
 
-        expect(extractDimensionIdParts(input).dimensionId).toEqual(
-            'myDimensionId'
-        )
-        expect(extractDimensionIdParts(input).programStageId).toEqual(
-            'myProgramStageId'
-        )
-        expect(extractDimensionIdParts(input).repetitionIndex).toEqual('3')
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toEqual('3')
+    })
+    it('returns correct result for: programId + stageId + dimensionId', () => {
+        const id = 'pid.sid.did'
+        const output = extractDimensionIdParts(id)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toEqual('pid')
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for: programId + stageId + dimensionId + repetitionIndex', () => {
+        const id = 'pid.sid[3].did'
+        const output = extractDimensionIdParts(id)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toEqual('pid')
+        expect(output.repetitionIndex).toEqual('3')
+    })
+    it('returns correct result for Tracked Entity: programId + stageId + dimensionId', () => {
+        const id = 'pid.sid.did'
+        const inputType = OUTPUT_TYPE_ENROLLMENT
+        const output = extractDimensionIdParts(id, inputType)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toEqual('pid')
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for Tracked Entity: programId + stageId + dimensionId + repetitionIndex', () => {
+        const id = 'pid.sid[3].did'
+        const inputType = OUTPUT_TYPE_ENROLLMENT
+        const output = extractDimensionIdParts(id, inputType)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toEqual('sid')
+        expect(output.programId).toEqual('pid')
+        expect(output.repetitionIndex).toEqual('3')
+    })
+    it('returns correct result for Tracked Entity: programId + dimensionId', () => {
+        const id = 'pid.did'
+        const inputType = OUTPUT_TYPE_ENROLLMENT
+        const output = extractDimensionIdParts(id, inputType)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toBeFalsy()
+        expect(output.programId).toEqual('pid')
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for Tracked Entity: dimensionId', () => {
+        const id = 'did'
+        const inputType = OUTPUT_TYPE_ENROLLMENT
+        const output = extractDimensionIdParts(id, inputType)
+
+        expect(output.dimensionId).toEqual('did')
+        expect(output.programStageId).toBeFalsy()
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
     })
 })
 
 describe('formatDimensionId + extractDimensionIdParts', () => {
     it('returns correct result when both programStageId and dimensionId are used', () => {
-        const dimensionId = 'myDimensionId'
-        const programStageId = 'myProgramStageId'
+        const dimensionId = 'did'
+        const programStageId = 'sid'
 
         expect(
             extractDimensionIdParts(

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
 const DEFAULT_USER_INPUT_DELAY = 500
 
@@ -30,12 +31,21 @@ export const useDidUpdateEffect = (fn, inputs) => {
 export const formatDimensionId = (dimensionId, programStageId) =>
     programStageId ? `${programStageId}.${dimensionId}` : dimensionId
 
-export const extractDimensionIdParts = (input) => {
-    const [dimensionId, rawStageId] = input.split('.').reverse()
+export const extractDimensionIdParts = (id, inputType) => {
+    let rawStageId
+    const [dimensionId, part2, part3] = id.split('.').reverse()
+    let programId = part3
+    if (part3 || inputType !== OUTPUT_TYPE_ENROLLMENT) {
+        rawStageId = part2
+    }
+    if (inputType === OUTPUT_TYPE_ENROLLMENT && !part3) {
+        programId = part2
+    }
     const [programStageId, repetitionIndex] = (rawStageId || '').split('[')
     return {
         dimensionId,
         programStageId,
+        ...(programId ? { programId } : {}),
         repetitionIndex:
             repetitionIndex?.length &&
             repetitionIndex.substring(0, repetitionIndex.indexOf(']')),
