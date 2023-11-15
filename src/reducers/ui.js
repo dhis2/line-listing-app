@@ -474,7 +474,10 @@ export const renderChipsSelector = createSelector(
 )
 
 // Selector based hooks
-export const useMainDimensions = () => Object.values(getMainDimensions())
+export const useMainDimensions = () => {
+    const inputType = useSelector(sGetUiInputType)
+    return Object.values(getMainDimensions(inputType))
+}
 
 export const useProgramDimensions = () => {
     const { serverVersion } = useConfig()
@@ -519,7 +522,9 @@ export const useProgramDimensions = () => {
                 !!dimension && !hiddenTimeDimensions.includes(dimension.id)
         )
 
-        const programDimensions = Object.values(getProgramDimensions()).filter(
+        const programDimensions = Object.values(
+            getProgramDimensions(programId)
+        ).filter(
             (dimension) =>
                 !getIsProgramDimensionDisabled({
                     dimensionId: dimension.id,
