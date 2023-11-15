@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-10T09:10:14.120Z\n"
-"PO-Revision-Date: 2023-11-10T09:10:14.120Z\n"
+"POT-Creation-Date: 2023-11-15T09:31:46.822Z\n"
+"PO-Revision-Date: 2023-11-15T09:31:46.823Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -226,8 +226,8 @@ msgstr "See individual event data from a Tracker program stage or event program.
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
 
-msgid "See individual tracked entities from one or more Tracker program."
-msgstr "See individual tracked entities from one or more Tracker program."
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr "See individual tracked entities from one or more Tracker programs."
 
 msgid "Global dimensions"
 msgstr "Global dimensions"
@@ -678,6 +678,12 @@ msgstr "You don’t have access to event analytics. Contact a system administrat
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
+
+msgid "Registration org. unit"
+msgstr "Registration org. unit"
+
+msgid "Registration date"
+msgstr "Registration date"
 
 msgid "Last updated on"
 msgstr "Last updated on"

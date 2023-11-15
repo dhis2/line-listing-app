@@ -74,7 +74,7 @@ export const InputPanel = ({ visible }) => {
                     dataTest="input-tracked-entity"
                     header={getLabelForInputType(OUTPUT_TYPE_TRACKED_ENTITY)}
                     description={i18n.t(
-                        'See individual tracked entities from one or more Tracker program.'
+                        'See individual tracked entities from one or more Tracker programs.'
                     )}
                     onClick={() => setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)}
                     selected={selectedInput === OUTPUT_TYPE_TRACKED_ENTITY}
