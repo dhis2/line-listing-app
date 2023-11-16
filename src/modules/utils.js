@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
 const DEFAULT_USER_INPUT_DELAY = 500
 
@@ -35,10 +35,10 @@ export const extractDimensionIdParts = (id, inputType) => {
     let rawStageId
     const [dimensionId, part2, part3] = id.split('.').reverse()
     let programId = part3
-    if (part3 || inputType !== OUTPUT_TYPE_ENROLLMENT) {
+    if (part3 || inputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
         rawStageId = part2
     }
-    if (inputType === OUTPUT_TYPE_ENROLLMENT && !part3) {
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && !part3) {
         programId = part2
     }
     const [programStageId, repetitionIndex] = (rawStageId || '').split('[')
