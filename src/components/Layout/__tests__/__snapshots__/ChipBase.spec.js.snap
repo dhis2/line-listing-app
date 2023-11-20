@@ -180,11 +180,6 @@ exports[`ChipBase Data element: in stage with option set and 2 options chosen 1`
       >
         My data element
       </span>
-      <span
-        class="secondary"
-      >
-        Stage 1
-      </span>
     </span>
     <span
       class="suffix"

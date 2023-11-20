@@ -17,8 +17,7 @@ const VALUE_TYPE_BOOLEAN_NUM_OPTIONS = 3
 // Presentational component used by dnd - do not add redux or dnd functionality
 
 export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
-    const { id, name, dimensionType, optionSet, valueType, stageName } =
-        dimension
+    const { id, name, dimensionType, optionSet, valueType, suffix } = dimension
 
     const getChipSuffix = () => {
         if (
@@ -71,9 +70,7 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
             </div>
             <span className={styles.label}>
                 <span className={styles.primary}>{name}</span>
-                {stageName && (
-                    <span className={styles.secondary}>{stageName}</span>
-                )}
+                {suffix && <span className={styles.secondary}>{suffix}</span>}
             </span>
             <span className={styles.suffix}>{getChipSuffix()}</span>
         </div>
@@ -87,7 +84,7 @@ ChipBase.propTypes = {
         id: PropTypes.string,
         name: PropTypes.string,
         optionSet: PropTypes.string,
-        stageName: PropTypes.string,
+        suffix: PropTypes.string,
         valueType: PropTypes.string,
     }),
     itemsLength: PropTypes.number,
