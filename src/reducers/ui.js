@@ -25,7 +25,10 @@ import {
 } from '../modules/programDimensions.js'
 import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
@@ -523,7 +526,9 @@ export const useProgramDimensions = () => {
         )
 
         const programDimensions = Object.values(
-            getProgramDimensions(programId)
+            getProgramDimensions(
+                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+            )
         ).filter(
             (dimension) =>
                 !getIsProgramDimensionDisabled({
