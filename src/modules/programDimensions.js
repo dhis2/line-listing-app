@@ -8,6 +8,7 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from './dimensionConstants.js'
+import { getDefaultOrgUnitLabel } from './metadata.js'
 import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -22,7 +23,7 @@ export const getProgramDimensions = (programId) => ({
     [prefixDimensionId(programId, DIMENSION_ID_ORGUNIT)]: {
         id: prefixDimensionId(programId, DIMENSION_ID_ORGUNIT),
         dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
-        name: i18n.t('Organisation unit'),
+        name: getDefaultOrgUnitLabel(),
     },
     [prefixDimensionId(programId, DIMENSION_ID_EVENT_STATUS)]: {
         id: prefixDimensionId(programId, DIMENSION_ID_EVENT_STATUS),

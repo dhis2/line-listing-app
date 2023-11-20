@@ -10,6 +10,7 @@ import {
     getDefaultTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
+    getDefaultOuMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import {
@@ -143,7 +144,12 @@ export const tSetUiInput = (value) => (dispatch) => {
     dispatch(acClearUiProgram())
     dispatch(tClearUiProgramRelatedDimensions())
     dispatch(acClearUiRepetition())
-    dispatch(acSetUiInput(value, getDefaultTimeDimensionsMetadata()))
+    dispatch(
+        acSetUiInput(value, {
+            ...getDefaultTimeDimensionsMetadata(),
+            ...getDefaultOuMetadata(value.type),
+        })
+    )
 }
 
 export const tSetUiProgram =

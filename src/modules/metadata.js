@@ -1,4 +1,6 @@
 import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
     USER_ORG_UNIT,
     USER_ORG_UNIT_CHILDREN,
     USER_ORG_UNIT_GRANDCHILDREN,
@@ -7,7 +9,7 @@ import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions } from './mainDimensions.js'
 import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
-import { getStatusNames } from './visualization.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY, getStatusNames } from './visualization.js'
 
 const formatObject = (object) =>
     Object.entries(object).reduce(
@@ -41,6 +43,22 @@ export const getDefaultTimeDimensionsMetadata = () => {
         },
         {}
     )
+}
+
+export const getDefaultOuMetadata = (inputType) => ({
+    [DIMENSION_ID_ORGUNIT]: {
+        id: DIMENSION_ID_ORGUNIT,
+        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
+        name: getDefaultOrgUnitLabel(inputType),
+    },
+})
+
+export const getDefaultOrgUnitLabel = (inputType) => {
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        return i18n.t('Registration org. unit')
+    } else {
+        return i18n.t('Organisation unit')
+    }
 }
 
 export const getProgramAsMetadata = (program) => ({
