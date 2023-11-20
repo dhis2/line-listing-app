@@ -15,19 +15,22 @@ import {
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from './visualization.js'
 
-export const getProgramDimensions = () => ({
-    [DIMENSION_ID_ORGUNIT]: {
-        id: DIMENSION_ID_ORGUNIT,
+const prefixDimensionId = (prefix, dimensionId) =>
+    prefix ? `${prefix}.${dimensionId}` : dimensionId
+
+export const getProgramDimensions = (programId) => ({
+    [prefixDimensionId(programId, DIMENSION_ID_ORGUNIT)]: {
+        id: prefixDimensionId(programId, DIMENSION_ID_ORGUNIT),
         dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
         name: i18n.t('Organisation unit'),
     },
-    [DIMENSION_ID_EVENT_STATUS]: {
-        id: DIMENSION_ID_EVENT_STATUS,
+    [prefixDimensionId(programId, DIMENSION_ID_EVENT_STATUS)]: {
+        id: prefixDimensionId(programId, DIMENSION_ID_EVENT_STATUS),
         dimensionType: DIMENSION_TYPE_STATUS,
         name: i18n.t('Event status'),
     },
-    [DIMENSION_ID_PROGRAM_STATUS]: {
-        id: DIMENSION_ID_PROGRAM_STATUS,
+    [prefixDimensionId(programId, DIMENSION_ID_PROGRAM_STATUS)]: {
+        id: prefixDimensionId(programId, DIMENSION_ID_PROGRAM_STATUS),
         dimensionType: DIMENSION_TYPE_STATUS,
         name: i18n.t('Program status'),
     },
