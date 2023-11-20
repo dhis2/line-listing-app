@@ -1,4 +1,7 @@
-import { DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
+import {
+    DIMENSION_TYPE_DATA_ELEMENT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+} from '@dhis2/analytics'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
@@ -31,7 +34,7 @@ export const getDimensionsWithSuffix = ({
 }) => {
     const dimensions = dimensionIds.map((id) => {
         const { dimensionId, programStageId, programId } =
-            extractDimensionIdParts(id)
+            extractDimensionIdParts(id, inputType)
         const dimension = {
             ...metadata[id],
             dimensionId,
@@ -45,11 +48,18 @@ export const getDimensionsWithSuffix = ({
         [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
     ) {
         const dimensionsWithSuffix = dimensions.map((dimension) => {
-            if (dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT) {
+            if (
+                [
+                    DIMENSION_TYPE_DATA_ELEMENT,
+                    DIMENSION_TYPE_ORGANISATION_UNIT,
+                ].includes(dimension.dimensionType)
+            ) {
                 const duplicates = dimensions.filter(
                     (d) =>
                         d.dimensionId === dimension.dimensionId &&
-                        d !== dimension
+                        d !== dimension &&
+                        ((dimension.programId && d.programId) ||
+                            (dimension.programStageId && d.programStageId))
                 )
 
                 if (duplicates.length > 0) {
