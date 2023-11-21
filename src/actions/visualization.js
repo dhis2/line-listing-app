@@ -4,10 +4,7 @@ import {
     getProgramAsMetadata,
 } from '../modules/metadata.js'
 import { formatDimensionId } from '../modules/utils.js'
-import {
-    getDimensionMetadataFromVisualization,
-    OUTPUT_TYPE_TRACKED_ENTITY,
-} from '../modules/visualization.js'
+import { getDimensionMetadataFromVisualization } from '../modules/visualization.js'
 import {
     SET_VISUALIZATION,
     CLEAR_VISUALIZATION,
