@@ -28,8 +28,20 @@ export const useDidUpdateEffect = (fn, inputs) => {
     }, inputs)
 }
 
-export const formatDimensionId = (dimensionId, programStageId) =>
-    programStageId ? `${programStageId}.${dimensionId}` : dimensionId
+export const formatDimensionId = ({
+    dimensionId,
+    programStageId,
+    programId,
+    outputType,
+}) => {
+    return [
+        outputType === OUTPUT_TYPE_TRACKED_ENTITY ? programId : undefined,
+        programStageId,
+        dimensionId,
+    ]
+        .filter((p) => p)
+        .join('.')
+}
 
 export const extractDimensionIdParts = (id, inputType) => {
     let rawStageId

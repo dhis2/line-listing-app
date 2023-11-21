@@ -63,7 +63,7 @@ export const getAxesFromUi = (ui) =>
             ...layout,
             [axisId]: dimensionIds
                 .map((id) => {
-                    const { dimensionId, programStageId } =
+                    const { programId, programStageId, dimensionId } =
                         extractDimensionIdParts(id)
 
                     return dimensionCreate(
@@ -84,6 +84,11 @@ export const getAxesFromUi = (ui) =>
                                         ),
                                     },
                                 }),
+                            ...(programId && {
+                                program: {
+                                    id: programId,
+                                },
+                            }),
                             ...(programStageId && {
                                 programStage: {
                                     id: programStageId,

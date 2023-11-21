@@ -30,7 +30,7 @@ import { ProgramSelect } from './ProgramSelect.js'
 const ProgramDimensionsPanel = ({ visible }) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
-    const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
+    const selectedTrackedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const selectedProgram = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
@@ -46,7 +46,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
         } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             return !!selectedProgram
         } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-            return !!selectedEntityTypeId
+            return !!selectedTrackedEntityTypeId
         }
     }
 
@@ -156,6 +156,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
                                             : inputType === OUTPUT_TYPE_EVENT
                                             ? selectedStageId
                                             : undefined
+                                    }
+                                    trackedEntityTypeId={
+                                        selectedTrackedEntityTypeId
                                     }
                                 />
                             </>
