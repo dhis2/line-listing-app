@@ -72,6 +72,7 @@ const reducer = (state, action) => {
 const createDimensionsQuery = ({
     inputType,
     page,
+    trackedEntityTypeId,
     programId,
     stageId,
     searchTerm,
@@ -79,9 +80,11 @@ const createDimensionsQuery = ({
     nameProp,
 }) => {
     const resource =
-        inputType === OUTPUT_TYPE_EVENT
-            ? 'analytics/events/query/dimensions'
-            : 'analytics/enrollments/query/dimensions'
+        inputType === OUTPUT_TYPE_TRACKED_ENTITY
+            ? 'analytics/trackedEntities/query/dimensions'
+            : inputType === OUTPUT_TYPE_ENROLLMENT
+            ? 'analytics/enrollments/query/dimensions'
+            : 'analytics/events/query/dimensions'
     const params = {
         pageSize: 50,
         page,
@@ -90,11 +93,17 @@ const createDimensionsQuery = ({
         order: `${nameProp}:asc`,
     }
 
-    if (
-        programId &&
-        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
-    ) {
-        params.programId = programId
+    if (trackedEntityTypeId && inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        params.trackedEntityType = trackedEntityTypeId
+    }
+
+    if (programId) {
+        if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+            params.programId = programId
+            // XXX BACKEND using programId returns dimensions for all programs ?!
+        } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+            params.program = programId
+        }
     }
 
     if (stageId && inputType === OUTPUT_TYPE_EVENT) {
@@ -202,6 +211,7 @@ const transformResponseData = ({
 
 const useProgramDataDimensions = ({
     inputType,
+    trackedEntityTypeId,
     program,
     stageId,
     searchTerm,
@@ -263,6 +273,7 @@ const useProgramDataDimensions = ({
                     dimensions: createDimensionsQuery({
                         inputType,
                         page,
+                        trackedEntityTypeId,
                         programId,
                         stageId,
                         searchTerm,
@@ -292,6 +303,7 @@ const useProgramDataDimensions = ({
             programStageNames,
             inputType,
             nextPage,
+            trackedEntityTypeId,
             programId,
             stageId,
             searchTerm,
@@ -302,7 +314,15 @@ const useProgramDataDimensions = ({
 
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, programId, stageId, searchTerm, dimensionType, nameProp])
+    }, [
+        inputType,
+        trackedEntityTypeId,
+        programId,
+        stageId,
+        searchTerm,
+        dimensionType,
+        nameProp,
+    ])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {
