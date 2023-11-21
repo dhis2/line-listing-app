@@ -1,6 +1,7 @@
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_ORGANISATION_UNIT,
+    DIMENSION_TYPE_PERIOD,
     VALUE_TYPE_TEXT,
 } from '@dhis2/analytics'
 import { DIMENSION_TYPE_STATUS } from '../../../../modules/dimensionConstants.js'
@@ -314,6 +315,227 @@ describe('getDimensionsWithSuffix for data elements', () => {
     })
 })
 
+describe('getDimensionsWithSuffix for time dimensions', () => {
+    const metadata = {
+        p1: {
+            id: 'p1',
+            name: 'Program1',
+        },
+        p2: {
+            id: 'p2',
+            name: 'Program2',
+        },
+        enrollmentDate: {
+            id: 'enrollmentDate',
+            name: 'Date of enrollment',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        eventDate: {
+            id: 'eventDate',
+            name: 'Event date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        incidentDate: {
+            id: 'incidentDate',
+            name: 'Incident date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        scheduledDate: {
+            id: 'scheduledDate',
+            name: 'Scheduled date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p1.enrollmentDate': {
+            id: 'p1.enrollmentDate',
+            name: 'Date of enrollment',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p1.eventDate': {
+            id: 'p1.eventDate',
+            name: 'Event date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p1.incidentDate': {
+            id: 'p1.incidentDate',
+            name: 'Incident date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p1.scheduledDate': {
+            id: 'p1.scheduledDate',
+            name: 'Scheduled date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p2.enrollmentDate': {
+            id: 'p2.enrollmentDate',
+            name: 'Date of enrollment',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p2.eventDate': {
+            id: 'p2.eventDate',
+            name: 'Event date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p2.incidentDate': {
+            id: 'p2.incidentDate',
+            name: 'Incident date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        'p2.scheduledDate': {
+            id: 'p2.scheduledDate',
+            name: 'Scheduled date',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+        lastUpdated: {
+            id: 'lastUpdated',
+            name: 'Last updated on',
+            dimensionType: DIMENSION_TYPE_PERIOD,
+        },
+    }
+
+    it('returns correct result for: non-TE, no duplicates -> no suffix', () => {
+        const id1 = 'eventDate',
+            id2 = 'enrollmentDate',
+            id3 = 'incidentDate',
+            id4 = 'scheduledDate',
+            id5 = 'lastUpdated'
+        const dimensionIds = [id1, id2, id3, id4, id5]
+        const output = getDimensionsWithSuffix({
+            dimensionIds,
+            metadata,
+            inputType: OUTPUT_TYPE_ENROLLMENT,
+        })
+
+        expect(output[0].id).toEqual(id1)
+        expect(output[0].name).toEqual('Event date')
+        expect(output[0].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[0].suffix).toBeUndefined()
+
+        expect(output[1].id).toEqual(id2)
+        expect(output[1].name).toEqual('Date of enrollment')
+        expect(output[1].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[1].suffix).toBeUndefined()
+
+        expect(output[2].id).toEqual(id3)
+        expect(output[2].name).toEqual('Incident date')
+        expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[2].suffix).toBeUndefined()
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Scheduled date')
+        expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[3].suffix).toBeUndefined()
+
+        expect(output[4].id).toEqual(id5)
+        expect(output[4].name).toEqual('Last updated on')
+        expect(output[4].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[4].suffix).toBeUndefined()
+    })
+
+    it('returns correct result for: TE, no duplicates -> no suffix', () => {
+        const id1 = 'p1.eventDate',
+            id2 = 'p1.enrollmentDate',
+            id3 = 'p1.incidentDate',
+            id4 = 'p1.scheduledDate',
+            id5 = 'lastUpdated'
+        const dimensionIds = [id1, id2, id3, id4, id5]
+        const output = getDimensionsWithSuffix({
+            dimensionIds,
+            metadata,
+            inputType: OUTPUT_TYPE_TRACKED_ENTITY,
+        })
+
+        expect(output[0].id).toEqual(id1)
+        expect(output[0].name).toEqual('Event date')
+        expect(output[0].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[0].suffix).toBeUndefined()
+
+        expect(output[1].id).toEqual(id2)
+        expect(output[1].name).toEqual('Date of enrollment')
+        expect(output[1].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[1].suffix).toBeUndefined()
+
+        expect(output[2].id).toEqual(id3)
+        expect(output[2].name).toEqual('Incident date')
+        expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[2].suffix).toBeUndefined()
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Scheduled date')
+        expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[3].suffix).toBeUndefined()
+
+        expect(output[4].id).toEqual(id5)
+        expect(output[4].name).toEqual('Last updated on')
+        expect(output[4].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[4].suffix).toBeUndefined()
+    })
+
+    it('returns correct result for: TE, duplicates -> program suffix', () => {
+        const id1 = 'p1.eventDate',
+            id2 = 'p1.enrollmentDate',
+            id3 = 'p1.incidentDate',
+            id4 = 'p1.scheduledDate',
+            id5 = 'p2.eventDate',
+            id6 = 'p2.enrollmentDate',
+            id7 = 'p2.incidentDate',
+            id8 = 'p2.scheduledDate',
+            id9 = 'lastUpdated'
+        const dimensionIds = [id1, id2, id3, id4, id5, id6, id7, id8, id9]
+        const output = getDimensionsWithSuffix({
+            dimensionIds,
+            metadata,
+            inputType: OUTPUT_TYPE_TRACKED_ENTITY,
+        })
+
+        expect(output[0].id).toEqual(id1)
+        expect(output[0].name).toEqual('Event date')
+        expect(output[0].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[0].suffix).toEqual('Program1')
+
+        expect(output[1].id).toEqual(id2)
+        expect(output[1].name).toEqual('Date of enrollment')
+        expect(output[1].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[1].suffix).toEqual('Program1')
+
+        expect(output[2].id).toEqual(id3)
+        expect(output[2].name).toEqual('Incident date')
+        expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[2].suffix).toEqual('Program1')
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Scheduled date')
+        expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[3].suffix).toEqual('Program1')
+
+        expect(output[4].id).toEqual(id5)
+        expect(output[4].name).toEqual('Event date')
+        expect(output[4].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[4].suffix).toEqual('Program2')
+
+        expect(output[5].id).toEqual(id6)
+        expect(output[5].name).toEqual('Date of enrollment')
+        expect(output[5].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[5].suffix).toEqual('Program2')
+
+        expect(output[6].id).toEqual(id7)
+        expect(output[6].name).toEqual('Incident date')
+        expect(output[6].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[6].suffix).toEqual('Program2')
+
+        expect(output[7].id).toEqual(id8)
+        expect(output[7].name).toEqual('Scheduled date')
+        expect(output[7].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[7].suffix).toEqual('Program2')
+
+        expect(output[8].id).toEqual(id9)
+        expect(output[8].name).toEqual('Last updated on')
+        expect(output[8].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
+        expect(output[8].suffix).toBeUndefined()
+    })
+
+    // TODO: add tests for time dimensions with custom names not getting prefixed
+})
+
 describe('getDimensionsWithSuffix for program dimensions', () => {
     const metadata = {
         p1: {
@@ -403,8 +625,8 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
     it('returns correct result for: TE, no duplicates -> no suffix', () => {
         const id1 = 'ou',
             id2 = 'p1.ou',
-            id3 = 'eventStatus',
-            id4 = 'programStatus'
+            id3 = 'p1.eventStatus',
+            id4 = 'p1.programStatus'
         const dimensionIds = [id1, id2, id3, id4]
 
         metadata.ou.name = 'Registration org. unit'
@@ -501,7 +723,9 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
     })
 })
 
-/* cases:
+/* 
+    TODO: implement the following cases:
+    
     Data element duplicates
     -DED1    Not TE, not duplicate -> no suffix
     -DED2    Not TE, duplicate per stage -> stage suffix
@@ -511,7 +735,7 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
     -DED6    TE, duplicate per stage and program -> stage suffix
 
     Time dimensions
-    TD1    Not TE, regardless of name -> no suffix
+    -TD1    Not TE, regardless of name -> no suffix
     TD2    TE, custom name -> no suffix
     TD3    TE, default name -> program suffix
 
@@ -519,5 +743,5 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
     OD1    Program indicator (regardless of all other rules) -> no suffix
     OD2    Global dimension (regardless of all other rules) -> no suffix
     OD3    TET dimensions / PA (regardless of all other rules) -> no suffix
-    OD4    “Program dimensions” event/program status, org unit -> program suffix
+    -OD4    “Program dimensions” event/program status, org unit -> program suffix
 */

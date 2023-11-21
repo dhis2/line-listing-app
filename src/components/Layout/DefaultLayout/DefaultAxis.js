@@ -1,6 +1,7 @@
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_TYPE_ORGANISATION_UNIT,
+    DIMENSION_TYPE_PERIOD,
 } from '@dhis2/analytics'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
@@ -54,6 +55,7 @@ export const getDimensionsWithSuffix = ({
                     DIMENSION_TYPE_DATA_ELEMENT,
                     DIMENSION_TYPE_ORGANISATION_UNIT,
                     DIMENSION_TYPE_STATUS,
+                    DIMENSION_TYPE_PERIOD,
                 ].includes(dimension.dimensionType)
             ) {
                 const duplicates = dimensions.filter(
