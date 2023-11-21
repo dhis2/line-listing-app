@@ -24,7 +24,6 @@ import {
     SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
-import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -51,26 +50,6 @@ const useIsInLayout = (dimensionId) => {
         () => !!dimensionId && allDimensionIds.includes(dimensionId),
         [dimensionId, allDimensionIds]
     )
-}
-
-const useLocalizedStartEndDateFormatter = () => {
-    const { currentUser } = useCachedDataQuery()
-    const formatter = new Intl.DateTimeFormat(
-        currentUser.settings[USER_SETTINGS_UI_LOCALE],
-        {
-            dateStyle: 'long',
-        }
-    )
-    return (startEndDate) => {
-        if (isStartEndDate(startEndDate)) {
-            return startEndDate
-                .split('_')
-                .map((dateStr) => formatter.format(new Date(dateStr)))
-                .join(' - ')
-        } else {
-            return ''
-        }
-    }
 }
 
 const useMetadataNameGetter = () => {
@@ -104,7 +83,6 @@ const useExcludedPeriods = () => {
 }
 
 export const PeriodDimension = ({ dimension, onClose }) => {
-    const formatStartEndDate = useLocalizedStartEndDateFormatter()
     const getNameFromMetadata = useMetadataNameGetter()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
@@ -126,7 +104,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 if (isStartEndDate(item.id)) {
                     acc.metadata[item.id] = {
                         id: item.id,
-                        name: formatStartEndDate(item.id),
+                        name: item.id.replace('_', ' - '),
                     }
                 } else {
                     acc.metadata[item.id] = item
