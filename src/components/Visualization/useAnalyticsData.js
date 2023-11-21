@@ -27,7 +27,10 @@ import {
 } from '../../modules/dimensionConstants.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
-import { extractDimensionIdParts } from '../../modules/utils.js'
+import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
@@ -73,6 +76,8 @@ const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 const getAnalyticsEndpoint = (outputType) => analyticsApiEndpointMap[outputType]
 
 const getAdaptedVisualization = (visualization) => {
+    const outputType = visualization.outputType
+
     const parameters = {}
 
     const adaptDimensions = (dimensions) => {
@@ -107,17 +112,25 @@ const getAdaptedVisualization = (visualization) => {
     const headers = [
         ...visualization[AXIS_ID_COLUMNS],
         ...visualization[AXIS_ID_ROWS],
-    ].map(({ dimension, programStage, repetition }) => {
-        const headerId = programStage?.id
-            ? `${programStage.id}.${dimension}`
-            : dimensionHeadersMap[dimension] || dimension
+    ].map(({ dimension, program, programStage, repetition }) => {
+        const programStageId = programStage?.id
 
         if (repetition?.indexes?.length) {
             return repetition.indexes.map((index) =>
-                headerId.replace(/\./, `[${index}].`)
+                formatDimensionId({
+                    programId: program?.id,
+                    programStageId: `${programStageId}[${index}]`,
+                    dimensionId: dimensionHeadersMap[dimension] || dimension,
+                    outputType,
+                })
             )
         } else {
-            return headerId
+            return formatDimensionId({
+                programId: program?.id,
+                programStageId,
+                dimensionId: dimensionHeadersMap[dimension] || dimension,
+                outputType,
+            })
         }
     })
 
@@ -126,6 +139,7 @@ const getAdaptedVisualization = (visualization) => {
             [AXIS_ID_COLUMNS]: adaptedColumns,
             [AXIS_ID_ROWS]: adaptedRows,
             [AXIS_ID_FILTERS]: adaptedFilters,
+            outputType,
         },
         headers,
         parameters,
@@ -153,15 +167,24 @@ const fetchAnalyticsData = async ({
             totalPages: false,
             ...parameters,
         })
-        .withProgram(visualization.program.id) // TODO: this needs to be changed for TE as program isn't mandatory, but TET is?
         .withDisplayProperty(displayProperty.toUpperCase())
-        .withOutputType(visualization.outputType)
         .withPageSize(pageSize)
         .withPage(page)
         .withIncludeMetadataDetails()
 
+    // trackedEntity request can use multiple programs
+    if (visualization.outputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
+        req = req
+            .withProgram(visualization.program.id)
+            .withOutputType(visualization.outputType)
+    }
+
     if (visualization.outputType === OUTPUT_TYPE_EVENT) {
         req = req.withStage(visualization.programStage?.id)
+    }
+
+    if (visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        req = req.withTrackedEntityType(visualization.entityType.id)
     }
 
     if (relativePeriodDate && isAoWithTimeDimension(visualization)) {
@@ -224,9 +247,8 @@ const fetchLegendSets = async ({ legendSetIds, dataEngine }) => {
 const extractHeaders = (analyticsResponse) =>
     analyticsResponse.headers.map((header, index) => {
         const result = { ...header, index }
-        const { dimensionId, programStageId } = extractDimensionIdParts(
-            header.name
-        )
+        const { dimensionId, programId, programStageId } =
+            extractDimensionIdParts(header.name)
         if (
             programStageId &&
             analyticsResponse.headers.filter((h) =>
@@ -234,7 +256,17 @@ const extractHeaders = (analyticsResponse) =>
             ).length > 1
         ) {
             result.column += ` - ${analyticsResponse.metaData.items[programStageId].name}`
+        } else {
+            if (
+                programId &&
+                analyticsResponse.headers.filter((h) =>
+                    h.name.includes(dimensionId)
+                ).length > 1
+            ) {
+                result.column += ` - ${analyticsResponse.metaData.items[programId].name}`
+            }
         }
+
         return result
     })
 
@@ -411,6 +443,7 @@ const useAnalyticsData = ({
         sortField,
         sortDirection,
         relativePeriodDate,
+        doFetch,
     ])
 
     useEffect(() => {
