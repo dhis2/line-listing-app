@@ -17,6 +17,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../../modules/dimensionConstants.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { extractDimensionIdParts } from '../../modules/utils.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
@@ -29,6 +30,7 @@ import {
     sGetUiItemsByDimension,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
+    sGetUiInputType,
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
 import classes from './styles/Common.module.css'
@@ -40,21 +42,19 @@ const FixedDimension = ({
     dimension,
     isInLayout,
     metadata,
-    ouIds,
-    eventStatusIds,
-    programStatusIds,
     parentGraphMap,
     setUiItems,
+    selectedItemsIds,
 }) => {
     const { rootOrgUnits } = useCachedDataQuery()
     const { serverVersion } = useConfig()
     const statusNames = getStatusNames()
+    const { dimensionId } = extractDimensionIdParts(dimension.id)
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
-            dimensionId,
+            dimensionId: dimension.id,
             itemIds: items.map((item) => item.id),
         })
-
         switch (dimensionId) {
             case DIMENSION_ID_ORGUNIT: {
                 const forMetadata = {}
@@ -93,13 +93,12 @@ const FixedDimension = ({
         </p>
     )
 
-    const setStatus = ({ dimensionId, selectedItemsIds, itemId, toggle }) => {
+    const setStatus = ({ selectedItemsIds, itemId, toggle }) => {
         const newIds = toggle
             ? [...new Set([...selectedItemsIds, itemId])]
             : selectedItemsIds.filter((id) => id !== itemId)
 
         selectUiItems({
-            dimensionId,
             items: newIds.map((id) => ({ id })),
         })
     }
@@ -118,12 +117,11 @@ const FixedDimension = ({
                     {ALL_STATUSES.map(({ id, name }) => (
                         <Checkbox
                             key={id}
-                            checked={programStatusIds.includes(id)}
+                            checked={selectedItemsIds.includes(id)}
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_ID_PROGRAM_STATUS,
-                                    selectedItemsIds: programStatusIds,
+                                    selectedItemsIds,
                                     itemId: id,
                                     toggle: checked,
                                 })
@@ -162,12 +160,11 @@ const FixedDimension = ({
                     {ALL_STATUSES.map(({ id, name }) => (
                         <Checkbox
                             key={id}
-                            checked={eventStatusIds.includes(id)}
+                            checked={selectedItemsIds.includes(id)}
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_ID_EVENT_STATUS,
-                                    selectedItemsIds: eventStatusIds,
+                                    selectedItemsIds,
                                     itemId: id,
                                     toggle: checked,
                                 })
@@ -183,7 +180,7 @@ const FixedDimension = ({
     }
 
     const renderModalContent = () => {
-        switch (dimension.id) {
+        switch (dimensionId) {
             case DIMENSION_ID_PROGRAM_STATUS:
                 return renderProgramStatus()
             case DIMENSION_ID_EVENT_STATUS:
@@ -193,7 +190,7 @@ const FixedDimension = ({
                     onSelect: selectUiItems,
                 }
 
-                const selected = ouIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
+                const selected = selectedItemsIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
                     .filter(
                         (id) =>
                             metadata[ouIdHelper.removePrefix(id)] !== undefined
@@ -210,10 +207,10 @@ const FixedDimension = ({
                     })
 
                 const display =
-                    dimension.id === DIMENSION_ID_ORGUNIT ? 'block' : 'none'
+                    dimensionId === DIMENSION_ID_ORGUNIT ? 'block' : 'none'
 
                 return (
-                    <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
+                    <div key={dimension.id} style={{ display }}>
                         <OrgUnitDimension
                             selected={selected}
                             roots={rootOrgUnits.map(
@@ -242,13 +239,12 @@ const FixedDimension = ({
 
 FixedDimension.propTypes = {
     dimension: PropTypes.object.isRequired,
-    eventStatusIds: PropTypes.array.isRequired,
     isInLayout: PropTypes.bool.isRequired,
-    ouIds: PropTypes.array.isRequired,
-    programStatusIds: PropTypes.array.isRequired,
+    selectedItemsIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
+    inputType: PropTypes.string,
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
     setUiItems: PropTypes.func,
@@ -259,17 +255,13 @@ FixedDimension.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    eventStatusIds: sGetUiItemsByDimension(state, DIMENSION_ID_EVENT_STATUS),
+    selectedItemsIds: sGetUiItemsByDimension(state, ownProps.dimension?.id),
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
+    inputType: sGetUiInputType(state),
     metadata: sGetMetadata(state),
-    ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
     parentGraphMap: sGetUiParentGraphMap(state),
-    programStatusIds: sGetUiItemsByDimension(
-        state,
-        DIMENSION_ID_PROGRAM_STATUS
-    ),
 })
 
 export default connect(mapStateToProps, {

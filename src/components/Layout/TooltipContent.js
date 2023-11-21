@@ -12,17 +12,26 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../../modules/utils.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetUiItemsByDimension } from '../../reducers/ui.js'
+import { sGetUiInputType, sGetUiItemsByDimension } from '../../reducers/ui.js'
 import styles from './styles/Tooltip.module.css'
 
 const renderLimit = 5
 
 export const TooltipContent = ({ dimension, conditionsTexts }) => {
     const metadata = useSelector(sGetMetadata)
+    const inputType = useSelector(sGetUiInputType)
     const itemIds = useSelector((state) =>
         sGetUiItemsByDimension(state, dimension.id)
     )
+    const { programStageId, programId } = extractDimensionIdParts(
+        dimension.id,
+        inputType
+    )
+
+    const stageName = dimension.stageName || metadata[programStageId]?.name
+    const programName = metadata[programId]?.name
 
     const getNameList = (idList, label, metadata) =>
         idList.reduce(
@@ -32,16 +41,6 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
                 }`,
             `${label}: `
         )
-
-    let stageName
-    if (dimension.stageName) {
-        stageName = dimension.stageName
-    } else {
-        const stageId =
-            dimension.id.indexOf('.') !== -1 &&
-            dimension.id.substring(0, dimension.id.indexOf('.'))
-        stageName = metadata[stageId]?.name
-    }
 
     const getItemDisplayNames = () => {
         const levelIds = []
@@ -114,6 +113,26 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         </li>
     )
 
+    const renderStageName = () =>
+        stageName && (
+            <li className={styles.item}>
+                {i18n.t('Program stage: {{- stageName}}', {
+                    stageName,
+                    nsSeparator: '^^',
+                })}
+            </li>
+        )
+
+    const renderProgramName = () =>
+        programName && (
+            <li className={styles.item}>
+                {i18n.t('Program: {{- programName}}', {
+                    programName,
+                    nsSeparator: '^^',
+                })}
+            </li>
+        )
+
     const itemDisplayNames = Boolean(itemIds.length) && getItemDisplayNames()
 
     switch (dimension.dimensionType) {
@@ -123,6 +142,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         case DIMENSION_TYPE_STATUS:
             return (
                 <ul className={styles.list} data-test="tooltip-content">
+                    {renderProgramName()}
                     {itemDisplayNames
                         ? renderItems(itemDisplayNames)
                         : renderAllItemsLabel()}
@@ -133,6 +153,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         case DIMENSION_TYPE_ORGANISATION_UNIT:
             return (
                 <ul className={styles.list} data-test="tooltip-content">
+                    {renderProgramName()}
                     {itemDisplayNames
                         ? renderItems(itemDisplayNames)
                         : renderNoItemsLabel()}
@@ -141,14 +162,8 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         case DIMENSION_TYPE_DATA_ELEMENT: {
             return (
                 <ul className={styles.list} data-test="tooltip-content">
-                    {stageName && (
-                        <li className={styles.item}>
-                            {i18n.t('Program stage: {{- stageName}}', {
-                                stageName,
-                                nsSeparator: '^^',
-                            })}
-                        </li>
-                    )}
+                    {renderProgramName()}
+                    {renderStageName()}
                     {conditionsTexts.length
                         ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
@@ -158,6 +173,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         default: {
             return (
                 <ul className={styles.list} data-test="tooltip-content">
+                    {renderProgramName()}
                     {conditionsTexts.length
                         ? renderItems(conditionsTexts)
                         : renderAllItemsLabel()}
