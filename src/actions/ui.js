@@ -1,3 +1,4 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_IDS_TIME,
@@ -5,6 +6,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_CREATED,
 } from '../modules/dimensionConstants.js'
 import {
     getDefaultTimeDimensionsMetadata,
@@ -13,6 +15,7 @@ import {
     getDefaultOuMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
+import { extractDimensionIdParts } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -101,16 +104,20 @@ const tClearUiProgramRelatedDimensions = () => (dispatch, getState) => {
 
     const idsToRemove = ui.layout.columns
         .concat(ui.layout.filters)
-        .filter((dimensionId) => {
-            const dimension = metadata[dimensionId]
+        .filter((id) => {
+            const dimension = metadata[id]
+            const { dimensionId } = extractDimensionIdParts(id)
             const isProgramDataDimension = DIMENSION_TYPES_PROGRAM.has(
                 dimension.dimensionType
             )
             const isProgramDimension =
                 dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
                 dimensionId === DIMENSION_ID_EVENT_STATUS ||
-                (DIMENSION_IDS_TIME.has(dimension.id) &&
-                    dimensionId !== DIMENSION_ID_LAST_UPDATED)
+                (dimensionId === DIMENSION_ID_ORGUNIT &&
+                    id !== DIMENSION_ID_ORGUNIT) ||
+                (DIMENSION_IDS_TIME.has(dimensionId) &&
+                    dimensionId !== DIMENSION_ID_LAST_UPDATED) ||
+                dimensionId === DIMENSION_ID_CREATED
             return isProgramDataDimension || isProgramDimension
         })
 
@@ -176,7 +183,6 @@ export const tSetUiEntityType =
         dispatch(acClearUiProgram())
         dispatch(tClearUiProgramRelatedDimensions())
         dispatch(acClearUiEntityType())
-        // TODO: clear uiEntityTypeRelatedDimensions
         dispatch(acUpdateUiEntityTypeId(type.id, { [type.id]: type }))
         // TODO: store metadata as well?)
     }
