@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-21T09:02:28.228Z\n"
-"PO-Revision-Date: 2023-11-21T09:02:28.228Z\n"
+"POT-Creation-Date: 2023-11-21T13:23:15.736Z\n"
+"PO-Revision-Date: 2023-11-21T13:23:15.737Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -191,6 +191,9 @@ msgstr "Showing all values for this dimension"
 
 msgid "Program stage: {{- stageName}}"
 msgstr "Program stage: {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr "Program: {{- programName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "No dimensions found for '{{- searchTerm}}'"
