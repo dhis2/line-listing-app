@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-11-15T09:31:46.822Z\n"
-"PO-Revision-Date: 2023-11-15T09:31:46.823Z\n"
+"POT-Creation-Date: 2023-11-21T09:02:28.228Z\n"
+"PO-Revision-Date: 2023-11-21T09:02:28.228Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -679,9 +679,6 @@ msgstr "You don’t have access to event analytics. Contact a system administrat
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-msgid "Registration org. unit"
-msgstr "Registration org. unit"
-
 msgid "Registration date"
 msgstr "Registration date"
 
@@ -702,6 +699,12 @@ msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
+
+msgid "Registration org. unit"
+msgstr "Registration org. unit"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
 
 msgid "Table title"
 msgstr "Table title"
@@ -729,9 +732,6 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Organisation unit"
-msgstr "Organisation unit"
 
 msgid "Event status"
 msgstr "Event status"

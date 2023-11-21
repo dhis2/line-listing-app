@@ -3,6 +3,7 @@ import {
     DIMENSION_TYPE_ORGANISATION_UNIT,
     VALUE_TYPE_TEXT,
 } from '@dhis2/analytics'
+import { DIMENSION_TYPE_STATUS } from '../../../../modules/dimensionConstants.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -338,11 +339,43 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             name: 'Organisation unit',
             dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
         },
+        eventStatus: {
+            id: 'eventStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Event status',
+        },
+        programStatus: {
+            id: 'programStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Program status',
+        },
+        'p1.eventStatus': {
+            id: 'p1.eventStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Event status',
+        },
+        'p1.programStatus': {
+            id: 'p1.programStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Program status',
+        },
+        'p2.eventStatus': {
+            id: 'p2.eventStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Event status',
+        },
+        'p2.programStatus': {
+            id: 'p2.programStatus',
+            dimensionType: DIMENSION_TYPE_STATUS,
+            name: 'Program status',
+        },
     }
 
     it('returns correct result for: non-TE, no duplicates -> no suffix', () => {
-        const id1 = 'ou'
-        const dimensionIds = [id1]
+        const id1 = 'ou',
+            id2 = 'eventStatus',
+            id3 = 'programStatus'
+        const dimensionIds = [id1, id2, id3]
         const output = getDimensionsWithSuffix({
             dimensionIds,
             metadata,
@@ -355,12 +388,24 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             DIMENSION_TYPE_ORGANISATION_UNIT
         )
         expect(output[0].suffix).toBeUndefined()
+
+        expect(output[1].id).toEqual(id2)
+        expect(output[1].name).toEqual('Event status')
+        expect(output[1].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[1].suffix).toBeUndefined()
+
+        expect(output[2].id).toEqual(id3)
+        expect(output[2].name).toEqual('Program status')
+        expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[2].suffix).toBeUndefined()
     })
 
     it('returns correct result for: TE, no duplicates -> no suffix', () => {
         const id1 = 'ou',
-            id2 = 'p1.ou'
-        const dimensionIds = [id1, id2]
+            id2 = 'p1.ou',
+            id3 = 'eventStatus',
+            id4 = 'programStatus'
+        const dimensionIds = [id1, id2, id3, id4]
 
         metadata.ou.name = 'Registration org. unit'
 
@@ -383,13 +428,27 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             DIMENSION_TYPE_ORGANISATION_UNIT
         )
         expect(output[1].suffix).toBeUndefined()
+
+        expect(output[2].id).toEqual(id3)
+        expect(output[2].name).toEqual('Event status')
+        expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[2].suffix).toBeUndefined()
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Program status')
+        expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[3].suffix).toBeUndefined()
     })
 
     it('returns correct result for: TE, duplicates -> program suffix', () => {
         const id1 = 'ou',
             id2 = 'p1.ou',
-            id3 = 'p2.ou'
-        const dimensionIds = [id1, id2, id3]
+            id3 = 'p2.ou',
+            id4 = 'p1.eventStatus',
+            id5 = 'p2.eventStatus',
+            id6 = 'p1.programStatus',
+            id7 = 'p2.programStatus'
+        const dimensionIds = [id1, id2, id3, id4, id5, id6, id7]
 
         metadata.ou.name = 'Registration org. unit'
 
@@ -419,6 +478,26 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             DIMENSION_TYPE_ORGANISATION_UNIT
         )
         expect(output[2].suffix).toEqual('Program2')
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Event status')
+        expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[3].suffix).toEqual('Program1')
+
+        expect(output[4].id).toEqual(id5)
+        expect(output[4].name).toEqual('Event status')
+        expect(output[4].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[4].suffix).toEqual('Program2')
+
+        expect(output[5].id).toEqual(id6)
+        expect(output[5].name).toEqual('Program status')
+        expect(output[5].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[5].suffix).toEqual('Program1')
+
+        expect(output[6].id).toEqual(id7)
+        expect(output[6].name).toEqual('Program status')
+        expect(output[6].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
+        expect(output[6].suffix).toEqual('Program2')
     })
 })
 

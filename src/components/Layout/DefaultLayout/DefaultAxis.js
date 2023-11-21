@@ -10,6 +10,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
+import { DIMENSION_TYPE_STATUS } from '../../../modules/dimensionConstants.js'
 import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
@@ -52,6 +53,7 @@ export const getDimensionsWithSuffix = ({
                 [
                     DIMENSION_TYPE_DATA_ELEMENT,
                     DIMENSION_TYPE_ORGANISATION_UNIT,
+                    DIMENSION_TYPE_STATUS,
                 ].includes(dimension.dimensionType)
             ) {
                 const duplicates = dimensions.filter(
