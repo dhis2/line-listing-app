@@ -62,7 +62,10 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                     ) : (
                         <SingleSelect
                             dense
-                            selected={selectedProgramId || ''}
+                            selected={
+                                (!fetching && programs && selectedProgramId) ||
+                                ''
+                            }
                             onChange={({ selected }) =>
                                 setSelectedProgramId(selected)
                             }
@@ -80,13 +83,14 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                             //     : {})}
                             // TODO: WIP, reimplement or remove?
                         >
-                            {programs?.map(({ id, name }) => (
-                                <SingleSelectOption
-                                    key={id}
-                                    label={name}
-                                    value={id}
-                                />
-                            ))}
+                            {!fetching &&
+                                programs?.map(({ id, name }) => (
+                                    <SingleSelectOption
+                                        key={id}
+                                        label={name}
+                                        value={id}
+                                    />
+                                ))}
                         </SingleSelect>
                     )}
                 </div>
