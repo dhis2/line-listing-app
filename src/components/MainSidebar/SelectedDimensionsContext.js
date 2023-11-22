@@ -12,6 +12,7 @@ import {
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionConstants.js'
 import { getTimeDimensions } from '../../modules/timeDimensions.js'
+import { extractDimensionIdParts } from '../../modules/utils.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
 import { sGetUiInputType, sGetUiLayout } from '../../reducers/ui.js'
 
@@ -51,6 +52,11 @@ export const SelectedDimensionsProvider = ({ children }) => {
             (acc, id) => {
                 const { dimensionType } = metadata[id] ?? {}
 
+                const { dimensionId } = extractDimensionIdParts(
+                    id,
+                    selectedInputType
+                )
+
                 if (
                     dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE &&
                     selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
@@ -59,13 +65,19 @@ export const SelectedDimensionsProvider = ({ children }) => {
                 } else if (
                     DIMENSION_TYPES_PROGRAM.has(dimensionType) ||
                     [
-                        DIMENSION_ID_ORGUNIT,
                         DIMENSION_ID_EVENT_STATUS,
                         DIMENSION_ID_PROGRAM_STATUS,
                         ...Object.keys(getTimeDimensions()),
-                    ].includes(id)
+                    ].includes(dimensionId)
                 ) {
                     acc.program += 1
+                } else if (dimensionId === DIMENSION_ID_ORGUNIT) {
+                    if (selectedInputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
+                        acc.program += 1
+                    } else if (id !== DIMENSION_ID_ORGUNIT) {
+                        // exclude "ou" which is a global dimension, but add count for program org units
+                        acc.program += 1
+                    }
                 } else if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
