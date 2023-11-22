@@ -84,6 +84,8 @@ const expectRepetitionToBe = ({ dimensionName, recent, oldest }) => {
 const expectHeaderToContainExact = (index, value) =>
     getTableHeaderCells().eq(index).containsExact(value)
 
+// TODO: duplicate describe below and adapt to TE
+
 describe('repeated events', () => {
     beforeEach(() => {
         goToStartPage()

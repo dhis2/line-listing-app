@@ -9,6 +9,9 @@ import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
+// TODO: refactor out sequential tests
+// TODO: duplicate and adapt to TE
+
 /* This files constains sequential tests, which means that some test steps
  * depend on a previous step. With test isolation switched on (the default setting)
  * each step (`it` block) will start off in a fresh window, and that breaks this kind

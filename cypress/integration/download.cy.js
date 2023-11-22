@@ -20,6 +20,7 @@ const downloadIsDisabled = () =>
         .should('have.attr', 'disabled')
 
 describe('download', () => {
+    // TODO: duplicate and adapt to TE
     it('download button enables when required dimensions are selected (event)', () => {
         goToStartPage()
 

@@ -1,8 +1,7 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-export const INPUT_EVENT = 'event'
-export const INPUT_ENROLLMENT = 'enrollment'
-export const INPUT_TRACKED_ENTITY = 'trackedEntity'
+const INPUT_EVENT = 'event'
+const INPUT_ENROLLMENT = 'enrollment'
 
 const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // select the desired type: Event or Enrollment
