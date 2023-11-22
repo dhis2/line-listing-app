@@ -38,20 +38,19 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 const currentYear = getCurrentYearStr()
 
-const setUpTable = () => {
-    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
-
-    selectRelativePeriod({
-        label: periodLabel,
-        period: TEST_REL_PE_THIS_YEAR,
+/*
+    // one way to make sure that conditions work for TE is to simply duplicate the tests we have today and adapt them to TE, here's a quick plan for that:
+    // TODO: make a copy of the "describe('text conditions..." below
+    // TODO: change the beforeEach to include this instead:
+    selectTrackedEntityWithTypeAndProgramDimensions({
+        typeName: 'Person',
+        ...event,
+        dimensions: [dimensionName],
     })
+    // TODO: add period selection here once it's supported / before merging this to master!
 
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-}
+    // TODO: adapt the results of each test to match the result from tracked entity
+*/
 
 const addConditions = (conditions) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
@@ -85,7 +84,22 @@ describe('text conditions', { testIsolation: false }, () => {
 
     beforeEach(() => {
         goToStartPage()
-        setUpTable()
+
+        selectEventWithProgramDimensions({
+            ...event,
+            dimensions: [dimensionName],
+        })
+
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
     })
 
     it('exactly', () => {

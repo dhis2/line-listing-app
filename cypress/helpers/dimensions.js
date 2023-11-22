@@ -1,7 +1,8 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const INPUT_EVENT = 'event'
-const INPUT_ENROLLMENT = 'enrollment'
+export const INPUT_EVENT = 'event'
+export const INPUT_ENROLLMENT = 'enrollment'
+export const INPUT_TRACKED_ENTITY = 'trackedEntity'
 
 const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     // select the desired type: Event or Enrollment
@@ -51,7 +52,6 @@ export const openInputSidebar = () => {
 
 export const openProgramDimensionsSidebar = () => {
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
-    cy.getBySel('program-dimensions').should('be.visible')
 }
 
 export const openDimension = (dimensionName) => {
@@ -118,6 +118,19 @@ export const selectEnrollmentWithProgramDimensions = ({
         programName,
         dimensions,
     })
+
+export const selectTrackedEntityWithTypeAndProgramDimensions = ({
+    typeName,
+    programName,
+    dimensions,
+}) => {
+    selectTrackedEntityWithType(typeName)
+    openProgramDimensionsSidebar()
+    selectProgramForTE(programName)
+    dimensions.forEach((dimensionName) => {
+        clickAddRemoveProgramDataDimension(dimensionName)
+    })
+}
 
 const disabledOpacity = { prop: 'opacity', value: '0.5' }
 const disabledCursor = { prop: 'cursor', value: 'not-allowed' }

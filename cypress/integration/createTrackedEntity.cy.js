@@ -6,6 +6,7 @@ import {
 import {
     clickAddRemoveProgramDataDimension,
     clickAddRemoveTrackedEntityTypeDimensions,
+    openProgramDimensionsSidebar,
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
@@ -68,7 +69,7 @@ const setUpTable = () => {
     clickAddRemoveTrackedEntityTypeDimensions(entityDimensionName)
 
     // select a program and add program dimensions
-    cy.getBySel('main-sidebar').contains('Program dimensions').click()
+    openProgramDimensionsSidebar()
 
     selectProgramForTE(program.programName)
 
