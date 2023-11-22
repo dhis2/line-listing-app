@@ -3,27 +3,37 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from '../../src/modules/dimensionConstants.js'
-import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
 import {
-    clickAddRemoveTrackedEntityDimensions,
+    clickAddRemoveProgramDataDimension,
+    clickAddRemoveTrackedEntityTypeDimensions,
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
+import { expectTableToBeVisible } from '../helpers/table.js'
 
-const program = E2E_PROGRAM
-const dimensionName = 'City'
-const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
+const program = {
+    programName: 'Child Programme',
+    [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of enrollment',
+    [DIMENSION_ID_INCIDENT_DATE]: 'Date of birth',
+    [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+}
+const entityDimensionName = 'City'
+const programDataDimensionName = 'MCH Infant Weight (g)'
+// const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
 describe(['>=41'], 'tracked entity', () => {
     beforeEach(() => {
         goToStartPage()
+    })
+    it('creates a line list with dimensions', () => {
         setUpTable()
     })
-    it('creates an tracked entity line list', () => {
-        cy.contains('Something went wrong').should('be.visible') // FIXME: just a temporary way to run the setUpTable for now
+    it('creates a line list without dimensions', () => {
+        selectTrackedEntityWithType('Person')
+        clickMenubarUpdateButton()
+        expectTableToBeVisible()
     })
     //runTests()
 })
@@ -55,7 +65,7 @@ const setUpTable = () => {
     cy.getBySel('tracked-entity-dimensions-list')
         .children()
         .should('have.length', 33)
-    clickAddRemoveTrackedEntityDimensions(dimensionName)
+    clickAddRemoveTrackedEntityTypeDimensions(entityDimensionName)
 
     // select a program and add program dimensions
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
@@ -78,7 +88,9 @@ const setUpTable = () => {
         program[DIMENSION_ID_LAST_UPDATED]
     )
 
-    selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR })
+    clickAddRemoveProgramDataDimension(programDataDimensionName)
+
+    // selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR }) // FIXME: Time dimensions aren't implemented yet
 
     // Go back to person dimensions to verify that they're still listed properly
     cy.getBySel('main-sidebar').contains('Person dimensions').click()
@@ -88,9 +100,9 @@ const setUpTable = () => {
 
     clickMenubarUpdateButton()
 
-    //expectTableToBeVisible() // FIXME: currently expected to fail
+    expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    cy.getBySelLike('layout-chip').contains(`${entityDimensionName}: all`)
 }
 
 // const runTests = () => {
@@ -103,7 +115,7 @@ const setUpTable = () => {
 
 //         // check the column headers in the table
 //         getTableHeaderCells().contains('Organisation unit').should('be.visible')
-//         getTableHeaderCells().contains(dimensionName).should('be.visible')
+//         getTableHeaderCells().contains(entityDimensionName).should('be.visible')
 //         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
 //         //check the chips in the layout
@@ -114,7 +126,7 @@ const setUpTable = () => {
 
 //         cy.getBySel('columns-axis')
 //             .findBySelLike('layout-chip')
-//             .contains(`${dimensionName}: all`)
+//             .contains(`${entityDimensionName}: all`)
 //             .should('be.visible')
 
 //         cy.getBySel('columns-axis')
@@ -163,7 +175,7 @@ const setUpTable = () => {
 
 //         // check the column headers in the table
 //         getTableHeaderCells().contains('Organisation unit').should('be.visible')
-//         getTableHeaderCells().contains(dimensionName).should('be.visible')
+//         getTableHeaderCells().contains(entityDimensionName).should('be.visible')
 //         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
 //         //check the chips in the layout
@@ -174,7 +186,7 @@ const setUpTable = () => {
 
 //         cy.getBySel('columns-axis')
 //             .findBySelLike('layout-chip')
-//             .contains(`${dimensionName}: all`)
+//             .contains(`${entityDimensionName}: all`)
 //             .should('be.visible')
 
 //         cy.getBySel('filters-axis')

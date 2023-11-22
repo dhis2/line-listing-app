@@ -78,7 +78,7 @@ export const clickAddRemoveProgramDimension = (label) =>
 export const clickAddRemoveProgramDataDimension = (label) =>
     clickAddRemoveDimension('program-dimensions-list', label)
 
-export const clickAddRemoveTrackedEntityDimensions = (label) =>
+export const clickAddRemoveTrackedEntityTypeDimensions = (label) =>
     clickAddRemoveDimension('tracked-entity-dimensions-list', label)
 
 const selectProgramDimensions = ({
