@@ -10,6 +10,7 @@ import {
 } from './dimensionConstants.js'
 import { getDefaultOrgUnitLabel } from './metadata.js'
 import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
+import { extractDimensionIdParts } from './utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
@@ -42,17 +43,15 @@ export const getIsProgramDimensionDisabled = ({
     inputType,
     programType,
 }) => {
-    if (
-        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
-        inputType === OUTPUT_TYPE_EVENT
-    ) {
+    const { dimensionId: id } = extractDimensionIdParts(dimensionId, inputType)
+    if (id === DIMENSION_ID_PROGRAM_STATUS && inputType === OUTPUT_TYPE_EVENT) {
         if (!programType) {
             return true
         } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
             return true
         }
     } else if (
-        dimensionId === DIMENSION_ID_EVENT_STATUS &&
+        id === DIMENSION_ID_EVENT_STATUS &&
         [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
     ) {
         return true
