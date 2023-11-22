@@ -9,13 +9,13 @@ describe('formatDimensionId', () => {
     it('returns correct result when only dimensionId is used', () => {
         const dimensionId = 'did'
 
-        expect(formatDimensionId(dimensionId)).toEqual('did')
+        expect(formatDimensionId({ dimensionId })).toEqual('did')
     })
     it('returns correct result when both programStageId and dimensionId are used', () => {
         const dimensionId = 'did'
         const programStageId = 'sid'
 
-        expect(formatDimensionId(dimensionId, programStageId)).toEqual(
+        expect(formatDimensionId({ dimensionId, programStageId })).toEqual(
             'sid.did'
         )
     })
@@ -130,19 +130,74 @@ describe('extractDimensionIdParts', () => {
 })
 
 describe('formatDimensionId + extractDimensionIdParts', () => {
-    it('returns correct result when both programStageId and dimensionId are used', () => {
-        const dimensionId = 'did'
-        const programStageId = 'sid'
+    it('returns correct result for: dimensionId', () => {
+        const inputDimensionId = 'did'
 
-        expect(
+        const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(
-                formatDimensionId(dimensionId, programStageId)
-            ).dimensionId
-        ).toEqual(dimensionId)
-        expect(
+                formatDimensionId({
+                    dimensionId: inputDimensionId,
+                })
+            )
+
+        expect(dimensionId).toEqual(inputDimensionId)
+        expect(programStageId).toBeFalsy()
+        expect(programId).toBeUndefined()
+    })
+
+    it('returns correct result for: stageId + dimensionId', () => {
+        const inputDimensionId = 'did'
+        const inputProgramStageId = 'sid'
+
+        const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(
-                formatDimensionId(dimensionId, programStageId)
-            ).programStageId
-        ).toEqual(programStageId)
+                formatDimensionId({
+                    dimensionId: inputDimensionId,
+                    programStageId: inputProgramStageId,
+                })
+            )
+
+        expect(dimensionId).toEqual(inputDimensionId)
+        expect(programStageId).toEqual(inputProgramStageId)
+        expect(programId).toBeUndefined()
+    })
+
+    it('returns correct result for: programId + stageId + dimensionId', () => {
+        const inputDimensionId = 'did'
+        const inputProgramStageId = 'sid'
+        const inputProgramId = 'pid'
+
+        const { dimensionId, programStageId, programId } =
+            extractDimensionIdParts(
+                formatDimensionId({
+                    dimensionId: inputDimensionId,
+                    programStageId: inputProgramStageId,
+                    programId: inputProgramId,
+                })
+            )
+
+        expect(dimensionId).toEqual(inputDimensionId)
+        expect(programStageId).toEqual(inputProgramStageId)
+        expect(programId).toBeUndefined()
+    })
+
+    it('returns correct result for Tracked Entity: programId + stageId + dimensionId', () => {
+        const inputDimensionId = 'did'
+        const inputProgramStageId = 'sid'
+        const inputProgramId = 'pid'
+
+        const { dimensionId, programStageId, programId } =
+            extractDimensionIdParts(
+                formatDimensionId({
+                    dimensionId: inputDimensionId,
+                    programStageId: inputProgramStageId,
+                    programId: inputProgramId,
+                    outputType: OUTPUT_TYPE_TRACKED_ENTITY,
+                })
+            )
+
+        expect(dimensionId).toEqual(inputDimensionId)
+        expect(programStageId).toEqual(inputProgramStageId)
+        expect(programId).toEqual(inputProgramId)
     })
 })
