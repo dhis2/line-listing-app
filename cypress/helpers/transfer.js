@@ -1,5 +1,5 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-import { typeInput } from './common.js'
+import { typeInput, clearInput } from './common.js'
 
 export const searchAndSelectInOptionsTransfer = (name) => {
     cy.getBySel('option-set-transfer-option', EXTENDED_TIMEOUT)
@@ -17,6 +17,10 @@ export const searchAndSelectInOptionsTransfer = (name) => {
         .get('[data-test="dhis2-uicore-circularloader"]', EXTENDED_TIMEOUT)
         .should('not.exist')
 
+    selectInOptionsTransfer(name)
+}
+
+export const selectInOptionsTransfer = (name) => {
     cy.getBySel('option-set-transfer-sourceoptions')
         .containsExact(name)
         .dblclick()
