@@ -1,5 +1,5 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
-import { typeInput, clearInput } from './common.js'
+import { typeInput } from './common.js'
 
 export const searchAndSelectInOptionsTransfer = (name) => {
     cy.getBySel('option-set-transfer-option', EXTENDED_TIMEOUT)
