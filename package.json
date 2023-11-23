@@ -22,6 +22,8 @@
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.2",
+        "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
+        "@reportportal/agent-js-jest": "^5.0.7",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
         "cypress": "^13.2.0",
@@ -57,17 +59,6 @@
         "redux-thunk": "^2.3.0",
         "reselect": "^4.1.5",
         "styled-jsx": "^4.0.1"
-    },
-    "jest": {
-        "transformIgnorePatterns": [
-            "node_modules/(?!(lodash-es|@dhis2/d2-ui-[a-z-]+)/)"
-        ],
-        "setupFilesAfterEnv": [
-            "./config/testSetup.js"
-        ],
-        "moduleNameMapper": {
-            "\\.css$": "identity-obj-proxy"
-        }
     },
     "resolutions": {
         "@dhis2/ui": "^8.3.1",
