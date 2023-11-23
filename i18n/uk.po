@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Wanda <wanda@frontlineaids.org>, 2023\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
@@ -231,6 +231,14 @@ msgstr "Подія"
 msgid "Enrollment"
 msgstr "Реєстрація"
 
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -238,16 +246,22 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
-msgstr "Основні виміри"
-
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -271,28 +285,14 @@ msgstr "Категорія"
 msgid "Category option group set"
 msgstr "Набір варіантів категорій"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
+msgid "No programs found"
 msgstr ""
-
-msgid "Clear"
-msgstr "Очистити"
 
 msgid "Stage"
 msgstr ""
@@ -300,13 +300,7 @@ msgstr ""
 msgid "All"
 msgstr "Усі"
 
-msgid "Clear stage first to choose another"
-msgstr ""
-
-msgid "This program only has one stage"
-msgstr ""
-
-msgid "Time dimensions"
+msgid "No stages found"
 msgstr ""
 
 msgid "Your dimensions"
@@ -607,13 +601,7 @@ msgstr ""
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -633,34 +621,31 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
-msgid "No access"
-msgstr "Немає доступу"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
 
 msgid "Something went wrong"
 msgstr "Сталася помилка"
 
-msgid "Organisation unit"
-msgstr "Організаційний підрозділ"
-
-msgid "Event status"
-msgstr "Статус події"
-
-msgid "Program status"
-msgstr "Статус програми"
+msgid "Last updated on"
+msgstr ""
 
 msgid "Created by"
 msgstr "Автор"
 
 msgid "Last updated by"
-msgstr ""
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
 msgstr ""
 
 msgid "User organisation unit"
@@ -699,6 +684,15 @@ msgstr "Обмеження мінімальних/максимальних зн�
 msgid "Style"
 msgstr "Стиль"
 
+msgid "Organisation unit"
+msgstr "Організаційний підрозділ"
+
+msgid "Event status"
+msgstr "Статус події"
+
+msgid "Program status"
+msgstr "Статус програми"
+
 msgid "most recent"
 msgstr ""
 
@@ -722,18 +716,6 @@ msgstr "Дата інциденту"
 
 msgid "Scheduled date"
 msgstr "Запланована дата"
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
-msgstr ""
 
 msgid "Active"
 msgstr "Активно"

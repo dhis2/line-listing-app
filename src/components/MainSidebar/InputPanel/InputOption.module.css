@@ -32,9 +32,11 @@
     font-size: 14px;
     line-height: 16px;
     color: var(--colors-grey900);
+    user-select: none;
 }
 .description {
     font-size: 13px;
     line-height: 17px;
     color: var(--colors-grey700);
+    user-select: none;
 }

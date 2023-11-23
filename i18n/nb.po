@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -230,6 +230,16 @@ msgstr "Hendelse"
 msgid "Enrollment"
 msgstr "Registrering"
 
+msgid "Could not load programs"
+msgstr "Kunne ikke laste programmer"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
+"systemadministrator."
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -239,17 +249,23 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Se data fra flere programfaser i et Tracker-program."
 
-msgid "Main dimensions"
-msgstr "Hoveddimensjoner"
-
-msgid "Input: {{type}}"
-msgstr "Inndata: {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "Programdimensjoner"
 
-msgid "Search in program"
-msgstr "Søk i program"
+msgid "Input: {{type}}"
+msgstr "Inndata: {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "Type"
@@ -272,30 +288,14 @@ msgstr "Kategori"
 msgid "Category option group set"
 msgstr "Kategorialternativgruppesett"
 
-msgid "Could not load programs"
-msgstr "Kunne ikke laste programmer"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
-"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
-"systemadministrator."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Velg en fase ovenfor for å legge til programdimensjoner."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Velg et program ovenfor for å legge til programdimensjoner."
 
 msgid "Choose a program"
 msgstr "Velg et program"
 
-msgid "Clear program first to choose another"
-msgstr "Fjern programmet først for å velge et annet"
-
-msgid "Clear"
-msgstr "Fjern"
+msgid "No programs found"
+msgstr ""
 
 msgid "Stage"
 msgstr "Fase"
@@ -303,14 +303,8 @@ msgstr "Fase"
 msgid "All"
 msgstr "Alle"
 
-msgid "Clear stage first to choose another"
-msgstr "Fjern programfase først for å velge en annen"
-
-msgid "This program only has one stage"
-msgstr "Dette programmet har bare en fase"
-
-msgid "Time dimensions"
-msgstr "Tidsdimensjoner"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "Dine dimensjoner"
@@ -319,10 +313,10 @@ msgid "Search your dimensions"
 msgstr "Søk i dimensjonene dine"
 
 msgid "Show panels"
-msgstr ""
+msgstr "Vis paneler"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "Utvid visualisering og skjul paneler"
 
 msgid "Unsaved visualization"
 msgstr "Ikke lagret visualisering"
@@ -350,16 +344,16 @@ msgstr ""
 "dashbord"
 
 msgid "Show layout"
-msgstr ""
+msgstr "Vis oppsett"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "Skjul oppsett"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "Vis dimensjonssidefeltet"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "Skjul dimensjonssidefeltet"
 
 msgid "Hide interpretations and details"
 msgstr "Skjul tolkninger og detaljer"
@@ -393,10 +387,10 @@ msgid "Your most viewed line lists"
 msgstr "Dine mest viste linjelister"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Ikke tilgjengelig i frakoblet modus"
 
 msgid "Sort by {{column}}"
-msgstr ""
+msgstr "Sorter etter {{column}}"
 
 msgid "Rows per page"
 msgstr "Rader per side"
@@ -610,14 +604,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "Ingen program valgt"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Velg et program fra sidefelt for programdimensjoner"
-
-msgid "No stage selected"
-msgstr "Ingen fase valgt"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Velg en fase fra sidefelt for programdimensjoner"
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "Kolonnene er tomme"
@@ -638,35 +626,32 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Det er et problem med minst én valgt indikator"
 
-msgid "No access"
-msgstr "Ingen tilgang"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "Du har ikke tilgang til de forespurte dataene"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Noe gikk galt"
 
-msgid "Organisation unit"
-msgstr "Organisasjonsenhet"
-
-msgid "Event status"
-msgstr "Hendelsesstatus"
-
-msgid "Program status"
-msgstr "Programstatus"
+msgid "Last updated on"
+msgstr "Sist oppdatert den"
 
 msgid "Created by"
 msgstr "Opprettet av"
 
 msgid "Last updated by"
 msgstr "Sist oppdatert av"
-
-msgid "Not applicable to event programs"
-msgstr "Gjelder ikke hendelsesprogrammer"
-
-msgid "Not applicable to enrollments"
-msgstr "Gjelder ikke registreringer"
 
 msgid "User organisation unit"
 msgstr "Brukerorganisasjonsenhet"
@@ -704,6 +689,15 @@ msgstr "Begrens minimum/maksimumsverdier"
 msgid "Style"
 msgstr "Stil"
 
+msgid "Organisation unit"
+msgstr "Organisasjonsenhet"
+
+msgid "Event status"
+msgstr "Hendelsesstatus"
+
+msgid "Program status"
+msgstr "Programstatus"
+
 msgid "most recent"
 msgstr "siste"
 
@@ -727,18 +721,6 @@ msgstr "Forekomstdato"
 
 msgid "Scheduled date"
 msgstr "Planlagt dato"
-
-msgid "Last updated on"
-msgstr "Sist oppdatert den"
-
-msgid "Disabled by the selected program"
-msgstr "Deaktivert av det valgte programmet"
-
-msgid "Disabled by the selected program stage"
-msgstr "Deaktivert av den valgte programfasen"
-
-msgid "No input type selected"
-msgstr "Ingen inndatatype valgt"
 
 msgid "Active"
 msgstr "Aktiv"

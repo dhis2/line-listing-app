@@ -1,6 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { Tooltip } from '@dhis2/ui'
-import cx from 'classnames'
 import React from 'react'
 import { useMainDimensions } from '../../reducers/ui.js'
 import styles from './common.module.css'
@@ -19,37 +17,16 @@ export const MainDimensions = () => {
 
     return (
         <MainSidebarSection
-            header={i18n.t('Main dimensions')}
+            header={i18n.t('Global dimensions')}
             dataTest={'main-dimensions-sidebar'}
         >
             {draggableDimensions.map((dimension) => (
-                <Tooltip
-                    content={dimension.disabledReason}
-                    openDelay={200}
-                    closeDelay={100}
-                    key={dimension.id}
-                >
-                    {({ onMouseOver, onMouseOut, ref }) => (
-                        <span
-                            className={cx(
-                                styles.span,
-                                dimension.disabled && styles.notAllowed
-                            )}
-                            onMouseOver={() =>
-                                dimension.disabled && onMouseOver()
-                            }
-                            onMouseOut={() =>
-                                dimension.disabled && onMouseOut()
-                            }
-                            ref={ref}
-                        >
-                            <DimensionItem
-                                {...dimension}
-                                selected={getIsDimensionSelected(dimension.id)}
-                            />
-                        </span>
-                    )}
-                </Tooltip>
+                <span className={styles.span} key={dimension.id}>
+                    <DimensionItem
+                        {...dimension}
+                        selected={getIsDimensionSelected(dimension.id)}
+                    />
+                </span>
             ))}
         </MainSidebarSection>
     )

@@ -4,19 +4,19 @@
 # Austin McGee <austin@dhis2.org>, 2022
 # Karoline Tufte Lien <karoline@dhis2.org>, 2022
 # Djibril Dione <dione.djibril@gmail.com>, 2022
-# Yayra Gomado <ygomado@hispwca.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # Philip Larsen Donnelly, 2022
 # Edem Kossi <ekossi@hispwca.org>, 2023
 # Viktor Varland <viktor@dhis2.org>, 2023
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023
+# Yayra Gomado <ygomado@hispwca.org>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023\n"
+"Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2023\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -247,6 +247,16 @@ msgstr "Évènement"
 msgid "Enrollment"
 msgstr "Enrôlement"
 
+msgid "Could not load programs"
+msgstr "Impossible de charger les programmes"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Les programmes n'ont pas pu être récupérés. Réessayez ou contactez votre "
+"administrateur système."
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -257,17 +267,23 @@ msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 "Voir les données de plusieurs étapes du programme dans un programme Tracker."
 
-msgid "Main dimensions"
-msgstr "Dimensions principales"
-
-msgid "Input: {{type}}"
-msgstr "Entrée : {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "Dimensions du programme"
 
-msgid "Search in program"
-msgstr "Recherche dans le programme"
+msgid "Input: {{type}}"
+msgstr "Entrée : {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "Type"
@@ -290,32 +306,14 @@ msgstr "Catégorie"
 msgid "Category option group set"
 msgstr "Ensemble de groupes d'option de catégorie"
 
-msgid "Could not load programs"
-msgstr "Impossible de charger les programmes"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
-"Les programmes n'ont pas pu être récupérés. Réessayez ou contactez votre "
-"administrateur système."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-"Choisissez une étape ci-dessus pour ajouter les dimensions du programme."
-
-msgid "Choose a program above to add program dimensions."
-msgstr ""
-"Choisissez un programme ci-dessus pour ajouter les dimensions du programme."
 
 msgid "Choose a program"
 msgstr "Choisir un programme"
 
-msgid "Clear program first to choose another"
-msgstr "Effacer d'abord le programme pour en choisir un autre"
-
-msgid "Clear"
-msgstr "Effacer"
+msgid "No programs found"
+msgstr "Aucun programme trouvé"
 
 msgid "Stage"
 msgstr "Etape"
@@ -323,14 +321,8 @@ msgstr "Etape"
 msgid "All"
 msgstr "Tout"
 
-msgid "Clear stage first to choose another"
-msgstr "Effacer d'abord l'étape pour en choisir une autre"
-
-msgid "This program only has one stage"
-msgstr "Ce programme ne comporte qu'un seul stade"
-
-msgid "Time dimensions"
-msgstr "Dimensions temporelles"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "Votre dimensions"
@@ -630,14 +622,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "Aucun programme sélectionné"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Choisir un programme dans la barre latérale Dimensions du programme."
-
-msgid "No stage selected"
-msgstr "Aucun stade sélectionné"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Choisir un stade dans la barre latérale Dimensions du programme."
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "'Colonnes' est vide"
@@ -658,35 +644,32 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Il y a un problème avec au moins un indicateur sélectionné"
 
-msgid "No access"
-msgstr "Pas d'accès"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "Vous n'avez pas accès aux données demandées"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
 
-msgid "Organisation unit"
-msgstr "Unité d'organisation"
-
-msgid "Event status"
-msgstr "Statut de l'événement"
-
-msgid "Program status"
-msgstr "Statut du programme"
+msgid "Last updated on"
+msgstr "Dernière mise à jour le"
 
 msgid "Created by"
 msgstr "Créé par"
 
 msgid "Last updated by"
 msgstr "Dernière mise à jour par"
-
-msgid "Not applicable to event programs"
-msgstr "Non applicable aux programmes d'événements"
-
-msgid "Not applicable to enrollments"
-msgstr "Non applicable aux inscriptions"
 
 msgid "User organisation unit"
 msgstr "Unités d'organisation de l'utilisateur"
@@ -724,6 +707,15 @@ msgstr "Valeurs seuils minimales/maximales"
 msgid "Style"
 msgstr "Style"
 
+msgid "Organisation unit"
+msgstr "Unité d'organisation"
+
+msgid "Event status"
+msgstr "Statut de l'événement"
+
+msgid "Program status"
+msgstr "Statut du programme"
+
 msgid "most recent"
 msgstr "plus récent"
 
@@ -747,18 +739,6 @@ msgstr "Date de l´incident"
 
 msgid "Scheduled date"
 msgstr "Date programmée"
-
-msgid "Last updated on"
-msgstr "Dernière mise à jour le"
-
-msgid "Disabled by the selected program"
-msgstr "Désactivé par le programme sélectionné"
-
-msgid "Disabled by the selected program stage"
-msgstr "Désactivé par le stade du programme sélectionné"
-
-msgid "No input type selected"
-msgstr "Aucun type d'entrée sélectionné"
 
 msgid "Active"
 msgstr "Actif"

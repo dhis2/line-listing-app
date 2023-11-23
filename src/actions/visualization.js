@@ -23,10 +23,8 @@ export const acSetVisualization = (value) => {
         ...(value.filters || []),
     ]
 
-    const metadata = Object.keys(collectedMetadata).reduce((md, id) => {
-        const dimension = dimensions.find((d) => d.dimension === id)
-
-        if (!dimension) {
+    const metadata = dimensions.reduce((md, dimension) => {
+        if (!collectedMetadata[dimension?.dimension]) {
             return md
         }
 
@@ -38,7 +36,7 @@ export const acSetVisualization = (value) => {
         md.push({
             [prefixedId]: {
                 id: prefixedId,
-                name: collectedMetadata[id]?.name,
+                name: collectedMetadata[dimension.dimension].name,
                 valueType: dimension.valueType,
                 optionSet: dimension.optionSet?.id,
                 dimensionType: getUiDimensionType({

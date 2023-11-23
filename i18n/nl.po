@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Charel van den Elsen, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
@@ -234,6 +234,16 @@ msgstr "Gebeurtenis"
 msgid "Enrollment"
 msgstr "Inschrijving"
 
+msgid "Could not load programs"
+msgstr "Kan programma's niet laden"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"De programma's konden niet worden opgehaald. Probeer het opnieuw of neem "
+"contact op met uw systeembeheerder."
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -243,17 +253,23 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Bekijk gegevens van meerdere programmafasen in een Tracker-programma."
 
-msgid "Main dimensions"
-msgstr "Hoofddimensies"
-
-msgid "Input: {{type}}"
-msgstr "Invoer: {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "Programma dimensies"
 
-msgid "Search in program"
-msgstr "Zoek in programma"
+msgid "Input: {{type}}"
+msgstr "Invoer: {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "Soort"
@@ -276,30 +292,14 @@ msgstr "Categorie"
 msgid "Category option group set"
 msgstr "Categorieoptie groepsinstelling"
 
-msgid "Could not load programs"
-msgstr "Kan programma's niet laden"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
-"De programma's konden niet worden opgehaald. Probeer het opnieuw of neem "
-"contact op met uw systeembeheerder."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Kies hierboven een fase om programmadimensies toe te voegen."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Kies hierboven een programma om programmadimensies toe te voegen."
 
 msgid "Choose a program"
 msgstr "Kies een programma"
 
-msgid "Clear program first to choose another"
-msgstr "Wis eerst het programma om een ander te kiezen"
-
-msgid "Clear"
-msgstr "Duidelijk"
+msgid "No programs found"
+msgstr ""
 
 msgid "Stage"
 msgstr "Stadium"
@@ -307,14 +307,8 @@ msgstr "Stadium"
 msgid "All"
 msgstr "Alle"
 
-msgid "Clear stage first to choose another"
-msgstr "Wis eerst dit stadium om een andere te kiezen"
-
-msgid "This program only has one stage"
-msgstr "Dit programma heeft maar één fase"
-
-msgid "Time dimensions"
-msgstr "Tijd dimensies"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "Uw dimensies"
@@ -615,14 +609,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "Geen programma geselecteerd"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Kies een programma uit de zijbalk Programma-dimensies."
-
-msgid "No stage selected"
-msgstr "Geen fase geselecteerd"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Kies een fase in de zijbalk Programma-dimensies."
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "Kolommen zijn leeg"
@@ -643,35 +631,32 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Er is een probleem met ten minste één geselecteerde indicator"
 
-msgid "No access"
-msgstr "Geen toegang"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "U heeft geen toegang tot de gevraagde gegevens"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Er is iets fout gegaan."
 
-msgid "Organisation unit"
-msgstr "Organisatieëenheid"
-
-msgid "Event status"
-msgstr "Gebeurtenisstatus"
-
-msgid "Program status"
-msgstr "Programmastatus"
+msgid "Last updated on"
+msgstr "Laatst geupdate op"
 
 msgid "Created by"
 msgstr "Gecreëerd door"
 
 msgid "Last updated by"
 msgstr "Laatst bijgewerkt door"
-
-msgid "Not applicable to event programs"
-msgstr "Niet van toepassing op evenementenprogramma's"
-
-msgid "Not applicable to enrollments"
-msgstr "Niet van toepassing op inschrijvingen"
 
 msgid "User organisation unit"
 msgstr "Gebruikersorganisatie-eenheid"
@@ -709,6 +694,15 @@ msgstr "Limiet minimum/maximum waarden"
 msgid "Style"
 msgstr "Stijl"
 
+msgid "Organisation unit"
+msgstr "Organisatieëenheid"
+
+msgid "Event status"
+msgstr "Gebeurtenisstatus"
+
+msgid "Program status"
+msgstr "Programmastatus"
+
 msgid "most recent"
 msgstr "meest recente"
 
@@ -732,18 +726,6 @@ msgstr "Incident datum"
 
 msgid "Scheduled date"
 msgstr "Geplande datum"
-
-msgid "Last updated on"
-msgstr "Laatst geupdate op"
-
-msgid "Disabled by the selected program"
-msgstr "Uitgeschakeld door het geselecteerde programma"
-
-msgid "Disabled by the selected program stage"
-msgstr "Uitgeschakeld door de geselecteerde programmafase"
-
-msgid "No input type selected"
-msgstr "Geen ingangstype geselecteerd"
 
 msgid "Active"
 msgstr "Actief"

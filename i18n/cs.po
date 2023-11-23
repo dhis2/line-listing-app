@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-27T14:37:02.617Z\n"
+"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Jiří Podhorecký, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -235,6 +235,16 @@ msgstr "Událost"
 msgid "Enrollment"
 msgstr "Zápis"
 
+msgid "Could not load programs"
+msgstr "Programy nelze načíst"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Programy se nepodařilo načíst. Zkuste to znovu nebo se obraťte na správce "
+"systému."
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -244,17 +254,23 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Prohlédněte si data z více fází programu v programu Tracker."
 
-msgid "Main dimensions"
-msgstr "Hlavní rozměry"
-
-msgid "Input: {{type}}"
-msgstr "Zadejte: {{type}}"
+msgid "Global dimensions"
+msgstr ""
 
 msgid "Program dimensions"
 msgstr "Dimenze programu"
 
-msgid "Search in program"
-msgstr "Hledat v programu"
+msgid "Input: {{type}}"
+msgstr "Zadejte: {{type}}"
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
 
 msgid "Type"
 msgstr "Typ"
@@ -277,30 +293,14 @@ msgstr "Kategorie"
 msgid "Category option group set"
 msgstr "Sada skupin možností kategorie"
 
-msgid "Could not load programs"
-msgstr "Programy nelze načíst"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Choose an input to get started adding program dimensions."
 msgstr ""
-"Programy se nepodařilo načíst. Zkuste to znovu nebo se obraťte na správce "
-"systému."
-
-msgid "Choose a stage above to add program dimensions."
-msgstr "Vyberte fázi výše a přidejte rozměry programu."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Vyberte program výše a přidejte dimenze programu."
 
 msgid "Choose a program"
 msgstr "Vyberte program"
 
-msgid "Clear program first to choose another"
-msgstr "Nejprve vymažte program a vyberte jiný"
-
-msgid "Clear"
-msgstr "Vyčistit"
+msgid "No programs found"
+msgstr "Nebyly nalezeny žádné programy"
 
 msgid "Stage"
 msgstr "Fáze"
@@ -308,14 +308,8 @@ msgstr "Fáze"
 msgid "All"
 msgstr "Vše"
 
-msgid "Clear stage first to choose another"
-msgstr "Nejprve vymažte fázi, abyste si mohli vybrat jinou"
-
-msgid "This program only has one stage"
-msgstr "Tento program má pouze jednu fázi"
-
-msgid "Time dimensions"
-msgstr "Časové dimenze"
+msgid "No stages found"
+msgstr ""
 
 msgid "Your dimensions"
 msgstr "Vaše dimenze"
@@ -615,14 +609,8 @@ msgstr ""
 msgid "No program selected"
 msgstr "Nevybrán žádný program"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Vyberte program z postranního panelu Rozměry programu."
-
-msgid "No stage selected"
-msgstr "Není vybrána žádná fáze"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Na postranním panelu Dimenze programu vyberte fázi."
+msgid "Choose a program from the Input sidebar."
+msgstr ""
 
 msgid "Columns is empty"
 msgstr "Sloupce jsou prázdné"
@@ -643,35 +631,32 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Vyskytl se problém s alespoň jedním vybraným indikátorem"
 
-msgid "No access"
-msgstr "Žádný přístup"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
-msgstr "Nemáte přístup k požadovaným údajům"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
 
 msgid "Something went wrong"
 msgstr "Něco se pokazilo"
 
-msgid "Organisation unit"
-msgstr "Organizační jednotka"
-
-msgid "Event status"
-msgstr "Stav události"
-
-msgid "Program status"
-msgstr "Stav programu"
+msgid "Last updated on"
+msgstr "Naposledy aktualizováno dne"
 
 msgid "Created by"
 msgstr "Vytvořil"
 
 msgid "Last updated by"
 msgstr "Naposledy aktualizováno uživatelem"
-
-msgid "Not applicable to event programs"
-msgstr "Nevztahuje se na programy akcí"
-
-msgid "Not applicable to enrollments"
-msgstr "Nevztahuje se na zápisy"
 
 msgid "User organisation unit"
 msgstr "Organizační jednotka uživatele"
@@ -709,6 +694,15 @@ msgstr "Mezní minimální / maximální hodnoty"
 msgid "Style"
 msgstr "Styl"
 
+msgid "Organisation unit"
+msgstr "Organizační jednotka"
+
+msgid "Event status"
+msgstr "Stav události"
+
+msgid "Program status"
+msgstr "Stav programu"
+
 msgid "most recent"
 msgstr "nejnovější"
 
@@ -732,18 +726,6 @@ msgstr "Datum incidentu"
 
 msgid "Scheduled date"
 msgstr "Plánované datum"
-
-msgid "Last updated on"
-msgstr "Naposledy aktualizováno dne"
-
-msgid "Disabled by the selected program"
-msgstr "Vypnuto vybraným programem"
-
-msgid "Disabled by the selected program stage"
-msgstr "Vypnuto vybranou fází programu"
-
-msgid "No input type selected"
-msgstr "Není vybrán žádný typ vstupu"
 
 msgid "Active"
 msgstr "Aktivní"
