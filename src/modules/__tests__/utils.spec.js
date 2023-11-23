@@ -6,18 +6,41 @@ import {
 } from '../visualization.js'
 
 describe('formatDimensionId', () => {
-    it('returns correct result when only dimensionId is used', () => {
+    it('returns correct result for: dimensionId', () => {
         const dimensionId = 'did'
 
         expect(formatDimensionId({ dimensionId })).toEqual('did')
     })
-    it('returns correct result when both programStageId and dimensionId are used', () => {
+    it('returns correct result for: programStageId + dimensionId', () => {
         const dimensionId = 'did'
         const programStageId = 'sid'
 
         expect(formatDimensionId({ dimensionId, programStageId })).toEqual(
             'sid.did'
         )
+    })
+    it('returns correct result for: programId + programStageId + dimensionId', () => {
+        const dimensionId = 'did'
+        const programStageId = 'sid'
+        const programId = 'pid'
+
+        expect(
+            formatDimensionId({ dimensionId, programStageId, programId })
+        ).toEqual('sid.did')
+    })
+    it('returns correct result for Tracked Entity: programId + programStageId + dimensionId', () => {
+        const dimensionId = 'did'
+        const programStageId = 'sid'
+        const programId = 'pid'
+
+        expect(
+            formatDimensionId({
+                dimensionId,
+                programStageId,
+                programId,
+                outputType: OUTPUT_TYPE_TRACKED_ENTITY,
+            })
+        ).toEqual('pid.sid.did')
     })
 })
 
@@ -31,7 +54,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toBeUndefined()
         expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result for: stageId + dimensionId', () => {
+    it('returns correct result for: programStageId + dimensionId', () => {
         const id = 'sid.did'
         const output = extractDimensionIdParts(id)
 
@@ -40,7 +63,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toBeUndefined()
         expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result for: stageId + dimensionId + repetitionIndex', () => {
+    it('returns correct result for: programStageId + dimensionId + repetitionIndex', () => {
         const id = 'sid[3].did'
         const output = extractDimensionIdParts(id)
 
@@ -49,7 +72,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toBeUndefined()
         expect(output.repetitionIndex).toEqual('3')
     })
-    it('returns correct result for Event: stageId + dimensionId + repetitionIndex', () => {
+    it('returns correct result for Event: programStageId + dimensionId + repetitionIndex', () => {
         const id = 'sid[3].did'
         const inputType = OUTPUT_TYPE_EVENT
         const output = extractDimensionIdParts(id, inputType)
@@ -59,7 +82,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toBeUndefined()
         expect(output.repetitionIndex).toEqual('3')
     })
-    it('returns correct result for Enrollment: stageId + dimensionId + repetitionIndex', () => {
+    it('returns correct result for Enrollment: programStageId + dimensionId + repetitionIndex', () => {
         const id = 'sid[3].did'
         const inputType = OUTPUT_TYPE_ENROLLMENT
         const output = extractDimensionIdParts(id, inputType)
@@ -69,7 +92,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toBeUndefined()
         expect(output.repetitionIndex).toEqual('3')
     })
-    it('returns correct result for: programId + stageId + dimensionId', () => {
+    it('returns correct result for: programId + programStageId + dimensionId', () => {
         const id = 'pid.sid.did'
         const output = extractDimensionIdParts(id)
 
@@ -78,7 +101,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toEqual('pid')
         expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result for: programId + stageId + dimensionId + repetitionIndex', () => {
+    it('returns correct result for: programId + programStageId + dimensionId + repetitionIndex', () => {
         const id = 'pid.sid[3].did'
         const output = extractDimensionIdParts(id)
 
@@ -87,7 +110,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toEqual('pid')
         expect(output.repetitionIndex).toEqual('3')
     })
-    it('returns correct result for Tracked Entity: programId + stageId + dimensionId', () => {
+    it('returns correct result for Tracked Entity: programId + programStageId + dimensionId', () => {
         const id = 'pid.sid.did'
         const inputType = OUTPUT_TYPE_TRACKED_ENTITY
         const output = extractDimensionIdParts(id, inputType)
@@ -97,7 +120,7 @@ describe('extractDimensionIdParts', () => {
         expect(output.programId).toEqual('pid')
         expect(output.repetitionIndex).toBeUndefined()
     })
-    it('returns correct result for Tracked Entity: programId + stageId + dimensionId + repetitionIndex', () => {
+    it('returns correct result for Tracked Entity: programId + programStageId + dimensionId + repetitionIndex', () => {
         const id = 'pid.sid[3].did'
         const inputType = OUTPUT_TYPE_TRACKED_ENTITY
         const output = extractDimensionIdParts(id, inputType)
@@ -145,7 +168,7 @@ describe('formatDimensionId + extractDimensionIdParts', () => {
         expect(programId).toBeUndefined()
     })
 
-    it('returns correct result for: stageId + dimensionId', () => {
+    it('returns correct result for: programStageId + dimensionId', () => {
         const inputDimensionId = 'did'
         const inputProgramStageId = 'sid'
 
@@ -162,7 +185,7 @@ describe('formatDimensionId + extractDimensionIdParts', () => {
         expect(programId).toBeUndefined()
     })
 
-    it('returns correct result for: programId + stageId + dimensionId', () => {
+    it('returns correct result for: programId + programStageId + dimensionId', () => {
         const inputDimensionId = 'did'
         const inputProgramStageId = 'sid'
         const inputProgramId = 'pid'
@@ -181,7 +204,7 @@ describe('formatDimensionId + extractDimensionIdParts', () => {
         expect(programId).toBeUndefined()
     })
 
-    it('returns correct result for Tracked Entity: programId + stageId + dimensionId', () => {
+    it('returns correct result for Tracked Entity: programId + programStageId + dimensionId', () => {
         const inputDimensionId = 'did'
         const inputProgramStageId = 'sid'
         const inputProgramId = 'pid'
@@ -193,11 +216,70 @@ describe('formatDimensionId + extractDimensionIdParts', () => {
                     programStageId: inputProgramStageId,
                     programId: inputProgramId,
                     outputType: OUTPUT_TYPE_TRACKED_ENTITY,
-                })
+                }),
+                OUTPUT_TYPE_TRACKED_ENTITY
             )
 
         expect(dimensionId).toEqual(inputDimensionId)
         expect(programStageId).toEqual(inputProgramStageId)
         expect(programId).toEqual(inputProgramId)
+    })
+})
+
+describe('extractDimensionIdParts + formatDimensionId', () => {
+    it('returns correct result for: dimensionId', () => {
+        const inputId = 'did'
+
+        const { dimensionId } = extractDimensionIdParts(inputId)
+
+        const outputId = formatDimensionId({
+            dimensionId,
+        })
+
+        expect(outputId).toEqual(inputId)
+    })
+
+    it('returns correct result for: programStageId + dimensionId', () => {
+        const inputId = 'sid.did'
+
+        const { dimensionId, programStageId } = extractDimensionIdParts(inputId)
+
+        const outputId = formatDimensionId({
+            dimensionId,
+            programStageId,
+        })
+
+        expect(outputId).toEqual(inputId)
+    })
+
+    it('returns correct result for: programId + programStageId + dimensionId', () => {
+        const inputId = 'sid.did'
+
+        const { dimensionId, programStageId, programId } =
+            extractDimensionIdParts(inputId)
+
+        const outputId = formatDimensionId({
+            dimensionId,
+            programStageId,
+            programId,
+        })
+
+        expect(outputId).toEqual(inputId)
+    })
+
+    it('returns correct result for Tracked Entity: programId + programStageId + dimensionId', () => {
+        const inputId = 'pid.sid.did'
+
+        const { dimensionId, programStageId, programId } =
+            extractDimensionIdParts(inputId, OUTPUT_TYPE_TRACKED_ENTITY)
+
+        const outputId = formatDimensionId({
+            dimensionId,
+            programStageId,
+            programId,
+            outputType: OUTPUT_TYPE_TRACKED_ENTITY,
+        })
+
+        expect(outputId).toEqual(inputId)
     })
 })
