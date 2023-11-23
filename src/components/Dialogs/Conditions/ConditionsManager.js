@@ -33,6 +33,7 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -541,10 +542,7 @@ const mapStateToProps = (state, ownProps) => ({
     stage:
         sGetMetadataById(
             state,
-            ownProps.dimension?.id?.substring(
-                0,
-                ownProps.dimension.id.indexOf('.')
-            )
+            extractDimensionIdParts(ownProps.dimension?.id)?.programStageId
         ) || {},
 })
 
