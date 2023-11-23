@@ -17,6 +17,10 @@ export const searchAndSelectInOptionsTransfer = (name) => {
         .get('[data-test="dhis2-uicore-circularloader"]', EXTENDED_TIMEOUT)
         .should('not.exist')
 
+    selectInOptionsTransfer(name)
+}
+
+export const selectInOptionsTransfer = (name) => {
     cy.getBySel('option-set-transfer-sourceoptions')
         .containsExact(name)
         .dblclick()

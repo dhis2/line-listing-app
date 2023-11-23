@@ -44,8 +44,19 @@ const excludedDimensions = [
     DIMENSION_ID_LAST_UPDATED_BY,
 ]
 
-const findOptionSetItem = (code, metaDataItems) =>
-    Object.values(metaDataItems).find((item) => item.code === code)
+const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
+    const optionSetMetaData = metaDataItems?.[optionSetId]
+
+    if (optionSetMetaData) {
+        const optionId = optionSetMetaData.options.find(
+            (option) => option.code === code
+        )?.uid
+
+        return metaDataItems[optionId]
+    }
+
+    return undefined
+}
 
 const formatRowValue = (rowValue, header, metaDataItems) => {
     switch (header.valueType) {
@@ -56,11 +67,17 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
             if (!rowValue) {
                 return rowValue
             }
+
             if (header.optionSet) {
                 return (
-                    findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                    lookupOptionSetOptionMetadata(
+                        header.optionSet,
+                        rowValue,
+                        metaDataItems
+                    )?.name || rowValue
                 )
             }
+
             return metaDataItems[rowValue]?.name || rowValue
         }
     }
