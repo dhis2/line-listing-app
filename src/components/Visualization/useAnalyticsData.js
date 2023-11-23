@@ -44,7 +44,7 @@ const excludedDimensions = [
     DIMENSION_ID_LAST_UPDATED_BY,
 ]
 
-const findOptionSetItem = (optionSetId, code, metaDataItems) => {
+const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
     const optionSetMetaData = metaDataItems?.[optionSetId]
 
     if (optionSetMetaData) {
@@ -67,12 +67,17 @@ const formatRowValue = (rowValue, header, metaDataItems) => {
             if (!rowValue) {
                 return rowValue
             }
+
             if (header.optionSet) {
                 return (
-                    findOptionSetItem(header.optionSet, rowValue, metaDataItems)
-                        ?.name || rowValue
+                    lookupOptionSetOptionMetadata(
+                        header.optionSet,
+                        rowValue,
+                        metaDataItems
+                    )?.name || rowValue
                 )
             }
+
             return metaDataItems[rowValue]?.name || rowValue
         }
     }
