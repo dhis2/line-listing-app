@@ -119,6 +119,19 @@ const MainSidebar = () => {
                     subtitle={getSubtitle()}
                     dataTest="input-panel-button"
                 />
+                {entityType?.name && (
+                    <TrackedEntityDimensionsMenuItem
+                        selected={
+                            open &&
+                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                        }
+                        count={counts.trackedEntity}
+                        onClick={() =>
+                            onClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+                        }
+                        name={entityType.name}
+                    />
+                )}
                 {!(selectedProgramId || selectedEntityTypeId) ? (
                     <Tooltip
                         dataTest={'no-input-tooltip'}
@@ -139,20 +152,6 @@ const MainSidebar = () => {
                 ) : (
                     programDimensionsItem
                 )}
-                {entityType?.name && (
-                    <TrackedEntityDimensionsMenuItem
-                        selected={
-                            open &&
-                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                        }
-                        count={counts.trackedEntity}
-                        onClick={() =>
-                            onClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
-                        }
-                        name={entityType.name}
-                    />
-                )}
-
                 <YourDimensionsMenuItem
                     selected={
                         open && selectedTabId === ACCESSORY_PANEL_TAB_YOUR
