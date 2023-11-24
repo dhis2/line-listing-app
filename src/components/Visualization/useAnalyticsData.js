@@ -57,12 +57,18 @@ const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
 
     return undefined
 }
+const NOT_DEFINED_VALUE = 'ND'
 
-const formatRowValue = (rowValue, header, metaDataItems) => {
+export const cellIsUndefined = (rowContext = {}, rowIndex, columnIndex) =>
+    (rowContext[rowIndex] || {})[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
+
+const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return getBooleanValues()[rowValue || NULL_VALUE]
+            return !isUndefined
+                ? getBooleanValues()[rowValue || NULL_VALUE]
+                : ''
         default: {
             if (!rowValue) {
                 return rowValue
@@ -274,15 +280,19 @@ const extractRows = (analyticsResponse, headers) => {
             headerIndex++
         ) {
             const header = headers[headerIndex]
-
             const rowValue = row[header.index]
 
             filteredRow.push(
-                formatRowValue(
+                formatRowValue({
                     rowValue,
                     header,
-                    analyticsResponse.metaData.items
-                )
+                    metaDataItems: analyticsResponse.metaData.items,
+                    isUndefined: cellIsUndefined(
+                        analyticsResponse.rowContext,
+                        rowIndex,
+                        headerIndex
+                    ),
+                })
             )
         }
 

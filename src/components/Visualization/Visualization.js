@@ -59,6 +59,7 @@ import {
 } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
 import {
+    cellIsUndefined,
     getAdaptedVisualization,
     useAnalyticsData,
 } from './useAnalyticsData.js'
@@ -69,7 +70,6 @@ export const PAGE_SIZE = 100
 // +/- min width of "Rows per page" select + 2 * padding
 // + 30% in case label text are longer than English
 export const PAGINATION_MIN_WIDTH = 250
-const NOT_DEFINED_VALUE = 'ND'
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -367,11 +367,6 @@ export const Visualization = ({
         </div>
     )
 
-    const cellIsUndefined = (rowIndex, columnIndex) => {
-        const row = (data.rowContext || {})[rowIndex]
-        return row && row[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
-    }
-
     const renderCellContent = ({ columnIndex, value, isUndefined, props }) => (
         <DataTableCell
             {...props}
@@ -516,6 +511,7 @@ export const Visualization = ({
                                 >
                                     {row.map((value, columnIndex) =>
                                         cellIsUndefined(
+                                            data.rowContext,
                                             rowIndex,
                                             columnIndex
                                         ) ? (
