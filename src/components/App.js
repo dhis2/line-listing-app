@@ -19,6 +19,7 @@ import {
     acSetShowExpandedLayoutPanel,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
+import { parseCondition, OPERATOR_IN } from '../modules/conditions.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
     dataAccessError,
@@ -45,6 +46,7 @@ import {
     sGetIsVisualizationLoading,
     sGetLoadError,
 } from '../reducers/loader.js'
+import { sGetMetadata } from '../reducers/metadata.js'
 import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.js'
@@ -114,6 +116,19 @@ const dataStatisticsMutation = {
     type: 'create',
 }
 
+const optionsQuery = {
+    options: {
+        resource: 'options',
+        params: ({ optionSetId, codes }) => ({
+            fields: 'id,code,displayName~rename(name)',
+            filter: [
+                `optionSet.id:eq:${optionSetId}`,
+                `code:in:[${codes.join(',')}]`,
+            ],
+            paging: false,
+        }),
+    },
+}
 const App = () => {
     const dataEngine = useDataEngine()
     const [aboutAOUnitRenderId, setAboutAOUnitRenderId] = useState(1)
@@ -124,6 +139,7 @@ const App = () => {
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
     const [postDataStatistics] = useDataMutation(dataStatisticsMutation)
     const dispatch = useDispatch()
+    const metadata = useSelector(sGetMetadata)
     const current = useSelector(sGetCurrent)
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
@@ -240,7 +256,7 @@ const App = () => {
         dispatch(acSetUiOpenDimensionModal(dimensionId))
 
     const onResponsesReceived = (response) => {
-        const itemsMetadata = Object.entries(response.metaData.items).reduce(
+        /*const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
                     id,
@@ -253,9 +269,9 @@ const App = () => {
                 return obj
             },
             {}
-        )
+        )*/
 
-        dispatch(acAddMetadata(itemsMetadata))
+        //dispatch(acAddMetadata(itemsMetadata))
         dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
@@ -288,6 +304,43 @@ const App = () => {
         return () => unlisten && unlisten()
     }, [])
 
+    const addOptionSetsMetadata = async (visualization) => {
+        const optionSetsMetadata = {}
+
+        const dimensions = [
+            ...(visualization.columns || []),
+            ...(visualization.rows || []),
+            ...(visualization.filters || []),
+        ]
+
+        for (const dimension of dimensions) {
+            if (
+                dimension?.optionSet?.id &&
+                dimension.filter?.startsWith(OPERATOR_IN)
+            ) {
+                const optionSetId = dimension.optionSet.id
+
+                const data = await dataEngine.query(optionsQuery, {
+                    variables: {
+                        optionSetId,
+                        codes: parseCondition(dimension.filter),
+                    },
+                })
+
+                if (data?.options) {
+                    // update options in the optionSet metadata used for the lookup of the correct
+                    // name from code (options for different option sets have the same code)
+                    optionSetsMetadata[optionSetId] = {
+                        ...metadata[optionSetId],
+                        options: data.options.options,
+                    }
+                }
+            }
+        }
+
+        dispatch(acAddMetadata(optionSetsMetadata))
+    }
+
     useEffect(() => {
         if (data?.eventVisualization) {
             dispatch(acClearLoadError())
@@ -296,6 +349,8 @@ const App = () => {
             const visualization = transformVisualization(
                 data.eventVisualization
             )
+
+            addOptionSetsMetadata(visualization)
 
             dispatch(
                 acAddParentGraphMap(

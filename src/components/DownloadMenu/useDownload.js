@@ -86,12 +86,20 @@ const useDownload = (relativePeriodDate) => {
                         .withOutputType(current.outputType)
                         .withPath(path)
                         .withFormat(format)
-                        .withOutputIdScheme(idScheme)
                         .withParameters({
                             ...parameters,
                             headers,
                             paging: false,
                         })
+
+                    // fix option set option names
+                    if (idScheme === ID_SCHEME_NAME) {
+                        req = req.withParameters({
+                            dataIdScheme: idScheme,
+                        })
+                    } else {
+                        req = req.withOutputIdScheme(idScheme)
+                    }
 
                     // TODO options
                     // startDate

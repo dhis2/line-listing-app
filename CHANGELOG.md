@@ -1,3 +1,10 @@
+## [100.10.5](https://github.com/dhis2/line-listing-app/compare/v100.10.4...v100.10.5) (2023-11-23)
+
+
+### Bug Fixes
+
+* handle options with non-unique codes across optionsets (DHIS2-15771) ([#426](https://github.com/dhis2/line-listing-app/issues/426)) ([37e3e69](https://github.com/dhis2/line-listing-app/commit/37e3e694acc114b524cd284428bacc307602b12c))
+
 ## [100.10.4](https://github.com/dhis2/line-listing-app/compare/v100.10.3...v100.10.4) (2023-11-05)
 
 
