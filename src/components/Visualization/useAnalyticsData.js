@@ -21,6 +21,7 @@ import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_CREATED,
     DIMENSION_ID_CREATED_BY,
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
@@ -45,6 +46,7 @@ const analyticsApiEndpointMap = {
 }
 
 const excludedDimensions = [
+    DIMENSION_ID_CREATED,
     DIMENSION_ID_CREATED_BY,
     DIMENSION_ID_LAST_UPDATED_BY,
 ]
@@ -105,7 +107,8 @@ const getAdaptedVisualization = (visualization) => {
             if (
                 isTimeDimension(dimensionId) ||
                 dimensionId === DIMENSION_ID_EVENT_STATUS ||
-                dimensionId === DIMENSION_ID_PROGRAM_STATUS
+                dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
+                dimensionId === DIMENSION_ID_CREATED
             ) {
                 if (dimensionObj.items?.length) {
                     parameters[dimensionId] = dimensionObj.items?.map(
