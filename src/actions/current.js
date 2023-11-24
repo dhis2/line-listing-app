@@ -3,6 +3,7 @@ import {
     layoutHasProgramId,
     validateLayout,
 } from '../modules/layoutValidation.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from '../modules/visualization.js'
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
@@ -51,10 +52,13 @@ export const tSetCurrentFromUi =
         }
 
         if (!validateOnly) {
-            if (layoutHasProgramId(currentFromUi)) {
-                dispatch(acSetCurrent(currentFromUi))
-            } else {
+            if (
+                currentFromUi.outputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
+                !layoutHasProgramId(currentFromUi)
+            ) {
                 dispatch(acClearCurrent())
+            } else {
+                dispatch(acSetCurrent(currentFromUi))
             }
 
             dispatch(acSetShowExpandedLayoutPanel(false))
