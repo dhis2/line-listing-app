@@ -45,9 +45,14 @@ test('Dimension with optionSet', () => {
         condition: 'IN:5code;6code',
     }
     const metadata = {
-        '5Id': { code: '5code', name: '5' },
-        '6Id': { code: '6code', name: '6' },
+        optionsetId: {
+            options: [
+                { code: '5code', name: '5' },
+                { code: '6code', name: '6' },
+            ],
+        },
     }
+
     const dimension = {
         optionSet: 'optionsetId',
         valueType: 'NUMBER',
