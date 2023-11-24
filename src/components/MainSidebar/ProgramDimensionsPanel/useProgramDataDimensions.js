@@ -112,14 +112,23 @@ const createDimensionsQuery = ({
 
     if (
         stageId &&
-        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
-            inputType
-        ) &&
+        inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
         params.filter.push(`id:startsWith:${stageId}`)
+    }
+
+    if (
+        programId &&
+        stageId &&
+        inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+    ) {
+        // This works because data element IDs have the following notation:
+        // `${programId}.${programStageId}.${dataElementId}`
+        params.filter.push(`id:startsWith:${programId}.${stageId}`)
     }
 
     if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
