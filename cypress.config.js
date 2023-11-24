@@ -35,7 +35,7 @@ module.exports = defineConfig({
         attributes: [
             {
                 key: 'version',
-                value: 'master',
+                value: process.env.DHIS2_VERSION,
             },
             {
                 key: 'app_name',
