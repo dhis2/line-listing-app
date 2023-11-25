@@ -18,7 +18,7 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
-    projectId: 'm5qvjx',
+    //projectId: 'm5qvjx',
     reporter: '@reportportal/agent-js-cypress',
     reporterOptions: {
         endpoint: process.env.REPORTPORTAL_ENDPOINT,
