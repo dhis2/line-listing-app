@@ -18,7 +18,7 @@ async function setupNodeEvents(on, config) {
 }
 
 module.exports = defineConfig({
-    //projectId: 'm5qvjx',
+    projectId: 'm5qvjx',
     reporter: '@reportportal/agent-js-cypress',
     reporterOptions: {
         endpoint: process.env.REPORTPORTAL_ENDPOINT,
@@ -54,7 +54,7 @@ module.exports = defineConfig({
         viewportWidth: 1280,
         viewportHeight: 800,
         // Record video
-        video: false,
+        video: true,
         /* Only compress and upload videos for failures.
          * This will save execution time and reduce the risk
          * out-of-memory issues on the CI machine */
