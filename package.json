@@ -22,7 +22,7 @@
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.2",
-        "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#filterby-dhis2-version-before-merge",
+        "@reportportal/agent-js-cypress": "git+https://github.com/dhis2/agent-js-cypress.git#develop",
         "@reportportal/agent-js-jest": "^5.0.7",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",

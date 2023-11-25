@@ -19,7 +19,7 @@ module.exports = {
                 launch: 'line_listing_app',
                 attributes: [
                     {
-                        key: 'version',
+                        key: 'dhis2_version',
                         value: 'master',
                     },
                     {
