@@ -54,7 +54,7 @@ module.exports = defineConfig({
         viewportWidth: 1280,
         viewportHeight: 800,
         // Record video
-        video: true,
+        video: false,
         /* Only compress and upload videos for failures.
          * This will save execution time and reduce the risk
          * out-of-memory issues on the CI machine */
