@@ -255,7 +255,7 @@ msgid "See data from multiple program stages in a Tracker program."
 msgstr "Prohlédněte si data z více fází programu v programu Tracker."
 
 msgid "Global dimensions"
-msgstr ""
+msgstr "Globální dimenze"
 
 msgid "Program dimensions"
 msgstr "Dimenze programu"
@@ -264,13 +264,13 @@ msgid "Input: {{type}}"
 msgstr "Zadejte: {{type}}"
 
 msgid "Choose an input first"
-msgstr ""
+msgstr "Nejprve vyberte vstup"
 
 msgid "Program data dimensions"
-msgstr ""
+msgstr "Dimenze dat programu"
 
 msgid "Search data dimensions"
-msgstr ""
+msgstr "Vyhledat dimenze dat"
 
 msgid "Type"
 msgstr "Typ"
@@ -294,7 +294,7 @@ msgid "Category option group set"
 msgstr "Sada skupin možností kategorie"
 
 msgid "Choose an input to get started adding program dimensions."
-msgstr ""
+msgstr "Vyberte vstup a začněte přidávat dimenze programu."
 
 msgid "Choose a program"
 msgstr "Vyberte program"
@@ -309,7 +309,7 @@ msgid "All"
 msgstr "Vše"
 
 msgid "No stages found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné fáze"
 
 msgid "Your dimensions"
 msgstr "Vaše dimenze"
@@ -318,10 +318,10 @@ msgid "Search your dimensions"
 msgstr "Vyhledejte své dimenze"
 
 msgid "Show panels"
-msgstr ""
+msgstr "Zobrazit panely"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "Rozbalit vizualizaci a skrýt panely"
 
 msgid "Unsaved visualization"
 msgstr "Neuložená vizualizace"
@@ -349,16 +349,16 @@ msgstr ""
 "ovládacích panelech"
 
 msgid "Show layout"
-msgstr ""
+msgstr "Zobrazit rozvržení"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "Skrýt rozvržení"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "Zobrazit postranní panel dimenzí"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "Skrýt postranní panel dimenzí"
 
 msgid "Hide interpretations and details"
 msgstr "Skrýt interpretace a podrobnosti"
@@ -610,7 +610,7 @@ msgid "No program selected"
 msgstr "Nevybrán žádný program"
 
 msgid "Choose a program from the Input sidebar."
-msgstr ""
+msgstr "Vyberte program z postranního panelu Vstupu."
 
 msgid "Columns is empty"
 msgstr "Sloupce jsou prázdné"
@@ -632,12 +632,13 @@ msgid "There's a problem with at least one selected indicator"
 msgstr "Vyskytl se problém s alespoň jedním vybraným indikátorem"
 
 msgid "Restricted access"
-msgstr ""
+msgstr "Omezený přístup"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
 "administrator."
 msgstr ""
+"K datům v této vizualizaci nemáte přístup. Kontaktujte správce systému."
 
 msgid "You don’t have access to one or more of the chosen organisation units."
 msgstr ""
