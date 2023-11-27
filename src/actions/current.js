@@ -4,7 +4,6 @@ import {
     layoutHasTrackedEntityTypeId,
     validateLayout,
 } from '../modules/layoutValidation.js'
-import { OUTPUT_TYPE_TRACKED_ENTITY } from '../modules/visualization.js'
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
