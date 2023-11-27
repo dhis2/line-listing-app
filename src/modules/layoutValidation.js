@@ -30,7 +30,7 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
     // entity type (input type TE only)
     if (
         layout.outputType === OUTPUT_TYPE_TRACKED_ENTITY &&
-        !layoutHasEntityTypeId(layout)
+        !layoutHasTrackedEntityTypeId(layout)
     ) {
         if (dryRun) {
             return false
@@ -80,7 +80,8 @@ export const validateLayout = (layout) => {
 
 export const layoutHasProgramId = (layout) => Boolean(layout?.program?.id)
 
-export const layoutHasEntityTypeId = (layout) => Boolean(layout?.entityType?.id)
+export const layoutHasTrackedEntityTypeId = (layout) =>
+    Boolean(layout?.entityType?.id)
 
 export const aoCreatedInEventReportsApp = (layout) => layout?.legacy
 
