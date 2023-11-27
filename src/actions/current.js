@@ -1,6 +1,7 @@
 import { genericClientError } from '../modules/error.js'
 import {
     layoutHasProgramId,
+    layoutHasTrackedEntityTypeId,
     validateLayout,
 } from '../modules/layoutValidation.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from '../modules/visualization.js'
@@ -53,12 +54,12 @@ export const tSetCurrentFromUi =
 
         if (!validateOnly) {
             if (
-                currentFromUi.outputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
-                !layoutHasProgramId(currentFromUi)
+                layoutHasProgramId(currentFromUi) ||
+                layoutHasTrackedEntityTypeId(currentFromUi)
             ) {
-                dispatch(acClearCurrent())
-            } else {
                 dispatch(acSetCurrent(currentFromUi))
+            } else {
+                dispatch(acClearCurrent())
             }
 
             dispatch(acSetShowExpandedLayoutPanel(false))
