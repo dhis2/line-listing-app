@@ -29,7 +29,7 @@ export const acSetVisualization = (value) => {
         }
 
         const prefixedId = formatDimensionId({
-            dimension: dimension.dimension,
+            dimensionId: dimension.dimension,
             programStageId: dimension.programStage?.id,
             programId: dimension.program?.id,
             outputType,
