@@ -227,32 +227,32 @@ msgstr "无法加载项目"
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
-msgstr "无法检索程序。重试或联系您的系统管理员。"
+msgstr "无法检索项目。重试或联系您的系统管理员。"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr "查看来自跟踪项目阶段或事件项目的单个事件数据。"
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr "在 Tracker 程序中查看来自多个程序阶段的数据。"
+msgstr "在 Tracker 项目中查看来自多个项目阶段的数据。"
 
 msgid "Global dimensions"
-msgstr ""
+msgstr "全局维度"
 
 msgid "Program dimensions"
-msgstr "程序维度"
+msgstr "项目维度"
 
 msgid "Input: {{type}}"
 msgstr "输入: {{type}}"
 
 msgid "Choose an input first"
-msgstr ""
+msgstr "首先选择一个输入"
 
 msgid "Program data dimensions"
-msgstr ""
+msgstr "项目数据维度"
 
 msgid "Search data dimensions"
-msgstr ""
+msgstr "搜索数据维度"
 
 msgid "Type"
 msgstr "类型"
@@ -276,10 +276,10 @@ msgid "Category option group set"
 msgstr "分类选项组集"
 
 msgid "Choose an input to get started adding program dimensions."
-msgstr ""
+msgstr "选择一个输入以开始添加项目维度。"
 
 msgid "Choose a program"
-msgstr "选择一个程序"
+msgstr "选择一个项目"
 
 msgid "No programs found"
 msgstr "找不到项目"
@@ -291,7 +291,7 @@ msgid "All"
 msgstr "全部"
 
 msgid "No stages found"
-msgstr ""
+msgstr "未找到阶段"
 
 msgid "Your dimensions"
 msgstr "你的维度"
@@ -581,7 +581,7 @@ msgid "No program selected"
 msgstr "未选择项目"
 
 msgid "Choose a program from the Input sidebar."
-msgstr ""
+msgstr "从输入侧栏中选择一个项目。"
 
 msgid "Columns is empty"
 msgstr "列是空的"
