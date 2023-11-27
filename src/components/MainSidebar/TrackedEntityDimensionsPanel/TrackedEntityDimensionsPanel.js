@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce } from '../../../modules/utils.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { ProgramFilter } from './ProgramFilter.js'
@@ -16,6 +17,9 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [selectedProgramId, setSelectedProgramId] = useState(null)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
+    const entityType = useSelector((state) =>
+        sGetMetadataById(state, selectedEntityTypeId)
+    )
     const debouncedSearchTerm = useDebounce(searchTerm)
     const { currentUser } = useCachedDataQuery()
     const { loading, fetching, error, dimensions, setIsListEndVisible } =
@@ -65,6 +69,7 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
                 loading={loading}
                 searchTerm={debouncedSearchTerm}
                 dataTest="tracked-entity-dimensions"
+                trackedEntityType={entityType?.name}
             />
         </>
     )
