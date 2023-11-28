@@ -78,10 +78,6 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                             clearable
                             clearText={i18n.t('Clear')}
                             loading={fetching}
-                            // {...(called && error && !programs?.length
-                            //     ? { empty: error }
-                            //     : {})}
-                            // TODO: WIP, reimplement or remove?
                         >
                             {!fetching &&
                                 programs?.map(({ id, name }) => (
