@@ -265,6 +265,6 @@ describe('repeated events', () => {
             .eq(TEST_CELL.column)
             .trigger('mouseover')
 
-        cy.getBySelLike('tooltip-content').contains('No repeated event')
+        cy.getBySelLike('tooltip-content').contains('No event')
     })
 })
