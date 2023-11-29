@@ -216,8 +216,8 @@ You can control how numeric values are shown by toggling the **Skip rounding** o
 
 Below is an example of the same table with and without the option applied.
 
-![](resources/images/no-skip-rounding-example.png)
 ![](resources/images/skip-rounding-example.png)
+![](resources/images/no-skip-rounding-example.png)
 
 ### View options
 
