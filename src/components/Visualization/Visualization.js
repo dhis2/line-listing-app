@@ -516,9 +516,7 @@ export const Visualization = ({
                                             columnIndex
                                         ) ? (
                                             <Tooltip
-                                                content={i18n.t(
-                                                    'No repeated event'
-                                                )}
+                                                content={i18n.t('No event')}
                                             >
                                                 {(props) =>
                                                     renderCellContent({

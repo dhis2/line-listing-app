@@ -172,7 +172,7 @@ const fetchAnalyticsData = async ({
         .withParameters({
             headers,
             totalPages: false,
-            ...(headers.some((header) => Array.isArray(header))
+            ...(visualization.outputType !== OUTPUT_TYPE_EVENT
                 ? { rowContext: true }
                 : {}),
             ...parameters,
