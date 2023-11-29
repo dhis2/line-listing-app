@@ -244,7 +244,7 @@ describe(['>=40'], 'ou hierarchy', () => {
     })
 })
 
-describe(['>=41'], 'skip rounding', () => {
+describe('skip rounding', () => {
     it('sets skip rounding', () => {
         goToStartPage()
 
