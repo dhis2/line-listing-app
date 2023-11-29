@@ -208,9 +208,9 @@ You can show the full hierarchy path for organisation units by enabling the **Sh
 
 ![](resources/images/org-unit-hierarchy.png)
 
-### Skip rounding of numeric values
+### Skip rounding for numeric values
 
-You can control how numeric values are shown by toggling the **Skip rounding** option in `Options` -> `Data`. When this is enabled, the numeric values are not rounded and all decimals are shown. By default rounding is applied.
+You can control how numeric values are formatted by toggling the **Skip rounding** option in `Options` -> `Data`. When this is enabled, the numeric values are not rounded and all decimals are shown. By default rounding is applied.
 
 ![](resources/images/skip-rounding.png)
 
