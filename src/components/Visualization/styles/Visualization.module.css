@@ -160,6 +160,17 @@
     white-space: nowrap;
 }
 
+.dataTable .undefinedCell {
+    background-image: repeating-linear-gradient(
+        45deg,
+        var(--colors-grey300) 0,
+        var(--colors-grey300) 0.8px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 8px 8px;
+}
+
 /* Sizes for the table footer */
 .dataTable .stickyNavigation.sizeComfortable {
     padding: 14px 12px;
