@@ -62,7 +62,7 @@ describe('rename', () => {
         expectTableToBeVisible()
         expectAOTitleToContain(AO_NAME)
 
-        cy.reload()
+        cy.reload(true)
 
         expectTableToBeVisible()
         expectAOTitleToContain(UPDATED_AO_NAME)
