@@ -60,10 +60,12 @@ describe('rename', () => {
         renameVisualization(UPDATED_AO_NAME)
 
         expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
 
         cy.reload()
 
         expectAOTitleToContain(UPDATED_AO_NAME)
+        expectTableToBeVisible()
 
         deleteVisualization()
     })
