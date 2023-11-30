@@ -15,6 +15,12 @@ export default (serverVersion) => {
     }`
 
     const optionsConfig = [
+        getDataTab([
+            getDisplayTemplate({
+                content: React.Children.toArray([<SkipRounding />]),
+            }),
+        ]),
+
         getStyleTab([
             {
                 key: 'style-section-1',
@@ -30,16 +36,6 @@ export default (serverVersion) => {
 
     if (currentVersion >= '2.39.0') {
         optionsConfig.push(getLegendTab())
-    }
-
-    if (currentVersion >= '2.41.0') {
-        optionsConfig.unshift(
-            getDataTab([
-                getDisplayTemplate({
-                    content: React.Children.toArray([<SkipRounding />]),
-                }),
-            ])
-        )
     }
 
     return optionsConfig
