@@ -10,6 +10,12 @@ export const ITEM_SHARING = 'file-menu-sharing'
 export const ITEM_GETLINK = 'file-menu-getlink'
 export const ITEM_DELETE = 'file-menu-delete'
 
+export const saveVisualizationWithoutDialog = () => {
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
+
+    cy.getBySel(ITEM_SAVE).click()
+}
+
 export const saveVisualization = (name) => {
     cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
 
