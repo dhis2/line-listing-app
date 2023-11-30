@@ -56,8 +56,14 @@ describe('rename', () => {
         expectAOTitleToContain(AO_NAME)
         expectTableToBeVisible()
 
+        cy.intercept('PATCH', '**/api/*/eventVisualizations/*').as(
+            'patch-rename'
+        )
+
         // rename the AO, changing name only
         renameVisualization(UPDATED_AO_NAME)
+
+        cy.wait('@patch-rename')
 
         expectTableToBeVisible()
         expectAOTitleToContain(AO_NAME)
