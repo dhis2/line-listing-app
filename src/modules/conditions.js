@@ -32,6 +32,9 @@ export const parseConditionsStringToArray = (conditionsString) =>
 export const parseConditionsArrayToString = (conditionsArray) =>
     conditionsArray.join(':')
 
+export const parseCondition = (conditionItem) =>
+    conditionItem.split(':').pop().split(';')
+
 export const NULL_VALUE = 'NV'
 export const TRUE_VALUE = '1'
 export const FALSE_VALUE = '0'
@@ -167,8 +170,13 @@ const getOperatorsByValueType = (valueType) => {
     }
 }
 
-const parseCondition = (conditionItem) =>
-    conditionItem.split(':').pop().split(';')
+const lookupOptionSetOptionMetadata = (optionSetId, code, metaData) => {
+    const optionSetMetaData = metaData?.[optionSetId]
+
+    return optionSetMetaData
+        ? optionSetMetaData.options?.find((option) => option.code === code)
+        : undefined
+}
 
 export const getConditionsTexts = ({
     conditions = {},
@@ -194,9 +202,14 @@ export const getConditionsTexts = ({
 
     if (dimension.optionSet && conditionsList[0]?.startsWith(OPERATOR_IN)) {
         const items = parseCondition(conditionsList[0])
+
         const itemNames = items.map(
             (code) =>
-                Object.values(metadata).find((item) => item.code === code)?.name
+                lookupOptionSetOptionMetadata(
+                    dimension.optionSet,
+                    code,
+                    metadata
+                )?.name
         )
         return itemNames
     }

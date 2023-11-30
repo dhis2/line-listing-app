@@ -36,15 +36,16 @@ const OptionSetCondition = ({
     const dataTest = 'option-set'
 
     const setValues = (selected) => {
-        addMetadata(
-            state.options
-                .filter(
-                    (item) =>
-                        selected.includes(item.code) &&
-                        !selectedOptions.find((so) => so.code === item.code)
-                )
-                .reduce((acc, item) => ({ ...acc, [item.id]: item }), {})
-        )
+        addMetadata({
+            // update options in the optionSet metadata used for the lookup of the correct
+            // name from code (options for different option sets have the same code)
+            [optionSetId]: {
+                ...metadata[optionSetId],
+                options: selected.map((soCode) =>
+                    state.options.find(({ code }) => code === soCode)
+                ),
+            },
+        })
 
         onChange(`${OPERATOR_IN}:${selected.join(';') || ''}`)
     }

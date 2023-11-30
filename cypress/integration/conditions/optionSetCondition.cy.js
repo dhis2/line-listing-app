@@ -5,6 +5,7 @@ import {
     TEST_DIM_TEXT_OPTIONSET,
     TEST_REL_PE_LAST_YEAR,
 } from '../../data/index.js'
+import { goToAO } from '../../helpers/common.js'
 import {
     openDimension,
     openProgramDimensionsSidebar,
@@ -26,7 +27,10 @@ import {
     expectTableToMatchRows,
     expectTableToNotContainValue,
 } from '../../helpers/table.js'
-import { searchAndSelectInOptionsTransfer } from '../../helpers/transfer.js'
+import {
+    searchAndSelectInOptionsTransfer,
+    selectInOptionsTransfer,
+} from '../../helpers/transfer.js'
 
 describe('Option set condition', () => {
     it('Option set (number) displays correctly', () => {
@@ -134,5 +138,40 @@ describe('Option set condition', () => {
         expectTableToContainValue(filteredOptionName)
 
         expectTableToMatchRows([`${getPreviousYearStr()}-12-10`])
+    })
+
+    it('Options with same code but from different option sets display correctly', () => {
+        const testData = [
+            {
+                dimensionName: 'WHOMCH Pain medication given',
+                filteredOptionNames: ['Morphine', 'Spinal'],
+            },
+            {
+                dimensionName: 'WHOMCH Clinical impression of pre-eclampsia',
+                filteredOptionNames: [
+                    'None',
+                    'Pre-eclampsia',
+                    'Severe pre-eclampsia',
+                ],
+            },
+        ]
+
+        goToAO('C1XaMuNaeDy')
+
+        expectTableToBeVisible()
+
+        testData.forEach(({ dimensionName, filteredOptionNames }) => {
+            cy.getBySelLike('layout-chip').contains(dimensionName).click()
+
+            filteredOptionNames.forEach(selectInOptionsTransfer)
+
+            cy.getBySel('conditions-modal').contains('Update').click()
+
+            assertChipContainsText(
+                `${dimensionName}: ${filteredOptionNames.length} selected`
+            )
+
+            assertTooltipContainsEntries(filteredOptionNames)
+        })
     })
 })
