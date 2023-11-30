@@ -14,8 +14,8 @@ import {
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
+    resaveVisualization,
     saveVisualization,
-    saveVisualizationWithoutDialog,
     saveVisualizationAs,
 } from '../helpers/fileMenu.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -123,7 +123,7 @@ describe('save', () => {
         expectTableToBeVisible()
 
         // saves AO using "Save"
-        saveVisualizationWithoutDialog()
+        resaveVisualization()
         expectAOTitleToContain(COPIED_AO_NAME)
         expectTableToBeVisible()
 
