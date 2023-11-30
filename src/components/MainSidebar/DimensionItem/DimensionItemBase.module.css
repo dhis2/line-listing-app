@@ -78,7 +78,10 @@
 .label .secondary {
     font-size: 13px;
     line-height: 15px;
-    color: var(--colors-teal600);
-    padding-left: var(--spacers-dp8);
+    color: var(--colors-grey600);
+    padding-left: 6px;
     overflow-wrap: anywhere;
+}
+.dimensionItem.selected .label .secondary {
+    color: var(--colors-teal600);
 }
