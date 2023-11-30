@@ -101,7 +101,7 @@ describe('save', () => {
 
     it('"save" a copied AO created by others works after editing', () => {
         const AO_NAME = 'E2E: Enrollment - Percentage'
-        const COPIED_AO_NAME = `${AO_NAME} - copied`
+        const COPIED_AO_NAME = `${AO_NAME} - copied ${new Date().toLocaleString()}`
 
         // opens an AO created by others
         goToAO('MKwZRjXiyAJ')
