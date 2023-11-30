@@ -4,16 +4,19 @@
     fill: var(--colors-grey800);
     display: flex;
     justify-content: space-between;
-    padding: 2px 2px 2px var(--spacers-dp8);
+    padding: 0 0 0 var(--spacers-dp4);
     margin: 0;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
     align-items: center;
-    min-height: 24px;
+    min-height: 20px;
+    line-height: 15px;
+    border: 1px solid transparent;
 }
 
 .dimensionItem:not(.disabled):not(.dragging):hover {
-    background-color: var(--colors-grey200);
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey400);
 }
 
 .dimensionItem:not(.disabled):hover div {
@@ -26,12 +29,15 @@
 
 .dimensionItem.selected {
     background-color: var(--colors-teal100);
+    border: 1px solid var(--colors-teal200);
     fill: var(--colors-teal800);
     font-weight: 400;
 }
 
 .dimensionItem.selected:not(.disabled):hover {
-    background-color: #cdeae8;
+    background: #cdeae8;
+    border-color: #93c4bf;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .dimensionItem.selected:not(.disabled):active {
@@ -47,16 +53,16 @@
     flex: 0 0 auto;
     width: 16px;
     height: 16px;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 
 .label {
     flex: 0 1 auto;
+    font-size: 13px;
+    line-height: 15px;
 }
 
 .label .primary {
-    font-size: 14px;
-    line-height: 17px;
     overflow-wrap: anywhere;
 }
 
@@ -72,7 +78,7 @@
 .label .secondary {
     font-size: 13px;
     line-height: 15px;
-    color: var(--colors-grey600);
+    color: var(--colors-teal600);
     padding-left: var(--spacers-dp8);
     overflow-wrap: anywhere;
 }
