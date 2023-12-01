@@ -20,7 +20,9 @@ import {
     getTableHeaderCells,
     expectTableToBeVisible,
     getTableDataCells,
+    getTableRows,
 } from '../helpers/table.js'
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const getRepeatedEventsTab = () =>
     cy.getBySel('conditions-modal-content').contains('Repeated events')
@@ -229,5 +231,42 @@ describe('repeated events', () => {
         cy.getBySel('columns-axis').contains('WHOMCH Hemoglobin value').click()
 
         getRepeatedEventsTab().should('not.have.class', 'disabled')
+    })
+    it('undefined values display properly for a repeated event', () => {
+        const TEST_CELL = {
+            row: 6,
+            column: 3,
+        }
+        goToAO('WrIV7ZoYECj')
+
+        cy.getBySel('titlebar', EXTENDED_TIMEOUT)
+            .should('be.visible')
+            .and('contain', 'E2E: Enrollment - Hemoglobin (repeated)')
+
+        getTableRows()
+            .eq(TEST_CELL.row)
+            .find('td')
+            .eq(TEST_CELL.column)
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '')
+
+        getTableRows()
+            .eq(TEST_CELL.row)
+            .find('td')
+            .eq(TEST_CELL.column)
+            .should(($td) => {
+                const className = $td[0].className
+
+                expect(className).to.match(/Visualization_undefinedCell*/)
+            })
+
+        getTableRows()
+            .eq(TEST_CELL.row)
+            .find('td')
+            .eq(TEST_CELL.column)
+            .trigger('mouseover')
+
+        cy.getBySelLike('tooltip-content').contains('No event')
     })
 })

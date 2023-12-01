@@ -64,12 +64,18 @@ const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
 
     return undefined
 }
+const NOT_DEFINED_VALUE = 'ND'
 
-const formatRowValue = (rowValue, header, metaDataItems) => {
+export const cellIsUndefined = (rowContext = {}, rowIndex, columnIndex) =>
+    (rowContext[rowIndex] || {})[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
+
+const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return getBooleanValues()[rowValue || NULL_VALUE]
+            return !isUndefined
+                ? getBooleanValues()[rowValue || NULL_VALUE]
+                : ''
         default: {
             if (!rowValue) {
                 return rowValue
@@ -185,6 +191,9 @@ const fetchAnalyticsData = async ({
         .withParameters({
             headers,
             totalPages: false,
+            ...(visualization.outputType !== OUTPUT_TYPE_EVENT
+                ? { rowContext: true }
+                : {}),
             ...parameters,
         })
         .withDisplayProperty(displayProperty.toUpperCase())
@@ -308,15 +317,19 @@ const extractRows = (analyticsResponse, headers) => {
             headerIndex++
         ) {
             const header = headers[headerIndex]
-
             const rowValue = row[header.index]
 
             filteredRow.push(
-                formatRowValue(
+                formatRowValue({
                     rowValue,
                     header,
-                    analyticsResponse.metaData.items
-                )
+                    metaDataItems: analyticsResponse.metaData.items,
+                    isUndefined: cellIsUndefined(
+                        analyticsResponse.rowContext,
+                        rowIndex,
+                        headerIndex
+                    ),
+                })
             )
         }
 
@@ -325,6 +338,8 @@ const extractRows = (analyticsResponse, headers) => {
 
     return filteredRows
 }
+
+const extractRowContext = (analyticsResponse) => analyticsResponse.rowContext
 
 const valueTypeIsNumeric = (valueType) =>
     [
@@ -371,6 +386,7 @@ const useAnalyticsData = ({
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
+            const rowContext = extractRowContext(analyticsResponse)
             const pager = analyticsResponse.metaData.pager
             const legendSetIds = []
             const headerLegendSetMap = headers.reduce(
@@ -423,7 +439,7 @@ const useAnalyticsData = ({
             }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, pager })
+            mounted.current && setData({ headers, rows, pager, rowContext })
             onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)
