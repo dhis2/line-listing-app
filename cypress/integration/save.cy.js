@@ -1,16 +1,25 @@
-import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
-import { E2E_PROGRAM, TEST_FIX_PE_DEC_LAST_YEAR } from '../data/index.js'
+import {
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_EVENT_DATE,
+} from '../../src/modules/dimensionConstants.js'
+import {
+    E2E_PROGRAM,
+    TEST_FIX_PE_DEC_LAST_YEAR,
+    TEST_REL_PE_LAST_YEAR,
+} from '../data/index.js'
+import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
+    resaveVisualization,
     saveVisualization,
     saveVisualizationAs,
 } from '../helpers/fileMenu.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectFixedPeriod } from '../helpers/period.js'
+import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
@@ -87,6 +96,38 @@ describe('save', () => {
         expectAOTitleToContain(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        deleteVisualization()
+    })
+
+    it('"save" a copied AO created by others works after editing', () => {
+        const AO_NAME = 'E2E: Enrollment - Percentage'
+        const COPIED_AO_NAME = `${AO_NAME} - copied ${new Date().toLocaleString()}`
+
+        // opens an AO created by others
+        goToAO('MKwZRjXiyAJ')
+        expectAOTitleToContain(AO_NAME)
+
+        // saves AO using "Save As"
+        saveVisualizationAs(COPIED_AO_NAME)
+        expectAOTitleToContain(COPIED_AO_NAME)
+        expectTableToBeVisible()
+
+        // edits the AO
+        openProgramDimensionsSidebar()
+        selectRelativePeriod({
+            label: event[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        // saves AO using "Save"
+        resaveVisualization()
+        expectAOTitleToContain(COPIED_AO_NAME)
+        expectTableToBeVisible()
+
+        // deletes AO
         deleteVisualization()
     })
 })
