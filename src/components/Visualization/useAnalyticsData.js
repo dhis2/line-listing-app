@@ -44,23 +44,46 @@ const excludedDimensions = [
     DIMENSION_ID_LAST_UPDATED_BY,
 ]
 
-const findOptionSetItem = (code, metaDataItems) =>
-    Object.values(metaDataItems).find((item) => item.code === code)
+const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
+    const optionSetMetaData = metaDataItems?.[optionSetId]
 
-const formatRowValue = (rowValue, header, metaDataItems) => {
+    if (optionSetMetaData) {
+        const optionId = optionSetMetaData.options.find(
+            (option) => option.code === code
+        )?.uid
+
+        return metaDataItems[optionId]
+    }
+
+    return undefined
+}
+const NOT_DEFINED_VALUE = 'ND'
+
+export const cellIsUndefined = (rowContext = {}, rowIndex, columnIndex) =>
+    (rowContext[rowIndex] || {})[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
+
+const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return getBooleanValues()[rowValue || NULL_VALUE]
+            return !isUndefined
+                ? getBooleanValues()[rowValue || NULL_VALUE]
+                : ''
         default: {
             if (!rowValue) {
                 return rowValue
             }
+
             if (header.optionSet) {
                 return (
-                    findOptionSetItem(rowValue, metaDataItems)?.name || rowValue
+                    lookupOptionSetOptionMetadata(
+                        header.optionSet,
+                        rowValue,
+                        metaDataItems
+                    )?.name || rowValue
                 )
             }
+
             return metaDataItems[rowValue]?.name || rowValue
         }
     }
@@ -149,6 +172,9 @@ const fetchAnalyticsData = async ({
         .withParameters({
             headers,
             totalPages: false,
+            ...(visualization.outputType !== OUTPUT_TYPE_EVENT
+                ? { rowContext: true }
+                : {}),
             ...parameters,
         })
         .withProgram(visualization.program.id)
@@ -254,15 +280,19 @@ const extractRows = (analyticsResponse, headers) => {
             headerIndex++
         ) {
             const header = headers[headerIndex]
-
             const rowValue = row[header.index]
 
             filteredRow.push(
-                formatRowValue(
+                formatRowValue({
                     rowValue,
                     header,
-                    analyticsResponse.metaData.items
-                )
+                    metaDataItems: analyticsResponse.metaData.items,
+                    isUndefined: cellIsUndefined(
+                        analyticsResponse.rowContext,
+                        rowIndex,
+                        headerIndex
+                    ),
+                })
             )
         }
 
@@ -271,6 +301,8 @@ const extractRows = (analyticsResponse, headers) => {
 
     return filteredRows
 }
+
+const extractRowContext = (analyticsResponse) => analyticsResponse.rowContext
 
 const valueTypeIsNumeric = (valueType) =>
     [
@@ -317,6 +349,7 @@ const useAnalyticsData = ({
             })
             const headers = extractHeaders(analyticsResponse)
             const rows = extractRows(analyticsResponse, headers)
+            const rowContext = extractRowContext(analyticsResponse)
             const pager = analyticsResponse.metaData.pager
             const legendSetIds = []
             const headerLegendSetMap = headers.reduce(
@@ -369,7 +402,7 @@ const useAnalyticsData = ({
             }
 
             mounted.current && setError(undefined)
-            mounted.current && setData({ headers, rows, pager })
+            mounted.current && setData({ headers, rows, pager, rowContext })
             onResponsesReceived(analyticsResponse)
         } catch (error) {
             mounted.current && setError(error)

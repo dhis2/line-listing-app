@@ -142,13 +142,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Ушбу маълумотдагиларни юклаш"
 
 msgid "Metadata ID scheme"
 msgstr "МетаМаълумот ID схемаси"
@@ -312,7 +312,7 @@ msgid "Line list"
 msgstr "Қаторлар рўйхати"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" муваффақиятли ўчирилди."
 
 msgid "Rename successful"
 msgstr "Муваффақиятли қайта номлаш"

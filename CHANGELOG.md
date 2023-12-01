@@ -1,3 +1,31 @@
+## [100.11.1](https://github.com/dhis2/line-listing-app/compare/v100.11.0...v100.11.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* visualization deleted when saving it after copy (DHIS2-15722) ([#433](https://github.com/dhis2/line-listing-app/issues/433)) ([f505c50](https://github.com/dhis2/line-listing-app/commit/f505c500d77577d4f7c747dad6599735c8f8578d))
+
+# [100.11.0](https://github.com/dhis2/line-listing-app/compare/v100.10.6...v100.11.0) (2023-11-30)
+
+
+### Features
+
+* distinguish non-existent repetitions from empty values in line lists (DHIS2-15767) ([#427](https://github.com/dhis2/line-listing-app/issues/427)) ([675118d](https://github.com/dhis2/line-listing-app/commit/675118de9f14730f18cee1a0faa5313c7dba067d))
+
+## [100.10.6](https://github.com/dhis2/line-listing-app/compare/v100.10.5...v100.10.6) (2023-11-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([e89fd9d](https://github.com/dhis2/line-listing-app/commit/e89fd9d4ced20b644b77f4ebe143fb875999ac1b))
+
+## [100.10.5](https://github.com/dhis2/line-listing-app/compare/v100.10.4...v100.10.5) (2023-11-23)
+
+
+### Bug Fixes
+
+* handle options with non-unique codes across optionsets (DHIS2-15771) ([#426](https://github.com/dhis2/line-listing-app/issues/426)) ([37e3e69](https://github.com/dhis2/line-listing-app/commit/37e3e694acc114b524cd284428bacc307602b12c))
+
 ## [100.10.4](https://github.com/dhis2/line-listing-app/compare/v100.10.3...v100.10.4) (2023-11-05)
 
 
