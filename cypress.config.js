@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { chromeAllowXSiteCookies } = require('@dhis2/cypress-plugins')
+const rpPlugin = require('@reportportal/agent-js-cypress/lib/plugin')
 const { defineConfig } = require('cypress')
 const {
     excludeByVersionTags,
@@ -8,6 +9,7 @@ const {
 async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
+    rpPlugin(on, config)
 
     // Delete videos for passing tests
     on('after:spec', (spec, results) => {
