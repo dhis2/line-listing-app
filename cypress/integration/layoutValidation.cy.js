@@ -17,13 +17,30 @@ describe('layout validation', { testIsolation: false }, () => {
     const trackerProgram = CHILD_PROGRAM
 
     it('program is required', () => {
+        cy.setTestDescription(
+            'Verifies that selecting a program is a required step for layout validation.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutValidation' },
+            { key: 'validationRequirement', value: 'ProgramRequirement' },
+        ])
+
         goToStartPage()
 
         clickMenubarUpdateButton()
 
         cy.getBySel('error-container').contains('No program selected')
     })
+
     it('columns is required', () => {
+        cy.setTestDescription(
+            'Checks that having columns is a necessary condition for layout validation.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutValidation' },
+            { key: 'validationRequirement', value: 'ColumnsRequirement' },
+        ])
+
         // select a program (without selecting stage, should auto-select)
         selectEventWithProgram({ programName: trackerProgram.programName })
 
@@ -36,7 +53,19 @@ describe('layout validation', { testIsolation: false }, () => {
 
         cy.getBySel('error-container').contains('Columns is empty')
     })
+
     it('org unit dimension is required', () => {
+        cy.setTestDescription(
+            'Ensures that selecting an organisation unit dimension is mandatory for layout validation.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutValidation' },
+            {
+                key: 'validationRequirement',
+                value: 'OrgUnitDimensionRequirement',
+            },
+        ])
+
         // add something other than org unit to columns
         clickAddRemoveMainDimension('Last updated by')
 
@@ -44,7 +73,16 @@ describe('layout validation', { testIsolation: false }, () => {
 
         cy.getBySel('error-container').contains('No organisation unit selected')
     })
+
     it('validation succeeds when all above are provided', () => {
+        cy.setTestDescription(
+            'Confirms that layout validation succeeds when all necessary conditions are met.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutValidation' },
+            { key: 'validationOutcome', value: 'Success' },
+        ])
+
         // remove previously added dimension
         clickAddRemoveMainDimension('Last updated by')
 
