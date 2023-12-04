@@ -41,7 +41,6 @@ export const assertChipContainsText = (dimensionName, suffix) => {
             .should('not.exist')
     }
     cy.getBySelLike('layout-chip')
-        .findBySelLike('chip-primary')
         .containsExact(dimensionName, EXTENDED_TIMEOUT)
         .trigger('mouseover')
 }

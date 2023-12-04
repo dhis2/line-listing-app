@@ -59,9 +59,7 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
                 <DimensionIcon dimensionType={dimensionType} />
             </div>
             <span className={styles.label}>
-                <span className={styles.primary} data-test="chip-primary">
-                    {name}
-                </span>
+                <span className={styles.primary}>{name}</span>
                 {stageName && (
                     <span className={styles.secondary}>{stageName}</span>
                 )}
