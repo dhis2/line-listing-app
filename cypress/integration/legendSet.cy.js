@@ -91,6 +91,14 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
             })
 
     it('no legend is applied by default', () => {
+        cy.setTestDescription(
+            'Checks that no legend is applied by default in the visualization.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'condition', value: 'DefaultNoLegend' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
@@ -119,7 +127,16 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // all cells have default background and text color
         assertCellsHaveDefaultColors('tr td')
     })
+
     it('background color legend is applied (per data item)', () => {
+        cy.setTestDescription(
+            'Verifies the application of a background color legend per data item.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'legendType', value: 'BackgroundColorPerItem' },
+        ])
+
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content')
@@ -149,7 +166,16 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
+
     it('text color legend is applied (per data item)', () => {
+        cy.setTestDescription(
+            'Ensures that a text color legend is applied per data item.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'legendType', value: 'TextColorPerItem' },
+        ])
+
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
