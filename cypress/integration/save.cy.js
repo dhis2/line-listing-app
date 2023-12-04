@@ -113,6 +113,14 @@ describe('rename', () => {
 
 describe('save', () => {
     it('new AO with name saves correctly', () => {
+        cy.setTestDescription(
+            'Verifies that a new Analytics Object (AO) with a specified name is saved correctly.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'SaveFunctionality' },
+            { key: 'action', value: 'SaveNewAOWithName' },
+        ])
+
         const AO_NAME = `TEST ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
         setupTable()
@@ -136,6 +144,14 @@ describe('save', () => {
     })
 
     it('new AO without name saves correctly', () => {
+        cy.setTestDescription(
+            'Checks if a new Analytics Object (AO) without a specified name is saved with a default name correctly.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'SaveFunctionality' },
+            { key: 'action', value: 'SaveNewAOWitoutName' },
+        ])
+
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
         const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list visualization'
         const EXPECTED_AO_NAME_PART_2 = '29'
@@ -170,6 +186,14 @@ describe('save', () => {
     })
 
     it('"save" a copied AO created by others works after editing', () => {
+        cy.setTestDescription(
+            'Ensures that a copied AO, initially created by another user, can be saved correctly after editing.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'SaveFunctionality' },
+            { key: 'action', value: 'SaveCopiedAOAfterEditing' },
+        ])
+
         const AO_NAME = 'E2E: Enrollment - Percentage'
         const COPIED_AO_NAME = `${AO_NAME} - copied ${new Date().toLocaleString()}`
 
