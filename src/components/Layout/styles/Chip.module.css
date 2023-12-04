@@ -57,7 +57,7 @@
 
 .suffix {
     white-space: nowrap;
-    flex: 1;
+    flex-shrink: 0;
     font-family: monospace;
     font-size: 11px;
     background: #c5e4e3;
