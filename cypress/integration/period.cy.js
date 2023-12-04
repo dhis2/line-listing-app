@@ -119,7 +119,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        assertChipContainsText(TEST_DIM_NAME, 1)
+        assertChipContainsText(TEST_DIM_NAME)
 
         cy.getBySelLike('tooltip-content').contains('None selected')
 
