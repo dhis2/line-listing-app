@@ -60,6 +60,14 @@ describe('boolean conditions - Yes/NA', () => {
     })
 
     it('Yes selected', () => {
+        cy.setTestDescription(
+            'Validates the condition when "Yes" is selected for Yes/NA dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'YesSelected' },
+        ])
+
         addConditions(['Yes'], dimensionName)
 
         expectTableToMatchRows([`${currentYear}-01-01`])
@@ -70,6 +78,13 @@ describe('boolean conditions - Yes/NA', () => {
     })
 
     it('Not answered selected', () => {
+        cy.setTestDescription(
+            'Checks the behavior when "Not answered" is selected for Yes/NA dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'NotAnsweredSelected' },
+        ])
         addConditions(['Not answered'], dimensionName)
 
         expectTableToMatchRows([
@@ -87,6 +102,13 @@ describe('boolean conditions - Yes/NA', () => {
     })
 
     it('Yes + Not answered selected', () => {
+        cy.setTestDescription(
+            'Ensures correct functionality when both "Yes" and "Not answered" are selected.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'YesAndNotAnsweredSelected' },
+        ])
         addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
@@ -114,6 +136,13 @@ describe('boolean conditions - Yes/No/NA', () => {
     })
 
     it('Yes selected', () => {
+        cy.setTestDescription(
+            'Tests the "Yes" selection functionality for Yes/No/NA dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'YesSelectedYesNoNA' },
+        ])
         addConditions(['Yes'], dimensionName)
 
         expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-04-19`])
@@ -124,6 +153,13 @@ describe('boolean conditions - Yes/No/NA', () => {
     })
 
     it('No selected', () => {
+        cy.setTestDescription(
+            'Validates the "No" selection effect in the Yes/No/NA dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'NoSelected' },
+        ])
         addConditions(['No'], dimensionName)
 
         expectTableToMatchRows([`${currentYear}-01-03`])
@@ -134,6 +170,13 @@ describe('boolean conditions - Yes/No/NA', () => {
     })
 
     it('Yes + Not answered selected', () => {
+        cy.setTestDescription(
+            'Checks functionality when "Yes" and "Not answered" are both selected in Yes/No/NA dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'YesAndNotAnsweredSelectedYesNoNA' },
+        ])
         addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
@@ -151,6 +194,13 @@ describe('boolean conditions - Yes/No/NA', () => {
     })
 
     it('Yes + No + Not answered selected', () => {
+        cy.setTestDescription(
+            'Ensures correct behavior when "Yes", "No", and "Not answered" are all selected.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'BooleanConditions' },
+            { key: 'condition', value: 'YesNoNotAnsweredAllSelected' },
+        ])
         addConditions(['Yes', 'No', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
