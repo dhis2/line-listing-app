@@ -149,6 +149,14 @@ I.e. Scheduled date works like this:
 
     describe('event', () => {
         it('program can be selected and cleared', () => {
+            cy.setTestDescription(
+                'Verifies that a program can be selected and then cleared.'
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'ProgramDimensions' },
+                { key: 'action', value: 'SelectAndClearProgram' },
+            ])
+
             const program = E2E_PROGRAM
 
             programDimensionsIsDisabled()
@@ -233,6 +241,14 @@ I.e. Scheduled date works like this:
         })
 
         it('stage can be selected, dimensions are removed when stage and program are changed', () => {
+            cy.setTestDescription(
+                'Checks if dimensions are correctly removed when stage and program are changed.'
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'ProgramDimensions' },
+                { key: 'action', value: 'ChangeStageAndProgram' },
+            ])
+
             const program = TEST_PROGRAM
             const TEST_DATA_ELEMENT = 'WHOMCH Conditions in previous pregnancy'
             const TEST_PROGRAM_ATTRIBUTE = 'First name'
@@ -389,6 +405,14 @@ I.e. Scheduled date works like this:
         })
 
         it('program can be selected and changed', () => {
+            cy.setTestDescription(
+                'Checks if a program can be selected and changed in enrollment mode.'
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'EnrollmentProgramDimensions' },
+                { key: 'action', value: 'SelectAndChangeProgram' },
+            ])
+
             assertDimensionsForEnrollmentWithoutProgramSelected()
 
             programDimensionsIsDisabled()
@@ -465,6 +489,14 @@ I.e. Scheduled date works like this:
     })
     describe('lazy loading', () => {
         it('loads more pages when scrolling down until last one is found', () => {
+            cy.setTestDescription(
+                'Verifies that additional program dimensions pages are loaded when scrolling.'
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'ProgramDimensions' },
+                { key: 'action', value: 'LazyLoading' },
+            ])
+
             const getList = () => cy.getBySel('program-dimensions-list')
             const getListChildren = () => getList().find('div[role="button"]')
             const shouldLoadMoreItems = (nextListLength) => {
@@ -529,6 +561,14 @@ describe('counting selection', () => {
         cy.getBySel('program-dimensions-button').contains(amount)
 
     it('counts selection in enrollment correctly', () => {
+        cy.setTestDescription(
+            'Verifies that the selection count in enrollment mode is accurate.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EnrollmentSelectionCount' },
+            { key: 'aspect', value: 'CountAccuracy' },
+        ])
+
         verifyProgramDimensionsCount(1)
 
         selectEnrollmentWithProgramDimensions({
