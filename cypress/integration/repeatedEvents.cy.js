@@ -13,6 +13,7 @@ import {
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -50,7 +51,7 @@ const setUpTable = ({ enrollment, dimensionName }) => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    assertChipContainsText(dimensionName, 'all')
 }
 
 const setRepetition = ({ dimensionName, recent, oldest }) => {

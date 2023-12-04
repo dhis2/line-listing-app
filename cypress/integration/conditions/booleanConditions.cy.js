@@ -64,7 +64,7 @@ describe('boolean conditions - Yes/NA', () => {
 
         expectTableToMatchRows([`${currentYear}-01-01`])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/])
     })
@@ -81,7 +81,7 @@ describe('boolean conditions - Yes/NA', () => {
             `${currentYear}-03-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, /\bNot answered\b/])
     })
@@ -99,7 +99,7 @@ describe('boolean conditions - Yes/NA', () => {
             `${currentYear}-03-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
     })
@@ -118,7 +118,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-04-19`])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/])
     })
@@ -128,7 +128,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         expectTableToMatchRows([`${currentYear}-01-03`])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, /\bNo\b/])
     })
@@ -145,7 +145,7 @@ describe('boolean conditions - Yes/No/NA', () => {
             `${currentYear}-03-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
     })
@@ -163,7 +163,7 @@ describe('boolean conditions - Yes/No/NA', () => {
             `${currentYear}-03-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         assertTooltipContainsEntries([
             stageName,
