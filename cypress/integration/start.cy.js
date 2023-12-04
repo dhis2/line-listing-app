@@ -3,6 +3,15 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('viewing the start screen', () => {
     it('getting started and most viewed section are shown', () => {
+        cy.setTestDescription(
+            'Ensures that the start screen displays both the "Getting Started" guide and the "Most Viewed" section correctly.'
+        )
+        cy.addTestAttributes([
+            { key: 'type', value: 'InterfaceDisplayTest' },
+            { key: 'component', value: 'StartScreen' },
+            { key: 'feature', value: 'MostViewedSection' },
+        ])
+
         goToStartPage()
         cy.contains('Your most viewed line lists', EXTENDED_TIMEOUT).should(
             'be.visible'
