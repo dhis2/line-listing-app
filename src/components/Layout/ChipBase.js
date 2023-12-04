@@ -26,13 +26,13 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
                 dimensionType === DIMENSION_TYPE_PERIOD) &&
             !itemsLength
         ) {
-            return ''
+            return null
         }
 
         const all = i18n.t('all')
 
         if (!conditionsLength && !itemsLength) {
-            return `${all}`
+            return all
         }
 
         if (
@@ -41,28 +41,17 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
             (valueType === VALUE_TYPE_BOOLEAN &&
                 conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
         ) {
-            return `${all}`
+            return all
         }
 
         if (optionSet || itemsLength) {
-            const selected = itemsLength || conditionsLength
-            const suffix = i18n.t('{{count}}', {
-                count: selected,
-                defaultValue: '{{count}}',
-                defaultValue_plural: '{{count}}',
-            })
-            return `${suffix}`
+            return itemsLength || conditionsLength
         } else if (conditionsLength) {
-            const suffix = i18n.t('{{count}}', {
-                count: conditionsLength,
-                defaultValue: '{{count}}',
-                defaultValue_plural: '{{count}}',
-            })
-            return `${suffix}`
+            return conditionsLength
         }
-
-        return ''
     }
+
+    const suffix = getChipSuffix()
 
     return (
         <div className={cx(styles.chipBase)}>
@@ -75,9 +64,7 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
                     <span className={styles.secondary}>{stageName}</span>
                 )}
             </span>
-            {getChipSuffix() && (
-                <span className={styles.suffix}>{getChipSuffix()}</span>
-            )}
+            {suffix && <span className={styles.suffix}>{suffix}</span>}
         </div>
     )
 }
