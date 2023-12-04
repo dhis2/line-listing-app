@@ -1,4 +1,5 @@
 import '@dhis2/cypress-commands'
+import '@reportportal/agent-js-cypress/lib/commands/reportPortalCommands'
 
 Cypress.Commands.add('getBySel', (selector, ...args) =>
     cy.get(`[data-test="${selector}"]`, ...args)
