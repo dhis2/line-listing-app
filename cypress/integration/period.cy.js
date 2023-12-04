@@ -29,6 +29,14 @@ describe('period dimension', { testIsolation: false }, () => {
             .click()
 
     it('opens modal', () => {
+        cy.setTestDescription(
+            'Verifies the opening of the period dimension modal.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'action', value: 'OpenModal' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram(event)
@@ -39,13 +47,31 @@ describe('period dimension', { testIsolation: false }, () => {
 
         cy.getBySel('period-dimension-modal').should('be.visible')
     })
+
     it('modal has title', () => {
+        cy.setTestDescription(
+            'Checks if the period dimension modal displays the correct title.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'aspect', value: 'ModalTitle' },
+        ])
+
         cy.getBySel('period-dimension-modal-title').should(
             'contain',
             TEST_DIM_NAME
         )
     })
+
     it('default selection is selected', () => {
+        cy.setTestDescription(
+            'Verifies that the default selection is active in the period dimension modal.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'aspect', value: 'DefaultSelection' },
+        ])
+
         cy.contains('Choose from presets').should('have.class', 'selected')
 
         cy.getBySel('period-dimension-relative-periods-button').should(
@@ -57,7 +83,16 @@ describe('period dimension', { testIsolation: false }, () => {
             'period-dimension-relative-period-filter-content'
         ).should('contain', 'Months')
     })
+
     it('a relative period can be added', () => {
+        cy.setTestDescription(
+            'Ensures that a relative period can be successfully added in the period dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'action', value: 'AddRelativePeriod' },
+        ])
+
         cy.getBySelLike('period-dimension-transfer-sourceoptions')
             .contains(TEST_RELATIVE_PERIOD_NAME)
             .dblclick()
@@ -67,7 +102,16 @@ describe('period dimension', { testIsolation: false }, () => {
             TEST_RELATIVE_PERIOD_NAME
         )
     })
+
     it('a fixed period can be added', () => {
+        cy.setTestDescription(
+            'Checks the functionality of adding a fixed period in the period dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'action', value: 'AddFixedPeriod' },
+        ])
+
         cy.getBySel('period-dimension-fixed-periods-button')
             .click()
             .should('have.class', 'selected')
@@ -85,7 +129,16 @@ describe('period dimension', { testIsolation: false }, () => {
             TEST_FIXED_PERIOD_NAME
         )
     })
+
     it('a custom period can be selected', () => {
+        cy.setTestDescription(
+            'Verifies the selection of a custom period in the period dimension.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'action', value: 'SelectCustomPeriod' },
+        ])
+
         cy.contains('Define start - end dates')
             .click()
             .should('have.class', 'selected')
@@ -103,7 +156,16 @@ describe('period dimension', { testIsolation: false }, () => {
             `January 1, ${previousYear} - December 31, ${currentYear}`
         )
     })
+
     it('the custom period persists when reopening the modal', () => {
+        cy.setTestDescription(
+            'Ensures that the custom period selection persists upon reopening the modal.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'aspect', value: 'CustomPeriodPersistence' },
+        ])
+
         openModal(TEST_DIM_ID)
         cy.getBySel('start-date-input')
             .find('input')
@@ -114,7 +176,16 @@ describe('period dimension', { testIsolation: false }, () => {
             .invoke('val')
             .should('eq', `${currentYear}-12-31`)
     })
+
     it('the custom period is cleared when one date is removed', () => {
+        cy.setTestDescription(
+            'Checks that the custom period is cleared when one of the dates is removed.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'aspect', value: 'CustomPeriodClearance' },
+        ])
+
         clearInput('start-date-input')
         cy.getBySel('period-dimension-modal-action-confirm')
             .contains('Update')
@@ -130,7 +201,16 @@ describe('period dimension', { testIsolation: false }, () => {
 
         cy.contains('Choose from presets').should('have.class', 'selected')
     })
+
     it('the custom period is cleared when the preset date tab is toggled', () => {
+        cy.setTestDescription(
+            'Verifies that toggling the preset date tab clears the custom period selection.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PeriodDimension' },
+            { key: 'action', value: 'ClearCustomByPresetToggle' },
+        ])
+
         cy.contains('Define start - end dates').click()
 
         typeInput('start-date-input', `${previousYear}-01-01`)
