@@ -36,6 +36,14 @@ const currentYear = getCurrentYearStr()
 
 describe('options', () => {
     it('sets display density', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of setting display density in table cells.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TableOptions' },
+            { key: 'option', value: 'DisplayDensity' },
+        ])
+
         goToAO(TEST_AO.id)
 
         // assert the default density of table cell
@@ -71,6 +79,14 @@ describe('options', () => {
     })
 
     it('sets font size', () => {
+        cy.setTestDescription(
+            'Checks the ability to set different font sizes in table cells.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TableOptions' },
+            { key: 'option', value: 'FontSize' },
+        ])
+
         const REGULAR_FONT_SIZE = 12
 
         goToAO(TEST_AO.id)
@@ -111,6 +127,14 @@ describe('options', () => {
     })
 
     it('sets digit group separator', () => {
+        cy.setTestDescription(
+            'Ensures the digit group separator can be set and affects table cell data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TableOptions' },
+            { key: 'option', value: 'DigitGroupSeparator' },
+        ])
+
         goToStartPage()
 
         // set up table
@@ -172,6 +196,14 @@ describe('options', () => {
 
 describe(['>=40'], 'ou hierarchy', () => {
     it('sets organisation unit hierarchy', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of displaying organisation unit hierarchy in table cells.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OrgUnitOptions' },
+            { key: 'option', value: 'OrgUnitHierarchy' },
+        ])
+
         const NAME_WITHOUT_HIERARCHY = 'Ngelehun CHC'
         const NAME_WITH_HIERARCHY = 'Sierra Leone / Bo / Badjia / Ngelehun CHC'
 
