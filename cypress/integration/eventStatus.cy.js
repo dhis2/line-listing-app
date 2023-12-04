@@ -38,6 +38,13 @@ describe('event status', () => {
     }
 
     it(['>=39'], 'can be filtered by status SCHEDULED', () => {
+        cy.setTestDescription(
+            'Verifies that the event can be filtered by the status "SCHEDULED".'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EventStatusFilter' },
+            { key: 'status', value: 'Scheduled' },
+        ])
         setUpTable()
 
         selectFixedPeriod({
@@ -138,6 +145,13 @@ describe('event status', () => {
     })
 
     it('can be filtered by status ACTIVE', () => {
+        cy.setTestDescription(
+            'Checks the functionality of filtering the event by the status "ACTIVE".'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EventStatusFilter' },
+            { key: 'status', value: 'Active' },
+        ])
         setUpTable()
 
         selectFixedPeriod({
