@@ -93,6 +93,14 @@ describe('repeated events', () => {
 
     it('can use repetition for enrollments', () => {
         cy.setTestDescription(
+            'Verifies the functionality of using repetition for enrollment data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'UseRepetitionForEnrollments' },
+        ])
+
+        cy.setTestDescription(
             'Verifies if repetition settings can be used and are effective in enrollments.'
         )
         cy.addTestAttributes([
@@ -184,6 +192,14 @@ describe('repeated events', () => {
 
     it('repetition out of bounds returns as empty value', () => {
         cy.setTestDescription(
+            'Checks if out-of-bounds repetition settings return empty values in the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'RepetitionOutOfBounds' },
+        ])
+
+        cy.setTestDescription(
             'Checks if out-of-bounds repetition settings result in empty values.'
         )
         cy.addTestAttributes([
@@ -216,6 +232,14 @@ describe('repeated events', () => {
 
     it('repetition is disabled for non repeatable stages', () => {
         cy.setTestDescription(
+            'Verifies that repetition options are disabled for non-repeatable program stages.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'DisableRepetitionForNonRepeatableStages' },
+        ])
+
+        cy.setTestDescription(
             'Ensures that repetition functionality is disabled for non-repeatable stages.'
         )
         cy.addTestAttributes([
@@ -240,6 +264,14 @@ describe('repeated events', () => {
 
     it('repetition is hidden when input = event', () => {
         cy.setTestDescription(
+            'Ensures that repetition options are hidden when the input type is set to "event".'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'HideRepetitionForEvents' },
+        ])
+
+        cy.setTestDescription(
             'Confirms that repetition settings are not available when input type is set to event.'
         )
         cy.addTestAttributes([
@@ -257,6 +289,14 @@ describe('repeated events', () => {
     })
 
     it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
+        cy.setTestDescription(
+            'Confirms that repetition is still enabled when loading a visualization with cross-stage data elements.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'EnableRepetitionOnSavedVisualization' },
+        ])
+
         cy.setTestDescription(
             'Verifies repetition settings are still enabled after loading a visualization with cross-stage data elements.'
         )
