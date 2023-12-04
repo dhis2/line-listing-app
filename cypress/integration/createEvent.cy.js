@@ -24,6 +24,13 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 const runTests = ({ scheduledDateIsSupported } = {}) => {
     it('creates an event line list (tracker program)', () => {
+        cy.setTestDescription(
+            'Ensures that an event line list can be created using a tracker program with specified dimensions and periods.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EventLineList' },
+            { key: 'type', value: 'TrackerProgram' },
+        ])
         const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
@@ -100,6 +107,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
     })
 
     it('creates an event line list (event program)', () => {
+        cy.setTestDescription(
+            'Validates the creation of an event line list using an event program with appropriate dimensions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EventLineList' },
+            { key: 'type', value: 'EventProgram' },
+        ])
         const eventProgram = {
             programName: 'Inpatient morbidity and mortality',
             [DIMENSION_ID_EVENT_DATE]: 'Report date',
@@ -179,6 +193,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
     })
 
     it('moves a dimension to filter', () => {
+        cy.setTestDescription(
+            'Checks the functionality of moving a dimension to the filter section in an event line list.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EventLineList' },
+            { key: 'action', value: 'MoveDimensionToFilter' },
+        ])
         const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]

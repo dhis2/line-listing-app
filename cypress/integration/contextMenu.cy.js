@@ -13,7 +13,14 @@ describe('using the layout chip context menu', () => {
             .findBySel('dimension-menu-button')
             .click()
 
-    it('moves item', () => {
+    it('moves item from columns to filters', () => {
+        cy.setTestDescription(
+            'Tests the functionality of moving an item from the columns axis to the filters axis using the context menu.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutContextMenu' },
+            { key: 'action', value: 'MoveItem' },
+        ])
         goToStartPage()
 
         expectAxisToHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
@@ -24,7 +31,14 @@ describe('using the layout chip context menu', () => {
         expectAxisToHaveDimension(AXIS_ID_FILTERS, TEST_DIM_ID)
         expectAxisToNotHaveDimension(AXIS_ID_COLUMNS, TEST_DIM_ID)
     })
-    it('removes item', () => {
+    it('removes item from layout', () => {
+        cy.setTestDescription(
+            'Validates the removal of an item from the layout using the context menu.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutContextMenu' },
+            { key: 'action', value: 'RemoveItem' },
+        ])
         goToStartPage()
         openContextMenu(TEST_DIM_ID)
         cy.containsExact('Remove').click()
