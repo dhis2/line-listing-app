@@ -100,7 +100,9 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-modal-eventstatus-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
@@ -121,7 +123,9 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-modal-eventstatus-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
@@ -189,7 +193,9 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-modal-eventstatus-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
