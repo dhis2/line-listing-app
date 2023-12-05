@@ -230,7 +230,7 @@ const FixedDimension = ({
 
     return dimension ? (
         <DimensionModal
-            dataTest={`fixed-dimension-modal-${dimension.id}`}
+            dataTest={`fixed-dimension-${dimension.id}-modal`}
             isInLayout={isInLayout}
             onClose={closeModal}
             title={dimension.name}

@@ -1,6 +1,6 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const orgUnitModalEl = 'fixed-dimension-modal-ou'
+const orgUnitModalEl = 'fixed-dimension-ou-modal'
 const levelSelectEl = 'org-unit-level-select'
 const levelSelectOptionEl = 'org-unit-level-select-option'
 const groupSelectEl = 'org-unit-group-select'
