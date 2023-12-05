@@ -203,7 +203,7 @@ describe(`Org unit dimension`, () => {
         TEST_DISTRICTS.forEach((district) =>
             expectOrgUnitItemToBeSelected(district)
         )
-        cy.getBySelLike('modal-ou-action-cancel').click()
+        cy.getBySelLike('modal-action-cancel').click()
         deleteVisualization()
     })
 })
