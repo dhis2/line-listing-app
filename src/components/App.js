@@ -257,7 +257,7 @@ const App = () => {
         dispatch(acSetUiOpenDimensionModal(dimensionId))
 
     const onResponsesReceived = (response) => {
-        /*const itemsMetadata = Object.entries(response.metaData.items).reduce(
+        const itemsMetadata = Object.entries(response.metaData.items).reduce(
             (obj, [id, item]) => {
                 obj[id] = {
                     id,
@@ -270,9 +270,9 @@ const App = () => {
                 return obj
             },
             {}
-        )*/
+        )
 
-        //dispatch(acAddMetadata(itemsMetadata))
+        dispatch(acAddMetadata(itemsMetadata))
         dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
