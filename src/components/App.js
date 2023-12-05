@@ -1,4 +1,4 @@
-import { useCachedDataQuery } from '@dhis2/analytics'
+import { useCachedDataQuery, convertOuLevelsToUids } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
@@ -145,7 +145,8 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
-    const { systemSettings, rootOrgUnits, currentUser } = useCachedDataQuery()
+    const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
+        useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
 
@@ -348,7 +349,7 @@ const App = () => {
             dispatch(tSetInitMetadata(rootOrgUnits))
 
             const visualization = transformVisualization(
-                data.eventVisualization
+                convertOuLevelsToUids(orgUnitLevels, data.eventVisualization)
             )
 
             addOptionSetsMetadata(visualization)
