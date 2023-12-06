@@ -87,7 +87,7 @@ describe('layout', () => {
         cy.getBySel('layout-container').should('be.visible')
     })
 
-    it.only('the layout panel can be toggled by clicking the fullscreen button', () => {
+    it('the layout panel can be toggled by clicking the fullscreen button', () => {
         // Fullscreen button is only visible when a visualisation is showing
         goToAO(TEST_AO.id)
 
