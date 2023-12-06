@@ -32,7 +32,7 @@ import {
     TEST_DIM_TEXT_OPTIONSET,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
-import { goToAO } from '../helpers/common.js'
+import { createAOWithOptionSet } from '../helpers/createAO.js'
 import {
     clickAddRemoveMainDimension,
     clickAddRemoveProgramDataDimension,
@@ -238,7 +238,7 @@ const assertDimensions = () => {
 }
 
 const assertOptionSetOptionLabels = () => {
-    goToAO('C1XaMuNaeDy')
+    createAOWithOptionSet()
 
     expectTableToBeVisible()
 
