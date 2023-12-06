@@ -54,7 +54,7 @@ describe(`Org unit dimension`, () => {
         assertChipContainsText(`Organisation unit: 2 selected`)
         assertTooltipContainsEntries([TEST_ROOT, TEST_DISTRICT_1])
 
-        // FIXME: backend issue [jira ticket number], uncomment all the lines below once fixed
+        // FIXME: backend issue DHIS2-16258, uncomment all the lines below once fixed
         // const TEST_DISTRICT_2 = 'Bombali'
         // const TEST_CHIEFDOM = 'Biriwa'
         // cy.log(
