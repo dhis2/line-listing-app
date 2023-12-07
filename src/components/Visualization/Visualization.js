@@ -562,7 +562,7 @@ export const Visualization = ({
                                                     ? undefined
                                                     : header.name === sortField
                                                     ? sortDirection
-                                                    : 'default'
+                                                    : defaultSorting.direction
                                             }
                                             sortIconTitle={i18n.t(
                                                 'Sort by "{{column}}" and update',

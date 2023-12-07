@@ -12,7 +12,7 @@ import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
     selectEventWithProgramDimensions,
-    clickAddRemoveProgramDimension,
+    clickAddRemoveProgramDataDimension,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
@@ -44,7 +44,6 @@ const setupTable = () => {
         ...event,
         dimensions: [TEST_DIM_INTEGER],
     })
-    openProgramDimensionsSidebar()
     selectFixedPeriod({
         label: periodLabel,
         period: TEST_FIX_PE_DEC_LAST_YEAR,
@@ -210,8 +209,7 @@ describe('save', () => {
         expectTableToBeUpdated()
 
         // remove dimension with sorting
-        cy.getBySel('main-sidebar').contains('Program dimensions').click()
-        clickAddRemoveProgramDimension(TEST_DIM_INTEGER)
+        clickAddRemoveProgramDataDimension(TEST_DIM_INTEGER)
         clickMenubarUpdateButton()
         expectTableToBeUpdated()
 
