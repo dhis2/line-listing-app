@@ -4,6 +4,7 @@ import {
     WHO_RMNCH_TRACKER_PROGRAM,
     TEST_DIM_NUMBER_OPTIONSET,
     TEST_DIM_TEXT_OPTIONSET,
+    TEST_REL_PE_THIS_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_REL_PE_LAST_5_YEARS,
 } from '../../data/index.js'
@@ -217,7 +218,7 @@ describe('Option set condition', () => {
 
         selectRelativePeriod({
             label: eventProgram[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_YEAR,
+            period: TEST_REL_PE_THIS_YEAR,
         })
 
         selectRelativePeriod({
