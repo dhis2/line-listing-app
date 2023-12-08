@@ -1,4 +1,4 @@
-import { clearInput, typeInput } from './common.js'
+import { clearInput, typeInput, clearTextarea, typeTextarea } from './common.js'
 
 export const ITEM_NEW = 'file-menu-new'
 export const ITEM_OPEN = 'file-menu-open'
@@ -49,4 +49,22 @@ export const deleteVisualization = () => {
     cy.getBySel('file-menu-delete-modal-delete').click()
 
     cy.getBySel('titlebar').should('not.exist')
+}
+
+export const renameVisualization = (name, description) => {
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
+
+    cy.getBySel(ITEM_RENAME).click()
+
+    if (name) {
+        clearInput('file-menu-rename-modal-name-content')
+        typeInput('file-menu-rename-modal-name-content', name)
+    }
+
+    if (description) {
+        clearTextarea('file-menu-rename-modal-description-content')
+        typeTextarea('file-menu-rename-modal-description-content', description)
+    }
+
+    cy.getBySel('file-menu-rename-modal-rename').click()
 }
