@@ -71,7 +71,7 @@ const TypeSelect = () => {
                         noMatchText={i18n.t('No types found')}
                         loading={fetching}
                     >
-                        {selectedType?.id && (
+                        {(fetching || !types) && selectedType?.id && (
                             <SingleSelectOption
                                 key={selectedType?.id}
                                 label={selectedType?.name}
@@ -79,15 +79,13 @@ const TypeSelect = () => {
                             />
                         )}
                         {!fetching &&
-                            types
-                                ?.filter(({ id }) => id !== selectedType?.id)
-                                .map(({ id, name }) => (
-                                    <SingleSelectOption
-                                        key={id}
-                                        label={name}
-                                        value={id}
-                                    />
-                                ))}
+                            types?.map(({ id, name }) => (
+                                <SingleSelectOption
+                                    key={id}
+                                    label={name}
+                                    value={id}
+                                />
+                            ))}
                     </SingleSelect>
                 </div>
             </div>

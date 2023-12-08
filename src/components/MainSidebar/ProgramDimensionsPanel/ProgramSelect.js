@@ -124,7 +124,7 @@ const ProgramSelect = ({ prefix }) => {
                         empty={i18n.t('No programs found')}
                         loading={fetching}
                     >
-                        {selectedProgram?.id && (
+                        {(fetching || !programs) && selectedProgram?.id && (
                             <SingleSelectOption
                                 key={selectedProgram?.id}
                                 label={selectedProgram?.name}
@@ -132,15 +132,13 @@ const ProgramSelect = ({ prefix }) => {
                             />
                         )}
                         {!fetching &&
-                            programs
-                                ?.filter(({ id }) => id !== selectedProgram?.id)
-                                .map(({ id, name }) => (
-                                    <SingleSelectOption
-                                        key={id}
-                                        label={name}
-                                        value={id}
-                                    />
-                                ))}
+                            programs?.map(({ id, name }) => (
+                                <SingleSelectOption
+                                    key={id}
+                                    label={name}
+                                    value={id}
+                                />
+                            ))}
                     </SingleSelect>
                 </div>
             </div>

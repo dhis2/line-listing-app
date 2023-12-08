@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import styles from '../ProgramDimensionsPanel/ProgramSelect.module.css'
 
@@ -30,6 +31,9 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
         lazy: true,
     })
     const programs = data?.programs?.programs
+    const selectedProgram = useSelector((state) =>
+        sGetMetadataById(state, selectedProgramId)
+    )
 
     useEffect(() => {
         if (!called) {
@@ -66,8 +70,8 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                                 (!fetching && programs && selectedProgramId) ||
                                 ''
                             }
-                            onChange={({ selected }) =>
-                                setSelectedProgramId(selected)
+                            onChange={
+                                ({ selected }) => setSelectedProgramId(selected) // TODO: add program metadata to the store so it can be fetched with sGetMetadataById later
                             }
                             placeholder={i18n.t('Filter by program usage')}
                             maxHeight="max(60vh, 460px)"
@@ -79,6 +83,13 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                             clearText={i18n.t('Clear')}
                             loading={fetching}
                         >
+                            {(fetching || !programs) && selectedProgram?.id && (
+                                <SingleSelectOption
+                                    key={selectedProgram?.id}
+                                    label={selectedProgram?.name}
+                                    value={selectedProgram?.id}
+                                />
+                            )}
                             {!fetching &&
                                 programs?.map(({ id, name }) => (
                                     <SingleSelectOption
