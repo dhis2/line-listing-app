@@ -193,7 +193,8 @@ describe('Option set condition', () => {
 
             testData.forEach(({ dimensionName, filteredOptionNames }) => {
                 assertChipContainsText(
-                    `${dimensionName}: ${filteredOptionNames.length} selected`
+                    dimensionName,
+                    filteredOptionNames.length
                 )
 
                 assertTooltipContainsEntries(filteredOptionNames)
