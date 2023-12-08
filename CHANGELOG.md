@@ -1,3 +1,10 @@
+## [100.11.2](https://github.com/dhis2/line-listing-app/compare/v100.11.1...v100.11.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* orgunits are not restored in the orgunit tree (DHIS2-16249) ([#465](https://github.com/dhis2/line-listing-app/issues/465)) ([675add4](https://github.com/dhis2/line-listing-app/commit/675add4e4f332f6170a344370e71bf164e17f202))
+
 ## [100.11.1](https://github.com/dhis2/line-listing-app/compare/v100.11.0...v100.11.1) (2023-11-30)
 
 

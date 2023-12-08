@@ -32,7 +32,6 @@ import {
     TEST_DIM_TEXT_OPTIONSET,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
-import { goToAO } from '../helpers/common.js'
 import {
     clickAddRemoveMainDimension,
     clickAddRemoveProgramDataDimension,
@@ -237,33 +236,6 @@ const assertDimensions = () => {
     }
 }
 
-const assertOptionSetOptionLabels = () => {
-    goToAO('C1XaMuNaeDy')
-
-    expectTableToBeVisible()
-
-    getTableRows()
-        .eq(0)
-        .find('td')
-        .eq(3)
-        .invoke('text')
-        .then(($cell3Value) => expect($cell3Value).to.equal('Pre-eclampsia'))
-
-    getTableRows()
-        .eq(0)
-        .find('td')
-        .eq(4)
-        .invoke('text')
-        .then(($cell4Value) => expect($cell4Value).to.equal('Suspected'))
-
-    getTableRows()
-        .eq(0)
-        .find('td')
-        .eq(5)
-        .invoke('text')
-        .then(($cell5Value) => expect($cell5Value).to.equal('Morphine'))
-}
-
 const assertSorting = () => {
     // remove any DGS to allow numeric value comparison
     openStyleOptionsModal()
@@ -381,9 +353,6 @@ describe(['>=38', '<39'], 'table', () => {
     it('data can be sorted', () => {
         assertSorting()
     })
-    it('option set option labels show correctly', () => {
-        assertOptionSetOptionLabels()
-    })
 })
 
 describe(['>=39'], 'table', () => {
@@ -405,8 +374,5 @@ describe(['>=39'], 'table', () => {
     })
     it('data can be sorted (>=2.39)', () => {
         assertSorting()
-    })
-    it('option set option labels show correctly (>=2.39)', () => {
-        assertOptionSetOptionLabels()
     })
 })

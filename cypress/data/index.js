@@ -27,6 +27,12 @@ export const CHILD_PROGRAM = {
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
 }
 
+export const WHO_RMNCH_TRACKER_PROGRAM = {
+    programName: 'WHO RMNCH Tracker',
+    stageName: 'Care at birth',
+    [DIMENSION_ID_EVENT_DATE]: 'Date of visit',
+}
+
 export const TEST_AO = {
     id: 'R4wAb2yMLik',
     name: 'Inpatient: Cases last quarter (case)',
@@ -80,6 +86,11 @@ export const TEST_REL_PE_THIS_YEAR = {
 export const TEST_REL_PE_LAST_YEAR = {
     type: 'Years',
     name: 'Last year',
+}
+
+export const TEST_REL_PE_LAST_5_YEARS = {
+    type: 'Years',
+    name: 'Last 5 years',
 }
 
 export const TEST_FIX_PE_DEC_LAST_YEAR = {
