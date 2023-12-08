@@ -38,6 +38,7 @@ export const assertChipContainsText = (dimensionName, suffix) => {
         cy.getBySelLike('layout-chip')
             .containsExact(dimensionName, EXTENDED_TIMEOUT)
             .parent()
+            .findBySelLike('chip-suffix')
             .should('not.exist')
     }
     cy.getBySelLike('layout-chip')
