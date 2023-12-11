@@ -4,7 +4,8 @@ import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, SingleSelect, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { acAddMetadata } from '../../../actions/metadata.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
@@ -34,6 +35,7 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
     const selectedProgram = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!called) {
@@ -66,13 +68,17 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                     ) : (
                         <SingleSelect
                             dense
-                            selected={
-                                (!fetching && programs && selectedProgramId) ||
-                                ''
-                            }
-                            onChange={
-                                ({ selected }) => setSelectedProgramId(selected) // TODO: add program metadata to the store so it can be fetched with sGetMetadataById later
-                            }
+                            selected={selectedProgramId || ''}
+                            onChange={({ selected }) => {
+                                setSelectedProgramId(selected)
+                                dispatch(
+                                    acAddMetadata({
+                                        [selected]: programs.find(
+                                            (p) => p.id === selected
+                                        ),
+                                    })
+                                )
+                            }}
                             placeholder={i18n.t('Filter by program usage')}
                             maxHeight="max(60vh, 460px)"
                             dataTest={'program-select'}
