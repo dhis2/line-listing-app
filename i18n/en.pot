@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2023-12-11T13:13:05.714Z\n"
-"PO-Revision-Date: 2023-12-11T13:13:05.714Z\n"
+"POT-Creation-Date: 2023-11-29T10:50:15.561Z\n"
+"PO-Revision-Date: 2023-11-29T10:50:15.561Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -648,6 +648,15 @@ msgstr ""
 
 msgid "There's a syntax problem with the analytics request."
 msgstr "There's a syntax problem with the analytics request."
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Program status"
+msgstr "Program status"
 
 msgid "Last updated on"
 msgstr "Last updated on"

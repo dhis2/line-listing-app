@@ -33,11 +33,12 @@
 
 .pluginContainer {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     gap: var(--spacers-dp4);
     min-width: 0;
     flex-grow: 1;
+    min-width: 0;
+    width: 100%;
 }
 
 .fetchContainer {

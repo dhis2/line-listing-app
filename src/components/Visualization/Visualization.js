@@ -488,8 +488,8 @@ export const Visualization = ({
                 />
                 <div
                     className={styles.visualizationContainer}
-                    style={{ maxWidth: measuredDimensions.paginationMaxWidth }}
                     ref={observeVisualizationContainerRef}
+                    style={{ maxWidth: measuredDimensions.paginationMaxWidth }}
                 >
                     {shouldShowTimeDimensionWarning && (
                         <div
