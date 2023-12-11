@@ -7,13 +7,14 @@
 
 .pluginContainer {
     display: flex;
-    gap: var(--spacers-dp4);
     min-width: 0;
+    width: 100%;
 }
 
 .fetchContainer {
     display: flex;
     align-self: flex-start;
+    gap: var(--spacers-dp4);
     position: relative;
     height: auto;
     min-width: 0;

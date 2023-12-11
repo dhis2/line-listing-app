@@ -424,7 +424,10 @@ export const Visualization = ({
                     className={styles.fetchIndicator}
                     style={{ top: fetchIndicatorTop }}
                 />
-                <div className={styles.visualizationContainer}>
+                <div
+                    className={styles.visualizationContainer}
+                    style={{ maxWidth: measuredDimensions.paginationMaxWidth }}
+                >
                     {shouldShowTimeDimensionWarning && (
                         <div
                             className={styles.noTimeDimensionWarning}
