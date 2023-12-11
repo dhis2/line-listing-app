@@ -8,7 +8,7 @@
     margin: 0;
     border-radius: 2px;
     cursor: pointer;
-    align-items: center;
+    align-items: flex-start;
     min-height: 22px;
     line-height: 15px;
     border: 1px solid transparent;
@@ -51,9 +51,10 @@
 
 .icon {
     flex: 0 0 auto;
+    align-self: flex-start;
     width: 16px;
     height: 16px;
-    margin-right: 4px;
+    margin: 2px 4px 0 0;
 }
 
 .label {
