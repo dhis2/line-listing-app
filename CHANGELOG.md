@@ -1,3 +1,17 @@
+## [100.11.4](https://github.com/dhis2/line-listing-app/compare/v100.11.3...v100.11.4) (2023-12-10)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b356aa5](https://github.com/dhis2/line-listing-app/commit/b356aa51952428b721c32f000ced94e58c5b2970))
+
+## [100.11.3](https://github.com/dhis2/line-listing-app/compare/v100.11.2...v100.11.3) (2023-12-08)
+
+
+### Bug Fixes
+
+* add custom errors for analytics requests ([#445](https://github.com/dhis2/line-listing-app/issues/445)) ([cecd9a5](https://github.com/dhis2/line-listing-app/commit/cecd9a5864ce70909d3f9e6e60ba92d91cb3b44d))
+
 ## [100.11.2](https://github.com/dhis2/line-listing-app/compare/v100.11.1...v100.11.2) (2023-12-07)
 
 

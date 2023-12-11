@@ -103,6 +103,22 @@ export const eventAccessError = () =>
         )
     )
 
+export const analyticsGenerationError = () =>
+    visualizationError(
+        GenericError,
+        i18n.t('Something went wrong'),
+        i18n.t(
+            "There's a problem with the generated analytics. Contact a system administrator."
+        )
+    )
+
+export const analyticsRequestError = () =>
+    visualizationError(
+        GenericError,
+        i18n.t('Something went wrong'),
+        i18n.t("There's a syntax problem with the analytics request.")
+    )
+
 export const getAlertTypeByStatusCode = (statusCode) =>
     String(statusCode).match(/50\d/) ? 'error' : 'warning'
 
