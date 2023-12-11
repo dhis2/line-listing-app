@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
+"POT-Creation-Date: 2023-11-29T10:50:15.561Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2023\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -372,8 +372,16 @@ msgstr "您浏览次数最多的行列表"
 msgid "Not available offline"
 msgstr "离线不可用"
 
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr "该行列表可能会显示编写解释时不可用的数据。"
+
 msgid "Sort by {{column}}"
 msgstr "按{{列}}排序"
+
+msgid "No event"
+msgstr "无事件"
 
 msgid "Rows per page"
 msgstr "行每页"
