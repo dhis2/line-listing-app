@@ -39,7 +39,7 @@ module.exports = defineConfig({
             },
             {
                 key: 'app_name',
-                value: 'line_listing_app',
+                value: 'line-listing-app',
             },
             {
                 key: 'test_level',
