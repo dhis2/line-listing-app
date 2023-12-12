@@ -1,4 +1,10 @@
-import { useCachedDataQuery, convertOuLevelsToUids } from '@dhis2/analytics'
+import {
+    useCachedDataQuery,
+    convertOuLevelsToUids,
+    USER_ORG_UNIT,
+    USER_ORG_UNIT_CHILDREN,
+    USER_ORG_UNIT_GRANDCHILDREN,
+} from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
@@ -266,8 +272,16 @@ const App = () => {
         dispatch(acSetUiOpenDimensionModal(dimensionId))
 
     const onResponsesReceived = (response) => {
-        const itemsMetadata = Object.entries(response.metaData.items).reduce(
-            (obj, [id, item]) => {
+        const itemsMetadata = Object.entries(response.metaData.items)
+            .filter(
+                ([item]) =>
+                    ![
+                        USER_ORG_UNIT,
+                        USER_ORG_UNIT_CHILDREN,
+                        USER_ORG_UNIT_GRANDCHILDREN,
+                    ].includes(item)
+            )
+            .reduce((obj, [id, item]) => {
                 obj[id] = {
                     id,
                     name: item.name || item.displayName,
@@ -277,9 +291,7 @@ const App = () => {
                 }
 
                 return obj
-            },
-            {}
-        )
+            }, {})
 
         dispatch(acAddMetadata(itemsMetadata))
         dispatch(acSetVisualizationLoading(false))
