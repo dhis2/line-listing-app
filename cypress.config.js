@@ -78,10 +78,6 @@ module.exports = defineConfig({
         viewportHeight: 800,
         // Record video
         video: true,
-        /* Only compress and upload videos for failures.
-         * This will save execution time and reduce the risk
-         * out-of-memory issues on the CI machine */
-        videoUploadOnPasses: false,
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
         // Set to a low number to reduce the risk of out-of-memory issues
