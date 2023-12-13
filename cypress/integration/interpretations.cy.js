@@ -162,11 +162,9 @@ describe('interpretations', { testIsolation: false }, () => {
 
         cy.getBySel('interpretations-list').contains('Update').click()
 
-        expectInterpretationFormToBeVisible()
-
-        cy.getBySel('interpretations-list')
-            .contains('Update')
-            .should('have.class', 'loading')
+        cy.getBySel('details-panel')
+            .findBySel('dhis2-uicore-circularloader')
+            .should('be.visible')
 
         cy.getBySel('interpretations-list').contains(
             TEST_INTERPRETATION_TEXT_EDITED

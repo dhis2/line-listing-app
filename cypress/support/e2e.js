@@ -18,11 +18,11 @@ const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'
 const SESSION_COOKIE_NAME = 'JSESSIONID'
 const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
 
-// '2.39' or 39?
+// handles '2.39', '2.39.0.1-rc' and 39 (number)
 const computeEnvVariableName = (instanceVersion) =>
     typeof instanceVersion === 'number'
         ? `${SESSION_COOKIE_NAME}_${instanceVersion}`
-        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.').pop()}`
+        : `${SESSION_COOKIE_NAME}_${instanceVersion.split('.')[1]}`
 
 const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
     cookies.find(
@@ -35,6 +35,19 @@ before(() => {
     const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
+
+    if (!username) {
+        console.error('username not found')
+    }
+    if (!password) {
+        console.error('password not found')
+    }
+    if (!baseUrl) {
+        console.error('baseUrl not found')
+    }
+    if (!instanceVersion) {
+        console.error('instanceVersion not found')
+    }
 
     cy.request({
         url: `${baseUrl}/${LOGIN_ENDPOINT}`,
