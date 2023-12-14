@@ -50,7 +50,7 @@ module.exports = defineConfig({
         project: process.env.REPORTPORTAL_PROJECT,
         description: '',
         autoMerge: true,
-        // parallel: true, # FOR TESTING ONLY! Remove before merge!
+        parallel: true,
         debug: false,
         restClientConfig: {
             timeout: 660000,
