@@ -340,10 +340,26 @@ const init = () => {
 describe(['>=38', '<39'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog (2.38)', () => {
+        cy.setTestDescription(
+            'Verifies that clicking on a column header opens the corresponding dimension dialog in version 2.38.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'ColumnHeaderInteraction' },
+            { key: 'action', value: 'OpenDimensionDialog' },
+            { key: 'dhis2_version', value: '2.38' },
+        ])
         assertColumnHeaders()
     })
 
     it('dimensions display correct values in the visualization (2.38)', () => {
+        cy.setTestDescription(
+            'Ensures that all dimensions display their correct values in the visualization for DHIS2 version 2.38.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DataIntegrity' },
+            { key: 'aspect', value: 'DimensionValueAccuracy' },
+            { key: 'dhis2_version', value: '2.38' },
+        ])
         programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
@@ -351,7 +367,24 @@ describe(['>=38', '<39'], 'table', () => {
         assertDimensions()
     })
     it('data can be sorted', () => {
+        cy.setTestDescription(
+            'Confirms the functionality of data sorting within the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TableFunctionality' },
+            { key: 'action', value: 'SortData' },
+        ])
         assertSorting()
+    })
+    it('option set option labels show correctly', () => {
+        cy.setTestDescription(
+            'Verifies that option set labels are correctly displayed in the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetDisplay' },
+            { key: 'aspect', value: 'LabelVisibility' },
+        ])
+        assertOptionSetOptionLabels()
     })
 })
 
@@ -359,6 +392,14 @@ describe(['>=39'], 'table', () => {
     beforeEach(init)
     it('click on column header opens the dimension dialog (>=2.39)', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
+        cy.setTestDescription(
+            'Tests the column header click action that opens the dimension dialog in DHIS2 versions 2.39 and above.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'ColumnHeaderInteraction' },
+            { key: 'action', value: 'OpenDimensionDialog' },
+            { key: 'dhis2_version', value: '>=2.39' },
+        ])
         programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: `${previousYear}-12-10`,
@@ -366,6 +407,14 @@ describe(['>=39'], 'table', () => {
         assertColumnHeaders()
     })
     it('dimensions display correct values in the visualization (>=2.39)', () => {
+        cy.setTestDescription(
+            'Checks that dimensions accurately display their values in the visualization for DHIS2 versions 2.39 and above.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DataIntegrity' },
+            { key: 'aspect', value: 'DimensionValueAccuracy' },
+            { key: 'dhis2_version', value: '>=2.39' },
+        ])
         programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
@@ -373,6 +422,25 @@ describe(['>=39'], 'table', () => {
         assertDimensions()
     })
     it('data can be sorted (>=2.39)', () => {
+        cy.setTestDescription(
+            'Validates the data sorting feature in the table for DHIS2 versions 2.39 and above.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TableFunctionality' },
+            { key: 'action', value: 'SortData' },
+            { key: 'dhis2_version', value: '>=2.39' },
+        ])
         assertSorting()
+    })
+    it('option set option labels show correctly (>=2.39)', () => {
+        cy.setTestDescription(
+            'Ensures that option set option labels are properly shown in the table for DHIS2 versions 2.39 and above.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetDisplay' },
+            { key: 'aspect', value: 'LabelVisibility' },
+            { key: 'dhis2_version', value: '>=2.39' },
+        ])
+        assertOptionSetOptionLabels()
     })
 })
