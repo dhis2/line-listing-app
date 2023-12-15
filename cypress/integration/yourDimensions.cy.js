@@ -47,6 +47,14 @@ describe('Your dimensions', () => {
     }
 
     it('can be used and filtered', () => {
+        cy.setTestDescription(
+            `Verifies the functionality of filtering and using custom dimensions in the layout.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'CustomDimensions' },
+            { key: 'action', value: 'FilterAndUse' },
+        ])
+
         openYourDimensionsPanel()
 
         cy.getBySel('your-dimensions-list').contains(
@@ -124,6 +132,13 @@ describe('Your dimensions', () => {
         ])
     })
     it('list lazy loads', () => {
+        cy.setTestDescription(
+            `Validates the lazy loading behavior of the dimensions list in the 'Your dimensions' panel.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'CustomDimensions' },
+            { key: 'action', value: 'LazyLoading' },
+        ])
         const getList = () => cy.getBySel('your-dimensions-list')
         const getListChildren = () => getList().find('div[role="button"]')
         const shouldLoadNextPage = (nextPage, nextListLength) => {
