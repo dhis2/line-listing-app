@@ -2041,10 +2041,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@26.2.0-alpha.2":
-  version "26.2.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.2.0-alpha.2.tgz#487f068faaffe3f7db2ef65cfad8aeaeed531137"
-  integrity sha512-yqdM2hT9ZEwXR+EGeXduUtGH7JMiL4aIGann078ouQVt49O96t2sWYk5oA6BGEApIatPNG+RAYyOcX8VbaSxbQ==
+"@dhis2/analytics@26.3.0-alpha.1":
+  version "26.3.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.3.0-alpha.1.tgz#815b1504bd73408d9ab9f4b62ca2d27dbf571152"
+  integrity sha512-MQCNWPkC7PJA/uLfIArBthlovNouyKN5gAGfQGD9r6+YzI3a0b8n3Nrcz+YavtXxVEd58kW8ME+8VOsq4ANkUQ==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.1"
     "@dhis2/multi-calendar-dates" "1.0.0"
