@@ -24,6 +24,14 @@ const trackerProgram = E2E_PROGRAM
 
 const assertTimeDimension = (dimension) => {
     it(`${dimension.id} shows the correct title in layout and table header`, () => {
+        cy.setTestDescription(
+            `Validates that the '${dimension.id}' dimension displays correctly in both the layout panel and the table header.`
+        )
+        cy.addTestAttributes([
+            { key: 'component', value: 'TimeDimension' },
+            { key: 'feature', value: 'DisplayInLayoutAndHeader' },
+            { key: 'dimension', value: dimension.id },
+        ])
         selectEventWithProgram(trackerProgram)
         openProgramDimensionsSidebar()
         const label = trackerProgram[dimension.id]
@@ -87,6 +95,13 @@ describe(['>=39'], 'time dimensions', () => {
     })
 
     it('scheduled date disabled state is set based on stage setting ', () => {
+        cy.setTestDescription(
+            'Ensures the scheduled date dimension is correctly enabled or disabled based on the stage setting.'
+        )
+        cy.addTestAttributes([
+            { key: 'component', value: 'TimeDimension' },
+            { key: 'feature', value: 'ScheduledDateDisableState' },
+        ])
         // select a program, the default stage has hideDueDate = false
         selectEventWithProgram({ programName: 'Child Programme' })
         openProgramDimensionsSidebar()
