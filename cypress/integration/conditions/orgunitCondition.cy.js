@@ -42,6 +42,14 @@ describe('Org unit condition', () => {
     const orgUnitName = 'Koinadugu'
 
     it('Organisation unit displays correctly', () => {
+        cy.setTestDescription(
+            'Tests that the organisation unit is correctly displayed in the visualization, verifying its presence in both the layout and the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OrgUnitCondition' },
+            { key: 'dimension', value: 'OrganisationUnitDisplay' },
+            { key: 'testType', value: 'DisplayValidation' },
+        ])
         goToStartPage()
 
         setUpTable()
