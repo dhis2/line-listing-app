@@ -51,6 +51,15 @@ describe('unsupported types', () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type.name} displays correctly`, () => {
+            cy.setTestDescription(
+                `Verifies that the ${type.name} dimension is displayed correctly in the visualization, confirming that it can't be filtered and all values are shown.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'UnsupportedTypes' },
+                { key: 'dimension', value: type.dimension },
+                { key: 'testType', value: 'DisplayValidation' },
+            ])
+
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
