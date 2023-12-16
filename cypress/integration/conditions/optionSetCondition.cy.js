@@ -43,6 +43,15 @@ import {
 
 describe('Option set condition', () => {
     it('Option set (number) displays correctly', () => {
+        cy.setTestDescription(
+            'Verifies that the option set with numeric values is displayed correctly in the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'dimension', value: 'NumberOptionSet' },
+            { key: 'testType', value: 'Display' },
+        ])
+
         const dimensionName = TEST_DIM_NUMBER_OPTIONSET
         const valueToFilterBy = 'Eight'
         const valueToFilterOut = 'Four'
@@ -99,6 +108,15 @@ describe('Option set condition', () => {
     })
 
     it('Option set (text) displays correctly', () => {
+        cy.setTestDescription(
+            'Verifies that the option set with text values is displayed correctly in the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'dimension', value: 'TextOptionSet' },
+            { key: 'testType', value: 'Display' },
+        ])
+
         const dimensionName = TEST_DIM_TEXT_OPTIONSET
         const filteredOutOptionName = 'COVID 19 - Moderna'
         const filteredOptionName = 'COVID 19 - AstraZeneca'
@@ -150,6 +168,15 @@ describe('Option set condition', () => {
     })
 
     it('Options with same code but from different option sets display correctly', () => {
+        cy.setTestDescription(
+            'Ensures that options with the same code but from different option sets are displayed correctly.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'dimension', value: 'MultipleOptionSets' },
+            { key: 'testType', value: 'CodeUniqueness' },
+        ])
+
         const testData = [
             {
                 dimensionName: 'WHOMCH Pain medication given',
