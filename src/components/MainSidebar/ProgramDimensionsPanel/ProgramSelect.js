@@ -1,24 +1,28 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import { NoticeBox, SingleSelect } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
+    sGetDimensionIdsFromLayout,
     sGetUiEntityTypeId,
     sGetUiInputType,
     sGetUiProgramId,
 } from '../../../reducers/ui.js'
 import styles from './ProgramSelect.module.css'
+import { SingleSelectOptionWithSuffix } from './SingleSelectOptionWithSuffix.js'
 import { StageSelect } from './StageSelect.js'
 
 const query = {
@@ -58,10 +62,12 @@ const ProgramSelect = ({ prefix }) => {
     const selectedProgram = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
+    const allDimensionIds = useSelector(sGetDimensionIdsFromLayout)
     const inputType = useSelector(sGetUiInputType)
     const { fetching, error, data, refetch } = useDataQuery(query, {
         lazy: true,
     })
+    const [programDimensionsMap, setProgramDimensionsMap] = useState({})
 
     const programs = data?.programs.programs
     const programType = selectedProgram?.programType
@@ -81,6 +87,19 @@ const ProgramSelect = ({ prefix }) => {
             dispatch(tSetUiProgram({ program, stage }))
         }
     }
+
+    useEffect(() => {
+        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && selectedEntityTypeId) {
+            const map = {}
+            allDimensionIds.forEach((id) => {
+                const { programId } = extractDimensionIdParts(id, inputType)
+                if (programId) {
+                    map[programId] = map[programId] ? map[programId] + 1 : 1
+                }
+            })
+            setProgramDimensionsMap(map)
+        }
+    }, [selectedEntityTypeId, allDimensionIds])
 
     useEffect(() => {
         refetch({
@@ -125,18 +144,31 @@ const ProgramSelect = ({ prefix }) => {
                         loading={fetching}
                     >
                         {(fetching || !programs) && selectedProgram?.id && (
-                            <SingleSelectOption
+                            <SingleSelectOptionWithSuffix
                                 key={selectedProgram?.id}
                                 label={selectedProgram?.name}
+                                suffix={
+                                    (selectedEntityTypeId &&
+                                        selectedProgram?.id &&
+                                        programDimensionsMap[
+                                            selectedProgram.id
+                                        ]) ||
+                                    ''
+                                }
                                 value={selectedProgram?.id}
                             />
                         )}
                         {!fetching &&
                             programs?.map(({ id, name }) => (
-                                <SingleSelectOption
+                                <SingleSelectOptionWithSuffix
                                     key={id}
                                     label={name}
                                     value={id}
+                                    suffix={
+                                        (selectedEntityTypeId &&
+                                            programDimensionsMap[id]) ||
+                                        ''
+                                    }
                                 />
                             ))}
                     </SingleSelect>

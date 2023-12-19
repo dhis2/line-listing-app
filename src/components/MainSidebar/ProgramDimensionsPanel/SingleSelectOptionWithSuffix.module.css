@@ -1,0 +1,36 @@
+.option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--colors-grey900);
+    padding-block: var(--spacers-dp8);
+    padding-inline: var(--spacers-dp12);
+}
+
+.option:hover {
+    background-color: var(--colors-grey200);
+}
+
+.option:active,
+.option.active {
+    background-color: var(--colors-teal700);
+    color: var(--colors-white);
+    cursor: auto;
+}
+
+.option.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
+
+.option.disabled:hover {
+    background-color: initial;
+}
+
+.tag {
+    margin-left: var(--spacers-dp12);
+}
