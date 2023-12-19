@@ -566,7 +566,7 @@ describe('counting selection', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'EnrollmentSelectionCount' },
-            { key: 'aspect', value: 'CountAccuracy' },
+            { key: 'action', value: 'VerifySelectionCount' },
         ])
 
         verifyProgramDimensionsCount(1)

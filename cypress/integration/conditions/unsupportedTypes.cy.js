@@ -56,6 +56,7 @@ describe('unsupported types', () => {
             )
             cy.addTestAttributes([
                 { key: 'feature', value: 'UnsupportedTypes' },
+                { key: 'action', value: `TestDisplay${type.name}` },
                 { key: 'dimension', value: type.dimension },
                 { key: 'testType', value: 'DisplayValidation' },
             ])

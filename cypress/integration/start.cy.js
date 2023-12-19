@@ -7,9 +7,9 @@ describe('viewing the start screen', () => {
             'Ensures that the start screen displays both the "Getting Started" guide and the "Most Viewed" section correctly.'
         )
         cy.addTestAttributes([
-            { key: 'type', value: 'InterfaceDisplayTest' },
+            { key: 'feature', value: 'StartScreenDisplay' },
+            { key: 'action', value: 'DisplayGettingStartedAndMostViewed' },
             { key: 'component', value: 'StartScreen' },
-            { key: 'feature', value: 'MostViewedSection' },
         ])
 
         goToStartPage()

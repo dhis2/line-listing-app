@@ -19,7 +19,7 @@ describe('using the layout chip context menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutContextMenu' },
-            { key: 'action', value: 'MoveItem' },
+            { key: 'action', value: 'MoveItemToFilter' },
         ])
         goToStartPage()
 
@@ -37,7 +37,7 @@ describe('using the layout chip context menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutContextMenu' },
-            { key: 'action', value: 'RemoveItem' },
+            { key: 'action', value: 'RemoveItemFromLayout' },
         ])
         goToStartPage()
         openContextMenu(TEST_DIM_ID)

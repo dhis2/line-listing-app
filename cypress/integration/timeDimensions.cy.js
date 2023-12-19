@@ -99,8 +99,8 @@ describe(['>=39'], 'time dimensions', () => {
             'Ensures the scheduled date dimension is correctly enabled or disabled based on the stage setting.'
         )
         cy.addTestAttributes([
-            { key: 'component', value: 'TimeDimension' },
-            { key: 'feature', value: 'ScheduledDateDisableState' },
+            { key: 'feature', value: 'ScheduledDateState' },
+            { key: 'action', value: 'VerifyDisableStateBasedOnStage' },
         ])
         // select a program, the default stage has hideDueDate = false
         selectEventWithProgram({ programName: 'Child Programme' })

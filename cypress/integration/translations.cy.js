@@ -42,7 +42,8 @@ describe('Translations', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'Localization' },
-            { key: 'component', value: 'MainInterface' },
+            { key: 'action', value: 'DisplayTranslatedText' },
+            { key: 'type', value: 'UILocalization' },
             { key: 'language', value: 'Norwegian' },
         ])
         interceptLanguage()
@@ -61,7 +62,8 @@ describe('Translations', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'Localization' },
-            { key: 'component', value: 'Analytics' },
+            { key: 'action', value: 'DisplayAnalyticsTranslated' },
+            { key: 'type', value: 'ComponentLocalization' },
             { key: 'language', value: 'Norwegian' },
         ])
         interceptLanguage()
@@ -80,7 +82,8 @@ describe('Translations', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'Localization' },
-            { key: 'component', value: 'MainInterface' },
+            { key: 'action', value: 'DisplayOriginalText' },
+            { key: 'type', value: 'UIOriginalLanguage' },
             { key: 'language', value: 'English' },
         ])
         goToStartPage(true)
@@ -95,7 +98,8 @@ describe('Translations', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'Localization' },
-            { key: 'component', value: 'Analytics' },
+            { key: 'action', value: 'DisplayAnalyticsOriginal' },
+            { key: 'type', value: 'ComponentOriginalLanguage' },
             { key: 'language', value: 'English' },
         ])
         goToStartPage(true)

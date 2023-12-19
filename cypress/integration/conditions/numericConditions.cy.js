@@ -90,6 +90,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestEqualTo' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'EqualTo' },
         ])
@@ -111,6 +112,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThan' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'GreaterThan' },
         ])
@@ -132,6 +134,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThanOrEqualTo' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'GreaterThanOrEqualTo' },
         ])
@@ -160,6 +163,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestLessThan' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'LessThan' },
         ])
@@ -182,6 +186,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestLessThanOrEqualTo' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'LessThanOrEqualTo' },
         ])
@@ -206,6 +211,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestNotEqualTo' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'NotEqualTo' },
         ])
@@ -234,6 +240,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestIsEmptyOrNull' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'IsEmptyOrNull' },
         ])
@@ -259,6 +266,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestIsNotEmptyNotNull' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'IsNotEmptyNotNull' },
         ])
@@ -287,6 +295,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThanLessThanCombo' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'GreaterThanLessThanCombo' },
         ])
@@ -326,6 +335,7 @@ describe('integer', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerNegativeValue' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'IntegerNegativeValue' },
         ])
@@ -347,6 +357,7 @@ describe('integer', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerPositiveValue' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'IntegerPositiveValue' },
         ])
@@ -369,6 +380,7 @@ describe('integer', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerZeroValue' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'IntegerZeroValue' },
         ])
@@ -437,6 +449,7 @@ describe('preset options', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PresetOptionConditions' },
+            { key: 'action', value: 'TestSetOnly' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'SetOnly' },
         ])
@@ -473,6 +486,7 @@ describe('preset options', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PresetOptionConditions' },
+            { key: 'action', value: 'TestSetAndValue' },
             { key: 'dimension', value: dimensionName },
             { key: 'condition', value: 'SetAndValue' },
         ])
@@ -525,6 +539,7 @@ describe('numeric types', { testIsolation: false }, () => {
             )
             cy.addTestAttributes([
                 { key: 'feature', value: 'NumericTypeConditions' },
+                { key: 'action', value: 'VerifyAllOperators' },
                 { key: 'dimension', value: type },
                 { key: 'condition', value: 'AllOperators' },
             ])
@@ -550,6 +565,7 @@ describe('numeric types', { testIsolation: false }, () => {
             )
             cy.addTestAttributes([
                 { key: 'feature', value: 'NumericTypeConditions' },
+                { key: 'action', value: 'UtilizationInVisualization' },
                 { key: 'dimension', value: type },
                 { key: 'condition', value: 'UsageInVisualization' },
             ])

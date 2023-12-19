@@ -26,8 +26,8 @@ describe('download', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'DownloadFunctionality' },
-            { key: 'context', value: 'EventBasedAnalysis' },
             { key: 'action', value: 'EnableDownloadButton' },
+            { key: 'context', value: 'EventBasedAnalysis' },
         ])
 
         goToStartPage()
@@ -49,8 +49,8 @@ describe('download', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'DownloadFunctionality' },
-            { key: 'context', value: 'EnrollmentBasedAnalysis' },
             { key: 'action', value: 'EnableDownloadButton' },
+            { key: 'context', value: 'EnrollmentBasedAnalysis' },
         ])
 
         goToStartPage()

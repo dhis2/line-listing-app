@@ -96,7 +96,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'condition', value: 'DefaultNoLegend' },
+            { key: 'action', value: 'VerifyNoDefaultLegend' },
         ])
 
         goToStartPage()
@@ -134,7 +134,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'legendType', value: 'BackgroundColorPerItem' },
+            { key: 'action', value: 'ApplyBackgroundColorPerItem' },
         ])
 
         openLegendOptionsModal()
@@ -173,7 +173,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'legendType', value: 'TextColorPerItem' },
+            { key: 'action', value: 'ApplyTextColorPerItem' },
         ])
 
         openLegendOptionsModal()
@@ -248,7 +248,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'legendType', value: 'TextColorSingleLegend' },
+            { key: 'action', value: 'ApplyTextColorSingleLegend' },
         ])
         openLegendOptionsModal()
 
@@ -295,13 +295,14 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
+
     it('background color legend is applied (single legend)', () => {
         cy.setTestDescription(
             'Checks the application of a background color legend for the entire visualization using a single legend.'
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'legendType', value: 'BackgroundColorSingleLegend' },
+            { key: 'action', value: 'ApplyBackgroundColorSingleLegend' },
         ])
         openLegendOptionsModal()
 
@@ -376,7 +377,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'aspect', value: 'NegativeValuesLegend' },
+            { key: 'action', value: 'ApplyLegendToNegativeValues' },
         ])
         cy.getBySel('options-modal-content')
             .contains('Use pre-defined legend per data item')
@@ -412,7 +413,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'aspect', value: 'LegendKeyWithMultipleItems' },
+            { key: 'action', value: 'DisplayLegendKeyWithMultipleItems' },
         ])
         expectLegendKeyToBeVisible()
 
@@ -427,7 +428,7 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LegendSet' },
-            { key: 'condition', value: 'EmptyValuesNoColor' },
+            { key: 'action', value: 'CheckEmptyValuesNoColor' },
         ])
         const currentYear = getCurrentYearStr()
 

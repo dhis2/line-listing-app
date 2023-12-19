@@ -47,6 +47,7 @@ describe('Org unit condition', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'OrgUnitCondition' },
+            { key: 'action', value: 'TestOrgUnitDisplay' },
             { key: 'dimension', value: 'OrganisationUnitDisplay' },
             { key: 'testType', value: 'DisplayValidation' },
         ])

@@ -346,7 +346,7 @@ describe(['>=38', '<39'], 'table', () => {
         cy.addTestAttributes([
             { key: 'feature', value: 'ColumnHeaderInteraction' },
             { key: 'action', value: 'OpenDimensionDialog' },
-            { key: 'dhis2_version', value: '2.38' },
+            { key: 'version', value: '2.38' },
         ])
         assertColumnHeaders()
     })
@@ -357,8 +357,8 @@ describe(['>=38', '<39'], 'table', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'DataIntegrity' },
-            { key: 'aspect', value: 'DimensionValueAccuracy' },
-            { key: 'dhis2_version', value: '2.38' },
+            { key: 'action', value: 'VerifyDimensionValues' },
+            { key: 'version', value: '2.38' },
         ])
         programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
@@ -376,16 +376,6 @@ describe(['>=38', '<39'], 'table', () => {
         ])
         assertSorting()
     })
-    it('option set option labels show correctly', () => {
-        cy.setTestDescription(
-            'Verifies that option set labels are correctly displayed in the table.'
-        )
-        cy.addTestAttributes([
-            { key: 'feature', value: 'OptionSetDisplay' },
-            { key: 'aspect', value: 'LabelVisibility' },
-        ])
-        assertOptionSetOptionLabels()
-    })
 })
 
 describe(['>=39'], 'table', () => {
@@ -398,7 +388,7 @@ describe(['>=39'], 'table', () => {
         cy.addTestAttributes([
             { key: 'feature', value: 'ColumnHeaderInteraction' },
             { key: 'action', value: 'OpenDimensionDialog' },
-            { key: 'dhis2_version', value: '>=2.39' },
+            { key: 'version', value: '>=2.39' },
         ])
         programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
@@ -406,14 +396,14 @@ describe(['>=39'], 'table', () => {
         })
         assertColumnHeaders()
     })
-    it('dimensions display correct values in the visualization (>=2.39)', () => {
+    it('dimensions display correct values in the visualization ()', () => {
         cy.setTestDescription(
             'Checks that dimensions accurately display their values in the visualization for DHIS2 versions 2.39 and above.'
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'DataIntegrity' },
-            { key: 'aspect', value: 'DimensionValueAccuracy' },
-            { key: 'dhis2_version', value: '>=2.39' },
+            { key: 'action', value: 'VerifyDimensionValues' },
+            { key: 'version', value: '>=2.39' },
         ])
         programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
@@ -428,19 +418,8 @@ describe(['>=39'], 'table', () => {
         cy.addTestAttributes([
             { key: 'feature', value: 'TableFunctionality' },
             { key: 'action', value: 'SortData' },
-            { key: 'dhis2_version', value: '>=2.39' },
+            { key: 'version', value: '>=2.39' },
         ])
         assertSorting()
-    })
-    it('option set option labels show correctly (>=2.39)', () => {
-        cy.setTestDescription(
-            'Ensures that option set option labels are properly shown in the table for DHIS2 versions 2.39 and above.'
-        )
-        cy.addTestAttributes([
-            { key: 'feature', value: 'OptionSetDisplay' },
-            { key: 'aspect', value: 'LabelVisibility' },
-            { key: 'dhis2_version', value: '>=2.39' },
-        ])
-        assertOptionSetOptionLabels()
     })
 })

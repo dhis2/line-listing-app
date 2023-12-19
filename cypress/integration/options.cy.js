@@ -41,6 +41,7 @@ describe('options', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'TableOptions' },
+            { key: 'action', value: 'SetDisplayDensity' },
             { key: 'option', value: 'DisplayDensity' },
         ])
 
@@ -84,6 +85,7 @@ describe('options', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'TableOptions' },
+            { key: 'action', value: 'SetFontSize' },
             { key: 'option', value: 'FontSize' },
         ])
 
@@ -132,6 +134,7 @@ describe('options', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'TableOptions' },
+            { key: 'action', value: 'SetDigitGroupSeparator' },
             { key: 'option', value: 'DigitGroupSeparator' },
         ])
 
@@ -201,6 +204,7 @@ describe(['>=40'], 'ou hierarchy', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'OrgUnitOptions' },
+            { key: 'action', value: 'SetOrgUnitHierarchy' },
             { key: 'option', value: 'OrgUnitHierarchy' },
         ])
 

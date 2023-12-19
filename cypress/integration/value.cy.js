@@ -44,8 +44,8 @@ describe('value', () => {
             `Validates that the white-space CSS property is correctly applied to different dimension types in the table.`
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'ValueDisplay' },
-            { key: 'aspect', value: 'WhiteSpaceCSS' },
+            { key: 'feature', value: 'CSSPropertyValidation' },
+            { key: 'action', value: 'CheckWhiteSpace' },
         ])
         const programDimensionsWithWrap = [
             TEST_DIM_TEXT,
@@ -105,8 +105,8 @@ describe('option sets', () => {
             `Ensures that empty values in option sets are correctly displayed as empty in the table.`
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'OptionSets' },
-            { key: 'aspect', value: 'EmptyValueHandling' },
+            { key: 'feature', value: 'OptionSetDisplay' },
+            { key: 'action', value: 'ValidateEmptyValues' },
         ])
         const currentYear = getCurrentYearStr()
 

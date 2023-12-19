@@ -48,6 +48,7 @@ describe('Option set condition', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'action', value: 'DisplayNumericOptionSet' },
             { key: 'dimension', value: 'NumberOptionSet' },
             { key: 'testType', value: 'Display' },
         ])
@@ -113,6 +114,7 @@ describe('Option set condition', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'action', value: 'DisplayTextOptionSet' },
             { key: 'dimension', value: 'TextOptionSet' },
             { key: 'testType', value: 'Display' },
         ])
@@ -173,6 +175,7 @@ describe('Option set condition', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'OptionSetCondition' },
+            { key: 'action', value: 'TestCodeUniquenessMultipleOptionSets' },
             { key: 'dimension', value: 'MultipleOptionSets' },
             { key: 'testType', value: 'CodeUniqueness' },
         ])

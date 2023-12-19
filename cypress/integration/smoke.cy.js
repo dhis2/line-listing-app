@@ -9,8 +9,9 @@ describe('Smoke Test', () => {
             'Verifies that the main page of the application loads correctly and displays the expected content.'
         )
         cy.addTestAttributes([
-            { key: 'type', value: 'SmokeTest' },
+            { key: 'feature', value: 'ApplicationLoad' },
             { key: 'action', value: 'LoadMainPage' },
+            { key: 'type', value: 'SmokeTest' },
         ])
 
         goToStartPage()
@@ -23,8 +24,9 @@ describe('Smoke Test', () => {
             'Ensures that the application correctly loads a specific visualization identified by its ID.'
         )
         cy.addTestAttributes([
-            { key: 'type', value: 'SmokeTest' },
+            { key: 'feature', value: 'VisualizationLoad' },
             { key: 'action', value: 'LoadVisualizationById' },
+            { key: 'type', value: 'SmokeTest' },
         ])
 
         goToAO(TEST_AO.id)

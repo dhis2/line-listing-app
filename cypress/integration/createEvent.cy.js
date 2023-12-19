@@ -29,6 +29,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'EventLineList' },
+            { key: 'action', value: 'CreateList' },
             { key: 'type', value: 'TrackerProgram' },
         ])
         const eventProgram = E2E_PROGRAM
@@ -112,6 +113,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'EventLineList' },
+            { key: 'action', value: 'CreateList' },
             { key: 'type', value: 'EventProgram' },
         ])
         const eventProgram = {

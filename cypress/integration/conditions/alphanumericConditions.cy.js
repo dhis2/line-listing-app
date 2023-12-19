@@ -93,7 +93,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Verifies that the text condition "exactly" works as expected in filtering data.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestExactMatch' },
             { key: 'condition', value: 'Exactly' },
         ])
         const TEST_TEXT = 'Text A'
@@ -112,7 +113,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Checks that the text condition "is not" correctly filters out specified data.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestExclusion' },
             { key: 'condition', value: 'IsNot' },
         ])
         const TEST_TEXT = 'Text A'
@@ -138,7 +140,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Ensures that the "contains" condition accurately filters data containing specific text.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestContains' },
             { key: 'condition', value: 'Contains' },
         ])
         const TEST_TEXT = 'T'
@@ -187,7 +190,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Verifies the "does not contain" condition for correctly excluding specific text.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestDoesNotContain' },
             { key: 'condition', value: 'DoesNotContain' },
         ])
         const TEST_TEXT = 'T'
@@ -218,7 +222,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Verifies that the "is empty / null" condition correctly identifies and filters empty or null values.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestIsEmptyOrNull' },
             { key: 'condition', value: 'IsEmptyOrNull' },
         ])
         addConditions([
@@ -239,7 +244,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Checks that the "is not empty / not null" condition accurately filters non-empty and non-null values.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestIsNotEmptyOrNull' },
             { key: 'condition', value: 'IsNotEmptyOrNull' },
         ])
         addConditions([
@@ -266,7 +272,8 @@ describe('text conditions', { testIsolation: false }, () => {
             'Ensures that combining "contains" and "is not" conditions works as expected for filtering data.'
         )
         cy.addTestAttributes([
-            { key: 'feature', value: 'TextConditions' },
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestCombinedConditions' },
             { key: 'condition', value: 'CombinedConditionsContainsIsNot' },
         ])
         addConditions([
@@ -309,9 +316,9 @@ describe('alphanumeric types', { testIsolation: false }, () => {
                 `Verifies that the dimension type "${type}" supports all defined operators.`
             )
             cy.addTestAttributes([
-                { key: 'feature', value: 'AlphanumericTypeSupport' },
-                { key: 'dimensionType', value: `Type-${type}` },
+                { key: 'feature', value: 'AlphanumericConditions' },
                 { key: 'action', value: 'VerifyOperators' },
+                { key: 'dimensionType', value: `Type-${type}` },
             ])
             goToStartPage()
 
@@ -336,9 +343,9 @@ describe('alphanumeric types', { testIsolation: false }, () => {
                 `Ensures that the dimension type "${type}" can be effectively utilized in visualizations.`
             )
             cy.addTestAttributes([
-                { key: 'feature', value: 'AlphanumericTypeVisualization' },
-                { key: 'dimensionType', value: `Type-${type}` },
+                { key: 'feature', value: 'AlphanumericConditions' },
                 { key: 'action', value: 'TestInVisualization' },
+                { key: 'dimensionType', value: `Type-${type}` },
             ])
             selectRelativePeriod({
                 label: periodLabel,

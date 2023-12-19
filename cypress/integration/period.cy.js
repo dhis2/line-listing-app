@@ -54,7 +54,7 @@ describe('period dimension', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PeriodDimension' },
-            { key: 'aspect', value: 'ModalTitle' },
+            { key: 'action', value: 'CheckModalTitle' },
         ])
 
         cy.getBySel('period-dimension-modal-title').should(
@@ -69,7 +69,7 @@ describe('period dimension', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PeriodDimension' },
-            { key: 'aspect', value: 'DefaultSelection' },
+            { key: 'action', value: 'VerifyDefaultSelection' },
         ])
 
         cy.contains('Choose from presets').should('have.class', 'selected')
@@ -163,7 +163,7 @@ describe('period dimension', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PeriodDimension' },
-            { key: 'aspect', value: 'CustomPeriodPersistence' },
+            { key: 'action', value: 'VerifyCustomPeriodPersistence' },
         ])
 
         openModal(TEST_DIM_ID)
@@ -183,7 +183,7 @@ describe('period dimension', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'PeriodDimension' },
-            { key: 'aspect', value: 'CustomPeriodClearance' },
+            { key: 'action', value: 'ClearCustomPeriodOneDateRemoved' },
         ])
 
         clearInput('start-date-input')

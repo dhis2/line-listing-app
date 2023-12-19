@@ -76,6 +76,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'Empty' },
         ])
 
@@ -93,6 +94,7 @@ describe('file menu', () => {
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
             { key: 'state', value: 'UnsavedNoProgram' },
+            { key: 'action', value: 'VerifyState' },
         ])
 
         goToStartPage()
@@ -113,6 +115,7 @@ describe('file menu', () => {
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
             { key: 'state', value: 'UnsavedValidSave' },
+            { key: 'action', value: 'VerifyState' },
         ])
 
         goToStartPage()
@@ -142,6 +145,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'UnsavedValidData' },
         ])
 
@@ -170,6 +174,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'UnsavedValidData2' },
         ])
 
@@ -203,6 +208,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'SavedValidSave' },
         ])
 
@@ -240,6 +246,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'SavedValidData' },
         ])
 
@@ -287,6 +294,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'Dirty' },
         ])
 
@@ -353,6 +361,7 @@ describe('file menu', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
             { key: 'state', value: 'SavedAndDirtyLegacy' },
         ])
 

@@ -22,6 +22,7 @@ describe('layout validation', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutValidation' },
+            { key: 'action', value: 'CheckProgramRequirement' },
             { key: 'validationRequirement', value: 'ProgramRequirement' },
         ])
 
@@ -38,6 +39,7 @@ describe('layout validation', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutValidation' },
+            { key: 'action', value: 'CheckColumnsRequirement' },
             { key: 'validationRequirement', value: 'ColumnsRequirement' },
         ])
 
@@ -60,6 +62,7 @@ describe('layout validation', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutValidation' },
+            { key: 'action', value: 'CheckOrgUnitDimensionRequirement' },
             {
                 key: 'validationRequirement',
                 value: 'OrgUnitDimensionRequirement',
@@ -80,6 +83,7 @@ describe('layout validation', { testIsolation: false }, () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'LayoutValidation' },
+            { key: 'action', value: 'ValidateSuccessWithAllConditions' },
             { key: 'validationOutcome', value: 'Success' },
         ])
 

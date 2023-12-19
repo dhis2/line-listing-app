@@ -43,6 +43,7 @@ describe('event status', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'EventStatusFilter' },
+            { key: 'action', value: 'FilterByStatus' },
             { key: 'status', value: 'Scheduled' },
         ])
         setUpTable()
@@ -150,6 +151,7 @@ describe('event status', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'EventStatusFilter' },
+            { key: 'action', value: 'FilterByStatus' },
             { key: 'status', value: 'Active' },
         ])
         setUpTable()

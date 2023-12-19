@@ -65,6 +65,7 @@ describe('boolean conditions - Yes/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestYesSelected' },
             { key: 'condition', value: 'YesSelected' },
         ])
 
@@ -83,6 +84,7 @@ describe('boolean conditions - Yes/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestNotAnsweredSelected' },
             { key: 'condition', value: 'NotAnsweredSelected' },
         ])
         addConditions(['Not answered'], dimensionName)
@@ -107,6 +109,7 @@ describe('boolean conditions - Yes/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestYesAndNotAnsweredSelected' },
             { key: 'condition', value: 'YesAndNotAnsweredSelected' },
         ])
         addConditions(['Yes', 'Not answered'], dimensionName)
@@ -141,8 +144,10 @@ describe('boolean conditions - Yes/No/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestYesSelectedYesNoNA' },
             { key: 'condition', value: 'YesSelectedYesNoNA' },
         ])
+
         addConditions(['Yes'], dimensionName)
 
         expectTableToMatchRows([`${currentYear}-01-01`, `${currentYear}-04-19`])
@@ -158,8 +163,10 @@ describe('boolean conditions - Yes/No/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestNoSelected' },
             { key: 'condition', value: 'NoSelected' },
         ])
+
         addConditions(['No'], dimensionName)
 
         expectTableToMatchRows([`${currentYear}-01-03`])
@@ -175,8 +182,10 @@ describe('boolean conditions - Yes/No/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestYesAndNotAnsweredSelectedYesNoNA' },
             { key: 'condition', value: 'YesAndNotAnsweredSelectedYesNoNA' },
         ])
+
         addConditions(['Yes', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
@@ -199,8 +208,10 @@ describe('boolean conditions - Yes/No/NA', () => {
         )
         cy.addTestAttributes([
             { key: 'feature', value: 'BooleanConditions' },
+            { key: 'action', value: 'TestYesNoNotAnsweredAllSelected' },
             { key: 'condition', value: 'YesNoNotAnsweredAllSelected' },
         ])
+
         addConditions(['Yes', 'No', 'Not answered'], dimensionName)
 
         expectTableToMatchRows([
