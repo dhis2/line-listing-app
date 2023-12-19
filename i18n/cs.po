@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
+"POT-Creation-Date: 2023-11-29T10:50:15.561Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Jiří Podhorecký, 2023\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -394,7 +394,15 @@ msgstr "Vaše nejsledovanější seznamy řádků"
 msgid "Not available offline"
 msgstr "Není k dispozici offline"
 
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
 msgid "Sort by {{column}}"
+msgstr "Řadit podle {{column}}"
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -641,11 +649,11 @@ msgstr ""
 "K datům v této vizualizaci nemáte přístup. Kontaktujte správce systému."
 
 msgid "You don’t have access to one or more of the chosen organisation units."
-msgstr ""
+msgstr "Nemáte přístup k jedné nebo více vybraným organizačním jednotkám."
 
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
-msgstr ""
+msgstr "Nemáte přístup k analýze událostí. Kontaktujte správce systému."
 
 msgid "Something went wrong"
 msgstr "Něco se pokazilo"
