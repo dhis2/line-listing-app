@@ -35,10 +35,10 @@ describe(`Org unit dimension`, () => {
         cy.setTestDescription(
             'Validates the correct selection of items in the Organisation Unit dimension.'
         )
-        cy.addTestAttributes({
-            feature: 'OrgUnitDimension',
-            action: 'ValidateSelection',
-        })
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OrgUnitDimension' },
+            { key: 'action', value: 'ValidateSelection' },
+        ])
         const TEST_ROOT = 'Sierra Leone'
         goToStartPage()
         selectEventWithProgram(CHILD_PROGRAM)
@@ -175,10 +175,10 @@ describe(`Org unit dimension`, () => {
         cy.setTestDescription(
             'Ensures that the Organisation Unit dimension saves and reloads selected items accurately.'
         )
-        cy.addTestAttributes({
-            feature: 'OrgUnitDimension',
-            action: 'SaveAndReload',
-        })
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OrgUnitDimension' },
+            { key: 'action', value: 'SaveAndReload' },
+        ])
         const TEST_DISTRICTS = ['Port Loko', 'Pujehun', 'Tonkolili']
         const TEST_LEVEL = 'District'
 

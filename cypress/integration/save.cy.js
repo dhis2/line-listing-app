@@ -50,10 +50,10 @@ describe('rename', () => {
         cy.setTestDescription(
             'Verifies the functionality of renaming an Analytics Object with a new name.'
         )
-        cy.addTestAttributes({
-            feature: 'RenameVisualization',
-            action: 'ReplaceName',
-        })
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RenameVisualization' },
+            { key: 'action', value: 'ReplaceName' },
+        ])
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
         setupTable()
@@ -87,10 +87,10 @@ describe('rename', () => {
         cy.setTestDescription(
             'Validates the addition of a description to an existing Analytics Object during renaming.'
         )
-        cy.addTestAttributes({
-            feature: 'RenameVisualization',
-            action: 'AddDescription',
-        })
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RenameVisualization' },
+            { key: 'action', value: 'AddDescription' },
+        ])
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
         const AO_DESC = 'with description'
         const AO_DESC_UPDATED = AO_DESC + ' edited'
