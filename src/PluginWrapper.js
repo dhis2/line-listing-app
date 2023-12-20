@@ -1,5 +1,5 @@
 import { useCacheableSection, CacheableSection } from '@dhis2/app-runtime'
-import { CenteredContent, CircularLoader, Layer } from '@dhis2/ui'
+import { CenteredContent, CircularLoader, CssVariables, Layer } from '@dhis2/ui'
 import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -114,6 +114,7 @@ const PluginWrapper = () => {
             >
                 <Visualization {...propsFromParent} />
             </CacheableSectionWrapper>
+            <CssVariables colors spacers elevations />
         </div>
     ) : null
 }

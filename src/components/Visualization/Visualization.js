@@ -28,6 +28,8 @@ import {
     DataTableFoot,
     Pagination,
     Tooltip,
+    Button,
+    IconLegend24,
     NoticeBox,
 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -125,10 +127,18 @@ export const Visualization = ({
     onResponsesReceived,
     onColumnHeaderClick,
     onError,
+    forDashboard,
 }) => {
+    const containerRef = useRef(null)
     const noTimeDimensionWarningRef = useRef(null)
     const dataTableRef = useRef(null)
+    const fetchContainerRef = useRef(null)
+    const dataTableHeadRef = useRef(null)
+    const dataTableFootRef = useRef(null)
+    const legendKeyRef = useRef(null)
+
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
+    const [showLegendKey, setShowLegendKey] = useState(false)
     const [measuredDimensions, setMeasuredDimensions] = useState({
         paginationMaxWidth: 0,
         noticeBoxMaxWidth: 0,
@@ -150,42 +160,65 @@ export const Visualization = ({
     const shouldShowTimeDimensionWarning = isInModal && !hasTimeDimension
 
     const visualizationRef = useRef(visualization)
-    const legendKeyRef = useRef(null)
 
-    const containerCallbackRef = useCallback((node) => {
-        if (node === null) {
-            return
-        }
+    const sizeObserver = useMemo(
+        () =>
+            new window.ResizeObserver(() => {
+                if (
+                    !containerRef?.current ||
+                    containerRef.current.clientWidth === 0
+                ) {
+                    return
+                }
+                console.log('running adjust size')
+                const containerInnerWidth = containerRef.current.clientWidth
+                const scrollBox =
+                    containerRef.current.querySelector('.tablescrollbox')
+                const scrollbarWidth =
+                    scrollBox.offsetWidth - scrollBox.clientWidth
+                const legendKeyWidth =
+                    legendKeyRef.current?.offsetWidth > 0
+                        ? legendKeyRef.current.offsetWidth + 4
+                        : 0
+                const paginationMaxWidth = Math.max(
+                    containerInnerWidth - scrollbarWidth - legendKeyWidth,
+                    PAGINATION_MIN_WIDTH
+                )
 
-        const adjustSize = () => {
-            if (node.clientWidth === 0) {
+                setMeasuredDimensions({
+                    paginationMaxWidth,
+                    noticeBoxMaxWidth: scrollBox.offsetWidth,
+                })
+            }),
+        []
+    )
+
+    const mountAndObserveContainerRef = useCallback(
+        (node) => {
+            if (node === null) {
                 return
             }
-            const containerInnerWidth = node.clientWidth
-            const scrollBox = node.querySelector('.tablescrollbox')
-            const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
-            const legendKeyWidth =
-                legendKeyRef.current?.offsetWidth > 0
-                    ? legendKeyRef.current.offsetWidth + 4
-                    : 0
-            const paginationMaxWidth = Math.max(
-                containerInnerWidth - scrollbarWidth - legendKeyWidth,
-                PAGINATION_MIN_WIDTH
-            )
 
-            setMeasuredDimensions({
-                paginationMaxWidth,
-                noticeBoxMaxWidth: scrollBox.offsetWidth,
-            })
-        }
+            containerRef.current = node
+            sizeObserver.observe(node)
 
-        const sizeObserver = new window.ResizeObserver(adjustSize)
-        sizeObserver.observe(node)
+            return sizeObserver.disconnect
+        },
+        [sizeObserver]
+    )
 
-        adjustSize()
+    const observeVisualizationContainerRef = useCallback(
+        (node) => {
+            if (node === null) {
+                return
+            }
 
-        return sizeObserver.disconnect
-    }, [])
+            sizeObserver.observe(node)
+
+            return sizeObserver.disconnect
+        },
+        [sizeObserver]
+    )
 
     const setPage = useCallback(
         (pageNum) =>
@@ -221,9 +254,6 @@ export const Visualization = ({
         sortDirection,
     })
 
-    const fetchContainerRef = useRef(null)
-    const dataTableHeadRef = useRef(null)
-    const dataTableFootRef = useRef(null)
     const fetchIndicatorTop = useMemo(() => {
         if (
             !fetching ||
@@ -261,13 +291,15 @@ export const Visualization = ({
                     allLegendSets.findIndex((a) => a.id === e.id) === index &&
                     e.legends?.length
             )
-            if (relevantLegendSets.length && visualization.legend?.showKey) {
+            if (relevantLegendSets.length) {
                 setUniqueLegendSets(relevantLegendSets)
             } else {
                 setUniqueLegendSets([])
             }
+            setShowLegendKey(visualization.legend?.showKey)
         } else {
             setUniqueLegendSets([])
+            setShowLegendKey(false)
         }
     }, [data, visualization])
 
@@ -357,15 +389,42 @@ export const Visualization = ({
         )
     }
 
-    const getLegendKey = () => (
-        <div
-            className={styles.legendKeyScrollbox}
-            data-test="visualization-legend-key"
-            ref={legendKeyRef}
-        >
-            <LegendKey legendSets={uniqueLegendSets} />
-        </div>
-    )
+    const getLegendKey = () =>
+        forDashboard ? (
+            <div className={styles.legendKeyContainer} ref={legendKeyRef}>
+                <div className={styles.legendKeyToggle}>
+                    <Button
+                        small
+                        secondary
+                        onClick={() => {
+                            setShowLegendKey(!showLegendKey)
+                        }}
+                        icon={<IconLegend24 />}
+                        toggled={showLegendKey}
+                    />
+                </div>
+                {showLegendKey && (
+                    <div
+                        className={styles.legendKeyWrapper}
+                        data-test="visualization-legend-key"
+                    >
+                        <div className={styles.wrapper}>
+                            <LegendKey legendSets={uniqueLegendSets} />
+                        </div>
+                    </div>
+                )}
+            </div>
+        ) : (
+            showLegendKey && (
+                <div
+                    className={styles.legendKeyScrollbox}
+                    data-test="visualization-legend-key"
+                    ref={legendKeyRef}
+                >
+                    <LegendKey legendSets={uniqueLegendSets} />
+                </div>
+            )
+        )
 
     const renderCellContent = ({ columnIndex, value, isUndefined, props }) => (
         <DataTableCell
@@ -412,7 +471,10 @@ export const Visualization = ({
     )
 
     return (
-        <div className={styles.pluginContainer} ref={containerCallbackRef}>
+        <div
+            className={styles.pluginContainer}
+            ref={mountAndObserveContainerRef}
+        >
             <div
                 data-test="line-list-fetch-container"
                 className={cx(styles.fetchContainer, {
@@ -427,6 +489,7 @@ export const Visualization = ({
                 <div
                     className={styles.visualizationContainer}
                     style={{ maxWidth: measuredDimensions.paginationMaxWidth }}
+                    ref={observeVisualizationContainerRef}
                 >
                     {shouldShowTimeDimensionWarning && (
                         <div
@@ -600,8 +663,8 @@ export const Visualization = ({
                         </DataTableFoot>
                     </DataTable>
                 </div>
-                {Boolean(uniqueLegendSets.length) && getLegendKey()}
             </div>
+            {Boolean(uniqueLegendSets.length) && getLegendKey()}
         </div>
     )
 }
@@ -618,6 +681,7 @@ Visualization.propTypes = {
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
+    forDashboard: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
     onError: PropTypes.func,
 }
