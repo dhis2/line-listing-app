@@ -47,6 +47,13 @@ const setupTable = () => {
 
 describe('rename', () => {
     it('replace existing name works correctly', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of renaming an Analytics Object with a new name.'
+        )
+        cy.addTestAttributes({
+            feature: 'RenameVisualization',
+            action: 'ReplaceName',
+        })
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
         setupTable()
@@ -77,6 +84,13 @@ describe('rename', () => {
     })
 
     it('add non existing description works correctly', () => {
+        cy.setTestDescription(
+            'Validates the addition of a description to an existing Analytics Object during renaming.'
+        )
+        cy.addTestAttributes({
+            feature: 'RenameVisualization',
+            action: 'AddDescription',
+        })
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
         const AO_DESC = 'with description'
         const AO_DESC_UPDATED = AO_DESC + ' edited'
