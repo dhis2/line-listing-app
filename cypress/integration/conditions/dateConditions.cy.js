@@ -78,6 +78,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('exactly', () => {
+        cy.setTestDescription(
+            'Tests the date condition "exactly" for a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestExactDate' },
+            { key: 'condition', value: 'Exactly' },
+        ])
         const TEST_DATE = '1991-05-21'
 
         addConditions([
@@ -95,6 +103,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('is not', () => {
+        cy.setTestDescription(
+            'Tests the date condition "is not" for excluding a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateIsNot' },
+            { key: 'condition', value: 'IsNot' },
+        ])
         const TEST_DATE = '1991-05-20'
 
         addConditions([
@@ -112,6 +128,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('after', () => {
+        cy.setTestDescription(
+            'Tests the date condition "after" for selecting dates after a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateAfter' },
+            { key: 'condition', value: 'After' },
+        ])
         const TEST_DATE = '1991-05-21'
 
         addConditions([
@@ -129,6 +153,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('after or including', () => {
+        cy.setTestDescription(
+            'Tests the date condition "after or including" for selecting dates after or on a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateAfterOrIncluding' },
+            { key: 'condition', value: 'AfterOrIncluding' },
+        ])
         const TEST_DATE = '1991-05-21'
 
         addConditions([
@@ -149,6 +181,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('before', () => {
+        cy.setTestDescription(
+            'Tests the date condition "before" for selecting dates before a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateBefore' },
+            { key: 'condition', value: 'Before' },
+        ])
         const TEST_DATE = '1991-12-02'
 
         addConditions([
@@ -166,6 +206,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('before or including', () => {
+        cy.setTestDescription(
+            'Tests the date condition "before or including" for selecting dates before or on a specific date.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateBeforeOrIncluding' },
+            { key: 'condition', value: 'BeforeOrIncluding' },
+        ])
         const TEST_DATE = '1991-05-21'
 
         addConditions([
@@ -186,6 +234,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('is empty / null', () => {
+        cy.setTestDescription(
+            'Tests the date condition "is empty / null" for selecting dates that are empty or null.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateIsEmptyOrNull' },
+            { key: 'condition', value: 'IsEmptyOrNull' },
+        ])
         unselectAllPeriods({ label: periodLabel })
 
         selectFixedPeriod({
@@ -211,6 +267,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('is not empty / not null', () => {
+        cy.setTestDescription(
+            'Tests the date condition "is not empty / not null" for selecting dates that are not empty or null.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateIsNotEmptyNotNull' },
+            { key: 'condition', value: 'IsNotEmptyNotNull' },
+        ])
         unselectAllPeriods({ label: periodLabel })
 
         selectFixedPeriod({
@@ -243,6 +307,14 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('2 conditions: after + before or including', () => {
+        cy.setTestDescription(
+            'Tests a combination of "after" and "before or including" date conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DateConditions' },
+            { key: 'action', value: 'TestDateComboAfterBeforeOrIncluding' },
+            { key: 'condition', value: 'AfterBeforeOrIncludingCombo' },
+        ])
         const TEST_DATE_AFT = '1991-05-20'
         const TEST_DATE_BFI = '1991-12-01'
 
@@ -287,6 +359,15 @@ describe('date types', { testIsolation: false }, () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
+            cy.setTestDescription(
+                `Verifies that the "${type}" dimension type supports all defined date operators.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'DateTypeOperatorCheck' },
+                { key: 'action', value: 'VerifyAllOperators' },
+                { key: 'dimension', value: `DimensionType-${type}` },
+            ])
+
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
@@ -304,6 +385,15 @@ describe('date types', { testIsolation: false }, () => {
         })
 
         it(`${type} can be used in a visualization`, () => {
+            cy.setTestDescription(
+                `Ensures that the "${type}" dimension type can be effectively utilized in visualizations.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'DateTypeVisualizationUsage' },
+                { key: 'action', value: 'UtilizationInVisualization' },
+                { key: 'dimension', value: `DimensionType-${type}` },
+            ])
+
             selectRelativePeriod({
                 label: periodLabel,
                 period: TEST_REL_PE_THIS_YEAR,

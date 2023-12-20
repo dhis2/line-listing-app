@@ -19,6 +19,14 @@ const TEST_DIMENSIONS = ['Created by', 'Last updated by']
 describe('user dimensions', () => {
     TEST_DIMENSIONS.forEach((dimensionName) => {
         it(`${dimensionName} is added to the layout`, () => {
+            cy.setTestDescription(
+                `Validates that the '${dimensionName}' user dimension is correctly added to the table layout and appears in the table header.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'UserDimensions' },
+                { key: 'action', value: 'AddToLayout' },
+                { key: 'dimension', value: dimensionName },
+            ])
             // set up table
             goToStartPage()
             selectEnrollmentWithProgram(enrollment)

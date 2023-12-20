@@ -91,6 +91,14 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
             })
 
     it('no legend is applied by default', () => {
+        cy.setTestDescription(
+            'Checks that no legend is applied by default in the visualization.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'VerifyNoDefaultLegend' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
@@ -119,7 +127,16 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // all cells have default background and text color
         assertCellsHaveDefaultColors('tr td')
     })
+
     it('background color legend is applied (per data item)', () => {
+        cy.setTestDescription(
+            'Verifies the application of a background color legend per data item.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'ApplyBackgroundColorPerItem' },
+        ])
+
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content')
@@ -149,7 +166,16 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
+
     it('text color legend is applied (per data item)', () => {
+        cy.setTestDescription(
+            'Ensures that a text color legend is applied per data item.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'ApplyTextColorPerItem' },
+        ])
+
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
@@ -182,9 +208,24 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('legend key is hidden by default', () => {
+        cy.setTestDescription(
+            'Confirms that the legend key is hidden by default in the visualization.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'aspect', value: 'LegendKeyDefaultHidden' },
+        ])
         expectLegendKeyToBeHidden()
     })
     it('legend key displays correctly when enabled', () => {
+        cy.setTestDescription(
+            'Tests the correct display of the legend key when it is enabled, ensuring it matches the legend sets.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'aspect', value: 'LegendKeyDisplay' },
+        ])
+
         openLegendOptionsModal()
 
         expectLegendDisplayStrategyToBeByDataItem()
@@ -202,6 +243,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         expectLegendKeyToMatchLegendSets([TEST_LEGEND_AGE.name])
     })
     it('text color legend is applied (single legend)', () => {
+        cy.setTestDescription(
+            'Verifies the application of a text color legend for the entire visualization using a single legend.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'ApplyTextColorSingleLegend' },
+        ])
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
@@ -247,7 +295,15 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         // unaffected cells (date column) have default background and text color
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
+
     it('background color legend is applied (single legend)', () => {
+        cy.setTestDescription(
+            'Checks the application of a background color legend for the entire visualization using a single legend.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'ApplyBackgroundColorSingleLegend' },
+        ])
         openLegendOptionsModal()
 
         cy.getBySel('options-modal-content').should('contain', 'Legend style')
@@ -280,6 +336,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('options can be saved and loaded', () => {
+        cy.setTestDescription(
+            'Tests the ability to save and subsequently load visualization options, confirming persistence.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'SaveAndLoadOptions' },
+        ])
         const AO_NAME = `TEST ${new Date().toLocaleString()}`
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
@@ -309,6 +372,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         )
     })
     it('legend is applied to negative values (per data item)', () => {
+        cy.setTestDescription(
+            'Validates the application of a legend to negative values in the visualization, per data item.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'ApplyLegendToNegativeValues' },
+        ])
         cy.getBySel('options-modal-content')
             .contains('Use pre-defined legend per data item')
             .click()
@@ -338,6 +408,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         assertCellsHaveDefaultColors('tr td:nth-child(1)')
     })
     it('legend key displays correctly when two items are in use', () => {
+        cy.setTestDescription(
+            'Confirms the correct display of the legend key when two legend items are used in the visualization.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'DisplayLegendKeyWithMultipleItems' },
+        ])
         expectLegendKeyToBeVisible()
 
         expectLegendKeyToMatchLegendSets([
@@ -346,6 +423,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
         ])
     })
     it('empty values do not display a legend color', () => {
+        cy.setTestDescription(
+            'Ensures that empty values in the visualization do not display a legend color.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'CheckEmptyValuesNoColor' },
+        ])
         const currentYear = getCurrentYearStr()
 
         unselectAllPeriods({
@@ -382,6 +466,13 @@ describe(['>=39'], 'Options - Legend', { testIsolation: false }, () => {
             .should('not.equal', '')
     })
     it('saved AO can be deleted', () => {
+        cy.setTestDescription(
+            'Tests the deletion functionality of a saved Analytics Object (AO), ensuring proper removal.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LegendSet' },
+            { key: 'action', value: 'DeleteSavedAO' },
+        ])
         deleteVisualization()
 
         expectRouteToBeEmpty()

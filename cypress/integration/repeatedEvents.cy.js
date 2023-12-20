@@ -90,7 +90,24 @@ describe('repeated events', () => {
     beforeEach(() => {
         goToStartPage()
     })
+
     it('can use repetition for enrollments', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of using repetition for enrollment data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'UseRepetitionForEnrollments' },
+        ])
+
+        cy.setTestDescription(
+            'Verifies if repetition settings can be used and are effective in enrollments.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'UseRepetitionForEnrollments' },
+        ])
+
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
@@ -172,7 +189,24 @@ describe('repeated events', () => {
         // no repetition in header
         expectHeaderToContainExact(0, dimensionName)
     })
+
     it('repetition out of bounds returns as empty value', () => {
+        cy.setTestDescription(
+            'Checks if out-of-bounds repetition settings return empty values in the table.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'RepetitionOutOfBounds' },
+        ])
+
+        cy.setTestDescription(
+            'Checks if out-of-bounds repetition settings result in empty values.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'OutOfBoundsRepetition' },
+        ])
+
         const dimensionName = 'E2E - Percentage'
         setUpTable({ enrollment: E2E_PROGRAM, dimensionName })
 
@@ -195,7 +229,24 @@ describe('repeated events', () => {
             'E2E - Percentage - Stage 1 - Repeatable (most recent)'
         )
     })
-    it('repetition is disabled for non repetable stages', () => {
+
+    it('repetition is disabled for non repeatable stages', () => {
+        cy.setTestDescription(
+            'Verifies that repetition options are disabled for non-repeatable program stages.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'DisableRepetitionForNonRepeatableStages' },
+        ])
+
+        cy.setTestDescription(
+            'Ensures that repetition functionality is disabled for non-repeatable stages.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'DisableNonRepeatable' },
+        ])
+
         selectEnrollmentWithProgram({ programName: 'Child Programme' })
 
         openProgramDimensionsSidebar()
@@ -210,7 +261,24 @@ describe('repeated events', () => {
             'Only available for repeatable stages'
         )
     })
+
     it('repetition is hidden when input = event', () => {
+        cy.setTestDescription(
+            'Ensures that repetition options are hidden when the input type is set to "event".'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'HideRepetitionForEvents' },
+        ])
+
+        cy.setTestDescription(
+            'Confirms that repetition settings are not available when input type is set to event.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'HideForEventInput' },
+        ])
+
         selectEventWithProgram(E2E_PROGRAM)
 
         openProgramDimensionsSidebar()
@@ -219,7 +287,24 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.exist')
     })
+
     it('repetition is not disabled after loading a saved vis with cross-stage data element', () => {
+        cy.setTestDescription(
+            'Confirms that repetition is still enabled when loading a visualization with cross-stage data elements.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'EnableRepetitionOnSavedVisualization' },
+        ])
+
+        cy.setTestDescription(
+            'Verifies repetition settings are still enabled after loading a visualization with cross-stage data elements.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'PersistAfterLoad' },
+        ])
+
         goToAO('WrIV7ZoYECj')
 
         cy.getBySel('titlebar').contains(
@@ -230,7 +315,16 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.have.class', 'disabled')
     })
+
     it('undefined values display properly for a repeated event', () => {
+        cy.setTestDescription(
+            'Checks if undefined values are displayed correctly in the context of a repeated event.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'RepeatedEvents' },
+            { key: 'action', value: 'DisplayUndefinedValuesInRepeatedEvents' },
+        ])
+
         const TEST_CELL = {
             row: 6,
             column: 3,

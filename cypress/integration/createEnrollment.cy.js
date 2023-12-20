@@ -61,6 +61,13 @@ const setUpTable = () => {
 
 const runTests = () => {
     it('creates an enrollment line list', () => {
+        cy.setTestDescription(
+            'Validates the creation of an enrollment line list with specified dimensions and periods.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EnrollmentLineList' },
+            { key: 'action', value: 'CreateList' },
+        ])
         // check the number of columns
         getTableHeaderCells().its('length').should('equal', 3)
 
@@ -90,6 +97,13 @@ const runTests = () => {
     })
 
     it('moves a dimension to filter', () => {
+        cy.setTestDescription(
+            'Tests the functionality of moving a dimension to the filter section in an enrollment line list.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'EnrollmentLineList' },
+            { key: 'action', value: 'MoveDimensionToFilter' },
+        ])
         cy.intercept('**/api/*/analytics/**').as('getAnalytics')
 
         // sort on enrollment date column

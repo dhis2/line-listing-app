@@ -85,6 +85,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('equal to', () => {
+        cy.setTestDescription(
+            `Validates the 'equal to' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestEqualTo' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'EqualTo' },
+        ])
         addConditions(
             [{ conditionName: 'equal to (=)', value: '12' }],
             dimensionName
@@ -98,6 +107,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('greater than', () => {
+        cy.setTestDescription(
+            `Validates the 'greater than' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThan' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'GreaterThan' },
+        ])
         addConditions(
             [{ conditionName: 'greater than (>)', value: '12' }],
             dimensionName
@@ -111,6 +129,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('greater than or equal to', () => {
+        cy.setTestDescription(
+            `Validates the 'greater than or equal to' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThanOrEqualTo' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'GreaterThanOrEqualTo' },
+        ])
         addConditions(
             [{ conditionName: 'greater than or equal to', value: '12' }],
             dimensionName
@@ -131,6 +158,16 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('less than', () => {
+        cy.setTestDescription(
+            `Validates the 'less than' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestLessThan' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'LessThan' },
+        ])
+
         addConditions(
             [{ conditionName: 'less than (<)', value: '12' }],
             dimensionName
@@ -144,6 +181,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('less than or equal to', () => {
+        cy.setTestDescription(
+            `Validates the 'less than or equal to' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestLessThanOrEqualTo' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'LessThanOrEqualTo' },
+        ])
         addConditions(
             [{ conditionName: 'less than or equal to', value: '12' }],
             dimensionName
@@ -160,6 +206,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('not equal to', () => {
+        cy.setTestDescription(
+            `Validates the 'not equal to' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestNotEqualTo' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'NotEqualTo' },
+        ])
         addConditions(
             [{ conditionName: 'not equal to', value: '12' }],
             dimensionName
@@ -180,6 +235,16 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('is empty / null', () => {
+        cy.setTestDescription(
+            `Validates the 'is empty / null' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestIsEmptyOrNull' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'IsEmptyOrNull' },
+        ])
+
         addConditions([{ conditionName: 'is empty / null' }], dimensionName)
 
         getTableRows().should('have.length', 1)
@@ -196,6 +261,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('is not empty / not null', () => {
+        cy.setTestDescription(
+            `Validates the 'is not empty / not null' condition for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestIsNotEmptyNotNull' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'IsNotEmptyNotNull' },
+        ])
         addConditions(
             [{ conditionName: 'is not empty / not null' }],
             dimensionName
@@ -216,6 +290,15 @@ describe('number conditions', { testIsolation: false }, () => {
     })
 
     it('2 conditions: greater than + less than', () => {
+        cy.setTestDescription(
+            `Validates the combination of 'greater than' and 'less than' conditions for the ${dimensionName} dimension.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'NumberConditions' },
+            { key: 'action', value: 'TestGreaterThanLessThanCombo' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'GreaterThanLessThanCombo' },
+        ])
         addConditions(
             [
                 { conditionName: 'greater than (>)', value: '11' },
@@ -247,6 +330,15 @@ describe('integer', { testIsolation: false }, () => {
     })
 
     it('integer with negative value', () => {
+        cy.setTestDescription(
+            `Checks integer condition with negative value for ${dimensionName}.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerNegativeValue' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'IntegerNegativeValue' },
+        ])
         addConditions(
             [{ conditionName: 'greater than (>)', value: '-1' }],
             dimensionName
@@ -260,6 +352,16 @@ describe('integer', { testIsolation: false }, () => {
     })
 
     it('integer with positive value', () => {
+        cy.setTestDescription(
+            `Checks integer condition with positive value for ${dimensionName}.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerPositiveValue' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'IntegerPositiveValue' },
+        ])
+
         addConditions(
             [{ conditionName: 'greater than (>)', value: '1' }],
             dimensionName
@@ -273,6 +375,15 @@ describe('integer', { testIsolation: false }, () => {
     })
 
     it('integer with 0', () => {
+        cy.setTestDescription(
+            `Checks integer condition with 0 value for ${dimensionName}.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'IntegerConditions' },
+            { key: 'action', value: 'TestIntegerZeroValue' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'IntegerZeroValue' },
+        ])
         addConditions(
             [{ conditionName: 'greater than (>)', value: '0' }],
             dimensionName
@@ -333,6 +444,15 @@ describe('preset options', { testIsolation: false }, () => {
     })
 
     it('set only', () => {
+        cy.setTestDescription(
+            `Validates the 'set only' condition for ${dimensionName}.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PresetOptionConditions' },
+            { key: 'action', value: 'TestSetOnly' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'SetOnly' },
+        ])
         addPreset(TEST_PRESET)
 
         expectTableToMatchRows([
@@ -361,6 +481,15 @@ describe('preset options', { testIsolation: false }, () => {
     })
 
     it('set and value', () => {
+        cy.setTestDescription(
+            `Validates the 'set and value' condition for ${dimensionName}.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'PresetOptionConditions' },
+            { key: 'action', value: 'TestSetAndValue' },
+            { key: 'dimension', value: dimensionName },
+            { key: 'condition', value: 'SetAndValue' },
+        ])
         const TEST_VALUE = '10 - 20'
 
         addPreset(TEST_PRESET, TEST_VALUE)
@@ -405,6 +534,15 @@ describe('numeric types', { testIsolation: false }, () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
+            cy.setTestDescription(
+                `Validates that all operators are available for ${type}.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'NumericTypeConditions' },
+                { key: 'action', value: 'VerifyAllOperators' },
+                { key: 'dimension', value: type },
+                { key: 'condition', value: 'AllOperators' },
+            ])
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
@@ -422,6 +560,15 @@ describe('numeric types', { testIsolation: false }, () => {
         })
 
         it(`${type} can be used in a visualization`, () => {
+            cy.setTestDescription(
+                `Validates the usage of ${type} in a visualization.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'NumericTypeConditions' },
+                { key: 'action', value: 'UtilizationInVisualization' },
+                { key: 'dimension', value: type },
+                { key: 'condition', value: 'UsageInVisualization' },
+            ])
             selectRelativePeriod({
                 label: periodLabel,
                 period: TEST_REL_PE_THIS_YEAR,

@@ -70,6 +70,14 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('the interpretations panel can be toggled when clicking the button in the toolbar', () => {
+        cy.setTestDescription(
+            'Verifies toggling the interpretations panel using the toolbar button.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'InterpretationsPanel' },
+            { key: 'action', value: 'ToggleUsingToolbar' },
+        ])
+
         expectInterpretationsButtonToBeEnabled()
 
         clickMenubarInterpretationsButton()
@@ -90,6 +98,14 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('the interpretations panel can be toggled by clicking the option in the view menu', () => {
+        cy.setTestDescription(
+            'Checks toggling the interpretations panel via the view menu.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'InterpretationsPanel' },
+            { key: 'action', value: 'ToggleUsingViewMenu' },
+        ])
+
         // Hiding (the interpretations panel is open at the start of the test)
         clickMenubarViewButton()
 
@@ -113,6 +129,14 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('a new interpretation can be added', () => {
+        cy.setTestDescription(
+            'Ensures that a new interpretation can be added successfully.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'Interpretations' },
+            { key: 'action', value: 'AddNew' },
+        ])
+
         // the rich text editor shows when clicking the input
         cy.getBySel('interpretation-form', EXTENDED_TIMEOUT)
             .find(`input[placeholder="${TEST_WRITE_INTERPRETATION_LABEL}"]`)
@@ -152,6 +176,13 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('the new interpretation can be edited', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of editing an existing interpretation.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'Interpretations' },
+            { key: 'action', value: 'Edit' },
+        ])
         cy.getBySel('interpretation-edit-button', EXTENDED_TIMEOUT).click()
 
         cy.getBySel('interpretations-list').contains('Update')
@@ -178,6 +209,13 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('the new interpretation can be viewed in the modal and interacted with', () => {
+        cy.setTestDescription(
+            'Checks viewing and interacting with an interpretation in the modal.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'Interpretations' },
+            { key: 'action', value: 'ViewAndInteractInModal' },
+        ])
         cy.getBySel('interpretations-list', EXTENDED_TIMEOUT)
             .contains('See interpretation')
             .click()
@@ -222,6 +260,11 @@ describe('interpretations', { testIsolation: false }, () => {
     })
 
     it('the new interpretation can be deleted', () => {
+        cy.setTestDescription('Ensures that an interpretation can be deleted.')
+        cy.addTestAttributes([
+            { key: 'feature', value: 'Interpretations' },
+            { key: 'action', value: 'Delete' },
+        ])
         cy.getBySel('interpretation-delete-button', EXTENDED_TIMEOUT).click()
 
         expectInterpretationFormToBeVisible()

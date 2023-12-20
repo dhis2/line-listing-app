@@ -15,6 +15,14 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 describe('new', () => {
     it('creates a new line list', () => {
+        cy.setTestDescription(
+            'Verifies the creation of a new line list visualization.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'CreateNewLineList' },
+            { key: 'action', value: 'CreateVisualization' },
+        ])
+
         goToStartPage()
 
         cy.getBySelLike('layout-chip', EXTENDED_TIMEOUT).contains(

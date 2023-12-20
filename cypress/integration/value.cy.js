@@ -40,6 +40,13 @@ const shouldHaveWhiteSpace = (index, value) =>
 
 describe('value', () => {
     it('has the correct white-space css', () => {
+        cy.setTestDescription(
+            `Validates that the white-space CSS property is correctly applied to different dimension types in the table.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'CSSPropertyValidation' },
+            { key: 'action', value: 'CheckWhiteSpace' },
+        ])
         const programDimensionsWithWrap = [
             TEST_DIM_TEXT,
             TEST_DIM_TEXT_OPTIONSET,
@@ -94,6 +101,13 @@ describe('value', () => {
 
 describe('option sets', () => {
     it('empty values are left empty', () => {
+        cy.setTestDescription(
+            `Ensures that empty values in option sets are correctly displayed as empty in the table.`
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'OptionSetDisplay' },
+            { key: 'action', value: 'ValidateEmptyValues' },
+        ])
         const currentYear = getCurrentYearStr()
 
         goToStartPage()

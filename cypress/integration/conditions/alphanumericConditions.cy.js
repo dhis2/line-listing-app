@@ -88,7 +88,15 @@ describe('text conditions', { testIsolation: false }, () => {
         setUpTable()
     })
 
-    it('exactly', () => {
+    it('tests condition exactly', () => {
+        cy.setTestDescription(
+            'Verifies that the text condition "exactly" works as expected in filtering data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestExactMatch' },
+            { key: 'condition', value: 'Exactly' },
+        ])
         const TEST_TEXT = 'Text A'
 
         addConditions([{ conditionName: 'exactly', value: TEST_TEXT }])
@@ -100,7 +108,15 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
 
-    it('is not', () => {
+    it('tests condition is not', () => {
+        cy.setTestDescription(
+            'Checks that the text condition "is not" correctly filters out specified data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestExclusion' },
+            { key: 'condition', value: 'IsNot' },
+        ])
         const TEST_TEXT = 'Text A'
 
         addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
@@ -119,7 +135,15 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Is not: ${TEST_TEXT}`])
     })
 
-    it('contains', () => {
+    it('tests condition contains', () => {
+        cy.setTestDescription(
+            'Ensures that the "contains" condition accurately filters data containing specific text.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestContains' },
+            { key: 'condition', value: 'Contains' },
+        ])
         const TEST_TEXT = 'T'
 
         addConditions([
@@ -136,7 +160,14 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    it('contains (case-sensitive)', () => {
+    it('tests condition contains (case-sensitive)', () => {
+        cy.setTestDescription(
+            'Validates the case-sensitive functionality of the "contains" text condition.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'TextConditions' },
+            { key: 'condition', value: 'ContainsCaseSensitive' },
+        ])
         const TEST_TEXT = 'T'
 
         addConditions([
@@ -154,7 +185,15 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
 
-    it('does not contain', () => {
+    it('tests condition does not contain', () => {
+        cy.setTestDescription(
+            'Verifies the "does not contain" condition for correctly excluding specific text.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestDoesNotContain' },
+            { key: 'condition', value: 'DoesNotContain' },
+        ])
         const TEST_TEXT = 'T'
 
         addConditions([
@@ -178,7 +217,15 @@ describe('text conditions', { testIsolation: false }, () => {
         ])
     })
 
-    it('is empty / null', () => {
+    it('tests condition is empty / null', () => {
+        cy.setTestDescription(
+            'Verifies that the "is empty / null" condition correctly identifies and filters empty or null values.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestIsEmptyOrNull' },
+            { key: 'condition', value: 'IsEmptyOrNull' },
+        ])
         addConditions([
             {
                 conditionName: 'is empty / null',
@@ -192,7 +239,15 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
 
-    it('is not empty / not null', () => {
+    it('tests condition is not empty / not null', () => {
+        cy.setTestDescription(
+            'Checks that the "is not empty / not null" condition accurately filters non-empty and non-null values.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestIsNotEmptyOrNull' },
+            { key: 'condition', value: 'IsNotEmptyOrNull' },
+        ])
         addConditions([
             {
                 conditionName: 'is not empty / not null',
@@ -212,7 +267,15 @@ describe('text conditions', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, `Is not empty / not null`])
     })
 
-    it('2 conditions: contains + is not', () => {
+    it('tests multiple conditions: contains + is not', () => {
+        cy.setTestDescription(
+            'Ensures that combining "contains" and "is not" conditions works as expected for filtering data.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'AlphanumericConditions' },
+            { key: 'action', value: 'TestCombinedConditions' },
+            { key: 'condition', value: 'CombinedConditionsContainsIsNot' },
+        ])
         addConditions([
             { conditionName: 'contains', value: 'T' },
             { conditionName: 'is not', value: 'Text A-2' },
@@ -249,6 +312,14 @@ describe('alphanumeric types', { testIsolation: false }, () => {
 
     TEST_TYPES.forEach((type) => {
         it(`${type} has all operators`, () => {
+            cy.setTestDescription(
+                `Verifies that the dimension type "${type}" supports all defined operators.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'AlphanumericConditions' },
+                { key: 'action', value: 'VerifyOperators' },
+                { key: 'dimensionType', value: `Type-${type}` },
+            ])
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
@@ -268,6 +339,14 @@ describe('alphanumeric types', { testIsolation: false }, () => {
         })
 
         it(`${type} can be used in a visualization`, () => {
+            cy.setTestDescription(
+                `Ensures that the dimension type "${type}" can be effectively utilized in visualizations.`
+            )
+            cy.addTestAttributes([
+                { key: 'feature', value: 'AlphanumericConditions' },
+                { key: 'action', value: 'TestInVisualization' },
+                { key: 'dimensionType', value: `Type-${type}` },
+            ])
             selectRelativePeriod({
                 label: periodLabel,
                 period: TEST_REL_PE_THIS_YEAR,

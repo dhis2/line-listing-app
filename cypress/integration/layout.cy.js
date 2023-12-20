@@ -24,6 +24,14 @@ import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('layout', () => {
     it('expansion caret can be toggled', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of toggling the expansion caret in the layout panel.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutPanel' },
+            { key: 'action', value: 'ToggleExpansionCaret' },
+        ])
+
         goToStartPage()
         selectEventWithProgramDimensions({
             ...E2E_PROGRAM,
@@ -64,6 +72,14 @@ describe('layout', () => {
     })
 
     it('the layout panel can be toggled by clicking the option in the view menu', () => {
+        cy.setTestDescription(
+            'Checks the ability to toggle the layout panel using the option in the view menu.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutPanel' },
+            { key: 'action', value: 'ToggleUsingViewMenu' },
+        ])
+
         goToStartPage()
 
         // Hiding
@@ -87,7 +103,15 @@ describe('layout', () => {
         cy.getBySel('layout-container').should('be.visible')
     })
 
-    it('the layout panel can be toggled by clicking the fullscreen button', () => {
+    it.only('the layout panel can be toggled by clicking the fullscreen button', () => {
+        cy.setTestDescription(
+            'Ensures that the layout panel can be toggled using the fullscreen button.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'LayoutPanel' },
+            { key: 'action', value: 'ToggleUsingFullscreen' },
+        ])
+
         // Fullscreen button is only visible when a visualisation is showing
         goToAO(TEST_AO.id)
 

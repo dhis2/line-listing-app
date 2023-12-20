@@ -5,6 +5,14 @@ import { goToStartPage } from '../helpers/startScreen.js'
 
 describe('main sidebar', () => {
     it('the main sidebar can be toggled by clicking the option in the view menu', () => {
+        cy.setTestDescription(
+            'Checks the ability to toggle the main sidebar using the option in the view menu.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'MainSidebar' },
+            { key: 'action', value: 'ToggleUsingViewMenu' },
+        ])
+
         goToStartPage()
 
         // Hiding
@@ -29,6 +37,14 @@ describe('main sidebar', () => {
     })
 
     it('the main sidebar can be toggled by clicking the fullscreen button', () => {
+        cy.setTestDescription(
+            'Verifies the functionality of toggling the main sidebar using the fullscreen button.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'MainSidebar' },
+            { key: 'action', value: 'ToggleUsingFullscreen' },
+        ])
+
         // Fullscreen button is only visible when a visualisation is showing
         goToAO(TEST_AO.id)
 

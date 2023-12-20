@@ -21,6 +21,15 @@ const downloadIsDisabled = () =>
 
 describe('download', () => {
     it('download button enables when required dimensions are selected (event)', () => {
+        cy.setTestDescription(
+            'Ensures the download button is enabled when required dimensions are selected in an event-based analysis.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DownloadFunctionality' },
+            { key: 'action', value: 'EnableDownloadButton' },
+            { key: 'context', value: 'EventBasedAnalysis' },
+        ])
+
         goToStartPage()
 
         downloadIsDisabled()
@@ -35,6 +44,15 @@ describe('download', () => {
     })
 
     it('download button enables when required dimensions are selected (enrollment)', () => {
+        cy.setTestDescription(
+            'Verifies that the download button is enabled when necessary dimensions are selected in an enrollment-based analysis.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'DownloadFunctionality' },
+            { key: 'action', value: 'EnableDownloadButton' },
+            { key: 'context', value: 'EnrollmentBasedAnalysis' },
+        ])
+
         goToStartPage()
 
         downloadIsDisabled()

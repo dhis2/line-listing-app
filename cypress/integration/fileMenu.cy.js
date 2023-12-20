@@ -71,6 +71,15 @@ const assertDownloadIsDisabled = () =>
 
 describe('file menu', () => {
     it('reflects "empty" state', () => {
+        cy.setTestDescription(
+            'Checks if the file menu correctly reflects an "empty" state.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'Empty' },
+        ])
+
         goToStartPage()
 
         assertDownloadIsDisabled()
@@ -79,6 +88,15 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, no program" state', () => {
+        cy.setTestDescription(
+            'Verifies the file menu state for an "unsaved, no program" condition.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'state', value: 'UnsavedNoProgram' },
+            { key: 'action', value: 'VerifyState' },
+        ])
+
         goToStartPage()
 
         clickMenubarUpdateButton()
@@ -91,6 +109,15 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, valid: save" state', () => {
+        cy.setTestDescription(
+            'Ensures the file menu reflects "unsaved, valid: save" state correctly.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'state', value: 'UnsavedValidSave' },
+            { key: 'action', value: 'VerifyState' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -113,6 +140,15 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, valid: data" state', () => {
+        cy.setTestDescription(
+            'Verifies file menu state for "unsaved, valid: data" conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'UnsavedValidData' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -133,6 +169,15 @@ describe('file menu', () => {
     })
 
     it('reflects "unsaved, valid: data" state 2', () => {
+        cy.setTestDescription(
+            'Checks file menu state for "unsaved, valid: data" with specific conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'UnsavedValidData2' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -158,6 +203,15 @@ describe('file menu', () => {
     })
 
     it('reflects "saved, valid: save" state', () => {
+        cy.setTestDescription(
+            'Ensures file menu state is correctly updated for "saved, valid: save" conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'SavedValidSave' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -187,6 +241,15 @@ describe('file menu', () => {
     })
 
     it('reflects "saved, valid: data" state', () => {
+        cy.setTestDescription(
+            'Verifies file menu state for "saved, valid: data" conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'SavedValidData' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -226,6 +289,15 @@ describe('file menu', () => {
     })
 
     it('reflects "dirty" state', () => {
+        cy.setTestDescription(
+            'Checks if file menu correctly reflects a "dirty" state after changes.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'Dirty' },
+        ])
+
         goToStartPage()
 
         selectEventWithProgram({
@@ -284,6 +356,15 @@ describe('file menu', () => {
     })
 
     it('reflects "saved" and "dirty" state (legacy: do not allow saving)', () => {
+        cy.setTestDescription(
+            'Ensures file menu correctly reflects "saved" and "dirty" states, especially in legacy conditions.'
+        )
+        cy.addTestAttributes([
+            { key: 'feature', value: 'FileMenuState' },
+            { key: 'action', value: 'VerifyState' },
+            { key: 'state', value: 'SavedAndDirtyLegacy' },
+        ])
+
         goToAO('TIuOzZ0ID0V')
 
         cy.getBySel('titlebar').contains(
