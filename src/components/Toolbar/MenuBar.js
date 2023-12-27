@@ -240,7 +240,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                         getVisualizationState(current, visualization)
                     ) &&
                     isLayoutValidForSave({
-                        program: current?.program,
+                        ...current,
                         legacy: visualization?.legacy,
                     })
                         ? onSave

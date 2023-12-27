@@ -87,6 +87,11 @@ export const layoutHasTrackedEntityTypeId = (layout) =>
 export const aoCreatedInEventReportsApp = (layout) => layout?.legacy
 
 export const isLayoutValidForSave = (layout) =>
-    layoutHasProgramId(layout) && !aoCreatedInEventReportsApp(layout)
+    layout?.outputType === OUTPUT_TYPE_TRACKED_ENTITY
+        ? layoutHasTrackedEntityTypeId(layout)
+        : layoutHasProgramId(layout) && !aoCreatedInEventReportsApp(layout)
 
-export const isLayoutValidForSaveAs = (layout) => layoutHasProgramId(layout)
+export const isLayoutValidForSaveAs = (layout) =>
+    layout?.outputType === OUTPUT_TYPE_TRACKED_ENTITY
+        ? layoutHasTrackedEntityTypeId(layout)
+        : layoutHasProgramId(layout)
