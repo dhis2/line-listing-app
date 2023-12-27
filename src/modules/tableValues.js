@@ -12,6 +12,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
+import { extractDimensionIdParts } from './utils.js'
 import { headersMap, getStatusNames } from './visualization.js'
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
@@ -19,7 +20,9 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         [
             headersMap[DIMENSION_ID_EVENT_STATUS],
             headersMap[DIMENSION_ID_PROGRAM_STATUS],
-        ].includes(header.name)
+        ].includes(
+            extractDimensionIdParts(header.name, visualization.type).dimensionId
+        )
     ) {
         return getStatusNames()[value] || value
     }
