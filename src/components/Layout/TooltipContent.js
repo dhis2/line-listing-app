@@ -53,7 +53,10 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
             } else if (ouIdHelper.hasGroupPrefix(id)) {
                 groupIds.push(ouIdHelper.removePrefix(id))
             } else {
-                itemDisplayNames.push(metadata[id] ? metadata[id].name : id)
+                const { dimensionId } = extractDimensionIdParts(id, inputType)
+                itemDisplayNames.push(
+                    metadata[dimensionId] ? metadata[dimensionId].name : id
+                )
             }
         })
 
