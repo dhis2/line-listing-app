@@ -17,6 +17,4 @@ describe('Smoke Test', () => {
             .should('be.visible')
             .and('contain', TEST_AO.name)
     })
-
-    // TODO: add similar test for TE
 })

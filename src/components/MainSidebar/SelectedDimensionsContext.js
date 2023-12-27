@@ -81,7 +81,6 @@ export const SelectedDimensionsProvider = ({ children }) => {
                 } else if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
-                // TODO: add count for TE dimensions here
                 return acc
             },
             { program: 0, your: 0, trackedEntity: 0 }
