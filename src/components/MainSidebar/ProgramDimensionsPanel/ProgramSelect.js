@@ -153,7 +153,7 @@ const ProgramSelect = ({ prefix }) => {
                                         programDimensionsMap[
                                             selectedProgram.id
                                         ]) ||
-                                    ''
+                                    null
                                 }
                                 value={selectedProgram?.id}
                             />
@@ -167,7 +167,7 @@ const ProgramSelect = ({ prefix }) => {
                                     suffix={
                                         (selectedEntityTypeId &&
                                             programDimensionsMap[id]) ||
-                                        ''
+                                        null
                                     }
                                 />
                             ))}

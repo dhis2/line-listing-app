@@ -24,7 +24,7 @@ export const SingleSelectOptionWithSuffix = ({
         data-test={dataTest}
     >
         {label}
-        {suffix && <Tag className={styles.tag}>{suffix}</Tag>}
+        {suffix && <Tag className={styles.tag}>{suffix.toString()}</Tag>}
     </div>
 )
 
@@ -34,6 +34,6 @@ SingleSelectOptionWithSuffix.propTypes = {
     active: PropTypes.bool,
     dataTest: PropTypes.string,
     disabled: PropTypes.bool,
-    suffix: PropTypes.string,
+    suffix: PropTypes.number,
     onClick: PropTypes.func,
 }
