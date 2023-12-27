@@ -17,7 +17,10 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../../modules/dimensionConstants.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
-import { extractDimensionIdParts } from '../../modules/utils.js'
+import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../modules/utils.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
@@ -45,11 +48,15 @@ const FixedDimension = ({
     parentGraphMap,
     setUiItems,
     selectedItemsIds,
+    inputType,
 }) => {
     const { rootOrgUnits } = useCachedDataQuery()
     const { serverVersion } = useConfig()
     const statusNames = getStatusNames()
-    const { dimensionId } = extractDimensionIdParts(dimension.id)
+    const { programId, dimensionId } = extractDimensionIdParts(
+        dimension.id,
+        inputType
+    )
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
             dimensionId: dimension.id,
@@ -105,9 +112,30 @@ const FixedDimension = ({
 
     const renderProgramStatus = () => {
         const ALL_STATUSES = [
-            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
-            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-            { id: STATUS_CANCELLED, name: statusNames[STATUS_CANCELLED] },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_ACTIVE,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_ACTIVE],
+            },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_COMPLETED,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_COMPLETED],
+            },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_CANCELLED,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_CANCELLED],
+            },
         ]
 
         return (
