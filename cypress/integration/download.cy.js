@@ -2,6 +2,7 @@ import { E2E_PROGRAM } from '../data/index.js'
 import {
     selectEnrollmentWithProgram,
     selectEventWithProgram,
+    selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -43,6 +44,18 @@ describe('download', () => {
         selectEnrollmentWithProgram({
             programName: E2E_PROGRAM.programName,
         })
+
+        clickMenubarUpdateButton()
+
+        downloadIsEnabled()
+    })
+
+    it('download button disables when required dimensions are selected (tracked entity)', () => {
+        goToStartPage()
+
+        downloadIsDisabled()
+
+        selectTrackedEntityWithType('Person')
 
         clickMenubarUpdateButton()
 

@@ -39,13 +39,14 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
     }
 
     // program
-    if (!layoutHasProgramId(layout)) {
+    if (
+        layout.outputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
+        !layoutHasProgramId(layout)
+    ) {
         if (dryRun) {
             return false
         }
-        if (layout.outputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
-            throw noProgramError()
-        }
+        throw noProgramError()
     }
 
     // columns
