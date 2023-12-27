@@ -23,9 +23,7 @@ import {
 
 const currentYear = getCurrentYearStr()
 
-// TODO: add similar tests like this but for program status in TE
-
-describe('event status', () => {
+describe('event status (event)', () => {
     const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
