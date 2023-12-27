@@ -17,6 +17,7 @@ import { headersMap, getStatusNames } from './visualization.js'
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     if (
+        header.name &&
         [
             headersMap[DIMENSION_ID_EVENT_STATUS],
             headersMap[DIMENSION_ID_PROGRAM_STATUS],
