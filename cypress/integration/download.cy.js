@@ -49,15 +49,19 @@ describe('download', () => {
         downloadIsEnabled()
     })
 
-    it('download button disables when required dimensions are selected (tracked entity)', () => {
-        goToStartPage()
+    it(
+        ['>=41'],
+        'download button disables when required dimensions are selected (tracked entity)',
+        () => {
+            goToStartPage()
 
-        downloadIsDisabled()
+            downloadIsDisabled()
 
-        selectTrackedEntityWithType('Person')
+            selectTrackedEntityWithType('Person')
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        downloadIsEnabled()
-    })
+            downloadIsEnabled()
+        }
+    )
 })
