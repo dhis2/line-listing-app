@@ -70,7 +70,7 @@ describe('layout validation', () => {
             expectTableToBeVisible()
         })
     })
-    it('validates that type and org unit are required (TE)', () => {
+    it(['>=41'], 'validates that type and org unit are required (TE)', () => {
         goToStartPage()
 
         cy.getBySel('input-tracked-entity').click()
