@@ -11,6 +11,7 @@ import {
 } from './options.js'
 import { parseUiRepetition } from './ui.js'
 import { extractDimensionIdParts } from './utils.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -21,7 +22,7 @@ export const getDefaultFromUi = (current, ui) => {
         itemsByDimension: getItemsByDimensionFromUi(ui),
     }
 
-    return {
+    const output = {
         // merge with current if current is a saved visualization to keep id, access etc
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
@@ -32,25 +33,27 @@ export const getDefaultFromUi = (current, ui) => {
         ...getAxesFromUi(adaptedUi),
         ...getOptionsFromUi(adaptedUi),
     }
+
+    // delete program and programStage if output type is TE as the api doesn't accept these props at all
+    if (output.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        delete output.program
+        delete output.programStage
+    }
+
+    return output
 }
 
 export const getEntityTypeFromUi = (ui) => ({
     entityType: { id: ui.entityType?.id },
 })
 
-export const getProgramFromUi = (ui) =>
-    ui.program?.id
-        ? {
-              program: { id: ui.program.id },
-          }
-        : {}
+export const getProgramFromUi = (ui) => ({
+    program: { id: ui.program?.id },
+})
 
-export const getProgramStageFromUi = (ui) =>
-    ui.program?.stageId
-        ? {
-              programStage: { id: ui.program.stageId },
-          }
-        : {}
+export const getProgramStageFromUi = (ui) => ({
+    programStage: { id: ui.program?.stageId },
+})
 
 export const getOptionsFromUi = (ui) => {
     const legend = {
