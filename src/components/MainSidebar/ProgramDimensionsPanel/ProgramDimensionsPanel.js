@@ -118,10 +118,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                 {isProgramSelectionComplete() ? (
                     <>
                         <div className={cx(styles.section, styles.bordered)}>
-                            <ProgramSelect
-                                selectedProgram={selectedProgram}
-                                prefix={i18n.t('Program')}
-                            />
+                            <ProgramSelect prefix={i18n.t('Program')} />
                         </div>
                         {selectedProgram && (
                             <>
