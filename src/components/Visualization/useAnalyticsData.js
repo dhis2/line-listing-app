@@ -401,7 +401,7 @@ const useAnalyticsData = ({
             if (
                 visualization.legend?.strategy ===
                     LEGEND_DISPLAY_STRATEGY_FIXED &&
-                visualization.legend?.set?.id
+                visualization.legend.set?.id
             ) {
                 legendSetIds.push(visualization.legend.set.id)
             } else if (
