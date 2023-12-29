@@ -117,7 +117,11 @@ const ProgramDimensionsFilter = ({
         {[OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
             useSelector(sGetUiInputType)
         ) &&
-            dimensionType === DIMENSION_TYPE_DATA_ELEMENT && (
+            dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+            (!stageFilter ||
+                program?.programStages.some(
+                    (stage) => stage.id === stageFilter
+                )) && (
                 <StageFilter
                     stages={program?.programStages}
                     selected={stageFilter}
