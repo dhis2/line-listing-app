@@ -8,6 +8,9 @@ import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
+import { sGetUiInputType } from '../../reducers/ui.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
 
@@ -17,11 +20,14 @@ const VALUE_TYPE_BOOLEAN_NUM_OPTIONS = 3
 // Presentational component used by dnd - do not add redux or dnd functionality
 
 export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
+    const inputType = useSelector(sGetUiInputType)
+
     const { id, name, dimensionType, optionSet, valueType, suffix } = dimension
 
     const getChipSuffix = () => {
         if (
-            (id === DIMENSION_ID_ORGUNIT ||
+            ((inputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
+                id === DIMENSION_ID_ORGUNIT) ||
                 dimensionType === DIMENSION_TYPE_PERIOD) &&
             !itemsLength
         ) {

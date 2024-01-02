@@ -60,6 +60,7 @@ export const validateLineListLayout = (layout, { dryRun } = {}) => {
     // organisation unit
     const ouDimension = layoutGetDimension(layout, DIMENSION_ID_ORGUNIT)
     if (
+        layout.outputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
         !(ouDimension && dimensionIsValid(ouDimension, { requireItems: true }))
     ) {
         if (dryRun) {

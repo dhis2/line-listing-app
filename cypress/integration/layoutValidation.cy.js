@@ -70,44 +70,51 @@ describe('layout validation', () => {
             expectTableToBeVisible()
         })
     })
-    it(['>=41'], 'validates that type and org unit are required (TE)', () => {
-        goToStartPage()
+    it.only(
+        ['>=41'],
+        'validates that type and org unit are required (TE)',
+        () => {
+            goToStartPage()
 
-        cy.getBySel('input-tracked-entity').click()
+            cy.getBySel('input-tracked-entity').click()
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        cy.getBySel('error-container').contains(
-            'No tracked entity type selected'
-        )
+            cy.getBySel('error-container').contains(
+                'No tracked entity type selected'
+            )
 
-        selectTrackedEntityWithType('Person')
+            selectTrackedEntityWithType('Person')
 
-        // remove org unit
-        clickAddRemoveMainDimension('Registration org. unit')
+            // remove org unit
+            clickAddRemoveMainDimension('Registration org. unit')
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        // columns is required
-        cy.getBySel('error-container').contains('Columns is empty')
+            // columns is required
+            cy.getBySel('error-container').contains('Columns is empty')
 
-        // add something other than org unit to columns
-        clickAddRemoveMainDimension('Last updated by')
+            // add something other than org unit to columns
+            clickAddRemoveMainDimension('Last updated by')
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        // org unit dimension is required
-        cy.getBySel('error-container').contains('No organisation unit selected')
+            // org unit isn't required
+            expectTableToBeVisible()
 
-        // remove previously added dimension
-        clickAddRemoveMainDimension('Last updated by')
+            // remove previously added dimension
+            clickAddRemoveMainDimension('Last updated by')
 
-        // add org unit to columns
-        clickAddRemoveMainDimension('Registration org. unit')
+            // add org unit to columns without any items selected
+            clickAddRemoveMainDimension('Registration org. unit')
+            // FIXME: uncomment the following lines once https://dhis2.atlassian.net/browse/DHIS2-16381 is fixed
+            // openOuDimension(DIMENSION_ID_ORGUNIT)
+            // deselectUserOrgUnit('User organisation unit')
+            // clickOrgUnitDimensionModalUpdateButton()
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        // validation succeeds when all above are provided
-        expectTableToBeVisible()
-    })
+            expectTableToBeVisible()
+        }
+    )
 })
