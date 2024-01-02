@@ -213,7 +213,7 @@ const fetchAnalyticsData = async ({
     }
 
     if (visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-        req = req.withTrackedEntityType(visualization.entityType.id)
+        req = req.withTrackedEntityType(visualization.trackedEntityType.id)
     }
 
     if (relativePeriodDate && isAoWithTimeDimension(visualization)) {

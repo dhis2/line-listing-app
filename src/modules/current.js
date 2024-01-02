@@ -44,7 +44,7 @@ export const getDefaultFromUi = (current, ui) => {
 }
 
 export const getEntityTypeFromUi = (ui) => ({
-    entityType: { id: ui.entityType?.id },
+    trackedEntityType: { id: ui.entityType?.id },
 })
 
 export const getProgramFromUi = (ui) => ({

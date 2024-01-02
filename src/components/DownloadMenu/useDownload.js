@@ -45,7 +45,9 @@ const useDownload = (relativePeriodDate) => {
 
             switch (current.outputType) {
                 case OUTPUT_TYPE_TRACKED_ENTITY:
-                    req = req.withTrackedEntityType(current.entityType.id)
+                    req = req.withTrackedEntityType(
+                        current.trackedEntityType.id
+                    )
                     break
                 default:
                     req = req

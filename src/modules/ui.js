@@ -31,6 +31,7 @@ export const getAdaptedUiByType = (ui) => {
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
     input: getInputTypeFromVisualization(vis),
+    entityType: vis.trackedEntityType,
     program: getProgramFromVisualisation(vis),
     options: getOptionsFromVisualization(vis),
     layout: layoutGetAxisIdDimensionIdsObject(vis),

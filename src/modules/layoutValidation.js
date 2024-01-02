@@ -83,7 +83,7 @@ export const validateLayout = (layout) => {
 export const layoutHasProgramId = (layout) => Boolean(layout?.program?.id)
 
 export const layoutHasTrackedEntityTypeId = (layout) =>
-    Boolean(layout?.entityType?.id)
+    Boolean(layout?.trackedEntityType?.id)
 
 export const aoCreatedInEventReportsApp = (layout) => layout?.legacy
 
