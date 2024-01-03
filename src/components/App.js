@@ -360,8 +360,9 @@ const App = () => {
                 }
             }
         }
-
-        dispatch(acAddMetadata(optionSetsMetadata))
+        if (Object.keys(optionSetsMetadata).length) {
+            dispatch(acAddMetadata(optionSetsMetadata))
+        }
     }
 
     const addTrackedEntityTypeMetadata = (visualization) => {
