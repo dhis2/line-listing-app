@@ -4,6 +4,7 @@ import { NoticeBox, SingleSelect, SingleSelectOption } from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiEntityType } from '../../../actions/ui.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import styles from './ProgramSelect.module.css'
 
@@ -27,8 +28,9 @@ const TypeSelect = () => {
 
     const types = data?.programs.trackedEntityTypes
 
-    const selectedType =
-        selectedTypeId && types?.find(({ id }) => id === selectedTypeId)
+    const selectedType = useSelector((state) =>
+        sGetMetadataById(state, selectedTypeId)
+    )
 
     const setSelectedTypeId = (typeId) => {
         if (typeId !== selectedTypeId) {

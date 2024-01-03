@@ -87,6 +87,7 @@ const visualizationQuery = {
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
                 'legend[set[id,displayName],strategy,style,showKey]',
+                'trackedEntityType[id,displayName~rename(name)]',
                 '!interpretations',
                 '!userGroupAccesses',
                 '!publicAccess',
@@ -363,6 +364,14 @@ const App = () => {
         dispatch(acAddMetadata(optionSetsMetadata))
     }
 
+    const addTrackedEntityTypeMetadata = (visualization) => {
+        const { id, name } = visualization.trackedEntityType || {}
+
+        if (id && name) {
+            dispatch(acAddMetadata({ [id]: { id, name } }))
+        }
+    }
+
     useEffect(() => {
         if (data?.eventVisualization) {
             dispatch(acClearLoadError())
@@ -373,6 +382,7 @@ const App = () => {
             )
 
             addOptionSetsMetadata(visualization)
+            addTrackedEntityTypeMetadata(visualization)
 
             dispatch(
                 acAddParentGraphMap(
