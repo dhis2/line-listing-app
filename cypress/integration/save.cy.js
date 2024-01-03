@@ -4,6 +4,7 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
+    TEST_DIM_NUMBER,
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_LAST_YEAR,
 } from '../data/index.js'
@@ -11,9 +12,11 @@ import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
+    selectTrackedEntityWithTypeAndProgramDimensions,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
+    openAOByName,
     renameVisualization,
     resaveVisualization,
     saveVisualization,
@@ -112,15 +115,19 @@ describe('rename', () => {
 })
 
 describe('save', () => {
-    // TODO: duplicate and adapt to TE
-    it('new AO with name saves correctly', () => {
-        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+    it('new AO with name saves correctly (event)', () => {
+        const AO_NAME = `TEST event ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
         setupTable()
 
         // save with a name
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // open AO by name
+        goToStartPage()
+        openAOByName(AO_NAME)
         expectTableToBeVisible()
 
         // save as with name change
@@ -135,7 +142,42 @@ describe('save', () => {
 
         deleteVisualization()
     })
+    it(['>=41'], 'new AO with name saves correctly (TE)', () => {
+        const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
+        const UPDATED_AO_NAME = AO_NAME + ' 2'
 
+        goToStartPage()
+        selectTrackedEntityWithTypeAndProgramDimensions({
+            typeName: 'Person',
+            programName: event.programName,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        clickMenubarUpdateButton()
+        expectTableToBeVisible()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // open AO by name
+        goToStartPage()
+        openAOByName(AO_NAME)
+        expectTableToBeVisible()
+
+        // save as with name change
+        saveVisualizationAs(UPDATED_AO_NAME)
+        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectTableToBeVisible()
+
+        // save as without name change
+        saveVisualizationAs()
+        expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
+        expectTableToBeVisible()
+
+        deleteVisualization()
+    })
     it('new AO without name saves correctly', () => {
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
         const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list visualization'
