@@ -642,6 +642,25 @@ msgstr "You don’t have access to event analytics. Contact a system administrat
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+
+msgid "There's a syntax problem with the analytics request."
+msgstr "There's a syntax problem with the analytics request."
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event status"
+msgstr "Event status"
+
+msgid "Program status"
+msgstr "Program status"
+
 msgid "Last updated on"
 msgstr "Last updated on"
 
