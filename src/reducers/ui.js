@@ -441,7 +441,7 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
-export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state).id
+export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state)?.id
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||

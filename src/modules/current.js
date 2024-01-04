@@ -38,6 +38,8 @@ export const getDefaultFromUi = (current, ui) => {
     if (output.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
         delete output.program
         delete output.programStage
+    } else {
+        delete output.trackedEntityType
     }
 
     return output

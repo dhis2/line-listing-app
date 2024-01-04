@@ -1,3 +1,4 @@
+import { AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_EVENT_DATE,
@@ -22,6 +23,7 @@ import {
     saveVisualization,
     saveVisualizationAs,
 } from '../helpers/fileMenu.js'
+import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import {
     clickMenubarUpdateButton,
     clickMenubarInterpretationsButton,
@@ -165,6 +167,11 @@ describe('save', () => {
         goToStartPage()
         openAOByName(AO_NAME)
         expectTableToBeVisible()
+
+        expectAxisToHaveDimension(
+            AXIS_ID_COLUMNS,
+            'J1QQtmzqhJz.jfuXZB3A1ko.Vcu7eF3ndYW'
+        )
 
         // save as with name change
         saveVisualizationAs(UPDATED_AO_NAME)

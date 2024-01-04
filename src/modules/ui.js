@@ -12,6 +12,7 @@ import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
 import { getProgramFromVisualisation } from './program.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
+import { formatDimensionId } from './utils.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,
@@ -80,9 +81,12 @@ const getConditionsFromVisualization = (vis) =>
         .reduce(
             (acc, key) => ({
                 ...acc,
-                [key.programStage?.id
-                    ? `${key.programStage.id}.${key.dimension}`
-                    : key.dimension]: {
+                [formatDimensionId({
+                    dimensionId: key.dimension,
+                    programStageId: key.programStage?.id,
+                    programId: key.program?.id,
+                    outputType: vis.outputType,
+                })]: {
                     condition: key.filter,
                     legendSet: key.legendSet?.id,
                 },
