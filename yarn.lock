@@ -2041,10 +2041,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@999.9.9-TE-alpha.2":
-  version "999.9.9-TE-alpha.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-999.9.9-TE-alpha.2.tgz#a21e518eca45f54eafff947be101b85c50648edc"
-  integrity sha512-RTLhYuO4MvHWJBR7PWh45A3Gy38JcNamK0cSsI4pfBQbNGMzQ/g/FhzPGtj88UXP8N4eQYgZvgWU43X8EODcfw==
+"@dhis2/analytics@999.9.9-TE-alpha.3":
+  version "999.9.9-TE-alpha.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-999.9.9-TE-alpha.3.tgz#c3eff03d26ce385dbe0e62af86ddd033c8c5b937"
+  integrity sha512-Ig0VFTCpF1GZAcfxewjt6f3WZzhaGzZ0voOvTYHxvUt8+GswE3Y806rrWFWo81MpHiCeQg9mPvyVv5jd1VUb3Q==
   dependencies:
     "@dhis2/d2-ui-rich-text" "^7.4.1"
     "@dhis2/multi-calendar-dates" "1.0.0"
