@@ -4,6 +4,7 @@ import {
     USER_ORG_UNIT,
     USER_ORG_UNIT_CHILDREN,
     USER_ORG_UNIT_GRANDCHILDREN,
+    DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
@@ -28,6 +29,10 @@ import { acSetVisualization } from '../actions/visualization.js'
 import { parseCondition, OPERATOR_IN } from '../modules/conditions.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from '../modules/dimensionConstants.js'
+import {
     analyticsGenerationError,
     analyticsRequestError,
     dataAccessError,
@@ -39,12 +44,14 @@ import {
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
+import { getProgramDimensions } from '../modules/programDimensions.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import {
     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
     USER_SETTINGS_DISPLAY_PROPERTY,
 } from '../modules/userSettings.js'
+import { formatDimensionId } from '../modules/utils.js'
 import {
     getDimensionMetadataFields,
     transformVisualization,
@@ -372,6 +379,40 @@ const App = () => {
             dispatch(acAddMetadata({ [id]: { id, name } }))
         }
     }
+    const addFixedDimensionsMetadata = (visualization) => {
+        const fixedDimensionsMetadata = {}
+
+        const dimensions = [
+            ...(visualization.columns || []),
+            ...(visualization.rows || []),
+            ...(visualization.filters || []),
+        ]
+
+        for (const dimension of dimensions.filter(
+            (d) =>
+                [
+                    DIMENSION_ID_ORGUNIT,
+                    DIMENSION_ID_EVENT_STATUS,
+                    DIMENSION_ID_PROGRAM_STATUS,
+                ].includes(d.dimension) && d.program?.id
+        )) {
+            const dimensionId = formatDimensionId({
+                dimensionId: dimension.dimension,
+                programId: dimension.program.id,
+                outputType: visualization.outputType,
+            })
+            const metadata = getProgramDimensions(dimension.program.id)[
+                dimensionId
+            ]
+
+            if (metadata) {
+                fixedDimensionsMetadata[dimensionId] = metadata
+            }
+        }
+        if (Object.keys(fixedDimensionsMetadata).length) {
+            dispatch(acAddMetadata(fixedDimensionsMetadata))
+        }
+    }
 
     useEffect(() => {
         if (data?.eventVisualization) {
@@ -384,6 +425,7 @@ const App = () => {
 
             addOptionSetsMetadata(visualization)
             addTrackedEntityTypeMetadata(visualization)
+            addFixedDimensionsMetadata(visualization)
 
             dispatch(
                 acAddParentGraphMap(

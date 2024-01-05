@@ -10,15 +10,19 @@ import {
 import { getDefaultOuMetadata } from './metadata.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
+export const getCreatedDimension = () => ({
+    [DIMENSION_ID_CREATED]: {
+        id: DIMENSION_ID_CREATED,
+        dimensionType: DIMENSION_TYPE_PERIOD,
+        name: i18n.t('Registration date'),
+    },
+})
+
 export const getMainDimensions = (inputType) => ({
     ...(inputType === OUTPUT_TYPE_TRACKED_ENTITY
         ? {
               ...getDefaultOuMetadata(inputType),
-              [DIMENSION_ID_CREATED]: {
-                  id: DIMENSION_ID_CREATED,
-                  dimensionType: DIMENSION_TYPE_PERIOD,
-                  name: i18n.t('Registration date'),
-              },
+              ...getCreatedDimension(),
           }
         : {}),
     [DIMENSION_ID_LAST_UPDATED]: {
