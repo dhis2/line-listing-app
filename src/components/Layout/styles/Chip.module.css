@@ -49,7 +49,7 @@
     line-height: 15px;
     flex: 1 2.3 auto;
     color: var(--colors-teal600);
-    padding-left: 6px;
+    padding-left: 3px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
