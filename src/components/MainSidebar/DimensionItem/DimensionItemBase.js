@@ -34,7 +34,10 @@ const DimensionItemBase = ({
             <div className={styles.label}>
                 <span className={styles.primary}>{name}</span>
                 {stageName && (
-                    <span className={styles.secondary}>{stageName}</span>
+                    <>
+                        <span>, </span>
+                        <span className={styles.secondary}>{stageName}</span>
+                    </>
                 )}
             </div>
         </div>
