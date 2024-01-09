@@ -54,7 +54,7 @@ describe('Org unit condition', () => {
 
         cy.getBySel('conditions-modal').contains('Add to Columns').click()
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, orgUnitName])
     })

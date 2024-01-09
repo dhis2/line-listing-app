@@ -85,10 +85,7 @@ describe('event status', () => {
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
+        assertChipContainsText(dimensionName, 'all')
 
         // Add filter 'Active'
 
@@ -109,7 +106,7 @@ describe('event status', () => {
         expectTableToMatchRows([`${currentYear}-02-01`])
         expectTableToMatchRows(['Active'])
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries(['Active'])
 
@@ -132,7 +129,7 @@ describe('event status', () => {
         expectTableToMatchRows([`${currentYear}-02-01`, `${currentYear}-12-25`])
         expectTableToMatchRows(['Active', 'Scheduled'])
 
-        assertChipContainsText(`${dimensionName}: 2 selected`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries(['Scheduled'])
     })
@@ -178,10 +175,7 @@ describe('event status', () => {
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
+        assertChipContainsText(dimensionName, 'all')
 
         // Add filter 'Active'
 
@@ -202,7 +196,7 @@ describe('event status', () => {
         expectTableToMatchRows([`${currentYear}-02-01`])
         expectTableToMatchRows(['Active'])
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries(['Active'])
     })
