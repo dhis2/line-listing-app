@@ -1,4 +1,4 @@
-import { CHILD_PROGRAM } from '../data/index.js'
+import { E2E_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
     clickAddRemoveProgramDimension,
@@ -15,7 +15,7 @@ describe('layout validation', () => {
     const types = ['event', 'enrollment']
     types.forEach((type) => {
         it(`validates that program, columns and org unit are required (${type})`, () => {
-            const trackerProgram = CHILD_PROGRAM
+            const trackerProgram = E2E_PROGRAM
 
             goToStartPage()
 
