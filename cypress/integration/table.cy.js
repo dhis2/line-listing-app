@@ -50,6 +50,7 @@ import {
     selectRelativePeriod,
     getPreviousYearStr,
     getCurrentYearStr,
+    getOffsetYearStr,
 } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
@@ -94,7 +95,7 @@ const programDimensions = [
 const programDataDimensions = [
     { label: TEST_DIM_AGE, value: '1991-01-01' },
     { label: TEST_DIM_COORDINATE, value: '[-0.090380,51.538034]' },
-    { label: TEST_DIM_DATE, value: '1991-12-01' },
+    { label: TEST_DIM_DATE, value: `${getOffsetYearStr(32)}-12-01` },
     { label: TEST_DIM_DATETIME, value: '1991-12-01 12:00' },
     { label: TEST_DIM_EMAIL, value: 'email@address.com' },
     { label: TEST_DIM_INTEGER, value: '10' },
