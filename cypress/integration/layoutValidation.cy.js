@@ -36,6 +36,9 @@ describe('layout validation', () => {
                 selectEnrollmentWithProgram({
                     programName: trackerProgram.programName,
                 })
+                // this will fail in january since default period is "last 12 months" and the first available enrollment is in january current year
+                // TODO: add another period if this test is run in january?
+                // or add a new enrollment in the test data for december last year?
             }
 
             openProgramDimensionsSidebar()
