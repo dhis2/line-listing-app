@@ -69,9 +69,6 @@ import {
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
-// +/- min width of "Rows per page" select + 2 * padding
-// + 30% in case label text are longer than English
-export const PAGINATION_MIN_WIDTH = 250
 
 const getFontSizeClass = (fontSize) => {
     switch (fontSize) {
@@ -140,6 +137,7 @@ export const Visualization = ({
     const [uniqueLegendSets, setUniqueLegendSets] = useState([])
     const [showLegendKey, setShowLegendKey] = useState(false)
     const [measuredDimensions, setMeasuredDimensions] = useState({
+        containerMaxWidth: 0,
         paginationMaxWidth: 0,
         noticeBoxMaxWidth: 0,
     })
@@ -161,36 +159,30 @@ export const Visualization = ({
 
     const visualizationRef = useRef(visualization)
 
-    const sizeObserver = useMemo(
-        () =>
-            new window.ResizeObserver(() => {
-                if (
-                    !containerRef?.current ||
-                    containerRef.current.clientWidth === 0
-                ) {
-                    return
-                }
-                console.log('running adjust size')
-                const containerInnerWidth = containerRef.current.clientWidth
-                const scrollBox =
-                    containerRef.current.querySelector('.tablescrollbox')
-                const scrollbarWidth =
-                    scrollBox.offsetWidth - scrollBox.clientWidth
-                const legendKeyWidth =
-                    legendKeyRef.current?.offsetWidth > 0
-                        ? legendKeyRef.current.offsetWidth + 4
-                        : 0
-                const paginationMaxWidth = Math.max(
-                    containerInnerWidth - scrollbarWidth - legendKeyWidth,
-                    PAGINATION_MIN_WIDTH
-                )
+    const onResize = useCallback(() => {
+        if (!containerRef?.current || containerRef.current.clientWidth === 0) {
+            return
+        }
+        const containerInnerWidth = containerRef.current.clientWidth
+        const scrollBox = containerRef.current.querySelector('.tablescrollbox')
+        const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
+        const legendKeyWidth =
+            legendKeyRef.current?.offsetWidth > 0
+                ? legendKeyRef.current.offsetWidth + 4
+                : 0
+        const containerMaxWidth =
+            containerInnerWidth - scrollbarWidth - legendKeyWidth
 
-                setMeasuredDimensions({
-                    paginationMaxWidth,
-                    noticeBoxMaxWidth: scrollBox.offsetWidth,
-                })
-            }),
-        []
+        setMeasuredDimensions({
+            containerMaxWidth,
+            paginationMaxWidth: containerMaxWidth - scrollbarWidth,
+            noticeBoxMaxWidth: scrollBox.offsetWidth,
+        })
+    }, [])
+
+    const sizeObserver = useMemo(
+        () => new window.ResizeObserver(onResize),
+        [onResize]
     )
 
     const mountAndObserveContainerRef = useCallback(
@@ -398,6 +390,7 @@ export const Visualization = ({
                         secondary
                         onClick={() => {
                             setShowLegendKey(!showLegendKey)
+                            window.requestAnimationFrame(onResize)
                         }}
                         icon={<IconLegend24 />}
                         toggled={showLegendKey}
@@ -489,7 +482,7 @@ export const Visualization = ({
                 <div
                     className={styles.visualizationContainer}
                     ref={observeVisualizationContainerRef}
-                    style={{ maxWidth: measuredDimensions.paginationMaxWidth }}
+                    style={{ maxWidth: measuredDimensions.containerMaxWidth }}
                 >
                     {shouldShowTimeDimensionWarning && (
                         <div
@@ -621,7 +614,6 @@ export const Visualization = ({
                                         style={{
                                             maxWidth:
                                                 measuredDimensions.paginationMaxWidth,
-                                            minWidth: PAGINATION_MIN_WIDTH,
                                         }}
                                     >
                                         <PaginationComponent
