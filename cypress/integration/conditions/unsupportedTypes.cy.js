@@ -67,7 +67,7 @@ describe('unsupported types', () => {
 
             cy.getBySel('conditions-modal').contains('Add to Columns').click()
 
-            assertChipContainsText(`${type.dimension}: all`)
+            assertChipContainsText(type.dimension, 'all')
 
             assertTooltipContainsEntries([
                 stageName,
