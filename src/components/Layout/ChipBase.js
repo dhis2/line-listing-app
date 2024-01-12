@@ -57,6 +57,8 @@ export const ChipBase = ({
         }
     }
 
+    const chipItems = getChipItems()
+
     return (
         <div className={cx(styles.chipBase)}>
             <div className={styles.leftIcon}>
@@ -71,9 +73,9 @@ export const ChipBase = ({
                     </>
                 )}
             </span>
-            {suffix && (
+            {chipItems && (
                 <span className={styles.items} data-test="chip-items">
-                    {getChipItems()}
+                    {chipItems}
                 </span>
             )}
         </div>
