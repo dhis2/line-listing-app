@@ -164,14 +164,19 @@ export const tSetUiProgram =
     (dispatch, getState) => {
         const state = getState()
         dispatch(acClearUiProgram())
-        if (sGetUiInputType(state) !== OUTPUT_TYPE_TRACKED_ENTITY) {
+        const inputType = sGetUiInputType(state)
+        if (inputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
             dispatch(tClearUiProgramRelatedDimensions())
         }
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
                     ...getProgramAsMetadata(program),
-                    ...getDynamicTimeDimensionsMetadata(program, stage),
+                    ...getDynamicTimeDimensionsMetadata(
+                        program,
+                        stage,
+                        inputType
+                    ),
                 })
             )
         stage && dispatch(acUpdateUiProgramStageId(stage.id))

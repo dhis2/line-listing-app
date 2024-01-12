@@ -8,7 +8,11 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import { getMainDimensions, getCreatedDimension } from './mainDimensions.js'
 import { getProgramDimensions } from './programDimensions.js'
-import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
+import {
+    getTimeDimensions,
+    getTimeDimensionName,
+    getTimeDimensionMetadataId,
+} from './timeDimensions.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY, getStatusNames } from './visualization.js'
 
 const formatObject = (object) =>
@@ -70,12 +74,27 @@ export const getProgramAsMetadata = (program) => ({
     [program.id]: program,
 })
 
-export const getDynamicTimeDimensionsMetadata = (program, stage) => ({
+export const getDynamicTimeDimensionsMetadata = (
+    program,
+    stage,
+    inputType
+) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
-        acc[dimension.id] = {
-            id: dimension.id,
+        const dimensionIdPrefix =
+            inputType === OUTPUT_TYPE_TRACKED_ENTITY ? program?.id : null
+        const dimId = getTimeDimensionMetadataId(
+            dimension.id,
+            dimensionIdPrefix
+        )
+        acc[dimId] = {
+            id: dimId,
             dimensionType: dimension.dimensionType,
-            name: getTimeDimensionName(dimension, program, stage),
+            name: getTimeDimensionName(
+                dimension,
+                program,
+                stage,
+                dimensionIdPrefix
+            ),
         }
         return acc
     }, {}),

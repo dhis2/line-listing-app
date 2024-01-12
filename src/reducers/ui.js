@@ -23,8 +23,12 @@ import {
     getIsProgramDimensionDisabled,
     getProgramDimensions,
 } from '../modules/programDimensions.js'
-import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
+import {
+    getHiddenTimeDimensions,
+    getTimeDimensionMetadataId,
+} from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
+import { extractDimensionIdParts } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -489,17 +493,22 @@ export const useProgramDimensions = () => {
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
 
+    const getId = (dimensionId) =>
+        inputType === OUTPUT_TYPE_TRACKED_ENTITY
+            ? getTimeDimensionMetadataId(dimensionId, programId)
+            : dimensionId
+
     const eventDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_EVENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_EVENT_DATE))
     )
     const enrollmentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_ENROLLMENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_ENROLLMENT_DATE))
     )
     const incidentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_INCIDENT_DATE))
     )
     const scheduledDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
     )
 
     return useMemo(() => {
@@ -520,10 +529,18 @@ export const useProgramDimensions = () => {
                 ? [scheduledDateDim]
                 : []),
             incidentDateDim,
-        ].filter(
-            (dimension) =>
-                !!dimension && !hiddenTimeDimensions.includes(dimension.id)
-        )
+        ].filter((dimension) => {
+            // TODO this filter used to return !!dimension && !hiddenTimeDimensions.includes(dimension.id)
+            // is there a reason the dimension is checked for existence?
+            if (!dimension) {
+                return false
+            }
+            const { dimensionId } = extractDimensionIdParts(
+                dimension.id,
+                inputType
+            )
+            return !hiddenTimeDimensions.includes(dimensionId)
+        })
 
         const programDimensions = Object.values(
             getProgramDimensions(

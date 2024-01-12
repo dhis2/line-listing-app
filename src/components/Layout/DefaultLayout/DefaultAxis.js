@@ -93,6 +93,7 @@ export const getDimensionsWithSuffix = ({
             return dimension
         })
 
+        // console.log('jj dimensionsWithSuffix', dimensionsWithSuffix)
         return dimensionsWithSuffix
     }
 
