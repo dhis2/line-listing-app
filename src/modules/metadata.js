@@ -80,21 +80,14 @@ export const getDynamicTimeDimensionsMetadata = (
     inputType
 ) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
-        const dimensionIdPrefix =
-            inputType === OUTPUT_TYPE_TRACKED_ENTITY ? program?.id : null
-        const dimId = getTimeDimensionMetadataId(
+        const dimensionId = getTimeDimensionMetadataId(
             dimension.id,
-            dimensionIdPrefix
+            inputType === OUTPUT_TYPE_TRACKED_ENTITY ? program?.id : null
         )
-        acc[dimId] = {
-            id: dimId,
+        acc[dimensionId] = {
+            id: dimensionId,
             dimensionType: dimension.dimensionType,
-            name: getTimeDimensionName(
-                dimension,
-                program,
-                stage,
-                dimensionIdPrefix
-            ),
+            name: getTimeDimensionName(dimension, program, stage),
         }
         return acc
     }, {}),
