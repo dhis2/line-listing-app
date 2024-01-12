@@ -31,8 +31,11 @@
     font-weight: medium;
     font-size: 14px;
     line-height: 16px;
+    font-weight: 500;
     color: var(--colors-grey900);
     user-select: none;
+    display: flex;
+    align-items: center;
 }
 .description {
     font-size: 13px;

@@ -25,20 +25,20 @@ export const ChipBase = ({
 }) => {
     const { id, name, dimensionType, optionSet, valueType, suffix } = dimension
 
-    const getChipSuffix = () => {
+    const getChipItems = () => {
         if (
             ((inputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
                 id === DIMENSION_ID_ORGUNIT) ||
                 dimensionType === DIMENSION_TYPE_PERIOD) &&
             !itemsLength
         ) {
-            return ''
+            return null
         }
 
         const all = i18n.t('all')
 
         if (!conditionsLength && !itemsLength) {
-            return `: ${all}`
+            return all
         }
 
         if (
@@ -47,27 +47,14 @@ export const ChipBase = ({
             (valueType === VALUE_TYPE_BOOLEAN &&
                 conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
         ) {
-            return `: ${all}`
+            return all
         }
 
         if (optionSet || itemsLength) {
-            const selected = itemsLength || conditionsLength
-            const suffix = i18n.t('{{count}} selected', {
-                count: selected,
-                defaultValue: '{{count}} selected',
-                defaultValue_plural: '{{count}} selected',
-            })
-            return `: ${suffix}`
+            return itemsLength || conditionsLength
         } else if (conditionsLength) {
-            const suffix = i18n.t('{{count}} conditions', {
-                count: conditionsLength,
-                defaultValue: '{{count}} condition',
-                defaultValue_plural: '{{count}} conditions',
-            })
-            return `: ${suffix}`
+            return conditionsLength
         }
-
-        return ''
     }
 
     return (
@@ -77,9 +64,18 @@ export const ChipBase = ({
             </div>
             <span className={styles.label}>
                 <span className={styles.primary}>{name}</span>
-                {suffix && <span className={styles.secondary}>{suffix}</span>}
+                {suffix && (
+                    <>
+                        <span>,</span>
+                        <span className={styles.secondary}>{suffix}</span>
+                    </>
+                )}
             </span>
-            <span className={styles.suffix}>{getChipSuffix()}</span>
+            {suffix && (
+                <span className={styles.items} data-test="chip-items">
+                    {getChipItems()}
+                </span>
+            )}
         </div>
     )
 }
