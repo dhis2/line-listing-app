@@ -12,5 +12,12 @@
     flex-grow: 1;
 }
 .stage {
-    margin-left: var(--spacers-dp8);
+    margin-left: var(--spacers-dp4);
+}
+
+.label {
+    color: var(--colors-grey700);
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 2px;
 }

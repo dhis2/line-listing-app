@@ -75,7 +75,7 @@ describe('Option set condition', () => {
         expectTableToContainValue(valueToFilterBy)
         expectTableToContainValue(valueToFilterOut)
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         openDimension(dimensionName)
 
@@ -85,7 +85,7 @@ describe('Option set condition', () => {
 
         expectTableToBeVisible()
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([valueToFilterBy])
 
@@ -131,7 +131,7 @@ describe('Option set condition', () => {
         expectTableToContainValue(filteredOutOptionName)
         expectTableToContainValue(filteredOptionName)
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         openDimension(dimensionName)
 
@@ -139,7 +139,7 @@ describe('Option set condition', () => {
 
         cy.getBySel('conditions-modal').contains('Update').click()
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([filteredOptionName])
 
@@ -193,7 +193,8 @@ describe('Option set condition', () => {
 
             testData.forEach(({ dimensionName, filteredOptionNames }) => {
                 assertChipContainsText(
-                    `${dimensionName}: ${filteredOptionNames.length} selected`
+                    dimensionName,
+                    filteredOptionNames.length
                 )
 
                 assertTooltipContainsEntries(filteredOptionNames)

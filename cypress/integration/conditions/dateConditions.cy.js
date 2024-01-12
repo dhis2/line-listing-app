@@ -90,7 +90,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         expectTableToMatchRows([TEST_DATE])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
@@ -111,7 +111,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-12-02`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
     })
@@ -131,7 +131,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-12-02`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `After: ${TEST_DATE}`])
     })
@@ -152,7 +152,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-12-02`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -176,7 +176,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-12-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Before: ${TEST_DATE}`])
     })
@@ -196,7 +196,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-05-21`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -224,7 +224,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         expectTableToMatchRows([`${previousYear}-01-02`])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
@@ -256,7 +256,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-05-21`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not empty / not null`])
     })
@@ -281,7 +281,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             `${getOffsetYearStr(32)}-12-01`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([
             stageName,

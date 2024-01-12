@@ -11,6 +11,7 @@ import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -54,10 +55,7 @@ const assertTimeDimension = (dimension) => {
         getTableHeaderCells().contains(label).should('be.visible')
 
         //check the chip in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${label}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText(label, 1)
     })
 }
 

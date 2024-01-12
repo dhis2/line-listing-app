@@ -1,9 +1,10 @@
 .chip {
     position: relative;
     display: flex;
-    margin: var(--spacers-dp4);
-    background-color: var(--colors-teal200);
-    border-radius: 3px;
+    margin: 2px;
+    background-color: var(--colors-teal100);
+    border: 1px solid var(--colors-teal200);
+    border-radius: 2px;
     width: fit-content;
     cursor: pointer;
 }
@@ -11,11 +12,10 @@
 .content {
     display: inline-flex;
     cursor: pointer;
-    min-height: 24px;
+    min-height: 20px;
     user-select: none;
     width: fit-content;
     align-items: center;
-    padding-right: 2px;
 }
 
 .chipBase {
@@ -23,11 +23,11 @@
     display: flex;
     max-width: 360px;
     align-items: center;
-    font-size: 14px;
-    line-height: 16px;
-    color: var(--colors-grey900);
-    margin-right: var(--spacers-dp4);
-    padding: 4px 2px 4px 6px;
+    font-size: 13px;
+    line-height: 15px;
+    color: var(--colors-teal900);
+    margin-right: 2px;
+    padding: 1px 2px 1px 4px;
 }
 
 .label {
@@ -48,27 +48,36 @@
     font-size: 13px;
     line-height: 15px;
     flex: 1 2.3 auto;
-    color: var(--colors-grey700);
-    padding-left: 6px;
+    color: var(--colors-teal600);
+    padding-left: 3px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.suffix {
+.items {
     white-space: nowrap;
-    flex: 1;
+    flex-shrink: 0;
+    font-family: monospace;
+    font-size: 11px;
+    background: #c5e4e3;
+    border-radius: 2px;
+    margin-left: 4px;
+    min-width: 12px;
+    text-align: center;
+    padding: 2px 2px 1px 2px;
 }
 
 .chip:hover {
-    background: #9fdbd5;
+    background: #cdeae8;
+    border: 1px solid #93c4bf;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .dragging {
     margin: 0;
-    padding: 1px 24px 1px 6px;
     align-items: center;
-    min-height: 24px;
+    min-height: 20px;
 }
 
 .chip:not(.active).insertBefore .content::before,
@@ -122,15 +131,31 @@
 }
 
 .chipEmpty {
-    background-color: var(--colors-grey300);
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey400);
+    color: var(--colors-grey900);
 }
 
 .chipEmpty:hover {
-    background-color: var(--colors-grey400);
+    background-color: var(--colors-grey200);
+    border-color: var(--colors-grey400);
+}
+
+.chipEmpty .chipBase {
+    color: var(--colors-grey900);
+}
+
+.chipEmpty .secondary {
+    color: var(--colors-grey600);
+}
+
+.chipEmpty .suffix {
+    background: #eff1f3;
+    color: var(--colors-grey900);
 }
 
 .leftIcon {
-    margin-right: 6px;
+    margin-right: 4px;
     line-height: 0;
 }
 

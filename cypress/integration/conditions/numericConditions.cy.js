@@ -56,7 +56,7 @@ const setUpTable = (dimensionName, period) => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    assertChipContainsText(dimensionName, 'all')
 }
 
 const addConditions = (conditions, dimensionName) => {
@@ -92,7 +92,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['12'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
     })
@@ -105,7 +105,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['2 000 000', '5 557 779 990', '5 123 123'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
     })
@@ -122,7 +122,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -138,7 +138,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['11', '3.7'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
     })
@@ -151,7 +151,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['11', '12', '3.7'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -174,7 +174,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
     })
@@ -190,7 +190,7 @@ describe('number conditions', { testIsolation: false }, () => {
             .invoke('trim')
             .should('equal', '')
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
@@ -210,7 +210,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
@@ -226,7 +226,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['12'])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([
             stageName,
@@ -254,7 +254,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '1', '0', '35', '0', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): -1'])
     })
@@ -267,7 +267,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '35', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 1'])
     })
@@ -280,7 +280,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '1', '35', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
     })
@@ -329,7 +329,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
     })
 
     it('set only', () => {
@@ -355,7 +355,7 @@ describe('preset options', { testIsolation: false }, () => {
             '40 - 50',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, TEST_PRESET])
     })
@@ -372,7 +372,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         expectTableToMatchRows([TEST_VALUE, TEST_VALUE])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, TEST_VALUE])
     })
