@@ -77,7 +77,7 @@ describe('Your dimensions', () => {
         expectTableToBeVisible()
 
         // check the chip in the layout
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // open the dimension and add a filter
         cy.getBySel('your-dimensions-list').contains(dimensionName).click()
@@ -106,7 +106,7 @@ describe('Your dimensions', () => {
         cy.getBySel('dynamic-dimension-modal').contains('Update').click()
 
         // check the chip in the layout
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         // check the chip tooltip
         assertTooltipContainsEntries([filteredItemName])

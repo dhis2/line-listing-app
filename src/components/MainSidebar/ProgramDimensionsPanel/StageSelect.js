@@ -25,10 +25,10 @@ const StageSelect = ({ stages }) => {
 
     return (
         <div className={cx(styles.rows, styles.stage)}>
+            <span className={styles.label}>{i18n.t('Stage')}</span>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
                     <SingleSelect
-                        prefix={i18n.t('Stage')}
                         dense
                         selected={selectedStageId}
                         onChange={onChange}

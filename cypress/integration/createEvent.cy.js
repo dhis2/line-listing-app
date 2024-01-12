@@ -12,6 +12,7 @@ import {
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -69,7 +70,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 3)
@@ -83,20 +84,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 
     it('creates an event line list (event program)', () => {
@@ -148,7 +138,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 3)
@@ -162,20 +152,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 
     it('moves a dimension to filter', () => {
@@ -197,7 +176,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // move Report date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
@@ -219,20 +198,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('filters-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 }
 

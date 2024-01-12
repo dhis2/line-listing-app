@@ -5,6 +5,7 @@ import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
@@ -95,9 +96,7 @@ describe('period dimension', { testIsolation: false }, () => {
 
         cy.contains('Add to Columns').click()
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${TEST_DIM_NAME}: 1 selected`)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
             `January 1, ${previousYear} - December 31, ${currentYear}`
@@ -120,9 +119,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .containsExact(TEST_DIM_NAME)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME)
 
         cy.getBySelLike('tooltip-content').contains('None selected')
 
@@ -140,9 +137,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${TEST_DIM_NAME}: 1 selected`)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
             `January 1, ${previousYear} - December 31, ${currentYear}`
@@ -156,9 +151,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .containsExact(TEST_DIM_NAME)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME)
 
         cy.getBySelLike('tooltip-content').contains('None selected')
     })
