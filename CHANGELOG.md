@@ -1,3 +1,10 @@
+# [100.12.0](https://github.com/dhis2/line-listing-app/compare/v100.11.4...v100.12.0) (2024-01-12)
+
+
+### Features
+
+* updated chip design (DHIS2-15897) ([#478](https://github.com/dhis2/line-listing-app/issues/478)) ([eeba81f](https://github.com/dhis2/line-listing-app/commit/eeba81f3846ac90caf159caf26813a81e4a05682)), closes [#464](https://github.com/dhis2/line-listing-app/issues/464) [#464](https://github.com/dhis2/line-listing-app/issues/464)
+
 ## [100.11.4](https://github.com/dhis2/line-listing-app/compare/v100.11.3...v100.11.4) (2023-12-10)
 
 
