@@ -4,6 +4,7 @@ import {
     openProgramDimensionsSidebar,
     selectEnrollmentWithProgram,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -48,10 +49,7 @@ describe('user dimensions', () => {
             getTableHeaderCells().contains(dimensionName).should('be.visible')
 
             // dimension has a chip in the layout
-            cy.getBySel('columns-axis')
-                .findBySelLike('layout-chip')
-                .contains(`${dimensionName}: all`)
-                .should('be.visible')
+            assertChipContainsText(dimensionName, 'all')
         })
     })
 })

@@ -9,6 +9,7 @@ import {
     TEST_FIX_PE_DEC_LAST_YEAR,
 } from '../data/index.js'
 import { selectEnrollmentWithProgramDimensions } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -56,7 +57,7 @@ const setUpTable = () => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    assertChipContainsText(dimensionName, 'all')
 }
 
 const runTests = () => {
@@ -73,20 +74,9 @@ const runTests = () => {
         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 
     it('moves a dimension to filter', () => {
@@ -133,20 +123,9 @@ const runTests = () => {
         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('filters-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 }
 

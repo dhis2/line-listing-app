@@ -50,7 +50,7 @@ const setUpTable = () => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+    assertChipContainsText(dimensionName, 'all')
 }
 
 const addConditions = (conditions) => {
@@ -95,7 +95,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows([TEST_TEXT])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
     })
@@ -114,7 +114,7 @@ describe('text conditions', { testIsolation: false }, () => {
             'Text E',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not: ${TEST_TEXT}`])
     })
@@ -131,7 +131,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text A-2', 'Text E'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
@@ -149,7 +149,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['Text A', 'Text A-2', 'Text E'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
     })
@@ -170,7 +170,7 @@ describe('text conditions', { testIsolation: false }, () => {
             '9000000',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -187,7 +187,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows([`${currentYear}-03-01`, `${currentYear}-02-01`]) // empty row, use value in date column
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
@@ -207,7 +207,7 @@ describe('text conditions', { testIsolation: false }, () => {
             'Text E',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not empty / not null`])
     })
@@ -220,7 +220,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text E'])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
     })
