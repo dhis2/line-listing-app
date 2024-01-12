@@ -13,6 +13,7 @@ import {
     sGetUiItemsByDimension,
     sGetUiConditionsByDimension,
     sGetUiOptions,
+    sGetUiInputType,
 } from '../../reducers/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import { ChipBase } from './ChipBase.js'
@@ -53,6 +54,7 @@ const Chip = ({
     })
 
     const metadata = useSelector(sGetMetadata)
+    const inputType = useSelector(sGetUiInputType)
     const { digitGroupSeparator } = useSelector(sGetUiOptions)
     const conditions = useSelector((state) =>
         sGetUiConditionsByDimension(state, dimension.id)
@@ -151,6 +153,7 @@ const Chip = ({
                                         }
                                         itemsLength={items.length}
                                         metadata={metadata}
+                                        inputType={inputType}
                                     />
                                 </div>
                             )}
