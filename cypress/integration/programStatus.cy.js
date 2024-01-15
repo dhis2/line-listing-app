@@ -53,10 +53,7 @@ describe(['>=41'], 'program status (tracked entity)', () => {
             .contains('Enrollment PROGRAM_STATUS')
             .should('be.visible')
 
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
+        assertChipContainsText(dimensionName, 'all')
 
         // Add filter 'Completed'
 

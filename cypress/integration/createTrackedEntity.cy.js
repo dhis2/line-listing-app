@@ -10,6 +10,7 @@ import {
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
@@ -103,7 +104,7 @@ const setUpTable = () => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${entityDimensionName}: all`)
+    assertChipContainsText(entityDimensionName, 'all')
 }
 
 // const runTests = () => {
@@ -125,10 +126,7 @@ const setUpTable = () => {
 //             .contains('Organisation unit: 1 selected')
 //             .should('be.visible')
 
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${entityDimensionName}: all`)
-//             .should('be.visible')
+//         assertChipContainsText(entityDimensionName, 'all')
 
 //         cy.getBySel('columns-axis')
 //             .findBySelLike('layout-chip')
@@ -185,10 +183,7 @@ const setUpTable = () => {
 //             .contains('Organisation unit: 1 selected')
 //             .should('be.visible')
 
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${entityDimensionName}: all`)
-//             .should('be.visible')
+//         assertChipContainsText(entityDimensionName, 'all')
 
 //         cy.getBySel('filters-axis')
 //             .findBySelLike('layout-chip')
