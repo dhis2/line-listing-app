@@ -30,7 +30,8 @@ const Chip = ({
     onClick,
     activeIndex,
 }) => {
-    const { id, name, dimensionType, valueType, optionSet } = dimension
+    const { id, name, dimensionType, valueType, optionSet, nameModifier } =
+        dimension
 
     const {
         attributes,
@@ -45,10 +46,12 @@ const Chip = ({
     } = useSortable({
         id,
         data: {
+            id,
             name,
             dimensionType,
             valueType,
             optionSet,
+            nameModifier,
         },
     })
 

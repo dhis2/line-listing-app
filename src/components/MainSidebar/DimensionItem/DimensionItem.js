@@ -46,6 +46,8 @@ export const DimensionItem = ({
             dimensionType,
             valueType,
             optionSet,
+            stageName,
+            nameModifier: stageName,
         },
     }
 
@@ -87,7 +89,7 @@ export const DimensionItem = ({
                 dimensionType={dimensionType}
                 disabled={disabled}
                 selected={selected}
-                stageName={stageName}
+                nameModifier={stageName}
                 onClick={onClick}
                 dataTest={`dimension-item-${id}`}
                 contextMenu={

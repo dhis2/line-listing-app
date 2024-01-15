@@ -44,7 +44,7 @@
     white-space: nowrap;
 }
 
-.secondary {
+.nameModifier {
     font-size: 13px;
     line-height: 15px;
     flex: 1 2.3 auto;
@@ -145,7 +145,7 @@
     color: var(--colors-grey900);
 }
 
-.chipEmpty .secondary {
+.chipEmpty .nameModifier {
     color: var(--colors-grey600);
 }
 

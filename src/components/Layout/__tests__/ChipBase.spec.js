@@ -128,7 +128,7 @@ describe('ChipBase', () => {
             dimensionType: 'DATA_ELEMENT',
             valueType: 'NUMBER',
             optionSet: 'optionSetId',
-            stageName: 'Stage 1',
+            nameModifier: 'Stage 1',
         }
 
         const { container } = render(
