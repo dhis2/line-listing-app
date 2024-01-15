@@ -121,17 +121,11 @@ const setUpTable = () => {
 //         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
 //         //check the chips in the layout
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains('Organisation unit: 1 selected')
-//             .should('be.visible')
+//         assertChipContainsText('Organisation unit', 1)
 
 //         assertChipContainsText(entityDimensionName, 'all')
 
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${periodLabel}: 1 selected`)
-//             .should('be.visible')
+//         assertChipContainsText(periodLabel, 1)
 //     })
 
 //     it('moves a dimension to filter', () => {
@@ -178,16 +172,8 @@ const setUpTable = () => {
 //         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
 //         //check the chips in the layout
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains('Organisation unit: 1 selected')
-//             .should('be.visible')
-
+//         assertChipContainsText('Organisation unit', 1)
 //         assertChipContainsText(entityDimensionName, 'all')
-
-//         cy.getBySel('filters-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${periodLabel}: 1 selected`)
-//             .should('be.visible')
+//         assertChipContainsText(periodLabel, 1)
 //     })
 // }

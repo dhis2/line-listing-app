@@ -73,7 +73,7 @@ describe(['>=41'], 'program status (tracked entity)', () => {
 
         expectTableToMatchRows(['Completed'])
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries(['Completed'])
     })
