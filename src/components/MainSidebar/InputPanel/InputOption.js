@@ -17,9 +17,11 @@ const InputOption = ({
         onClick={onClick}
         data-test={dataTest}
     >
-        <Radio checked={selected} />
         <div className={styles.label}>
-            <div className={styles.header}>{header}</div>
+            <div className={styles.header}>
+                <Radio dense checked={selected} />
+                <span>{header}</span>
+            </div>
             <div className={styles.description}>{description}</div>
             {children}
         </div>
