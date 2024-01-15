@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
+"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2023\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -188,18 +188,6 @@ msgstr "Télécharger"
 
 msgid "all"
 msgstr "Tout"
-
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{nombre}} sélectionnés"
-msgstr[2] "{{nombre}} sélectionnés"
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] "{{count}} condition"
-msgstr[1] "{{nombre}} conditions"
-msgstr[2] "{{nombre}} colonnes"
 
 msgid "Levels"
 msgstr "Niveaux"
@@ -407,7 +395,15 @@ msgstr "Vos listes de lignes les plus consultées"
 msgid "Not available offline"
 msgstr "Non disponible hors ligne"
 
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
 msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -661,6 +657,14 @@ msgstr ""
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
+
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
 
 msgid "Last updated on"
 msgstr "Dernière mise à jour le"
