@@ -27,7 +27,7 @@ const DefaultAxis = ({ axisId, className }) => {
     })
 
     const dispatch = useDispatch()
-    const dimensionIds = useSelector((state) =>
+    const axisDimensionIds = useSelector((state) =>
         sGetUiDimensionIdsByAxisId(state, axisId)
     )
     const renderChips = useSelector(renderChipsSelector)
@@ -36,7 +36,7 @@ const DefaultAxis = ({ axisId, className }) => {
     const inputType = useSelector(sGetUiInputType)
     const layoutDimensionIds = useSelector(sGetDimensionIdsFromLayout)
 
-    const activeIndex = draggingId ? dimensionIds.indexOf(draggingId) : -1
+    const activeIndex = draggingId ? axisDimensionIds.indexOf(draggingId) : -1
 
     const overLastDropZone = over?.id === lastDropZoneId
 
@@ -44,19 +44,19 @@ const DefaultAxis = ({ axisId, className }) => {
         <div ref={setNodeRef} className={styles.lastDropzone}>
             <div id={axisId} className={cx(styles.axisContainer, className)}>
                 <div className={styles.label}>{getAxisName(axisId)}</div>
-                <SortableContext id={axisId} items={dimensionIds}>
+                <SortableContext id={axisId} items={axisDimensionIds}>
                     <div
                         className={styles.content}
                         data-test={`${axisId}-axis`}
                     >
                         <DropZone
                             axisId={axisId}
-                            firstElementId={dimensionIds[0]}
+                            firstElementId={axisDimensionIds[0]}
                             overLastDropZone={overLastDropZone}
                         />
                         {renderChips &&
                             getDimensionsWithNameModifier({
-                                dimensionIds,
+                                axisDimensionIds,
                                 metadata,
                                 inputType,
                                 layoutDimensionIds,
@@ -72,7 +72,7 @@ const DefaultAxis = ({ axisId, className }) => {
                                     }
                                     dimension={dimension}
                                     axisId={axisId}
-                                    isLast={i === dimensionIds.length - 1}
+                                    isLast={i === axisDimensionIds.length - 1}
                                     overLastDropZone={overLastDropZone}
                                     activeIndex={activeIndex}
                                 />

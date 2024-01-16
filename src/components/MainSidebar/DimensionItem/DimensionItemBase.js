@@ -12,7 +12,7 @@ const DimensionItemBase = ({
     dimensionType,
     selected,
     disabled,
-    nameModifier,
+    stageName,
     contextMenu,
     onClick,
     dataTest,
@@ -33,10 +33,10 @@ const DimensionItemBase = ({
 
             <div className={styles.label}>
                 <span className={styles.primary}>{name}</span>
-                {nameModifier && (
+                {stageName && (
                     <>
                         <span>, </span>
-                        <span className={styles.secondary}>{nameModifier}</span>
+                        <span className={styles.secondary}>{stageName}</span>
                     </>
                 )}
             </div>
@@ -54,7 +54,7 @@ DimensionItemBase.propTypes = {
     disabled: PropTypes.bool,
     dragging: PropTypes.bool,
     selected: PropTypes.bool,
-    nameModifier: PropTypes.string,
+    stageName: PropTypes.string,
     onClick: PropTypes.func,
 }
 

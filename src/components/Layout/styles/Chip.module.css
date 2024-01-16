@@ -145,7 +145,7 @@
     color: var(--colors-grey900);
 }
 
-.chipEmpty .nameModifier {
+.chipEmpty .secondary {
     color: var(--colors-grey600);
 }
 

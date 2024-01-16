@@ -47,7 +47,6 @@ export const DimensionItem = ({
             valueType,
             optionSet,
             stageName,
-            nameModifier: stageName,
         },
     }
 

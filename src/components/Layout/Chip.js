@@ -30,7 +30,7 @@ const Chip = ({
     onClick,
     activeIndex,
 }) => {
-    const { id, name, dimensionType, valueType, optionSet, nameModifier } =
+    const { id, name, dimensionType, valueType, optionSet, stageName } =
         dimension
 
     const {
@@ -51,7 +51,7 @@ const Chip = ({
             dimensionType,
             valueType,
             optionSet,
-            nameModifier,
+            stageName,
         },
     })
 
