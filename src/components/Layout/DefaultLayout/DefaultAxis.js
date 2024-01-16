@@ -6,7 +6,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
-import { getDimensionsWithNameModifier } from '../../../modules/getDimensionsWithNameModifier.js'
+import { getDimensionsWithStageName } from '../../../modules/getDimensionsWithStageName.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,
@@ -55,7 +55,7 @@ const DefaultAxis = ({ axisId, className }) => {
                             overLastDropZone={overLastDropZone}
                         />
                         {renderChips &&
-                            getDimensionsWithNameModifier({
+                            getDimensionsWithStageName({
                                 axisDimensionIds,
                                 metadata,
                                 inputType,

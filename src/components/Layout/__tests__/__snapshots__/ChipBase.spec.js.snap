@@ -188,7 +188,7 @@ exports[`ChipBase Data element: in stage with option set and 2 options chosen 1`
         ,
       </span>
       <span
-        class="nameModifier"
+        class="secondary"
       >
         Stage 1
       </span>

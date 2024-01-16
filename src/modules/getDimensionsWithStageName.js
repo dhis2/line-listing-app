@@ -2,7 +2,7 @@ import { DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
 import { extractDimensionIdParts } from './utils.js'
 import { OUTPUT_TYPE_ENROLLMENT } from './visualization.js'
 
-export const getDimensionsWithNameModifier = ({
+export const getDimensionsWithStageName = ({
     axisDimensionIds,
     metadata,
     inputType,
