@@ -10,6 +10,7 @@ import {
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
@@ -103,7 +104,7 @@ const setUpTable = () => {
 
     expectTableToBeVisible()
 
-    cy.getBySelLike('layout-chip').contains(`${entityDimensionName}: all`)
+    assertChipContainsText(entityDimensionName, 'all')
 }
 
 // const runTests = () => {
@@ -120,20 +121,11 @@ const setUpTable = () => {
 //         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
 //         //check the chips in the layout
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains('Organisation unit: 1 selected')
-//             .should('be.visible')
+//         assertChipContainsText('Organisation unit', 1)
 
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${entityDimensionName}: all`)
-//             .should('be.visible')
+//         assertChipContainsText(entityDimensionName, 'all')
 
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${periodLabel}: 1 selected`)
-//             .should('be.visible')
+//         assertChipContainsText(periodLabel, 1)
 //     })
 
 //     it('moves a dimension to filter', () => {
@@ -180,19 +172,8 @@ const setUpTable = () => {
 //         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
 //         //check the chips in the layout
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains('Organisation unit: 1 selected')
-//             .should('be.visible')
-
-//         cy.getBySel('columns-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${entityDimensionName}: all`)
-//             .should('be.visible')
-
-//         cy.getBySel('filters-axis')
-//             .findBySelLike('layout-chip')
-//             .contains(`${periodLabel}: 1 selected`)
-//             .should('be.visible')
+//         assertChipContainsText('Organisation unit', 1)
+//         assertChipContainsText(entityDimensionName, 'all')
+//         assertChipContainsText(periodLabel, 1)
 //     })
 // }

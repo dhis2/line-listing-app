@@ -30,7 +30,8 @@ exports[`ChipBase Data element: 2 conditions 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       2
     </span>
@@ -68,7 +69,8 @@ exports[`ChipBase Data element: TRUE_ONLY 1 condition 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       1
     </span>
@@ -106,7 +108,8 @@ exports[`ChipBase Data element: TRUE_ONLY both selected 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       all
     </span>
@@ -144,7 +147,8 @@ exports[`ChipBase Data element: TRUE_ONLY no conditions 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       all
     </span>
@@ -182,7 +186,8 @@ exports[`ChipBase Data element: in stage with option set and 2 options chosen 1`
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       2
     </span>
@@ -220,7 +225,8 @@ exports[`ChipBase Data element: no conditions 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       all
     </span>
@@ -258,7 +264,8 @@ exports[`ChipBase Data element: option set and 2 options chosen 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       2
     </span>
@@ -296,7 +303,8 @@ exports[`ChipBase OU: 2 selected 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       2
     </span>
@@ -333,7 +341,6 @@ exports[`ChipBase OU: none selected 1`] = `
         Organsiation unit
       </span>
     </span>
-    
   </div>
 </div>
 `;
@@ -368,7 +375,8 @@ exports[`ChipBase Period: 1 selected 1`] = `
       </span>
     </span>
     <span
-      class="suffix"
+      class="items"
+      data-test="chip-items"
     >
       1
     </span>
@@ -405,7 +413,6 @@ exports[`ChipBase Period: none selected 1`] = `
         Event date (e2e)
       </span>
     </span>
-    
   </div>
 </div>
 `;

@@ -97,7 +97,7 @@ describe('text conditions', { testIsolation: false }, () => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
     })
 
     it('exactly', () => {
