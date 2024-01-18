@@ -276,7 +276,7 @@ describe('text conditions (event)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
     })
 })
-describe('text conditions (TE)', { testIsolation: false }, () => {
+describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
     const dimensionName = 'First Name'
 
     beforeEach(() => {

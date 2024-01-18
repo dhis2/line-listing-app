@@ -51,7 +51,7 @@ describe('download', () => {
 
     it(
         ['>=41'],
-        'download button disables when required dimensions are selected (tracked entity)',
+        'download button disables when required dimensions are selected (TE)',
         () => {
             goToStartPage()
 
