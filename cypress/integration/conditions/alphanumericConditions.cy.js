@@ -276,7 +276,7 @@ describe('text conditions (event)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
     })
 })
-describe.only('text conditions (TE)', { testIsolation: false }, () => {
+describe('text conditions (TE)', { testIsolation: false }, () => {
     const dimensionName = 'First Name'
 
     beforeEach(() => {
