@@ -297,7 +297,6 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         openOrgUnitTreeItem('Bo')
         openOrgUnitTreeItem('Badjia')
         selectOrgUnitTreeItem('Njandama MCHP')
-
         clickOrgUnitDimensionModalUpdateButton()
 
         expectTableToBeVisible()
