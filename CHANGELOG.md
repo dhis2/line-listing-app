@@ -1,3 +1,10 @@
+# [100.13.0](https://github.com/dhis2/line-listing-app/compare/v100.12.1...v100.13.0) (2024-01-17)
+
+
+### Features
+
+* enable legend toggle button for LL dashboard items (DHIS2-15358) ([#443](https://github.com/dhis2/line-listing-app/issues/443)) ([c14551d](https://github.com/dhis2/line-listing-app/commit/c14551d6af91b04637ccf468b031d671e58f8c36))
+
 ## [100.12.1](https://github.com/dhis2/line-listing-app/compare/v100.12.0...v100.12.1) (2024-01-14)
 
 
