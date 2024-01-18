@@ -1,3 +1,4 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
@@ -11,16 +12,27 @@ import {
     TEST_REL_PE_THIS_YEAR,
 } from '../../data/index.js'
 import {
+    clickAddRemoveTrackedEntityTypeDimensions,
     openDimension,
     openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
+    selectTrackedEntityWithType,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
+import {
+    clickOrgUnitDimensionModalUpdateButton,
+    deselectUserOrgUnit,
+    expectOrgUnitDimensionModalToBeVisible,
+    expectOrgUnitDimensionToNotBeLoading,
+    openOrgUnitTreeItem,
+    openOuDimension,
+    selectOrgUnitTreeItem,
+} from '../../helpers/orgUnit.js'
 import {
     getCurrentYearStr,
     selectRelativePeriod,
@@ -33,9 +45,8 @@ import {
 } from '../../helpers/table.js'
 
 const event = E2E_PROGRAM
-const dimensionName = TEST_DIM_TEXT
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
-const stageName = 'Stage 1 - Repeatable'
+
 const currentYear = getCurrentYearStr()
 
 /*
@@ -49,8 +60,10 @@ const currentYear = getCurrentYearStr()
     })
     // TODO: add period selection here once it's supported / before merging this to master!
     // TODO: adapt the results of each test to match the result from tracked entity
+
+    // TODO: do all of the above for the other types of conditions
 */
-const addConditions = (conditions) => {
+const addConditions = (conditions, dimensionName) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value, useCaseSensitive }, index) => {
         cy.getBySel('button-add-condition').click()
@@ -76,7 +89,9 @@ const addConditions = (conditions) => {
 
 /* This test doesn't look like it needs `testIsolation: false`
  * but start failing once this is removed */
-describe('text conditions', { testIsolation: false }, () => {
+describe('text conditions (event)', { testIsolation: false }, () => {
+    const dimensionName = TEST_DIM_TEXT
+    const stageName = 'Stage 1 - Repeatable'
     const LONG_TEXT =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 
@@ -103,7 +118,10 @@ describe('text conditions', { testIsolation: false }, () => {
     it('exactly', () => {
         const TEST_TEXT = 'Text A'
 
-        addConditions([{ conditionName: 'exactly', value: TEST_TEXT }])
+        addConditions(
+            [{ conditionName: 'exactly', value: TEST_TEXT }],
+            dimensionName
+        )
 
         expectTableToMatchRows([TEST_TEXT])
 
@@ -115,7 +133,10 @@ describe('text conditions', { testIsolation: false }, () => {
     it('is not', () => {
         const TEST_TEXT = 'Text A'
 
-        addConditions([{ conditionName: 'is not', value: TEST_TEXT }])
+        addConditions(
+            [{ conditionName: 'is not', value: TEST_TEXT }],
+            dimensionName
+        )
 
         expectTableToMatchRows([
             LONG_TEXT,
@@ -134,12 +155,15 @@ describe('text conditions', { testIsolation: false }, () => {
     it('contains', () => {
         const TEST_TEXT = 'T'
 
-        addConditions([
-            {
-                conditionName: 'contains',
-                value: TEST_TEXT,
-            },
-        ])
+        addConditions(
+            [
+                {
+                    conditionName: 'contains',
+                    value: TEST_TEXT,
+                },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text A-2', 'Text E'])
 
@@ -151,13 +175,16 @@ describe('text conditions', { testIsolation: false }, () => {
     it('contains (case-sensitive)', () => {
         const TEST_TEXT = 'T'
 
-        addConditions([
-            {
-                conditionName: 'contains',
-                value: TEST_TEXT,
-                useCaseSensitive: true,
-            },
-        ])
+        addConditions(
+            [
+                {
+                    conditionName: 'contains',
+                    value: TEST_TEXT,
+                    useCaseSensitive: true,
+                },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows(['Text A', 'Text A-2', 'Text E'])
 
@@ -169,12 +196,15 @@ describe('text conditions', { testIsolation: false }, () => {
     it('does not contain', () => {
         const TEST_TEXT = 'T'
 
-        addConditions([
-            {
-                conditionName: 'does not contain',
-                value: TEST_TEXT,
-            },
-        ])
+        addConditions(
+            [
+                {
+                    conditionName: 'does not contain',
+                    value: TEST_TEXT,
+                },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows([
             `${currentYear}-03-01`, // empty row, use value in date column
@@ -191,11 +221,14 @@ describe('text conditions', { testIsolation: false }, () => {
     })
 
     it('is empty / null', () => {
-        addConditions([
-            {
-                conditionName: 'is empty / null',
-            },
-        ])
+        addConditions(
+            [
+                {
+                    conditionName: 'is empty / null',
+                },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows([`${currentYear}-03-01`, `${currentYear}-02-01`]) // empty row, use value in date column
 
@@ -205,11 +238,14 @@ describe('text conditions', { testIsolation: false }, () => {
     })
 
     it('is not empty / not null', () => {
-        addConditions([
-            {
-                conditionName: 'is not empty / not null',
-            },
-        ])
+        addConditions(
+            [
+                {
+                    conditionName: 'is not empty / not null',
+                },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows([
             LONG_TEXT,
@@ -225,16 +261,202 @@ describe('text conditions', { testIsolation: false }, () => {
     })
 
     it('2 conditions: contains + is not', () => {
-        addConditions([
-            { conditionName: 'contains', value: 'T' },
-            { conditionName: 'is not', value: 'Text A-2' },
-        ])
+        addConditions(
+            [
+                { conditionName: 'contains', value: 'T' },
+                { conditionName: 'is not', value: 'Text A-2' },
+            ],
+            dimensionName
+        )
 
         expectTableToMatchRows([LONG_TEXT, 'Text A', 'Text E'])
 
         assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
+    })
+})
+describe.only('text conditions (TE)', { testIsolation: false }, () => {
+    const dimensionName = 'First Name'
+
+    beforeEach(() => {
+        goToStartPage()
+
+        selectTrackedEntityWithType('Malaria Entity')
+
+        cy.getBySel('main-sidebar')
+            .contains('Malaria Entity dimensions')
+            .click()
+        clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
+        clickAddRemoveTrackedEntityTypeDimensions('System Case ID')
+
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        deselectUserOrgUnit('User organisation unit')
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Njandama MCHP')
+
+        clickOrgUnitDimensionModalUpdateButton()
+
+        expectTableToBeVisible()
+
+        assertChipContainsText(dimensionName, 'all')
+    })
+
+    it('exactly', () => {
+        const TEST_TEXT = 'Angus'
+
+        addConditions(
+            [{ conditionName: 'exactly', value: TEST_TEXT }],
+            dimensionName
+        )
+
+        expectTableToMatchRows([TEST_TEXT])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Exactly: ${TEST_TEXT}`])
+    })
+
+    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed
+    it.skip('is not', () => {
+        const TEST_TEXT = 'Angus'
+
+        addConditions(
+            [{ conditionName: 'is not', value: TEST_TEXT }],
+            dimensionName
+        )
+
+        expectTableToMatchRows([
+            'Mark',
+            'YYX928443', // empty row, use value in another column
+            'BGD242352', // empty row, use value in another column
+            'beleb',
+        ])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Is not: ${TEST_TEXT}`])
+    })
+
+    it('contains', () => {
+        const TEST_TEXT = 'A'
+
+        addConditions(
+            [
+                {
+                    conditionName: 'contains',
+                    value: TEST_TEXT,
+                },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['Angus', 'Mark'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
+    })
+
+    it('contains (case-sensitive)', () => {
+        const TEST_TEXT = 'a'
+
+        addConditions(
+            [
+                {
+                    conditionName: 'contains',
+                    value: TEST_TEXT,
+                    useCaseSensitive: true,
+                },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['Mark'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
+    })
+
+    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed
+    it.skip('does not contain', () => {
+        const TEST_TEXT = 'A'
+
+        addConditions(
+            [
+                {
+                    conditionName: 'does not contain',
+                    value: TEST_TEXT,
+                },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows([
+            'Mark',
+            'YYX928443', // empty row, use value in another column
+            'BGD242352', // empty row, use value in another column
+            'beleb',
+        ])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Does not contain: ${TEST_TEXT}`])
+    })
+
+    it('is empty / null', () => {
+        addConditions(
+            [
+                {
+                    conditionName: 'is empty / null',
+                },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['YYX928443', 'BGD242352']) //// empty row, use value in another column
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Is empty / null`])
+    })
+
+    it('is not empty / not null', () => {
+        addConditions(
+            [
+                {
+                    conditionName: 'is not empty / not null',
+                },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['Angus', 'Mark', 'beleb'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries([`Is not empty / not null`])
+    })
+
+    // FIXME: backend issue, two conditions are not treated as "and", uncomment once fixed
+    it.skip('2 conditions: contains + is not', () => {
+        addConditions(
+            [
+                { conditionName: 'contains', value: 'A' },
+                { conditionName: 'is not', value: 'Text A-2' },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['Angus'])
+
+        assertChipContainsText(dimensionName, 2)
+
+        assertTooltipContainsEntries(['Contains: ', 'Is not: '])
     })
 })
 /* This test doesn't look like it needs `testIsolation: false`
