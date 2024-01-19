@@ -25,9 +25,11 @@ import {
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
 import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
+import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
+    sGetUiInputType,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
 import styles from './PeriodDimension.module.css'
@@ -118,18 +120,23 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             : OPTION_PRESETS
     )
 
+    const inputType = useSelector(sGetUiInputType)
+
+    const { programId } = extractDimensionIdParts(dimension.id, inputType)
+
     const updatePeriodDimensionItems = (items) => {
         const { uiItems, metadata } = items.reduce(
             (acc, item) => {
-                acc.uiItems.push(item.id)
+                const itemId = programId ? `${programId}.${item.id}` : item.id
+                acc.uiItems.push(itemId)
 
                 if (isStartEndDate(item.id)) {
-                    acc.metadata[item.id] = {
-                        id: item.id,
+                    acc.metadata[itemId] = {
+                        id: itemId,
                         name: formatStartEndDate(item.id),
                     }
                 } else {
-                    acc.metadata[item.id] = item
+                    acc.metadata[itemId] = { ...item, id: itemId }
                 }
 
                 return acc
