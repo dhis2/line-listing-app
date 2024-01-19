@@ -117,9 +117,15 @@ const getAdaptedVisualization = (visualization) => {
                 dimensionId === DIMENSION_ID_CREATED
             ) {
                 if (dimensionObj.items?.length) {
-                    parameters[dimensionId] = dimensionObj.items?.map(
-                        (item) => item.id
-                    )
+                    const items = dimensionObj.items?.map((item) => item.id)
+                    if (
+                        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
+                        Array.isArray(parameters[dimensionId])
+                    ) {
+                        parameters[dimensionId].push(...items)
+                    } else {
+                        parameters[dimensionId] = items
+                    }
                 }
             } else if (!excludedDimensions.includes(dimensionId)) {
                 adaptedDimensions.push(dimensionObj)
