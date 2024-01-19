@@ -25,7 +25,10 @@ import {
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
 import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
-import { extractDimensionIdParts } from '../../../modules/utils.js'
+import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../../modules/utils.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -127,7 +130,12 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const updatePeriodDimensionItems = (items) => {
         const { uiItems, metadata } = items.reduce(
             (acc, item) => {
-                const itemId = programId ? `${programId}.${item.id}` : item.id
+                const itemId = formatDimensionId({
+                    dimensionId: item.id,
+                    programStageId: null,
+                    programId,
+                    outputType: inputType,
+                })
                 acc.uiItems.push(itemId)
 
                 if (isStartEndDate(item.id)) {
