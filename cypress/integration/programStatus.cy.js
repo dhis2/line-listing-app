@@ -17,7 +17,7 @@ import {
     getTableRows,
 } from '../helpers/table.js'
 
-describe(['>=41'], 'program status (tracked entity)', () => {
+describe(['>=41'], 'program status (TE)', () => {
     const dimensionName = 'Program status'
 
     const setUpTable = () => {

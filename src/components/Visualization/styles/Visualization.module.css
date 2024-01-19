@@ -1,14 +1,44 @@
 /* Legend key */
+.legendKeyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.legendKeyWrapper {
+    border: 1px solid var(--colors-grey400);
+    overflow: auto;
+    height: 100%;
+}
+
+.legendKey {
+    height: 100%;
+}
+
 .legendKeyScrollbox {
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 190px;
 }
 
+.legendKeyToggle {
+    margin: 1px 4px 3px 0;
+}
+
+@media print {
+    .legendKeyToggle {
+        display: none;
+    }
+}
+
 .pluginContainer {
     display: flex;
+    justify-content: space-between;
     gap: var(--spacers-dp4);
     min-width: 0;
+    flex-grow: 1;
+    min-width: 0;
+    width: 100%;
 }
 
 .fetchContainer {
