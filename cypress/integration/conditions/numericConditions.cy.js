@@ -85,7 +85,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
 
         selectRelativePeriod({
             label: periodLabel,
-            TEST_REL_PE_THIS_YEAR,
+            period: TEST_REL_PE_THIS_YEAR,
         })
 
         clickMenubarUpdateButton()
@@ -469,7 +469,7 @@ describe('integer', { testIsolation: false }, () => {
 
         selectRelativePeriod({
             label: periodLabel,
-            TEST_REL_PE_THIS_YEAR,
+            period: TEST_REL_PE_THIS_YEAR,
         })
 
         clickMenubarUpdateButton()
