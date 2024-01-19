@@ -48,9 +48,6 @@ export const getTimeDimensions = () => ({
     },
 })
 
-export const getTimeDimensionMetadataId = (dimensionId, prefix) =>
-    prefix ? `${prefix}.${dimensionId}` : dimensionId
-
 export const getTimeDimensionName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty || !program) {
         return dimension.defaultName

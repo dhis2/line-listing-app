@@ -23,12 +23,9 @@ import {
     getIsProgramDimensionDisabled,
     getProgramDimensions,
 } from '../modules/programDimensions.js'
-import {
-    getHiddenTimeDimensions,
-    getTimeDimensionMetadataId,
-} from '../modules/timeDimensions.js'
+import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { extractDimensionIdParts } from '../modules/utils.js'
+import { formatDimensionId, extractDimensionIdParts } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -494,9 +491,12 @@ export const useProgramDimensions = () => {
     const programStageId = useSelector(sGetUiProgramStageId)
 
     const getId = (dimensionId) =>
-        inputType === OUTPUT_TYPE_TRACKED_ENTITY
-            ? getTimeDimensionMetadataId(dimensionId, programId)
-            : dimensionId
+        formatDimensionId({
+            dimensionId,
+            programStageId,
+            programId,
+            outputType: inputType,
+        })
 
     const eventDateDim = useSelector((state) =>
         sGetMetadataById(state, getId(DIMENSION_ID_EVENT_DATE))
