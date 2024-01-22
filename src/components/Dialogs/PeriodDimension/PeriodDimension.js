@@ -132,7 +132,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             (acc, item) => {
                 const itemId = formatDimensionId({
                     dimensionId: item.id,
-                    programStageId: null,
                     programId,
                     outputType: inputType,
                 })

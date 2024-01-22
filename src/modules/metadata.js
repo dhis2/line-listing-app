@@ -79,7 +79,6 @@ export const getDynamicTimeDimensionsMetadata = (
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
         const id = formatDimensionId({
             dimensionId: dimension.id,
-            programStageId: stage?.id,
             programId: program?.id,
             outputType: inputType,
         })

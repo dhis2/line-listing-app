@@ -493,7 +493,6 @@ export const useProgramDimensions = () => {
     const getId = (dimensionId) =>
         formatDimensionId({
             dimensionId,
-            programStageId,
             programId,
             outputType: inputType,
         })
