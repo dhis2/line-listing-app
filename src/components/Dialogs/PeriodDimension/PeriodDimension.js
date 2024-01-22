@@ -123,27 +123,27 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             : OPTION_PRESETS
     )
 
-    const inputType = useSelector(sGetUiInputType)
+    const outputType = useSelector(sGetUiInputType)
 
-    const { programId } = extractDimensionIdParts(dimension.id, inputType)
+    const { programId } = extractDimensionIdParts(dimension.id, outputType)
 
     const updatePeriodDimensionItems = (items) => {
         const { uiItems, metadata } = items.reduce(
             (acc, item) => {
-                const itemId = formatDimensionId({
+                const id = formatDimensionId({
                     dimensionId: item.id,
                     programId,
-                    outputType: inputType,
+                    outputType,
                 })
-                acc.uiItems.push(itemId)
+                acc.uiItems.push(id)
 
                 if (isStartEndDate(item.id)) {
-                    acc.metadata[itemId] = {
-                        id: itemId,
+                    acc.metadata[id] = {
+                        id,
                         name: formatStartEndDate(item.id),
                     }
                 } else {
-                    acc.metadata[itemId] = { ...item, id: itemId }
+                    acc.metadata[id] = { ...item, id }
                 }
 
                 return acc
