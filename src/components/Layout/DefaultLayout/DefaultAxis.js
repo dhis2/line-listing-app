@@ -1,8 +1,3 @@
-import {
-    DIMENSION_TYPE_DATA_ELEMENT,
-    DIMENSION_TYPE_ORGANISATION_UNIT,
-    DIMENSION_TYPE_PERIOD,
-} from '@dhis2/analytics'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import cx from 'classnames'
@@ -11,12 +6,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
-import { DIMENSION_TYPE_STATUS } from '../../../modules/dimensionConstants.js'
-import { extractDimensionIdParts } from '../../../modules/utils.js'
-import {
-    OUTPUT_TYPE_ENROLLMENT,
-    OUTPUT_TYPE_TRACKED_ENTITY,
-} from '../../../modules/visualization.js'
+import { getDimensionsWithSuffix } from '../../../modules/utils.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,
@@ -28,76 +18,6 @@ import { LAST, getDropzoneId } from '../../DndContext.js'
 import Chip from '../Chip.js'
 import { DropZone } from './DropZone.js'
 import styles from './styles/DefaultAxis.module.css'
-
-export const getDimensionsWithSuffix = ({
-    dimensionIds,
-    metadata,
-    inputType,
-}) => {
-    const dimensions = dimensionIds.map((id) => {
-        const { dimensionId, programStageId, programId } =
-            extractDimensionIdParts(id, inputType)
-        const dimension = {
-            ...metadata[id],
-            dimensionId,
-            programStageId,
-            programId,
-        }
-        return dimension
-    })
-
-    if (
-        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
-    ) {
-        const dimensionsWithSuffix = dimensions.map((dimension) => {
-            if (
-                [
-                    DIMENSION_TYPE_DATA_ELEMENT,
-                    DIMENSION_TYPE_ORGANISATION_UNIT,
-                    DIMENSION_TYPE_STATUS,
-                    DIMENSION_TYPE_PERIOD,
-                ].includes(dimension.dimensionType)
-            ) {
-                const duplicates = dimensions.filter(
-                    (d) =>
-                        d.dimensionId === dimension.dimensionId &&
-                        d !== dimension &&
-                        ((dimension.programId && d.programId) ||
-                            (dimension.programStageId && d.programStageId))
-                )
-
-                if (duplicates.length > 0) {
-                    const sameProgramId = duplicates.find(
-                        (dup) => dup.programId === dimension.programId
-                    )
-                    const thirdPartyDuplicates = duplicates
-                        .filter((dup) => dup.programId !== dimension.programId)
-                        .find((dpid) =>
-                            duplicates.find(
-                                (dup) =>
-                                    dup.programStageId !==
-                                        dpid.programStageId &&
-                                    dup.programId === dpid.programId
-                            )
-                        )
-
-                    if (sameProgramId || thirdPartyDuplicates) {
-                        dimension.suffix =
-                            metadata[dimension.programStageId].name
-                    } else {
-                        dimension.suffix = metadata[dimension.programId].name
-                    }
-                }
-            }
-
-            return dimension
-        })
-
-        return dimensionsWithSuffix
-    }
-
-    return dimensions
-}
 
 const DefaultAxis = ({ axisId, className }) => {
     const lastDropZoneId = getDropzoneId(axisId, LAST)

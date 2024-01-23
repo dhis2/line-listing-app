@@ -31,12 +31,14 @@ import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
+    getDimensionsWithSuffix,
 } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
     getHeadersMap,
+    headersMap,
 } from '../../modules/visualization.js'
 
 const analyticsApiEndpointMap = {
@@ -279,31 +281,54 @@ const fetchLegendSets = async ({ legendSetIds, dataEngine }) => {
     return legendSets
 }
 
-const extractHeaders = (analyticsResponse) =>
-    analyticsResponse.headers.map((header, index) => {
+const extractHeaders = (analyticsResponse, outputType) => {
+    const dimensionIds = analyticsResponse.headers.map((header) => {
+        const { dimensionId, programStageId, programId } =
+            extractDimensionIdParts(header.name, outputType)
+        const idMatch = Object.keys(headersMap).find(
+            (key) => headersMap[key] === dimensionId
+        )
+
+        return formatDimensionId({
+            dimensionId: idMatch || dimensionId,
+            programStageId,
+            programId,
+            outputType,
+        })
+    })
+
+    const dimensionsWithSuffix = getDimensionsWithSuffix({
+        dimensionIds,
+        metadata: analyticsResponse.metaData.items,
+        inputType: outputType,
+    })
+
+    const labels = dimensionsWithSuffix.map(({ name, suffix, id }) => ({
+        id,
+        label: suffix ? `${name}, ${suffix}` : name,
+    }))
+
+    const headers = analyticsResponse.headers.map((header, index) => {
         const result = { ...header, index }
         const { dimensionId, programId, programStageId } =
-            extractDimensionIdParts(header.name)
-        if (
-            programStageId &&
-            analyticsResponse.headers.filter((h) =>
-                h.name.includes(dimensionId)
-            ).length > 1
-        ) {
-            result.column += ` - ${analyticsResponse.metaData.items[programStageId].name}`
-        } else {
-            if (
-                programId &&
-                analyticsResponse.headers.filter((h) =>
-                    h.name.includes(dimensionId)
-                ).length > 1
-            ) {
-                result.column += ` - ${analyticsResponse.metaData.items[programId].name}`
-            }
-        }
+            extractDimensionIdParts(header.name, outputType)
+
+        result.column =
+            labels.find(
+                (label) =>
+                    label.id ===
+                    formatDimensionId({
+                        dimensionId,
+                        programId,
+                        programStageId,
+                        outputType,
+                    })
+            )?.label || result.column
 
         return result
     })
+    return headers
+}
 
 const extractRows = (analyticsResponse, headers) => {
     const filteredRows = []
@@ -390,7 +415,10 @@ const useAnalyticsData = ({
                 visualization,
                 displayProperty,
             })
-            const headers = extractHeaders(analyticsResponse)
+            const headers = extractHeaders(
+                analyticsResponse,
+                visualization.outputType
+            )
             const rows = extractRows(analyticsResponse, headers)
             const rowContext = extractRowContext(analyticsResponse)
             const pager = analyticsResponse.metaData.pager
