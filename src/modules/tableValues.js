@@ -60,23 +60,23 @@ const getHeaderText = ({ stageOffset, column } = {}) => {
     }
 
     if (Number.isInteger(stageOffset)) {
-        let postfix
+        let repetitionSuffix
 
         if (stageOffset === 0) {
-            postfix = i18n.t('most recent')
+            repetitionSuffix = i18n.t('most recent')
         } else if (stageOffset === 1) {
-            postfix = i18n.t('oldest')
+            repetitionSuffix = i18n.t('oldest')
         } else if (stageOffset > 1) {
-            postfix = i18n.t('oldest {{repeatEventIndex}}', {
+            repetitionSuffix = i18n.t('oldest {{repeatEventIndex}}', {
                 repeatEventIndex: `+${stageOffset - 1}`,
             })
         } else if (stageOffset < 0) {
-            postfix = i18n.t('most recent {{repeatEventIndex}}', {
+            repetitionSuffix = i18n.t('most recent {{repeatEventIndex}}', {
                 repeatEventIndex: stageOffset,
             })
         }
 
-        return `${column} (${postfix})`
+        return `${column} (${repetitionSuffix})`
     }
 
     return column

@@ -152,7 +152,6 @@ const Chip = ({
                                             conditionsTexts.length
                                         }
                                         itemsLength={items.length}
-                                        metadata={metadata}
                                         inputType={inputType}
                                     />
                                 </div>
