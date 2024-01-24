@@ -27,6 +27,7 @@ import {
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
+import { getProgramDimensions } from '../../modules/programDimensions.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
     extractDimensionIdParts,
@@ -282,6 +283,7 @@ const fetchLegendSets = async ({ legendSetIds, dataEngine }) => {
 }
 
 const extractHeaders = (analyticsResponse, outputType) => {
+    const defaultMetadata = {}
     const dimensionIds = analyticsResponse.headers.map((header) => {
         const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(header.name, outputType)
@@ -289,17 +291,27 @@ const extractHeaders = (analyticsResponse, outputType) => {
             (key) => headersMap[key] === dimensionId
         )
 
-        return formatDimensionId({
+        const formattedDimensionId = formatDimensionId({
             dimensionId: idMatch || dimensionId,
             programStageId,
             programId,
             outputType,
         })
+
+        if (programId && idMatch === DIMENSION_ID_PROGRAM_STATUS) {
+            defaultMetadata[formattedDimensionId] =
+                getProgramDimensions(programId)[formattedDimensionId]
+        }
+        // TODO: add same logic for ou here
+
+        return formattedDimensionId
     })
+
+    const metadata = { ...analyticsResponse.metaData.items, ...defaultMetadata }
 
     const dimensionsWithSuffix = getDimensionsWithSuffix({
         dimensionIds,
-        metadata: analyticsResponse.metaData.items,
+        metadata,
         inputType: outputType,
     })
 
@@ -313,12 +325,16 @@ const extractHeaders = (analyticsResponse, outputType) => {
         const { dimensionId, programId, programStageId } =
             extractDimensionIdParts(header.name, outputType)
 
+        const idMatch = Object.keys(headersMap).find(
+            (key) => headersMap[key] === dimensionId
+        )
+
         result.column =
             labels.find(
                 (label) =>
                     label.id ===
                     formatDimensionId({
-                        dimensionId,
+                        dimensionId: idMatch || dimensionId,
                         programId,
                         programStageId,
                         outputType,

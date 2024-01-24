@@ -87,6 +87,9 @@ export const getDimensionsWithSuffix = ({
             programStageId,
             programId,
         }
+        if (!dimension.id) {
+            dimension.id = id
+        }
         return dimension
     })
 
@@ -95,12 +98,9 @@ export const getDimensionsWithSuffix = ({
     ) {
         const dimensionsWithSuffix = dimensions.map((dimension) => {
             if (
-                [
-                    DIMENSION_TYPE_DATA_ELEMENT,
-                    DIMENSION_TYPE_ORGANISATION_UNIT,
-                    DIMENSION_TYPE_STATUS,
-                    DIMENSION_TYPE_PERIOD,
-                ].includes(dimension.dimensionType)
+                [DIMENSION_TYPE_DATA_ELEMENT, DIMENSION_TYPE_PERIOD].includes(
+                    dimension.dimensionType || dimension.dimensionItemType
+                )
             ) {
                 const duplicates = dimensions.filter(
                     (d) =>
@@ -132,11 +132,22 @@ export const getDimensionsWithSuffix = ({
                         dimension.suffix = metadata[dimension.programId].name
                     }
                 }
+            } else if (
+                // always suffix ou and statuses for TE
+                inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+                [
+                    DIMENSION_TYPE_ORGANISATION_UNIT,
+                    DIMENSION_TYPE_STATUS,
+                ].includes(
+                    dimension.dimensionType || dimension.dimensionItemType
+                ) &&
+                dimension.programId
+            ) {
+                dimension.suffix = metadata[dimension.programId].name
             }
 
             return dimension
         })
-
         return dimensionsWithSuffix
     }
 
