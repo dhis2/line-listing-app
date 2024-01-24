@@ -26,8 +26,13 @@ import {
 } from '../../../modules/systemSettings.js'
 import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
 import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../../modules/utils.js'
+import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
+    sGetUiInputType,
 } from '../../../reducers/ui.js'
 import DimensionModal from '../DimensionModal.js'
 import styles from './PeriodDimension.module.css'
@@ -118,18 +123,27 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             : OPTION_PRESETS
     )
 
+    const outputType = useSelector(sGetUiInputType)
+
+    const { programId } = extractDimensionIdParts(dimension.id, outputType)
+
     const updatePeriodDimensionItems = (items) => {
         const { uiItems, metadata } = items.reduce(
             (acc, item) => {
-                acc.uiItems.push(item.id)
+                const id = formatDimensionId({
+                    dimensionId: item.id,
+                    programId,
+                    outputType,
+                })
+                acc.uiItems.push(id)
 
                 if (isStartEndDate(item.id)) {
-                    acc.metadata[item.id] = {
-                        id: item.id,
+                    acc.metadata[id] = {
+                        id,
                         name: formatStartEndDate(item.id),
                     }
                 } else {
-                    acc.metadata[item.id] = item
+                    acc.metadata[id] = { ...item, id }
                 }
 
                 return acc
