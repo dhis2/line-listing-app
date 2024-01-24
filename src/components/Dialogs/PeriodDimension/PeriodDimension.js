@@ -167,15 +167,6 @@ export const PeriodDimension = ({ dimension, onClose }) => {
         updatePeriodDimensionItems([])
     }
 
-    const selectedPeriods = selectedIds.map((id) => ({
-        id,
-        name: getNameFromMetadata(id),
-    }))
-
-    const { dimensionId: selectedStartEndDate } = extractDimensionIdParts(
-        selectedIds[0] || ''
-    )
-
     return dimension ? (
         <DimensionModal
             dataTest={'period-dimension-modal'}
@@ -200,7 +191,10 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             <div className={styles.entry}>
                 {entryMethod === OPTION_PRESETS && (
                     <BasePeriodDimension
-                        selectedPeriods={selectedPeriods}
+                        selectedPeriods={selectedIds.map((id) => ({
+                            id,
+                            name: getNameFromMetadata(id),
+                        }))}
                         onSelect={({ items }) =>
                             updatePeriodDimensionItems(items)
                         }
@@ -209,7 +203,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 )}
                 {entryMethod === OPTION_START_END_DATES && (
                     <StartEndDate
-                        value={selectedStartEndDate}
+                        value={getStartEndDate(selectedIds[0] || '')}
                         setValue={(value) => {
                             if (!value && selectedIds.length) {
                                 updatePeriodDimensionItems([])
