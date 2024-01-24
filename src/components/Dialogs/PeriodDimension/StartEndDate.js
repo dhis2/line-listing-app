@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import styles from './StartEndDate.module.css'
 
-export const StartEndDate = ({ value, setValue }) => {
-    const [startDateStr, endDateStr] = value ? value.split('_') : []
+export const StartEndDate = ({
+    value: [startDateStr, endDateStr],
+    setValue,
+}) => {
     const [startDate, setStartDate] = useState(startDateStr)
     const [endDate, setEndDate] = useState(endDateStr)
 
@@ -54,5 +56,5 @@ export const StartEndDate = ({ value, setValue }) => {
 }
 StartEndDate.propTypes = {
     setValue: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.array.isRequired,
 }

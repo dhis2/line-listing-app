@@ -41,14 +41,17 @@ import { StartEndDate } from './StartEndDate.js'
 export const OPTION_PRESETS = 'PRESETS'
 export const OPTION_START_END_DATES = 'START_END_DATES'
 
-const isStartEndDate = (id) => {
-    const parts = id.split('_')
-    return (
-        parts.length === 2 &&
+const getStartEndDate = (id) => {
+    const { dimensionId: periodId } = extractDimensionIdParts(id)
+    const parts = periodId.split('_')
+    return parts.length === 2 &&
         !isNaN(Date.parse(parts[0])) &&
         !isNaN(Date.parse(parts[1]))
-    )
+        ? parts
+        : []
 }
+
+const isStartEndDate = (id) => getStartEndDate(id).length === 2
 
 const useIsInLayout = (dimensionId) => {
     const allDimensionIds = useSelector(sGetDimensionIdsFromLayout)
@@ -68,8 +71,7 @@ const useLocalizedStartEndDateFormatter = () => {
     )
     return (startEndDate) => {
         if (isStartEndDate(startEndDate)) {
-            return startEndDate
-                .split('_')
+            return getStartEndDate(startEndDate)
                 .map((dateStr) => formatter.format(new Date(dateStr)))
                 .join(' - ')
         } else {
@@ -117,6 +119,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const selectedIds = useSelector((state) =>
         sGetUiItemsByDimension(state, dimension?.id)
     )
+
     const [entryMethod, setEntryMethod] = useState(
         selectedIds.filter((id) => isStartEndDate(id)).length
             ? OPTION_START_END_DATES
@@ -200,7 +203,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 )}
                 {entryMethod === OPTION_START_END_DATES && (
                     <StartEndDate
-                        value={selectedIds[0] || ''}
+                        value={getStartEndDate(selectedIds[0] || '')}
                         setValue={(value) => {
                             if (!value && selectedIds.length) {
                                 updatePeriodDimensionItems([])
