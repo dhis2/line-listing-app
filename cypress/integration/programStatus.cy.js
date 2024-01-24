@@ -18,20 +18,16 @@ import {
 } from '../helpers/table.js'
 
 describe(['>=41'], 'program status (TE)', () => {
-    const dimensionName = 'Program status'
-
     const setUpTable = () => {
         goToStartPage()
 
-        selectTrackedEntityWithType('Malaria Entity')
+        selectTrackedEntityWithType('Person')
 
         openProgramDimensionsSidebar()
 
-        selectProgramForTE(
-            'Malaria case diagnosis, treatment and investigation'
-        )
+        selectProgramForTE('Child Programme')
 
-        clickAddRemoveProgramDimension(dimensionName)
+        clickAddRemoveProgramDimension('Program status')
 
         clickMenubarUpdateButton()
 
@@ -47,17 +43,15 @@ describe(['>=41'], 'program status (TE)', () => {
 
         getTableRows().its('length').should('be.gte', 10)
 
-        // getTableHeaderCells().contains(dimensionName).should('be.visible')
-        // Backend issue, once resolved change back to the line above
         getTableHeaderCells()
-            .contains('Enrollment PROGRAM_STATUS')
+            .contains('Program status, Child Programme')
             .should('be.visible')
 
-        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText('Program status', 'all', 'Child Programme')
 
         // Add filter 'Completed'
 
-        cy.getBySel('columns-axis').contains(dimensionName).click()
+        cy.getBySel('columns-axis').contains('Program status').click()
 
         cy.getBySel('program-status-checkbox')
             .contains('Completed')
@@ -71,9 +65,14 @@ describe(['>=41'], 'program status (TE)', () => {
 
         expectTableToBeVisible()
 
-        expectTableToMatchRows(['Completed'])
+        expectTableToMatchRows([
+            'Completed',
+            'Completed',
+            'Completed',
+            'Completed',
+        ])
 
-        assertChipContainsText(dimensionName, 1)
+        assertChipContainsText('Program status', 1, 'Child Programme')
 
         assertTooltipContainsEntries(['Completed'])
     })
