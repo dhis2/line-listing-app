@@ -44,6 +44,7 @@ import {
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
+import { getDefaultOuMetadata } from '../modules/metadata.js'
 import { getProgramDimensions } from '../modules/programDimensions.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
@@ -53,6 +54,7 @@ import {
 } from '../modules/userSettings.js'
 import { formatDimensionId } from '../modules/utils.js'
 import {
+    OUTPUT_TYPE_TRACKED_ENTITY,
     getDimensionMetadataFields,
     transformVisualization,
 } from '../modules/visualization.js'
@@ -409,6 +411,15 @@ const App = () => {
             if (metadata) {
                 fixedDimensionsMetadata[dimensionId] = metadata
             }
+        }
+        if (
+            visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+            dimensions.some((d) => d.dimension === DIMENSION_ID_ORGUNIT)
+        ) {
+            fixedDimensionsMetadata[DIMENSION_ID_ORGUNIT] =
+                getDefaultOuMetadata(visualization.outputType)[
+                    DIMENSION_ID_ORGUNIT
+                ]
         }
         if (Object.keys(fixedDimensionsMetadata).length) {
             dispatch(acAddMetadata(fixedDimensionsMetadata))

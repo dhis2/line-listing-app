@@ -14,6 +14,7 @@ import {
     VALUE_TYPE_INTEGER_POSITIVE,
     VALUE_TYPE_INTEGER_NEGATIVE,
     VALUE_TYPE_INTEGER_ZERO_OR_POSITIVE,
+    DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -27,6 +28,7 @@ import {
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
+import { getMainDimensions } from '../../modules/mainDimensions.js'
 import { getProgramDimensions } from '../../modules/programDimensions.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
@@ -283,7 +285,7 @@ const fetchLegendSets = async ({ legendSetIds, dataEngine }) => {
 }
 
 const extractHeaders = (analyticsResponse, outputType) => {
-    const defaultMetadata = {}
+    const defaultMetadata = getMainDimensions(outputType)
     const dimensionIds = analyticsResponse.headers.map((header) => {
         const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(header.name, outputType)
@@ -298,11 +300,17 @@ const extractHeaders = (analyticsResponse, outputType) => {
             outputType,
         })
 
-        if (programId && idMatch === DIMENSION_ID_PROGRAM_STATUS) {
+        if (
+            programId &&
+            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
+                idMatch
+            )
+        ) {
             defaultMetadata[formattedDimensionId] =
                 getProgramDimensions(programId)[formattedDimensionId]
         }
-        // TODO: add same logic for ou here
+
+        // TODO: add logic/metadata for time dimensions here
 
         return formattedDimensionId
     })
