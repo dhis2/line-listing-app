@@ -287,6 +287,7 @@ const App = () => {
                         USER_ORG_UNIT,
                         USER_ORG_UNIT_CHILDREN,
                         USER_ORG_UNIT_GRANDCHILDREN,
+                        DIMENSION_ID_ORGUNIT,
                     ].includes(item)
             )
             .reduce((obj, [id, item]) => {
