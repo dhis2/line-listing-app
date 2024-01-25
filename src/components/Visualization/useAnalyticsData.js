@@ -289,9 +289,13 @@ const extractHeaders = (analyticsResponse, outputType) => {
     const dimensionIds = analyticsResponse.headers.map((header) => {
         const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(header.name, outputType)
-        const idMatch = Object.keys(headersMap).find(
-            (key) => headersMap[key] === dimensionId
-        )
+        const idMatch =
+            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
+                dimensionId
+            ) &&
+            Object.keys(headersMap).find(
+                (key) => headersMap[key] === dimensionId
+            )
 
         const formattedDimensionId = formatDimensionId({
             dimensionId: idMatch || dimensionId,
@@ -333,9 +337,13 @@ const extractHeaders = (analyticsResponse, outputType) => {
         const { dimensionId, programId, programStageId } =
             extractDimensionIdParts(header.name, outputType)
 
-        const idMatch = Object.keys(headersMap).find(
-            (key) => headersMap[key] === dimensionId
-        )
+        const idMatch =
+            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
+                dimensionId
+            ) &&
+            Object.keys(headersMap).find(
+                (key) => headersMap[key] === dimensionId
+            )
 
         result.column =
             labels.find(
