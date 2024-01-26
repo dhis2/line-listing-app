@@ -289,16 +289,17 @@ const extractHeaders = (analyticsResponse, outputType) => {
     const dimensionIds = analyticsResponse.headers.map((header) => {
         const { dimensionId, programStageId, programId } =
             extractDimensionIdParts(header.name, outputType)
-        const idMatch =
-            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
-                dimensionId
-            ) &&
-            Object.keys(headersMap).find(
-                (key) => headersMap[key] === dimensionId
-            )
+        const idMatch = Object.keys(headersMap).find(
+            (key) => headersMap[key] === dimensionId
+        )
 
         const formattedDimensionId = formatDimensionId({
-            dimensionId: idMatch || dimensionId,
+            dimensionId: [
+                DIMENSION_ID_ORGUNIT,
+                DIMENSION_ID_PROGRAM_STATUS,
+            ].includes(idMatch)
+                ? idMatch
+                : dimensionId,
             programStageId,
             programId,
             outputType,
@@ -329,7 +330,7 @@ const extractHeaders = (analyticsResponse, outputType) => {
 
     const labels = dimensionsWithSuffix.map(({ name, suffix, id }) => ({
         id,
-        label: suffix ? `${name}, ${suffix}` : name,
+        label: suffix ? `${name}, ${suffix} !!!` : name, // TODO: remove the !!!, just for testing
     }))
 
     const headers = analyticsResponse.headers.map((header, index) => {
@@ -337,20 +338,21 @@ const extractHeaders = (analyticsResponse, outputType) => {
         const { dimensionId, programId, programStageId } =
             extractDimensionIdParts(header.name, outputType)
 
-        const idMatch =
-            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
-                dimensionId
-            ) &&
-            Object.keys(headersMap).find(
-                (key) => headersMap[key] === dimensionId
-            )
+        const idMatch = Object.keys(headersMap).find(
+            (key) => headersMap[key] === dimensionId
+        )
 
         result.column =
             labels.find(
                 (label) =>
                     label.id ===
                     formatDimensionId({
-                        dimensionId: idMatch || dimensionId,
+                        dimensionId: [
+                            DIMENSION_ID_ORGUNIT,
+                            DIMENSION_ID_PROGRAM_STATUS,
+                        ].includes(idMatch)
+                            ? idMatch
+                            : dimensionId,
                         programId,
                         programStageId,
                         outputType,
