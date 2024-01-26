@@ -20,6 +20,7 @@ const program = {
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of enrollment',
     [DIMENSION_ID_INCIDENT_DATE]: 'Date of birth',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+    id: 'IpHINAT79UW',
 }
 const entityDimensionName = 'City'
 const programDataDimensionName = 'MCH Infant Weight (g)'
@@ -76,13 +77,13 @@ const setUpTable = () => {
 
     cy.getBySel('dimension-item-eventDate').should('not.exist')
 
-    cy.getBySel('dimension-item-enrollmentDate').contains(
+    cy.getBySel(`dimension-item-${program.id}.enrollmentDate`).contains(
         program[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
     cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
-    cy.getBySel('dimension-item-incidentDate').contains(
+    cy.getBySel(`dimension-item-${program.id}.incidentDate`).contains(
         program[DIMENSION_ID_INCIDENT_DATE]
     )
 
