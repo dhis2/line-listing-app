@@ -506,7 +506,10 @@ export const Visualization = ({
                         )}
                         scrollWidth="100%"
                         width="auto"
-                        className={cx(styles.dataTable, 'push-analytics-linelist-table')}
+                        className={cx(
+                            styles.dataTable,
+                            'push-analytics-linelist-table'
+                        )}
                         dataTest="line-list-table"
                         ref={dataTableRef}
                     >
