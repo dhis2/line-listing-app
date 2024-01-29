@@ -260,18 +260,29 @@ export const Visualization = ({
         }
     }
 
-    const { fetching, error, data } = useAnalyticsData({
+    const analyticsArgs = {
         filters,
         visualization,
         isVisualizationLoading,
         displayProperty,
         onResponsesReceived,
         pageSize,
-        // Set first page directly for new visualization to avoid extra request with current page
-        page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
+        page,
         sortField,
         sortDirection,
-    })
+    }
+
+    // Set first page and sorting directly for new visualization to avoid extra analytics requests
+    if (visualization !== visualizationRef.current) {
+        const { sortField, sortDirection } = getSorting(visualization)
+
+        analyticsArgs.sortField = sortField
+        analyticsArgs.sortDirection = sortDirection
+
+        analyticsArgs.page = FIRST_PAGE
+    }
+
+    const { fetching, error, data } = useAnalyticsData(analyticsArgs)
 
     const fetchIndicatorTop = useMemo(() => {
         if (
