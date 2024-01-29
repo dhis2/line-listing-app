@@ -29,6 +29,7 @@ const DownloadMenu = ({ download, hoverable }) => {
                 onClick={() =>
                     download(DOWNLOAD_TYPE_TABLE, FILE_FORMAT_HTML_CSS)
                 }
+                className="push-analytics-download-as-html-css-menu-item"
             />
             <MenuSectionHeader
                 label={i18n.t('Plain data source')}

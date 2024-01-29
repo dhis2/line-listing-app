@@ -1,3 +1,10 @@
+# [100.14.0](https://github.com/dhis2/line-listing-app/compare/v100.13.1...v100.14.0) (2024-01-29)
+
+
+### Features
+
+* add class-names for push-analytics ([#485](https://github.com/dhis2/line-listing-app/issues/485)) ([b0836cc](https://github.com/dhis2/line-listing-app/commit/b0836ccdc88df1a625d2e36ffc18be3337e0dd3e))
+
 ## [100.13.1](https://github.com/dhis2/line-listing-app/compare/v100.13.0...v100.13.1) (2024-01-21)
 
 
