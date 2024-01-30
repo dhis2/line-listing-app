@@ -44,7 +44,10 @@ import {
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
-import { getDefaultOuMetadata } from '../modules/metadata.js'
+import {
+    getDefaultOuMetadata,
+    getDynamicTimeDimensionsMetadata,
+} from '../modules/metadata.js'
 import { getProgramDimensions } from '../modules/programDimensions.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
 import { getParentGraphMapFromVisualization } from '../modules/ui.js'
@@ -436,6 +439,19 @@ const App = () => {
         visualization.programDimensions.forEach((program) => {
             programDimensionsMetadata[program.id] = program
 
+            const timeDimensions = getDynamicTimeDimensionsMetadata(program)
+            Object.keys(timeDimensions).forEach((timeDimensionId) => {
+                const formattedId = formatDimensionId({
+                    dimensionId: timeDimensionId,
+                    programId: program.id,
+                    outputType: visualization.outputType,
+                })
+                programDimensionsMetadata[formattedId] = {
+                    ...timeDimensions[timeDimensionId],
+                    id: formattedId,
+                }
+            })
+
             if (program.programStages) {
                 program.programStages.forEach((stage) => {
                     programDimensionsMetadata[stage.id] = stage
@@ -459,7 +475,9 @@ const App = () => {
             addOptionSetsMetadata(visualization)
             addTrackedEntityTypeMetadata(visualization)
             addFixedDimensionsMetadata(visualization)
-            addProgramDimensionsMetadata(visualization)
+            if (visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                addProgramDimensionsMetadata(visualization)
+            }
 
             dispatch(
                 acAddParentGraphMap(
