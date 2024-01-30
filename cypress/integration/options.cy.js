@@ -7,6 +7,7 @@ import {
     TEST_AO,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
+    TEST_DIM_NUMBER,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
@@ -16,9 +17,11 @@ import {
 } from '../helpers/dimensions.js'
 import { saveVisualization } from '../helpers/fileMenu.js'
 import {
+    openDataOptionsModal,
     openStyleOptionsModal,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
+import { clickOptionsModalUpdateButton } from '../helpers/options.js'
 import {
     getCurrentYearStr,
     selectFixedPeriod,
@@ -27,8 +30,10 @@ import {
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableDataCells,
+    getTableHeaderCells,
     getTableRows,
 } from '../helpers/table.js'
 
@@ -45,11 +50,12 @@ describe('options', () => {
 
         // set to comfortable density
         openStyleOptionsModal()
+
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comfortable').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert comfortable density
         getTableDataCells()
@@ -58,11 +64,12 @@ describe('options', () => {
 
         // set to compact density
         openStyleOptionsModal()
+
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Compact').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert compact density
         getTableDataCells()
@@ -83,11 +90,12 @@ describe('options', () => {
 
         // set to small font size
         openStyleOptionsModal()
+
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Small').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         //assert small font size
         getTableDataCells()
@@ -97,11 +105,12 @@ describe('options', () => {
 
         // set to large font size
         openStyleOptionsModal()
+
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Large').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert large font size
         getTableDataCells()
@@ -137,33 +146,36 @@ describe('options', () => {
 
         // set dgs to comma
         openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comma').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333,333,444')
 
         // set dgs to none
         openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('None').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333333444')
 
         // set dgs to space
         openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Space').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
         getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
@@ -190,6 +202,7 @@ describe(['>=40'], 'ou hierarchy', () => {
 
         // create new AO - no hierarchy is shown
         clickMenubarUpdateButton()
+
         getTableRows()
             .eq(0)
             .find('td')
@@ -198,12 +211,13 @@ describe(['>=40'], 'ou hierarchy', () => {
 
         // enable show hierarchy - hierarchy is shown
         openStyleOptionsModal()
+
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()
             .find('[type="checkbox"]')
             .should('be.checked')
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
         getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
 
         // save / load - hierarchy is still shown
@@ -215,16 +229,51 @@ describe(['>=40'], 'ou hierarchy', () => {
 
         // disable show hierarchy - no hierarchy is shown
         openStyleOptionsModal()
+
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()
             .find('[type="checkbox"]')
             .should('not.be.checked')
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
         getTableRows()
             .eq(0)
             .find('td')
             .eq(0)
             .containsExact(NAME_WITHOUT_HIERARCHY)
+    })
+})
+
+describe('skip rounding', () => {
+    it('sets skip rounding', () => {
+        goToStartPage()
+
+        // set up table
+        selectEventWithProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        getTableRows().eq(0).find('td').eq(1).should('contain', 3.7)
+
+        openDataOptionsModal()
+
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
+
+        getTableRows().eq(0).find('td').eq(1).should('contain', 3.65)
     })
 })
