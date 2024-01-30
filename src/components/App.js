@@ -78,6 +78,9 @@ import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
 import { Visualization } from './Visualization/Visualization.js'
 
+const dimensionFields = () =>
+    `dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]`
+
 const visualizationQuery = {
     eventVisualization: {
         resource: 'eventVisualizations',
@@ -86,11 +89,12 @@ const visualizationQuery = {
         params: ({ nameProp }) => ({
             fields: [
                 '*',
-                'columns[dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
-                'rows[dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
-                'filters[dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
+                `columns[${dimensionFields}]`,
+                `rows[${dimensionFields}]`,
+                `filters[${dimensionFields}]`,
                 `program[id,programType,${nameProp}~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name),repeatable]]`,
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate,repeatable]',
+                `programDimensions[id,${nameProp}~rename(name),enrollmentDateLabel,incidentDateLabel,programType,displayIncidentDate,displayEnrollmentDateLabel,displayIncidentDateLabel,programStages[id,${nameProp}~rename(name),repeatable,hideDueDate,displayExecutionDateLabel,displayDueDateLabel]]`,
                 'access',
                 'href',
                 ...getDimensionMetadataFields(),
@@ -426,6 +430,23 @@ const App = () => {
         }
     }
 
+    const addProgramDimensionsMetadata = (visualization) => {
+        const programDimensionsMetadata = {}
+
+        visualization.programDimensions.forEach((program) => {
+            programDimensionsMetadata[program.id] = program
+
+            if (program.programStages) {
+                program.programStages.forEach((stage) => {
+                    programDimensionsMetadata[stage.id] = stage
+                })
+            }
+        })
+        if (Object.keys(programDimensionsMetadata).length) {
+            dispatch(acAddMetadata(programDimensionsMetadata))
+        }
+    }
+
     useEffect(() => {
         if (data?.eventVisualization) {
             dispatch(acClearLoadError())
@@ -438,6 +459,7 @@ const App = () => {
             addOptionSetsMetadata(visualization)
             addTrackedEntityTypeMetadata(visualization)
             addFixedDimensionsMetadata(visualization)
+            addProgramDimensionsMetadata(visualization)
 
             dispatch(
                 acAddParentGraphMap(
