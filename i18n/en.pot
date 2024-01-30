@@ -487,6 +487,9 @@ msgstr "Display organisation unit hierarchy"
 msgid "Show legend key"
 msgstr "Show legend key"
 
+msgid "Skip rounding"
+msgstr "Skip rounding"
+
 msgid "Add a title"
 msgstr "Add a title"
 
