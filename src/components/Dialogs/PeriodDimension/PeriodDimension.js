@@ -117,7 +117,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const isInLayout = useIsInLayout(dimension?.id)
     const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds = useSelector((state) =>
-        sGetUiItemsByDimension(state, dimension?.id)
+        sGetUiItemsByDimension(state, dimension?.id).map(
+            (id) => extractDimensionIdParts(id).dimensionId
+        )
     )
 
     const [entryMethod, setEntryMethod] = useState(
