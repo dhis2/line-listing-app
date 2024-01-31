@@ -1,3 +1,10 @@
+# [100.15.0](https://github.com/dhis2/line-listing-app/compare/v100.14.0...v100.15.0) (2024-01-30)
+
+
+### Features
+
+* add skip rounding option (DHIS2-15629) ([#424](https://github.com/dhis2/line-listing-app/issues/424)) ([4ddbed9](https://github.com/dhis2/line-listing-app/commit/4ddbed99dda19d15933c1329eec281d542a0a9d4))
+
 # [100.14.0](https://github.com/dhis2/line-listing-app/compare/v100.13.1...v100.14.0) (2024-01-29)
 
 
