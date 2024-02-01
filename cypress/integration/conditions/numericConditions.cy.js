@@ -247,212 +247,197 @@ describe('number conditions (event)', { testIsolation: false }, () => {
     })
 })
 
-// TODO: backend issue, adding a condition throws an error, uncomment once fixed
-describe.skip(
-    ['>=41'],
-    'number conditions (TE)',
-    { testIsolation: false },
-    () => {
-        const dimensionName = 'Age (years)'
+describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
+    const dimensionName = 'Age (years)'
 
-        beforeEach(() => {
-            goToStartPage()
+    beforeEach(() => {
+        goToStartPage()
 
-            selectTrackedEntityWithType('Malaria Entity')
+        selectTrackedEntityWithType('Malaria Entity')
 
-            cy.getBySel('main-sidebar')
-                .contains('Malaria Entity dimensions')
-                .click()
-            clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
+        cy.getBySel('main-sidebar')
+            .contains('Malaria Entity dimensions')
+            .click()
+        clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
 
-            clickMenubarUpdateButton()
+        clickMenubarUpdateButton()
 
-            expectTableToBeVisible()
+        expectTableToBeVisible()
 
-            assertChipContainsText(dimensionName, 'all')
-        })
+        assertChipContainsText(dimensionName, 'all')
+    })
 
-        it('equal to', () => {
-            addConditions(
-                [{ conditionName: 'equal to (=)', value: '15' }],
-                dimensionName
-            )
+    it('equal to', () => {
+        addConditions(
+            [{ conditionName: 'equal to (=)', value: '15' }],
+            dimensionName
+        )
 
-            expectTableToMatchRows(['15'])
+        expectTableToMatchRows(['15'])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Equal to (=): 15'])
-        })
+        assertTooltipContainsEntries(['Equal to (=): 15'])
+    })
 
-        it('greater than', () => {
-            addConditions(
-                [{ conditionName: 'greater than (>)', value: '43' }],
-                dimensionName
-            )
+    it('greater than', () => {
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '43' }],
+            dimensionName
+        )
 
-            expectTableToMatchRows(['46', '64'])
+        expectTableToMatchRows(['46', '64'])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Greater than (>): 43'])
-        })
+        assertTooltipContainsEntries(['Greater than (>): 43'])
+    })
 
-        it('greater than or equal to', () => {
-            addConditions(
-                [{ conditionName: 'greater than or equal to', value: '43' }],
-                dimensionName
-            )
-            expectTableToMatchRows(['43', '46', '64'])
+    it('greater than or equal to', () => {
+        addConditions(
+            [{ conditionName: 'greater than or equal to', value: '43' }],
+            dimensionName
+        )
+        expectTableToMatchRows(['43', '46', '64'])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([
-                stageName,
-                'Greater than or equal to (≥): 43',
-            ])
-        })
+        assertTooltipContainsEntries(['Greater than or equal to (≥): 43'])
+    })
 
-        it('less than', () => {
-            addConditions(
-                [{ conditionName: 'less than (<)', value: '11' }],
-                dimensionName
-            )
+    it('less than', () => {
+        addConditions(
+            [{ conditionName: 'less than (<)', value: '11' }],
+            dimensionName
+        )
 
-            expectTableToMatchRows([
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '6',
-                '9',
-                '9',
-            ])
+        expectTableToMatchRows([
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '6',
+            '9',
+            '9',
+        ])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Less than (<): 11'])
-        })
+        assertTooltipContainsEntries(['Less than (<): 11'])
+    })
 
-        it('less than or equal to', () => {
-            addConditions(
-                [{ conditionName: 'less than or equal to', value: '11' }],
-                dimensionName
-            )
+    it('less than or equal to', () => {
+        addConditions(
+            [{ conditionName: 'less than or equal to', value: '11' }],
+            dimensionName
+        )
 
-            expectTableToMatchRows([
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '6',
-                '9',
-                '9',
-                '11',
-            ])
+        expectTableToMatchRows([
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '6',
+            '9',
+            '9',
+            '11',
+        ])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([
-                stageName,
-                'Less than or equal to (≤): 11',
-            ])
-        })
+        assertTooltipContainsEntries(['Less than or equal to (≤): 11'])
+    })
 
-        it('not equal to', () => {
-            openOuDimension(DIMENSION_ID_ORGUNIT)
-            expectOrgUnitDimensionModalToBeVisible()
-            expectOrgUnitDimensionToNotBeLoading()
-            deselectUserOrgUnit('User organisation unit')
-            openOrgUnitTreeItem('Bo')
-            openOrgUnitTreeItem('Badjia')
-            selectOrgUnitTreeItem('Njandama MCHP')
-            clickOrgUnitDimensionModalUpdateButton()
+    it('not equal to', () => {
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        deselectUserOrgUnit('User organisation unit')
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Njandama MCHP')
+        clickOrgUnitDimensionModalUpdateButton()
 
-            addConditions(
-                [{ conditionName: 'not equal to', value: '11' }],
-                dimensionName
-            )
+        addConditions(
+            [{ conditionName: 'not equal to', value: '11' }],
+            dimensionName
+        )
 
-            expectTableToMatchRows(['0', '0', '26', '36'])
+        expectTableToMatchRows(['0', '0', '26', '36'])
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Not equal to (≠): 11'])
-        })
+        assertTooltipContainsEntries(['Not equal to (≠): 11'])
+    })
 
-        it('is empty / null', () => {
-            cy.getBySel('main-sidebar')
-                .contains('Malaria Entity dimensions')
-                .click()
-            clickAddRemoveTrackedEntityTypeDimensions('System Case ID')
+    it('is empty / null', () => {
+        clickAddRemoveTrackedEntityTypeDimensions('System Case ID')
 
-            addConditions([{ conditionName: 'is empty / null' }], dimensionName)
+        addConditions([{ conditionName: 'is empty / null' }], dimensionName)
 
-            expectTableToMatchRows(['GFS397135', 'VCA989272', 'PVZ270497'])
+        expectTableToMatchRows(['GFS397135', 'VCA989272', 'PVZ270497'])
 
-            getTableDataCells()
-                .eq(1)
-                .invoke('text')
-                .invoke('trim')
-                .should('equal', '')
+        getTableDataCells()
+            .eq(1)
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '')
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Is empty / null'])
-        })
+        assertTooltipContainsEntries(['Is empty / null'])
+    })
 
-        it('is not empty / not null', () => {
-            openOuDimension(DIMENSION_ID_ORGUNIT)
-            expectOrgUnitDimensionModalToBeVisible()
-            expectOrgUnitDimensionToNotBeLoading()
-            deselectUserOrgUnit('User organisation unit')
-            openOrgUnitTreeItem('Bo')
-            openOrgUnitTreeItem('Badjia')
-            selectOrgUnitTreeItem('Ngelehun CHC')
-            clickOrgUnitDimensionModalUpdateButton()
+    it('is not empty / not null', () => {
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        deselectUserOrgUnit('User organisation unit')
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Ngelehun CHC')
+        clickOrgUnitDimensionModalUpdateButton()
 
-            getTableRows().should('have.length', 32)
+        getTableRows().should('have.length', 32)
 
-            addConditions(
-                [{ conditionName: 'is not empty / not null' }],
-                dimensionName
-            )
+        addConditions(
+            [{ conditionName: 'is not empty / not null' }],
+            dimensionName
+        )
 
-            getTableRows().should('have.length', 29)
+        getTableRows().should('have.length', 29)
 
-            assertChipContainsText(dimensionName, 1)
+        assertChipContainsText(dimensionName, 1)
 
-            assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
-        })
+        assertTooltipContainsEntries(['Is not empty / not null'])
+    })
 
-        it('2 conditions: greater than + less than', () => {
-            addConditions(
-                [
-                    { conditionName: 'greater than (>)', value: '21' },
-                    { conditionName: 'less than (<)', value: '24' },
-                ],
-                dimensionName
-            )
+    // TODO: unskip once backend issue DHIS2-16510 is fixed
+    it.skip('2 conditions: greater than + less than', () => {
+        addConditions(
+            [
+                { conditionName: 'greater than (>)', value: '21' },
+                { conditionName: 'less than (<)', value: '24' },
+            ],
+            dimensionName
+        )
 
-            expectTableToMatchRows(['23'])
+        expectTableToMatchRows(['23'])
 
-            assertChipContainsText(dimensionName, 2)
+        assertChipContainsText(dimensionName, 2)
 
-            assertTooltipContainsEntries([
-                stageName,
-                'Greater than (>): 21',
-                'Less than (<): 24',
-            ])
-        })
-    }
-)
+        assertTooltipContainsEntries([
+            'Greater than (>): 21',
+            'Less than (<): 24',
+        ])
+    })
+})
 
 /* This test doesn't look like it needs `testIsolation: false`
  * but start failing once this is removed */
