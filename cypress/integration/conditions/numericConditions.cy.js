@@ -469,7 +469,7 @@ describe('integer', { testIsolation: false }, () => {
 
         selectRelativePeriod({
             label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
+            period: TEST_REL_PE_LAST_YEAR,
         })
 
         clickMenubarUpdateButton()
