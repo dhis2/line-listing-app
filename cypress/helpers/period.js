@@ -7,11 +7,49 @@ const openPeriod = (label) => {
     }
 }
 
-const selectFixedPeriod = ({ label, period }) => {
+const selectFixedPeriod = ({ label, period, selected }) => {
     openPeriod(label)
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
-    if (period.type) {
+
+    if (selected) {
+        // confirm that selected item is in the correct list in the transfer
+        if (
+            period.type &&
+            !cy
+                .getBySel(
+                    'period-dimension-fixed-period-filter-period-type-content'
+                )
+                .contains(period.type)
+        ) {
+            cy.getBySel(
+                'period-dimension-fixed-period-filter-period-type-content'
+            ).click()
+            cy.getBySelLike(
+                'period-dimension-fixed-period-filter-period-type-option'
+            )
+                .contains(period.type)
+                .click()
+        }
+
+        cy.getBySel('period-dimension-transfer-sourceoptions')
+            .contains(selected.name)
+            .should('not.exist')
+
+        cy.getBySel('period-dimension-transfer-pickedoptions').containsExact(
+            selected.name
+        )
+    }
+
+    // only select period type if it's not the current value because otherwise the dropdown doesn't close
+    if (
+        period.type &&
+        !cy
+            .getBySel(
+                'period-dimension-fixed-period-filter-period-type-content'
+            )
+            .contains(period.type)
+    ) {
         cy.getBySel(
             'period-dimension-fixed-period-filter-period-type-content'
         ).click()

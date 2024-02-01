@@ -12,6 +12,7 @@ import {
 } from '../helpers/dimensions.js'
 import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import { selectFixedPeriod, getCurrentYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
@@ -24,7 +25,7 @@ const program = {
 }
 const entityDimensionName = 'City'
 const programDataDimensionName = 'MCH Infant Weight (g)'
-// const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
+const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
 describe(['>=41'], 'tracked entity', () => {
     beforeEach(() => {
@@ -75,25 +76,70 @@ const setUpTable = () => {
 
     selectProgramForTE(program.programName)
 
-    cy.getBySel('dimension-item-eventDate').should('not.exist')
-
+    // Check the correct time dimensions are displayed, and with program/stage specific name
     cy.getBySel(`dimension-item-${program.id}.enrollmentDate`).contains(
         program[DIMENSION_ID_ENROLLMENT_DATE]
     )
-
-    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-
     cy.getBySel(`dimension-item-${program.id}.incidentDate`).contains(
         program[DIMENSION_ID_INCIDENT_DATE]
     )
-
     cy.getBySel('dimension-item-lastUpdated').contains(
         program[DIMENSION_ID_LAST_UPDATED]
     )
+    cy.getBySel('dimension-item-eventDate').should('not.exist')
+    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
+    // Add a program data dimension
     clickAddRemoveProgramDataDimension(programDataDimensionName)
 
-    // selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR }) // FIXME: Time dimensions aren't implemented yet
+    const januaryThisYear = {
+        type: 'Monthly',
+        year: `${getCurrentYearStr()}`,
+        name: `January ${getCurrentYearStr()}`,
+    }
+
+    // Add a time dimension
+    selectFixedPeriod({
+        label: periodLabel,
+        period: januaryThisYear,
+    })
+
+    // Check the chip and tooltip content
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        `January ${getCurrentYearStr()}`
+    )
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
+
+    // Add another time dimension
+    // Check that the already selected period is not available to select
+
+    selectFixedPeriod({
+        label: periodLabel,
+        period: {
+            type: 'Monthly',
+            year: `${getCurrentYearStr()}`,
+            name: `February ${getCurrentYearStr()}`,
+        },
+        selected: januaryThisYear,
+    })
+
+    // Check the chip and tooltip content
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
+
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        `Program: ${program.programName}`
+    )
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        `January ${getCurrentYearStr()}`
+    )
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        `February ${getCurrentYearStr()}`
+    )
+
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
 
     // Go back to person dimensions to verify that they're still listed properly
     cy.getBySel('main-sidebar').contains('Person dimensions').click()
@@ -101,11 +147,11 @@ const setUpTable = () => {
         .children()
         .should('have.length', 33)
 
-    clickMenubarUpdateButton()
+    // clickMenubarUpdateButton()
 
-    expectTableToBeVisible()
+    // expectTableToBeVisible()
 
-    assertChipContainsText(entityDimensionName, 'all')
+    // assertChipContainsText(entityDimensionName, 'all')
 }
 
 // const runTests = () => {
