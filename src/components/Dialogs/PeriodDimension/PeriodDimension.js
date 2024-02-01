@@ -143,12 +143,12 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 acc.uiItems.push(id)
 
                 if (isStartEndDate(item.id)) {
-                    acc.metadata[id] = {
-                        id,
+                    acc.metadata[item.id] = {
+                        id: item.id,
                         name: formatStartEndDate(item.id),
                     }
                 } else {
-                    acc.metadata[id] = { ...item, id }
+                    acc.metadata[item.id] = item
                 }
 
                 return acc
