@@ -137,6 +137,7 @@ const Chip = ({
                         <Tooltip
                             content={renderTooltipContent()}
                             placement="bottom"
+                            dataTest="layout-chip-tooltip"
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div

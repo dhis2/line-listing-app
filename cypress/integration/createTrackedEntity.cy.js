@@ -10,7 +10,7 @@ import {
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
-import { assertChipContainsText } from '../helpers/layout.js'
+// import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, getCurrentYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
