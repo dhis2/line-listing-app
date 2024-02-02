@@ -92,52 +92,50 @@ const setUpTable = () => {
     // Add a program data dimension
     clickAddRemoveProgramDataDimension(programDataDimensionName)
 
-    const januaryThisYear = {
-        type: 'Monthly',
+    // Adding time dimensions
+    const firstQuarterThisYear = {
+        type: 'Quarterly',
         year: `${getCurrentYearStr()}`,
-        name: `January ${getCurrentYearStr()}`,
+        name: `January - March ${getCurrentYearStr()}`,
+    }
+    const secondQuarterThisYear = {
+        type: 'Quarterly',
+        year: `${getCurrentYearStr()}`,
+        name: `April - June ${getCurrentYearStr()}`,
     }
 
-    // Add a time dimension
+    // Add the first time dimension
     selectFixedPeriod({
         label: periodLabel,
-        period: januaryThisYear,
+        period: firstQuarterThisYear,
     })
 
-    // Check the chip and tooltip content
+    // Check the time dimension chip and tooltip content
     cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
     cy.getBySel('layout-chip-tooltip-content').contains(
-        `January ${getCurrentYearStr()}`
+        firstQuarterThisYear.name
     )
     cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
     cy.getBySel('layout-chip-tooltip-content').should('not.exist')
 
     // Add another time dimension
-    // Check that the already selected period is not available to select
-
     selectFixedPeriod({
         label: periodLabel,
-        period: {
-            type: 'Monthly',
-            year: `${getCurrentYearStr()}`,
-            name: `February ${getCurrentYearStr()}`,
-        },
-        selected: januaryThisYear,
+        period: secondQuarterThisYear,
+        selected: firstQuarterThisYear,
     })
 
-    // Check the chip and tooltip content
+    // Check the time dimension chip and tooltip content for the new content
     cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
-
     cy.getBySel('layout-chip-tooltip-content').contains(
         `Program: ${program.programName}`
     )
     cy.getBySel('layout-chip-tooltip-content').contains(
-        `January ${getCurrentYearStr()}`
+        firstQuarterThisYear.name
     )
     cy.getBySel('layout-chip-tooltip-content').contains(
-        `February ${getCurrentYearStr()}`
+        secondQuarterThisYear.name
     )
-
     cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
     cy.getBySel('layout-chip-tooltip-content').should('not.exist')
 
