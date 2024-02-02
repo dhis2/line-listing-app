@@ -20,17 +20,17 @@ export const clickMenubarOptionsButton = () =>
 
 export const openDataOptionsModal = () => {
     clickMenubarOptionsButton()
-    return cy.getBySel('options-menu-list').contains('Data').click()
+    cy.getBySel('options-menu-list').contains('Data').click()
 }
 
 export const openStyleOptionsModal = () => {
     clickMenubarOptionsButton()
-    return cy.getBySel('options-menu-list').contains('Style').click()
+    cy.getBySel('options-menu-list').contains('Style').click()
 }
 
 export const openLegendOptionsModal = () => {
     clickMenubarOptionsButton()
-    return cy.getBySel('options-menu-list').contains('Legend').click()
+    cy.getBySel('options-menu-list').contains('Legend').click()
 }
 
 export const clickMenubarInterpretationsButton = () =>
