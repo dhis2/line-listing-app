@@ -1,7 +1,4 @@
 import {
-    AXIS_ID_COLUMNS,
-    AXIS_ID_ROWS,
-    AXIS_ID_FILTERS,
     Analytics,
     LEGEND_DISPLAY_STRATEGY_FIXED,
     LEGEND_DISPLAY_STRATEGY_BY_DATA_ITEM,
@@ -19,15 +16,7 @@ import {
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
-import {
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_EVENT_STATUS,
-    DIMENSION_ID_CREATED,
-    DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_LAST_UPDATED_BY,
-    DIMENSION_IDS_TIME,
-} from '../../modules/dimensionConstants.js'
-import { getRequestOptions } from '../../modules/getRequestOptions.js'
+import { DIMENSION_ID_PROGRAM_STATUS } from '../../modules/dimensionConstants.js'
 import { getMainDimensions } from '../../modules/mainDimensions.js'
 import { getProgramDimensions } from '../../modules/programDimensions.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
@@ -40,21 +29,15 @@ import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
-    getHeadersMap,
     headersMap,
 } from '../../modules/visualization.js'
+import { getAdaptedVisualization } from './analyticsQueryTools.js'
 
 const analyticsApiEndpointMap = {
     [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
     [OUTPUT_TYPE_EVENT]: 'events',
     [OUTPUT_TYPE_TRACKED_ENTITY]: 'trackedEntities',
 }
-
-const excludedDimensions = [
-    DIMENSION_ID_CREATED,
-    DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_LAST_UPDATED_BY,
-]
 
 const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
     const optionSetMetaData = metaDataItems?.[optionSetId]
@@ -101,87 +84,7 @@ const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
     }
 }
 
-const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
-
 const getAnalyticsEndpoint = (outputType) => analyticsApiEndpointMap[outputType]
-
-const getAdaptedVisualization = (visualization) => {
-    const outputType = visualization.outputType
-
-    const parameters = getRequestOptions(visualization)
-
-    const adaptDimensions = (dimensions) => {
-        const adaptedDimensions = []
-        dimensions.forEach((dimensionObj) => {
-            const dimensionId = dimensionObj.dimension
-
-            if (
-                isTimeDimension(dimensionId) ||
-                dimensionId === DIMENSION_ID_EVENT_STATUS ||
-                dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
-                dimensionId === DIMENSION_ID_CREATED
-            ) {
-                if (dimensionObj.items?.length) {
-                    const items = dimensionObj.items?.map((item) => item.id)
-                    if (
-                        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
-                        Array.isArray(parameters[dimensionId])
-                    ) {
-                        parameters[dimensionId].push(...items)
-                    } else {
-                        parameters[dimensionId] = items
-                    }
-                }
-            } else if (!excludedDimensions.includes(dimensionId)) {
-                adaptedDimensions.push(dimensionObj)
-            }
-        })
-
-        return adaptedDimensions
-    }
-
-    const adaptedColumns = adaptDimensions(visualization[AXIS_ID_COLUMNS])
-    const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
-    const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
-
-    const dimensionHeadersMap = getHeadersMap(visualization)
-
-    const headers = [
-        ...visualization[AXIS_ID_COLUMNS],
-        ...visualization[AXIS_ID_ROWS],
-    ].map(({ dimension, program, programStage, repetition }) => {
-        const programStageId = programStage?.id
-
-        if (repetition?.indexes?.length) {
-            return repetition.indexes.map((index) =>
-                formatDimensionId({
-                    programId: program?.id,
-                    programStageId: `${programStageId}[${index}]`,
-                    dimensionId: dimensionHeadersMap[dimension] || dimension,
-                    outputType,
-                })
-            )
-        } else {
-            return formatDimensionId({
-                programId: program?.id,
-                programStageId,
-                dimensionId: dimensionHeadersMap[dimension] || dimension,
-                outputType,
-            })
-        }
-    })
-
-    return {
-        adaptedVisualization: {
-            [AXIS_ID_COLUMNS]: adaptedColumns,
-            [AXIS_ID_ROWS]: adaptedRows,
-            [AXIS_ID_FILTERS]: adaptedFilters,
-            outputType,
-        },
-        headers,
-        parameters,
-    }
-}
 
 const fetchAnalyticsData = async ({
     analyticsEngine,
