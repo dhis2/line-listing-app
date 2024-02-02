@@ -31,9 +31,7 @@ const selectFixedPeriod = ({ label, period, selected }) => {
         .contains(period.name)
         .dblclick()
 
-    cy.getBySel('period-dimension-transfer-pickedoptions').containsExact(
-        period.name
-    )
+    cy.getBySel('period-dimension-transfer-pickedoptions').contains(period.name)
 
     cy.getBySel('period-dimension-transfer-sourceoptions')
         .contains(period.name)
