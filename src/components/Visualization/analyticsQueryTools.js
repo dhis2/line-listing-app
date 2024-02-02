@@ -23,47 +23,51 @@ const excludedDimensions = [
 
 const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 
+const adaptDimensions = (dimensions, parameters) => {
+    const adaptedDimensions = []
+    dimensions.forEach((dimensionObj) => {
+        const dimensionId = dimensionObj.dimension
+
+        if (
+            isTimeDimension(dimensionId) ||
+            dimensionId === DIMENSION_ID_EVENT_STATUS ||
+            dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
+            dimensionId === DIMENSION_ID_CREATED
+        ) {
+            if (dimensionObj.items?.length) {
+                const items = dimensionObj.items?.map((item) => item.id)
+                if (
+                    (dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
+                        isTimeDimension(dimensionId)) &&
+                    Array.isArray(parameters[dimensionId])
+                ) {
+                    parameters[dimensionId].push(...items)
+                } else {
+                    parameters[dimensionId] = items
+                }
+            }
+        } else if (!excludedDimensions.includes(dimensionId)) {
+            adaptedDimensions.push(dimensionObj)
+        }
+    })
+
+    return adaptedDimensions
+}
+
 export const getAdaptedVisualization = (visualization) => {
-    console.log('getAdaptedVisualization', visualization)
     const outputType = visualization.outputType
 
     const parameters = getRequestOptions(visualization)
-    console.log('parameters', parameters)
 
-    const adaptDimensions = (dimensions) => {
-        const adaptedDimensions = []
-        dimensions.forEach((dimensionObj) => {
-            const dimensionId = dimensionObj.dimension
-
-            if (
-                isTimeDimension(dimensionId) ||
-                dimensionId === DIMENSION_ID_EVENT_STATUS ||
-                dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
-                dimensionId === DIMENSION_ID_CREATED
-            ) {
-                if (dimensionObj.items?.length) {
-                    const items = dimensionObj.items?.map((item) => item.id)
-                    if (
-                        (dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
-                            isTimeDimension(dimensionId)) &&
-                        Array.isArray(parameters[dimensionId])
-                    ) {
-                        parameters[dimensionId].push(...items)
-                    } else {
-                        parameters[dimensionId] = items
-                    }
-                }
-            } else if (!excludedDimensions.includes(dimensionId)) {
-                adaptedDimensions.push(dimensionObj)
-            }
-        })
-
-        return adaptedDimensions
-    }
-
-    const adaptedColumns = adaptDimensions(visualization[AXIS_ID_COLUMNS])
-    const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS])
-    const adaptedFilters = adaptDimensions(visualization[AXIS_ID_FILTERS])
+    const adaptedColumns = adaptDimensions(
+        visualization[AXIS_ID_COLUMNS],
+        parameters
+    )
+    const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS], parameters)
+    const adaptedFilters = adaptDimensions(
+        visualization[AXIS_ID_FILTERS],
+        parameters
+    )
 
     const dimensionHeadersMap = getHeadersMap(visualization)
 
@@ -92,7 +96,7 @@ export const getAdaptedVisualization = (visualization) => {
         }
     })
 
-    const res = {
+    return {
         adaptedVisualization: {
             [AXIS_ID_COLUMNS]: adaptedColumns,
             [AXIS_ID_ROWS]: adaptedRows,
@@ -102,7 +106,4 @@ export const getAdaptedVisualization = (visualization) => {
         headers,
         parameters,
     }
-
-    console.log('res', res)
-    return res
 }
