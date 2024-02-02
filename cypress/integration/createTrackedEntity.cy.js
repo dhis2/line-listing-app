@@ -95,12 +95,12 @@ const setUpTable = () => {
     // Adding time dimensions
     const firstQuarterThisYear = {
         type: 'Quarterly',
-        year: `${getCurrentYearStr()}`,
+        year: getCurrentYearStr(),
         name: `January - March ${getCurrentYearStr()}`,
     }
     const secondQuarterThisYear = {
         type: 'Quarterly',
-        year: `${getCurrentYearStr()}`,
+        year: getCurrentYearStr(),
         name: `April - June ${getCurrentYearStr()}`,
     }
 
