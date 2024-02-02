@@ -4,9 +4,6 @@ describe('analyticsQueryTools', () => {
     it('should move enrollmentDate items to parameters', () => {
         const visualization = {
             outputType: 'TRACKED_ENTITY_INSTANCE',
-            trackedEntityType: {
-                id: 'nEenWmSyUEp',
-            },
             columns: [
                 {
                     dimension: 'ou',
@@ -63,9 +60,6 @@ describe('analyticsQueryTools', () => {
     it('should move enrollmentDate items from 2 programs to parameters', () => {
         const visualization = {
             outputType: 'TRACKED_ENTITY_INSTANCE',
-            trackedEntityType: {
-                id: 'nEenWmSyUEp',
-            },
             columns: [
                 {
                     dimension: 'ou',
