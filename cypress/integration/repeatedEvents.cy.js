@@ -111,11 +111,11 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
             1,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent)'
         )
 
         // repetition 0/2 can be set successfully
@@ -126,11 +126,11 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest)'
+            'E2E - Percentage, Stage 1 - Repeatable (oldest)'
         )
         expectHeaderToContainExact(
             1,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
+            'E2E - Percentage, Stage 1 - Repeatable (oldest +1)'
         )
 
         // repetition 2/2 can be set successfully
@@ -141,19 +141,19 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest)'
+            'E2E - Percentage, Stage 1 - Repeatable (oldest)'
         )
         expectHeaderToContainExact(
             1,
-            'E2E - Percentage - Stage 1 - Repeatable (oldest +1)'
+            'E2E - Percentage, Stage 1 - Repeatable (oldest +1)'
         )
         expectHeaderToContainExact(
             2,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -1)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -1)'
         )
         expectHeaderToContainExact(
             3,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent)'
         )
 
         // switch back to event, check that repetition is cleared
@@ -187,15 +187,15 @@ describe('repeated events', () => {
         })
         expectHeaderToContainExact(
             0,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -5)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -5)'
         )
         expectHeaderToContainExact(
             2,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent -3)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -3)'
         )
         expectHeaderToContainExact(
             5,
-            'E2E - Percentage - Stage 1 - Repeatable (most recent)'
+            'E2E - Percentage, Stage 1 - Repeatable (most recent)'
         )
     })
     it('repetition is disabled for non repetable stages', () => {
