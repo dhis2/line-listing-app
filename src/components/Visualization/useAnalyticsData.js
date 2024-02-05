@@ -233,7 +233,7 @@ const extractHeaders = (analyticsResponse, outputType) => {
 
     const labels = dimensionsWithSuffix.map(({ name, suffix, id }) => ({
         id,
-        label: suffix ? `${name}, ${suffix} !!!` : name, // TODO: remove the !!!, just for testing
+        label: suffix ? `${name}, ${suffix}` : name,
     }))
 
     const headers = analyticsResponse.headers.map((header, index) => {
