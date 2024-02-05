@@ -117,7 +117,9 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     const isInLayout = useIsInLayout(dimension?.id)
     const excludedPeriodTypes = useExcludedPeriods()
     const selectedIds = useSelector((state) =>
-        sGetUiItemsByDimension(state, dimension?.id)
+        sGetUiItemsByDimension(state, dimension?.id).map(
+            (id) => extractDimensionIdParts(id).dimensionId
+        )
     )
 
     const [entryMethod, setEntryMethod] = useState(
@@ -141,12 +143,12 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 acc.uiItems.push(id)
 
                 if (isStartEndDate(item.id)) {
-                    acc.metadata[id] = {
-                        id,
+                    acc.metadata[item.id] = {
+                        id: item.id,
                         name: formatStartEndDate(item.id),
                     }
                 } else {
-                    acc.metadata[id] = { ...item, id }
+                    acc.metadata[item.id] = item
                 }
 
                 return acc

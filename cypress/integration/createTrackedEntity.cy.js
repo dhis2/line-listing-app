@@ -12,6 +12,7 @@ import {
 } from '../helpers/dimensions.js'
 import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import { selectFixedPeriod, getCurrentYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
@@ -24,7 +25,7 @@ const program = {
 }
 const entityDimensionName = 'City'
 const programDataDimensionName = 'MCH Infant Weight (g)'
-// const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
+const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
 describe(['>=41'], 'tracked entity', () => {
     beforeEach(() => {
@@ -75,25 +76,68 @@ const setUpTable = () => {
 
     selectProgramForTE(program.programName)
 
-    cy.getBySel('dimension-item-eventDate').should('not.exist')
-
+    // Check the correct time dimensions are displayed, and with program/stage specific name
     cy.getBySel(`dimension-item-${program.id}.enrollmentDate`).contains(
         program[DIMENSION_ID_ENROLLMENT_DATE]
     )
-
-    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-
     cy.getBySel(`dimension-item-${program.id}.incidentDate`).contains(
         program[DIMENSION_ID_INCIDENT_DATE]
     )
-
     cy.getBySel('dimension-item-lastUpdated').contains(
         program[DIMENSION_ID_LAST_UPDATED]
     )
+    cy.getBySel('dimension-item-eventDate').should('not.exist')
+    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
+    // Add a program data dimension
     clickAddRemoveProgramDataDimension(programDataDimensionName)
 
-    // selectFixedPeriod({ label: periodLabel, period: TEST_FIX_PE_DEC_LAST_YEAR }) // FIXME: Time dimensions aren't implemented yet
+    // Adding time dimensions
+    const firstQuarterThisYear = {
+        type: 'Quarterly',
+        year: getCurrentYearStr(),
+        name: `January - March ${getCurrentYearStr()}`,
+    }
+    const secondQuarterThisYear = {
+        type: 'Quarterly',
+        year: getCurrentYearStr(),
+        name: `April - June ${getCurrentYearStr()}`,
+    }
+
+    // Add the first time dimension
+    selectFixedPeriod({
+        label: periodLabel,
+        period: firstQuarterThisYear,
+    })
+
+    // Check the time dimension chip and tooltip content
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        firstQuarterThisYear.name
+    )
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
+
+    // Add another time dimension
+    selectFixedPeriod({
+        label: periodLabel,
+        period: secondQuarterThisYear,
+        selected: firstQuarterThisYear,
+    })
+
+    // Check the time dimension chip and tooltip content for the new content
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        `Program: ${program.programName}`
+    )
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        firstQuarterThisYear.name
+    )
+    cy.getBySel('layout-chip-tooltip-content').contains(
+        secondQuarterThisYear.name
+    )
+    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
 
     // Go back to person dimensions to verify that they're still listed properly
     cy.getBySel('main-sidebar').contains('Person dimensions').click()

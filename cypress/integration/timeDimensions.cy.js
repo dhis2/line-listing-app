@@ -33,8 +33,9 @@ const assertTimeDimension = (dimension) => {
             selectFixedPeriod({
                 label,
                 period: {
+                    type: 'Monthly',
                     year: '2023',
-                    name: '2023',
+                    name: 'January 2023',
                 },
             })
         } else {

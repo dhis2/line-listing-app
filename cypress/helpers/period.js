@@ -7,11 +7,13 @@ const openPeriod = (label) => {
     }
 }
 
-const selectFixedPeriod = ({ label, period }) => {
+const DEFAULT_FIXED_PERIOD_TYPE = 'Monthly'
+const selectFixedPeriod = ({ label, period, selected }) => {
     openPeriod(label)
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
-    if (period.type) {
+
+    if (period.type && period.type !== DEFAULT_FIXED_PERIOD_TYPE) {
         cy.getBySel(
             'period-dimension-fixed-period-filter-period-type-content'
         ).click()
@@ -24,9 +26,25 @@ const selectFixedPeriod = ({ label, period }) => {
     cy.getBySel('period-dimension-fixed-period-filter-year-content')
         .clear()
         .type(period.year)
-    cy.getBySel('period-dimension-transfer-option-content')
+    cy.getBySel('period-dimension-transfer-sourceoptions')
+        .findBySel('period-dimension-transfer-option-content')
         .contains(period.name)
         .dblclick()
+
+    cy.getBySel('period-dimension-transfer-pickedoptions').contains(period.name)
+
+    cy.getBySel('period-dimension-transfer-sourceoptions')
+        .contains(period.name)
+        .should('not.exist')
+
+    if (selected) {
+        cy.getBySel('period-dimension-transfer-pickedoptions')
+            .containsExact(selected.name)
+            .should('be.visible')
+        cy.getBySel('period-dimension-transfer-sourceoptions')
+            .contains(selected.name)
+            .should('not.exist')
+    }
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
 
