@@ -16,28 +16,147 @@ import { selectFixedPeriod, getCurrentYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
-const program = {
-    programName: 'Child Programme',
-    [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of enrollment',
-    [DIMENSION_ID_INCIDENT_DATE]: 'Date of birth',
-    [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
-    id: 'IpHINAT79UW',
-}
-const entityDimensionName = 'City'
-const programDataDimensionName = 'MCH Infant Weight (g)'
-const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
-
 describe(['>=41'], 'tracked entity', () => {
     beforeEach(() => {
         goToStartPage()
     })
     it('creates a line list with dimensions', () => {
-        setUpTable()
+        const program = {
+            programName: 'Child Programme',
+            [DIMENSION_ID_ENROLLMENT_DATE]: 'Date of enrollment',
+            [DIMENSION_ID_INCIDENT_DATE]: 'Date of birth',
+            [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+            id: 'IpHINAT79UW',
+        }
+        const entityDimensionName = 'City'
+        const programDataDimensionName = 'MCH Infant Weight (g)'
+        const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
+
+        cy.getBySel('tracked-entity-button').should('not.exist')
+        cy.getBySel('main-sidebar')
+            .contains('Person dimensions')
+            .should('not.exist')
+        // TODO: check that reg ou and reg date aren't shown
+
+        // switch to Tracked entity and select a type
+        selectTrackedEntityWithType('Person')
+
+        cy.getBySel('input-panel-button-subtitle').contains('Person')
+
+        // TODO: check that reg ou and reg date are shown
+
+        // add a TET dimension
+        cy.getBySel('main-sidebar').contains('Person dimensions').click()
+        cy.getBySel('tracked-entity-dimensions-list')
+            .children()
+            .should('have.length', 33)
+        clickAddRemoveTrackedEntityTypeDimensions(entityDimensionName)
+
+        // select a program and add program dimensions
+        openProgramDimensionsSidebar()
+
+        selectProgramForTE(program.programName)
+
+        // Check the correct time dimensions are displayed, and with program/stage specific name
+        cy.getBySel(`dimension-item-${program.id}.enrollmentDate`).contains(
+            program[DIMENSION_ID_ENROLLMENT_DATE]
+        )
+        cy.getBySel(`dimension-item-${program.id}.incidentDate`).contains(
+            program[DIMENSION_ID_INCIDENT_DATE]
+        )
+        cy.getBySel('dimension-item-lastUpdated').contains(
+            program[DIMENSION_ID_LAST_UPDATED]
+        )
+        cy.getBySel('dimension-item-eventDate').should('not.exist')
+        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
+
+        // Add a program data dimension
+        clickAddRemoveProgramDataDimension(programDataDimensionName)
+
+        // Adding time dimensions
+        const firstQuarterThisYear = {
+            type: 'Quarterly',
+            year: getCurrentYearStr(),
+            name: `January - March ${getCurrentYearStr()}`,
+        }
+        const secondQuarterThisYear = {
+            type: 'Quarterly',
+            year: getCurrentYearStr(),
+            name: `April - June ${getCurrentYearStr()}`,
+        }
+
+        // Add the first time dimension
+        selectFixedPeriod({
+            label: periodLabel,
+            period: firstQuarterThisYear,
+        })
+
+        // Check the time dimension chip and tooltip content
+        cy.getBySelLike('layout-chip')
+            .contains(periodLabel)
+            .trigger('mouseover')
+        cy.getBySel('layout-chip-tooltip-content').contains(
+            firstQuarterThisYear.name
+        )
+        cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+        cy.getBySel('layout-chip-tooltip-content').should('not.exist')
+
+        // Add another time dimension
+        selectFixedPeriod({
+            label: periodLabel,
+            period: secondQuarterThisYear,
+            selected: firstQuarterThisYear,
+        })
+
+        // Check the time dimension chip and tooltip content for the new content
+        cy.getBySelLike('layout-chip')
+            .contains(periodLabel)
+            .trigger('mouseover')
+        cy.getBySel('layout-chip-tooltip-content').contains(
+            `Program: ${program.programName}`
+        )
+        cy.getBySel('layout-chip-tooltip-content').contains(
+            firstQuarterThisYear.name
+        )
+        cy.getBySel('layout-chip-tooltip-content').contains(
+            secondQuarterThisYear.name
+        )
+        cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
+        cy.getBySel('layout-chip-tooltip-content').should('not.exist')
+
+        // Go back to person dimensions to verify that they're still listed properly
+        cy.getBySel('main-sidebar').contains('Person dimensions').click()
+        cy.getBySel('tracked-entity-dimensions-list')
+            .children()
+            .should('have.length', 33)
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        assertChipContainsText(entityDimensionName, 'all')
     })
     it('creates a line list without dimensions', () => {
         selectTrackedEntityWithType('Person')
         clickMenubarUpdateButton()
         expectTableToBeVisible()
+    })
+    it('displays correct dimension names and suffixes', () => {
+        // TODO: Test the following:
+        /*
+            Registration org.unit - always has the same name, no suffix
+            Person dimensions - no suffix
+            Your dimensions - no suffix
+            Organisation unit - always suffixed with program name
+            Program status - always suffixed with program name
+            Time dimensions - only suffixed with program name if there are duplicates
+            Program indicator - no suffix
+            Data elements
+                no duplicates - no suffix
+                duplicates within the program - suffixed with stage name
+                duplicates between different programs - suffixed with the program name
+
+        */
     })
     //runTests()
 })
@@ -49,108 +168,6 @@ describe(['<41'], 'tracked entity', () => {
         cy.getBySel('input-tracked-entity').should('not.exist')
     })
 })
-
-const setUpTable = () => {
-    cy.getBySel('tracked-entity-button').should('not.exist')
-    cy.getBySel('main-sidebar')
-        .contains('Person dimensions')
-        .should('not.exist')
-    // TODO: check that reg ou and reg date aren't shown
-
-    // switch to Tracked entity and select a type
-    selectTrackedEntityWithType('Person')
-
-    cy.getBySel('input-panel-button-subtitle').contains('Person')
-
-    // TODO: check that reg ou and reg date are shown
-
-    // add a TET dimension
-    cy.getBySel('main-sidebar').contains('Person dimensions').click()
-    cy.getBySel('tracked-entity-dimensions-list')
-        .children()
-        .should('have.length', 33)
-    clickAddRemoveTrackedEntityTypeDimensions(entityDimensionName)
-
-    // select a program and add program dimensions
-    openProgramDimensionsSidebar()
-
-    selectProgramForTE(program.programName)
-
-    // Check the correct time dimensions are displayed, and with program/stage specific name
-    cy.getBySel(`dimension-item-${program.id}.enrollmentDate`).contains(
-        program[DIMENSION_ID_ENROLLMENT_DATE]
-    )
-    cy.getBySel(`dimension-item-${program.id}.incidentDate`).contains(
-        program[DIMENSION_ID_INCIDENT_DATE]
-    )
-    cy.getBySel('dimension-item-lastUpdated').contains(
-        program[DIMENSION_ID_LAST_UPDATED]
-    )
-    cy.getBySel('dimension-item-eventDate').should('not.exist')
-    cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-
-    // Add a program data dimension
-    clickAddRemoveProgramDataDimension(programDataDimensionName)
-
-    // Adding time dimensions
-    const firstQuarterThisYear = {
-        type: 'Quarterly',
-        year: getCurrentYearStr(),
-        name: `January - March ${getCurrentYearStr()}`,
-    }
-    const secondQuarterThisYear = {
-        type: 'Quarterly',
-        year: getCurrentYearStr(),
-        name: `April - June ${getCurrentYearStr()}`,
-    }
-
-    // Add the first time dimension
-    selectFixedPeriod({
-        label: periodLabel,
-        period: firstQuarterThisYear,
-    })
-
-    // Check the time dimension chip and tooltip content
-    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
-    cy.getBySel('layout-chip-tooltip-content').contains(
-        firstQuarterThisYear.name
-    )
-    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
-    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
-
-    // Add another time dimension
-    selectFixedPeriod({
-        label: periodLabel,
-        period: secondQuarterThisYear,
-        selected: firstQuarterThisYear,
-    })
-
-    // Check the time dimension chip and tooltip content for the new content
-    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseover')
-    cy.getBySel('layout-chip-tooltip-content').contains(
-        `Program: ${program.programName}`
-    )
-    cy.getBySel('layout-chip-tooltip-content').contains(
-        firstQuarterThisYear.name
-    )
-    cy.getBySel('layout-chip-tooltip-content').contains(
-        secondQuarterThisYear.name
-    )
-    cy.getBySelLike('layout-chip').contains(periodLabel).trigger('mouseout')
-    cy.getBySel('layout-chip-tooltip-content').should('not.exist')
-
-    // Go back to person dimensions to verify that they're still listed properly
-    cy.getBySel('main-sidebar').contains('Person dimensions').click()
-    cy.getBySel('tracked-entity-dimensions-list')
-        .children()
-        .should('have.length', 33)
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    assertChipContainsText(entityDimensionName, 'all')
-}
 
 // const runTests = () => {
 //     it('creates an tracked entity line list', () => {
