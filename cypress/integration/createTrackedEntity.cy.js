@@ -10,7 +10,7 @@ import {
     selectProgramForTE,
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
-// import { assertChipContainsText } from '../helpers/layout.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, getCurrentYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -145,11 +145,11 @@ const setUpTable = () => {
         .children()
         .should('have.length', 33)
 
-    // clickMenubarUpdateButton()
+    clickMenubarUpdateButton()
 
-    // expectTableToBeVisible()
+    expectTableToBeVisible()
 
-    // assertChipContainsText(entityDimensionName, 'all')
+    assertChipContainsText(entityDimensionName, 'all')
 }
 
 // const runTests = () => {
