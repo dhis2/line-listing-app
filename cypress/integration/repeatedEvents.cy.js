@@ -233,7 +233,8 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.have.class', 'disabled')
     })
-    it('undefined values display properly for a repeated event', () => {
+    // TODO: enable once backend bug is fixed (DHIS2-16733)
+    it.skip('undefined values display properly for a repeated event', () => {
         const TEST_CELL = {
             row: 6,
             column: 3,
