@@ -591,13 +591,38 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             dimensionType: DIMENSION_TYPE_STATUS,
             name: 'Program status',
         },
+        XYZ123: {
+            aggregationType: 'NONE',
+            dimensionItemType: 'DATA_ELEMENT',
+            name: 'Some data element',
+            totalAggregationType: 'SUM',
+            uid: 'XYZ123',
+            valueType: 'TEXT',
+        },
+        'p1.p1s1.XYZ123': {
+            aggregationType: 'NONE',
+            dimensionItemType: 'DATA_ELEMENT',
+            name: 'Some data element 1',
+            totalAggregationType: 'SUM',
+            uid: 'XYZ123',
+            valueType: 'TEXT',
+        },
+        'p2.p2s1.XYZ123': {
+            aggregationType: 'NONE',
+            dimensionItemType: 'DATA_ELEMENT',
+            name: 'Some data element 2',
+            totalAggregationType: 'SUM',
+            uid: 'XYZ123',
+            valueType: 'TEXT',
+        },
     }
 
     it('returns correct result for: non-TE, no duplicates -> no suffix', () => {
         const id1 = 'ou',
             id2 = 'eventStatus',
-            id3 = 'programStatus'
-        const dimensionIds = [id1, id2, id3]
+            id3 = 'programStatus',
+            id4 = 'p1.p1s1.XYZ123'
+        const dimensionIds = [id1, id2, id3, id4]
         const output = getDimensionsWithSuffix({
             dimensionIds,
             metadata,
@@ -620,14 +645,20 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
         expect(output[2].name).toEqual('Program status')
         expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
         expect(output[2].suffix).toBeUndefined()
+
+        expect(output[3].id).toEqual(id4)
+        expect(output[3].name).toEqual('Some data element 1')
+        expect(output[3].dimensionType).toBeUndefined()
+        expect(output[3].suffix).toBeUndefined()
     })
 
-    it('returns correct result for: TE, no duplicates -> no suffix', () => {
+    it('returns correct result for: TE, no duplicates -> program suffix for ou and statuses', () => {
         const id1 = 'ou',
             id2 = 'p1.ou',
             id3 = 'p1.eventStatus',
-            id4 = 'p1.programStatus'
-        const dimensionIds = [id1, id2, id3, id4]
+            id4 = 'p1.programStatus',
+            id5 = 'p1.p1s1.XYZ123'
+        const dimensionIds = [id1, id2, id3, id4, id5]
 
         metadata.ou.name = 'Registration org. unit'
 
@@ -649,17 +680,22 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
         expect(output[1].dimensionType).toEqual(
             DIMENSION_TYPE_ORGANISATION_UNIT
         )
-        expect(output[1].suffix).toBeUndefined()
+        expect(output[1].suffix).toEqual('Program1')
 
         expect(output[2].id).toEqual(id3)
         expect(output[2].name).toEqual('Event status')
         expect(output[2].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
-        expect(output[2].suffix).toBeUndefined()
+        expect(output[2].suffix).toEqual('Program1')
 
         expect(output[3].id).toEqual(id4)
         expect(output[3].name).toEqual('Program status')
         expect(output[3].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
-        expect(output[3].suffix).toBeUndefined()
+        expect(output[3].suffix).toEqual('Program1')
+
+        expect(output[4].id).toEqual(id5)
+        expect(output[4].name).toEqual('Some data element 1')
+        expect(output[4].dimensionType).toBeUndefined()
+        expect(output[4].suffix).toBeUndefined()
     })
 
     it('returns correct result for: TE, duplicates -> program suffix', () => {
@@ -669,8 +705,10 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
             id4 = 'p1.eventStatus',
             id5 = 'p2.eventStatus',
             id6 = 'p1.programStatus',
-            id7 = 'p2.programStatus'
-        const dimensionIds = [id1, id2, id3, id4, id5, id6, id7]
+            id7 = 'p2.programStatus',
+            id8 = 'p1.p1s1.XYZ123',
+            id9 = 'p2.p2s1.XYZ123'
+        const dimensionIds = [id1, id2, id3, id4, id5, id6, id7, id8, id9]
 
         metadata.ou.name = 'Registration org. unit'
 
@@ -720,6 +758,16 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
         expect(output[6].name).toEqual('Program status')
         expect(output[6].dimensionType).toEqual(DIMENSION_TYPE_STATUS)
         expect(output[6].suffix).toEqual('Program2')
+
+        expect(output[7].id).toEqual(id8)
+        expect(output[7].name).toEqual('Some data element 1')
+        expect(output[7].dimensionType).toBeUndefined()
+        expect(output[7].suffix).toEqual('Program1')
+
+        expect(output[8].id).toEqual(id9)
+        expect(output[8].name).toEqual('Some data element 2')
+        expect(output[8].dimensionType).toBeUndefined()
+        expect(output[8].suffix).toEqual('Program2')
     })
 })
 
