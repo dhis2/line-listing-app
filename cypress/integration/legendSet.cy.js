@@ -385,9 +385,7 @@ describe('Options - Legend', () => {
         expectRouteToBeEmpty()
     })
 
-    // TODO: remove "skip"!!
-    // currently doesn't work because of a backend issue with returning metadata for "pid.sid.did" (only returns "did" so no legend set is found for the dimension)
-    it.skip(['>=41'], 'apples legend correctly (TE)', () => {
+    it(['>=41'], 'apples legend correctly (TE)', () => {
         const TEST_LEGEND_AGE = {
             name: 'Age 10y interval',
             cells: [{ value: 46, color: 'rgb(173, 221, 142)' }],
@@ -595,6 +593,8 @@ describe('Options - Legend', () => {
         cy.getBySel('fixed-legend-set-select-content').contains(
             TEST_LEGEND_E2E.name
         )
+
+        clickOptionsModalUpdateButton()
 
         // saved AO can be deleted
         deleteVisualization()
