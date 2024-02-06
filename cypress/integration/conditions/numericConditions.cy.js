@@ -418,8 +418,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries(['Is not empty / not null'])
     })
 
-    // TODO: unskip once backend issue DHIS2-16510 is fixed
-    it.skip('2 conditions: greater than + less than', () => {
+    it('2 conditions: greater than + less than', () => {
         addConditions(
             [
                 { conditionName: 'greater than (>)', value: '21' },

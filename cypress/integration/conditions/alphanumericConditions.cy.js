@@ -319,7 +319,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([`Exactly: ${TEST_TEXT}`])
     })
 
-    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed
+    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed (DHIS2-16459)
     it.skip('is not', () => {
         const TEST_TEXT = 'Angus'
 
@@ -381,7 +381,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed
+    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed (DHIS2-16459)
     it.skip('does not contain', () => {
         const TEST_TEXT = 'A'
 
@@ -441,12 +441,11 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([`Is not empty / not null`])
     })
 
-    // FIXME: backend issue, two conditions are not treated as "and", uncomment once fixed
-    it.skip('2 conditions: contains + is not', () => {
+    it('2 conditions: contains + is not', () => {
         addConditions(
             [
                 { conditionName: 'contains', value: 'A' },
-                { conditionName: 'is not', value: 'Text A-2' },
+                { conditionName: 'is not', value: 'Mark' },
             ],
             dimensionName
         )
