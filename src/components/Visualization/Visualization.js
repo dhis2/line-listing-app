@@ -63,11 +63,7 @@ import {
     transformVisualization,
 } from '../../modules/visualization.js'
 import styles from './styles/Visualization.module.css'
-import {
-    cellIsUndefined,
-    getAdaptedVisualization,
-    useAnalyticsData,
-} from './useAnalyticsData.js'
+import { cellIsUndefined, useAnalyticsData } from './useAnalyticsData.js'
 
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
@@ -222,11 +218,7 @@ export const Visualization = ({
         [defaultSorting]
     )
 
-    const [{ sortField, sortDirection }, setSorting] = useReducer(
-        (sorting, newSorting) => ({ ...sorting, ...newSorting }),
-        visualization,
-        getSorting
-    )
+    const { sortField, sortDirection } = getSorting(visualization)
 
     const [{ pageSize, page }, setPaging] = useReducer(
         (paging, newPaging) => ({ ...paging, ...newPaging }),
@@ -243,46 +235,30 @@ export const Visualization = ({
             }),
         []
     )
+
+    const setPageSize = useCallback(
+        (pageSizeNum) =>
+            setPaging({
+                pageSize: pageSizeNum,
+                page: FIRST_PAGE,
+            }),
+        []
+    )
+
     const { isDisconnected: offline } = useDhis2ConnectionStatus()
 
-    const { headers } = getAdaptedVisualization(visualization)
-
-    if (headers && sortField) {
-        // reset sorting if current sortField has been removed from Columns DHIS2-13948
-        // flat() is needed here for repeated events where the dimension ids are nested in an array
-        if (!headers.flat().includes(sortField)) {
-            onDataSorted(defaultSorting)
-
-            setSorting({
-                sortField: defaultSorting.dimension,
-                sortDirection: defaultSorting.direction,
-            })
-        }
-    }
-
-    const analyticsArgs = {
+    const { fetching, error, data } = useAnalyticsData({
         filters,
         visualization,
         isVisualizationLoading,
         displayProperty,
         onResponsesReceived,
         pageSize,
-        page,
+        // Set first page directly for new visualization to avoid extra analytics requests
+        page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
-    }
-
-    // Set first page and sorting directly for new visualization to avoid extra analytics requests
-    if (visualization !== visualizationRef.current) {
-        const { sortField, sortDirection } = getSorting(visualization)
-
-        analyticsArgs.sortField = sortField
-        analyticsArgs.sortDirection = sortDirection
-
-        analyticsArgs.page = FIRST_PAGE
-    }
-
-    const { fetching, error, data } = useAnalyticsData(analyticsArgs)
+    })
 
     const fetchIndicatorTop = useMemo(() => {
         if (
@@ -305,14 +281,12 @@ export const Visualization = ({
         return `${top}px`
     }, [fetching])
 
-    // Reset page for new visualizations
+    // Reset page when a different visualization is loaded
     useEffect(() => {
         visualizationRef.current = visualization
 
-        // Reset page and sorting when a different visualization is loaded
         setPage(FIRST_PAGE)
-        setSorting(getSorting(visualization))
-    }, [visualization, getSorting, setPage, setSorting])
+    }, [visualization, setPage])
 
     useEffect(() => {
         if (data && visualization) {
@@ -351,26 +325,13 @@ export const Visualization = ({
     const colSpan = String(Math.max(data.headers.length, 1))
 
     const sortData = ({ name, direction }) => {
+        // this causes a re-render of the whole component
+        // which resets also the pagination as there is no previous internal state
         onDataSorted({
             dimension: name,
             direction,
         })
-
-        setSorting({
-            sortField: name,
-            sortDirection: direction,
-        })
-
-        setPaging({
-            page: FIRST_PAGE,
-        })
     }
-
-    const setPageSize = (pageSizeNum) =>
-        setPaging({
-            pageSize: pageSizeNum,
-            page: FIRST_PAGE,
-        })
 
     const formatCellValue = (value, header) => {
         if (header?.valueType === VALUE_TYPE_URL) {

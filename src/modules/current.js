@@ -13,7 +13,7 @@ import { parseUiRepetition } from './ui.js'
 import { extractDimensionIdParts } from './utils.js'
 import { getDimensionIdFromHeaderName } from './visualization.js'
 
-const getAdaptedUiSorting = (sorting, visualization) =>
+export const getAdaptedUiSorting = (sorting, visualization) =>
     sorting
         ? [
               {
