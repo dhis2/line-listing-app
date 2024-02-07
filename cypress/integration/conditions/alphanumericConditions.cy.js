@@ -319,8 +319,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([`Exactly: ${TEST_TEXT}`])
     })
 
-    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed (DHIS2-16459)
-    it.skip('is not', () => {
+    it('is not', () => {
         const TEST_TEXT = 'Angus'
 
         addConditions(
@@ -381,8 +380,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
     })
 
-    // FIXME: backend issue, empty rows get filtered out unexpectedly, uncomment once fixed (DHIS2-16459)
-    it.skip('does not contain', () => {
+    it('does not contain', () => {
         const TEST_TEXT = 'A'
 
         addConditions(
@@ -396,7 +394,6 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            'Mark',
             'YYX928443', // empty row, use value in another column
             'BGD242352', // empty row, use value in another column
             'beleb',
