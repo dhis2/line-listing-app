@@ -394,9 +394,9 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
+            'beleb',
             'YYX928443', // empty row, use value in another column
             'BGD242352', // empty row, use value in another column
-            'beleb',
         ])
 
         assertChipContainsText(dimensionName, 1)
