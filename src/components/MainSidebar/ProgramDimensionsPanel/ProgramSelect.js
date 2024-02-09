@@ -139,7 +139,7 @@ const ProgramSelect = ({ prefix }) => {
                         dataTest={'program-select'}
                         filterable
                         noMatchText={i18n.t('No programs found')}
-                        prefix={prefix}
+                        prefix={selectedProgram?.id ? prefix : ''}
                         empty={i18n.t('No programs found')}
                         loading={fetching}
                     >
