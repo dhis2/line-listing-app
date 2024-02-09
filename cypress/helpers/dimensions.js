@@ -25,7 +25,7 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
 }
 
 export const selectProgramForTE = (programName) => {
-    cy.getBySel('accessory-sidebar').contains('Program').click()
+    cy.getBySel('accessory-sidebar').contains('Choose a program').click()
     cy.contains(programName).click()
 }
 
