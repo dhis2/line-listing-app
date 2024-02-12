@@ -71,7 +71,7 @@ const DimensionsList = ({
         )
     }
 
-    if (!dimensions?.length) {
+    if (!loading && !fetching && !dimensions?.length) {
         return (
             <div className={styles.noResults}>
                 {getNoResultsMessage({

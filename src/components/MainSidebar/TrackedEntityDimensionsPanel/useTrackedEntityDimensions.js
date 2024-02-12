@@ -82,13 +82,13 @@ const useTrackedEntityDimensions = ({
     }, [isListEndVisible, nameProp])
 
     useEffect(() => {
-        if (data) {
+        if (!fetching && data) {
             setDimensions((currDimensions) => [
                 ...(currDimensions ?? []),
                 ...data.dimensions.dimensions,
             ])
         }
-    }, [data])
+    }, [data, fetching])
 
     return {
         loading: dimensions ? false : loading,
