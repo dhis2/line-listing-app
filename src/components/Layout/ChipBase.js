@@ -1,4 +1,5 @@
 import {
+    AXIS_ID_FILTERS,
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_PERIOD,
     VALUE_TYPE_BOOLEAN,
@@ -22,6 +23,7 @@ export const ChipBase = ({
     conditionsLength,
     itemsLength,
     inputType,
+    axisId,
 }) => {
     const { id, name, dimensionType, optionSet, valueType, suffix } = dimension
 
@@ -37,15 +39,16 @@ export const ChipBase = ({
 
         const all = i18n.t('all')
 
-        if (!conditionsLength && !itemsLength) {
+        if (!conditionsLength && !itemsLength && axisId !== AXIS_ID_FILTERS) {
             return all
         }
 
         if (
-            (valueType === VALUE_TYPE_TRUE_ONLY &&
+            ((valueType === VALUE_TYPE_TRUE_ONLY &&
                 conditionsLength === VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS) ||
-            (valueType === VALUE_TYPE_BOOLEAN &&
-                conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
+                (valueType === VALUE_TYPE_BOOLEAN &&
+                    conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)) &&
+            axisId !== AXIS_ID_FILTERS
         ) {
             return all
         }
@@ -83,6 +86,7 @@ export const ChipBase = ({
 }
 
 ChipBase.propTypes = {
+    axisId: PropTypes.string,
     conditionsLength: PropTypes.number,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,

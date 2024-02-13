@@ -194,6 +194,7 @@ const OuterDndContext = ({ children }) => {
                     conditionsLength={conditionsTexts.length}
                     itemsLength={chipItems.length}
                     inputType={inputType}
+                    axisId={sourceAxis}
                 />
             </div>
         )

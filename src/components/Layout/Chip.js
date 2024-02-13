@@ -108,6 +108,7 @@ const Chip = ({
         <TooltipContent
             dimension={dimension}
             conditionsTexts={conditionsTexts}
+            axisId={axisId}
         />
     )
 
@@ -154,6 +155,7 @@ const Chip = ({
                                         }
                                         itemsLength={items.length}
                                         inputType={inputType}
+                                        axisId={axisId}
                                     />
                                 </div>
                             )}

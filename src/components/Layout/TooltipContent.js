@@ -6,6 +6,7 @@ import {
     DIMENSION_TYPE_ORGANISATION_UNIT,
     DIMENSION_TYPE_PERIOD,
     DIMENSION_TYPE_ORGANISATION_UNIT_GROUP_SET,
+    AXIS_ID_FILTERS,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -19,7 +20,7 @@ import styles from './styles/Tooltip.module.css'
 
 const renderLimit = 5
 
-export const TooltipContent = ({ dimension, conditionsTexts }) => {
+export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
     const metadata = useSelector(sGetMetadata)
     const inputType = useSelector(sGetUiInputType)
     const itemIds = useSelector((state) =>
@@ -110,11 +111,16 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
         </li>
     )
 
-    const renderAllItemsLabel = () => (
-        <li key={`${dimension.id}-all-selected`} className={styles.item}>
-            {i18n.t('Showing all values for this dimension')}
-        </li>
-    )
+    const renderAllItemsLabel = () =>
+        axisId !== AXIS_ID_FILTERS ? (
+            <li key={`${dimension.id}-all-selected`} className={styles.item}>
+                {i18n.t('Showing all values for this dimension')}
+            </li>
+        ) : (
+            <li key={`${dimension.id}-not-applicable`} className={styles.item}>
+                {i18n.t('Not applicable')}
+            </li>
+        ) // TODO: Change "Not applicable" to something more descriptive
 
     const renderStageName = () =>
         stageName && (
@@ -189,6 +195,7 @@ export const TooltipContent = ({ dimension, conditionsTexts }) => {
 TooltipContent.propTypes = {
     conditionsTexts: PropTypes.array.isRequired,
     dimension: PropTypes.object.isRequired,
+    axisId: PropTypes.string,
 }
 
 export default TooltipContent
