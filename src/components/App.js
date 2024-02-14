@@ -24,6 +24,7 @@ import {
     acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
+    acSetUiAccessoryPanelActiveTab,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { parseCondition, OPERATOR_IN } from '../modules/conditions.js'
@@ -484,6 +485,7 @@ const App = () => {
                     getParentGraphMapFromVisualization(visualization)
                 )
             )
+            dispatch(acSetUiAccessoryPanelActiveTab())
             dispatch(acSetVisualization(visualization))
             dispatch(tSetCurrent(visualization))
             dispatch(acSetUiFromVisualization(visualization))
