@@ -111,17 +111,6 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
         </li>
     )
 
-    const renderAllItemsLabel = () =>
-        axisId !== AXIS_ID_FILTERS ? (
-            <li key={`${dimension.id}-all-selected`} className={styles.item}>
-                {i18n.t('Showing all values for this dimension')}
-            </li>
-        ) : (
-            <li key={`${dimension.id}-not-applicable`} className={styles.item}>
-                {i18n.t('Not applicable')}
-            </li>
-        ) // TODO: Change "Not applicable" to something more descriptive
-
     const renderStageName = () =>
         stageName && (
             <li className={styles.item}>
@@ -142,6 +131,25 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
             </li>
         )
 
+    const renderItemsSection = (itemsList) => {
+        if (itemsList.length) {
+            return renderItems(itemsList)
+        } else {
+            if (axisId === AXIS_ID_FILTERS) {
+                return renderNoItemsLabel()
+            } else {
+                return (
+                    <li
+                        key={`${dimension.id}-all-selected`}
+                        className={styles.item}
+                    >
+                        {i18n.t('Showing all values for this dimension')}
+                    </li>
+                )
+            }
+        }
+    }
+
     const itemDisplayNames = Boolean(itemIds.length) && getItemDisplayNames()
 
     switch (dimension.dimensionType) {
@@ -152,12 +160,9 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
             return (
                 <ul className={styles.list} data-test="tooltip-content">
                     {renderProgramName()}
-                    {itemDisplayNames
-                        ? renderItems(itemDisplayNames)
-                        : renderAllItemsLabel()}
+                    {renderItemsSection(itemDisplayNames)}
                 </ul>
             )
-
         case DIMENSION_TYPE_PERIOD:
         case DIMENSION_TYPE_ORGANISATION_UNIT:
             return (
@@ -173,9 +178,7 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
                 <ul className={styles.list} data-test="tooltip-content">
                     {renderProgramName()}
                     {renderStageName()}
-                    {conditionsTexts.length
-                        ? renderItems(conditionsTexts)
-                        : renderAllItemsLabel()}
+                    {renderItemsSection(conditionsTexts)}
                 </ul>
             )
         }
@@ -183,9 +186,7 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
             return (
                 <ul className={styles.list} data-test="tooltip-content">
                     {renderProgramName()}
-                    {conditionsTexts.length
-                        ? renderItems(conditionsTexts)
-                        : renderAllItemsLabel()}
+                    {renderItemsSection(conditionsTexts)}
                 </ul>
             )
         }
