@@ -478,6 +478,7 @@ const App = () => {
             addFixedDimensionsMetadata(visualization)
             if (visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
                 addProgramDimensionsMetadata(visualization)
+                dispatch(acSetUiAccessoryPanelActiveTab())
             }
 
             dispatch(
@@ -485,7 +486,6 @@ const App = () => {
                     getParentGraphMapFromVisualization(visualization)
                 )
             )
-            dispatch(acSetUiAccessoryPanelActiveTab())
             dispatch(acSetVisualization(visualization))
             dispatch(tSetCurrent(visualization))
             dispatch(acSetUiFromVisualization(visualization))
