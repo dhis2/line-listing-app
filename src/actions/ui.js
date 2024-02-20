@@ -189,7 +189,6 @@ export const tSetUiEntityType =
         dispatch(tClearUiProgramRelatedDimensions())
         dispatch(acClearUiEntityType())
         dispatch(acUpdateUiEntityTypeId(type.id, { [type.id]: type }))
-        // TODO: store metadata as well?)
     }
 
 export const tClearUiStage = () => (dispatch, getState) => {

@@ -68,7 +68,6 @@ export const getHeadersMap = ({ showHierarchy }) => {
 export const outputTypeTimeDimensionMap = {
     [OUTPUT_TYPE_EVENT]: DIMENSION_ID_EVENT_DATE,
     [OUTPUT_TYPE_ENROLLMENT]: DIMENSION_ID_ENROLLMENT_DATE,
-    // TODO: does this need [OUTPUT_TYPE_TRACKED_ENTITY] ?
 }
 
 export const transformVisualization = (visualization) => {
