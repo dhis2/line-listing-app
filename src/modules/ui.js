@@ -29,6 +29,7 @@ export const getAdaptedUiByType = (ui) => {
     }
 }
 
+// TODO: add unit tests for this fn?
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
     input: getInputTypeFromVisualization(vis),

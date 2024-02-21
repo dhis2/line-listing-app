@@ -251,19 +251,17 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
     const dimensionName = 'Age (years)'
 
     beforeEach(() => {
+        // set up a TE LL with a dimension
         goToStartPage()
-
         selectTrackedEntityWithType('Malaria Entity')
-
         cy.getBySel('main-sidebar')
             .contains('Malaria Entity dimensions')
             .click()
         clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
-
         clickMenubarUpdateButton()
 
+        // expect the table to be visible and the dimension chip to be present
         expectTableToBeVisible()
-
         assertChipContainsText(dimensionName, 'all')
     })
 

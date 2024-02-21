@@ -9,10 +9,12 @@ const openPeriod = (label) => {
 
 const DEFAULT_FIXED_PERIOD_TYPE = 'Monthly'
 const selectFixedPeriod = ({ label, period, selected }) => {
+    // open the period modal in the fixed period view
     openPeriod(label)
     cy.contains('Choose from presets').click()
     cy.contains('Fixed periods').click()
 
+    // change period type if applicable
     if (period.type && period.type !== DEFAULT_FIXED_PERIOD_TYPE) {
         cy.getBySel(
             'period-dimension-fixed-period-filter-period-type-content'
@@ -23,6 +25,8 @@ const selectFixedPeriod = ({ label, period, selected }) => {
             .contains(period.type)
             .click()
     }
+
+    // select the year and the period
     cy.getBySel('period-dimension-fixed-period-filter-year-content')
         .clear()
         .type(period.year)
@@ -32,11 +36,11 @@ const selectFixedPeriod = ({ label, period, selected }) => {
         .dblclick()
 
     cy.getBySel('period-dimension-transfer-pickedoptions').contains(period.name)
-
     cy.getBySel('period-dimension-transfer-sourceoptions')
         .contains(period.name)
         .should('not.exist')
 
+    // verify that a previously selected period is visible in the picked options and not in the source options
     if (selected) {
         cy.getBySel('period-dimension-transfer-pickedoptions')
             .containsExact(selected.name)

@@ -148,13 +148,13 @@ describe('save', () => {
         const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
 
+        // set up a simple TE line list
         goToStartPage()
         selectTrackedEntityWithTypeAndProgramDimensions({
             typeName: 'Person',
             programName: event.programName,
             dimensions: [TEST_DIM_NUMBER],
         })
-
         clickMenubarUpdateButton()
         expectTableToBeVisible()
 
@@ -168,6 +168,7 @@ describe('save', () => {
         openAOByName(AO_NAME)
         expectTableToBeVisible()
 
+        // expect axis to contain dimension with properly prefixed id
         expectAxisToHaveDimension(
             AXIS_ID_COLUMNS,
             'J1QQtmzqhJz.jfuXZB3A1ko.Vcu7eF3ndYW'
@@ -183,6 +184,7 @@ describe('save', () => {
         expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
+        // delete AO to clean up
         deleteVisualization()
     })
     it('new AO without name saves correctly', () => {

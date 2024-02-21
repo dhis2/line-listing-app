@@ -280,16 +280,17 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
     const dimensionName = 'First Name'
 
     beforeEach(() => {
+        // set up a TE LL with some dimensions
         goToStartPage()
-
         selectTrackedEntityWithType('Malaria Entity')
-
         cy.getBySel('main-sidebar')
             .contains('Malaria Entity dimensions')
             .click()
         clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
+        // select a second dimension that can be verified if the first dimension has an emtpy value
         clickAddRemoveTrackedEntityTypeDimensions('System Case ID')
 
+        // change org unit to limit the data
         openOuDimension(DIMENSION_ID_ORGUNIT)
         expectOrgUnitDimensionModalToBeVisible()
         expectOrgUnitDimensionToNotBeLoading()
@@ -299,8 +300,8 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
         selectOrgUnitTreeItem('Njandama MCHP')
         clickOrgUnitDimensionModalUpdateButton()
 
+        // assert that the table is visible and that the layout chip is present
         expectTableToBeVisible()
-
         assertChipContainsText(dimensionName, 'all')
     })
 

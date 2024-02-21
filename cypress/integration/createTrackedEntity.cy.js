@@ -32,18 +32,20 @@ describe(['>=41'], 'tracked entity', () => {
         const programDataDimensionName = 'MCH Infant Weight (g)'
         const periodLabel = program[DIMENSION_ID_ENROLLMENT_DATE]
 
+        // verify that e.g. the "Person dimensions" button is hidden
         cy.getBySel('tracked-entity-button').should('not.exist')
         cy.getBySel('main-sidebar')
             .contains('Person dimensions')
             .should('not.exist')
-        // TODO: check that reg ou and reg date aren't shown
+
+        // TODO: check that reg ou and reg date aren't shown !
 
         // switch to Tracked entity and select a type
         selectTrackedEntityWithType('Person')
 
         cy.getBySel('input-panel-button-subtitle').contains('Person')
 
-        // TODO: check that reg ou and reg date are shown
+        // TODO: check that reg ou and reg date are shown !
 
         // add a TET dimension
         cy.getBySel('main-sidebar').contains('Person dimensions').click()
@@ -137,6 +139,7 @@ describe(['>=41'], 'tracked entity', () => {
         assertChipContainsText(entityDimensionName, 'all')
     })
     it('creates a line list without dimensions', () => {
+        // verify that a TE line list can be created without making any program related selections (or adding any dimensions)
         selectTrackedEntityWithType('Person')
         clickMenubarUpdateButton()
         expectTableToBeVisible()
@@ -164,7 +167,9 @@ describe(['>=41'], 'tracked entity', () => {
 describe(['<41'], 'tracked entity', () => {
     it("is hidden and doesn't show up", () => {
         goToStartPage()
+        // verify that e.g. the "Person dimensions" button is hidden
         cy.getBySel('tracked-entity-button').should('not.exist')
+        // verify that the TE input option is hidden
         cy.getBySel('input-tracked-entity').should('not.exist')
     })
 })

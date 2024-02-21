@@ -52,6 +52,7 @@ export const tSetCurrentFromUi =
         }
 
         if (!validateOnly) {
+            // proceed if the layout either has a program id or a tracked entity type id
             if (
                 layoutHasProgramId(currentFromUi) ||
                 layoutHasTrackedEntityTypeId(currentFromUi)
