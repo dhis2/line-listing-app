@@ -218,8 +218,6 @@ const extractHeaders = (analyticsResponse, outputType) => {
                 getProgramDimensions(programId)[formattedDimensionId]
         }
 
-        // TODO: add logic/metadata for time dimensions here
-
         return formattedDimensionId
     })
 

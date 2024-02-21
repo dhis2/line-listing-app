@@ -534,6 +534,7 @@ describe('getDimensionsWithSuffix for time dimensions', () => {
     })
 
     // TODO: add tests for time dimensions with custom names not getting prefixed
+    // currently not implemented yet, double-check if this is still expected
 })
 
 describe('getDimensionsWithSuffix for program dimensions', () => {
@@ -770,26 +771,3 @@ describe('getDimensionsWithSuffix for program dimensions', () => {
         expect(output[8].suffix).toEqual('Program2')
     })
 })
-
-/* 
-    TODO: implement the following cases:
-    
-    Data element duplicates
-    -DED1    Not TE, not duplicate -> no suffix
-    -DED2    Not TE, duplicate per stage -> stage suffix
-    -DED3    TE, not duplicate -> no suffix
-    -DED4    TE, duplicate per stage -> stage suffix
-    -DED5    TE, duplicate per program -> program suffix
-    -DED6    TE, duplicate per stage and program -> stage suffix
-
-    Time dimensions
-    -TD1    Not TE, regardless of name -> no suffix
-    TD2    TE, custom name -> no suffix
-    TD3    TE, default name -> program suffix
-
-    Other dimensions
-    OD1    Program indicator (regardless of all other rules) -> no suffix
-    OD2    Global dimension (regardless of all other rules) -> no suffix
-    OD3    TET dimensions / PA (regardless of all other rules) -> no suffix
-    -OD4    “Program dimensions” event/program status, org unit -> program suffix
-*/
