@@ -5,6 +5,7 @@ import {
 import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
+    clickAddRemoveProgramDataDimension,
     openDimension,
     openInputSidebar,
     openProgramDimensionsSidebar,
@@ -12,6 +13,8 @@ import {
     selectEnrollmentWithProgramDimensions,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
+    selectProgramForTE,
+    selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
@@ -87,8 +90,6 @@ const expectRepetitionToBe = ({ dimensionName, recent, oldest }) => {
 const expectHeaderToContainExact = (index, value) =>
     getTableHeaderCells().eq(index).containsExact(value)
 
-// TODO: duplicate describe below and adapt to TE
-
 describe('repeated events', () => {
     beforeEach(() => {
         goToStartPage()
@@ -100,6 +101,110 @@ describe('repeated events', () => {
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
         getTableHeaderCells().eq(0).containsExact('E2E - Percentage')
+        getTableDataCells().eq(0).invoke('text').should('eq', '46')
+        expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
+
+        // repetition 2/0 can be set successfully
+        setRepetition({ dimensionName, recent: 2, oldest: 0 })
+        let result = ['45', '46']
+        result.forEach((value, index) => {
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
+        })
+        expectHeaderToContainExact(
+            0,
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -1)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'E2E - Percentage, Stage 1 - Repeatable (most recent)'
+        )
+
+        // repetition 0/2 can be set successfully
+        setRepetition({ dimensionName, recent: 0, oldest: 2 })
+        result = ['45', '46']
+        result.forEach((value, index) => {
+            getTableDataCells().eq(index).contains(value)
+        })
+        expectHeaderToContainExact(
+            0,
+            'E2E - Percentage, Stage 1 - Repeatable (oldest)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'E2E - Percentage, Stage 1 - Repeatable (oldest +1)'
+        )
+
+        // repetition 2/2 can be set successfully
+        setRepetition({ dimensionName, recent: 2, oldest: 2 })
+        result = ['45', '46', '45', '46']
+        result.forEach((value, index) => {
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
+        })
+        expectHeaderToContainExact(
+            0,
+            'E2E - Percentage, Stage 1 - Repeatable (oldest)'
+        )
+        expectHeaderToContainExact(
+            1,
+            'E2E - Percentage, Stage 1 - Repeatable (oldest +1)'
+        )
+        expectHeaderToContainExact(
+            2,
+            'E2E - Percentage, Stage 1 - Repeatable (most recent -1)'
+        )
+        expectHeaderToContainExact(
+            3,
+            'E2E - Percentage, Stage 1 - Repeatable (most recent)'
+        )
+
+        // switch back to event, check that repetition is cleared
+        openInputSidebar()
+        selectEventWithProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [dimensionName],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        // no repetition in header
+        expectHeaderToContainExact(0, dimensionName)
+    })
+    // TODO: blocked by backend issues DHIS2-16886 and DHIS2-16709
+    it.skip('can use repetition for TE', () => {
+        // switch to Tracked entity and select a type
+        selectTrackedEntityWithType('Person')
+
+        openProgramDimensionsSidebar()
+
+        selectProgramForTE(E2E_PROGRAM.programName)
+
+        // TODO: set up repetition for TE (need to find a TE with a repeatable dimension)
+        const dimensionName = 'E2E - Percentage'
+
+        clickAddRemoveProgramDataDimension(dimensionName)
+
+        cy.getBySel('columns-axis')
+            .findBySel('dimension-menu-button-ou')
+            .click()
+        cy.contains('Move to Filter').click()
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        assertChipContainsText(dimensionName, 'all')
+
+        // initially only has 1 column and 1 row
+        getTableHeaderCells().its('length').should('equal', 1)
+        getTableHeaderCells().eq(0).containsExact(dimensionName)
+        // TODO: everything below this is untested and needs to be updated to reflect the values that the backend actually returns
         getTableDataCells().eq(0).invoke('text').should('eq', '46')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
@@ -233,8 +338,7 @@ describe('repeated events', () => {
 
         getRepeatedEventsTab().should('not.have.class', 'disabled')
     })
-    // TODO: enable once backend bug is fixed (DHIS2-16733)
-    it.skip('undefined values display properly for a repeated event', () => {
+    it('undefined values display properly for a repeated event', () => {
         const TEST_CELL = {
             row: 6,
             column: 3,
