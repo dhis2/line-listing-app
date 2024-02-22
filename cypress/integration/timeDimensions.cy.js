@@ -11,8 +11,9 @@ import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
-import { selectRelativePeriod } from '../helpers/period.js'
+import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     getTableRows,
@@ -27,7 +28,18 @@ const assertTimeDimension = (dimension) => {
         selectEventWithProgram(trackerProgram)
         openProgramDimensionsSidebar()
         const label = trackerProgram[dimension.id]
-        selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
+        if (dimension.id === DIMENSION_ID_LAST_UPDATED) {
+            // last updated doesn't seem to get bumped yearly in the SL DB so we need to select a fixed period
+            selectFixedPeriod({
+                label,
+                period: {
+                    year: '2023',
+                    name: '2023',
+                },
+            })
+        } else {
+            selectRelativePeriod({ label, period: TEST_REL_PE_THIS_YEAR })
+        }
 
         clickMenubarUpdateButton()
 
@@ -43,10 +55,7 @@ const assertTimeDimension = (dimension) => {
         getTableHeaderCells().contains(label).should('be.visible')
 
         //check the chip in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${label}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText(label, 1)
     })
 }
 

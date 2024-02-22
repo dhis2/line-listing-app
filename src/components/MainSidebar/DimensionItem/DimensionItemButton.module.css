@@ -1,3 +1,6 @@
+.wrapper {
+    align-self: stretch;
+}
 .hidden {
     visibility: hidden;
 }

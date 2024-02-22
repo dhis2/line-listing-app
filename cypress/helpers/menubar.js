@@ -18,6 +18,11 @@ export const clickMenubarOptionsButton = () =>
         .contains('Options')
         .click()
 
+export const openDataOptionsModal = () => {
+    clickMenubarOptionsButton()
+    return cy.getBySel('options-menu-list').contains('Data').click()
+}
+
 export const openStyleOptionsModal = () => {
     clickMenubarOptionsButton()
     return cy.getBySel('options-menu-list').contains('Style').click()

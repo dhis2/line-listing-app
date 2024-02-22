@@ -6,7 +6,7 @@ import styles from './DimensionItemButton.module.css'
 
 const DimensionItemButton = ({ onClick, icon, dataTest }) => {
     return (
-        <div className={cx(styles.hidden)} data-test={dataTest}>
+        <div className={cx(styles.hidden, styles.wrapper)} data-test={dataTest}>
             <IconButton onClick={onClick}>{icon}</IconButton>
         </div>
     )

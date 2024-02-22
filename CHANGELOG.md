@@ -1,3 +1,45 @@
+# [100.15.0](https://github.com/dhis2/line-listing-app/compare/v100.14.0...v100.15.0) (2024-01-30)
+
+
+### Features
+
+* add skip rounding option (DHIS2-15629) ([#424](https://github.com/dhis2/line-listing-app/issues/424)) ([4ddbed9](https://github.com/dhis2/line-listing-app/commit/4ddbed99dda19d15933c1329eec281d542a0a9d4))
+
+# [100.14.0](https://github.com/dhis2/line-listing-app/compare/v100.13.1...v100.14.0) (2024-01-29)
+
+
+### Features
+
+* add class-names for push-analytics ([#485](https://github.com/dhis2/line-listing-app/issues/485)) ([b0836cc](https://github.com/dhis2/line-listing-app/commit/b0836ccdc88df1a625d2e36ffc18be3337e0dd3e))
+
+## [100.13.1](https://github.com/dhis2/line-listing-app/compare/v100.13.0...v100.13.1) (2024-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([0e27c48](https://github.com/dhis2/line-listing-app/commit/0e27c48849fc7fa2348afc623863da14b1cad698))
+
+# [100.13.0](https://github.com/dhis2/line-listing-app/compare/v100.12.1...v100.13.0) (2024-01-17)
+
+
+### Features
+
+* enable legend toggle button for LL dashboard items (DHIS2-15358) ([#443](https://github.com/dhis2/line-listing-app/issues/443)) ([c14551d](https://github.com/dhis2/line-listing-app/commit/c14551d6af91b04637ccf468b031d671e58f8c36))
+
+## [100.12.1](https://github.com/dhis2/line-listing-app/compare/v100.12.0...v100.12.1) (2024-01-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f232d4e](https://github.com/dhis2/line-listing-app/commit/f232d4ee006069ca4230028f3cb3816b6495a146))
+
+# [100.12.0](https://github.com/dhis2/line-listing-app/compare/v100.11.4...v100.12.0) (2024-01-12)
+
+
+### Features
+
+* updated chip design (DHIS2-15897) ([#478](https://github.com/dhis2/line-listing-app/issues/478)) ([eeba81f](https://github.com/dhis2/line-listing-app/commit/eeba81f3846ac90caf159caf26813a81e4a05682)), closes [#464](https://github.com/dhis2/line-listing-app/issues/464) [#464](https://github.com/dhis2/line-listing-app/issues/464)
+
 ## [100.11.4](https://github.com/dhis2/line-listing-app/compare/v100.11.3...v100.11.4) (2023-12-10)
 
 
