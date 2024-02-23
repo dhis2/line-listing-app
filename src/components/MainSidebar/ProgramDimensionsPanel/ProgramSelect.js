@@ -99,7 +99,7 @@ const ProgramSelect = ({ prefix }) => {
             })
             setProgramDimensionsMap(map)
         }
-    }, [selectedEntityTypeId, allDimensionIds])
+    }, [selectedEntityTypeId, allDimensionIds, inputType])
 
     useEffect(() => {
         refetch({
