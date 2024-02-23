@@ -7,6 +7,8 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { getPreviousYearStr } from '../helpers/period.js'
 
+// TODO: update to fit the new database
+
 export const E2E_PROGRAM = {
     programName: 'E2E program',
     //stageName: 'Stage 1 - Repeatable',
