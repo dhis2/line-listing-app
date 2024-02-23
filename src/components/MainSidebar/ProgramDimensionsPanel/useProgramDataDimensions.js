@@ -331,7 +331,6 @@ const useProgramDataDimensions = ({
         searchTerm,
         dimensionType,
         nameProp,
-        fetchDimensions,
     ])
 
     useEffect(() => {
