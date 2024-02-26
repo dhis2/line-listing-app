@@ -19,7 +19,7 @@ describe('layout validation', () => {
 
             goToStartPage()
 
-            if (type === 'enrollemnt') {
+            if (type === 'enrollment') {
                 cy.getBySel('input-enrollment').click()
             }
 
