@@ -1,5 +1,6 @@
 import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
+import { extractDimensionIdParts } from './dimensionIds.js'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import {
@@ -10,7 +11,6 @@ import {
     OPTION_SHOW_LEGEND_KEY,
 } from './options.js'
 import { parseUiRepetition } from './ui.js'
-import { extractDimensionIdParts } from './utils.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
 export const getDefaultFromUi = (current, ui) => {

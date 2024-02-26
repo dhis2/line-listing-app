@@ -17,14 +17,14 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
 import { DIMENSION_ID_PROGRAM_STATUS } from '../../modules/dimensionConstants.js'
-import { getMainDimensions } from '../../modules/mainDimensions.js'
-import { getProgramDimensions } from '../../modules/programDimensions.js'
-import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
-    getDimensionsWithSuffix,
-} from '../../modules/utils.js'
+} from '../../modules/dimensionIds.js'
+import { getDimensionsWithSuffix } from '../../modules/getDimensionsWithSuffix.js'
+import { getMainDimensions } from '../../modules/mainDimensions.js'
+import { getProgramDimensions } from '../../modules/programDimensions.js'
+import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,

@@ -6,13 +6,13 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import isObject from 'lodash-es/isObject'
+import { formatDimensionId } from './dimensionIds.js'
 import { getInputTypeFromVisualization } from './input.js'
 import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
 import { getProgramFromVisualisation } from './program.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
-import { formatDimensionId } from './utils.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,

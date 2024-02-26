@@ -16,6 +16,10 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
+import {
+    formatDimensionId,
+    extractDimensionIdParts,
+} from '../modules/dimensionIds.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
@@ -25,7 +29,6 @@ import {
 } from '../modules/programDimensions.js'
 import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { formatDimensionId, extractDimensionIdParts } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,

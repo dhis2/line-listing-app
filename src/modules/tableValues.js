@@ -12,7 +12,7 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
-import { extractDimensionIdParts } from './utils.js'
+import { extractDimensionIdParts } from './dimensionIds.js'
 import { headersMap, getStatusNames } from './visualization.js'
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {

@@ -18,6 +18,10 @@ import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import { acSetUiItems } from '../../../actions/ui.js'
 import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../../modules/dimensionIds.js'
+import {
     SYSTEM_SETTINGS_HIDE_DAILY_PERIODS,
     SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_BIWEEKLY_PERIODS,
@@ -25,10 +29,6 @@ import {
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
 import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
-import {
-    extractDimensionIdParts,
-    formatDimensionId,
-} from '../../../modules/utils.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,

@@ -6,7 +6,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiOpenDimensionModal } from '../../../actions/ui.js'
 import { getAxisName } from '../../../modules/axis.js'
-import { getDimensionsWithSuffix } from '../../../modules/utils.js'
+import { getDimensionsWithSuffix } from '../../../modules/getDimensionsWithSuffix.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import {
     sGetUiDraggingId,

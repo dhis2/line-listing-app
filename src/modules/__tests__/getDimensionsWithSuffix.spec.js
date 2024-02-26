@@ -4,12 +4,12 @@ import {
     DIMENSION_TYPE_PERIOD,
     VALUE_TYPE_TEXT,
 } from '@dhis2/analytics'
-import { DIMENSION_TYPE_STATUS } from '../../../../modules/dimensionConstants.js'
-import { getDimensionsWithSuffix } from '../../../../modules/utils.js'
+import { DIMENSION_TYPE_STATUS } from '../dimensionConstants.js'
+import { getDimensionsWithSuffix } from '../getDimensionsWithSuffix.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
-} from '../../../../modules/visualization.js'
+} from '../visualization.js'
 
 describe('getDimensionsWithSuffix for data elements', () => {
     const metadata = {

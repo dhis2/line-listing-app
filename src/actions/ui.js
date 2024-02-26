@@ -8,6 +8,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_CREATED,
 } from '../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../modules/dimensionIds.js'
 import {
     getDefaultTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
@@ -15,7 +16,6 @@ import {
     getDefaultOuMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
-import { extractDimensionIdParts } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,

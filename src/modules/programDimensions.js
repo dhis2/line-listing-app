@@ -8,9 +8,9 @@ import {
     DIMENSION_TYPE_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from './dimensionConstants.js'
+import { extractDimensionIdParts } from './dimensionIds.js'
 import { getDefaultOrgUnitLabel } from './metadata.js'
 import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
-import { extractDimensionIdParts } from './utils.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,

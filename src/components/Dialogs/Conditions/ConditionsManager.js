@@ -33,7 +33,7 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { extractDimensionIdParts } from '../../../modules/utils.js'
+import { extractDimensionIdParts } from '../../../modules/dimensionIds.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,

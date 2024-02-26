@@ -1,9 +1,9 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
+import { formatDimensionId } from '../modules/dimensionIds.js'
 import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../modules/metadata.js'
-import { formatDimensionId } from '../modules/utils.js'
 import { getDimensionMetadataFromVisualization } from '../modules/visualization.js'
 import {
     SET_VISUALIZATION,

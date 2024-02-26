@@ -33,6 +33,7 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
+import { formatDimensionId } from '../modules/dimensionIds.js'
 import {
     analyticsGenerationError,
     analyticsRequestError,
@@ -56,7 +57,6 @@ import {
     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
     USER_SETTINGS_DISPLAY_PROPERTY,
 } from '../modules/userSettings.js'
-import { formatDimensionId } from '../modules/utils.js'
 import {
     OUTPUT_TYPE_TRACKED_ENTITY,
     getDimensionMetadataFields,

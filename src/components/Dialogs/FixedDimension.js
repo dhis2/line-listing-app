@@ -16,11 +16,11 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../../modules/dimensionConstants.js'
-import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
-} from '../../modules/utils.js'
+} from '../../modules/dimensionIds.js'
+import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,

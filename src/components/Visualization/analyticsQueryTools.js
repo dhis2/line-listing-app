@@ -11,8 +11,8 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
+import { formatDimensionId } from '../../modules/dimensionIds.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
-import { formatDimensionId } from '../../modules/utils.js'
 import { getHeadersMap } from '../../modules/visualization.js'
 
 const excludedDimensions = [
