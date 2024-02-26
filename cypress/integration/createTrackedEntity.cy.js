@@ -167,9 +167,9 @@ describe(['>=41'], 'tracked entity', () => {
 describe(['<41'], 'tracked entity', () => {
     it("is hidden and doesn't show up", () => {
         goToStartPage()
-        // verify that e.g. the "Person dimensions" button is hidden
+        // verify that e.g. the "Person dimensions" button doesn't exist
         cy.getBySel('tracked-entity-button').should('not.exist')
-        // verify that the TE input option is hidden
+        // verify that the TE input option doesn't exist
         cy.getBySel('input-tracked-entity').should('not.exist')
     })
 })
