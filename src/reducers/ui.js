@@ -529,8 +529,6 @@ export const useProgramDimensions = () => {
                 : []),
             incidentDateDim,
         ].filter((dimension) => {
-            // TODO this filter used to return !!dimension && !hiddenTimeDimensions.includes(dimension.id)
-            // is there a reason the dimension is checked for existence?
             if (!dimension) {
                 return false
             }
