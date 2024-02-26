@@ -51,8 +51,8 @@ const TrackedEntityDimensionsPanel = ({ visible }) => {
                     onChange={({ value }) => setSearchTerm(value)}
                     dense
                     placeholder={i18n.t('Search dimensions')}
-                    type={'search'}
-                    dataTest={'search-te-dimension-input'}
+                    type="search"
+                    dataTest="search-te-dimension-input"
                 />
                 <div className={styles.programSelect}>
                     <ProgramFilter

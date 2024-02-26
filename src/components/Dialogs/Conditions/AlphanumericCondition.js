@@ -83,7 +83,7 @@ const BaseCondition = ({
                             key={key}
                             value={key}
                             label={value}
-                            dataTest={'alphanumeric-condition-type'}
+                            dataTest="alphanumeric-condition-type"
                         />
                     )
                 )}
@@ -105,7 +105,7 @@ const BaseCondition = ({
                         onChange={({ checked }) => toggleCaseSensitive(checked)}
                         dense
                         className={classes.caseSensitiveCheckbox}
-                        dataTest={'condition-case-sensitive-checkbox'}
+                        dataTest="condition-case-sensitive-checkbox"
                     />
                 )}
             <Button

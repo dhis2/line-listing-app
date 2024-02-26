@@ -18,7 +18,7 @@ export const TrackedEntityDimensionsMenuItem = ({
         onClick={onClick}
         selected={selected}
         count={count}
-        dataTest={'tracked-entity-button'}
+        dataTest="tracked-entity-button"
     />
 )
 

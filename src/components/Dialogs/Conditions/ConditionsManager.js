@@ -482,7 +482,7 @@ const ConditionsManager = ({
                             content={i18n.t(
                                 'Only available for repeatable stages'
                             )}
-                            dataTest={'repeatable-events-tooltip'}
+                            dataTest="repeatable-events-tooltip"
                         >
                             {repeatableTab}
                         </Tooltip>

@@ -444,7 +444,7 @@ export const Visualization = ({
                       )
                     : undefined
             }
-            dataTest={'table-cell'}
+            dataTest="table-cell"
         >
             <div
                 style={
@@ -544,7 +544,7 @@ export const Visualization = ({
                                                 sizeClass,
                                                 'bordered'
                                             )}
-                                            dataTest={'table-header'}
+                                            dataTest="table-header"
                                         >
                                             {formatCellHeader(header)}
                                         </DataTableColumnHeader>
@@ -558,18 +558,18 @@ export const Visualization = ({
                                                 fontSizeClass,
                                                 sizeClass
                                             )}
-                                            dataTest={'table-header'}
+                                            dataTest="table-header"
                                         />
                                     )
                                 )}
                             </DataTableRow>
                         </DataTableHead>
                         {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                        <DataTableBody dataTest={'table-body'}>
+                        <DataTableBody dataTest="table-body">
                             {data.rows.map((row, rowIndex) => (
                                 <DataTableRow
                                     key={rowIndex}
-                                    dataTest={'table-row'}
+                                    dataTest="table-row"
                                 >
                                     {row.map((value, columnIndex) =>
                                         cellIsUndefined(

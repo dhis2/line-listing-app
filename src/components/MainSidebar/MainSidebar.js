@@ -134,7 +134,7 @@ const MainSidebar = () => {
                 )}
                 {!(selectedProgramId || selectedEntityTypeId) ? (
                     <Tooltip
-                        dataTest={'no-input-tooltip'}
+                        dataTest="no-input-tooltip"
                         content={i18n.t('Choose an input first')}
                         closeDelay={0}
                         placement="bottom"

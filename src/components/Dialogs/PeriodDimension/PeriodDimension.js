@@ -171,7 +171,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
 
     return dimension ? (
         <DimensionModal
-            dataTest={'period-dimension-modal'}
+            dataTest="period-dimension-modal"
             isInLayout={isInLayout}
             onClose={onClose}
             title={dimension.name}

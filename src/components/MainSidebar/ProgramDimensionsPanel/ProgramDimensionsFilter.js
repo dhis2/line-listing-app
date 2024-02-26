@@ -56,7 +56,7 @@ const ProgramDimensionsFilter = ({
             value={searchTerm}
             onChange={({ value }) => setSearchTerm(value)}
             dense
-            type={'search'}
+            type="search"
             placeholder={i18n.t('Search data dimensions')}
         />
         <SingleSelect

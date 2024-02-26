@@ -68,7 +68,7 @@ const TypeSelect = () => {
                         onChange={({ selected }) => setSelectedTypeId(selected)}
                         placeholder={i18n.t('Choose a type')}
                         maxHeight="max(60vh, 460px)"
-                        dataTest={'type-select'}
+                        dataTest="type-select"
                         filterable
                         noMatchText={i18n.t('No types found')}
                         loading={fetching}
