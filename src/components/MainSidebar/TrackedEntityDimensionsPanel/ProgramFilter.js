@@ -81,7 +81,7 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                             }}
                             placeholder={i18n.t('Filter by program usage')}
                             maxHeight="max(60vh, 460px)"
-                            dataTest="program-select"
+                            dataTest="tet-dimensions-program-select"
                             filterable
                             noMatchText={i18n.t('No programs found')}
                             prefix={selectedProgramId && i18n.t('Program')}
