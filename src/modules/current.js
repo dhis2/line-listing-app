@@ -34,11 +34,12 @@ export const getDefaultFromUi = (current, ui) => {
         ...getOptionsFromUi(adaptedUi),
     }
 
-    // delete program and programStage if output type is TE as the api doesn't accept these props at all
     if (output.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        // delete program and programStage if output type is TE as the api doesn't accept these props at all
         delete output.program
         delete output.programStage
     } else {
+        // delete trackedEntityType if output type is not TE
         delete output.trackedEntityType
     }
 
