@@ -79,12 +79,12 @@ const createDimensionsQuery = ({
     dimensionType,
     nameProp,
 }) => {
-    const resource =
-        inputType === OUTPUT_TYPE_TRACKED_ENTITY
-            ? 'analytics/trackedEntities/query/dimensions'
-            : inputType === OUTPUT_TYPE_ENROLLMENT
-            ? 'analytics/enrollments/query/dimensions'
-            : 'analytics/events/query/dimensions'
+    const resourceMap = {
+        [OUTPUT_TYPE_TRACKED_ENTITY]:
+            'analytics/trackedEntities/query/dimensions',
+        [OUTPUT_TYPE_ENROLLMENT]: 'analytics/enrollments/query/dimensions',
+        [OUTPUT_TYPE_EVENT]: 'analytics/events/query/dimensions',
+    }
     const params = {
         pageSize: 50,
         page,
@@ -153,7 +153,7 @@ const createDimensionsQuery = ({
     }
 
     return {
-        resource,
+        resource: resourceMap[inputType],
         params,
     }
 }
