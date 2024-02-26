@@ -136,7 +136,7 @@ const ProgramSelect = ({ prefix }) => {
                         }
                         placeholder={i18n.t('Choose a program')}
                         maxHeight="max(60vh, 460px)"
-                        dataTest={'program-select'}
+                        dataTest="program-select"
                         filterable
                         noMatchText={i18n.t('No programs found')}
                         prefix={selectedProgram?.id ? prefix : ''}
