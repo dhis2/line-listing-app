@@ -133,6 +133,7 @@ const createDimensionsQuery = ({
 
     if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
         params.filter.push('dimensionType:ne:PROGRAM_ATTRIBUTE')
+        params.filter.push('dimensionType:ne:PROGRAM_INDICATOR')
     }
 
     /*

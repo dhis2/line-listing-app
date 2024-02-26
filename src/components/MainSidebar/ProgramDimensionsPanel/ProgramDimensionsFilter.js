@@ -90,15 +90,17 @@ const ProgramDimensionsFilter = ({
                     }
                 />
             )}
-            <SingleSelectOption
-                label={i18n.t('Program indicator')}
-                value={DIMENSION_TYPE_PROGRAM_INDICATOR}
-                icon={
-                    <DimensionIcon
-                        dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
-                    />
-                }
-            />
+            {useSelector(sGetUiInputType) !== OUTPUT_TYPE_TRACKED_ENTITY && (
+                <SingleSelectOption
+                    label={i18n.t('Program indicator')}
+                    value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                        />
+                    }
+                />
+            )}
             <SingleSelectOption
                 label={i18n.t('Category')}
                 value={DIMENSION_TYPE_CATEGORY}
