@@ -51,7 +51,7 @@ describe(['>=41'], 'tracked entity', () => {
         cy.getBySel('main-sidebar').contains('Person dimensions').click()
         cy.getBySel('tracked-entity-dimensions-list')
             .children()
-            .should('have.length', 33)
+            .should('have.length', 50)
         clickAddRemoveTrackedEntityTypeDimensions(entityDimensionName)
 
         // select a program and add program dimensions
