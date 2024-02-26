@@ -39,7 +39,7 @@ import {
     useSelectedDimensions,
 } from './SelectedDimensionsContext.js'
 import { TrackedEntityDimensionsMenuItem } from './TrackedEntityDimensionsMenuItem.js'
-import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/TrackedEntityDimensionsPanel.js'
+import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
