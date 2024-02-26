@@ -1,4 +1,4 @@
-import { formatDimensionId, extractDimensionIdParts } from '../dimensionIds.js'
+import { formatDimensionId, extractDimensionIdParts } from '../dimensionId.js'
 import {
     OUTPUT_TYPE_TRACKED_ENTITY,
     OUTPUT_TYPE_ENROLLMENT,

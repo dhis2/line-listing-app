@@ -3,7 +3,7 @@ import {
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '@dhis2/analytics'
-import { extractDimensionIdParts } from '../modules/dimensionIds.js'
+import { extractDimensionIdParts } from '../modules/dimensionId.js'
 
 const dataElementsQuery = {
     resource: 'dataElements',

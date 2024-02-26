@@ -11,7 +11,7 @@ import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionConstants.js'
-import { extractDimensionIdParts } from '../../modules/dimensionIds.js'
+import { extractDimensionIdParts } from '../../modules/dimensionId.js'
 import { getTimeDimensions } from '../../modules/timeDimensions.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
 import { sGetUiInputType, sGetUiLayout } from '../../reducers/ui.js'

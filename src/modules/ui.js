@@ -6,7 +6,7 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import isObject from 'lodash-es/isObject'
-import { formatDimensionId } from './dimensionIds.js'
+import { formatDimensionId } from './dimensionId.js'
 import { getInputTypeFromVisualization } from './input.js'
 import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'

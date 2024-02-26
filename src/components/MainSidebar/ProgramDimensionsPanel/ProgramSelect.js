@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetUiProgram } from '../../../actions/ui.js'
-import { extractDimensionIdParts } from '../../../modules/dimensionIds.js'
+import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import {

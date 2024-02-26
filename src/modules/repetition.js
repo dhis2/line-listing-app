@@ -1,5 +1,5 @@
 import { layoutGetAllDimensions } from '@dhis2/analytics'
-import { formatDimensionId } from './dimensionIds.js'
+import { formatDimensionId } from './dimensionId.js'
 import { parseCurrentRepetition } from './ui.js'
 
 export const getRepetitionFromVisualisation = (vis) => {

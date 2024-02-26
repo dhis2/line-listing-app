@@ -19,7 +19,7 @@ import {
 import {
     formatDimensionId,
     extractDimensionIdParts,
-} from '../modules/dimensionIds.js'
+} from '../modules/dimensionId.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'

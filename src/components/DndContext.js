@@ -17,7 +17,7 @@ import {
     acSetUiDraggingId,
 } from '../actions/ui.js'
 import { getConditionsTexts } from '../modules/conditions.js'
-import { extractDimensionIdParts } from '../modules/dimensionIds.js'
+import { extractDimensionIdParts } from '../modules/dimensionId.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,

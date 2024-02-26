@@ -11,7 +11,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
-import { formatDimensionId } from '../../modules/dimensionIds.js'
+import { formatDimensionId } from '../../modules/dimensionId.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import { getHeadersMap } from '../../modules/visualization.js'
 

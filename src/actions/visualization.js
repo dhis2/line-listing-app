@@ -1,5 +1,5 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
-import { formatDimensionId } from '../modules/dimensionIds.js'
+import { formatDimensionId } from '../modules/dimensionId.js'
 import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,

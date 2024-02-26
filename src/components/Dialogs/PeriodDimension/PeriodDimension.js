@@ -20,7 +20,7 @@ import { acSetUiItems } from '../../../actions/ui.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
-} from '../../../modules/dimensionIds.js'
+} from '../../../modules/dimensionId.js'
 import {
     SYSTEM_SETTINGS_HIDE_DAILY_PERIODS,
     SYSTEM_SETTINGS_HIDE_WEEKLY_PERIODS,

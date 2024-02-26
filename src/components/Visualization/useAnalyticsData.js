@@ -20,7 +20,7 @@ import { DIMENSION_ID_PROGRAM_STATUS } from '../../modules/dimensionConstants.js
 import {
     extractDimensionIdParts,
     formatDimensionId,
-} from '../../modules/dimensionIds.js'
+} from '../../modules/dimensionId.js'
 import { getDimensionsWithSuffix } from '../../modules/getDimensionsWithSuffix.js'
 import { getMainDimensions } from '../../modules/mainDimensions.js'
 import { getProgramDimensions } from '../../modules/programDimensions.js'

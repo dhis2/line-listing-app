@@ -1,6 +1,6 @@
 import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
-import { extractDimensionIdParts } from './dimensionIds.js'
+import { extractDimensionIdParts } from './dimensionId.js'
 import { BASE_FIELD_TYPE } from './fields.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import {

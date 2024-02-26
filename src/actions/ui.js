@@ -8,7 +8,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_CREATED,
 } from '../modules/dimensionConstants.js'
-import { extractDimensionIdParts } from '../modules/dimensionIds.js'
+import { extractDimensionIdParts } from '../modules/dimensionId.js'
 import {
     getDefaultTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,

@@ -4,7 +4,7 @@ import {
     DIMENSION_TYPE_PERIOD,
 } from '@dhis2/analytics'
 import { DIMENSION_TYPE_STATUS } from './dimensionConstants.js'
-import { extractDimensionIdParts } from './dimensionIds.js'
+import { extractDimensionIdParts } from './dimensionId.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,

@@ -19,7 +19,7 @@ import {
 import {
     extractDimensionIdParts,
     formatDimensionId,
-} from '../../modules/dimensionIds.js'
+} from '../../modules/dimensionId.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
 import {
     STATUS_ACTIVE,

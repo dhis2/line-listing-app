@@ -6,7 +6,7 @@ import {
     USER_ORG_UNIT_GRANDCHILDREN,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { formatDimensionId } from './dimensionIds.js'
+import { formatDimensionId } from './dimensionId.js'
 import { getMainDimensions, getCreatedDimension } from './mainDimensions.js'
 import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'

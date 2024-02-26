@@ -33,7 +33,7 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
-import { formatDimensionId } from '../modules/dimensionIds.js'
+import { formatDimensionId } from '../modules/dimensionId.js'
 import {
     analyticsGenerationError,
     analyticsRequestError,
