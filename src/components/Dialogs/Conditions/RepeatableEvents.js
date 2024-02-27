@@ -8,7 +8,7 @@ import {
     getDefaultUiRepetition,
     PROP_MOST_RECENT,
     PROP_OLDEST,
-} from '../../../modules/ui.js'
+} from '../../../modules/repetition.js'
 import { sGetUiRepetitionByDimension } from '../../../reducers/ui.js'
 import commonClasses from '../styles/Common.module.css'
 import classes from './styles/ConditionsManager.module.css'

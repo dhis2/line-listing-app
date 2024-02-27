@@ -50,9 +50,9 @@ import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
 } from '../modules/metadata.js'
+import { getParentGraphMapFromVisualization } from '../modules/parentGraphMap.js'
 import { getProgramDimensions } from '../modules/programDimensions.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
-import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import {
     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
     USER_SETTINGS_DISPLAY_PROPERTY,

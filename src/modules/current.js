@@ -10,7 +10,7 @@ import {
     OPTION_LEGEND_SET,
     OPTION_SHOW_LEGEND_KEY,
 } from './options.js'
-import { parseUiRepetition } from './ui.js'
+import { parseUiRepetition } from './repetition.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
 export const getDefaultFromUi = (current, ui) => {
