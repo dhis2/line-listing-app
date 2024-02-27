@@ -218,7 +218,7 @@ const FixedDimension = ({
                     onSelect: selectUiItems,
                 }
 
-                const selected = selectedItemsIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
+                const selected = selectedItemsIds
                     .filter(
                         (id) =>
                             metadata[ouIdHelper.removePrefix(id)] !== undefined
