@@ -3,13 +3,14 @@
 # Cherise Beek <cherise.beek@gmail.com>, 2022
 # Rica Zamora Duchateau, 2023
 # Charel van den Elsen, 2023
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Charel van den Elsen, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Voeg toe aan {{axisNaam}}"
+msgstr "Voeg toe aan {{axisName}}"
 
 msgid "Choose a condition type"
 msgstr "Kies een voorwaardetype"
@@ -129,13 +130,13 @@ msgid "Selected options"
 msgstr "Geselecteerde opties"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr "Niets gevonden voor \"{{- zoekTerm}}\""
+msgstr "Niets gevonden voor \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr "Geen opties"
 
 msgid "Move to {{axisName}}"
-msgstr "Ga naar {{axisNaam}}"
+msgstr "Ga naar {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -197,13 +198,13 @@ msgid "Showing all values for this dimension"
 msgstr "Alle waarden voor deze dimensie weergeven"
 
 msgid "Program stage: {{- stageName}}"
-msgstr "Programmafase: {{- faseNaam}}"
+msgstr "Programmafase: {{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "Geen afmetingen gevonden voor '{{- zoekTerm}}'"
+msgstr "Geen afmetingen gevonden voor '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr "Geen dimensies gevonden in het programma {{- programmaNaam}}"
+msgstr "Geen dimensies gevonden in het programma {{- programName}}"
 
 msgid "No dimensions found"
 msgstr "Geen afmetingen gevonden"
@@ -322,7 +323,7 @@ msgid "Line list"
 msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr "\"{{- verwijderdObject}}\" succesvol verwijderd."
+msgstr "\"{{- deletedObject}}\" succesvol verwijderd."
 
 msgid "Rename successful"
 msgstr "Hernoeming geslaagd"
@@ -389,7 +390,7 @@ msgid ""
 msgstr ""
 
 msgid "Sort by {{column}}"
-msgstr "Sorteren op {{kolom}}"
+msgstr "Sorteren op {{column}}"
 
 msgid "No event"
 msgstr ""
@@ -398,7 +399,7 @@ msgid "Rows per page"
 msgstr "Rijen per pagina"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr "Pagina {{pagina}}, rij {{eersteItem}}-{{laatsteItem}}"
+msgstr "Pagina {{page}}, rij {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Kolom subtotalen"
@@ -504,6 +505,9 @@ msgstr "Hiërarchie van organisatie-eenheden weergeven"
 
 msgid "Show legend key"
 msgstr "Toon legendasleutel"
+
+msgid "Skip rounding"
+msgstr ""
 
 msgid "Add a title"
 msgstr "Voeg een titel toe"
@@ -716,10 +720,10 @@ msgid "oldest"
 msgstr "oudste"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr "oudste {{herhaalGebeurtenisIndex}}"
+msgstr "oudste {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr "meest recente {{herhaalGebeurtenisIndex}}"
+msgstr "meest recente {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "Evenement datum"
