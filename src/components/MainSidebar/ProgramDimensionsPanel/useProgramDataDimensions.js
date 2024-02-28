@@ -100,7 +100,6 @@ const createDimensionsQuery = ({
     if (programId) {
         if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             params.programId = programId
-            // XXX BACKEND using programId returns dimensions for all programs ?!
         } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
             params.program = programId
         }
