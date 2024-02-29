@@ -67,9 +67,9 @@ export const getDimensionsWithSuffix = ({
                     )
 
                 if (sameProgramId || thirdPartyDuplicates) {
-                    dimension.suffix = metadata[dimension.programStageId].name
+                    dimension.suffix = metadata[dimension.programStageId]?.name
                 } else {
-                    dimension.suffix = metadata[dimension.programId].name
+                    dimension.suffix = metadata[dimension.programId]?.name
                 }
             }
         } else if (
@@ -80,7 +80,7 @@ export const getDimensionsWithSuffix = ({
             ) &&
             dimension.programId
         ) {
-            dimension.suffix = metadata[dimension.programId].name
+            dimension.suffix = metadata[dimension.programId]?.name
         }
 
         return dimension

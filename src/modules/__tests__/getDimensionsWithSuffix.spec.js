@@ -532,9 +532,6 @@ describe('getDimensionsWithSuffix for time dimensions', () => {
         expect(output[8].dimensionType).toEqual(DIMENSION_TYPE_PERIOD)
         expect(output[8].suffix).toBeUndefined()
     })
-
-    // TODO: add tests for time dimensions with custom names not getting prefixed
-    // currently not implemented yet, double-check if this is still expected
 })
 
 describe('getDimensionsWithSuffix for program dimensions', () => {
