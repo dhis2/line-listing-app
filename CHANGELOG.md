@@ -1,3 +1,10 @@
+## [100.15.1](https://github.com/dhis2/line-listing-app/compare/v100.15.0...v100.15.1) (2024-03-01)
+
+
+### Bug Fixes
+
+* **push-analytics:** add push analytics instructions ([#491](https://github.com/dhis2/line-listing-app/issues/491)) ([1db932c](https://github.com/dhis2/line-listing-app/commit/1db932c3fde54c7a385569891985f922877a67b0))
+
 # [100.15.0](https://github.com/dhis2/line-listing-app/compare/v100.14.0...v100.15.0) (2024-01-30)
 
 
