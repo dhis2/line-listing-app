@@ -1,3 +1,4 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import { E2E_PROGRAM } from '../data/index.js'
 import {
     clickAddRemoveMainDimension,
@@ -8,6 +9,11 @@ import {
     selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import {
+    clickOrgUnitDimensionModalUpdateButton,
+    deselectUserOrgUnit,
+    openOuDimension,
+} from '../helpers/orgUnit.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import { expectTableToBeVisible } from '../helpers/table.js'
 
@@ -107,10 +113,9 @@ describe('layout validation', () => {
 
         // add org unit to columns without any items selected
         clickAddRemoveMainDimension('Registration org. unit')
-        // FIXME: uncomment the following lines once https://dhis2.atlassian.net/browse/DHIS2-16381 is fixed
-        // openOuDimension(DIMENSION_ID_ORGUNIT)
-        // deselectUserOrgUnit('User organisation unit')
-        // clickOrgUnitDimensionModalUpdateButton()
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        deselectUserOrgUnit('User organisation unit')
+        clickOrgUnitDimensionModalUpdateButton()
 
         clickMenubarUpdateButton()
 

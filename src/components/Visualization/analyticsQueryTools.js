@@ -2,6 +2,7 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
+    DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import {
     DIMENSION_ID_PROGRAM_STATUS,
@@ -13,7 +14,10 @@ import {
 } from '../../modules/dimensionConstants.js'
 import { formatDimensionId } from '../../modules/dimensionId.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
-import { getHeadersMap } from '../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_TRACKED_ENTITY,
+    getHeadersMap,
+} from '../../modules/visualization.js'
 
 const excludedDimensions = [
     DIMENSION_ID_CREATED,
@@ -23,7 +27,7 @@ const excludedDimensions = [
 
 const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 
-const adaptDimensions = (dimensions, parameters) => {
+const adaptDimensions = (dimensions, parameters, outputType) => {
     const adaptedDimensions = []
     dimensions.forEach((dimensionObj) => {
         const dimensionId = dimensionObj.dimension
@@ -32,7 +36,9 @@ const adaptDimensions = (dimensions, parameters) => {
             isTimeDimension(dimensionId) ||
             dimensionId === DIMENSION_ID_EVENT_STATUS ||
             dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
-            dimensionId === DIMENSION_ID_CREATED
+            dimensionId === DIMENSION_ID_CREATED ||
+            (dimensionId === DIMENSION_ID_ORGUNIT &&
+                outputType === OUTPUT_TYPE_TRACKED_ENTITY)
         ) {
             if (dimensionObj.items?.length) {
                 const items = dimensionObj.items?.map((item) => item.id)
@@ -42,6 +48,8 @@ const adaptDimensions = (dimensions, parameters) => {
                     Array.isArray(parameters[dimensionId])
                 ) {
                     parameters[dimensionId].push(...items)
+                } else if (dimensionId === DIMENSION_ID_ORGUNIT) {
+                    adaptedDimensions.push(dimensionObj)
                 } else {
                     parameters[dimensionId] = items
                 }
@@ -61,12 +69,18 @@ export const getAdaptedVisualization = (visualization) => {
 
     const adaptedColumns = adaptDimensions(
         visualization[AXIS_ID_COLUMNS],
-        parameters
+        parameters,
+        outputType
     )
-    const adaptedRows = adaptDimensions(visualization[AXIS_ID_ROWS], parameters)
+    const adaptedRows = adaptDimensions(
+        visualization[AXIS_ID_ROWS],
+        parameters,
+        outputType
+    )
     const adaptedFilters = adaptDimensions(
         visualization[AXIS_ID_FILTERS],
-        parameters
+        parameters,
+        outputType
     )
 
     const dimensionHeadersMap = getHeadersMap(visualization)
