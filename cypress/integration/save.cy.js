@@ -6,11 +6,13 @@ import {
     E2E_PROGRAM,
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_LAST_YEAR,
+    TEST_DIM_INTEGER,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
-    selectEventWithProgram,
+    selectEventWithProgramDimensions,
+    clickAddRemoveProgramDataDimension,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
@@ -27,7 +29,10 @@ import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
+    getTableHeaderCells,
+    getTableRows,
 } from '../helpers/table.js'
 
 const event = E2E_PROGRAM
@@ -35,8 +40,10 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const setupTable = () => {
     goToStartPage()
-    selectEventWithProgram(event)
-    openProgramDimensionsSidebar()
+    selectEventWithProgramDimensions({
+        ...event,
+        dimensions: [TEST_DIM_INTEGER],
+    })
     selectFixedPeriod({
         label: periodLabel,
         period: TEST_FIX_PE_DEC_LAST_YEAR,
@@ -130,6 +137,90 @@ describe('save', () => {
         // save as without name change
         saveVisualizationAs()
         expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
+        expectTableToBeVisible()
+
+        deleteVisualization()
+    })
+
+    it('new AO with sorted table saves correctly', () => {
+        const AO_NAME = `TEST SORTING ${new Date().toLocaleString()}`
+        setupTable()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // apply sorting
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        cy.intercept('POST', /eventVisualizations\?/).as('saveAO')
+        cy.intercept('GET', /eventVisualizations\/[a-zA-Z0-9]+\?/).as('loadAO')
+
+        saveVisualizationAs(AO_NAME)
+
+        cy.wait('@saveAO')
+            .its('request.body')
+            .should('have.property', 'sorting')
+
+        cy.wait('@loadAO')
+            .its('response.body')
+            .should('have.property', 'sorting')
+
+        expectTableToBeVisible()
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(1)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell0Value) => expect($cell0Value).to.equal(10))
+
+        getTableRows()
+            .eq(3)
+            .find('td')
+            .eq(1)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell3Value) => expect($cell3Value).to.equal(46))
+
+        deleteVisualization()
+    })
+
+    it('new AO saves correctly after adding/removing sorting', () => {
+        const AO_NAME = `TEST SORTING TOGGLING ${new Date().toLocaleString()}`
+        setupTable()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // apply sorting
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        // remove dimension with sorting
+        clickAddRemoveProgramDataDimension(TEST_DIM_INTEGER)
+        clickMenubarUpdateButton()
+        expectTableToBeUpdated()
+
+        cy.intercept('POST', /eventVisualizations\?/).as('saveAO')
+
+        saveVisualizationAs(AO_NAME)
+
+        cy.wait('@saveAO')
+            .its('request.body')
+            .should('not.have.property', 'sorting')
+
         expectTableToBeVisible()
 
         deleteVisualization()

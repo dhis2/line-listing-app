@@ -66,7 +66,6 @@ const useDownload = (relativePeriodDate) => {
                             paging: false,
                         }) // only for LL
 
-                    // not sorted (see old ER)
                     //TODO
                     //displayPropertyName
                     //completedOnly (from options)
@@ -134,6 +133,21 @@ const useDownload = (relativePeriodDate) => {
 
             if (relativePeriodDate && isAoWithTimeDimension(current)) {
                 req = req.withRelativePeriodDate(relativePeriodDate)
+            }
+
+            if (current.sorting?.length) {
+                const { dimension: sortField, direction: sortDirection } =
+                    current.sorting[0]
+                switch (sortDirection) {
+                    case 'ASC': {
+                        req = req.withAsc(sortField)
+                        break
+                    }
+                    case 'DESC': {
+                        req = req.withDesc(sortField)
+                        break
+                    }
+                }
             }
 
             const url = new URL(

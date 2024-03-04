@@ -6,12 +6,14 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import isObject from 'lodash-es/isObject'
+import { getRequestOptions } from './getRequestOptions.js'
 import { getInputTypeFromVisualization } from './input.js'
 import { getAdaptedUiLayoutByType, getInverseLayout } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { removeLastPathSegment } from './orgUnit.js'
 import { getProgramFromVisualisation } from './program.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
+import { getHeadersMap } from './visualization.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,
@@ -41,6 +43,7 @@ export const getUiFromVisualization = (vis, currentState = {}) => ({
         getParentGraphMapFromVisualization(vis) ||
         currentState.parentGraphMap,
     repetitionByDimension: getRepetitionFromVisualisation(vis),
+    sorting: getSortingFromVisualization(vis),
 })
 
 export const getParentGraphMapFromVisualization = (vis) => {
@@ -73,6 +76,19 @@ export const getParentGraphMapFromVisualization = (vis) => {
     return parentGraphMap
 }
 
+export const getSortingFromVisualization = (vis) => {
+    const dimensionHeadersMap = getHeadersMap(getRequestOptions(vis))
+
+    return vis.sorting?.length
+        ? {
+              dimension:
+                  dimensionHeadersMap[vis.sorting[0].dimension] ||
+                  vis.sorting[0].dimension,
+              direction: vis.sorting[0].direction.toLowerCase(),
+          }
+        : undefined
+}
+
 const getConditionsFromVisualization = (vis) =>
     [...vis.columns, ...vis.rows, ...vis.filters]
         .filter((item) => item.filter || item.legendSet)
@@ -92,6 +108,13 @@ const getConditionsFromVisualization = (vis) =>
 export const ACCESSORY_PANEL_TAB_INPUT = 'INPUT'
 export const ACCESSORY_PANEL_TAB_PROGRAM = 'PROGRAM'
 export const ACCESSORY_PANEL_TAB_YOUR = 'YOUR'
+
+// Sorting
+
+export const getDefaultSorting = () => ({
+    dimension: null,
+    direction: 'default',
+})
 
 // Repetition
 
