@@ -45,6 +45,40 @@ describe('formatDimensionId', () => {
 })
 
 describe('extractDimensionIdParts', () => {
+    it('returns correct result for: null', () => {
+        const output = extractDimensionIdParts(null)
+
+        expect(output.dimensionId).toEqual('')
+        expect(output.programStageId).toEqual('')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for Tracked Entity: null', () => {
+        const inputType = OUTPUT_TYPE_TRACKED_ENTITY
+        const output = extractDimensionIdParts(null, inputType)
+
+        expect(output.dimensionId).toEqual('')
+        expect(output.programStageId).toEqual('')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for: undefined', () => {
+        const output = extractDimensionIdParts()
+
+        expect(output.dimensionId).toEqual('')
+        expect(output.programStageId).toEqual('')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
+    })
+    it('returns correct result for Tracked Entity: undefined', () => {
+        const inputType = OUTPUT_TYPE_TRACKED_ENTITY
+        const output = extractDimensionIdParts(undefined, inputType)
+
+        expect(output.dimensionId).toEqual('')
+        expect(output.programStageId).toEqual('')
+        expect(output.programId).toBeUndefined()
+        expect(output.repetitionIndex).toBeUndefined()
+    })
     it('returns correct result for: dimensionId', () => {
         const id = 'did'
         const output = extractDimensionIdParts(id)

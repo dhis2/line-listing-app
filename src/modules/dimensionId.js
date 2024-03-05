@@ -17,7 +17,7 @@ export const formatDimensionId = ({
 
 export const extractDimensionIdParts = (id, inputType) => {
     let rawStageId
-    const [dimensionId, part2, part3] = id.split('.').reverse()
+    const [dimensionId, part2, part3] = (id || '').split('.').reverse()
     let programId = part3
     if (part3 || inputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
         rawStageId = part2
