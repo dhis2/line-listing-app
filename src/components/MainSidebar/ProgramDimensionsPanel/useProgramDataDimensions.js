@@ -69,6 +69,12 @@ const reducer = (state, action) => {
     }
 }
 
+const resourceMap = {
+    [OUTPUT_TYPE_TRACKED_ENTITY]: 'analytics/trackedEntities/query/dimensions',
+    [OUTPUT_TYPE_ENROLLMENT]: 'analytics/enrollments/query/dimensions',
+    [OUTPUT_TYPE_EVENT]: 'analytics/events/query/dimensions',
+}
+
 const createDimensionsQuery = ({
     inputType,
     page,
@@ -79,12 +85,6 @@ const createDimensionsQuery = ({
     dimensionType,
     nameProp,
 }) => {
-    const resourceMap = {
-        [OUTPUT_TYPE_TRACKED_ENTITY]:
-            'analytics/trackedEntities/query/dimensions',
-        [OUTPUT_TYPE_ENROLLMENT]: 'analytics/enrollments/query/dimensions',
-        [OUTPUT_TYPE_EVENT]: 'analytics/events/query/dimensions',
-    }
     const params = {
         pageSize: 50,
         page,
