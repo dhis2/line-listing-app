@@ -10,9 +10,9 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
-    getAnalyticsEndpoint,
     getAdaptedVisualization,
-} from '../Visualization/useAnalyticsData.js'
+    getAnalyticsEndpoint,
+} from '../Visualization/analyticsQueryTools.js'
 import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_NAME,

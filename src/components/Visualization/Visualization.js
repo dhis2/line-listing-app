@@ -59,12 +59,9 @@ import {
     getHeadersMap,
     transformVisualization,
 } from '../../modules/visualization.js'
+import { getAdaptedVisualization } from './analyticsQueryTools.js'
 import styles from './styles/Visualization.module.css'
-import {
-    cellIsUndefined,
-    getAdaptedVisualization,
-    useAnalyticsData,
-} from './useAnalyticsData.js'
+import { cellIsUndefined, useAnalyticsData } from './useAnalyticsData.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1

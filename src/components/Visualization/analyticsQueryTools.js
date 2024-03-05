@@ -15,6 +15,8 @@ import {
 import { formatDimensionId } from '../../modules/dimensionId.js'
 import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
     getHeadersMap,
 } from '../../modules/visualization.js'
@@ -121,3 +123,12 @@ export const getAdaptedVisualization = (visualization) => {
         parameters,
     }
 }
+
+const analyticsApiEndpointMap = {
+    [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
+    [OUTPUT_TYPE_EVENT]: 'events',
+    [OUTPUT_TYPE_TRACKED_ENTITY]: 'trackedEntities',
+}
+
+export const getAnalyticsEndpoint = (outputType) =>
+    analyticsApiEndpointMap[outputType]

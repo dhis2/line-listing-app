@@ -26,18 +26,14 @@ import { getMainDimensions } from '../../modules/mainDimensions.js'
 import { getProgramDimensions } from '../../modules/programDimensions.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
-    OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
     headersMap,
 } from '../../modules/visualization.js'
-import { getAdaptedVisualization } from './analyticsQueryTools.js'
-
-const analyticsApiEndpointMap = {
-    [OUTPUT_TYPE_ENROLLMENT]: 'enrollments',
-    [OUTPUT_TYPE_EVENT]: 'events',
-    [OUTPUT_TYPE_TRACKED_ENTITY]: 'trackedEntities',
-}
+import {
+    getAdaptedVisualization,
+    getAnalyticsEndpoint,
+} from './analyticsQueryTools.js'
 
 const lookupOptionSetOptionMetadata = (optionSetId, code, metaDataItems) => {
     const optionSetMetaData = metaDataItems?.[optionSetId]
@@ -83,8 +79,6 @@ const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
         }
     }
 }
-
-const getAnalyticsEndpoint = (outputType) => analyticsApiEndpointMap[outputType]
 
 const fetchAnalyticsData = async ({
     analyticsEngine,
@@ -470,4 +464,4 @@ const useAnalyticsData = ({
     }
 }
 
-export { useAnalyticsData, getAnalyticsEndpoint, getAdaptedVisualization }
+export { useAnalyticsData }
