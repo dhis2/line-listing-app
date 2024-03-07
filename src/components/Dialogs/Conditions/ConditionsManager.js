@@ -477,7 +477,7 @@ const ConditionsManager = ({
                     </Tab>
                     {disableRepeatableTab ? (
                         <Tooltip
-                            key={`repeatable-tooltip`}
+                            key="repeatable-tooltip"
                             placement="bottom"
                             content={i18n.t(
                                 'Only available for repeatable stages'

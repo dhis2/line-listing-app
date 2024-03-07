@@ -222,7 +222,7 @@ export const Visualization = ({
 
     if (headers && sortField) {
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
-        if (!headers.includes(sortField)) {
+        if (!headers.flat().includes(sortField)) {
             setSorting({
                 sortField: null,
                 sortDirection: DEFAULT_SORT_DIRECTION,
@@ -576,6 +576,7 @@ export const Visualization = ({
                                         ) ? (
                                             <Tooltip
                                                 content={i18n.t('No event')}
+                                                key={`${rowIndex}_${columnIndex}-tooltip`}
                                             >
                                                 {(props) =>
                                                     renderCellContent({
