@@ -165,8 +165,10 @@ export const PeriodDimension = ({ dimension, onClose }) => {
     }
 
     const onSegmentedControlChange = ({ value }) => {
-        setEntryMethod(value)
-        updatePeriodDimensionItems([])
+        if (value !== entryMethod) {
+            setEntryMethod(value)
+            updatePeriodDimensionItems([])
+        }
     }
 
     return dimension ? (
