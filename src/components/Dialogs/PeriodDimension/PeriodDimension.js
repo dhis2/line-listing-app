@@ -176,20 +176,22 @@ export const PeriodDimension = ({ dimension, onClose }) => {
             onClose={onClose}
             title={dimension.name}
         >
-            <SegmentedControl
-                options={[
-                    {
-                        label: i18n.t('Choose from presets'),
-                        value: OPTION_PRESETS,
-                    },
-                    {
-                        label: i18n.t('Define start - end dates'),
-                        value: OPTION_START_END_DATES,
-                    },
-                ]}
-                selected={entryMethod}
-                onChange={onSegmentedControlChange}
-            ></SegmentedControl>
+            <div className={styles.navigation}>
+                <SegmentedControl
+                    options={[
+                        {
+                            label: i18n.t('Choose from presets'),
+                            value: OPTION_PRESETS,
+                        },
+                        {
+                            label: i18n.t('Define start - end dates'),
+                            value: OPTION_START_END_DATES,
+                        },
+                    ]}
+                    selected={entryMethod}
+                    onChange={onSegmentedControlChange}
+                ></SegmentedControl>
+            </div>
             <div className={styles.entry}>
                 {entryMethod === OPTION_PRESETS && (
                     <BasePeriodDimension
