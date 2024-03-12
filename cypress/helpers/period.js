@@ -71,8 +71,6 @@ const selectRelativePeriod = ({ label, period }) => {
 
 const unselectAllPeriods = ({ label }) => {
     openPeriod(label)
-    cy.contains('Choose from presets').click()
-
     cy.getBySel('period-dimension-transfer-actions-removeall').click()
     cy.getBySel('period-dimension-modal-action-confirm').click()
 }
