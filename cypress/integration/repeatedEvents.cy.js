@@ -184,7 +184,7 @@ describe('repeated events', () => {
         // no repetition in header
         expectHeaderToContainExact(0, dimensionName)
     })
-    it('can use repetition for TE', () => {
+    it(['>=41'], 'can use repetition for TE', () => {
         // switch to Tracked entity and select a type
         selectTrackedEntityWithType('Person')
 
