@@ -6,6 +6,7 @@ import { E2E_PROGRAM, TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
     clickAddRemoveProgramDataDimension,
+    clickAddRemoveProgramDimension,
     openDimension,
     openInputSidebar,
     openProgramDimensionsSidebar,
@@ -18,6 +19,13 @@ import {
 } from '../helpers/dimensions.js'
 import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
+import {
+    clickOrgUnitDimensionModalUpdateButton,
+    expectOrgUnitDimensionModalToBeVisible,
+    expectOrgUnitDimensionToNotBeLoading,
+    openOrgUnitTreeItem,
+    selectOrgUnitTreeItem,
+} from '../helpers/orgUnit.js'
 import { selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
@@ -176,8 +184,7 @@ describe('repeated events', () => {
         // no repetition in header
         expectHeaderToContainExact(0, dimensionName)
     })
-    // TODO: blocked by backend issues DHIS2-16886 and DHIS2-16709
-    it.skip('can use repetition for TE', () => {
+    it('can use repetition for TE', () => {
         // switch to Tracked entity and select a type
         selectTrackedEntityWithType('Person')
 
@@ -190,12 +197,29 @@ describe('repeated events', () => {
 
         clickAddRemoveProgramDataDimension(dimensionName)
 
+        // remove reg ou
         cy.getBySel('columns-axis')
             .findBySel('dimension-menu-button-ou')
             .click()
+        cy.contains('Remove').click()
+
+        // add program ou
+        clickAddRemoveProgramDimension('Organisation unit')
+
+        // move program ou to filter
+        cy.getBySel('columns-axis')
+            .findBySel('dimension-menu-button-J1QQtmzqhJz.ou')
+            .click()
         cy.contains('Move to Filter').click()
 
-        clickMenubarUpdateButton()
+        // filter program ou to Badjia
+        cy.getBySel('filters-axis').contains('Organisation unit').click()
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Njandama MCHP')
+        clickOrgUnitDimensionModalUpdateButton()
 
         expectTableToBeVisible()
 
@@ -204,7 +228,6 @@ describe('repeated events', () => {
         // initially only has 1 column and 1 row
         getTableHeaderCells().its('length').should('equal', 1)
         getTableHeaderCells().eq(0).containsExact(dimensionName)
-        // TODO: everything below this is untested and needs to be updated to reflect the values that the backend actually returns
         getTableDataCells().eq(0).invoke('text').should('eq', '46')
         expectRepetitionToBe({ dimensionName, recent: 1, oldest: 0 })
 
@@ -260,25 +283,6 @@ describe('repeated events', () => {
             3,
             'E2E - Percentage, Stage 1 - Repeatable (most recent)'
         )
-
-        // switch back to event, check that repetition is cleared
-        openInputSidebar()
-        selectEventWithProgramDimensions({
-            ...E2E_PROGRAM,
-            dimensions: [dimensionName],
-        })
-
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_LAST_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        // no repetition in header
-        expectHeaderToContainExact(0, dimensionName)
     })
     it('repetition out of bounds returns as empty value', () => {
         const dimensionName = 'E2E - Percentage'
