@@ -192,7 +192,6 @@ describe('repeated events', () => {
 
         selectProgramForTE(E2E_PROGRAM.programName)
 
-        // TODO: set up repetition for TE (need to find a TE with a repeatable dimension)
         const dimensionName = 'E2E - Percentage'
 
         clickAddRemoveProgramDataDimension(dimensionName)
