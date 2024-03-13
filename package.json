@@ -1,6 +1,6 @@
 {
     "name": "line-listing-app",
-    "version": "999.9.9-2024-03-12T12-56-26",
+    "version": "100.15.1",
     "description": "DHIS2 Line Listing",
     "license": "BSD-3-Clause",
     "private": true,
