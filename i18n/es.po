@@ -5,19 +5,19 @@
 # Pablo Pajuelo Cabezas <pablo@dhis2.org>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
 # ericbp <ericbarredap@gmail.com>, 2022
-# Philip Larsen Donnelly, 2022
 # Marta Vila <marta@dhis2.org>, 2023
 # Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
-# Enzo Nicolas Rossi <enzo@dhis2.org>, 2023
 # Janeth Cruz, 2023
+# Enzo Nicolas Rossi <enzo@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Janeth Cruz, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,7 +254,7 @@ msgid "See data from multiple program stages in a Tracker program."
 msgstr "Vea datos de múltiples etapas del programa en un programa Tracker."
 
 msgid "Global dimensions"
-msgstr ""
+msgstr "Dimensiones globales"
 
 msgid "Program dimensions"
 msgstr "Dimensiones del programa"
@@ -263,13 +263,13 @@ msgid "Input: {{type}}"
 msgstr "Entrada: {{type}}"
 
 msgid "Choose an input first"
-msgstr ""
+msgstr "Elija una entrada primero"
 
 msgid "Program data dimensions"
-msgstr ""
+msgstr "Dimensiones de datos del programa"
 
 msgid "Search data dimensions"
-msgstr ""
+msgstr "Dimensiones de datos de búsqueda"
 
 msgid "Type"
 msgstr "Tipo"
@@ -293,7 +293,7 @@ msgid "Category option group set"
 msgstr "Set de grupos de categorías de opciones"
 
 msgid "Choose an input to get started adding program dimensions."
-msgstr ""
+msgstr "Elija una entrada para comenzar a agregar dimensiones del programa."
 
 msgid "Choose a program"
 msgstr "Elige un programa"
@@ -308,7 +308,7 @@ msgid "All"
 msgstr "Todos"
 
 msgid "No stages found"
-msgstr ""
+msgstr "No se encontraron etapas"
 
 msgid "Your dimensions"
 msgstr "Dimensiones propias"
@@ -332,7 +332,7 @@ msgid "Line list"
 msgstr "Listados"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr "\"{{- deleteObject}}\" se eliminó con éxito."
+msgstr "\"{{- deletedObject}}\" se eliminó con éxito."
 
 msgid "Rename successful"
 msgstr "Nombre actualizado"
@@ -397,12 +397,14 @@ msgid ""
 "This line list may show data that was not available when the interpretation "
 "was written."
 msgstr ""
+"Esta lista de líneas puede mostrar datos que no estaban disponibles cuando "
+"se escribió la interpretación."
 
 msgid "Sort by {{column}}"
 msgstr "Ordenar por {{column}}"
 
 msgid "No event"
-msgstr ""
+msgstr "Sin evento"
 
 msgid "Rows per page"
 msgstr "Filas por página"
@@ -515,6 +517,9 @@ msgstr "Mostrar jerarquía de unidades organizativas"
 msgid "Show legend key"
 msgstr "Mostrar clave de leyenda"
 
+msgid "Skip rounding"
+msgstr "Evitar redondeo"
+
 msgid "Add a title"
 msgstr "Añadir un título"
 
@@ -617,7 +622,7 @@ msgid "No program selected"
 msgstr "Ningún programa seleccionado"
 
 msgid "Choose a program from the Input sidebar."
-msgstr ""
+msgstr "Elija un programa de la barra lateral de Entrada."
 
 msgid "Columns is empty"
 msgstr "Las columnas están vacías"
@@ -637,19 +642,23 @@ msgid "There's a problem with at least one selected indicator"
 msgstr "Hay un problema con al menos un indicador seleccionado"
 
 msgid "Restricted access"
-msgstr ""
+msgstr "Acceso restringido"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
 "administrator."
 msgstr ""
+"No tiene acceso a los datos de esta visualización. Póngase en contacto con "
+"un administrador del sistema."
 
 msgid "You don’t have access to one or more of the chosen organisation units."
-msgstr ""
+msgstr "No tienes acceso a una o más de las unidades organizativas elegidas."
 
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
+"No tienes acceso a análisis de eventos. Póngase en contacto con un "
+"administrador del sistema."
 
 msgid "Something went wrong"
 msgstr "Algo ha ido mal"
@@ -658,9 +667,11 @@ msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"Hay un problema con los análisis generados. Contacta a un administrador del "
+"sistema."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "Hay un problema de sintaxis con la solicitud de análisis."
 
 msgid "Last updated on"
 msgstr "Ultima actualización en"
