@@ -245,6 +245,7 @@ describe(['>=40'], 'ou hierarchy', () => {
 })
 
 describe('skip rounding', () => {
+    // TODO: split this test in to three parts, one for each input type
     it('sets skip rounding', () => {
         goToStartPage()
 
@@ -268,6 +269,7 @@ describe('skip rounding', () => {
         expectTableToBeUpdated()
 
         getTableRows().eq(0).find('td').eq(1).should('contain', 3.7)
+        // TODO: fix this test for v41, by changing to a dimension with a value that has more than 2 decimals
 
         openDataOptionsModal()
 
