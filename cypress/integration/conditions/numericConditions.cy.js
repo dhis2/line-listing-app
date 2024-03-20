@@ -147,7 +147,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '3.65'])
+        expectTableToMatchRows(['11', '3.12'])
 
         assertChipContainsText(dimensionName, 1)
 
@@ -160,7 +160,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '12', '3.65'])
+        expectTableToMatchRows(['11', '12', '3.12'])
 
         assertChipContainsText(dimensionName, 1)
 
@@ -177,7 +177,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.65',
+            '3.12',
             '11',
             `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
@@ -213,7 +213,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.65',
+            '3.12',
             '11',
             '12',
             '2 000 000',

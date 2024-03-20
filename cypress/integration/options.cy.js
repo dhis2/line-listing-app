@@ -14,6 +14,7 @@ import { goToAO } from '../helpers/common.js'
 import {
     selectEnrollmentWithProgramDimensions,
     selectEventWithProgramDimensions,
+    selectTrackedEntityWithTypeAndProgramDimensions,
 } from '../helpers/dimensions.js'
 import { saveVisualization } from '../helpers/fileMenu.js'
 import {
@@ -141,8 +142,8 @@ describe('options', () => {
         const PHONE_NUMBER = '555-1212'
 
         // assert the default dgs space on number but not phone number
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333 333 444')
 
         // set dgs to comma
         openStyleOptionsModal()
@@ -153,8 +154,8 @@ describe('options', () => {
         cy.contains('Comma').click()
         clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333,333,444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333,333,444')
 
         // set dgs to none
         openStyleOptionsModal()
@@ -165,8 +166,8 @@ describe('options', () => {
         cy.contains('None').click()
         clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333333444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333333444')
 
         // set dgs to space
         openStyleOptionsModal()
@@ -177,8 +178,8 @@ describe('options', () => {
         cy.contains('Space').click()
         clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333 333 444')
     })
 })
 
@@ -245,8 +246,7 @@ describe(['>=40'], 'ou hierarchy', () => {
 })
 
 describe('skip rounding', () => {
-    // TODO: split this test in to three parts, one for each input type
-    it('sets skip rounding', () => {
+    it('sets skip rounding for event', () => {
         goToStartPage()
 
         // set up table
@@ -268,14 +268,77 @@ describe('skip rounding', () => {
 
         expectTableToBeUpdated()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', 3.7)
-        // TODO: fix this test for v41, by changing to a dimension with a value that has more than 2 decimals
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
 
         openDataOptionsModal()
 
         cy.getBySel('skip-rounding').click()
         clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', 3.65)
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+    })
+    it('sets skip rounding for enrollment', () => {
+        goToStartPage()
+
+        // set up table
+        selectEnrollmentWithProgramDimensions({
+            ...E2E_PROGRAM,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+
+        openDataOptionsModal()
+
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+    })
+    // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17105
+    it.skip(['>=40'], 'sets skip rounding for tracked entity', () => {
+        goToStartPage()
+
+        // set up table
+        selectTrackedEntityWithTypeAndProgramDimensions({
+            typeName: 'Person',
+            programName: E2E_PROGRAM.programName,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+
+        openDataOptionsModal()
+
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
     })
 })
