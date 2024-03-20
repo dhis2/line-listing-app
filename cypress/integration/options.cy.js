@@ -245,100 +245,114 @@ describe(['>=40'], 'ou hierarchy', () => {
     })
 })
 
-describe('skip rounding', () => {
-    it('sets skip rounding for event', () => {
-        goToStartPage()
+const testSkipRoundingForEvent = (roundedValue) => {
+    goToStartPage()
 
-        // set up table
-        selectEventWithProgramDimensions({
-            ...E2E_PROGRAM,
-            dimensions: [TEST_DIM_NUMBER],
-        })
-
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        getTableHeaderCells()
-            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
-            .click()
-
-        expectTableToBeUpdated()
-
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
-
-        openDataOptionsModal()
-
-        cy.getBySel('skip-rounding').click()
-        clickOptionsModalUpdateButton()
-
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+    // set up table
+    selectEventWithProgramDimensions({
+        ...E2E_PROGRAM,
+        dimensions: [TEST_DIM_NUMBER],
     })
-    it('sets skip rounding for enrollment', () => {
-        goToStartPage()
 
-        // set up table
-        selectEnrollmentWithProgramDimensions({
-            ...E2E_PROGRAM,
-            dimensions: [TEST_DIM_NUMBER],
-        })
+    selectRelativePeriod({
+        label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+        period: TEST_REL_PE_THIS_YEAR,
+    })
 
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
-        })
+    clickMenubarUpdateButton()
 
-        clickMenubarUpdateButton()
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_NUMBER}"]`).click()
 
-        getTableHeaderCells()
-            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
-            .click()
+    expectTableToBeUpdated()
 
-        expectTableToBeUpdated()
+    getTableRows().eq(0).find('td').eq(1).should('have.text', roundedValue)
 
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+    openDataOptionsModal()
 
-        openDataOptionsModal()
+    cy.getBySel('skip-rounding').click()
+    clickOptionsModalUpdateButton()
 
-        cy.getBySel('skip-rounding').click()
-        clickOptionsModalUpdateButton()
+    getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+}
 
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+const testSkipRoundingForEnrollment = (roundedValue) => {
+    goToStartPage()
+
+    // set up table
+    selectEnrollmentWithProgramDimensions({
+        ...E2E_PROGRAM,
+        dimensions: [TEST_DIM_NUMBER],
+    })
+
+    selectRelativePeriod({
+        label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+        period: TEST_REL_PE_THIS_YEAR,
+    })
+
+    clickMenubarUpdateButton()
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_NUMBER}"]`).click()
+
+    expectTableToBeUpdated()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', roundedValue)
+
+    openDataOptionsModal()
+
+    cy.getBySel('skip-rounding').click()
+    clickOptionsModalUpdateButton()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+}
+
+describe('skip rounding', () => {
+    it(['<41'], 'sets skip rounding for event (below 41)', () => {
+        testSkipRoundingForEvent('3.1')
+    })
+    it(['>=41'], 'sets skip rounding for event (41 and above)', () => {
+        testSkipRoundingForEvent('3.12')
+    })
+    it(['<41'], 'sets skip rounding for enrollment (below 41)', () => {
+        testSkipRoundingForEnrollment('3.1')
+    })
+    it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
+        testSkipRoundingForEnrollment('3.12')
     })
     // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17105
-    it.skip(['>=40'], 'sets skip rounding for tracked entity', () => {
-        goToStartPage()
+    it.skip(
+        ['>=41'],
+        'sets skip rounding for tracked entity (41 and above)',
+        () => {
+            goToStartPage()
 
-        // set up table
-        selectTrackedEntityWithTypeAndProgramDimensions({
-            typeName: 'Person',
-            programName: E2E_PROGRAM.programName,
-            dimensions: [TEST_DIM_NUMBER],
-        })
+            // set up table
+            selectTrackedEntityWithTypeAndProgramDimensions({
+                typeName: 'Person',
+                programName: E2E_PROGRAM.programName,
+                dimensions: [TEST_DIM_NUMBER],
+            })
 
-        selectRelativePeriod({
-            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-            period: TEST_REL_PE_THIS_YEAR,
-        })
+            selectRelativePeriod({
+                label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+                period: TEST_REL_PE_THIS_YEAR,
+            })
 
-        clickMenubarUpdateButton()
+            clickMenubarUpdateButton()
 
-        getTableHeaderCells()
-            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
-            .click()
+            getTableHeaderCells()
+                .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+                .click()
 
-        expectTableToBeUpdated()
+            expectTableToBeUpdated()
 
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+            getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
 
-        openDataOptionsModal()
+            openDataOptionsModal()
 
-        cy.getBySel('skip-rounding').click()
-        clickOptionsModalUpdateButton()
+            cy.getBySel('skip-rounding').click()
+            clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
-    })
+            getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+        }
+    )
 })

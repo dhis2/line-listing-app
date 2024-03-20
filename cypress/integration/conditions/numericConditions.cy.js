@@ -71,29 +71,8 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-/* This test doesn't look like it needs `testIsolation: false`
- * but start failing once this is removed */
-describe('number conditions (event)', { testIsolation: false }, () => {
-    const dimensionName = TEST_DIM_NUMBER
-
-    beforeEach(() => {
-        goToStartPage()
-        selectEventWithProgramDimensions({
-            ...event,
-            dimensions: [dimensionName],
-        })
-
-        selectRelativePeriod({
-            label: periodLabel,
-            period: TEST_REL_PE_THIS_YEAR,
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        assertChipContainsText(dimensionName, 'all')
-    })
+const testNumberConditions = (dimensionName, version) => {
+    const decimalNumber = version >= 41 ? '3.12' : '3.1'
 
     it('equal to', () => {
         addConditions(
@@ -147,7 +126,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '3.12'])
+        expectTableToMatchRows(['11', decimalNumber])
 
         assertChipContainsText(dimensionName, 1)
 
@@ -160,7 +139,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '12', '3.12'])
+        expectTableToMatchRows(['11', '12', decimalNumber])
 
         assertChipContainsText(dimensionName, 1)
 
@@ -177,7 +156,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.12',
+            decimalNumber,
             '11',
             `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
@@ -213,7 +192,7 @@ describe('number conditions (event)', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.12',
+            decimalNumber,
             '11',
             '12',
             '2 000 000',
@@ -245,7 +224,52 @@ describe('number conditions (event)', { testIsolation: false }, () => {
             'Less than (<): 13',
         ])
     })
+}
+
+const prepareNumberConditions = (dimensionName) => {
+    goToStartPage()
+    selectEventWithProgramDimensions({
+        ...event,
+        dimensions: [dimensionName],
+    })
+
+    selectRelativePeriod({
+        label: periodLabel,
+        period: TEST_REL_PE_THIS_YEAR,
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    assertChipContainsText(dimensionName, 'all')
+}
+
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe(['<41'], 'number conditions (event)', { testIsolation: false }, () => {
+    const dimensionName = TEST_DIM_NUMBER
+
+    beforeEach(() => {
+        prepareNumberConditions(dimensionName)
+    })
+
+    testNumberConditions(dimensionName, 40)
 })
+describe(
+    ['>=41'],
+    'number conditions (event)',
+    { testIsolation: false },
+    () => {
+        const dimensionName = TEST_DIM_NUMBER
+
+        beforeEach(() => {
+            prepareNumberConditions(dimensionName)
+        })
+
+        testNumberConditions(dimensionName, 41)
+    }
+)
 
 describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
     const dimensionName = 'Age (years)'
