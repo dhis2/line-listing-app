@@ -319,41 +319,36 @@ describe('skip rounding', () => {
     it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
         testSkipRoundingForEnrollment('3.12')
     })
-    // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17105
-    it.skip(
-        ['>=41'],
-        'sets skip rounding for tracked entity (41 and above)',
-        () => {
-            goToStartPage()
+    it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
+        goToStartPage()
 
-            // set up table
-            selectTrackedEntityWithTypeAndProgramDimensions({
-                typeName: 'Person',
-                programName: E2E_PROGRAM.programName,
-                dimensions: [TEST_DIM_NUMBER],
-            })
+        // set up table
+        selectTrackedEntityWithTypeAndProgramDimensions({
+            typeName: 'Person',
+            programName: E2E_PROGRAM.programName,
+            dimensions: [TEST_DIM_NUMBER],
+        })
 
-            selectRelativePeriod({
-                label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
-                period: TEST_REL_PE_THIS_YEAR,
-            })
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
 
-            clickMenubarUpdateButton()
+        clickMenubarUpdateButton()
 
-            getTableHeaderCells()
-                .find(`button[title*="${TEST_DIM_NUMBER}"]`)
-                .click()
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
 
-            expectTableToBeUpdated()
+        expectTableToBeUpdated()
 
-            getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
 
-            openDataOptionsModal()
+        openDataOptionsModal()
 
-            cy.getBySel('skip-rounding').click()
-            clickOptionsModalUpdateButton()
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
 
-            getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
-        }
-    )
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+    })
 })
