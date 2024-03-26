@@ -27,6 +27,8 @@ const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
+// TODO: implement these tests for TE as soon as the backend returns 1 / 0 instead of "true" / "false"
+
 const setUpTable = (dimensionName) => {
     selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
 

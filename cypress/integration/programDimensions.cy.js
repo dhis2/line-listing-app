@@ -352,7 +352,7 @@ I.e. Scheduled date works like this:
 
             openInputSidebar()
 
-            cy.getBySel('program-select').click()
+            cy.getBySel('program-dimensions-program-select').click()
 
             cy.contains(E2E_PROGRAM.programName).click()
 

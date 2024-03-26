@@ -16,6 +16,10 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
+import {
+    formatDimensionId,
+    extractDimensionIdParts,
+} from '../modules/dimensionId.js'
 import { getFilteredLayout } from '../modules/layout.js'
 import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
@@ -25,15 +29,20 @@ import {
 } from '../modules/programDimensions.js'
 import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
 export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
+export const CLEAR_UI_ENTITY_TYPE = 'CLEAR_UI_ENTITY_TYPE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
+export const UPDATE_UI_ENTITY_TYPE_ID = 'UPDATE_UI_ENTITY_TYPE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
@@ -72,6 +81,7 @@ const EMPTY_UI = {
         id: undefined,
         stageId: undefined,
     },
+    entityType: { id: undefined },
     layout: {
         columns: [],
         filters: [],
@@ -90,6 +100,7 @@ export const DEFAULT_UI = {
         type: OUTPUT_TYPE_EVENT,
     },
     program: {},
+    entityType: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -165,6 +176,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case CLEAR_UI_ENTITY_TYPE: {
+            return {
+                ...state,
+                entityType: EMPTY_UI.entityType,
+            }
+        }
         case UPDATE_UI_PROGRAM_ID: {
             return {
                 ...state,
@@ -180,6 +197,15 @@ export default (state = EMPTY_UI, action) => {
                 program: {
                     ...state.program,
                     stageId: action.value,
+                },
+            }
+        }
+        case UPDATE_UI_ENTITY_TYPE_ID: {
+            return {
+                ...state,
+                entityType: {
+                    ...state.entityType,
+                    id: action.value,
                 },
             }
         }
@@ -386,6 +412,7 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
+export const sGetUiEntityType = (state) => sGetUi(state).entityType
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiOptions = (state) => sGetUi(state).options
@@ -418,6 +445,7 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
+export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state)?.id
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||
@@ -453,7 +481,10 @@ export const renderChipsSelector = createSelector(
 )
 
 // Selector based hooks
-export const useMainDimensions = () => Object.values(getMainDimensions())
+export const useMainDimensions = () => {
+    const inputType = useSelector(sGetUiInputType)
+    return Object.values(getMainDimensions(inputType))
+}
 
 export const useProgramDimensions = () => {
     const { serverVersion } = useConfig()
@@ -462,17 +493,24 @@ export const useProgramDimensions = () => {
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
 
+    const getId = (dimensionId) =>
+        formatDimensionId({
+            dimensionId,
+            programId,
+            outputType: inputType,
+        })
+
     const eventDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_EVENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_EVENT_DATE))
     )
     const enrollmentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_ENROLLMENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_ENROLLMENT_DATE))
     )
     const incidentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_INCIDENT_DATE))
     )
     const scheduledDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
     )
 
     return useMemo(() => {
@@ -493,12 +531,22 @@ export const useProgramDimensions = () => {
                 ? [scheduledDateDim]
                 : []),
             incidentDateDim,
-        ].filter(
-            (dimension) =>
-                !!dimension && !hiddenTimeDimensions.includes(dimension.id)
-        )
+        ].filter((dimension) => {
+            if (!dimension) {
+                return false
+            }
+            const { dimensionId } = extractDimensionIdParts(
+                dimension.id,
+                inputType
+            )
+            return !hiddenTimeDimensions.includes(dimensionId)
+        })
 
-        const programDimensions = Object.values(getProgramDimensions()).filter(
+        const programDimensions = Object.values(
+            getProgramDimensions(
+                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+            )
+        ).filter(
             (dimension) =>
                 !getIsProgramDimensionDisabled({
                     dimensionId: dimension.id,

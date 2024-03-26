@@ -132,7 +132,7 @@ const NumericCondition = ({
                         key={key}
                         value={key}
                         label={value}
-                        dataTest={'numeric-condition-type'}
+                        dataTest="numeric-condition-type"
                     />
                 ))}
                 <MenuDivider dense />
@@ -141,7 +141,7 @@ const NumericCondition = ({
                     value={OPERATOR_IN}
                     label={i18n.t('is one of preset options')}
                     disabled={numberOfConditions > 1}
-                    dataTest={'numeric-condition-type'}
+                    dataTest="numeric-condition-type"
                 />
             </SingleSelectField>
             {operator &&

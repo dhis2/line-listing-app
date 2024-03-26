@@ -20,7 +20,7 @@ const StageFilter = ({ stages, selected, setSelected }) => {
             dense
             selected={selected || STAGE_ALL}
             onChange={onChange}
-            dataTest={'stage-select'}
+            dataTest="stage-select"
         >
             <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
             {stages.map(({ id, name }) => (

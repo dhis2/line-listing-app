@@ -24,6 +24,11 @@ const selectProgramAndStage = ({ inputType, programName, stageName }) => {
     }
 }
 
+export const selectProgramForTE = (programName) => {
+    cy.getBySel('accessory-sidebar').contains('Choose a program').click()
+    cy.contains(programName).click()
+}
+
 export const selectEventWithProgram = ({ programName, stageName }) =>
     selectProgramAndStage({ inputType: INPUT_EVENT, programName, stageName })
 
@@ -33,6 +38,12 @@ export const selectEnrollmentWithProgram = ({ programName }) =>
         programName,
     })
 
+export const selectTrackedEntityWithType = (typeName) => {
+    cy.getBySel('input-tracked-entity').click()
+    cy.getBySel('accessory-sidebar').contains('Choose a type').click()
+    cy.contains(typeName).click()
+}
+
 export const openInputSidebar = () => {
     cy.getBySel('main-sidebar').contains('Input:').click()
     cy.getBySel('input-panel').should('be.visible')
@@ -40,7 +51,6 @@ export const openInputSidebar = () => {
 
 export const openProgramDimensionsSidebar = () => {
     cy.getBySel('main-sidebar').contains('Program dimensions').click()
-    cy.getBySel('program-dimensions').should('be.visible')
 }
 
 export const openDimension = (dimensionName) => {
@@ -66,6 +76,9 @@ export const clickAddRemoveProgramDimension = (label) =>
 
 export const clickAddRemoveProgramDataDimension = (label) =>
     clickAddRemoveDimension('program-dimensions-list', label)
+
+export const clickAddRemoveTrackedEntityTypeDimensions = (label) =>
+    clickAddRemoveDimension('tracked-entity-dimensions-list', label)
 
 const selectProgramDimensions = ({
     inputType,
@@ -104,6 +117,19 @@ export const selectEnrollmentWithProgramDimensions = ({
         programName,
         dimensions,
     })
+
+export const selectTrackedEntityWithTypeAndProgramDimensions = ({
+    typeName,
+    programName,
+    dimensions,
+}) => {
+    selectTrackedEntityWithType(typeName)
+    openProgramDimensionsSidebar()
+    selectProgramForTE(programName)
+    dimensions.forEach((dimensionName) => {
+        clickAddRemoveProgramDataDimension(dimensionName)
+    })
+}
 
 const disabledOpacity = { prop: 'opacity', value: '0.5' }
 const disabledCursor = { prop: 'cursor', value: 'not-allowed' }

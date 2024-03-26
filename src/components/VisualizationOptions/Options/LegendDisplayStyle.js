@@ -20,7 +20,7 @@ const LegendDisplayStyle = () => (
                 label: i18n.t('Legend changes text color'),
             },
         ]}
-        dataTest={'legend-display-style'}
+        dataTest="legend-display-style"
     />
 )
 

@@ -32,7 +32,7 @@ const StageSelect = ({ stages }) => {
                         dense
                         selected={selectedStageId}
                         onChange={onChange}
-                        dataTest={'stage-select'}
+                        dataTest="stage-select"
                         filterable
                         noMatchText={i18n.t('No stages found')}
                     >

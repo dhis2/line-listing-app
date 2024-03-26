@@ -67,7 +67,7 @@ const OrgUnitCondition = ({
             ].filter((path) => path)}
             selected={selected.path && [selected.path]}
             onChange={(item) => setValues(item)}
-            dataTest={'org-unit-tree'}
+            dataTest="org-unit-tree"
             singleSelection
         />
     )

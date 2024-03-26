@@ -1,3 +1,4 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { clearInput, typeInput, clearTextarea, typeTextarea } from './common.js'
 
 export const ITEM_NEW = 'file-menu-new'
@@ -67,4 +68,16 @@ export const renameVisualization = (name, description) => {
     }
 
     cy.getBySel('file-menu-rename-modal-rename').click()
+}
+
+export const openAOByName = (name) => {
+    cy.getBySel('dhis2-analytics-hovermenubar').contains('File').click()
+
+    cy.getBySel(ITEM_OPEN).click()
+
+    typeInput('open-file-dialog-modal-name-filter', name)
+
+    cy.getBySel('open-file-dialog-modal', EXTENDED_TIMEOUT)
+        .contains(name, EXTENDED_TIMEOUT)
+        .click()
 }

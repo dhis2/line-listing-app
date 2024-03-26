@@ -22,7 +22,7 @@ export const ProgramDimensions = () => {
     return (
         <MainSidebarSection
             header={i18n.t('Program dimensions')}
-            dataTest={'program-dimensions'}
+            dataTest="program-dimensions"
         >
             {draggableDimensions.map((dimension) => (
                 <span key={dimension.id} className={styles.span}>

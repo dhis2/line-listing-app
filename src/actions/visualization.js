@@ -1,9 +1,9 @@
 import { getUiDimensionType } from '../modules/dimensionConstants.js'
+import { formatDimensionId } from '../modules/dimensionId.js'
 import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../modules/metadata.js'
-import { formatDimensionId } from '../modules/utils.js'
 import { getDimensionMetadataFromVisualization } from '../modules/visualization.js'
 import {
     SET_VISUALIZATION,
@@ -11,7 +11,7 @@ import {
 } from '../reducers/visualization.js'
 
 export const acSetVisualization = (value) => {
-    const { program, programStage } = value
+    const { outputType, program, programStage } = value
     const timeDimensions = getDynamicTimeDimensionsMetadata(
         program,
         programStage
@@ -28,10 +28,12 @@ export const acSetVisualization = (value) => {
             return md
         }
 
-        const prefixedId = formatDimensionId(
-            dimension.dimension,
-            dimension.programStage?.id
-        )
+        const prefixedId = formatDimensionId({
+            dimensionId: dimension.dimension,
+            programStageId: dimension.programStage?.id,
+            programId: dimension.program?.id,
+            outputType,
+        })
 
         md.push({
             [prefixedId]: {

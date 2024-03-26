@@ -23,6 +23,7 @@ import {
     DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { formatDimensionId } from './dimensionId.js'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
 export const parseConditionsStringToArray = (conditionsString) =>
@@ -271,3 +272,22 @@ export const getConditionsTexts = ({
 
     return parsedConditions
 }
+
+export const getConditionsFromVisualization = (vis) =>
+    [...vis.columns, ...vis.rows, ...vis.filters]
+        .filter((item) => item.filter || item.legendSet)
+        .reduce(
+            (acc, key) => ({
+                ...acc,
+                [formatDimensionId({
+                    dimensionId: key.dimension,
+                    programStageId: key.programStage?.id,
+                    programId: key.program?.id,
+                    outputType: vis.outputType,
+                })]: {
+                    condition: key.filter,
+                    legendSet: key.legendSet?.id,
+                },
+            }),
+            {}
+        )

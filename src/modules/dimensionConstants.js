@@ -38,6 +38,7 @@ export const DIMENSION_ID_ENROLLMENT_DATE = 'enrollmentDate'
 export const DIMENSION_ID_INCIDENT_DATE = 'incidentDate'
 export const DIMENSION_ID_SCHEDULED_DATE = 'scheduledDate'
 export const DIMENSION_ID_LAST_UPDATED = 'lastUpdated'
+export const DIMENSION_ID_CREATED = 'created'
 
 export const DIMENSION_IDS_TIME = new Set([
     DIMENSION_ID_EVENT_DATE,

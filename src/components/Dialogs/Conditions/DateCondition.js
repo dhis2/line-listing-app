@@ -55,7 +55,7 @@ const BaseCondition = ({ condition, onChange, onRemove, type, max }) => {
                         key={key}
                         value={key}
                         label={value}
-                        dataTest={'date-condition-type'}
+                        dataTest="date-condition-type"
                     />
                 ))}
             </SingleSelectField>

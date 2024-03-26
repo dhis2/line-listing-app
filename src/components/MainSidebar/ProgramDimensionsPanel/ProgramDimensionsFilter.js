@@ -12,8 +12,10 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { sGetUiInputType } from '../../../reducers/ui.js'
 import { DimensionIcon } from '../DimensionItem/DimensionIcon.js'
 import styles from './ProgramDimensionsFilter.module.css'
@@ -46,6 +48,7 @@ const ProgramDimensionsFilter = ({
     setDimensionType,
     stageFilter,
     setStageFilter,
+    showProgramAttribute,
 }) => (
     <div className={styles.container}>
         <div className={styles.header}>{i18n.t('Program data dimensions')}</div>
@@ -53,7 +56,7 @@ const ProgramDimensionsFilter = ({
             value={searchTerm}
             onChange={({ value }) => setSearchTerm(value)}
             dense
-            type={'search'}
+            type="search"
             placeholder={i18n.t('Search data dimensions')}
         />
         <SingleSelect
@@ -76,7 +79,7 @@ const ProgramDimensionsFilter = ({
                     />
                 }
             />
-            {program.programType === PROGRAM_TYPE_WITH_REGISTRATION && (
+            {showProgramAttribute && (
                 <SingleSelectOption
                     label={i18n.t('Program attribute')}
                     value={DIMENSION_TYPE_PROGRAM_ATTRIBUTE}
@@ -87,15 +90,17 @@ const ProgramDimensionsFilter = ({
                     }
                 />
             )}
-            <SingleSelectOption
-                label={i18n.t('Program indicator')}
-                value={DIMENSION_TYPE_PROGRAM_INDICATOR}
-                icon={
-                    <DimensionIcon
-                        dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
-                    />
-                }
-            />
+            {useSelector(sGetUiInputType) !== OUTPUT_TYPE_TRACKED_ENTITY && (
+                <SingleSelectOption
+                    label={i18n.t('Program indicator')}
+                    value={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                    icon={
+                        <DimensionIcon
+                            dimensionType={DIMENSION_TYPE_PROGRAM_INDICATOR}
+                        />
+                    }
+                />
+            )}
             <SingleSelectOption
                 label={i18n.t('Category')}
                 value={DIMENSION_TYPE_CATEGORY}
@@ -111,10 +116,16 @@ const ProgramDimensionsFilter = ({
                 }
             />
         </SingleSelect>
-        {useSelector(sGetUiInputType) === OUTPUT_TYPE_ENROLLMENT &&
-            dimensionType === DIMENSION_TYPE_DATA_ELEMENT && (
+        {[OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            useSelector(sGetUiInputType)
+        ) &&
+            dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+            (!stageFilter ||
+                program?.programStages.some(
+                    (stage) => stage.id === stageFilter
+                )) && (
                 <StageFilter
-                    stages={program.programStages}
+                    stages={program?.programStages}
                     selected={stageFilter}
                     setSelected={setStageFilter}
                 />
@@ -129,6 +140,7 @@ ProgramDimensionsFilter.propTypes = {
     setDimensionType: PropTypes.func,
     setSearchTerm: PropTypes.func,
     setStageFilter: PropTypes.func,
+    showProgramAttribute: PropTypes.bool,
     stageFilter: PropTypes.string,
 }
 

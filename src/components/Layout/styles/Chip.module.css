@@ -55,7 +55,7 @@
     white-space: nowrap;
 }
 
-.suffix {
+.items {
     white-space: nowrap;
     flex-shrink: 0;
     font-family: monospace;

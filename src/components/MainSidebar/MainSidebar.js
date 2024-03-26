@@ -12,9 +12,13 @@ import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
     ACCESSORY_PANEL_TAB_PROGRAM,
+    ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
     ACCESSORY_PANEL_TAB_YOUR,
 } from '../../modules/ui.js'
-import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
@@ -23,6 +27,7 @@ import {
     sGetUiSidebarHidden,
     sGetUiProgramStageId,
     sGetUiAccessoryPanelActiveTab,
+    sGetUiEntityTypeId,
 } from '../../reducers/ui.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.js'
@@ -33,6 +38,8 @@ import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
 } from './SelectedDimensionsContext.js'
+import { TrackedEntityDimensionsMenuItem } from './TrackedEntityDimensionsMenuItem.js'
+import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
@@ -43,19 +50,31 @@ const MainSidebar = () => {
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
+    const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
     const stage = useSelector((state) =>
         sGetMetadataById(state, selectedStageId)
     )
-    const subtitle =
-        selectedInputType === OUTPUT_TYPE_EVENT &&
-        program?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
-        program?.name &&
-        stage?.name
-            ? `${program.name} - ${stage.name}`
-            : program?.name
+    const entityType = useSelector((state) =>
+        sGetMetadataById(state, selectedEntityTypeId)
+    )
+    const getSubtitle = () => {
+        if (
+            selectedInputType === OUTPUT_TYPE_EVENT &&
+            program?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
+            program?.name &&
+            stage?.name
+        ) {
+            return `${program.name} - ${stage.name}`
+        } else if (selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+            return entityType?.name
+        } else {
+            return program?.name
+        }
+    }
+
     const isHidden = useSelector(sGetUiSidebarHidden)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
     const setSelectedTabId = (id) =>
@@ -79,7 +98,7 @@ const MainSidebar = () => {
             onClick={() => onClick(ACCESSORY_PANEL_TAB_PROGRAM)}
             selected={open && selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
             count={counts.program}
-            disabled={!selectedProgramId}
+            disabled={!(selectedProgramId || selectedEntityTypeId)}
             dataTest="program-dimensions-button"
         />
     )
@@ -97,11 +116,25 @@ const MainSidebar = () => {
                     selected={
                         open && selectedTabId === ACCESSORY_PANEL_TAB_INPUT
                     }
-                    subtitle={subtitle}
+                    subtitle={getSubtitle()}
+                    dataTest="input-panel-button"
                 />
-                {!selectedProgramId ? (
+                {entityType?.name && (
+                    <TrackedEntityDimensionsMenuItem
+                        selected={
+                            open &&
+                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                        }
+                        count={counts.trackedEntity}
+                        onClick={() =>
+                            onClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+                        }
+                        name={entityType.name}
+                    />
+                )}
+                {!(selectedProgramId || selectedEntityTypeId) ? (
                     <Tooltip
-                        dataTest={'no-input-tooltip'}
+                        dataTest="no-input-tooltip"
                         content={i18n.t('Choose an input first')}
                         closeDelay={0}
                         placement="bottom"
@@ -119,7 +152,6 @@ const MainSidebar = () => {
                 ) : (
                     programDimensionsItem
                 )}
-
                 <YourDimensionsMenuItem
                     selected={
                         open && selectedTabId === ACCESSORY_PANEL_TAB_YOUR
@@ -143,6 +175,11 @@ const MainSidebar = () => {
                     />
                     <ProgramDimensionsPanel
                         visible={selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
+                    />
+                    <TrackedEntityDimensionsPanel
+                        visible={
+                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                        }
                     />
                     <YourDimensionsPanel
                         visible={selectedTabId === ACCESSORY_PANEL_TAB_YOUR}

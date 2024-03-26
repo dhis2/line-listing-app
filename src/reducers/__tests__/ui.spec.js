@@ -1,4 +1,4 @@
-import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/ui.js'
+import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/repetition.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import reducer, {
     DEFAULT_UI,
