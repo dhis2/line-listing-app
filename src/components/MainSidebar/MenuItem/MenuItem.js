@@ -24,8 +24,8 @@ const MenuItem = ({
         data-test={dataTest}
     >
         <div className={styles.icon}>{icon}</div>
-        <div className={styles.label}>
-            {label}
+        <div className={styles.labelWrapper}>
+            <span className={styles.label}>{label}</span>
             {subtitle && (
                 <span
                     className={styles.subtitle}

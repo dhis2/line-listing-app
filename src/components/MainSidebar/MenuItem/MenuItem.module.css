@@ -46,12 +46,17 @@
     margin-right: 2px;
     color: var(--colors-grey700);
 }
-.label {
+.labelWrapper {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     font-size: 14px;
     line-height: 16px;
+    overflow: hidden;
+}
+.label {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .count {
     flex-grow: 0;
@@ -78,4 +83,6 @@
     font-size: 13px;
     color: var(--colors-grey700);
     margin-top: var(--spacers-dp4);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
