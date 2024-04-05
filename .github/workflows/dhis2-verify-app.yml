@@ -7,6 +7,8 @@ on:
         branches:
             - 'master'
             - 'dev'
+    repository_dispatch:
+        types: [cypress-test-trigger]
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -170,7 +172,7 @@ jobs:
         needs: release
         if: |
             success() &&
-            !cancelled()  &&
+            !cancelled() &&
             github.ref == 'refs/heads/master' &&
             contains(github.event.head_commit.message, 'chore(release)')
         steps:
@@ -188,13 +190,41 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                        "text": ":large_green_circle: :line-listing-app: :tada: Line Listing release succeeded for version: ${{ steps.extract_version.outputs.version }}",
+                        "text": "Line Listing app release ${{ steps.extract_version.outputs.version }} succeeded",
                         "blocks": [
+                          {
+                            "type": "header",
+                            "text": {
+                                "type": "plain_text",
+                                "text": ":large_green_circle: :line-listing-app: Line Listing version ${{ steps.extract_version.outputs.version }} released :tada:",
+                                "emoji": true
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
                           {
                             "type": "section",
                             "text": {
-                              "type": "mrkdwn",
-                              "text": ":large_green_circle: :line-listing-app: :tada: Line Listing version ${{ steps.extract_version.outputs.version }} released <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|successfully>"
+                                "type": "mrkdwn",
+                                "text": "*Release Notes*"
+                            }
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": ${{ toJSON(github.event.head_commit.message) }}
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Link to <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
                             }
                           }
                         ]
