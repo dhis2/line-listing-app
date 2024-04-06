@@ -5,18 +5,18 @@
 # Karoline Tufte Lien <karoline@dhis2.org>, 2022
 # Djibril Dione <dione.djibril@gmail.com>, 2022
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
-# Philip Larsen Donnelly, 2022
 # Edem Kossi <ekossi@hispwca.org>, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023
 # Yayra Gomado <ygomado@hispwca.org>, 2023
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Ajouter à {{nomdel'axe}} "
+msgstr "Ajouter à {{axisName}} "
 
 msgid "Choose a condition type"
 msgstr "Choisir un type de condition"
@@ -145,7 +145,7 @@ msgid "No options"
 msgstr "Aucune option"
 
 msgid "Move to {{axisName}}"
-msgstr "Déménager à {{nomdel'axe}}"
+msgstr "Déménager à {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -199,7 +199,7 @@ msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
 msgstr[0] "Et {{nombre}} autre..."
 msgstr[1] "And {{count}} other..."
-msgstr[2] "Et {{numberOfItems}} autres..."
+msgstr[2] "Et {{count}} autres..."
 
 msgid "None selected"
 msgstr "Aucune sélection"
@@ -208,13 +208,13 @@ msgid "Showing all values for this dimension"
 msgstr "Affichage de toutes les valeurs pour cette dimension"
 
 msgid "Program stage: {{- stageName}}"
-msgstr "Étape du programme : {{- Nom de l'étape}}"
+msgstr "Étape du programme : {{- stageName}}"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "Aucune dimension trouvée pour '{{- Terme de recherche}}'"
+msgstr "Aucune dimension trouvée pour '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr "Aucune dimension trouvée dans le programme {{- nomduprogramme}}"
+msgstr "Aucune dimension trouvée dans le programme {{- programName}}"
 
 msgid "No dimensions found"
 msgstr "Aucune dimension trouvée"
@@ -410,7 +410,7 @@ msgid "Rows per page"
 msgstr "Lignes par page"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr "Page {{page}}, ligne {{premierItem}}-{{dernierItem}}"
+msgstr "Page {{page}}, ligne {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Sous-totaux de colonne"
@@ -516,6 +516,9 @@ msgstr "Afficher la hiérarchie des unités d'organisation"
 
 msgid "Show legend key"
 msgstr "Afficher la légende"
+
+msgid "Skip rounding"
+msgstr "Ne pas arondir"
 
 msgid "Add a title"
 msgstr "Ajouter un titre"
