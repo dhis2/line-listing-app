@@ -99,7 +99,7 @@ describe('period dimension', { testIsolation: false }, () => {
         assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${previousYear} - December 31, ${currentYear}`
+            `${previousYear}-01-01 - ${currentYear}-12-31`
         )
     })
     it('the custom period persists when reopening the modal', () => {
@@ -140,7 +140,7 @@ describe('period dimension', { testIsolation: false }, () => {
         assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${previousYear} - December 31, ${currentYear}`
+            `${previousYear}-01-01 - ${currentYear}-12-31`
         )
 
         openModal(TEST_DIM_ID)
