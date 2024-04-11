@@ -17,7 +17,6 @@ import {
     acSetUiDraggingId,
 } from '../actions/ui.js'
 import { getConditionsTexts } from '../modules/conditions.js'
-import { extractDimensionIdParts } from '../modules/utils.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
@@ -39,6 +38,8 @@ const DIMENSION_PANEL_SOURCE = 'Sortable'
 export const getDropzoneId = (axisId, position) => `${axisId}-${position}`
 export const FIRST = 'first'
 export const LAST = 'last'
+
+const EMPTY_DIMENSION = {}
 
 const activateAt15pixels = {
     activationConstraint: {
@@ -118,6 +119,7 @@ const getIdFromDraggingId = (draggingId) => {
 
 const OuterDndContext = ({ children }) => {
     const [sourceAxis, setSourceAxis] = useState(null)
+    const [dimension, setDimension] = useState(EMPTY_DIMENSION)
 
     const draggingId = useSelector(sGetUiDraggingId)
     const id = draggingId ? getIdFromDraggingId(draggingId) : null
@@ -137,26 +139,6 @@ const OuterDndContext = ({ children }) => {
     const dispatch = useDispatch()
 
     const getDragOverlay = () => {
-        if (!id) {
-            return null
-        }
-
-        // TODO - using the rawDimensionId instead of dimensionId
-        // is a temporary workaround
-        // until the backend is updated to return programStageId.dimensionId
-        // in analytics response.metadata.items
-        let dimension
-        if (metadata[id]) {
-            dimension = metadata[id]
-        } else {
-            const { dimensionId } = extractDimensionIdParts(id)
-            dimension = metadata[dimensionId]
-        }
-
-        if (!dimension) {
-            return null
-        }
-
         if (sourceAxis === DIMENSION_PANEL_SOURCE) {
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
@@ -242,6 +224,7 @@ const OuterDndContext = ({ children }) => {
 
     const onDragStart = ({ active }) => {
         const id = getIdFromDraggingId(active.id)
+        setDimension(active.data.current)
 
         setSourceAxis(active.data.current.sortable.containerId)
         dispatch(acSetUiDraggingId(active.id))
@@ -259,6 +242,7 @@ const OuterDndContext = ({ children }) => {
     }
 
     const onDragCancel = () => {
+        setDimension(EMPTY_DIMENSION)
         dispatch(acSetUiDraggingId(null))
     }
 
@@ -328,6 +312,7 @@ const OuterDndContext = ({ children }) => {
             })
         }
         onDragCancel()
+        setDimension(EMPTY_DIMENSION)
     }
 
     return (
@@ -339,7 +324,9 @@ const OuterDndContext = ({ children }) => {
             sensors={sensors}
         >
             {children}
-            <DragOverlay dropAnimation={null}>{getDragOverlay()}</DragOverlay>
+            <DragOverlay dropAnimation={null}>
+                {dimension.id ? getDragOverlay() : null}
+            </DragOverlay>
         </DndContext>
     )
 }
