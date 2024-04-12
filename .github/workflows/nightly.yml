@@ -25,8 +25,7 @@ defaults:
 
 jobs:
     call-workflow-e2e-dev:
-        # uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-dev.yml@master
-        uses: ./.github/workflows/e2e-dev.yml
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-dev.yml@master
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
