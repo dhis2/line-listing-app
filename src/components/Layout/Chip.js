@@ -13,6 +13,7 @@ import {
     sGetUiItemsByDimension,
     sGetUiConditionsByDimension,
     sGetUiOptions,
+    sGetUiInputType,
 } from '../../reducers/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.js'
 import { ChipBase } from './ChipBase.js'
@@ -53,6 +54,7 @@ const Chip = ({
     })
 
     const metadata = useSelector(sGetMetadata)
+    const inputType = useSelector(sGetUiInputType)
     const { digitGroupSeparator } = useSelector(sGetUiOptions)
     const conditions = useSelector((state) =>
         sGetUiConditionsByDimension(state, dimension.id)
@@ -106,6 +108,7 @@ const Chip = ({
         <TooltipContent
             dimension={dimension}
             conditionsTexts={conditionsTexts}
+            axisId={axisId}
         />
     )
 
@@ -135,6 +138,7 @@ const Chip = ({
                         <Tooltip
                             content={renderTooltipContent()}
                             placement="bottom"
+                            dataTest="layout-chip-tooltip"
                         >
                             {({ ref, onMouseOver, onMouseOut }) => (
                                 <div
@@ -150,7 +154,8 @@ const Chip = ({
                                             conditionsTexts.length
                                         }
                                         itemsLength={items.length}
-                                        metadata={metadata}
+                                        inputType={inputType}
+                                        axisId={axisId}
                                     />
                                 </div>
                             )}

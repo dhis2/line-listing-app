@@ -1,6 +1,7 @@
 import { genericClientError } from '../modules/error.js'
 import {
     layoutHasProgramId,
+    layoutHasTrackedEntityTypeId,
     validateLayout,
 } from '../modules/layoutValidation.js'
 import {
@@ -51,7 +52,11 @@ export const tSetCurrentFromUi =
         }
 
         if (!validateOnly) {
-            if (layoutHasProgramId(currentFromUi)) {
+            // proceed if the layout either has a program id or a tracked entity type id
+            if (
+                layoutHasProgramId(currentFromUi) ||
+                layoutHasTrackedEntityTypeId(currentFromUi)
+            ) {
                 dispatch(acSetCurrent(currentFromUi))
             } else {
                 dispatch(acClearCurrent())

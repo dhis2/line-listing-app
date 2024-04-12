@@ -59,12 +59,9 @@ import {
     getHeadersMap,
     transformVisualization,
 } from '../../modules/visualization.js'
+import { getAdaptedVisualization } from './analyticsQueryTools.js'
 import styles from './styles/Visualization.module.css'
-import {
-    cellIsUndefined,
-    getAdaptedVisualization,
-    useAnalyticsData,
-} from './useAnalyticsData.js'
+import { cellIsUndefined, useAnalyticsData } from './useAnalyticsData.js'
 
 export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
@@ -225,7 +222,7 @@ export const Visualization = ({
 
     if (headers && sortField) {
         // reset sorting if current sortField has been removed from Columns DHIS2-13948
-        if (!headers.includes(sortField)) {
+        if (!headers.flat().includes(sortField)) {
             setSorting({
                 sortField: null,
                 sortDirection: DEFAULT_SORT_DIRECTION,
@@ -444,7 +441,7 @@ export const Visualization = ({
                       )
                     : undefined
             }
-            dataTest={'table-cell'}
+            dataTest="table-cell"
         >
             <div
                 style={
@@ -544,7 +541,7 @@ export const Visualization = ({
                                                 sizeClass,
                                                 'bordered'
                                             )}
-                                            dataTest={'table-header'}
+                                            dataTest="table-header"
                                         >
                                             {formatCellHeader(header)}
                                         </DataTableColumnHeader>
@@ -558,18 +555,18 @@ export const Visualization = ({
                                                 fontSizeClass,
                                                 sizeClass
                                             )}
-                                            dataTest={'table-header'}
+                                            dataTest="table-header"
                                         />
                                     )
                                 )}
                             </DataTableRow>
                         </DataTableHead>
                         {/* https://jira.dhis2.org/browse/LIBS-278 */}
-                        <DataTableBody dataTest={'table-body'}>
+                        <DataTableBody dataTest="table-body">
                             {data.rows.map((row, rowIndex) => (
                                 <DataTableRow
                                     key={rowIndex}
-                                    dataTest={'table-row'}
+                                    dataTest="table-row"
                                 >
                                     {row.map((value, columnIndex) =>
                                         cellIsUndefined(
@@ -579,6 +576,7 @@ export const Visualization = ({
                                         ) ? (
                                             <Tooltip
                                                 content={i18n.t('No event')}
+                                                key={`${rowIndex}_${columnIndex}-tooltip`}
                                             >
                                                 {(props) =>
                                                     renderCellContent({

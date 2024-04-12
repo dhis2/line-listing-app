@@ -38,9 +38,9 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "^26.3.0",
+        "@dhis2/analytics": "^26.6.0",
         "@dhis2/app-runtime": "^3.4.4",
-        "@dhis2/ui": "^8.14.5",
+        "@dhis2/ui": "^9.4.2",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
         "@dnd-kit/utilities": "^3.2.0",
@@ -61,7 +61,7 @@
         "styled-jsx": "^4.0.1"
     },
     "resolutions": {
-        "@dhis2/ui": "^8.3.1",
+        "@dhis2/ui": "^9.4.2",
         "i18next": "^20.5.0"
     }
 }

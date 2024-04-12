@@ -8,7 +8,11 @@ import {
     DIMENSION_IDS_TIME,
 } from './dimensionConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from './visualization.js'
 
 const NAME_PARENT_PROPERTY_PROGRAM = 'program'
 const NAME_PARENT_PROPERTY_STAGE = 'stage'
@@ -17,28 +21,28 @@ export const getTimeDimensions = () => ({
     [DIMENSION_ID_EVENT_DATE]: {
         id: DIMENSION_ID_EVENT_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Event date'),
+        defaultName: i18n.t('Event date'),
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayExecutionDateLabel',
     },
     [DIMENSION_ID_ENROLLMENT_DATE]: {
         id: DIMENSION_ID_ENROLLMENT_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Enrollment date'),
+        defaultName: i18n.t('Enrollment date'),
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayEnrollmentDateLabel',
     },
     [DIMENSION_ID_INCIDENT_DATE]: {
         id: DIMENSION_ID_INCIDENT_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Incident date'),
+        defaultName: i18n.t('Incident date'),
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayIncidentDateLabel',
     },
     [DIMENSION_ID_SCHEDULED_DATE]: {
         id: DIMENSION_ID_SCHEDULED_DATE,
         dimensionType: DIMENSION_TYPE_PERIOD,
-        name: i18n.t('Scheduled date'),
+        defaultName: i18n.t('Scheduled date'),
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayDueDateLabel',
     },
@@ -46,14 +50,14 @@ export const getTimeDimensions = () => ({
 
 export const getTimeDimensionName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty || !program) {
-        return dimension.name
+        return dimension.defaultName
     }
     const name =
         dimension.nameParentProperty === NAME_PARENT_PROPERTY_PROGRAM
             ? program[dimension.nameProperty]
             : stage?.[dimension.nameProperty]
 
-    return name || dimension.name
+    return name || dimension.defaultName
 }
 
 export const getHiddenTimeDimensions = (inputType, program, stage) => {
@@ -75,7 +79,8 @@ export const getHiddenTimeDimensions = (inputType, program, stage) => {
             }
             return hiddenDimensions
         }
-        case OUTPUT_TYPE_ENROLLMENT: {
+        case OUTPUT_TYPE_ENROLLMENT:
+        case OUTPUT_TYPE_TRACKED_ENTITY: {
             hiddenDimensions.push(DIMENSION_ID_EVENT_DATE)
             hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
 

@@ -18,7 +18,7 @@ export const MainDimensions = () => {
     return (
         <MainSidebarSection
             header={i18n.t('Global dimensions')}
-            dataTest={'main-dimensions-sidebar'}
+            dataTest="main-dimensions-sidebar"
         >
             {draggableDimensions.map((dimension) => (
                 <span className={styles.span} key={dimension.id}>

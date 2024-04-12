@@ -1,4 +1,7 @@
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+} from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { createContext, useMemo, useContext } from 'react'
 import { useSelector, useStore } from 'react-redux'
@@ -8,13 +11,16 @@ import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_TYPES_YOURS,
 } from '../../modules/dimensionConstants.js'
+import { extractDimensionIdParts } from '../../modules/dimensionId.js'
 import { getTimeDimensions } from '../../modules/timeDimensions.js'
-import { sGetUiLayout } from '../../reducers/ui.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
+import { sGetUiInputType, sGetUiLayout } from '../../reducers/ui.js'
 
 const SelectedDimensionsContext = createContext({
     counts: {
         your: 0,
         program: 0,
+        trackedEntity: 0,
     },
     getIsDimensionSelected: () => {
         throw new Error('Context not initialized correctly')
@@ -23,6 +29,7 @@ const SelectedDimensionsContext = createContext({
 
 export const SelectedDimensionsProvider = ({ children }) => {
     const layout = useSelector(sGetUiLayout)
+    const selectedInputType = useSelector(sGetUiInputType)
     const store = useStore()
 
     const providerValue = useMemo(() => {
@@ -45,24 +52,38 @@ export const SelectedDimensionsProvider = ({ children }) => {
             (acc, id) => {
                 const { dimensionType } = metadata[id] ?? {}
 
+                const { dimensionId } = extractDimensionIdParts(
+                    id,
+                    selectedInputType
+                )
+
                 if (
+                    dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE &&
+                    selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
+                ) {
+                    acc.trackedEntity += 1
+                } else if (
                     DIMENSION_TYPES_PROGRAM.has(dimensionType) ||
                     [
-                        DIMENSION_ID_ORGUNIT,
                         DIMENSION_ID_EVENT_STATUS,
                         DIMENSION_ID_PROGRAM_STATUS,
                         ...Object.keys(getTimeDimensions()),
-                    ].includes(id)
+                    ].includes(dimensionId)
                 ) {
                     acc.program += 1
-                }
-
-                if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
+                } else if (dimensionId === DIMENSION_ID_ORGUNIT) {
+                    if (selectedInputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
+                        acc.program += 1
+                    } else if (id !== DIMENSION_ID_ORGUNIT) {
+                        // exclude "ou" which is a global dimension, but add count for program org units
+                        acc.program += 1
+                    }
+                } else if (DIMENSION_TYPES_YOURS.has(dimensionType)) {
                     acc.your += 1
                 }
                 return acc
             },
-            { program: 0, your: 0 }
+            { program: 0, your: 0, trackedEntity: 0 }
         )
 
         return {

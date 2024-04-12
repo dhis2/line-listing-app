@@ -3,11 +3,10 @@ import {
     getDefaultCurrentRepetition,
     parseCurrentRepetition,
     parseUiRepetition,
-    PARSE_CURRENT_REPETITION_ERROR,
     PROP_OLDEST,
     PROP_MOST_RECENT,
     PARSE_UI_REPETITION_ERROR,
-} from '../ui.js'
+} from '../repetition.js'
 
 describe('parseCurrentRepetition', () => {
     const defaultUiRepetition = getDefaultUiRepetition()
@@ -38,7 +37,7 @@ describe('parseCurrentRepetition', () => {
 
         invalidInputs.forEach((input) => {
             expect(() => parseCurrentRepetition(input)).toThrow(
-                PARSE_CURRENT_REPETITION_ERROR
+                'parseCurrentRepetition: Invalid input'
             )
         })
 

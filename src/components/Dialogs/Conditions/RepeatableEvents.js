@@ -8,7 +8,7 @@ import {
     getDefaultUiRepetition,
     PROP_MOST_RECENT,
     PROP_OLDEST,
-} from '../../../modules/ui.js'
+} from '../../../modules/repetition.js'
 import { sGetUiRepetitionByDimension } from '../../../reducers/ui.js'
 import commonClasses from '../styles/Common.module.css'
 import classes from './styles/ConditionsManager.module.css'
@@ -86,7 +86,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         value={mostRecent.toString()}
                         onChange={({ value }) => onMostRecentChange(value)}
                         min="0"
-                        dataTest={'most-recent-input'}
+                        dataTest="most-recent-input"
                     />
                 </div>
                 <div className={classes.repeatableWrapper}>
@@ -103,7 +103,7 @@ const RepeatableEvents = ({ dimensionId }) => {
                         value={oldest.toString()}
                         onChange={({ value }) => onOldestChange(value)}
                         min="0"
-                        dataTest={'oldest-input'}
+                        dataTest="oldest-input"
                     />
                 </div>
             </div>

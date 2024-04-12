@@ -23,7 +23,7 @@ import {
 
 const currentYear = getCurrentYearStr()
 
-describe('event status', () => {
+describe('event status (event)', () => {
     const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 

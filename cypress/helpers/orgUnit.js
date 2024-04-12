@@ -1,6 +1,6 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const orgUnitModalEl = 'fixed-dimension-ou-modal'
+const orgUnitModalEl = 'ou-modal'
 const levelSelectEl = 'org-unit-level-select'
 const levelSelectOptionEl = 'org-unit-level-select-option'
 const groupSelectEl = 'org-unit-group-select'
@@ -12,12 +12,12 @@ const orgUnitTreeNodeSelectEl = '[type="checkbox"]'
 const orgUnitTreeNodeToggleEl = 'org-unit-tree-node-toggle'
 
 export const clickOrgUnitDimensionModalUpdateButton = () =>
-    cy.getBySel(`${orgUnitModalEl}-action-confirm`).click()
+    cy.getBySelLike(`${orgUnitModalEl}-action-confirm`).click()
 
 export const openOuDimension = () => cy.getBySelLike('layout-chip-ou').click()
 
 export const expectOrgUnitDimensionModalToBeVisible = () =>
-    cy.getBySel(orgUnitModalEl).should('be.visible')
+    cy.getBySelLike(orgUnitModalEl).should('be.visible')
 
 export const expectOrgUnitDimensionToNotBeLoading = () =>
     cy
@@ -84,24 +84,24 @@ export const toggleOrgUnitGroup = (name) => {
 }
 
 export const selectUserOrgUnit = (name) => {
-    cy.getBySel(orgUnitModalEl)
+    cy.getBySelLike(orgUnitModalEl)
         .contains(name)
         .find('[type="checkbox"]')
         .should('not.be.checked')
-    cy.getBySel(orgUnitModalEl).contains(name).click()
-    cy.getBySel(orgUnitModalEl)
+    cy.getBySelLike(orgUnitModalEl).contains(name).click()
+    cy.getBySelLike(orgUnitModalEl)
         .contains(name)
         .find('[type="checkbox"]')
         .should('be.checked')
 }
 
 export const deselectUserOrgUnit = (name) => {
-    cy.getBySel(orgUnitModalEl)
+    cy.getBySelLike(orgUnitModalEl)
         .contains(name)
         .find('[type="checkbox"]')
         .should('be.checked')
-    cy.getBySel(orgUnitModalEl).contains(name).click()
-    cy.getBySel(orgUnitModalEl)
+    cy.getBySelLike(orgUnitModalEl).contains(name).click()
+    cy.getBySelLike(orgUnitModalEl)
         .contains(name)
         .find('[type="checkbox"]')
         .should('not.be.checked')
