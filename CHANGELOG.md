@@ -1,3 +1,10 @@
+# [100.16.0](https://github.com/dhis2/line-listing-app/compare/v100.15.1...v100.16.0) (2024-04-12)
+
+
+### Features
+
+* tracked entity input (DHIS2-16023) ([#451](https://github.com/dhis2/line-listing-app/issues/451)) ([a59f19e](https://github.com/dhis2/line-listing-app/commit/a59f19e423189d4e59c66dd6f006769fce716645))
+
 ## [100.15.1](https://github.com/dhis2/line-listing-app/compare/v100.15.0...v100.15.1) (2024-03-01)
 
 
