@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Ibatov <ibatovk@who.int>, 2023
+# Ibatov <ibatovk@who.int>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Ibatov <ibatovk@who.int>, 2023\n"
+"Last-Translator: Ibatov <ibatovk@who.int>, 2024\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,16 +181,22 @@ msgstr[0] ""
 msgid "None selected"
 msgstr "Бирор нима танланмаган"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -210,19 +216,17 @@ msgstr "Ҳодиса/Тадбир"
 msgid "Enrollment"
 msgstr "Рўйхатга олиш"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
+msgid "Tracked entity"
+msgstr "Кузатув объекти"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -267,6 +271,17 @@ msgstr "Категория вариантлари гуруҳ тўплами"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Дастур"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr ""
 
@@ -281,6 +296,32 @@ msgstr "Барчаси"
 
 msgid "No stages found"
 msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Тозалаш"
+
+msgid "Search dimensions"
+msgstr "Қидирув созламалари"
 
 msgid "Your dimensions"
 msgstr "Сизнинг созламаларингиз"
@@ -485,6 +526,9 @@ msgstr "Ташкилий бўлим иерархиясини экранда кў
 msgid "Show legend key"
 msgstr "Калит таърифни кўрсатинг"
 
+msgid "Skip rounding"
+msgstr "Соддалаштириш ўтказиб юборилсин"
+
 msgid "Add a title"
 msgstr "Сарлавҳа қўшиш"
 
@@ -583,6 +627,12 @@ msgstr ""
 "Сиз кўрмоқчи бўлган визуализация топилмади, идентификатор нотўғри ёки "
 "ўчирилган бўлиши мумкин."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -628,9 +678,14 @@ msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"Генерацияланган аналитикада муаммо мавжуд. Тизим администраторига мурожаат "
+"қилинг."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "Аналитика сўровида синтаксис муаммо мавжуд."
+
+msgid "Registration date"
+msgstr "Рўйхатга олинган сана"
 
 msgid "Last updated on"
 msgstr ""
@@ -649,6 +704,12 @@ msgstr "Фойдаланувчига бўйсунувчи бирликлар"
 
 msgid "User sub-x2-units"
 msgstr "Фойдаланувчига бўйсунувчи 2 поғонадаги бўлимлар"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Ташкилий бўлим"
 
 msgid "Table title"
 msgstr "Жадвал сарлавҳаси"
@@ -676,9 +737,6 @@ msgstr "Минимал/максимал қийматларни чеклаш"
 
 msgid "Style"
 msgstr "Услуб"
-
-msgid "Organisation unit"
-msgstr "Ташкилий бўлим"
 
 msgid "Event status"
 msgstr "Ҳодиса/тадбир ҳолати"

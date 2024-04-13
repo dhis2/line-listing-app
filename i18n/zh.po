@@ -1,16 +1,16 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2022
-# Viktor Varland <viktor@dhis2.org>, 2023
-# 晓东 林 <13981924470@126.com>, 2023
-# easylin <lin_xd@126.com>, 2023
+# 晓东 林 <13981924470@126.com>, 2024
+# Philip Larsen Donnelly, 2024
+# easylin <lin_xd@126.com>, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -184,17 +184,23 @@ msgstr[0] "还有 {{count}} 个人..."
 msgid "None selected"
 msgstr "没有选择"
 
-msgid "Showing all values for this dimension"
-msgstr "显示此维度的所有值"
-
 msgid "Program stage: {{- stageName}}"
 msgstr "项目阶段：{{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr "显示此维度的所有值"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "未找到“{{- searchTerm}}”的维度"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "在 {{- programName}} 项目中找不到维度"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "未找到维度"
@@ -213,13 +219,8 @@ msgstr "事件"
 msgid "Enrollment"
 msgstr "报名"
 
-msgid "Could not load programs"
-msgstr "无法加载项目"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr "无法检索项目。重试或联系您的系统管理员。"
+msgid "Tracked entity"
+msgstr "跟踪的实体"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -227,6 +228,9 @@ msgstr "查看来自跟踪项目阶段或事件项目的单个事件数据。"
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "在 Tracker 项目中查看来自多个项目阶段的数据。"
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
 msgid "Global dimensions"
 msgstr "全局维度"
@@ -270,6 +274,17 @@ msgstr "分类选项组集"
 msgid "Choose an input to get started adding program dimensions."
 msgstr "选择一个输入以开始添加项目维度。"
 
+msgid "Program"
+msgstr "项目"
+
+msgid "Could not load programs"
+msgstr "无法加载项目"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr "无法检索项目。重试或联系您的系统管理员。"
+
 msgid "Choose a program"
 msgstr "选择一个项目"
 
@@ -284,6 +299,32 @@ msgstr "全部"
 
 msgid "No stages found"
 msgstr "未找到阶段"
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "Search dimensions"
+msgstr "搜索维度"
 
 msgid "Your dimensions"
 msgstr "你的维度"
@@ -370,7 +411,7 @@ msgid ""
 msgstr "该行列表可能会显示编写解释时不可用的数据。"
 
 msgid "Sort by {{column}}"
-msgstr "按{{列}}排序"
+msgstr "按{{column}}排序"
 
 msgid "No event"
 msgstr "无事件"
@@ -483,6 +524,9 @@ msgstr "显示机构层次"
 msgid "Show legend key"
 msgstr "显示图例键值"
 
+msgid "Skip rounding"
+msgstr "跳过舍入"
+
 msgid "Add a title"
 msgstr "添加标题"
 
@@ -577,6 +621,12 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr "找不到您尝试查看的可视化文件，该ID可能不正确或已被删除。"
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr "未选择项目"
 
@@ -621,10 +671,13 @@ msgstr "出问题了"
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
-msgstr ""
+msgstr "生成的分析存在问题。联系系统管理员。"
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "分析请求存在语法问题。"
+
+msgid "Registration date"
+msgstr "注册日期"
 
 msgid "Last updated on"
 msgstr "最后更新时间"
@@ -643,6 +696,12 @@ msgstr "我的下属机构"
 
 msgid "User sub-x2-units"
 msgstr "用户二级下属机构"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "机构"
 
 msgid "Table title"
 msgstr "表标题"
@@ -670,9 +729,6 @@ msgstr "限制最大最小值"
 
 msgid "Style"
 msgstr "风格"
-
-msgid "Organisation unit"
-msgstr "机构"
 
 msgid "Event status"
 msgstr "事件状态"
