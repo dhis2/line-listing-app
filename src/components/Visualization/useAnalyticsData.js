@@ -16,7 +16,14 @@ import {
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
-import { DIMENSION_ID_PROGRAM_STATUS } from '../../modules/dimensionConstants.js'
+import {
+    DIMENSION_ID_CREATED,
+    DIMENSION_ID_CREATED_BY,
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_LAST_UPDATED_BY,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from '../../modules/dimensionConstants.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
@@ -194,6 +201,11 @@ const extractHeaders = (analyticsResponse, outputType) => {
             dimensionId: [
                 DIMENSION_ID_ORGUNIT,
                 DIMENSION_ID_PROGRAM_STATUS,
+                DIMENSION_ID_EVENT_STATUS,
+                DIMENSION_ID_CREATED_BY,
+                DIMENSION_ID_LAST_UPDATED_BY,
+                DIMENSION_ID_LAST_UPDATED,
+                DIMENSION_ID_CREATED,
             ].includes(idMatch)
                 ? idMatch
                 : dimensionId,
@@ -203,10 +215,11 @@ const extractHeaders = (analyticsResponse, outputType) => {
         })
 
         if (
-            programId &&
-            [DIMENSION_ID_ORGUNIT, DIMENSION_ID_PROGRAM_STATUS].includes(
-                idMatch
-            )
+            [
+                DIMENSION_ID_ORGUNIT,
+                DIMENSION_ID_PROGRAM_STATUS,
+                DIMENSION_ID_EVENT_STATUS,
+            ].includes(idMatch)
         ) {
             defaultMetadata[formattedDimensionId] =
                 getProgramDimensions(programId)[formattedDimensionId]
@@ -245,6 +258,11 @@ const extractHeaders = (analyticsResponse, outputType) => {
                         dimensionId: [
                             DIMENSION_ID_ORGUNIT,
                             DIMENSION_ID_PROGRAM_STATUS,
+                            DIMENSION_ID_EVENT_STATUS,
+                            DIMENSION_ID_CREATED_BY,
+                            DIMENSION_ID_LAST_UPDATED_BY,
+                            DIMENSION_ID_LAST_UPDATED,
+                            DIMENSION_ID_CREATED,
                         ].includes(idMatch)
                             ? idMatch
                             : dimensionId,
