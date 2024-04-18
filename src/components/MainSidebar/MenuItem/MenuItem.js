@@ -24,9 +24,16 @@ const MenuItem = ({
         data-test={dataTest}
     >
         <div className={styles.icon}>{icon}</div>
-        <div className={styles.label}>
-            {label}
-            {subtitle && <span className={styles.subtitle}>{subtitle}</span>}
+        <div className={styles.labelWrapper}>
+            <span className={styles.label}>{label}</span>
+            {subtitle && (
+                <span
+                    className={styles.subtitle}
+                    data-test={`${dataTest}-subtitle`}
+                >
+                    {subtitle}
+                </span>
+            )}
         </div>
         {typeof count === 'number' && (
             <div

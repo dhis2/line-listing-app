@@ -194,7 +194,7 @@ const DynamicDimension = ({
 
     return dimension ? (
         <DimensionModal
-            dataTest={'dynamic-dimension-modal'}
+            dataTest="dynamic-dimension-modal"
             isInLayout={isInLayout}
             onClose={closeModal}
             title={dimension.name}

@@ -16,7 +16,7 @@ export const TransferLeftHeader = ({ searchTerm, setSearchTerm, dataTest }) => (
             dataTest={`${dataTest}-filter-input-field`}
             dense
             initialFocus
-            type={'search'}
+            type="search"
         />
     </div>
 )

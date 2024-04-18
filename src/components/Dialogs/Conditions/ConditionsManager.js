@@ -33,7 +33,11 @@ import {
     parseConditionsArrayToString,
     parseConditionsStringToArray,
 } from '../../../modules/conditions.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
+import {
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetDimensionIdsFromLayout,
@@ -364,8 +368,9 @@ const ConditionsManager = ({
             selectedLegendSet)
 
     const isRepeatable =
-        inputType === OUTPUT_TYPE_ENROLLMENT &&
-        dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            inputType
+        ) && dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT
 
     const renderConditions = () => (
         <>
@@ -472,12 +477,12 @@ const ConditionsManager = ({
                     </Tab>
                     {disableRepeatableTab ? (
                         <Tooltip
-                            key={`repeatable-tooltip`}
+                            key="repeatable-tooltip"
                             placement="bottom"
                             content={i18n.t(
                                 'Only available for repeatable stages'
                             )}
-                            dataTest={'repeatable-events-tooltip'}
+                            dataTest="repeatable-events-tooltip"
                         >
                             {repeatableTab}
                         </Tooltip>
@@ -537,10 +542,7 @@ const mapStateToProps = (state, ownProps) => ({
     stage:
         sGetMetadataById(
             state,
-            ownProps.dimension?.id?.substring(
-                0,
-                ownProps.dimension.id.indexOf('.')
-            )
+            extractDimensionIdParts(ownProps.dimension?.id)?.programStageId
         ) || {},
 })
 

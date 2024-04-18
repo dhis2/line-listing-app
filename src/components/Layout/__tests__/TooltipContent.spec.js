@@ -2,14 +2,22 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
 import { TooltipContent } from '../TooltipContent.js'
 
 const mockStore = configureMockStore()
+
+const inputTypeEvent = {
+    input: {
+        type: OUTPUT_TYPE_EVENT,
+    },
+}
 
 describe('TooltipContent', () => {
     test('OU: 1 id and 1 level', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {
                     ou: ['theOuId', 'LEVEL-level1Id'],
                 },
@@ -39,6 +47,7 @@ describe('TooltipContent', () => {
     test('OU: 1 id and 1 level, and missing metadata', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {
                     ou: ['theOuId', 'LEVEL-level1Id'],
                 },
@@ -65,6 +74,7 @@ describe('TooltipContent', () => {
     test('OU: 1 id and 3 groups', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {
                     ou: [
                         'theOuId',
@@ -100,7 +110,7 @@ describe('TooltipContent', () => {
     })
     test('OU: none selected', () => {
         const store = {
-            ui: { itemsByDimension: {} },
+            ui: { ...inputTypeEvent, itemsByDimension: {} },
             metadata: {},
         }
 
@@ -122,7 +132,7 @@ describe('TooltipContent', () => {
     })
     test('Period: none selected', () => {
         const store = {
-            ui: { itemsByDimension: {} },
+            ui: { ...inputTypeEvent, itemsByDimension: {} },
             metadata: {
                 eventDate: { name: 'Report compilation date' },
             },
@@ -147,6 +157,7 @@ describe('TooltipContent', () => {
     test('Period: 2 selected', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {
                     eventDate: ['202205', '202207'],
                 },
@@ -182,6 +193,7 @@ describe('TooltipContent', () => {
     test('COGS: 2 items', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {
                     COGS_id: ['cogs1Id', 'cogs2Id'],
                 },
@@ -219,6 +231,7 @@ describe('TooltipContent', () => {
     test('Data element: optionSet, 2 conditions but name missing for one', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {},
             },
             metadata: {},
@@ -246,6 +259,7 @@ describe('TooltipContent', () => {
     test('Data element: with stage and 1 condition', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {},
             },
             metadata: {
@@ -274,7 +288,7 @@ describe('TooltipContent', () => {
     })
     test('Data element: no conditions', () => {
         const store = {
-            ui: { itemsByDimension: {} },
+            ui: { ...inputTypeEvent, itemsByDimension: {} },
             metadata: {},
         }
 
@@ -298,6 +312,7 @@ describe('TooltipContent', () => {
     test('Data element: 2 conditions', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {},
             },
             metadata: {},
@@ -323,6 +338,7 @@ describe('TooltipContent', () => {
     test('Data element: 6 conditions', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {},
             },
             metadata: {},
@@ -357,6 +373,7 @@ describe('TooltipContent', () => {
     test('Data element: 8 conditions', () => {
         const store = {
             ui: {
+                ...inputTypeEvent,
                 itemsByDimension: {},
             },
             metadata: {},

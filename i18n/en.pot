@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
-"PO-Revision-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"PO-Revision-Date: 2024-02-13T14:56:50.030Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -176,17 +176,23 @@ msgstr[1] "And {{count}} others..."
 msgid "None selected"
 msgstr "None selected"
 
-msgid "Showing all values for this dimension"
-msgstr "Showing all values for this dimension"
-
 msgid "Program stage: {{- stageName}}"
 msgstr "Program stage: {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr "Program: {{- programName}}"
+
+msgid "Showing all values for this dimension"
+msgstr "Showing all values for this dimension"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "No dimensions found for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "No dimensions found in the {{- programName}} program"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr " {{- trackedEntityType}} has no dimensions"
 
 msgid "No dimensions found"
 msgstr "No dimensions found"
@@ -207,21 +213,17 @@ msgstr "Event"
 msgid "Enrollment"
 msgstr "Enrollment"
 
-msgid "Could not load programs"
-msgstr "Could not load programs"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr "See individual tracked entities from one or more Tracker programs."
 
 msgid "Global dimensions"
 msgstr "Global dimensions"
@@ -265,6 +267,19 @@ msgstr "Category option group set"
 msgid "Choose an input to get started adding program dimensions."
 msgstr "Choose an input to get started adding program dimensions."
 
+msgid "Program"
+msgstr "Program"
+
+msgid "Could not load programs"
+msgstr "Could not load programs"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+
 msgid "Choose a program"
 msgstr "Choose a program"
 
@@ -279,6 +294,34 @@ msgstr "All"
 
 msgid "No stages found"
 msgstr "No stages found"
+
+msgid "Could not load types"
+msgstr "Could not load types"
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+
+msgid "Choose a type"
+msgstr "Choose a type"
+
+msgid "No types found"
+msgstr "No types found"
+
+msgid "{{- itemName}} dimensions"
+msgstr "{{- itemName}} dimensions"
+
+msgid "Filter by program usage"
+msgstr "Filter by program usage"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Search dimensions"
+msgstr "Search dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
@@ -588,6 +631,12 @@ msgstr ""
 "The visualization you are trying to view could not be found, the ID could "
 "be incorrect or it could have been deleted."
 
+msgid "No tracked entity type selected"
+msgstr "No tracked entity type selected"
+
+msgid "Choose a type from the Input sidebar."
+msgstr "Choose a type from the Input sidebar."
+
 msgid "No program selected"
 msgstr "No program selected"
 
@@ -642,6 +691,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr "There's a syntax problem with the analytics request."
 
+msgid "Registration date"
+msgstr "Registration date"
+
 msgid "Last updated on"
 msgstr "Last updated on"
 
@@ -659,6 +711,12 @@ msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
+
+msgid "Registration org. unit"
+msgstr "Registration org. unit"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
 
 msgid "Table title"
 msgstr "Table title"
@@ -686,9 +744,6 @@ msgstr "Limit minimum/maximum values"
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Organisation unit"
-msgstr "Organisation unit"
 
 msgid "Event status"
 msgstr "Event status"

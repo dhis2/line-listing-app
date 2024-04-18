@@ -5,11 +5,12 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useReducer, useCallback, useRef, useMemo } from 'react'
+import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
-import { extractDimensionIdParts } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
@@ -68,19 +69,22 @@ const reducer = (state, action) => {
     }
 }
 
+const resourceMap = {
+    [OUTPUT_TYPE_TRACKED_ENTITY]: 'analytics/trackedEntities/query/dimensions',
+    [OUTPUT_TYPE_ENROLLMENT]: 'analytics/enrollments/query/dimensions',
+    [OUTPUT_TYPE_EVENT]: 'analytics/events/query/dimensions',
+}
+
 const createDimensionsQuery = ({
     inputType,
     page,
+    trackedEntityTypeId,
     programId,
     stageId,
     searchTerm,
     dimensionType,
     nameProp,
 }) => {
-    const resource =
-        inputType === OUTPUT_TYPE_EVENT
-            ? 'analytics/events/query/dimensions'
-            : 'analytics/enrollments/query/dimensions'
     const params = {
         pageSize: 50,
         page,
@@ -89,8 +93,16 @@ const createDimensionsQuery = ({
         order: `${nameProp}:asc`,
     }
 
-    if (programId && inputType === OUTPUT_TYPE_ENROLLMENT) {
-        params.programId = programId
+    if (trackedEntityTypeId && inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        params.trackedEntityType = trackedEntityTypeId
+    }
+
+    if (programId) {
+        if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+            params.programId = programId
+        } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+            params.program = programId
+        }
     }
 
     if (stageId && inputType === OUTPUT_TYPE_EVENT) {
@@ -105,6 +117,22 @@ const createDimensionsQuery = ({
         // This works because data element IDs have the following notation:
         // `${programStageId}.${dataElementId}`
         params.filter.push(`id:startsWith:${stageId}`)
+    }
+
+    if (
+        programId &&
+        stageId &&
+        inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+    ) {
+        // This works because data element IDs have the following notation:
+        // `${programId}.${programStageId}.${dataElementId}`
+        params.filter.push(`id:startsWith:${programId}.${stageId}`)
+    }
+
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        params.filter.push('dimensionType:ne:PROGRAM_ATTRIBUTE')
+        params.filter.push('dimensionType:ne:PROGRAM_INDICATOR')
     }
 
     /*
@@ -124,7 +152,7 @@ const createDimensionsQuery = ({
     }
 
     return {
-        resource,
+        resource: resourceMap[inputType],
         params,
     }
 }
@@ -140,7 +168,9 @@ const transformResponseData = ({
     const pager = data.dimensions.pager
     let newDuplicateFound = false
 
-    if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+    if (
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
+    ) {
         data.dimensions.dimensions.forEach((dimension) => {
             const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (
@@ -190,6 +220,7 @@ const transformResponseData = ({
 
 const useProgramDataDimensions = ({
     inputType,
+    trackedEntityTypeId,
     program,
     stageId,
     searchTerm,
@@ -251,6 +282,7 @@ const useProgramDataDimensions = ({
                     dimensions: createDimensionsQuery({
                         inputType,
                         page,
+                        trackedEntityTypeId,
                         programId,
                         stageId,
                         searchTerm,
@@ -280,6 +312,7 @@ const useProgramDataDimensions = ({
             programStageNames,
             inputType,
             nextPage,
+            trackedEntityTypeId,
             programId,
             stageId,
             searchTerm,
@@ -290,7 +323,15 @@ const useProgramDataDimensions = ({
 
     useEffect(() => {
         fetchDimensions(true)
-    }, [inputType, programId, stageId, searchTerm, dimensionType, nameProp])
+    }, [
+        inputType,
+        trackedEntityTypeId,
+        programId,
+        stageId,
+        searchTerm,
+        dimensionType,
+        nameProp,
+    ])
 
     useEffect(() => {
         if (isListEndVisible && !isLastPage && !fetching) {

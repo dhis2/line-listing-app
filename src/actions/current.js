@@ -1,7 +1,8 @@
-import { getAdaptedVisualization } from '../components/Visualization/useAnalyticsData.js'
+import { getAdaptedVisualization } from '../components/Visualization/analyticsQueryTools.js'
 import { genericClientError } from '../modules/error.js'
 import {
     layoutHasProgramId,
+    layoutHasTrackedEntityTypeId,
     validateLayout,
 } from '../modules/layoutValidation.js'
 import { getSortingFromVisualization } from '../modules/ui.js'
@@ -70,8 +71,12 @@ export const tSetCurrentFromUi =
         }
 
         if (!validateOnly) {
-            if (layoutHasProgramId(current)) {
-                dispatch(acSetCurrent(current))
+            // proceed if the layout either has a program id or a tracked entity type id
+            if (
+                layoutHasProgramId(currentFromUi) ||
+                layoutHasTrackedEntityTypeId(currentFromUi)
+            ) {
+                dispatch(acSetCurrent(currentFromUi))
             } else {
                 dispatch(acClearCurrent())
             }

@@ -1,9 +1,11 @@
+import { AXIS_ID_COLUMNS } from '@dhis2/analytics'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_EVENT_DATE,
 } from '../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
+    TEST_DIM_NUMBER,
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_LAST_YEAR,
     TEST_DIM_INTEGER,
@@ -12,15 +14,18 @@ import { goToAO } from '../helpers/common.js'
 import {
     openProgramDimensionsSidebar,
     selectEventWithProgramDimensions,
+    selectTrackedEntityWithTypeAndProgramDimensions,
     clickAddRemoveProgramDataDimension,
 } from '../helpers/dimensions.js'
 import {
     deleteVisualization,
+    openAOByName,
     renameVisualization,
     resaveVisualization,
     saveVisualization,
     saveVisualizationAs,
 } from '../helpers/fileMenu.js'
+import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import {
     clickMenubarUpdateButton,
     clickMenubarInterpretationsButton,
@@ -119,14 +124,19 @@ describe('rename', () => {
 })
 
 describe('save', () => {
-    it('new AO with name saves correctly', () => {
-        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+    it('new AO with name saves correctly (event)', () => {
+        const AO_NAME = `TEST event ${new Date().toLocaleString()}`
         const UPDATED_AO_NAME = AO_NAME + ' 2'
         setupTable()
 
         // save with a name
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // open AO by name
+        goToStartPage()
+        openAOByName(AO_NAME)
         expectTableToBeVisible()
 
         // save as with name change
@@ -139,6 +149,50 @@ describe('save', () => {
         expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
+        deleteVisualization()
+    })
+
+    it(['>=41'], 'new AO with name saves correctly (TE)', () => {
+        const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
+        const UPDATED_AO_NAME = AO_NAME + ' 2'
+
+        // set up a simple TE line list
+        goToStartPage()
+        selectTrackedEntityWithTypeAndProgramDimensions({
+            typeName: 'Person',
+            programName: event.programName,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+        clickMenubarUpdateButton()
+        expectTableToBeVisible()
+
+        // save with a name
+        saveVisualization(AO_NAME)
+        expectAOTitleToContain(AO_NAME)
+        expectTableToBeVisible()
+
+        // open AO by name
+        goToStartPage()
+        openAOByName(AO_NAME)
+        expectTableToBeVisible()
+
+        // expect axis to contain dimension with properly prefixed id
+        expectAxisToHaveDimension(
+            AXIS_ID_COLUMNS,
+            'J1QQtmzqhJz.jfuXZB3A1ko.Vcu7eF3ndYW'
+        )
+
+        // save as with name change
+        saveVisualizationAs(UPDATED_AO_NAME)
+        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectTableToBeVisible()
+
+        // save as without name change
+        saveVisualizationAs()
+        expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
+        expectTableToBeVisible()
+
+        // delete AO to clean up
         deleteVisualization()
     })
 

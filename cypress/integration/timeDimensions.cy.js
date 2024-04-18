@@ -33,8 +33,9 @@ const assertTimeDimension = (dimension) => {
             selectFixedPeriod({
                 label,
                 period: {
+                    type: 'Monthly',
                     year: '2023',
-                    name: '2023',
+                    name: 'January 2023',
                 },
             })
         } else {
@@ -69,7 +70,7 @@ describe(['>37', '<39'], 'time dimensions', () => {
         { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
         { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
         { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 12 },
-        { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 11 },
+        { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 10 },
     ]
 
     timeDimensions.forEach((dimension) => {
@@ -87,7 +88,7 @@ describe(['>=39'], 'time dimensions', () => {
         { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
         { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 13 },
         { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 13 },
-        { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 12 },
+        { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 11 },
         { id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 },
     ]
 
