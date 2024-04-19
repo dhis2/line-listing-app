@@ -73,10 +73,10 @@ export const tSetCurrentFromUi =
         if (!validateOnly) {
             // proceed if the layout either has a program id or a tracked entity type id
             if (
-                layoutHasProgramId(currentFromUi) ||
-                layoutHasTrackedEntityTypeId(currentFromUi)
+                layoutHasProgramId(current) ||
+                layoutHasTrackedEntityTypeId(current)
             ) {
-                dispatch(acSetCurrent(currentFromUi))
+                dispatch(acSetCurrent(current))
             } else {
                 dispatch(acClearCurrent())
             }
