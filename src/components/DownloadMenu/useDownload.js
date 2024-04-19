@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
+import { getSortingFromVisualization } from '../../modules/ui.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -145,16 +146,16 @@ const useDownload = (relativePeriodDate) => {
                 req = req.withRelativePeriodDate(relativePeriodDate)
             }
 
-            if (current.sorting?.length) {
-                const { dimension: sortField, direction: sortDirection } =
-                    current.sorting[0]
-                switch (sortDirection) {
-                    case 'ASC': {
-                        req = req.withAsc(sortField)
+            const sorting = getSortingFromVisualization(current)
+
+            if (sorting) {
+                switch (sorting.direction) {
+                    case 'asc': {
+                        req = req.withAsc(sorting.dimension)
                         break
                     }
-                    case 'DESC': {
-                        req = req.withDesc(sortField)
+                    case 'desc': {
+                        req = req.withDesc(sorting.dimension)
                         break
                     }
                 }
