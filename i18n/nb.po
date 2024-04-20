@@ -1,14 +1,14 @@
 # 
 # Translators:
-# Caroline Hesthagen Holen <caroline@devotta.no>, 2023
-# Karoline Tufte Lien <karoline@dhis2.org>, 2023
+# Caroline Hesthagen Holen <caroline@devotta.no>, 2024
+# Karoline Tufte Lien <karoline@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2023\n"
+"Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,17 +189,23 @@ msgstr[1] "Og {{count}} andre..."
 msgid "None selected"
 msgstr "Ingen valgt"
 
-msgid "Showing all values for this dimension"
-msgstr "Viser alle verdiene for denne dimensjonen"
-
 msgid "Program stage: {{- stageName}}"
 msgstr "Programfase: {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr "Viser alle verdiene for denne dimensjonen"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "Ingen dimensjoner funnet for '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "Ingen dimensjoner funnet i programmet {{- programName}}"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Ingen dimensjoner funnet"
@@ -220,15 +226,8 @@ msgstr "Hendelse"
 msgid "Enrollment"
 msgstr "Registrering"
 
-msgid "Could not load programs"
-msgstr "Kunne ikke laste programmer"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
-"systemadministrator."
+msgid "Tracked entity"
+msgstr "Sporet enhet"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -238,6 +237,9 @@ msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Se data fra flere programfaser i et Tracker-program."
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
 msgid "Global dimensions"
 msgstr ""
@@ -281,6 +283,19 @@ msgstr "Kategorialternativgruppesett"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Program"
+
+msgid "Could not load programs"
+msgstr "Kunne ikke laste programmer"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Programmene kunne ikke lastes. Prøv på nytt eller kontakt din "
+"systemadministrator."
+
 msgid "Choose a program"
 msgstr "Velg et program"
 
@@ -295,6 +310,32 @@ msgstr "Alle"
 
 msgid "No stages found"
 msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Fjern"
+
+msgid "Search dimensions"
+msgstr "Søkedimensjoner"
 
 msgid "Your dimensions"
 msgstr "Dine dimensjoner"
@@ -501,6 +542,9 @@ msgstr "Vis organisasjonsenhethierarki"
 msgid "Show legend key"
 msgstr "Vis tegnforklaring"
 
+msgid "Skip rounding"
+msgstr "Hopp over avrunding"
+
 msgid "Add a title"
 msgstr "Legg til en tittel"
 
@@ -599,6 +643,12 @@ msgstr ""
 "Visualiseringen du prøver å vise, ble ikke funnet, ID-en kan være feil, "
 "eller den kan ha blitt slettet."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr "Ingen program valgt"
 
@@ -650,6 +700,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "Innregistreringsdato"
+
 msgid "Last updated on"
 msgstr "Sist oppdatert den"
 
@@ -667,6 +720,12 @@ msgstr "Underenheter"
 
 msgid "User sub-x2-units"
 msgstr "Under-x2-enheter"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Organisasjonsenhet"
 
 msgid "Table title"
 msgstr "Tabelltittel"
@@ -694,9 +753,6 @@ msgstr "Begrens minimum/maksimumsverdier"
 
 msgid "Style"
 msgstr "Stil"
-
-msgid "Organisation unit"
-msgstr "Organisasjonsenhet"
 
 msgid "Event status"
 msgstr "Hendelsesstatus"

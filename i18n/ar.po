@@ -1,15 +1,15 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2022
-# Viktor Varland <viktor@dhis2.org>, 2023
-# Hamza Assada <7amza.it@gmail.com>, 2023
+# Hamza Assada <7amza.it@gmail.com>, 2024
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Hamza Assada <7amza.it@gmail.com>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -188,16 +188,22 @@ msgstr[5] ""
 msgid "None selected"
 msgstr "غير محدد"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -217,19 +223,17 @@ msgstr "حدث"
 msgid "Enrollment"
 msgstr "التسجيل"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
+msgid "Tracked entity"
+msgstr "الكيان المتتبع"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -274,6 +278,17 @@ msgstr "حزمة مجموعات خيارات الفئة"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "البرنامج"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr ""
 
@@ -288,6 +303,32 @@ msgstr "الجميع"
 
 msgid "No stages found"
 msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Search dimensions"
+msgstr "أبعاد البحث"
 
 msgid "Your dimensions"
 msgstr "الأبعاد الخاصة بك"
@@ -487,6 +528,9 @@ msgstr "عرض التسلسل الهرمي للوحدة التنظيمية"
 msgid "Show legend key"
 msgstr "إظهار المفتاح الإيضاحي"
 
+msgid "Skip rounding"
+msgstr "تخطي التقريب"
+
 msgid "Add a title"
 msgstr "إضافة عنوان"
 
@@ -585,6 +629,12 @@ msgstr ""
 "تعذر العثور على المرئيات التي تحاول عرضها، ربما يكون الـ ID غير صحيح أو ربما"
 " تم حذفه."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -634,6 +684,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "تاريخ التسجيل"
+
 msgid "Last updated on"
 msgstr ""
 
@@ -651,6 +704,12 @@ msgstr "وحدات المستخدم الفرعية"
 
 msgid "User sub-x2-units"
 msgstr "وحدات المستخدم الفرعية من المستوى الثاني"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "الوحدة التنظيمية"
 
 msgid "Table title"
 msgstr "عنوان الجدول"
@@ -678,9 +737,6 @@ msgstr "الحد من القيم الدنيا / القصوى"
 
 msgid "Style"
 msgstr "المظهر"
-
-msgid "Organisation unit"
-msgstr "الوحدة التنظيمية"
 
 msgid "Event status"
 msgstr "حالة الحدث"

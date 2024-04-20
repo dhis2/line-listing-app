@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Philip Larsen Donnelly, 2022
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-09-05T07:20:57.111Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2022\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/hisp-uio/teams/100509/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,16 +168,6 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
-
 msgid "Levels"
 msgstr ""
 
@@ -192,16 +182,22 @@ msgstr[1] ""
 msgid "None selected"
 msgstr ""
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -221,19 +217,17 @@ msgstr ""
 msgid "Enrollment"
 msgstr ""
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -278,6 +272,17 @@ msgstr "Category option group set"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr ""
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr ""
 
@@ -291,6 +296,32 @@ msgid "All"
 msgstr "All"
 
 msgid "No stages found"
+msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
@@ -372,7 +403,15 @@ msgstr ""
 msgid "Not available offline"
 msgstr ""
 
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
 msgid "Sort by {{column}}"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -483,6 +522,9 @@ msgstr ""
 msgid "Show legend key"
 msgstr ""
 
+msgid "Skip rounding"
+msgstr ""
+
 msgid "Add a title"
 msgstr ""
 
@@ -577,6 +619,12 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr ""
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -618,6 +666,17 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
+
+msgid "Registration date"
+msgstr ""
+
 msgid "Last updated on"
 msgstr ""
 
@@ -635,6 +694,12 @@ msgstr ""
 
 msgid "User sub-x2-units"
 msgstr ""
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
 
 msgid "Table title"
 msgstr ""
@@ -662,9 +727,6 @@ msgstr ""
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Organisation unit"
-msgstr "Organisation unit"
 
 msgid "Event status"
 msgstr ""

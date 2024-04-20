@@ -1,19 +1,19 @@
 # 
 # Translators:
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
-# Philip Larsen Donnelly, 2022
 # Fernando Jorge Bade, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
 # David Júnior <davidjr.mondlane@gmail.com>, 2023
 # Sheila André <sandre@saudigitus.org>, 2023
 # Ge Joao <gsimango@saudigitus.org>, 2023
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Adicionar à {{Nomedoeixo}}"
+msgstr "Adicionar à {{axisName}}"
 
 msgid "Choose a condition type"
 msgstr ""
@@ -130,7 +130,7 @@ msgid "No options"
 msgstr ""
 
 msgid "Move to {{axisName}}"
-msgstr "Mover para {{Nomedoeixo}}"
+msgstr "Mover para {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -189,16 +189,22 @@ msgstr[2] ""
 msgid "None selected"
 msgstr "Nenhum selecionado"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -218,19 +224,17 @@ msgstr "Evento"
 msgid "Enrollment"
 msgstr "Inscrição"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
+msgid "Tracked entity"
+msgstr "Entidade Rastreada"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -275,6 +279,17 @@ msgstr "Conjunto de grupo de opção de categoria"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Programa"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr "Escolha um programa"
 
@@ -288,6 +303,32 @@ msgid "All"
 msgstr "Tudo"
 
 msgid "No stages found"
+msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Limpar"
+
+msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
@@ -318,7 +359,7 @@ msgid "Rename successful"
 msgstr "Renomeado com sucesso"
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Sem título {{visualizaçãoTipo}} visualização, {{date}}"
+msgstr "Sem título {{visualizationType}} visualização, {{date}}"
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
@@ -492,6 +533,9 @@ msgstr "Exibir hierarquia da unidade organizacional"
 msgid "Show legend key"
 msgstr "Mostrar chave da legenda"
 
+msgid "Skip rounding"
+msgstr "Não arrendondar"
+
 msgid "Add a title"
 msgstr "Adicionar titulo"
 
@@ -590,6 +634,12 @@ msgstr ""
 "A visualização que está a tentar visualizar não foi encontrada, o ID pode "
 "estar incorreto ou pode ter sido apagado."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -639,6 +689,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "Data de registo"
+
 msgid "Last updated on"
 msgstr ""
 
@@ -656,6 +709,12 @@ msgstr "Dois níveis abaixo"
 
 msgid "User sub-x2-units"
 msgstr "Dois níveis abaixo"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Unidade organizacional"
 
 msgid "Table title"
 msgstr "Titulo da tabela"
@@ -683,9 +742,6 @@ msgstr "Limitar valores mínimos/máximos"
 
 msgid "Style"
 msgstr "Estilo"
-
-msgid "Organisation unit"
-msgstr "Unidade organizacional"
 
 msgid "Event status"
 msgstr "Estado do evento "

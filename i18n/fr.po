@@ -4,19 +4,19 @@
 # Austin McGee <austin@dhis2.org>, 2022
 # Karoline Tufte Lien <karoline@dhis2.org>, 2022
 # Djibril Dione <dione.djibril@gmail.com>, 2022
-# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2022
-# Philip Larsen Donnelly, 2022
 # Edem Kossi <ekossi@hispwca.org>, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023
 # Yayra Gomado <ygomado@hispwca.org>, 2023
+# Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yayra Gomado <ygomado@hispwca.org>, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Ajouter à {{nomdel'axe}} "
+msgstr "Ajouter à {{axisName}} "
 
 msgid "Choose a condition type"
 msgstr "Choisir un type de condition"
@@ -145,7 +145,7 @@ msgid "No options"
 msgstr "Aucune option"
 
 msgid "Move to {{axisName}}"
-msgstr "Déménager à {{nomdel'axe}}"
+msgstr "Déménager à {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -199,22 +199,28 @@ msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
 msgstr[0] "Et {{nombre}} autre..."
 msgstr[1] "And {{count}} other..."
-msgstr[2] "Et {{numberOfItems}} autres..."
+msgstr[2] "Et {{count}} autres..."
 
 msgid "None selected"
 msgstr "Aucune sélection"
 
+msgid "Program stage: {{- stageName}}"
+msgstr "Étape du programme : {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
 msgid "Showing all values for this dimension"
 msgstr "Affichage de toutes les valeurs pour cette dimension"
 
-msgid "Program stage: {{- stageName}}"
-msgstr "Étape du programme : {{- Nom de l'étape}}"
-
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "Aucune dimension trouvée pour '{{- Terme de recherche}}'"
+msgstr "Aucune dimension trouvée pour '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr "Aucune dimension trouvée dans le programme {{- nomduprogramme}}"
+msgstr "Aucune dimension trouvée dans le programme {{- programName}}"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Aucune dimension trouvée"
@@ -235,15 +241,8 @@ msgstr "Évènement"
 msgid "Enrollment"
 msgstr "Enrôlement"
 
-msgid "Could not load programs"
-msgstr "Impossible de charger les programmes"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"Les programmes n'ont pas pu être récupérés. Réessayez ou contactez votre "
-"administrateur système."
+msgid "Tracked entity"
+msgstr "Entité suivie"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -254,6 +253,9 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 "Voir les données de plusieurs étapes du programme dans un programme Tracker."
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
 msgid "Global dimensions"
 msgstr ""
@@ -297,6 +299,19 @@ msgstr "Ensemble de groupes d'option de catégorie"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Programme"
+
+msgid "Could not load programs"
+msgstr "Impossible de charger les programmes"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"Les programmes n'ont pas pu être récupérés. Réessayez ou contactez votre "
+"administrateur système."
+
 msgid "Choose a program"
 msgstr "Choisir un programme"
 
@@ -311,6 +326,32 @@ msgstr "Tout"
 
 msgid "No stages found"
 msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "Search dimensions"
+msgstr "Rechercher les dimensions"
 
 msgid "Your dimensions"
 msgstr "Votre dimensions"
@@ -410,7 +451,7 @@ msgid "Rows per page"
 msgstr "Lignes par page"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr "Page {{page}}, ligne {{premierItem}}-{{dernierItem}}"
+msgstr "Page {{page}}, ligne {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Sous-totaux de colonne"
@@ -517,6 +558,9 @@ msgstr "Afficher la hiérarchie des unités d'organisation"
 msgid "Show legend key"
 msgstr "Afficher la légende"
 
+msgid "Skip rounding"
+msgstr "Ne pas arondir"
+
 msgid "Add a title"
 msgstr "Ajouter un titre"
 
@@ -615,6 +659,12 @@ msgstr ""
 "La visualisation que vous essayez de consulter est introuvable, "
 "l'identifiant est peut-être incorrect ou a pu être supprimé"
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr "Aucun programme sélectionné"
 
@@ -666,6 +716,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "Données d'enregistrement"
+
 msgid "Last updated on"
 msgstr "Dernière mise à jour le"
 
@@ -683,6 +736,12 @@ msgstr "Sous-unités de l'utilisateur"
 
 msgid "User sub-x2-units"
 msgstr "Sous-unités utilisateur x2"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Unité d'organisation"
 
 msgid "Table title"
 msgstr "Titre du tableau"
@@ -710,9 +769,6 @@ msgstr "Valeurs seuils minimales/maximales"
 
 msgid "Style"
 msgstr "Style"
-
-msgid "Organisation unit"
-msgstr "Unité d'organisation"
 
 msgid "Event status"
 msgstr "Statut de l'événement"
