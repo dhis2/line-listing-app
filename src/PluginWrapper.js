@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
 import { getPWAInstallationStatus } from './modules/getPWAInstallationStatus.js'
+import './locales/index.js'
 
 const LoadingMask = () => {
     return (
