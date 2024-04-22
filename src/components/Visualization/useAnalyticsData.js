@@ -215,11 +215,13 @@ const extractHeaders = (analyticsResponse, outputType) => {
         })
 
         if (
-            [
-                DIMENSION_ID_ORGUNIT,
-                DIMENSION_ID_PROGRAM_STATUS,
-                DIMENSION_ID_EVENT_STATUS,
-            ].includes(idMatch)
+            (idMatch === DIMENSION_ID_ORGUNIT &&
+                (programId || outputType !== OUTPUT_TYPE_TRACKED_ENTITY)) ||
+            [DIMENSION_ID_PROGRAM_STATUS, DIMENSION_ID_EVENT_STATUS].includes(
+                idMatch
+            )
+            // org unit only if there's a programId or not tracked entity: this prevents pid.ou from being mixed up with just ou in TE
+            // program status + event status in all cases
         ) {
             defaultMetadata[formattedDimensionId] =
                 getProgramDimensions(programId)[formattedDimensionId]
