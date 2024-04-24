@@ -1,3 +1,10 @@
+## [100.16.1](https://github.com/dhis2/line-listing-app/compare/v100.16.0...v100.16.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines are not rendered in LL description ([#504](https://github.com/dhis2/line-listing-app/issues/504)) ([01d5703](https://github.com/dhis2/line-listing-app/commit/01d57031c2faf5a57bdef27536f033b5321e9806))
+
 # [100.16.0](https://github.com/dhis2/line-listing-app/compare/v100.15.1...v100.16.0) (2024-04-12)
 
 
