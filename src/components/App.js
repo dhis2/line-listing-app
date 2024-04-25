@@ -21,6 +21,8 @@ import {
 import { acAddMetadata, tSetInitMetadata } from '../actions/metadata.js'
 import {
     acSetUiFromVisualization,
+    acSetUiDataSorting,
+    acClearUiDataSorting,
     acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
@@ -289,6 +291,16 @@ const App = () => {
     const onColumnHeaderClick = (dimensionId) =>
         dispatch(acSetUiOpenDimensionModal(dimensionId))
 
+    const onDataSorted = (sorting) => {
+        if (sorting.direction === 'default') {
+            dispatch(acClearUiDataSorting())
+        } else {
+            dispatch(acSetUiDataSorting(sorting))
+        }
+
+        dispatch(tSetCurrentFromUi())
+    }
+
     const onResponsesReceived = (response) => {
         const itemsMetadata = Object.entries(response.metaData.items)
             .filter(
@@ -556,6 +568,7 @@ const App = () => {
                                             onColumnHeaderClick={
                                                 onColumnHeaderClick
                                             }
+                                            onDataSorted={onDataSorted}
                                             onError={onError}
                                         />
                                     )}

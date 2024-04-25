@@ -5,10 +5,12 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import { getConditionsFromVisualization } from './conditions.js'
+import { getRequestOptions } from './getRequestOptions.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
 import { getOptionsFromVisualization } from './options.js'
 import { getParentGraphMapFromVisualization } from './parentGraphMap.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
+import { getHeadersMap } from './visualization.js'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,
@@ -44,6 +46,27 @@ export const getUiFromVisualization = (vis, currentState = {}) => ({
         getParentGraphMapFromVisualization(vis) ||
         currentState.parentGraphMap,
     repetitionByDimension: getRepetitionFromVisualisation(vis),
+    sorting: getSortingFromVisualization(vis),
+})
+
+// Sorting
+//
+export const getSortingFromVisualization = (vis) => {
+    const dimensionHeadersMap = getHeadersMap(getRequestOptions(vis))
+
+    return vis.sorting?.length
+        ? {
+              dimension:
+                  dimensionHeadersMap[vis.sorting[0].dimension] ||
+                  vis.sorting[0].dimension,
+              direction: vis.sorting[0].direction.toLowerCase(),
+          }
+        : undefined
+}
+
+export const getDefaultSorting = () => ({
+    dimension: null,
+    direction: 'default',
 })
 
 export const ACCESSORY_PANEL_TAB_INPUT = 'INPUT'

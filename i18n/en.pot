@@ -413,8 +413,8 @@ msgstr ""
 "This line list may show data that was not available when the interpretation "
 "was written."
 
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
+msgid "Sort by \"{{column}}\" and update"
+msgstr "Sort by \"{{column}}\" and update"
 
 msgid "No event"
 msgstr "No event"
