@@ -1,3 +1,15 @@
+# [100.17.0](https://github.com/dhis2/line-listing-app/compare/v100.16.2...v100.17.0) (2024-04-25)
+
+
+### Bug Fixes
+
+* show empty cell for missing boolean values as well ([#466](https://github.com/dhis2/line-listing-app/issues/466)) ([db706cc](https://github.com/dhis2/line-listing-app/commit/db706cc0a651c026419bea73c7f069449c060e47))
+
+
+### Features
+
+* persist sorting information in AO (DHIS2-14955) ([#382](https://github.com/dhis2/line-listing-app/issues/382)) ([718ed86](https://github.com/dhis2/line-listing-app/commit/718ed867c25434d0ccfff956f86ad04fc0088149))
+
 ## [100.16.2](https://github.com/dhis2/line-listing-app/compare/v100.16.1...v100.16.2) (2024-04-24)
 
 
