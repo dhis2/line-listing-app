@@ -7,6 +7,8 @@ on:
         branches:
             - 'master'
             - 'dev'
+    repository_dispatch:
+        types: [cypress-test-trigger]
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}

@@ -1,3 +1,31 @@
+## [100.16.2](https://github.com/dhis2/line-listing-app/compare/v100.16.1...v100.16.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* main dimensions not translated in line lists (DHIS2-15878) ([#502](https://github.com/dhis2/line-listing-app/issues/502)) ([d3639b2](https://github.com/dhis2/line-listing-app/commit/d3639b2be28e849cd84a6b1396450acb23a4b392))
+
+## [100.16.1](https://github.com/dhis2/line-listing-app/compare/v100.16.0...v100.16.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines are not rendered in LL description ([#504](https://github.com/dhis2/line-listing-app/issues/504)) ([01d5703](https://github.com/dhis2/line-listing-app/commit/01d57031c2faf5a57bdef27536f033b5321e9806))
+
+# [100.16.0](https://github.com/dhis2/line-listing-app/compare/v100.15.1...v100.16.0) (2024-04-12)
+
+
+### Features
+
+* tracked entity input (DHIS2-16023) ([#451](https://github.com/dhis2/line-listing-app/issues/451)) ([a59f19e](https://github.com/dhis2/line-listing-app/commit/a59f19e423189d4e59c66dd6f006769fce716645))
+
+## [100.15.1](https://github.com/dhis2/line-listing-app/compare/v100.15.0...v100.15.1) (2024-03-01)
+
+
+### Bug Fixes
+
+* **push-analytics:** add push analytics instructions ([#491](https://github.com/dhis2/line-listing-app/issues/491)) ([1db932c](https://github.com/dhis2/line-listing-app/commit/1db932c3fde54c7a385569891985f922877a67b0))
+
 # [100.15.0](https://github.com/dhis2/line-listing-app/compare/v100.14.0...v100.15.0) (2024-01-30)
 
 

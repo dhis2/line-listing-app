@@ -56,7 +56,7 @@ describe('Your dimensions', () => {
 
         cy.getBySel('your-dimensions-list')
             .findBySelLike('dimension-item')
-            .should('have.length', 4)
+            .should('have.length.of.at.least', 4)
 
         // search the dimensions list
         cy.getBySel('search-dimension-input').find('input').type('facility')

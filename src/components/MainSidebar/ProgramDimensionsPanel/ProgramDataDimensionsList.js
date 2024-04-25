@@ -5,6 +5,7 @@ import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
 const ProgramDataDimensionsList = ({
     inputType,
+    trackedEntityTypeId,
     program,
     stageId,
     searchTerm,
@@ -13,6 +14,7 @@ const ProgramDataDimensionsList = ({
     const { dimensions, loading, fetching, error, setIsListEndVisible } =
         useProgramDataDimensions({
             inputType,
+            trackedEntityTypeId,
             program,
             stageId,
             searchTerm,
@@ -44,6 +46,7 @@ ProgramDataDimensionsList.propTypes = {
     dimensionType: PropTypes.string,
     searchTerm: PropTypes.string,
     stageId: PropTypes.string,
+    trackedEntityTypeId: PropTypes.string,
 }
 
 export { ProgramDataDimensionsList }

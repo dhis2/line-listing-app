@@ -39,6 +39,13 @@ export const visualizationNotFoundError = () =>
         )
     )
 
+export const noEntityTypeError = () =>
+    visualizationError(
+        EmptyBox,
+        i18n.t('No tracked entity type selected'),
+        i18n.t('Choose a type from the Input sidebar.')
+    )
+
 export const noProgramError = () =>
     visualizationError(
         EmptyBox,

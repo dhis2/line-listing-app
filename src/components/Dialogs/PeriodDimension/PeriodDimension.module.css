@@ -3,3 +3,7 @@
     margin-top: var(--spacers-dp8);
     padding-top: var(--spacers-dp12);
 }
+
+.navigation {
+    flex-grow: 0;
+}

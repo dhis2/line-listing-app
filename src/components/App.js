@@ -1,4 +1,11 @@
-import { useCachedDataQuery, convertOuLevelsToUids } from '@dhis2/analytics'
+import {
+    useCachedDataQuery,
+    convertOuLevelsToUids,
+    USER_ORG_UNIT,
+    USER_ORG_UNIT_CHILDREN,
+    USER_ORG_UNIT_GRANDCHILDREN,
+    DIMENSION_ID_ORGUNIT,
+} from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
 import { CssVariables } from '@dhis2/ui'
 import cx from 'classnames'
@@ -17,10 +24,16 @@ import {
     acSetUiOpenDimensionModal,
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
+    acSetUiAccessoryPanelActiveTab,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { parseCondition, OPERATOR_IN } from '../modules/conditions.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
+import {
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_PROGRAM_STATUS,
+} from '../modules/dimensionConstants.js'
+import { formatDimensionId } from '../modules/dimensionId.js'
 import {
     analyticsGenerationError,
     analyticsRequestError,
@@ -33,13 +46,19 @@ import {
     visualizationNotFoundError,
 } from '../modules/error.js'
 import history from '../modules/history.js'
+import {
+    getDefaultOuMetadata,
+    getDynamicTimeDimensionsMetadata,
+} from '../modules/metadata.js'
+import { getParentGraphMapFromVisualization } from '../modules/parentGraphMap.js'
+import { getProgramDimensions } from '../modules/programDimensions.js'
 import { SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR } from '../modules/systemSettings.js'
-import { getParentGraphMapFromVisualization } from '../modules/ui.js'
 import {
     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY,
     USER_SETTINGS_DISPLAY_PROPERTY,
 } from '../modules/userSettings.js'
 import {
+    OUTPUT_TYPE_TRACKED_ENTITY,
     getDimensionMetadataFields,
     transformVisualization,
 } from '../modules/visualization.js'
@@ -63,6 +82,9 @@ import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
 import { Visualization } from './Visualization/Visualization.js'
 
+const dimensionFields = () =>
+    'dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]'
+
 const visualizationQuery = {
     eventVisualization: {
         resource: 'eventVisualizations',
@@ -71,16 +93,18 @@ const visualizationQuery = {
         params: ({ nameProp }) => ({
             fields: [
                 '*',
-                'columns[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
-                'rows[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
-                'filters[dimension,dimensionType,filter,programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]]',
+                `columns[${dimensionFields}]`,
+                `rows[${dimensionFields}]`,
+                `filters[${dimensionFields}]`,
                 `program[id,programType,${nameProp}~rename(name),displayEnrollmentDateLabel,displayIncidentDateLabel,displayIncidentDate,programStages[id,displayName~rename(name),repeatable]]`,
                 'programStage[id,displayName~rename(name),displayExecutionDateLabel,displayDueDateLabel,hideDueDate,repeatable]',
+                `programDimensions[id,${nameProp}~rename(name),enrollmentDateLabel,incidentDateLabel,programType,displayIncidentDate,displayEnrollmentDateLabel,displayIncidentDateLabel,programStages[id,${nameProp}~rename(name),repeatable,hideDueDate,displayExecutionDateLabel,displayDueDateLabel]]`,
                 'access',
                 'href',
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
                 'legend[set[id,displayName],strategy,style,showKey]',
+                'trackedEntityType[id,displayName~rename(name)]',
                 '!interpretations',
                 '!userGroupAccesses',
                 '!publicAccess',
@@ -266,8 +290,17 @@ const App = () => {
         dispatch(acSetUiOpenDimensionModal(dimensionId))
 
     const onResponsesReceived = (response) => {
-        const itemsMetadata = Object.entries(response.metaData.items).reduce(
-            (obj, [id, item]) => {
+        const itemsMetadata = Object.entries(response.metaData.items)
+            .filter(
+                ([item]) =>
+                    ![
+                        USER_ORG_UNIT,
+                        USER_ORG_UNIT_CHILDREN,
+                        USER_ORG_UNIT_GRANDCHILDREN,
+                        DIMENSION_ID_ORGUNIT,
+                    ].includes(item)
+            )
+            .reduce((obj, [id, item]) => {
                 obj[id] = {
                     id,
                     name: item.name || item.displayName,
@@ -277,9 +310,7 @@ const App = () => {
                 }
 
                 return obj
-            },
-            {}
-        )
+            }, {})
 
         dispatch(acAddMetadata(itemsMetadata))
         dispatch(acSetVisualizationLoading(false))
@@ -347,8 +378,90 @@ const App = () => {
                 }
             }
         }
+        if (Object.keys(optionSetsMetadata).length) {
+            dispatch(acAddMetadata(optionSetsMetadata))
+        }
+    }
 
-        dispatch(acAddMetadata(optionSetsMetadata))
+    const addTrackedEntityTypeMetadata = (visualization) => {
+        const { id, name } = visualization.trackedEntityType || {}
+
+        if (id && name) {
+            dispatch(acAddMetadata({ [id]: { id, name } }))
+        }
+    }
+    const addFixedDimensionsMetadata = (visualization) => {
+        const fixedDimensionsMetadata = {}
+
+        const dimensions = [
+            ...(visualization.columns || []),
+            ...(visualization.rows || []),
+            ...(visualization.filters || []),
+        ]
+
+        for (const dimension of dimensions.filter(
+            (d) =>
+                [
+                    DIMENSION_ID_ORGUNIT,
+                    DIMENSION_ID_EVENT_STATUS,
+                    DIMENSION_ID_PROGRAM_STATUS,
+                ].includes(d.dimension) && d.program?.id
+        )) {
+            const dimensionId = formatDimensionId({
+                dimensionId: dimension.dimension,
+                programId: dimension.program.id,
+                outputType: visualization.outputType,
+            })
+            const metadata = getProgramDimensions(dimension.program.id)[
+                dimensionId
+            ]
+
+            if (metadata) {
+                fixedDimensionsMetadata[dimensionId] = metadata
+            }
+        }
+        if (
+            visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+            dimensions.some((d) => d.dimension === DIMENSION_ID_ORGUNIT)
+        ) {
+            fixedDimensionsMetadata[DIMENSION_ID_ORGUNIT] =
+                getDefaultOuMetadata(visualization.outputType)[
+                    DIMENSION_ID_ORGUNIT
+                ]
+        }
+        if (Object.keys(fixedDimensionsMetadata).length) {
+            dispatch(acAddMetadata(fixedDimensionsMetadata))
+        }
+    }
+
+    const addProgramDimensionsMetadata = (visualization) => {
+        const programDimensionsMetadata = {}
+
+        visualization.programDimensions.forEach((program) => {
+            programDimensionsMetadata[program.id] = program
+
+            const timeDimensions = getDynamicTimeDimensionsMetadata(program)
+            Object.keys(timeDimensions).forEach((timeDimensionId) => {
+                const formattedId = formatDimensionId({
+                    dimensionId: timeDimensionId,
+                    programId: program.id,
+                    outputType: visualization.outputType,
+                })
+                programDimensionsMetadata[formattedId] = {
+                    ...timeDimensions[timeDimensionId],
+                    id: formattedId,
+                }
+            })
+
+            if (program.programStages) {
+                program.programStages.forEach((stage) => {
+                    programDimensionsMetadata[stage.id] = stage
+                })
+            }
+        })
+        if (Object.keys(programDimensionsMetadata).length) {
+            dispatch(acAddMetadata(programDimensionsMetadata))
+        }
     }
 
     useEffect(() => {
@@ -361,6 +474,12 @@ const App = () => {
             )
 
             addOptionSetsMetadata(visualization)
+            addTrackedEntityTypeMetadata(visualization)
+            addFixedDimensionsMetadata(visualization)
+            if (visualization.outputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                addProgramDimensionsMetadata(visualization)
+                dispatch(acSetUiAccessoryPanelActiveTab())
+            }
 
             dispatch(
                 acAddParentGraphMap(
