@@ -11,7 +11,24 @@ import {
     OPTION_SHOW_LEGEND_KEY,
 } from './options.js'
 import { parseUiRepetition } from './repetition.js'
-import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
+import {
+    getDimensionIdFromHeaderName,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from './visualization.js'
+
+export const getAdaptedUiSorting = (sorting, visualization) =>
+    sorting
+        ? [
+              {
+                  dimension:
+                      getDimensionIdFromHeaderName(
+                          sorting.dimension,
+                          visualization
+                      ) || sorting.dimension,
+                  direction: sorting.direction.toUpperCase(),
+              },
+          ]
+        : undefined
 
 export const getDefaultFromUi = (current, ui) => {
     const adaptedUi = {
@@ -20,6 +37,7 @@ export const getDefaultFromUi = (current, ui) => {
             ...getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
         },
         itemsByDimension: getItemsByDimensionFromUi(ui),
+        sorting: getAdaptedUiSorting(ui.sorting, current),
     }
 
     const output = {
@@ -27,6 +45,7 @@ export const getDefaultFromUi = (current, ui) => {
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
         outputType: adaptedUi.input.type,
+        sorting: adaptedUi.sorting,
         ...getEntityTypeFromUi(adaptedUi),
         ...getProgramFromUi(adaptedUi),
         ...getProgramStageFromUi(adaptedUi),

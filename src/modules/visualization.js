@@ -24,6 +24,7 @@ import {
     DIMENSION_ID_LAST_UPDATED_BY,
     DIMENSION_ID_PROGRAM_STATUS,
 } from './dimensionConstants.js'
+import { getRequestOptions } from './getRequestOptions.js'
 import { default as options } from './options.js'
 
 export const STATUS_ACTIVE = 'ACTIVE'
@@ -63,6 +64,12 @@ export const getHeadersMap = ({ showHierarchy }) => {
     }
 
     return map
+}
+
+export const getDimensionIdFromHeaderName = (headerName, visualization) => {
+    const headersMap = getHeadersMap(getRequestOptions(visualization))
+
+    return Object.keys(headersMap).find((key) => headersMap[key] === headerName)
 }
 
 export const outputTypeTimeDimensionMap = {
@@ -184,6 +191,20 @@ export const getVisualizationFromCurrent = (current) => {
     // This copy won't work in Event Reports app anyway.
     // This also unlocks the Save button on the copied (and converted to new format) AO in LL app.
     delete visualization.legacy
+
+    // format sorting
+    visualization.sorting = current.sorting?.length
+        ? [
+              {
+                  dimension:
+                      getDimensionIdFromHeaderName(
+                          current.sorting[0].dimension,
+                          current
+                      ) || current.sorting[0].dimension,
+                  direction: current.sorting[0].direction.toUpperCase(),
+              },
+          ]
+        : undefined
 
     return visualization
 }

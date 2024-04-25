@@ -66,6 +66,8 @@ export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
+export const SET_UI_SORTING = 'SET_UI_SORTING'
+export const CLEAR_UI_SORTING = 'CLEAR_UI_SORTING'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -152,6 +154,12 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_SORTING: {
+            return { ...state, sorting: action.value }
+        }
+        case CLEAR_UI_SORTING: {
+            return { ...state, sorting: undefined }
+        }
         case SET_UI_DRAGGING_ID: {
             return { ...state, draggingId: action.value }
         }

@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
+import { getSortingFromVisualization } from '../../modules/ui.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -84,7 +85,6 @@ const useDownload = (relativePeriodDate) => {
                             paging: false,
                         }) // only for LL
 
-                    // not sorted (see old ER)
                     //TODO
                     //displayPropertyName
                     //completedOnly (from options)
@@ -144,6 +144,21 @@ const useDownload = (relativePeriodDate) => {
 
             if (relativePeriodDate && isAoWithTimeDimension(current)) {
                 req = req.withRelativePeriodDate(relativePeriodDate)
+            }
+
+            const sorting = getSortingFromVisualization(current)
+
+            if (sorting) {
+                switch (sorting.direction) {
+                    case 'asc': {
+                        req = req.withAsc(sorting.dimension)
+                        break
+                    }
+                    case 'desc': {
+                        req = req.withDesc(sorting.dimension)
+                        break
+                    }
+                }
             }
 
             const url = new URL(

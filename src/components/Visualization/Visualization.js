@@ -42,7 +42,6 @@ import React, {
     useCallback,
     useReducer,
 } from 'react'
-import { getRequestOptions } from '../../modules/getRequestOptions.js'
 import {
     DISPLAY_DENSITY_COMFORTABLE,
     DISPLAY_DENSITY_COMPACT,
@@ -56,14 +55,16 @@ import {
 } from '../../modules/tableValues.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import {
-    getHeadersMap,
+    getDefaultSorting,
+    getSortingFromVisualization,
+} from '../../modules/ui.js'
+import {
+    getDimensionIdFromHeaderName,
     transformVisualization,
 } from '../../modules/visualization.js'
-import { getAdaptedVisualization } from './analyticsQueryTools.js'
 import styles from './styles/Visualization.module.css'
 import { cellIsUndefined, useAnalyticsData } from './useAnalyticsData.js'
 
-export const DEFAULT_SORT_DIRECTION = 'asc'
 export const FIRST_PAGE = 1
 export const PAGE_SIZE = 100
 
@@ -120,6 +121,7 @@ export const Visualization = ({
     displayProperty,
     onResponsesReceived,
     onColumnHeaderClick,
+    onDataSorted,
     onError,
     forDashboard,
 }) => {
@@ -138,14 +140,6 @@ export const Visualization = ({
         paginationMaxWidth: 0,
         noticeBoxMaxWidth: 0,
     })
-    const [{ sortField, sortDirection, pageSize, page }, setSorting] =
-        useReducer((sorting, newSorting) => ({ ...sorting, ...newSorting }), {
-            sortField: null,
-            sortDirection: DEFAULT_SORT_DIRECTION,
-            page: FIRST_PAGE,
-            pageSize: PAGE_SIZE,
-        })
-
     const visualization = useMemo(() => AO && transformVisualization(AO), [AO])
     const isInModal = !!filters?.relativePeriodDate
     const hasTimeDimension = useMemo(
@@ -209,26 +203,49 @@ export const Visualization = ({
         [sizeObserver]
     )
 
+    const defaultSorting = useMemo(() => getDefaultSorting(), [])
+
+    const getSorting = useCallback(
+        (visualization) => {
+            const sorting =
+                getSortingFromVisualization(visualization) || defaultSorting
+
+            return {
+                sortField: sorting.dimension,
+                sortDirection: sorting.direction,
+            }
+        },
+        [defaultSorting]
+    )
+
+    const { sortField, sortDirection } = getSorting(visualization)
+
+    const [{ pageSize, page }, setPaging] = useReducer(
+        (paging, newPaging) => ({ ...paging, ...newPaging }),
+        {
+            page: FIRST_PAGE,
+            pageSize: PAGE_SIZE,
+        }
+    )
+
     const setPage = useCallback(
         (pageNum) =>
-            setSorting({
+            setPaging({
                 page: pageNum,
             }),
         []
     )
+
+    const setPageSize = useCallback(
+        (pageSizeNum) =>
+            setPaging({
+                pageSize: pageSizeNum,
+                page: FIRST_PAGE,
+            }),
+        []
+    )
+
     const { isDisconnected: offline } = useDhis2ConnectionStatus()
-
-    const { headers } = getAdaptedVisualization(visualization)
-
-    if (headers && sortField) {
-        // reset sorting if current sortField has been removed from Columns DHIS2-13948
-        if (!headers.flat().includes(sortField)) {
-            setSorting({
-                sortField: null,
-                sortDirection: DEFAULT_SORT_DIRECTION,
-            })
-        }
-    }
 
     const { fetching, error, data } = useAnalyticsData({
         filters,
@@ -237,7 +254,7 @@ export const Visualization = ({
         displayProperty,
         onResponsesReceived,
         pageSize,
-        // Set first page directly for new visualization to avoid extra request with current page
+        // Set first page directly for new visualization to avoid extra analytics requests
         page: visualization !== visualizationRef.current ? FIRST_PAGE : page,
         sortField,
         sortDirection,
@@ -264,9 +281,10 @@ export const Visualization = ({
         return `${top}px`
     }, [fetching])
 
-    // Reset page for new visualizations
+    // Reset page when a different visualization is loaded
     useEffect(() => {
         visualizationRef.current = visualization
+
         setPage(FIRST_PAGE)
     }, [visualization, setPage])
 
@@ -306,25 +324,14 @@ export const Visualization = ({
     const fontSizeClass = getFontSizeClass(visualization.fontSize)
     const colSpan = String(Math.max(data.headers.length, 1))
 
-    const sortData = ({ name, direction }) =>
-        setSorting({
-            sortField: name,
-            sortDirection: direction,
-            page: FIRST_PAGE,
+    const sortData = ({ name, direction }) => {
+        // this causes a re-render of the whole component
+        // which resets also the pagination as there is no previous internal state
+        onDataSorted({
+            dimension: name,
+            direction,
         })
-
-    const setPageSize = (pageSizeNum) =>
-        setSorting({
-            pageSize: pageSizeNum,
-            page: FIRST_PAGE,
-        })
-
-    const dimensionHeadersMap = getHeadersMap(getRequestOptions(visualization))
-
-    const reverseLookupDimensionId = (dimensionId) =>
-        Object.keys(dimensionHeadersMap).find(
-            (key) => dimensionHeadersMap[key] === dimensionId
-        )
+    }
 
     const formatCellValue = (value, header) => {
         if (header?.valueType === VALUE_TYPE_URL) {
@@ -356,7 +363,7 @@ export const Visualization = ({
     const formatCellHeader = (header) => {
         const headerText = getHeaderText(header)
 
-        const dimensionId = Number.isInteger(header.stageOffset)
+        const headerName = Number.isInteger(header.stageOffset)
             ? header.name.replace(/\[-?\d+\]/, '')
             : header.name
 
@@ -367,8 +374,10 @@ export const Visualization = ({
                     onColumnHeaderClick
                         ? () =>
                               onColumnHeaderClick(
-                                  reverseLookupDimensionId(dimensionId) ||
-                                      dimensionId
+                                  getDimensionIdFromHeaderName(
+                                      headerName,
+                                      visualization
+                                  ) || headerName
                               )
                         : undefined
                 }
@@ -525,10 +534,10 @@ export const Visualization = ({
                                                     ? undefined
                                                     : header.name === sortField
                                                     ? sortDirection
-                                                    : 'default'
+                                                    : defaultSorting.direction
                                             }
                                             sortIconTitle={i18n.t(
-                                                'Sort by {{column}}',
+                                                'Sort by "{{column}}" and update',
                                                 {
                                                     column: getHeaderText(
                                                         header
@@ -665,6 +674,7 @@ export const Visualization = ({
 Visualization.defaultProps = {
     displayProperty: 'name',
     isVisualizationLoading: false,
+    onDataSorted: Function.prototype,
     onResponsesReceived: Function.prototype,
 }
 
@@ -676,5 +686,6 @@ Visualization.propTypes = {
     filters: PropTypes.object,
     forDashboard: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
+    onDataSorted: PropTypes.func,
     onError: PropTypes.func,
 }
