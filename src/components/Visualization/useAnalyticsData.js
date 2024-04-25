@@ -15,7 +15,7 @@ import {
 } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { getBooleanValues, NULL_VALUE } from '../../modules/conditions.js'
+import { getBooleanValues } from '../../modules/conditions.js'
 import {
     DIMENSION_ID_CREATED,
     DIMENSION_ID_CREATED_BY,
@@ -61,17 +61,15 @@ export const cellIsUndefined = (rowContext = {}, rowIndex, columnIndex) =>
     (rowContext[rowIndex] || {})[columnIndex]?.valueStatus === NOT_DEFINED_VALUE
 
 const formatRowValue = ({ rowValue, header, metaDataItems, isUndefined }) => {
+    if (!rowValue) {
+        return rowValue
+    }
+
     switch (header.valueType) {
         case VALUE_TYPE_BOOLEAN:
         case VALUE_TYPE_TRUE_ONLY:
-            return !isUndefined
-                ? getBooleanValues()[rowValue || NULL_VALUE]
-                : ''
+            return !isUndefined ? getBooleanValues()[rowValue] : ''
         default: {
-            if (!rowValue) {
-                return rowValue
-            }
-
             if (header.optionSet) {
                 return (
                     lookupOptionSetOptionMetadata(
