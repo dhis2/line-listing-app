@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
 import { getAdaptedUiSorting } from './modules/current.js'
 import { getPWAInstallationStatus } from './modules/getPWAInstallationStatus.js'
+import './locales/index.js'
 
 const LoadingMask = () => {
     return (

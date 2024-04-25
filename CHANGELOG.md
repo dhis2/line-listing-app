@@ -1,3 +1,17 @@
+## [100.16.2](https://github.com/dhis2/line-listing-app/compare/v100.16.1...v100.16.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* main dimensions not translated in line lists (DHIS2-15878) ([#502](https://github.com/dhis2/line-listing-app/issues/502)) ([d3639b2](https://github.com/dhis2/line-listing-app/commit/d3639b2be28e849cd84a6b1396450acb23a4b392))
+
+## [100.16.1](https://github.com/dhis2/line-listing-app/compare/v100.16.0...v100.16.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines are not rendered in LL description ([#504](https://github.com/dhis2/line-listing-app/issues/504)) ([01d5703](https://github.com/dhis2/line-listing-app/commit/01d57031c2faf5a57bdef27536f033b5321e9806))
+
 # [100.16.0](https://github.com/dhis2/line-listing-app/compare/v100.15.1...v100.16.0) (2024-04-12)
 
 
