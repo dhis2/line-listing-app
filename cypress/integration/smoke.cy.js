@@ -17,4 +17,12 @@ describe('Smoke Test', () => {
             .should('be.visible')
             .and('contain', TEST_AO.name)
     })
+
+    it('system and user settings are correct', () => {
+        cy.request('GET', 'systemSettings').then((response) => {
+            // response.body is automatically serialized into JSON
+            cy.log('response.body', response.body)
+            // expect(response.body).to.have.property('name', 'Jane') // true
+        })
+    })
 })
