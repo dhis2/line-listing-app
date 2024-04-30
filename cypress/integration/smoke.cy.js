@@ -33,7 +33,7 @@ describe('Smoke Test', () => {
             cy.log('systemsettings', interception.response.body)
             expect(
                 interception.response.body.keyAnalysisRelativePeriod
-            ).to.equal('LAST_12_MONTHS')
+            ).to.equal('LAST_6_MONTHS')
         })
     })
 })
