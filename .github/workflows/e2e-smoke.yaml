@@ -98,7 +98,7 @@ jobs:
             - name: Run e2e smoke tests
               uses: cypress-io/github-action@v5
               with:
-                  spec: cypress/integration/spec1.cy.js
+                  spec: cypress/integration/smoke.cy.js
                   start: yarn d2-app-scripts start
                   wait-on: 'http://localhost:3000'
                   wait-on-timeout: 300

@@ -19,10 +19,21 @@ describe('Smoke Test', () => {
     })
 
     it('system and user settings are correct', () => {
-        cy.request('GET', 'systemSettings').then((response) => {
-            // response.body is automatically serialized into JSON
-            cy.log('response.body', response.body)
-            // expect(response.body).to.have.property('name', 'Jane') // true
+        cy.intercept('**userSettings**').as('userSettings')
+        cy.intercept('**systemSettings**').as('systemSettings')
+        goToStartPage()
+        cy.wait('@userSettings').then((interception) => {
+            cy.log('userSettings', interception.response.body)
+            expect(interception.response.body.keyUiLocale).to.equal('en')
+            expect(
+                interception.response.body.keyAnalysisDisplayProperty
+            ).to.equal('name')
+        })
+        cy.wait('@systemSettings').then((interception) => {
+            cy.log('systemsettings', interception.response.body)
+            expect(
+                interception.response.body.keyAnalysisRelativePeriod
+            ).to.equal('LAST_12_MONTHS')
         })
     })
 })
