@@ -83,9 +83,23 @@ jobs:
                   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
                   PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
 
-    call-workflow-e2e-prod:
+   call-workflow-e2e-smoke:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
+        uses: ./.github/workflows/e2e-smoke.yaml
+        with:
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
+        secrets:
+            username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
+            password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+            # recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
+            # reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
+            # reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
+            # reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
+
+    call-workflow-e2e-prod:
+        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        needs: [call-workflow-e2e-smoke]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
