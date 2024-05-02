@@ -25,7 +25,7 @@ describe('Smoke Test', () => {
             ).to.equal('LAST_12_MONTHS')
             expect(
                 interception.response.body.keyAnalysisDigitGroupSeparator
-            ).to.equal('COMMA')
+            ).to.equal('SPACE')
         })
 
         cy.log('Check app is loaded')
