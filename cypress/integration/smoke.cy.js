@@ -34,10 +34,23 @@ describe('Smoke Test', () => {
     })
 
     it('loads with visualization id', () => {
+        cy.intercept('**/api/*/analytics/**').as('getAnalytics')
         goToAO(TEST_AO.id)
+
+        cy.wait('@getAnalytics').then((interception) => {
+            cy.log('analytics', interception.response)
+            expect(interception.response.status).to.equal(200)
+            expect(interception.response.body.rows).to.be.an('array')
+        })
 
         cy.getBySel('titlebar', EXTENDED_TIMEOUT)
             .should('be.visible')
             .and('contain', TEST_AO.name)
+
+        cy.getBySel('line-list-table')
+            .findBySel('table-body')
+            .find('tr')
+            .its('length')
+            .should('be.gte', 0)
     })
 })
