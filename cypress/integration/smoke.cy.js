@@ -38,8 +38,7 @@ describe('Smoke Test', () => {
         goToAO(TEST_AO.id)
 
         cy.wait('@getAnalytics').then((interception) => {
-            cy.log('analytics', interception.response)
-            expect(interception.response.status).to.equal(200)
+            expect(interception.response.statusCode).to.equal(200)
             expect(interception.response.body.rows).to.be.an('array')
         })
 
