@@ -1,14 +1,15 @@
 # 
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2022
-# Philip Larsen Donnelly, 2022
+# Philip Larsen Donnelly, 2024
+# Martin <martin@moid.se>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2022\n"
+"Last-Translator: Martin <martin@moid.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/hisp-uio/teams/100509/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add to {{axisName}}"
-msgstr ""
+msgstr "Lägg till i {{axisName}}"
 
 msgid "Choose a condition type"
 msgstr ""
@@ -26,10 +27,10 @@ msgid "Case sensitive"
 msgstr ""
 
 msgid "Remove"
-msgstr "Avlägsna"
+msgstr "Ta bort"
 
 msgid "and"
-msgstr ""
+msgstr "och"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
@@ -64,7 +65,7 @@ msgid "is one of preset options"
 msgstr ""
 
 msgid "Loading..."
-msgstr "Läser in..."
+msgstr "Laddar..."
 
 msgid "Choose a set of options"
 msgstr ""
@@ -86,7 +87,7 @@ msgid "Oldest events:"
 msgstr ""
 
 msgid "Hide"
-msgstr ""
+msgstr "Göm"
 
 msgid "Show items where the status is:"
 msgstr ""
@@ -101,7 +102,7 @@ msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
 
 msgid "Start date"
-msgstr "Start datum"
+msgstr "Startdatum"
 
 msgid "End date"
 msgstr "Slutdatum"
@@ -125,7 +126,7 @@ msgid "No options"
 msgstr ""
 
 msgid "Move to {{axisName}}"
-msgstr ""
+msgstr "Flytta till {{axisName}}"
 
 msgid "HTML"
 msgstr ""
@@ -183,16 +184,22 @@ msgstr[1] ""
 msgid "None selected"
 msgstr ""
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -212,12 +219,7 @@ msgstr ""
 msgid "Enrollment"
 msgstr ""
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
+msgid "Tracked entity"
 msgstr ""
 
 msgid ""
@@ -225,6 +227,9 @@ msgid ""
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -269,6 +274,17 @@ msgstr ""
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Program"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr ""
 
@@ -282,6 +298,32 @@ msgid "All"
 msgstr "Alla"
 
 msgid "No stages found"
+msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Klar"
+
+msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
@@ -368,7 +410,7 @@ msgid ""
 "was written."
 msgstr ""
 
-msgid "Sort by {{column}}"
+msgid "Sort by \"{{column}}\" and update"
 msgstr ""
 
 msgid "No event"
@@ -482,6 +524,9 @@ msgstr ""
 msgid "Show legend key"
 msgstr ""
 
+msgid "Skip rounding"
+msgstr ""
+
 msgid "Add a title"
 msgstr ""
 
@@ -576,6 +621,12 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr ""
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -613,26 +664,32 @@ msgstr ""
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
+"Du har inte tillgång till händelseanalyser. Kontakta en systemadministratör."
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Något gick fel"
 
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"Ett fel uppstod med den genererade analysdatan. Kontakta en "
+"systemadministratör."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "Det finns ett problem med syntaxen i analytics request."
+
+msgid "Registration date"
+msgstr "Registreringsdatum"
 
 msgid "Last updated on"
-msgstr ""
+msgstr "Senaste uppdaterad"
 
 msgid "Created by"
 msgstr "Skapad av"
 
 msgid "Last updated by"
-msgstr ""
+msgstr "Senast uppdaterad av"
 
 msgid "User organisation unit"
 msgstr "Användare organisation enheter"
@@ -643,14 +700,20 @@ msgstr "Användarunderenheter"
 msgid "User sub-x2-units"
 msgstr "Användarunder x2-enheter"
 
+msgid "Registration org. unit"
+msgstr "Registrerande org.enhet"
+
+msgid "Organisation unit"
+msgstr "Organisationsenhet"
+
 msgid "Table title"
-msgstr ""
+msgstr "Tabelltitel"
 
 msgid "Display"
-msgstr ""
+msgstr "Visa"
 
 msgid "Empty data"
-msgstr ""
+msgstr "Tom data"
 
 msgid "Totals"
 msgstr "Totals"
@@ -659,37 +722,34 @@ msgid "Data"
 msgstr "Data"
 
 msgid "Limit values"
-msgstr ""
+msgstr "Begränsa värden"
 
 msgid "Limit number of values"
-msgstr ""
+msgstr "Begränsa antal värden"
 
 msgid "Limit minimum/maximum values"
-msgstr ""
+msgstr "Begränsa min/max-värden"
 
 msgid "Style"
 msgstr "Stil"
 
-msgid "Organisation unit"
-msgstr "Organisationsenhet"
-
 msgid "Event status"
-msgstr ""
+msgstr "Händelsestatus"
 
 msgid "Program status"
-msgstr ""
+msgstr "Programstatus"
 
 msgid "most recent"
-msgstr ""
+msgstr "senaste"
 
 msgid "oldest"
-msgstr ""
+msgstr "äldsta"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr ""
+msgstr "äldsta {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgstr "senaste {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "Händelse datum"
@@ -701,7 +761,7 @@ msgid "Incident date"
 msgstr "infall datum"
 
 msgid "Scheduled date"
-msgstr ""
+msgstr "Schemalagd händelse"
 
 msgid "Active"
 msgstr "Aktiva"
@@ -713,10 +773,10 @@ msgid "Completed"
 msgstr "Avklarad"
 
 msgid "Scheduled"
-msgstr ""
+msgstr "Schemalagd"
 
 msgid "List data from tracked entities and events."
-msgstr ""
+msgstr "Lista data från spårade enheter och händelser."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
-msgstr ""
+msgstr "Utforska data med justerbara kolumner, rader och aggregeringar."
