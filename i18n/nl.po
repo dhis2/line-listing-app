@@ -1,15 +1,16 @@
 # 
 # Translators:
 # Cherise Beek <cherise.beek@gmail.com>, 2022
-# Rica Zamora Duchateau, 2023
-# Charel van den Elsen, 2023
+# Philip Larsen Donnelly, 2024
+# Charel van den Elsen, 2024
+# Rica Zamora Duchateau, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Charel van den Elsen, 2023\n"
+"Last-Translator: Rica Zamora Duchateau, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add to {{axisName}}"
-msgstr "Voeg toe aan {{axisNaam}}"
+msgstr "Voeg toe aan {{axisName}}"
 
 msgid "Choose a condition type"
 msgstr "Kies een voorwaardetype"
@@ -129,13 +130,13 @@ msgid "Selected options"
 msgstr "Geselecteerde opties"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr "Niets gevonden voor \"{{- zoekTerm}}\""
+msgstr "Niets gevonden voor \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr "Geen opties"
 
 msgid "Move to {{axisName}}"
-msgstr "Ga naar {{axisNaam}}"
+msgstr "Ga naar {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -193,17 +194,23 @@ msgstr[1] "En {{count}} anderen..."
 msgid "None selected"
 msgstr "Geen geselecteerd"
 
+msgid "Program stage: {{- stageName}}"
+msgstr "Programmafase: {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
 msgid "Showing all values for this dimension"
 msgstr "Alle waarden voor deze dimensie weergeven"
 
-msgid "Program stage: {{- stageName}}"
-msgstr "Programmafase: {{- faseNaam}}"
-
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "Geen afmetingen gevonden voor '{{- zoekTerm}}'"
+msgstr "Geen afmetingen gevonden voor '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr "Geen dimensies gevonden in het programma {{- programmaNaam}}"
+msgstr "Geen dimensies gevonden in het programma {{- programName}}"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Geen afmetingen gevonden"
@@ -224,15 +231,8 @@ msgstr "Gebeurtenis"
 msgid "Enrollment"
 msgstr "Inschrijving"
 
-msgid "Could not load programs"
-msgstr "Kan programma's niet laden"
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
-"De programma's konden niet worden opgehaald. Probeer het opnieuw of neem "
-"contact op met uw systeembeheerder."
+msgid "Tracked entity"
+msgstr "Getraceerde entiteit"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
@@ -242,6 +242,9 @@ msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Bekijk gegevens van meerdere programmafasen in een Tracker-programma."
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
 msgid "Global dimensions"
 msgstr ""
@@ -285,6 +288,19 @@ msgstr "Categorieoptie groepsinstelling"
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Programma"
+
+msgid "Could not load programs"
+msgstr "Kan programma's niet laden"
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+"De programma's konden niet worden opgehaald. Probeer het opnieuw of neem "
+"contact op met uw systeembeheerder."
+
 msgid "Choose a program"
 msgstr "Kies een programma"
 
@@ -298,6 +314,32 @@ msgid "All"
 msgstr "Alle"
 
 msgid "No stages found"
+msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Verwijder"
+
+msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
@@ -322,7 +364,7 @@ msgid "Line list"
 msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr "\"{{- verwijderdObject}}\" succesvol verwijderd."
+msgstr "\"{{- deletedObject}}\" succesvol verwijderd."
 
 msgid "Rename successful"
 msgstr "Hernoeming geslaagd"
@@ -388,8 +430,8 @@ msgid ""
 "was written."
 msgstr ""
 
-msgid "Sort by {{column}}"
-msgstr "Sorteren op {{kolom}}"
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
 
 msgid "No event"
 msgstr ""
@@ -398,7 +440,7 @@ msgid "Rows per page"
 msgstr "Rijen per pagina"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr "Pagina {{pagina}}, rij {{eersteItem}}-{{laatsteItem}}"
+msgstr "Pagina {{page}}, rij {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
 msgstr "Kolom subtotalen"
@@ -505,6 +547,9 @@ msgstr "Hiërarchie van organisatie-eenheden weergeven"
 msgid "Show legend key"
 msgstr "Toon legendasleutel"
 
+msgid "Skip rounding"
+msgstr ""
+
 msgid "Add a title"
 msgstr "Voeg een titel toe"
 
@@ -604,6 +649,12 @@ msgstr ""
 "De visualisatie die u probeert te bekijken, kan niet worden gevonden, de ID "
 "is mogelijk onjuist of is mogelijk verwijderd."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr "Geen programma geselecteerd"
 
@@ -655,6 +706,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "Registratie datum"
+
 msgid "Last updated on"
 msgstr "Laatst geupdate op"
 
@@ -672,6 +726,12 @@ msgstr "Subeenheden van gebruikers"
 
 msgid "User sub-x2-units"
 msgstr "Gebruiker sub-x2-eenheden"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Organisatieëenheid"
 
 msgid "Table title"
 msgstr "Tabel titel"
@@ -700,9 +760,6 @@ msgstr "Limiet minimum/maximum waarden"
 msgid "Style"
 msgstr "Stijl"
 
-msgid "Organisation unit"
-msgstr "Organisatieëenheid"
-
 msgid "Event status"
 msgstr "Gebeurtenisstatus"
 
@@ -716,10 +773,10 @@ msgid "oldest"
 msgstr "oudste"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr "oudste {{herhaalGebeurtenisIndex}}"
+msgstr "oudste {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr "meest recente {{herhaalGebeurtenisIndex}}"
+msgstr "meest recente {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "Evenement datum"
