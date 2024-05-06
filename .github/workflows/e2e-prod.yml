@@ -95,6 +95,26 @@ jobs:
               env:
                   version: ${{ matrix.versions }}
 
+            - name: Run e2e smoke tests
+              uses: cypress-io/github-action@v5
+              with:
+                  spec: cypress/integration/smoke.cy.js
+                  start: yarn d2-app-scripts start
+                  wait-on: 'http://localhost:3000'
+                  wait-on-timeout: 300
+                  record: false
+                  parallel: false
+                  browser: chrome
+              env:
+                  CI: true
+                  BROWSER: none
+                  CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
+                  CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
+                  CYPRESS_dhis2Username: ${{ secrets.username }}
+                  CYPRESS_dhis2Password: ${{ secrets.password }}
+                  CYPRESS_networkMode: live
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Run e2e tests
               uses: cypress-io/github-action@v5
               with:
