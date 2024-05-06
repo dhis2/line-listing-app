@@ -1,20 +1,20 @@
 # 
 # Translators:
 # Raja Fathurrahim, 2022
-# Philip Larsen Donnelly, 2022
-# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2022
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2022
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2022
 # Carwoto Sa'an <carwoto@gmail.com>, 2023
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-01-12T10:52:11.438Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Carwoto Sa'an <carwoto@gmail.com>, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -188,16 +188,22 @@ msgstr[0] ""
 msgid "None selected"
 msgstr "Tidak ada yang terpilih"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -217,19 +223,17 @@ msgstr "Even"
 msgid "Enrollment"
 msgstr "Pendaftaran"
 
-msgid "Could not load programs"
-msgstr ""
-
-msgid ""
-"The programs couldn't be retrieved. Try again or contact your system "
-"administrator."
-msgstr ""
+msgid "Tracked entity"
+msgstr "Entitas dilacak"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
 
 msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
@@ -274,6 +278,17 @@ msgstr ""
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
 
+msgid "Program"
+msgstr "Program"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
 msgid "Choose a program"
 msgstr ""
 
@@ -288,6 +303,32 @@ msgstr "Semua"
 
 msgid "No stages found"
 msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Hapus"
+
+msgid "Search dimensions"
+msgstr "Cari dimensi"
 
 msgid "Your dimensions"
 msgstr "Dimensi Anda"
@@ -373,7 +414,7 @@ msgid ""
 "was written."
 msgstr ""
 
-msgid "Sort by {{column}}"
+msgid "Sort by \"{{column}}\" and update"
 msgstr ""
 
 msgid "No event"
@@ -487,6 +528,9 @@ msgstr ""
 msgid "Show legend key"
 msgstr ""
 
+msgid "Skip rounding"
+msgstr "Jangan bulatkan"
+
 msgid "Add a title"
 msgstr "Tambahkan judul"
 
@@ -581,6 +625,12 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr ""
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
@@ -630,6 +680,9 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr ""
 
+msgid "Registration date"
+msgstr "Tanggal pendaftaran"
+
 msgid "Last updated on"
 msgstr ""
 
@@ -647,6 +700,12 @@ msgstr "Subunit pengguna"
 
 msgid "User sub-x2-units"
 msgstr "Sub-x2-unit pengguna"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Unit organisasi"
 
 msgid "Table title"
 msgstr "Judul tabel"
@@ -674,9 +733,6 @@ msgstr ""
 
 msgid "Style"
 msgstr "Gaya"
-
-msgid "Organisation unit"
-msgstr "Unit organisasi"
 
 msgid "Event status"
 msgstr "Status Even"
