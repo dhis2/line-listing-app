@@ -96,8 +96,6 @@ jobs:
                   record: false
                   parallel: false
                   browser: chrome
-                #   group: ${{ inputs.should_record && format('e2e-chrome-parallel-{0}', matrix.versions) }}
-                #   ci-build-id: ${{ inputs.should_record && github.run_id }}
               env:
                   CI: true
                   BROWSER: none
