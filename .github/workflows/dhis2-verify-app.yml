@@ -86,7 +86,7 @@ jobs:
     call-workflow-e2e-smoke:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: ./.github/workflows/e2e-smoke.yaml
+        uses: ./.github/workflows/e2e-smoke.yml
         with:
             should_record: false
         secrets:
