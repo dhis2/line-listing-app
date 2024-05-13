@@ -9,9 +9,10 @@ updates:
       groups:
           dependencies:
               applies-to: version-updates
-              dependency-type: all
+              dependency-type: 'all'
               update-types:
                   - minor
                   - patch
               exclude-patterns:
                   - '@dhis2'
+                  - 'i18next'
