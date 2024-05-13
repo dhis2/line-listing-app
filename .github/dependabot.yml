@@ -1,18 +1,17 @@
 version: 2
 updates:
-    - package-ecosystem: 'npm'
-      directory: '/'
+    - package-ecosystem: npm
+      directory: /
       schedule:
-        interval: 'weekly'
+          interval: weekly
       open-pull-requests-limit: 5
-      versioning-strategy: 'increase'
+      versioning-strategy: increase
       groups:
-        dev-dependencies:
-          applies-to: version-updates
-          dependency-type: "development"
-          update-types:
-            - "minor"
-            - "patch"
-          exclude-patterns:
-            - "@dhis2"
-
+          dev-dependencies:
+              applies-to: version-updates
+              dependency-type: development
+              update-types:
+                  - minor
+                  - patch
+              exclude-patterns:
+                  - '@dhis2'
