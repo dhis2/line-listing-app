@@ -9,7 +9,6 @@ updates:
       groups:
           dependencies:
               applies-to: version-updates
-              dependency-type: 'all'
               update-types:
                   - minor
                   - patch
