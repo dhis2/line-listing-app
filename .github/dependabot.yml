@@ -7,9 +7,9 @@ updates:
       open-pull-requests-limit: 5
       versioning-strategy: increase
       groups:
-          dev-dependencies:
+          dependencies:
               applies-to: version-updates
-              dependency-type: development
+              dependency-type: all
               update-types:
                   - minor
                   - patch
