@@ -21,6 +21,7 @@ import {
     formatDimensionId,
 } from '../../modules/dimensionId.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
@@ -50,7 +51,7 @@ const FixedDimension = ({
     selectedItemsIds,
     inputType,
 }) => {
-    const { rootOrgUnits } = useCachedDataQuery()
+    const { rootOrgUnits, currentUser } = useCachedDataQuery()
     const { serverVersion } = useConfig()
     const statusNames = getStatusNames()
     const { programId, dimensionId } = extractDimensionIdParts(
@@ -244,6 +245,11 @@ const FixedDimension = ({
                             roots={rootOrgUnits.map(
                                 (rootOrgUnit) => rootOrgUnit.id
                             )}
+                            displayNameProp={
+                                currentUser.settings[
+                                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                                ]
+                            }
                             {...dimensionProps}
                         />
                     </div>
