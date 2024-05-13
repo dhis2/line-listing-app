@@ -3,12 +3,17 @@ import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
+import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
+import { getSortingFromVisualization } from '../../modules/ui.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import {
-    getAnalyticsEndpoint,
     getAdaptedVisualization,
-} from '../Visualization/useAnalyticsData.js'
+    getAnalyticsEndpoint,
+} from '../Visualization/analyticsQueryTools.js'
 import {
     DOWNLOAD_TYPE_PLAIN,
     ID_SCHEME_NAME,
@@ -30,21 +35,36 @@ const useDownload = (relativePeriodDate) => {
                 return false
             }
 
-            let req = new analyticsEngine.request()
             let target = '_top'
 
             const { adaptedVisualization, headers, parameters } =
                 getAdaptedVisualization(current)
-            const path = `${getAnalyticsEndpoint(current.outputType)}/query`
+
+            let req = new analyticsEngine.request()
+                .withPath(`${getAnalyticsEndpoint(current.outputType)}/query`)
+                .withFormat(format)
+
+            switch (current.outputType) {
+                case OUTPUT_TYPE_TRACKED_ENTITY:
+                    req = req.withTrackedEntityType(
+                        current.trackedEntityType.id
+                    )
+                    break
+                default:
+                    req = req
+                        .withProgram(current.program.id)
+                        .withOutputType(current.outputType)
+                    break
+            }
+
+            if (current.outputType === OUTPUT_TYPE_EVENT) {
+                req = req.withStage(current.programStage?.id)
+            }
 
             switch (type) {
                 case DOWNLOAD_TYPE_TABLE:
                     req = req
                         .fromVisualization(adaptedVisualization)
-                        .withProgram(current.program.id)
-                        .withOutputType(current.outputType)
-                        .withPath(path)
-                        .withFormat(format)
                         .withTableLayout()
                         .withColumns(
                             current.columns
@@ -65,7 +85,6 @@ const useDownload = (relativePeriodDate) => {
                             paging: false,
                         }) // only for LL
 
-                    // not sorted (see old ER)
                     //TODO
                     //displayPropertyName
                     //completedOnly (from options)
@@ -81,16 +100,20 @@ const useDownload = (relativePeriodDate) => {
                     req = req
                         // Perhaps the 2nd arg `passFilterAsDimension` should be false for the advanced submenu?
                         .fromVisualization(adaptedVisualization, true)
-                        .withProgram(current.program.id)
-                        .withOutputType(current.outputType)
-                        .withPath(path)
-                        .withFormat(format)
-                        .withOutputIdScheme(idScheme)
                         .withParameters({
                             ...parameters,
                             headers,
                             paging: false,
                         })
+
+                    // fix option set option names
+                    if (idScheme === ID_SCHEME_NAME) {
+                        req = req.withParameters({
+                            dataIdScheme: idScheme,
+                        })
+                    } else {
+                        req = req.withOutputIdScheme(idScheme)
+                    }
 
                     // TODO options
                     // startDate
@@ -119,12 +142,23 @@ const useDownload = (relativePeriodDate) => {
             // TODO add common parameters
             // if there are for both event/enrollment and PT/LL
 
-            if (current.outputType !== OUTPUT_TYPE_ENROLLMENT) {
-                req = req.withStage(current.programStage?.id)
+            if (relativePeriodDate && isAoWithTimeDimension(current)) {
+                req = req.withRelativePeriodDate(relativePeriodDate)
             }
 
-            if (relativePeriodDate) {
-                req = req.withRelativePeriodDate(relativePeriodDate)
+            const sorting = getSortingFromVisualization(current)
+
+            if (sorting) {
+                switch (sorting.direction) {
+                    case 'asc': {
+                        req = req.withAsc(sorting.dimension)
+                        break
+                    }
+                    case 'desc': {
+                        req = req.withDesc(sorting.dimension)
+                        break
+                    }
+                }
             }
 
             const url = new URL(

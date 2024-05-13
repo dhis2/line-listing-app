@@ -1,111 +1,54 @@
 import {
-    useCachedDataQuery,
     DIMENSION_TYPE_ALL,
     DIMENSION_TYPE_DATA_ELEMENT,
 } from '@dhis2/analytics'
-import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, CenteredContent, CircularLoader } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiProgram } from '../../../actions/ui.js'
-import {
-    PROGRAM_TYPE_WITH_REGISTRATION,
-    PROGRAM_TYPE_WITHOUT_REGISTRATION,
-} from '../../../modules/programTypes.js'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
+import { useSelector } from 'react-redux'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
+import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
+    sGetUiEntityTypeId,
     sGetUiInputType,
     sGetUiProgramId,
     sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
+import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.js'
+import { ProgramDimensions } from './ProgramDimensions.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.js'
-import { ProgramDimensionsList } from './ProgramDimensionsList.js'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.js'
 
-const query = {
-    programs: {
-        resource: 'programs',
-        params: ({ nameProp }) => ({
-            fields: [
-                'id',
-                `${nameProp}~rename(name)`,
-                'enrollmentDateLabel',
-                'incidentDateLabel',
-                'programType',
-                'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel,repeatable]',
-                'displayIncidentDate',
-                'displayIncidentDateLabel',
-                'displayEnrollmentDateLabel',
-            ],
-            paging: false,
-        }),
-    },
-}
-
 const ProgramDimensionsPanel = ({ visible }) => {
-    const dispatch = useDispatch()
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
+    const selectedTrackedEntityTypeId = useSelector(sGetUiEntityTypeId)
+    const selectedProgram = useSelector((state) =>
+        sGetMetadataById(state, selectedProgramId)
+    )
     const selectedStageId = useSelector(sGetUiProgramStageId)
-    const { currentUser } = useCachedDataQuery()
-    const { fetching, error, data, refetch, called } = useDataQuery(query, {
-        lazy: true,
-    })
+
     const [searchTerm, setSearchTerm] = useState('')
     const [stageFilter, setStageFilter] = useState()
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
     const debouncedSearchTerm = useDebounce(searchTerm)
-    const filteredPrograms = data?.programs.programs.filter(
-        ({ programType }) =>
-            !(
-                inputType === OUTPUT_TYPE_ENROLLMENT &&
-                programType === PROGRAM_TYPE_WITHOUT_REGISTRATION
-            )
-    )
-    const selectedProgram =
-        selectedProgramId &&
-        filteredPrograms?.find(({ id }) => id === selectedProgramId)
-    const programType = selectedProgram?.programType
-    const requiredStageSelection =
-        inputType === OUTPUT_TYPE_EVENT &&
-        programType === PROGRAM_TYPE_WITH_REGISTRATION
-    const isProgramSelectionComplete =
-        inputType === OUTPUT_TYPE_EVENT
-            ? selectedProgram && selectedStageId
-            : !!selectedProgram
-    const setSelectedProgramId = (programId) => {
-        if (programId !== selectedProgramId) {
-            const program = filteredPrograms?.find(({ id }) => id === programId)
-            const stage =
-                // auto-select if a program only has a single stage
-                // and input type is Event
-                inputType === OUTPUT_TYPE_EVENT &&
-                program?.programStages.length === 1
-                    ? program.programStages[0]
-                    : undefined
-            dispatch(tSetUiProgram({ program, stage }))
+    const isProgramSelectionComplete = () => {
+        if (inputType === OUTPUT_TYPE_EVENT) {
+            return selectedProgram && selectedStageId
+        } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+            return !!selectedProgram
+        } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+            return !!selectedTrackedEntityTypeId
         }
     }
-
-    useEffect(() => {
-        if (visible && !called) {
-            refetch({
-                nameProp:
-                    currentUser.settings[
-                        DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
-                    ],
-            })
-        }
-    }, [visible, called, refetch])
 
     useEffect(() => {
         setSearchTerm('')
@@ -113,87 +56,121 @@ const ProgramDimensionsPanel = ({ visible }) => {
         setStageFilter()
     }, [inputType, selectedProgramId, selectedStageId])
 
-    if (!visible || !called) {
+    if (!visible) {
         return null
     }
 
-    if (error && !fetching) {
+    if ([OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT].includes(inputType)) {
         return (
-            <div className={styles.section}>
-                <NoticeBox error title={i18n.t('Could not load programs')}>
-                    {error?.message ||
-                        i18n.t(
-                            "The programs couldn't be retrieved. Try again or contact your system administrator."
-                        )}
-                </NoticeBox>
-            </div>
-        )
-    }
+            <div className={styles.container}>
+                {isProgramSelectionComplete() ? (
+                    <>
+                        <div>
+                            <ProgramDimensions />
+                        </div>
+                        <div className={styles.section}>
+                            <ProgramDimensionsFilter
+                                program={selectedProgram}
+                                searchTerm={searchTerm}
+                                setSearchTerm={setSearchTerm}
+                                dimensionType={dimensionType}
+                                setDimensionType={setDimensionType}
+                                stageFilter={stageFilter}
+                                setStageFilter={setStageFilter}
+                                showProgramAttribute={
+                                    selectedProgram.programType ===
+                                    PROGRAM_TYPE_WITH_REGISTRATION
+                                }
+                            />
+                        </div>
 
-    if (fetching) {
-        return (
-            <CenteredContent>
-                <CircularLoader small />
-            </CenteredContent>
-        )
-    }
-
-    return (
-        <div className={styles.container}>
-            <div className={cx(styles.section, styles.bordered)}>
-                <ProgramSelect
-                    programs={filteredPrograms}
-                    selectedProgram={selectedProgram}
-                    setSelectedProgramId={setSelectedProgramId}
-                    requiredStageSelection={requiredStageSelection}
-                />
-            </div>
-            <div
-                className={cx(styles.section, {
-                    [styles.bordered]: !!selectedProgramId,
-                })}
-            >
-                {isProgramSelectionComplete ? (
-                    <ProgramDimensionsFilter
-                        program={selectedProgram}
-                        searchTerm={searchTerm}
-                        setSearchTerm={setSearchTerm}
-                        dimensionType={dimensionType}
-                        setDimensionType={setDimensionType}
-                        stageFilter={stageFilter}
-                        setStageFilter={setStageFilter}
-                    />
+                        <ProgramDataDimensionsList
+                            inputType={inputType}
+                            program={selectedProgram}
+                            dimensionType={dimensionType}
+                            searchTerm={debouncedSearchTerm}
+                            stageId={
+                                [
+                                    OUTPUT_TYPE_ENROLLMENT,
+                                    OUTPUT_TYPE_TRACKED_ENTITY,
+                                ].includes(inputType) ===
+                                    OUTPUT_TYPE_ENROLLMENT &&
+                                dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                                    ? stageFilter
+                                    : inputType === OUTPUT_TYPE_EVENT
+                                    ? selectedStageId
+                                    : undefined
+                            }
+                        />
+                    </>
                 ) : (
                     <div className={styles.helptext}>
-                        {requiredStageSelection
-                            ? i18n.t(
-                                  'Choose a stage above to add program dimensions.'
-                              )
-                            : i18n.t(
-                                  'Choose a program above to add program dimensions.'
-                              )}
+                        {i18n.t(
+                            'Choose an input to get started adding program dimensions.'
+                        )}
                     </div>
                 )}
             </div>
+        )
+    } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        return (
+            <div className={styles.container}>
+                {isProgramSelectionComplete() ? (
+                    <>
+                        <div className={cx(styles.section, styles.bordered)}>
+                            <ProgramSelect prefix={i18n.t('Program')} />
+                        </div>
+                        {selectedProgram && (
+                            <>
+                                <div>
+                                    <ProgramDimensions />
+                                </div>
+                                <div className={styles.section}>
+                                    <ProgramDimensionsFilter
+                                        program={selectedProgram}
+                                        searchTerm={searchTerm}
+                                        setSearchTerm={setSearchTerm}
+                                        dimensionType={dimensionType}
+                                        setDimensionType={setDimensionType}
+                                        stageFilter={stageFilter}
+                                        setStageFilter={setStageFilter}
+                                    />
+                                </div>
 
-            {isProgramSelectionComplete && (
-                <ProgramDimensionsList
-                    inputType={inputType}
-                    program={selectedProgram}
-                    dimensionType={dimensionType}
-                    searchTerm={debouncedSearchTerm}
-                    stageId={
-                        inputType === OUTPUT_TYPE_ENROLLMENT &&
-                        dimensionType === DIMENSION_TYPE_DATA_ELEMENT
-                            ? stageFilter
-                            : inputType === OUTPUT_TYPE_EVENT
-                            ? selectedStageId
-                            : undefined
-                    }
-                />
-            )}
-        </div>
-    )
+                                <ProgramDataDimensionsList
+                                    inputType={inputType}
+                                    program={selectedProgram}
+                                    dimensionType={dimensionType}
+                                    searchTerm={debouncedSearchTerm}
+                                    stageId={
+                                        [
+                                            OUTPUT_TYPE_ENROLLMENT,
+                                            OUTPUT_TYPE_TRACKED_ENTITY,
+                                        ].includes(inputType) &&
+                                        dimensionType ===
+                                            DIMENSION_TYPE_DATA_ELEMENT
+                                            ? stageFilter
+                                            : inputType === OUTPUT_TYPE_EVENT
+                                            ? selectedStageId
+                                            : undefined
+                                    }
+                                    trackedEntityTypeId={
+                                        selectedTrackedEntityTypeId
+                                    }
+                                />
+                            </>
+                        )}
+                    </>
+                ) : (
+                    <div className={styles.helptext}>
+                        {i18n.t(
+                            'Choose an input to get started adding program dimensions.'
+                        )}
+                    </div>
+                )}
+            </div>
+        )
+    }
 }
 
 ProgramDimensionsPanel.propTypes = {

@@ -2,11 +2,13 @@ name: 'dhis2: verify (app)'
 
 on:
     pull_request:
-        types: ['opened', 'edited', 'reopened', 'synchronize']
+        types: ['opened', 'labeled', 'reopened', 'synchronize']
     push:
         branches:
             - 'master'
             - 'dev'
+    repository_dispatch:
+        types: [cypress-test-trigger]
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -73,16 +75,27 @@ jobs:
 
             - name: Test
               run: yarn d2-app-scripts test
+              env:
+                  REPORTPORTAL_API_KEY: ${{ secrets.REPORTPORTAL_API_KEY }}
+                  REPORTPORTAL_ENDPOINT: ${{ vars.REPORTPORTAL_ENDPOINT }}
+                  REPORTPORTAL_PROJECT: ${{ vars.REPORTPORTAL_PROJECT }}
+                  CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
+                  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+                  PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || format('Direct push to {0}', github.ref_name) }}
 
     call-workflow-e2e-prod:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test]
-        uses: ./.github/workflows/e2e-prod.yml
+        uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@master
+        with:
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
         secrets:
-            baseurl: ${{ secrets.CYPRESS_DHIS2_BASE_URL_DEV }}
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
+            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
+            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
+            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
 
     release:
         runs-on: ubuntu-latest
@@ -125,13 +138,98 @@ jobs:
         if: |
             failure() &&
             !cancelled() &&
-            github.ref == 'refs/heads/master'
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
         steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+
+            - name: Extract version
+              id: extract_version
+              uses: Saionaro/extract-package-version@v1.2.1
+
             - name: Send failure message to analytics-internal-bot slack channel
               id: slack
               uses: slackapi/slack-github-action@v1.23.0
               with:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
-                  slack-message: ':small_red_triangle_down: Line-listing-app release <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure>'
+                  payload: |
+                      {
+                        "text": ":small_red_triangle_down: :line-listing-app: Line Listing release <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>",
+                        "blocks": [
+                          {
+                            "type": "section",
+                            "text": {
+                              "type": "mrkdwn",
+                              "text": ":small_red_triangle_down: :line-listing-app: Line Listing release <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Afailure|failed>"
+                            }
+                          }
+                        ]
+                      }
+              env:
+                  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+    report-release-success:
+        runs-on: ubuntu-latest
+        needs: release
+        if: |
+            success() &&
+            !cancelled() &&
+            github.ref == 'refs/heads/master' &&
+            contains(github.event.head_commit.message, 'chore(release)')
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@master
+
+            - name: Extract version
+              id: extract_version
+              uses: Saionaro/extract-package-version@v1.2.1
+
+            - name: Send success message to analytics-internal-bot slack channel
+              id: slack
+              uses: slackapi/slack-github-action@v1.23.0
+              with:
+                  channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
+                  payload: |
+                      {
+                        "text": "Line Listing app release ${{ steps.extract_version.outputs.version }} succeeded",
+                        "blocks": [
+                          {
+                            "type": "header",
+                            "text": {
+                                "type": "plain_text",
+                                "text": ":large_green_circle: :line-listing-app: Line Listing version ${{ steps.extract_version.outputs.version }} released :tada:",
+                                "emoji": true
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "*Release Notes*"
+                            }
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": ${{ toJSON(github.event.head_commit.message) }}
+                            }
+                          },
+                          {
+                            "type": "divider"
+                          },
+                          {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Link to <https://github.com/dhis2/line-listing-app/actions/workflows/dhis2-verify-app.yml?query=branch%3Amaster+is%3Asuccess|build>"
+                            }
+                          }
+                        ]
+                      }
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

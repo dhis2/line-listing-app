@@ -1,15 +1,16 @@
 import {
+    DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
     USER_ORG_UNIT,
     USER_ORG_UNIT_CHILDREN,
     USER_ORG_UNIT_GRANDCHILDREN,
-    DIMENSION_ID_ORGUNIT,
-    getDimensionById,
-    DIMENSION_TYPE_ORGANISATION_UNIT,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { getMainDimensions } from './mainDimensions.js'
+import { formatDimensionId } from './dimensionId.js'
+import { getMainDimensions, getCreatedDimension } from './mainDimensions.js'
+import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
-import { getStatusNames } from './visualization.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY, getStatusNames } from './visualization.js'
 
 const formatObject = (object) =>
     Object.entries(object).reduce(
@@ -23,17 +24,11 @@ const getOrganisationUnits = () => ({
     [USER_ORG_UNIT_GRANDCHILDREN]: i18n.t('User sub-x2-units'),
 })
 
-const getFixedDimensions = () => ({
-    [DIMENSION_ID_ORGUNIT]: {
-        ...getDimensionById(DIMENSION_ID_ORGUNIT),
-        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
-    },
-})
-
 export const getDefaultMetadata = () => ({
     ...getMainDimensions(),
+    ...getCreatedDimension(),
+    ...getProgramDimensions(),
     ...getDefaultTimeDimensionsMetadata(),
-    ...getFixedDimensions(),
     ...formatObject(getOrganisationUnits()),
     ...formatObject(getStatusNames()),
 })
@@ -52,6 +47,22 @@ export const getDefaultTimeDimensionsMetadata = () => {
     )
 }
 
+export const getDefaultOuMetadata = (inputType) => ({
+    [DIMENSION_ID_ORGUNIT]: {
+        id: DIMENSION_ID_ORGUNIT,
+        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
+        name: getDefaultOrgUnitLabel(inputType),
+    },
+})
+
+export const getDefaultOrgUnitLabel = (inputType) => {
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        return i18n.t('Registration org. unit')
+    } else {
+        return i18n.t('Organisation unit')
+    }
+}
+
 export const getProgramAsMetadata = (program) => ({
     ...program.programStages.reduce((acc, stage) => {
         acc[stage.id] = stage
@@ -60,10 +71,20 @@ export const getProgramAsMetadata = (program) => ({
     [program.id]: program,
 })
 
-export const getDynamicTimeDimensionsMetadata = (program, stage) => ({
+export const getDynamicTimeDimensionsMetadata = (
+    program,
+    stage,
+    inputType
+) => ({
     ...Object.values(getTimeDimensions()).reduce((acc, dimension) => {
-        acc[dimension.id] = {
-            id: dimension.id,
+        const id = formatDimensionId({
+            dimensionId: dimension.id,
+            programId: program?.id,
+            outputType: inputType,
+        })
+
+        acc[id] = {
+            id,
             dimensionType: dimension.dimensionType,
             name: getTimeDimensionName(dimension, program, stage),
         }

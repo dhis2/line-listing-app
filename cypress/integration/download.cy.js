@@ -1,7 +1,8 @@
 import { E2E_PROGRAM } from '../data/index.js'
 import {
-    selectEnrollmentProgram,
+    selectEnrollmentWithProgram,
     selectEventWithProgram,
+    selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -27,7 +28,6 @@ describe('download', () => {
 
         selectEventWithProgram({
             programName: E2E_PROGRAM.programName,
-            stageName: E2E_PROGRAM.stageName,
         })
 
         clickMenubarUpdateButton()
@@ -40,7 +40,7 @@ describe('download', () => {
 
         downloadIsDisabled()
 
-        selectEnrollmentProgram({
+        selectEnrollmentWithProgram({
             programName: E2E_PROGRAM.programName,
         })
 
@@ -48,4 +48,20 @@ describe('download', () => {
 
         downloadIsEnabled()
     })
+
+    it(
+        ['>=41'],
+        'download button enables when required dimensions are selected (TE)',
+        () => {
+            goToStartPage()
+
+            downloadIsDisabled()
+
+            selectTrackedEntityWithType('Person')
+
+            clickMenubarUpdateButton()
+
+            downloadIsEnabled()
+        }
+    )
 })

@@ -1,23 +1,31 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import {
     DIMENSION_TYPES_PROGRAM,
     DIMENSION_IDS_TIME,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_CREATED,
 } from '../modules/dimensionConstants.js'
-import { getIsMainDimensionDisabled } from '../modules/mainDimensions.js'
+import { extractDimensionIdParts } from '../modules/dimensionId.js'
 import {
     getDefaultTimeDimensionsMetadata,
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
+    getDefaultOuMetadata,
 } from '../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
-import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
+    CLEAR_UI_SORTING,
+    SET_UI_SORTING,
     SET_UI_DRAGGING_ID,
     SET_UI_LAYOUT,
     SET_UI_OPTIONS,
@@ -44,6 +52,9 @@ import {
     TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
     TOGGLE_UI_SIDEBAR_HIDDEN,
     TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
+    SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
+    UPDATE_UI_ENTITY_TYPE_ID,
+    CLEAR_UI_ENTITY_TYPE,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -67,6 +78,11 @@ export const acClearUiStageId = (metadata) => ({
     metadata,
 })
 
+export const acClearUiEntityType = () => ({
+    type: CLEAR_UI_ENTITY_TYPE,
+    metadata: getDefaultTimeDimensionsMetadata(),
+})
+
 export const acUpdateUiProgramId = (value, metadata) => ({
     type: UPDATE_UI_PROGRAM_ID,
     value,
@@ -79,42 +95,37 @@ export const acUpdateUiProgramStageId = (value, metadata) => ({
     metadata,
 })
 
-const tClearUiProgramRelatedDimensions =
-    (inputType, program, stage) => (dispatch, getState) => {
-        const { ui, metadata } = getState()
-        const disabledTimeDimensionIds = new Set(
-            Object.keys(getDisabledTimeDimensions(inputType, program, stage))
-        )
+export const acUpdateUiEntityTypeId = (value, metadata) => ({
+    type: UPDATE_UI_ENTITY_TYPE_ID,
+    value,
+    metadata,
+})
 
-        const idsToRemove = ui.layout.columns
-            .concat(ui.layout.filters)
-            .filter((dimensionId) => {
-                const dimension = metadata[dimensionId]
-                const isProgramDimension = DIMENSION_TYPES_PROGRAM.has(
-                    dimension.dimensionType
-                )
-                const isDisabledMainDimension =
-                    (dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
-                        dimensionId === DIMENSION_ID_EVENT_STATUS) &&
-                    getIsMainDimensionDisabled({
-                        dimensionId,
-                        inputType,
-                        programType: program?.programType,
-                    })
-                const isDisabledTimeDimension =
-                    DIMENSION_IDS_TIME.has(dimension.id) &&
-                    disabledTimeDimensionIds.has(dimension.id)
+const tClearUiProgramRelatedDimensions = () => (dispatch, getState) => {
+    const { ui, metadata } = getState()
 
-                return (
-                    isProgramDimension ||
-                    isDisabledMainDimension ||
-                    isDisabledTimeDimension
-                )
-            })
+    const idsToRemove = ui.layout.columns
+        .concat(ui.layout.filters)
+        .filter((id) => {
+            const dimension = metadata[id]
+            const { dimensionId } = extractDimensionIdParts(id)
+            const isProgramDataDimension = DIMENSION_TYPES_PROGRAM.has(
+                dimension.dimensionType
+            )
+            const isProgramDimension =
+                dimensionId === DIMENSION_ID_PROGRAM_STATUS ||
+                dimensionId === DIMENSION_ID_EVENT_STATUS ||
+                (dimensionId === DIMENSION_ID_ORGUNIT &&
+                    id !== DIMENSION_ID_ORGUNIT) ||
+                (DIMENSION_IDS_TIME.has(dimensionId) &&
+                    dimensionId !== DIMENSION_ID_LAST_UPDATED) ||
+                dimensionId === DIMENSION_ID_CREATED
+            return isProgramDataDimension || isProgramDimension
+        })
 
-        dispatch(acRemoveUiLayoutDimensions(idsToRemove), idsToRemove)
-        dispatch(acRemoveUiItems(idsToRemove))
-    }
+    dispatch(acRemoveUiLayoutDimensions(idsToRemove), idsToRemove)
+    dispatch(acRemoveUiItems(idsToRemove))
+}
 
 export const tClearUiProgramStageDimensions =
     (stageId) => (dispatch, getState) => {
@@ -138,26 +149,48 @@ export const tClearUiProgramStageDimensions =
     }
 
 export const tSetUiInput = (value) => (dispatch) => {
+    dispatch(acClearUiEntityType())
     dispatch(acClearUiProgram())
-    dispatch(tClearUiProgramRelatedDimensions(value.type))
+    dispatch(tClearUiProgramRelatedDimensions())
     dispatch(acClearUiRepetition())
-    dispatch(acSetUiInput(value, getDefaultTimeDimensionsMetadata()))
+    dispatch(
+        acSetUiInput(value, {
+            ...getDefaultTimeDimensionsMetadata(),
+            ...getDefaultOuMetadata(value.type),
+        })
+    )
 }
 
 export const tSetUiProgram =
     ({ program, stage }) =>
     (dispatch, getState) => {
-        const inputType = sGetUiInputType(getState())
+        const state = getState()
         dispatch(acClearUiProgram())
-        dispatch(tClearUiProgramRelatedDimensions(inputType, program, stage))
+        const inputType = sGetUiInputType(state)
+        if (inputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
+            dispatch(tClearUiProgramRelatedDimensions())
+        }
         program &&
             dispatch(
                 acUpdateUiProgramId(program.id, {
                     ...getProgramAsMetadata(program),
-                    ...getDynamicTimeDimensionsMetadata(program, stage),
+                    ...getDynamicTimeDimensionsMetadata(
+                        program,
+                        stage,
+                        inputType
+                    ),
                 })
             )
         stage && dispatch(acUpdateUiProgramStageId(stage.id))
+    }
+
+export const tSetUiEntityType =
+    ({ type }) =>
+    (dispatch) => {
+        dispatch(acClearUiProgram())
+        dispatch(tClearUiProgramRelatedDimensions())
+        dispatch(acClearUiEntityType())
+        dispatch(acUpdateUiEntityTypeId(type.id, { [type.id]: type }))
     }
 
 export const tClearUiStage = () => (dispatch, getState) => {
@@ -225,6 +258,11 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
     value,
 })
 
+export const acSetUiAccessoryPanelActiveTab = (value) => ({
+    type: SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
+    value,
+})
+
 export const acToggleUiSidebarHidden = () => ({
     type: TOGGLE_UI_SIDEBAR_HIDDEN,
 })
@@ -267,6 +305,15 @@ export const acSetUiConditions = (value) => ({
 export const acSetUiRepetition = (value) => ({
     type: SET_UI_REPETITION,
     value,
+})
+
+export const acSetUiDataSorting = (value) => ({
+    type: SET_UI_SORTING,
+    value,
+})
+
+export const acClearUiDataSorting = () => ({
+    type: CLEAR_UI_SORTING,
 })
 
 export const acRemoveUiRepetition = (value) => ({

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2023
+# Jiří Podhorecký, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-06-07T12:54:13.099Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Jiří Podhorecký, 2023\n"
+"Last-Translator: Jiří Podhorecký, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,20 +174,6 @@ msgstr "Stáhnout"
 msgid "all"
 msgstr "vše"
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "Vybrán: {{count}}"
-msgstr[1] "Vybráno: {{count}}"
-msgstr[2] "Vybráno: {{count}}"
-msgstr[3] "Vybráno: {{count}}"
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] "{{count}} podmínka"
-msgstr[1] "{{count}} podmínky"
-msgstr[2] "{{count}} podmínek"
-msgstr[3] "{{count}} podmínek"
-
 msgid "Levels"
 msgstr "Úrovně"
 
@@ -204,17 +190,23 @@ msgstr[3] ""
 msgid "None selected"
 msgstr "Není vybrán žádný"
 
-msgid "Showing all values for this dimension"
-msgstr "Zobrazují se všechny hodnoty pro tuto dimenzi"
-
 msgid "Program stage: {{- stageName}}"
 msgstr "Fáze programu: {{- stageName}}"
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr "Zobrazují se všechny hodnoty pro tuto dimenzi"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr "Pro '{{- searchTerm}}' nebyly nalezeny žádné dimenze"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "V programu {{- programName}} nebyly nalezeny žádné dimenze"
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
 
 msgid "No dimensions found"
 msgstr "Nebyly nalezeny žádné rozměry"
@@ -235,6 +227,9 @@ msgstr "Událost"
 msgid "Enrollment"
 msgstr "Zápis"
 
+msgid "Tracked entity"
+msgstr "Trasovaná entita"
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -244,17 +239,26 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "Prohlédněte si data z více fází programu v programu Tracker."
 
-msgid "Main dimensions"
-msgstr "Hlavní rozměry"
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
-msgid "Input: {{type}}"
-msgstr "Zadejte: {{type}}"
+msgid "Global dimensions"
+msgstr "Globální dimenze"
 
 msgid "Program dimensions"
 msgstr "Dimenze programu"
 
-msgid "Search in program"
-msgstr "Hledat v programu"
+msgid "Input: {{type}}"
+msgstr "Zadejte: {{type}}"
+
+msgid "Choose an input first"
+msgstr "Nejprve vyberte vstup"
+
+msgid "Program data dimensions"
+msgstr "Dimenze dat programu"
+
+msgid "Search data dimensions"
+msgstr "Vyhledat dimenze dat"
 
 msgid "Type"
 msgstr "Typ"
@@ -277,6 +281,12 @@ msgstr "Kategorie"
 msgid "Category option group set"
 msgstr "Sada skupin možností kategorie"
 
+msgid "Choose an input to get started adding program dimensions."
+msgstr "Vyberte vstup a začněte přidávat dimenze programu."
+
+msgid "Program"
+msgstr "Program"
+
 msgid "Could not load programs"
 msgstr "Programy nelze načíst"
 
@@ -287,20 +297,11 @@ msgstr ""
 "Programy se nepodařilo načíst. Zkuste to znovu nebo se obraťte na správce "
 "systému."
 
-msgid "Choose a stage above to add program dimensions."
-msgstr "Vyberte fázi výše a přidejte rozměry programu."
-
-msgid "Choose a program above to add program dimensions."
-msgstr "Vyberte program výše a přidejte dimenze programu."
-
 msgid "Choose a program"
 msgstr "Vyberte program"
 
-msgid "Clear program first to choose another"
-msgstr "Nejprve vymažte program a vyberte jiný"
-
-msgid "Clear"
-msgstr "Vyčistit"
+msgid "No programs found"
+msgstr "Nebyly nalezeny žádné programy"
 
 msgid "Stage"
 msgstr "Fáze"
@@ -308,14 +309,34 @@ msgstr "Fáze"
 msgid "All"
 msgstr "Vše"
 
-msgid "Clear stage first to choose another"
-msgstr "Nejprve vymažte fázi, abyste si mohli vybrat jinou"
+msgid "No stages found"
+msgstr "Nebyly nalezeny žádné fáze"
 
-msgid "This program only has one stage"
-msgstr "Tento program má pouze jednu fázi"
+msgid "Could not load types"
+msgstr ""
 
-msgid "Time dimensions"
-msgstr "Časové dimenze"
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Vyčistit"
+
+msgid "Search dimensions"
+msgstr "Hledat dimenze"
 
 msgid "Your dimensions"
 msgstr "Vaše dimenze"
@@ -324,10 +345,10 @@ msgid "Search your dimensions"
 msgstr "Vyhledejte své dimenze"
 
 msgid "Show panels"
-msgstr ""
+msgstr "Zobrazit panely"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "Rozbalit vizualizaci a skrýt panely"
 
 msgid "Unsaved visualization"
 msgstr "Neuložená vizualizace"
@@ -335,8 +356,8 @@ msgstr "Neuložená vizualizace"
 msgid "Edited"
 msgstr "Upraveno"
 
-msgid "Interpretations"
-msgstr "Interpretace"
+msgid "Line list"
+msgstr "Seznam řádků"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr "\"{{- deletedObject}}\" byl úspěšně odstraněn."
@@ -355,16 +376,16 @@ msgstr ""
 "ovládacích panelech"
 
 msgid "Show layout"
-msgstr ""
+msgstr "Zobrazit rozvržení"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "Skrýt rozvržení"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "Zobrazit postranní panel dimenzí"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "Skrýt postranní panel dimenzí"
 
 msgid "Hide interpretations and details"
 msgstr "Skrýt interpretace a podrobnosti"
@@ -400,7 +421,15 @@ msgstr "Vaše nejsledovanější seznamy řádků"
 msgid "Not available offline"
 msgstr "Není k dispozici offline"
 
-msgid "Sort by {{column}}"
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -514,6 +543,9 @@ msgstr "Zobrazit hierarchii organizačních jednotek"
 msgid "Show legend key"
 msgstr "Zobrazit klíč legendy"
 
+msgid "Skip rounding"
+msgstr "Přeskočit zaokrouhlování"
+
 msgid "Add a title"
 msgstr "Přidat název"
 
@@ -612,17 +644,17 @@ msgstr ""
 "Vizualizaci, kterou se pokoušíte zobrazit, nelze najít, ID může být "
 "nesprávné nebo může být odstraněno."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr "Nevybrán žádný program"
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr "Vyberte program z postranního panelu Rozměry programu."
-
-msgid "No stage selected"
-msgstr "Není vybrána žádná fáze"
-
-msgid "Choose a stage from the Program Dimensions sidebar."
-msgstr "Na postranním panelu Dimenze programu vyberte fázi."
+msgid "Choose a program from the Input sidebar."
+msgstr "Vyberte program z postranního panelu Vstupu."
 
 msgid "Columns is empty"
 msgstr "Sloupce jsou prázdné"
@@ -643,35 +675,44 @@ msgstr ""
 msgid "There's a problem with at least one selected indicator"
 msgstr "Vyskytl se problém s alespoň jedním vybraným indikátorem"
 
-msgid "No access"
-msgstr "Žádný přístup"
+msgid "Restricted access"
+msgstr "Omezený přístup"
 
-msgid "You don't have access to the requested data"
-msgstr "Nemáte přístup k požadovaným údajům"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+"K datům v této vizualizaci nemáte přístup. Kontaktujte správce systému."
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr "Nemáte přístup k jedné nebo více vybraným organizačním jednotkám."
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr "Nemáte přístup k analýze událostí. Kontaktujte správce systému."
 
 msgid "Something went wrong"
 msgstr "Něco se pokazilo"
 
-msgid "Organisation unit"
-msgstr "Organizační jednotka"
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
 
-msgid "Event status"
-msgstr "Stav události"
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
 
-msgid "Program status"
-msgstr "Stav programu"
+msgid "Registration date"
+msgstr "Datum registrace"
+
+msgid "Last updated on"
+msgstr "Naposledy aktualizováno dne"
 
 msgid "Created by"
 msgstr "Vytvořil"
 
 msgid "Last updated by"
 msgstr "Naposledy aktualizováno uživatelem"
-
-msgid "Not applicable to event programs"
-msgstr "Nevztahuje se na programy akcí"
-
-msgid "Not applicable to enrollments"
-msgstr "Nevztahuje se na zápisy"
 
 msgid "User organisation unit"
 msgstr "Organizační jednotka uživatele"
@@ -681,6 +722,12 @@ msgstr "Podjednotky uživatele"
 
 msgid "User sub-x2-units"
 msgstr "Jednotky 2. řádu uživatele"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Organizační jednotka"
 
 msgid "Table title"
 msgstr "Název tabulky"
@@ -709,6 +756,12 @@ msgstr "Mezní minimální / maximální hodnoty"
 msgid "Style"
 msgstr "Styl"
 
+msgid "Event status"
+msgstr "Stav události"
+
+msgid "Program status"
+msgstr "Stav programu"
+
 msgid "most recent"
 msgstr "nejnovější"
 
@@ -732,18 +785,6 @@ msgstr "Datum incidentu"
 
 msgid "Scheduled date"
 msgstr "Plánované datum"
-
-msgid "Last updated on"
-msgstr "Naposledy aktualizováno dne"
-
-msgid "Disabled by the selected program"
-msgstr "Vypnuto vybraným programem"
-
-msgid "Disabled by the selected program stage"
-msgstr "Vypnuto vybranou fází programu"
-
-msgid "No input type selected"
-msgstr "Není vybrán žádný typ vstupu"
 
 msgid "Active"
 msgstr "Aktivní"

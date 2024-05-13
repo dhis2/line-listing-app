@@ -4,7 +4,8 @@ import {
 } from '../../src/modules/dimensionConstants.js'
 import { E2E_PROGRAM } from '../data/index.js'
 import {
-    clickAddRemoveMainDimension,
+    clickAddRemoveProgramDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
 import {
@@ -22,7 +23,7 @@ import {
 
 const currentYear = getCurrentYearStr()
 
-describe('event status', () => {
+describe('event status (event)', () => {
     const event = E2E_PROGRAM
     const dimensionName = 'Event status'
 
@@ -31,11 +32,12 @@ describe('event status', () => {
 
         selectEventWithProgram(event)
 
-        clickAddRemoveMainDimension(dimensionName)
+        openProgramDimensionsSidebar()
+
+        clickAddRemoveProgramDimension(dimensionName)
     }
 
-    // FIXME: Skipped as it's blocked by this backend bug: https://dhis2.atlassian.net/browse/DHIS2-14442
-    it.skip(['>=39'], 'can be filtered by status SCHEDULED', () => {
+    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
         setUpTable()
 
         selectFixedPeriod({
@@ -83,10 +85,7 @@ describe('event status', () => {
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
+        assertChipContainsText(dimensionName, 'all')
 
         // Add filter 'Active'
 
@@ -98,14 +97,16 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-eventStatus-modal-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
         expectTableToMatchRows([`${currentYear}-02-01`])
         expectTableToMatchRows(['Active'])
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries(['Active'])
 
@@ -119,14 +120,16 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-eventStatus-modal-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
         expectTableToMatchRows([`${currentYear}-02-01`, `${currentYear}-12-25`])
         expectTableToMatchRows(['Active', 'Scheduled'])
 
-        assertChipContainsText(`${dimensionName}: 2 selected`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries(['Scheduled'])
     })
@@ -172,10 +175,7 @@ describe('event status', () => {
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
+        assertChipContainsText(dimensionName, 'all')
 
         // Add filter 'Active'
 
@@ -187,14 +187,16 @@ describe('event status', () => {
             .find('[type="checkbox"]')
             .should('be.checked')
 
-        cy.getBySel('fixed-dimension-modal-actions').contains('Update').click()
+        cy.getBySel('fixed-dimension-eventStatus-modal-actions')
+            .contains('Update')
+            .click()
 
         expectTableToBeVisible()
 
         expectTableToMatchRows([`${currentYear}-02-01`])
         expectTableToMatchRows(['Active'])
 
-        assertChipContainsText(`${dimensionName}: 1 selected`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries(['Active'])
     })

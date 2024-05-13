@@ -1,6 +1,6 @@
-import { createDimensionsQuery } from '../useProgramDimensions.js'
+import { createDimensionsQuery } from '../useProgramDataDimensions.js'
 
-describe('ER > Dimensions > useProgramDimensions > createDimensionsQuery', () => {
+describe('ER > Dimensions > useProgramDataDimensions > createDimensionsQuery', () => {
     describe('input type event', () => {
         it('returns the correct resource', () => {
             const actual = createDimensionsQuery({

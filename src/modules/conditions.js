@@ -23,6 +23,7 @@ import {
     DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { formatDimensionId } from './dimensionId.js'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
 export const parseConditionsStringToArray = (conditionsString) =>
@@ -31,6 +32,9 @@ export const parseConditionsStringToArray = (conditionsString) =>
 // parse e.g. ['LT:25', 'GT:15'] to 'LT:25:GT:15'
 export const parseConditionsArrayToString = (conditionsArray) =>
     conditionsArray.join(':')
+
+export const parseCondition = (conditionItem) =>
+    conditionItem.split(':').pop().split(';')
 
 export const NULL_VALUE = 'NV'
 export const TRUE_VALUE = '1'
@@ -167,8 +171,13 @@ const getOperatorsByValueType = (valueType) => {
     }
 }
 
-const parseCondition = (conditionItem) =>
-    conditionItem.split(':').pop().split(';')
+const lookupOptionSetOptionMetadata = (optionSetId, code, metaData) => {
+    const optionSetMetaData = metaData?.[optionSetId]
+
+    return optionSetMetaData
+        ? optionSetMetaData.options?.find((option) => option.code === code)
+        : undefined
+}
 
 export const getConditionsTexts = ({
     conditions = {},
@@ -194,9 +203,14 @@ export const getConditionsTexts = ({
 
     if (dimension.optionSet && conditionsList[0]?.startsWith(OPERATOR_IN)) {
         const items = parseCondition(conditionsList[0])
+
         const itemNames = items.map(
             (code) =>
-                Object.values(metadata).find((item) => item.code === code)?.name
+                lookupOptionSetOptionMetadata(
+                    dimension.optionSet,
+                    code,
+                    metadata
+                )?.name
         )
         return itemNames
     }
@@ -258,3 +272,22 @@ export const getConditionsTexts = ({
 
     return parsedConditions
 }
+
+export const getConditionsFromVisualization = (vis) =>
+    [...vis.columns, ...vis.rows, ...vis.filters]
+        .filter((item) => item.filter || item.legendSet)
+        .reduce(
+            (acc, key) => ({
+                ...acc,
+                [formatDimensionId({
+                    dimensionId: key.dimension,
+                    programStageId: key.programStage?.id,
+                    programId: key.program?.id,
+                    outputType: vis.outputType,
+                })]: {
+                    condition: key.filter,
+                    legendSet: key.legendSet?.id,
+                },
+            }),
+            {}
+        )

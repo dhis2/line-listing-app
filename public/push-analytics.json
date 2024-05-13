@@ -1,0 +1,30 @@
+{
+    "version": "0.0.1",
+    "showVisualization": {
+        "strategy": "navigateToUrl",
+        "steps": [
+            { "goto": "{{appUrl}}/#/{{id}}" },
+            { "waitForSelector": ".push-analytics-linelist-table" }
+        ]
+    },
+    "triggerDownload": {
+        "strategy": "useUiElements",
+        "steps": [
+            { "click": ".push-analytics-download-dropdown-menu-button" },
+            { "click": ".push-analytics-download-as-html-css-menu-item" }
+        ]
+    },
+    "obtainDownloadArtifact": {
+        "strategy": "scrapeDownloadPage",
+        "modifyDownloadUrl": {
+            "searchValue": "&paging=false&",
+            "replaceValue": "&paging=true&pageSize=50&"
+        },
+        "htmlSelector": "body",
+        "cssSelector": "style"
+    },
+    "clearVisualization": {
+        "strategy": "navigateToUrl",
+        "steps": [{ "goto": "{{appUrl}}/#/new" }]
+    }
+}

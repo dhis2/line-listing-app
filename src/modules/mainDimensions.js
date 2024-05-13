@@ -1,34 +1,34 @@
-import {
-    DIMENSION_ID_ORGUNIT,
-    DIMENSION_TYPE_ORGANISATION_UNIT,
-} from '@dhis2/analytics'
+import { DIMENSION_TYPE_PERIOD } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
+    DIMENSION_ID_CREATED,
     DIMENSION_ID_CREATED_BY,
-    DIMENSION_ID_PROGRAM_STATUS,
-    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_LAST_UPDATED_BY,
-    DIMENSION_TYPE_STATUS,
     DIMENSION_TYPE_USER,
 } from './dimensionConstants.js'
-import { PROGRAM_TYPE_WITHOUT_REGISTRATION } from './programTypes.js'
-import { OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_EVENT } from './visualization.js'
+import { getDefaultOuMetadata } from './metadata.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from './visualization.js'
 
-export const getMainDimensions = () => ({
-    [DIMENSION_ID_ORGUNIT]: {
-        id: DIMENSION_ID_ORGUNIT,
-        dimensionType: DIMENSION_TYPE_ORGANISATION_UNIT,
-        name: i18n.t('Organisation unit'),
+export const getCreatedDimension = () => ({
+    [DIMENSION_ID_CREATED]: {
+        id: DIMENSION_ID_CREATED,
+        dimensionType: DIMENSION_TYPE_PERIOD,
+        name: i18n.t('Registration date'),
     },
-    [DIMENSION_ID_EVENT_STATUS]: {
-        id: DIMENSION_ID_EVENT_STATUS,
-        dimensionType: DIMENSION_TYPE_STATUS,
-        name: i18n.t('Event status'),
-    },
-    [DIMENSION_ID_PROGRAM_STATUS]: {
-        id: DIMENSION_ID_PROGRAM_STATUS,
-        dimensionType: DIMENSION_TYPE_STATUS,
-        name: i18n.t('Program status'),
+})
+
+export const getMainDimensions = (inputType) => ({
+    ...(inputType === OUTPUT_TYPE_TRACKED_ENTITY
+        ? {
+              ...getDefaultOuMetadata(inputType),
+              ...getCreatedDimension(),
+          }
+        : {}),
+    [DIMENSION_ID_LAST_UPDATED]: {
+        id: DIMENSION_ID_LAST_UPDATED,
+        dimensionType: DIMENSION_TYPE_PERIOD,
+        name: i18n.t('Last updated on'),
     },
     [DIMENSION_ID_CREATED_BY]: {
         id: DIMENSION_ID_CREATED_BY,
@@ -41,27 +41,3 @@ export const getMainDimensions = () => ({
         name: i18n.t('Last updated by'),
     },
 })
-
-export const getIsMainDimensionDisabled = ({
-    dimensionId,
-    inputType,
-    programType,
-}) => {
-    if (
-        dimensionId === DIMENSION_ID_PROGRAM_STATUS &&
-        inputType === OUTPUT_TYPE_EVENT
-    ) {
-        if (!programType) {
-            return i18n.t('No program selected')
-        } else if (programType === PROGRAM_TYPE_WITHOUT_REGISTRATION) {
-            return i18n.t('Not applicable to event programs')
-        }
-    } else if (
-        dimensionId === DIMENSION_ID_EVENT_STATUS &&
-        inputType === OUTPUT_TYPE_ENROLLMENT
-    ) {
-        return i18n.t('Not applicable to enrollments')
-    }
-
-    return false
-}

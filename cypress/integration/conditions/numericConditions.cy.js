@@ -1,3 +1,4 @@
+import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import { DIMENSION_ID_EVENT_DATE } from '../../../src/modules/dimensionConstants.js'
 import {
     E2E_PROGRAM,
@@ -13,15 +14,27 @@ import {
     TEST_DIM_WITH_PRESET,
 } from '../../data/index.js'
 import {
+    clickAddRemoveTrackedEntityTypeDimensions,
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
+    selectTrackedEntityWithType,
 } from '../../helpers/dimensions.js'
 import {
     assertChipContainsText,
     assertTooltipContainsEntries,
 } from '../../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../../helpers/menubar.js'
+import {
+    clickOrgUnitDimensionModalUpdateButton,
+    deselectUserOrgUnit,
+    expectOrgUnitDimensionModalToBeVisible,
+    expectOrgUnitDimensionToNotBeLoading,
+    openOrgUnitTreeItem,
+    openOuDimension,
+    selectOrgUnitTreeItem,
+} from '../../helpers/orgUnit.js'
 import {
     getPreviousYearStr,
     getCurrentYearStr,
@@ -43,21 +56,6 @@ const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 const stageName = 'Stage 1 - Repeatable'
 
-const setUpTable = (dimensionName, period) => {
-    selectEventWithProgramDimensions({ ...event, dimensions: [dimensionName] })
-
-    selectRelativePeriod({
-        label: periodLabel,
-        period,
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
-}
-
 const addConditions = (conditions, dimensionName) => {
     cy.getBySelLike('layout-chip').contains(dimensionName).click()
     conditions.forEach(({ conditionName, value }) => {
@@ -73,15 +71,8 @@ const addConditions = (conditions, dimensionName) => {
     cy.getBySel('conditions-modal').contains('Update').click()
 }
 
-/* This test doesn't look like it needs `testIsolation: false`
- * but start failing once this is removed */
-describe('number conditions', { testIsolation: false }, () => {
-    const dimensionName = TEST_DIM_NUMBER
-
-    beforeEach(() => {
-        goToStartPage()
-        setUpTable(dimensionName, TEST_REL_PE_THIS_YEAR)
-    })
+const testNumberConditions = (dimensionName, version) => {
+    const decimalNumber = version >= 41 ? '3.12' : '3.1'
 
     it('equal to', () => {
         addConditions(
@@ -91,7 +82,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['12'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
     })
@@ -104,7 +95,7 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['2 000 000', '5 557 779 990', '5 123 123'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
     })
@@ -121,7 +112,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -135,9 +126,9 @@ describe('number conditions', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '3.7'])
+        expectTableToMatchRows(['11', decimalNumber])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
     })
@@ -148,9 +139,9 @@ describe('number conditions', { testIsolation: false }, () => {
             dimensionName
         )
 
-        expectTableToMatchRows(['11', '12', '3.7'])
+        expectTableToMatchRows(['11', '12', decimalNumber])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -165,7 +156,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.7',
+            decimalNumber,
             '11',
             `${currentYear}-01-01`, // empty row, use value in date column
             '2 000 000',
@@ -173,7 +164,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
     })
@@ -189,7 +180,7 @@ describe('number conditions', { testIsolation: false }, () => {
             .invoke('trim')
             .should('equal', '')
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Is empty / null'])
     })
@@ -201,7 +192,7 @@ describe('number conditions', { testIsolation: false }, () => {
         )
 
         expectTableToMatchRows([
-            '3.7',
+            decimalNumber,
             '11',
             '12',
             '2 000 000',
@@ -209,7 +200,7 @@ describe('number conditions', { testIsolation: false }, () => {
             '5 123 123',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
     })
@@ -225,12 +216,246 @@ describe('number conditions', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['12'])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([
             stageName,
             'Greater than (>): 11',
             'Less than (<): 13',
+        ])
+    })
+}
+
+const prepareNumberConditions = (dimensionName) => {
+    goToStartPage()
+    selectEventWithProgramDimensions({
+        ...event,
+        dimensions: [dimensionName],
+    })
+
+    selectRelativePeriod({
+        label: periodLabel,
+        period: TEST_REL_PE_THIS_YEAR,
+    })
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    assertChipContainsText(dimensionName, 'all')
+}
+
+/* This test doesn't look like it needs `testIsolation: false`
+ * but start failing once this is removed */
+describe(['<41'], 'number conditions (event)', { testIsolation: false }, () => {
+    const dimensionName = TEST_DIM_NUMBER
+
+    beforeEach(() => {
+        prepareNumberConditions(dimensionName)
+    })
+
+    testNumberConditions(dimensionName, 40)
+})
+describe(
+    ['>=41'],
+    'number conditions (event)',
+    { testIsolation: false },
+    () => {
+        const dimensionName = TEST_DIM_NUMBER
+
+        beforeEach(() => {
+            prepareNumberConditions(dimensionName)
+        })
+
+        testNumberConditions(dimensionName, 41)
+    }
+)
+
+describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
+    const dimensionName = 'Age (years)'
+
+    beforeEach(() => {
+        // set up a TE LL with a dimension
+        goToStartPage()
+        selectTrackedEntityWithType('Malaria Entity')
+        cy.getBySel('main-sidebar')
+            .contains('Malaria Entity dimensions')
+            .click()
+        clickAddRemoveTrackedEntityTypeDimensions(dimensionName)
+        clickMenubarUpdateButton()
+
+        // expect the table to be visible and the dimension chip to be present
+        expectTableToBeVisible()
+        assertChipContainsText(dimensionName, 'all')
+    })
+
+    it('equal to', () => {
+        addConditions(
+            [{ conditionName: 'equal to (=)', value: '15' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['15'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Equal to (=): 15'])
+    })
+
+    it('greater than', () => {
+        addConditions(
+            [{ conditionName: 'greater than (>)', value: '43' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['46', '64'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Greater than (>): 43'])
+    })
+
+    it('greater than or equal to', () => {
+        addConditions(
+            [{ conditionName: 'greater than or equal to', value: '43' }],
+            dimensionName
+        )
+        expectTableToMatchRows(['43', '46', '64'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Greater than or equal to (≥): 43'])
+    })
+
+    it('less than', () => {
+        addConditions(
+            [{ conditionName: 'less than (<)', value: '11' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows([
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '6',
+            '9',
+            '9',
+        ])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Less than (<): 11'])
+    })
+
+    it('less than or equal to', () => {
+        addConditions(
+            [{ conditionName: 'less than or equal to', value: '11' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows([
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '0',
+            '6',
+            '9',
+            '9',
+            '11',
+        ])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Less than or equal to (≤): 11'])
+    })
+
+    it('not equal to', () => {
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        deselectUserOrgUnit('User organisation unit')
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Njandama MCHP')
+        clickOrgUnitDimensionModalUpdateButton()
+
+        addConditions(
+            [{ conditionName: 'not equal to', value: '11' }],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['0', '0', '26', '36'])
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Not equal to (≠): 11'])
+    })
+
+    it('is empty / null', () => {
+        clickAddRemoveTrackedEntityTypeDimensions('System Case ID')
+
+        addConditions([{ conditionName: 'is empty / null' }], dimensionName)
+
+        expectTableToMatchRows(['GFS397135', 'VCA989272', 'PVZ270497'])
+
+        getTableDataCells()
+            .eq(1)
+            .invoke('text')
+            .invoke('trim')
+            .should('equal', '')
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Is empty / null'])
+    })
+
+    it('is not empty / not null', () => {
+        openOuDimension(DIMENSION_ID_ORGUNIT)
+        expectOrgUnitDimensionModalToBeVisible()
+        expectOrgUnitDimensionToNotBeLoading()
+        deselectUserOrgUnit('User organisation unit')
+        openOrgUnitTreeItem('Bo')
+        openOrgUnitTreeItem('Badjia')
+        selectOrgUnitTreeItem('Ngelehun CHC')
+        clickOrgUnitDimensionModalUpdateButton()
+
+        getTableRows().should('have.length', 32)
+
+        addConditions(
+            [{ conditionName: 'is not empty / not null' }],
+            dimensionName
+        )
+
+        getTableRows().should('have.length', 29)
+
+        assertChipContainsText(dimensionName, 1)
+
+        assertTooltipContainsEntries(['Is not empty / not null'])
+    })
+
+    it('2 conditions: greater than + less than', () => {
+        addConditions(
+            [
+                { conditionName: 'greater than (>)', value: '21' },
+                { conditionName: 'less than (<)', value: '24' },
+            ],
+            dimensionName
+        )
+
+        expectTableToMatchRows(['23'])
+
+        assertChipContainsText(dimensionName, 2)
+
+        assertTooltipContainsEntries([
+            'Greater than (>): 21',
+            'Less than (<): 24',
         ])
     })
 })
@@ -242,7 +467,22 @@ describe('integer', { testIsolation: false }, () => {
 
     beforeEach(() => {
         goToStartPage()
-        setUpTable(dimensionName, TEST_REL_PE_LAST_YEAR)
+
+        selectEventWithProgramDimensions({
+            ...event,
+            dimensions: [dimensionName],
+        })
+
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_LAST_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        assertChipContainsText(dimensionName, 'all')
     })
 
     it('integer with negative value', () => {
@@ -253,7 +493,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '1', '0', '35', '0', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): -1'])
     })
@@ -266,7 +506,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '35', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 1'])
     })
@@ -279,7 +519,7 @@ describe('integer', { testIsolation: false }, () => {
 
         expectTableToMatchRows(['56', '1', '35', '45', '46'])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
     })
@@ -315,6 +555,7 @@ describe('preset options', { testIsolation: false }, () => {
         goToStartPage()
 
         selectEventWithProgram(E2E_PROGRAM)
+        openProgramDimensionsSidebar()
         openDimension(dimensionName)
         cy.contains('Add to Columns').click()
 
@@ -327,7 +568,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
     })
 
     it('set only', () => {
@@ -353,7 +594,7 @@ describe('preset options', { testIsolation: false }, () => {
             '40 - 50',
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, TEST_PRESET])
     })
@@ -370,7 +611,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         expectTableToMatchRows([TEST_VALUE, TEST_VALUE])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, TEST_VALUE])
     })
@@ -406,6 +647,7 @@ describe('numeric types', { testIsolation: false }, () => {
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
+            openProgramDimensionsSidebar()
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()
