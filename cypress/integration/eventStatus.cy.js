@@ -37,7 +37,7 @@ describe('event status (event)', () => {
         clickAddRemoveProgramDimension(dimensionName)
     }
 
-    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
+    it('can be filtered by status SCHEDULED', () => {
         setUpTable()
 
         selectFixedPeriod({
