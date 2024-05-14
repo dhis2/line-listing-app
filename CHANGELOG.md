@@ -1,3 +1,11 @@
+## [100.17.1](https://github.com/dhis2/line-listing-app/compare/v100.17.0...v100.17.1) (2024-05-14)
+
+
+### Bug Fixes
+
+* system / user setting for display name not respected in Org Unit tree (DHIS2-15000) ([#509](https://github.com/dhis2/line-listing-app/issues/509)) ([a1e737d](https://github.com/dhis2/line-listing-app/commit/a1e737d2aec9bb633985215948fd87ce7432e464))
+* **translations:** sync translations from transifex (master) ([385feee](https://github.com/dhis2/line-listing-app/commit/385feee671bc5e8779ffd31060366674457b5bc4))
+
 # [100.17.0](https://github.com/dhis2/line-listing-app/compare/v100.16.2...v100.17.0) (2024-04-25)
 
 
