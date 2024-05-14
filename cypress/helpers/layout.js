@@ -27,8 +27,29 @@ export const expectAxisToNotHaveDimension = (axisId, dimensionId) => {
 export const assertTooltipContainsEntries = (entries) =>
     entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
 
-export const assertChipContainsText = (suffix) =>
-    cy
-        .getBySelLike('layout-chip')
-        .contains(suffix, EXTENDED_TIMEOUT)
+export const assertChipContainsText = (primary, items, secondary) => {
+    if (items) {
+        cy.getBySelLike('layout-chip')
+            .containsExact(primary, EXTENDED_TIMEOUT)
+            .parent()
+            .parent()
+            .findBySelLike('chip-items')
+            .contains(items, EXTENDED_TIMEOUT)
+    } else {
+        cy.getBySelLike('layout-chip')
+            .containsExact(primary, EXTENDED_TIMEOUT)
+            .parent()
+            .parent()
+            .findBySelLike('chip-items')
+            .should('not.exist')
+    }
+    if (secondary) {
+        cy.getBySelLike('layout-chip').containsExact(
+            secondary,
+            EXTENDED_TIMEOUT
+        )
+    }
+    cy.getBySelLike('layout-chip')
+        .containsExact(primary, EXTENDED_TIMEOUT)
         .trigger('mouseover')
+}

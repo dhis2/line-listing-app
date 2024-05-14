@@ -34,6 +34,11 @@
     width: 4px;
     background: linear-gradient(180deg, #1565c0 0%, #0650a3 100%);
 }
+.container.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
 .icon {
     flex-grow: 0;
     display: flex;
@@ -41,12 +46,17 @@
     margin-right: 2px;
     color: var(--colors-grey700);
 }
-.label {
+.labelWrapper {
     flex-grow: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     font-size: 14px;
     line-height: 16px;
+    overflow: hidden;
+}
+.label {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .count {
     flex-grow: 0;
@@ -68,4 +78,11 @@
 .chevron {
     height: 16px;
     min-width: 16px;
+}
+.subtitle {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-top: var(--spacers-dp4);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -17,7 +17,7 @@ import {
     acSetUiDraggingId,
 } from '../actions/ui.js'
 import { getConditionsTexts } from '../modules/conditions.js'
-import { extractDimensionIdParts } from '../modules/utils.js'
+import { extractDimensionIdParts } from '../modules/dimensionId.js'
 import { sGetMetadata } from '../reducers/metadata.js'
 import {
     sGetUiLayout,
@@ -25,6 +25,7 @@ import {
     sGetUiDraggingId,
     sGetUiConditionsByDimension,
     sGetUiOptions,
+    sGetUiInputType,
 } from '../reducers/ui.js'
 import styles from './DndContext.module.css'
 import { ChipBase } from './Layout/ChipBase.js'
@@ -123,6 +124,7 @@ const OuterDndContext = ({ children }) => {
     const id = draggingId ? getIdFromDraggingId(draggingId) : null
 
     const layout = useSelector(sGetUiLayout)
+    const inputType = useSelector(sGetUiInputType)
     const metadata = useSelector(sGetMetadata)
     const chipItems = useSelector((state) => sGetUiItemsByDimension(state, id))
     const chipConditions = useSelector((state) =>
@@ -191,6 +193,8 @@ const OuterDndContext = ({ children }) => {
                     dimension={dimension}
                     conditionsLength={conditionsTexts.length}
                     itemsLength={chipItems.length}
+                    inputType={inputType}
+                    axisId={sourceAxis}
                 />
             </div>
         )

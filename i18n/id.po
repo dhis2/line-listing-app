@@ -1,21 +1,20 @@
 # 
 # Translators:
 # Raja Fathurrahim, 2022
-# Carwoto Sa'an <carwoto@gmail.com>, 2022
-# phil_dhis2, 2022
-# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2022
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2022
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2022
-# Viktor Varland <viktor@dhis2.org>, 2022
 # Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2022
-# Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2023
+# Carwoto Sa'an <carwoto@gmail.com>, 2023
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2024
+# Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
+# Philip Larsen Donnelly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2023\n"
+"Last-Translator: Philip Larsen Donnelly, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -176,14 +175,6 @@ msgstr "Unduh"
 msgid "all"
 msgstr ""
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} terpilih"
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] ""
-
 msgid "Levels"
 msgstr "Level"
 
@@ -197,16 +188,22 @@ msgstr[0] ""
 msgid "None selected"
 msgstr "Tidak ada yang terpilih"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -226,6 +223,9 @@ msgstr "Even"
 msgid "Enrollment"
 msgstr "Pendaftaran"
 
+msgid "Tracked entity"
+msgstr "Entitas dilacak"
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -233,16 +233,25 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
-msgstr "Dimensi utama"
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -266,6 +275,12 @@ msgstr "Kategori"
 msgid "Category option group set"
 msgstr ""
 
+msgid "Choose an input to get started adding program dimensions."
+msgstr ""
+
+msgid "Program"
+msgstr "Program"
+
 msgid "Could not load programs"
 msgstr ""
 
@@ -274,20 +289,11 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
-msgstr ""
-
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
+msgid "No programs found"
 msgstr ""
-
-msgid "Clear"
-msgstr "Hapus"
 
 msgid "Stage"
 msgstr "Stage"
@@ -295,14 +301,34 @@ msgstr "Stage"
 msgid "All"
 msgstr "Semua"
 
-msgid "Clear stage first to choose another"
+msgid "No stages found"
 msgstr ""
 
-msgid "This program only has one stage"
+msgid "Could not load types"
 msgstr ""
 
-msgid "Time dimensions"
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
 msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Hapus"
+
+msgid "Search dimensions"
+msgstr "Cari dimensi"
 
 msgid "Your dimensions"
 msgstr "Dimensi Anda"
@@ -322,8 +348,8 @@ msgstr "Visualisasi belum disimpan"
 msgid "Edited"
 msgstr "Diedit"
 
-msgid "Interpretations"
-msgstr "Interpretasi"
+msgid "Line list"
+msgstr "Daftar garis"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
@@ -383,7 +409,15 @@ msgstr ""
 msgid "Not available offline"
 msgstr ""
 
-msgid "Sort by {{column}}"
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -494,6 +528,9 @@ msgstr ""
 msgid "Show legend key"
 msgstr ""
 
+msgid "Skip rounding"
+msgstr "Jangan bulatkan"
+
 msgid "Add a title"
 msgstr "Tambahkan judul"
 
@@ -588,16 +625,16 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr ""
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -614,44 +651,45 @@ msgid ""
 " to the layout."
 msgstr ""
 
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
-
 msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
-msgid "No access"
-msgstr "Tidak ada akses"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
 
 msgid "Something went wrong"
 msgstr "Terjadi kesalahan"
 
-msgid "Organisation unit"
-msgstr "Unit organisasi"
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
 
-msgid "Event status"
-msgstr "Status Even"
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
 
-msgid "Program status"
-msgstr "Status program"
+msgid "Registration date"
+msgstr "Tanggal pendaftaran"
+
+msgid "Last updated on"
+msgstr ""
 
 msgid "Created by"
 msgstr "Dibuat oleh"
 
 msgid "Last updated by"
-msgstr ""
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
 msgstr ""
 
 msgid "User organisation unit"
@@ -662,6 +700,12 @@ msgstr "Subunit pengguna"
 
 msgid "User sub-x2-units"
 msgstr "Sub-x2-unit pengguna"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Unit organisasi"
 
 msgid "Table title"
 msgstr "Judul tabel"
@@ -690,6 +734,12 @@ msgstr ""
 msgid "Style"
 msgstr "Gaya"
 
+msgid "Event status"
+msgstr "Status Even"
+
+msgid "Program status"
+msgstr "Status program"
+
 msgid "most recent"
 msgstr ""
 
@@ -712,18 +762,6 @@ msgid "Incident date"
 msgstr "Tanggal insiden"
 
 msgid "Scheduled date"
-msgstr ""
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
 msgstr ""
 
 msgid "Active"

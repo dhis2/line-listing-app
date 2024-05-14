@@ -1,3 +1,209 @@
+# [100.17.0](https://github.com/dhis2/line-listing-app/compare/v100.16.2...v100.17.0) (2024-04-25)
+
+
+### Bug Fixes
+
+* show empty cell for missing boolean values as well ([#466](https://github.com/dhis2/line-listing-app/issues/466)) ([db706cc](https://github.com/dhis2/line-listing-app/commit/db706cc0a651c026419bea73c7f069449c060e47))
+
+
+### Features
+
+* persist sorting information in AO (DHIS2-14955) ([#382](https://github.com/dhis2/line-listing-app/issues/382)) ([718ed86](https://github.com/dhis2/line-listing-app/commit/718ed867c25434d0ccfff956f86ad04fc0088149))
+
+## [100.16.2](https://github.com/dhis2/line-listing-app/compare/v100.16.1...v100.16.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* main dimensions not translated in line lists (DHIS2-15878) ([#502](https://github.com/dhis2/line-listing-app/issues/502)) ([d3639b2](https://github.com/dhis2/line-listing-app/commit/d3639b2be28e849cd84a6b1396450acb23a4b392))
+
+## [100.16.1](https://github.com/dhis2/line-listing-app/compare/v100.16.0...v100.16.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* paragraph newlines are not rendered in LL description ([#504](https://github.com/dhis2/line-listing-app/issues/504)) ([01d5703](https://github.com/dhis2/line-listing-app/commit/01d57031c2faf5a57bdef27536f033b5321e9806))
+
+# [100.16.0](https://github.com/dhis2/line-listing-app/compare/v100.15.1...v100.16.0) (2024-04-12)
+
+
+### Features
+
+* tracked entity input (DHIS2-16023) ([#451](https://github.com/dhis2/line-listing-app/issues/451)) ([a59f19e](https://github.com/dhis2/line-listing-app/commit/a59f19e423189d4e59c66dd6f006769fce716645))
+
+## [100.15.1](https://github.com/dhis2/line-listing-app/compare/v100.15.0...v100.15.1) (2024-03-01)
+
+
+### Bug Fixes
+
+* **push-analytics:** add push analytics instructions ([#491](https://github.com/dhis2/line-listing-app/issues/491)) ([1db932c](https://github.com/dhis2/line-listing-app/commit/1db932c3fde54c7a385569891985f922877a67b0))
+
+# [100.15.0](https://github.com/dhis2/line-listing-app/compare/v100.14.0...v100.15.0) (2024-01-30)
+
+
+### Features
+
+* add skip rounding option (DHIS2-15629) ([#424](https://github.com/dhis2/line-listing-app/issues/424)) ([4ddbed9](https://github.com/dhis2/line-listing-app/commit/4ddbed99dda19d15933c1329eec281d542a0a9d4))
+
+# [100.14.0](https://github.com/dhis2/line-listing-app/compare/v100.13.1...v100.14.0) (2024-01-29)
+
+
+### Features
+
+* add class-names for push-analytics ([#485](https://github.com/dhis2/line-listing-app/issues/485)) ([b0836cc](https://github.com/dhis2/line-listing-app/commit/b0836ccdc88df1a625d2e36ffc18be3337e0dd3e))
+
+## [100.13.1](https://github.com/dhis2/line-listing-app/compare/v100.13.0...v100.13.1) (2024-01-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([0e27c48](https://github.com/dhis2/line-listing-app/commit/0e27c48849fc7fa2348afc623863da14b1cad698))
+
+# [100.13.0](https://github.com/dhis2/line-listing-app/compare/v100.12.1...v100.13.0) (2024-01-17)
+
+
+### Features
+
+* enable legend toggle button for LL dashboard items (DHIS2-15358) ([#443](https://github.com/dhis2/line-listing-app/issues/443)) ([c14551d](https://github.com/dhis2/line-listing-app/commit/c14551d6af91b04637ccf468b031d671e58f8c36))
+
+## [100.12.1](https://github.com/dhis2/line-listing-app/compare/v100.12.0...v100.12.1) (2024-01-14)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f232d4e](https://github.com/dhis2/line-listing-app/commit/f232d4ee006069ca4230028f3cb3816b6495a146))
+
+# [100.12.0](https://github.com/dhis2/line-listing-app/compare/v100.11.4...v100.12.0) (2024-01-12)
+
+
+### Features
+
+* updated chip design (DHIS2-15897) ([#478](https://github.com/dhis2/line-listing-app/issues/478)) ([eeba81f](https://github.com/dhis2/line-listing-app/commit/eeba81f3846ac90caf159caf26813a81e4a05682)), closes [#464](https://github.com/dhis2/line-listing-app/issues/464) [#464](https://github.com/dhis2/line-listing-app/issues/464)
+
+## [100.11.4](https://github.com/dhis2/line-listing-app/compare/v100.11.3...v100.11.4) (2023-12-10)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b356aa5](https://github.com/dhis2/line-listing-app/commit/b356aa51952428b721c32f000ced94e58c5b2970))
+
+## [100.11.3](https://github.com/dhis2/line-listing-app/compare/v100.11.2...v100.11.3) (2023-12-08)
+
+
+### Bug Fixes
+
+* add custom errors for analytics requests ([#445](https://github.com/dhis2/line-listing-app/issues/445)) ([cecd9a5](https://github.com/dhis2/line-listing-app/commit/cecd9a5864ce70909d3f9e6e60ba92d91cb3b44d))
+
+## [100.11.2](https://github.com/dhis2/line-listing-app/compare/v100.11.1...v100.11.2) (2023-12-07)
+
+
+### Bug Fixes
+
+* orgunits are not restored in the orgunit tree (DHIS2-16249) ([#465](https://github.com/dhis2/line-listing-app/issues/465)) ([675add4](https://github.com/dhis2/line-listing-app/commit/675add4e4f332f6170a344370e71bf164e17f202))
+
+## [100.11.1](https://github.com/dhis2/line-listing-app/compare/v100.11.0...v100.11.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* visualization deleted when saving it after copy (DHIS2-15722) ([#433](https://github.com/dhis2/line-listing-app/issues/433)) ([f505c50](https://github.com/dhis2/line-listing-app/commit/f505c500d77577d4f7c747dad6599735c8f8578d))
+
+# [100.11.0](https://github.com/dhis2/line-listing-app/compare/v100.10.6...v100.11.0) (2023-11-30)
+
+
+### Features
+
+* distinguish non-existent repetitions from empty values in line lists (DHIS2-15767) ([#427](https://github.com/dhis2/line-listing-app/issues/427)) ([675118d](https://github.com/dhis2/line-listing-app/commit/675118de9f14730f18cee1a0faa5313c7dba067d))
+
+## [100.10.6](https://github.com/dhis2/line-listing-app/compare/v100.10.5...v100.10.6) (2023-11-27)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([e89fd9d](https://github.com/dhis2/line-listing-app/commit/e89fd9d4ced20b644b77f4ebe143fb875999ac1b))
+
+## [100.10.5](https://github.com/dhis2/line-listing-app/compare/v100.10.4...v100.10.5) (2023-11-23)
+
+
+### Bug Fixes
+
+* handle options with non-unique codes across optionsets (DHIS2-15771) ([#426](https://github.com/dhis2/line-listing-app/issues/426)) ([37e3e69](https://github.com/dhis2/line-listing-app/commit/37e3e694acc114b524cd284428bacc307602b12c))
+
+## [100.10.4](https://github.com/dhis2/line-listing-app/compare/v100.10.3...v100.10.4) (2023-11-05)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([db0115f](https://github.com/dhis2/line-listing-app/commit/db0115f72c88c3355562f847e1134cfc4873ac04))
+
+## [100.10.3](https://github.com/dhis2/line-listing-app/compare/v100.10.2...v100.10.3) (2023-11-01)
+
+
+### Bug Fixes
+
+* your- and program-dimensions list lazy loading ([#453](https://github.com/dhis2/line-listing-app/issues/453)) ([a7341f8](https://github.com/dhis2/line-listing-app/commit/a7341f8de1d1cb25d07bdb19f05121c1ddacb9c2))
+
+## [100.10.2](https://github.com/dhis2/line-listing-app/compare/v100.10.1...v100.10.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* **deps:** platform fixes for login redirect [DHIS2-15320] ([#366](https://github.com/dhis2/line-listing-app/issues/366)) ([dde8a92](https://github.com/dhis2/line-listing-app/commit/dde8a923fc2635664cc82ed01449a8e1f5c71301))
+
+## [100.10.1](https://github.com/dhis2/line-listing-app/compare/v100.10.0...v100.10.1) (2023-10-30)
+
+
+### Bug Fixes
+
+* allow opening interpretations for AOs without a time dimension (DHIS2-15781) ([7c8239d](https://github.com/dhis2/line-listing-app/commit/7c8239d01ba9c56ac0ff5ad01a7032773babb06d))
+* correctly center the table spinner (DHIS2-13947, DHIS2-13946) ([0bea200](https://github.com/dhis2/line-listing-app/commit/0bea2007a3c6d1607e9592411f06c99b40892d61))
+* take legend-key into account when computing pagination max-width (DHIS2-15465) ([9445d6a](https://github.com/dhis2/line-listing-app/commit/9445d6a5481971a2a18a929c35f59b09f29a7924))
+* upgrade @dhis2/analytics to latest ([52027a0](https://github.com/dhis2/line-listing-app/commit/52027a0946feb57c1ecb045c24de20332ccae2a8))
+
+# [100.10.0](https://github.com/dhis2/line-listing-app/compare/v100.9.5...v100.10.0) (2023-10-26)
+
+
+### Features
+
+* event/enrollment ui changes to prepare for TEI cross-program support (DHIS2-15454) ([#415](https://github.com/dhis2/line-listing-app/issues/415)) ([53fa071](https://github.com/dhis2/line-listing-app/commit/53fa071aeee37b537563d8ac2fb76d9959ab9931))
+
+## [100.9.5](https://github.com/dhis2/line-listing-app/compare/v100.9.4...v100.9.5) (2023-10-22)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([9c1e50f](https://github.com/dhis2/line-listing-app/commit/9c1e50fafb4e5582d7fcd045fee720d8b119fd99))
+
+## [100.9.4](https://github.com/dhis2/line-listing-app/compare/v100.9.3...v100.9.4) (2023-10-03)
+
+
+### Bug Fixes
+
+* make "greater than or equal to" render on a single line for conditions (DHIS2-14030) ([#430](https://github.com/dhis2/line-listing-app/issues/430)) ([4886533](https://github.com/dhis2/line-listing-app/commit/488653342a92828255fdb0b8604df89adc97b6b2))
+
+## [100.9.3](https://github.com/dhis2/line-listing-app/compare/v100.9.2...v100.9.3) (2023-10-03)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([3aa158d](https://github.com/dhis2/line-listing-app/commit/3aa158de83d4786d17f1210a513cada97af32838))
+* ensure pagination max-width is correct in interpretations modal ([#434](https://github.com/dhis2/line-listing-app/issues/434)) ([2b733f1](https://github.com/dhis2/line-listing-app/commit/2b733f16c426617469c4c43aeaec5d9c0f049923))
+* lack of access show the generic "something went wrong" error (DHIS2-15737) ([#429](https://github.com/dhis2/line-listing-app/issues/429)) ([995ae74](https://github.com/dhis2/line-listing-app/commit/995ae7483d67a0b73a55dafa75f3fafae1a41727))
+
+## [100.9.2](https://github.com/dhis2/line-listing-app/compare/v100.9.1...v100.9.2) (2023-09-15)
+
+
+### Bug Fixes
+
+* always have the full pagination in view ([#431](https://github.com/dhis2/line-listing-app/issues/431)) ([05d3d79](https://github.com/dhis2/line-listing-app/commit/05d3d7921577a3a8d357c3e28aaf4ca0f952525e))
+
+## [100.9.1](https://github.com/dhis2/line-listing-app/compare/v100.9.0...v100.9.1) (2023-08-21)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#422](https://github.com/dhis2/line-listing-app/issues/422)) ([2556576](https://github.com/dhis2/line-listing-app/commit/255657693998969a3489132d42357d7edc1763a0))
+
 # [100.9.0](https://github.com/dhis2/line-listing-app/compare/v100.8.2...v100.9.0) (2023-08-09)
 
 

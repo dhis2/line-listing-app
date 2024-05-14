@@ -19,12 +19,18 @@ export const E2E_PROGRAM = {
 
 export const CHILD_PROGRAM = {
     programName: 'Child Programme',
-    stageName: 'Birth',
+    //stageName: 'Birth', // auto-selected as it's the first one
     [DIMENSION_ID_EVENT_DATE]: 'Report date',
     [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
     [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
     [DIMENSION_ID_INCIDENT_DATE]: 'Date of birth',
     [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
+}
+
+export const WHO_RMNCH_TRACKER_PROGRAM = {
+    programName: 'WHO RMNCH Tracker',
+    stageName: 'Care at birth',
+    [DIMENSION_ID_EVENT_DATE]: 'Date of visit',
 }
 
 export const TEST_AO = {
@@ -80,6 +86,11 @@ export const TEST_REL_PE_THIS_YEAR = {
 export const TEST_REL_PE_LAST_YEAR = {
     type: 'Years',
     name: 'Last year',
+}
+
+export const TEST_REL_PE_LAST_5_YEARS = {
+    type: 'Years',
+    name: 'Last 5 years',
 }
 
 export const TEST_FIX_PE_DEC_LAST_YEAR = {

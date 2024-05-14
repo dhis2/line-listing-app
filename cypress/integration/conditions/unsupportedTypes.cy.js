@@ -7,6 +7,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../../helpers/dimensions.js'
 import {
@@ -24,6 +25,8 @@ const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
     selectEventWithProgram(event)
+
+    openProgramDimensionsSidebar()
 
     selectRelativePeriod({
         label: periodLabel,
@@ -52,6 +55,8 @@ describe('unsupported types', () => {
 
             selectEventWithProgram(E2E_PROGRAM)
 
+            openProgramDimensionsSidebar()
+
             openDimension(type.dimension)
 
             cy.getBySel('button-add-condition').should('not.exist')
@@ -62,7 +67,7 @@ describe('unsupported types', () => {
 
             cy.getBySel('conditions-modal').contains('Add to Columns').click()
 
-            assertChipContainsText(`${type.dimension}: all`)
+            assertChipContainsText(type.dimension, 'all')
 
             assertTooltipContainsEntries([
                 stageName,

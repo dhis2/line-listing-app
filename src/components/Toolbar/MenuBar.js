@@ -3,6 +3,7 @@ import {
     getDisplayNameByVisType,
     useCachedDataQuery,
     FileMenu,
+    preparePayloadForSaveAs,
     HoverMenuBar,
 } from '@dhis2/analytics'
 import { useAlert, useDataMutation } from '@dhis2/app-runtime'
@@ -165,9 +166,9 @@ export const MenuBar = ({ onFileMenuAction }) => {
         }
 
         if (copy) {
-            delete visualization.id
-
-            postVisualization({ visualization })
+            postVisualization({
+                visualization: preparePayloadForSaveAs(visualization),
+            })
         } else {
             putVisualization({ visualization })
         }
@@ -239,7 +240,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                         getVisualizationState(current, visualization)
                     ) &&
                     isLayoutValidForSave({
-                        program: current?.program,
+                        ...current,
                         legacy: visualization?.legacy,
                     })
                         ? onSave

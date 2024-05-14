@@ -9,6 +9,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
     selectEventWithProgramDimensions,
 } from '../../helpers/dimensions.js'
@@ -22,6 +23,7 @@ import {
     getPreviousYearStr,
     unselectAllPeriods,
     selectFixedPeriod,
+    getOffsetYearStr,
 } from '../../helpers/period.js'
 import { goToStartPage } from '../../helpers/startScreen.js'
 import {
@@ -77,7 +79,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('exactly', () => {
-        const TEST_DATE = '1991-05-21'
+        const TEST_DATE = `${getOffsetYearStr(32)}-05-21`
 
         addConditions([
             {
@@ -88,13 +90,13 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         expectTableToMatchRows([TEST_DATE])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
     })
 
     it('is not', () => {
-        const TEST_DATE = '1991-05-20'
+        const TEST_DATE = `${getOffsetYearStr(32)}-05-20`
 
         addConditions([
             {
@@ -103,15 +105,19 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-05-21', '1991-12-01', '1991-12-02'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-05-21`,
+            `${getOffsetYearStr(32)}-12-01`,
+            `${getOffsetYearStr(32)}-12-02`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
     })
 
     it('after', () => {
-        const TEST_DATE = '1991-05-21'
+        const TEST_DATE = `${getOffsetYearStr(32)}-05-21`
 
         addConditions([
             {
@@ -120,15 +126,18 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-12-01', '1991-12-02'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-12-01`,
+            `${getOffsetYearStr(32)}-12-02`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `After: ${TEST_DATE}`])
     })
 
     it('after or including', () => {
-        const TEST_DATE = '1991-05-21'
+        const TEST_DATE = `${getOffsetYearStr(32)}-05-21`
 
         addConditions([
             {
@@ -137,9 +146,13 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-05-21', '1991-12-01', '1991-12-02'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-05-21`,
+            `${getOffsetYearStr(32)}-12-01`,
+            `${getOffsetYearStr(32)}-12-02`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -148,7 +161,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
     })
 
     it('before', () => {
-        const TEST_DATE = '1991-12-02'
+        const TEST_DATE = `${getOffsetYearStr(32)}-12-02`
 
         addConditions([
             {
@@ -157,15 +170,19 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-05-20', '1991-05-21', '1991-12-01'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-05-20`,
+            `${getOffsetYearStr(32)}-05-21`,
+            `${getOffsetYearStr(32)}-12-01`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Before: ${TEST_DATE}`])
     })
 
     it('before or including', () => {
-        const TEST_DATE = '1991-05-21'
+        const TEST_DATE = `${getOffsetYearStr(32)}-05-21`
 
         addConditions([
             {
@@ -174,9 +191,12 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-05-20', '1991-05-21'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-05-20`,
+            `${getOffsetYearStr(32)}-05-21`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([
             stageName,
@@ -204,7 +224,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         expectTableToMatchRows([`${previousYear}-01-02`])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is empty / null`])
     })
@@ -228,22 +248,22 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
         ])
 
         expectTableToMatchRows([
-            '1990-07-17',
-            '1990-11-12',
-            '1991-12-01',
-            '1991-12-02',
-            '1991-05-20',
-            '1991-05-21',
+            `${getOffsetYearStr(33)}-07-17`,
+            `${getOffsetYearStr(33)}-11-12`,
+            `${getOffsetYearStr(32)}-12-01`,
+            `${getOffsetYearStr(32)}-12-02`,
+            `${getOffsetYearStr(32)}-05-20`,
+            `${getOffsetYearStr(32)}-05-21`,
         ])
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, `Is not empty / not null`])
     })
 
     it('2 conditions: after + before or including', () => {
-        const TEST_DATE_AFT = '1991-05-20'
-        const TEST_DATE_BFI = '1991-12-01'
+        const TEST_DATE_AFT = `${getOffsetYearStr(32)}-05-20`
+        const TEST_DATE_BFI = `${getOffsetYearStr(32)}-12-01`
 
         addConditions([
             {
@@ -256,9 +276,12 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
             },
         ])
 
-        expectTableToMatchRows(['1991-05-21', '1991-12-01'])
+        expectTableToMatchRows([
+            `${getOffsetYearStr(32)}-05-21`,
+            `${getOffsetYearStr(32)}-12-01`,
+        ])
 
-        assertChipContainsText(`${dimensionName}: 2 conditions`)
+        assertChipContainsText(dimensionName, 2)
 
         assertTooltipContainsEntries([
             stageName,
@@ -289,6 +312,7 @@ describe('date types', { testIsolation: false }, () => {
             goToStartPage()
 
             selectEventWithProgram(E2E_PROGRAM)
+            openProgramDimensionsSidebar()
             openDimension(type)
 
             cy.getBySel('button-add-condition').click()

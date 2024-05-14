@@ -1,15 +1,15 @@
 # 
 # Translators:
-# phil_dhis2, 2022
-# Hamza Assada <7amza.it@gmail.com>, 2023
-# Viktor Varland <viktor@dhis2.org>, 2023
+# Hamza Assada <7amza.it@gmail.com>, 2024
+# Philip Larsen Donnelly, 2024
+# Viktor Varland <viktor@dhis2.org>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2023\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,24 +170,6 @@ msgstr "تنزيل"
 msgid "all"
 msgstr ""
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "تم تحديد {{count}}"
-msgstr[1] "تم تحديد {{count}}"
-msgstr[2] "تم تحديد {{count}}"
-msgstr[3] "تم تحديد {{count}}"
-msgstr[4] "تم تحديد {{count}}"
-msgstr[5] "تم تحديد {{count}}"
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
-
 msgid "Levels"
 msgstr "المستويات"
 
@@ -206,16 +188,22 @@ msgstr[5] ""
 msgid "None selected"
 msgstr "غير محدد"
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -235,6 +223,9 @@ msgstr "حدث"
 msgid "Enrollment"
 msgstr "التسجيل"
 
+msgid "Tracked entity"
+msgstr "الكيان المتتبع"
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -242,16 +233,25 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
-msgstr "الأبعاد الرئيسية"
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
 
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -275,6 +275,12 @@ msgstr "الفئة"
 msgid "Category option group set"
 msgstr "حزمة مجموعات خيارات الفئة"
 
+msgid "Choose an input to get started adding program dimensions."
+msgstr ""
+
+msgid "Program"
+msgstr "البرنامج"
+
 msgid "Could not load programs"
 msgstr ""
 
@@ -283,20 +289,11 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
-msgstr ""
-
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
+msgid "No programs found"
 msgstr ""
-
-msgid "Clear"
-msgstr "مسح"
 
 msgid "Stage"
 msgstr "المرحلة"
@@ -304,14 +301,34 @@ msgstr "المرحلة"
 msgid "All"
 msgstr "الجميع"
 
-msgid "Clear stage first to choose another"
+msgid "No stages found"
 msgstr ""
 
-msgid "This program only has one stage"
+msgid "Could not load types"
 msgstr ""
 
-msgid "Time dimensions"
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
 msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "Search dimensions"
+msgstr "أبعاد البحث"
 
 msgid "Your dimensions"
 msgstr "الأبعاد الخاصة بك"
@@ -331,8 +348,8 @@ msgstr "مخطط عرض غير محفوظ"
 msgid "Edited"
 msgstr "تم التعديل"
 
-msgid "Interpretations"
-msgstr "التفسيرات"
+msgid "Line list"
+msgstr "قائمة سطور"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr ""
@@ -392,7 +409,15 @@ msgstr ""
 msgid "Not available offline"
 msgstr "غير متوفر في وضع عدم الإتصال"
 
-msgid "Sort by {{column}}"
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -503,6 +528,9 @@ msgstr "عرض التسلسل الهرمي للوحدة التنظيمية"
 msgid "Show legend key"
 msgstr "إظهار المفتاح الإيضاحي"
 
+msgid "Skip rounding"
+msgstr "تخطي التقريب"
+
 msgid "Add a title"
 msgstr "إضافة عنوان"
 
@@ -601,16 +629,16 @@ msgstr ""
 "تعذر العثور على المرئيات التي تحاول عرضها، ربما يكون الـ ID غير صحيح أو ربما"
 " تم حذفه."
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -627,45 +655,46 @@ msgid ""
 " to the layout."
 msgstr ""
 
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
-
 msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
-msgid "No access"
-msgstr "لا يمكن الوصول"
+msgid "Restricted access"
+msgstr ""
 
-msgid "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
 
 msgid "Something went wrong"
 msgstr "حدث خطأ ما"
 
-msgid "Organisation unit"
-msgstr "الوحدة التنظيمية"
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
 
-msgid "Event status"
-msgstr "حالة الحدث"
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
 
-msgid "Program status"
-msgstr "حالة البرنامج"
+msgid "Registration date"
+msgstr "تاريخ التسجيل"
+
+msgid "Last updated on"
+msgstr ""
 
 msgid "Created by"
 msgstr "تم الإنشاء بواسطة"
 
 msgid "Last updated by"
 msgstr "آخر تحديث بواسطة"
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
-msgstr ""
 
 msgid "User organisation unit"
 msgstr "وحدة المنظمة للمستخدم"
@@ -675,6 +704,12 @@ msgstr "وحدات المستخدم الفرعية"
 
 msgid "User sub-x2-units"
 msgstr "وحدات المستخدم الفرعية من المستوى الثاني"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "الوحدة التنظيمية"
 
 msgid "Table title"
 msgstr "عنوان الجدول"
@@ -703,6 +738,12 @@ msgstr "الحد من القيم الدنيا / القصوى"
 msgid "Style"
 msgstr "المظهر"
 
+msgid "Event status"
+msgstr "حالة الحدث"
+
+msgid "Program status"
+msgstr "حالة البرنامج"
+
 msgid "most recent"
 msgstr ""
 
@@ -726,18 +767,6 @@ msgstr "تاريخ وقوع الحدث"
 
 msgid "Scheduled date"
 msgstr "التاريخ المقرر"
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
-msgstr ""
 
 msgid "Active"
 msgstr "فعال"

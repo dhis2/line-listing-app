@@ -29,6 +29,8 @@
     transform: translateX(0);
     transition: transform 200ms ease-out;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
 }
 .accessory.hidden .accessoryInner {
     transform: translateX(-260px);

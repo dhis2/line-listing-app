@@ -1,31 +1,62 @@
 /* Legend key */
+.legendKeyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.legendKeyWrapper {
+    border: 1px solid var(--colors-grey400);
+    overflow: auto;
+    height: 100%;
+}
+
+.legendKey {
+    height: 100%;
+}
+
 .legendKeyScrollbox {
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 190px;
 }
 
+.legendKeyToggle {
+    margin: 1px 4px 3px 0;
+}
+
+@media print {
+    .legendKeyToggle {
+        display: none;
+    }
+}
+
 .pluginContainer {
     display: flex;
+    justify-content: space-between;
     gap: var(--spacers-dp4);
     min-width: 0;
+    flex-grow: 1;
+    min-width: 0;
+    width: 100%;
 }
 
-.fetchIndicator {
+.fetchContainer {
+    display: flex;
+    align-self: flex-start;
     position: relative;
+    height: auto;
     min-width: 0;
     max-height: 100%;
-    display: flex;
 }
 
-.fetchIndicator.fetching::after {
+.fetchContainer.fetching > .fetchIndicator {
     content: '';
     position: absolute;
-    top: calc(50% - 24px);
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 48px;
-    border-width: 6px;
+    left: calc(50% - 12px);
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
     border-style: solid;
     border-color: rgba(110, 122, 138, 0.15) rgba(110, 122, 138, 0.15)
         rgb(20, 124, 215);
@@ -35,17 +66,27 @@
     animation-iteration-count: infinite;
     animation-name: rotation;
     animation-timing-function: linear;
+    z-index: 1;
 }
 
-.fetchIndicator.fetching tbody::before {
+.fetchContainer.fetching tbody::before {
     content: '';
     position: absolute;
     inset: 0px;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.fetchIndicator :global(.tablescrollbox) {
+.fetchContainer :global(.tablescrollbox) {
     transition: max-width 200ms ease-out;
+}
+
+.visualizationContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+.noTimeDimensionWarning {
+    padding-bottom: var(--spacers-dp12);
 }
 
 .stickyFooter {
@@ -119,6 +160,17 @@
 
 .dataTable .cell.nowrap {
     white-space: nowrap;
+}
+
+.dataTable .undefinedCell {
+    background-image: repeating-linear-gradient(
+        45deg,
+        var(--colors-grey300) 0,
+        var(--colors-grey300) 0.8px,
+        transparent 0,
+        transparent 50%
+    );
+    background-size: 8px 8px;
 }
 
 /* Sizes for the table footer */

@@ -17,7 +17,7 @@ const query = {
     currentUser: {
         resource: 'me',
         params: {
-            fields: 'id,username,displayName~rename(name),settings',
+            fields: 'id,username,displayName~rename(name),settings,authorities',
         },
     },
     systemSettings: {
@@ -34,12 +34,20 @@ const query = {
             paging: false,
         },
     },
+    orgUnitLevels: {
+        resource: 'organisationUnitLevels',
+        params: {
+            fields: 'id,level',
+            paging: false,
+        },
+    },
 }
 
 const providerDataTransformation = ({
     currentUser,
     systemSettings,
     rootOrgUnits,
+    orgUnitLevels,
 }) => {
     return {
         currentUser: {
@@ -55,6 +63,7 @@ const providerDataTransformation = ({
         },
         systemSettings,
         rootOrgUnits: rootOrgUnits.organisationUnits,
+        orgUnitLevels: orgUnitLevels.organisationUnitLevels,
     }
 }
 

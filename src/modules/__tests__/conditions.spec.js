@@ -3,7 +3,12 @@ import {
     checkIsCaseSensitive,
     addCaseSensitivePrefix,
     removeCaseSensitivePrefix,
+    getConditionsFromVisualization,
 } from '../conditions.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../visualization.js'
 
 test('Legend set chosen with no legends selected', () => {
     const conditions = {
@@ -45,9 +50,14 @@ test('Dimension with optionSet', () => {
         condition: 'IN:5code;6code',
     }
     const metadata = {
-        '5Id': { code: '5code', name: '5' },
-        '6Id': { code: '6code', name: '6' },
+        optionsetId: {
+            options: [
+                { code: '5code', name: '5' },
+                { code: '6code', name: '6' },
+            ],
+        },
     }
+
     const dimension = {
         optionSet: 'optionsetId',
         valueType: 'NUMBER',
@@ -401,6 +411,78 @@ describe('removeCaseSensitivePrefix', () => {
         const testname = `${t.operator} should become ${t.expected}`
         test(testname, () => {
             expect(removeCaseSensitivePrefix(t.operator)).toEqual(t.expected)
+        })
+    })
+})
+
+describe('getConditionsFromVisualization', () => {
+    it('should return empty object if visualization has no columns, rows, or filters', () => {
+        const visualization = {
+            columns: [],
+            rows: [],
+            filters: [],
+        }
+        const conditions = getConditionsFromVisualization(visualization)
+        expect(conditions).toEqual({})
+    })
+
+    it('should return conditions for columns, rows, and filters with filter or legendSet defined', () => {
+        const visualization = {
+            columns: [{ dimension: 'dx1', filter: 'filter1' }],
+            rows: [{ dimension: 'dx2', legendSet: { id: 'legend1' } }],
+            filters: [
+                {
+                    dimension: 'dx3',
+                    filter: 'filter3',
+                    legendSet: { id: 'legend2' },
+                },
+            ],
+        }
+        const conditions = getConditionsFromVisualization(visualization)
+        expect(conditions).toEqual({
+            dx1: { condition: 'filter1', legendSet: undefined },
+            dx2: { condition: undefined, legendSet: 'legend1' },
+            dx3: { condition: 'filter3', legendSet: 'legend2' },
+        })
+    })
+
+    it('should return conditions with correct id for output type event', () => {
+        const visualization = {
+            columns: [
+                {
+                    dimension: 'dx1',
+                    programStage: { id: 'ps1' },
+                    program: { id: 'p1' },
+                    filter: 'filter1',
+                },
+            ],
+            rows: [],
+            filters: [],
+            outputType: OUTPUT_TYPE_EVENT,
+        }
+        const conditions = getConditionsFromVisualization(visualization)
+        expect(conditions).toEqual({
+            'ps1.dx1': { condition: 'filter1', legendSet: undefined },
+        })
+    })
+
+    it('should return conditions with correct id for output type tracked entity', () => {
+        const visualization = {
+            columns: [
+                {
+                    dimension: 'dx1',
+                    programStage: { id: 'ps1' },
+                    program: { id: 'p1' },
+                    filter: 'filter1',
+                },
+            ],
+            rows: [],
+            filters: [],
+            outputType: OUTPUT_TYPE_TRACKED_ENTITY,
+        }
+        const conditions = getConditionsFromVisualization(visualization)
+        expect(conditions).toEqual({
+            'p1.ps1.dx1': { condition: 'filter1', legendSet: undefined },
         })
     })
 })

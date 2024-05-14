@@ -39,18 +39,18 @@ export const visualizationNotFoundError = () =>
         )
     )
 
+export const noEntityTypeError = () =>
+    visualizationError(
+        EmptyBox,
+        i18n.t('No tracked entity type selected'),
+        i18n.t('Choose a type from the Input sidebar.')
+    )
+
 export const noProgramError = () =>
     visualizationError(
         EmptyBox,
         i18n.t('No program selected'),
-        i18n.t('Choose a program from the Program Dimensions sidebar.')
-    )
-
-export const noStageError = () =>
-    visualizationError(
-        EmptyBox,
-        i18n.t('No stage selected'),
-        i18n.t('Choose a stage from the Program Dimensions sidebar.')
+        i18n.t('Choose a program from the Input sidebar.')
     )
 
 export const noColumnsError = () =>
@@ -78,9 +78,45 @@ export const indicatorError = () =>
 
 export const dataAccessError = () =>
     visualizationError(
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to the data in this visualization. Contact a system administrator.'
+        )
+    )
+
+export const orgUnitAccessError = () =>
+    visualizationError(
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to one or more of the chosen organisation units.'
+        )
+    )
+
+export const eventAccessError = () =>
+    visualizationError(
+        DataError,
+        i18n.t('Restricted access'),
+        i18n.t(
+            'You don’t have access to event analytics. Contact a system administrator.'
+        )
+    )
+
+export const analyticsGenerationError = () =>
+    visualizationError(
         GenericError,
-        i18n.t('No access'),
-        i18n.t("You don't have access to the requested data")
+        i18n.t('Something went wrong'),
+        i18n.t(
+            "There's a problem with the generated analytics. Contact a system administrator."
+        )
+    )
+
+export const analyticsRequestError = () =>
+    visualizationError(
+        GenericError,
+        i18n.t('Something went wrong'),
+        i18n.t("There's a syntax problem with the analytics request.")
     )
 
 export const getAlertTypeByStatusCode = (statusCode) =>

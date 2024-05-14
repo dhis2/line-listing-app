@@ -1,10 +1,12 @@
 import { useCacheableSection, CacheableSection } from '@dhis2/app-runtime'
-import { CenteredContent, CircularLoader, Layer } from '@dhis2/ui'
+import { CenteredContent, CircularLoader, CssVariables, Layer } from '@dhis2/ui'
 import postRobot from '@krakenjs/post-robot'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Visualization } from './components/Visualization/Visualization.js'
+import { getAdaptedUiSorting } from './modules/current.js'
 import { getPWAInstallationStatus } from './modules/getPWAInstallationStatus.js'
+import './locales/index.js'
 
 const LoadingMask = () => {
     return (
@@ -77,6 +79,28 @@ const PluginWrapper = () => {
 
     const receivePropsFromParent = (event) => setPropsFromParent(event.data)
 
+    const onDataSorted = useCallback(
+        (sorting) => {
+            let newSorting = undefined
+
+            if (sorting.direction !== 'default') {
+                newSorting = getAdaptedUiSorting(
+                    sorting,
+                    propsFromParent.visualization
+                )
+            }
+
+            setPropsFromParent({
+                ...propsFromParent,
+                visualization: {
+                    ...propsFromParent.visualization,
+                    sorting: newSorting,
+                },
+            })
+        },
+        [propsFromParent]
+    )
+
     useEffect(() => {
         postRobot
             .send(window.parent, 'getProps')
@@ -112,8 +136,12 @@ const PluginWrapper = () => {
                 cacheNow={propsFromParent.recordOnNextLoad}
                 isParentCached={propsFromParent.isParentCached}
             >
-                <Visualization {...propsFromParent} />
+                <Visualization
+                    {...propsFromParent}
+                    onDataSorted={onDataSorted}
+                />
             </CacheableSectionWrapper>
+            <CssVariables colors spacers elevations />
         </div>
     ) : null
 }
