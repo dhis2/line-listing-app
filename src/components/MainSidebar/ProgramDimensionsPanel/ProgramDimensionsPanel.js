@@ -143,15 +143,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
                                     dimensionType={dimensionType}
                                     searchTerm={debouncedSearchTerm}
                                     stageId={
-                                        [
-                                            OUTPUT_TYPE_ENROLLMENT,
-                                            OUTPUT_TYPE_TRACKED_ENTITY,
-                                        ].includes(inputType) &&
                                         dimensionType ===
-                                            DIMENSION_TYPE_DATA_ELEMENT
+                                        DIMENSION_TYPE_DATA_ELEMENT
                                             ? stageFilter
-                                            : inputType === OUTPUT_TYPE_EVENT
-                                            ? selectedStageId
                                             : undefined
                                     }
                                     trackedEntityTypeId={
