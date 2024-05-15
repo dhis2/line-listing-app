@@ -61,6 +61,15 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }
 
     if ([OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT].includes(inputType)) {
+        let stageId
+        if (
+            inputType === OUTPUT_TYPE_ENROLLMENT &&
+            dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+        ) {
+            stageId = stageFilter
+        } else if (inputType === OUTPUT_TYPE_EVENT) {
+            stageId = selectedStageId
+        }
         return (
             <div className={styles.container}>
                 {isProgramSelectionComplete() ? (
@@ -89,18 +98,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
                             program={selectedProgram}
                             dimensionType={dimensionType}
                             searchTerm={debouncedSearchTerm}
-                            stageId={
-                                [
-                                    OUTPUT_TYPE_ENROLLMENT,
-                                    OUTPUT_TYPE_TRACKED_ENTITY,
-                                ].includes(inputType) ===
-                                    OUTPUT_TYPE_ENROLLMENT &&
-                                dimensionType === DIMENSION_TYPE_DATA_ELEMENT
-                                    ? stageFilter
-                                    : inputType === OUTPUT_TYPE_EVENT
-                                    ? selectedStageId
-                                    : undefined
-                            }
+                            stageId={stageId}
                         />
                     </>
                 ) : (
