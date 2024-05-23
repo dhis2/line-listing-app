@@ -14,6 +14,8 @@ import {
     openProgramDimensionsSidebar,
     selectEnrollmentWithProgramDimensions,
     selectEventWithProgram,
+    selectProgramForTE,
+    selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -230,6 +232,51 @@ I.e. Scheduled date works like this:
                     .contains(dimension)
                     .should('not.exist')
             })
+        })
+
+        it('stage can be selected, dimension list reflects the selection', () => {
+            // select program
+            cy.getBySel('accessory-sidebar')
+                .contains('Choose a program')
+                .click()
+            cy.contains('Child Programme').click()
+
+            // select data element
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
+
+            // select a different stage
+            cy.getBySel('input-panel-button').click()
+            cy.getBySel('stage-select').click()
+            cy.contains('Baby Postnatal').click()
+
+            // items from the selected stage are shown
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('not.exist')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
         })
 
         it('stage can be selected, dimensions are removed when stage and program are changed', () => {
@@ -461,6 +508,84 @@ I.e. Scheduled date works like this:
                     .contains(dimension)
                     .should('not.exist')
             })
+        })
+
+        it('stage can be selected, dimension list reflects the selection', () => {
+            // select Child programme
+            cy.getBySel('accessory-sidebar')
+                .contains('Choose a program')
+                .click()
+            cy.contains('Child Programme').click()
+
+            // select data element
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from multiple stages are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
+
+            // select a specific stage
+            cy.getBySel('stage-select').click()
+            cy.getBySel('dhis2-uicore-popper').containsExact('Birth').click()
+
+            // only items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
+        })
+    })
+    describe('tracked entity', () => {
+        it('stage can be selected, dimension list reflects the selection', () => {
+            selectTrackedEntityWithType('Person')
+
+            // select child programme
+            openProgramDimensionsSidebar()
+            selectProgramForTE('Child Programme')
+
+            // select data element
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from multiple stages are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
+
+            // select a specific stage
+            cy.getBySel('stage-select').click()
+            cy.getBySel('dhis2-uicore-popper').containsExact('Birth').click()
+
+            // only items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
         })
     })
     describe('lazy loading', () => {
