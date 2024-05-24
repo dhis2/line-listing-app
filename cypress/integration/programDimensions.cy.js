@@ -549,7 +549,7 @@ I.e. Scheduled date works like this:
                 .should('not.exist')
         })
     })
-    describe('tracked entity', () => {
+    describe(['>=41'], 'tracked entity', () => {
         it('stage can be selected, dimension list reflects the selection', () => {
             selectTrackedEntityWithType('Person')
 
