@@ -91,7 +91,7 @@ This setup helps in managing Cypress Cloud credits more efficiently, ensuring re
 
 #### Configure Cypress tests to run only on certain versions
 
-Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.42 that would not work on 2.41, then a test for that feature should only run on instances >=2.42, and should not run on instances <2.41. To configure a test to only run on certain versions, add a tag array as the first argument to the test's `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >= otherwise they will be ignored. In addition, the tags contain only the minor version, i.e., "41", not "2.41". Here are some tag examples, given a minimum supported version of 2.39:
+Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.42 that would not work on 2.41, then a test for that feature should only run on instances >=2.42, and should not run on instances <2.41. To configure a test to only run on certain versions, add a tag array as the first argument to the test's `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >= otherwise they will be ignored. In addition, the tags contain only the minor version, i.e., "41", not "2.41". Here are some tag examples, given the minimum supported version of 2.39:
 
 ```
 it(['<40'], 'runs on 39 only', () => { test implementation })
