@@ -17,14 +17,9 @@ const LoadingMask = () => {
     )
 }
 
-const CacheableSectionWrapper = ({
-    id,
-    children,
-    cacheNow,
-    isParentCached,
-}) => {
+const CacheableSectionWrapper = ({ id, children, isParentCached }) => {
     const { startRecording, isCached, remove } = useCacheableSection(id)
-
+    /*
     useEffect(() => {
         if (cacheNow) {
             startRecording({ onError: console.error })
@@ -34,11 +29,15 @@ const CacheableSectionWrapper = ({
         // an infinite recording loop as-is (probably need to memoize it)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cacheNow])
-
+*/
     useEffect(() => {
-        // Synchronize cache state on load or prop update
-        // -- a back-up to imperative `removeCachedData`
-        if (!isParentCached && isCached) {
+        if (isParentCached && !isCached) {
+            console.log('LL p: start recording')
+            startRecording({ onError: console.error })
+        } else if (!isParentCached && isCached) {
+            // Synchronize cache state on load or prop update
+            // -- a back-up to imperative `removeCachedData`
+            console.log('LL p: remove cache')
             remove()
         }
 
@@ -52,14 +51,13 @@ const CacheableSectionWrapper = ({
     )
 }
 CacheableSectionWrapper.propTypes = {
-    cacheNow: PropTypes.bool,
     children: PropTypes.node,
     id: PropTypes.string,
     isParentCached: PropTypes.bool,
 }
 
 const PluginWrapper = (props) => {
-    const { onInstallationStatusChange, onPropsReceived, ...otherProps } = props
+    const { onInstallationStatusChange, ...otherProps } = props
     const [propsFromParent, setPropsFromParent] = useState(otherProps)
 
     const onDataSorted = useCallback(
@@ -94,8 +92,6 @@ const PluginWrapper = (props) => {
     }, [onInstallationStatusChange])
 
     if (propsFromParent) {
-        onPropsReceived()
-
         return (
             <div
                 style={{
@@ -106,7 +102,6 @@ const PluginWrapper = (props) => {
             >
                 <CacheableSectionWrapper
                     id={propsFromParent.cacheId}
-                    cacheNow={propsFromParent.recordOnNextLoad}
                     isParentCached={propsFromParent.isParentCached}
                 >
                     <Visualization
@@ -124,7 +119,6 @@ const PluginWrapper = (props) => {
 
 PluginWrapper.propTypes = {
     onInstallationStatusChange: PropTypes.func,
-    onPropsReceived: PropTypes.func,
 }
 
 export default PluginWrapper
