@@ -1,18 +1,6 @@
 import { getExcludedTags } from '../../cypress/plugins/excludeByVersionTags.js'
 
 describe('get excluded Cypress tags', () => {
-    test('instanceVersion 2.38', () => {
-        expect(getExcludedTags('2.38')).toEqual([
-            '<38',
-            '>38',
-            '>=39',
-            '>39',
-            '>=40',
-            '>40',
-            '>=41',
-        ])
-    })
-
     test('instanceVersion 2.39', () => {
         expect(getExcludedTags('2.39')).toEqual([
             '<=38',
@@ -61,21 +49,9 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion number 2.38', () => {
-        expect(getExcludedTags(2.38)).toEqual([
-            '<38',
-            '>38',
-            '>=39',
-            '>39',
-            '>=40',
-            '>40',
-            '>=41',
-        ])
-    })
-
     // unexpected argument forms
-    test('instanceVersion 38', () => {
-        expect(getExcludedTags('38')).toEqual([
+    test('instanceVersion 39', () => {
+        expect(getExcludedTags('39')).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -86,8 +62,8 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 38-SNAPSHOT.2', () => {
-        expect(getExcludedTags('38-SNAPSHOT.2')).toEqual([
+    test('instanceVersion 39-SNAPSHOT.2', () => {
+        expect(getExcludedTags('39-SNAPSHOT.2')).toEqual([
             '<38',
             '>38',
             '>=39',
@@ -110,9 +86,9 @@ describe('get excluded Cypress tags', () => {
         ])
     })
 
-    test('instanceVersion 2.37', () => {
+    test('instanceVersion 2.38', () => {
         expect(() => {
-            getExcludedTags('2.37')
+            getExcludedTags('2.38')
         }).toThrow()
     })
 })
