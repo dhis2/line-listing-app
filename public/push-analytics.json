@@ -17,8 +17,8 @@
     "obtainDownloadArtifact": {
         "strategy": "scrapeDownloadPage",
         "modifyDownloadUrl": {
-            "searchValue": "&paging=false&",
-            "replaceValue": "&paging=true&pageSize=50&"
+            "searchValue": "paging=false",
+            "replaceValue": "paging=true&pageSize=50"
         },
         "htmlSelector": "body",
         "cssSelector": "style"
