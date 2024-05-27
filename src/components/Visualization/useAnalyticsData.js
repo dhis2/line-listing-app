@@ -146,7 +146,6 @@ const fetchAnalyticsData = async ({
 
     const analyticsApiEndpoint = getAnalyticsEndpoint(visualization.outputType)
 
-    // for 2.38 only /query is used (since only Line List is enabled) // TODO: remove with min version bump?
     const rawResponse = await analyticsEngine[analyticsApiEndpoint].getQuery(
         req
     )

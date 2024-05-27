@@ -170,9 +170,6 @@ describe('event status (event)', () => {
             `${currentYear}-01-01`,
         ])
 
-        // TODO: determine expected once 2.38analytics_dev is available
-        // expectTableToMatchRows(['Active', 'Completed', 'Completed'])
-
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 
         assertChipContainsText(dimensionName, 'all')
