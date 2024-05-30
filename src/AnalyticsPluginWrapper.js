@@ -71,7 +71,7 @@ export const AnalyticsPluginWrapper = ({
         >
             <CacheableSectionWrapper
                 id={cacheId}
-                idParentCached={isParentCached}
+                isParentCached={isParentCached}
             >
                 {children(props)}
             </CacheableSectionWrapper>
