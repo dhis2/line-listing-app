@@ -59,14 +59,14 @@ In order to run the cypress tests locally make sure you have configured your git
 
 Make sure that the `dhis2InstanceVersion` matches the version that is running at the dhis2BaseUrl. You can use 'dev' if the instance is dev, or else get the running instance version from this endpoint: `/api/system/info?fields=version` (which might return something like this: `2.40-SNAPSHOT`)
 
-Here is an example configuration for running tests against 2.38:
+Here is an example configuration for running tests against 2.39:
 
 ```
 {
-    "dhis2BaseUrl": "https://test.e2e.dhis2.org/2.38lytics/",
+    "dhis2BaseUrl": "https://test.e2e.dhis2.org/analytics-2.39/",
     "dhis2Username": ...,
     "dhis2Password": ...
-    "dhis2InstanceVersion": "2.38"
+    "dhis2InstanceVersion": "2.39"
 }
 ```
 
@@ -91,13 +91,13 @@ This setup helps in managing Cypress Cloud credits more efficiently, ensuring re
 
 #### Configure Cypress tests to run only on certain versions
 
-Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.39 that would not work on 2.38, then a test for that feature should only run on instances >=2.39, and should not run on instances <2.39. To configure a test to only run on certain versions, add a tag array as the first argument to the test's `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >= otherwise they will be ignored. In addition, the tags contain only the minor version, i.e., "39", not "2.39". Here are some tag examples, given a minimum supported version of 2.38:
+Some tests may only be applicable to some supported versions of DHIS2 (DHIS2 officially supports the latest 3 released versions). For instance, if you add a feature to 2.42 that would not work on 2.41, then a test for that feature should only run on instances >=2.42, and should not run on instances <2.41. To configure a test to only run on certain versions, add a tag array as the first argument to the test's `describe` or `it`. You can add multiple tags to the array if that is relevant. Tags must be in the form of < <= > >= otherwise they will be ignored. In addition, the tags contain only the minor version, i.e., "41", not "2.41". Here are some tag examples, given the minimum supported version of 2.39:
 
 ```
-it(['<39'], 'runs on 38 only', () => { test implementation })
-it(['<=39'], 'runs on 38 and 39', () => { test implementation })
-it(['>39'], 'runs on 40 and dev', () => { test implementation })
-it(['>=39'], 'runs on 39, 40 and dev', () => { test implementation })
+it(['<40'], 'runs on 39 only', () => { test implementation })
+it(['<=40'], 'runs on 39 and 40', () => { test implementation })
+it(['>40'], 'runs on 41 and dev', () => { test implementation })
+it(['>=40'], 'runs on 40, 41 and dev', () => { test implementation })
 ```
 
 Tests without tags will run on all supported versions plus dev.

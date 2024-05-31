@@ -65,7 +65,7 @@ describe('Options - Legend', () => {
                     .should('have.css', 'color', defaultTextColor)
             })
 
-    it(['>=39'], 'apples legend correctly (event)', () => {
+    it('apples legend correctly (event)', () => {
         const TEST_LEGEND_AGE = {
             name: 'Age 10y interval',
             cells: [

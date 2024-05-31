@@ -29,7 +29,6 @@ const assertDimensionsForEventWithoutProgramSelected = () => {
 
 const assertDimensionsForEventWithProgramSelected = (
     program,
-    scheduledDateIsSupported,
     showIncidentDate
 ) => {
     cy.getBySel('dimension-item-ou').contains('Organisation unit')
@@ -50,13 +49,9 @@ const assertDimensionsForEventWithProgramSelected = (
         program[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    if (scheduledDateIsSupported) {
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            program[DIMENSION_ID_SCHEDULED_DATE]
-        )
-    } else {
-        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-    }
+    cy.getBySel('dimension-item-scheduledDate').contains(
+        program[DIMENSION_ID_SCHEDULED_DATE]
+    )
 
     if (showIncidentDate) {
         cy.getBySel('dimension-item-incidentDate').contains(
@@ -110,7 +105,12 @@ export const programDimensionsIsDisabled = () =>
         .and('have.css', 'user-select', 'none')
         .and('have.css', 'cursor', 'not-allowed')
 
-const runTests = ({ scheduledDateIsSupported } = {}) => {
+describe('program dimensions', () => {
+    beforeEach(() => {
+        goToStartPage()
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
+    })
+
     /*
 Test data used:
     E2E program
@@ -167,11 +167,7 @@ I.e. Scheduled date works like this:
 
             openProgramDimensionsSidebar()
 
-            assertDimensionsForEventWithProgramSelected(
-                program,
-                scheduledDateIsSupported,
-                true
-            )
+            assertDimensionsForEventWithProgramSelected(program, true)
 
             // add main and time dimensions
 
@@ -188,11 +184,9 @@ I.e. Scheduled date works like this:
                 program[DIMENSION_ID_ENROLLMENT_DATE],
                 program[DIMENSION_ID_INCIDENT_DATE],
             ]
-            if (scheduledDateIsSupported) {
-                expectedUnselectedDimensions.push(
-                    program[DIMENSION_ID_SCHEDULED_DATE]
-                )
-            }
+            expectedUnselectedDimensions.push(
+                program[DIMENSION_ID_SCHEDULED_DATE]
+            )
 
             expectedSelectedDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
@@ -260,10 +254,7 @@ I.e. Scheduled date works like this:
                 .its('length')
                 .should('be.gte', 1)
 
-            assertDimensionsForEventWithProgramSelected(
-                program.defaultStage,
-                scheduledDateIsSupported
-            )
+            assertDimensionsForEventWithProgramSelected(program.defaultStage)
 
             // add a data element
 
@@ -293,11 +284,9 @@ I.e. Scheduled date works like this:
                 program.defaultStage[DIMENSION_ID_EVENT_DATE],
             ]
 
-            if (scheduledDateIsSupported) {
-                expectedUnselectedDimensions.push(
-                    program.defaultStage[DIMENSION_ID_SCHEDULED_DATE]
-                )
-            }
+            expectedUnselectedDimensions.push(
+                program.defaultStage[DIMENSION_ID_SCHEDULED_DATE]
+            )
 
             expectedSelectedMainDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
@@ -320,10 +309,7 @@ I.e. Scheduled date works like this:
 
             openProgramDimensionsSidebar()
 
-            assertDimensionsForEventWithProgramSelected(
-                TEST_PROGRAM.stage,
-                scheduledDateIsSupported
-            )
+            assertDimensionsForEventWithProgramSelected(TEST_PROGRAM.stage)
 
             // assert that the DE was removed but the PA remained
 
@@ -499,24 +485,6 @@ I.e. Scheduled date works like this:
             getListChildren().should('have.length', 106)
         })
     })
-}
-
-describe(['>=39'], 'program dimensions', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
-    })
-
-    runTests({ scheduledDateIsSupported: true })
-})
-
-describe(['<39'], 'program dimensions', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
-    })
-
-    runTests()
 })
 
 describe('counting selection', () => {
