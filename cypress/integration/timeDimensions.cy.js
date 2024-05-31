@@ -60,25 +60,7 @@ const assertTimeDimension = (dimension) => {
     })
 }
 
-describe(['>37', '<39'], 'time dimensions', () => {
-    beforeEach(() => {
-        goToStartPage()
-    })
-
-    // Note: The rowsLengths needs to be updated when events are changed or added to the database
-    const timeDimensions = [
-        { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
-        { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 12 },
-        { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 12 },
-        { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 10 },
-    ]
-
-    timeDimensions.forEach((dimension) => {
-        assertTimeDimension(dimension)
-    })
-})
-
-describe(['>=39'], 'time dimensions', () => {
+describe('time dimensions', () => {
     beforeEach(() => {
         goToStartPage()
     })
