@@ -37,7 +37,7 @@ describe('event status (event)', () => {
         clickAddRemoveProgramDimension(dimensionName)
     }
 
-    it(['>=39'], 'can be filtered by status SCHEDULED', () => {
+    it('can be filtered by status SCHEDULED', () => {
         setUpTable()
 
         selectFixedPeriod({
@@ -169,9 +169,6 @@ describe('event status (event)', () => {
             `${currentYear}-01-01`,
             `${currentYear}-01-01`,
         ])
-
-        // TODO: determine expected once 2.38analytics_dev is available
-        // expectTableToMatchRows(['Active', 'Completed', 'Completed'])
 
         getTableHeaderCells().contains(dimensionName).should('be.visible')
 

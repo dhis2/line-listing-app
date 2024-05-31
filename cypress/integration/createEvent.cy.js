@@ -23,7 +23,11 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const runTests = ({ scheduledDateIsSupported } = {}) => {
+describe('event', () => {
+    beforeEach(() => {
+        goToStartPage()
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+    })
     it('creates an event line list (tracker program)', () => {
         const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
@@ -47,11 +51,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         cy.getBySel('dimension-item-enrollmentDate').contains(
             eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
-        if (scheduledDateIsSupported) {
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
-            )
-        }
+        cy.getBySel('dimension-item-scheduledDate').contains(
+            eventProgram[DIMENSION_ID_SCHEDULED_DATE]
+        )
 
         cy.getBySel('dimension-item-incidentDate').contains(
             eventProgram[DIMENSION_ID_INCIDENT_DATE]
@@ -94,9 +96,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             programName: 'Inpatient morbidity and mortality',
             [DIMENSION_ID_EVENT_DATE]: 'Report date',
             [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
-            ...(scheduledDateIsSupported
-                ? { [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date' }
-                : {}),
+            [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
             [DIMENSION_ID_INCIDENT_DATE]: 'Date of Discharge',
             [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
         }
@@ -119,9 +119,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         cy.getBySel('dimension-item-enrollmentDate').should('not.exist')
 
-        if (scheduledDateIsSupported) {
-            cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-        }
+        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
         cy.getBySel('dimension-item-incidentDate').should('not.exist')
 
@@ -202,20 +200,4 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         assertChipContainsText(dimensionName, 'all')
         assertChipContainsText(periodLabel, 1)
     })
-}
-
-describe(['>=39'], 'event', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-    })
-    runTests({ scheduledDateIsSupported: true })
-})
-
-describe(['<39'], 'event', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-    })
-    runTests()
 })

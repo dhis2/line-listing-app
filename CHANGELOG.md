@@ -1,3 +1,15 @@
+# [101.0.0](https://github.com/dhis2/line-listing-app/compare/v100.17.1...v101.0.0) (2024-05-31)
+
+
+### Features
+
+* bump Line Listing to min version 2.39 (DHIS2-17209) ([#523](https://github.com/dhis2/line-listing-app/issues/523)) ([8738ef1](https://github.com/dhis2/line-listing-app/commit/8738ef199231da596e0bdde78bd0b75acc770f0f))
+
+
+### BREAKING CHANGES
+
+* requires core version 2.39 and above
+
 ## [100.17.1](https://github.com/dhis2/line-listing-app/compare/v100.17.0...v100.17.1) (2024-05-14)
 
 
