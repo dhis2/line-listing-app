@@ -411,7 +411,7 @@ msgid ""
 msgstr "该行列表可能会显示编写解释时不可用的数据。"
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr ""
+msgstr "按“{{column}}”排序并更新"
 
 msgid "No event"
 msgstr "无事件"
