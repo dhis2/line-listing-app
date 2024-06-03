@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-const DEFAULT_WIDTH = 400
+const DEFAULT_WIDTH = 260
 const MIN_WIDTH = 180
 const MIN_PX_AT_END = 50
 
