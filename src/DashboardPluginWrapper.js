@@ -47,7 +47,7 @@ CacheableSectionWrapper.propTypes = {
     isParentCached: PropTypes.bool,
 }
 
-export const AnalyticsPluginWrapper = ({
+export const DashboardPluginWrapper = ({
     onInstallationStatusChange,
     children,
     cacheId,
@@ -60,7 +60,7 @@ export const AnalyticsPluginWrapper = ({
             onStateChange: onInstallationStatusChange,
         }).then(onInstallationStatusChange)
     }, [onInstallationStatusChange])
-
+    console.log('Shared P props', props)
     return props ? (
         <div
             style={{
@@ -80,7 +80,7 @@ export const AnalyticsPluginWrapper = ({
     ) : null
 }
 
-AnalyticsPluginWrapper.propTypes = {
+DashboardPluginWrapper.propTypes = {
     cacheId: PropTypes.string,
     children: PropTypes.node,
     isParentCached: PropTypes.bool,

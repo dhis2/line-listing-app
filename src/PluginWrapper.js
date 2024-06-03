@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { AnalyticsPluginWrapper } from './AnalyticsPluginWrapper.js'
 import { Visualization } from './components/Visualization/Visualization.js'
+import { DashboardPluginWrapper } from './DashboardPluginWrapper.js'
 import { getAdaptedUiSorting } from './modules/current.js'
 
 const PluginWrapper = (props) => {
@@ -31,11 +31,11 @@ const PluginWrapper = (props) => {
     )
 
     return (
-        <AnalyticsPluginWrapper {...propsFromParent}>
+        <DashboardPluginWrapper {...propsFromParent}>
             {(props) => (
                 <Visualization {...props} onDataSorted={onDataSorted} />
             )}
-        </AnalyticsPluginWrapper>
+        </DashboardPluginWrapper>
     )
 }
 
