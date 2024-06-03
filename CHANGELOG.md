@@ -1,3 +1,10 @@
+## [101.0.3](https://github.com/dhis2/line-listing-app/compare/v101.0.2...v101.0.3) (2024-06-03)
+
+
+### Bug Fixes
+
+* favourite link is missing the app name (DHIS2-16018) ([#530](https://github.com/dhis2/line-listing-app/issues/530)) ([a1b5ec0](https://github.com/dhis2/line-listing-app/commit/a1b5ec0481ce63118af43addde7533808971d7f4))
+
 ## [101.0.2](https://github.com/dhis2/line-listing-app/compare/v101.0.1...v101.0.2) (2024-06-02)
 
 
