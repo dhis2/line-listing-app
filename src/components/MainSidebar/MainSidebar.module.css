@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    z-index: 4;
 }
 .container.hidden {
     display: none;
@@ -7,34 +8,72 @@
 .main,
 .accessory {
     box-sizing: border-box;
-    width: 260px;
 }
 .main {
     background-color: var(--colors-grey100);
     border-right: 1px solid var(--colors-grey400);
     box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03);
+    width: 260px;
+    z-index: 5;
 }
 .accessory {
     background-color: var(--colors-white);
-    overflow-x: hidden;
-    transition: width 200ms ease-out;
+    overflow-x: visible;
+    transition: width 200ms linear;
     display: flex;
+    position: relative;
 }
-.accessory.hidden {
-    width: 0;
+.accessory.hidden,
+.accessory.transitioning {
+    pointer-events: none;
+    overflow-x: hidden;
 }
 .accessoryInner {
-    width: 260px;
     border-right: 1px solid var(--colors-grey400);
     transform: translateX(0);
-    transition: transform 200ms ease-out;
+    transition: transform 200ms linear;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
 }
-.accessory.hidden .accessoryInner {
-    transform: translateX(-260px);
-}
 .accessory.padded .accessoryInner {
     padding: var(--spacers-dp12) var(--spacers-dp8);
+}
+.resizeHandle {
+    position: absolute;
+    height: 100%;
+    /* Interaction area extends 8px left and
+     * right of the sidebar border */
+    width: 17px;
+    right: -8px;
+    cursor: col-resize;
+}
+.resizeHandle::before {
+    content: '';
+    background-color: var(--colors-blue600);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* Blue line extends 1px left and right
+     * from sidebar border */
+    left: 7px;
+    width: 3px;
+    pointer-events: none;
+    opacity: 0;
+    /* Hide immidiately */
+    transition: opacity 150ms 0ms;
+}
+.resizeHandle:hover::before {
+    opacity: 1;
+    /* Show with a 500ms delay */
+    transition: opacity 150ms 500ms;
+}
+.container.resizing .accessory,
+.container.resizing .accessoryInner {
+    /* Disable transitions to prevent visual glitches while resizing */
+    transition: none;
+}
+.container.resizing .resizeHandle::before {
+    /* Prevent line from fading while resizing */
+    opacity: 1;
 }
