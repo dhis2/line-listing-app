@@ -1,10 +1,9 @@
-const { getAllFiles, createGroups } = require('./generateTestMatrix')
+const { getAllFiles, createGroups } = require('../generateTestMatrix.js')
 
 describe('generateTestMatrix', () => {
     describe('getAllFiles', () => {
         it('should return an array of file paths', () => {
             const mockFs = require('fs')
-            const mockPath = require('path')
             jest.spyOn(mockFs, 'readdirSync').mockReturnValue([
                 'file1.js',
                 'file2.js',
@@ -12,7 +11,6 @@ describe('generateTestMatrix', () => {
             jest.spyOn(mockFs, 'statSync').mockReturnValue({
                 isDirectory: () => false,
             })
-            jest.spyOn(mockPath, 'join').mockReturnValue('fakepath/file1.js')
 
             const result = getAllFiles('fakepath')
             expect(result).toEqual(['fakepath/file1.js', 'fakepath/file2.js'])
