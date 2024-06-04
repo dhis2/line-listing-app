@@ -33,3 +33,5 @@ const specs = getAllFiles(cypressSpecsPath)
 const groupedSpecs = createGroups(specs)
 
 console.log(JSON.stringify(groupedSpecs))
+
+module.exports = { getAllFiles, createGroups }
