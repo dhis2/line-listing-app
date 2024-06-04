@@ -9,6 +9,9 @@ import {
 } from '../../modules/ui.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
+const ARROW_LEFT_KEY = 'ArrowLeft'
+const ARROW_RIGHT_KEY = 'ArrowRight'
+
 export const useResizableAccessorySidebar = (isHidden) => {
     const dispatch = useDispatch()
     const userSettingWidth = useSelector(sGetUiAccessoryPanelWidth)
@@ -33,38 +36,68 @@ export const useResizableAccessorySidebar = (isHidden) => {
 
     const onResizeHandleMouseDown = useCallback(
         (event) => {
+            event.preventDefault()
+            event.stopPropagation()
+
+            const resizeHandleElement = event.currentTarget
+            /* If the user focusses the draghandle by tabbing/ keyboard navigation,
+             * but never blurs it, and then starts resizing using the mouse, it causes
+             * problems we need to deal with. These situations can be identified by
+             * the fact that theb drag handle is already the active element when the
+             * mousedown event fires */
+            const isActive = document.activeElement === resizeHandleElement
+
+            if (isActive) {
+                // Manually call blur to ensure event handlers are removed
+                resizeHandleElement.blur()
+            }
+
             setIsResizing(true)
-            const startPageX = event.pageX
-            let startWidth = undefined
-            let finalWidth = undefined
+
+            /* Because the user never blurred the draghandle, the
+             * width preference is not yet updated when this callback
+             * is executed. Since the userSettingWidth is stale, the width
+             * needs to be assessed some other way. The solution below
+             * works but will break when make any changes to the relevant
+             * DOM structure. */
+            const startWidth = isActive
+                ? resizeHandleElement.previousSibling.offsetWidth
+                : userSettingWidth
+            let cumulativeDeltaX = 0
+            let finalWidth = startWidth
 
             const onMouseMove = (event) => {
-                setWidth((currentWidth) => {
-                    if (typeof startWidth === 'undefined') {
-                        startWidth = finalWidth = currentWidth - event.movementX
-                    }
+                event.preventDefault()
+                event.stopPropagation()
+                cumulativeDeltaX += event.movementX
+                const virtualWidth = startWidth + cumulativeDeltaX
+                const isBelowLowerBound =
+                    virtualWidth < ACCESSORY_PANEL_MIN_WIDTH
+                const isAboveUpperBound =
+                    event.pageX >
+                    window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END
 
-                    const virtualWidth = startWidth + (event.pageX - startPageX)
+                if (isBelowLowerBound) {
+                    finalWidth = ACCESSORY_PANEL_MIN_WIDTH
+                } else if (isAboveUpperBound) {
+                    const excessWidth =
+                        event.pageX -
+                        (window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END)
+                    finalWidth = virtualWidth - excessWidth
+                } else {
+                    finalWidth = virtualWidth
+                }
 
-                    if (
-                        virtualWidth <= ACCESSORY_PANEL_MIN_WIDTH ||
-                        event.pageX >=
-                            window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END
-                    ) {
-                        finalWidth = currentWidth
-                        return currentWidth
-                    } else {
-                        finalWidth = virtualWidth
-                        return virtualWidth
-                    }
-                })
+                setWidth(finalWidth)
             }
             /* Use the window as event target to avoid issues when the browser lags behind
              * and the drag handle temporarily loses its hover state  */
             window.addEventListener('mousemove', onMouseMove)
             window.addEventListener(
                 'mouseup',
-                () => {
+                (event) => {
+                    event.preventDefault()
+                    event.stopPropagation()
                     setIsResizing(false)
                     window.removeEventListener('mousemove', onMouseMove)
                     setUserSidebarWidthToLocalStorage(finalWidth)
@@ -73,7 +106,57 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 { once: true }
             )
         },
-        [dispatch]
+        [dispatch, userSettingWidth]
+    )
+
+    const onResizeHandleFocus = useCallback(
+        (event) => {
+            setIsResizing(true)
+            const resizeHandleElement = event.currentTarget
+            const { right: startPageX } =
+                resizeHandleElement.getBoundingClientRect()
+            const startWidth = userSettingWidth
+            let cumulativeDeltaX = 0
+            let finalWidth = startWidth
+
+            const onKeyDown = (event) => {
+                // Ignore all keys apart from left and right arrow
+                if (
+                    event.key !== ARROW_LEFT_KEY &&
+                    event.key !== ARROW_RIGHT_KEY
+                ) {
+                    return
+                }
+                const deltaX = event.key === ARROW_LEFT_KEY ? -10 : 10
+                const virtualCumulativeDeltaX = cumulativeDeltaX + deltaX
+                const virtualWidth = startWidth + virtualCumulativeDeltaX
+                const isAboveLowerBound =
+                    virtualWidth >= ACCESSORY_PANEL_MIN_WIDTH
+                const isBelowUpperBound =
+                    startPageX + virtualCumulativeDeltaX <=
+                    window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END
+
+                if (isAboveLowerBound && isBelowUpperBound) {
+                    cumulativeDeltaX = virtualCumulativeDeltaX
+                    finalWidth = virtualWidth
+                    setWidth(virtualWidth)
+                }
+            }
+            resizeHandleElement.addEventListener('keydown', onKeyDown)
+            resizeHandleElement.addEventListener(
+                'blur',
+                (event) => {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    setIsResizing(false)
+                    window.removeEventListener('keydown', onKeyDown)
+                    setUserSidebarWidthToLocalStorage(finalWidth)
+                    dispatch(acSetUiAccessoryPanelWidth(finalWidth))
+                },
+                { once: true }
+            )
+        },
+        [dispatch, userSettingWidth]
     )
 
     useEffect(() => {
@@ -87,5 +170,6 @@ export const useResizableAccessorySidebar = (isHidden) => {
         ...styles,
         isResizing,
         onResizeHandleMouseDown,
+        onResizeHandleFocus,
     }
 }

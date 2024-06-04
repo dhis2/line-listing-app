@@ -58,6 +58,7 @@ const MainSidebar = () => {
         accessoryStyle,
         accessoryInnerStyle,
         onResizeHandleMouseDown,
+        onResizeHandleFocus,
     } = useResizableAccessorySidebar(!open)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
@@ -212,6 +213,8 @@ const MainSidebar = () => {
                     <div
                         className={styles.resizeHandle}
                         onMouseDown={onResizeHandleMouseDown}
+                        onFocus={onResizeHandleFocus}
+                        tabIndex={0}
                     />
                 )}
             </div>

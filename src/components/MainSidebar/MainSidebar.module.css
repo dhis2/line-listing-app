@@ -73,7 +73,8 @@
     /* Disable transitions to prevent visual glitches while resizing */
     transition: none;
 }
-.container.resizing .resizeHandle::before {
-    /* Prevent line from fading while resizing */
+.container.resizing .resizeHandle::before,
+.container .resizeHandle:focus-visible::before {
+    /* Prevent line from fading while resizing and when focussed */
     opacity: 1;
 }
