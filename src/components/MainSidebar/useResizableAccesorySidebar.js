@@ -1,10 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acSetUiAccessoryPanelWidth } from '../../actions/ui.js'
 import {
     ACCESSORY_PANEL_MIN_WIDTH,
     ACCESSORY_PANEL_MIN_PX_AT_END,
     setUserSidebarWidthToLocalStorage,
+    ACCESSORY_PANEL_DEFAULT_WIDTH,
 } from '../../modules/ui.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
@@ -75,7 +76,12 @@ export const useResizableAccessorySidebar = (isHidden) => {
         [dispatch]
     )
 
-    console.log(userSettingWidth)
+    useEffect(() => {
+        // Respond to reset via view menu
+        if (userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH) {
+            setWidth(ACCESSORY_PANEL_DEFAULT_WIDTH)
+        }
+    }, [userSettingWidth])
 
     return {
         ...styles,
