@@ -12,7 +12,10 @@ import {
     acSetUiDetailsPanelOpen,
     acSetUiAccessoryPanelWidth,
 } from '../../actions/ui.js'
-import { ACCESSORY_PANEL_DEFAULT_WIDTH } from '../../modules/ui.js'
+import {
+    ACCESSORY_PANEL_DEFAULT_WIDTH,
+    setUserSidebarWidthToLocalStorage,
+} from '../../modules/ui.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,
@@ -38,6 +41,7 @@ export default function ViewDropDown() {
     }, [dispatch])
 
     const resetAccessorySidebarWidth = useCallback(() => {
+        setUserSidebarWidthToLocalStorage(ACCESSORY_PANEL_DEFAULT_WIDTH)
         dispatch(acSetUiAccessoryPanelWidth(ACCESSORY_PANEL_DEFAULT_WIDTH))
     }, [dispatch])
 
