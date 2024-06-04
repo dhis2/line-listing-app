@@ -31,7 +31,7 @@ jobs:
             - uses: actions/checkout@v3
             - name: Generate Test matrix
               id: set-matrix
-              run: echo "::set-output name=specs::$(node cypress/support/generateTestMatrix.js)"
+              run: echo "::set-output name=specs::$(node src/generateTestMatrix.js)"
 
     build:
         runs-on: ubuntu-latest
