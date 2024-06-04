@@ -4,7 +4,6 @@ import {
     DIMENSION_ID_ORGUNIT,
     useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -52,7 +51,6 @@ const FixedDimension = ({
     inputType,
 }) => {
     const { rootOrgUnits, currentUser } = useCachedDataQuery()
-    const { serverVersion } = useConfig()
     const statusNames = getStatusNames()
     const { programId, dimensionId } = extractDimensionIdParts(
         dimension.id,
@@ -169,18 +167,11 @@ const FixedDimension = ({
         const ALL_STATUSES = [
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-        ]
-
-        if (
-            `${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.39.0'
-        ) {
-            ALL_STATUSES.push({
+            {
                 id: STATUS_SCHEDULED,
                 name: statusNames[STATUS_SCHEDULED],
-            })
-        }
+            },
+        ]
 
         return (
             <>

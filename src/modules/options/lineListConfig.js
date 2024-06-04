@@ -34,9 +34,7 @@ export default (serverVersion) => {
         ]),
     ]
 
-    if (currentVersion >= '2.39.0') {
-        optionsConfig.push(getLegendTab())
-    }
+    optionsConfig.push(getLegendTab())
 
     return optionsConfig
 }

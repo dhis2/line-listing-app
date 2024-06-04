@@ -50,7 +50,10 @@ module.exports = {
         '\\.(css)$': 'identity-obj-proxy',
     },
     testRunner: 'jest-circus/runner',
-    testRegex: ['/src/(.*/)?__tests__/.*.spec.js?$'],
+    testMatch: [
+        '**/src/**/__tests__/**/*.spec.[jt]s?(x)',
+        '**/cypress/support/__tests__/**/*.test.[jt]s?(x)',
+    ],
     reporters: [
         'default',
         ...(isReportPortalSetup ? [reportPortalConfig] : []),

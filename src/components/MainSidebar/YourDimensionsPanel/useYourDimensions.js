@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
 const YOUR_DIMENSIONS_RESOURCE = 'dimensions'
-// Fixed filter on org units for 2.38 ?
 const YOUR_DIMENSIONS_FILTER = 'dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'
 
 const query = {
