@@ -19,6 +19,7 @@ export const ACCESSORY_PANEL_TAB_TRACKED_ENTITY = 'TRACKED_ENTITY'
 export const ACCESSORY_PANEL_DEFAULT_WIDTH = 260
 export const ACCESSORY_PANEL_MIN_WIDTH = 180
 export const ACCESSORY_PANEL_MIN_PX_AT_END = 50
+export const PRIMARY_PANEL_WIDTH = 260
 
 const ACCESSORY_PANEL_WIDTH_STORAGE_KEY = 'DHIS2_LL_ACCESSORY_PANEL_WIDTH'
 
@@ -79,11 +80,22 @@ export const getDefaultSorting = () => ({
     direction: 'default',
 })
 
-export const getUserSidebarWidth = () =>
-    parseInt(
-        window.localStorage.getItem(ACCESSORY_PANEL_WIDTH_STORAGE_KEY) ??
-            ACCESSORY_PANEL_DEFAULT_WIDTH
+export const getUserSidebarWidth = () => {
+    const localStorageItem = window.localStorage.getItem(
+        ACCESSORY_PANEL_WIDTH_STORAGE_KEY
     )
+
+    if (!localStorageItem) {
+        return ACCESSORY_PANEL_DEFAULT_WIDTH
+    }
+
+    const preferredWidth = parseInt(localStorageItem)
+    const availableWidth =
+        window.innerWidth -
+        (PRIMARY_PANEL_WIDTH + ACCESSORY_PANEL_MIN_PX_AT_END)
+
+    return Math.min(preferredWidth, availableWidth)
+}
 
 export const setUserSidebarWidthToLocalStorage = (width) => {
     window.localStorage.setItem(ACCESSORY_PANEL_WIDTH_STORAGE_KEY, width)
