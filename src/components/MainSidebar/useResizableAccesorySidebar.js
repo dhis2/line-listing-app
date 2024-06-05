@@ -169,14 +169,16 @@ export const useResizableAccessorySidebar = (isHidden) => {
     }, [userSettingWidth])
 
     useEffect(() => {
-        const onResize = () => {
+        const debouncedOnResize = debounceEventHandler(() => {
+            /*`getUserSidebarWidth` takes window width into
+             * account so the returned value is save to use */
             const width = getUserSidebarWidth()
             setWidth(width)
             setUserSidebarWidthToLocalStorage(width)
             dispatch(acSetUiAccessoryPanelWidth(width))
-        }
-        window.addEventListener('resize', debounceEventHandler(onResize))
-        return () => window.removeEventListener('resize', onResize)
+        })
+        window.addEventListener('resize', debouncedOnResize)
+        return () => window.removeEventListener('resize', debouncedOnResize)
     }, [dispatch])
 
     return {
