@@ -6,7 +6,9 @@ import {
     ACCESSORY_PANEL_MIN_PX_AT_END,
     setUserSidebarWidthToLocalStorage,
     ACCESSORY_PANEL_DEFAULT_WIDTH,
+    getUserSidebarWidth,
 } from '../../modules/ui.js'
+import { debounceEventHandler } from '../../modules/utils.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
 const ARROW_LEFT_KEY = 'ArrowLeft'
@@ -165,6 +167,17 @@ export const useResizableAccessorySidebar = (isHidden) => {
             setWidth(ACCESSORY_PANEL_DEFAULT_WIDTH)
         }
     }, [userSettingWidth])
+
+    useEffect(() => {
+        const onResize = () => {
+            const width = getUserSidebarWidth()
+            setWidth(width)
+            setUserSidebarWidthToLocalStorage(width)
+            dispatch(acSetUiAccessoryPanelWidth(width))
+        }
+        window.addEventListener('resize', debounceEventHandler(onResize))
+        return () => window.removeEventListener('resize', onResize)
+    })
 
     return {
         ...styles,

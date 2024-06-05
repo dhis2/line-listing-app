@@ -2,6 +2,16 @@ import { useState, useEffect, useRef } from 'react'
 
 const DEFAULT_USER_INPUT_DELAY = 500
 
+export const debounceEventHandler = (callback, delay = 150) => {
+    let timer = null
+    return (event) => {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(callback, delay, event)
+    }
+}
+
 export const useDebounce = (value, delay = DEFAULT_USER_INPUT_DELAY) => {
     const [debouncedValue, setDebouncedValue] = useState(value)
     useEffect(() => {
