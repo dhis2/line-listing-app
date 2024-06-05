@@ -177,7 +177,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
         }
         window.addEventListener('resize', debounceEventHandler(onResize))
         return () => window.removeEventListener('resize', onResize)
-    })
+    }, [dispatch])
 
     return {
         ...styles,
