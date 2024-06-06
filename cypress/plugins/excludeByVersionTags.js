@@ -5,9 +5,9 @@ The list of excluded tags returned by getExcludedTags are the tags that cypress 
 
 Using excluded tags (instead of included tags) allows for most of the tests to remain untagged and be run against all supported versions of DHIS2.
 
-DHIS2 officially supports the latest 3 released versions of DHIS2. For example: 2.38, 2.39 and 2.40. Dev would then have version 2.41-SNAPSHOT. Therefore, the getExcludedTags calculates the range of tags based on minimum supported version + 3 (2.38, 2.39, 2.40, 2.41-SNAPSHOT)
+DHIS2 officially supports the latest 3 released versions of DHIS2. For example: 2.39, 2.40 and 2.41. Dev would then have version 2.41-SNAPSHOT. Therefore, the getExcludedTags calculates the range of tags based on minimum supported version + 3 (2.39, 2.40, 2.41, 2.42)
 
-With the minimum supported version of 2.38, the tags will always contain "38", "39", "40" and "41", but the comparison symbols will depend on the current instance version.
+With the minimum supported version of 2.39, the tags will always contain "39", "40" and "41", but the comparison symbols will depend on the current instance version.
 
 Allowed tag comparisons are ">", ">=", "<", "<="
 */
@@ -40,7 +40,7 @@ const getExcludedTags = (v) => {
 
     let excludeTags = []
     if (currentInstanceVersion === MIN_DHIS2_VERSION) {
-        // For example instance = 2.38, MIN = 2.38
+        // For example instance = 2.39, MIN = 2.39
         excludeTags = [
             `<${currentInstanceVersion}`,
             `>${currentInstanceVersion}`,
@@ -51,7 +51,7 @@ const getExcludedTags = (v) => {
             `>=${currentInstanceVersion + 3}`,
         ]
     } else if (currentInstanceVersion === MIN_DHIS2_VERSION + 1) {
-        // For example instance = 2.39, MIN = 2.38
+        // For example instance = 2.40, MIN = 2.39
         excludeTags = [
             `<=${currentInstanceVersion - 1}`,
             `<${currentInstanceVersion - 1}`,
@@ -62,7 +62,7 @@ const getExcludedTags = (v) => {
             `>=${currentInstanceVersion + 2}`,
         ]
     } else if (currentInstanceVersion === MIN_DHIS2_VERSION + 2) {
-        // For example instance = 2.40, MIN = 2.38
+        // For example instance = 2.41, MIN = 2.39
         excludeTags = [
             `<=${currentInstanceVersion - 2}`,
             `<${currentInstanceVersion - 2}`,
@@ -73,7 +73,7 @@ const getExcludedTags = (v) => {
             `>=${currentInstanceVersion + 1}`,
         ]
     } else {
-        // For example instance = 2.41, MIN = 2.38
+        // For example instance = 2.42, MIN = 2.39
         excludeTags = [
             `<=${currentInstanceVersion - 3}`,
             `<${currentInstanceVersion - 3}`,

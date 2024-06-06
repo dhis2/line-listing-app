@@ -1,3 +1,36 @@
+## [101.0.3](https://github.com/dhis2/line-listing-app/compare/v101.0.2...v101.0.3) (2024-06-03)
+
+
+### Bug Fixes
+
+* favourite link is missing the app name (DHIS2-16018) ([#530](https://github.com/dhis2/line-listing-app/issues/530)) ([a1b5ec0](https://github.com/dhis2/line-listing-app/commit/a1b5ec0481ce63118af43addde7533808971d7f4))
+
+## [101.0.2](https://github.com/dhis2/line-listing-app/compare/v101.0.1...v101.0.2) (2024-06-02)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([18d3865](https://github.com/dhis2/line-listing-app/commit/18d38650a44fd58a58431cd9fada8efbefb26239))
+
+## [101.0.1](https://github.com/dhis2/line-listing-app/compare/v101.0.0...v101.0.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* enrollment line list filter for program stage not working (DHIS2-17412) ([#524](https://github.com/dhis2/line-listing-app/issues/524)) ([1cfb6ee](https://github.com/dhis2/line-listing-app/commit/1cfb6ee8932dbb3c1951275d5de78862e7da1a0f))
+
+# [101.0.0](https://github.com/dhis2/line-listing-app/compare/v100.17.1...v101.0.0) (2024-05-31)
+
+
+### Features
+
+* bump Line Listing to min version 2.39 (DHIS2-17209) ([#523](https://github.com/dhis2/line-listing-app/issues/523)) ([8738ef1](https://github.com/dhis2/line-listing-app/commit/8738ef199231da596e0bdde78bd0b75acc770f0f))
+
+
+### BREAKING CHANGES
+
+* requires core version 2.39 and above
+
 ## [100.17.1](https://github.com/dhis2/line-listing-app/compare/v100.17.0...v100.17.1) (2024-05-14)
 
 
