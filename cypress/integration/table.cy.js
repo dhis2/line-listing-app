@@ -70,7 +70,7 @@ const previousYear = getPreviousYearStr()
 const mainDimensions = [
     {
         label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
-        value: '2023-01-04 02:04',
+        value: '2023-01-04 14:04',
     },
     { label: 'Created by', value: 'Traore, John (admin)' },
     { label: 'Last updated by', value: 'Traore, John (admin)' },
