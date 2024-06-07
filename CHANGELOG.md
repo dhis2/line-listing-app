@@ -1,3 +1,10 @@
+## [101.0.4](https://github.com/dhis2/line-listing-app/compare/v101.0.3...v101.0.4) (2024-06-07)
+
+
+### Bug Fixes
+
+* hh:mm time format ambiguous (DHIS2-16717) ([#538](https://github.com/dhis2/line-listing-app/issues/538)) ([b5f3df2](https://github.com/dhis2/line-listing-app/commit/b5f3df21c5edd67fc3d97bbca55eb6897598494c))
+
 ## [101.0.3](https://github.com/dhis2/line-listing-app/compare/v101.0.2...v101.0.3) (2024-06-03)
 
 
