@@ -1,3 +1,10 @@
+## [101.0.5](https://github.com/dhis2/line-listing-app/compare/v101.0.4...v101.0.5) (2024-06-07)
+
+
+### Bug Fixes
+
+* use improved rich text editor from analytics (DHIS2-15522) ([#539](https://github.com/dhis2/line-listing-app/issues/539)) ([6f5b034](https://github.com/dhis2/line-listing-app/commit/6f5b03447f4988199e45418efae3709b7c1e88cf))
+
 ## [101.0.4](https://github.com/dhis2/line-listing-app/compare/v101.0.3...v101.0.4) (2024-06-07)
 
 
