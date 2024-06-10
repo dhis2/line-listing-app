@@ -13,5 +13,10 @@ updates:
                   - minor
                   - patch
               exclude-patterns:
-                  - '@dhis2'
-                  - 'i18next'
+                  - '*@dhis2*'
+                  - '*i18next*'
+          security:
+              applies-to: security-updates
+              update-types:
+                  - minor
+                  - patch
