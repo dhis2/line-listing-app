@@ -88,18 +88,23 @@ describe('accessory sidebar panel', () => {
         PRIMARY_PANEL_WIDTH + ACCESSORY_PANEL_MIN_WIDTH
     const DRAGHANDLE_PAGE_X_MAX = VIEWPORT_WIDTH - ACCESSORY_PANEL_MIN_PX_AT_END
 
+    const getMouseMoveOptions = (
+        movementX,
+        previousX = DRAGHANDLE_PAGE_X_INITIAL
+    ) => ({
+        pageX: previousX + movementX,
+        movementX: movementX,
+        pageY: 400,
+    })
+
     const resizeByMouse = (movementX) => {
         cy.getBySel('accessory-panel-resize-handle')
             .trigger('mousedown')
-            .trigger('mousemove', {
-                pageX: DRAGHANDLE_PAGE_X_INITIAL + movementX,
-                movementX: movementX,
-                pageY: 800,
-            })
+            .trigger('mousemove', getMouseMoveOptions(movementX))
             .trigger('mouseup')
     }
 
-    const resizeByKeyBoard = (movementX) => {
+    const resizeByKeyBoard = (movementX, shouldBlur = true) => {
         if (movementX % 10 !== 0) {
             throw new Error(
                 'Invalid `movementX`: resizing by keyboard happens in increments of 10.'
@@ -114,6 +119,12 @@ describe('accessory sidebar panel', () => {
             cy.getBySel('accessory-panel-resize-handle').trigger('keydown', {
                 key,
             })
+        }
+
+        if (shouldBlur) {
+            /* For this test to work correctly we need to blur
+             * the resize handle so it can be focussed again */
+            cy.getBySel('accessory-panel-resize-handle').blur()
         }
     }
 
@@ -145,6 +156,7 @@ describe('accessory sidebar panel', () => {
 
         goToStartPage()
 
+        // Do not mouseup because we want to move some more
         resizeByMouse(movementX)
 
         cy.getBySel('accessory-sidebar')
@@ -166,6 +178,93 @@ describe('accessory sidebar panel', () => {
             .invoke('outerWidth')
             .should('eq', expectedWidth)
     })
+    it('ignores out-of-bounds mouse movements past the min-width edge', () => {
+        const movementX = DRAGHANDLE_PAGE_X_MIN - DRAGHANDLE_PAGE_X_INITIAL
+
+        goToStartPage()
+
+        // Resize to min width, without mouseup
+        cy.getBySel('accessory-panel-resize-handle')
+            .trigger('mousedown')
+            .trigger('mousemove', getMouseMoveOptions(movementX))
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH)
+
+        // Mousemove 20px left past min-width, width should remain the same
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(-20, DRAGHANDLE_PAGE_X_MIN)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH)
+
+        // Now 10 px right, still on lefthand side of min width, so width should remain the same
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(10, DRAGHANDLE_PAGE_X_MIN - 20)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH)
+
+        // Now another 20 px right, which puts us 10px to the right of min-width, width should increase 10px
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(20, DRAGHANDLE_PAGE_X_MIN - 10)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH + 10)
+
+        cy.getBySel('accessory-panel-resize-handle').trigger('mouseup')
+    })
+    it.only('ignores out-of-bounds mouse movements past the max-width edge', () => {
+        const movementX = DRAGHANDLE_PAGE_X_MAX - DRAGHANDLE_PAGE_X_INITIAL
+        const pageXAtMaxWidth = getMouseMoveOptions(movementX).pageX
+        const expectedWidth =
+            VIEWPORT_WIDTH - PRIMARY_PANEL_WIDTH - ACCESSORY_PANEL_MIN_PX_AT_END
+
+        goToStartPage()
+
+        // Resize to min width, without mouseup
+        cy.getBySel('accessory-panel-resize-handle')
+            .trigger('mousedown')
+            .trigger('mousemove', getMouseMoveOptions(movementX))
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidth)
+
+        // Mousemove 20px right past max-width, width should remain the same
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(20, pageXAtMaxWidth)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidth)
+
+        // Now 10 px left, still on righthand side of max width, so width should remain the same
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(-10, pageXAtMaxWidth + 20)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidth)
+
+        // Now another 20 px left, which moves us 10px to the left of max-width, width should decrease 10px
+        cy.getBySel('accessory-panel-resize-handle').trigger(
+            'mousemove',
+            getMouseMoveOptions(-20, pageXAtMaxWidth + 10)
+        )
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidth - 10)
+
+        cy.getBySel('accessory-panel-resize-handle').trigger('mouseup')
+    })
     it('can be resized by keyboard', () => {
         const movementX1 = 200
         const movementX2 = 50
@@ -180,10 +279,6 @@ describe('accessory sidebar panel', () => {
         cy.getBySel('accessory-sidebar')
             .invoke('outerWidth')
             .should('eq', width1)
-
-        /* For this test to work correctly we need to blur
-         * the resize handle so it can be focussed again */
-        cy.getBySel('accessory-panel-resize-handle').blur()
 
         resizeByKeyBoard(movementX2)
 
@@ -203,6 +298,12 @@ describe('accessory sidebar panel', () => {
         cy.getBySel('accessory-sidebar')
             .invoke('outerWidth')
             .should('eq', ACCESSORY_PANEL_MIN_WIDTH)
+
+        // This is an adidtional check to confirm growing works immediately
+        resizeByKeyBoard(20)
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH + 20)
     })
     it('cannot be resized by keyboard past its max-width', () => {
         /* If width restriction was not working, this movement would make the sidebar
@@ -218,6 +319,12 @@ describe('accessory sidebar panel', () => {
         cy.getBySel('accessory-sidebar')
             .invoke('outerWidth')
             .should('eq', expectedWidth)
+
+        // This is an adidtional check to confirm shrinking works immediately
+        resizeByKeyBoard(-20)
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidth - 20)
     })
     it('can be reset using the view menu', () => {
         const movementX = 200
@@ -281,7 +388,7 @@ describe('accessory sidebar panel', () => {
         // Opened by default on start page, so we can start resizing
         goToStartPage()
 
-        resizeByKeyBoard(keyboardMovementX)
+        resizeByKeyBoard(keyboardMovementX, false)
 
         cy.getBySel('accessory-sidebar')
             .invoke('outerWidth')
