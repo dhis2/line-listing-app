@@ -15,29 +15,35 @@ import {
 import { debounceEventHandler } from '../../modules/utils.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
-const createWidthWithinBoundsCalculator = (element, startWidth) => {
-    const minWidth = ACCESSORY_PANEL_MIN_WIDTH
+const createWidthWithinBoundsCalculator = (event, startWidth) => {
+    event.persist()
+    const element = event.currentTarget
+    const isKeyboardMode = event.type === 'focus'
     const rect = element.getBoundingClientRect()
+    const minWidth = ACCESSORY_PANEL_MIN_WIDTH
     // Take center of draghandle on X-axis as starting point
     const startPageX = Math.ceil(rect.left + rect.width / 2)
     const maxPageX = window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END
     const maxDeltaX = maxPageX - startPageX
     const maxWidth = startWidth + maxDeltaX
 
-    let currentWidth = startWidth
+    let virtualWidth = startWidth
+    let actualWidth = startWidth
 
     return (deltaX) => {
-        const virtualWidth = currentWidth + deltaX
+        virtualWidth = isKeyboardMode
+            ? actualWidth + deltaX
+            : virtualWidth + deltaX
 
         if (virtualWidth < minWidth) {
-            currentWidth = minWidth
+            actualWidth = minWidth
         } else if (virtualWidth > maxWidth) {
-            currentWidth = maxWidth
+            actualWidth = maxWidth
         } else {
-            currentWidth = virtualWidth
+            actualWidth = virtualWidth
         }
 
-        return currentWidth
+        return actualWidth
     }
 }
 
@@ -93,7 +99,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 ? resizeHandleElement.previousSibling.offsetWidth
                 : userSettingWidth
             const computeWidth = createWidthWithinBoundsCalculator(
-                event.currentTarget,
+                event,
                 startWidth
             )
             let width = startWidth
@@ -132,7 +138,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
             const resizeHandleElement = event.currentTarget
             const startWidth = userSettingWidth
             const computeWidth = createWidthWithinBoundsCalculator(
-                event.currentTarget,
+                event,
                 startWidth
             )
 
