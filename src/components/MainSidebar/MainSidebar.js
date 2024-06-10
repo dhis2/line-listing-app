@@ -8,13 +8,13 @@ import {
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
     ACCESSORY_PANEL_TAB_PROGRAM,
     ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
     ACCESSORY_PANEL_TAB_YOUR,
-} from '../../modules/ui.js'
+} from '../../modules/accessoryPanelConstants.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -215,6 +215,7 @@ const MainSidebar = () => {
                         onMouseDown={onResizeHandleMouseDown}
                         onFocus={onResizeHandleFocus}
                         tabIndex={0}
+                        data-test="accessory-panel-resize-handle"
                     />
                 )}
             </div>

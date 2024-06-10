@@ -4,6 +4,12 @@ import {
     VIS_TYPE_LINE_LIST,
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
+import {
+    ACCESSORY_PANEL_WIDTH_STORAGE_KEY,
+    ACCESSORY_PANEL_DEFAULT_WIDTH,
+    PRIMARY_PANEL_WIDTH,
+    ACCESSORY_PANEL_MIN_PX_AT_END,
+} from './accessoryPanelConstants.js'
 import { getConditionsFromVisualization } from './conditions.js'
 import { getRequestOptions } from './getRequestOptions.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
@@ -11,17 +17,6 @@ import { getOptionsFromVisualization } from './options.js'
 import { getParentGraphMapFromVisualization } from './parentGraphMap.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
 import { getHeadersMap } from './visualization.js'
-
-export const ACCESSORY_PANEL_TAB_INPUT = 'INPUT'
-export const ACCESSORY_PANEL_TAB_PROGRAM = 'PROGRAM'
-export const ACCESSORY_PANEL_TAB_YOUR = 'YOUR'
-export const ACCESSORY_PANEL_TAB_TRACKED_ENTITY = 'TRACKED_ENTITY'
-export const ACCESSORY_PANEL_DEFAULT_WIDTH = 260
-export const ACCESSORY_PANEL_MIN_WIDTH = 180
-export const ACCESSORY_PANEL_MIN_PX_AT_END = 50
-export const PRIMARY_PANEL_WIDTH = 260
-
-const ACCESSORY_PANEL_WIDTH_STORAGE_KEY = 'DHIS2_LL_ACCESSORY_PANEL_WIDTH'
 
 const lineListUiAdapter = (ui) => ({
     ...ui,
