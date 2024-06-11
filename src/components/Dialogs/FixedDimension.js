@@ -4,7 +4,6 @@ import {
     DIMENSION_ID_ORGUNIT,
     useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -16,7 +15,12 @@ import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../../modules/dimensionConstants.js'
+import {
+    extractDimensionIdParts,
+    formatDimensionId,
+} from '../../modules/dimensionId.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
@@ -29,6 +33,7 @@ import {
     sGetUiItemsByDimension,
     sGetUiParentGraphMap,
     sGetDimensionIdsFromLayout,
+    sGetUiInputType,
 } from '../../reducers/ui.js'
 import DimensionModal from './DimensionModal.js'
 import classes from './styles/Common.module.css'
@@ -40,21 +45,22 @@ const FixedDimension = ({
     dimension,
     isInLayout,
     metadata,
-    ouIds,
-    eventStatusIds,
-    programStatusIds,
     parentGraphMap,
     setUiItems,
+    selectedItemsIds,
+    inputType,
 }) => {
-    const { rootOrgUnits } = useCachedDataQuery()
-    const { serverVersion } = useConfig()
+    const { rootOrgUnits, currentUser } = useCachedDataQuery()
     const statusNames = getStatusNames()
+    const { programId, dimensionId } = extractDimensionIdParts(
+        dimension.id,
+        inputType
+    )
     const selectUiItems = ({ dimensionId, items }) => {
         setUiItems({
-            dimensionId,
+            dimensionId: dimension.id,
             itemIds: items.map((item) => item.id),
         })
-
         switch (dimensionId) {
             case DIMENSION_ID_ORGUNIT: {
                 const forMetadata = {}
@@ -93,22 +99,42 @@ const FixedDimension = ({
         </p>
     )
 
-    const setStatus = ({ dimensionId, selectedItemsIds, itemId, toggle }) => {
+    const setStatus = ({ selectedItemsIds, itemId, toggle }) => {
         const newIds = toggle
             ? [...new Set([...selectedItemsIds, itemId])]
             : selectedItemsIds.filter((id) => id !== itemId)
 
         selectUiItems({
-            dimensionId,
             items: newIds.map((id) => ({ id })),
         })
     }
 
     const renderProgramStatus = () => {
         const ALL_STATUSES = [
-            { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
-            { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-            { id: STATUS_CANCELLED, name: statusNames[STATUS_CANCELLED] },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_ACTIVE,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_ACTIVE],
+            },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_COMPLETED,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_COMPLETED],
+            },
+            {
+                id: formatDimensionId({
+                    dimensionId: STATUS_CANCELLED,
+                    programId,
+                    outputType: inputType,
+                }),
+                name: statusNames[STATUS_CANCELLED],
+            },
         ]
 
         return (
@@ -118,19 +144,18 @@ const FixedDimension = ({
                     {ALL_STATUSES.map(({ id, name }) => (
                         <Checkbox
                             key={id}
-                            checked={programStatusIds.includes(id)}
+                            checked={selectedItemsIds.includes(id)}
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_ID_PROGRAM_STATUS,
-                                    selectedItemsIds: programStatusIds,
+                                    selectedItemsIds,
                                     itemId: id,
                                     toggle: checked,
                                 })
                             }
                             dense
                             className={classes.verticalCheckbox}
-                            dataTest={'program-status-checkbox'}
+                            dataTest="program-status-checkbox"
                         />
                     ))}
                 </div>
@@ -142,18 +167,11 @@ const FixedDimension = ({
         const ALL_STATUSES = [
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-        ]
-
-        if (
-            `${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.39.0'
-        ) {
-            ALL_STATUSES.push({
+            {
                 id: STATUS_SCHEDULED,
                 name: statusNames[STATUS_SCHEDULED],
-            })
-        }
+            },
+        ]
 
         return (
             <>
@@ -162,19 +180,18 @@ const FixedDimension = ({
                     {ALL_STATUSES.map(({ id, name }) => (
                         <Checkbox
                             key={id}
-                            checked={eventStatusIds.includes(id)}
+                            checked={selectedItemsIds.includes(id)}
                             label={name}
                             onChange={({ checked }) =>
                                 setStatus({
-                                    dimensionId: DIMENSION_ID_EVENT_STATUS,
-                                    selectedItemsIds: eventStatusIds,
+                                    selectedItemsIds,
                                     itemId: id,
                                     toggle: checked,
                                 })
                             }
                             dense
                             className={classes.verticalCheckbox}
-                            dataTest={'event-status-checkbox'}
+                            dataTest="event-status-checkbox"
                         />
                     ))}
                 </div>
@@ -183,7 +200,7 @@ const FixedDimension = ({
     }
 
     const renderModalContent = () => {
-        switch (dimension.id) {
+        switch (dimensionId) {
             case DIMENSION_ID_PROGRAM_STATUS:
                 return renderProgramStatus()
             case DIMENSION_ID_EVENT_STATUS:
@@ -193,7 +210,7 @@ const FixedDimension = ({
                     onSelect: selectUiItems,
                 }
 
-                const selected = ouIds // TODO: Refactor to not depend on the whole metadata object, but pass in full ouObjects (mapped with metadata) instead of just ids
+                const selected = selectedItemsIds
                     .filter(
                         (id) =>
                             metadata[ouIdHelper.removePrefix(id)] !== undefined
@@ -210,15 +227,20 @@ const FixedDimension = ({
                     })
 
                 const display =
-                    dimension.id === DIMENSION_ID_ORGUNIT ? 'block' : 'none'
+                    dimensionId === DIMENSION_ID_ORGUNIT ? 'block' : 'none'
 
                 return (
-                    <div key={DIMENSION_ID_ORGUNIT} style={{ display }}>
+                    <div key={dimension.id} style={{ display }}>
                         <OrgUnitDimension
                             selected={selected}
                             roots={rootOrgUnits.map(
                                 (rootOrgUnit) => rootOrgUnit.id
                             )}
+                            displayNameProp={
+                                currentUser.settings[
+                                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                                ]
+                            }
                             {...dimensionProps}
                         />
                     </div>
@@ -230,7 +252,7 @@ const FixedDimension = ({
 
     return dimension ? (
         <DimensionModal
-            dataTest={'fixed-dimension-modal'}
+            dataTest={`fixed-dimension-${dimension.id}-modal`}
             isInLayout={isInLayout}
             onClose={closeModal}
             title={dimension.name}
@@ -242,13 +264,12 @@ const FixedDimension = ({
 
 FixedDimension.propTypes = {
     dimension: PropTypes.object.isRequired,
-    eventStatusIds: PropTypes.array.isRequired,
     isInLayout: PropTypes.bool.isRequired,
-    ouIds: PropTypes.array.isRequired,
-    programStatusIds: PropTypes.array.isRequired,
+    selectedItemsIds: PropTypes.array.isRequired,
     onClose: PropTypes.func.isRequired,
     addMetadata: PropTypes.func,
     addParentGraphMap: PropTypes.func,
+    inputType: PropTypes.string,
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
     setUiItems: PropTypes.func,
@@ -259,17 +280,13 @@ FixedDimension.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    eventStatusIds: sGetUiItemsByDimension(state, DIMENSION_ID_EVENT_STATUS),
+    selectedItemsIds: sGetUiItemsByDimension(state, ownProps.dimension?.id),
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
         ownProps.dimension?.id
     ),
+    inputType: sGetUiInputType(state),
     metadata: sGetMetadata(state),
-    ouIds: sGetUiItemsByDimension(state, DIMENSION_ID_ORGUNIT),
     parentGraphMap: sGetUiParentGraphMap(state),
-    programStatusIds: sGetUiItemsByDimension(
-        state,
-        DIMENSION_ID_PROGRAM_STATUS
-    ),
 })
 
 export default connect(mapStateToProps, {

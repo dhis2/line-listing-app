@@ -6,6 +6,7 @@ import {
 } from '../../data/index.js'
 import {
     openDimension,
+    openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../../helpers/dimensions.js'
 import {
@@ -23,6 +24,8 @@ const stageName = 'Stage 1 - Repeatable'
 
 const setUpTable = () => {
     selectEventWithProgram(trackerProgram)
+
+    openProgramDimensionsSidebar()
 
     selectRelativePeriod({
         label: periodLabel,
@@ -51,7 +54,7 @@ describe('Org unit condition', () => {
 
         cy.getBySel('conditions-modal').contains('Add to Columns').click()
 
-        assertChipContainsText(`${dimensionName}: 1 condition`)
+        assertChipContainsText(dimensionName, 1)
 
         assertTooltipContainsEntries([stageName, orgUnitName])
     })

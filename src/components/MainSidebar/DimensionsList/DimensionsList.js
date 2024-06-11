@@ -6,15 +6,22 @@ import { DimensionItem } from '../DimensionItem/index.js'
 import { useSelectedDimensions } from '../SelectedDimensionsContext.js'
 import styles from './DimensionsList.module.css'
 
-const getNoResultsMessage = (searchTerm, programName) => {
+const getNoResultsMessage = ({
+    searchTerm,
+    programName,
+    trackedEntityType,
+}) => {
     if (searchTerm) {
         return i18n.t("No dimensions found for '{{- searchTerm}}'", {
             searchTerm,
         })
-    }
-    if (programName) {
+    } else if (programName) {
         return i18n.t('No dimensions found in the {{- programName}} program', {
             programName,
+        })
+    } else if (trackedEntityType) {
+        return i18n.t(' {{- trackedEntityType}} has no dimensions', {
+            trackedEntityType,
         })
     }
     return i18n.t('No dimensions found')
@@ -32,6 +39,7 @@ const DimensionsList = ({
     searchTerm,
     setIsListEndVisible,
     dataTest,
+    trackedEntityType,
 }) => {
     const scrollBoxRef = useRef()
     const { getIsDimensionSelected } = useSelectedDimensions()
@@ -63,10 +71,14 @@ const DimensionsList = ({
         )
     }
 
-    if (!dimensions?.length) {
+    if (!loading && !fetching && !dimensions?.length) {
         return (
             <div className={styles.noResults}>
-                {getNoResultsMessage(searchTerm, programName)}
+                {getNoResultsMessage({
+                    searchTerm,
+                    programName,
+                    trackedEntityType,
+                })}
             </div>
         )
     }
@@ -81,7 +93,7 @@ const DimensionsList = ({
             onMouseDown={(event) => event.preventDefault()}
             ref={scrollBoxRef}
         >
-            <div className={styles.list}>
+            <div className={styles.list} data-test={`${dataTest}-list`}>
                 {dimensions.map((dimension) => (
                     <DimensionItem
                         key={dimension.id}
@@ -90,7 +102,10 @@ const DimensionsList = ({
                     />
                 ))}
                 {fetching && (
-                    <div className={styles.loadMoreWrap}>
+                    <div
+                        className={styles.loadMoreWrap}
+                        data-test="dimensions-list-load-more"
+                    >
                         <CircularLoader small />
                     </div>
                 )}
@@ -108,6 +123,7 @@ DimensionsList.propTypes = {
     loading: PropTypes.bool,
     programName: PropTypes.string,
     searchTerm: PropTypes.string,
+    trackedEntityType: PropTypes.string,
 }
 
 export { DimensionsList }

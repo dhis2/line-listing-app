@@ -1,3 +1,4 @@
+const fs = require('fs')
 const { chromeAllowXSiteCookies } = require('@dhis2/cypress-plugins')
 const { defineConfig } = require('cypress')
 const {
@@ -7,6 +8,28 @@ const {
 async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
+
+    // Delete videos for passing tests
+    on('after:spec', (spec, results) => {
+        try {
+            if (results && results.video) {
+                // Do we have failures for any retry attempts?
+                const failures = results.tests.some((test) =>
+                    test.attempts.some((attempt) => attempt.state === 'failed')
+                )
+                if (!failures) {
+                    // delete the video if the spec passed and no tests retried
+                    fs.unlinkSync(results.video)
+                }
+            }
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                console.log('Video already deleted')
+            } else {
+                throw error
+            }
+        }
+    })
 
     if (!config.env.dhis2InstanceVersion) {
         throw new Error(
@@ -19,6 +42,34 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'm5qvjx',
+    reporter: '@reportportal/agent-js-cypress',
+    reporterOptions: {
+        endpoint: process.env.REPORTPORTAL_ENDPOINT,
+        apiKey: process.env.REPORTPORTAL_API_KEY,
+        launch: 'line_listing_app',
+        project: process.env.REPORTPORTAL_PROJECT,
+        description: '',
+        autoMerge: true,
+        parallel: true,
+        debug: false,
+        restClientConfig: {
+            timeout: 660000,
+        },
+        attributes: [
+            {
+                key: 'dhis2_version',
+                value: process.env.DHIS2_VERSION,
+            },
+            {
+                key: 'app_name',
+                value: 'line-listing-app',
+            },
+            {
+                key: 'test_level',
+                value: 'e2e',
+            },
+        ],
+    },
     e2e: {
         setupNodeEvents,
         baseUrl: 'http://localhost:3000',
@@ -27,10 +78,6 @@ module.exports = defineConfig({
         viewportHeight: 800,
         // Record video
         video: true,
-        /* Only compress and upload videos for failures.
-         * This will save execution time and reduce the risk
-         * out-of-memory issues on the CI machine */
-        videoUploadOnPasses: false,
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
         // Set to a low number to reduce the risk of out-of-memory issues
@@ -42,6 +89,8 @@ module.exports = defineConfig({
             runMode: 1,
             openMode: 0,
         },
+        defaultCommandTimeout: 15000,
+        experimentalRunAllSpecs: true,
     },
     env: {
         dhis2DatatestPrefix: 'dhis2-linelisting',

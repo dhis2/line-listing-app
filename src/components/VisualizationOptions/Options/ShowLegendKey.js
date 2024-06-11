@@ -9,7 +9,7 @@ const ShowLegendKey = () => (
         option={{
             name: OPTION_SHOW_LEGEND_KEY,
         }}
-        dataTest={'option-legend-key'}
+        dataTest="option-legend-key"
     />
 )
 

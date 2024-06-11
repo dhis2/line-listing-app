@@ -4,7 +4,6 @@ import {
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -13,27 +12,36 @@ import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
-    DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../modules/dimensionConstants.js'
-import { getFilteredLayout } from '../modules/layout.js'
 import {
-    getMainDimensions,
-    getIsMainDimensionDisabled,
-} from '../modules/mainDimensions.js'
+    formatDimensionId,
+    extractDimensionIdParts,
+} from '../modules/dimensionId.js'
+import { getFilteredLayout } from '../modules/layout.js'
+import { getMainDimensions } from '../modules/mainDimensions.js'
 import { getOptionsForUi } from '../modules/options.js'
-import { getDisabledTimeDimensions } from '../modules/timeDimensions.js'
+import {
+    getIsProgramDimensionDisabled,
+    getProgramDimensions,
+} from '../modules/programDimensions.js'
+import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
 import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
-import { OUTPUT_TYPE_EVENT } from '../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../modules/visualization.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
 export const SET_UI_INPUT = 'SET_UI_INPUT'
 export const CLEAR_UI_PROGRAM = 'CLEAR_UI_PROGRAM'
 export const CLEAR_UI_STAGE_ID = 'CLEAR_UI_STAGE_ID'
+export const CLEAR_UI_ENTITY_TYPE = 'CLEAR_UI_ENTITY_TYPE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
+export const UPDATE_UI_ENTITY_TYPE_ID = 'UPDATE_UI_ENTITY_TYPE_ID'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
@@ -42,6 +50,8 @@ export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
+export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
+    'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
     'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
@@ -55,6 +65,8 @@ export const SET_UI_CONDITIONS = 'SET_UI_CONDITIONS'
 export const SET_UI_REPETITION = 'SET_UI_REPETITION'
 export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
+export const SET_UI_SORTING = 'SET_UI_SORTING'
+export const CLEAR_UI_SORTING = 'CLEAR_UI_SORTING'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -70,6 +82,7 @@ const EMPTY_UI = {
         id: undefined,
         stageId: undefined,
     },
+    entityType: { id: undefined },
     layout: {
         columns: [],
         filters: [],
@@ -88,6 +101,7 @@ export const DEFAULT_UI = {
         type: OUTPUT_TYPE_EVENT,
     },
     program: {},
+    entityType: {},
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -99,7 +113,8 @@ export const DEFAULT_UI = {
         [DIMENSION_ID_PROGRAM_STATUS]: [],
     },
     options: getOptionsForUi(),
-    showAccessoryPanel: false,
+    showAccessoryPanel: true,
+    accessoryPanelActiveTab: 'INPUT',
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -138,6 +153,12 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_SORTING: {
+            return { ...state, sorting: action.value }
+        }
+        case CLEAR_UI_SORTING: {
+            return { ...state, sorting: undefined }
+        }
         case SET_UI_DRAGGING_ID: {
             return { ...state, draggingId: action.value }
         }
@@ -162,6 +183,12 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case CLEAR_UI_ENTITY_TYPE: {
+            return {
+                ...state,
+                entityType: EMPTY_UI.entityType,
+            }
+        }
         case UPDATE_UI_PROGRAM_ID: {
             return {
                 ...state,
@@ -177,6 +204,15 @@ export default (state = EMPTY_UI, action) => {
                 program: {
                     ...state.program,
                     stageId: action.value,
+                },
+            }
+        }
+        case UPDATE_UI_ENTITY_TYPE_ID: {
+            return {
+                ...state,
+                entityType: {
+                    ...state.entityType,
+                    id: action.value,
                 },
             }
         }
@@ -259,6 +295,12 @@ export default (state = EMPTY_UI, action) => {
                  * Leave right sidebar unaffected when closing the left sidebar
                  */
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
+            }
+        }
+        case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
+            return {
+                ...state,
+                accessoryPanelActiveTab: action.value,
             }
         }
         case TOGGLE_UI_SIDEBAR_HIDDEN: {
@@ -377,6 +419,7 @@ export const sGetUiDraggingId = (state) => sGetUi(state).draggingId
 export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
+export const sGetUiEntityType = (state) => sGetUi(state).entityType
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiOptions = (state) => sGetUi(state).options
@@ -390,6 +433,8 @@ export const sGetUiConditions = (state) =>
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel
 export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
+export const sGetUiAccessoryPanelActiveTab = (state) =>
+    sGetUi(state).accessoryPanelActiveTab
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
@@ -407,6 +452,7 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
+export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state)?.id
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||
@@ -443,82 +489,75 @@ export const renderChipsSelector = createSelector(
 
 // Selector based hooks
 export const useMainDimensions = () => {
-    const store = useStore()
-    const programId = useSelector(sGetUiProgramId)
     const inputType = useSelector(sGetUiInputType)
-
-    return useMemo(() => {
-        const { metadata } = store.getState()
-        const programType = programId && metadata[programId].programType
-
-        return Object.values(getMainDimensions()).map((dimension) => {
-            const disabledReason = getIsMainDimensionDisabled({
-                dimensionId: dimension.id,
-                inputType,
-                programType,
-            })
-            return {
-                ...dimension,
-                disabled: Boolean(disabledReason),
-                disabledReason,
-            }
-        })
-    }, [programId, inputType])
+    return Object.values(getMainDimensions(inputType))
 }
 
-export const useTimeDimensions = () => {
-    const { serverVersion } = useConfig()
+export const useProgramDimensions = () => {
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
+
+    const getId = (dimensionId) =>
+        formatDimensionId({
+            dimensionId,
+            programId,
+            outputType: inputType,
+        })
+
     const eventDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_EVENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_EVENT_DATE))
     )
     const enrollmentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_ENROLLMENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_ENROLLMENT_DATE))
     )
     const incidentDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_INCIDENT_DATE)
+        sGetMetadataById(state, getId(DIMENSION_ID_INCIDENT_DATE))
     )
     const scheduledDateDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_SCHEDULED_DATE)
-    )
-    const lastUpdatedDim = useSelector((state) =>
-        sGetMetadataById(state, DIMENSION_ID_LAST_UPDATED)
+        sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
     )
 
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
         const stage = metadata[programStageId]
+        const hiddenTimeDimensions = getHiddenTimeDimensions(
+            inputType,
+            program,
+            stage
+        )
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
-            ...(`${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.39.0'
-                ? [scheduledDateDim]
-                : []),
+            scheduledDateDim,
             incidentDateDim,
-            lastUpdatedDim,
-        ]
-
-        if (timeDimensions.every((dimension) => !!dimension)) {
-            const disabledTimeDimensions = getDisabledTimeDimensions(
-                inputType,
-                program,
-                stage
+        ].filter((dimension) => {
+            if (!dimension) {
+                return false
+            }
+            const { dimensionId } = extractDimensionIdParts(
+                dimension.id,
+                inputType
             )
+            return !hiddenTimeDimensions.includes(dimensionId)
+        })
 
-            return timeDimensions.map((dimension) => ({
-                ...dimension,
-                disabled: Boolean(disabledTimeDimensions[dimension.id]),
-                disabledReason: disabledTimeDimensions[dimension.id],
-            }))
-        } else {
-            return null
-        }
+        const programDimensions = Object.values(
+            getProgramDimensions(
+                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+            )
+        ).filter(
+            (dimension) =>
+                !getIsProgramDimensionDisabled({
+                    dimensionId: dimension.id,
+                    inputType,
+                    programType: program?.programType,
+                })
+        )
+
+        return programDimensions.concat(timeDimensions)
     }, [
         inputType,
         programId,
@@ -527,6 +566,5 @@ export const useTimeDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
-        lastUpdatedDim,
     ])
 }

@@ -7,18 +7,22 @@ import {
     TEST_AO,
     TEST_DIM_PHONE_NUMBER,
     TEST_DIM_INTEGER,
+    TEST_DIM_NUMBER,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
 import {
-    selectEnrollmentProgramDimensions,
+    selectEnrollmentWithProgramDimensions,
     selectEventWithProgramDimensions,
+    selectTrackedEntityWithTypeAndProgramDimensions,
 } from '../helpers/dimensions.js'
 import { saveVisualization } from '../helpers/fileMenu.js'
 import {
-    clickMenubarOptionsButton,
+    openDataOptionsModal,
+    openStyleOptionsModal,
     clickMenubarUpdateButton,
 } from '../helpers/menubar.js'
+import { clickOptionsModalUpdateButton } from '../helpers/options.js'
 import {
     getCurrentYearStr,
     selectFixedPeriod,
@@ -27,8 +31,10 @@ import {
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
     expectAOTitleToContain,
+    expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableDataCells,
+    getTableHeaderCells,
     getTableRows,
 } from '../helpers/table.js'
 
@@ -44,12 +50,13 @@ describe('options', () => {
             .should('equal', '7px 6px 5px')
 
         // set to comfortable density
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comfortable').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert comfortable density
         getTableDataCells()
@@ -57,12 +64,13 @@ describe('options', () => {
             .should('equal', '10px 8px 8px')
 
         // set to compact density
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('display-density-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Compact').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert compact density
         getTableDataCells()
@@ -82,12 +90,13 @@ describe('options', () => {
             .should('equal', REGULAR_FONT_SIZE)
 
         // set to small font size
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Small').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         //assert small font size
         getTableDataCells()
@@ -96,12 +105,13 @@ describe('options', () => {
             .should('be.lt', REGULAR_FONT_SIZE)
 
         // set to large font size
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Large').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
         // assert large font size
         getTableDataCells()
@@ -132,41 +142,44 @@ describe('options', () => {
         const PHONE_NUMBER = '555-1212'
 
         // assert the default dgs space on number but not phone number
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333 333 444')
 
         // set dgs to comma
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Comma').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333,333,444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333,333,444')
 
         // set dgs to none
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('None').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333333444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333333444')
 
         // set dgs to space
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('dgs-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
         cy.contains('Space').click()
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
 
-        getTableRows().eq(0).find('td').eq(1).should('contain', PHONE_NUMBER)
-        getTableRows().eq(0).find('td').eq(2).should('contain', '333 333 444')
+        getTableRows().eq(0).find('td').eq(1).should('have.text', PHONE_NUMBER)
+        getTableRows().eq(0).find('td').eq(2).should('have.text', '333 333 444')
     })
 })
 
@@ -178,7 +191,7 @@ describe(['>=40'], 'ou hierarchy', () => {
         goToStartPage()
 
         // set up table
-        selectEnrollmentProgramDimensions({
+        selectEnrollmentWithProgramDimensions({
             ...E2E_PROGRAM,
             dimensions: [TEST_DIM_INTEGER],
         })
@@ -190,6 +203,7 @@ describe(['>=40'], 'ou hierarchy', () => {
 
         // create new AO - no hierarchy is shown
         clickMenubarUpdateButton()
+
         getTableRows()
             .eq(0)
             .find('td')
@@ -197,13 +211,14 @@ describe(['>=40'], 'ou hierarchy', () => {
             .containsExact(NAME_WITHOUT_HIERARCHY)
 
         // enable show hierarchy - hierarchy is shown
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()
             .find('[type="checkbox"]')
             .should('be.checked')
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
         getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
 
         // save / load - hierarchy is still shown
@@ -214,17 +229,126 @@ describe(['>=40'], 'ou hierarchy', () => {
         getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
 
         // disable show hierarchy - no hierarchy is shown
-        clickMenubarOptionsButton()
+        openStyleOptionsModal()
+
         cy.getBySel('options-modal-content')
             .contains('Display organisation unit hierarchy')
             .click()
             .find('[type="checkbox"]')
             .should('not.be.checked')
-        cy.getBySel('options-modal-actions').contains('Update').click()
+        clickOptionsModalUpdateButton()
         getTableRows()
             .eq(0)
             .find('td')
             .eq(0)
             .containsExact(NAME_WITHOUT_HIERARCHY)
+    })
+})
+
+const testSkipRoundingForEvent = (roundedValue) => {
+    goToStartPage()
+
+    // set up table
+    selectEventWithProgramDimensions({
+        ...E2E_PROGRAM,
+        dimensions: [TEST_DIM_NUMBER],
+    })
+
+    selectRelativePeriod({
+        label: E2E_PROGRAM[DIMENSION_ID_EVENT_DATE],
+        period: TEST_REL_PE_THIS_YEAR,
+    })
+
+    clickMenubarUpdateButton()
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_NUMBER}"]`).click()
+
+    expectTableToBeUpdated()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', roundedValue)
+
+    openDataOptionsModal()
+
+    cy.getBySel('skip-rounding').click()
+    clickOptionsModalUpdateButton()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+}
+
+const testSkipRoundingForEnrollment = (roundedValue) => {
+    goToStartPage()
+
+    // set up table
+    selectEnrollmentWithProgramDimensions({
+        ...E2E_PROGRAM,
+        dimensions: [TEST_DIM_NUMBER],
+    })
+
+    selectRelativePeriod({
+        label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+        period: TEST_REL_PE_THIS_YEAR,
+    })
+
+    clickMenubarUpdateButton()
+
+    getTableHeaderCells().find(`button[title*="${TEST_DIM_NUMBER}"]`).click()
+
+    expectTableToBeUpdated()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', roundedValue)
+
+    openDataOptionsModal()
+
+    cy.getBySel('skip-rounding').click()
+    clickOptionsModalUpdateButton()
+
+    getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
+}
+
+describe('skip rounding', () => {
+    it(['<41'], 'sets skip rounding for event (below 41)', () => {
+        testSkipRoundingForEvent('3.1')
+    })
+    it(['>=41'], 'sets skip rounding for event (41 and above)', () => {
+        testSkipRoundingForEvent('3.12')
+    })
+    // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17027 (currently unsure if this will be backported though)
+    it.skip(['<41'], 'sets skip rounding for enrollment (below 41)', () => {
+        testSkipRoundingForEnrollment('3.1')
+    })
+    it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
+        testSkipRoundingForEnrollment('3.12')
+    })
+    it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
+        goToStartPage()
+
+        // set up table
+        selectTrackedEntityWithTypeAndProgramDimensions({
+            typeName: 'Person',
+            programName: E2E_PROGRAM.programName,
+            dimensions: [TEST_DIM_NUMBER],
+        })
+
+        selectRelativePeriod({
+            label: E2E_PROGRAM[DIMENSION_ID_ENROLLMENT_DATE],
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_NUMBER}"]`)
+            .click()
+
+        expectTableToBeUpdated()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.12)
+
+        openDataOptionsModal()
+
+        cy.getBySel('skip-rounding').click()
+        clickOptionsModalUpdateButton()
+
+        getTableRows().eq(0).find('td').eq(1).should('have.text', 3.123456)
     })
 })

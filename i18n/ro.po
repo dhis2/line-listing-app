@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Valeriu Plesca <vplesca@gmail.com>, 2023
+# Valeriu Plesca <vplesca@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2023-04-19T13:36:14.629Z\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2023\n"
+"Last-Translator: Valeriu Plesca <vplesca@gmail.com>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/hisp-uio/teams/100509/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,18 +168,6 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-msgid "{{count}} conditions"
-msgid_plural "{{count}} conditions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
 msgid "Levels"
 msgstr ""
 
@@ -195,16 +183,22 @@ msgstr[2] ""
 msgid "None selected"
 msgstr ""
 
-msgid "Showing all values for this dimension"
+msgid "Program stage: {{- stageName}}"
 msgstr ""
 
-msgid "Program stage: {{- stageName}}"
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
 msgstr ""
 
 msgid "No dimensions found for '{{- searchTerm}}'"
 msgstr ""
 
 msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
 msgstr ""
 
 msgid "No dimensions found"
@@ -224,6 +218,9 @@ msgstr ""
 msgid "Enrollment"
 msgstr "Înrolare"
 
+msgid "Tracked entity"
+msgstr ""
+
 msgid ""
 "See individual event data from a Tracker program stage or event program."
 msgstr ""
@@ -231,16 +228,25 @@ msgstr ""
 msgid "See data from multiple program stages in a Tracker program."
 msgstr ""
 
-msgid "Main dimensions"
+msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
-msgid "Input: {{type}}"
+msgid "Global dimensions"
 msgstr ""
 
 msgid "Program dimensions"
 msgstr ""
 
-msgid "Search in program"
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
 msgstr ""
 
 msgid "Type"
@@ -264,6 +270,12 @@ msgstr ""
 msgid "Category option group set"
 msgstr ""
 
+msgid "Choose an input to get started adding program dimensions."
+msgstr ""
+
+msgid "Program"
+msgstr "Program"
+
 msgid "Could not load programs"
 msgstr ""
 
@@ -272,19 +284,10 @@ msgid ""
 "administrator."
 msgstr ""
 
-msgid "Choose a stage above to add program dimensions."
-msgstr ""
-
-msgid "Choose a program above to add program dimensions."
-msgstr ""
-
 msgid "Choose a program"
 msgstr ""
 
-msgid "Clear program first to choose another"
-msgstr ""
-
-msgid "Clear"
+msgid "No programs found"
 msgstr ""
 
 msgid "Stage"
@@ -293,13 +296,33 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-msgid "Clear stage first to choose another"
+msgid "No stages found"
 msgstr ""
 
-msgid "This program only has one stage"
+msgid "Could not load types"
 msgstr ""
 
-msgid "Time dimensions"
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
@@ -320,7 +343,7 @@ msgstr ""
 msgid "Edited"
 msgstr ""
 
-msgid "Interpretations"
+msgid "Line list"
 msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
@@ -381,7 +404,15 @@ msgstr ""
 msgid "Not available offline"
 msgstr ""
 
-msgid "Sort by {{column}}"
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
+
+msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
@@ -492,6 +523,9 @@ msgstr ""
 msgid "Show legend key"
 msgstr ""
 
+msgid "Skip rounding"
+msgstr ""
+
 msgid "Add a title"
 msgstr ""
 
@@ -586,16 +620,16 @@ msgid ""
 " incorrect or it could have been deleted."
 msgstr ""
 
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
 msgid "No program selected"
 msgstr ""
 
-msgid "Choose a program from the Program Dimensions sidebar."
-msgstr ""
-
-msgid "No stage selected"
-msgstr ""
-
-msgid "Choose a stage from the Program Dimensions sidebar."
+msgid "Choose a program from the Input sidebar."
 msgstr ""
 
 msgid "Columns is empty"
@@ -612,44 +646,45 @@ msgid ""
 " to the layout."
 msgstr ""
 
-msgid "No time dimension selected"
-msgstr ""
-
-msgid ""
-"Make sure to add a time dimension with at least one selection to the layout."
-msgstr ""
-
 msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
-msgid "No access"
+msgid "Restricted access"
 msgstr ""
 
-msgid "You don't have access to the requested data"
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
 
 msgid "Something went wrong"
 msgstr ""
 
-msgid "Organisation unit"
-msgstr "Unitate organizațională"
-
-msgid "Event status"
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
 msgstr ""
 
-msgid "Program status"
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
+
+msgid "Registration date"
+msgstr ""
+
+msgid "Last updated on"
 msgstr ""
 
 msgid "Created by"
 msgstr ""
 
 msgid "Last updated by"
-msgstr ""
-
-msgid "Not applicable to event programs"
-msgstr ""
-
-msgid "Not applicable to enrollments"
 msgstr ""
 
 msgid "User organisation unit"
@@ -660,6 +695,12 @@ msgstr ""
 
 msgid "User sub-x2-units"
 msgstr ""
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Unitate organizațională"
 
 msgid "Table title"
 msgstr ""
@@ -688,6 +729,12 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
+msgid "Event status"
+msgstr ""
+
+msgid "Program status"
+msgstr ""
+
 msgid "most recent"
 msgstr ""
 
@@ -710,18 +757,6 @@ msgid "Incident date"
 msgstr "Data incidentului"
 
 msgid "Scheduled date"
-msgstr ""
-
-msgid "Last updated on"
-msgstr ""
-
-msgid "Disabled by the selected program"
-msgstr ""
-
-msgid "Disabled by the selected program stage"
-msgstr ""
-
-msgid "No input type selected"
 msgstr ""
 
 msgid "Active"

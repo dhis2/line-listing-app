@@ -1,4 +1,5 @@
 import {
+    AXIS_ID_FILTERS,
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_PERIOD,
     VALUE_TYPE_BOOLEAN,
@@ -8,6 +9,7 @@ import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { OUTPUT_TYPE_TRACKED_ENTITY } from '../../modules/visualization.js'
 import { DimensionIcon } from '../MainSidebar/DimensionItem/DimensionIcon.js'
 import styles from './styles/Chip.module.css'
 
@@ -16,53 +18,49 @@ const VALUE_TYPE_BOOLEAN_NUM_OPTIONS = 3
 
 // Presentational component used by dnd - do not add redux or dnd functionality
 
-export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
-    const { id, name, dimensionType, optionSet, valueType, stageName } =
-        dimension
+export const ChipBase = ({
+    dimension,
+    conditionsLength,
+    itemsLength,
+    inputType,
+    axisId,
+}) => {
+    const { id, name, dimensionType, optionSet, valueType, suffix } = dimension
 
-    const getChipSuffix = () => {
+    const getChipItems = () => {
         if (
-            (id === DIMENSION_ID_ORGUNIT ||
+            ((inputType !== OUTPUT_TYPE_TRACKED_ENTITY &&
+                id === DIMENSION_ID_ORGUNIT) ||
                 dimensionType === DIMENSION_TYPE_PERIOD) &&
             !itemsLength
         ) {
-            return ''
+            return null
         }
 
         const all = i18n.t('all')
 
-        if (!conditionsLength && !itemsLength) {
-            return `: ${all}`
+        if (!conditionsLength && !itemsLength && axisId !== AXIS_ID_FILTERS) {
+            return all
         }
 
         if (
-            (valueType === VALUE_TYPE_TRUE_ONLY &&
+            ((valueType === VALUE_TYPE_TRUE_ONLY &&
                 conditionsLength === VALUE_TYPE_TRUE_ONLY_NUM_OPTIONS) ||
-            (valueType === VALUE_TYPE_BOOLEAN &&
-                conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)
+                (valueType === VALUE_TYPE_BOOLEAN &&
+                    conditionsLength === VALUE_TYPE_BOOLEAN_NUM_OPTIONS)) &&
+            axisId !== AXIS_ID_FILTERS
         ) {
-            return `: ${all}`
+            return all
         }
 
         if (optionSet || itemsLength) {
-            const selected = itemsLength || conditionsLength
-            const suffix = i18n.t('{{count}} selected', {
-                count: selected,
-                defaultValue: '{{count}} selected',
-                defaultValue_plural: '{{count}} selected',
-            })
-            return `: ${suffix}`
+            return itemsLength || conditionsLength
         } else if (conditionsLength) {
-            const suffix = i18n.t('{{count}} conditions', {
-                count: conditionsLength,
-                defaultValue: '{{count}} condition',
-                defaultValue_plural: '{{count}} conditions',
-            })
-            return `: ${suffix}`
+            return conditionsLength
         }
-
-        return ''
     }
+
+    const chipItems = getChipItems()
 
     return (
         <div className={cx(styles.chipBase)}>
@@ -71,24 +69,33 @@ export const ChipBase = ({ dimension, conditionsLength, itemsLength }) => {
             </div>
             <span className={styles.label}>
                 <span className={styles.primary}>{name}</span>
-                {stageName && (
-                    <span className={styles.secondary}>{stageName}</span>
+                {suffix && (
+                    <>
+                        <span>,</span>
+                        <span className={styles.secondary}>{suffix}</span>
+                    </>
                 )}
             </span>
-            <span className={styles.suffix}>{getChipSuffix()}</span>
+            {chipItems && (
+                <span className={styles.items} data-test="chip-items">
+                    {chipItems}
+                </span>
+            )}
         </div>
     )
 }
 
 ChipBase.propTypes = {
+    axisId: PropTypes.string,
     conditionsLength: PropTypes.number,
     dimension: PropTypes.shape({
         dimensionType: PropTypes.string,
         id: PropTypes.string,
         name: PropTypes.string,
         optionSet: PropTypes.string,
-        stageName: PropTypes.string,
+        suffix: PropTypes.string,
         valueType: PropTypes.string,
     }),
+    inputType: PropTypes.string,
     itemsLength: PropTypes.number,
 }

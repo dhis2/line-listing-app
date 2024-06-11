@@ -1,0 +1,782 @@
+# 
+# Translators:
+# Yury Rogachev <yury@dhis2.org>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"PO-Revision-Date: 2022-08-23 11:50+0000\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
+"Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uz@Latn\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add to {{axisName}}"
+msgstr "{{axisName}} ga qoʼshing"
+
+msgid "Choose a condition type"
+msgstr ""
+
+msgid "Case sensitive"
+msgstr ""
+
+msgid "Remove"
+msgstr "Олиб ташлаш"
+
+msgid "and"
+msgstr ""
+
+msgid "Show items that meet the following conditions for this data item:"
+msgstr ""
+
+msgid "This dimension can't be filtered. All values will be shown."
+msgstr ""
+
+msgid ""
+"No conditions yet, so all values will be included. Add a condition to filter"
+" results."
+msgstr ""
+
+msgid "Preset options can't be combined with other conditions"
+msgstr ""
+
+msgid "Add another condition"
+msgstr ""
+
+msgid "Add a condition"
+msgstr ""
+
+msgid "Repeated events"
+msgstr ""
+
+msgid "Conditions"
+msgstr ""
+
+msgid "Only available for repeatable stages"
+msgstr ""
+
+msgid "is one of preset options"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Yuklanmoqda..."
+
+msgid "Choose a set of options"
+msgstr ""
+
+msgid "No preset option sets for this data item"
+msgstr ""
+
+msgid "Choose options"
+msgstr ""
+
+msgid ""
+"From stages with repeatable events, show values for this data element from:"
+msgstr ""
+
+msgid "Most recent events:"
+msgstr ""
+
+msgid "Oldest events:"
+msgstr ""
+
+msgid "Hide"
+msgstr "Berkitish"
+
+msgid "Show items where the status is:"
+msgstr ""
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Start and end dates are inclusive and will be included in the outputs."
+msgstr ""
+
+msgid "Start date"
+msgstr "Boshlanish sanasi"
+
+msgid "End date"
+msgstr "Yakunlanish sanasi"
+
+msgid "No items selected"
+msgstr "Element tanlanmagan"
+
+msgid "Available options"
+msgstr ""
+
+msgid "Filter options"
+msgstr "Filtr variantlari"
+
+msgid "Selected options"
+msgstr ""
+
+msgid "Nothing found for \"{{- searchTerm}}\""
+msgstr ""
+
+msgid "No options"
+msgstr ""
+
+msgid "Move to {{axisName}}"
+msgstr "Harakatlaning {{axisName}} ga qarab"
+
+msgid "HTML"
+msgstr ""
+
+msgid "HTML+CSS (.html+css)"
+msgstr ""
+
+msgid "Plain data source"
+msgstr "Oddiy maʼlumotlar manbai"
+
+msgid "JSON"
+msgstr "JSON"
+
+msgid "XML"
+msgstr "XML"
+
+msgid "Microsoft Excel"
+msgstr ""
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "Download data from this date"
+msgstr ""
+
+msgid "Metadata ID scheme"
+msgstr "MetaMaʼlumot ID sxemasi"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Name"
+msgstr "Исми"
+
+msgid "Download"
+msgstr "Юклаш"
+
+msgid "all"
+msgstr ""
+
+msgid "Levels"
+msgstr "Bosqichlar/Qavatlar"
+
+msgid "Groups"
+msgstr "Гуруҳлар"
+
+msgid "And {{count}} other..."
+msgid_plural "And {{count}} other..."
+msgstr[0] ""
+
+msgid "None selected"
+msgstr "Biror nima tanlanmagan"
+
+msgid "Program stage: {{- stageName}}"
+msgstr ""
+
+msgid "Program: {{- programName}}"
+msgstr ""
+
+msgid "Showing all values for this dimension"
+msgstr ""
+
+msgid "No dimensions found for '{{- searchTerm}}'"
+msgstr ""
+
+msgid "No dimensions found in the {{- programName}} program"
+msgstr ""
+
+msgid " {{- trackedEntityType}} has no dimensions"
+msgstr ""
+
+msgid "No dimensions found"
+msgstr ""
+
+msgid "Couldn't load dimensions"
+msgstr ""
+
+msgid ""
+"There was a problem loading the dimensions. Try again, or contact your "
+"system administrator."
+msgstr ""
+
+msgid "Event"
+msgstr "Hodisa/Tadbir"
+
+msgid "Enrollment"
+msgstr "Roʼyxatga olish"
+
+msgid "Tracked entity"
+msgstr "Kuzatuv obʼekti"
+
+msgid ""
+"See individual event data from a Tracker program stage or event program."
+msgstr ""
+
+msgid "See data from multiple program stages in a Tracker program."
+msgstr ""
+
+msgid "See individual tracked entities from one or more Tracker programs."
+msgstr ""
+
+msgid "Global dimensions"
+msgstr ""
+
+msgid "Program dimensions"
+msgstr ""
+
+msgid "Input: {{type}}"
+msgstr ""
+
+msgid "Choose an input first"
+msgstr ""
+
+msgid "Program data dimensions"
+msgstr ""
+
+msgid "Search data dimensions"
+msgstr ""
+
+msgid "Type"
+msgstr "Turi"
+
+msgid "All types"
+msgstr "Barcha turlari"
+
+msgid "Data element"
+msgstr "Maʼlumotlar elementi"
+
+msgid "Program attribute"
+msgstr ""
+
+msgid "Program indicator"
+msgstr "Dastur indikatori"
+
+msgid "Category"
+msgstr "Kategoriya"
+
+msgid "Category option group set"
+msgstr "Kategoriya variantlari guruh toʼplami"
+
+msgid "Choose an input to get started adding program dimensions."
+msgstr ""
+
+msgid "Program"
+msgstr "Dastur"
+
+msgid "Could not load programs"
+msgstr ""
+
+msgid ""
+"The programs couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a program"
+msgstr ""
+
+msgid "No programs found"
+msgstr ""
+
+msgid "Stage"
+msgstr "Босқич"
+
+msgid "All"
+msgstr "Barchasi"
+
+msgid "No stages found"
+msgstr ""
+
+msgid "Could not load types"
+msgstr ""
+
+msgid ""
+"The types couldn't be retrieved. Try again or contact your system "
+"administrator."
+msgstr ""
+
+msgid "Choose a type"
+msgstr ""
+
+msgid "No types found"
+msgstr ""
+
+msgid "{{- itemName}} dimensions"
+msgstr ""
+
+msgid "Filter by program usage"
+msgstr ""
+
+msgid "Clear"
+msgstr "Аниқ"
+
+msgid "Search dimensions"
+msgstr ""
+
+msgid "Your dimensions"
+msgstr "Sizning sozlamalaringiz"
+
+msgid "Search your dimensions"
+msgstr ""
+
+msgid "Show panels"
+msgstr ""
+
+msgid "Expand visualization and hide panels"
+msgstr ""
+
+msgid "Unsaved visualization"
+msgstr "Saqlanmagan vizualizatsiya"
+
+msgid "Edited"
+msgstr "Tahrirlangan"
+
+msgid "Line list"
+msgstr "Qatorlar roʼyxati"
+
+msgid "\"{{- deletedObject}}\" successfully deleted."
+msgstr ""
+
+msgid "Rename successful"
+msgstr "Muvaffaqiyatli qayta nomlash"
+
+msgid "Untitled {{visualizationType}} visualization, {{date}}"
+msgstr "Nomsiz {{visualizationType}} vizualizatsiya, {{date}}"
+
+msgid ""
+"This visualization can't be deleted because it is used on one or more "
+"dashboards"
+msgstr ""
+"Ushbu vizualizatsiyani oʼchirib boʼlmaydi, chunki u bir yoki bir necha "
+"informatsiyaon panel tomonidan foydalanilmoqda"
+
+msgid "Show layout"
+msgstr ""
+
+msgid "Hide layout"
+msgstr ""
+
+msgid "Show dimensions sidebar"
+msgstr ""
+
+msgid "Hide dimensions sidebar"
+msgstr ""
+
+msgid "Hide interpretations and details"
+msgstr "Talqinlar va tavsilotlarni berkitish"
+
+msgid "Show interpretations and details"
+msgstr "Talqinlar va tavsilotlarni koʼrsatish"
+
+msgid "View"
+msgstr "Koʼrik"
+
+msgid "Update"
+msgstr "Янгилаш"
+
+msgid "Getting started"
+msgstr "Ish boshlanganida"
+
+msgid ""
+"All dimensions that you can use to build visualizations are shown in the "
+"sections in the left sidebar."
+msgstr ""
+
+msgid "Add dimensions to the layout above."
+msgstr ""
+
+msgid "Click a dimension to add or remove conditions."
+msgstr ""
+
+msgid "Your most viewed line lists"
+msgstr ""
+
+msgid "Not available offline"
+msgstr ""
+
+msgid ""
+"This line list may show data that was not available when the interpretation "
+"was written."
+msgstr ""
+
+msgid "Sort by \"{{column}}\" and update"
+msgstr ""
+
+msgid "No event"
+msgstr ""
+
+msgid "Rows per page"
+msgstr "Sahifada qatorlar"
+
+msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
+msgstr ""
+
+msgid "Column sub-totals"
+msgstr "Ustunning oraliq yigʼindilari"
+
+msgid "Columns totals"
+msgstr "Ustunlar boʼyicha yigʼindi"
+
+msgid "Digit group separator"
+msgstr "Raqamlar guruhini taqsimlovchi"
+
+msgid "None"
+msgstr "Йўқ"
+
+msgid "Space"
+msgstr "Oraliq (maydon)"
+
+msgid "Comma"
+msgstr "Vergul"
+
+msgid "Display density"
+msgstr "Koʼrinish zichligi"
+
+msgid "Comfortable"
+msgstr "Qulay"
+
+msgid "Normal"
+msgstr "Meʼyoriy"
+
+msgid "Compact"
+msgstr "Zich"
+
+msgid "Font size"
+msgstr "Shrift hajmi"
+
+msgid "Large"
+msgstr "Katta"
+
+msgid "Small"
+msgstr "Kichik"
+
+msgid "Hide empty rows"
+msgstr "Boʼsh qatorlarni berkitish"
+
+msgid "Use a legend for table cell colors"
+msgstr ""
+
+msgid "Legend style"
+msgstr "Taʼrif turi"
+
+msgid "Legend type"
+msgstr "Таъриф тури"
+
+msgid "Use pre-defined legend per data item"
+msgstr "Har bir maʼlumot uchun oldindan belgilangan taʼrifdan foydalaning"
+
+msgid "Choose a single legend for the entire visualization"
+msgstr ""
+
+msgid "Legend changes background color"
+msgstr "Taʼrif fon rangini oʼzgartiradi"
+
+msgid "Legend changes text color"
+msgstr "Taʼrif matn rangini oʼzgartiradi"
+
+msgid "Legend"
+msgstr "Taʼrif"
+
+msgid "Select from legends"
+msgstr "Taʼriflardan soʼrang"
+
+msgid "Loading legends"
+msgstr "Taʼriflar yuklanmoqda"
+
+msgid ""
+"You can set a minimum or maximum value. This will apply to the entire "
+"visualization, all values outside of the minimum/maximum range will not be "
+"displayed"
+msgstr ""
+
+msgid "Minimum data value"
+msgstr "Maʼlumotlarning minimal qiymati"
+
+msgid "Maximum data value"
+msgstr "Maʼlumotlarning maksimal qiymati"
+
+msgid "Clear min/max limits"
+msgstr "Minimal/maksimal chegaralarini aniqlashtiring"
+
+msgid "Row sub-totals"
+msgstr "Qatorning oraliq yigʼindisi"
+
+msgid "Row totals"
+msgstr "Qator yigʼindisi"
+
+msgid "Dimension labels"
+msgstr "Oʼlcham qiymatlari"
+
+msgid "Display organisation unit hierarchy"
+msgstr "Tashkiliy boʼlim ierarxiyasini namoyish qilish"
+
+msgid "Show legend key"
+msgstr "Kalit taʼrifni koʼrsating"
+
+msgid "Skip rounding"
+msgstr "Soddalashtirish oʼtkazib yuborilsin"
+
+msgid "Add a title"
+msgstr "Sarlavha qoʼshish"
+
+msgid "Options"
+msgstr "Вариант"
+
+msgid "Columns"
+msgstr "Ustunlar"
+
+msgid "Rows"
+msgstr "Qatorlar"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "equal to (=)"
+msgstr ""
+
+msgid "greater than (>)"
+msgstr ""
+
+msgid "greater than or equal to (≥)"
+msgstr ""
+
+msgid "less than (<)"
+msgstr ""
+
+msgid "less than or equal to (≤)"
+msgstr ""
+
+msgid "not equal to (≠)"
+msgstr ""
+
+msgid "is empty / null"
+msgstr ""
+
+msgid "is not empty / not null"
+msgstr ""
+
+msgid "exactly"
+msgstr ""
+
+msgid "is not"
+msgstr "emas"
+
+msgid "contains"
+msgstr "oʼz ichiga oladi"
+
+msgid "does not contain"
+msgstr ""
+
+msgid "after"
+msgstr ""
+
+msgid "after or including"
+msgstr ""
+
+msgid "before"
+msgstr ""
+
+msgid "before or including"
+msgstr ""
+
+msgid "Yes"
+msgstr "Ҳа"
+
+msgid "No"
+msgstr "Йўқ"
+
+msgid "Not answered"
+msgstr ""
+
+msgid "There is a problem with this visualization."
+msgstr ""
+
+msgid "There was a problem getting the data from the server."
+msgstr "Serverdan maʼlumotlarni olishda muammo yuz berdi."
+
+msgid "No data available"
+msgstr ""
+
+msgid ""
+"The selected dimensions didn’t return any data. There may be no data, or you"
+" may not have access to it."
+msgstr ""
+"Tanlangan parametrlar asosida hech qanday maʼlumotlar topilmadi. Maʼlumotlar"
+" yoʼq yoki ulargadan foydalanish huquqi mavjud emas."
+
+msgid "Visualization not found"
+msgstr "Vizualizatsiya topilmadi"
+
+msgid ""
+"The visualization you are trying to view could not be found, the ID could be"
+" incorrect or it could have been deleted."
+msgstr ""
+"Siz koʼrmoqchi boʼlgan vizualizatsiya topilmadi, identifikator notoʼgʼri "
+"yoki oʼchirilgan boʼlishi mumkin."
+
+msgid "No tracked entity type selected"
+msgstr ""
+
+msgid "Choose a type from the Input sidebar."
+msgstr ""
+
+msgid "No program selected"
+msgstr ""
+
+msgid "Choose a program from the Input sidebar."
+msgstr ""
+
+msgid "Columns is empty"
+msgstr ""
+
+msgid "Add at least one item to Columns."
+msgstr ""
+
+msgid "No organisation unit selected"
+msgstr ""
+
+msgid ""
+"Make sure to add the organisation unit dimension with at least one selection"
+" to the layout."
+msgstr ""
+
+msgid "There's a problem with at least one selected indicator"
+msgstr ""
+
+msgid "Restricted access"
+msgstr ""
+
+msgid ""
+"You don’t have access to the data in this visualization. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "You don’t have access to one or more of the chosen organisation units."
+msgstr ""
+
+msgid ""
+"You don’t have access to event analytics. Contact a system administrator."
+msgstr ""
+
+msgid "Something went wrong"
+msgstr "Nimadir notoʼgʼri bajarildi"
+
+msgid ""
+"There's a problem with the generated analytics. Contact a system "
+"administrator."
+msgstr ""
+
+msgid "There's a syntax problem with the analytics request."
+msgstr ""
+
+msgid "Registration date"
+msgstr "Roʼyxatga olingan sana"
+
+msgid "Last updated on"
+msgstr ""
+
+msgid "Created by"
+msgstr "Томонидан яратилган"
+
+msgid "Last updated by"
+msgstr ""
+
+msgid "User organisation unit"
+msgstr "Ташкилий бўлим фойдаланувчиси"
+
+msgid "User sub-units"
+msgstr "Фойдаланувчига бўйсунувчи бирликлар"
+
+msgid "User sub-x2-units"
+msgstr "Фойдаланувчига бўйсунувчи 2 даражали бирликлар"
+
+msgid "Registration org. unit"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr "Ташкилий бирлик"
+
+msgid "Table title"
+msgstr "Jadval sarlavhasi"
+
+msgid "Display"
+msgstr "Ekranda koʼrsatish"
+
+msgid "Empty data"
+msgstr "Boʼsh maʼlumotlar"
+
+msgid "Totals"
+msgstr "Жами"
+
+msgid "Data"
+msgstr "Маълумот"
+
+msgid "Limit values"
+msgstr "Cheklangan qiymatlar"
+
+msgid "Limit number of values"
+msgstr "Qiymatlarning cheklangan soni"
+
+msgid "Limit minimum/maximum values"
+msgstr "Minimal/maksimal qiymatlarni cheklash"
+
+msgid "Style"
+msgstr "Услуб"
+
+msgid "Event status"
+msgstr "Hodisa/Tadbir holati"
+
+msgid "Program status"
+msgstr "dastur holati"
+
+msgid "most recent"
+msgstr ""
+
+msgid "oldest"
+msgstr ""
+
+msgid "oldest {{repeatEventIndex}}"
+msgstr ""
+
+msgid "most recent {{repeatEventIndex}}"
+msgstr ""
+
+msgid "Event date"
+msgstr "Hodisa/Tadbir sanasi"
+
+msgid "Enrollment date"
+msgstr "Qayd qilingan sana"
+
+msgid "Incident date"
+msgstr "Hodisa sanasi"
+
+msgid "Scheduled date"
+msgstr "Rejalashtirilgan sana"
+
+msgid "Active"
+msgstr "Faol"
+
+msgid "Cancelled"
+msgstr "Bekor qilindi"
+
+msgid "Completed"
+msgstr "bajarildi"
+
+msgid "Scheduled"
+msgstr "Reja boʼyicha"
+
+msgid "List data from tracked entities and events."
+msgstr ""
+
+msgid "Explore data with manipulatable columns, rows, and aggregations."
+msgstr ""

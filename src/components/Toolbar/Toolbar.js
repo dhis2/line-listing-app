@@ -1,20 +1,19 @@
-import cx from 'classnames'
+import { Toolbar as AnalyticsToolbar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
-import classes from '../App.module.css'
-import { default as MenuBar } from './MenuBar/MenuBar.js'
-import { default as VisualizationTypeSelector } from './VisualizationTypeSelector/VisualizationTypeSelector.js'
+import { AppLogo } from './AppLogo.js'
+import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.js'
+import { MenuBar } from './MenuBar.js'
+import { UpdateButton } from './UpdateButton.js'
 
-export const Toolbar = ({ onFileMenuAction }) => {
-    return (
-        <div className={cx(classes.sectionToolbar, classes.flexCt)}>
-            <VisualizationTypeSelector />
-            <div className={cx(classes.toolbarMenubar, classes.flexGrow1)}>
-                <MenuBar onFileMenuAction={onFileMenuAction} />
-            </div>
-        </div>
-    )
-}
+export const Toolbar = ({ onFileMenuAction }) => (
+    <AnalyticsToolbar>
+        <AppLogo />
+        <UpdateButton />
+        <MenuBar onFileMenuAction={onFileMenuAction} />
+        <InterpretationsAndDetailsToggler />
+    </AnalyticsToolbar>
+)
 
 Toolbar.propTypes = {
     onFileMenuAction: PropTypes.func.isRequired,

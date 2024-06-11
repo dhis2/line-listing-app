@@ -11,11 +11,8 @@ import {
     TEST_FIX_PE_DEC_LAST_YEAR,
     TEST_REL_PE_THIS_YEAR,
 } from '../data/index.js'
-import {
-    dimensionIsDisabled,
-    dimensionIsEnabled,
-    selectEventWithProgramDimensions,
-} from '../helpers/dimensions.js'
+import { selectEventWithProgramDimensions } from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -26,30 +23,19 @@ import {
 } from '../helpers/table.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
-const runTests = ({ scheduledDateIsSupported } = {}) => {
+describe('event', () => {
+    beforeEach(() => {
+        goToStartPage()
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
+    })
     it('creates an event line list (tracker program)', () => {
         const eventProgram = E2E_PROGRAM
         const dimensionName = TEST_DIM_TEXT
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        // check that the time dimensions are correctly disabled and named
-        dimensionIsEnabled('dimension-item-eventDate')
-        cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-        if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                'Scheduled date'
-            )
-        }
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-        dimensionIsEnabled('dimension-item-lastUpdated')
-        cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
+        cy.getBySel('dimension-item-lastUpdated').contains(
+            eventProgram[DIMENSION_ID_LAST_UPDATED]
+        )
 
         // select program
         selectEventWithProgramDimensions({
@@ -57,30 +43,22 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             dimensions: [dimensionName],
         })
 
-        // check that the time dimensions disabled states and names are updated correctly
-
-        dimensionIsEnabled('dimension-item-eventDate')
+        // check that the time dimensions are shown with the correct names
         cy.getBySel('dimension-item-eventDate').contains(
             eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
-        dimensionIsEnabled('dimension-item-enrollmentDate')
         cy.getBySel('dimension-item-enrollmentDate').contains(
             eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
         )
-        if (scheduledDateIsSupported) {
-            dimensionIsEnabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
-            )
-        }
+        cy.getBySel('dimension-item-scheduledDate').contains(
+            eventProgram[DIMENSION_ID_SCHEDULED_DATE]
+        )
 
-        dimensionIsEnabled('dimension-item-incidentDate')
         cy.getBySel('dimension-item-incidentDate').contains(
             eventProgram[DIMENSION_ID_INCIDENT_DATE]
         )
 
-        dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains(
             eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
@@ -94,7 +72,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 3)
@@ -108,20 +86,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 
     it('creates an event line list (event program)', () => {
@@ -129,33 +96,13 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             programName: 'Inpatient morbidity and mortality',
             [DIMENSION_ID_EVENT_DATE]: 'Report date',
             [DIMENSION_ID_ENROLLMENT_DATE]: 'Enrollment date',
-            ...(scheduledDateIsSupported
-                ? { [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date' }
-                : {}),
+            [DIMENSION_ID_SCHEDULED_DATE]: 'Scheduled date',
             [DIMENSION_ID_INCIDENT_DATE]: 'Date of Discharge',
             [DIMENSION_ID_LAST_UPDATED]: 'Last updated on',
         }
         const dimensionName = 'Mode of Discharge'
         const periodLabel = eventProgram[DIMENSION_ID_EVENT_DATE]
 
-        // check that the time dimensions are correctly disabled and named
-        dimensionIsEnabled('dimension-item-eventDate')
-        cy.getBySel('dimension-item-eventDate').contains('Event date')
-
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains('Enrollment date')
-
-        if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                'Scheduled date'
-            )
-        }
-
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains('Incident date')
-
-        dimensionIsEnabled('dimension-item-lastUpdated')
         cy.getBySel('dimension-item-lastUpdated').contains('Last updated on')
 
         // select program
@@ -164,30 +111,18 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
             dimensions: [dimensionName],
         })
 
-        // check that the time dimensions disabled states and names are updated correctly
+        // check that the time dimensions are shown with the correct names
 
-        dimensionIsEnabled('dimension-item-eventDate')
         cy.getBySel('dimension-item-eventDate').contains(
             eventProgram[DIMENSION_ID_EVENT_DATE]
         )
 
-        dimensionIsDisabled('dimension-item-enrollmentDate')
-        cy.getBySel('dimension-item-enrollmentDate').contains(
-            eventProgram[DIMENSION_ID_ENROLLMENT_DATE]
-        )
-        if (scheduledDateIsSupported) {
-            dimensionIsDisabled('dimension-item-scheduledDate')
-            cy.getBySel('dimension-item-scheduledDate').contains(
-                eventProgram[DIMENSION_ID_SCHEDULED_DATE]
-            )
-        }
+        cy.getBySel('dimension-item-enrollmentDate').should('not.exist')
 
-        dimensionIsDisabled('dimension-item-incidentDate')
-        cy.getBySel('dimension-item-incidentDate').contains(
-            eventProgram[DIMENSION_ID_INCIDENT_DATE]
-        )
+        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
 
-        dimensionIsEnabled('dimension-item-lastUpdated')
+        cy.getBySel('dimension-item-incidentDate').should('not.exist')
+
         cy.getBySel('dimension-item-lastUpdated').contains(
             eventProgram[DIMENSION_ID_LAST_UPDATED]
         )
@@ -201,7 +136,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // check the correct number of columns
         getTableHeaderCells().its('length').should('equal', 3)
@@ -215,20 +150,9 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('be.visible')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
 
     it('moves a dimension to filter', () => {
@@ -250,7 +174,7 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
 
         expectTableToBeVisible()
 
-        cy.getBySelLike('layout-chip').contains(`${dimensionName}: all`)
+        assertChipContainsText(dimensionName, 'all')
 
         // move Report date from "Columns" to "Filter"
         cy.getBySel('columns-axis')
@@ -272,35 +196,8 @@ const runTests = ({ scheduledDateIsSupported } = {}) => {
         getTableHeaderCells().contains(periodLabel).should('not.exist')
 
         //check the chips in the layout
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains('Organisation unit: 1 selected')
-            .should('be.visible')
-
-        cy.getBySel('columns-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${dimensionName}: all`)
-            .should('be.visible')
-
-        cy.getBySel('filters-axis')
-            .findBySelLike('layout-chip')
-            .contains(`${periodLabel}: 1 selected`)
-            .should('be.visible')
+        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText(dimensionName, 'all')
+        assertChipContainsText(periodLabel, 1)
     })
-}
-
-describe(['>=39'], 'event', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-    })
-    runTests({ scheduledDateIsSupported: true })
-})
-
-describe(['<39'], 'event', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT)
-    })
-    runTests()
 })

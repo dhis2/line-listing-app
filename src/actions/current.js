@@ -1,8 +1,11 @@
+import { getAdaptedVisualization } from '../components/Visualization/analyticsQueryTools.js'
 import { genericClientError } from '../modules/error.js'
 import {
     layoutHasProgramId,
+    layoutHasTrackedEntityTypeId,
     validateLayout,
 } from '../modules/layoutValidation.js'
+import { getSortingFromVisualization } from '../modules/ui.js'
 import {
     SET_CURRENT,
     CLEAR_CURRENT,
@@ -14,7 +17,7 @@ import {
     acSetLoadError,
     acSetVisualizationLoading,
 } from './loader.js'
-import { acSetShowExpandedLayoutPanel } from './ui.js'
+import { acSetShowExpandedLayoutPanel, acClearUiDataSorting } from './ui.js'
 
 const acSetCurrent = (value) => ({
     type: SET_CURRENT,
@@ -40,8 +43,25 @@ export const tSetCurrentFromUi =
         const state = getState()
         const currentFromUi = sGetCurrentFromUi(state)
 
+        const currentOverrides = {}
+
+        const sorting = getSortingFromVisualization(currentFromUi)
+        const { headers } = getAdaptedVisualization(currentFromUi)
+
+        if (headers && sorting?.dimension) {
+            // reset sorting if current sort dimension has been removed from Columns DHIS2-13948
+            // flat() is needed here for repeated events where the dimension ids are nested in an array
+            if (!headers.flat().includes(sorting.dimension)) {
+                currentOverrides.sorting = undefined
+
+                dispatch(acClearUiDataSorting())
+            }
+        }
+
+        const current = { ...currentFromUi, ...currentOverrides }
+
         try {
-            validateLayout(currentFromUi)
+            validateLayout(current)
             if (!validateOnly) {
                 dispatch(acClearLoadError())
                 dispatch(acSetVisualizationLoading(true))
@@ -51,8 +71,12 @@ export const tSetCurrentFromUi =
         }
 
         if (!validateOnly) {
-            if (layoutHasProgramId(currentFromUi)) {
-                dispatch(acSetCurrent(currentFromUi))
+            // proceed if the layout either has a program id or a tracked entity type id
+            if (
+                layoutHasProgramId(current) ||
+                layoutHasTrackedEntityTypeId(current)
+            ) {
+                dispatch(acSetCurrent(current))
             } else {
                 dispatch(acClearCurrent())
             }

@@ -12,14 +12,18 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
+import { extractDimensionIdParts } from './dimensionId.js'
 import { headersMap, getStatusNames } from './visualization.js'
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     if (
+        header.name &&
         [
             headersMap[DIMENSION_ID_EVENT_STATUS],
             headersMap[DIMENSION_ID_PROGRAM_STATUS],
-        ].includes(header.name)
+        ].includes(
+            extractDimensionIdParts(header.name, visualization.type).dimensionId
+        )
     ) {
         return getStatusNames()[value] || value
     }
@@ -30,7 +34,7 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
             moment(value).format(
                 header.name === headersMap[DIMENSION_ID_LAST_UPDATED] ||
                     header.valueType === VALUE_TYPE_DATETIME
-                    ? 'yyyy-MM-DD hh:mm'
+                    ? 'yyyy-MM-DD HH:mm'
                     : 'yyyy-MM-DD'
             )
         )
@@ -56,23 +60,23 @@ const getHeaderText = ({ stageOffset, column } = {}) => {
     }
 
     if (Number.isInteger(stageOffset)) {
-        let postfix
+        let repetitionSuffix
 
         if (stageOffset === 0) {
-            postfix = i18n.t('most recent')
+            repetitionSuffix = i18n.t('most recent')
         } else if (stageOffset === 1) {
-            postfix = i18n.t('oldest')
+            repetitionSuffix = i18n.t('oldest')
         } else if (stageOffset > 1) {
-            postfix = i18n.t('oldest {{repeatEventIndex}}', {
+            repetitionSuffix = i18n.t('oldest {{repeatEventIndex}}', {
                 repeatEventIndex: `+${stageOffset - 1}`,
             })
         } else if (stageOffset < 0) {
-            postfix = i18n.t('most recent {{repeatEventIndex}}', {
+            repetitionSuffix = i18n.t('most recent {{repeatEventIndex}}', {
                 repeatEventIndex: stageOffset,
             })
         }
 
-        return `${column} (${postfix})`
+        return `${column} (${repetitionSuffix})`
     }
 
     return column

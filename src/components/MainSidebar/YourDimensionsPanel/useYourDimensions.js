@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
 const YOUR_DIMENSIONS_RESOURCE = 'dimensions'
-// Fixed filter on org units for 2.38 ?
 const YOUR_DIMENSIONS_FILTER = 'dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'
 
 const query = {
@@ -29,7 +28,7 @@ const query = {
 
 const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
     const [isListEndVisible, setIsListEndVisible] = useState(false)
-    const [dimensions, setDimensions] = useState([])
+    const [dimensions, setDimensions] = useState(null)
     const { data, error, loading, fetching, called, refetch } = useDataQuery(
         query,
         {
@@ -53,7 +52,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
             })
         }
         // Reset when filter changes
-        setDimensions([])
+        setDimensions(null)
     }, [searchTerm, nameProp])
 
     useEffect(() => {
@@ -63,7 +62,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
 
             if (isListEndVisible && !isLastPage && !fetching) {
                 refetch({
-                    page: data.page + 1,
+                    page: pager.page + 1,
                     searchTerm,
                     nameProp,
                 })
@@ -74,17 +73,17 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
     useEffect(() => {
         if (data) {
             setDimensions((currDimensions) => [
-                ...currDimensions,
+                ...(currDimensions ?? []),
                 ...data.dimensions.dimensions,
             ])
         }
     }, [data])
 
     return {
-        loading,
+        loading: dimensions ? false : loading,
         fetching,
         error,
-        dimensions,
+        dimensions: dimensions ?? [],
         setIsListEndVisible,
     }
 }

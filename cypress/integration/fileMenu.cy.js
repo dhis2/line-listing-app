@@ -1,6 +1,11 @@
 import { TEST_REL_PE_LAST_YEAR } from '../data/index.js'
 import { goToAO } from '../helpers/common.js'
-import { selectEventWithProgram } from '../helpers/dimensions.js'
+import {
+    clickAddRemoveProgramDimension,
+    openInputSidebar,
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
 import {
     ITEM_NEW,
     ITEM_OPEN,
@@ -38,7 +43,9 @@ const defaultItemsMap = {
 const assertFileMenuItems = (enabledItemsMap = {}) => {
     const itemsMap = Object.assign({}, defaultItemsMap, enabledItemsMap)
 
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('File').click()
+    cy.getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('File')
+        .click()
 
     Object.entries(itemsMap).forEach(([itemName, enabled]) => {
         enabled
@@ -46,19 +53,19 @@ const assertFileMenuItems = (enabledItemsMap = {}) => {
             : cy.getBySel(itemName).should('have.class', 'disabled')
     })
 
-    cy.getBySel('file-menu-toggle-layer').click()
+    cy.get('body').click()
     cy.getBySel('file-menu-container').should('not.exist')
 }
 
 const assertDownloadIsEnabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('not.have.attr', 'disabled')
 
 const assertDownloadIsDisabled = () =>
     cy
-        .getBySel('menubar', EXTENDED_TIMEOUT)
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('have.attr', 'disabled')
 
@@ -76,6 +83,8 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
+        // without program, with org unit
+
         assertDownloadIsDisabled()
 
         assertFileMenuItems()
@@ -87,6 +96,12 @@ describe('file menu', () => {
         selectEventWithProgram({
             programName: 'Child Programme',
         })
+
+        openProgramDimensionsSidebar()
+
+        clickAddRemoveProgramDimension('Organisation unit')
+
+        // with program, without org unit
 
         clickMenubarUpdateButton()
 
@@ -102,13 +117,36 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
+
+        // with program, with org unit
+
+        clickMenubarUpdateButton()
+
+        assertDownloadIsEnabled()
+
+        assertFileMenuItems({
+            [ITEM_SAVE]: true,
+        })
+    })
+
+    it('reflects "unsaved, valid: data" state 2', () => {
+        goToStartPage()
+
+        selectEventWithProgram({
+            programName: 'Child Programme',
+        })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',
             period: TEST_REL_PE_LAST_YEAR,
         })
+
+        // with program, with org unit, with period
 
         clickMenubarUpdateButton()
 
@@ -134,7 +172,9 @@ describe('file menu', () => {
 
         expectAOTitleToContain(AO_NAME)
 
-        assertDownloadIsDisabled()
+        // saved with program, with org unit
+
+        assertDownloadIsEnabled()
 
         assertFileMenuItems({
             [ITEM_SAVEAS]: true,
@@ -151,8 +191,9 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',
@@ -166,6 +207,8 @@ describe('file menu', () => {
         saveVisualization(AO_NAME)
 
         expectAOTitleToContain(AO_NAME)
+
+        // saved with program, with org unit, with period
 
         assertDownloadIsEnabled()
 
@@ -187,8 +230,9 @@ describe('file menu', () => {
 
         selectEventWithProgram({
             programName: 'Child Programme',
-            stageName: 'Birth',
         })
+
+        openProgramDimensionsSidebar()
 
         selectRelativePeriod({
             label: 'Report date',
@@ -219,25 +263,9 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
-        // "dirty, valid: save" state
-        cy.getBySel('stage-clear-button').click()
-
-        clickMenubarUpdateButton()
-
-        assertDownloadIsDisabled()
-
-        assertFileMenuItems({
-            [ITEM_SAVE]: true,
-            [ITEM_SAVEAS]: true,
-            [ITEM_RENAME]: true,
-            [ITEM_TRANSLATE]: true,
-            [ITEM_SHARING]: true,
-            [ITEM_GETLINK]: true,
-            [ITEM_DELETE]: true,
-        })
-
         // "dirty, no program" state
-        cy.getBySel('program-clear-button').click()
+        openInputSidebar()
+        cy.getBySel('input-enrollment').click()
 
         clickMenubarUpdateButton()
 
@@ -293,6 +321,8 @@ describe('file menu', () => {
             [ITEM_DELETE]: true,
         })
 
+        openProgramDimensionsSidebar()
+
         // "dirty, valid: save" state
         unselectAllPeriods({
             label: 'Report date',
@@ -312,9 +342,8 @@ describe('file menu', () => {
         })
 
         // "dirty, no program" state
-        cy.getBySel('main-sidebar').contains('Program dimensions').click()
-
-        cy.getBySel('program-clear-button').click()
+        openInputSidebar()
+        cy.getBySel('input-enrollment').click()
 
         clickMenubarUpdateButton()
 

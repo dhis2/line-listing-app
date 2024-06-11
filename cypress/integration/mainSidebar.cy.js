@@ -10,7 +10,7 @@ describe('main sidebar', () => {
         // Hiding
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Hide dimensions sidebar')
             .should('be.visible')
             .click()
@@ -20,7 +20,7 @@ describe('main sidebar', () => {
         // Showing
         clickMenubarViewButton()
 
-        cy.getBySel('dhis2-uicore-menuitem')
+        cy.getBySel('dhis2-uicore-hovermenulistitem')
             .contains('Show dimensions sidebar')
             .should('be.visible')
             .click()

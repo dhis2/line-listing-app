@@ -3,8 +3,6 @@ name: 'e2e-dev'
 on:
     workflow_call:
         secrets:
-            baseurl:
-                required: true
             username:
                 required: true
             password:
@@ -22,7 +20,6 @@ defaults:
 
 jobs:
     compute-dev-version:
-        if: "!github.event.push.repository.fork && (github.event.pull_request.draft == false || github.action == 'workflow_dispatch')"
         runs-on: ubuntu-latest
         outputs:
             version: ${{ steps.instance-version.outputs.version }}
@@ -31,7 +28,7 @@ jobs:
               id: instance-version
               uses: dhis2/action-instance-version@v1
               with:
-                  instance-url: ${{ secrets.baseurl }}
+                  instance-url: https://test.e2e.dhis2.org/analytics-dev
                   username: ${{ secrets.username }}
                   password: ${{ secrets.password }}
 
@@ -65,7 +62,7 @@ jobs:
               env:
                   BROWSER: none
                   CYPRESS_RECORD_KEY: ${{ secrets.recordkey }}
-                  CYPRESS_dhis2BaseUrl: ${{ secrets.baseurl }}
+                  CYPRESS_dhis2BaseUrl: https://test.e2e.dhis2.org/analytics-dev
                   CYPRESS_dhis2InstanceVersion: ${{ needs.compute-dev-version.outputs.version }}
                   CYPRESS_dhis2Username: ${{ secrets.username }}
                   CYPRESS_dhis2Password: ${{ secrets.password }}

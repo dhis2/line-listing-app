@@ -1,7 +1,13 @@
+import { DIMENSION_ID_EVENT_DATE } from '../../src/modules/dimensionConstants.js'
+import { E2E_PROGRAM } from '../data/index.js'
 import { clearInput, typeInput } from '../helpers/common.js'
+import {
+    openProgramDimensionsSidebar,
+    selectEventWithProgram,
+} from '../helpers/dimensions.js'
+import { assertChipContainsText } from '../helpers/layout.js'
 import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 /* This files constains sequential tests, which means that some test steps
  * depend on a previous step. With test isolation switched on (the default setting)
@@ -11,19 +17,24 @@ describe('period dimension', { testIsolation: false }, () => {
     const currentYear = getCurrentYearStr()
     const previousYear = getPreviousYearStr()
 
-    const TEST_DIM_ID = 'eventDate'
-    const TEST_DIM_NAME = 'Event date'
+    const event = E2E_PROGRAM
+    const TEST_DIM_ID = DIMENSION_ID_EVENT_DATE
+    const TEST_DIM_NAME = event[TEST_DIM_ID]
     const TEST_RELATIVE_PERIOD_NAME = 'Last 3 months'
     const TEST_FIXED_PERIOD_NAME = `January ${currentYear}`
 
     const openModal = (id) =>
         cy
-            .getBySel('main-sidebar', EXTENDED_TIMEOUT)
+            .getBySel('program-dimensions')
             .findBySel(`dimension-item-${id}`)
             .click()
 
     it('opens modal', () => {
         goToStartPage()
+
+        selectEventWithProgram(event)
+
+        openProgramDimensionsSidebar()
 
         openModal(TEST_DIM_ID)
 
@@ -85,9 +96,7 @@ describe('period dimension', { testIsolation: false }, () => {
 
         cy.contains('Add to Columns').click()
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${TEST_DIM_NAME}: 1 selected`)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
             `January 1, ${previousYear} - December 31, ${currentYear}`
@@ -110,9 +119,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .containsExact(TEST_DIM_NAME)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME)
 
         cy.getBySelLike('tooltip-content').contains('None selected')
 
@@ -130,9 +137,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .contains(`${TEST_DIM_NAME}: 1 selected`)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME, 1)
 
         cy.getBySelLike('tooltip-content').contains(
             `January 1, ${previousYear} - December 31, ${currentYear}`
@@ -146,9 +151,7 @@ describe('period dimension', { testIsolation: false }, () => {
             .contains('Update')
             .click()
 
-        cy.getBySelLike('layout-chip')
-            .containsExact(TEST_DIM_NAME)
-            .trigger('mouseover')
+        assertChipContainsText(TEST_DIM_NAME)
 
         cy.getBySelLike('tooltip-content').contains('None selected')
     })

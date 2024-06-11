@@ -1,13 +1,40 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 export const clickMenubarUpdateButton = () =>
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Update').click()
+    cy
+        .getBySel('dhis2-analytics-toolbar', EXTENDED_TIMEOUT)
+        .contains('Update')
+        .click()
 
 export const clickMenubarViewButton = () =>
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('View').click()
+    cy
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('View')
+        .click()
 
 export const clickMenubarOptionsButton = () =>
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Options').click()
+    cy
+        .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('Options')
+        .click()
+
+export const openDataOptionsModal = () => {
+    clickMenubarOptionsButton()
+    cy.getBySel('options-menu-list').contains('Data').click()
+}
+
+export const openStyleOptionsModal = () => {
+    clickMenubarOptionsButton()
+    cy.getBySel('options-menu-list').contains('Style').click()
+}
+
+export const openLegendOptionsModal = () => {
+    clickMenubarOptionsButton()
+    cy.getBySel('options-menu-list').contains('Legend').click()
+}
 
 export const clickMenubarInterpretationsButton = () =>
-    cy.getBySel('menubar', EXTENDED_TIMEOUT).contains('Interpretations').click()
+    cy
+        .getBySel('dhis2-analytics-toolbar', EXTENDED_TIMEOUT)
+        .contains('Interpretations')
+        .click()

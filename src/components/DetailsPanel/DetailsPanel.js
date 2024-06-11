@@ -5,9 +5,10 @@ import {
 } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import { stringify } from 'query-string'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { connect } from 'react-redux'
 import history from '../../modules/history.js'
+import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetLoadError } from '../../reducers/loader.js'
 import classes from './styles/DetailsPanel.module.css'
@@ -29,6 +30,10 @@ const DetailsPanel = ({
     disabled,
 }) => {
     const { currentUser } = useCachedDataQuery()
+    const hasTimeDimension = useMemo(
+        () => isAoWithTimeDimension(visualization),
+        [visualization]
+    )
 
     return (
         <div className={classes.panel} data-test="details-panel">
@@ -39,6 +44,7 @@ const DetailsPanel = ({
             />
             <InterpretationsUnit
                 type="eventVisualization"
+                visualizationHasTimeDimension={hasTimeDimension}
                 id={visualization.id}
                 currentUser={currentUser}
                 onInterpretationClick={(interpretationId) =>
