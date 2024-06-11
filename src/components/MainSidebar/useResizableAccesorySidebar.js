@@ -78,7 +78,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
             /* If the user focusses the draghandle by tabbing/ keyboard navigation,
              * but never blurs it, and then starts resizing using the mouse, it causes
              * problems we need to deal with. These situations can be identified by
-             * the fact that theb drag handle is already the active element when the
+             * the fact that the draghandle is already the active element when the
              * mousedown event fires */
             const isActive = document.activeElement === resizeHandleElement
 
@@ -113,8 +113,8 @@ export const useResizableAccessorySidebar = (isHidden) => {
 
                 setWidth(width)
             }
-            /* Use the window as event target to avoid issues when the browser lags behind
-             * and the drag handle temporarily loses its hover state  */
+            /* Use the window as event target to avoid issues when the browser
+             * lags behind and the draghandle temporarily loses its hover state */
             window.addEventListener('mousemove', onMouseMove)
             window.addEventListener(
                 'mouseup',
