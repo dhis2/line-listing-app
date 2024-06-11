@@ -34,7 +34,7 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
             moment(value).format(
                 header.name === headersMap[DIMENSION_ID_LAST_UPDATED] ||
                     header.valueType === VALUE_TYPE_DATETIME
-                    ? 'yyyy-MM-DD hh:mm'
+                    ? 'yyyy-MM-DD HH:mm'
                     : 'yyyy-MM-DD'
             )
         )

@@ -288,10 +288,10 @@ msgid ""
 msgstr ""
 
 msgid "Choose a program"
-msgstr ""
+msgstr "ເລືອກໂປແກຼມ"
 
 msgid "No programs found"
-msgstr ""
+msgstr "ບໍ່ພົບໂປແກຼມ"
 
 msgid "Stage"
 msgstr "ຍະຫວ່າງ"
@@ -326,10 +326,10 @@ msgid "Clear"
 msgstr "ລຶບ"
 
 msgid "Search dimensions"
-msgstr ""
+msgstr "ຄົ້ນຫາຂະໜາດ"
 
 msgid "Your dimensions"
-msgstr ""
+msgstr "ຂະໜາດຂອງທ່ານ"
 
 msgid "Search your dimensions"
 msgstr ""
@@ -405,7 +405,7 @@ msgid "Your most viewed line lists"
 msgstr ""
 
 msgid "Not available offline"
-msgstr ""
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ອອບລາຍ"
 
 msgid ""
 "This line list may show data that was not available when the interpretation "
@@ -419,7 +419,7 @@ msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
-msgstr ""
+msgstr "ແຖວຕໍ່ຫນ້າເຈ້ຍ"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
@@ -536,10 +536,10 @@ msgid "Options"
 msgstr "ຈັດການ"
 
 msgid "Columns"
-msgstr ""
+msgstr "ຖັນ"
 
 msgid "Rows"
-msgstr ""
+msgstr "ແຖວ"
 
 msgid "Filter"
 msgstr "Filter"
@@ -581,13 +581,13 @@ msgid "does not contain"
 msgstr ""
 
 msgid "after"
-msgstr ""
+msgstr "ກ່ອນ"
 
 msgid "after or including"
 msgstr ""
 
 msgid "before"
-msgstr ""
+msgstr "ຫຼັງ"
 
 msgid "before or including"
 msgstr ""
@@ -691,7 +691,7 @@ msgid "Last updated by"
 msgstr ""
 
 msgid "User organisation unit"
-msgstr ""
+msgstr "ຫນ່ວຍງານອົງການຈັດຕັ້ງຂອງຜູ້ໃຊ້"
 
 msgid "User sub-units"
 msgstr "ຫົວໜ່ວຍຍ່ອຍຂອງທ່ານ"

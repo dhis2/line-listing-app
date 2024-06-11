@@ -70,7 +70,7 @@ const previousYear = getPreviousYearStr()
 const mainDimensions = [
     {
         label: trackerProgram[DIMENSION_ID_LAST_UPDATED],
-        value: '2023-01-04 02:04',
+        value: '2023-01-04 14:04',
     },
     { label: 'Created by', value: 'Traore, John (admin)' },
     { label: 'Last updated by', value: 'Traore, John (admin)' },
@@ -117,217 +117,6 @@ const programDataDimensions = [
     { label: TEST_DIM_YESNO, value: 'Yes' },
 ]
 
-const assertColumnHeaders = () => {
-    const dimensionName = TEST_DIM_TEXT
-
-    selectEventWithProgramDimensions({
-        ...trackerProgram,
-        dimensions: [dimensionName],
-    })
-
-    const testMainDimensions = mainDimensions.map(
-        (dimension) => dimension.label
-    )
-
-    const testProgramDimensions = programDimensions.map(
-        (dimension) => dimension.label
-    )
-
-    // add main and time dimensions
-    testMainDimensions.forEach((label) => clickAddRemoveMainDimension(label))
-    testProgramDimensions.forEach((label) =>
-        clickAddRemoveProgramDimension(label)
-    )
-
-    selectFixedPeriod({
-        label: periodLabel,
-        period: {
-            type: 'Daily',
-            year: `${getPreviousYearStr()}`,
-            name: `${getPreviousYearStr()}-12-10`,
-        },
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    const labels = [
-        dimensionName,
-        ...testMainDimensions,
-        ...testProgramDimensions,
-    ]
-
-    // check the correct number of columns
-    getTableHeaderCells().its('length').should('equal', labels.length)
-
-    // check the column headers in the table
-    labels.forEach((label) => {
-        getTableHeaderCells()
-            .contains(label)
-            .scrollIntoView()
-            .should('be.visible')
-            .click()
-        cy.getBySelLike('modal-title').contains(label)
-        cy.getBySelLike('modal-action-cancel').click()
-    })
-}
-
-const assertDimensions = () => {
-    selectEventWithProgram(trackerProgram)
-
-    openProgramDimensionsSidebar()
-
-    mainDimensions.forEach(({ label }) => clickAddRemoveMainDimension(label))
-
-    programDimensions.forEach(({ label }) =>
-        clickAddRemoveProgramDimension(label)
-    )
-
-    programDataDimensions.forEach(({ label }) =>
-        clickAddRemoveProgramDataDimension(label)
-    )
-
-    selectFixedPeriod({
-        label: periodLabel,
-        period: {
-            type: 'Daily',
-            year: `${getPreviousYearStr()}`,
-            name: `${getPreviousYearStr()}-12-10`,
-        },
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    const allDimensions = [
-        ...mainDimensions,
-        ...programDimensions,
-        ...programDataDimensions,
-    ]
-
-    getTableHeaderCells().its('length').should('eq', allDimensions.length)
-
-    getTableRows().its('length').should('eq', 1)
-
-    // assert the values of the dimensions
-    allDimensions.forEach(({ value }, index) => {
-        getTableDataCells().eq(index).invoke('text').should('eq', value)
-    })
-
-    // check that the URL dimension is wrapped in a link
-    if (
-        allDimensions.includes((dimension) => dimension.label === TEST_DIM_URL)
-    ) {
-        getTableDataCells()
-            .eq(
-                allDimensions.findIndex(
-                    (dimension) => dimension.label === TEST_DIM_URL
-                )
-            )
-            .find('a')
-            .should(
-                'have.attr',
-                'href',
-                allDimensions.find(
-                    (dimension) => dimension.label === TEST_DIM_URL
-                ).value
-            )
-    }
-}
-
-const assertSorting = () => {
-    // remove any DGS to allow numeric value comparison
-    openStyleOptionsModal()
-
-    cy.getBySel('dgs-select-content')
-        .findBySel('dhis2-uicore-select-input')
-        .click()
-    cy.contains('None').click()
-    clickOptionsModalUpdateButton()
-
-    selectEventWithProgramDimensions({
-        ...trackerProgram,
-        dimensions: [TEST_DIM_INTEGER],
-    })
-
-    // filter empty/null values on E2E - Integer dimension
-    // this helps with the value comparison when sorting
-    cy.getBySelLike('layout-chip').contains(TEST_DIM_INTEGER).click()
-    cy.getBySel('button-add-condition').click()
-    cy.contains('Choose a condition type').click()
-    cy.contains('is not empty / not null').click()
-    cy.getBySel('conditions-modal').contains('Update').click()
-
-    programDimensions
-        .filter((dimension) => dimension.label === 'Organisation unit')
-        .forEach(({ label }) => clickAddRemoveProgramDimension(label))
-
-    selectRelativePeriod({
-        label: periodLabel,
-        period: TEST_REL_PE_THIS_YEAR,
-    })
-
-    clickMenubarUpdateButton()
-
-    expectTableToBeVisible()
-
-    cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
-
-    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
-
-    // wait for table to be sorted
-    cy.wait('@getAnalyticsSortAsc')
-
-    expectTableToBeUpdated()
-
-    getTableRows()
-        .eq(0)
-        .find('td')
-        .eq(0)
-        .invoke('text')
-        .then(parseInt)
-        .then(($cell0Value) =>
-            getTableRows()
-                .eq(1)
-                .find('td')
-                .eq(0)
-                .invoke('text')
-                .then(parseInt)
-                .then(($cell1Value) =>
-                    expect($cell0Value).to.be.lessThan($cell1Value)
-                )
-        )
-
-    cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as('getAnalyticsSortDesc')
-
-    getTableHeaderCells().find(`button[title*="${TEST_DIM_INTEGER}"]`).click()
-
-    // wait for table to be sorted
-    cy.wait('@getAnalyticsSortDesc')
-
-    expectTableToBeUpdated()
-
-    getTableRows()
-        .eq(0)
-        .find('td')
-        .eq(0)
-        .invoke('text')
-        .then(parseInt)
-        .then(($cell0Value) =>
-            getTableRows()
-                .eq(1)
-                .find('td')
-                .eq(0)
-                .invoke('text')
-                .then(parseInt)
-                .then(($cell1Value) =>
-                    expect($cell0Value).to.be.greaterThan($cell1Value)
-                )
-        )
-}
-
 const init = () => {
     goToStartPage()
 
@@ -338,42 +127,235 @@ const init = () => {
     cy.containsExact('Remove').click()
 }
 
-describe(['>=38', '<39'], 'table', () => {
+describe('table', () => {
     beforeEach(init)
-    it('click on column header opens the dimension dialog (2.38)', () => {
-        assertColumnHeaders()
-    })
-
-    it('dimensions display correct values in the visualization (2.38)', () => {
-        programDataDimensions.push({
-            label: TEST_DIM_NUMBER_OPTIONSET,
-            value: 'One',
-        })
-        assertDimensions()
-    })
-    it('data can be sorted', () => {
-        assertSorting()
-    })
-})
-
-describe(['>=39'], 'table', () => {
-    beforeEach(init)
-    it('click on column header opens the dimension dialog (>=2.39)', () => {
+    it('click on column header opens the dimension dialog', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
             value: `${previousYear}-12-10`,
         })
-        assertColumnHeaders()
+        const dimensionName = TEST_DIM_TEXT
+
+        selectEventWithProgramDimensions({
+            ...trackerProgram,
+            dimensions: [dimensionName],
+        })
+
+        const testMainDimensions = mainDimensions.map(
+            (dimension) => dimension.label
+        )
+
+        const testProgramDimensions = programDimensions.map(
+            (dimension) => dimension.label
+        )
+
+        // add main and time dimensions
+        testMainDimensions.forEach((label) =>
+            clickAddRemoveMainDimension(label)
+        )
+        testProgramDimensions.forEach((label) =>
+            clickAddRemoveProgramDimension(label)
+        )
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                type: 'Daily',
+                year: `${getPreviousYearStr()}`,
+                name: `${getPreviousYearStr()}-12-10`,
+            },
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        const labels = [
+            dimensionName,
+            ...testMainDimensions,
+            ...testProgramDimensions,
+        ]
+
+        // check the correct number of columns
+        getTableHeaderCells().its('length').should('equal', labels.length)
+
+        // check the column headers in the table
+        labels.forEach((label) => {
+            getTableHeaderCells()
+                .contains(label)
+                .scrollIntoView()
+                .should('be.visible')
+                .click()
+            cy.getBySelLike('modal-title').contains(label)
+            cy.getBySelLike('modal-action-cancel').click()
+        })
     })
-    it('dimensions display correct values in the visualization (>=2.39)', () => {
+    it('dimensions display correct values in the visualization', () => {
         programDataDimensions.push({
             label: TEST_DIM_NUMBER_OPTIONSET,
             value: 'One',
         })
-        assertDimensions()
+        selectEventWithProgram(trackerProgram)
+
+        openProgramDimensionsSidebar()
+
+        mainDimensions.forEach(({ label }) =>
+            clickAddRemoveMainDimension(label)
+        )
+
+        programDimensions.forEach(({ label }) =>
+            clickAddRemoveProgramDimension(label)
+        )
+
+        programDataDimensions.forEach(({ label }) =>
+            clickAddRemoveProgramDataDimension(label)
+        )
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                type: 'Daily',
+                year: `${getPreviousYearStr()}`,
+                name: `${getPreviousYearStr()}-12-10`,
+            },
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        const allDimensions = [
+            ...mainDimensions,
+            ...programDimensions,
+            ...programDataDimensions,
+        ]
+
+        getTableHeaderCells().its('length').should('eq', allDimensions.length)
+
+        getTableRows().its('length').should('eq', 1)
+
+        // assert the values of the dimensions
+        allDimensions.forEach(({ value }, index) => {
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
+        })
+
+        // check that the URL dimension is wrapped in a link
+        if (
+            allDimensions.includes(
+                (dimension) => dimension.label === TEST_DIM_URL
+            )
+        ) {
+            getTableDataCells()
+                .eq(
+                    allDimensions.findIndex(
+                        (dimension) => dimension.label === TEST_DIM_URL
+                    )
+                )
+                .find('a')
+                .should(
+                    'have.attr',
+                    'href',
+                    allDimensions.find(
+                        (dimension) => dimension.label === TEST_DIM_URL
+                    ).value
+                )
+        }
     })
-    it('data can be sorted (>=2.39)', () => {
-        assertSorting()
+    it('data can be sorted', () => {
+        // remove any DGS to allow numeric value comparison
+        openStyleOptionsModal()
+
+        cy.getBySel('dgs-select-content')
+            .findBySel('dhis2-uicore-select-input')
+            .click()
+        cy.contains('None').click()
+        clickOptionsModalUpdateButton()
+
+        selectEventWithProgramDimensions({
+            ...trackerProgram,
+            dimensions: [TEST_DIM_INTEGER],
+        })
+
+        // filter empty/null values on E2E - Integer dimension
+        // this helps with the value comparison when sorting
+        cy.getBySelLike('layout-chip').contains(TEST_DIM_INTEGER).click()
+        cy.getBySel('button-add-condition').click()
+        cy.contains('Choose a condition type').click()
+        cy.contains('is not empty / not null').click()
+        cy.getBySel('conditions-modal').contains('Update').click()
+
+        programDimensions
+            .filter((dimension) => dimension.label === 'Organisation unit')
+            .forEach(({ label }) => clickAddRemoveProgramDimension(label))
+
+        selectRelativePeriod({
+            label: periodLabel,
+            period: TEST_REL_PE_THIS_YEAR,
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        cy.intercept(/api\/\d+\/analytics(\S)*asc=/).as('getAnalyticsSortAsc')
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        // wait for table to be sorted
+        cy.wait('@getAnalyticsSortAsc')
+
+        expectTableToBeUpdated()
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(0)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell0Value) =>
+                getTableRows()
+                    .eq(1)
+                    .find('td')
+                    .eq(0)
+                    .invoke('text')
+                    .then(parseInt)
+                    .then(($cell1Value) =>
+                        expect($cell0Value).to.be.lessThan($cell1Value)
+                    )
+            )
+
+        cy.intercept(/api\/(\d+)\/analytics(\S)*desc=/).as(
+            'getAnalyticsSortDesc'
+        )
+
+        getTableHeaderCells()
+            .find(`button[title*="${TEST_DIM_INTEGER}"]`)
+            .click()
+
+        // wait for table to be sorted
+        cy.wait('@getAnalyticsSortDesc')
+
+        expectTableToBeUpdated()
+
+        getTableRows()
+            .eq(0)
+            .find('td')
+            .eq(0)
+            .invoke('text')
+            .then(parseInt)
+            .then(($cell0Value) =>
+                getTableRows()
+                    .eq(1)
+                    .find('td')
+                    .eq(0)
+                    .invoke('text')
+                    .then(parseInt)
+                    .then(($cell1Value) =>
+                        expect($cell0Value).to.be.greaterThan($cell1Value)
+                    )
+            )
     })
 })

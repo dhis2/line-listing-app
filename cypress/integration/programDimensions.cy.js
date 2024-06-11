@@ -14,6 +14,8 @@ import {
     openProgramDimensionsSidebar,
     selectEnrollmentWithProgramDimensions,
     selectEventWithProgram,
+    selectProgramForTE,
+    selectTrackedEntityWithType,
 } from '../helpers/dimensions.js'
 import { expectAxisToHaveDimension } from '../helpers/layout.js'
 import { goToStartPage } from '../helpers/startScreen.js'
@@ -29,7 +31,6 @@ const assertDimensionsForEventWithoutProgramSelected = () => {
 
 const assertDimensionsForEventWithProgramSelected = (
     program,
-    scheduledDateIsSupported,
     showIncidentDate
 ) => {
     cy.getBySel('dimension-item-ou').contains('Organisation unit')
@@ -50,13 +51,9 @@ const assertDimensionsForEventWithProgramSelected = (
         program[DIMENSION_ID_ENROLLMENT_DATE]
     )
 
-    if (scheduledDateIsSupported) {
-        cy.getBySel('dimension-item-scheduledDate').contains(
-            program[DIMENSION_ID_SCHEDULED_DATE]
-        )
-    } else {
-        cy.getBySel('dimension-item-scheduledDate').should('not.exist')
-    }
+    cy.getBySel('dimension-item-scheduledDate').contains(
+        program[DIMENSION_ID_SCHEDULED_DATE]
+    )
 
     if (showIncidentDate) {
         cy.getBySel('dimension-item-incidentDate').contains(
@@ -110,7 +107,12 @@ export const programDimensionsIsDisabled = () =>
         .and('have.css', 'user-select', 'none')
         .and('have.css', 'cursor', 'not-allowed')
 
-const runTests = ({ scheduledDateIsSupported } = {}) => {
+describe('program dimensions', () => {
+    beforeEach(() => {
+        goToStartPage()
+        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
+    })
+
     /*
 Test data used:
     E2E program
@@ -167,11 +169,7 @@ I.e. Scheduled date works like this:
 
             openProgramDimensionsSidebar()
 
-            assertDimensionsForEventWithProgramSelected(
-                program,
-                scheduledDateIsSupported,
-                true
-            )
+            assertDimensionsForEventWithProgramSelected(program, true)
 
             // add main and time dimensions
 
@@ -188,11 +186,9 @@ I.e. Scheduled date works like this:
                 program[DIMENSION_ID_ENROLLMENT_DATE],
                 program[DIMENSION_ID_INCIDENT_DATE],
             ]
-            if (scheduledDateIsSupported) {
-                expectedUnselectedDimensions.push(
-                    program[DIMENSION_ID_SCHEDULED_DATE]
-                )
-            }
+            expectedUnselectedDimensions.push(
+                program[DIMENSION_ID_SCHEDULED_DATE]
+            )
 
             expectedSelectedDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
@@ -232,6 +228,51 @@ I.e. Scheduled date works like this:
             })
         })
 
+        it('stage can be selected, dimension list reflects the selection', () => {
+            // select program
+            cy.getBySel('accessory-sidebar')
+                .contains('Choose a program')
+                .click()
+            cy.contains('Child Programme').click()
+
+            // select data element
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
+
+            // select a different stage
+            cy.getBySel('input-panel-button').click()
+            cy.getBySel('stage-select').click()
+            cy.contains('Baby Postnatal').click()
+
+            // items from the selected stage are shown
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('not.exist')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
+        })
+
         it('stage can be selected, dimensions are removed when stage and program are changed', () => {
             const program = TEST_PROGRAM
             const TEST_DATA_ELEMENT = 'WHOMCH Conditions in previous pregnancy'
@@ -260,10 +301,7 @@ I.e. Scheduled date works like this:
                 .its('length')
                 .should('be.gte', 1)
 
-            assertDimensionsForEventWithProgramSelected(
-                program.defaultStage,
-                scheduledDateIsSupported
-            )
+            assertDimensionsForEventWithProgramSelected(program.defaultStage)
 
             // add a data element
 
@@ -293,11 +331,9 @@ I.e. Scheduled date works like this:
                 program.defaultStage[DIMENSION_ID_EVENT_DATE],
             ]
 
-            if (scheduledDateIsSupported) {
-                expectedUnselectedDimensions.push(
-                    program.defaultStage[DIMENSION_ID_SCHEDULED_DATE]
-                )
-            }
+            expectedUnselectedDimensions.push(
+                program.defaultStage[DIMENSION_ID_SCHEDULED_DATE]
+            )
 
             expectedSelectedMainDimensions.forEach((dimension) =>
                 clickAddRemoveMainDimension(dimension)
@@ -320,10 +356,7 @@ I.e. Scheduled date works like this:
 
             openProgramDimensionsSidebar()
 
-            assertDimensionsForEventWithProgramSelected(
-                TEST_PROGRAM.stage,
-                scheduledDateIsSupported
-            )
+            assertDimensionsForEventWithProgramSelected(TEST_PROGRAM.stage)
 
             // assert that the DE was removed but the PA remained
 
@@ -462,6 +495,84 @@ I.e. Scheduled date works like this:
                     .should('not.exist')
             })
         })
+
+        it('stage can be selected, dimension list reflects the selection', () => {
+            // select Child programme
+            cy.getBySel('accessory-sidebar')
+                .contains('Choose a program')
+                .click()
+            cy.contains('Child Programme').click()
+
+            // select data element
+            cy.getBySel('program-dimensions-button').click()
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from multiple stages are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
+
+            // select a specific stage
+            cy.getBySel('stage-select').click()
+            cy.getBySel('dhis2-uicore-popper').containsExact('Birth').click()
+
+            // only items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
+        })
+    })
+    describe(['>=41'], 'tracked entity', () => {
+        it('stage can be selected, dimension list reflects the selection', () => {
+            selectTrackedEntityWithType('Person')
+
+            // select child programme
+            openProgramDimensionsSidebar()
+            selectProgramForTE('Child Programme')
+
+            // select data element
+            cy.getBySel('accessory-sidebar').contains('All types').click()
+            cy.getBySel('dhis2-uicore-popper')
+                .containsExact('Data element')
+                .click()
+
+            // items from multiple stages are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('be.visible')
+
+            // select a specific stage
+            cy.getBySel('stage-select').click()
+            cy.getBySel('dhis2-uicore-popper').containsExact('Birth').click()
+
+            // only items from the selected stage are shown
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH ARV at birth')
+                .should('be.visible')
+            cy.getBySel('program-dimensions-list')
+                .findBySelLike('dimension-item')
+                .contains('MCH DPT dose')
+                .should('not.exist')
+        })
     })
     describe('lazy loading', () => {
         it('loads more pages when scrolling down until last one is found', () => {
@@ -499,24 +610,6 @@ I.e. Scheduled date works like this:
             getListChildren().should('have.length', 106)
         })
     })
-}
-
-describe(['>=39'], 'program dimensions', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
-    })
-
-    runTests({ scheduledDateIsSupported: true })
-})
-
-describe(['<39'], 'program dimensions', () => {
-    beforeEach(() => {
-        goToStartPage()
-        cy.getBySel('main-sidebar', EXTENDED_TIMEOUT).should('be.visible')
-    })
-
-    runTests()
 })
 
 describe('counting selection', () => {
