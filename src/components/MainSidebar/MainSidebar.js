@@ -40,7 +40,7 @@ import {
 } from './SelectedDimensionsContext.js'
 import { TrackedEntityDimensionsMenuItem } from './TrackedEntityDimensionsMenuItem.js'
 import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
-import { useResizableAccessorySidebar } from './useResizableAccesorySidebar.js'
+import { useResizableAccessorySidebar } from './useResizableAccessorySidebar.js'
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
