@@ -16,7 +16,6 @@ import { debounceEventHandler } from '../../modules/utils.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
 const createWidthWithinBoundsCalculator = (event, startWidth) => {
-    event.persist()
     const element = event.currentTarget
     const isKeyboardMode = event.type === 'focus'
     const rect = element.getBoundingClientRect()
