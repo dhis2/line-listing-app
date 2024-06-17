@@ -1,17 +1,11 @@
-name: 'e2e-dev'
+name: 'e2e-custom'
 
 on:
-    workflow_call:
-        secrets:
-            username:
-                required: true
-            password:
-                required: true
-            recordkey:
-                required: true
+    issue_comment:
+        types: [created]
 
 concurrency:
-    group: e2e-dev-${{ github.workflow}}-${{ github.ref }}
+    group: ${{ github.workflow}}-${{ github.ref }}
     cancel-in-progress: true
 
 defaults:
@@ -19,52 +13,23 @@ defaults:
         shell: bash
 
 jobs:
-    compute-dev-version:
-        runs-on: ubuntu-latest
-        outputs:
-            version: ${{ steps.instance-version.outputs.version }}
-        steps:
-            - name: Output dev version
-              id: instance-version
-              uses: dhis2/action-instance-version@v1
-              with:
-                  instance-url: https://test.e2e.dhis2.org/analytics-dev
-                  username: ${{ secrets.username }}
-                  password: ${{ secrets.password }}
-
-    e2e-dev:
-        needs: compute-dev-version
+    call-workflow-e2e-dev:
         runs-on: ubuntu-latest
 
-        strategy:
-            fail-fast: false
-            matrix:
-                containers: [1, 2, 3, 4]
-
         steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18.x
-
-            - name: Run e2e tests
-              uses: cypress-io/github-action@v5
-              with:
-                  start: yarn d2-app-scripts start
-                  wait-on: 'http://localhost:3000'
-                  wait-on-timeout: 300
-                  record: true
-                  parallel: true
-                  browser: chrome
-                  group: e2e-chrome-parallel-dev
-              env:
-                  BROWSER: none
-                  CYPRESS_RECORD_KEY: ${{ secrets.recordkey }}
-                  CYPRESS_dhis2BaseUrl: https://test.e2e.dhis2.org/analytics-dev
-                  CYPRESS_dhis2InstanceVersion: ${{ needs.compute-dev-version.outputs.version }}
-                  CYPRESS_dhis2Username: ${{ secrets.username }}
-                  CYPRESS_dhis2Password: ${{ secrets.password }}
-                  CYPRESS_networkMode: live
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Check comment for keyword
+              id: check_keyword
+              run: |
+                  COMMENT_BODY="${{ github.event.comment.body }}"
+                  if [[ "$COMMENT_BODY" == *"your-keyword-here"* ]]; then
+                    echo "::set-output name=keyword_found::true"
+                  else
+                    echo "::set-output name=keyword_found::false"
+                  fi
+            - name: React to keyword
+              if: steps.check_keyword.outputs.keyword_found == 'true'
+              run: |
+                  echo "Keyword found"
