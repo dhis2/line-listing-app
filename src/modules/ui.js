@@ -5,14 +5,13 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import {
-    ACCESSORY_PANEL_WIDTH_STORAGE_KEY,
-    ACCESSORY_PANEL_DEFAULT_WIDTH,
     PRIMARY_PANEL_WIDTH,
     ACCESSORY_PANEL_MIN_PX_AT_END,
 } from './accessoryPanelConstants.js'
 import { getConditionsFromVisualization } from './conditions.js'
 import { getRequestOptions } from './getRequestOptions.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
+import { getUserSidebarWidthFromLocalStorage } from './localStorage.js'
 import { getOptionsFromVisualization } from './options.js'
 import { getParentGraphMapFromVisualization } from './parentGraphMap.js'
 import { getRepetitionFromVisualisation } from './repetition.js'
@@ -75,23 +74,9 @@ export const getDefaultSorting = () => ({
     direction: 'default',
 })
 
-export const getUserSidebarWidth = () => {
-    const localStorageItem = window.localStorage.getItem(
-        ACCESSORY_PANEL_WIDTH_STORAGE_KEY
-    )
-
-    if (!localStorageItem) {
-        return ACCESSORY_PANEL_DEFAULT_WIDTH
-    }
-
-    const preferredWidth = parseInt(localStorageItem)
-    const availableWidth =
+export const getUserSidebarWidth = () =>
+    Math.min(
+        getUserSidebarWidthFromLocalStorage(),
         window.innerWidth -
-        (PRIMARY_PANEL_WIDTH + ACCESSORY_PANEL_MIN_PX_AT_END)
-
-    return Math.min(preferredWidth, availableWidth)
-}
-
-export const setUserSidebarWidthToLocalStorage = (width) => {
-    window.localStorage.setItem(ACCESSORY_PANEL_WIDTH_STORAGE_KEY, width)
-}
+            (PRIMARY_PANEL_WIDTH + ACCESSORY_PANEL_MIN_PX_AT_END)
+    )

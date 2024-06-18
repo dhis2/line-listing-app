@@ -6,7 +6,5 @@ export const ACCESSORY_PANEL_DEFAULT_WIDTH = 260
 export const ACCESSORY_PANEL_MIN_WIDTH = 180
 export const ACCESSORY_PANEL_MIN_PX_AT_END = 50
 export const PRIMARY_PANEL_WIDTH = 260
-export const ACCESSORY_PANEL_WIDTH_STORAGE_KEY =
-    'DHIS2_LL_ACCESSORY_PANEL_WIDTH'
 export const ARROW_LEFT_KEY = 'ArrowLeft'
 export const ARROW_RIGHT_KEY = 'ArrowRight'

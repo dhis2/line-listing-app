@@ -13,7 +13,7 @@ import {
     acSetUiAccessoryPanelWidth,
 } from '../../actions/ui.js'
 import { ACCESSORY_PANEL_DEFAULT_WIDTH } from '../../modules/accessoryPanelConstants.js'
-import { setUserSidebarWidthToLocalStorage } from '../../modules/ui.js'
+import { setUserSidebarWidthToLocalStorage } from '../../modules/localStorage.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,

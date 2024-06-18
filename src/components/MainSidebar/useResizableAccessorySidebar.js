@@ -8,10 +8,8 @@ import {
     ACCESSORY_PANEL_MIN_PX_AT_END,
     ACCESSORY_PANEL_DEFAULT_WIDTH,
 } from '../../modules/accessoryPanelConstants.js'
-import {
-    setUserSidebarWidthToLocalStorage,
-    getUserSidebarWidth,
-} from '../../modules/ui.js'
+import { setUserSidebarWidthToLocalStorage } from '../../modules/localStorage.js'
+import { getUserSidebarWidth } from '../../modules/ui.js'
 import { debounceEventHandler } from '../../modules/utils.js'
 import { sGetUiAccessoryPanelWidth } from '../../reducers/ui.js'
 
