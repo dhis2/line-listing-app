@@ -1,6 +1,6 @@
 import { ACCESSORY_PANEL_DEFAULT_WIDTH } from './accessoryPanelConstants.js'
 
-export const STORAGE_KEY = 'DHIS2_LL_ACCESSORY_PANEL_WIDTH'
+export const STORAGE_KEY = 'dhis2.line-listing.accessoryPanelWidth'
 
 export const getUserSidebarWidthFromLocalStorage = () =>
     parseInt(
