@@ -349,6 +349,25 @@ describe('accessory sidebar panel', () => {
             .invoke('outerWidth')
             .should('eq', expectedWidthAfterReset)
     })
+    it('can be reset by double clicking', () => {
+        const movementX = 200
+        const expectedWidthAfterResize =
+            ACCESSORY_PANEL_DEFAULT_WIDTH + movementX
+        const expectedWidthAfterReset = ACCESSORY_PANEL_DEFAULT_WIDTH
+
+        goToStartPage()
+        resizeByMouse(movementX)
+
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidthAfterResize)
+
+        cy.getBySel('accessory-panel-resize-handle').trigger('dblclick')
+
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', expectedWidthAfterReset)
+    })
     it('reset button is disabled when sidebar has default size', () => {
         goToStartPage()
 
