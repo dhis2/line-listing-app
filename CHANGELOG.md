@@ -1,3 +1,10 @@
+## [101.0.7](https://github.com/dhis2/line-listing-app/compare/v101.0.6...v101.0.7) (2024-06-24)
+
+
+### Bug Fixes
+
+* remove CSS that prevents LL from showing ([#552](https://github.com/dhis2/line-listing-app/issues/552)) ([cc94f24](https://github.com/dhis2/line-listing-app/commit/cc94f24643e0e0459998dff4aff97422e4d56e87))
+
 ## [101.0.6](https://github.com/dhis2/line-listing-app/compare/v101.0.5...v101.0.6) (2024-06-16)
 
 
