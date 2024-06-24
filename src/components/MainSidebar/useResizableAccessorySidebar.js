@@ -170,6 +170,14 @@ export const useResizableAccessorySidebar = (isHidden) => {
         [dispatch, userSettingWidth]
     )
 
+    const onResizeHandleDblClick = (event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        setWidth(ACCESSORY_PANEL_DEFAULT_WIDTH)
+        setUserSidebarWidthToLocalStorage(ACCESSORY_PANEL_DEFAULT_WIDTH)
+        dispatch(acSetUiAccessoryPanelWidth(ACCESSORY_PANEL_DEFAULT_WIDTH))
+    }
+
     useEffect(() => {
         // Respond to reset via view menu
         if (userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH) {
@@ -195,5 +203,6 @@ export const useResizableAccessorySidebar = (isHidden) => {
         isResizing,
         onResizeHandleMouseDown,
         onResizeHandleFocus,
+        onResizeHandleDblClick,
     }
 }
