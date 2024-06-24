@@ -2145,12 +2145,12 @@
     react-beautiful-dnd "^10.1.1"
     resize-observer-polyfill "^1.5.1"
 
-"@dhis2/app-adapter@11.4.2":
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-11.4.2.tgz#a588ac696fd1c38873359f16a03c0be237b3c4de"
-  integrity sha512-AKlgpLNxChQxfZV4Ji6GeQv1k3N5AkymcedAMCPbR6wjVhskyE0l4a/9HdMBQh+vFlVOtE5fC/NBRifQjlE8Kw==
+"@dhis2/app-adapter@11.4.3":
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-adapter/-/app-adapter-11.4.3.tgz#361bae0e04cddd15cc1c9bfbab186f4d95ef0304"
+  integrity sha512-G0guDrzibcAMOL/vutI80u1pDVfStZSW/2cQwN0eDGMdJTX/qeLQK3U9UOchDR8KHoHyMkr0OX/tkAGIWxN6rw==
   dependencies:
-    "@dhis2/pwa" "11.4.2"
+    "@dhis2/pwa" "11.4.3"
     moment "^2.24.0"
 
 "@dhis2/app-runtime@^3.10.4", "@dhis2/app-runtime@^3.4.4":
@@ -2195,16 +2195,16 @@
   dependencies:
     post-robot "^10.0.46"
 
-"@dhis2/app-shell@11.4.2":
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-11.4.2.tgz#66ce1cdb666c22b3b530d4c052a72305b5571700"
-  integrity sha512-R8oKl9Zoby7uK3emdmtRqTyoOR/UjraBP7Xq+OkoKSHrt77HVQElsVpfSrLvz+p7VuNEhIMtZCW2xwS4MK07uw==
+"@dhis2/app-shell@11.4.3":
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/app-shell/-/app-shell-11.4.3.tgz#f3801b0f6ce51b972aca744b7f7c51f4b72824a3"
+  integrity sha512-4dbWnuHof7bkcEtvKlrMgV2+I5BZFdmzBgfdH68peE4D7We3hGnqmcVit5kH9ILudmV+dYpT7Zf/6XiVdXZeEQ==
   dependencies:
-    "@dhis2/app-adapter" "11.4.2"
+    "@dhis2/app-adapter" "11.4.3"
     "@dhis2/app-runtime" "^3.10.4"
     "@dhis2/d2-i18n" "^1.1.1"
-    "@dhis2/pwa" "11.4.2"
-    "@dhis2/ui" "^9.4.4"
+    "@dhis2/pwa" "11.4.3"
+    "@dhis2/ui" "^9.8.9"
     classnames "^2.2.6"
     moment "^2.29.1"
     post-robot "^10.0.46"
@@ -2217,10 +2217,10 @@
     typeface-roboto "^0.0.75"
     typescript "^3.6.3"
 
-"@dhis2/cli-app-scripts@^11.4.2":
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-11.4.2.tgz#5842ee8032ef021321d063204b34b853b879c6c0"
-  integrity sha512-H2dHcnFGSOaqKFrbLXYauYcBOoalnhFnJJSYZXpBbhX83JCbwLDhIopDUYssb948n9xhq0DMMFnMCbKFdHIOZQ==
+"@dhis2/cli-app-scripts@^11.4.3":
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/cli-app-scripts/-/cli-app-scripts-11.4.3.tgz#71ef0133cba243b63bfc7a75819fe8a8071c9f51"
+  integrity sha512-Ok1HRM7julLu+5qBAIPndKrMvq6APS7l14V9JZ7tj+4yXSWTuu0iw/muRFiKaUg0OCZqTA9F8BXLyPzBaacnOw==
   dependencies:
     "@babel/core" "^7.6.2"
     "@babel/plugin-proposal-class-properties" "^7.8.3"
@@ -2229,7 +2229,7 @@
     "@babel/preset-env" "^7.14.7"
     "@babel/preset-react" "^7.0.0"
     "@babel/preset-typescript" "^7.6.0"
-    "@dhis2/app-shell" "11.4.2"
+    "@dhis2/app-shell" "11.4.3"
     "@dhis2/cli-helpers-engine" "^3.2.0"
     "@jest/core" "^27.0.6"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.4"
@@ -2351,10 +2351,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/prop-types/-/prop-types-3.1.2.tgz#65b8ad2da8cd2f72bc8b951049a6c9d1b97af3e9"
   integrity sha512-eM0jjLOWvtXWqSFp5YC4DHFpkP8Y1D2eUwGV7MBWjni+o27oesVan+oT7WHeOeLdlAd4acRJrnaaAyB4Ck1wGQ==
 
-"@dhis2/pwa@11.4.2":
-  version "11.4.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-11.4.2.tgz#19d6936f7134613c187666f55dbf8596aeefbb8e"
-  integrity sha512-6QXEiDTfOFnOKxWipT2FH6MpbaEUw4Y6oKz6KK7SkqQKNV40NFBIvh93RXGpq06IupzK1cfnNltTDPdG0tPKsQ==
+"@dhis2/pwa@11.4.3":
+  version "11.4.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/pwa/-/pwa-11.4.3.tgz#fa68e126646b6fd3585421bfa7dd20e22bfd628a"
+  integrity sha512-0vqWyzb/Bic7hu6zHb6hVOTHQBawSRga6SSUYME1bs3sg0V4/XJpfNbGiLnH5gzzE9rgZLOSUe0KG4D4cadedA==
   dependencies:
     idb "^6.0.0"
     workbox-core "^6.1.5"
@@ -2394,7 +2394,7 @@
   resolved "https://registry.yarnpkg.com/@dhis2/ui-icons/-/ui-icons-9.4.2.tgz#b2e069534945eb05ef627dd3a54b0583beb717e1"
   integrity sha512-ZLBHlxEQmwdOfoYNbpx4MohNP/V/0Y3aucIywVXMvAZne0qPjkjq7es8OZMmacdMNIKhyJjCpT6IqjwoYgLQUw==
 
-"@dhis2/ui@^9.4.2", "@dhis2/ui@^9.4.4":
+"@dhis2/ui@^9.4.2", "@dhis2/ui@^9.8.9":
   version "9.4.2"
   resolved "https://registry.yarnpkg.com/@dhis2/ui/-/ui-9.4.2.tgz#85aeaa5da1d558c882d9588d6b7a917396548ac9"
   integrity sha512-dvFEK11kzYx29rkDDRk49lpGpqB9bEf4WEO9eSsw/7bK/GaS/uiS7ca8c30R+tdUmjvubBNxJiVJI07EwxtHyw==
@@ -2965,7 +2965,7 @@
   resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.15.tgz#d7c6e6755c78567a951e04ab52ef0fd26de59f32"
   integrity sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==
 
-"@jridgewell/trace-mapping@^0.3.14", "@jridgewell/trace-mapping@^0.3.17", "@jridgewell/trace-mapping@^0.3.9":
+"@jridgewell/trace-mapping@^0.3.17", "@jridgewell/trace-mapping@^0.3.9":
   version "0.3.18"
   resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.18.tgz#25783b2086daf6ff1dcb53c9249ae480e4dd4cd6"
   integrity sha512-w+niJYzMHdd7USdiH2U6869nqhD2nbfZXND5Yp93qIbEmnDNk7PD48o+YchRVpzMU7M6jVCbenTR7PA1FLQ9pA==
@@ -15840,18 +15840,7 @@ terminal-link@^2.0.0:
     ansi-escapes "^4.2.1"
     supports-hyperlinks "^2.0.0"
 
-terser-webpack-plugin@^5.2.5, terser-webpack-plugin@^5.3.1:
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.3.6.tgz#5590aec31aa3c6f771ce1b1acca60639eab3195c"
-  integrity sha512-kfLFk+PoLUQIbLmB1+PZDMRSZS99Mp+/MHqDNmMA6tOItzRt+Npe3E+fsMs5mfcM0wCtrrdU387UnV+vnSffXQ==
-  dependencies:
-    "@jridgewell/trace-mapping" "^0.3.14"
-    jest-worker "^27.4.5"
-    schema-utils "^3.1.1"
-    serialize-javascript "^6.0.0"
-    terser "^5.14.1"
-
-terser-webpack-plugin@^5.3.10:
+terser-webpack-plugin@^5.2.5, terser-webpack-plugin@^5.3.1, terser-webpack-plugin@^5.3.10:
   version "5.3.10"
   resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-5.3.10.tgz#904f4c9193c6fd2a03f693a2150c62a92f40d199"
   integrity sha512-BKFPWlPDndPs+NGGCr1U59t0XScL5317Y0UReNrHaw9/FwhPENlq6bfgs+4yPfyP51vqC1bQ4rp1EfXW5ZSH9w==
@@ -15862,7 +15851,7 @@ terser-webpack-plugin@^5.3.10:
     serialize-javascript "^6.0.1"
     terser "^5.26.0"
 
-terser@^5.0.0, terser@^5.10.0, terser@^5.14.1:
+terser@^5.0.0, terser@^5.10.0:
   version "5.15.1"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.15.1.tgz#8561af6e0fd6d839669c73b92bdd5777d870ed6c"
   integrity sha512-K1faMUvpm/FBxjBXud0LWVAGxmvoPbZbfTCYbSgaaYQaIXI3/TdI7a7ZGA73Zrou6Q8Zmz3oeUTsp/dj+ag2Xw==
