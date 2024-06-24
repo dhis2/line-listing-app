@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconArrowRight16, IconFolder16, Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     acSetUiAccessoryPanelActiveTab,
@@ -87,12 +87,16 @@ const MainSidebar = () => {
 
     const isHidden = useSelector(sGetUiSidebarHidden)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
-    const setSelectedTabId = (id) =>
-        dispatch(acSetUiAccessoryPanelActiveTab(id))
+    const setSelectedTabId = useCallback(
+        (id) => {
+            dispatch(acSetUiAccessoryPanelActiveTab(id))
+        },
+        [dispatch]
+    )
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
         if (open && id === selectedTabId) {
-            setSelectedTabId(null)
+            // set selectedTabId to null after the transition has completed
             setIsTransitioning(true)
             setOpen(false)
         } else {
@@ -105,6 +109,13 @@ const MainSidebar = () => {
         }
     }
     const { counts } = useSelectedDimensions()
+
+    useEffect(() => {
+        if (!open && !isTransitioning) {
+            setSelectedTabId(null)
+        }
+    }, [open, isTransitioning, setSelectedTabId])
+
     const programDimensionsItem = (
         <MenuItem
             icon={<IconFolder16 />}
