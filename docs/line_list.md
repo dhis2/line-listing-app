@@ -231,10 +231,10 @@ To provide more space for the content in the "Accessory Side Panel" it can be re
 
 ![](resources/images/resizable_accessory_sidebar.png)
 
-Resizing can also be done using the left/right arrow key on the keyboard. These keyboard shortcuts become active after giving focus to the drag-handle (by repeatedly hitting the tab key):
+Resizing can also be done using the left/right arrow key on the keyboard. These keyboard shortcuts become active after giving focus to the resize-handle (by repeatedly hitting the tab key):
 
 ![](resources/images/resizable_accessory_sidebar_keyboard.png)
 
-To reset the "Accessory Side Panel" to its default width, the "View" menu can be used.
+The "Accessory Side Panel" can be reset to its default width, by using the "View" menu or double clicking the resize-handle.
 
 ![](resources/images/resizable_accessory_sidebar_reset.png)
