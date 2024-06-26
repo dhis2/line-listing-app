@@ -19,7 +19,7 @@
 .accessory {
     background-color: var(--colors-white);
     overflow-x: visible;
-    transition: width 200ms linear;
+    transition: width 150ms linear;
     display: flex;
     position: relative;
 }
@@ -31,7 +31,7 @@
 .accessoryInner {
     border-right: 1px solid var(--colors-grey400);
     transform: translateX(0);
-    transition: transform 200ms linear, width 200ms linear;
+    transition: transform 150ms linear, width 150ms linear;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
