@@ -10,12 +10,16 @@ import {
     acToggleUiSidebarHidden,
     acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
+    acSetUiAccessoryPanelWidth,
 } from '../../actions/ui.js'
+import { ACCESSORY_PANEL_DEFAULT_WIDTH } from '../../modules/accessoryPanelConstants.js'
+import { setUserSidebarWidthToLocalStorage } from '../../modules/localStorage.js'
 import { sGetCurrentId } from '../../reducers/current.js'
 import {
     sGetUiLayoutPanelHidden,
     sGetUiSidebarHidden,
     sGetUiShowDetailsPanel,
+    sGetUiAccessoryPanelWidth,
 } from '../../reducers/ui.js'
 
 export default function ViewDropDown() {
@@ -23,6 +27,7 @@ export default function ViewDropDown() {
     const isSidebarHidden = useSelector(sGetUiSidebarHidden)
     const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
+    const userSettingWidth = useSelector(sGetUiAccessoryPanelWidth)
     const id = useSelector(sGetCurrentId)
 
     const toggleLayoutPanelHidden = useCallback(() => {
@@ -31,6 +36,11 @@ export default function ViewDropDown() {
 
     const toggleSidebarHidden = useCallback(() => {
         dispatch(acToggleUiSidebarHidden())
+    }, [dispatch])
+
+    const resetAccessorySidebarWidth = useCallback(() => {
+        setUserSidebarWidthToLocalStorage(ACCESSORY_PANEL_DEFAULT_WIDTH)
+        dispatch(acSetUiAccessoryPanelWidth(ACCESSORY_PANEL_DEFAULT_WIDTH))
     }, [dispatch])
 
     const toggleDetailsPanelOpen = useCallback(() => {
@@ -57,6 +67,13 @@ export default function ViewDropDown() {
                 <HoverMenuListItem
                     label={toggleSidebarText}
                     onClick={toggleSidebarHidden}
+                />
+                <HoverMenuListItem
+                    label={i18n.t('Reset sidebar width')}
+                    onClick={resetAccessorySidebarWidth}
+                    disabled={
+                        userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH
+                    }
                 />
                 <HoverMenuListItem
                     label={toggleDetailsPanelText}
