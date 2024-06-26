@@ -1,3 +1,10 @@
+# [101.1.0](https://github.com/dhis2/line-listing-app/compare/v101.0.7...v101.1.0) (2024-06-26)
+
+
+### Features
+
+* add resizable sidebar (DHIS2-17170) ([#534](https://github.com/dhis2/line-listing-app/issues/534)) ([2904c66](https://github.com/dhis2/line-listing-app/commit/2904c66b077871cfef99ed889bdc234a0211e4cb))
+
 ## [101.0.7](https://github.com/dhis2/line-listing-app/compare/v101.0.6...v101.0.7) (2024-06-24)
 
 

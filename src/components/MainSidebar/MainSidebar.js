@@ -1,20 +1,20 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconArrowRight16, IconFolder16, Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     acSetUiAccessoryPanelActiveTab,
     acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
 } from '../../actions/ui.js'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
     ACCESSORY_PANEL_TAB_PROGRAM,
     ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
     ACCESSORY_PANEL_TAB_YOUR,
-} from '../../modules/ui.js'
+} from '../../modules/accessoryPanelConstants.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -40,6 +40,7 @@ import {
 } from './SelectedDimensionsContext.js'
 import { TrackedEntityDimensionsMenuItem } from './TrackedEntityDimensionsMenuItem.js'
 import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
+import { useResizableAccessorySidebar } from './useResizableAccessorySidebar.js'
 import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
@@ -47,10 +48,19 @@ const MainSidebar = () => {
     const dispatch = useDispatch()
     const selectedTabId = useSelector(sGetUiAccessoryPanelActiveTab)
     const open = useSelector(sGetUiShowAccessoryPanel) && Boolean(selectedTabId)
+    const [isTransitioning, setIsTransitioning] = useState(false)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
+    const {
+        isResizing,
+        accessoryStyle,
+        accessoryInnerStyle,
+        onResizeHandleMouseDown,
+        onResizeHandleFocus,
+        onResizeHandleDblClick,
+    } = useResizableAccessorySidebar(!open)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
@@ -77,20 +87,35 @@ const MainSidebar = () => {
 
     const isHidden = useSelector(sGetUiSidebarHidden)
     const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
-    const setSelectedTabId = (id) =>
-        dispatch(acSetUiAccessoryPanelActiveTab(id))
+    const setSelectedTabId = useCallback(
+        (id) => {
+            dispatch(acSetUiAccessoryPanelActiveTab(id))
+        },
+        [dispatch]
+    )
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onClick = (id) => {
         if (open && id === selectedTabId) {
-            setSelectedTabId(null)
+            // set selectedTabId to null after the transition has completed
+            setIsTransitioning(true)
             setOpen(false)
         } else {
             setSelectedTabId(id)
-            setOpen(true)
             closeDetailsPanel()
+            if (!open) {
+                setOpen(true)
+                setIsTransitioning(true)
+            }
         }
     }
     const { counts } = useSelectedDimensions()
+
+    useEffect(() => {
+        if (!open && !isTransitioning) {
+            setSelectedTabId(null)
+        }
+    }, [open, isTransitioning, setSelectedTabId])
+
     const programDimensionsItem = (
         <MenuItem
             icon={<IconFolder16 />}
@@ -104,7 +129,12 @@ const MainSidebar = () => {
     )
 
     return (
-        <div className={cx(styles.container, { [styles.hidden]: isHidden })}>
+        <div
+            className={cx(styles.container, {
+                [styles.hidden]: isHidden,
+                [styles.resizing]: isResizing,
+            })}
+        >
             <div className={styles.main} data-test="main-sidebar">
                 <MenuItem
                     icon={<IconArrowRight16 />}
@@ -166,10 +196,16 @@ const MainSidebar = () => {
                     [styles.hidden]: !open,
                     [styles.padded]:
                         selectedTabId === ACCESSORY_PANEL_TAB_INPUT,
+                    [styles.transitioning]: isTransitioning,
                 })}
+                style={accessoryStyle}
                 data-test="accessory-sidebar"
             >
-                <div className={styles.accessoryInner}>
+                <div
+                    className={styles.accessoryInner}
+                    style={accessoryInnerStyle}
+                    onTransitionEnd={() => setIsTransitioning(false)}
+                >
                     <InputPanel
                         visible={selectedTabId === ACCESSORY_PANEL_TAB_INPUT}
                     />
@@ -185,6 +221,16 @@ const MainSidebar = () => {
                         visible={selectedTabId === ACCESSORY_PANEL_TAB_YOUR}
                     />
                 </div>
+                {open && (
+                    <div
+                        className={styles.resizeHandle}
+                        onMouseDown={onResizeHandleMouseDown}
+                        onFocus={onResizeHandleFocus}
+                        onDoubleClick={onResizeHandleDblClick}
+                        tabIndex={0}
+                        data-test="accessory-panel-resize-handle"
+                    />
+                )}
             </div>
         </div>
     )
