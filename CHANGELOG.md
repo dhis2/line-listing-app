@@ -1,3 +1,10 @@
+## [101.1.1](https://github.com/dhis2/line-listing-app/compare/v101.1.0...v101.1.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* bump analytics with fix for DHIS2-16904 ([#556](https://github.com/dhis2/line-listing-app/issues/556)) ([31c7336](https://github.com/dhis2/line-listing-app/commit/31c73366f5e0a0a978bb4c28d965291b6f7ff8e4))
+
 # [101.1.0](https://github.com/dhis2/line-listing-app/compare/v101.0.7...v101.1.0) (2024-06-26)
 
 
