@@ -18,7 +18,7 @@
         "cy:run": "start-server-and-test 'yarn start' http://localhost:3000 'yarn cypress run --env networkMode=live'"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^11.4.2",
+        "@dhis2/cli-app-scripts": "^11.5.1",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^10.0.3",
         "@dhis2/cypress-plugins": "^10.0.2",
@@ -39,7 +39,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^26.8.1",
-        "@dhis2/app-runtime": "^3.10.4",
+        "@dhis2/app-runtime": "^3.10.5",
         "@dhis2/ui": "^9.4.2",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
