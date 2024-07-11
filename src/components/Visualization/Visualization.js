@@ -150,26 +150,35 @@ export const Visualization = ({
 
     const visualizationRef = useRef(visualization)
 
-    const onResize = useCallback(() => {
-        if (!containerRef?.current || containerRef.current.clientWidth === 0) {
-            return
-        }
-        const containerInnerWidth = containerRef.current.clientWidth
-        const scrollBox = containerRef.current.querySelector('.tablescrollbox')
-        const scrollbarWidth = scrollBox.offsetWidth - scrollBox.clientWidth
-        const legendKeyWidth =
-            legendKeyRef.current?.offsetWidth > 0
-                ? legendKeyRef.current.offsetWidth + 4
-                : 0
-        const containerMaxWidth =
-            containerInnerWidth - scrollbarWidth - legendKeyWidth
+    const onResize = useCallback(
+        () =>
+            requestAnimationFrame(() => {
+                if (
+                    !containerRef?.current ||
+                    containerRef.current.clientWidth === 0
+                ) {
+                    return
+                }
+                const containerInnerWidth = containerRef.current.clientWidth
+                const scrollBox =
+                    containerRef.current.querySelector('.tablescrollbox')
+                const scrollbarWidth =
+                    scrollBox.offsetWidth - scrollBox.clientWidth
+                const legendKeyWidth =
+                    legendKeyRef.current?.offsetWidth > 0
+                        ? legendKeyRef.current.offsetWidth + 4
+                        : 0
+                const containerMaxWidth =
+                    containerInnerWidth - scrollbarWidth - legendKeyWidth
 
-        setMeasuredDimensions({
-            containerMaxWidth,
-            paginationMaxWidth: containerMaxWidth - scrollbarWidth,
-            noticeBoxMaxWidth: scrollBox.offsetWidth,
-        })
-    }, [])
+                setMeasuredDimensions({
+                    containerMaxWidth,
+                    paginationMaxWidth: containerMaxWidth - scrollbarWidth,
+                    noticeBoxMaxWidth: scrollBox.offsetWidth,
+                })
+            }),
+        []
+    )
 
     const sizeObserver = useMemo(
         () => new window.ResizeObserver(onResize),
@@ -178,6 +187,7 @@ export const Visualization = ({
 
     const mountAndObserveContainerRef = useCallback(
         (node) => {
+            console.log('resize container', node)
             if (node === null) {
                 return
             }
@@ -185,20 +195,21 @@ export const Visualization = ({
             containerRef.current = node
             sizeObserver.observe(node)
 
-            return sizeObserver.disconnect
+            return () => sizeObserver.unobserve(node)
         },
         [sizeObserver]
     )
 
     const observeVisualizationContainerRef = useCallback(
         (node) => {
+            console.log('resize vis container', node)
             if (node === null) {
                 return
             }
 
             sizeObserver.observe(node)
 
-            return sizeObserver.disconnect
+            return () => sizeObserver.unobserve(node)
         },
         [sizeObserver]
     )
