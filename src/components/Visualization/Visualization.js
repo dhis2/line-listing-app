@@ -187,7 +187,6 @@ export const Visualization = ({
 
     const mountAndObserveContainerRef = useCallback(
         (node) => {
-            console.log('resize container', node)
             if (node === null) {
                 return
             }
@@ -202,7 +201,6 @@ export const Visualization = ({
 
     const observeVisualizationContainerRef = useCallback(
         (node) => {
-            console.log('resize vis container', node)
             if (node === null) {
                 return
             }
