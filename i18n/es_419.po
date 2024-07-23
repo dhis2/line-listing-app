@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Enzo Nicolas Rossi <enzo@dhis2.org>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/hisp-uio/teams/100509/es_419/)\n"
@@ -271,7 +271,7 @@ msgid "Program indicator"
 msgstr ""
 
 msgid "Category"
-msgstr ""
+msgstr "Categoría"
 
 msgid "Category option group set"
 msgstr ""
@@ -387,6 +387,9 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+msgid "Reset sidebar width"
+msgstr ""
+
 msgid "Update"
 msgstr "Actualizar"
 
@@ -464,7 +467,7 @@ msgid "Large"
 msgstr ""
 
 msgid "Small"
-msgstr ""
+msgstr "Pequeña"
 
 msgid "Hide empty rows"
 msgstr ""
@@ -694,7 +697,7 @@ msgid "Last updated by"
 msgstr ""
 
 msgid "User organisation unit"
-msgstr ""
+msgstr "Unidad organizativa del usuario"
 
 msgid "User sub-units"
 msgstr ""
