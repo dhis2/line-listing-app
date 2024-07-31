@@ -306,15 +306,15 @@ const testSkipRoundingForEnrollment = (roundedValue) => {
 }
 
 describe('skip rounding', () => {
-    cy.log('this test needs to be removed when 2.39.6 patch is out')
     it(['<40'], 'sets skip rounding for event (below 40)', () => {
+        cy.log('this test needs to be removed when 2.39.6 patch is out')
         testSkipRoundingForEvent('3.1')
     })
     it(['>=40'], 'sets skip rounding for event (40 and above)', () => {
         testSkipRoundingForEvent('3.12')
     })
-    cy.log('this test needs to be removed when 2.39.6 patch is out')
     it(['<40'], 'sets skip rounding for enrollment (below 40)', () => {
+        cy.log('this test needs to be removed when 2.39.6 patch is out')
         testSkipRoundingForEnrollment('3.1')
     })
     it(['>=40'], 'sets skip rounding for enrollment (40 and above)', () => {
