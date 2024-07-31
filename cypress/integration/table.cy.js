@@ -81,15 +81,15 @@ const programDimensions = [
     { label: 'Program status', value: 'Active' },
     {
         label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-        value: `${previousYear}-12-10`,
+        value: `${previousYear}-12-10 00:00`,
     },
     {
         label: trackerProgram[DIMENSION_ID_ENROLLMENT_DATE],
-        value: `${currentYear}-01-18`,
+        value: `${currentYear}-01-18 00:00`,
     },
     {
         label: trackerProgram[DIMENSION_ID_INCIDENT_DATE],
-        value: `${currentYear}-01-10`,
+        value: `${currentYear}-01-10 00:00`,
     },
 ]
 const programDataDimensions = [
@@ -192,9 +192,13 @@ describe('table', () => {
         })
     })
     it(
-        ['39', '>=41'],
+        ['<41'],
         'dimensions display correct values in the visualization',
         () => {
+            cy.log(
+                'Skip on 41 until next version is out. This also needs to be reviewed once we decide how to deal with time dimensions'
+            )
+
             programDataDimensions.push({
                 label: TEST_DIM_NUMBER_OPTIONSET,
                 value: 'One',
