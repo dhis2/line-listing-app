@@ -133,7 +133,7 @@ describe('table', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
-            value: `${previousYear}-12-10`,
+            value: `${previousYear}-12-10 00:00`,
         })
         const dimensionName = TEST_DIM_TEXT
 
@@ -192,11 +192,11 @@ describe('table', () => {
         })
     })
     it(
-        ['<41'],
+        ['=40'],
         'dimensions display correct values in the visualization',
         () => {
             cy.log(
-                'Skip on 41 until next version is out. This also needs to be reviewed once we decide how to deal with time dimensions'
+                'Skip 39 and 41 until next versions are out. This also needs to be reviewed once we decide how to deal with time dimensions'
             )
 
             programDataDimensions.push({
