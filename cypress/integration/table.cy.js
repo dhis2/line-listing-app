@@ -191,77 +191,83 @@ describe('table', () => {
             cy.getBySelLike('modal-action-cancel').click()
         })
     })
-    it('dimensions display correct values in the visualization', () => {
-        programDataDimensions.push({
-            label: TEST_DIM_NUMBER_OPTIONSET,
-            value: 'One',
-        })
-        selectEventWithProgram(trackerProgram)
+    it(
+        ['39', '>=41'],
+        'dimensions display correct values in the visualization',
+        () => {
+            programDataDimensions.push({
+                label: TEST_DIM_NUMBER_OPTIONSET,
+                value: 'One',
+            })
+            selectEventWithProgram(trackerProgram)
 
-        openProgramDimensionsSidebar()
+            openProgramDimensionsSidebar()
 
-        mainDimensions.forEach(({ label }) =>
-            clickAddRemoveMainDimension(label)
-        )
-
-        programDimensions.forEach(({ label }) =>
-            clickAddRemoveProgramDimension(label)
-        )
-
-        programDataDimensions.forEach(({ label }) =>
-            clickAddRemoveProgramDataDimension(label)
-        )
-
-        selectFixedPeriod({
-            label: periodLabel,
-            period: {
-                type: 'Daily',
-                year: `${getPreviousYearStr()}`,
-                name: `${getPreviousYearStr()}-12-10`,
-            },
-        })
-
-        clickMenubarUpdateButton()
-
-        expectTableToBeVisible()
-
-        const allDimensions = [
-            ...mainDimensions,
-            ...programDimensions,
-            ...programDataDimensions,
-        ]
-
-        getTableHeaderCells().its('length').should('eq', allDimensions.length)
-
-        getTableRows().its('length').should('eq', 1)
-
-        // assert the values of the dimensions
-        allDimensions.forEach(({ value }, index) => {
-            getTableDataCells().eq(index).invoke('text').should('eq', value)
-        })
-
-        // check that the URL dimension is wrapped in a link
-        if (
-            allDimensions.includes(
-                (dimension) => dimension.label === TEST_DIM_URL
+            mainDimensions.forEach(({ label }) =>
+                clickAddRemoveMainDimension(label)
             )
-        ) {
-            getTableDataCells()
-                .eq(
-                    allDimensions.findIndex(
-                        (dimension) => dimension.label === TEST_DIM_URL
+
+            programDimensions.forEach(({ label }) =>
+                clickAddRemoveProgramDimension(label)
+            )
+
+            programDataDimensions.forEach(({ label }) =>
+                clickAddRemoveProgramDataDimension(label)
+            )
+
+            selectFixedPeriod({
+                label: periodLabel,
+                period: {
+                    type: 'Daily',
+                    year: `${getPreviousYearStr()}`,
+                    name: `${getPreviousYearStr()}-12-10`,
+                },
+            })
+
+            clickMenubarUpdateButton()
+
+            expectTableToBeVisible()
+
+            const allDimensions = [
+                ...mainDimensions,
+                ...programDimensions,
+                ...programDataDimensions,
+            ]
+
+            getTableHeaderCells()
+                .its('length')
+                .should('eq', allDimensions.length)
+
+            getTableRows().its('length').should('eq', 1)
+
+            // assert the values of the dimensions
+            allDimensions.forEach(({ value }, index) => {
+                getTableDataCells().eq(index).invoke('text').should('eq', value)
+            })
+
+            // check that the URL dimension is wrapped in a link
+            if (
+                allDimensions.includes(
+                    (dimension) => dimension.label === TEST_DIM_URL
+                )
+            ) {
+                getTableDataCells()
+                    .eq(
+                        allDimensions.findIndex(
+                            (dimension) => dimension.label === TEST_DIM_URL
+                        )
                     )
-                )
-                .find('a')
-                .should(
-                    'have.attr',
-                    'href',
-                    allDimensions.find(
-                        (dimension) => dimension.label === TEST_DIM_URL
-                    ).value
-                )
+                    .find('a')
+                    .should(
+                        'have.attr',
+                        'href',
+                        allDimensions.find(
+                            (dimension) => dimension.label === TEST_DIM_URL
+                        ).value
+                    )
+            }
         }
-    })
+    )
     it('data can be sorted', () => {
         // remove any DGS to allow numeric value comparison
         openStyleOptionsModal()
