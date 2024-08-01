@@ -192,7 +192,7 @@ describe('table', () => {
         })
     })
     it(
-        ['=40'],
+        ['>39', '<41'],
         'dimensions display correct values in the visualization',
         () => {
             cy.log(
