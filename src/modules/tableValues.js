@@ -10,10 +10,21 @@ import moment from 'moment'
 import {
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_EVENT_DATE,
+    DIMENSION_ID_ENROLLMENT_DATE,
+    DIMENSION_ID_INCIDENT_DATE,
+    DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
 } from './dimensionConstants.js'
 import { extractDimensionIdParts } from './dimensionId.js'
-import { headersMap, getStatusNames } from './visualization.js'
+import { getTimeDimensions } from './timeDimensions.js'
+import {
+    headersMap,
+    getDimensionIdFromHeaderName,
+    getStatusNames,
+} from './visualization.js'
+
+const timeDimensions = getTimeDimensions()
 
 const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     if (
@@ -29,11 +40,31 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     }
 
     if ([VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header.valueType)) {
+        let valueType = header.valueType
+        if (
+            header.name &&
+            [
+                headersMap[DIMENSION_ID_EVENT_DATE],
+                headersMap[DIMENSION_ID_ENROLLMENT_DATE],
+                headersMap[DIMENSION_ID_INCIDENT_DATE],
+                headersMap[DIMENSION_ID_SCHEDULED_DATE],
+            ].includes(
+                extractDimensionIdParts(header.name, visualization.type)
+                    .dimensionId
+            )
+        ) {
+            // override valueType for time dimensions to format the value as date (DHIS2-17855)
+            valueType =
+                timeDimensions[
+                    getDimensionIdFromHeaderName(header.name, visualization)
+                ].formatType
+        }
+
         return (
             value &&
             moment(value).format(
                 header.name === headersMap[DIMENSION_ID_LAST_UPDATED] ||
-                    header.valueType === VALUE_TYPE_DATETIME
+                    valueType === VALUE_TYPE_DATETIME
                     ? 'yyyy-MM-DD HH:mm'
                     : 'yyyy-MM-DD'
             )
