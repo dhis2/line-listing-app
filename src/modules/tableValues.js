@@ -42,6 +42,11 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
     let valueType = header.valueType
 
     if ([VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(valueType)) {
+        const dimensionId = extractDimensionIdParts(
+            header.name,
+            visualization.type
+        ).dimensionId
+
         if (
             header.name &&
             [
@@ -49,15 +54,12 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
                 headersMap[DIMENSION_ID_ENROLLMENT_DATE],
                 headersMap[DIMENSION_ID_INCIDENT_DATE],
                 headersMap[DIMENSION_ID_SCHEDULED_DATE],
-            ].includes(
-                extractDimensionIdParts(header.name, visualization.type)
-                    .dimensionId
-            )
+            ].includes(dimensionId)
         ) {
             // override valueType for time dimensions to format the value as date (DHIS2-17855)
             valueType =
                 timeDimensions[
-                    getDimensionIdFromHeaderName(header.name, visualization)
+                    getDimensionIdFromHeaderName(dimensionId, visualization)
                 ].formatType
         }
 
