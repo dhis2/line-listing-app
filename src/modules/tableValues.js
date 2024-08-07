@@ -39,8 +39,9 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         return getStatusNames()[value] || value
     }
 
-    if ([VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(header.valueType)) {
-        let valueType = header.valueType
+    let valueType = header.valueType
+
+    if ([VALUE_TYPE_DATE, VALUE_TYPE_DATETIME].includes(valueType)) {
         if (
             header.name &&
             [
@@ -69,12 +70,12 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
                     : 'yyyy-MM-DD'
             )
         )
-    } else if (header?.valueType === VALUE_TYPE_AGE) {
+    } else if (valueType === VALUE_TYPE_AGE) {
         return value && moment(value).format('yyyy-MM-DD')
     } else {
         return formatValue(
             value,
-            header.valueType || VALUE_TYPE_TEXT,
+            valueType || VALUE_TYPE_TEXT,
             header.optionSet
                 ? {}
                 : {
