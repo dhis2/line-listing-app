@@ -1,3 +1,10 @@
+## [101.1.2](https://github.com/dhis2/line-listing-app/compare/v101.1.1...v101.1.2) (2024-08-09)
+
+
+### Bug Fixes
+
+* display the right format for time dimensions (DHIS2-17855) ([#572](https://github.com/dhis2/line-listing-app/issues/572)) ([86e6530](https://github.com/dhis2/line-listing-app/commit/86e65302fb2ba468bff29b76223ed04e345b5a3e))
+
 ## [101.1.1](https://github.com/dhis2/line-listing-app/compare/v101.1.0...v101.1.1) (2024-06-27)
 
 
