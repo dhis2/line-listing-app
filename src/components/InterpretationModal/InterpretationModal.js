@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { sGetCurrent } from '../../reducers/current.js'
+import { sGetVisualization } from '../../reducers/visualization.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
 import { Visualization } from '../Visualization/Visualization.js'
 import {
@@ -16,7 +16,7 @@ import {
 const InterpretationModal = ({ onInterpretationUpdate }) => {
     const { interpretationId, initialFocus } = useInterpretationQueryParams()
     const [isVisualizationLoading, setIsVisualizationLoading] = useState(false)
-    const visualization = useSelector(sGetCurrent)
+    const visualization = useSelector(sGetVisualization)
     const { currentUser } = useCachedDataQuery()
 
     useEffect(() => {
