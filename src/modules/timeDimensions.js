@@ -1,4 +1,8 @@
-import { DIMENSION_TYPE_PERIOD, layoutGetAllDimensions } from '@dhis2/analytics'
+import {
+    DIMENSION_TYPE_PERIOD,
+    VALUE_TYPE_DATE,
+    layoutGetAllDimensions,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_EVENT_DATE,
@@ -24,6 +28,7 @@ export const getTimeDimensions = () => ({
         defaultName: i18n.t('Event date'),
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayExecutionDateLabel',
+        formatType: VALUE_TYPE_DATE,
     },
     [DIMENSION_ID_ENROLLMENT_DATE]: {
         id: DIMENSION_ID_ENROLLMENT_DATE,
@@ -31,6 +36,7 @@ export const getTimeDimensions = () => ({
         defaultName: i18n.t('Enrollment date'),
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayEnrollmentDateLabel',
+        formatType: VALUE_TYPE_DATE,
     },
     [DIMENSION_ID_INCIDENT_DATE]: {
         id: DIMENSION_ID_INCIDENT_DATE,
@@ -38,6 +44,7 @@ export const getTimeDimensions = () => ({
         defaultName: i18n.t('Incident date'),
         nameParentProperty: NAME_PARENT_PROPERTY_PROGRAM,
         nameProperty: 'displayIncidentDateLabel',
+        formatType: VALUE_TYPE_DATE,
     },
     [DIMENSION_ID_SCHEDULED_DATE]: {
         id: DIMENSION_ID_SCHEDULED_DATE,
@@ -45,6 +52,7 @@ export const getTimeDimensions = () => ({
         defaultName: i18n.t('Scheduled date'),
         nameParentProperty: NAME_PARENT_PROPERTY_STAGE,
         nameProperty: 'displayDueDateLabel',
+        formatType: VALUE_TYPE_DATE,
     },
 })
 
