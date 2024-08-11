@@ -1,3 +1,10 @@
+## [101.1.3](https://github.com/dhis2/line-listing-app/compare/v101.1.2...v101.1.3) (2024-08-11)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f0449b7](https://github.com/dhis2/line-listing-app/commit/f0449b7d9f0ce2899d38dc26e792457164f3dff0))
+
 ## [101.1.2](https://github.com/dhis2/line-listing-app/compare/v101.1.1...v101.1.2) (2024-08-09)
 
 
