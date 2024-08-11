@@ -10,13 +10,14 @@
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2024
+# Elise Desailly, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2024\n"
+"Last-Translator: Elise Desailly, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -208,7 +209,7 @@ msgid "Program stage: {{- stageName}}"
 msgstr "Étape du programme : {{- stageName}}"
 
 msgid "Program: {{- programName}}"
-msgstr ""
+msgstr "Programme : {{- programName}}"
 
 msgid "Showing all values for this dimension"
 msgstr "Affichage de toutes les valeurs pour cette dimension"
@@ -258,7 +259,7 @@ msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
 
 msgid "Global dimensions"
-msgstr ""
+msgstr "Dimensions globales"
 
 msgid "Program dimensions"
 msgstr "Dimensions du programme"
@@ -270,10 +271,10 @@ msgid "Choose an input first"
 msgstr ""
 
 msgid "Program data dimensions"
-msgstr ""
+msgstr "Dimensions des données du programme"
 
 msgid "Search data dimensions"
-msgstr ""
+msgstr "Rechercher les dimensions des données"
 
 msgid "Type"
 msgstr "Type"
@@ -325,7 +326,7 @@ msgid "All"
 msgstr "Tout"
 
 msgid "No stages found"
-msgstr ""
+msgstr "Aucune étape trouvée"
 
 msgid "Could not load types"
 msgstr ""
@@ -345,7 +346,7 @@ msgid "{{- itemName}} dimensions"
 msgstr ""
 
 msgid "Filter by program usage"
-msgstr ""
+msgstr "Filtrer par utilisation du programme"
 
 msgid "Clear"
 msgstr "Effacer"
@@ -391,10 +392,10 @@ msgstr ""
 " ou plusieurs tableaux de bord"
 
 msgid "Show layout"
-msgstr ""
+msgstr "Afficher la mise en page"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "Masquer la mise en page"
 
 msgid "Show dimensions sidebar"
 msgstr ""
@@ -410,6 +411,9 @@ msgstr "Afficher les interprétations et les détails"
 
 msgid "View"
 msgstr "Voir"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -442,10 +446,10 @@ msgid ""
 msgstr ""
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr ""
+msgstr "Classer par \"1{{column}}\" et mettre à jour"
 
 msgid "No event"
-msgstr ""
+msgstr "Aucun événement"
 
 msgid "Rows per page"
 msgstr "Lignes par page"
@@ -691,19 +695,25 @@ msgid "There's a problem with at least one selected indicator"
 msgstr "Il y a un problème avec au moins un indicateur sélectionné"
 
 msgid "Restricted access"
-msgstr ""
+msgstr "Accès restreint"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
 "administrator."
 msgstr ""
+"Vous n'avez pas accès aux données de cette visualisation. Veuillez contacter"
+" un administrateur système."
 
 msgid "You don’t have access to one or more of the chosen organisation units."
 msgstr ""
+"Vous n'avez pas accès à une ou plusieurs des unités d'organisation "
+"sélectionnées."
 
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
+"Vous n'avez pas accès aux analyses d'événements. Veuillez contacter un "
+"administrateur système."
 
 msgid "Something went wrong"
 msgstr "Quelque chose a mal tourné"
@@ -714,7 +724,7 @@ msgid ""
 msgstr ""
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "Il y a un problème de syntaxe dans la demande d'analyse."
 
 msgid "Registration date"
 msgstr "Données d'enregistrement"
