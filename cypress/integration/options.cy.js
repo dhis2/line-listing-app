@@ -306,8 +306,12 @@ const testSkipRoundingForEnrollment = (roundedValue) => {
 }
 
 describe('skip rounding', () => {
-    testSkipRoundingForEvent('3.1')
-    testSkipRoundingForEnrollment('3.1')
+    it('sets skip rounding for event', () => {
+        testSkipRoundingForEvent('3.12')
+    })
+    it('sets skip rounding for enrollment', () => {
+        testSkipRoundingForEnrollment('3.12')
+    })
     it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
         goToStartPage()
 
