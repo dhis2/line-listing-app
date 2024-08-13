@@ -66,7 +66,7 @@
 .resizeHandle:hover::before {
     opacity: 1;
     /* Show with a 500ms delay */
-    transition: opacity 150ms 500ms;
+    transition: opacity 150ms 200ms;
 }
 .container.resizing .accessory,
 .container.resizing .accessoryInner {
