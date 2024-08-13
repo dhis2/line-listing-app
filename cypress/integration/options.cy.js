@@ -307,14 +307,7 @@ const testSkipRoundingForEnrollment = (roundedValue) => {
 
 describe('skip rounding', () => {
     testSkipRoundingForEvent('3.12')
-    // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17027 (currently unsure if this will be backported though)
-    // backported but there is no data for this on 40
-    it.skip(['<41'], 'sets skip rounding for enrollment (below 41)', () => {
-        testSkipRoundingForEnrollment('3.1')
-    })
-    it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
-        testSkipRoundingForEnrollment('3.12')
-    })
+    testSkipRoundingForEnrollment('3.12')
     it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
         goToStartPage()
 
