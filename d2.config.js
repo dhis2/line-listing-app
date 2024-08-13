@@ -6,6 +6,8 @@ const config = {
 
     minDHIS2Version: '2.39',
 
+    pluginType: 'dashboard',
+
     pwa: {
         enabled: true,
         caching: {
