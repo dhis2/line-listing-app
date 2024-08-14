@@ -1,3 +1,10 @@
+## [101.1.5](https://github.com/dhis2/line-listing-app/compare/v101.1.4...v101.1.5) (2024-08-14)
+
+
+### Bug Fixes
+
+* sanitize sidebar width before reading and writing to local storage ([#576](https://github.com/dhis2/line-listing-app/issues/576)) ([6589245](https://github.com/dhis2/line-listing-app/commit/6589245384677dd276710b7ab7a32499b6ebc32c))
+
 ## [101.1.4](https://github.com/dhis2/line-listing-app/compare/v101.1.3...v101.1.4) (2024-08-14)
 
 
