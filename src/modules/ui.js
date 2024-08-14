@@ -4,10 +4,6 @@ import {
     VIS_TYPE_LINE_LIST,
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
-import {
-    PRIMARY_PANEL_WIDTH,
-    ACCESSORY_PANEL_MIN_PX_AT_END,
-} from './accessoryPanelConstants.js'
 import { getConditionsFromVisualization } from './conditions.js'
 import { getRequestOptions } from './getRequestOptions.js'
 import { getAdaptedUiLayoutByType } from './layout.js'
@@ -74,9 +70,4 @@ export const getDefaultSorting = () => ({
     direction: 'default',
 })
 
-export const getUserSidebarWidth = () =>
-    Math.min(
-        getUserSidebarWidthFromLocalStorage(),
-        window.innerWidth -
-            (PRIMARY_PANEL_WIDTH + ACCESSORY_PANEL_MIN_PX_AT_END)
-    )
+export const getUserSidebarWidth = getUserSidebarWidthFromLocalStorage

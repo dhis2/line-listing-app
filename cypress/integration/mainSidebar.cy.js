@@ -220,7 +220,7 @@ describe('accessory sidebar panel', () => {
 
         cy.getBySel('accessory-panel-resize-handle').trigger('mouseup')
     })
-    it.only('ignores out-of-bounds mouse movements past the max-width edge', () => {
+    it('ignores out-of-bounds mouse movements past the max-width edge', () => {
         const movementX = DRAGHANDLE_PAGE_X_MAX - DRAGHANDLE_PAGE_X_INITIAL
         const pageXAtMaxWidth = getMouseMoveOptions(movementX).pageX
         const expectedWidth =
@@ -396,6 +396,14 @@ describe('accessory sidebar panel', () => {
         cy.getBySel('accessory-sidebar')
             .invoke('outerWidth')
             .should('eq', increasedWidth - viewportDecrease)
+    })
+    it('does not decrease the panel width past its min-width on window resize', () => {
+        goToStartPage()
+        cy.viewport(300, Cypress.config().viewportHeight)
+
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_MIN_WIDTH)
     })
     it('mouse resizing works after keyboard resize without blurring the resize handle', () => {
         const keyboardMovementX = 100
