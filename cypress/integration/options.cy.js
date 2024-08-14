@@ -306,18 +306,14 @@ const testSkipRoundingForEnrollment = (roundedValue) => {
 }
 
 describe('skip rounding', () => {
-    // change when 39.6 is released (https://dhis2.atlassian.net/browse/DHIS2-17027)
-    it(['<40'], 'sets skip rounding for event (below 40)', () => {
-        testSkipRoundingForEvent('3.1')
-    })
-    it(['>=40'], 'sets skip rounding for event (40 and above)', () => {
+    it('sets skip rounding for event', () => {
         testSkipRoundingForEvent('3.12')
     })
-    // FIXME: Blocked by backend issue https://dhis2.atlassian.net/browse/DHIS2-17027 (currently unsure if this will be backported though)
-    // backported but there is no data for this on 40
-    it.skip(['<41'], 'sets skip rounding for enrollment (below 41)', () => {
-        testSkipRoundingForEnrollment('3.1')
-    })
+    /* Skip rounding for enrollment is implemented in v39 and v40.
+     * However, in our v39/40 test instances the data we use for this
+     * test is missing, which makes this test fail.
+     * Until https://dhis2.atlassian.net/browse/DHIS2-17884 is resolved,
+     * we will have to disable tests for these versions. */
     it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
         testSkipRoundingForEnrollment('3.12')
     })
