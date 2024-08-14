@@ -1,3 +1,11 @@
+## [101.1.4](https://github.com/dhis2/line-listing-app/compare/v101.1.3...v101.1.4) (2024-08-14)
+
+
+### Bug Fixes
+
+* fix error when clearing year in fixed period selector (DHIS2-17707) ([#575](https://github.com/dhis2/line-listing-app/issues/575)) ([0abe629](https://github.com/dhis2/line-listing-app/commit/0abe62953ae3ade0159eff92e577ae382933bd0d))
+* update options test after DHIS2 Core v39.6 release ([#577](https://github.com/dhis2/line-listing-app/issues/577)) ([3744684](https://github.com/dhis2/line-listing-app/commit/37446840882e077135fbe5eb580e7c82a9f1075f))
+
 ## [101.1.3](https://github.com/dhis2/line-listing-app/compare/v101.1.2...v101.1.3) (2024-08-11)
 
 
