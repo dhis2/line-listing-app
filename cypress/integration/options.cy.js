@@ -306,16 +306,15 @@ const testSkipRoundingForEnrollment = (roundedValue) => {
 }
 
 describe('skip rounding', () => {
-    it(['<40'], 'sets skip rounding for event (below 40)', () => {
-        cy.log('this test needs to be removed when 2.39.6 patch is out')
-        testSkipRoundingForEvent('3.1')
-    })
-    it(['>=40'], 'sets skip rounding for event (40 and above)', () => {
-        cy.log('this test needs to be updated when 2.39.6 patch is out')
+    it('sets skip rounding for event', () => {
         testSkipRoundingForEvent('3.12')
     })
+    /* Skip rounding for enrollment is implemented in v39 and v40.
+     * However, in our v39/40 test instances the data we use for this
+     * test is missing, which makes this test fail.
+     * Until https://dhis2.atlassian.net/browse/DHIS2-17884 is resolved,
+     * we will have to disable tests for these versions. */
     it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
-        cy.log('this test needs to be updated when 39 and 40 patches are out')
         testSkipRoundingForEnrollment('3.12')
     })
     it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
