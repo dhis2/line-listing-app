@@ -81,15 +81,15 @@ const programDimensions = [
     { label: 'Program status', value: 'Active' },
     {
         label: trackerProgram[DIMENSION_ID_EVENT_DATE],
-        value: `${previousYear}-12-10 00:00`,
+        value: `${previousYear}-12-10`,
     },
     {
         label: trackerProgram[DIMENSION_ID_ENROLLMENT_DATE],
-        value: `${currentYear}-01-18 00:00`,
+        value: `${currentYear}-01-18`,
     },
     {
         label: trackerProgram[DIMENSION_ID_INCIDENT_DATE],
-        value: `${currentYear}-01-10 00:00`,
+        value: `${currentYear}-01-10`,
     },
 ]
 const programDataDimensions = [
@@ -133,7 +133,7 @@ describe('table', () => {
         // feat: https://dhis2.atlassian.net/browse/DHIS2-11192
         programDimensions.push({
             label: trackerProgram[DIMENSION_ID_SCHEDULED_DATE],
-            value: `${previousYear}-12-10 00:00`,
+            value: `${previousYear}-12-10`,
         })
         const dimensionName = TEST_DIM_TEXT
 
@@ -191,87 +191,77 @@ describe('table', () => {
             cy.getBySelLike('modal-action-cancel').click()
         })
     })
-    it(
-        ['>39', '<41'],
-        'dimensions display correct values in the visualization',
-        () => {
-            cy.log(
-                'Skip 39 and 41 until next versions are out. This also needs to be reviewed once we decide how to deal with time dimensions'
+    it('dimensions display correct values in the visualization', () => {
+        programDataDimensions.push({
+            label: TEST_DIM_NUMBER_OPTIONSET,
+            value: 'One',
+        })
+        selectEventWithProgram(trackerProgram)
+
+        openProgramDimensionsSidebar()
+
+        mainDimensions.forEach(({ label }) =>
+            clickAddRemoveMainDimension(label)
+        )
+
+        programDimensions.forEach(({ label }) =>
+            clickAddRemoveProgramDimension(label)
+        )
+
+        programDataDimensions.forEach(({ label }) =>
+            clickAddRemoveProgramDataDimension(label)
+        )
+
+        selectFixedPeriod({
+            label: periodLabel,
+            period: {
+                type: 'Daily',
+                year: `${getPreviousYearStr()}`,
+                name: `${getPreviousYearStr()}-12-10`,
+            },
+        })
+
+        clickMenubarUpdateButton()
+
+        expectTableToBeVisible()
+
+        const allDimensions = [
+            ...mainDimensions,
+            ...programDimensions,
+            ...programDataDimensions,
+        ]
+
+        getTableHeaderCells().its('length').should('eq', allDimensions.length)
+
+        getTableRows().its('length').should('eq', 1)
+
+        // assert the values of the dimensions
+        allDimensions.forEach(({ value }, index) => {
+            getTableDataCells().eq(index).invoke('text').should('eq', value)
+        })
+
+        // check that the URL dimension is wrapped in a link
+        if (
+            allDimensions.includes(
+                (dimension) => dimension.label === TEST_DIM_URL
             )
-
-            programDataDimensions.push({
-                label: TEST_DIM_NUMBER_OPTIONSET,
-                value: 'One',
-            })
-            selectEventWithProgram(trackerProgram)
-
-            openProgramDimensionsSidebar()
-
-            mainDimensions.forEach(({ label }) =>
-                clickAddRemoveMainDimension(label)
-            )
-
-            programDimensions.forEach(({ label }) =>
-                clickAddRemoveProgramDimension(label)
-            )
-
-            programDataDimensions.forEach(({ label }) =>
-                clickAddRemoveProgramDataDimension(label)
-            )
-
-            selectFixedPeriod({
-                label: periodLabel,
-                period: {
-                    type: 'Daily',
-                    year: `${getPreviousYearStr()}`,
-                    name: `${getPreviousYearStr()}-12-10`,
-                },
-            })
-
-            clickMenubarUpdateButton()
-
-            expectTableToBeVisible()
-
-            const allDimensions = [
-                ...mainDimensions,
-                ...programDimensions,
-                ...programDataDimensions,
-            ]
-
-            getTableHeaderCells()
-                .its('length')
-                .should('eq', allDimensions.length)
-
-            getTableRows().its('length').should('eq', 1)
-
-            // assert the values of the dimensions
-            allDimensions.forEach(({ value }, index) => {
-                getTableDataCells().eq(index).invoke('text').should('eq', value)
-            })
-
-            // check that the URL dimension is wrapped in a link
-            if (
-                allDimensions.includes(
-                    (dimension) => dimension.label === TEST_DIM_URL
+        ) {
+            getTableDataCells()
+                .eq(
+                    allDimensions.findIndex(
+                        (dimension) => dimension.label === TEST_DIM_URL
+                    )
                 )
-            ) {
-                getTableDataCells()
-                    .eq(
-                        allDimensions.findIndex(
-                            (dimension) => dimension.label === TEST_DIM_URL
-                        )
-                    )
-                    .find('a')
-                    .should(
-                        'have.attr',
-                        'href',
-                        allDimensions.find(
-                            (dimension) => dimension.label === TEST_DIM_URL
-                        ).value
-                    )
-            }
+                .find('a')
+                .should(
+                    'have.attr',
+                    'href',
+                    allDimensions.find(
+                        (dimension) => dimension.label === TEST_DIM_URL
+                    ).value
+                )
         }
-    )
+    })
     it('data can be sorted', () => {
         // remove any DGS to allow numeric value comparison
         openStyleOptionsModal()
