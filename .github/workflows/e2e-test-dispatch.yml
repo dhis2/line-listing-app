@@ -1,0 +1,43 @@
+name: 'dhis2: e2e tests triggered by core'
+
+on:
+    repository_dispatch:
+        types: [apps-e2e-tests-trigger]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+    GIT_AUTHOR_NAME: '@dhis2-bot'
+    GIT_AUTHOR_EMAIL: 'apps@dhis2.org'
+    GIT_COMMITTER_NAME: '@dhis2-bot'
+    GIT_COMMITTER_EMAIL: 'apps@dhis2.org'
+    GH_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
+    D2_VERBOSE: true
+    CI: true
+
+jobs:
+    setup-matrix:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.set-matrix.outputs.specs }}
+        steps:
+            - uses: actions/checkout@v3
+            - name: Generate Test matrix
+              id: set-matrix
+              run: echo "::set-output name=specs::$(node src/generateTestMatrix.js)"
+
+    call-workflow-e2e-prod:
+        needs: setup-matrix
+        uses: ./.github/workflows/analytics-e2e-tests-triggered-by-core.yml@workflow-dispatch-cypress
+        with:
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
+            spec-group: ${{ needs.setup-matrix.outputs.matrix }}
+            instance_url: ${{ github.event.client_payload.instance_url }}
+        secrets:
+            username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
+            password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+            recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
+            reportportal_api_key: ${{ secrets.REPORTPORTAL_API_KEY }}
+            reportportal_endpoint: ${{ vars.REPORTPORTAL_ENDPOINT }}
+            reportportal_project: ${{ vars.REPORTPORTAL_PROJECT }}
