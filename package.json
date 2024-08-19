@@ -40,7 +40,6 @@
     "dependencies": {
         "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#0f47934a1ec551c0cb50fb7be126f3d9612a04cf",
         "@dhis2/app-runtime": "^3.10.6",
-        "@dhis2/ui": "^9.4.2",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
         "@dnd-kit/utilities": "^3.2.2",
@@ -58,8 +57,5 @@
         "redux-thunk": "^2.3.0",
         "reselect": "^4.1.5",
         "styled-jsx": "^4.0.1"
-    },
-    "resolutions": {
-        "@dhis2/ui": "^9.4.2"
     }
 }
