@@ -29,7 +29,7 @@ jobs:
 
     call-workflow-e2e-prod:
         needs: setup-matrix
-        uses: ./.github/workflows/analytics-e2e-tests-triggered-by-core.yml@workflow-dispatch-cypress
+        uses: ./.github/workflows/analytics-e2e-tests-triggered-by-core.yml
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
