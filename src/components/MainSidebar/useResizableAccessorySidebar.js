@@ -18,8 +18,9 @@ const createWidthWithinBoundsCalculator = (event, startWidth) => {
     const isKeyboardMode = event.type === 'focus'
     const rect = element.getBoundingClientRect()
     const minWidth = ACCESSORY_PANEL_MIN_WIDTH
-    // Take center of draghandle on X-axis as starting point
-    const startPageX = Math.ceil(rect.left + rect.width / 2)
+    /* This needs to correspond with right edge of the accessory sidebar
+     * which is 2px right of the left edge of the resize handle */
+    const startPageX = Math.ceil(rect.left + 2)
     const maxPageX = window.innerWidth - ACCESSORY_PANEL_MIN_PX_AT_END
     const maxDeltaX = maxPageX - startPageX
     const maxWidth = startWidth + maxDeltaX
