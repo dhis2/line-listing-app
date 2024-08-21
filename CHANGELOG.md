@@ -1,3 +1,10 @@
+## [101.1.6](https://github.com/dhis2/line-listing-app/compare/v101.1.5...v101.1.6) (2024-08-21)
+
+
+### Bug Fixes
+
+* reduce resizehandle interaction area on left side [DHIS2-17923] ([#579](https://github.com/dhis2/line-listing-app/issues/579)) ([2ccbb15](https://github.com/dhis2/line-listing-app/commit/2ccbb155fb80982a51261d6f57d02c002a261076))
+
 ## [101.1.5](https://github.com/dhis2/line-listing-app/compare/v101.1.4...v101.1.5) (2024-08-14)
 
 
