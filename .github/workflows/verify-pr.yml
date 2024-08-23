@@ -3,12 +3,6 @@ name: 'verify pr'
 on:
     pull_request:
         types: ['opened', 'labeled', 'reopened', 'synchronize']
-    push:
-        branches:
-            - 'master'
-            - 'dev'
-    repository_dispatch:
-        types: [cypress-test-trigger]
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
