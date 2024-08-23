@@ -1,4 +1,4 @@
-name: 'dhis2: verify (app)'
+name: 'verify pr'
 
 on:
     pull_request:
