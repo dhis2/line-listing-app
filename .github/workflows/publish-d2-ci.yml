@@ -61,7 +61,7 @@ jobs:
                   channel-id: ${{ secrets.SLACK_CHANNEL_ID }}
                   payload: |
                       {
-                          "text": ":small_red_triangle_down: :maps-app: Maps failed to deploy to d2-ci",
+                          "text": ":small_red_triangle_down: :line-listing-app: Line Listing failed to deploy to d2-ci",
                       }
               env:
                   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
