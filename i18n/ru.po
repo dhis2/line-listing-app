@@ -391,7 +391,7 @@ msgid "Update"
 msgstr "Обновить"
 
 msgid "Getting started"
-msgstr ""
+msgstr "Начало работы"
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
@@ -408,7 +408,7 @@ msgid "Your most viewed line lists"
 msgstr ""
 
 msgid "Not available offline"
-msgstr ""
+msgstr "Недоступно в автономном режиме"
 
 msgid ""
 "This line list may show data that was not available when the interpretation "

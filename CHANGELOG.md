@@ -1,3 +1,74 @@
+## [101.1.7](https://github.com/dhis2/line-listing-app/compare/v101.1.6...v101.1.7) (2024-08-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([ee92d90](https://github.com/dhis2/line-listing-app/commit/ee92d90588cde799a4bf9350642dfbd2cf4b23d4))
+
+## [101.1.6](https://github.com/dhis2/line-listing-app/compare/v101.1.5...v101.1.6) (2024-08-21)
+
+
+### Bug Fixes
+
+* reduce resizehandle interaction area on left side [DHIS2-17923] ([#579](https://github.com/dhis2/line-listing-app/issues/579)) ([2ccbb15](https://github.com/dhis2/line-listing-app/commit/2ccbb155fb80982a51261d6f57d02c002a261076))
+
+## [101.1.5](https://github.com/dhis2/line-listing-app/compare/v101.1.4...v101.1.5) (2024-08-14)
+
+
+### Bug Fixes
+
+* sanitize sidebar width before reading and writing to local storage ([#576](https://github.com/dhis2/line-listing-app/issues/576)) ([6589245](https://github.com/dhis2/line-listing-app/commit/6589245384677dd276710b7ab7a32499b6ebc32c))
+
+## [101.1.4](https://github.com/dhis2/line-listing-app/compare/v101.1.3...v101.1.4) (2024-08-14)
+
+
+### Bug Fixes
+
+* fix error when clearing year in fixed period selector (DHIS2-17707) ([#575](https://github.com/dhis2/line-listing-app/issues/575)) ([0abe629](https://github.com/dhis2/line-listing-app/commit/0abe62953ae3ade0159eff92e577ae382933bd0d))
+* update options test after DHIS2 Core v39.6 release ([#577](https://github.com/dhis2/line-listing-app/issues/577)) ([3744684](https://github.com/dhis2/line-listing-app/commit/37446840882e077135fbe5eb580e7c82a9f1075f))
+
+## [101.1.3](https://github.com/dhis2/line-listing-app/compare/v101.1.2...v101.1.3) (2024-08-11)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([f0449b7](https://github.com/dhis2/line-listing-app/commit/f0449b7d9f0ce2899d38dc26e792457164f3dff0))
+
+## [101.1.2](https://github.com/dhis2/line-listing-app/compare/v101.1.1...v101.1.2) (2024-08-09)
+
+
+### Bug Fixes
+
+* display the right format for time dimensions (DHIS2-17855) ([#572](https://github.com/dhis2/line-listing-app/issues/572)) ([86e6530](https://github.com/dhis2/line-listing-app/commit/86e65302fb2ba468bff29b76223ed04e345b5a3e))
+
+## [101.1.1](https://github.com/dhis2/line-listing-app/compare/v101.1.0...v101.1.1) (2024-06-27)
+
+
+### Bug Fixes
+
+* bump analytics with fix for DHIS2-16904 ([#556](https://github.com/dhis2/line-listing-app/issues/556)) ([31c7336](https://github.com/dhis2/line-listing-app/commit/31c73366f5e0a0a978bb4c28d965291b6f7ff8e4))
+
+# [101.1.0](https://github.com/dhis2/line-listing-app/compare/v101.0.7...v101.1.0) (2024-06-26)
+
+
+### Features
+
+* add resizable sidebar (DHIS2-17170) ([#534](https://github.com/dhis2/line-listing-app/issues/534)) ([2904c66](https://github.com/dhis2/line-listing-app/commit/2904c66b077871cfef99ed889bdc234a0211e4cb))
+
+## [101.0.7](https://github.com/dhis2/line-listing-app/compare/v101.0.6...v101.0.7) (2024-06-24)
+
+
+### Bug Fixes
+
+* remove CSS that prevents LL from showing ([#552](https://github.com/dhis2/line-listing-app/issues/552)) ([cc94f24](https://github.com/dhis2/line-listing-app/commit/cc94f24643e0e0459998dff4aff97422e4d56e87))
+
+## [101.0.6](https://github.com/dhis2/line-listing-app/compare/v101.0.5...v101.0.6) (2024-06-16)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([27a6ea5](https://github.com/dhis2/line-listing-app/commit/27a6ea57a889941c6e5efbc7739326a5fdf920d0))
+
 ## [101.0.5](https://github.com/dhis2/line-listing-app/compare/v101.0.4...v101.0.5) (2024-06-07)
 
 

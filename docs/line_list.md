@@ -226,3 +226,15 @@ To allow more space for the line list itself, there are various ways to hide pan
 3. Each panel can also be shown/hidden by using the "View menu" in the main toolbar.
 
 ![](resources/images/view-options.png)
+
+To provide more space for the content in the "Accessory Side Panel" it can be resized using the mouse as illustrated below:
+
+![](resources/images/resizable_accessory_sidebar.png)
+
+Resizing can also be done using the left/right arrow key on the keyboard. These keyboard shortcuts become active after giving focus to the resize-handle (by repeatedly hitting the tab key):
+
+![](resources/images/resizable_accessory_sidebar_keyboard.png)
+
+The "Accessory Side Panel" can be reset to its default width, by using the "View" menu or double clicking the resize-handle.
+
+![](resources/images/resizable_accessory_sidebar_reset.png)

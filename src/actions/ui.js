@@ -55,6 +55,7 @@ import {
     SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
     UPDATE_UI_ENTITY_TYPE_ID,
     CLEAR_UI_ENTITY_TYPE,
+    SET_UI_ACCESSORY_PANEL_WIDTH,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -260,6 +261,11 @@ export const acSetUiAccessoryPanelOpen = (value) => ({
 
 export const acSetUiAccessoryPanelActiveTab = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
+    value,
+})
+
+export const acSetUiAccessoryPanelWidth = (value) => ({
+    type: SET_UI_ACCESSORY_PANEL_WIDTH,
     value,
 })
 
