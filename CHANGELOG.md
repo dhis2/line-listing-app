@@ -1,3 +1,11 @@
+## [101.1.8](https://github.com/dhis2/line-listing-app/compare/v101.1.7...v101.1.8) (2024-08-26)
+
+
+### Bug Fixes
+
+* display correct app version in dhis2 and updated workflows ([#581](https://github.com/dhis2/line-listing-app/issues/581)) ([d31979f](https://github.com/dhis2/line-listing-app/commit/d31979fbd451349813b32c90ea2bdb147d28ce92))
+* use saved visualization in interpretation modal ([#551](https://github.com/dhis2/line-listing-app/issues/551)) ([6e42b92](https://github.com/dhis2/line-listing-app/commit/6e42b9264e71b95a0a45b65cfde5846061883519))
+
 ## [101.1.7](https://github.com/dhis2/line-listing-app/compare/v101.1.6...v101.1.7) (2024-08-25)
 
 
