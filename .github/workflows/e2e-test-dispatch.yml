@@ -32,7 +32,8 @@ jobs:
     call-workflow-e2e-prod:
         needs: setup-matrix
         strategy:
-            matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+            matrix:
+                group: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
 
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-triggered-by-core.yml@workflow-dispatch-cypress
         with:
