@@ -24,6 +24,7 @@ jobs:
                   echo "Generating Test Matrix"
                   specs=$(node src/generateTestMatrix.js)
                   echo "specs=$specs" >> $GITHUB_OUTPUT
+                  echo "::set-output name=matrix::$(echo $specs)"
 
             - name: Debug spec-group
               run: |
