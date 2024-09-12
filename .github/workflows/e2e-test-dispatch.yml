@@ -1,20 +1,14 @@
 name: 'dhis2: e2e tests triggered by core'
 
 on:
-    repository_dispatch:
-        types: [apps-e2e-tests-trigger]
-
-concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-
-env:
-    GIT_AUTHOR_NAME: '@dhis2-bot'
-    GIT_AUTHOR_EMAIL: 'apps@dhis2.org'
-    GIT_COMMITTER_NAME: '@dhis2-bot'
-    GIT_COMMITTER_EMAIL: 'apps@dhis2.org'
-    GH_TOKEN: ${{ secrets.DHIS2_BOT_GITHUB_TOKEN }}
-    D2_VERBOSE: true
-    CI: true
+    workflow_dispatch:
+        inputs:
+            dhis2_version:
+                description: 'DHIS2 core version'
+                required: true
+            instance_url:
+                description: 'Instance URL'
+                required: true
 
 jobs:
     setup-matrix:
@@ -33,7 +27,7 @@ jobs:
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
-            instance_url: ${{ github.event.client_payload.instance_url }}
+            instance_url: ${{ github.event.inputs.instance_url }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
