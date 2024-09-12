@@ -17,12 +17,23 @@ jobs:
             matrix: ${{ steps.set-matrix.outputs.specs }}
         steps:
             - uses: actions/checkout@v3
+
             - name: Generate Test matrix
               id: set-matrix
-              run: echo "::set-output name=specs::$(node src/generateTestMatrix.js)"
+              run: |
+                  echo "Generating Test Matrix"
+                  specs=$(node src/generateTestMatrix.js)
+                  echo "specs=$specs" >> $GITHUB_OUTPUT
+
+            - name: Debug spec-group
+              run: |
+                  echo "Matrix output: ${{ steps.set-matrix.outputs.specs }}"
 
     call-workflow-e2e-prod:
         needs: setup-matrix
+        strategy:
+            matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-triggered-by-core.yml@workflow-dispatch-cypress
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
