@@ -25,13 +25,9 @@ export const goToStartPage = (skipEval) => {
 
 export const expectStartScreenToBeVisible = () => {
     cy.contains('Getting started', EXTENDED_TIMEOUT)
-        .then(($el) => {
+        .should('be.visible')
+        .then(() => {
             cy.log('Confirmed: "Getting started" is visible')
-            expect($el).to.be.visible
         })
-        .catch((error) => {
-            cy.log('Failed to find "Getting started" content')
-            logPageState()
-            throw error
-        })
+    logPageState()
 }
