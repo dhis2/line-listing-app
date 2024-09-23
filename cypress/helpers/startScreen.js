@@ -29,8 +29,9 @@ export const expectStartScreenToBeVisible = () => {
         .then(() => {
             cy.log('Confirmed: "Getting started" is visible')
         })
-        .catch(() => {
+        .catch((error) => {
             cy.log('Failed to find "Getting started" content')
             logPageState()
+            throw error
         })
 }
