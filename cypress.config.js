@@ -42,33 +42,36 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'm5qvjx',
-    reporter: '@reportportal/agent-js-cypress',
+    reporter: 'cypress-multi-reporters',
     reporterOptions: {
-        endpoint: process.env.REPORTPORTAL_ENDPOINT,
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'line_listing_app',
-        project: process.env.REPORTPORTAL_PROJECT,
-        description: '',
-        autoMerge: true,
-        parallel: true,
-        debug: false,
-        restClientConfig: {
-            timeout: 660000,
+        reporterEnabled: ['@reportportal/agent-js-cypress', 'spec'],
+        reportportalAgentJsCypressReporterOptions: {
+            endpoint: process.env.REPORTPORTAL_ENDPOINT,
+            apiKey: process.env.REPORTPORTAL_API_KEY,
+            launch: 'line_listing_app',
+            project: process.env.REPORTPORTAL_PROJECT,
+            description: '',
+            autoMerge: true,
+            parallel: true,
+            debug: false,
+            restClientConfig: {
+                timeout: 660000,
+            },
+            attributes: [
+                {
+                    key: 'dhis2_version',
+                    value: process.env.DHIS2_VERSION,
+                },
+                {
+                    key: 'app_name',
+                    value: 'line-listing-app',
+                },
+                {
+                    key: 'test_level',
+                    value: 'e2e',
+                },
+            ],
         },
-        attributes: [
-            {
-                key: 'dhis2_version',
-                value: process.env.DHIS2_VERSION,
-            },
-            {
-                key: 'app_name',
-                value: 'line-listing-app',
-            },
-            {
-                key: 'test_level',
-                value: 'e2e',
-            },
-        ],
     },
     e2e: {
         setupNodeEvents,
