@@ -9,6 +9,13 @@ async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
 
+    on('task', {
+        log(message) {
+            console.log(message)
+            return null
+        },
+    })
+
     // Delete videos for passing tests
     on('after:spec', (spec, results) => {
         try {
