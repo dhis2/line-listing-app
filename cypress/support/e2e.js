@@ -61,13 +61,14 @@ before(() => {
 
     cy.getAllCookies()
         .should((cookies) => {
+            expect(cookies.length).to.be.at.least(1)
+        })
+        .then((cookies) => {
             cy.task(
                 'log',
                 `Cookies after login attempt: ${JSON.stringify(cookies)}`
             )
-            expect(cookies.length).to.be.at.least(1)
-        })
-        .then((cookies) => {
+
             const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
                 baseUrl,
                 cookies
