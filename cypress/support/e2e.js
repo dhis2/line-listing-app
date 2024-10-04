@@ -54,43 +54,33 @@ before(() => {
     }).then((response) => {
         cy.task('log', `Login request returned status: ${response.status}`)
         expect(response.status).to.eq(200)
-        if (response.redirectedToUrl) {
-            cy.task('log', `Redirected to URL: ${response.redirectedToUrl}`)
-        }
     })
 
-    cy.getAllCookies()
-        .should((cookies) => {
-            expect(cookies.length).to.be.at.least(1)
-        })
-        .then((cookies) => {
+    cy.getAllCookies().then((cookies) => {
+        cy.task(
+            'log',
+            `Cookies after login attempt: ${JSON.stringify(cookies)}`
+        )
+
+        const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
+            baseUrl,
+            cookies
+        )
+        if (sessionCookieForBaseUrl) {
             cy.task(
                 'log',
-                `Cookies after login attempt: ${JSON.stringify(cookies)}`
+                `Found session cookie for base URL: ${JSON.stringify(
+                    sessionCookieForBaseUrl
+                )}`
             )
-
-            const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
-                baseUrl,
-                cookies
+            Cypress.env(
+                computeEnvVariableName(instanceVersion),
+                JSON.stringify(sessionCookieForBaseUrl)
             )
-            if (sessionCookieForBaseUrl) {
-                cy.task(
-                    'log',
-                    `Found session cookie for base URL: ${JSON.stringify(
-                        sessionCookieForBaseUrl
-                    )}`
-                )
-                Cypress.env(
-                    computeEnvVariableName(instanceVersion),
-                    JSON.stringify(sessionCookieForBaseUrl)
-                )
-            } else {
-                cy.task(
-                    'log',
-                    `Session cookie not found for base URL: ${baseUrl}`
-                )
-            }
-        })
+        } else {
+            cy.task('log', `Session cookie not found for base URL: ${baseUrl}`)
+        }
+    })
 })
 
 beforeEach(() => {
@@ -109,9 +99,20 @@ beforeEach(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, baseUrl)
     cy.setCookie(name, value, options)
 
-    cy.getAllCookies().should((cookies) => {
+    cy.getAllCookies().then((cookies) => {
         cy.task('log', `Cookies in beforeEach: ${JSON.stringify(cookies)}`)
         expect(findSessionCookieForBaseUrl(baseUrl, cookies)).to.exist
         expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
+    })
+
+    // Additional check to ensure we're not redirected to the login page
+    cy.url().then((currentUrl) => {
+        cy.task(
+            'log',
+            `Current URL after setting session cookie: ${currentUrl}`
+        )
+        if (currentUrl.includes('login')) {
+            throw new Error('Still on login page after setting session cookie.')
+        }
     })
 })
