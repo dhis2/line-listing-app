@@ -55,6 +55,7 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.cy.js',
         viewportWidth: 1280,
         viewportHeight: 800,
+        pageLoadTimeout: 60000,
         // Record video
         video: true,
         // Enabled to reduce the risk of out-of-memory issues

@@ -115,4 +115,7 @@ beforeEach(() => {
             throw new Error('Still on login page after setting session cookie.')
         }
     })
+
+    // Force a reload to ensure all resources are loaded
+    cy.reload()
 })
