@@ -105,9 +105,9 @@ beforeEach(() => {
         expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
     })
 
-    // Intercept and log all network requests
-    cy.intercept('*').as('allRequests') // Intercept all requests
-    cy.wait('@allRequests').then((interception) => {
+    // Intercept and log api requests
+    cy.intercept('/api/**').as('apiRequests')
+    cy.wait('@apiRequests').then((interception) => {
         cy.task('log', `Intercepted request: ${JSON.stringify(interception)}`)
     })
 
