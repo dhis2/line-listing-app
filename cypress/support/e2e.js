@@ -105,7 +105,13 @@ beforeEach(() => {
         expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
     })
 
-    // Additional check to ensure we're not redirected to the login page
+    // Intercept and log all network requests
+    cy.intercept('*').as('allRequests') // Intercept all requests
+    cy.wait('@allRequests').then((interception) => {
+        cy.task('log', `Intercepted request: ${JSON.stringify(interception)}`)
+    })
+
+    // Log the current URL
     cy.url().then((currentUrl) => {
         cy.task(
             'log',
