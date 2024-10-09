@@ -105,11 +105,11 @@ beforeEach(() => {
         expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
     })
 
-    // Intercept and log api requests
-    cy.intercept('/api/**').as('apiRequests')
-    cy.wait('@apiRequests').then((interception) => {
-        cy.task('log', `Intercepted request: ${JSON.stringify(interception)}`)
-    })
+    // // Intercept and log api requests
+    // cy.intercept('/api/**').as('apiRequests')
+    // cy.wait('@apiRequests').then((interception) => {
+    //     cy.task('log', `Intercepted request: ${JSON.stringify(interception)}`)
+    // })
 
     // Log the current URL
     cy.url().then((currentUrl) => {
@@ -123,5 +123,5 @@ beforeEach(() => {
     })
 
     // Force a reload to ensure all resources are loaded
-    cy.reload()
+    // cy.reload()
 })
