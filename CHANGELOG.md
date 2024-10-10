@@ -1,3 +1,25 @@
+## [101.1.8](https://github.com/dhis2/line-listing-app/compare/v101.1.7...v101.1.8) (2024-08-26)
+
+
+### Bug Fixes
+
+* display correct app version in dhis2 and updated workflows ([#581](https://github.com/dhis2/line-listing-app/issues/581)) ([d31979f](https://github.com/dhis2/line-listing-app/commit/d31979fbd451349813b32c90ea2bdb147d28ce92))
+* use saved visualization in interpretation modal ([#551](https://github.com/dhis2/line-listing-app/issues/551)) ([6e42b92](https://github.com/dhis2/line-listing-app/commit/6e42b9264e71b95a0a45b65cfde5846061883519))
+
+## [101.1.7](https://github.com/dhis2/line-listing-app/compare/v101.1.6...v101.1.7) (2024-08-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([ee92d90](https://github.com/dhis2/line-listing-app/commit/ee92d90588cde799a4bf9350642dfbd2cf4b23d4))
+
+## [101.1.6](https://github.com/dhis2/line-listing-app/compare/v101.1.5...v101.1.6) (2024-08-21)
+
+
+### Bug Fixes
+
+* reduce resizehandle interaction area on left side [DHIS2-17923] ([#579](https://github.com/dhis2/line-listing-app/issues/579)) ([2ccbb15](https://github.com/dhis2/line-listing-app/commit/2ccbb155fb80982a51261d6f57d02c002a261076))
+
 ## [101.1.5](https://github.com/dhis2/line-listing-app/compare/v101.1.4...v101.1.5) (2024-08-14)
 
 
