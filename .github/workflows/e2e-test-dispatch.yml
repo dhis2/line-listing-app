@@ -32,9 +32,10 @@ jobs:
         needs: setup-matrix
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-triggered-by-core.yml@workflow-dispatch-cypress
         with:
-            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
+            should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record') }}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
-            instance_url: ${{ github.event.inputs.instance_url }}/api/apps/line-listing/index.html
+            api_base_url: ${{ github.event.inputs.instance_url }}
+            app_url: ${{ github.event.inputs.instance_url }}/api/apps/line-listing/index.html
             dhis2_version: ${{ github.event.inputs.dhis2_version }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
