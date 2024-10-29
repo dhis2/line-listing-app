@@ -7,13 +7,14 @@
 # Ge Joao <gsimango@saudigitus.org>, 2023
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
+# Shelsea Chumaio, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
+"Last-Translator: Shelsea Chumaio, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +113,7 @@ msgid "End date"
 msgstr "Data Final"
 
 msgid "No items selected"
-msgstr ""
+msgstr " Nenhum item seleccionado"
 
 msgid "Available options"
 msgstr "Opções disponíveis"
@@ -124,7 +125,7 @@ msgid "Selected options"
 msgstr ""
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr ""
+msgstr " Nada encontrado para ''{{- searchTerm}}''"
 
 msgid "No options"
 msgstr ""
@@ -294,7 +295,7 @@ msgid "Choose a program"
 msgstr "Escolha um programa"
 
 msgid "No programs found"
-msgstr ""
+msgstr "Nenhum programa encontrado"
 
 msgid "Stage"
 msgstr "Estagio"
@@ -329,7 +330,7 @@ msgid "Clear"
 msgstr "Limpar"
 
 msgid "Search dimensions"
-msgstr ""
+msgstr "Dimensões de pesquisa"
 
 msgid "Your dimensions"
 msgstr "Suas dimensões"
@@ -388,6 +389,9 @@ msgstr "Mostrar interpretações e detalhes"
 
 msgid "View"
 msgstr "Vizualizar"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "Atualizar"
