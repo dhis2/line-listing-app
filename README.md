@@ -116,6 +116,10 @@ When reviewing, please don't approve until all the required checks have passed.
 
 PRs should be squash merged unless there is a good reason to preserve the individual commit history. Make sure the PR commit summary has the correct semantic release keyword (fix, feat, chore, etc). Keep line lengths in the description to <100 in order to avoid lint-commit errors in future PRs that have "merge from master" commits. The summaries and descriptions go into the release notes so make it good!
 
+### Deploy previews
+
+For each PR, a deploy preview is automatically generated and available at the following URL: https://pr-###.line-listing.netlify.dhis2.org This is useful for reviewing changes to the app before merging them into master. Because this is on a dhis2.org domain, the deploy preview can be tested against any DHIS2 Core backend deployed on the dhis2.org domain without encountering CORS issues.
+
 ## Learn More
 
 This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
