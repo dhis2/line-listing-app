@@ -149,13 +149,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Descarregar dados a partir desta data"
 
 msgid "Metadata ID scheme"
 msgstr "Esquema de ID de metadados"
@@ -173,7 +173,7 @@ msgid "Download"
 msgstr "Descarregar"
 
 msgid "all"
-msgstr ""
+msgstr "Todos"
 
 msgid "Levels"
 msgstr "Niveis"
@@ -354,7 +354,7 @@ msgid "Line list"
 msgstr "lista de linhas "
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" eliminado com êxito."
 
 msgid "Rename successful"
 msgstr "Renomeado com sucesso"
@@ -689,9 +689,11 @@ msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"Há um problema com as análises geradas. Contacte um administrador do "
+"sistema."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "Há um problema de síntaxe com o pedido de análise."
 
 msgid "Registration date"
 msgstr "Data de registo"
