@@ -7007,6 +7007,14 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
 
+cypress-multi-reporters@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/cypress-multi-reporters/-/cypress-multi-reporters-1.6.4.tgz#6f9d25ed8a0d8d7fa5597977adcd2237d1249931"
+  integrity sha512-3xU2t6pZjZy/ORHaCvci5OT1DAboS4UuMMM8NBAizeb2C9qmHt+cgAjXgurazkwkPRdO7ccK39M5ZaPCju0r6A==
+  dependencies:
+    debug "^4.3.4"
+    lodash "^4.17.21"
+
 cypress-tags@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cypress-tags/-/cypress-tags-1.2.2.tgz#1d992a3eb7f5db9b8b87911cc82c94d7ee9dd217"

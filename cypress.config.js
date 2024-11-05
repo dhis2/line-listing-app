@@ -9,6 +9,13 @@ async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
 
+    on('task', {
+        log(message) {
+            console.log(message)
+            return null
+        },
+    })
+
     // Delete videos for passing tests
     on('after:spec', (spec, results) => {
         try {
@@ -42,33 +49,36 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'm5qvjx',
-    reporter: '@reportportal/agent-js-cypress',
+    reporter: 'cypress-multi-reporters',
     reporterOptions: {
-        endpoint: process.env.REPORTPORTAL_ENDPOINT,
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'line_listing_app',
-        project: process.env.REPORTPORTAL_PROJECT,
-        description: '',
-        autoMerge: true,
-        parallel: true,
-        debug: false,
-        restClientConfig: {
-            timeout: 660000,
+        reporterEnabled: ['@reportportal/agent-js-cypress', 'spec'],
+        reportportalAgentJsCypressReporterOptions: {
+            endpoint: process.env.REPORTPORTAL_ENDPOINT,
+            apiKey: process.env.REPORTPORTAL_API_KEY,
+            launch: 'line_listing_app',
+            project: process.env.REPORTPORTAL_PROJECT,
+            description: '',
+            autoMerge: true,
+            parallel: true,
+            debug: false,
+            restClientConfig: {
+                timeout: 660000,
+            },
+            attributes: [
+                {
+                    key: 'dhis2_version',
+                    value: process.env.DHIS2_VERSION,
+                },
+                {
+                    key: 'app_name',
+                    value: 'line-listing-app',
+                },
+                {
+                    key: 'test_level',
+                    value: 'e2e',
+                },
+            ],
         },
-        attributes: [
-            {
-                key: 'dhis2_version',
-                value: process.env.DHIS2_VERSION,
-            },
-            {
-                key: 'app_name',
-                value: 'line-listing-app',
-            },
-            {
-                key: 'test_level',
-                value: 'e2e',
-            },
-        ],
     },
     e2e: {
         setupNodeEvents,
@@ -76,8 +86,10 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.cy.js',
         viewportWidth: 1280,
         viewportHeight: 800,
+        pageLoadTimeout: 60000,
         // Record video
         video: true,
+        chromeWebSecurity: false, // Disable Chrome Web Security
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
         /* When allowing 1 retry on CI, the test suite will pass if
