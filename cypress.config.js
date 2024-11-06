@@ -83,8 +83,6 @@ module.exports = defineConfig({
         video: true,
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
-        // Set to a low number to reduce the risk of out-of-memory issues
-        numTestsKeptInMemory: 5,
         /* When allowing 1 retry on CI, the test suite will pass if
          * it's flaky. And/but we also get to identify flaky tests on the
          * Cypress Dashboard. */
