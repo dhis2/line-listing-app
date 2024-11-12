@@ -87,7 +87,7 @@ describe('Option set condition', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([valueToFilterBy])
+        assertTooltipContainsEntries(dimensionName, [valueToFilterBy])
 
         expectTableToNotContainValue(valueToFilterOut)
         expectTableToContainValue(valueToFilterBy)
@@ -141,7 +141,7 @@ describe('Option set condition', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([filteredOptionName])
+        assertTooltipContainsEntries(dimensionName, [filteredOptionName])
 
         expectTableToNotContainValue(filteredOutOptionName)
         expectTableToContainValue(filteredOptionName)
@@ -197,7 +197,7 @@ describe('Option set condition', () => {
                     filteredOptionNames.length
                 )
 
-                assertTooltipContainsEntries(filteredOptionNames)
+                assertTooltipContainsEntries(dimensionName, filteredOptionNames)
             })
         }
 

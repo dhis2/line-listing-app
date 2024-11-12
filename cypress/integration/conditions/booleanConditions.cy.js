@@ -68,7 +68,7 @@ describe('boolean conditions - Yes/NA', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, /\bYes\b/])
+        assertTooltipContainsEntries(dimensionName, [stageName, /\bYes\b/])
     })
 
     it('Not answered selected', () => {
@@ -85,7 +85,10 @@ describe('boolean conditions - Yes/NA', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, /\bNot answered\b/])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            /\bNot answered\b/,
+        ])
     })
 
     it('Yes + Not answered selected', () => {
@@ -103,7 +106,11 @@ describe('boolean conditions - Yes/NA', () => {
 
         assertChipContainsText(dimensionName, 'all')
 
-        assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            /\bYes\b/,
+            /\bNot answered\b/,
+        ])
     })
 })
 
@@ -122,7 +129,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, /\bYes\b/])
+        assertTooltipContainsEntries(dimensionName, [stageName, /\bYes\b/])
     })
 
     it('No selected', () => {
@@ -132,7 +139,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, /\bNo\b/])
+        assertTooltipContainsEntries(dimensionName, [stageName, /\bNo\b/])
     })
 
     it('Yes + Not answered selected', () => {
@@ -149,7 +156,11 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries([stageName, /\bYes\b/, /\bNot answered\b/])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            /\bYes\b/,
+            /\bNot answered\b/,
+        ])
     })
 
     it('Yes + No + Not answered selected', () => {
@@ -167,7 +178,7 @@ describe('boolean conditions - Yes/No/NA', () => {
 
         assertChipContainsText(dimensionName, 'all')
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             /\bYes\b/,
             /\bNo\b/,

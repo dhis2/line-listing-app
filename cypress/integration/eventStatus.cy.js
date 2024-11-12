@@ -107,8 +107,7 @@ describe('event status (event)', () => {
         expectTableToMatchRows(['Active'])
 
         assertChipContainsText(dimensionName, 1)
-
-        assertTooltipContainsEntries(['Active'])
+        assertTooltipContainsEntries(dimensionName, ['Active'])
 
         // Add filter 'Scheduled'
 
@@ -130,8 +129,7 @@ describe('event status (event)', () => {
         expectTableToMatchRows(['Active', 'Scheduled'])
 
         assertChipContainsText(dimensionName, 2)
-
-        assertTooltipContainsEntries(['Scheduled'])
+        assertTooltipContainsEntries(dimensionName, ['Scheduled'])
     })
 
     it('can be filtered by status ACTIVE', () => {
@@ -194,7 +192,6 @@ describe('event status (event)', () => {
         expectTableToMatchRows(['Active'])
 
         assertChipContainsText(dimensionName, 1)
-
-        assertTooltipContainsEntries(['Active'])
+        assertTooltipContainsEntries(dimensionName, ['Active'])
     })
 })

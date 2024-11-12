@@ -24,8 +24,17 @@ export const expectAxisToNotHaveDimension = (axisId, dimensionId) => {
     }
 }
 
-export const assertTooltipContainsEntries = (entries) =>
+export const assertTooltipContainsEntries = (primary, entries) => {
+    cy.getBySelLike('layout-chip')
+        .containsExact(primary, EXTENDED_TIMEOUT)
+        .trigger('mouseover')
+
     entries.forEach((entry) => cy.getBySel('tooltip-content').contains(entry))
+
+    // close the tooltip to avoid it covering other elements in subsequent tests
+    cy.get('body').type('{esc}')
+    cy.getBySel('tooltip-content').should('not.exist')
+}
 
 export const assertChipContainsText = (primary, items, secondary) => {
     if (items) {
@@ -49,7 +58,4 @@ export const assertChipContainsText = (primary, items, secondary) => {
             EXTENDED_TIMEOUT
         )
     }
-    cy.getBySelLike('layout-chip')
-        .containsExact(primary, EXTENDED_TIMEOUT)
-        .trigger('mouseover')
 }

@@ -109,7 +109,7 @@ describe('Your dimensions', () => {
         assertChipContainsText(dimensionName, 1)
 
         // check the chip tooltip
-        assertTooltipContainsEntries([filteredItemName])
+        assertTooltipContainsEntries(dimensionName, [filteredItemName])
 
         // check the label in the column header
         getTableHeaderCells().contains(dimensionName).should('be.visible')
