@@ -12,6 +12,10 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import {
+    isStartEndDate,
+    useLocalizedStartEndDateFormatter,
+} from '../../modules/dates.js'
 import { DIMENSION_TYPE_STATUS } from '../../modules/dimensionConstants.js'
 import { extractDimensionIdParts } from '../../modules/dimensionId.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
@@ -26,6 +30,8 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
     const itemIds = useSelector((state) =>
         sGetUiItemsByDimension(state, dimension.id)
     )
+    const formatStartEndDate = useLocalizedStartEndDateFormatter()
+
     const { programStageId, programId } = extractDimensionIdParts(
         dimension.id,
         inputType
@@ -56,7 +62,9 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
             } else {
                 const { dimensionId } = extractDimensionIdParts(id, inputType)
                 itemDisplayNames.push(
-                    metadata[dimensionId] ? metadata[dimensionId].name : id
+                    isStartEndDate(dimensionId)
+                        ? formatStartEndDate(dimensionId)
+                        : metadata[dimensionId]?.name ?? id
                 )
             }
         })
