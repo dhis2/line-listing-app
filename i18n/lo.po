@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Namwan Chanthavisouk, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -24,85 +24,88 @@ msgid "Add to {{axisName}}"
 msgstr "ເພີ່ມໃສ່ {{axisName}}"
 
 msgid "Choose a condition type"
-msgstr ""
+msgstr "ເລືອກປະເພດອາການ"
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "ກໍລະນີທີ່ລະອຽດອ່ອນ"
 
 msgid "Remove"
 msgstr "ລົບອອກ"
 
 msgid "and"
-msgstr ""
+msgstr "ແລະ"
 
 msgid "Show items that meet the following conditions for this data item:"
-msgstr ""
+msgstr "ສະແດງຂໍ້ມູນລາຍການທີ່ກົງກັບອາການຕໍ່ໄປນີ້:"
 
 msgid "This dimension can't be filtered. All values will be shown."
-msgstr ""
+msgstr "ຂອບເຂດນີ້ບໍ່ສາມາດຖືກກັ່ນຕອງໄດ້. ຄ່າທັງໝົດຈະຖືກສະແດງ."
 
 msgid ""
 "No conditions yet, so all values will be included. Add a condition to filter"
 " results."
 msgstr ""
+"ຍັງບໍ່ມີອາການທື່ອ, ດັ່ງນັ້ນຄ່າທັງຫມົດຈະຖືກລວມເຂົ້າກັນ. "
+"ເພີ່ມອາການເພື່ອກັ່ນຕອງຜົນໄດ້ຮັບ."
 
 msgid "Preset options can't be combined with other conditions"
-msgstr ""
+msgstr "ຕົວເລືອກທີ່ຕັ້ງໄວ້ລ່ວງໜ້າບໍ່ສາມາດລວມເຂົ້າກັບອາການອື່ນໆໄດ້"
 
 msgid "Add another condition"
-msgstr ""
+msgstr "ເພີ່ມອາການອື່ນ"
 
 msgid "Add a condition"
-msgstr ""
+msgstr "ເພີ່ມອາການ"
 
 msgid "Repeated events"
-msgstr ""
+msgstr "ເຫດການຊ້ຳໆ"
 
 msgid "Conditions"
-msgstr ""
+msgstr "ອາການ"
 
 msgid "Only available for repeatable stages"
-msgstr ""
+msgstr "ໃຊ້ໄດ້ກັບຂັ້ນທີ່ສາມາດເຮັດຊ້ຳໄດ້ເທົ່ານັ້ນ"
 
 msgid "is one of preset options"
-msgstr ""
+msgstr "ເປັນ​ຫນຶ່ງ​ໃນ​ຕົວເລືອກ​ທີ່​ຕັ້ງ​ໄວ້​ກ່ອນ​"
 
 msgid "Loading..."
 msgstr "ກຳລັງໂຫລດ.."
 
 msgid "Choose a set of options"
-msgstr ""
+msgstr "ເລືອກເຊັດຂອງຕົວເລືອກ"
 
 msgid "No preset option sets for this data item"
-msgstr ""
+msgstr "ບໍ່ມີຕົວເລືອກທີ່ຕັ້ງໄວ້ລ່ວງໜ້າສຳລັບລາຍການຂໍ້ມູນນີ້"
 
 msgid "Choose options"
-msgstr ""
+msgstr "ເລືອກຕົວເລືອກ"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
-msgstr ""
+msgstr "ຈາກຂັ້ນຕອນທີ່ມີເຫດການຊ້ຳໆ, ກະລຸນາສະແດງຄ່າຂອງອົງປະກອບຂໍ້ມູນນີ້ຈາກ:"
 
 msgid "Most recent events:"
-msgstr ""
+msgstr "ເຫດການຫຼ້າສຸດ:"
 
 msgid "Oldest events:"
-msgstr ""
+msgstr "ເຫດການເກົ່າສຸດ:"
 
 msgid "Hide"
 msgstr "ເຊື່ອງ"
 
 msgid "Show items where the status is:"
-msgstr ""
+msgstr "ສະແດງລາຍການທີ່ສະຖານະຢູ່:"
 
 msgid "Choose from presets"
-msgstr ""
+msgstr "ເລືອກຈາກການຕັ້ງຄ່າກ່ອນໜ້າ"
 
 msgid "Define start - end dates"
-msgstr ""
+msgstr "ກໍານົດວັນທີເລີ່ມຕົ້ນ - ສິ້ນສຸດ"
 
 msgid "Start and end dates are inclusive and will be included in the outputs."
 msgstr ""
+"ວັນທີເລີ່ມຕົ້ນແລະສິ້ນສຸດແມ່ນໄດ້ລວມເຂົ້າກັນ ແລະ ຈະຖືກລວມເຂົ້າໃນຜົນໄດ້ຮັບ."
 
 msgid "Start date"
 msgstr "ວັນທີເລີ່ມຕົ້ນ"
@@ -114,28 +117,28 @@ msgid "No items selected"
 msgstr "ບໍ່ມີລາຍການທີ່ຖືກເລືອກ"
 
 msgid "Available options"
-msgstr ""
+msgstr "ຕົວເລືອກທີ່ມີຢູ່"
 
 msgid "Filter options"
 msgstr "ຄັດກອງເອົາຕົວເລືອກ"
 
 msgid "Selected options"
-msgstr ""
+msgstr "ຕົວເລືອກທີ່ຖືກເລືອກ"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
 msgstr "ບໍ່ພົບຫຍັງສຳລັບ \"{{- searchTerm}}\""
 
 msgid "No options"
-msgstr ""
+msgstr "ບໍ່ມີຕົວເລືອກ"
 
 msgid "Move to {{axisName}}"
 msgstr "ຍ້າຍໄປ {{axisName}}"
 
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 msgid "HTML+CSS (.html+css)"
-msgstr ""
+msgstr "HTML+CSS (.html+css)"
 
 msgid "Plain data source"
 msgstr "ສະເພາະຂໍ້ມູນພື້ນຖານ"
@@ -147,16 +150,16 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "ດາວໂຫຼດຂໍ້ມູນຈາກວັນທີນີ້"
 
 msgid "Metadata ID scheme"
-msgstr ""
+msgstr "ແຜນຂໍ້ມູນ ID ເມຕາ"
 
 msgid "ID"
 msgstr "ລະຫັດ"
@@ -171,49 +174,50 @@ msgid "Download"
 msgstr "ດາວໂຫຼດ"
 
 msgid "all"
-msgstr ""
+msgstr "ທັງໝົດ"
 
 msgid "Levels"
-msgstr ""
+msgstr "ຂັ້ນ"
 
 msgid "Groups"
 msgstr "ກຸ່ມ"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] ""
+msgstr[0] "ແລະອີກ {{count}} ຄົນ..."
 
 msgid "None selected"
-msgstr ""
+msgstr "ຍັງບໍ່ໄດ້ເລືອກ"
 
 msgid "Program stage: {{- stageName}}"
-msgstr ""
+msgstr "ຂັ້ນຕອນໂປແກລມ: {{- stageName}}"
 
 msgid "Program: {{- programName}}"
-msgstr ""
+msgstr "ໂປຣແກລມ: {{- programName}}"
 
 msgid "Showing all values for this dimension"
-msgstr ""
+msgstr "ສະແດງຄ່າທັງໝົດໃນຂອບເຂດນີ"
 
 msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr ""
+msgstr "ບໍ່ພົບຂອບເຂດຂອງ '{{- searchTerm}}'"
 
 msgid "No dimensions found in the {{- programName}} program"
-msgstr ""
+msgstr "ບໍ່ພົບຂອບເຂດໃນໂປຣແກລມ {{- programName}}"
 
 msgid " {{- trackedEntityType}} has no dimensions"
-msgstr ""
+msgstr "{{- trackedEntityType}} ບໍ່ມີຂອບເຂດ"
 
 msgid "No dimensions found"
-msgstr ""
+msgstr "ບໍ່ພົບຂອບເຂດ"
 
 msgid "Couldn't load dimensions"
-msgstr ""
+msgstr "ບໍ່ສາມາດໂຫຼດຂອບເຂດ"
 
 msgid ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 msgstr ""
+"ພົບບັນຫາໃນການໂຫຼດຂອບເຂດ. ກະລຸນາລອງອີກຄັ້ງ ຫຼື ຕິດຕໍ່ຜູ້ດູແລລະບົບຂອງທ່ານ."
 
 msgid "Event"
 msgstr "ເຫດການ"
@@ -226,31 +230,31 @@ msgstr "Tracked Entity"
 
 msgid ""
 "See individual event data from a Tracker program stage or event program."
-msgstr ""
+msgstr "ເບິ່ງຂໍ້ມູນເຫດການແຕ່ລະອັນຈາກຂັ້ນຕອນໂປແກລມຕິດຕາມ ຫຼື ໂປແກລມເຫດການ."
 
 msgid "See data from multiple program stages in a Tracker program."
-msgstr ""
+msgstr "ເບິ່ງຂໍ້ມູນຈາກຫຼາຍຂັ້ນຕອນຈາກໂປແກລມຕິດຕາມ."
 
 msgid "See individual tracked entities from one or more Tracker programs."
-msgstr ""
+msgstr "ເບິ່ງແຕ່ລະຫນ່ວຍງານທີ່ຕິດຕາມຈາກຫນຶ່ງ ຫຼື ຫຼາຍໂປແກລມຕິດຕາມ."
 
 msgid "Global dimensions"
-msgstr ""
+msgstr "ຂອບເຂດທົ່ວໂລກ"
 
 msgid "Program dimensions"
-msgstr ""
+msgstr "ຂອບເຂດໂປແກລມ"
 
 msgid "Input: {{type}}"
-msgstr ""
+msgstr "ການປ້ອນຂໍ້ມູນ: {{type}}"
 
 msgid "Choose an input first"
-msgstr ""
+msgstr "ເລືອກການປ້ອນຂໍ້ມູນກ່ອນ"
 
 msgid "Program data dimensions"
-msgstr ""
+msgstr "ຂອບເຂດຂໍ້ມູນຂອງໂປຣແກຣມ"
 
 msgid "Search data dimensions"
-msgstr ""
+msgstr "ຄົ້ນຫາຂອບເຂດຂໍ້ມູນ"
 
 msgid "Type"
 msgstr "Type"
@@ -274,24 +278,26 @@ msgid "Category option group set"
 msgstr "Category Option Group Set"
 
 msgid "Choose an input to get started adding program dimensions."
-msgstr ""
+msgstr "ເລືອກການປ້ອນຂໍ້ມູນເພື່ອເລີ່ມເພີ່ມຂອບເຂດຂອງໂປຣແກຣມ."
 
 msgid "Program"
 msgstr "Program"
 
 msgid "Could not load programs"
-msgstr ""
+msgstr "ບໍ່ສາມາດໂຫຼດໂປແກລມ"
 
 msgid ""
 "The programs couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"ບໍ່ສາມາດດຶງຂໍ້ມູນຈາກໂປຣແກຣມໄດ້. ກະລຸນາລອງອີກຄັ້ງ ຫຼື "
+"ຕິດຕໍ່ຜູ້ດູແລລະບົບຂອງທ່ານ."
 
 msgid "Choose a program"
-msgstr ""
+msgstr "ເລືອກໂປແກຼມ"
 
 msgid "No programs found"
-msgstr ""
+msgstr "ບໍ່ພົບໂປແກຼມ"
 
 msgid "Stage"
 msgstr "ຍະຫວ່າງ"
@@ -300,135 +306,143 @@ msgid "All"
 msgstr "ທັງໝົດ"
 
 msgid "No stages found"
-msgstr ""
+msgstr "ບໍ່ພົບຂັ້ນຕອນ"
 
 msgid "Could not load types"
-msgstr ""
+msgstr "ບໍ່ສາມາດໂຫຼດປະເພດ"
 
 msgid ""
 "The types couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"ບໍ່ສາມາດດຶງຂໍ້ມູນຈາກປະເພດໄດ້. ກະລຸນາລອງອີກຄັ້ງ ຫຼື "
+"ຕິດຕໍ່ຜູ້ດູແລລະບົບຂອງທ່ານ."
 
 msgid "Choose a type"
-msgstr ""
+msgstr "ເລືອກປະເພດ"
 
 msgid "No types found"
-msgstr ""
+msgstr "ບໍ່ພົບປະເພດ"
 
 msgid "{{- itemName}} dimensions"
-msgstr ""
+msgstr "{{- itemName}} ຂອບເຂດ"
 
 msgid "Filter by program usage"
-msgstr ""
+msgstr "ກັ່ນ​ຕອງ​ໂດຍ​ການ​ນໍາ​ໃຊ້​ໂປແກຣມ"
 
 msgid "Clear"
 msgstr "ລຶບ"
 
 msgid "Search dimensions"
-msgstr ""
+msgstr "ຄົ້ນຫາຂະໜາດ"
 
 msgid "Your dimensions"
-msgstr ""
+msgstr "ຂະໜາດຂອງທ່ານ"
 
 msgid "Search your dimensions"
-msgstr ""
+msgstr "ຄົ້ນຫາຂອບເຂດຂອງທ່ານ"
 
 msgid "Show panels"
-msgstr ""
+msgstr "ສະແດງແຜງ"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "ຂະຫຍາຍການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນ ແລະ ເຊື່ອງແຜງ"
 
 msgid "Unsaved visualization"
-msgstr ""
+msgstr "ການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນທີ່ຍັງບໍ່ບັນທຶກ"
 
 msgid "Edited"
-msgstr ""
+msgstr "ແກ້ໄຂ"
 
 msgid "Line list"
 msgstr "ລາຍການລາຍບຸກຄົນ"
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "\"{{- deletedObject}}\" ລົບສຳເລັດ."
 
 msgid "Rename successful"
-msgstr ""
+msgstr "ປ່ຽນຊື່ສຳເລັດແລ້ວ"
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr ""
+msgstr "ການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນທີ່ບໍ່ມີຊື່ {{visualizationType}}, {{date}}"
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
+"ບໍ່ສາມາດລົບການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນໄດ້ເນື່ອງຈາກມັນໄດ້ຖືກໃຊ້ໃນໜຶ່ງ ຫຼື "
+"ຫຼາຍກະດານຂ່າວ"
 
 msgid "Show layout"
-msgstr ""
+msgstr "ສະແດງໂຄງຮ່າງ"
 
 msgid "Hide layout"
-msgstr ""
+msgstr "ເຊື່ອງໂຄງຮ່າງ"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "ສະແດງແຖບດ້ານຂ້າງ"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "ເຊື່ອງແຖບດ້ານຂ້າງ"
 
 msgid "Hide interpretations and details"
-msgstr ""
+msgstr "ເຊື່ອງການຊີ້ແຈງ ແລະ ລາຍລະອຽດ"
 
 msgid "Show interpretations and details"
-msgstr ""
+msgstr "ສະແດງການຊີ້ແຈງ ແລະ ລາຍລະອຽດ"
 
 msgid "View"
 msgstr "ເບິ່ງ"
+
+msgid "Reset sidebar width"
+msgstr "ແກ້ໄຂຄວາມກ້ວາງຂອງແຖບດ້ານຂ້າງ"
 
 msgid "Update"
 msgstr "ປັບປຸງ"
 
 msgid "Getting started"
-msgstr ""
+msgstr "ເລີ່ມຕົ້ນ"
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
 "sections in the left sidebar."
 msgstr ""
+"ຂອບເຂດທັງໝົດທີ່ທ່ານໃຊ້ເພື່ອສ້າງຮູບພາບດ້ວຍຂໍ້ມູນແມ່ນໄດ້ສະແດງຢູ່ພາກສ່ວນຕ່າງໆໃນແຖບດ້ານຊ້າຍ."
 
 msgid "Add dimensions to the layout above."
-msgstr ""
+msgstr "ເພີມຂອບເຂດໃນໂຄ່ງຮ່າງຂ້າງເທິງ"
 
 msgid "Click a dimension to add or remove conditions."
-msgstr ""
+msgstr "ຄລິກຂອບເຂດເພື່ອເພີ່ມ ຫຼື ລົບເງື່ອນໄຂອອກ."
 
 msgid "Your most viewed line lists"
-msgstr ""
+msgstr "ບັນຊີລາຍຊື່ທີ່ຖືກເບິ່ງຫຼາຍສຸດ"
 
 msgid "Not available offline"
-msgstr ""
+msgstr "ບໍ່ສາມາດໃຊ້ໄດ້ອອບລາຍ"
 
 msgid ""
 "This line list may show data that was not available when the interpretation "
 "was written."
-msgstr ""
+msgstr "ບັນຊີລາຍຊື່ນີ້ອາດຈະສະແດງຂໍ້ມູນທີ່ບໍ່ສາມາດໃຊ້ໄດ້ເມື່ອການຊີ້ແຈງ."
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr ""
+msgstr "ຈັດຮຽງຕາມ \"{{column}}\" ແລະ ອັບເດດ"
 
 msgid "No event"
-msgstr ""
+msgstr "ບໍ່ມີເຫດການ"
 
 msgid "Rows per page"
-msgstr ""
+msgstr "ແຖວຕໍ່ຫນ້າເຈ້ຍ"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
-msgstr ""
+msgstr "ໜ້າ {{page}}, ແຖວ {{firstItem}}-{{lastItem}}"
 
 msgid "Column sub-totals"
-msgstr ""
+msgstr "ຖັນຍ່ອຍທັງໝົດ"
 
 msgid "Columns totals"
-msgstr ""
+msgstr "ຖັນທັງໝົດ"
 
 msgid "Digit group separator"
 msgstr "ແຍກຕົວເລກເປັນກຸ່ມ"
@@ -467,130 +481,133 @@ msgid "Hide empty rows"
 msgstr "ເຊື່ອງແຖວທີ່ເປົ່າຫວ່າງ"
 
 msgid "Use a legend for table cell colors"
-msgstr ""
+msgstr "ໃຊ້ຄຳອະທິບາຍສຳລັບສີຂອງຕາຕະລາງ"
 
 msgid "Legend style"
 msgstr "ຫວ່າງຂໍ້ມູນ"
 
 msgid "Legend type"
-msgstr ""
+msgstr "ປະເພດຄຳອະທິບາຍ"
 
 msgid "Use pre-defined legend per data item"
-msgstr ""
+msgstr "ໃຊ້ຄຳອະທິບາຍທີ່ໄດ້ກຳນົດລ່ວງໜ້າຕໍ່ລາຍການຂໍ້ມູນ"
 
 msgid "Choose a single legend for the entire visualization"
-msgstr ""
+msgstr "ເລືອກຄຳອະທິບາຍດຽວສຳລັບການສ້າງພາບດ້ວຍຂໍ້ມູນທັງໝົດ"
 
 msgid "Legend changes background color"
-msgstr ""
+msgstr "ຄຳອະທິບາຍປ່ຽນສີພື້ນຫຼັງ"
 
 msgid "Legend changes text color"
-msgstr ""
+msgstr "ຄຳອະທິບາຍປ່ຽນສີຕົວໜັງສື"
 
 msgid "Legend"
 msgstr "ຫວ່າງຂໍ້ມູນ"
 
 msgid "Select from legends"
-msgstr ""
+msgstr "ເລືອກຈາກຄຳອະທິບາຍ"
 
 msgid "Loading legends"
-msgstr ""
+msgstr "ກຳລັງໂຫຼດຄຳອະທິບາຍ"
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
 "visualization, all values outside of the minimum/maximum range will not be "
 "displayed"
 msgstr ""
+"ທ່ານສາມາດກໍານົດຄ່າຕ່ໍາສຸດ ຫຼື ສູງສຸດ. "
+"ເຊິ່ງນີ້​ຈະ​ໄດ້ນໍາ​ໃຊ້​ກັບ​ການ​ສ້າງພາບດ້ວຍຂໍ້ມູນທັງ​ຫມົດ​, ແລະ "
+"ຄ່າ​ທັງ​ຫມົດ​ທີ່​ຢູ່​ນອກ​ຄ່າຕ່ຳສຸດ / ສູງສຸດຈະ​ບໍ່​ໄດ້​ຖືກ​ສະ​ແດງ​"
 
 msgid "Minimum data value"
-msgstr ""
+msgstr "ຄ່າຂໍ້ມູນຕ່ຳສຸດ"
 
 msgid "Maximum data value"
-msgstr ""
+msgstr "ຄ່າຂໍ້ມູນສູງສຸດ"
 
 msgid "Clear min/max limits"
-msgstr ""
+msgstr "ລົບຂີດຈຳກັດຂັ້ນຕ່ຳ/ສູງສຸດ"
 
 msgid "Row sub-totals"
-msgstr ""
+msgstr "ແຖວຍ່ອຍທັງໝົດ"
 
 msgid "Row totals"
-msgstr ""
+msgstr "ແຖວທັງໝົດ"
 
 msgid "Dimension labels"
-msgstr ""
+msgstr "ແຜງຂອບເຂດ"
 
 msgid "Display organisation unit hierarchy"
-msgstr ""
+msgstr "ສະແດງຫົວໜ່ວຍການຈັດຕັ້ງຕາມລຳດັບ"
 
 msgid "Show legend key"
-msgstr ""
+msgstr "ສະແດງຄຳອະທິບາຍຫຼັກ"
 
 msgid "Skip rounding"
 msgstr "ບໍ່ປັດຕົວເລກ"
 
 msgid "Add a title"
-msgstr ""
+msgstr "ເພີ່ມຫົວຂໍ໊"
 
 msgid "Options"
 msgstr "ຈັດການ"
 
 msgid "Columns"
-msgstr ""
+msgstr "ຖັນ"
 
 msgid "Rows"
-msgstr ""
+msgstr "ແຖວ"
 
 msgid "Filter"
 msgstr "Filter"
 
 msgid "equal to (=)"
-msgstr ""
+msgstr "ເທົ່າກັບ (=)"
 
 msgid "greater than (>)"
-msgstr ""
+msgstr "ໃຫຍ່ກວ່າ (>)"
 
 msgid "greater than or equal to (≥)"
-msgstr ""
+msgstr "ໃຫຍ່ກວ່າ ຫຼື ເທົ່າກັບ (≥)"
 
 msgid "less than (<)"
-msgstr ""
+msgstr "ນ້ອຍກ່ວາ (<)"
 
 msgid "less than or equal to (≤)"
-msgstr ""
+msgstr "ນ້ອຍກວ່າ ຫຼື ເທົ່າກັບ (≤)"
 
 msgid "not equal to (≠)"
-msgstr ""
+msgstr "ບໍ່ເທົ່າກັບ (≠)"
 
 msgid "is empty / null"
-msgstr ""
+msgstr "ຫວ່າງເປົ່າ"
 
 msgid "is not empty / not null"
-msgstr ""
+msgstr "ບໍ່ຫວ່າງເປົ່າ"
 
 msgid "exactly"
-msgstr ""
+msgstr "ຢ່າງແນ່ນອນ"
 
 msgid "is not"
-msgstr ""
+msgstr "ບໍ່ແມ່ນ"
 
 msgid "contains"
-msgstr ""
+msgstr "ລະບຸດ້ວຍ"
 
 msgid "does not contain"
-msgstr ""
+msgstr "ບໍ່ໄດ້ລະບຸດ້ວຍ"
 
 msgid "after"
-msgstr ""
+msgstr "ກ່ອນ"
 
 msgid "after or including"
-msgstr ""
+msgstr "ຫຼັງຈາກ ຫຼື ລວມ"
 
 msgid "before"
-msgstr ""
+msgstr "ຫຼັງ"
 
 msgid "before or including"
-msgstr ""
+msgstr "ກ່ອນ ຫຼື ລວມ"
 
 msgid "Yes"
 msgstr "ແມ່ນ"
@@ -599,73 +616,83 @@ msgid "No"
 msgstr "ບໍ່ແມນ"
 
 msgid "Not answered"
-msgstr ""
+msgstr "ບໍ່ມີຄຳຕອບ"
 
 msgid "There is a problem with this visualization."
-msgstr ""
+msgstr "ພົບບັນຫາໃນການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນ"
 
 msgid "There was a problem getting the data from the server."
-msgstr ""
+msgstr "ພົບບັນຫາໃນການເອົາຂໍ້ມູນຈາກເຊີບເວີ."
 
 msgid "No data available"
-msgstr ""
+msgstr "ບໍ່ພົບຂໍ້ມູນ"
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
 msgstr ""
+"ຂອບເຂດທີ່ເລືອກບໍ່ໄດ້ມີການສົ່ງຄືນຂໍ້ມູນໃດໆ. ມັນອາດຈະບໍ່ມີຂໍ້ມູນ, ຫຼື "
+"ທ່ານອາດຈະບໍ່ມີການເຂົ້າເຖິງ."
 
 msgid "Visualization not found"
-msgstr ""
+msgstr "ບໍ່ພົບການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນ"
 
 msgid ""
 "The visualization you are trying to view could not be found, the ID could be"
 " incorrect or it could have been deleted."
 msgstr ""
+"ບໍ່ພົບການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນທີ່ທ່ານກຳລັງຄົ້ນ, ເນື່ອງຈາກໄອດີອາດບໍ່ຖືກຕ້ອງ "
+"ຫຼື ອາດຖືກລຶບໄປແລ້ວ."
 
 msgid "No tracked entity type selected"
-msgstr ""
+msgstr "ບໍ່ໄດ້ເລືອກປະເພດການຕິດຕາມລາຍບຸກຄົນ"
 
 msgid "Choose a type from the Input sidebar."
-msgstr ""
+msgstr "ເລືອກປະເພດຈາກແຖບດ້ານຂ້າງການປ້ອນຂໍ້ມູນ."
 
 msgid "No program selected"
-msgstr ""
+msgstr "ບໍ່ໄດ້ເລືອກໂປແກຣມ"
 
 msgid "Choose a program from the Input sidebar."
-msgstr ""
+msgstr "ເລືອກໂປແກຣມຈາກແຖບດ້ານຂ້າງການປ້ອນຂໍ້ມູນ."
 
 msgid "Columns is empty"
-msgstr ""
+msgstr "ຖັນຫວ່າງເປົ່າ"
 
 msgid "Add at least one item to Columns."
-msgstr ""
+msgstr "ເພີ່ມຢ່າງໜ້ອຍໜຶ່ງລາຍການໃສ່ຖັນ."
 
 msgid "No organisation unit selected"
-msgstr ""
+msgstr "ບໍ່ໄດ້ເລືອກຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid ""
 "Make sure to add the organisation unit dimension with at least one selection"
 " to the layout."
 msgstr ""
+"ໃຫ້ແນ່ໃຈວ່າທ່ານໄດ້ເພີ່ມຂອບເຂດຫົວໜ່ວຍການຈັດຕັ້ງຢ່າງຫນ້ອຍຫນຶ່ງທາງເລືອກໃນໂຄງຮ່າງ."
 
 msgid "There's a problem with at least one selected indicator"
-msgstr ""
+msgstr "ພົບບັນຫາກັບຕົວຊີ້ວັດທີ່ເລືອກໜຶ່ງອັນ"
 
 msgid "Restricted access"
-msgstr ""
+msgstr "ຈຳກັດການເຂົ້າເຖິງ"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
 "administrator."
 msgstr ""
+"ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃນການເຂົ້າເຖິງການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນນີ້. "
+"ຕິດຕໍ່ຜູ້ດູແລລະບົບ."
 
 msgid "You don’t have access to one or more of the chosen organisation units."
 msgstr ""
+"ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງໜຶ່ງ ຫຼື "
+"ຫຼາຍກວ່າຫົວໜ່ວຍອົງການຈັດຕັ້ງທີ່ເລືອກ."
 
 msgid ""
 "You don’t have access to event analytics. Contact a system administrator."
 msgstr ""
+"ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງການວິເຄາະເຫດການ. ກະລຸນາຕິດຕໍ່ຜູ້ດູແລລະບົບ."
 
 msgid "Something went wrong"
 msgstr "ມີບາງຢ່າງຜິດພາດ"
@@ -673,25 +700,25 @@ msgstr "ມີບາງຢ່າງຜິດພາດ"
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
-msgstr ""
+msgstr "ພົບບັນຫາກັບການວິເຄາະທີ່ສ້າງຂຶ້ນ. ກະລຸນາຕິດຕໍ່ຜູ້ດູແລລະບົບ."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "ພົບບັນຫາຮູບແບບກັບຄຳຮ້ອງຂໍການວິເຄາະ."
 
 msgid "Registration date"
 msgstr "ວັນທີລົງທະບຽນ"
 
 msgid "Last updated on"
-msgstr ""
+msgstr "ອັບເດດຫຼ້າສຸດເມື່ອ"
 
 msgid "Created by"
 msgstr "ສ້າງໂດຍ"
 
 msgid "Last updated by"
-msgstr ""
+msgstr "ອັບເດດຫຼ້າສຸດໂດຍ"
 
 msgid "User organisation unit"
-msgstr ""
+msgstr "ຫນ່ວຍງານອົງການຈັດຕັ້ງຂອງຜູ້ໃຊ້"
 
 msgid "User sub-units"
 msgstr "ຫົວໜ່ວຍຍ່ອຍຂອງທ່ານ"
@@ -700,7 +727,7 @@ msgid "User sub-x2-units"
 msgstr "ຫົວໜ່ວຍຍ່ອຍຂັ້ນສອງຂອງທ່ານ"
 
 msgid "Registration org. unit"
-msgstr ""
+msgstr "ລົງທະບຽນຫົວໜ່ວຍການຈັດຕັ້ງ"
 
 msgid "Organisation unit"
 msgstr "​ຫົວ​ໜ່ວຍ​ການ​ຈັດ​ຕັ້ງ"
@@ -712,7 +739,7 @@ msgid "Display"
 msgstr "ສະແດງ"
 
 msgid "Empty data"
-msgstr ""
+msgstr "ຂໍ້ມູນວ່າງເປົ່າ"
 
 msgid "Totals"
 msgstr "ລວມທັງໝົດ"
@@ -721,13 +748,13 @@ msgid "Data"
 msgstr "ຂໍ້ມູນ"
 
 msgid "Limit values"
-msgstr ""
+msgstr "ຄ່າຈຳກັດ"
 
 msgid "Limit number of values"
-msgstr ""
+msgstr "ຈຳນວນຂອງຄ່າຈຳກັດ"
 
 msgid "Limit minimum/maximum values"
-msgstr ""
+msgstr "ຈຳກັດຄ່າຕ່ຳສຸດ/ສູງສຸດ"
 
 msgid "Style"
 msgstr "ລັກສະນະ"
@@ -739,16 +766,16 @@ msgid "Program status"
 msgstr "ສະຖານະຂອງສາຍງານ"
 
 msgid "most recent"
-msgstr ""
+msgstr "ລ່າສຸດ"
 
 msgid "oldest"
-msgstr ""
+msgstr "ເກົ່າສຸດ"
 
 msgid "oldest {{repeatEventIndex}}"
-msgstr ""
+msgstr "ເກົ່າສຸດ {{repeatEventIndex}}"
 
 msgid "most recent {{repeatEventIndex}}"
-msgstr ""
+msgstr "ລ່າສຸດ {{repeatEventIndex}}"
 
 msgid "Event date"
 msgstr "ວັນທີເຫດການ"
@@ -775,7 +802,7 @@ msgid "Scheduled"
 msgstr "ຕາມເວລາທີ່ກໍານົດ"
 
 msgid "List data from tracked entities and events."
-msgstr ""
+msgstr "ລາຍຊື່ຂໍ້ມູນຈາກບຸກຄົນ ແລະ ເຫດການການຕິດຕາມ."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
-msgstr ""
+msgstr "ສຳຫຼວດຂໍ້ມູນດ້ວຍຖັນ, ແຖວ, ແລະ ການສັງລວມທີ່ສາມາດຈັດການໄດ້."

@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Janeth Cruz, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
@@ -410,6 +410,9 @@ msgstr "Mostrar interpretaciones y detalles"
 
 msgid "View"
 msgstr "Ver"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "Actualizar"

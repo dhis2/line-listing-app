@@ -42,34 +42,6 @@ async function setupNodeEvents(on, config) {
 
 module.exports = defineConfig({
     projectId: 'm5qvjx',
-    reporter: '@reportportal/agent-js-cypress',
-    reporterOptions: {
-        endpoint: process.env.REPORTPORTAL_ENDPOINT,
-        apiKey: process.env.REPORTPORTAL_API_KEY,
-        launch: 'line_listing_app',
-        project: process.env.REPORTPORTAL_PROJECT,
-        description: '',
-        autoMerge: true,
-        parallel: true,
-        debug: false,
-        restClientConfig: {
-            timeout: 660000,
-        },
-        attributes: [
-            {
-                key: 'dhis2_version',
-                value: process.env.DHIS2_VERSION,
-            },
-            {
-                key: 'app_name',
-                value: 'line-listing-app',
-            },
-            {
-                key: 'test_level',
-                value: 'e2e',
-            },
-        ],
-    },
     e2e: {
         setupNodeEvents,
         baseUrl: 'http://localhost:3000',
@@ -80,8 +52,6 @@ module.exports = defineConfig({
         video: true,
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
-        // Set to a low number to reduce the risk of out-of-memory issues
-        numTestsKeptInMemory: 5,
         /* When allowing 1 retry on CI, the test suite will pass if
          * it's flaky. And/but we also get to identify flaky tests on the
          * Cypress Dashboard. */

@@ -4,7 +4,6 @@ import {
     DIMENSION_ID_ORGUNIT,
     useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Checkbox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -21,6 +20,7 @@ import {
     formatDimensionId,
 } from '../../modules/dimensionId.js'
 import { removeLastPathSegment, getOuPath } from '../../modules/orgUnit.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import {
     STATUS_ACTIVE,
     STATUS_CANCELLED,
@@ -50,8 +50,7 @@ const FixedDimension = ({
     selectedItemsIds,
     inputType,
 }) => {
-    const { rootOrgUnits } = useCachedDataQuery()
-    const { serverVersion } = useConfig()
+    const { rootOrgUnits, currentUser } = useCachedDataQuery()
     const statusNames = getStatusNames()
     const { programId, dimensionId } = extractDimensionIdParts(
         dimension.id,
@@ -168,18 +167,11 @@ const FixedDimension = ({
         const ALL_STATUSES = [
             { id: STATUS_ACTIVE, name: statusNames[STATUS_ACTIVE] },
             { id: STATUS_COMPLETED, name: statusNames[STATUS_COMPLETED] },
-        ]
-
-        if (
-            `${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.39.0'
-        ) {
-            ALL_STATUSES.push({
+            {
                 id: STATUS_SCHEDULED,
                 name: statusNames[STATUS_SCHEDULED],
-            })
-        }
+            },
+        ]
 
         return (
             <>
@@ -244,6 +236,11 @@ const FixedDimension = ({
                             roots={rootOrgUnits.map(
                                 (rootOrgUnit) => rootOrgUnit.id
                             )}
+                            displayNameProp={
+                                currentUser.settings[
+                                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                                ]
+                            }
                             {...dimensionProps}
                         />
                     </div>

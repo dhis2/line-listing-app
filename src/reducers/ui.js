@@ -4,7 +4,6 @@ import {
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
@@ -28,7 +27,11 @@ import {
     getProgramDimensions,
 } from '../modules/programDimensions.js'
 import { getHiddenTimeDimensions } from '../modules/timeDimensions.js'
-import { getAdaptedUiByType, getUiFromVisualization } from '../modules/ui.js'
+import {
+    getAdaptedUiByType,
+    getUiFromVisualization,
+    getUserSidebarWidth,
+} from '../modules/ui.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -51,6 +54,7 @@ export const SET_UI_FROM_VISUALIZATION = 'SET_UI_FROM_VISUALIZATION'
 export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
+export const SET_UI_ACCESSORY_PANEL_WIDTH = 'SET_UI_ACCESSORY_PANEL_WIDTH'
 export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
     'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
@@ -89,6 +93,7 @@ const EMPTY_UI = {
         filters: [],
     },
     itemsByDimension: {},
+    accessoryPanelWidth: getUserSidebarWidth(),
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
@@ -116,6 +121,7 @@ export const DEFAULT_UI = {
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
+    accessoryPanelWidth: getUserSidebarWidth(),
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -298,6 +304,12 @@ export default (state = EMPTY_UI, action) => {
                 showDetailsPanel: action.value ? false : state.showDetailsPanel,
             }
         }
+        case SET_UI_ACCESSORY_PANEL_WIDTH: {
+            return {
+                ...state,
+                accessoryPanelWidth: action.value,
+            }
+        }
         case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
             return {
                 ...state,
@@ -436,6 +448,8 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiAccessoryPanelActiveTab = (state) =>
     sGetUi(state).accessoryPanelActiveTab
+export const sGetUiAccessoryPanelWidth = (state) =>
+    sGetUi(state).accessoryPanelWidth
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
@@ -495,7 +509,6 @@ export const useMainDimensions = () => {
 }
 
 export const useProgramDimensions = () => {
-    const { serverVersion } = useConfig()
     const store = useStore()
     const inputType = useSelector(sGetUiInputType)
     const programId = useSelector(sGetUiProgramId)
@@ -533,11 +546,7 @@ export const useProgramDimensions = () => {
         const timeDimensions = [
             eventDateDim,
             enrollmentDateDim,
-            ...(`${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.39.0'
-                ? [scheduledDateDim]
-                : []),
+            scheduledDateDim,
             incidentDateDim,
         ].filter((dimension) => {
             if (!dimension) {

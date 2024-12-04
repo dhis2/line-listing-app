@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2024\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -382,6 +382,9 @@ msgstr "显示注释和详情"
 msgid "View"
 msgstr "查看"
 
+msgid "Reset sidebar width"
+msgstr "重置侧边栏宽度"
+
 msgid "Update"
 msgstr "更新"
 
@@ -411,7 +414,7 @@ msgid ""
 msgstr "该行列表可能会显示编写解释时不可用的数据。"
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr ""
+msgstr "按“{{column}}”排序并更新"
 
 msgid "No event"
 msgstr "无事件"
