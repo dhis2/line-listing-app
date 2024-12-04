@@ -17,9 +17,10 @@ const logPageState = () => {
 }
 
 export const goToStartPage = (skipEval) => {
+    const initialBaseURL = Cypress.env('dhis2BaseUrl')
+    cy.task('log', `** initialBaseURL URL: ${initialBaseURL}`)
     const processedUrl = Cypress.env('dhis2BaseUrl').replace(/\/$/, '')
-    cy.task('log', `dhis2BaseUrl: ${Cypress.env('dhis2BaseUrl')}`)
-    cy.task('log', `Visiting URL: ${processedUrl}`)
+    cy.task('log', `** Visiting URL: ${processedUrl}`)
 
     cy.visit(processedUrl, EXTENDED_TIMEOUT)
         .then(() => {
