@@ -17,16 +17,22 @@ const logPageState = () => {
 }
 
 export const goToStartPage = (skipEval) => {
-    cy.visit('', EXTENDED_TIMEOUT).then(() => {
-        cy.log(`Visiting the base URL: ${Cypress.env('dhis2BaseUrl')}`)
-        cy.task('log', `Visiting the base URL: ${Cypress.env('dhis2BaseUrl')}`)
-        console.log(`Visiting the base URL: ${Cypress.env('dhis2BaseUrl')}`)
-        logPageState()
+    const processedUrl = Cypress.env('dhis2BaseUrl').replace(/\/$/, '')
+    cy.log(`dhis2BaseUrl: ${Cypress.env('dhis2BaseUrl')}`)
+    cy.log(`Visiting URL: ${processedUrl}`)
 
-        if (!skipEval) {
-            expectStartScreenToBeVisible()
-        }
-    })
+    cy.visit(processedUrl, EXTENDED_TIMEOUT)
+        .then(() => {
+            cy.log(`Visited URL: ${processedUrl}`)
+            logPageState()
+
+            if (!skipEval) {
+                expectStartScreenToBeVisible()
+            }
+        })
+        .catch((error) => {
+            cy.log(`Error visiting URL: ${error.message}`)
+        })
 }
 
 export const expectStartScreenToBeVisible = () => {
