@@ -17,14 +17,14 @@ const logPageState = () => {
 }
 
 export const goToStartPage = (skipEval) => {
-    const initialBaseURL = Cypress.env('dhis2BaseUrl')
-    cy.task('log', `** initialBaseURL URL: ${initialBaseURL}`)
-    const processedUrl = Cypress.env('dhis2BaseUrl').replace(/\/$/, '')
-    cy.task('log', `** Visiting URL: ${processedUrl}`)
+    // Hardcoded URL for testing
+    const hardcodedUrl =
+        'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
+    cy.task('log', `** Hardcoded URL: ${hardcodedUrl}`)
 
-    cy.visit(processedUrl, EXTENDED_TIMEOUT)
+    cy.visit(hardcodedUrl, EXTENDED_TIMEOUT)
         .then(() => {
-            cy.task('log', `Visited URL: ${processedUrl}`)
+            cy.task('log', `***Visited URL: ${hardcodedUrl}`)
             logPageState()
 
             if (!skipEval) {
