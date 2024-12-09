@@ -19,7 +19,9 @@ const logPageState = () => {
 export const goToStartPage = (skipEval) => {
     // Hardcoded URL for testing
     const hardcodedUrl =
-        'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
+        'https://play.im.dhis2.org/stable-2-39-7-1/api/apps/line-listing/index.html'
+
+    //    'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
 
     cy.visit(hardcodedUrl, EXTENDED_TIMEOUT).then(() => {
         cy.log(`Visiting the URL: ${hardcodedUrl}`)
