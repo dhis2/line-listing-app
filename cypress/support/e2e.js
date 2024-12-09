@@ -1,6 +1,5 @@
 import './commands.js'
 
-const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
     //   This error means that ResizeObserver was not able to deliver all
@@ -8,8 +7,14 @@ Cypress.on('uncaught:exception', (err) => {
     //   will not break).
     //
     // Source: https://stackoverflow.com/a/50387233/1319140
-    if (resizeObserverLoopErrRe.test(err.message)) {
-        // returning false here prevents Cypress from failing the test
+    const errMsg = err.toString()
+
+    if (
+        errMsg.match(/ResizeObserver loop limit exceeded/) ||
+        errMsg.match(
+            /ResizeObserver loop completed with undelivered notifications/
+        )
+    ) {
         return false
     }
 })
