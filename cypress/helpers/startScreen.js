@@ -20,20 +20,17 @@ export const goToStartPage = (skipEval) => {
     // Hardcoded URL for testing
     const hardcodedUrl =
         'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
-    cy.task('log', `** Hardcoded URL: ${hardcodedUrl}`)
 
-    cy.visit(hardcodedUrl, EXTENDED_TIMEOUT)
-        .then(() => {
-            cy.task('log', `***Visited URL: ${hardcodedUrl}`)
-            logPageState()
+    cy.visit(hardcodedUrl, EXTENDED_TIMEOUT).then(() => {
+        cy.log(`Visiting the URL: ${hardcodedUrl}`)
+        cy.task('log', `Visiting the URL: ${hardcodedUrl}`)
+        console.log(`Visiting the URL: ${hardcodedUrl}`)
+        logPageState()
 
-            if (!skipEval) {
-                expectStartScreenToBeVisible()
-            }
-        })
-        .catch((error) => {
-            cy.task('log', `Error visiting URL: ${error.message}`)
-        })
+        if (!skipEval) {
+            expectStartScreenToBeVisible()
+        }
+    })
 }
 
 export const expectStartScreenToBeVisible = () => {
