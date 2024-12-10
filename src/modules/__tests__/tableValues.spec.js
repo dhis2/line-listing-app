@@ -87,7 +87,7 @@ describe('getFormattedCellValue', () => {
                     value,
                     visualization: { digitGroupSeparator: 'COMMA' },
                 })
-            ).toEqual('3,700.5')
+            ).toEqual('3,700.50')
         })
 
         test('username', () => {
