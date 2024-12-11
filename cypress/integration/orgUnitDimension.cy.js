@@ -155,7 +155,7 @@ describe(`Org unit dimension`, () => {
         expectOrgUnitTreeToBeEnabled()
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 2)
+        assertChipContainsText(TEST_CHIP_LABEL, 2)
         assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_USER_ORG_UNIT])
 
         cy.log(`deselects '${TEST_USER_ORG_UNIT}'`)
