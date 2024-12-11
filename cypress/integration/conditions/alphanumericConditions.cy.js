@@ -127,7 +127,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Exactly: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Exactly: ${TEST_TEXT}`,
+        ])
     })
 
     it('is not', () => {
@@ -149,7 +152,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is not: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is not: ${TEST_TEXT}`,
+        ])
     })
 
     it('contains', () => {
@@ -169,7 +175,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Contains: ${TEST_TEXT}`,
+        ])
     })
 
     it('contains (case-sensitive)', () => {
@@ -190,7 +199,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Contains: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Contains: ${TEST_TEXT}`,
+        ])
     })
 
     it('does not contain', () => {
@@ -214,7 +226,7 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             `Does not contain: ${TEST_TEXT}`,
         ])
@@ -234,7 +246,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is empty / null`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is empty / null`,
+        ])
     })
 
     it('is not empty / not null', () => {
@@ -257,7 +272,10 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is not empty / not null`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is not empty / not null`,
+        ])
     })
 
     it('2 conditions: contains + is not', () => {
@@ -273,7 +291,11 @@ describe('text conditions (event)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries([stageName, 'Contains: ', 'Is not: '])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Contains: ',
+            'Is not: ',
+        ])
     })
 })
 describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
@@ -317,7 +339,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Exactly: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [`Exactly: ${TEST_TEXT}`])
     })
 
     it('is not', () => {
@@ -337,7 +359,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Is not: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [`Is not: ${TEST_TEXT}`])
     })
 
     it('contains', () => {
@@ -357,7 +379,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [`Contains: ${TEST_TEXT}`])
     })
 
     it('contains (case-sensitive)', () => {
@@ -378,7 +400,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Contains: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [`Contains: ${TEST_TEXT}`])
     })
 
     it('does not contain', () => {
@@ -402,7 +424,9 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Does not contain: ${TEST_TEXT}`])
+        assertTooltipContainsEntries(dimensionName, [
+            `Does not contain: ${TEST_TEXT}`,
+        ])
     })
 
     it('is empty / null', () => {
@@ -419,7 +443,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Is empty / null`])
+        assertTooltipContainsEntries(dimensionName, [`Is empty / null`])
     })
 
     it('is not empty / not null', () => {
@@ -436,7 +460,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([`Is not empty / not null`])
+        assertTooltipContainsEntries(dimensionName, [`Is not empty / not null`])
     })
 
     it('2 conditions: contains + is not', () => {
@@ -452,7 +476,7 @@ describe(['>=41'], 'text conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries(['Contains: ', 'Is not: '])
+        assertTooltipContainsEntries(dimensionName, ['Contains: ', 'Is not: '])
     })
 })
 /* This test doesn't look like it needs `testIsolation: false`

@@ -56,6 +56,6 @@ describe('Org unit condition', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, orgUnitName])
+        assertTooltipContainsEntries(dimensionName, [stageName, orgUnitName])
     })
 })
