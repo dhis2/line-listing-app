@@ -129,11 +129,10 @@ describe(`Org unit dimension`, () => {
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
         assertChipContainsText(TEST_CHIP_LABEL, 2)
-        assertTooltipContainsEntries(
-            TEST_CHIP_LABEL,
-            [TEST_ROOT],
-            `Groups: ${TEST_GROUP}`
-        )
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
+            TEST_ROOT,
+            `Groups: ${TEST_GROUP}`,
+        ])
 
         cy.log(`deselects ${TEST_GROUP}`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
@@ -157,7 +156,7 @@ describe(`Org unit dimension`, () => {
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
         assertChipContainsText('Organisation unit', 2)
-        assertTooltipContainsEntries([TEST_USER_ORG_UNIT])
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_USER_ORG_UNIT])
 
         cy.log(`deselects '${TEST_USER_ORG_UNIT}'`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
