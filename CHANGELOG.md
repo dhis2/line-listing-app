@@ -1,3 +1,17 @@
+## [101.1.12](https://github.com/dhis2/line-listing-app/compare/v101.1.11...v101.1.12) (2024-12-10)
+
+
+### Bug Fixes
+
+* enable ou tree and levels/groups with user orgunits (DHIS2-18066) ([#626](https://github.com/dhis2/line-listing-app/issues/626)) ([57b8b45](https://github.com/dhis2/line-listing-app/commit/57b8b45dd7aedf9d360648c2c2786c605e5c790a)), closes [dhis2/analytics#1702](https://github.com/dhis2/analytics/issues/1702)
+
+## [101.1.11](https://github.com/dhis2/line-listing-app/compare/v101.1.10...v101.1.11) (2024-12-08)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([240f280](https://github.com/dhis2/line-listing-app/commit/240f2808153e772e0360396b83ddc09a188d9b2c))
+
 ## [101.1.10](https://github.com/dhis2/line-listing-app/compare/v101.1.9...v101.1.10) (2024-12-04)
 
 
