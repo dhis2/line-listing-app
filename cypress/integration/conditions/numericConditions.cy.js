@@ -84,7 +84,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Equal to (=): 12'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Equal to (=): 12',
+        ])
     })
 
     it('greater than', () => {
@@ -97,7 +100,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Greater than (>): 12'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Greater than (>): 12',
+        ])
     })
 
     it('greater than or equal to', () => {
@@ -114,7 +120,7 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             'Greater than or equal to (≥): 12',
         ])
@@ -130,7 +136,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Less than (<): 12'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Less than (<): 12',
+        ])
     })
 
     it('less than or equal to', () => {
@@ -143,7 +152,7 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             'Less than or equal to (≤): 12',
         ])
@@ -166,7 +175,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Not equal to (≠): 12'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Not equal to (≠): 12',
+        ])
     })
 
     it('is empty / null', () => {
@@ -182,7 +194,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Is empty / null'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Is empty / null',
+        ])
     })
 
     it('is not empty / not null', () => {
@@ -202,7 +217,10 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Is not empty / not null'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Is not empty / not null',
+        ])
     })
 
     it('2 conditions: greater than + less than', () => {
@@ -218,7 +236,7 @@ const testNumberConditions = (dimensionName, version) => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             'Greater than (>): 11',
             'Less than (<): 13',
@@ -299,7 +317,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Equal to (=): 15'])
+        assertTooltipContainsEntries(dimensionName, ['Equal to (=): 15'])
     })
 
     it('greater than', () => {
@@ -312,7 +330,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Greater than (>): 43'])
+        assertTooltipContainsEntries(dimensionName, ['Greater than (>): 43'])
     })
 
     it('greater than or equal to', () => {
@@ -324,7 +342,9 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Greater than or equal to (≥): 43'])
+        assertTooltipContainsEntries(dimensionName, [
+            'Greater than or equal to (≥): 43',
+        ])
     })
 
     it('less than', () => {
@@ -348,7 +368,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Less than (<): 11'])
+        assertTooltipContainsEntries(dimensionName, ['Less than (<): 11'])
     })
 
     it('less than or equal to', () => {
@@ -373,7 +393,9 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Less than or equal to (≤): 11'])
+        assertTooltipContainsEntries(dimensionName, [
+            'Less than or equal to (≤): 11',
+        ])
     })
 
     it('not equal to', () => {
@@ -395,7 +417,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Not equal to (≠): 11'])
+        assertTooltipContainsEntries(dimensionName, ['Not equal to (≠): 11'])
     })
 
     it('is empty / null', () => {
@@ -413,7 +435,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Is empty / null'])
+        assertTooltipContainsEntries(dimensionName, ['Is empty / null'])
     })
 
     it('is not empty / not null', () => {
@@ -437,7 +459,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries(['Is not empty / not null'])
+        assertTooltipContainsEntries(dimensionName, ['Is not empty / not null'])
     })
 
     it('2 conditions: greater than + less than', () => {
@@ -453,7 +475,7 @@ describe(['>=41'], 'number conditions (TE)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             'Greater than (>): 21',
             'Less than (<): 24',
         ])
@@ -495,7 +517,10 @@ describe('integer', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Greater than (>): -1'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Greater than (>): -1',
+        ])
     })
 
     it('integer with positive value', () => {
@@ -508,7 +533,10 @@ describe('integer', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Greater than (>): 1'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Greater than (>): 1',
+        ])
     })
 
     it('integer with 0', () => {
@@ -521,7 +549,10 @@ describe('integer', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, 'Greater than (>): 0'])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            'Greater than (>): 0',
+        ])
     })
 })
 
@@ -596,7 +627,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, TEST_PRESET])
+        assertTooltipContainsEntries(dimensionName, [stageName, TEST_PRESET])
     })
 
     it('set and value', () => {
@@ -613,7 +644,7 @@ describe('preset options', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, TEST_VALUE])
+        assertTooltipContainsEntries(dimensionName, [stageName, TEST_VALUE])
     })
 })
 
