@@ -35,7 +35,7 @@ jobs:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record') }}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
             api_base_url: ${{ github.event.inputs.instance_url }}
-            app_url: ${{ github.event.inputs.instance_url }}/api/apps/line-listing/index.html
+            app_url: ${{ github.event.inputs.instance_url }}
             dhis2_version: ${{ github.event.inputs.dhis2_version }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
