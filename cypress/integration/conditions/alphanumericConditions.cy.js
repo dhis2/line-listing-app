@@ -49,28 +49,6 @@ const periodLabel = event[DIMENSION_ID_EVENT_DATE]
 
 const currentYear = getCurrentYearStr()
 
-// Debugging Block
-describe.only('Debug Trailing Slash Issue', () => {
-    it('Logs requests and responses for trailing slash', () => {
-        cy.intercept('**', (req) => {
-            console.log(`Request URL: ${req.url}`)
-            req.on('response', (res) => {
-                console.log(`Response Status: ${res.statusCode}`)
-                if (res.headers.location) {
-                    console.log(`Redirected To: ${res.headers.location}`)
-                }
-            })
-        }).as('requests')
-
-        // Visit the base URL without appending a trailing slash
-        cy.visit(
-            'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
-        )
-
-        // Wait for intercepted requests
-        cy.wait('@requests')
-    })
-
 /*
     // one way to make sure that conditions work for TE is to simply duplicate the tests we have today and adapt them to TE, here's a quick plan for that:
     // TODO: make a copy of the "describe('text conditions..." below

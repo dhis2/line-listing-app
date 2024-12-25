@@ -17,16 +17,12 @@ const logPageState = () => {
 }
 
 export const goToStartPage = (skipEval) => {
-    // Hardcoded URL for testing
-    const hardcodedUrl =
-        'https://test.e2e.dhis2.org/analytics-2.41/api/apps/line-listing/index.html'
-
-    //    'https://qa.im.dhis2.org/core-triggerexternalappstest-107/api/apps/line-listing/index.html'
-
-    cy.visit(hardcodedUrl, EXTENDED_TIMEOUT).then(() => {
-        cy.log(`Visiting the URL: ${hardcodedUrl}`)
-        cy.task('log', `Visiting the URL: ${hardcodedUrl}`)
-        console.log(`Visiting the URL: ${hardcodedUrl}`)
+    const appPath = '/api/apps/line-listing/index.html';
+    const baseUrl = Cypress.env('dhis2BaseUrl') + appPath;
+    cy.visit(baseUrl, EXTENDED_TIMEOUT).then(() => {
+        cy.log(`Visiting the base URL: ${baseUrl}`)
+        cy.task('log', `Visiting the base URL: ${baseUrl}`)
+        console.log(`Visiting the base URL: ${baseUrl}`)
         logPageState()
 
         if (!skipEval) {
