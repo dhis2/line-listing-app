@@ -36,11 +36,6 @@ before(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
 
-    cy.task(
-        'log',
-        `Attempting to log in with user: ${username} on base URL: ${baseUrl}`
-    )
-
     cy.request({
         url: `${baseUrl}/${LOGIN_ENDPOINT}`,
         method: 'POST',
@@ -51,77 +46,37 @@ before(() => {
             j_password: password,
             '2fa_code': '',
         },
-    }).then((response) => {
-        cy.task('log', `Login request returned status: ${response.status}`)
+    }).should((response) => {
         expect(response.status).to.eq(200)
     })
 
-    cy.getAllCookies().then((cookies) => {
-        cy.task(
-            'log',
-            `Cookies after login attempt: ${JSON.stringify(cookies)}`
-        )
-
-        const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
-            baseUrl,
-            cookies
-        )
-        if (sessionCookieForBaseUrl) {
-            cy.task(
-                'log',
-                `Found session cookie for base URL: ${JSON.stringify(
-                    sessionCookieForBaseUrl
-                )}`
+    cy.getAllCookies()
+        .should((cookies) => {
+            expect(cookies.length).to.be.at.least(1)
+        })
+        .then((cookies) => {
+            const sessionCookieForBaseUrl = findSessionCookieForBaseUrl(
+                baseUrl,
+                cookies
             )
             Cypress.env(
                 computeEnvVariableName(instanceVersion),
                 JSON.stringify(sessionCookieForBaseUrl)
             )
-        } else {
-            cy.task('log', `Session cookie not found for base URL: ${baseUrl}`)
-        }
-    })
+        })
 })
 
 beforeEach(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
     const envVariableName = computeEnvVariableName(instanceVersion)
-    const sessionCookie = Cypress.env(envVariableName)
-
-    cy.task(
-        'log',
-        `Setting session cookie for base URL: ${baseUrl} with cookie data: ${sessionCookie}`
-    )
-
-    const { name, value, ...options } = JSON.parse(sessionCookie)
+    const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
 
     localStorage.setItem(LOCAL_STORAGE_KEY, baseUrl)
     cy.setCookie(name, value, options)
 
-    cy.getAllCookies().then((cookies) => {
-        cy.task('log', `Cookies in beforeEach: ${JSON.stringify(cookies)}`)
+    cy.getAllCookies().should((cookies) => {
         expect(findSessionCookieForBaseUrl(baseUrl, cookies)).to.exist
         expect(localStorage.getItem(LOCAL_STORAGE_KEY)).to.equal(baseUrl)
     })
-
-    // // Intercept and log api requests
-    // cy.intercept('/api/**').as('apiRequests')
-    // cy.wait('@apiRequests').then((interception) => {
-    //     cy.task('log', `Intercepted request: ${JSON.stringify(interception)}`)
-    // })
-
-    // Log the current URL
-    cy.url().then((currentUrl) => {
-        cy.task(
-            'log',
-            `Current URL after setting session cookie: ${currentUrl}`
-        )
-        if (currentUrl.includes('login')) {
-            throw new Error('Still on login page after setting session cookie.')
-        }
-    })
-
-    // Force a reload to ensure all resources are loaded
-    // cy.reload()
 })

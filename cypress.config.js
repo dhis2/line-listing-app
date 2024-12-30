@@ -9,13 +9,6 @@ async function setupNodeEvents(on, config) {
     chromeAllowXSiteCookies(on, config)
     excludeByVersionTags(on, config)
 
-    on('task', {
-        log(message) {
-            console.log(message)
-            return null
-        },
-    })
-
     // Delete videos for passing tests
     on('after:spec', (spec, results) => {
         try {
@@ -55,10 +48,8 @@ module.exports = defineConfig({
         specPattern: 'cypress/integration/**/*.cy.js',
         viewportWidth: 1280,
         viewportHeight: 800,
-        pageLoadTimeout: 60000,
         // Record video
         video: true,
-        chromeWebSecurity: false, // Disable Chrome Web Security
         // Enabled to reduce the risk of out-of-memory issues
         experimentalMemoryManagement: true,
         /* When allowing 1 retry on CI, the test suite will pass if
