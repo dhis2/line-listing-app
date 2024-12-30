@@ -4,7 +4,7 @@ export const goToStartPage = (skipEval) => {
     const appPath = '/api/apps/line-listing/index.html';
     const baseUrl = Cypress.env('dhis2BaseUrl') + appPath;
     cy.visit(baseUrl, EXTENDED_TIMEOUT).then(() => {
-        cy.task('log', `Visiting the base URL: ${baseUrl}`)
+        cy.log(`Visiting the base URL: ${baseUrl}`)
         if (!skipEval) {
             expectStartScreenToBeVisible()
         }
