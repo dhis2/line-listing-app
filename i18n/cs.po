@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký, 2024
+# Jiří Podhorecký <jirka.p@volny.cz>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Jiří Podhorecký, 2024\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -396,6 +396,9 @@ msgstr "Zobrazit interpretace a podrobnosti"
 msgid "View"
 msgstr "Zobrazit"
 
+msgid "Reset sidebar width"
+msgstr ""
+
 msgid "Update"
 msgstr "Aktualizovat"
 
@@ -697,10 +700,10 @@ msgstr "Něco se pokazilo"
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
-msgstr ""
+msgstr "S vygenerovanou analýzou je problém. Obraťte se na správce systému."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "V požadavku na analýzu je problém se syntaxí."
 
 msgid "Registration date"
 msgstr "Datum registrace"
