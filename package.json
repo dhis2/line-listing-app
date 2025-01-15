@@ -1,6 +1,6 @@
 {
     "name": "line-listing-app",
-    "version": "101.1.10",
+    "version": "101.1.13",
     "description": "DHIS2 Line Listing",
     "license": "BSD-3-Clause",
     "private": true,
@@ -21,7 +21,7 @@
         "@dhis2/cli-app-scripts": "^11.4.2",
         "@dhis2/cli-style": "^10.4.3",
         "@dhis2/cypress-commands": "^10.0.3",
-        "@dhis2/cypress-plugins": "^10.0.2",
+        "@dhis2/cypress-plugins": "^10.0.6",
         "@semantic-release/changelog": "^6",
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
@@ -37,7 +37,7 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "^26.8.1",
+        "@dhis2/analytics": "^26.9.3",
         "@dhis2/app-runtime": "^3.4.4",
         "@dhis2/ui": "^9.4.2",
         "@dnd-kit/core": "^5.0.3",

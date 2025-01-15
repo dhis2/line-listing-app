@@ -14,7 +14,6 @@ import {
     expectOrgUnitDimensionModalToBeVisible,
     expectOrgUnitDimensionToNotBeLoading,
     expectOrgUnitItemToBeSelected,
-    expectOrgUnitTreeToBeDisabled,
     expectOrgUnitTreeToBeEnabled,
     openOuDimension,
     selectOrgUnitTreeItem,
@@ -45,7 +44,7 @@ describe(`Org unit dimension`, () => {
         openOuDimension(DIMENSION_ID_ORGUNIT)
         expectOrgUnitDimensionModalToBeVisible()
         expectOrgUnitDimensionToNotBeLoading()
-        expectOrgUnitTreeToBeDisabled()
+        expectOrgUnitTreeToBeEnabled()
         deselectUserOrgUnit(TEST_DEFAULT_ORG_UNIT)
         selectOrgUnitTreeItem(TEST_ROOT)
         selectOrgUnitTreeItem(TEST_DISTRICT_1)
@@ -143,20 +142,19 @@ describe(`Org unit dimension`, () => {
         expectOrgUnitItemToBeSelected(TEST_ROOT)
         expectOrgUnitTreeToBeEnabled()
         selectUserOrgUnit(TEST_USER_ORG_UNIT)
-        expectOrgUnitTreeToBeDisabled()
+        expectOrgUnitTreeToBeEnabled()
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
+        assertChipContainsText('Organisation unit', 2)
         assertTooltipContainsEntries([TEST_USER_ORG_UNIT])
 
         cy.log(`deselects '${TEST_USER_ORG_UNIT}'`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
         expectOrgUnitDimensionModalToBeVisible()
         expectOrgUnitDimensionToNotBeLoading()
-        expectOrgUnitTreeToBeDisabled()
+        expectOrgUnitTreeToBeEnabled()
         deselectUserOrgUnit(TEST_USER_ORG_UNIT)
         expectOrgUnitTreeToBeEnabled()
-        selectOrgUnitTreeItem(TEST_ROOT)
         expectOrgUnitItemToBeSelected(TEST_ROOT)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
@@ -174,7 +172,7 @@ describe(`Org unit dimension`, () => {
         openOuDimension(DIMENSION_ID_ORGUNIT)
         expectOrgUnitDimensionModalToBeVisible()
         expectOrgUnitDimensionToNotBeLoading()
-        expectOrgUnitTreeToBeDisabled()
+        expectOrgUnitTreeToBeEnabled()
         deselectUserOrgUnit(TEST_DEFAULT_ORG_UNIT)
         TEST_DISTRICTS.forEach((district) => selectOrgUnitTreeItem(district))
         toggleOrgUnitLevel(TEST_LEVEL)

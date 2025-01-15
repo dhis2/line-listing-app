@@ -2030,10 +2030,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^26.8.1":
-  version "26.8.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.8.1.tgz#ad72b326e92f0440a0280fc223ff0b85483eac5f"
-  integrity sha512-0y2RMlP1VucSaKCSGIsY4EwYmg6dg3ig765j7StOhbgT6wbRnE32VrQibG/sElGN3jwGf58frIGntEXdqGbjuw==
+"@dhis2/analytics@^26.9.3":
+  version "26.9.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-26.9.3.tgz#bcb550e2e87f931622c4fe04c40711464f0d5989"
+  integrity sha512-MFA4Q8MpzDO4o3e+Oy1dZcQSxTc/AqFzdcQrln37DOpA1iUF5ZpiU17CdwDNdvZ6DjVZF6/GQNFnzPzLJ3svIw==
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
@@ -2041,7 +2041,7 @@
     "@dnd-kit/utilities" "^3.2.1"
     "@react-hook/debounce" "^4.0.0"
     classnames "^2.3.1"
-    crypto-js "^4.1.1"
+    crypto-js "^4.2.0"
     d2-utilizr "^0.2.16"
     d3-color "^1.2.3"
     highcharts "^10.3.3"
@@ -2223,10 +2223,10 @@
   dependencies:
     jscodeshift "^0.11.0"
 
-"@dhis2/cypress-plugins@^10.0.2":
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/@dhis2/cypress-plugins/-/cypress-plugins-10.0.2.tgz#dd42f0ab0d5f7b03e363887a88d8251153af67df"
-  integrity sha512-3EK4tyBAqSHHWG0s0ERQR8gBsp3h5K1hZmuDqMNHoSxI8IV/pC7VwzTiX0I7GLiLQMrz5cTinJpxwhH9D3G3gA==
+"@dhis2/cypress-plugins@^10.0.6":
+  version "10.0.6"
+  resolved "https://registry.yarnpkg.com/@dhis2/cypress-plugins/-/cypress-plugins-10.0.6.tgz#d405f96d0de2c58b77931ef5fd212c7c263cfd49"
+  integrity sha512-7NjQrXPT2K6OiabVu58+ljrGpdOOe78yL1LclQlmIJRs9gT2dcWB9RrgeGSSXaY5KCeuXYG/unkF15a1u1FKbw==
 
 "@dhis2/d2-i18n@^1.1.1", "@dhis2/d2-i18n@^1.1.3":
   version "1.1.3"
@@ -6472,7 +6472,7 @@ crypto-browserify@^3.0.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-crypto-js@^4.1.1:
+crypto-js@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
   integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
