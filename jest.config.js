@@ -2,7 +2,6 @@ module.exports = {
     transformIgnorePatterns: [
         'node_modules/(?!(lodash-es|@dhis2/d2-ui-[a-z-]+)/)',
     ],
-    setupFilesAfterEnv: ['./config/testSetup.js'],
     moduleNameMapper: {
         '\\.(css)$': 'identity-obj-proxy',
     },
