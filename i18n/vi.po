@@ -224,7 +224,7 @@ msgid "Event"
 msgstr "Sự Kiện"
 
 msgid "Enrollment"
-msgstr "Tham gia"
+msgstr "Đăng ký vào chương trình"
 
 msgid "Tracked entity"
 msgstr "Đối Tượng"
@@ -788,7 +788,7 @@ msgid "Event date"
 msgstr "Ngày sự kiện"
 
 msgid "Enrollment date"
-msgstr "Ngày tham gia"
+msgstr "Ngày đăng ký vào chương trình"
 
 msgid "Incident date"
 msgstr "Ngày khởi phát"
