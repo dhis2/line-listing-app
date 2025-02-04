@@ -1,13 +1,13 @@
 # 
 # Translators:
-# Jiří Podhorecký <jirka.p@volny.cz>, 2024
+# Jiří Podhorecký <jirka.p@volny.cz>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2024\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,10 +182,10 @@ msgstr "Skupiny"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "A {{count}} další..."
+msgstr[1] "A {{count}} další..."
+msgstr[2] "A {{count}} dalších..."
+msgstr[3] "A {{count}} dalších..."
 
 msgid "None selected"
 msgstr "Není vybrán žádný"
@@ -194,7 +194,7 @@ msgid "Program stage: {{- stageName}}"
 msgstr "Fáze programu: {{- stageName}}"
 
 msgid "Program: {{- programName}}"
-msgstr ""
+msgstr "Program: {{- programName}}"
 
 msgid "Showing all values for this dimension"
 msgstr "Zobrazují se všechny hodnoty pro tuto dimenzi"
@@ -206,7 +206,7 @@ msgid "No dimensions found in the {{- programName}} program"
 msgstr "V programu {{- programName}} nebyly nalezeny žádné dimenze"
 
 msgid " {{- trackedEntityType}} has no dimensions"
-msgstr ""
+msgstr " {{- trackedEntityType}} nemá žádné dimenze"
 
 msgid "No dimensions found"
 msgstr "Nebyly nalezeny žádné rozměry"
@@ -241,6 +241,8 @@ msgstr "Prohlédněte si data z více fází programu v programu Tracker."
 
 msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
+"Podívejte se na jednotlivé trasované subjekty z jednoho nebo více programů "
+"Tracker."
 
 msgid "Global dimensions"
 msgstr "Globální dimenze"
@@ -313,24 +315,26 @@ msgid "No stages found"
 msgstr "Nebyly nalezeny žádné fáze"
 
 msgid "Could not load types"
-msgstr ""
+msgstr "Nelze načíst typy"
 
 msgid ""
 "The types couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"Typy nebylo možné načíst. Zkuste to znovu nebo se obraťte na správce "
+"systému."
 
 msgid "Choose a type"
-msgstr ""
+msgstr "Vyberte typ"
 
 msgid "No types found"
-msgstr ""
+msgstr "Nenalezeny žádné typy"
 
 msgid "{{- itemName}} dimensions"
-msgstr ""
+msgstr "{{- itemName}} dimenze"
 
 msgid "Filter by program usage"
-msgstr ""
+msgstr "Filtrování podle použití programu"
 
 msgid "Clear"
 msgstr "Vyčistit"
@@ -397,7 +401,7 @@ msgid "View"
 msgstr "Zobrazit"
 
 msgid "Reset sidebar width"
-msgstr ""
+msgstr "Obnovit šířku postranního panelu"
 
 msgid "Update"
 msgstr "Aktualizovat"
@@ -428,12 +432,14 @@ msgid ""
 "This line list may show data that was not available when the interpretation "
 "was written."
 msgstr ""
+"V tomto seznamu řádků mohou být uvedeny údaje, které v době psaní výkladu "
+"nebyly k dispozici."
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr ""
+msgstr "Seřadit podle \"{{column}}\" a aktualizovat"
 
 msgid "No event"
-msgstr ""
+msgstr "Žádná událost"
 
 msgid "Rows per page"
 msgstr "Řádků na stránku"
@@ -648,10 +654,10 @@ msgstr ""
 "nesprávné nebo může být odstraněno."
 
 msgid "No tracked entity type selected"
-msgstr ""
+msgstr "Není vybrán žádný typ trasované entity"
 
 msgid "Choose a type from the Input sidebar."
-msgstr ""
+msgstr "Vyberte typ z postranního panelu Input."
 
 msgid "No program selected"
 msgstr "Nevybrán žádný program"
@@ -727,7 +733,7 @@ msgid "User sub-x2-units"
 msgstr "Jednotky 2. řádu uživatele"
 
 msgid "Registration org. unit"
-msgstr ""
+msgstr "Registrace organizační jednotky"
 
 msgid "Organisation unit"
 msgstr "Organizační jednotka"
