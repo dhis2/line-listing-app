@@ -38,7 +38,7 @@
     },
     "dependencies": {
         "@dhis2/analytics": "^26.9.3",
-        "@dhis2/app-runtime": "^3.4.4",
+        "@dhis2/app-runtime": "^3.13.0",
         "@dhis2/ui": "^9.4.2",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
