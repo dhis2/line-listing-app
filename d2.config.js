@@ -14,8 +14,8 @@ const config = {
     },
 
     entryPoints: {
-        app: './src/AppWrapper.js',
-        plugin: './src/PluginWrapper.js',
+        app: './src/AppWrapper.jsx',
+        plugin: './src/PluginWrapper.jsx',
     },
 }
 

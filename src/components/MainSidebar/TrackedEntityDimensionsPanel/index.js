@@ -1,1 +1,1 @@
-export { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel.js'
+export { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel.jsx'
