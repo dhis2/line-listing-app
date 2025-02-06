@@ -50,7 +50,6 @@
         "lodash-es": "^4.17.21",
         "prop-types": "^15.7.2",
         "query-string": "^7.1.1",
-        "react": "^16.14",
         "react-beautiful-dnd": "^13.1.0",
         "react-redux": "^7.2.6",
         "redux-logger": "^3.0.6",
@@ -60,7 +59,6 @@
         "styled-jsx": "^4.0.1"
     },
     "resolutions": {
-        "@dhis2/ui": "^9.4.2",
         "i18next": "^20.5.0"
     }
 }
