@@ -1,1 +1,1 @@
-export { DimensionItem } from './DimensionItem.js'
+export { DimensionItem } from './DimensionItem.jsx'
