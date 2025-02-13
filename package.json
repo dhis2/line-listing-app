@@ -1,6 +1,6 @@
 {
     "name": "line-listing-app",
-    "version": "999.99.9-plugin-rc.2025-02-13.0",
+    "version": "101.1.14",
     "description": "DHIS2 Line Listing",
     "license": "BSD-3-Clause",
     "private": true,
@@ -37,8 +37,8 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#0b917c587f9c0c9fcedf5f3b343dba5c6494c21e",
-        "@dhis2/app-runtime": "^3.13.0",
+        "@dhis2/analytics": "^26.12.0",
+        "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/ui": "^9.15.0",
         "@dnd-kit/core": "^5.0.3",
         "@dnd-kit/sortable": "^6.0.1",
