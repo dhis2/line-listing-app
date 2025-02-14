@@ -5,7 +5,10 @@ import {
     openProgramDimensionsSidebar,
     selectEventWithProgram,
 } from '../helpers/dimensions.js'
-import { assertChipContainsText } from '../helpers/layout.js'
+import {
+    assertChipContainsText,
+    assertTooltipContainsEntries,
+} from '../helpers/layout.js'
 import { getCurrentYearStr, getPreviousYearStr } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 
@@ -98,9 +101,9 @@ describe('period dimension', { testIsolation: false }, () => {
 
         assertChipContainsText(TEST_DIM_NAME, 1)
 
-        cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${previousYear} - December 31, ${currentYear}`
-        )
+        assertTooltipContainsEntries(TEST_DIM_NAME, [
+            `January 1, ${previousYear} - December 31, ${currentYear}`,
+        ])
     })
     it('the custom period persists when reopening the modal', () => {
         openModal(TEST_DIM_ID)
@@ -121,7 +124,7 @@ describe('period dimension', { testIsolation: false }, () => {
 
         assertChipContainsText(TEST_DIM_NAME)
 
-        cy.getBySelLike('tooltip-content').contains('None selected')
+        assertTooltipContainsEntries(TEST_DIM_NAME, ['None selected'])
 
         openModal(TEST_DIM_ID)
 
@@ -139,9 +142,9 @@ describe('period dimension', { testIsolation: false }, () => {
 
         assertChipContainsText(TEST_DIM_NAME, 1)
 
-        cy.getBySelLike('tooltip-content').contains(
-            `January 1, ${previousYear} - December 31, ${currentYear}`
-        )
+        assertTooltipContainsEntries(TEST_DIM_NAME, [
+            `January 1, ${previousYear} - December 31, ${currentYear}`,
+        ])
 
         openModal(TEST_DIM_ID)
 
@@ -153,6 +156,6 @@ describe('period dimension', { testIsolation: false }, () => {
 
         assertChipContainsText(TEST_DIM_NAME)
 
-        cy.getBySelLike('tooltip-content').contains('None selected')
+        assertTooltipContainsEntries(TEST_DIM_NAME, ['None selected'])
     })
 })
