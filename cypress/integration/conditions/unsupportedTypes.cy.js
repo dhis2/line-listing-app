@@ -69,7 +69,7 @@ describe('unsupported types', () => {
 
             assertChipContainsText(type.dimension, 'all')
 
-            assertTooltipContainsEntries([
+            assertTooltipContainsEntries(type.dimension, [
                 stageName,
                 'Showing all values for this dimension',
             ])

@@ -17,6 +17,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useMemo } from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import { acSetUiItems } from '../../../actions/ui.js'
+import { getStartEndDate, isStartEndDate } from '../../../modules/dates.js'
 import {
     extractDimensionIdParts,
     formatDimensionId,
@@ -28,7 +29,6 @@ import {
     SYSTEM_SETTINGS_HIDE_MONTHLY_PERIODS,
     SYSTEM_SETTINGS_HIDE_BIMONTHLY_PERIODS,
 } from '../../../modules/systemSettings.js'
-import { USER_SETTINGS_UI_LOCALE } from '../../../modules/userSettings.js'
 import {
     sGetDimensionIdsFromLayout,
     sGetUiItemsByDimension,
@@ -41,43 +41,12 @@ import { StartEndDate } from './StartEndDate.js'
 export const OPTION_PRESETS = 'PRESETS'
 export const OPTION_START_END_DATES = 'START_END_DATES'
 
-const getStartEndDate = (id) => {
-    const { dimensionId: periodId } = extractDimensionIdParts(id)
-    const parts = periodId.split('_')
-    return parts.length === 2 &&
-        !isNaN(Date.parse(parts[0])) &&
-        !isNaN(Date.parse(parts[1]))
-        ? parts
-        : []
-}
-
-const isStartEndDate = (id) => getStartEndDate(id).length === 2
-
 const useIsInLayout = (dimensionId) => {
     const allDimensionIds = useSelector(sGetDimensionIdsFromLayout)
     return useMemo(
         () => !!dimensionId && allDimensionIds.includes(dimensionId),
         [dimensionId, allDimensionIds]
     )
-}
-
-const useLocalizedStartEndDateFormatter = () => {
-    const { currentUser } = useCachedDataQuery()
-    const formatter = new Intl.DateTimeFormat(
-        currentUser.settings[USER_SETTINGS_UI_LOCALE],
-        {
-            dateStyle: 'long',
-        }
-    )
-    return (startEndDate) => {
-        if (isStartEndDate(startEndDate)) {
-            return getStartEndDate(startEndDate)
-                .map((dateStr) => formatter.format(new Date(dateStr)))
-                .join(' - ')
-        } else {
-            return ''
-        }
-    }
 }
 
 const useMetadataNameGetter = () => {
@@ -111,7 +80,6 @@ const useExcludedPeriods = () => {
 }
 
 export const PeriodDimension = ({ dimension, onClose }) => {
-    const formatStartEndDate = useLocalizedStartEndDateFormatter()
     const getNameFromMetadata = useMetadataNameGetter()
     const dispatch = useDispatch()
     const isInLayout = useIsInLayout(dimension?.id)
@@ -145,7 +113,7 @@ export const PeriodDimension = ({ dimension, onClose }) => {
                 if (isStartEndDate(item.id)) {
                     acc.metadata[item.id] = {
                         id: item.id,
-                        name: formatStartEndDate(item.id),
+                        name: item.id.replace('_', ' - '),
                     }
                 } else {
                     acc.metadata[item.id] = item

@@ -2,7 +2,7 @@
     display: inline-flex;
     align-items: center;
     padding: var(--spacers-dp4) var(--spacers-dp8);
-    gap:  var(--spacers-dp8);
+    gap: var(--spacers-dp8);
     font-size: 14px;
 }
 .appName {
