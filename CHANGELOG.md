@@ -1,3 +1,17 @@
+# [102.0.0](https://github.com/dhis2/line-listing-app/compare/v101.1.14...v102.0.0) (2025-02-14)
+
+
+### Features
+
+* support new dashboard plugin architecture ([#396](https://github.com/dhis2/line-listing-app/issues/396)) ([321b114](https://github.com/dhis2/line-listing-app/commit/321b11420e700144a2f5c805c38e960d19127fb3))
+
+
+### BREAKING CHANGES
+
+* this version is only compatible with Dashboard app >=101.0.0
+
+Use generic components for plugins in app-platform and app-runtime.
+
 ## [101.1.14](https://github.com/dhis2/line-listing-app/compare/v101.1.13...v101.1.14) (2025-02-04)
 
 
