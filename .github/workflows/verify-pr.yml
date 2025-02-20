@@ -80,9 +80,19 @@ jobs:
             - name: Test
               run: yarn d2-app-scripts test
 
-    call-workflow-e2e-prod:
+    call-workflow-e2e-smoke:
         if: "!contains(github.event.head_commit.message, '[skip ci]')"
         needs: [build, lint, test, setup-matrix]
+        uses: ./.github/workflows/e2e-smoke.yml
+        with:
+            should_record: false
+        secrets:
+            username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
+            password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
+
+    call-workflow-e2e-prod:
+        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        needs: [call-workflow-e2e-smoke]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@feat/support-hardcoded-dev-version
         with:
             should_record: ${{ contains(github.event.head_commit.message, '[e2e record]') || contains(join(github.event.pull_request.labels.*.name), 'e2e record')}}
