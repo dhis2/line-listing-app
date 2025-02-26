@@ -21,8 +21,8 @@ _text_
 - [ ] Dashboard tested
 - [ ] Tests added (Cypress and/or Jest)
 - [ ] Docs added
-- [ ] Strings generated
-- [ ] d2-ci dependency replaced with actual release version
+- [ ] i18n strings generated
+- [ ] d2-ci dependency replaced
 - [ ] _todo_
 
 ---
