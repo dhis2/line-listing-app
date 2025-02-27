@@ -155,11 +155,6 @@ const OrgUnitConditionMinVersionV42 = ({
                 ]
             }
             onSelect={onSelect}
-            // Not sure we need to set any of the props below
-            hideGroupSelect={false}
-            hideLevelSelect={false}
-            hideUserOrgUnits={false}
-            warning={undefined}
         />
     )
 }
