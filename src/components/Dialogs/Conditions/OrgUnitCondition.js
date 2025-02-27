@@ -12,6 +12,7 @@ import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/us
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetUiParentGraphMap } from '../../../reducers/ui.js'
 
+// VERSION-TOGGLE: remove when 42 is lowest supported version
 const OrgUnitConditionMaxVersionV41 = ({
     addMetadata,
     addParentGraphMap,
@@ -75,6 +76,7 @@ const OrgUnitConditionMaxVersionV41 = ({
     )
 }
 
+// VERSION-TOGGLE: rename to OrgUnitCondition when 42 is lowest supported version
 const OrgUnitConditionMinVersionV42 = ({
     addMetadata,
     addParentGraphMap,
@@ -159,6 +161,7 @@ const OrgUnitConditionMinVersionV42 = ({
     )
 }
 
+// VERSION-TOGGLE: remove when 42 is lowest supported version
 const OrgUnitCondition = (props) => {
     const config = useConfig()
 
@@ -181,6 +184,7 @@ OrgUnitCondition.defaultProps = {
     rootOrgUnits: [],
 }
 
+// VERSION-TOGGLE: remove when 42 is lowest supported version
 OrgUnitConditionMaxVersionV41.propTypes = OrgUnitCondition.propTypes
 OrgUnitConditionMinVersionV42.propTypes = OrgUnitCondition.propTypes
 OrgUnitConditionMaxVersionV41.defaultProps = OrgUnitCondition.defaultProps
