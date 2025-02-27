@@ -228,7 +228,8 @@ export const getConditionsTexts = ({
 
     if (
         dimension.valueType === VALUE_TYPE_ORGANISATION_UNIT &&
-        conditionsList[0]?.startsWith(OPERATOR_EQUAL)
+        (conditionsList[0]?.startsWith(OPERATOR_EQUAL) ||
+            conditionsList[0]?.startsWith(OPERATOR_IN))
     ) {
         const ous = parseCondition(conditionsList[0])
         const ouNames = ous.map((ou) => metadata[ou]?.name)
