@@ -18,16 +18,18 @@ _text_
 
 ### TODO
 
--   [ ] Cypress tests
--   [ ] Update docs
--   [ ] Manual testing
--   [ ] _task_
+- [ ] Dashboard tested
+- [ ] Tests added (Cypress and/or Jest)
+- [ ] Docs added
+- [ ] i18n strings generated
+- [ ] d2-ci dependency replaced
+- [ ] _todo_
 
 ---
 
 ### Known issues
 
--   [ ] _issue_
+- [ ] _issue_
 
 ---
 
