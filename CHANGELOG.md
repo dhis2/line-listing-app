@@ -1,3 +1,10 @@
+## [102.0.1](https://github.com/dhis2/line-listing-app/compare/v102.0.0...v102.0.1) (2025-02-28)
+
+
+### Bug Fixes
+
+* remove app icon background ([#652](https://github.com/dhis2/line-listing-app/issues/652)) ([4860b2f](https://github.com/dhis2/line-listing-app/commit/4860b2f03236943177963f736961b57a6530b8e6))
+
 # [102.0.0](https://github.com/dhis2/line-listing-app/compare/v101.1.14...v102.0.0) (2025-02-14)
 
 
