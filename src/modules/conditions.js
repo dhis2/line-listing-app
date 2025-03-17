@@ -21,8 +21,10 @@ import {
     VALUE_TYPE_ORGANISATION_UNIT,
     formatValue,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
+    ouIdHelper,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import metadata from '../reducers/metadata.js'
 import { formatDimensionId } from './dimensionId.js'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
@@ -178,6 +180,10 @@ const lookupOptionSetOptionMetadata = (optionSetId, code, metaData) => {
         ? optionSetMetaData.options?.find((option) => option.code === code)
         : undefined
 }
+const getOuLevelOrGroupName = (ouId, metaData) =>
+    ouIdHelper.hasGroupPrefix(ouId) || ouIdHelper.hasLevelPrefix(ouId)
+        ? metaData[ouIdHelper.removePrefix(ouId)]?.name
+        : undefined
 
 export const getConditionsTexts = ({
     conditions = {},
@@ -231,8 +237,14 @@ export const getConditionsTexts = ({
         (conditionsList[0]?.startsWith(OPERATOR_EQUAL) ||
             conditionsList[0]?.startsWith(OPERATOR_IN))
     ) {
-        const ous = parseCondition(conditionsList[0])
-        const ouNames = ous.map((ou) => metadata[ou]?.name)
+        const ouIds = parseCondition(conditionsList[0])
+        const ouNames = ouIds.map(
+            (ouId) =>
+                metadata[ouId]?.name ??
+                getOuLevelOrGroupName(ouId, metadata) ??
+                // Default to showing the ID, but this should never happen
+                ouId
+        )
         return ouNames
     }
 
