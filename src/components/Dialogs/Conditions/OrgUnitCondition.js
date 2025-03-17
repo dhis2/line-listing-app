@@ -1,4 +1,8 @@
-import { OrgUnitDimension, useCachedDataQuery } from '@dhis2/analytics'
+import {
+    OrgUnitDimension,
+    ouIdHelper,
+    useCachedDataQuery,
+} from '@dhis2/analytics'
 import { useConfig } from '@dhis2/app-runtime'
 import { OrganisationUnitTree } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -75,6 +79,10 @@ const OrgUnitConditionMaxVersionV41 = ({
         />
     )
 }
+const getMetaDataId = (id) =>
+    ouIdHelper.hasLevelPrefix(id) || ouIdHelper.hasGroupPrefix(id)
+        ? id.split('-')[1]
+        : id
 
 // VERSION-TOGGLE: rename to OrgUnitCondition when 42 is lowest supported version
 const OrgUnitConditionMinVersionV42 = ({
@@ -94,14 +102,18 @@ const OrgUnitConditionMinVersionV42 = ({
         }
 
         return idsString.split(';').map((id) => {
+            const isOuTreeItem =
+                !ouIdHelper.hasLevelPrefix(id) &&
+                !ouIdHelper.hasGroupPrefix(id) &&
+                !id.startsWith('USER_ORGUNIT')
+            const metaDataId = getMetaDataId(id)
             const item = {
                 id,
-                name: metadata[id].displayName || metadata[id].name,
+                // We store IDs for levels and groups in the metadata store without prefix
+                name:
+                    metadata[metaDataId].displayName ||
+                    metadata[metaDataId].name,
             }
-            const isOuTreeItem =
-                !id.startsWith('LEVEL') &&
-                !id.startsWith('OU_GROUP') &&
-                !id.startsWith('USER_ORGUNIT')
 
             if (isOuTreeItem) {
                 item.path = getOuPath(id, metadata, parentGraphMap)
@@ -118,9 +130,10 @@ const OrgUnitConditionMinVersionV42 = ({
                 const { forMetadata, forParentGraphMap, itemIds } =
                     items.reduce(
                         (acc, item) => {
+                            const metaDataId = getMetaDataId(item.id)
                             acc.itemIds.push(item.id)
-                            acc.forMetadata[item.id] = {
-                                id: item.id,
+                            acc.forMetadata[metaDataId] = {
+                                id: metaDataId,
                                 name: item.name || item.displayName,
                                 displayName: item.displayName,
                             }
