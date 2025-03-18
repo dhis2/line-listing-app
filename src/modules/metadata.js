@@ -92,6 +92,17 @@ export const getDynamicTimeDimensionsMetadata = (
     }, {}),
 })
 
+export const isPopulatedObject = (input) => {
+    if (input && typeof input === 'object' && !Array.isArray(input)) {
+        for (const prop in input) {
+            if (Object.hasOwn(input, prop)) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 export const transformMetaDataResponseObject = (metaDataResponseObject) =>
     Object.entries(metaDataResponseObject)
         .filter(

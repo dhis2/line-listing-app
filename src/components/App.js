@@ -48,6 +48,7 @@ import history from '../modules/history.js'
 import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
+    isPopulatedObject,
     transformMetaDataResponseObject,
 } from '../modules/metadata.js'
 import { getParentGraphMapFromVisualization } from '../modules/parentGraphMap.js'
@@ -214,26 +215,18 @@ const App = () => {
                             ],
                     },
                 })
-                /* VERSION-TOGGLE: remove if condition when 42 is lowest supported version,
-                 * because by then metaData and parentGraphMap are always returned by the
-                 * web API. */
-                if (
-                    data.eventVisualization.metaData &&
-                    data.eventVisualization.parentGraphMap
-                ) {
+                const { metaData, parentGraphMap } = data.eventVisualization
+                // Only trigger state updates if relevant data was found
+                if (isPopulatedObject(metaData)) {
                     dispatch(
-                        acAddMetadata(
-                            transformMetaDataResponseObject(
-                                data.eventVisualization.metaData
-                            )
-                        )
-                    )
-                    dispatch(
-                        acAddParentGraphMap(
-                            data.eventVisualization.parentGraphMap
-                        )
+                        acAddMetadata(transformMetaDataResponseObject(metaData))
                     )
                 }
+
+                if (isPopulatedObject(parentGraphMap)) {
+                    dispatch(acAddParentGraphMap(parentGraphMap))
+                }
+
                 setData(data)
             } catch (fetchError) {
                 if (!error && fetchError) {
