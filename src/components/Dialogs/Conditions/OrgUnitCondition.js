@@ -105,7 +105,6 @@ const OrgUnitConditionMinVersionV42 = ({
             const metaDataId = ouIdHelper.removePrefix(id)
             const item = {
                 id,
-                // We store IDs for levels and groups in the metadata store without prefix
                 name:
                     metadata[metaDataId].displayName ||
                     metadata[metaDataId].name,
