@@ -84,6 +84,9 @@ import { Toolbar } from './Toolbar/Toolbar.js'
 import StartScreen from './Visualization/StartScreen.js'
 import { Visualization } from './Visualization/Visualization.js'
 
+// Used to avoid repeating `history` listener calls -- see below
+let lastLocationKey
+
 const dimensionFields = () =>
     'dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]'
 
@@ -337,6 +340,20 @@ const App = () => {
         loadVisualization(history.location)
 
         const unlisten = history.listen(({ location }) => {
+            // Avoid duplicate actions for the same update object. This also
+            // avoids a loop, because dispatching a pop state effect below also
+            // triggers listeners again (but with the same location object key)
+            if (location.key === lastLocationKey) {
+                return
+            }
+            lastLocationKey = location.key
+            // Dispatch this event for external routing listeners to observe,
+            // e.g. global shell
+            const popStateEvent = new PopStateEvent('popstate', {
+                state: location.state,
+            })
+            dispatchEvent(popStateEvent)
+
             const isSaving = location.state?.isSaving
             const isOpening = location.state?.isOpening
             const isResetting = location.state?.isResetting
