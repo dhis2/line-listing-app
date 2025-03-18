@@ -1,3 +1,10 @@
+## [102.0.2](https://github.com/dhis2/line-listing-app/compare/v102.0.1...v102.0.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19061] ([#660](https://github.com/dhis2/line-listing-app/issues/660)) ([1a37bcf](https://github.com/dhis2/line-listing-app/commit/1a37bcf7da1df1b67afeb5ee8571c28af954d4ef))
+
 ## [102.0.1](https://github.com/dhis2/line-listing-app/compare/v102.0.0...v102.0.1) (2025-02-28)
 
 
