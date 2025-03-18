@@ -81,7 +81,7 @@ const OrgUnitConditionMaxVersionV41 = ({
 }
 const getMetaDataId = (id) =>
     ouIdHelper.hasLevelPrefix(id) || ouIdHelper.hasGroupPrefix(id)
-        ? id.split('-')[1]
+        ? ouIdHelper.removePrefix(id)
         : id
 
 // VERSION-TOGGLE: rename to OrgUnitCondition when 42 is lowest supported version
