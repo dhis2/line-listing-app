@@ -79,10 +79,6 @@ const OrgUnitConditionMaxVersionV41 = ({
         />
     )
 }
-const getMetaDataId = (id) =>
-    ouIdHelper.hasLevelPrefix(id) || ouIdHelper.hasGroupPrefix(id)
-        ? ouIdHelper.removePrefix(id)
-        : id
 
 // VERSION-TOGGLE: rename to OrgUnitCondition when 42 is lowest supported version
 const OrgUnitConditionMinVersionV42 = ({
@@ -106,7 +102,7 @@ const OrgUnitConditionMinVersionV42 = ({
                 !ouIdHelper.hasLevelPrefix(id) &&
                 !ouIdHelper.hasGroupPrefix(id) &&
                 !id.startsWith('USER_ORGUNIT')
-            const metaDataId = getMetaDataId(id)
+            const metaDataId = ouIdHelper.removePrefix(id)
             const item = {
                 id,
                 // We store IDs for levels and groups in the metadata store without prefix
@@ -130,7 +126,7 @@ const OrgUnitConditionMinVersionV42 = ({
                 const { forMetadata, forParentGraphMap, itemIds } =
                     items.reduce(
                         (acc, item) => {
-                            const metaDataId = getMetaDataId(item.id)
+                            const metaDataId = ouIdHelper.removePrefix(item.id)
                             acc.itemIds.push(item.id)
                             acc.forMetadata[metaDataId] = {
                                 id: metaDataId,

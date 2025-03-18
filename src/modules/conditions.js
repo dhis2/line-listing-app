@@ -179,10 +179,6 @@ const lookupOptionSetOptionMetadata = (optionSetId, code, metaData) => {
         ? optionSetMetaData.options?.find((option) => option.code === code)
         : undefined
 }
-const getOuLevelOrGroupName = (ouId, metaData) =>
-    ouIdHelper.hasGroupPrefix(ouId) || ouIdHelper.hasLevelPrefix(ouId)
-        ? metaData[ouIdHelper.removePrefix(ouId)]?.name
-        : undefined
 
 export const getConditionsTexts = ({
     conditions = {},
@@ -240,7 +236,7 @@ export const getConditionsTexts = ({
         const ouNames = ouIds.map(
             (ouId) =>
                 metadata[ouId]?.name ??
-                getOuLevelOrGroupName(ouId, metadata) ??
+                metadata[ouIdHelper.removePrefix(ouId)]?.name ??
                 // Default to showing the ID, but this should never happen
                 ouId
         )
