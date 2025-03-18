@@ -91,3 +91,26 @@ export const getDynamicTimeDimensionsMetadata = (
         return acc
     }, {}),
 })
+
+export const transformMetaDataResponseObject = (metaDataResponseObject) =>
+    Object.entries(metaDataResponseObject)
+        .filter(
+            ([item]) =>
+                ![
+                    USER_ORG_UNIT,
+                    USER_ORG_UNIT_CHILDREN,
+                    USER_ORG_UNIT_GRANDCHILDREN,
+                    DIMENSION_ID_ORGUNIT,
+                ].includes(item)
+        )
+        .reduce((obj, [id, item]) => {
+            obj[id] = {
+                id,
+                name: item.name || item.displayName,
+                displayName: item.displayName,
+                dimensionType: item.dimensionType || item.dimensionItemType,
+                code: item.code,
+            }
+
+            return obj
+        }, {})

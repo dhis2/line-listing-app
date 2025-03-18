@@ -1,9 +1,6 @@
 import {
     useCachedDataQuery,
     convertOuLevelsToUids,
-    USER_ORG_UNIT,
-    USER_ORG_UNIT_CHILDREN,
-    USER_ORG_UNIT_GRANDCHILDREN,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
@@ -51,6 +48,7 @@ import history from '../modules/history.js'
 import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
+    transformMetaDataResponseObject,
 } from '../modules/metadata.js'
 import { getParentGraphMapFromVisualization } from '../modules/parentGraphMap.js'
 import { getProgramDimensions } from '../modules/programDimensions.js'
@@ -216,7 +214,26 @@ const App = () => {
                             ],
                     },
                 })
-
+                /* VERSION-TOGGLE: remove if condition when 42 is lowest supported version,
+                 * because by then metaData and parentGraphMap are always returned by the
+                 * web API. */
+                if (
+                    data.eventVisualization.metaData &&
+                    data.eventVisualization.parentGraphMap
+                ) {
+                    dispatch(
+                        acAddMetadata(
+                            transformMetaDataResponseObject(
+                                data.eventVisualization.metaData
+                            )
+                        )
+                    )
+                    dispatch(
+                        acAddParentGraphMap(
+                            data.eventVisualization.parentGraphMap
+                        )
+                    )
+                }
                 setData(data)
             } catch (fetchError) {
                 if (!error && fetchError) {
@@ -305,29 +322,11 @@ const App = () => {
     }
 
     const onResponsesReceived = (response) => {
-        const itemsMetadata = Object.entries(response.metaData.items)
-            .filter(
-                ([item]) =>
-                    ![
-                        USER_ORG_UNIT,
-                        USER_ORG_UNIT_CHILDREN,
-                        USER_ORG_UNIT_GRANDCHILDREN,
-                        DIMENSION_ID_ORGUNIT,
-                    ].includes(item)
+        dispatch(
+            acAddMetadata(
+                transformMetaDataResponseObject(response.metaData.items)
             )
-            .reduce((obj, [id, item]) => {
-                obj[id] = {
-                    id,
-                    name: item.name || item.displayName,
-                    displayName: item.displayName,
-                    dimensionType: item.dimensionType || item.dimensionItemType,
-                    code: item.code,
-                }
-
-                return obj
-            }, {})
-
-        dispatch(acAddMetadata(itemsMetadata))
+        )
         dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
