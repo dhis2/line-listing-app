@@ -1,3 +1,10 @@
+# [102.1.0](https://github.com/dhis2/line-listing-app/compare/v102.0.2...v102.1.0) (2025-03-18)
+
+
+### Features
+
+* full OU functionality for DEs and TEAs of type OU ([#651](https://github.com/dhis2/line-listing-app/issues/651)) ([ef2ec72](https://github.com/dhis2/line-listing-app/commit/ef2ec7274215abb6f2c0dc59404e157fa07132ce))
+
 ## [102.0.2](https://github.com/dhis2/line-listing-app/compare/v102.0.1...v102.0.2) (2025-03-18)
 
 
