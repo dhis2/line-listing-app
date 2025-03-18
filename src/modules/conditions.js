@@ -24,7 +24,6 @@ import {
     ouIdHelper,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import metadata from '../reducers/metadata.js'
 import { formatDimensionId } from './dimensionId.js'
 
 // parse e.g. 'LT:25:GT:15' to ['LT:25', 'GT:15']
