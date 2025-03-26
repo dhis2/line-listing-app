@@ -3,10 +3,11 @@ import {
     ouIdHelper,
     useCachedDataQuery,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
-import { OrganisationUnitTree } from '@dhis2/ui'
+import { useConfig, useDataQuery } from '@dhis2/app-runtime'
+import i18n from '@dhis2/d2-i18n'
+import { NoticeBox, OrganisationUnitTree, CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { acAddMetadata } from '../../../actions/metadata.js'
 import { acAddParentGraphMap } from '../../../actions/ui.js'
@@ -15,8 +16,24 @@ import { getOuPath, removeLastPathSegment } from '../../../modules/orgUnit.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { sGetMetadata } from '../../../reducers/metadata.js'
 import { sGetUiParentGraphMap } from '../../../reducers/ui.js'
+import styles from './styles/OrgUnitCondition.module.css'
 
 // VERSION-TOGGLE: remove when 42 is lowest supported version
+const ouPathQuery = {
+    organisationUnit: {
+        resource: 'organisationUnits',
+        id: ({ id }) => id,
+        params: {
+            fields: ['id', 'path'],
+        },
+    },
+}
+const parseParentGraphMapItem = (id, fullPath) => {
+    const path = removeLastPathSegment(fullPath)
+
+    return path === `/${id}` ? '' : path.replace(/^\//, '')
+}
+
 const OrgUnitConditionMaxVersionV41 = ({
     addMetadata,
     addParentGraphMap,
@@ -26,57 +43,88 @@ const OrgUnitConditionMaxVersionV41 = ({
     parentGraphMap,
 }) => {
     const { rootOrgUnits } = useCachedDataQuery()
+    const { loading, error, refetch } = useDataQuery(ouPathQuery, {
+        lazy: true,
+        onComplete: ({ organisationUnit: { id, path } }) => {
+            addParentGraphMap({ [id]: parseParentGraphMapItem(id, path) })
+        },
+        onError: () => {
+            /* When details of the selected item cannot be fetched we cannot
+             * show the previously selected item in the tree so it is better
+             * to clear the selection so what the user sees reflects reality */
+            onChange('')
+        },
+    })
     const parts = condition.split(':')
-    const value = parts[1]?.length && parts[1]
+    const selectedOuId = parts[1]?.length && parts[1]
+    const selectedOuPath = getOuPath(selectedOuId, metadata, parentGraphMap)
 
     const setValues = (item) => {
         if (item.checked) {
-            const forMetadata = {}
-            const forParentGraphMap = {}
-
-            forMetadata[item.id] = {
-                id: item.id,
-                name: item.name || item.displayName,
-                displayName: item.displayName,
-            }
+            addMetadata({
+                [item.id]: {
+                    id: item.id,
+                    name: item.name || item.displayName,
+                    displayName: item.displayName,
+                },
+            })
 
             if (item.path) {
-                const path = removeLastPathSegment(item.path)
-
-                forParentGraphMap[item.id] =
-                    path === `/${item.id}` ? '' : path.replace(/^\//, '')
+                addParentGraphMap({
+                    [item.id]: parseParentGraphMapItem(item.id, item.path),
+                })
             }
 
-            addMetadata(forMetadata)
-            addParentGraphMap(forParentGraphMap)
             onChange(`${OPERATOR_EQUAL}:${item.id}`)
         } else {
             onChange('')
         }
     }
 
-    const selected = value
-        ? {
-              id: value,
-              name: metadata[value].displayName || metadata[value].name,
-              path: getOuPath(value, metadata, parentGraphMap),
-          }
-        : {}
-
     const roots = rootOrgUnits.map((rootOrgUnit) => rootOrgUnit.id)
 
+    useEffect(() => {
+        if (selectedOuId && !selectedOuPath) {
+            refetch({ id: selectedOuId })
+        }
+    }, [selectedOuId, selectedOuPath, refetch])
+
+    if (loading) {
+        return (
+            <div className={styles.loaderContainer}>
+                <CircularLoader small />
+            </div>
+        )
+    }
+
     return (
-        <OrganisationUnitTree
-            roots={roots}
-            initiallyExpanded={[
-                ...(roots.length === 1 ? [`/${roots[0]}`] : []),
-                selected?.path?.substring(0, selected.path.lastIndexOf('/')),
-            ].filter((path) => path)}
-            selected={selected.path && [selected.path]}
-            onChange={(item) => setValues(item)}
-            dataTest="org-unit-tree"
-            singleSelection
-        />
+        <>
+            {error && (
+                <NoticeBox
+                    warning
+                    title={i18n.t('Previous selection was cleared')}
+                    className={styles.warningNoticeBox}
+                >
+                    {i18n.t(
+                        'Fetching details for the previously selected organisation unit failed. We have cleared the selected item but you can make a new selection.'
+                    )}
+                </NoticeBox>
+            )}
+            <OrganisationUnitTree
+                roots={roots}
+                initiallyExpanded={[
+                    ...(roots.length === 1 ? [`/${roots[0]}`] : []),
+                    selectedOuPath?.substring(
+                        0,
+                        selectedOuPath.lastIndexOf('/')
+                    ),
+                ].filter((path) => path)}
+                selected={selectedOuPath && [selectedOuPath]}
+                onChange={(item) => setValues(item)}
+                dataTest="org-unit-tree"
+                singleSelection
+            />
+        </>
     )
 }
 

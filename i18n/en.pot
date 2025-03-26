@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
-"PO-Revision-Date: 2024-06-04T11:01:31.013Z\n"
+"POT-Creation-Date: 2025-03-26T09:14:06.055Z\n"
+"PO-Revision-Date: 2025-03-26T09:14:06.056Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -68,6 +68,16 @@ msgstr "No preset option sets for this data item"
 
 msgid "Choose options"
 msgstr "Choose options"
+
+msgid "Previous selection was cleared"
+msgstr "Previous selection was cleared"
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. We "
+"have cleared the selected item but you can make a new selection."
+msgstr ""
+"Fetching details for the previously selected organisation unit failed. We "
+"have cleared the selected item but you can make a new selection."
 
 msgid "From stages with repeatable events, show values for this data element from:"
 msgstr "From stages with repeatable events, show values for this data element from:"
