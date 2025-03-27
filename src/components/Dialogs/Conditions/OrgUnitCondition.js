@@ -106,7 +106,7 @@ const OrgUnitConditionMaxVersionV41 = ({
                     className={styles.warningNoticeBox}
                 >
                     {i18n.t(
-                        'Fetching details for the previously selected organisation unit failed. We have cleared the selected item but you can make a new selection.'
+                        'Fetching details for the previously selected organisation unit failed. The selected item has been cleared so that a new selection can be made.'
                     )}
                 </NoticeBox>
             )}
