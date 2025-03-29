@@ -1,0 +1,117 @@
+name: 'e2e-smoke'
+
+# Requirements:
+#
+# - Customize environment variables:
+#     BASE_URL_INSTANCES: Set the base url for the instances, e.g. https://test.e2e.dhis2.org
+#     NAME_PATTERN_PROD_INSTANCES: Set the name pattern for your instances. {version} will be replaced by "[majorVersion].[minorVersion]"
+#
+# - Other optional customizations:
+#     containers: Set the matrix containers array for the e2e-prod job. The number of parallel Cypress instances running for each backend version will equal the array length.
+#
+# - Set status check as required:
+#     We recommend setting "e2e-tests-success"  as a required step in your workflow.
+
+on:
+    workflow_call:
+        inputs:
+            should_record:
+                required: false
+                type: boolean
+                default: false
+        secrets:
+            username:
+                required: true
+            password:
+                required: true
+
+env:
+    BASE_URL_INSTANCES: https://test.e2e.dhis2.org
+    NAME_PATTERN_PROD_INSTANCES: 'analytics-{version}'
+
+concurrency:
+    group: e2e-smoke-${{ github.workflow}}-${{ github.ref }}
+    cancel-in-progress: true
+
+defaults:
+    run:
+        shell: bash
+
+jobs:
+    compute-prod-versions:
+        runs-on: ubuntu-latest
+        outputs:
+            versions: ${{ steps.prod-versions.outputs.versions }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Output prod version urls
+              id: prod-versions
+              uses: dhis2/action-supported-legacy-versions@v1
+              with:
+                  instance-url-latest: https://test.e2e.dhis2.org/analytics-dev # can be removed if maxDHIS2Version has been specified
+                  username: ${{ secrets.username }}
+                  password: ${{ secrets.password }}
+
+    e2e-smoke-tests:
+        needs: compute-prod-versions
+        runs-on: ubuntu-latest
+        env:
+            CI_BUILD_ID: ${{ github.sha }}-${{ github.workflow }}-${{ github.event_name }}
+            BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+            PR_TITLE: ${{ github.event.pull_request.title }}
+            DHIS2_VERSION: ${{ matrix.versions }}
+        strategy:
+            fail-fast: false
+            matrix:
+                versions: ${{ fromJSON(needs.compute-prod-versions.outputs.versions) }}
+                containers: [1]
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+            - uses: browser-actions/setup-chrome@v1
+              with:
+                  chrome-version: stable
+            - run: |
+                  echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
+            - name: Compute prod instance url
+              id: instance-url
+              run: |
+                  url=${BASE_URL_INSTANCES%/}/${NAME_PATTERN_PROD_INSTANCES/"{version}"/$version}
+                  echo "url=$url" >> $GITHUB_OUTPUT
+                  echo "url: $url"
+              env:
+                  version: ${{ matrix.versions }}
+
+            - name: Run e2e smoke tests
+              uses: cypress-io/github-action@v5
+              with:
+                  spec: cypress/integration/smoke.cy.js
+                  start: yarn d2-app-scripts start
+                  wait-on: 'http://localhost:3000'
+                  wait-on-timeout: 300
+                  record: false
+                  parallel: false
+                  browser: chrome
+              env:
+                  CI: true
+                  BROWSER: none
+                  CYPRESS_RECORD_KEY: ${{ secrets.recordkey }}
+                  CYPRESS_dhis2BaseUrl: ${{ steps.instance-url.outputs.url }}
+                  CYPRESS_dhis2InstanceVersion: ${{matrix.versions}}
+                  CYPRESS_dhis2Username: ${{ secrets.username }}
+                  CYPRESS_dhis2Password: ${{ secrets.password }}
+                  CYPRESS_networkMode: live
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    e2e-smoke-success:
+        needs: e2e-smoke-tests
+        if: ${{ success() || failure() }}
+        runs-on: ubuntu-latest
+        steps:
+            - run: if [ $result != 'success' ]; then exit 1; fi;
+              env:
+                  result: ${{ needs.e2e-smoke-tests.result }}
