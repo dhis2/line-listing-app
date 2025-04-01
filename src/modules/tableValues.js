@@ -15,6 +15,8 @@ import {
     DIMENSION_ID_INCIDENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_LAST_UPDATED,
+    DIMENSION_ID_CREATED_BY,
+    DIMENSION_ID_LAST_UPDATED_BY,
 } from './dimensionConstants.js'
 import { extractDimensionIdParts } from './dimensionId.js'
 import { getTimeDimensions } from './timeDimensions.js'
@@ -37,6 +39,18 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         )
     ) {
         return getStatusNames()[value] || value
+    }
+
+    // TODO: Remove this when the problem with empty/partial user info is resolved in backend
+    if (
+        [
+            headersMap[DIMENSION_ID_CREATED_BY],
+            headersMap[DIMENSION_ID_LAST_UPDATED_BY],
+        ].includes(header.name)
+    ) {
+        if (value === ',  ()') {
+            return ''
+        }
     }
 
     let valueType = header.valueType
