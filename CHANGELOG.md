@@ -1,3 +1,10 @@
+## [102.1.1](https://github.com/dhis2/line-listing-app/compare/v102.1.0...v102.1.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#668](https://github.com/dhis2/line-listing-app/issues/668)) ([673c6ae](https://github.com/dhis2/line-listing-app/commit/673c6ae20cf1a1fd020be38e876e41cd727f2936))
+
 # [102.1.0](https://github.com/dhis2/line-listing-app/compare/v102.0.2...v102.1.0) (2025-03-18)
 
 
