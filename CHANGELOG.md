@@ -1,3 +1,10 @@
+## [102.1.2](https://github.com/dhis2/line-listing-app/compare/v102.1.1...v102.1.2) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between line lists using the browser address bar [DHIS2-19387] ([#669](https://github.com/dhis2/line-listing-app/issues/669)) ([1d298a7](https://github.com/dhis2/line-listing-app/commit/1d298a7cde39592c0b52de24d8114536b9d5a823))
+
 ## [102.1.1](https://github.com/dhis2/line-listing-app/compare/v102.1.0...v102.1.1) (2025-04-01)
 
 
