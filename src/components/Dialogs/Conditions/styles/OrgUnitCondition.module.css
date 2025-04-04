@@ -1,0 +1,10 @@
+/* VERSION-TOGGLE: remove when 42 is lowest supported version */
+.loaderContainer {
+    min-block-size: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.warningNoticeBox {
+    margin-block-end: var(--spacers-dp8);
+}
