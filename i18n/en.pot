@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-10T19:19:48.205Z\n"
-"PO-Revision-Date: 2025-04-10T19:19:48.207Z\n"
+"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"PO-Revision-Date: 2024-06-04T11:01:31.013Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -349,9 +349,6 @@ msgstr "\"{{- deletedObject}}\" successfully deleted."
 
 msgid "Rename successful"
 msgstr "Rename successful"
-
-msgid "Error renaming visualization"
-msgstr "Error renaming visualization"
 
 msgid "Untitled {{visualizationType}} visualization, {{date}}"
 msgstr "Untitled {{visualizationType}} visualization, {{date}}"

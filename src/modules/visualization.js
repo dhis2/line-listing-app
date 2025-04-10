@@ -170,8 +170,8 @@ const removeDimensionPropsBeforeSaving = (
         return dimension
     })
 
-export const getSaveableVisualization = (vis) => {
-    const visualization = Object.assign({}, vis)
+export const getVisualizationFromCurrent = (current) => {
+    const visualization = Object.assign({}, current)
     const nonSavableOptions = Object.keys(options).filter(
         (option) => !options[option].savable
     )
@@ -193,15 +193,15 @@ export const getSaveableVisualization = (vis) => {
     delete visualization.legacy
 
     // format sorting
-    visualization.sorting = vis.sorting?.length
+    visualization.sorting = current.sorting?.length
         ? [
               {
                   dimension:
                       getDimensionIdFromHeaderName(
-                          vis.sorting[0].dimension,
-                          vis
-                      ) || vis.sorting[0].dimension,
-                  direction: vis.sorting[0].direction.toUpperCase(),
+                          current.sorting[0].dimension,
+                          current
+                      ) || current.sorting[0].dimension,
+                  direction: current.sorting[0].direction.toUpperCase(),
               },
           ]
         : undefined
