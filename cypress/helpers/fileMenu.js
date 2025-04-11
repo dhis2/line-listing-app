@@ -57,14 +57,21 @@ export const renameVisualization = (name, description) => {
 
     cy.getBySel(ITEM_RENAME).click()
 
-    if (name) {
+    if (name !== undefined) {
         clearInput('file-menu-rename-modal-name-content')
-        typeInput('file-menu-rename-modal-name-content', name)
+        if (name.length > 0) {
+            typeInput('file-menu-rename-modal-name-content', name)
+        }
     }
 
-    if (description) {
+    if (description !== undefined) {
         clearTextarea('file-menu-rename-modal-description-content')
-        typeTextarea('file-menu-rename-modal-description-content', description)
+        if (description.length > 0) {
+            typeTextarea(
+                'file-menu-rename-modal-description-content',
+                description
+            )
+        }
     }
 
     cy.getBySel('file-menu-rename-modal-rename').click()

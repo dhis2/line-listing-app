@@ -222,7 +222,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
 
     const [renameVisualization] = useDataMutation(visualizationSaveMutation, {
-        onError,
+        onError: () => onError({ message: i18n.t('Rename failed') }),
     })
 
     return (

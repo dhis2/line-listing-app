@@ -33,7 +33,7 @@ import {
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
-    expectAOTitleToContain,
+    expectAOTitleToContainExact,
     expectTableToBeUpdated,
     expectTableToBeVisible,
     getTableHeaderCells,
@@ -60,12 +60,12 @@ const setupTable = () => {
 describe('rename', () => {
     it('replace existing name works correctly', () => {
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' 2'
+        const UPDATED_AO_NAME = AO_NAME + ' superduper'
         setupTable()
 
         // save
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename')
@@ -75,13 +75,16 @@ describe('rename', () => {
 
         cy.wait('@put-rename')
 
+        cy.getBySel('dhis2-uicore-alertbar')
+            .contains('Rename successful')
+            .should('be.visible')
         expectTableToBeVisible()
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
 
         cy.reload(true)
 
         expectTableToBeVisible()
-        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectAOTitleToContainExact(UPDATED_AO_NAME)
 
         deleteVisualization()
     })
@@ -94,7 +97,7 @@ describe('rename', () => {
 
         // save
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         // rename the AO, adding a description
@@ -102,7 +105,7 @@ describe('rename', () => {
 
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
-        cy.getBySel('details-panel').contains(AO_DESC)
+        cy.getBySel('details-panel').containsExact(AO_DESC)
         clickMenubarInterpretationsButton()
 
         expectTableToBeVisible()
@@ -112,17 +115,23 @@ describe('rename', () => {
 
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
-        cy.getBySel('details-panel').contains(AO_DESC_UPDATED)
+        cy.getBySel('details-panel').containsExact(AO_DESC_UPDATED)
         clickMenubarInterpretationsButton()
 
         expectTableToBeVisible()
 
         // now enter empty strings for the name and description
         renameVisualization('', '')
+
+        clickMenubarInterpretationsButton()
+        cy.getBySel('details-panel').should('be.visible')
+        cy.getBySel('details-panel').containsExact('No description')
+        clickMenubarInterpretationsButton()
+
         cy.reload(true)
 
         // title is not deleted
-        cy.getBySel('titlebar').contains(AO_NAME)
+        cy.getBySel('titlebar').containsExact(AO_NAME)
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
         // description was successfully deleted
@@ -131,17 +140,50 @@ describe('rename', () => {
 
         deleteVisualization()
     })
+
+    it('handles failure when renaming', () => {
+        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
+        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        setupTable()
+
+        // save
+        saveVisualization(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
+        expectTableToBeVisible()
+
+        cy.intercept('PUT', '**/api/*/eventVisualizations/*', {
+            statusCode: 409,
+        }).as('put-rename')
+
+        // rename the AO, changing name only
+        renameVisualization(UPDATED_AO_NAME)
+
+        cy.wait('@put-rename')
+
+        cy.getBySel('dhis2-uicore-alertbar')
+            .contains('Rename failed')
+            .should('be.visible')
+        expectTableToBeVisible()
+        expectAOTitleToContainExact(AO_NAME)
+
+        cy.reload(true)
+
+        expectTableToBeVisible()
+        expectAOTitleToContainExact(AO_NAME)
+
+        deleteVisualization()
+    })
 })
 
 describe('save', () => {
     it('new AO with name saves correctly (event)', () => {
         const AO_NAME = `TEST event ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' 2'
+        const UPDATED_AO_NAME = AO_NAME + ' superduper'
         setupTable()
 
         // save with a name
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         // open AO by name
@@ -151,12 +193,12 @@ describe('save', () => {
 
         // save as with name change
         saveVisualizationAs(UPDATED_AO_NAME)
-        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
         // save as without name change
         saveVisualizationAs()
-        expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
+        expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
         deleteVisualization()
@@ -164,7 +206,7 @@ describe('save', () => {
 
     it(['>=41'], 'new AO with name saves correctly (TE)', () => {
         const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' 2'
+        const UPDATED_AO_NAME = AO_NAME + ' superduper'
 
         // set up a simple TE line list
         goToStartPage()
@@ -178,7 +220,7 @@ describe('save', () => {
 
         // save with a name
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         // open AO by name
@@ -194,12 +236,12 @@ describe('save', () => {
 
         // save as with name change
         saveVisualizationAs(UPDATED_AO_NAME)
-        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
         // save as without name change
         saveVisualizationAs()
-        expectAOTitleToContain(UPDATED_AO_NAME + ' (copy)')
+        expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
         // delete AO to clean up
@@ -212,7 +254,7 @@ describe('save', () => {
 
         // save with a name
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         // apply sorting
@@ -262,7 +304,7 @@ describe('save', () => {
 
         // save with a name
         saveVisualization(AO_NAME)
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
         // apply sorting
@@ -301,24 +343,24 @@ describe('save', () => {
 
         // save without a name
         saveVisualization()
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_1)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_2)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_3)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_4)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_1)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_2)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_3)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_4)
         expectTableToBeVisible()
 
         // save as without name change
         saveVisualizationAs()
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_1)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_2)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_3)
-        expectAOTitleToContain(EXPECTED_AO_NAME_PART_4)
-        expectAOTitleToContain('(copy)')
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_1)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_2)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_3)
+        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_4)
+        expectAOTitleToContainExact('(copy)')
         expectTableToBeVisible()
 
         // save as with name change
         saveVisualizationAs(UPDATED_AO_NAME)
-        expectAOTitleToContain(UPDATED_AO_NAME)
+        expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
         deleteVisualization()
@@ -330,11 +372,11 @@ describe('save', () => {
 
         // opens an AO created by others
         goToAO('MKwZRjXiyAJ')
-        expectAOTitleToContain(AO_NAME)
+        expectAOTitleToContainExact(AO_NAME)
 
         // saves AO using "Save As"
         saveVisualizationAs(COPIED_AO_NAME)
-        expectAOTitleToContain(COPIED_AO_NAME)
+        expectAOTitleToContainExact(COPIED_AO_NAME)
         expectTableToBeVisible()
 
         // edits the AO
@@ -349,7 +391,7 @@ describe('save', () => {
 
         // saves AO using "Save"
         resaveVisualization()
-        expectAOTitleToContain(COPIED_AO_NAME)
+        expectAOTitleToContainExact(COPIED_AO_NAME)
         expectTableToBeVisible()
 
         // deletes AO
