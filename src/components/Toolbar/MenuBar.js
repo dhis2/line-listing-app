@@ -125,7 +125,6 @@ export const MenuBar = ({ onFileMenuAction }) => {
         updatedVisualization.description = updatedCurrent.description =
             visToSave.description
 
-
         setVisualization(updatedVisualization)
 
         if (visualization === current) {

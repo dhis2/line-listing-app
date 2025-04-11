@@ -68,14 +68,12 @@ describe('rename', () => {
         expectAOTitleToContain(AO_NAME)
         expectTableToBeVisible()
 
-        cy.intercept('PATCH', '**/api/*/eventVisualizations/*').as(
-            'patch-rename'
-        )
+        cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename')
 
         // rename the AO, changing name only
         renameVisualization(UPDATED_AO_NAME)
 
-        cy.wait('@patch-rename')
+        cy.wait('@put-rename')
 
         expectTableToBeVisible()
         expectAOTitleToContain(AO_NAME)
@@ -88,7 +86,7 @@ describe('rename', () => {
         deleteVisualization()
     })
 
-    it('add non existing description works correctly', () => {
+    it('add and change and delete name and description', () => {
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
         const AO_DESC = 'with description'
         const AO_DESC_UPDATED = AO_DESC + ' edited'
@@ -118,6 +116,18 @@ describe('rename', () => {
         clickMenubarInterpretationsButton()
 
         expectTableToBeVisible()
+
+        // now enter empty strings for the name and description
+        renameVisualization('', '')
+        cy.reload(true)
+
+        // title is not deleted
+        cy.getBySel('titlebar').contains(AO_NAME)
+        clickMenubarInterpretationsButton()
+        cy.getBySel('details-panel').should('be.visible')
+        // description was successfully deleted
+        cy.getBySel('details-panel').contains('No description')
+        clickMenubarInterpretationsButton()
 
         deleteVisualization()
     })
