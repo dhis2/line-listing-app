@@ -7,6 +7,13 @@ export const expectAOTitleToContain = (value) =>
         .and('be.visible')
         .and('contain', value)
 
+export const expectAOTitleToContainExact = (value) =>
+    cy
+        .getBySel('titlebar')
+        .containsExact(value)
+        .should('have.length', 1)
+        .and('be.visible')
+
 const getLineListTable = () => cy.getBySel('line-list-table', EXTENDED_TIMEOUT)
 
 export const getTableHeaderCells = () => getLineListTable().find('th')

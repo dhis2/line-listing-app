@@ -22,7 +22,7 @@ import {
 import {
     STATE_DIRTY,
     STATE_UNSAVED,
-    getVisualizationFromCurrent,
+    getSaveableVisualization,
     getVisualizationState,
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
@@ -31,7 +31,7 @@ import { ToolbarDownloadDropdown } from '../DownloadMenu/index.js'
 import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager.js'
 import ViewDropDown from './ViewDropDown.js'
 
-const visualizationSaveMutation = {
+const visualizationSaveAsMutation = {
     type: 'create',
     resource: 'eventVisualizations',
     data: ({ visualization }) => visualization,
@@ -41,7 +41,7 @@ const visualizationSaveMutation = {
     },
 }
 
-const visualizationSaveAsMutation = {
+const visualizationSaveMutation = {
     type: 'update',
     resource: 'eventVisualizations',
     id: ({ visualization }) => visualization.id,
@@ -110,21 +110,20 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const onRename = ({ name, description }) => {
+    const onRename = async ({ name, description }) => {
+        const visToSave = getSaveableVisualization(visualization)
+
+        visToSave.name = name || visToSave.name
+        visToSave.description = description
+
+        await renameVisualization({ visualization: visToSave })
+
         const updatedVisualization = { ...visualization }
         const updatedCurrent = { ...current }
 
-        if (name) {
-            updatedVisualization.name = updatedCurrent.name = name
-        }
-
-        if (description) {
-            updatedVisualization.description = updatedCurrent.description =
-                description
-        } else {
-            delete updatedVisualization.description
-            delete updatedCurrent.description
-        }
+        updatedVisualization.name = updatedCurrent.name = visToSave.name
+        updatedVisualization.description = updatedCurrent.description =
+            visToSave.description
 
         setVisualization(updatedVisualization)
 
@@ -144,7 +143,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
     }
 
     const onSave = (details = {}, copy = false) => {
-        const visualization = getVisualizationFromCurrent(current)
+        const visualization = getSaveableVisualization(current)
 
         visualization.name =
             // name provided in Save dialog
@@ -213,13 +212,17 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const [postVisualization] = useDataMutation(visualizationSaveMutation, {
+    const [postVisualization] = useDataMutation(visualizationSaveAsMutation, {
         onComplete: onSaveComplete,
         onError,
     })
-    const [putVisualization] = useDataMutation(visualizationSaveAsMutation, {
+    const [putVisualization] = useDataMutation(visualizationSaveMutation, {
         onComplete: (res) => onSaveComplete(res, true),
         onError,
+    })
+
+    const [renameVisualization] = useDataMutation(visualizationSaveMutation, {
+        onError: () => onError({ message: i18n.t('Rename failed') }),
     })
 
     return (
