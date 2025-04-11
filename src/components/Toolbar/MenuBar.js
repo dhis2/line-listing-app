@@ -6,7 +6,7 @@ import {
     preparePayloadForSaveAs,
     HoverMenuBar,
 } from '@dhis2/analytics'
-import { useAlert, useDataMutation, useDataEngine } from '@dhis2/app-runtime'
+import { useAlert, useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
@@ -54,7 +54,6 @@ const visualizationSaveMutation = {
 
 export const MenuBar = ({ onFileMenuAction }) => {
     const dispatch = useDispatch()
-    const engine = useDataEngine()
     const current = useSelector(sGetCurrent)
     const visualization = useSelector(sGetVisualization)
     const { currentUser } = useCachedDataQuery()
@@ -120,58 +119,35 @@ export const MenuBar = ({ onFileMenuAction }) => {
             visToSave.description = description
         }
 
-        const mutation = {
-            type: 'update',
-            resource: 'eventVisualizations',
-            id: visToSave.id,
-            data: visToSave,
-            params: {
-                skipTranslations: true,
-                skipSharing: true,
+        await renameVisualization({ visualization: visToSave })
+
+        const updatedVisualization = { ...visualization }
+        const updatedCurrent = { ...current }
+
+        if (name) {
+            updatedVisualization.name = updatedCurrent.name = name
+        }
+
+        if (description) {
+            updatedVisualization.description = updatedCurrent.description =
+                description
+        }
+
+        setVisualization(updatedVisualization)
+
+        if (visualization === current) {
+            setCurrent(updatedVisualization)
+        } else {
+            setCurrent(updatedCurrent)
+        }
+
+        showAlert({
+            message: i18n.t('Rename successful'),
+            options: {
+                success: true,
+                duration: 2000,
             },
-        }
-
-        try {
-            const res = await engine.mutate(mutation)
-            if (res.status === 'OK' && res.response.uid) {
-                const updatedVisualization = { ...visualization }
-                const updatedCurrent = { ...current }
-
-                if (name) {
-                    updatedVisualization.name = updatedCurrent.name = name
-                }
-
-                if (description) {
-                    updatedVisualization.description =
-                        updatedCurrent.description = description
-                }
-
-                setVisualization(updatedVisualization)
-
-                if (visualization === current) {
-                    setCurrent(updatedVisualization)
-                } else {
-                    setCurrent(updatedCurrent)
-                }
-
-                showAlert({
-                    message: i18n.t('Rename successful'),
-                    options: {
-                        success: true,
-                        duration: 2000,
-                    },
-                })
-            }
-        } catch (e) {
-            console.error('Error renaming visualization:', e)
-            showAlert({
-                message: i18n.t('Error renaming visualization'),
-                options: {
-                    error: true,
-                },
-            })
-            return
-        }
+        })
     }
 
     const onSave = (details = {}, copy = false) => {
@@ -250,6 +226,10 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
     const [putVisualization] = useDataMutation(visualizationSaveMutation, {
         onComplete: (res) => onSaveComplete(res, true),
+        onError,
+    })
+
+    const [renameVisualization] = useDataMutation(visualizationSaveMutation, {
         onError,
     })
 
