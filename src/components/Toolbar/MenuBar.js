@@ -114,24 +114,17 @@ export const MenuBar = ({ onFileMenuAction }) => {
         const visToSave = getSaveableVisualization(visualization)
 
         visToSave.name = name || visToSave.name
-
-        if (description) {
-            visToSave.description = description
-        }
+        visToSave.description = description
 
         await renameVisualization({ visualization: visToSave })
 
         const updatedVisualization = { ...visualization }
         const updatedCurrent = { ...current }
 
-        if (name) {
-            updatedVisualization.name = updatedCurrent.name = name
-        }
+        updatedVisualization.name = updatedCurrent.name = visToSave.name
+        updatedVisualization.description = updatedCurrent.description =
+            visToSave.description
 
-        if (description) {
-            updatedVisualization.description = updatedCurrent.description =
-                description
-        }
 
         setVisualization(updatedVisualization)
 
