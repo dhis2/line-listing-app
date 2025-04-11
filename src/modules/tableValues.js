@@ -46,11 +46,10 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         [
             headersMap[DIMENSION_ID_CREATED_BY],
             headersMap[DIMENSION_ID_LAST_UPDATED_BY],
-        ].includes(header.name)
+        ].includes(header.name) &&
+        value === ',  ()'
     ) {
-        if (value === ',  ()') {
-            return ''
-        }
+        return ''
     }
 
     let valueType = header.valueType
