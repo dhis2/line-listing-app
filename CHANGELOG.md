@@ -1,3 +1,10 @@
+## [102.1.3](https://github.com/dhis2/line-listing-app/compare/v102.1.2...v102.1.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* save the rename in the app instead of the analytics library ([811de13](https://github.com/dhis2/line-listing-app/commit/811de13ef0b2c2c39de1966878b8781f9159f2e6))
+
 ## [102.1.2](https://github.com/dhis2/line-listing-app/compare/v102.1.1...v102.1.2) (2025-04-04)
 
 
