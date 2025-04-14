@@ -11,7 +11,7 @@ export const VisualizationPluginWrapper = ({
 
     const onDataSorted = useCallback(
         (sorting) => {
-            let newSorting = undefined
+            let newSorting
 
             if (sorting.direction !== 'default') {
                 newSorting = getAdaptedUiSorting(sorting, originalVisualization)
