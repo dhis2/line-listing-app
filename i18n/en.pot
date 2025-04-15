@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-11T09:25:19.421Z\n"
-"PO-Revision-Date: 2025-04-11T09:25:19.422Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
+"PO-Revision-Date: 2025-04-15T10:46:20.008Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -349,9 +349,6 @@ msgstr "\"{{- deletedObject}}\" successfully deleted."
 
 msgid "Rename successful"
 msgstr "Rename successful"
-
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Untitled {{visualizationType}} visualization, {{date}}"
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "

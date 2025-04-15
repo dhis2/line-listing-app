@@ -1,12 +1,12 @@
 import {
     VIS_TYPE_LINE_LIST,
-    getDisplayNameByVisType,
     useCachedDataQuery,
     FileMenu,
     preparePayloadForSaveAs,
+    preparePayloadForSave,
     HoverMenuBar,
 } from '@dhis2/analytics'
-import { useAlert, useDataMutation } from '@dhis2/app-runtime'
+import { useAlert, useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
@@ -54,6 +54,7 @@ const visualizationSaveMutation = {
 
 export const MenuBar = ({ onFileMenuAction }) => {
     const dispatch = useDispatch()
+    const engine = useDataEngine()
     const current = useSelector(sGetCurrent)
     const visualization = useSelector(sGetVisualization)
     const { currentUser } = useCachedDataQuery()
@@ -111,10 +112,13 @@ export const MenuBar = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        const visToSave = getSaveableVisualization(visualization)
-
-        visToSave.name = name || visToSave.name
-        visToSave.description = description
+        const vis = getSaveableVisualization(visualization)
+        const visToSave = await preparePayloadForSave({
+            visualization: vis,
+            name,
+            description,
+            engine,
+        })
 
         await renameVisualization({ visualization: visToSave })
 
@@ -142,34 +146,27 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const onSave = (details = {}, copy = false) => {
+    const onSave = async (details = {}, copy = false) => {
+        const { name, description } = details
         const visualization = getSaveableVisualization(current)
-
-        visualization.name =
-            // name provided in Save dialog
-            details.name ||
-            // existing name when saving the same modified visualization
-            visualization.name ||
-            // new visualization with no name provided in Save dialog
-            i18n.t('Untitled {{visualizationType}} visualization, {{date}}', {
-                visualizationType: getDisplayNameByVisType(VIS_TYPE_LINE_LIST),
-                date: new Date().toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: '2-digit',
-                }),
-            })
-
-        if (details.description) {
-            visualization.description = details.description
-        }
 
         if (copy) {
             postVisualization({
-                visualization: preparePayloadForSaveAs(visualization),
+                visualization: preparePayloadForSaveAs({
+                    visualization,
+                    name,
+                    description,
+                }),
             })
         } else {
-            putVisualization({ visualization })
+            putVisualization({
+                visualization: await preparePayloadForSave({
+                    visualization,
+                    name,
+                    description,
+                    engine,
+                }),
+            })
         }
     }
 
