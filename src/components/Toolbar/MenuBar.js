@@ -112,9 +112,8 @@ export const MenuBar = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        const vis = getSaveableVisualization(visualization)
         const visToSave = await preparePayloadForSave({
-            visualization: vis,
+            visualization: getSaveableVisualization(visualization),
             name,
             description,
             engine,
@@ -148,12 +147,11 @@ export const MenuBar = ({ onFileMenuAction }) => {
 
     const onSave = async (details = {}, copy = false) => {
         const { name, description } = details
-        const visualization = getSaveableVisualization(current)
 
         if (copy) {
             postVisualization({
                 visualization: preparePayloadForSaveAs({
-                    visualization,
+                    visualization: getSaveableVisualization(current),
                     name,
                     description,
                 }),
@@ -161,7 +159,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
         } else {
             putVisualization({
                 visualization: await preparePayloadForSave({
-                    visualization,
+                    visualization: getSaveableVisualization(current),
                     name,
                     description,
                     engine,
