@@ -1,7 +1,4 @@
-import { enableAutoLogin } from '@dhis2/cypress-commands'
 import './commands.js'
-
-enableAutoLogin()
 
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
@@ -40,6 +37,10 @@ const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
 before(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const username = Cypress.env('dhis2Username')
+    const password = Cypress.env('dhis2Password')
+
+    cy.loginByApi({ username, password, baseUrl })
 
     cy.getAllCookies()
         .should((cookies) => {
