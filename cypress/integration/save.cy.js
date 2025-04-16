@@ -100,8 +100,10 @@ describe('rename', () => {
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
+        cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename')
         // rename the AO, adding a description
         renameVisualization(AO_NAME, AO_DESC)
+        cy.wait('@put-rename')
 
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
@@ -110,8 +112,10 @@ describe('rename', () => {
 
         expectTableToBeVisible()
 
+        cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename2')
         // rename the AO, replacing the description
         renameVisualization(AO_NAME, AO_DESC_UPDATED)
+        cy.wait('@put-rename2')
 
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
@@ -120,8 +124,10 @@ describe('rename', () => {
 
         expectTableToBeVisible()
 
+        cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename3')
         // now enter empty strings for the name and description
         renameVisualization('', '')
+        cy.wait('@put-rename3')
 
         clickMenubarInterpretationsButton()
         cy.getBySel('details-panel').should('be.visible')
