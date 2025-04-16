@@ -37,7 +37,7 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#f0017a913a9df82dd7f11ba4a4d661a8ec45b303",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#23de6032b5952a2a9fa3752c0f1bd25587ca017f",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/ui": "^9.15.0",
         "@dnd-kit/core": "^5.0.3",
