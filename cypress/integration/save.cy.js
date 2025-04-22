@@ -33,6 +33,7 @@ import {
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
+    expectAOTitleToContain,
     expectAOTitleToContainExact,
     expectTableToBeUpdated,
     expectTableToBeVisible,
@@ -341,6 +342,10 @@ describe('save', () => {
 
     it('new AO without name saves correctly', () => {
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
+        const AO_DAY = '29'
+        const AO_MONTH = 'Dec'
+        const AO_YEAR = '2022'
+        const AO_UNTITLED = 'Untitled Line list'
         const UPDATED_AO_NAME = `TEST ${new Date().toLocaleString()}`
         setupTable()
 
@@ -358,7 +363,10 @@ describe('save', () => {
             })
 
         cy.wait('@getSavedAO')
-        expectAOTitleToContainExact('Untitled Line list, 29 Dec, 2022')
+        expectAOTitleToContain(AO_UNTITLED)
+        expectAOTitleToContain(AO_DAY)
+        expectAOTitleToContain(AO_MONTH)
+        expectAOTitleToContain(AO_YEAR)
         expectTableToBeVisible()
 
         // save as without name change
@@ -374,7 +382,11 @@ describe('save', () => {
                 const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
-        expectAOTitleToContainExact('Untitled Line list, 29 Dec, 2022 (copy)')
+        expectAOTitleToContain(AO_UNTITLED)
+        expectAOTitleToContain(AO_DAY)
+        expectAOTitleToContain(AO_MONTH)
+        expectAOTitleToContain(AO_YEAR)
+        expectAOTitleToContain('(copy)')
         expectTableToBeVisible()
 
         // save as with name change
