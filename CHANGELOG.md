@@ -1,3 +1,10 @@
+## [102.1.5](https://github.com/dhis2/line-listing-app/compare/v102.1.4...v102.1.5) (2025-04-22)
+
+
+### Bug Fixes
+
+* not possible to delete the description of a line list in the Rename dialog [DHIS2-19433] ([#672](https://github.com/dhis2/line-listing-app/issues/672)) ([ec2c933](https://github.com/dhis2/line-listing-app/commit/ec2c933066edefa8770a513d793350c77f60fd91))
+
 ## [102.1.4](https://github.com/dhis2/line-listing-app/compare/v102.1.3...v102.1.4) (2025-04-14)
 
 
