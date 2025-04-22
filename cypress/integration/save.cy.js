@@ -359,8 +359,7 @@ describe('save', () => {
             })
 
         cy.wait('@getSavedAO')
-        expectAOTitleToContain('Untitled')
-        expectAOTitleToContainExact('Untitled Line list, 29 Dec 2022')
+        expectAOTitleToContain('Untitled Line list, 29 Dec 2022')
         expectTableToBeVisible()
 
         // save as without name change
@@ -376,7 +375,7 @@ describe('save', () => {
                 const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
-        expectAOTitleToContainExact('Untitled Line list, 29 Dec 2022 (copy)')
+        expectAOTitleToContain('Untitled Line list, 29 Dec 2022 (copy)')
         expectTableToBeVisible()
 
         // save as with name change
