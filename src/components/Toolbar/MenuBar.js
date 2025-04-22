@@ -1,12 +1,12 @@
 import {
     VIS_TYPE_LINE_LIST,
-    getDisplayNameByVisType,
     useCachedDataQuery,
     FileMenu,
     preparePayloadForSaveAs,
+    preparePayloadForSave,
     HoverMenuBar,
 } from '@dhis2/analytics'
-import { useAlert, useDataMutation } from '@dhis2/app-runtime'
+import { useAlert, useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
@@ -22,7 +22,7 @@ import {
 import {
     STATE_DIRTY,
     STATE_UNSAVED,
-    getVisualizationFromCurrent,
+    getSaveableVisualization,
     getVisualizationState,
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
@@ -31,7 +31,7 @@ import { ToolbarDownloadDropdown } from '../DownloadMenu/index.js'
 import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager.js'
 import ViewDropDown from './ViewDropDown.js'
 
-const visualizationSaveMutation = {
+const visualizationSaveAsMutation = {
     type: 'create',
     resource: 'eventVisualizations',
     data: ({ visualization }) => visualization,
@@ -41,7 +41,7 @@ const visualizationSaveMutation = {
     },
 }
 
-const visualizationSaveAsMutation = {
+const visualizationSaveMutation = {
     type: 'update',
     resource: 'eventVisualizations',
     id: ({ visualization }) => visualization.id,
@@ -54,6 +54,7 @@ const visualizationSaveAsMutation = {
 
 export const MenuBar = ({ onFileMenuAction }) => {
     const dispatch = useDispatch()
+    const engine = useDataEngine()
     const current = useSelector(sGetCurrent)
     const visualization = useSelector(sGetVisualization)
     const { currentUser } = useCachedDataQuery()
@@ -110,21 +111,22 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const onRename = ({ name, description }) => {
+    const onRename = async ({ name, description }) => {
+        const visToSave = await preparePayloadForSave({
+            visualization: getSaveableVisualization(visualization),
+            name,
+            description,
+            engine,
+        })
+
+        await renameVisualization({ visualization: visToSave })
+
         const updatedVisualization = { ...visualization }
         const updatedCurrent = { ...current }
 
-        if (name) {
-            updatedVisualization.name = updatedCurrent.name = name
-        }
-
-        if (description) {
-            updatedVisualization.description = updatedCurrent.description =
-                description
-        } else {
-            delete updatedVisualization.description
-            delete updatedCurrent.description
-        }
+        updatedVisualization.name = updatedCurrent.name = visToSave.name
+        updatedVisualization.description = updatedCurrent.description =
+            visToSave.description
 
         setVisualization(updatedVisualization)
 
@@ -143,34 +145,26 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const onSave = (details = {}, copy = false) => {
-        const visualization = getVisualizationFromCurrent(current)
-
-        visualization.name =
-            // name provided in Save dialog
-            details.name ||
-            // existing name when saving the same modified visualization
-            visualization.name ||
-            // new visualization with no name provided in Save dialog
-            i18n.t('Untitled {{visualizationType}} visualization, {{date}}', {
-                visualizationType: getDisplayNameByVisType(VIS_TYPE_LINE_LIST),
-                date: new Date().toLocaleDateString(undefined, {
-                    year: 'numeric',
-                    month: 'short',
-                    day: '2-digit',
-                }),
-            })
-
-        if (details.description) {
-            visualization.description = details.description
-        }
+    const onSave = async (details = {}, copy = false) => {
+        const { name, description } = details
 
         if (copy) {
             postVisualization({
-                visualization: preparePayloadForSaveAs(visualization),
+                visualization: preparePayloadForSaveAs({
+                    visualization: getSaveableVisualization(current),
+                    name,
+                    description,
+                }),
             })
         } else {
-            putVisualization({ visualization })
+            putVisualization({
+                visualization: await preparePayloadForSave({
+                    visualization: getSaveableVisualization(current),
+                    name,
+                    description,
+                    engine,
+                }),
+            })
         }
     }
 
@@ -213,13 +207,17 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
     }
 
-    const [postVisualization] = useDataMutation(visualizationSaveMutation, {
+    const [postVisualization] = useDataMutation(visualizationSaveAsMutation, {
         onComplete: onSaveComplete,
         onError,
     })
-    const [putVisualization] = useDataMutation(visualizationSaveAsMutation, {
+    const [putVisualization] = useDataMutation(visualizationSaveMutation, {
         onComplete: (res) => onSaveComplete(res, true),
         onError,
+    })
+
+    const [renameVisualization] = useDataMutation(visualizationSaveMutation, {
+        onError: () => onError({ message: i18n.t('Rename failed') }),
     })
 
     return (
