@@ -39,6 +39,7 @@ import {
     getTableHeaderCells,
     getTableRows,
 } from '../helpers/table.js'
+import { getApiBaseUrl } from '../support/util.js'
 
 const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
@@ -340,36 +341,66 @@ describe('save', () => {
 
     it('new AO without name saves correctly', () => {
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
-        const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list'
-        const EXPECTED_AO_NAME_PART_2 = '29'
-        const EXPECTED_AO_NAME_PART_3 = 'Dec'
-        const EXPECTED_AO_NAME_PART_4 = '2022' // locally the date is "29 Dec 2022" but on CI it's "Dec 29, 2022", so it's split into different parts to cater for both cases
         const UPDATED_AO_NAME = `TEST ${new Date().toLocaleString()}`
         setupTable()
 
+        cy.log('Save for the first time')
         // save without a name
         saveVisualization()
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_1)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_2)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_3)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_4)
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
+        expectAOTitleToContainExact('Untitled Line list, 29 Dec 2022')
         expectTableToBeVisible()
 
         // save as without name change
+        cy.log('Save as without name change')
+        cy.intercept('GET', /eventVisualizations\/[a-zA-Z][a-zA-Z0-9]{10}/).as(
+            'getSavedAsAO'
+        )
         saveVisualizationAs()
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_1)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_2)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_3)
-        expectAOTitleToContainExact(EXPECTED_AO_NAME_PART_4)
-        expectAOTitleToContainExact('(copy)')
+        cy.wait('@getSavedAsAO')
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('secondSavedUid')
+            })
+        expectAOTitleToContainExact('Untitled Line list, 29 Dec 2022 (copy)')
         expectTableToBeVisible()
 
         // save as with name change
+        cy.log('Save as with name change')
         saveVisualizationAs(UPDATED_AO_NAME)
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
         deleteVisualization()
+
+        cy.log('Delete the first saved AO')
+        cy.get('@firstSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
+
+        cy.log('Delete the second saved AO')
+        cy.get('@secondSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
     })
 
     it('"save" a copied AO created by others works after editing', () => {
