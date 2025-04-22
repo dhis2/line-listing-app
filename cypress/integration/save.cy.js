@@ -340,7 +340,7 @@ describe('save', () => {
 
     it('new AO without name saves correctly', () => {
         cy.clock(cy.clock(Date.UTC(2022, 11, 29), ['Date'])) // month is 0-indexed, 11 = December
-        const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list visualization'
+        const EXPECTED_AO_NAME_PART_1 = 'Untitled Line list'
         const EXPECTED_AO_NAME_PART_2 = '29'
         const EXPECTED_AO_NAME_PART_3 = 'Dec'
         const EXPECTED_AO_NAME_PART_4 = '2022' // locally the date is "29 Dec 2022" but on CI it's "Dec 29, 2022", so it's split into different parts to cater for both cases
