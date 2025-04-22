@@ -290,17 +290,17 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
-        // save as without name change
-        saveVisualizationAs()
-        expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
-        expectTableToBeVisible()
-
         cy.url()
             .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
             .then((url) => {
                 const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
+
+        // save as without name change
+        saveVisualizationAs()
+        expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
+        expectTableToBeVisible()
 
         // delete AO to clean up
         deleteVisualization()
