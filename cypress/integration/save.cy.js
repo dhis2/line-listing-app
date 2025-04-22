@@ -33,6 +33,7 @@ import {
 import { selectFixedPeriod, selectRelativePeriod } from '../helpers/period.js'
 import { goToStartPage } from '../helpers/startScreen.js'
 import {
+    expectAOTitleToContain,
     expectAOTitleToContainExact,
     expectTableToBeUpdated,
     expectTableToBeVisible,
@@ -346,6 +347,9 @@ describe('save', () => {
 
         cy.log('Save for the first time')
         // save without a name
+        cy.intercept('GET', /eventVisualizations\/[a-zA-Z][a-zA-Z0-9]{10}/).as(
+            'getSavedAO'
+        )
         saveVisualization()
         cy.url()
             .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
@@ -353,6 +357,9 @@ describe('save', () => {
                 const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
+
+        cy.wait('@getSavedAO')
+        expectAOTitleToContain('Untitled')
         expectAOTitleToContainExact('Untitled Line list, 29 Dec 2022')
         expectTableToBeVisible()
 
