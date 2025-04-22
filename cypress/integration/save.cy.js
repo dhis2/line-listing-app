@@ -194,6 +194,13 @@ describe('save', () => {
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
+
         // open AO by name
         goToStartPage()
         openAOByName(AO_NAME)
@@ -204,12 +211,41 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('secondSavedUid')
+            })
+
         // save as without name change
         saveVisualizationAs()
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
         deleteVisualization()
+
+        cy.log('Delete the first saved AO')
+        cy.get('@firstSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
+
+        cy.log('Delete the second saved AO')
+        cy.get('@secondSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
     })
 
     it(['>=41'], 'new AO with name saves correctly (TE)', () => {
@@ -230,6 +266,13 @@ describe('save', () => {
         saveVisualization(AO_NAME)
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
+
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
 
         // open AO by name
         goToStartPage()
@@ -252,8 +295,37 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('secondSavedUid')
+            })
+
         // delete AO to clean up
         deleteVisualization()
+
+        cy.log('Delete the first saved AO')
+        cy.get('@firstSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
+
+        cy.log('Delete the second saved AO')
+        cy.get('@secondSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
     })
 
     it('new AO with sorted table saves correctly', () => {
@@ -315,6 +387,13 @@ describe('save', () => {
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .then((url) => {
+                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
+
         // apply sorting
         getTableHeaderCells()
             .find(`button[title*="${TEST_DIM_INTEGER}"]`)
@@ -338,6 +417,17 @@ describe('save', () => {
         expectTableToBeVisible()
 
         deleteVisualization()
+
+        cy.log('Delete the first saved AO')
+        cy.get('@firstSavedUid').then((uid) => {
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
+                failOnStatusCode: false, // Prevent test failure if the request fails
+            }).then((response) => {
+                expect(response.status).to.eq(200)
+            })
+        })
     })
 
     it('new AO without name saves correctly', () => {
