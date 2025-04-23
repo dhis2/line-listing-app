@@ -59,6 +59,8 @@ const setupTable = () => {
     expectTableToBeVisible()
 }
 
+const uidRe = /\/[a-zA-Z][a-zA-Z0-9]{10}$/
+
 describe('rename', () => {
     it('replace existing name works correctly', () => {
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
@@ -195,9 +197,9 @@ describe('save', () => {
         expectTableToBeVisible()
 
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
 
@@ -212,9 +214,9 @@ describe('save', () => {
         expectTableToBeVisible()
 
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
 
@@ -268,9 +270,9 @@ describe('save', () => {
         expectTableToBeVisible()
 
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
 
@@ -291,9 +293,9 @@ describe('save', () => {
         expectTableToBeVisible()
 
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
 
@@ -388,9 +390,9 @@ describe('save', () => {
         expectTableToBeVisible()
 
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
 
@@ -446,9 +448,9 @@ describe('save', () => {
         )
         saveVisualization()
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
 
@@ -467,9 +469,9 @@ describe('save', () => {
         saveVisualizationAs()
         cy.wait('@getSavedAsAO')
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
         expectAOTitleToContain(AO_UNTITLED)
