@@ -184,6 +184,8 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
+        deleteVisualization()
     })
 
     it('reflects "saved, valid: data" state', () => {
