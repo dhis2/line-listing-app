@@ -61,6 +61,13 @@ const setupTable = () => {
 
 const uidRe = /\/[a-zA-Z][a-zA-Z0-9]{10}$/
 
+const deleteVisualizationWithUid = (uid) =>
+    cy.request({
+        method: 'DELETE',
+        url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`,
+        failOnStatusCode: false, // carry on even if the delete fails
+    })
+
 describe('rename', () => {
     it('replace existing name works correctly', () => {
         const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
@@ -225,29 +232,10 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
-
-        cy.log('Delete the first saved AO')
-        cy.get('@firstSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
-
-        cy.log('Delete the second saved AO')
-        cy.get('@secondSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it(['>=41'], 'new AO with name saves correctly (TE)', () => {
@@ -304,30 +292,10 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
-        // delete AO to clean up
+        // delete all the saved AOs
         deleteVisualization()
-
-        cy.log('Delete the first saved AO')
-        cy.get('@firstSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
-
-        cy.log('Delete the second saved AO')
-        cy.get('@secondSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('new AO with sorted table saves correctly', () => {
@@ -418,18 +386,9 @@ describe('save', () => {
 
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
-
-        cy.log('Delete the first saved AO')
-        cy.get('@firstSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('new AO without name saves correctly', () => {
@@ -487,29 +446,10 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
-
-        cy.log('Delete the first saved AO')
-        cy.get('@firstSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
-
-        cy.log('Delete the second saved AO')
-        cy.get('@secondSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('"save" a copied AO created by others works after editing', () => {
