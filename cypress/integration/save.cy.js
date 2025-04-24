@@ -59,10 +59,19 @@ const setupTable = () => {
     expectTableToBeVisible()
 }
 
+const uidRe = /\/([a-zA-Z][a-zA-Z0-9]{10})$/
+
+const deleteVisualizationWithUid = (uid) =>
+    cy.request({
+        method: 'DELETE',
+        url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`,
+        failOnStatusCode: false, // carry on even if the delete fails
+    })
+
 describe('rename', () => {
     it('replace existing name works correctly', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `SAVE-${Date.now()}-RENAME`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save
@@ -92,9 +101,9 @@ describe('rename', () => {
     })
 
     it('add and change and delete name and description', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const AO_DESC = 'with description'
-        const AO_DESC_UPDATED = AO_DESC + ' edited'
+        const AO_NAME = `SAVE-${Date.now()}-RENAME`
+        const AO_DESC = 'w/description'
+        const AO_DESC_UPDATED = AO_DESC + '-edited'
         setupTable()
 
         // save
@@ -150,8 +159,8 @@ describe('rename', () => {
     })
 
     it('handles failure when renaming', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `SAVE-${Date.now()}-RENAME`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save
@@ -185,14 +194,21 @@ describe('rename', () => {
 
 describe('save', () => {
     it('new AO with name saves correctly (event)', () => {
-        const AO_NAME = `TEST event ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `SAVE-${Date.now()}-EVENT`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save with a name
         saveVisualization(AO_NAME)
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
+
+        cy.url()
+            .should('match', uidRe)
+            .then((url) => {
+                const uid = url.match(uidRe)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
 
         // open AO by name
         goToStartPage()
@@ -204,17 +220,27 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', uidRe)
+            .then((url) => {
+                const uid = url.match(uidRe)[1]
+                cy.wrap(uid).as('secondSavedUid')
+            })
+
         // save as without name change
         saveVisualizationAs()
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it(['>=41'], 'new AO with name saves correctly (TE)', () => {
-        const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `SAVE-${Date.now()}-TE`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
 
         // set up a simple TE line list
         goToStartPage()
@@ -230,6 +256,13 @@ describe('save', () => {
         saveVisualization(AO_NAME)
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
+
+        cy.url()
+            .should('match', uidRe)
+            .then((url) => {
+                const uid = url.match(uidRe)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
 
         // open AO by name
         goToStartPage()
@@ -247,17 +280,26 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        cy.url()
+            .should('match', uidRe)
+            .then((url) => {
+                const uid = url.match(uidRe)[1]
+                cy.wrap(uid).as('secondSavedUid')
+            })
+
         // save as without name change
         saveVisualizationAs()
         expectAOTitleToContainExact(UPDATED_AO_NAME + ' (copy)')
         expectTableToBeVisible()
 
-        // delete AO to clean up
+        // delete all the saved AOs
         deleteVisualization()
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('new AO with sorted table saves correctly', () => {
-        const AO_NAME = `TEST SORTING ${new Date().toLocaleString()}`
+        const AO_NAME = `SAVE-${Date.now()}-SORTING`
         setupTable()
 
         // save with a name
@@ -307,13 +349,20 @@ describe('save', () => {
     })
 
     it('new AO saves correctly after adding/removing sorting', () => {
-        const AO_NAME = `TEST SORTING TOGGLING ${new Date().toLocaleString()}`
+        const AO_NAME = `SAVE-${Date.now()}-SORTING-TOGGLING`
         setupTable()
 
         // save with a name
         saveVisualization(AO_NAME)
         expectAOTitleToContainExact(AO_NAME)
         expectTableToBeVisible()
+
+        cy.url()
+            .should('match', uidRe)
+            .then((url) => {
+                const uid = url.match(uidRe)[1]
+                cy.wrap(uid).as('firstSavedUid')
+            })
 
         // apply sorting
         getTableHeaderCells()
@@ -337,7 +386,9 @@ describe('save', () => {
 
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('new AO without name saves correctly', () => {
@@ -345,8 +396,8 @@ describe('save', () => {
         const AO_DAY = '29'
         const AO_MONTH = 'Dec'
         const AO_YEAR = '2022'
-        const AO_UNTITLED = 'Untitled Line list'
-        const UPDATED_AO_NAME = `TEST ${new Date().toLocaleString()}`
+        const AO_UNTITLED = 'Untitled'
+        const UPDATED_AO_NAME = `SAVE-${Date.now()}-NONAME`
         setupTable()
 
         cy.log('Save for the first time')
@@ -356,9 +407,9 @@ describe('save', () => {
         )
         saveVisualization()
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('firstSavedUid')
             })
 
@@ -377,9 +428,9 @@ describe('save', () => {
         saveVisualizationAs()
         cy.wait('@getSavedAsAO')
         cy.url()
-            .should('match', /\/[a-zA-Z][a-zA-Z0-9]{10}$/)
+            .should('match', uidRe)
             .then((url) => {
-                const uid = url.match(/\/([a-zA-Z][a-zA-Z0-9]{10})$/)[1]
+                const uid = url.match(uidRe)[1]
                 cy.wrap(uid).as('secondSavedUid')
             })
         expectAOTitleToContain(AO_UNTITLED)
@@ -395,34 +446,15 @@ describe('save', () => {
         expectAOTitleToContainExact(UPDATED_AO_NAME)
         expectTableToBeVisible()
 
+        // delete all the saved AOs
         deleteVisualization()
-
-        cy.log('Delete the first saved AO')
-        cy.get('@firstSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
-
-        cy.log('Delete the second saved AO')
-        cy.get('@secondSavedUid').then((uid) => {
-            cy.request({
-                method: 'DELETE',
-                url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`, // Replace with the correct API endpoint
-                failOnStatusCode: false, // Prevent test failure if the request fails
-            }).then((response) => {
-                expect(response.status).to.eq(200)
-            })
-        })
+        cy.get('@firstSavedUid').then(deleteVisualizationWithUid)
+        cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
     it('"save" a copied AO created by others works after editing', () => {
         const AO_NAME = 'E2E: Enrollment - Percentage'
-        const COPIED_AO_NAME = `${AO_NAME} - copied ${new Date().toLocaleString()}`
+        const COPIED_AO_NAME = `${AO_NAME}-copied-${Date.now()}`
 
         // opens an AO created by others
         goToAO('MKwZRjXiyAJ')
