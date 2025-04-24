@@ -59,7 +59,7 @@ const setupTable = () => {
     expectTableToBeVisible()
 }
 
-const uidRe = /\/[a-zA-Z][a-zA-Z0-9]{10}$/
+const uidRe = /\/([a-zA-Z][a-zA-Z0-9]{10})$/
 
 const deleteVisualizationWithUid = (uid) =>
     cy.request({
