@@ -166,7 +166,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST-${Date.now()}-valid-save`
+        const AO_NAME = `FILE-MENU-${Date.now()}-VALID-SAVE`
 
         saveVisualization(AO_NAME)
 
@@ -204,7 +204,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST-${Date.now()}-valid-data`
+        const AO_NAME = `FILE-MENU-${Date.now()}-VALID-DATA`
 
         saveVisualization(AO_NAME)
 
@@ -243,7 +243,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST-${Date.now()}-dirty`
+        const AO_NAME = `FILE-MENU-${Date.now()}-DIRTY`
 
         saveVisualization(AO_NAME)
 
