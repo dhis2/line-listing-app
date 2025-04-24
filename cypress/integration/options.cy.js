@@ -222,7 +222,7 @@ describe(['>=40'], 'ou hierarchy', () => {
         getTableRows().eq(0).find('td').eq(0).containsExact(NAME_WITH_HIERARCHY)
 
         // save / load - hierarchy is still shown
-        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+        const AO_NAME = `OPTIONS-${Date.now()}`
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
         expectTableToBeVisible()

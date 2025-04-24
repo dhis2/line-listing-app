@@ -263,7 +263,7 @@ describe('Option set condition', () => {
         // Table and tooltips should show the correct labels for option set
         assertTableChipAndTooltip()
 
-        const AO_NAME = `TEST option set ${new Date().toLocaleString()}`
+        const AO_NAME = `OPTION-SET-${Date.now()}`
         saveVisualization(AO_NAME)
 
         expectAOTitleToContain(AO_NAME)
