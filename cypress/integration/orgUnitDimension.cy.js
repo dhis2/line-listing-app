@@ -195,7 +195,7 @@ describe(`Org unit dimension`, () => {
         ])
 
         cy.log('saves AO')
-        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+        const AO_NAME = `ORGUNIT-DIMENSION-${Date.now()}`
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
 

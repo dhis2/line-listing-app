@@ -70,8 +70,8 @@ const deleteVisualizationWithUid = (uid) =>
 
 describe('rename', () => {
     it('replace existing name works correctly', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `RENAME-${Date.now()}`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save
@@ -101,9 +101,9 @@ describe('rename', () => {
     })
 
     it('add and change and delete name and description', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const AO_DESC = 'with description'
-        const AO_DESC_UPDATED = AO_DESC + ' edited'
+        const AO_NAME = `RENAME-${Date.now()}`
+        const AO_DESC = 'w/description'
+        const AO_DESC_UPDATED = AO_DESC + '-edited'
         setupTable()
 
         // save
@@ -159,8 +159,8 @@ describe('rename', () => {
     })
 
     it('handles failure when renaming', () => {
-        const AO_NAME = `TEST RENAME ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `RENAME-${Date.now()}`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save
@@ -194,8 +194,8 @@ describe('rename', () => {
 
 describe('save', () => {
     it('new AO with name saves correctly (event)', () => {
-        const AO_NAME = `TEST event ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `EVENT-${Date.now()}`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
         setupTable()
 
         // save with a name
@@ -239,8 +239,8 @@ describe('save', () => {
     })
 
     it(['>=41'], 'new AO with name saves correctly (TE)', () => {
-        const AO_NAME = `TEST TE ${new Date().toLocaleString()}`
-        const UPDATED_AO_NAME = AO_NAME + ' superduper'
+        const AO_NAME = `TE-${Date.now()}`
+        const UPDATED_AO_NAME = AO_NAME + '-superduper'
 
         // set up a simple TE line list
         goToStartPage()
@@ -299,7 +299,7 @@ describe('save', () => {
     })
 
     it('new AO with sorted table saves correctly', () => {
-        const AO_NAME = `TEST SORTING ${new Date().toLocaleString()}`
+        const AO_NAME = `SORTING-${Date.now()}`
         setupTable()
 
         // save with a name
@@ -349,7 +349,7 @@ describe('save', () => {
     })
 
     it('new AO saves correctly after adding/removing sorting', () => {
-        const AO_NAME = `TEST SORTING TOGGLING ${new Date().toLocaleString()}`
+        const AO_NAME = `SORTING-TOGGLING-${Date.now()}`
         setupTable()
 
         // save with a name
@@ -396,8 +396,8 @@ describe('save', () => {
         const AO_DAY = '29'
         const AO_MONTH = 'Dec'
         const AO_YEAR = '2022'
-        const AO_UNTITLED = 'Untitled Line list'
-        const UPDATED_AO_NAME = `TEST ${new Date().toLocaleString()}`
+        const AO_UNTITLED = 'Untitled'
+        const UPDATED_AO_NAME = `TEST-${Date.now()}`
         setupTable()
 
         cy.log('Save for the first time')
@@ -454,7 +454,7 @@ describe('save', () => {
 
     it('"save" a copied AO created by others works after editing', () => {
         const AO_NAME = 'E2E: Enrollment - Percentage'
-        const COPIED_AO_NAME = `${AO_NAME} - copied ${new Date().toLocaleString()}`
+        const COPIED_AO_NAME = `${AO_NAME}-copied-${Date.now()}`
 
         // opens an AO created by others
         goToAO('MKwZRjXiyAJ')
