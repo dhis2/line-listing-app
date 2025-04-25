@@ -1,3 +1,24 @@
+## [102.1.7](https://github.com/dhis2/line-listing-app/compare/v102.1.6...v102.1.7) (2025-04-25)
+
+
+### Bug Fixes
+
+* ensure sorting works in interpretation modal (DHIS2-19283) ([#670](https://github.com/dhis2/line-listing-app/issues/670)) ([ccc7453](https://github.com/dhis2/line-listing-app/commit/ccc7453438f04dddf9d4c3eb990c8f16baa2f965))
+
+## [102.1.6](https://github.com/dhis2/line-listing-app/compare/v102.1.5...v102.1.6) (2025-04-24)
+
+
+### Bug Fixes
+
+* use correct icon in most viewed list (DHIS2-18470) ([#678](https://github.com/dhis2/line-listing-app/issues/678)) ([815cead](https://github.com/dhis2/line-listing-app/commit/815cead292b9e352575298cfdf41f578a8a39cd3))
+
+## [102.1.5](https://github.com/dhis2/line-listing-app/compare/v102.1.4...v102.1.5) (2025-04-22)
+
+
+### Bug Fixes
+
+* not possible to delete the description of a line list in the Rename dialog [DHIS2-19433] ([#672](https://github.com/dhis2/line-listing-app/issues/672)) ([ec2c933](https://github.com/dhis2/line-listing-app/commit/ec2c933066edefa8770a513d793350c77f60fd91))
+
 ## [102.1.4](https://github.com/dhis2/line-listing-app/compare/v102.1.3...v102.1.4) (2025-04-14)
 
 
