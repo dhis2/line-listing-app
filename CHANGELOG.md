@@ -1,3 +1,10 @@
+## [102.1.6](https://github.com/dhis2/line-listing-app/compare/v102.1.5...v102.1.6) (2025-04-24)
+
+
+### Bug Fixes
+
+* use correct icon in most viewed list (DHIS2-18470) ([#678](https://github.com/dhis2/line-listing-app/issues/678)) ([815cead](https://github.com/dhis2/line-listing-app/commit/815cead292b9e352575298cfdf41f578a8a39cd3))
+
 ## [102.1.5](https://github.com/dhis2/line-listing-app/compare/v102.1.4...v102.1.5) (2025-04-22)
 
 
