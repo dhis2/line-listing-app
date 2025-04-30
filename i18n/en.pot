@@ -69,6 +69,16 @@ msgstr "No preset option sets for this data item"
 msgid "Choose options"
 msgstr "Choose options"
 
+msgid "Previous selection was cleared"
+msgstr "Previous selection was cleared"
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+
 msgid "From stages with repeatable events, show values for this data element from:"
 msgstr "From stages with repeatable events, show values for this data element from:"
 
