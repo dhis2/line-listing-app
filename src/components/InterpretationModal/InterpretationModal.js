@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
-import { Visualization } from '../Visualization/Visualization.js'
+import { VisualizationPluginWrapper } from '../Visualization/VisualizationPluginWrapper.js'
 import {
     useInterpretationQueryParams,
     removeInterpretationQueryParams,
@@ -34,7 +34,7 @@ const InterpretationModal = ({ onInterpretationUpdate }) => {
             onResponsesReceived={() => setIsVisualizationLoading(false)}
             visualization={visualization}
             downloadMenuComponent={ModalDownloadDropdown}
-            pluginComponent={Visualization}
+            pluginComponent={VisualizationPluginWrapper}
         />
     ) : null
 }
