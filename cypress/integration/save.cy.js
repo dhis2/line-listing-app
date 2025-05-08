@@ -80,17 +80,21 @@ describe('rename', () => {
         expectTableToBeVisible()
 
         cy.intercept('PUT', '**/api/*/eventVisualizations/*').as('put-rename')
+        cy.intercept('GET', '**/api/*/eventVisualizations/*').as('get-rename')
 
         // rename the AO, changing name only
         renameVisualization(UPDATED_AO_NAME)
 
         cy.wait('@put-rename')
 
+        // Get visualization calls: original vis, subscribers, updated name and description
+        cy.get('@get-rename.all').should('have.length', 3)
+
         cy.getBySel('dhis2-uicore-alertbar')
             .contains('Rename successful')
             .should('be.visible')
         expectTableToBeVisible()
-        expectAOTitleToContainExact(AO_NAME)
+        expectAOTitleToContainExact(UPDATED_AO_NAME)
 
         cy.reload(true)
 

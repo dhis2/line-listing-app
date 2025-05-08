@@ -13,12 +13,17 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { tSetCurrent } from '../../actions/current.js'
 import { acSetVisualization } from '../../actions/visualization.js'
+import {
+    apiFetchVisualization,
+    apiFetchVisualizationNameDesc,
+} from '../../api/visualization.js'
 import { getAlertTypeByStatusCode } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import {
     isLayoutValidForSave,
     isLayoutValidForSaveAs,
 } from '../../modules/layoutValidation.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import {
     STATE_DIRTY,
     STATE_UNSAVED,
@@ -112,21 +117,27 @@ export const MenuBar = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
+        const { eventVisualization } = await apiFetchVisualization(
+            engine,
+            visualization.id,
+            currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
+        )
         const visToSave = await preparePayloadForSave({
-            visualization: getSaveableVisualization(visualization),
+            visualization: getSaveableVisualization(eventVisualization),
             name,
             description,
             engine,
         })
 
         await renameVisualization({ visualization: visToSave })
+        const { eventVisNameDesc } = await apiFetchVisualizationNameDesc(
+            engine,
+            visToSave.id
+        )
+        onFileMenuAction()
 
-        const updatedVisualization = { ...visualization }
-        const updatedCurrent = { ...current }
-
-        updatedVisualization.name = updatedCurrent.name = visToSave.name
-        updatedVisualization.description = updatedCurrent.description =
-            visToSave.description
+        const updatedVisualization = { ...visualization, ...eventVisNameDesc }
+        const updatedCurrent = { ...current, ...eventVisNameDesc }
 
         setVisualization(updatedVisualization)
 
@@ -211,6 +222,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
         onComplete: onSaveComplete,
         onError,
     })
+
     const [putVisualization] = useDataMutation(visualizationSaveMutation, {
         onComplete: (res) => onSaveComplete(res, true),
         onError,
