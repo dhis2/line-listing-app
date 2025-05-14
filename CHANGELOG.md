@@ -1,3 +1,10 @@
+## [102.1.8](https://github.com/dhis2/line-listing-app/compare/v102.1.7...v102.1.8) (2025-04-30)
+
+
+### Bug Fixes
+
+* fetch path of selected org-unit if not available ([#665](https://github.com/dhis2/line-listing-app/issues/665)) ([58b7faf](https://github.com/dhis2/line-listing-app/commit/58b7faf20629497470a69492efb0be6c16ec9547))
+
 ## [102.1.7](https://github.com/dhis2/line-listing-app/compare/v102.1.6...v102.1.7) (2025-04-25)
 
 
