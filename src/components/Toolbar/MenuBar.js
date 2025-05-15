@@ -222,7 +222,6 @@ export const MenuBar = ({ onFileMenuAction }) => {
         onComplete: onSaveComplete,
         onError,
     })
-
     const [putVisualization] = useDataMutation(visualizationSaveMutation, {
         onComplete: (res) => onSaveComplete(res, true),
         onError,
