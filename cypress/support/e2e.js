@@ -41,6 +41,8 @@ before(() => {
     const password = Cypress.env('dhis2Password')
 
     cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
 
     cy.getAllCookies()
         .should((cookies) => {
