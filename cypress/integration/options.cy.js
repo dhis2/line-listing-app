@@ -223,6 +223,7 @@ describe('ou hierarchy', () => {
 
         // save / load - hierarchy is still shown
         const AO_NAME = `OPTIONS-${Date.now()}`
+
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
         expectTableToBeVisible()
