@@ -4,7 +4,6 @@ import {
     HoverMenuList,
     HoverMenuListItem,
 } from '@dhis2/analytics'
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import React, { useState } from 'react'
 import { getOptionsByType } from '../../modules/options/config.js'
@@ -12,14 +11,13 @@ import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationCon
 
 const VisualizationOptionsManager = () => {
     const [selectedOptionConfigKey, setSelectedOptionConfigKey] = useState(null)
-    const { serverVersion } = useConfig()
 
     const onOptionsUpdate = (handler) => {
         handler()
         setSelectedOptionConfigKey(null)
     }
 
-    const optionsConfig = getOptionsByType({ serverVersion })
+    const optionsConfig = getOptionsByType()
 
     return (
         <>
