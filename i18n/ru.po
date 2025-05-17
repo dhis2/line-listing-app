@@ -5,15 +5,15 @@
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Ulanbek Abakirov <ulans@mail.ru>, 2024
 # Philip Larsen Donnelly, 2024
-# Yury Rogachev <yury@dhis2.org>, 2024
 # Nadiia <semchuk@aph.org.ua>, 2025
+# Yury Rogachev <yury@dhis2.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Nadiia <semchuk@aph.org.ua>, 2025\n"
+"Last-Translator: Yury Rogachev <yury@dhis2.org>, 2025\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,13 +28,13 @@ msgid "Choose a condition type"
 msgstr ""
 
 msgid "Case sensitive"
-msgstr ""
+msgstr "С учетом регистра"
 
 msgid "Remove"
 msgstr "Убрать"
 
 msgid "and"
-msgstr ""
+msgstr "и"
 
 msgid "Show items that meet the following conditions for this data item:"
 msgstr ""
@@ -54,7 +54,7 @@ msgid "Add another condition"
 msgstr ""
 
 msgid "Add a condition"
-msgstr ""
+msgstr "Добавить условие"
 
 msgid "Repeated events"
 msgstr ""
@@ -78,6 +78,14 @@ msgid "No preset option sets for this data item"
 msgstr ""
 
 msgid "Choose options"
+msgstr ""
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
 msgstr ""
 
 msgid ""
@@ -148,13 +156,13 @@ msgid "XML"
 msgstr "XML"
 
 msgid "Microsoft Excel"
-msgstr ""
+msgstr "Microsoft Excel"
 
 msgid "CSV"
 msgstr "CSV"
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "Загрузите данные с этой даты"
 
 msgid "Metadata ID scheme"
 msgstr "ID Схема метаданных"
@@ -172,7 +180,7 @@ msgid "Download"
 msgstr "Скачать"
 
 msgid "all"
-msgstr ""
+msgstr "все"
 
 msgid "Levels"
 msgstr ""
@@ -359,12 +367,12 @@ msgstr ""
 msgid "Rename successful"
 msgstr "Переименовать удачно"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr ""
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
+msgstr ""
+
+msgid "Rename failed"
 msgstr ""
 
 msgid "Show layout"
