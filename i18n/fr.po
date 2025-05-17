@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Elise Desailly, 2024\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
@@ -91,6 +91,14 @@ msgstr "Aucun ensemble d'options prédéfinies pour cet élément de données"
 
 msgid "Choose options"
 msgstr "Choisir des options"
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -381,15 +389,15 @@ msgstr "\"{{- deletedObject}}\" supprimé avec succès."
 msgid "Rename successful"
 msgstr "Renommer avec succès"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Visualisation {{visualizationType}} sans titre, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Cette visualisation ne peut pas être supprimée car elle est utilisée pour un"
 " ou plusieurs tableaux de bord"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr "Afficher la mise en page"

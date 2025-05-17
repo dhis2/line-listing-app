@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Namwan Chanthavisouk, 2024\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -80,6 +80,14 @@ msgstr "ບໍ່ມີຕົວເລືອກທີ່ຕັ້ງໄວ້ລ
 
 msgid "Choose options"
 msgstr "ເລືອກຕົວເລືອກ"
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -363,15 +371,15 @@ msgstr "\"{{- deletedObject}}\" ລົບສຳເລັດ."
 msgid "Rename successful"
 msgstr "ປ່ຽນຊື່ສຳເລັດແລ້ວ"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "ການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນທີ່ບໍ່ມີຊື່ {{visualizationType}}, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "ບໍ່ສາມາດລົບການສ້າງຮູບພາບດ້ວຍຂໍ້ມູນໄດ້ເນື່ອງຈາກມັນໄດ້ຖືກໃຊ້ໃນໜຶ່ງ ຫຼື "
 "ຫຼາຍກະດານຂ່າວ"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr "ສະແດງໂຄງຮ່າງ"

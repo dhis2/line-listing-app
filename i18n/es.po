@@ -11,13 +11,14 @@
 # Prabhjot Singh, 2024
 # ericbp <ericbarredap@gmail.com>, 2024
 # Janeth Cruz, 2024
+# Pablo Del Médico, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Janeth Cruz, 2024\n"
+"Last-Translator: Pablo Del Médico, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,6 +90,14 @@ msgstr ""
 
 msgid "Choose options"
 msgstr "elegir opciones"
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -380,15 +389,15 @@ msgstr "\"{{- deletedObject}}\" se eliminó con éxito."
 msgid "Rename successful"
 msgstr "Nombre actualizado"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Visualización {{visualizationType}} sin título, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Esta visualización no puede ser eliminada porque es utilizada en uno o más "
 "tableros"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr "Mostrar diseño"
@@ -412,7 +421,7 @@ msgid "View"
 msgstr "Ver"
 
 msgid "Reset sidebar width"
-msgstr ""
+msgstr "Restablecer el ancho de la barra lateral"
 
 msgid "Update"
 msgstr "Actualizar"
