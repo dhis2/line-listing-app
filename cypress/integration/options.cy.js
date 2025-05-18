@@ -183,7 +183,7 @@ describe('options', () => {
     })
 })
 
-describe(['>=40'], 'ou hierarchy', () => {
+describe('ou hierarchy', () => {
     it('sets organisation unit hierarchy', () => {
         const NAME_WITHOUT_HIERARCHY = 'Ngelehun CHC'
         const NAME_WITH_HIERARCHY = 'Sierra Leone / Bo / Badjia / Ngelehun CHC'
@@ -223,6 +223,7 @@ describe(['>=40'], 'ou hierarchy', () => {
 
         // save / load - hierarchy is still shown
         const AO_NAME = `OPTIONS-${Date.now()}`
+
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
         expectTableToBeVisible()
@@ -309,14 +310,16 @@ describe('skip rounding', () => {
     it('sets skip rounding for event', () => {
         testSkipRoundingForEvent('3.12')
     })
-    /* Skip rounding for enrollment is implemented in v39 and v40.
-     * However, in our v39/40 test instances the data we use for this
+    /* Skip rounding for enrollment is implemented in v40.
+     * However, in our v40 test instance the data we use for this
      * test is missing, which makes this test fail.
      * Until https://dhis2.atlassian.net/browse/DHIS2-17884 is resolved,
      * we will have to disable tests for these versions. */
+    // VERSION-TOGGLE
     it(['>=41'], 'sets skip rounding for enrollment (41 and above)', () => {
         testSkipRoundingForEnrollment('3.12')
     })
+    // VERSION-TOGGLE
     it(['>=41'], 'sets skip rounding for tracked entity (41 and above)', () => {
         goToStartPage()
 
