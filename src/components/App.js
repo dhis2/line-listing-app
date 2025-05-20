@@ -26,7 +26,7 @@ import {
     acSetUiAccessoryPanelActiveTab,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
-import { visualizationQuery } from '../api/visualization.js'
+import { apiFetchVisualization } from '../api/visualization.js'
 import { parseCondition, OPERATOR_IN } from '../modules/conditions.js'
 import { EVENT_TYPE } from '../modules/dataStatistics.js'
 import {
@@ -154,14 +154,13 @@ const App = () => {
             const { id } = parseLocation(location)
 
             try {
-                const data = await dataEngine.query(visualizationQuery, {
-                    variables: {
-                        id,
-                        nameProp:
-                            currentUser.settings[
-                                DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
-                            ],
-                    },
+                const data = await apiFetchVisualization({
+                    engine: dataEngine,
+                    id,
+                    nameProp:
+                        currentUser.settings[
+                            DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                        ],
                 })
                 const { metaData, parentGraphMap } = data.eventVisualization
                 // Only trigger state updates if relevant data was found

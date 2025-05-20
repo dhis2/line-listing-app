@@ -16,6 +16,7 @@ import { acSetVisualization } from '../../actions/visualization.js'
 import {
     apiFetchVisualization,
     apiFetchVisualizationNameDesc,
+    apiFetchVisualizationSubscribers,
 } from '../../api/visualization.js'
 import { getAlertTypeByStatusCode } from '../../modules/error.js'
 import history from '../../modules/history.js'
@@ -117,11 +118,15 @@ export const MenuBar = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        const { eventVisualization } = await apiFetchVisualization(
+        const { eventVisualization } = await apiFetchVisualization({
             engine,
-            visualization.id,
-            currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
-        )
+            id: visualization.id,
+            nameProp:
+                currentUser.settings[
+                    DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
+                ],
+            withSubscribers: true,
+        })
         const visToSave = await preparePayloadForSave({
             visualization: getSaveableVisualization(eventVisualization),
             name,
@@ -130,10 +135,11 @@ export const MenuBar = ({ onFileMenuAction }) => {
         })
 
         await renameVisualization({ visualization: visToSave })
-        const { eventVisNameDesc } = await apiFetchVisualizationNameDesc(
+        const eventVisNameDesc = await apiFetchVisualizationNameDesc({
             engine,
-            visToSave.id
-        )
+            id: visToSave.id,
+        })
+
         onFileMenuAction()
 
         const updatedVisualization = { ...visualization, ...eventVisNameDesc }
@@ -168,9 +174,17 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 }),
             })
         } else {
+            const { subscribers } = await apiFetchVisualizationSubscribers({
+                engine,
+                id: visualization.id,
+            })
+
             putVisualization({
                 visualization: await preparePayloadForSave({
-                    visualization: getSaveableVisualization(current),
+                    visualization: {
+                        ...getSaveableVisualization(current),
+                        subscribers,
+                    },
                     name,
                     description,
                     engine,

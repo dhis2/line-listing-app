@@ -3,12 +3,12 @@ import { getDimensionMetadataFields } from '../modules/visualization.js'
 const dimensionFields = () =>
     'dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]'
 
-export const visualizationQuery = {
+export const VISUALIZATION_QUERY = {
     eventVisualization: {
         resource: 'eventVisualizations',
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
-        params: ({ nameProp }) => ({
+        params: ({ nameProp, withSubscribers }) => ({
             fields: [
                 '*',
                 `columns[${dimensionFields}]`,
@@ -19,6 +19,8 @@ export const visualizationQuery = {
                 `programDimensions[id,${nameProp}~rename(name),enrollmentDateLabel,incidentDateLabel,programType,displayIncidentDate,displayEnrollmentDateLabel,displayIncidentDateLabel,programStages[id,${nameProp}~rename(name),repeatable,hideDueDate,displayExecutionDateLabel,displayDueDateLabel]]`,
                 'access',
                 'href',
+                !withSubscribers && '!subscribers',
+                !withSubscribers && '!subscribed',
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
                 'legend[set[id,displayName],strategy,style,showKey]',
@@ -52,7 +54,7 @@ export const visualizationQuery = {
     },
 }
 
-const visualizationNameDescQuery = {
+const VISUALIZATION_NAME_DESC_QUERY = {
     eventVisNameDesc: {
         resource: 'eventVisualizations',
         id: ({ id }) => id,
@@ -62,12 +64,38 @@ const visualizationNameDescQuery = {
     },
 }
 
-export const apiFetchVisualizationNameDesc = (dataEngine, id) => {
-    return dataEngine.query(visualizationNameDescQuery, {
-        variables: { id },
-    })
+const VISUALIZATION_SUBSCRIBERS_QUERY = {
+    eventVisualizationSubscribers: {
+        resource: 'eventVisualizations',
+        id: ({ id }) => id,
+        params: {
+            fields: ['subscribers'],
+        },
+    },
 }
 
-export const apiFetchVisualization = (dataEngine, id, nameProp) => {
-    return dataEngine.query(visualizationQuery, { variables: { id, nameProp } })
-}
+export const apiFetchVisualization = ({
+    engine,
+    id,
+    nameProp,
+    withSubscribers = false,
+}) =>
+    engine.query(VISUALIZATION_QUERY, {
+        variables: { id, nameProp, withSubscribers },
+    })
+
+export const apiFetchVisualizationNameDesc = ({ engine, id }) =>
+    engine
+        .query(VISUALIZATION_NAME_DESC_QUERY, {
+            variables: { id },
+        })
+        .then(({ eventVisNameDesc }) => eventVisNameDesc)
+
+export const apiFetchVisualizationSubscribers = ({ engine, id }) =>
+    engine
+        .query(VISUALIZATION_SUBSCRIBERS_QUERY, {
+            variables: { id },
+        })
+        .then(
+            ({ eventVisualizationSubscribers }) => eventVisualizationSubscribers
+        )
