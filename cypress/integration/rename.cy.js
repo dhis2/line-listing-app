@@ -20,7 +20,6 @@ import {
     expectAOTitleToContainExact,
     expectTableToBeVisible,
 } from '../helpers/table.js'
-import { getApiBaseUrl } from '../support/util.js'
 
 const event = E2E_PROGRAM
 const periodLabel = event[DIMENSION_ID_EVENT_DATE]
