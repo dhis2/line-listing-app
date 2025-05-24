@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
@@ -79,6 +79,14 @@ msgstr "Không có bộ tùy chọn cài đặt sẵn nào cho mục dữ liệu
 
 msgid "Choose options"
 msgstr "Chọn các tùy chọn"
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -367,15 +375,15 @@ msgstr "{{- deletedObject}}đã xóa thành công"
 msgid "Rename successful"
 msgstr "Đổi tên thành công"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Mô hình hóa {{visualizationType}} không có tiêu đề, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Không thể xóa hình ảnh trực quan này vì nó được sử dụng trên một hoặc nhiều "
 "trang tổng quan"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr "Hiển thị bố cục"
