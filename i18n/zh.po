@@ -3,14 +3,14 @@
 # 晓东 林 <13981924470@126.com>, 2024
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
-# easylin <lin_xd@126.com>, 2024
+# easylin <lin_xd@126.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: easylin <lin_xd@126.com>, 2024\n"
+"Last-Translator: easylin <lin_xd@126.com>, 2025\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,6 +76,14 @@ msgstr "此数据项没有预设选项集"
 
 msgid "Choose options"
 msgstr "选择选项"
+
+msgid "Previous selection was cleared"
+msgstr "之前的选择已清除"
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr "获取先前所选组织单位的详细信息失败。已清除所选项目，以便重新选择。"
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -353,13 +361,13 @@ msgstr "“{{- deletedObject}}”已成功删除。"
 msgid "Rename successful"
 msgstr "重命名成功"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "无标题的{{visualizationType}}可视化，{{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr "无法删除此可视化，因为它已在一个或多个仪表板上使用"
+
+msgid "Rename failed"
+msgstr "重命名失败"
 
 msgid "Show layout"
 msgstr "显示布局"
