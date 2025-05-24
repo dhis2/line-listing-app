@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2024\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -72,6 +72,14 @@ msgid "No preset option sets for this data item"
 msgstr ""
 
 msgid "Choose options"
+msgstr ""
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
 msgstr ""
 
 msgid ""
@@ -350,15 +358,15 @@ msgstr ""
 msgid "Rename successful"
 msgstr "Muvaffaqiyatli qayta nomlash"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Nomsiz {{visualizationType}} vizualizatsiya, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Ushbu vizualizatsiyani oʼchirib boʼlmaydi, chunki u bir yoki bir necha "
 "informatsiyaon panel tomonidan foydalanilmoqda"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr ""
@@ -380,6 +388,9 @@ msgstr "Talqinlar va tavsilotlarni koʼrsatish"
 
 msgid "View"
 msgstr "Koʼrik"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "Янгилаш"
