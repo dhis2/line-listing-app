@@ -54,14 +54,10 @@ describe('rename', () => {
             /\/api\/\d+\/eventVisualizations\/\w+\?fields=.*/
         ).as('get-rename')
 
-        cy.intercept(
-            'PUT',
-            /\/api\/\d+\/eventVisualizations\/\w+(\?.*)?/,
-            (req) => {
-                expect(req.body).to.have.property('subscribers')
-                expect(req.body).to.have.property('filters')
-            }
-        ).as('put-rename')
+        cy.intercept('PUT', /\/api\/\d+\/eventVisualizations\/\w+/, (req) => {
+            expect(req.body).to.have.property('subscribers')
+            expect(req.body).to.have.property('filters')
+        }).as('put-rename')
         // rename the AO, changing name only
         renameVisualization(UPDATED_AO_NAME)
 
