@@ -106,13 +106,9 @@ describe('save', () => {
         ).as('get-subscribers')
 
         // check the save request contains subscribers
-        cy.intercept(
-            'PUT',
-            /\/api\/\d+\/eventVisualizations\/\w+(\?.*)?/,
-            (req) => {
-                expect(req.body).to.have.property('subscribers')
-            }
-        ).as('put-save')
+        cy.intercept('PUT', /\/api\/\d+\/eventVisualizations\/\w+/, (req) => {
+            expect(req.body).to.have.property('subscribers')
+        }).as('put-save')
 
         // click update to enable Save
         clickMenubarUpdateButton()
@@ -132,13 +128,9 @@ describe('save', () => {
         cy.contains('About this line list').should('not.exist')
 
         // save as with name change
-        cy.intercept(
-            'POST',
-            /\/api\/\d+\/eventVisualizations(\?.*)?/,
-            (req) => {
-                expect(req.body).to.not.have.property('subscribers')
-            }
-        ).as('post-saveas')
+        cy.intercept('POST', /\/api\/\d+\/eventVisualizations/, (req) => {
+            expect(req.body).to.not.have.property('subscribers')
+        }).as('post-saveas')
 
         saveVisualizationAs(UPDATED_AO_NAME)
         cy.wait('@post-saveas')
