@@ -125,7 +125,6 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 currentUser.settings[
                     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                 ],
-            withSubscribers: true,
         })
         const visToSave = await preparePayloadForSave({
             visualization: getSaveableVisualization(eventVisualization),

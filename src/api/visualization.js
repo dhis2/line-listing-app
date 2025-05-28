@@ -8,8 +8,8 @@ export const VISUALIZATION_QUERY = {
         resource: 'eventVisualizations',
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
-        params: ({ nameProp, withSubscribers }) => {
-            const fields = [
+        params: ({ nameProp }) => ({
+            fields: [
                 '*',
                 `columns[${dimensionFields}]`,
                 `rows[${dimensionFields}]`,
@@ -47,12 +47,8 @@ export const VISUALIZATION_QUERY = {
                 '!organisationUnitLevels',
                 '!organisationUnits',
                 '!user',
-            ]
-            if (!withSubscribers) {
-                fields.push('!subscribers')
-            }
-            return { fields }
-        },
+            ],
+        }),
     },
 }
 
@@ -76,14 +72,9 @@ const VISUALIZATION_SUBSCRIBERS_QUERY = {
     },
 }
 
-export const apiFetchVisualization = ({
-    engine,
-    id,
-    nameProp,
-    withSubscribers = false,
-}) =>
+export const apiFetchVisualization = ({ engine, id, nameProp }) =>
     engine.query(VISUALIZATION_QUERY, {
-        variables: { id, nameProp, withSubscribers },
+        variables: { id, nameProp },
     })
 
 export const apiFetchVisualizationNameDesc = ({ engine, id }) =>

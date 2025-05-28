@@ -65,9 +65,6 @@ describe('rename', () => {
         cy.wait('@put-rename')
         cy.wait('@get-rename')
 
-        // Get visualization calls: original vis and updated name and description
-        cy.get('@get-rename.all').should('have.length', 2)
-
         cy.getBySel('dhis2-uicore-alertbar')
             .contains('Rename successful')
             .should('be.visible')
