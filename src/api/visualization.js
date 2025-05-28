@@ -8,8 +8,8 @@ export const VISUALIZATION_QUERY = {
         resource: 'eventVisualizations',
         id: ({ id }) => id,
         // TODO: check if this list is what we need/want (copied from old ER)
-        params: ({ nameProp, withSubscribers }) => ({
-            fields: [
+        params: ({ nameProp, withSubscribers }) => {
+            const fields = [
                 '*',
                 `columns[${dimensionFields}]`,
                 `rows[${dimensionFields}]`,
@@ -19,8 +19,6 @@ export const VISUALIZATION_QUERY = {
                 `programDimensions[id,${nameProp}~rename(name),enrollmentDateLabel,incidentDateLabel,programType,displayIncidentDate,displayEnrollmentDateLabel,displayIncidentDateLabel,programStages[id,${nameProp}~rename(name),repeatable,hideDueDate,displayExecutionDateLabel,displayDueDateLabel]]`,
                 'access',
                 'href',
-                !withSubscribers && '!subscribers',
-                !withSubscribers && '!subscribed',
                 ...getDimensionMetadataFields(),
                 'dataElementDimensions[legendSet[id,name],dataElement[id,name]]',
                 'legend[set[id,displayName],strategy,style,showKey]',
@@ -49,8 +47,12 @@ export const VISUALIZATION_QUERY = {
                 '!organisationUnitLevels',
                 '!organisationUnits',
                 '!user',
-            ],
-        }),
+            ]
+            if (!withSubscribers) {
+                fields.push('!subscribers')
+            }
+            return { fields }
+        },
     },
 }
 
