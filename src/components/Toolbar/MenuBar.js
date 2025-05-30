@@ -139,8 +139,6 @@ export const MenuBar = ({ onFileMenuAction }) => {
             id: visToSave.id,
         })
 
-        onFileMenuAction()
-
         const updatedVisualization = { ...visualization, ...eventVisNameDesc }
         const updatedCurrent = { ...current, ...eventVisNameDesc }
 
@@ -159,15 +157,23 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 duration: 2000,
             },
         })
+
+        onFileMenuAction()
     }
 
     const onSave = async (details = {}, copy = false) => {
         const { name, description } = details
 
         if (copy) {
+            // remove property subscribers before saving as new
+            // eslint-disable-next-line no-unused-vars
+            const { subscribers, ...currentWithoutSubscribers } = current
+
             postVisualization({
                 visualization: preparePayloadForSaveAs({
-                    visualization: getSaveableVisualization(current),
+                    visualization: getSaveableVisualization(
+                        currentWithoutSubscribers
+                    ),
                     name,
                     description,
                 }),
