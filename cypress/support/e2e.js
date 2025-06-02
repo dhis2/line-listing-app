@@ -1,6 +1,5 @@
 import './commands.js'
 
-const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
     //   This error means that ResizeObserver was not able to deliver all
@@ -8,13 +7,18 @@ Cypress.on('uncaught:exception', (err) => {
     //   will not break).
     //
     // Source: https://stackoverflow.com/a/50387233/1319140
-    if (resizeObserverLoopErrRe.test(err.message)) {
-        // returning false here prevents Cypress from failing the test
+    const errMsg = err.toString()
+
+    if (
+        errMsg.match(/ResizeObserver loop limit exceeded/) ||
+        errMsg.match(
+            /ResizeObserver loop completed with undelivered notifications/
+        )
+    ) {
         return false
     }
 })
 
-const LOGIN_ENDPOINT = 'dhis-web-commons-security/login.action'
 const SESSION_COOKIE_NAME = 'JSESSIONID'
 const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
 
@@ -31,24 +35,14 @@ const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
     )
 
 before(() => {
-    const username = Cypress.env('dhis2Username')
-    const password = Cypress.env('dhis2Password')
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const username = Cypress.env('dhis2Username')
+    const password = Cypress.env('dhis2Password')
 
-    cy.request({
-        url: `${baseUrl}/${LOGIN_ENDPOINT}`,
-        method: 'POST',
-        form: true,
-        followRedirect: true,
-        body: {
-            j_username: username,
-            j_password: password,
-            '2fa_code': '',
-        },
-    }).should((response) => {
-        expect(response.status).to.eq(200)
-    })
+    cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
 
     cy.getAllCookies()
         .should((cookies) => {
@@ -71,6 +65,12 @@ beforeEach(() => {
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
     const envVariableName = computeEnvVariableName(instanceVersion)
     const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
+    const hideRequestsFromLog = Cypress.env('hideRequestsFromLog')
+
+    if (hideRequestsFromLog) {
+        // disable Cypress's default behavior of logging all XMLHttpRequests and fetches
+        cy.intercept({ resourceType: /xhr|fetch/ }, { log: false })
+    }
 
     localStorage.setItem(LOCAL_STORAGE_KEY, baseUrl)
     cy.setCookie(name, value, options)

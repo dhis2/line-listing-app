@@ -67,6 +67,6 @@ describe(['>=41'], 'program status (TE)', () => {
             'Completed',
         ])
         assertChipContainsText('Program status', 1, 'Child Programme')
-        assertTooltipContainsEntries(['Completed'])
+        assertTooltipContainsEntries('Program status', ['Completed'])
     })
 })

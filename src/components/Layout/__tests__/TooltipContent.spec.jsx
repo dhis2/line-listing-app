@@ -7,6 +7,17 @@ import { TooltipContent } from '../TooltipContent.jsx'
 
 const mockStore = configureMockStore()
 
+jest.mock('@dhis2/analytics', () => ({
+    ...jest.requireActual('@dhis2/analytics'),
+    useCachedDataQuery: () => ({
+        currentUser: {
+            settings: {
+                keyUiLocale: 'en',
+            },
+        },
+    }),
+}))
+
 const inputTypeEvent = {
     input: {
         type: OUTPUT_TYPE_EVENT,

@@ -87,7 +87,7 @@ describe('Option set condition', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([valueToFilterBy])
+        assertTooltipContainsEntries(dimensionName, [valueToFilterBy])
 
         expectTableToNotContainValue(valueToFilterOut)
         expectTableToContainValue(valueToFilterBy)
@@ -141,7 +141,7 @@ describe('Option set condition', () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([filteredOptionName])
+        assertTooltipContainsEntries(dimensionName, [filteredOptionName])
 
         expectTableToNotContainValue(filteredOutOptionName)
         expectTableToContainValue(filteredOptionName)
@@ -197,7 +197,7 @@ describe('Option set condition', () => {
                     filteredOptionNames.length
                 )
 
-                assertTooltipContainsEntries(filteredOptionNames)
+                assertTooltipContainsEntries(dimensionName, filteredOptionNames)
             })
         }
 
@@ -263,7 +263,7 @@ describe('Option set condition', () => {
         // Table and tooltips should show the correct labels for option set
         assertTableChipAndTooltip()
 
-        const AO_NAME = `TEST option set ${new Date().toLocaleString()}`
+        const AO_NAME = `OPTION-SET-${Date.now()}`
         saveVisualization(AO_NAME)
 
         expectAOTitleToContain(AO_NAME)

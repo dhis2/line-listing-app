@@ -92,7 +92,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Exactly: ${TEST_DATE}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Exactly: ${TEST_DATE}`,
+        ])
     })
 
     it('is not', () => {
@@ -113,7 +116,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is not: ${TEST_DATE}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is not: ${TEST_DATE}`,
+        ])
     })
 
     it('after', () => {
@@ -133,7 +139,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `After: ${TEST_DATE}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `After: ${TEST_DATE}`,
+        ])
     })
 
     it('after or including', () => {
@@ -154,7 +163,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             `After or including: ${TEST_DATE}`,
         ])
@@ -178,7 +187,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Before: ${TEST_DATE}`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Before: ${TEST_DATE}`,
+        ])
     })
 
     it('before or including', () => {
@@ -198,7 +210,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             `Before or including: ${TEST_DATE}`,
         ])
@@ -226,7 +238,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is empty / null`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is empty / null`,
+        ])
     })
 
     it('is not empty / not null', () => {
@@ -258,7 +273,10 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 1)
 
-        assertTooltipContainsEntries([stageName, `Is not empty / not null`])
+        assertTooltipContainsEntries(dimensionName, [
+            stageName,
+            `Is not empty / not null`,
+        ])
     })
 
     it('2 conditions: after + before or including', () => {
@@ -283,7 +301,7 @@ describe('date conditions (Date)', { testIsolation: false }, () => {
 
         assertChipContainsText(dimensionName, 2)
 
-        assertTooltipContainsEntries([
+        assertTooltipContainsEntries(dimensionName, [
             stageName,
             `After: ${TEST_DATE_AFT}`,
             `Before or including: ${TEST_DATE_BFI}`,

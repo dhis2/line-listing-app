@@ -9,11 +9,7 @@ import getDataTab from './tabs/data.js'
 import getLegendTab from './tabs/legend.jsx'
 import getStyleTab from './tabs/style.js'
 
-export default (serverVersion) => {
-    const currentVersion = `${serverVersion.major}.${serverVersion.minor}.${
-        serverVersion.patch || 0
-    }`
-
+export default () => {
     const optionsConfig = [
         getDataTab([
             getDisplayTemplate({
@@ -28,7 +24,7 @@ export default (serverVersion) => {
                     <DisplayDensity />,
                     <FontSize />,
                     <DigitGroupSeparator />,
-                    currentVersion >= '2.40.0' ? <ShowHierarchy /> : null,
+                    <ShowHierarchy />,
                 ]),
             },
         ]),

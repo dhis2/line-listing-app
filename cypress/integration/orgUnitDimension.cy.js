@@ -28,6 +28,7 @@ import {
 } from '../helpers/table.js'
 
 const TEST_DEFAULT_ORG_UNIT = 'User organisation unit'
+const TEST_CHIP_LABEL = 'Organisation unit'
 
 describe(`Org unit dimension`, () => {
     it('selects items correctly', () => {
@@ -36,8 +37,8 @@ describe(`Org unit dimension`, () => {
         selectEventWithProgram(CHILD_PROGRAM)
         clickMenubarUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
-        assertTooltipContainsEntries([TEST_DEFAULT_ORG_UNIT])
+        assertChipContainsText(TEST_CHIP_LABEL, 1)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_DEFAULT_ORG_UNIT])
 
         const TEST_DISTRICT_1 = 'Bo'
         cy.log(`selects a district level org unit - ${TEST_DISTRICT_1}`)
@@ -50,8 +51,11 @@ describe(`Org unit dimension`, () => {
         selectOrgUnitTreeItem(TEST_DISTRICT_1)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 2)
-        assertTooltipContainsEntries([TEST_ROOT, TEST_DISTRICT_1])
+        assertChipContainsText(TEST_CHIP_LABEL, 2)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
+            TEST_ROOT,
+            TEST_DISTRICT_1,
+        ])
 
         // FIXME: backend issue DHIS2-16258, uncomment all the lines below once fixed
         // const TEST_DISTRICT_2 = 'Bombali'
@@ -69,8 +73,8 @@ describe(`Org unit dimension`, () => {
         // selectOrgUnitTreeItem(TEST_CHIEFDOM)
         // clickOrgUnitDimensionModalUpdateButton()
         // expectTableToBeVisible()
-        // assertChipContainsText('Organisation unit', 3)
-        // assertTooltipContainsEntries([
+        // assertChipContainsText(TEST_CHIP_LABEL, 3)
+        // assertTooltipContainsEntries(TEST_CHIP_LABEL, [
         //     TEST_ROOT,
         //     TEST_DISTRICT_1,
         //     TEST_CHIEFDOM,
@@ -87,8 +91,8 @@ describe(`Org unit dimension`, () => {
         // deselectOrgUnitTreeItem(TEST_CHIEFDOM)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
-        assertTooltipContainsEntries([TEST_ROOT])
+        assertChipContainsText(TEST_CHIP_LABEL, 1)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_ROOT])
 
         const TEST_LEVEL = 'District'
         cy.log(`selects a level - ${TEST_LEVEL}`)
@@ -99,8 +103,11 @@ describe(`Org unit dimension`, () => {
         toggleOrgUnitLevel(TEST_LEVEL)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 2)
-        assertTooltipContainsEntries([TEST_ROOT, `Levels: ${TEST_LEVEL}`])
+        assertChipContainsText(TEST_CHIP_LABEL, 2)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
+            TEST_ROOT,
+            `Levels: ${TEST_LEVEL}`,
+        ])
 
         cy.log(`deselects ${TEST_LEVEL}`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
@@ -109,8 +116,8 @@ describe(`Org unit dimension`, () => {
         toggleOrgUnitLevel(TEST_LEVEL)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
-        assertTooltipContainsEntries([TEST_ROOT])
+        assertChipContainsText(TEST_CHIP_LABEL, 1)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_ROOT])
 
         const TEST_GROUP = 'Eastern Area'
         cy.log(`selects a group - ${TEST_GROUP}`)
@@ -121,8 +128,11 @@ describe(`Org unit dimension`, () => {
         toggleOrgUnitGroup(TEST_GROUP)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 2)
-        assertTooltipContainsEntries([TEST_ROOT], `Groups: ${TEST_GROUP}`)
+        assertChipContainsText(TEST_CHIP_LABEL, 2)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
+            TEST_ROOT,
+            `Groups: ${TEST_GROUP}`,
+        ])
 
         cy.log(`deselects ${TEST_GROUP}`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
@@ -131,8 +141,8 @@ describe(`Org unit dimension`, () => {
         toggleOrgUnitGroup(TEST_GROUP)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
-        assertTooltipContainsEntries([TEST_ROOT])
+        assertChipContainsText(TEST_CHIP_LABEL, 1)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_ROOT])
 
         const TEST_USER_ORG_UNIT = 'User sub-units'
         cy.log(`selects a user org unit - '${TEST_USER_ORG_UNIT}'`)
@@ -145,8 +155,8 @@ describe(`Org unit dimension`, () => {
         expectOrgUnitTreeToBeEnabled()
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 2)
-        assertTooltipContainsEntries([TEST_USER_ORG_UNIT])
+        assertChipContainsText(TEST_CHIP_LABEL, 2)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_USER_ORG_UNIT])
 
         cy.log(`deselects '${TEST_USER_ORG_UNIT}'`)
         openOuDimension(DIMENSION_ID_ORGUNIT)
@@ -158,8 +168,8 @@ describe(`Org unit dimension`, () => {
         expectOrgUnitItemToBeSelected(TEST_ROOT)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 1)
-        assertTooltipContainsEntries([TEST_ROOT])
+        assertChipContainsText(TEST_CHIP_LABEL, 1)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [TEST_ROOT])
     })
 
     it('saves and loads items correctly', () => {
@@ -178,20 +188,20 @@ describe(`Org unit dimension`, () => {
         toggleOrgUnitLevel(TEST_LEVEL)
         clickOrgUnitDimensionModalUpdateButton()
         expectTableToBeVisible()
-        assertChipContainsText('Organisation unit', 4)
-        assertTooltipContainsEntries([
+        assertChipContainsText(TEST_CHIP_LABEL, 4)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
             ...TEST_DISTRICTS,
             `Levels: ${TEST_LEVEL}`,
         ])
 
         cy.log('saves AO')
-        const AO_NAME = `TEST ${new Date().toLocaleString()}`
+        const AO_NAME = `ORGUNIT-DIMENSION-${Date.now()}`
         saveVisualization(AO_NAME)
         expectAOTitleToContain(AO_NAME)
 
         cy.log('asserts that districts are still selected')
-        assertChipContainsText('Organisation unit', 4)
-        assertTooltipContainsEntries([
+        assertChipContainsText(TEST_CHIP_LABEL, 4)
+        assertTooltipContainsEntries(TEST_CHIP_LABEL, [
             ...TEST_DISTRICTS,
             `Levels: ${TEST_LEVEL}`,
         ])

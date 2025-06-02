@@ -1,9 +1,6 @@
 import {
     useCachedDataQuery,
     convertOuLevelsToUids,
-    USER_ORG_UNIT,
-    USER_ORG_UNIT_CHILDREN,
-    USER_ORG_UNIT_GRANDCHILDREN,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
 import { useDataEngine, useDataMutation } from '@dhis2/app-runtime'
@@ -51,6 +48,8 @@ import history from '../modules/history.js'
 import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
+    isPopulatedObject,
+    transformMetaDataResponseObject,
 } from '../modules/metadata.js'
 import { getParentGraphMapFromVisualization } from '../modules/parentGraphMap.js'
 import { getProgramDimensions } from '../modules/programDimensions.js'
@@ -83,6 +82,9 @@ import { default as TitleBar } from './TitleBar/TitleBar.jsx'
 import { Toolbar } from './Toolbar/Toolbar.jsx'
 import StartScreen from './Visualization/StartScreen.jsx'
 import { Visualization } from './Visualization/Visualization.jsx'
+
+// Used to avoid repeating `history` listener calls -- see below
+let lastLocation
 
 const dimensionFields = () =>
     'dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]'
@@ -213,6 +215,17 @@ const App = () => {
                             ],
                     },
                 })
+                const { metaData, parentGraphMap } = data.eventVisualization
+                // Only trigger state updates if relevant data was found
+                if (isPopulatedObject(metaData)) {
+                    dispatch(
+                        acAddMetadata(transformMetaDataResponseObject(metaData))
+                    )
+                }
+
+                if (isPopulatedObject(parentGraphMap)) {
+                    dispatch(acAddParentGraphMap(parentGraphMap))
+                }
 
                 setData(data)
             } catch (fetchError) {
@@ -302,29 +315,11 @@ const App = () => {
     }
 
     const onResponsesReceived = (response) => {
-        const itemsMetadata = Object.entries(response.metaData.items)
-            .filter(
-                ([item]) =>
-                    ![
-                        USER_ORG_UNIT,
-                        USER_ORG_UNIT_CHILDREN,
-                        USER_ORG_UNIT_GRANDCHILDREN,
-                        DIMENSION_ID_ORGUNIT,
-                    ].includes(item)
+        dispatch(
+            acAddMetadata(
+                transformMetaDataResponseObject(response.metaData.items)
             )
-            .reduce((obj, [id, item]) => {
-                obj[id] = {
-                    id,
-                    name: item.name || item.displayName,
-                    displayName: item.displayName,
-                    dimensionType: item.dimensionType || item.dimensionItemType,
-                    code: item.code,
-                }
-
-                return obj
-            }, {})
-
-        dispatch(acAddMetadata(itemsMetadata))
+        )
         dispatch(acSetVisualizationLoading(false))
 
         if (!response.rows?.length) {
@@ -337,6 +332,25 @@ const App = () => {
         loadVisualization(history.location)
 
         const unlisten = history.listen(({ location }) => {
+            // Avoid duplicate actions for the same update object. This also
+            // avoids a loop, because dispatching a pop state effect below also
+            // triggers listeners again (but with the same location object key)
+            const { key, pathname, search } = location
+            if (
+                key === lastLocation?.key &&
+                pathname === lastLocation?.pathname &&
+                search === lastLocation?.search
+            ) {
+                return
+            }
+            lastLocation = location
+            // Dispatch this event for external routing listeners to observe,
+            // e.g. global shell
+            const popStateEvent = new PopStateEvent('popstate', {
+                state: location.state,
+            })
+            dispatchEvent(popStateEvent)
+
             const isSaving = location.state?.isSaving
             const isOpening = location.state?.isOpening
             const isResetting = location.state?.isResetting

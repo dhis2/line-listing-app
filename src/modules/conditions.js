@@ -21,6 +21,7 @@ import {
     VALUE_TYPE_ORGANISATION_UNIT,
     formatValue,
     DIMENSION_TYPE_PROGRAM_INDICATOR,
+    ouIdHelper,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { formatDimensionId } from './dimensionId.js'
@@ -228,10 +229,17 @@ export const getConditionsTexts = ({
 
     if (
         dimension.valueType === VALUE_TYPE_ORGANISATION_UNIT &&
-        conditionsList[0]?.startsWith(OPERATOR_EQUAL)
+        (conditionsList[0]?.startsWith(OPERATOR_EQUAL) ||
+            conditionsList[0]?.startsWith(OPERATOR_IN))
     ) {
-        const ous = parseCondition(conditionsList[0])
-        const ouNames = ous.map((ou) => metadata[ou]?.name)
+        const ouIds = parseCondition(conditionsList[0])
+        const ouNames = ouIds.map(
+            (ouId) =>
+                metadata[ouId]?.name ??
+                metadata[ouIdHelper.removePrefix(ouId)]?.name ??
+                // Default to showing the ID, but this should never happen
+                ouId
+        )
         return ouNames
     }
 

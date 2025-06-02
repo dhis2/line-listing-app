@@ -166,7 +166,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: save" state`
+        const AO_NAME = `FILE-MENU-${Date.now()}-VALID-SAVE`
 
         saveVisualization(AO_NAME)
 
@@ -184,6 +184,8 @@ describe('file menu', () => {
             [ITEM_GETLINK]: true,
             [ITEM_DELETE]: true,
         })
+
+        deleteVisualization()
     })
 
     it('reflects "saved, valid: data" state', () => {
@@ -202,7 +204,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST ${new Date().toLocaleString()} - "saved, valid: data" state`
+        const AO_NAME = `FILE-MENU-${Date.now()}-VALID-DATA`
 
         saveVisualization(AO_NAME)
 
@@ -241,7 +243,7 @@ describe('file menu', () => {
 
         clickMenubarUpdateButton()
 
-        const AO_NAME = `TEST ${new Date().toLocaleString()} - "dirty" state`
+        const AO_NAME = `FILE-MENU-${Date.now()}-DIRTY`
 
         saveVisualization(AO_NAME)
 

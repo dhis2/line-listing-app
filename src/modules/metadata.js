@@ -91,3 +91,37 @@ export const getDynamicTimeDimensionsMetadata = (
         return acc
     }, {}),
 })
+
+export const isPopulatedObject = (input) => {
+    if (input && typeof input === 'object' && !Array.isArray(input)) {
+        for (const prop in input) {
+            if (Object.hasOwn(input, prop)) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+export const transformMetaDataResponseObject = (metaDataResponseObject) =>
+    Object.entries(metaDataResponseObject)
+        .filter(
+            ([item]) =>
+                ![
+                    USER_ORG_UNIT,
+                    USER_ORG_UNIT_CHILDREN,
+                    USER_ORG_UNIT_GRANDCHILDREN,
+                    DIMENSION_ID_ORGUNIT,
+                ].includes(item)
+        )
+        .reduce((obj, [id, item]) => {
+            obj[id] = {
+                id,
+                name: item.name || item.displayName,
+                displayName: item.displayName,
+                dimensionType: item.dimensionType || item.dimensionItemType,
+                code: item.code,
+            }
+
+            return obj
+        }, {})

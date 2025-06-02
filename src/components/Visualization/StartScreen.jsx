@@ -1,4 +1,8 @@
-import { VisTypeIcon, useCachedDataQuery } from '@dhis2/analytics'
+import {
+    VisTypeIcon,
+    useCachedDataQuery,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { colors } from '@dhis2/ui'
@@ -124,7 +128,7 @@ const StartScreen = ({ error, setLoadError }) => {
                                     >
                                         <span className={styles.visIcon}>
                                             <VisTypeIcon
-                                                type={vis.type}
+                                                type={VIS_TYPE_LINE_LIST}
                                                 useSmall
                                                 color={colors.grey600}
                                             />

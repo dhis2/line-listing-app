@@ -1,3 +1,94 @@
+## [102.1.8](https://github.com/dhis2/line-listing-app/compare/v102.1.7...v102.1.8) (2025-04-30)
+
+
+### Bug Fixes
+
+* fetch path of selected org-unit if not available ([#665](https://github.com/dhis2/line-listing-app/issues/665)) ([58b7faf](https://github.com/dhis2/line-listing-app/commit/58b7faf20629497470a69492efb0be6c16ec9547))
+
+## [102.1.7](https://github.com/dhis2/line-listing-app/compare/v102.1.6...v102.1.7) (2025-04-25)
+
+
+### Bug Fixes
+
+* ensure sorting works in interpretation modal (DHIS2-19283) ([#670](https://github.com/dhis2/line-listing-app/issues/670)) ([ccc7453](https://github.com/dhis2/line-listing-app/commit/ccc7453438f04dddf9d4c3eb990c8f16baa2f965))
+
+## [102.1.6](https://github.com/dhis2/line-listing-app/compare/v102.1.5...v102.1.6) (2025-04-24)
+
+
+### Bug Fixes
+
+* use correct icon in most viewed list (DHIS2-18470) ([#678](https://github.com/dhis2/line-listing-app/issues/678)) ([815cead](https://github.com/dhis2/line-listing-app/commit/815cead292b9e352575298cfdf41f578a8a39cd3))
+
+## [102.1.5](https://github.com/dhis2/line-listing-app/compare/v102.1.4...v102.1.5) (2025-04-22)
+
+
+### Bug Fixes
+
+* not possible to delete the description of a line list in the Rename dialog [DHIS2-19433] ([#672](https://github.com/dhis2/line-listing-app/issues/672)) ([ec2c933](https://github.com/dhis2/line-listing-app/commit/ec2c933066edefa8770a513d793350c77f60fd91))
+
+## [102.1.4](https://github.com/dhis2/line-listing-app/compare/v102.1.3...v102.1.4) (2025-04-14)
+
+
+### Reverts
+
+* Revert "fix: save the rename in the app instead of the analytics library" ([5debf39](https://github.com/dhis2/line-listing-app/commit/5debf39cabc2f68a8f647750ed36975050f47daa))
+
+## [102.1.3](https://github.com/dhis2/line-listing-app/compare/v102.1.2...v102.1.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* save the rename in the app instead of the analytics library ([811de13](https://github.com/dhis2/line-listing-app/commit/811de13ef0b2c2c39de1966878b8781f9159f2e6))
+
+## [102.1.2](https://github.com/dhis2/line-listing-app/compare/v102.1.1...v102.1.2) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between line lists using the browser address bar [DHIS2-19387] ([#669](https://github.com/dhis2/line-listing-app/issues/669)) ([1d298a7](https://github.com/dhis2/line-listing-app/commit/1d298a7cde39592c0b52de24d8114536b9d5a823))
+
+## [102.1.1](https://github.com/dhis2/line-listing-app/compare/v102.1.0...v102.1.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#668](https://github.com/dhis2/line-listing-app/issues/668)) ([673c6ae](https://github.com/dhis2/line-listing-app/commit/673c6ae20cf1a1fd020be38e876e41cd727f2936))
+
+# [102.1.0](https://github.com/dhis2/line-listing-app/compare/v102.0.2...v102.1.0) (2025-03-18)
+
+
+### Features
+
+* full OU functionality for DEs and TEAs of type OU ([#651](https://github.com/dhis2/line-listing-app/issues/651)) ([ef2ec72](https://github.com/dhis2/line-listing-app/commit/ef2ec7274215abb6f2c0dc59404e157fa07132ce))
+
+## [102.0.2](https://github.com/dhis2/line-listing-app/compare/v102.0.1...v102.0.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* add hash routing and plugin support for the upcoming global shell [DHIS2-19061] ([#660](https://github.com/dhis2/line-listing-app/issues/660)) ([1a37bcf](https://github.com/dhis2/line-listing-app/commit/1a37bcf7da1df1b67afeb5ee8571c28af954d4ef))
+
+## [102.0.1](https://github.com/dhis2/line-listing-app/compare/v102.0.0...v102.0.1) (2025-02-28)
+
+
+### Bug Fixes
+
+* remove app icon background ([#652](https://github.com/dhis2/line-listing-app/issues/652)) ([4860b2f](https://github.com/dhis2/line-listing-app/commit/4860b2f03236943177963f736961b57a6530b8e6))
+
+# [102.0.0](https://github.com/dhis2/line-listing-app/compare/v101.1.14...v102.0.0) (2025-02-14)
+
+
+### Features
+
+* support new dashboard plugin architecture ([#396](https://github.com/dhis2/line-listing-app/issues/396)) ([321b114](https://github.com/dhis2/line-listing-app/commit/321b11420e700144a2f5c805c38e960d19127fb3))
+
+
+### BREAKING CHANGES
+
+* this version is only compatible with Dashboard app >=101.0.0
+
+Use generic components for plugins in app-platform and app-runtime.
+
 ## [101.1.14](https://github.com/dhis2/line-listing-app/compare/v101.1.13...v101.1.14) (2025-02-04)
 
 
