@@ -1099,12 +1099,12 @@
   integrity sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==
 
 "@babel/runtime-corejs2@^7.4.2":
-  version "7.19.6"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.19.6.tgz#d2fc00db286156c3921ce33cb326cc1a18b54bfa"
-  integrity sha512-zJ/98/w+4VkP4bGqSO+cKVnhF/096OQIWQQhdWHxsXpHN23KVXJciElWgXA82VWLNMtPvlWdiPA6hoqNCx7R2A==
+  version "7.26.10"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.26.10.tgz#46c1289c6f181391235fb00af13e6c246cb5c8ae"
+  integrity sha512-JfoPiD7f/vvd/PaOfu5cr9CyzwDMPg4T0nX3MQr6IgTq49DhjvUcmjmjA7j6+xih1Evq+QKZnge1SoIlYozv/Q==
   dependencies:
     core-js "^2.6.12"
-    regenerator-runtime "^0.13.4"
+    regenerator-runtime "^0.14.0"
 
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.0", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.15.4", "@babel/runtime@^7.16.0", "@babel/runtime@^7.23.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.25.0"
@@ -1956,10 +1956,10 @@
     classnames "^2.3.1"
     prop-types "^15.7.2"
 
-"@dhis2/analytics@^27.0.0":
-  version "27.0.0"
-  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-27.0.0.tgz#618ee9765750c3cfaae6796020670d5dc525d1d7"
-  integrity sha512-oNoksfCgjGRyWVqOAZkNxRLeqxkufrapWUPuMIkjd/DsfY3UjI2LINenlqFRwxfcIyFmHvE6oR7KjPuUvOx3eQ==
+"@dhis2/analytics@^28.0.0":
+  version "28.0.0"
+  resolved "https://registry.yarnpkg.com/@dhis2/analytics/-/analytics-28.0.0.tgz#68fd75ecba74ab070f7bd0bb7745e7e0b118db1b"
+  integrity sha512-snfFRXklapRRC77xB1R39F1SHCw8dboz91I5jlxAWcTnnEOrYxvJk/fPDmyYMQ9TiDyD68f9dLlMYgDjM015Ag==
   dependencies:
     "@dhis2/multi-calendar-dates" "^1.2.2"
     "@dnd-kit/core" "^6.0.7"
@@ -13689,11 +13689,6 @@ regenerate@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
   integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
-
-regenerator-runtime@^0.13.4:
-  version "0.13.11"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
-  integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
 
 regenerator-runtime@^0.14.0:
   version "0.14.0"

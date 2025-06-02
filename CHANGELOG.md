@@ -1,3 +1,10 @@
+## [102.1.9](https://github.com/dhis2/line-listing-app/compare/v102.1.8...v102.1.9) (2025-06-02)
+
+
+### Bug Fixes
+
+* fetch original visualization before renaming so as not to overwrite newer changes ([#681](https://github.com/dhis2/line-listing-app/issues/681)) [DHIS2-19506] ([cb77068](https://github.com/dhis2/line-listing-app/commit/cb770681148dd6006386ca73f9b977d40d16cf28))
+
 ## [102.1.8](https://github.com/dhis2/line-listing-app/compare/v102.1.7...v102.1.8) (2025-04-30)
 
 
