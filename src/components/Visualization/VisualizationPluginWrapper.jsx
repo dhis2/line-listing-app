@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useCallback, useState } from 'react'
 import { getAdaptedUiSorting } from '../../modules/current.js'
-import { Visualization } from './Visualization.js'
+import { Visualization } from './Visualization.jsx'
 
 export const VisualizationPluginWrapper = ({
     visualization: originalVisualization,
