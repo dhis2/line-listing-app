@@ -31,6 +31,7 @@
         "cypress-tags": "^1.2.2",
         "eslint-plugin-cypress": "^2.12.1",
         "identity-obj-proxy": "^3.0.0",
+        "jest-webgl-canvas-mock": "^2.5.3",
         "redux-mock-store": "^1.5.4",
         "semantic-release": "^20",
         "start-server-and-test": "^2.0.5",
