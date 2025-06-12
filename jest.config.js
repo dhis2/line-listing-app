@@ -5,6 +5,7 @@ module.exports = {
     moduleNameMapper: {
         '\\.(css)$': 'identity-obj-proxy',
     },
+    setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
     testRunner: 'jest-circus/runner',
     testMatch: [
         '**/src/**/__tests__/**/*.spec.[jt]s?(x)',
