@@ -21,6 +21,7 @@ import {
     FILE_FORMAT_HTML_CSS,
     FILE_FORMAT_CSV,
     FILE_FORMAT_XLS,
+    FILE_FORMAT_XLSX,
 } from './constants.js'
 
 const useDownload = (relativePeriodDate) => {
@@ -133,7 +134,11 @@ const useDownload = (relativePeriodDate) => {
                     // collapsedDataDimensions
                     // useOrgUnit (URL)
                     // relativePeriodDate
-                    target = [FILE_FORMAT_CSV, FILE_FORMAT_XLS].includes(format)
+                    target = [
+                        FILE_FORMAT_CSV,
+                        FILE_FORMAT_XLS,
+                        FILE_FORMAT_XLSX,
+                    ].includes(format)
                         ? '_top'
                         : '_blank'
                     break

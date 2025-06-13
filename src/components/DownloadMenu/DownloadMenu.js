@@ -1,4 +1,5 @@
 import { HoverMenuList, HoverMenuListItem } from '@dhis2/analytics'
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { FlyoutMenu, MenuItem, MenuSectionHeader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -8,12 +9,14 @@ import {
     FILE_FORMAT_HTML_CSS,
     FILE_FORMAT_CSV,
     FILE_FORMAT_XLS,
+    FILE_FORMAT_XLSX,
     FILE_FORMAT_JSON,
     FILE_FORMAT_XML,
 } from './constants.js'
 import { PlainDataSourceSubMenu } from './PlainDataSourceSubMenu.js'
 
 const DownloadMenu = ({ download, hoverable }) => {
+    const config = useConfig()
     const MenuComponent = hoverable ? HoverMenuList : FlyoutMenu
     const MenuItemComponent = hoverable ? HoverMenuListItem : MenuItem
 
@@ -51,7 +54,12 @@ const DownloadMenu = ({ download, hoverable }) => {
                 hoverable={hoverable}
                 download={download}
                 label={i18n.t('Microsoft Excel')}
-                format={FILE_FORMAT_XLS}
+                format={
+                    // VERSION-TOGGLE: remove when 42 is lowest supported version
+                    config.serverVersion.minor >= 42
+                        ? FILE_FORMAT_XLSX
+                        : FILE_FORMAT_XLS
+                }
             />
             <PlainDataSourceSubMenu
                 hoverable={hoverable}
