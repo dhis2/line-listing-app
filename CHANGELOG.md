@@ -1,3 +1,66 @@
+## [102.1.9](https://github.com/dhis2/line-listing-app/compare/v102.1.8...v102.1.9) (2025-06-02)
+
+
+### Bug Fixes
+
+* fetch original visualization before renaming so as not to overwrite newer changes ([#681](https://github.com/dhis2/line-listing-app/issues/681)) [DHIS2-19506] ([cb77068](https://github.com/dhis2/line-listing-app/commit/cb770681148dd6006386ca73f9b977d40d16cf28))
+
+## [102.1.8](https://github.com/dhis2/line-listing-app/compare/v102.1.7...v102.1.8) (2025-04-30)
+
+
+### Bug Fixes
+
+* fetch path of selected org-unit if not available ([#665](https://github.com/dhis2/line-listing-app/issues/665)) ([58b7faf](https://github.com/dhis2/line-listing-app/commit/58b7faf20629497470a69492efb0be6c16ec9547))
+
+## [102.1.7](https://github.com/dhis2/line-listing-app/compare/v102.1.6...v102.1.7) (2025-04-25)
+
+
+### Bug Fixes
+
+* ensure sorting works in interpretation modal (DHIS2-19283) ([#670](https://github.com/dhis2/line-listing-app/issues/670)) ([ccc7453](https://github.com/dhis2/line-listing-app/commit/ccc7453438f04dddf9d4c3eb990c8f16baa2f965))
+
+## [102.1.6](https://github.com/dhis2/line-listing-app/compare/v102.1.5...v102.1.6) (2025-04-24)
+
+
+### Bug Fixes
+
+* use correct icon in most viewed list (DHIS2-18470) ([#678](https://github.com/dhis2/line-listing-app/issues/678)) ([815cead](https://github.com/dhis2/line-listing-app/commit/815cead292b9e352575298cfdf41f578a8a39cd3))
+
+## [102.1.5](https://github.com/dhis2/line-listing-app/compare/v102.1.4...v102.1.5) (2025-04-22)
+
+
+### Bug Fixes
+
+* not possible to delete the description of a line list in the Rename dialog [DHIS2-19433] ([#672](https://github.com/dhis2/line-listing-app/issues/672)) ([ec2c933](https://github.com/dhis2/line-listing-app/commit/ec2c933066edefa8770a513d793350c77f60fd91))
+
+## [102.1.4](https://github.com/dhis2/line-listing-app/compare/v102.1.3...v102.1.4) (2025-04-14)
+
+
+### Reverts
+
+* Revert "fix: save the rename in the app instead of the analytics library" ([5debf39](https://github.com/dhis2/line-listing-app/commit/5debf39cabc2f68a8f647750ed36975050f47daa))
+
+## [102.1.3](https://github.com/dhis2/line-listing-app/compare/v102.1.2...v102.1.3) (2025-04-10)
+
+
+### Bug Fixes
+
+* save the rename in the app instead of the analytics library ([811de13](https://github.com/dhis2/line-listing-app/commit/811de13ef0b2c2c39de1966878b8781f9159f2e6))
+
+## [102.1.2](https://github.com/dhis2/line-listing-app/compare/v102.1.1...v102.1.2) (2025-04-04)
+
+
+### Bug Fixes
+
+* restore navigation between line lists using the browser address bar [DHIS2-19387] ([#669](https://github.com/dhis2/line-listing-app/issues/669)) ([1d298a7](https://github.com/dhis2/line-listing-app/commit/1d298a7cde39592c0b52de24d8114536b9d5a823))
+
+## [102.1.1](https://github.com/dhis2/line-listing-app/compare/v102.1.0...v102.1.1) (2025-04-01)
+
+
+### Bug Fixes
+
+* ensure hyperlinks work when using the upcoming global shell [DHIS2-19274] ([#668](https://github.com/dhis2/line-listing-app/issues/668)) ([673c6ae](https://github.com/dhis2/line-listing-app/commit/673c6ae20cf1a1fd020be38e876e41cd727f2936))
+
 # [102.1.0](https://github.com/dhis2/line-listing-app/compare/v102.0.2...v102.1.0) (2025-03-18)
 
 

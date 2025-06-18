@@ -1,7 +1,4 @@
-import { enableAutoLogin } from '@dhis2/cypress-commands'
 import './commands.js'
-
-enableAutoLogin()
 
 Cypress.on('uncaught:exception', (err) => {
     // This prevents a benign error:
@@ -40,6 +37,12 @@ const findSessionCookieForBaseUrl = (baseUrl, cookies) =>
 before(() => {
     const baseUrl = Cypress.env('dhis2BaseUrl')
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
+    const username = Cypress.env('dhis2Username')
+    const password = Cypress.env('dhis2Password')
+
+    cy.loginByApi({ username, password, baseUrl })
+        .its('status')
+        .should('equal', 200)
 
     cy.getAllCookies()
         .should((cookies) => {
@@ -62,6 +65,12 @@ beforeEach(() => {
     const instanceVersion = Cypress.env('dhis2InstanceVersion')
     const envVariableName = computeEnvVariableName(instanceVersion)
     const { name, value, ...options } = JSON.parse(Cypress.env(envVariableName))
+    const hideRequestsFromLog = Cypress.env('hideRequestsFromLog')
+
+    if (hideRequestsFromLog) {
+        // disable Cypress's default behavior of logging all XMLHttpRequests and fetches
+        cy.intercept({ resourceType: /xhr|fetch/ }, { log: false })
+    }
 
     localStorage.setItem(LOCAL_STORAGE_KEY, baseUrl)
     cy.setCookie(name, value, options)
