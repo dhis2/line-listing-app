@@ -1,3 +1,10 @@
+# [102.2.0](https://github.com/dhis2/line-listing-app/compare/v102.1.9...v102.2.0) (2025-06-19)
+
+
+### Features
+
+* support xlsx downloads (DHIS2-18786) ([#700](https://github.com/dhis2/line-listing-app/issues/700)) ([4d13212](https://github.com/dhis2/line-listing-app/commit/4d1321236a1396e657c4ad6590b0acfee48ced27))
+
 ## [102.1.9](https://github.com/dhis2/line-listing-app/compare/v102.1.8...v102.1.9) (2025-06-02)
 
 
