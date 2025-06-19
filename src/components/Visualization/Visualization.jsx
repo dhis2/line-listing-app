@@ -493,6 +493,11 @@ export const Visualization = ({
                 <div
                     className={styles.fetchIndicator}
                     style={{ top: fetchIndicatorTop }}
+                    data-test={
+                        fetching
+                            ? 'line-list-table-fetching'
+                            : 'line-list-table-idle'
+                    }
                 />
                 <div
                     className={styles.visualizationContainer}
