@@ -2,7 +2,7 @@ import { useConfig } from '@dhis2/app-runtime'
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 import { DOWNLOAD_TYPE_PLAIN, ID_SCHEME_UID } from '../constants.js'
-import { DownloadMenu } from '../DownloadMenu.js'
+import { DownloadMenu } from '../DownloadMenu.jsx'
 
 jest.mock('@dhis2/app-runtime', () => ({
     useConfig: jest.fn(() => ({ serverVersion: { minor: 42 } })),
