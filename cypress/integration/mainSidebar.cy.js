@@ -228,6 +228,13 @@ describe('accessory sidebar panel', () => {
 
         goToStartPage()
 
+        // force sidebar width reset
+        cy.getBySel('accessory-panel-resize-handle').trigger('dblclick')
+
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_DEFAULT_WIDTH)
+
         // Resize to min width, without mouseup
         cy.getBySel('accessory-panel-resize-handle')
             .trigger('mousedown')
@@ -313,6 +320,13 @@ describe('accessory sidebar panel', () => {
             VIEWPORT_WIDTH - PRIMARY_PANEL_WIDTH - ACCESSORY_PANEL_MIN_PX_AT_END
 
         goToStartPage()
+
+        // force sidebar width reset
+        cy.getBySel('accessory-panel-resize-handle').trigger('dblclick')
+
+        cy.getBySel('accessory-sidebar')
+            .invoke('outerWidth')
+            .should('eq', ACCESSORY_PANEL_DEFAULT_WIDTH)
 
         resizeByKeyBoard(movementX)
 
