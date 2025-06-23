@@ -123,18 +123,23 @@ describe('Your dimensions', () => {
             `${getPreviousYearStr()}-12-11`,
         ])
     })
-    it('list lazy loads', () => {
+    it.only('list lazy loads', () => {
         const getList = () => cy.getBySel('your-dimensions-list')
         const getListChildren = () => getList().find('div[role="button"]')
         const shouldLoadNextPage = (nextPage, nextListLength) => {
             cy.getBySel('dimensions-list-load-more').should('exist')
             // The loader is appended below the "viewport" so we need another scroll
-            getList().scrollTo('bottom')
-            cy.getBySel('dimensions-list-load-more').should('be.visible')
+            cy.getBySel('dimensions-list-load-more')
+                .scrollIntoView()
+                .should('be.visible')
             cy.wait('@getDimensions')
                 .its('request.query.page')
                 .should('eq', nextPage.toString())
             getListChildren().should('have.length', nextListLength)
+
+            cy.getBySel('dimensions-list-load-more').should('not.exist')
+
+            cy.wait(0)
         }
 
         cy.intercept(
