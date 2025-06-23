@@ -117,11 +117,11 @@ PaginationComponent.propTypes = {
 export const Visualization = ({
     filters,
     visualization: AO,
-    isVisualizationLoading,
-    displayProperty,
-    onResponsesReceived,
+    isVisualizationLoading = false,
+    displayProperty = 'name',
+    onResponsesReceived = Function.prototype,
     onColumnHeaderClick,
-    onDataSorted,
+    onDataSorted = Function.prototype,
     onError,
     forDashboard,
 }) => {
@@ -683,13 +683,6 @@ export const Visualization = ({
             {Boolean(uniqueLegendSets.length) && getLegendKey()}
         </div>
     )
-}
-
-Visualization.defaultProps = {
-    displayProperty: 'name',
-    isVisualizationLoading: false,
-    onDataSorted: Function.prototype,
-    onResponsesReceived: Function.prototype,
 }
 
 Visualization.propTypes = {

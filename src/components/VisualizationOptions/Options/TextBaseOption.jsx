@@ -11,7 +11,7 @@ const TextBaseOption = ({
     label,
     placeholder,
     width,
-    option,
+    option = {},
     value,
     onChange,
     disabled,
@@ -32,10 +32,6 @@ const TextBaseOption = ({
         />
     </div>
 )
-
-TextBaseOption.defaultProps = {
-    option: {},
-}
 
 TextBaseOption.propTypes = {
     dataTest: PropTypes.string,

@@ -236,15 +236,10 @@ OrgUnitCondition.propTypes = {
     metadata: PropTypes.object,
     parentGraphMap: PropTypes.object,
 }
-OrgUnitCondition.defaultProps = {
-    rootOrgUnits: [],
-}
 
 // VERSION-TOGGLE: remove when 42 is lowest supported version
 OrgUnitConditionMaxVersionV41.propTypes = OrgUnitCondition.propTypes
 OrgUnitConditionMinVersionV42.propTypes = OrgUnitCondition.propTypes
-OrgUnitConditionMaxVersionV41.defaultProps = OrgUnitCondition.defaultProps
-OrgUnitConditionMinVersionV42.defaultProps = OrgUnitCondition.defaultProps
 
 const mapStateToProps = (state) => ({
     metadata: sGetMetadata(state),

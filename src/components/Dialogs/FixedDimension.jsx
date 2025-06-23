@@ -275,10 +275,6 @@ FixedDimension.propTypes = {
     setUiItems: PropTypes.func,
 }
 
-FixedDimension.defaultProps = {
-    rootOrgUnits: [],
-}
-
 const mapStateToProps = (state, ownProps) => ({
     selectedItemsIds: sGetUiItemsByDimension(state, ownProps.dimension?.id),
     isInLayout: sGetDimensionIdsFromLayout(state).includes(
