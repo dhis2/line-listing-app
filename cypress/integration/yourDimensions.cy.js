@@ -132,6 +132,7 @@ describe('Your dimensions', () => {
             cy.getBySel('dimensions-list-load-more')
                 .scrollIntoView()
                 .should('be.visible')
+
             cy.wait('@getDimensions')
                 .its('request.query.page')
                 .should('eq', nextPage.toString())
@@ -139,6 +140,7 @@ describe('Your dimensions', () => {
 
             cy.getBySel('dimensions-list-load-more').should('not.exist')
 
+            // eslint-disable-next-line cypress/no-unnecessary-waiting
             cy.wait(0)
         }
 
