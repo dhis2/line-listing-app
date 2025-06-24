@@ -7,7 +7,7 @@ const WELCOME_MSG_ORIGINAL = 'Getting started'
 const WELCOME_MSG_TRANSLATED = 'Komme i gang'
 
 const interceptLanguage = () => {
-    cy.intercept('**userSettings**', (req) => {
+    cy.intercept('**/!(src)/**/api/*/userSettings**', (req) => {
         req.reply((res) => {
             res.send({
                 body: {
@@ -17,22 +17,19 @@ const interceptLanguage = () => {
             })
         })
     })
-    cy.intercept(
-        '**me?fields=authorities,avatar,email,name,settings**',
-        (req) => {
-            req.reply((res) => {
-                res.send({
-                    body: {
-                        ...res.body,
-                        settings: {
-                            ...res.body.settings,
-                            keyUiLocale: 'nb',
-                        },
+    cy.intercept('**/!(src)/**/api/*/me?fields=*', (req) => {
+        req.reply((res) => {
+            res.send({
+                body: {
+                    ...res.body,
+                    settings: {
+                        ...res.body.settings,
+                        keyUiLocale: 'nb',
                     },
-                })
+                },
             })
-        }
-    )
+        })
+    })
 }
 
 describe('Translations', () => {
