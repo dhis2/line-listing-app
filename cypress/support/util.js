@@ -2,6 +2,7 @@ export const EXTENDED_TIMEOUT = { timeout: 25000 }
 
 export const getApiBaseUrl = () => {
     const baseUrl = Cypress.env('dhis2BaseUrl') || ''
+    const apiVersion = Cypress.env('dhis2ApiVersion') || ''
 
     if (!baseUrl) {
         throw new Error(
@@ -9,5 +10,5 @@ export const getApiBaseUrl = () => {
         )
     }
 
-    return baseUrl
+    return new URL(`api/${apiVersion}`, `${baseUrl}/`).href
 }
