@@ -123,7 +123,7 @@ describe('Your dimensions', () => {
             `${getPreviousYearStr()}-12-11`,
         ])
     })
-    it.only('list lazy loads', () => {
+    it('list lazy loads', () => {
         const getList = () => cy.getBySel('your-dimensions-list')
         const getListChildren = () => getList().find('div[role="button"]')
         const shouldLoadNextPage = (nextPage, nextListLength) => {
