@@ -155,6 +155,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 console.log('key down set width', width)
                 setWidth(width)
             }
+            console.log('add keydown event listener')
             resizeHandleElement.addEventListener('keydown', onKeyDown)
             resizeHandleElement.addEventListener(
                 'blur',
@@ -162,6 +163,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                     event.preventDefault()
                     event.stopPropagation()
                     setIsResizing(false)
+                    console.log('remove keydown event listener', width)
                     window.removeEventListener('keydown', onKeyDown)
                     setUserSidebarWidthToLocalStorage(width)
                     dispatch(acSetUiAccessoryPanelWidth(width))
