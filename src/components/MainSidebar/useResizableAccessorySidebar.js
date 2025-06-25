@@ -164,7 +164,10 @@ export const useResizableAccessorySidebar = (isHidden) => {
                     event.stopPropagation()
                     setIsResizing(false)
                     console.log('remove keydown event listener', width)
-                    window.removeEventListener('keydown', onKeyDown)
+                    resizeHandleElement.removeEventListener(
+                        'keydown',
+                        onKeyDown
+                    )
                     setUserSidebarWidthToLocalStorage(width)
                     dispatch(acSetUiAccessoryPanelWidth(width))
                 },
