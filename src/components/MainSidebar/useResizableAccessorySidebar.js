@@ -134,7 +134,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
         (event) => {
             setIsResizing(true)
             const resizeHandleElement = event.currentTarget
-            const startWidth = userSettingWidth
+            const startWidth = resizeHandleElement.previousSibling.offsetWidth
             const computeWidth = createWidthWithinBoundsCalculator(
                 event,
                 startWidth
@@ -155,7 +155,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 console.log('key down set width', width)
                 setWidth(width)
             }
-            console.log('add keydown event listener', userSettingWidth)
+            console.log('add keydown event listener', startWidth)
             resizeHandleElement.addEventListener('keydown', onKeyDown)
             resizeHandleElement.addEventListener(
                 'blur',
@@ -174,7 +174,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 { once: true }
             )
         },
-        [dispatch, userSettingWidth]
+        [dispatch]
     )
 
     const onResizeHandleDblClick = (event) => {
@@ -187,6 +187,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
     }
 
     useEffect(() => {
+        console.log('userSettingWidth changed', userSettingWidth)
         // Respond to reset via view menu
         if (userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH) {
             console.log('user settings width default width')
