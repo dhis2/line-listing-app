@@ -152,6 +152,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 }
                 const deltaX = event.key === ARROW_LEFT_KEY ? -10 : 10
                 width = computeWidth(deltaX)
+                console.log('key down set width', width)
                 setWidth(width)
             }
             resizeHandleElement.addEventListener('keydown', onKeyDown)
@@ -172,6 +173,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
     )
 
     const onResizeHandleDblClick = (event) => {
+        console.log('resize dbl click', event)
         event.stopPropagation()
         event.preventDefault()
         setWidth(ACCESSORY_PANEL_DEFAULT_WIDTH)
@@ -182,6 +184,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
     useEffect(() => {
         // Respond to reset via view menu
         if (userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH) {
+            console.log('user settings width default width')
             setWidth(ACCESSORY_PANEL_DEFAULT_WIDTH)
         }
     }, [userSettingWidth])
@@ -191,6 +194,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
             /*`getUserSidebarWidth` takes window width into
              * account so the returned value is save to use */
             const width = getUserSidebarWidth()
+            console.log('resize debounce width', width)
             setWidth(width)
             setUserSidebarWidthToLocalStorage(width)
             dispatch(acSetUiAccessoryPanelWidth(width))
