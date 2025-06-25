@@ -155,7 +155,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 console.log('key down set width', width)
                 setWidth(width)
             }
-            console.log('add keydown event listener')
+            console.log('add keydown event listener', userSettingWidth)
             resizeHandleElement.addEventListener('keydown', onKeyDown)
             resizeHandleElement.addEventListener(
                 'blur',
