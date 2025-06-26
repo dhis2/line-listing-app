@@ -102,7 +102,7 @@ export const DimensionItem = ({
                                 )
                             }
                             onClick={(e) => {
-                                e && e.stopPropagation()
+                                e?.stopPropagation()
 
                                 if (!selected) {
                                     dispatch(

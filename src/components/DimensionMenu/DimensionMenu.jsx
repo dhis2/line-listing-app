@@ -32,7 +32,7 @@ const DimensionMenu = ({ currentAxisId, dimensionId, dimensionMetadata }) => {
 
     const toggleMenu = (e) => {
         setMenuIsOpen(!menuIsOpen)
-        e && e.stopPropagation()
+        e?.stopPropagation()
     }
 
     const getMenuId = () => `menu-for-${dimensionId}`

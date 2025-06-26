@@ -72,9 +72,10 @@ export const SelectedDimensionsProvider = ({ children }) => {
                 ) {
                     acc.program += 1
                 } else if (dimensionId === DIMENSION_ID_ORGUNIT) {
-                    if (selectedInputType !== OUTPUT_TYPE_TRACKED_ENTITY) {
-                        acc.program += 1
-                    } else if (id !== DIMENSION_ID_ORGUNIT) {
+                    if (
+                        selectedInputType !== OUTPUT_TYPE_TRACKED_ENTITY ||
+                        id !== DIMENSION_ID_ORGUNIT
+                    ) {
                         // exclude "ou" which is a global dimension, but add count for program org units
                         acc.program += 1
                     }

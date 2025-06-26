@@ -265,7 +265,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onRename={onRename}
                 onSave={
                     [STATE_UNSAVED, STATE_DIRTY].includes(
-                        getVisualizationState(current, visualization)
+                        getVisualizationState(visualization, current)
                     ) &&
                     isLayoutValidForSave({
                         ...current,

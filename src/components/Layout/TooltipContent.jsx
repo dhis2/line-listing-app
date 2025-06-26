@@ -142,19 +142,17 @@ export const TooltipContent = ({ dimension, conditionsTexts, axisId }) => {
     const renderItemsSection = (itemsList) => {
         if (itemsList.length) {
             return renderItems(itemsList)
+        } else if (axisId === AXIS_ID_FILTERS) {
+            return renderNoItemsLabel()
         } else {
-            if (axisId === AXIS_ID_FILTERS) {
-                return renderNoItemsLabel()
-            } else {
-                return (
-                    <li
-                        key={`${dimension.id}-all-selected`}
-                        className={styles.item}
-                    >
-                        {i18n.t('Showing all values for this dimension')}
-                    </li>
-                )
-            }
+            return (
+                <li
+                    key={`${dimension.id}-all-selected`}
+                    className={styles.item}
+                >
+                    {i18n.t('Showing all values for this dimension')}
+                </li>
+            )
         }
     }
 

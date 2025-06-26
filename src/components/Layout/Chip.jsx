@@ -68,7 +68,7 @@ const Chip = ({
         return null
     }
 
-    let insertPosition = undefined
+    let insertPosition
     if (over?.id === id) {
         // This chip is being hovered over by a dragged item
         if (activeIndex === -1) {

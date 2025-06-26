@@ -37,9 +37,9 @@ const useMostViewedVisualizations = (username, error, setLoadError) => {
 
     return {
         mostViewed: mostViewed.data?.mostViewed,
-        loading: mostViewed.loading || mostViewed.loading,
-        fetching: mostViewed.fetching || mostViewed.fetching,
-        error: mostViewed.error || mostViewed.error,
+        loading: mostViewed.loading,
+        fetching: mostViewed.fetching,
+        error: mostViewed.error,
     }
 }
 
@@ -115,9 +115,9 @@ const StartScreen = ({ error, setLoadError }) => {
                                 <h3 className={styles.title}>
                                     {i18n.t('Your most viewed line lists')}
                                 </h3>
-                                {data.mostViewed.map((vis, index) => (
+                                {data.mostViewed.map((vis) => (
                                     <p
-                                        key={index}
+                                        key={vis.id}
                                         className={styles.visualization}
                                         onClick={() =>
                                             history.push(`/${vis.id}`)

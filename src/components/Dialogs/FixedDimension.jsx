@@ -61,33 +61,29 @@ const FixedDimension = ({
             dimensionId: dimension.id,
             itemIds: items.map((item) => item.id),
         })
-        switch (dimensionId) {
-            case DIMENSION_ID_ORGUNIT: {
-                const forMetadata = {}
-                const forParentGraphMap = {}
 
-                items.forEach((ou) => {
-                    const id = ouIdHelper.removePrefix(ou.id)
-                    forMetadata[id] = {
-                        id,
-                        name: ou.name || ou.displayName,
-                        displayName: ou.displayName,
-                    }
+        if (dimensionId === DIMENSION_ID_ORGUNIT) {
+            const forMetadata = {}
+            const forParentGraphMap = {}
 
-                    if (ou.path) {
-                        const path = removeLastPathSegment(ou.path)
+            items.forEach((ou) => {
+                const id = ouIdHelper.removePrefix(ou.id)
+                forMetadata[id] = {
+                    id,
+                    name: ou.name || ou.displayName,
+                    displayName: ou.displayName,
+                }
 
-                        forParentGraphMap[ou.id] =
-                            path === `/${ou.id}` ? '' : path.replace(/^\//, '')
-                    }
-                })
+                if (ou.path) {
+                    const path = removeLastPathSegment(ou.path)
 
-                addMetadata(forMetadata)
-                addParentGraphMap(forParentGraphMap)
+                    forParentGraphMap[ou.id] =
+                        path === `/${ou.id}` ? '' : path.replace(/^\//, '')
+                }
+            })
 
-                break
-            }
-            // TODO: case DIMENSION_ID_PERIOD:
+            addMetadata(forMetadata)
+            addParentGraphMap(forParentGraphMap)
         }
     }
 
@@ -246,7 +242,6 @@ const FixedDimension = ({
                     </div>
                 )
             }
-            // TODO: case DIMENSION_ID_PERIOD:
         }
     }
 

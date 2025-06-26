@@ -42,7 +42,7 @@ const DimensionItemBase = ({
             </div>
         </div>
 
-        {contextMenu && contextMenu}
+        {contextMenu ?? null}
     </div>
 )
 

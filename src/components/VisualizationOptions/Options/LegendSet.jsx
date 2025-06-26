@@ -75,7 +75,7 @@ const LegendSet = ({ value, onChange, dataTest }) => {
     const [options, setOptions] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
 
-    if (value && value.id) {
+    if (value?.id) {
         if (!options.find((option) => option.value === value.id)) {
             setOptions([
                 ...options,

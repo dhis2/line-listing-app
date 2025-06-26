@@ -315,7 +315,7 @@ const App = () => {
             }
         })
 
-        return () => unlisten && unlisten()
+        return () => unlisten?.()
     }, [])
 
     const addOptionSetsMetadata = async (visualization) => {
