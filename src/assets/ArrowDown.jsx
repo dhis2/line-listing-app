@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const ArrowDown = ({ style = { width: 16, height: 16 } }) => (
+const STYLE_PROP_DEFAULT = { width: 16, height: 16 }
+
+const ArrowDown = ({ style = STYLE_PROP_DEFAULT }) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
