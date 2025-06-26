@@ -6,12 +6,14 @@ import { acSetUiOptions } from '../../../actions/ui.js'
 import { sGetUiOptions } from '../../../reducers/ui.js'
 import styles from '../styles/VisualizationOptions.module.css'
 
+const OPTION_PROP_DEFAULT = {}
+
 const TextBaseOption = ({
     type,
     label,
     placeholder,
     width,
-    option = {},
+    option = OPTION_PROP_DEFAULT,
     value,
     onChange,
     disabled,
