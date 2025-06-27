@@ -60,7 +60,7 @@ const uidRe = /\/([a-zA-Z][a-zA-Z0-9]{10})$/
 const deleteVisualizationWithUid = (uid) =>
     cy.request({
         method: 'DELETE',
-        url: `${getApiBaseUrl()}/api/eventVisualizations/${uid}`,
+        url: `${getApiBaseUrl()}/eventVisualizations/${uid}`,
         failOnStatusCode: false, // carry on even if the delete fails
     })
 

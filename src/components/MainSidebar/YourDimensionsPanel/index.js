@@ -1,1 +1,1 @@
-export { YourDimensionsPanel } from './YourDimensionsPanel.js'
+export { YourDimensionsPanel } from './YourDimensionsPanel.jsx'

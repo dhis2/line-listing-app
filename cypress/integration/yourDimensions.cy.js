@@ -129,12 +129,19 @@ describe('Your dimensions', () => {
         const shouldLoadNextPage = (nextPage, nextListLength) => {
             cy.getBySel('dimensions-list-load-more').should('exist')
             // The loader is appended below the "viewport" so we need another scroll
-            getList().scrollTo('bottom')
-            cy.getBySel('dimensions-list-load-more').should('be.visible')
+            cy.getBySel('dimensions-list-load-more')
+                .scrollIntoView()
+                .should('be.visible')
+
             cy.wait('@getDimensions')
                 .its('request.query.page')
                 .should('eq', nextPage.toString())
             getListChildren().should('have.length', nextListLength)
+
+            cy.getBySel('dimensions-list-load-more').should('not.exist')
+
+            // eslint-disable-next-line cypress/no-unnecessary-waiting
+            cy.wait(0)
         }
 
         cy.intercept(
