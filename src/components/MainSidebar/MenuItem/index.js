@@ -1,1 +1,1 @@
-export { MenuItem } from './MenuItem.js'
+export { MenuItem } from './MenuItem.jsx'

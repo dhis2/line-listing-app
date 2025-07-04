@@ -1,6 +1,6 @@
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
-import lineListConfig from './lineListConfig.js'
-import pivotTableConfig from './pivotTableConfig.js'
+import lineListConfig from './lineListConfig.jsx'
+import pivotTableConfig from './pivotTableConfig.jsx'
 
 export const getOptionsByType = (type) => {
     switch (type) {

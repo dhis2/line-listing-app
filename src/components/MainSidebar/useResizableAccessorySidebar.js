@@ -87,15 +87,7 @@ export const useResizableAccessorySidebar = (isHidden) => {
 
             setIsResizing(true)
 
-            /* Because the user never blurred the draghandle, the
-             * width preference is not yet updated when this callback
-             * is executed. Since the userSettingWidth is stale, the width
-             * needs to be assessed some other way. The solution below
-             * works but will break when make any changes to the relevant
-             * DOM structure. */
-            const startWidth = isActive
-                ? resizeHandleElement.previousSibling.offsetWidth
-                : userSettingWidth
+            const startWidth = resizeHandleElement.previousSibling.offsetWidth
             const computeWidth = createWidthWithinBoundsCalculator(
                 event,
                 startWidth
@@ -106,7 +98,6 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 event.preventDefault()
                 event.stopPropagation()
 
-                // if
                 width = computeWidth(event.movementX)
 
                 setWidth(width)
@@ -127,14 +118,14 @@ export const useResizableAccessorySidebar = (isHidden) => {
                 { once: true }
             )
         },
-        [dispatch, userSettingWidth]
+        [dispatch]
     )
 
     const onResizeHandleFocus = useCallback(
         (event) => {
             setIsResizing(true)
             const resizeHandleElement = event.currentTarget
-            const startWidth = userSettingWidth
+            const startWidth = resizeHandleElement.previousSibling.offsetWidth
             const computeWidth = createWidthWithinBoundsCalculator(
                 event,
                 startWidth
@@ -161,14 +152,17 @@ export const useResizableAccessorySidebar = (isHidden) => {
                     event.preventDefault()
                     event.stopPropagation()
                     setIsResizing(false)
-                    window.removeEventListener('keydown', onKeyDown)
+                    resizeHandleElement.removeEventListener(
+                        'keydown',
+                        onKeyDown
+                    )
                     setUserSidebarWidthToLocalStorage(width)
                     dispatch(acSetUiAccessoryPanelWidth(width))
                 },
                 { once: true }
             )
         },
-        [dispatch, userSettingWidth]
+        [dispatch]
     )
 
     const onResizeHandleDblClick = (event) => {
