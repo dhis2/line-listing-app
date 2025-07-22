@@ -59,6 +59,7 @@ const assertDisplayPropertyInDownload = (displayProperty) => {
     )
 
     // override window.open to force the donwload to open in the same tab
+    // otherwise the intercept does not work
     // see: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#deal-with-windowopen
     cy.window().then((win) => {
         cy.stub(win, 'open').callsFake((url) => {
