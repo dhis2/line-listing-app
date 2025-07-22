@@ -6,7 +6,13 @@ import {
 } from '../helpers/dimensions.js'
 import { clickMenubarUpdateButton } from '../helpers/menubar.js'
 import { goToStartPage } from '../helpers/startScreen.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import {
+    getTableHeaderCells,
+    expectTableToBeVisible,
+} from '../helpers/table.js'
+import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
+
+const apiBaseUrl = getApiBaseUrl()
 
 const downloadIsEnabled = () =>
     cy
@@ -19,6 +25,57 @@ const downloadIsDisabled = () =>
         .getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
         .contains('Download')
         .should('have.attr', 'disabled')
+
+const assertDisplayPropertyInDownload = (displayProperty) => {
+    const dimensionName =
+        displayProperty === 'NAME' ? 'Agricultural Region' : 'Agri Reg'
+
+    goToStartPage()
+
+    selectEnrollmentWithProgram({
+        programName: E2E_PROGRAM.programName,
+    })
+
+    cy.getBySel('main-sidebar').contains('Your dimensions').click()
+
+    cy.getBySel('your-dimensions-list')
+        .contains(dimensionName, EXTENDED_TIMEOUT)
+        .click()
+
+    cy.contains('Add to Columns').click()
+
+    clickMenubarUpdateButton()
+
+    expectTableToBeVisible()
+
+    getTableHeaderCells().contains(dimensionName).should('be.visible')
+
+    cy.getBySel('dhis2-analytics-hovermenubar', EXTENDED_TIMEOUT)
+        .contains('Download')
+        .click()
+
+    cy.intercept(`${apiBaseUrl}/analytics/enrollments/query/*.html+css*`).as(
+        'getDownload'
+    )
+
+    // override window.open to force the donwload to open in the same tab
+    // otherwise the intercept does not work
+    // see: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#deal-with-windowopen
+    cy.window().then((win) => {
+        cy.stub(win, 'open').callsFake((url) => {
+            return win.open.wrappedMethod.call(win, url, '_self')
+        })
+    })
+
+    cy.getBySel('dhis2-analytics-hovermenulist')
+        .contains('HTML+CSS (.html+css)')
+        .click()
+
+    cy.wait('@getDownload').then(({ request, response }) => {
+        expect(request.url).to.include(`displayProperty=${displayProperty}`)
+        expect(response.body).to.include(dimensionName)
+    })
+}
 
 describe('download', () => {
     it('download button enables when required dimensions are selected (event)', () => {
@@ -64,4 +121,27 @@ describe('download', () => {
             downloadIsEnabled()
         }
     )
+
+    it('displayProperty with NAME value is passed in the download URL', () => {
+        assertDisplayPropertyInDownload('NAME')
+    })
+
+    it('displayProperty with SHORTNAME value is passed in the download URL', () => {
+        // override user setting for displayProperty
+        cy.intercept(`${apiBaseUrl}/me?fields=*`, (req) => {
+            req.reply((res) => {
+                res.send({
+                    body: {
+                        ...res.body,
+                        settings: {
+                            ...res.body.settings,
+                            keyAnalysisDisplayProperty: 'shortName',
+                        },
+                    },
+                })
+            })
+        })
+
+        assertDisplayPropertyInDownload('SHORTNAME')
+    })
 })
