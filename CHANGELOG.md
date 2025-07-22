@@ -1,3 +1,10 @@
+## [102.2.1](https://github.com/dhis2/line-listing-app/compare/v102.2.0...v102.2.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* pass displayProperty to download URLs (DHIS2-17836) ([#707](https://github.com/dhis2/line-listing-app/issues/707)) ([6a52e13](https://github.com/dhis2/line-listing-app/commit/6a52e136c014373c24eb73e4b607b7f7b1ed06bd))
+
 # [102.2.0](https://github.com/dhis2/line-listing-app/compare/v102.1.9...v102.2.0) (2025-06-19)
 
 
