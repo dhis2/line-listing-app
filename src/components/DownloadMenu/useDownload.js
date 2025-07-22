@@ -28,7 +28,7 @@ import {
 const useDownload = (relativePeriodDate) => {
     const { currentUser } = useCachedDataQuery()
     const current = useSelector(sGetCurrent)
-    const { baseUrl } = useConfig()
+    const { baseUrl, apiVersion } = useConfig()
     const dataEngine = useDataEngine()
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
 
@@ -171,7 +171,7 @@ const useDownload = (relativePeriodDate) => {
             }
 
             const url = new URL(
-                `${baseUrl}/api/${req.buildUrl()}`,
+                `${baseUrl}/api/${apiVersion}/${req.buildUrl()}`,
                 `${window.location.origin}${window.location.pathname}`
             )
 
@@ -187,6 +187,7 @@ const useDownload = (relativePeriodDate) => {
             relativePeriodDate,
             analyticsEngine,
             baseUrl,
+            apiVersion,
         ]
     )
 
