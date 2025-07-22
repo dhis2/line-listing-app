@@ -26,7 +26,7 @@ const downloadIsDisabled = () =>
         .contains('Download')
         .should('have.attr', 'disabled')
 
-const assertDisplayPropertyInDonwload = (displayProperty) => {
+const assertDisplayPropertyInDownload = (displayProperty) => {
     const dimensionName =
         displayProperty === 'NAME' ? 'Agricultural Region' : 'Agri Reg'
 
@@ -122,7 +122,7 @@ describe('download', () => {
     )
 
     it('displayProperty with NAME value is passed in the download URL', () => {
-        assertDisplayPropertyInDonwload('NAME')
+        assertDisplayPropertyInDownload('NAME')
     })
 
     it('displayProperty with SHORTNAME value is passed in the download URL', () => {
@@ -141,6 +141,6 @@ describe('download', () => {
             })
         })
 
-        assertDisplayPropertyInDonwload('SHORTNAME')
+        assertDisplayPropertyInDownload('SHORTNAME')
     })
 })
