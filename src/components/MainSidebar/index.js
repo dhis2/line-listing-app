@@ -1,1 +1,1 @@
-export { MainSidebar } from './MainSidebar.js'
+export { MainSidebar } from './MainSidebar.jsx'
