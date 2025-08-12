@@ -1,3 +1,10 @@
+## [102.2.2](https://github.com/dhis2/line-listing-app/compare/v102.2.1...v102.2.2) (2025-08-12)
+
+
+### Bug Fixes
+
+* update cli-app-scripts to open links in same tab [DHIS2-19973] ([#712](https://github.com/dhis2/line-listing-app/issues/712)) ([9fba4f3](https://github.com/dhis2/line-listing-app/commit/9fba4f3f2a34a81b2e9a3b6842503a6df1826865))
+
 ## [102.2.1](https://github.com/dhis2/line-listing-app/compare/v102.2.0...v102.2.1) (2025-07-22)
 
 
