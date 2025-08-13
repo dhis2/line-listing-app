@@ -1,1 +1,1 @@
-export { ProgramDimensionsPanel } from './ProgramDimensionsPanel.js'
+export { ProgramDimensionsPanel } from './ProgramDimensionsPanel.jsx'

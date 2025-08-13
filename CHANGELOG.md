@@ -1,3 +1,24 @@
+## [102.2.2](https://github.com/dhis2/line-listing-app/compare/v102.2.1...v102.2.2) (2025-08-12)
+
+
+### Bug Fixes
+
+* update cli-app-scripts to open links in same tab [DHIS2-19973] ([#712](https://github.com/dhis2/line-listing-app/issues/712)) ([9fba4f3](https://github.com/dhis2/line-listing-app/commit/9fba4f3f2a34a81b2e9a3b6842503a6df1826865))
+
+## [102.2.1](https://github.com/dhis2/line-listing-app/compare/v102.2.0...v102.2.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* pass displayProperty to download URLs (DHIS2-17836) ([#707](https://github.com/dhis2/line-listing-app/issues/707)) ([6a52e13](https://github.com/dhis2/line-listing-app/commit/6a52e136c014373c24eb73e4b607b7f7b1ed06bd))
+
+# [102.2.0](https://github.com/dhis2/line-listing-app/compare/v102.1.9...v102.2.0) (2025-06-19)
+
+
+### Features
+
+* support xlsx downloads (DHIS2-18786) ([#700](https://github.com/dhis2/line-listing-app/issues/700)) ([4d13212](https://github.com/dhis2/line-listing-app/commit/4d1321236a1396e657c4ad6590b0acfee48ced27))
+
 ## [102.1.9](https://github.com/dhis2/line-listing-app/compare/v102.1.8...v102.1.9) (2025-06-02)
 
 

@@ -364,10 +364,9 @@ describe('repeated events', () => {
             .eq(TEST_CELL.row)
             .find('td')
             .eq(TEST_CELL.column)
-            .should(($td) => {
-                const className = $td[0].className
-
-                expect(className).to.match(/Visualization_undefinedCell*/)
+            .invoke('css', 'background-image')
+            .then((bgImage) => {
+                expect(bgImage).to.match(/repeating-linear-gradient/)
             })
 
         getTableRows()

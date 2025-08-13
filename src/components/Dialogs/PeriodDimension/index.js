@@ -1,2 +1,2 @@
-import { PeriodDimension } from './PeriodDimension.js'
+import { PeriodDimension } from './PeriodDimension.jsx'
 export default PeriodDimension

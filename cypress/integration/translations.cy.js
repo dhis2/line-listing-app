@@ -1,5 +1,5 @@
 import { goToStartPage } from '../helpers/startScreen.js'
-import { EXTENDED_TIMEOUT } from '../support/util.js'
+import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
 const UPDATE_BUTTON_ORIGINAL = 'Update'
 const UPDATE_BUTTON_TRANSLATED = 'Oppdater'
@@ -7,7 +7,9 @@ const WELCOME_MSG_ORIGINAL = 'Getting started'
 const WELCOME_MSG_TRANSLATED = 'Komme i gang'
 
 const interceptLanguage = () => {
-    cy.intercept('**userSettings**', (req) => {
+    const apiBaseUrl = getApiBaseUrl()
+
+    cy.intercept(`${apiBaseUrl}/userSettings*`, (req) => {
         req.reply((res) => {
             res.send({
                 body: {
@@ -17,22 +19,19 @@ const interceptLanguage = () => {
             })
         })
     })
-    cy.intercept(
-        '**me?fields=authorities,avatar,email,name,settings**',
-        (req) => {
-            req.reply((res) => {
-                res.send({
-                    body: {
-                        ...res.body,
-                        settings: {
-                            ...res.body.settings,
-                            keyUiLocale: 'nb',
-                        },
+    cy.intercept(`${apiBaseUrl}/me?fields=*`, (req) => {
+        req.reply((res) => {
+            res.send({
+                body: {
+                    ...res.body,
+                    settings: {
+                        ...res.body.settings,
+                        keyUiLocale: 'nb',
                     },
-                })
+                },
             })
-        }
-    )
+        })
+    })
 }
 
 describe('Translations', () => {

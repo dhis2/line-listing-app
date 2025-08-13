@@ -1,10 +1,11 @@
-import { Analytics } from '@dhis2/analytics'
+import { Analytics, useCachedDataQuery } from '@dhis2/analytics'
 import { useConfig, useDataEngine } from '@dhis2/app-runtime'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { validateLineListLayout } from '../../modules/layoutValidation.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { getSortingFromVisualization } from '../../modules/ui.js'
+import { USER_SETTINGS_DISPLAY_PROPERTY } from '../../modules/userSettings.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
@@ -21,11 +22,13 @@ import {
     FILE_FORMAT_HTML_CSS,
     FILE_FORMAT_CSV,
     FILE_FORMAT_XLS,
+    FILE_FORMAT_XLSX,
 } from './constants.js'
 
 const useDownload = (relativePeriodDate) => {
+    const { currentUser } = useCachedDataQuery()
     const current = useSelector(sGetCurrent)
-    const { baseUrl } = useConfig()
+    const { baseUrl, apiVersion } = useConfig()
     const dataEngine = useDataEngine()
     const analyticsEngine = Analytics.getAnalytics(dataEngine)
 
@@ -43,6 +46,9 @@ const useDownload = (relativePeriodDate) => {
             let req = new analyticsEngine.request()
                 .withPath(`${getAnalyticsEndpoint(current.outputType)}/query`)
                 .withFormat(format)
+                .withDisplayProperty(
+                    currentUser.settings[USER_SETTINGS_DISPLAY_PROPERTY]
+                )
 
             switch (current.outputType) {
                 case OUTPUT_TYPE_TRACKED_ENTITY:
@@ -118,7 +124,6 @@ const useDownload = (relativePeriodDate) => {
                     // TODO options
                     // startDate
                     // endDate
-                    // displayProperty
                     // completedOnly
                     // hierarchyMeta (from options)
                     // outputType
@@ -133,7 +138,11 @@ const useDownload = (relativePeriodDate) => {
                     // collapsedDataDimensions
                     // useOrgUnit (URL)
                     // relativePeriodDate
-                    target = [FILE_FORMAT_CSV, FILE_FORMAT_XLS].includes(format)
+                    target = [
+                        FILE_FORMAT_CSV,
+                        FILE_FORMAT_XLS,
+                        FILE_FORMAT_XLSX,
+                    ].includes(format)
                         ? '_top'
                         : '_blank'
                     break
@@ -162,7 +171,7 @@ const useDownload = (relativePeriodDate) => {
             }
 
             const url = new URL(
-                `${baseUrl}/api/${req.buildUrl()}`,
+                `${baseUrl}/api/${apiVersion}/${req.buildUrl()}`,
                 `${window.location.origin}${window.location.pathname}`
             )
 
@@ -172,7 +181,14 @@ const useDownload = (relativePeriodDate) => {
 
             window.open(url, target)
         },
-        [current, relativePeriodDate, analyticsEngine, baseUrl]
+        [
+            current,
+            currentUser.settings,
+            relativePeriodDate,
+            analyticsEngine,
+            baseUrl,
+            apiVersion,
+        ]
     )
 
     return {
