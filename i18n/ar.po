@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
@@ -74,6 +74,14 @@ msgid "No preset option sets for this data item"
 msgstr ""
 
 msgid "Choose options"
+msgstr ""
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
 msgstr ""
 
 msgid ""
@@ -357,13 +365,13 @@ msgstr ""
 msgid "Rename successful"
 msgstr "تمت إعادة التسمية بنجاح"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "عرض مرئي {{visualizationType}} بلا عنوان ، {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr "لا يمكن حذف هذا المرئيات لأنها مستخدمة في لوحة معلومات واحدة أو أكثر"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr ""
@@ -385,6 +393,9 @@ msgstr "إظهار التفسيرات والتفاصيل"
 
 msgid "View"
 msgstr "عرض"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "تحديث"
