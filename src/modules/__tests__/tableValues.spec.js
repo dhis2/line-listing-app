@@ -344,7 +344,7 @@ describe('getHeaderText', () => {
 })
 
 // DHIS2-15225
-describe.only('partial user info bug workaround', () => {
+describe('partial user info bug workaround', () => {
     it("returns empty string when createdbydisplayname is ', ()'", () => {
         const header = { name: 'createdbydisplayname' }
         const value = ',  ()' // 2 spaces between the comma and parentheses
