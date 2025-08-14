@@ -1,10 +1,14 @@
 import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 export const goToStartPage = (skipEval) => {
-    cy.visit('/', EXTENDED_TIMEOUT).log(Cypress.env('dhis2BaseUrl'))
-    if (!skipEval) {
-        expectStartScreenToBeVisible()
-    }
+    const appPath = '/api/apps/line-listing/index.html';
+    const baseUrl = Cypress.env('dhis2BaseUrl') + appPath;
+    cy.visit(baseUrl, EXTENDED_TIMEOUT).then(() => {
+        cy.log(`Visiting the base URL: ${baseUrl}`)
+        if (!skipEval) {
+            expectStartScreenToBeVisible()
+        }
+    })
 }
 
 export const expectStartScreenToBeVisible = () =>
