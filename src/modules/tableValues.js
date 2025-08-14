@@ -41,7 +41,7 @@ const getFormattedCellValue = ({ value, header = {}, visualization = {} }) => {
         return getStatusNames()[value] || value
     }
 
-    // TODO: Remove this when the problem with empty/partial user info is resolved in backend
+    // TODO: Remove this when DHIS2-15225 is resolved in backend
     if (
         [
             headersMap[DIMENSION_ID_CREATED_BY],

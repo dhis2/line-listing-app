@@ -343,7 +343,7 @@ describe('getHeaderText', () => {
     })
 })
 
-// DHIS2-XXXXX
+// DHIS2-15225
 describe.only('partial user info bug workaround', () => {
     it("returns empty string when createdbydisplayname is ', ()'", () => {
         const header = { name: 'createdbydisplayname' }
