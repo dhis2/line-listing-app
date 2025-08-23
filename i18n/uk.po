@@ -5,13 +5,14 @@
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Éva Tamási, 2024
+# Mykhailo Siusko <m.siusko@redcross.org.ua>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Éva Tamási, 2024\n"
+"Last-Translator: Mykhailo Siusko <m.siusko@redcross.org.ua>, 2025\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -298,7 +299,7 @@ msgid ""
 msgstr ""
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Оберіть програму"
 
 msgid "No programs found"
 msgstr ""
@@ -434,7 +435,7 @@ msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
-msgstr ""
+msgstr "Рядків на сторінку"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
