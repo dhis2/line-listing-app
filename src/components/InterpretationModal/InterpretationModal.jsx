@@ -1,12 +1,10 @@
-import {
-    useCachedDataQuery,
-    InterpretationModal as AnalyticsInterpretationModal,
-} from '@dhis2/analytics'
+import { useCachedDataQuery } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { ModalDownloadDropdown } from '../DownloadMenu/index.js'
+import { InterpretationModal as AnalyticsInterpretationModal } from '../Interpretations/InterpretationModal/InterpretationModal.jsx'
 import { VisualizationPluginWrapper } from '../Visualization/VisualizationPluginWrapper.jsx'
 import {
     useInterpretationQueryParams,

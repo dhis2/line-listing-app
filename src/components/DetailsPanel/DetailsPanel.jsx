@@ -1,8 +1,4 @@
-import {
-    AboutAOUnit,
-    InterpretationsUnit,
-    useCachedDataQuery,
-} from '@dhis2/analytics'
+import { AboutAOUnit, useCachedDataQuery } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import { stringify } from 'query-string'
 import React, { useMemo } from 'react'
@@ -11,6 +7,7 @@ import history from '../../modules/history.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetLoadError } from '../../reducers/loader.js'
+import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/InterpretationsUnit.jsx'
 import classes from './styles/DetailsPanel.module.css'
 
 const navigateToOpenModal = (interpretationId, initialFocus) => {
