@@ -212,22 +212,26 @@ export class InterpretationsManager {
 
     async toggleInterpretationLike(id) {
         const interpretation = this.getInterpretation(id)
-        const isLikedByCurrentUser = interpretation.likedBy.some(
+        const wasLikedByCurrentUser = interpretation.likedBy.some(
             (likedBy) => likedBy.id === this.currentUser.id
         )
         await this.mutate({
             resource: `interpretations/${id}/like`,
-            type: isLikedByCurrentUser ? 'delete' : 'create',
+            type: wasLikedByCurrentUser ? 'delete' : 'create',
         })
+        const isLikedByCurrentUser = !wasLikedByCurrentUser
         const updatedInterpretation = {
             ...interpretation,
             likedBy: isLikedByCurrentUser
-                ? interpretation.likedBy.filter(
-                      (lb) => lb.id !== this.currentUser.id
-                  )
-                : interpretation.likedBy.concat({
+                ? interpretation.likedBy.concat({
                       id: this.currentUser.id,
-                  }),
+                  })
+                : interpretation.likedBy.filter(
+                      (lb) => lb.id !== this.currentUser.id
+                  ),
+            likes: isLikedByCurrentUser
+                ? interpretation.likes + 1
+                : interpretation.likes - 1,
         }
         this.interpretations.set(id, updatedInterpretation)
         this.notifyInterpretationObservers(id)
