@@ -99,23 +99,25 @@ export class InterpretationsManager {
     }
 
     async fetchInterpretationDetails(id) {
-        const interpretation = await this.query({
-            resource: 'interpretations',
-            id,
-            params: {
-                fields: [
-                    'access[write,manage]',
-                    'comments[id,text,created,createdBy[id,displayName]]',
-                    'created',
-                    'createdBy[id,displayName]',
-                    'id',
-                    'likedBy',
-                    'likes',
-                    'text',
-                ],
+        const result = await this.query({
+            interpretation: {
+                resource: 'interpretations',
+                id,
+                params: {
+                    fields: [
+                        'access[write,manage]',
+                        'comments[id,text,created,createdBy[id,displayName]]',
+                        'created',
+                        'createdBy[id,displayName]',
+                        'id',
+                        'likedBy',
+                        'likes',
+                        'text',
+                    ],
+                },
             },
         })
-        return interpretation
+        return result.interpretation
     }
 
     async loadActiveInterpretation(id) {
@@ -126,23 +128,26 @@ export class InterpretationsManager {
     }
 
     async loadInterpretationsForVisualization(type, id) {
-        const { interpretations } = await this.query({
-            resource: 'interpretations',
-            params: {
-                fields: [
-                    'access[write,manage]',
-                    'comments[id]',
-                    'created',
-                    'createdBy[id,displayName]',
-                    'id',
-                    'likedBy[id]',
-                    'likes',
-                    'text',
-                ],
-                filter: `${type}.id:eq:${id}`,
-                paging: false,
+        const result = await this.query({
+            interpretations: {
+                resource: 'interpretations',
+                params: {
+                    fields: [
+                        'access[write,manage]',
+                        'comments[id]',
+                        'created',
+                        'createdBy[id,displayName]',
+                        'id',
+                        'likedBy[id]',
+                        'likes',
+                        'text',
+                    ],
+                    filter: `${type}.id:eq:${id}`,
+                    paging: false,
+                },
             },
         })
+        const interpretations = result.interpretations.interpretations
         this.interpretations.clear()
         this.interpretationsListObservers.clear()
         this.interpretationObservers.clear()
