@@ -11,7 +11,7 @@ import {
     getCommentAccess,
     getInterpretationAccess,
 } from '../common/getInterpretationAccess.js'
-import { InterpretationsContext } from './InterpretationsProvider.js'
+import { InterpretationsContext } from './InterpretationsProvider.jsx'
 
 const SET_LOADING = 'SET_LOADING'
 const SET_ERROR = 'SET_ERROR'

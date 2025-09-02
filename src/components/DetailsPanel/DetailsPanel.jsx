@@ -1,4 +1,4 @@
-import { AboutAOUnit, useCachedDataQuery } from '@dhis2/analytics'
+import { AboutAOUnit } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import { stringify } from 'query-string'
 import React, { useMemo } from 'react'
@@ -20,13 +20,7 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
     )
 }
 
-const DetailsPanel = ({
-    visualization,
-    aboutAOUnitRenderId,
-    interpretationsUnitRenderId,
-    disabled,
-}) => {
-    const { currentUser } = useCachedDataQuery()
+const DetailsPanel = ({ visualization, aboutAOUnitRenderId, disabled }) => {
     const hasTimeDimension = useMemo(
         () => isAoWithTimeDimension(visualization),
         [visualization]
@@ -41,9 +35,8 @@ const DetailsPanel = ({
             />
             <InterpretationsUnit
                 type="eventVisualization"
-                visualizationHasTimeDimension={hasTimeDimension}
                 id={visualization.id}
-                currentUser={currentUser}
+                visualizationHasTimeDimension={hasTimeDimension}
                 onInterpretationClick={(interpretationId) =>
                     navigateToOpenModal(interpretationId)
                 }
@@ -51,7 +44,6 @@ const DetailsPanel = ({
                     navigateToOpenModal(interpretationId, true)
                 }
                 disabled={disabled}
-                renderId={interpretationsUnitRenderId}
             />
         </div>
     )
@@ -61,7 +53,6 @@ DetailsPanel.propTypes = {
     visualization: PropTypes.object.isRequired,
     aboutAOUnitRenderId: PropTypes.number,
     disabled: PropTypes.bool,
-    interpretationsUnitRenderId: PropTypes.number,
 }
 
 const mapStateToProps = (state) => ({
