@@ -17,7 +17,7 @@ import React, { useMemo } from 'react'
 import css from 'styled-jsx/css'
 import {
     useActiveInterpretation,
-    useInterpretationsManager,
+    useInterpretationsCurrentUser,
 } from '../InterpretationsProvider/hooks.js'
 import { InterpretationThread } from './InterpretationThread.jsx'
 import { useModalContentWidth } from './useModalContentWidth.js'
@@ -59,8 +59,7 @@ const InterpretationModal = ({
 }) => {
     const modalContentWidth = useModalContentWidth()
     const modalContentCSS = getModalContentCSS(modalContentWidth)
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const {
         data: interpretation,
         loading,
@@ -136,7 +135,6 @@ const InterpretationModal = ({
                                 </div>
                                 <div className="thread-wrap">
                                     <InterpretationThread
-                                        currentUser={currentUser}
                                         loading={loading}
                                         interpretation={interpretation}
                                         initialFocus={initialFocus}

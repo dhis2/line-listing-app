@@ -10,19 +10,18 @@ import {
 } from '../common/index.js'
 import {
     useAddCommentToActiveInterpretation,
-    useInterpretationsManager,
+    useInterpretationsCurrentUser,
 } from '../InterpretationsProvider/hooks.js'
 
 export const CommentAddForm = ({ focusRef }) => {
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const [showRichTextEditor, setShowRichTextEditor] = useState(false)
     const [text, setText] = useState('')
     const closeForm = useCallback(() => {
         setShowRichTextEditor(false)
         setText('')
     }, [])
-    const [save, { loading }] = useAddCommentToActiveInterpretation({
+    const [save, { loading, error }] = useAddCommentToActiveInterpretation({
         text,
         onComplete: closeForm,
     })
@@ -30,7 +29,7 @@ export const CommentAddForm = ({ focusRef }) => {
     const inputPlaceholder = i18n.t('Write a reply')
 
     return (
-        <MessageEditorContainer currentUser={currentUser}>
+        <MessageEditorContainer currentUserName={currentUser.name}>
             {showRichTextEditor ? (
                 <>
                     <RichTextEditor
@@ -39,6 +38,7 @@ export const CommentAddForm = ({ focusRef }) => {
                         value={text}
                         ref={focusRef}
                         disabled={loading}
+                        errorText={error ? i18n.t('Could not post reply') : ''}
                     />
                     <MessageButtonStrip>
                         <Button primary small onClick={save} loading={loading}>

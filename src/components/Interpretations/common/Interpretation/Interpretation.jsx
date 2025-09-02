@@ -60,7 +60,7 @@ export const Interpretation = ({
 
     return isUpdateMode ? (
         <InterpretationUpdateForm
-            close={() => setIsUpdateMode(false)}
+            onComplete={() => setIsUpdateMode(false)}
             id={id}
             showSharingLink={interpretationAccess.share}
             text={interpretation.text}

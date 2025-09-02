@@ -5,6 +5,7 @@ import {
     IconChevronUp24,
     colors,
     spacers,
+    NoticeBox,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -25,7 +26,11 @@ export const InterpretationsUnit = ({
     const [isExpanded, setIsExpanded] = useState(true)
     const showNoTimeDimensionHelpText =
         type === 'eventVisualization' && !visualizationHasTimeDimension
-    const { data: interpretations, loading } = useInterpretationsList(type, id)
+    const {
+        data: interpretations,
+        loading,
+        error,
+    } = useInterpretationsList(type, id)
 
     return (
         <div
@@ -47,6 +52,15 @@ export const InterpretationsUnit = ({
                         <div className="loader">
                             <CircularLoader small />
                         </div>
+                    )}
+                    {error && (
+                        <NoticeBox
+                            error
+                            title={i18n.t('Error loading interpretations')}
+                        >
+                            {error.message ||
+                                i18n.t('Could not load interpretations')}
+                        </NoticeBox>
                     )}
                     {interpretations && (
                         <>

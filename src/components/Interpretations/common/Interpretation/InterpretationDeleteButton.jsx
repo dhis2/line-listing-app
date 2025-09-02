@@ -9,7 +9,7 @@ import { MessageIconButton } from '../index.js'
 const InterpretationDeleteButton = ({ id, onComplete }) => {
     const { show: showErrorAlert } = useAlert(
         i18n.t('Could not delete interpretation'),
-        { critical: 3000 }
+        { critical: true }
     )
     const [remove, { loading }] = useDeleteInterpretation({
         id,

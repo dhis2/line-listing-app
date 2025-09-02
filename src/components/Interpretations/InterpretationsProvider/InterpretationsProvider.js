@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React, { createContext, useState } from 'react'
 import { InterpretationsManager } from './InterpretationsManager.js'
 
-export const IntepretationsContext = createContext(null)
+export const InterpretationsContext = createContext(null)
 
 export const InterpretationsProvider = ({ currentUser, children }) => {
     const dataEngine = useDataEngine()
@@ -11,9 +11,9 @@ export const InterpretationsProvider = ({ currentUser, children }) => {
         () => new InterpretationsManager(dataEngine, currentUser)
     )
     return (
-        <IntepretationsContext.Provider value={interpretationsManager}>
+        <InterpretationsContext.Provider value={interpretationsManager}>
             {children}
-        </IntepretationsContext.Provider>
+        </InterpretationsContext.Provider>
     )
 }
 

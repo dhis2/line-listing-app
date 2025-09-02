@@ -13,7 +13,7 @@ export class InterpretationsManager {
         this.interpretations = new Map()
         this.activeInterpretationId = null
         this.interpretationsListObservers = new Set()
-        this.interpretationObservers = new Set()
+        this.interpretationObservers = new Map()
     }
 
     getInterpretationsArray() {
@@ -26,7 +26,7 @@ export class InterpretationsManager {
     }
 
     getInterpretation(id) {
-        const interpretation = this.getInterpretation(id)
+        const interpretation = this.interpretations.get(id)
         if (!interpretation) {
             throw new Error(`Could not get interpretation with id ${id}`)
         }
@@ -52,21 +52,21 @@ export class InterpretationsManager {
 
         // return cleanup function for useEffect hooks
         return () => {
-            this.interpretationsListObservers.remove(callback)
+            this.interpretationsListObservers.delete(callback)
         }
     }
 
     subscribeToInterpretationUpdates(id, callback) {
         // create callback Set if needed on the fly
         if (!this.interpretationObservers.has(id)) {
-            this.interpretationObservers.add(id, new Set())
+            this.interpretationObservers.set(id, new Set())
         }
 
         this.interpretationObservers.get(id).add(callback)
 
         // return cleanup function for useEffect hooks
         return () => {
-            this.interpretationObservers.get(id).remove(callback)
+            this.interpretationObservers.get(id).delete(callback)
         }
     }
 
@@ -79,8 +79,11 @@ export class InterpretationsManager {
     }
 
     notifyInterpretationObservers(id) {
-        for (const callback of this.interpretationsListObservers.get(id)) {
-            callback(this.getInterpretation(id))
+        const callbacks = this.interpretationObservers.get(id)
+        if (callbacks) {
+            for (const callback of callbacks) {
+                callback(this.getInterpretation(id))
+            }
         }
     }
 
@@ -158,7 +161,7 @@ export class InterpretationsManager {
             },
             { onComplete }
         )
-        const interpretation = await this.getInterpretationDetails(id)
+        const interpretation = await this.fetchInterpretationDetails(id)
         this.interpretations.set(interpretation.id, interpretation)
         this.notifyInterpretationsListObservers()
         return interpretation
@@ -252,7 +255,7 @@ export class InterpretationsManager {
         const updatedInterpretation = {
             ...activeInterpretation,
             comments: activeInterpretation.comments.filter(
-                ({ id }) => id !== id
+                ({ id: commentId }) => commentId !== id
             ),
         }
         this.interpretations.set(activeInterpretation.id, updatedInterpretation)

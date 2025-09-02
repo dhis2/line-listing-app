@@ -11,7 +11,7 @@ import {
     getCommentAccess,
     getInterpretationAccess,
 } from '../common/getInterpretationAccess.js'
-import { IntepretationsContext } from './InterpretationsProvider.js'
+import { InterpretationsContext } from './InterpretationsProvider.js'
 
 const SET_LOADING = 'SET_LOADING'
 const SET_ERROR = 'SET_ERROR'
@@ -55,7 +55,7 @@ export function useAsyncCallbackState(asyncCallback) {
 }
 
 export const useInterpretationsManager = () => {
-    const interpretationsManager = useContext(IntepretationsContext)
+    const interpretationsManager = useContext(InterpretationsContext)
 
     if (!interpretationsManager) {
         throw new Error(
@@ -64,6 +64,11 @@ export const useInterpretationsManager = () => {
     }
 
     return interpretationsManager
+}
+
+export const useInterpretationsCurrentUser = () => {
+    const interpretationsManager = useInterpretationsManager()
+    return interpretationsManager.getCurrentUser()
 }
 
 export const useInterpretationsList = (type, id) => {
@@ -75,7 +80,7 @@ export const useInterpretationsList = (type, id) => {
         dispatch({ type: SET_LOADING })
         try {
             const data =
-                await interpretationsManager.fetchInterpretationsForVisualization(
+                await interpretationsManager.loadInterpretationsForVisualization(
                     type,
                     id
                 )
@@ -108,7 +113,7 @@ export const useInterpretationsList = (type, id) => {
     useEffect(() => {
         const prevType = prevTypeRef.current
         const prevId = prevIdRef.current
-        const isTypeChange = prevId && id && prevId !== id
+        const isTypeChange = prevType && type && prevType !== type
         const isIdChange = prevId && id && prevId !== id
         const isTypeClearance = prevType && !type
         const isIdClearance = prevId && !id
@@ -147,8 +152,8 @@ export const useActiveInterpretation = (id) => {
         const unsubscribe =
             interpretationsManager.subscribeToInterpretationUpdates(
                 id,
-                (interpretations) => {
-                    dispatch({ type: SET_DATA, payload: interpretations })
+                (interpretation) => {
+                    dispatch({ type: SET_DATA, payload: interpretation })
                 }
             )
         return unsubscribe
@@ -156,7 +161,7 @@ export const useActiveInterpretation = (id) => {
 
     // Fetch on when mounting or after a reset
     useEffect(() => {
-        if ((id, !state.loading && !state.data && !state.error)) {
+        if (id && !state.loading && !state.data && !state.error) {
             fetchInterpretation()
         }
     }, [fetchInterpretation, state, id])
@@ -185,12 +190,14 @@ export const useInterpretation = (id) => {
     )
 
     useEffect(() => {
-        interpretationsManager.subscribeToInterpretationUpdates(
-            id,
-            (newInterpretation) => {
-                setInterpretation(newInterpretation)
-            }
-        )
+        const unsubscribe =
+            interpretationsManager.subscribeToInterpretationUpdates(
+                id,
+                (newInterpretation) => {
+                    setInterpretation(newInterpretation)
+                }
+            )
+        return unsubscribe
     }, [interpretationsManager, id])
 
     return interpretation
@@ -230,8 +237,7 @@ export const useLike = (id) => {
 }
 
 export const useInterpretationAccess = (interpretation) => {
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const access = useMemo(
         () => getInterpretationAccess(interpretation, currentUser),
         [interpretation, currentUser]
@@ -240,8 +246,7 @@ export const useInterpretationAccess = (interpretation) => {
 }
 
 export const useCommentAccess = (comment, canComment) => {
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const access = useMemo(
         () => getCommentAccess(comment, canComment, currentUser),
         [comment, canComment, currentUser]
@@ -249,76 +254,41 @@ export const useCommentAccess = (comment, canComment) => {
     return access
 }
 
-export const useDeleteInterpretation = ({ id, onComplete, onError }) => {
+// Generic hook factory for interpretations manager mutations
+const useInterpretationsManagerMutation = (methodName, options = {}) => {
     const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.deleteInterpretation({ id, onComplete, onError })
-    }, [interpretationsManager, id, onComplete, onError])
+
+    const mutation = useCallback(
+        () => interpretationsManager[methodName](options),
+        [interpretationsManager, methodName, options]
+    )
+
     return useAsyncCallbackState(mutation)
 }
 
-export const useUpdateInterpretationText = ({
-    id,
-    text,
-    onComplete,
-    onError,
-}) => {
-    const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.updateInterpretationText({
-            id,
-            text,
-            onComplete,
-            onError,
-        })
-    }, [interpretationsManager, id, text, onComplete, onError])
-    return useAsyncCallbackState(mutation)
-}
+export const useDeleteInterpretation = (options) =>
+    useInterpretationsManagerMutation('deleteInterpretation', options)
 
-export const useUpdateCommentForActiveInterpretation = ({
-    id,
-    text,
-    onComplete,
-}) => {
-    const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.updateCommentForActiveInterpretation({
-            id,
-            text,
-            onComplete,
-        })
-    }, [interpretationsManager, id, text, onComplete])
-    return useAsyncCallbackState(mutation)
-}
+export const useUpdateInterpretationText = (options) =>
+    useInterpretationsManagerMutation('updateInterpretationText', options)
 
-export const useAddCommentToActiveInterpretation = ({ text, onComplete }) => {
-    const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.addCommentToActiveInterpretation({
-            text,
-            onComplete,
-        })
-    }, [interpretationsManager, text, onComplete])
-    return useAsyncCallbackState(mutation)
-}
+export const useUpdateCommentForActiveInterpretation = (options) =>
+    useInterpretationsManagerMutation(
+        'updateCommentForActiveInterpretation',
+        options
+    )
 
-export const useDeleteCommentFromActiveInterpretation = (id) => {
-    const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.deleteCommentFromActiveInterpretation(id)
-    }, [interpretationsManager, id])
-    return useAsyncCallbackState(mutation)
-}
+export const useAddCommentToActiveInterpretation = (options) =>
+    useInterpretationsManagerMutation(
+        'addCommentToActiveInterpretation',
+        options
+    )
 
-export const useCreateInterpretation = ({ type, id, text, onComplete }) => {
-    const interpretationsManager = useInterpretationsManager()
-    const mutation = useCallback(() => {
-        interpretationsManager.createInterpretation({
-            type,
-            id,
-            text,
-            onComplete,
-        })
-    }, [interpretationsManager, type, id, text, onComplete])
-    return useAsyncCallbackState(mutation)
-}
+export const useDeleteCommentFromActiveInterpretation = (options) =>
+    useInterpretationsManagerMutation(
+        'deleteCommentFromActiveInterpretation',
+        options
+    )
+
+export const useCreateInterpretation = (options) =>
+    useInterpretationsManagerMutation('createInterpretation', options)

@@ -4,7 +4,10 @@ import i18n from '@dhis2/d2-i18n'
 import { Button, spacers, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { useUpdateInterpretationText } from '../../InterpretationsProvider/hooks.js'
+import {
+    useUpdateInterpretationText,
+    useInterpretationsCurrentUser,
+} from '../../InterpretationsProvider/hooks.js'
 import {
     MessageEditorContainer,
     MessageButtonStrip,
@@ -12,16 +15,16 @@ import {
 } from '../index.js'
 
 export const InterpretationUpdateForm = ({
-    currentUser,
     id,
     onComplete,
     showSharingLink,
     text,
 }) => {
+    const currentUser = useInterpretationsCurrentUser()
     const [interpretationText, setInterpretationText] = useState(text || '')
     const { show: showErrorAlert } = useAlert(
         i18n.t('Could not update interpretation text'),
-        { critical: 3000 }
+        { critical: true }
     )
     const [update, { loading, error }] = useUpdateInterpretationText({
         id,
@@ -36,7 +39,7 @@ export const InterpretationUpdateForm = ({
 
     return (
         <div className="message">
-            <MessageEditorContainer currentUser={currentUser}>
+            <MessageEditorContainer currentUserName={currentUser.name}>
                 <RichTextEditor
                     inputPlaceholder={i18n.t('Enter interpretation text')}
                     onChange={setInterpretationText}
@@ -72,7 +75,6 @@ export const InterpretationUpdateForm = ({
     )
 }
 InterpretationUpdateForm.propTypes = {
-    currentUser: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
     showSharingLink: PropTypes.bool,

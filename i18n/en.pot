@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-09-02T09:39:59.583Z\n"
-"PO-Revision-Date: 2025-09-02T09:39:59.584Z\n"
+"POT-Creation-Date: 2025-09-02T13:23:36.411Z\n"
+"PO-Revision-Date: 2025-09-02T13:23:36.412Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -175,6 +175,9 @@ msgstr "Edit"
 msgid "Write a reply"
 msgstr "Write a reply"
 
+msgid "Could not post reply"
+msgstr "Could not post reply"
+
 msgid "Post reply"
 msgstr "Post reply"
 
@@ -215,6 +218,9 @@ msgstr "Hide interpretation"
 msgid "Write an interpretation"
 msgstr "Write an interpretation"
 
+msgid "Could not post interpretation"
+msgstr "Could not post interpretation"
+
 msgid "Other people viewing this interpretation in the future may see more data."
 msgstr "Other people viewing this interpretation in the future may see more data."
 
@@ -223,6 +229,12 @@ msgstr "Post interpretation"
 
 msgid "Interpretations"
 msgstr "Interpretations"
+
+msgid "Error loading interpretations"
+msgstr "Error loading interpretations"
+
+msgid "Could not load interpretations"
+msgstr "Could not load interpretations"
 
 msgid "Reply"
 msgstr "Reply"

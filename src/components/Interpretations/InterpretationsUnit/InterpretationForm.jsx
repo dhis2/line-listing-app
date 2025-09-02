@@ -6,7 +6,7 @@ import React, { useCallback, useState } from 'react'
 import { MessageEditorContainer, MessageButtonStrip } from '../common/index.js'
 import {
     useCreateInterpretation,
-    useInterpretationsManager,
+    useInterpretationsCurrentUser,
 } from '../InterpretationsProvider/hooks.js'
 
 export const InterpretationForm = ({
@@ -21,9 +21,8 @@ export const InterpretationForm = ({
         setShowRichTextEditor(false)
         setText('')
     }, [])
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
-    const [save, { loading }] = useCreateInterpretation({
+    const currentUser = useInterpretationsCurrentUser()
+    const [save, { loading, error }] = useCreateInterpretation({
         type,
         id,
         text,
@@ -33,7 +32,7 @@ export const InterpretationForm = ({
 
     return (
         <MessageEditorContainer
-            currentUserName={currentUser}
+            currentUserName={currentUser.name}
             dataTest="interpretation-form"
         >
             {showRichTextEditor ? (
@@ -43,6 +42,9 @@ export const InterpretationForm = ({
                         inputPlaceholder={inputPlaceholder}
                         onChange={setText}
                         value={text}
+                        errorText={
+                            error ? i18n.t('Could not post interpretation') : ''
+                        }
                         helpText={
                             showNoTimeDimensionHelpText
                                 ? i18n.t(

@@ -5,7 +5,7 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, { useRef, useEffect } from 'react'
 import { Interpretation, getInterpretationAccess } from '../common/index.js'
-import { useInterpretationsManager } from '../InterpretationsProvider/hooks.js'
+import { useInterpretationsCurrentUser } from '../InterpretationsProvider/hooks.js'
 import { Comment } from './Comment.jsx'
 import { CommentAddForm } from './CommentAddForm.jsx'
 
@@ -17,8 +17,7 @@ const InterpretationThread = ({
     downloadMenuComponent: DownloadMenu,
     dashboardRedirectUrl,
 }) => {
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const { fromServerDate } = useTimeZoneConversion()
     const focusRef = useRef()
 

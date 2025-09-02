@@ -5,18 +5,17 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { MessageEditorContainer, MessageButtonStrip } from '../common/index.js'
 import {
-    useInterpretationsManager,
+    useInterpretationsCurrentUser,
     useUpdateCommentForActiveInterpretation,
 } from '../InterpretationsProvider/hooks.js'
 
 export const CommentUpdateForm = ({ id, text, onComplete }) => {
-    const interpretationsManager = useInterpretationsManager()
-    const currentUser = interpretationsManager.getCurrentUser()
+    const currentUser = useInterpretationsCurrentUser()
     const [commentText, setCommentText] = useState(text || '')
     const [update, { loading, error }] =
         useUpdateCommentForActiveInterpretation({
             id,
-            text,
+            text: commentText,
             onComplete,
         })
     const errorText = error ? i18n.t('Could not update comment') : ''
@@ -32,15 +31,15 @@ export const CommentUpdateForm = ({ id, text, onComplete }) => {
                     errorText={errorText}
                 />
                 <MessageButtonStrip>
-                    <Button
-                        loading={loading}
-                        primary
-                        small
-                        onClick={() => update({ commentText })}
-                    >
+                    <Button loading={loading} primary small onClick={update}>
                         {i18n.t('Update')}
                     </Button>
-                    <Button disabled={loading} secondary small onClick={close}>
+                    <Button
+                        disabled={loading}
+                        secondary
+                        small
+                        onClick={onComplete}
+                    >
                         {i18n.t('Cancel')}
                     </Button>
                 </MessageButtonStrip>
