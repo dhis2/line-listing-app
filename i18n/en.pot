@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-08-28T08:15:15.545Z\n"
-"PO-Revision-Date: 2025-08-28T08:15:15.545Z\n"
+"POT-Creation-Date: 2025-09-02T09:39:59.583Z\n"
+"PO-Revision-Date: 2025-09-02T09:39:59.584Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -181,11 +181,11 @@ msgstr "Post reply"
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "Delete failed"
-msgstr "Delete failed"
-
 msgid "Delete"
 msgstr "Delete"
+
+msgid "Could not delete comment"
+msgstr "Could not delete comment"
 
 msgid "Could not update comment"
 msgstr "Could not update comment"
@@ -250,8 +250,14 @@ msgstr "Open in app"
 msgid "Share"
 msgstr "Share"
 
+msgid "Could not delete interpretation"
+msgstr "Could not delete interpretation"
+
 msgid "Manage sharing"
 msgstr "Manage sharing"
+
+msgid "Could not update interpretation text"
+msgstr "Could not update interpretation text"
 
 msgid "Could not update interpretation"
 msgstr "Could not update interpretation"
