@@ -1,40 +1,29 @@
 import { RichTextEditor } from '@dhis2/analytics'
-import { useDataMutation } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button, spacers, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { MessageEditorContainer, MessageButtonStrip } from '../common/index.js'
+import {
+    useInterpretationsManager,
+    useUpdateCommentForActiveInterpretation,
+} from '../InterpretationsProvider/hooks.js'
 
-export const CommentUpdateForm = ({
-    interpretationId,
-    commentId,
-    currentUser,
-    text,
-    close,
-    onComplete,
-}) => {
+export const CommentUpdateForm = ({ id, text, onComplete }) => {
+    const interpretationsManager = useInterpretationsManager()
+    const currentUser = interpretationsManager.getCurrentUser()
     const [commentText, setCommentText] = useState(text || '')
-    const updateMutationRef = useRef({
-        resource: `interpretations/${interpretationId}/comments/${commentId}`,
-        type: 'update',
-        partial: false,
-        data: ({ commentText }) => commentText,
-    })
-    const [update, { loading, error }] = useDataMutation(
-        updateMutationRef.current,
-        {
-            onComplete: () => {
-                onComplete()
-                close()
-            },
-        }
-    )
+    const [update, { loading, error }] =
+        useUpdateCommentForActiveInterpretation({
+            id,
+            text,
+            onComplete,
+        })
     const errorText = error ? i18n.t('Could not update comment') : ''
 
     return (
         <div className="message">
-            <MessageEditorContainer currentUser={currentUser}>
+            <MessageEditorContainer currentUserName={currentUser.name}>
                 <RichTextEditor
                     inputPlaceholder={i18n.t('Enter comment text')}
                     onChange={setCommentText}
@@ -67,10 +56,7 @@ export const CommentUpdateForm = ({
     )
 }
 CommentUpdateForm.propTypes = {
-    close: PropTypes.func.isRequired,
-    commentId: PropTypes.string.isRequired,
-    currentUser: PropTypes.object.isRequired,
-    interpretationId: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
     text: PropTypes.string,
 }

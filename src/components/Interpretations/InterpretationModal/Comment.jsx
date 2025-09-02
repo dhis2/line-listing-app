@@ -1,35 +1,22 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconEdit16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import {
-    Message,
-    MessageIconButton,
-    MessageStatsBar,
-    getCommentAccess,
-} from '../common/index.js'
+import React, { useCallback, useState } from 'react'
+import { Message, MessageIconButton, MessageStatsBar } from '../common/index.js'
+import { useCommentAccess } from '../InterpretationsProvider/hooks.js'
 import { CommentDeleteButton } from './CommentDeleteButton.jsx'
 import { CommentUpdateForm } from './CommentUpdateForm.jsx'
 
-const Comment = ({
-    comment,
-    currentUser,
-    interpretationId,
-    onThreadUpdated,
-    canComment,
-}) => {
+const Comment = ({ comment, canComment }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
-
-    const commentAccess = getCommentAccess(comment, canComment, currentUser)
+    const onUpdateComplete = useCallback(() => setIsUpdateMode(false), [])
+    const commentAccess = useCommentAccess(comment, canComment)
 
     return isUpdateMode ? (
         <CommentUpdateForm
-            close={() => setIsUpdateMode(false)}
-            commentId={comment.id}
-            interpretationId={interpretationId}
-            onComplete={() => onThreadUpdated(false)}
+            onComplete={onUpdateComplete}
+            id={comment.id}
             text={comment.text}
-            currentUser={currentUser}
         />
     ) : (
         <Message
@@ -46,11 +33,7 @@ const Comment = ({
                     />
 
                     {commentAccess.delete && (
-                        <CommentDeleteButton
-                            commentId={comment.id}
-                            interpretationId={interpretationId}
-                            onComplete={() => onThreadUpdated(true)}
-                        />
+                        <CommentDeleteButton id={comment.id} />
                     )}
                 </MessageStatsBar>
             )}
@@ -60,9 +43,6 @@ const Comment = ({
 
 Comment.propTypes = {
     comment: PropTypes.object.isRequired,
-    currentUser: PropTypes.object.isRequired,
-    interpretationId: PropTypes.string.isRequired,
-    onThreadUpdated: PropTypes.func.isRequired,
     canComment: PropTypes.bool,
 }
 

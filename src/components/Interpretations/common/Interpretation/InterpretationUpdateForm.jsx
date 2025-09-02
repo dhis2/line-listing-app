@@ -1,25 +1,17 @@
 import { RichTextEditor } from '@dhis2/analytics'
-import { useDataMutation } from '@dhis2/app-runtime'
+import { useAlert } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Button, spacers, colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { useUpdateInterpretationText } from '../../InterpretationsProvider/hooks.js'
 import {
     MessageEditorContainer,
     MessageButtonStrip,
     InterpretationSharingLink,
 } from '../index.js'
 
-const mutation = {
-    resource: 'interpretations',
-    type: 'update',
-    partial: false,
-    id: ({ id }) => id,
-    data: ({ interpretationText }) => interpretationText,
-}
-
 export const InterpretationUpdateForm = ({
-    close,
     currentUser,
     id,
     onComplete,
@@ -27,12 +19,15 @@ export const InterpretationUpdateForm = ({
     text,
 }) => {
     const [interpretationText, setInterpretationText] = useState(text || '')
-    const [update, { loading, error }] = useDataMutation(mutation, {
-        onComplete: () => {
-            onComplete()
-            close()
-        },
-        variables: { id },
+    const { show: showErrorAlert } = useAlert(
+        i18n.t('Could not update interpretation text'),
+        { critical: 3000 }
+    )
+    const [update, { loading, error }] = useUpdateInterpretationText({
+        id,
+        text,
+        onComplete,
+        onError: showErrorAlert,
     })
 
     const errorText = error
@@ -77,7 +72,6 @@ export const InterpretationUpdateForm = ({
     )
 }
 InterpretationUpdateForm.propTypes = {
-    close: PropTypes.func.isRequired,
     currentUser: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     onComplete: PropTypes.func.isRequired,
