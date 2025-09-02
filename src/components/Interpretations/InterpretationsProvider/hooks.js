@@ -26,11 +26,22 @@ const initialLoadingState = {
 function loadingReducer(state, action) {
     switch (action.type) {
         case SET_LOADING:
-            return { ...initialLoadingState, loading: true }
+            return {
+                ...state,
+                loading: true,
+            }
         case SET_ERROR:
-            return { ...initialLoadingState, error: action.payload }
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+            }
         case SET_DATA:
-            return { ...initialLoadingState, data: action.payload }
+            return {
+                data: action.payload,
+                error: undefined,
+                loading: false,
+            }
         case RESET:
             return { ...initialLoadingState }
         default:
