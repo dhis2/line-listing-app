@@ -295,7 +295,9 @@ export class InterpretationsManager {
                 partial: false,
                 data: text,
             },
-            { onComplete }
+            {
+                onComplete: () => onComplete(text),
+            }
         )
         const updatedInterpretation = {
             ...activeInterpretation,

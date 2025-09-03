@@ -9,7 +9,11 @@ import { CommentUpdateForm } from './CommentUpdateForm.jsx'
 
 const Comment = ({ comment, canComment }) => {
     const [isUpdateMode, setIsUpdateMode] = useState(false)
-    const onUpdateComplete = useCallback(() => setIsUpdateMode(false), [])
+    const [commentText, setCommentText] = useState(comment.text)
+    const onUpdateComplete = useCallback((newText) => {
+        setCommentText(newText)
+        setIsUpdateMode(false)
+    }, [])
     const commentAccess = useCommentAccess(comment, canComment)
 
     return isUpdateMode ? (
@@ -20,7 +24,7 @@ const Comment = ({ comment, canComment }) => {
         />
     ) : (
         <Message
-            text={comment.text}
+            text={commentText}
             created={comment.created}
             username={comment.createdBy.displayName}
         >
