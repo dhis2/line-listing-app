@@ -690,11 +690,11 @@ export const Visualization = ({
 
 Visualization.propTypes = {
     displayProperty: PropTypes.string.isRequired,
-    isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
     forDashboard: PropTypes.bool,
+    isVisualizationLoading: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
     onDataSorted: PropTypes.func,
     onError: PropTypes.func,
