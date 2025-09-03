@@ -185,6 +185,13 @@ export const Visualization = ({
         [onResize]
     )
 
+    useEffect(
+        () => () => {
+            sizeObserver.disconnect()
+        },
+        [sizeObserver]
+    )
+
     const mountAndObserveContainerRef = useCallback(
         (node) => {
             if (node === null) {
@@ -193,8 +200,6 @@ export const Visualization = ({
 
             containerRef.current = node
             sizeObserver.observe(node)
-
-            return () => sizeObserver.unobserve(node)
         },
         [sizeObserver]
     )
@@ -206,8 +211,6 @@ export const Visualization = ({
             }
 
             sizeObserver.observe(node)
-
-            return () => sizeObserver.unobserve(node)
         },
         [sizeObserver]
     )
@@ -687,11 +690,11 @@ export const Visualization = ({
 
 Visualization.propTypes = {
     displayProperty: PropTypes.string.isRequired,
-    isVisualizationLoading: PropTypes.bool.isRequired,
     visualization: PropTypes.object.isRequired,
     onResponsesReceived: PropTypes.func.isRequired,
     filters: PropTypes.object,
     forDashboard: PropTypes.bool,
+    isVisualizationLoading: PropTypes.bool,
     onColumnHeaderClick: PropTypes.func,
     onDataSorted: PropTypes.func,
     onError: PropTypes.func,
