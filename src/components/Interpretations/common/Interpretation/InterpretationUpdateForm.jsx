@@ -28,7 +28,7 @@ export const InterpretationUpdateForm = ({
     )
     const [update, { loading, error }] = useUpdateInterpretationText({
         id,
-        text,
+        text: interpretationText,
         onComplete,
         onError: showErrorAlert,
     })

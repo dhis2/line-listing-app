@@ -8,11 +8,11 @@ export class InterpretationsManager {
         this.query = dataEngine.query.bind(dataEngine)
         this.mutate = dataEngine.mutate.bind(dataEngine)
         this.currentUser = currentUser
-        this.visualizationId = null
-        this.interpretationId = null
+        this.currentVisualizationId = null
+        this.currentType = null
         this.interpretations = new Map()
         this.activeInterpretationId = null
-        this.interpretationsListObservers = new Set()
+        this.interpretationsListCallback = null
         this.interpretationObservers = new Map()
     }
 
@@ -48,11 +48,11 @@ export class InterpretationsManager {
     }
 
     subscribeToInterpretationsListUpdates(callback) {
-        this.interpretationsListObservers.add(callback)
+        this.interpretationsListCallback = callback
 
         // return cleanup function for useEffect hooks
         return () => {
-            this.interpretationsListObservers.delete(callback)
+            this.interpretationsListCallback = null
         }
     }
 
@@ -70,11 +70,10 @@ export class InterpretationsManager {
         }
     }
 
-    notifyInterpretationsListObservers() {
-        const interpretationsArray = this.getInterpretationsArray()
-
-        for (const callback of this.interpretationsListObservers) {
-            callback(interpretationsArray)
+    notifyInterpretationsListObserver() {
+        if (this.interpretationsListCallback) {
+            const interpretationsArray = this.getInterpretationsArray()
+            this.interpretationsListCallback(interpretationsArray)
         }
     }
 
@@ -93,9 +92,16 @@ export class InterpretationsManager {
 
     clearInterpretations() {
         this.clearActiveInterpretation()
-        this.interpretationsListObservers.clear()
-        this.interpretationObservers.clear()
+        this.currentVisualizationId = null
+        this.currentType = null
         this.interpretations.clear()
+    }
+
+    resetInterpretations(newInterpretations) {
+        this.interpretations.clear()
+        for (const interpretation of newInterpretations) {
+            this.interpretations.set(interpretation.id, interpretation)
+        }
     }
 
     async fetchInterpretationDetails(id) {
@@ -120,14 +126,12 @@ export class InterpretationsManager {
         return result.interpretation
     }
 
-    async loadActiveInterpretation(id) {
-        const interpretation = await this.fetchInterpretationDetails(id)
-        this.interpretations.set(id, interpretation)
-        this.activeInterpretationId = id
-        return this.getActiveInterpretation()
-    }
-
-    async loadInterpretationsForVisualization(type, id) {
+    async fetchInterpretationsList() {
+        if (!this.currentType || !this.currentVisualizationId) {
+            throw new Error(
+                'Called fetchInterpretationsList before currentType or currentVisualizationId was set'
+            )
+        }
         const result = await this.query({
             interpretations: {
                 resource: 'interpretations',
@@ -142,18 +146,26 @@ export class InterpretationsManager {
                         'likes',
                         'text',
                     ],
-                    filter: `${type}.id:eq:${id}`,
+                    filter: `${this.currentType}.id:eq:${this.currentVisualizationId}`,
                     paging: false,
                 },
             },
         })
-        const interpretations = result.interpretations.interpretations
-        this.interpretations.clear()
-        this.interpretationsListObservers.clear()
-        this.interpretationObservers.clear()
-        for (const interpretation of interpretations) {
-            this.interpretations.set(interpretation.id, interpretation)
-        }
+        return result.interpretations.interpretations
+    }
+
+    async loadActiveInterpretation(id) {
+        const interpretation = await this.fetchInterpretationDetails(id)
+        this.interpretations.set(id, interpretation)
+        this.activeInterpretationId = id
+        return this.getActiveInterpretation()
+    }
+
+    async loadInterpretationsForVisualization(type, id) {
+        this.currentType = type
+        this.currentVisualizationId = id
+        const interpretations = await this.fetchInterpretationsList()
+        this.resetInterpretations(interpretations)
         return interpretations
     }
 
@@ -166,10 +178,12 @@ export class InterpretationsManager {
             },
             { onComplete }
         )
-        const interpretation = await this.fetchInterpretationDetails(id)
-        this.interpretations.set(interpretation.id, interpretation)
-        this.notifyInterpretationsListObservers()
-        return interpretation
+        /* since the create request does not rerun an ID we must refetch the list
+         * and cannot return the created interpretation */
+        const interpretations = await this.fetchInterpretationsList()
+        this.resetInterpretations(interpretations)
+        this.notifyInterpretationsListObserver()
+        return null
     }
 
     async deleteInterpretation({ id, onComplete, onError }) {
@@ -182,11 +196,11 @@ export class InterpretationsManager {
             { onComplete, onError }
         )
         // This happens when deleting the interpretation from the modal
-        if (id === this.getActiveInterpretation().id) {
+        if (this.activeInterpretationId && id === this.activeInterpretationId) {
             this.clearActiveInterpretation()
         }
         this.interpretations.delete(id)
-        this.notifyInterpretationsListObservers()
+        this.notifyInterpretationsListObserver()
         return null
     }
 
