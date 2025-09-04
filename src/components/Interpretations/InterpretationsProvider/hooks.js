@@ -113,7 +113,7 @@ export const useInterpretationsList = (type, id) => {
         return unsubscribe
     }, [interpretationsManager])
 
-    // Fetch on when mounting or after a reset
+    // Fetch when mounting or after a reset
     useEffect(() => {
         if (type && id && !state.loading && !state.data && !state.error) {
             fetchList()
@@ -170,7 +170,7 @@ export const useActiveInterpretation = (id) => {
         return unsubscribe
     }, [interpretationsManager, id])
 
-    // Fetch on when mounting or after a reset
+    // Fetch when mounting or after a reset
     useEffect(() => {
         if (id && !state.loading && !state.data && !state.error) {
             fetchInterpretation()
@@ -277,21 +277,24 @@ const useInterpretationsManagerMutation = (methodName, options = {}) => {
     return useAsyncCallbackState(mutation)
 }
 
-export const useDeleteInterpretation = (options) =>
-    useInterpretationsManagerMutation('deleteInterpretation', options)
+export const useCreateInterpretation = (options) =>
+    useInterpretationsManagerMutation('createInterpretation', options)
 
 export const useUpdateInterpretationText = (options) =>
     useInterpretationsManagerMutation('updateInterpretationText', options)
 
-export const useUpdateCommentForActiveInterpretation = (options) =>
-    useInterpretationsManagerMutation(
-        'updateCommentForActiveInterpretation',
-        options
-    )
+export const useDeleteInterpretation = (options) =>
+    useInterpretationsManagerMutation('deleteInterpretation', options)
 
 export const useAddCommentToActiveInterpretation = (options) =>
     useInterpretationsManagerMutation(
         'addCommentToActiveInterpretation',
+        options
+    )
+
+export const useUpdateCommentForActiveInterpretation = (options) =>
+    useInterpretationsManagerMutation(
+        'updateCommentForActiveInterpretation',
         options
     )
 
@@ -300,6 +303,3 @@ export const useDeleteCommentFromActiveInterpretation = (options) =>
         'deleteCommentFromActiveInterpretation',
         options
     )
-
-export const useCreateInterpretation = (options) =>
-    useInterpretationsManagerMutation('createInterpretation', options)
