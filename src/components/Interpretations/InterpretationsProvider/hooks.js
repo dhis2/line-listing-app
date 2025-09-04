@@ -49,22 +49,6 @@ function loadingReducer(state, action) {
     }
 }
 
-export function useAsyncCallbackState(asyncCallback) {
-    const [state, dispatch] = useReducer(loadingReducer, initialLoadingState)
-    const doAsyncCallback = useCallback(async () => {
-        dispatch({ type: SET_LOADING })
-        try {
-            const data = await asyncCallback()
-            dispatch({ type: SET_DATA, payload: data })
-        } catch (error) {
-            console.error(error)
-            dispatch({ type: SET_ERROR, payload: error })
-        }
-    }, [asyncCallback, dispatch])
-
-    return [doAsyncCallback, state]
-}
-
 export const useInterpretationsManager = () => {
     const interpretationsManager = useContext(InterpretationsContext)
 
@@ -265,16 +249,22 @@ export const useCommentAccess = (comment, canComment) => {
     return access
 }
 
-// Generic hook factory for interpretations manager mutations
 const useInterpretationsManagerMutation = (methodName, options = {}) => {
     const interpretationsManager = useInterpretationsManager()
+    const [state, dispatch] = useReducer(loadingReducer, initialLoadingState)
 
-    const mutation = useCallback(
-        () => interpretationsManager[methodName](options),
-        [interpretationsManager, methodName, options]
-    )
+    const doAsyncCallback = useCallback(async () => {
+        dispatch({ type: SET_LOADING })
+        try {
+            const data = await interpretationsManager[methodName](options)
+            dispatch({ type: SET_DATA, payload: data })
+        } catch (error) {
+            console.error(error)
+            dispatch({ type: SET_ERROR, payload: error })
+        }
+    }, [interpretationsManager, methodName, options])
 
-    return useAsyncCallbackState(mutation)
+    return [doAsyncCallback, state]
 }
 
 export const useCreateInterpretation = (options) =>
