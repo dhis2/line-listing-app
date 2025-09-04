@@ -32,13 +32,12 @@ jest.mock('@dhis2/app-runtime', () => ({
     }),
 }))
 
-const ERROR_TEXT = 'OOPSIE'
 const createMockImplementation =
     (data, shouldError = false) =>
     () =>
         new Promise((resolve, reject) => {
             if (shouldError) {
-                const msg = typeof data === 'string' ? data : ERROR_TEXT
+                const msg = typeof data === 'string' ? data : 'OOPSIE'
                 reject(new Error(msg))
             } else {
                 resolve(data)
@@ -210,6 +209,11 @@ const shouldLoadActiveInterpretation = async () => {
 }
 
 describe('Interpretations hooks integration tests', () => {
+    beforeEach(() => {
+        mockQuery.mockClear()
+        mockMutate.mockClear()
+    })
+
     describe('Listing interpretations', () => {
         test('should show loading state then load interpretations list successfully', async () => {
             mockQuery.mockImplementationOnce(
@@ -271,7 +275,59 @@ describe('Interpretations hooks integration tests', () => {
                 consoleErrorSpy.mockRestore()
             }
         })
-        // TODO: test it reloads (new call to query) when type/id change (result can be empty array)
+
+        test('should reload when type/id changes', async () => {
+            // First load with initial params
+            mockQuery.mockImplementationOnce(
+                createMockImplementation({
+                    interpretations: {
+                        interpretations: mockData.interpretations,
+                    },
+                })
+            )
+
+            const { result, rerender } = renderHook(
+                ({ type, id }) => useInterpretationsList(type, id),
+                {
+                    wrapper: createWrapper(),
+                    initialProps: {
+                        type: mockData.visualization.type,
+                        id: mockData.visualization.id,
+                    },
+                }
+            )
+
+            await waitFor(() => {
+                expect(result.current.loading).toBe(false)
+                expect(result.current.data).toEqual(mockData.interpretations)
+            })
+
+            // Mock second call with empty result
+            mockQuery.mockImplementationOnce(
+                createMockImplementation({
+                    interpretations: {
+                        interpretations: [],
+                    },
+                })
+            )
+
+            // Change type/id to trigger reload
+            rerender({
+                type: 'TABLE',
+                id: 'newViz456',
+            })
+
+            // Should show loading again
+            expect(result.current.loading).toBe(true)
+
+            await waitFor(() => {
+                expect(result.current.loading).toBe(false)
+                expect(result.current.data).toEqual([])
+            })
+
+            // Verify that mockQuery was called twice
+            expect(mockQuery).toHaveBeenCalledTimes(2)
+        })
     })
 
     describe('Loading active interpretation', () => {
@@ -327,7 +383,69 @@ describe('Interpretations hooks integration tests', () => {
                 consoleErrorSpy.mockRestore()
             }
         })
-        // TODO: if reloads when interpretation changes
+        test('should reload when interpretation ID changes', async () => {
+            // Mock first interpretation load
+            mockQuery.mockImplementationOnce(
+                createMockImplementation({
+                    interpretations: {
+                        interpretations: mockData.interpretations,
+                    },
+                })
+            )
+            mockQuery.mockImplementationOnce(
+                createMockImplementation({
+                    interpretation: mockData.interpretationDetails,
+                })
+            )
+
+            const { result, rerender } = renderHook(
+                ({ interpretationId }) =>
+                    useAllHooks(
+                        mockData.visualization.type,
+                        mockData.visualization.id,
+                        interpretationId
+                    ),
+                {
+                    wrapper: createWrapper(mockData.interpretations),
+                    initialProps: {
+                        interpretationId: mockData.interpretationDetails.id,
+                    },
+                }
+            )
+
+            await waitFor(() => {
+                expect(result.current.activeInterpretation.loading).toBe(false)
+                expect(result.current.activeInterpretation.data).toEqual(
+                    mockData.interpretationDetails
+                )
+            })
+
+            // Mock second interpretation load
+            const secondInterpretation = mockData.interpretations[1]
+            mockQuery.mockImplementationOnce(
+                createMockImplementation({
+                    interpretation: secondInterpretation,
+                })
+            )
+
+            // Change interpretation ID to trigger reload
+            rerender({
+                interpretationId: secondInterpretation.id,
+            })
+
+            // Should show loading again
+            expect(result.current.activeInterpretation.loading).toBe(true)
+
+            await waitFor(() => {
+                expect(result.current.activeInterpretation.loading).toBe(false)
+                expect(result.current.activeInterpretation.data).toEqual(
+                    secondInterpretation
+                )
+            })
+
+            // Verify that mockQuery was called for both interpretations
+            expect(mockQuery).toHaveBeenCalledTimes(3) // 1 for list + 2 for interpretations
+        })
     })
 
     describe('Interpretation subscription', () => {
