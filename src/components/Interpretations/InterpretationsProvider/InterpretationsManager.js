@@ -268,7 +268,7 @@ export class InterpretationsManager {
         return interpretation
     }
 
-    async deleteCommentFromActiveInterpretation(id) {
+    async deleteCommentFromActiveInterpretation({ id }) {
         const activeInterpretation = this.getActiveInterpretation()
         await this.mutate({
             resource: 'interpretations',
