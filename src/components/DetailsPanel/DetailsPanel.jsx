@@ -1,8 +1,4 @@
-import {
-    AboutAOUnit,
-    InterpretationsUnit,
-    useCachedDataQuery,
-} from '@dhis2/analytics'
+import { AboutAOUnit } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import { stringify } from 'query-string'
 import React, { useMemo } from 'react'
@@ -11,6 +7,7 @@ import history from '../../modules/history.js'
 import { isAoWithTimeDimension } from '../../modules/timeDimensions.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetLoadError } from '../../reducers/loader.js'
+import { InterpretationsUnit } from '../Interpretations/InterpretationsUnit/InterpretationsUnit.jsx'
 import classes from './styles/DetailsPanel.module.css'
 
 const navigateToOpenModal = (interpretationId, initialFocus) => {
@@ -23,13 +20,7 @@ const navigateToOpenModal = (interpretationId, initialFocus) => {
     )
 }
 
-const DetailsPanel = ({
-    visualization,
-    aboutAOUnitRenderId,
-    interpretationsUnitRenderId,
-    disabled,
-}) => {
-    const { currentUser } = useCachedDataQuery()
+const DetailsPanel = ({ visualization, aboutAOUnitRenderId, disabled }) => {
     const hasTimeDimension = useMemo(
         () => isAoWithTimeDimension(visualization),
         [visualization]
@@ -44,9 +35,8 @@ const DetailsPanel = ({
             />
             <InterpretationsUnit
                 type="eventVisualization"
-                visualizationHasTimeDimension={hasTimeDimension}
                 id={visualization.id}
-                currentUser={currentUser}
+                visualizationHasTimeDimension={hasTimeDimension}
                 onInterpretationClick={(interpretationId) =>
                     navigateToOpenModal(interpretationId)
                 }
@@ -54,7 +44,6 @@ const DetailsPanel = ({
                     navigateToOpenModal(interpretationId, true)
                 }
                 disabled={disabled}
-                renderId={interpretationsUnitRenderId}
             />
         </div>
     )
@@ -64,7 +53,6 @@ DetailsPanel.propTypes = {
     visualization: PropTypes.object.isRequired,
     aboutAOUnitRenderId: PropTypes.number,
     disabled: PropTypes.bool,
-    interpretationsUnitRenderId: PropTypes.number,
 }
 
 const mapStateToProps = (state) => ({

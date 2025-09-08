@@ -1,9 +1,11 @@
-import { CachedDataQueryProvider } from '@dhis2/analytics'
+import { CachedDataQueryProvider, useCachedDataQuery } from '@dhis2/analytics'
 import { useDataEngine } from '@dhis2/app-runtime'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './components/App.jsx'
+import { InterpretationsProvider as AnalyticsInterpretationsProvider } from './components/Interpretations/InterpretationsProvider/InterpretationsProvider.jsx'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
 import { systemSettingsKeys } from './modules/systemSettings.js'
@@ -74,6 +76,19 @@ const providerDataTransformation = ({
  * so it should remain stateless and be the app's most outer container.
  */
 
+const InterpretationsProvider = ({ children }) => {
+    const { currentUser } = useCachedDataQuery()
+    return (
+        <AnalyticsInterpretationsProvider currentUser={currentUser}>
+            {children}
+        </AnalyticsInterpretationsProvider>
+    )
+}
+
+InterpretationsProvider.propTypes = {
+    children: PropTypes.node,
+}
+
 const AppWrapper = () => {
     const engine = useDataEngine()
     const store = configureStore([
@@ -91,7 +106,9 @@ const AppWrapper = () => {
                 query={query}
                 dataTransformation={providerDataTransformation}
             >
-                <App />
+                <InterpretationsProvider>
+                    <App />
+                </InterpretationsProvider>
             </CachedDataQueryProvider>
         </ReduxProvider>
     )
