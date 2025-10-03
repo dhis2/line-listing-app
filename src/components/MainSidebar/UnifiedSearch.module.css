@@ -1,0 +1,29 @@
+.container {
+    padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp4);
+}
+
+.container :global(.dhis2-ui-input) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.container :global(.dhis2-ui-input:focus) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.container :global(.dhis2-ui-input:hover) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.active {
+    opacity: 1;
+}
+
+.inactive {
+    opacity: 0.6;
+}

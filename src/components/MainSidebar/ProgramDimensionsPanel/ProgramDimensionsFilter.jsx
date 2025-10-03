@@ -49,22 +49,24 @@ const ProgramDimensionsFilter = ({
     stageFilter,
     setStageFilter,
     showProgramAttribute,
-}) => (
+    hasProgramDataDimensions,
+}) => {
+    const inputType = useSelector(sGetUiInputType)
+    
+    // Show filter if there are dimensions OR if user has selected a specific dimension type
+    // This ensures the filter remains visible even when type filtering results in 0 dimensions
+    const shouldShowFilter = hasProgramDataDimensions || dimensionType !== DIMENSION_TYPE_ALL
+    
+    return (
     <div className={styles.container}>
-        <div className={styles.header}>{i18n.t('Program data dimensions')}</div>
-        <Input
-            value={searchTerm}
-            onChange={({ value }) => setSearchTerm(value)}
-            dense
-            type="search"
-            placeholder={i18n.t('Search data dimensions')}
-        />
-        <SingleSelect
-            prefix={i18n.t('Type')}
-            selected={dimensionType}
-            onChange={({ selected }) => setDimensionType(selected)}
-            dense
-        >
+        {shouldShowFilter && (
+            <div className={styles.dropdownWrapper}>
+                <SingleSelect
+                    prefix={i18n.t('Type')}
+                    selected={dimensionType}
+                    onChange={({ selected }) => setDimensionType(selected)}
+                    dense
+                >
             <SingleSelectOption
                 label={i18n.t('All types')}
                 value={DIMENSION_TYPE_ALL}
@@ -90,7 +92,7 @@ const ProgramDimensionsFilter = ({
                     }
                 />
             )}
-            {useSelector(sGetUiInputType) !== OUTPUT_TYPE_TRACKED_ENTITY && (
+            {inputType !== OUTPUT_TYPE_TRACKED_ENTITY && (
                 <SingleSelectOption
                     label={i18n.t('Program indicator')}
                     value={DIMENSION_TYPE_PROGRAM_INDICATOR}
@@ -116,8 +118,10 @@ const ProgramDimensionsFilter = ({
                 }
             />
         </SingleSelect>
+            </div>
+        )}
         {[OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
-            useSelector(sGetUiInputType)
+            inputType
         ) &&
             dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
             (!stageFilter ||
@@ -131,7 +135,8 @@ const ProgramDimensionsFilter = ({
                 />
             )}
     </div>
-)
+    )
+}
 
 ProgramDimensionsFilter.propTypes = {
     program: PropTypes.object.isRequired,
@@ -142,6 +147,7 @@ ProgramDimensionsFilter.propTypes = {
     setStageFilter: PropTypes.func,
     showProgramAttribute: PropTypes.bool,
     stageFilter: PropTypes.string,
+    hasProgramDataDimensions: PropTypes.bool,
 }
 
 export { ProgramDimensionsFilter }

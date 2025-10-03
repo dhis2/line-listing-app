@@ -9,9 +9,8 @@ import { DimensionsList } from '../DimensionsList/index.js'
 import { useYourDimensions } from './useYourDimensions.js'
 import styles from './YourDimensionsPanel.module.css'
 
-const YourDimensionsPanel = ({ visible }) => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const debouncedSearchTerm = useDebounce(searchTerm)
+const YourDimensionsPanel = ({ visible, searchTerm: externalSearchTerm, onEmptyStateChange }) => {
+    const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
     const { currentUser } = useCachedDataQuery()
     const { loading, fetching, error, dimensions, setIsListEndVisible } =
         useYourDimensions({
@@ -27,6 +26,14 @@ const YourDimensionsPanel = ({ visible }) => {
         return null
     }
 
+    // Check if empty and notify parent
+    const isEmpty = !loading && !fetching && dimensions.length === 0
+    React.useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
+
     const draggableDimensions = dimensions.map((dimension) => ({
         draggableId: `your-${dimension.id}`,
         ...dimension,
@@ -34,16 +41,6 @@ const YourDimensionsPanel = ({ visible }) => {
 
     return (
         <>
-            <div className={styles.search}>
-                <Input
-                    value={searchTerm}
-                    onChange={({ value }) => setSearchTerm(value)}
-                    dense
-                    placeholder={i18n.t('Search your dimensions')}
-                    type="search"
-                    dataTest="search-dimension-input"
-                />
-            </div>
             <DimensionsList
                 setIsListEndVisible={setIsListEndVisible}
                 dimensions={draggableDimensions}
@@ -59,6 +56,8 @@ const YourDimensionsPanel = ({ visible }) => {
 
 YourDimensionsPanel.propTypes = {
     visible: PropTypes.bool,
+    searchTerm: PropTypes.string,
+    onEmptyStateChange: PropTypes.func,
 }
 
 export { YourDimensionsPanel }

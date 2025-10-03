@@ -55,8 +55,11 @@ export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_WIDTH = 'SET_UI_ACCESSORY_PANEL_WIDTH'
+export const SET_UI_MAIN_SIDEBAR_WIDTH = 'SET_UI_MAIN_SIDEBAR_WIDTH'
 export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
     'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
+export const SET_UI_EXPANDED_CARDS = 'SET_UI_EXPANDED_CARDS'
+export const TOGGLE_UI_SPLIT_DATA_CARDS = 'TOGGLE_UI_SPLIT_DATA_CARDS'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
     'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
@@ -94,10 +97,13 @@ const EMPTY_UI = {
     },
     itemsByDimension: {},
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
+    expandedCards: [],
+    splitDataCards: false,
 }
 
 export const DEFAULT_UI = {
@@ -121,7 +127,10 @@ export const DEFAULT_UI = {
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
+    expandedCards: ['PROGRAM', 'TRACKED_ENTITY', 'MAIN_DIMENSIONS', 'YOUR'],
+    splitDataCards: false,
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -310,10 +319,28 @@ export default (state = EMPTY_UI, action) => {
                 accessoryPanelWidth: action.value,
             }
         }
+        case SET_UI_MAIN_SIDEBAR_WIDTH: {
+            return {
+                ...state,
+                mainSidebarWidth: action.value,
+            }
+        }
         case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
             return {
                 ...state,
                 accessoryPanelActiveTab: action.value,
+            }
+        }
+        case SET_UI_EXPANDED_CARDS: {
+            return {
+                ...state,
+                expandedCards: action.value,
+            }
+        }
+        case TOGGLE_UI_SPLIT_DATA_CARDS: {
+            return {
+                ...state,
+                splitDataCards: !state.splitDataCards,
             }
         }
         case TOGGLE_UI_SIDEBAR_HIDDEN: {
@@ -448,8 +475,12 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiAccessoryPanelActiveTab = (state) =>
     sGetUi(state).accessoryPanelActiveTab
+export const sGetUiExpandedCards = (state) => sGetUi(state).expandedCards
+export const sGetUiSplitDataCards = (state) => sGetUi(state).splitDataCards
 export const sGetUiAccessoryPanelWidth = (state) =>
     sGetUi(state).accessoryPanelWidth
+export const sGetUiMainSidebarWidth = (state) =>
+    sGetUi(state).mainSidebarWidth
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>

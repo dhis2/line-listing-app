@@ -4,6 +4,55 @@
     gap: var(--spacers-dp4);
 }
 
+.dropdownWrapper {
+    display: inline-block;
+    width: auto;
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect) {
+    width: auto !important;
+    min-width: auto !important;
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect__button) {
+    width: auto !important;
+    min-width: auto !important;
+    display: inline-block !important;
+}
+
+.dropdownWrapper :global([class*="root-children"]) {
+    flex-grow: 0 !important;
+}
+
+.dropdownWrapper :global(*) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 13px !important;
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect__button) {
+    padding: 2px !important;
+}
+
+.dropdownWrapper :global(*:focus) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper:hover :global(.dhis2-ui-singleselect__button) {
+    border: 1px solid var(--colors-grey300) !important;
+    background-color: var(--colors-grey200) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect__prefix) {
+    margin-right: 0px !important;
+}
+
+
 .optionIcon {
     flex: 0 0 auto;
     width: 16px;

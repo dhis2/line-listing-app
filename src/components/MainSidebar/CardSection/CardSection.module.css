@@ -1,0 +1,131 @@
+.card {
+    background-color: var(--colors-white);
+    border: 1px solid var(--colors-grey400);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card:focus {
+    outline: 3px solid var(--theme-focus);
+    outline-offset: -3px;
+}
+
+.card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.card.empty {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.card.empty:hover {
+    border: 1px solid var(--colors-grey300);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px var(--spacers-dp8) var(--spacers-dp8)
+        2px;
+}
+
+.header.expanded {
+    /* background: linear-gradient(180deg, #fafbfc 0%, #f3f5f7 100%); */
+}
+
+.header.expanded:hover {
+    /* background: linear-gradient(180deg, #f2f5f7 0%, #edf0f3 100%); */
+    cursor: pointer;
+}
+
+.header.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
+
+.labelWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+    overflow: hidden;
+}
+
+.labelRow {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.count {
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    color: var(--colors-grey700);
+    background-color: rgba(160, 173, 186, 0.2);
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 4px;
+    border: 1px dashed transparent;
+}
+
+.count.dashed {
+    border-color: rgba(74, 87, 104, 0.4);
+    background-color: transparent;
+}
+
+.chevron {
+    height: 16px;
+    min-width: 16px;
+    margin-right: var(--spacers-dp4);
+    display: flex;
+    align-items: center;
+}
+
+.moreIcon {
+    height: 16px;
+    min-width: 16px;
+    margin-left: var(--spacers-dp4);
+    display: flex;
+    align-items: center;
+    color: var(--colors-grey500);
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-top: var(--spacers-dp4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content {
+    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp4);
+}
+
+.card.empty .content {
+    background-color: transparent;
+}
+
+.moreRow {
+    margin-top: -8px;
+    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card.empty .moreRow {
+    background-color: transparent;
+}
+

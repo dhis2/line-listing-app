@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
-"PO-Revision-Date: 2025-04-15T10:46:20.008Z\n"
+"POT-Creation-Date: 2025-10-03T09:26:19.964Z\n"
+"PO-Revision-Date: 2025-10-03T09:26:19.965Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -195,17 +195,14 @@ msgstr "Program: {{- programName}}"
 msgid "Showing all values for this dimension"
 msgstr "Showing all values for this dimension"
 
-msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "No dimensions found for '{{- searchTerm}}'"
+msgid "No results"
+msgstr "No results"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "No dimensions found in the {{- programName}} program"
 
 msgid " {{- trackedEntityType}} has no dimensions"
 msgstr " {{- trackedEntityType}} has no dimensions"
-
-msgid "No dimensions found"
-msgstr "No dimensions found"
 
 msgid "Couldn't load dimensions"
 msgstr "Couldn't load dimensions"
@@ -235,23 +232,47 @@ msgstr "See data from multiple program stages in a Tracker program."
 msgid "See individual tracked entities from one or more Tracker programs."
 msgstr "See individual tracked entities from one or more Tracker programs."
 
-msgid "Global dimensions"
-msgstr "Global dimensions"
+msgid "Choose input type"
+msgstr "Choose input type"
 
-msgid "Program dimensions"
-msgstr "Program dimensions"
+msgid "No input types found"
+msgstr "No input types found"
 
-msgid "Input: {{type}}"
-msgstr "Input: {{type}}"
+msgid "Error loading types"
+msgstr "Error loading types"
 
-msgid "Choose an input first"
-msgstr "Choose an input first"
+msgid "No types available"
+msgstr "No types available"
 
-msgid "Program data dimensions"
-msgstr "Program data dimensions"
+msgid "Line List"
+msgstr "Line List"
 
-msgid "Search data dimensions"
-msgstr "Search data dimensions"
+msgid "Pivot Table"
+msgstr "Pivot Table"
+
+msgid "data"
+msgstr "data"
+
+msgid "Org. units, periods, and statuses"
+msgstr "Org. units, periods, and statuses"
+
+msgid "Choose a program to show org. units, periods, and statuses"
+msgstr "Choose a program to show org. units, periods, and statuses"
+
+msgid "Program data"
+msgstr "Program data"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Choose a program to show available data"
+msgstr "Choose a program to show available data"
+
+msgid "Metadata"
+msgstr "Metadata"
+
+msgid "Other"
+msgstr "Other"
 
 msgid "Type"
 msgstr "Type"
@@ -305,6 +326,9 @@ msgstr "All"
 msgid "No stages found"
 msgstr "No stages found"
 
+msgid "Choose a stage"
+msgstr "Choose a stage"
+
 msgid "Could not load types"
 msgstr "Could not load types"
 
@@ -330,14 +354,11 @@ msgstr "Filter by program usage"
 msgid "Clear"
 msgstr "Clear"
 
-msgid "Search dimensions"
-msgstr "Search dimensions"
+msgid "Search all dimensions"
+msgstr "Search all dimensions"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
-
-msgid "Search your dimensions"
-msgstr "Search your dimensions"
 
 msgid "Show panels"
 msgstr "Show panels"
@@ -742,9 +763,6 @@ msgstr "Empty data"
 
 msgid "Totals"
 msgstr "Totals"
-
-msgid "Data"
-msgstr "Data"
 
 msgid "Limit values"
 msgstr "Limit values"

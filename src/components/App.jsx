@@ -475,7 +475,7 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar onFileMenuAction={onFileMenuAction} />
+            
             <div
                 className={cx(
                     classes.sectionMain,
@@ -496,6 +496,7 @@ const App = () => {
                         )}
                     >
                         <div className={classes.mainCenterLayout}>
+                        <Toolbar onFileMenuAction={onFileMenuAction} />
                             <Layout />
                         </div>
                         <div className={classes.mainCenterTitlebar}>

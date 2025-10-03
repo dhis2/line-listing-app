@@ -5,17 +5,17 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
+    /* padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4); */
 }
 .errorWrap {
     padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
 }
 .noResults {
-    padding: var(--spacers-dp24) var(--spacers-dp32) 0;
+    padding: 0 var(--spacers-dp8) 0 var(--spacers-dp8);
     color: var(--colors-grey600);
-    text-align: center;
-    font-size: 14px;
-    line-height: 19px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
 }
 .loaderWrap {
     display: flex;

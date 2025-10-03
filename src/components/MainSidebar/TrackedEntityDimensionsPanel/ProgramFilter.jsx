@@ -66,29 +66,30 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                             </NoticeBox>
                         </div>
                     ) : (
-                        <SingleSelect
-                            dense
-                            selected={selectedProgramId || ''}
-                            onChange={({ selected }) => {
-                                setSelectedProgramId(selected)
-                                dispatch(
-                                    acAddMetadata({
-                                        [selected]: programs.find(
-                                            (p) => p.id === selected
-                                        ),
-                                    })
-                                )
-                            }}
-                            placeholder={i18n.t('Filter by program usage')}
-                            maxHeight="max(60vh, 460px)"
-                            dataTest="tet-dimensions-program-select"
-                            filterable
-                            noMatchText={i18n.t('No programs found')}
-                            prefix={selectedProgramId && i18n.t('Program')}
-                            clearable
-                            clearText={i18n.t('Clear')}
-                            loading={fetching}
-                        >
+                        <div className={styles.dropdownWrapper}>
+                            <SingleSelect
+                                dense
+                                selected={selectedProgramId || ''}
+                                onChange={({ selected }) => {
+                                    setSelectedProgramId(selected)
+                                    dispatch(
+                                        acAddMetadata({
+                                            [selected]: programs.find(
+                                                (p) => p.id === selected
+                                            ),
+                                        })
+                                    )
+                                }}
+                                placeholder={i18n.t('Filter by program usage')}
+                                maxHeight="max(60vh, 460px)"
+                                dataTest="tet-dimensions-program-select"
+                                filterable
+                                noMatchText={i18n.t('No programs found')}
+                                prefix={selectedProgramId && i18n.t('Program')}
+                                clearable
+                                clearText={i18n.t('Clear')}
+                                loading={fetching}
+                            >
                             {(fetching || !programs) && selectedProgram?.id && (
                                 <SingleSelectOption
                                     key={selectedProgram?.id}
@@ -104,7 +105,8 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
                                         value={id}
                                     />
                                 ))}
-                        </SingleSelect>
+                            </SingleSelect>
+                        </div>
                     )}
                 </div>
             </div>

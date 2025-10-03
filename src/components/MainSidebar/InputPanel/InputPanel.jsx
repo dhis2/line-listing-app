@@ -2,17 +2,16 @@ import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiInput } from '../../../actions/ui.js'
+import { useSelector } from 'react-redux'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
-import { sGetUiInput } from '../../../reducers/ui.js'
+import { sGetUiInput, sGetUiSplitDataCards } from '../../../reducers/ui.js'
 import { ProgramSelect } from '../ProgramDimensionsPanel/ProgramSelect.jsx'
-import { TypeSelect } from '../ProgramDimensionsPanel/TypeSelect.jsx'
-import { InputOption } from './InputOption.jsx'
+import { InputTypeWithSubmenuSelect } from './InputTypeWithSubmenuSelect.jsx'
+import { VisualizationTypeSelect } from './VisualizationTypeSelect.jsx'
 import styles from './InputPanel.module.css'
 
 export const getLabelForInputType = (type) => {
@@ -29,61 +28,47 @@ export const getLabelForInputType = (type) => {
 }
 
 export const InputPanel = ({ visible }) => {
-    const dispatch = useDispatch()
     const { serverVersion } = useConfig()
     const selectedInput = useSelector(sGetUiInput)?.type
+    const splitDataCards = useSelector(sGetUiSplitDataCards)
 
     if (!visible) {
         return null
     }
 
-    const setSelectedInput = (input) => {
-        if (selectedInput !== input) {
-            dispatch(tSetUiInput({ type: input }))
+    const renderConditionalDropdowns = () => {
+        if (!selectedInput) {
+            return null
+        }
+
+        switch (selectedInput) {
+            case OUTPUT_TYPE_EVENT:
+                return <ProgramSelect noBorders={true} />
+            case OUTPUT_TYPE_ENROLLMENT:
+                return <ProgramSelect noBorders={true} />
+            case OUTPUT_TYPE_TRACKED_ENTITY:
+                // Show program selection in InputPanel only when in split data cards mode
+                return splitDataCards ? <ProgramSelect noBorders={true} /> : null
+            default:
+                return null
         }
     }
 
     return (
         <div className={styles.container} data-test="input-panel">
-            <InputOption
-                dataTest="input-event"
-                header={getLabelForInputType(OUTPUT_TYPE_EVENT)}
-                description={i18n.t(
-                    'See individual event data from a Tracker program stage or event program.'
-                )}
-                onClick={() => setSelectedInput(OUTPUT_TYPE_EVENT)}
-                selected={selectedInput === OUTPUT_TYPE_EVENT}
-            >
-                {selectedInput === OUTPUT_TYPE_EVENT && <ProgramSelect />}
-            </InputOption>
-            <InputOption
-                dataTest="input-enrollment"
-                header={getLabelForInputType(OUTPUT_TYPE_ENROLLMENT)}
-                description={i18n.t(
-                    'See data from multiple program stages in a Tracker program.'
-                )}
-                onClick={() => setSelectedInput(OUTPUT_TYPE_ENROLLMENT)}
-                selected={selectedInput === OUTPUT_TYPE_ENROLLMENT}
-            >
-                {selectedInput === OUTPUT_TYPE_ENROLLMENT && <ProgramSelect />}
-            </InputOption>
-            {`${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.41.0' && (
-                <InputOption
-                    dataTest="input-tracked-entity"
-                    header={getLabelForInputType(OUTPUT_TYPE_TRACKED_ENTITY)}
-                    description={i18n.t(
-                        'See individual tracked entities from one or more Tracker programs.'
-                    )}
-                    onClick={() => setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)}
-                    selected={selectedInput === OUTPUT_TYPE_TRACKED_ENTITY}
-                >
-                    {selectedInput === OUTPUT_TYPE_TRACKED_ENTITY && (
-                        <TypeSelect />
-                    )}
-                </InputOption>
-            )}
+            <div className={styles.section}>
+                <div className={styles.row}>
+                    <div className={styles.dropdownWrapper}>
+                        <VisualizationTypeSelect 
+                            dataTest="visualization-type-select"
+                        />
+                    </div>
+                    <div className={styles.dropdownWrapper}>
+                        <InputTypeWithSubmenuSelect serverVersion={serverVersion} />
+                    </div>
+                </div>
+            </div>
+            {renderConditionalDropdowns()}
         </div>
     )
 }

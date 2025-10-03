@@ -1,18 +1,20 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconArrowRight16, IconFolder16, Tooltip } from '@dhis2/ui'
+import { IconArrowRight16, IconFolder16 } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import {
-    acSetUiAccessoryPanelActiveTab,
-    acSetUiAccessoryPanelOpen,
     acSetUiDetailsPanelOpen,
+    acToggleUiExpandedCard,
 } from '../../actions/ui.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
     ACCESSORY_PANEL_TAB_PROGRAM,
     ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
     ACCESSORY_PANEL_TAB_YOUR,
+    ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS,
+    ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
@@ -22,45 +24,42 @@ import {
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiInputType,
-    sGetUiShowAccessoryPanel,
     sGetUiProgramId,
     sGetUiSidebarHidden,
     sGetUiProgramStageId,
-    sGetUiAccessoryPanelActiveTab,
+    sGetUiExpandedCards,
     sGetUiEntityTypeId,
+    sGetUiSplitDataCards,
 } from '../../reducers/ui.js'
+import { CardSection } from './CardSection/index.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.jsx'
 import styles from './MainSidebar.module.css'
-import { MenuItem } from './MenuItem/index.js'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
+import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
+import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
 import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
 } from './SelectedDimensionsContext.jsx'
-import { TrackedEntityDimensionsMenuItem } from './TrackedEntityDimensionsMenuItem.jsx'
 import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
-import { useResizableAccessorySidebar } from './useResizableAccessorySidebar.js'
-import { YourDimensionsMenuItem } from './YourDimensionsMenuItem.jsx'
+import { UnifiedSearch } from './UnifiedSearch.jsx'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const MainSidebar = () => {
     const dispatch = useDispatch()
-    const selectedTabId = useSelector(sGetUiAccessoryPanelActiveTab)
-    const open = useSelector(sGetUiShowAccessoryPanel) && Boolean(selectedTabId)
-    const [isTransitioning, setIsTransitioning] = useState(false)
+    const expandedCards = useSelector(sGetUiExpandedCards) || []
+    const splitDataCards = useSelector(sGetUiSplitDataCards)
+    const { width, handleMouseDown, handleDoubleClick } = useResizableMainSidebar()
+    const [unifiedSearchTerm, setUnifiedSearchTerm] = useState('')
+    const [mainDimensionsEmpty, setMainDimensionsEmpty] = useState(false)
+    const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] = useState(false)
+    const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
+    const [programDimensionsEmpty, setProgramDimensionsEmpty] = useState(false)
     const selectedInputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedStageId = useSelector(sGetUiProgramStageId)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
-    const {
-        isResizing,
-        accessoryStyle,
-        accessoryInnerStyle,
-        onResizeHandleMouseDown,
-        onResizeHandleFocus,
-        onResizeHandleDblClick,
-    } = useResizableAccessorySidebar(!open)
     const program = useSelector((state) =>
         sGetMetadataById(state, selectedProgramId)
     )
@@ -86,151 +85,174 @@ const MainSidebar = () => {
     }
 
     const isHidden = useSelector(sGetUiSidebarHidden)
-    const setOpen = (newOpen) => dispatch(acSetUiAccessoryPanelOpen(newOpen))
-    const setSelectedTabId = useCallback(
+    const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
+    const onCardClick = useCallback(
         (id) => {
-            dispatch(acSetUiAccessoryPanelActiveTab(id))
+            dispatch(acToggleUiExpandedCard(id))
+            closeDetailsPanel()
         },
         [dispatch]
     )
-    const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
-    const onClick = (id) => {
-        if (open && id === selectedTabId) {
-            // set selectedTabId to null after the transition has completed
-            setIsTransitioning(true)
-            setOpen(false)
-        } else {
-            setSelectedTabId(id)
-            closeDetailsPanel()
-            if (!open) {
-                setOpen(true)
-                setIsTransitioning(true)
-            }
-        }
-    }
     const { counts } = useSelectedDimensions()
 
+    // Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
     useEffect(() => {
-        if (!open && !isTransitioning) {
-            setSelectedTabId(null)
+        if (splitDataCards) {
+            // Only auto-expand if the card is not already expanded (respect user's manual collapse)
+            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)) {
+                dispatch(acToggleUiExpandedCard(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS))
+            }
         }
-    }, [open, isTransitioning, setSelectedTabId])
-
-    const programDimensionsItem = (
-        <MenuItem
-            icon={<IconFolder16 />}
-            label={i18n.t('Program dimensions')}
-            onClick={() => onClick(ACCESSORY_PANEL_TAB_PROGRAM)}
-            selected={open && selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
-            count={counts.program}
-            disabled={!(selectedProgramId || selectedEntityTypeId)}
-            dataTest="program-dimensions-button"
-        />
-    )
+    }, [splitDataCards]) // Only trigger when split mode changes, not when program/entity changes
 
     return (
         <div
             className={cx(styles.container, {
                 [styles.hidden]: isHidden,
-                [styles.resizing]: isResizing,
             })}
         >
-            <div className={styles.main} data-test="main-sidebar">
-                <MenuItem
-                    icon={<IconArrowRight16 />}
-                    label={i18n.t('Input: {{type}}', {
-                        type: getLabelForInputType(selectedInputType),
-                        nsSeparator: '^^',
-                    })}
-                    onClick={() => onClick(ACCESSORY_PANEL_TAB_INPUT)}
-                    selected={
-                        open && selectedTabId === ACCESSORY_PANEL_TAB_INPUT
-                    }
-                    subtitle={getSubtitle()}
-                    dataTest="input-panel-button"
-                />
-                {entityType?.name && (
-                    <TrackedEntityDimensionsMenuItem
-                        selected={
-                            open &&
-                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                        }
-                        count={counts.trackedEntity}
-                        onClick={() =>
-                            onClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
-                        }
-                        name={entityType.name}
-                    />
-                )}
-                {!(selectedProgramId || selectedEntityTypeId) ? (
-                    <Tooltip
-                        dataTest="no-input-tooltip"
-                        content={i18n.t('Choose an input first')}
-                        closeDelay={0}
-                        placement="bottom"
-                    >
-                        {({ onMouseOver, onMouseOut, ref }) => (
-                            <span
-                                onMouseOver={onMouseOver}
-                                onMouseOut={onMouseOut}
-                                ref={ref}
-                            >
-                                {programDimensionsItem}
-                            </span>
-                        )}
-                    </Tooltip>
-                ) : (
-                    programDimensionsItem
-                )}
-                <YourDimensionsMenuItem
-                    selected={
-                        open && selectedTabId === ACCESSORY_PANEL_TAB_YOUR
-                    }
-                    count={counts.your}
-                    onClick={() => onClick(ACCESSORY_PANEL_TAB_YOUR)}
-                />
-                <MainDimensions />
-            </div>
-            <div
-                className={cx(styles.accessory, {
-                    [styles.hidden]: !open,
-                    [styles.padded]:
-                        selectedTabId === ACCESSORY_PANEL_TAB_INPUT,
-                    [styles.transitioning]: isTransitioning,
-                })}
-                style={accessoryStyle}
-                data-test="accessory-sidebar"
+            <div 
+                className={styles.main} 
+                data-test="main-sidebar"
+                style={{ width: `${width}px` }}
             >
-                <div
-                    className={styles.accessoryInner}
-                    style={accessoryInnerStyle}
-                    onTransitionEnd={() => setIsTransitioning(false)}
-                >
-                    <InputPanel
-                        visible={selectedTabId === ACCESSORY_PANEL_TAB_INPUT}
-                    />
-                    <ProgramDimensionsPanel
-                        visible={selectedTabId === ACCESSORY_PANEL_TAB_PROGRAM}
-                    />
-                    <TrackedEntityDimensionsPanel
-                        visible={
-                            selectedTabId === ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                        }
-                    />
-                    <YourDimensionsPanel
-                        visible={selectedTabId === ACCESSORY_PANEL_TAB_YOUR}
-                    />
+                <InputPanel visible={true} />
+                
+                <UnifiedSearch onSearchChange={setUnifiedSearchTerm} />
+                
+                <div className={styles.cardsContainer}>
+                    {entityType?.name && (
+                        <CardSection
+                            label={`${entityType.name} ${i18n.t('data')}`}
+                            onClick={() => onCardClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)}
+                            expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)}
+                            count={counts.trackedEntity}
+                            dataTest="tracked-entity-dimensions-card"
+                            isEmpty={trackedEntityDimensionsEmpty}
+                        >
+                            <TrackedEntityDimensionsPanel 
+                                visible={true} 
+                                searchTerm={unifiedSearchTerm} 
+                                onEmptyStateChange={setTrackedEntityDimensionsEmpty}
+                            />
+                        </CardSection>
+                    )}
+
+                    {splitDataCards ? (
+                        <>
+                            {/* Program Dimensions Card */}
+                            <CardSection
+                                label={i18n.t('Org. units, periods, and statuses')}
+                                onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)}
+                                expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)}
+                                dataTest="program-dimensions-only-card"
+                                isEmpty={programDimensionsEmpty}
+                            >
+                                {!(selectedProgramId || selectedEntityTypeId) ? (
+                                    <div style={{ 
+                                        padding: 'var(--spacers-dp16)', 
+                                        textAlign: 'center', 
+                                        color: 'var(--colors-grey600)',
+                                        fontSize: '13px'
+                                    }}>
+                                        {i18n.t('Choose a program to show org. units, periods, and statuses')}
+                                    </div>
+                                ) : (
+                                    <ProgramDimensionsOnly 
+                                        searchTerm={unifiedSearchTerm}
+                                        onEmptyStateChange={setProgramDimensionsEmpty}
+                                    />
+                                )}
+                            </CardSection>
+                            
+                            {/* Program Data Card */}
+                            <CardSection
+                                label={
+                                    selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY 
+                                        ? i18n.t('Program data') 
+                                        : i18n.t('Data')
+                                }
+                                onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)}
+                                expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)}
+                                count={selectedProgramId || selectedEntityTypeId ? counts.program : undefined}
+                                dataTest="program-data-card"
+                            >
+                                {!(selectedProgramId || selectedEntityTypeId) ? (
+                                    <div style={{ 
+                                        padding: 'var(--spacers-dp16)', 
+                                        textAlign: 'center', 
+                                        color: 'var(--colors-grey600)',
+                                        fontSize: '13px'
+                                    }}>
+                                        {i18n.t('Choose a program to show available data')}
+                                    </div>
+                                ) : (
+                                    <ProgramDataOnly searchTerm={unifiedSearchTerm} />
+                                )}
+                            </CardSection>
+                        </>
+                    ) : (
+                        /* Combined Program Dimensions Card (original behavior) */
+                        <CardSection
+                            label={
+                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY 
+                                    ? i18n.t('Program data') 
+                                    : i18n.t('Data')
+                            }
+                            onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)}
+                            expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)}
+                            count={selectedProgramId || selectedEntityTypeId ? counts.program : undefined}
+                            dataTest="program-dimensions-card"
+                        >
+                            {!(selectedProgramId || selectedEntityTypeId) ? (
+                                <div style={{ 
+                                    padding: 'var(--spacers-dp16)', 
+                                    textAlign: 'center', 
+                                    color: 'var(--colors-grey600)',
+                                    fontSize: '13px'
+                                }}>
+                                    {i18n.t('Choose a program to show available data')}
+                                </div>
+                            ) : (
+                                <ProgramDimensionsPanel visible={true} searchTerm={unifiedSearchTerm} />
+                            )}
+                        </CardSection>
+                    )}
+
+                    <CardSection
+                        label={i18n.t('Metadata')}
+                        onClick={() => onCardClick(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)}
+                        expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)}
+                        dataTest="main-dimensions-card"
+                        isEmpty={mainDimensionsEmpty}
+                    >
+                        <MainDimensions 
+                            searchTerm={unifiedSearchTerm} 
+                            onEmptyStateChange={setMainDimensionsEmpty}
+                        />
+                    </CardSection>
+                    
+                    <CardSection
+                        label={i18n.t('Other')}
+                        onClick={() => onCardClick(ACCESSORY_PANEL_TAB_YOUR)}
+                        expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_YOUR)}
+                        count={counts.your}
+                        dataTest="your-dimensions-card"
+                        isEmpty={yourDimensionsEmpty}
+                    >
+                        <YourDimensionsPanel 
+                            visible={true} 
+                            searchTerm={unifiedSearchTerm} 
+                            onEmptyStateChange={setYourDimensionsEmpty}
+                        />
+                    </CardSection>
                 </div>
-                {open && (
-                    <div
-                        className={styles.resizeHandle}
-                        onMouseDown={onResizeHandleMouseDown}
-                        onFocus={onResizeHandleFocus}
-                        onDoubleClick={onResizeHandleDblClick}
-                        tabIndex={0}
-                        data-test="accessory-panel-resize-handle"
-                    />
-                )}
+                <div 
+                    className={styles.resizeHandle}
+                    onMouseDown={handleMouseDown}
+                    onDoubleClick={handleDoubleClick}
+                    data-test="main-sidebar-resize-handle"
+                />
             </div>
         </div>
     )

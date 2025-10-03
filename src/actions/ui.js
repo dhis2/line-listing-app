@@ -18,9 +18,29 @@ import {
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../modules/programTypes.js'
 import {
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../modules/visualization.js'
 import { sGetMetadataById } from '../reducers/metadata.js'
+import { sGetUiInput, sGetUiProgram } from '../reducers/ui.js'
+
+// Helper function to check if a program is valid for a given input type
+const isProgramValidForInputType = (program, inputType) => {
+    if (!program) return false
+    
+    // Event and Enrollment can use any program
+    if (inputType === OUTPUT_TYPE_EVENT || inputType === OUTPUT_TYPE_ENROLLMENT) {
+        return true
+    }
+    
+    // Tracked entity requires programs with tracked entity type
+    if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+        return program.trackedEntityType != null
+    }
+    
+    return false
+}
+
 import {
     ADD_UI_LAYOUT_DIMENSIONS,
     REMOVE_UI_LAYOUT_DIMENSIONS,
@@ -49,13 +69,17 @@ import {
     REMOVE_UI_ITEMS,
     sGetUiProgramId,
     sGetUiInputType,
+    sGetUiExpandedCards,
     TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
     TOGGLE_UI_SIDEBAR_HIDDEN,
     TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
     SET_UI_ACCESSORY_PANEL_ACTIVE_TAB,
+    SET_UI_EXPANDED_CARDS,
+    TOGGLE_UI_SPLIT_DATA_CARDS,
     UPDATE_UI_ENTITY_TYPE_ID,
     CLEAR_UI_ENTITY_TYPE,
     SET_UI_ACCESSORY_PANEL_WIDTH,
+    SET_UI_MAIN_SIDEBAR_WIDTH,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -149,10 +173,24 @@ export const tClearUiProgramStageDimensions =
         }
     }
 
-export const tSetUiInput = (value) => (dispatch) => {
+export const tSetUiInput = (value) => (dispatch, getState) => {
+    const state = getState()
+    const currentInput = sGetUiInput(state)
+    const currentProgram = sGetUiProgram(state)
+    
     dispatch(acClearUiEntityType())
-    dispatch(acClearUiProgram())
-    dispatch(tClearUiProgramRelatedDimensions())
+    
+    // Only clear program if switching to/from tracked entity or if current program is not valid for new input type
+    const shouldClearProgram = 
+        currentInput?.type === OUTPUT_TYPE_TRACKED_ENTITY || 
+        value.type === OUTPUT_TYPE_TRACKED_ENTITY ||
+        (currentProgram && !isProgramValidForInputType(currentProgram, value.type))
+    
+    if (shouldClearProgram) {
+        dispatch(acClearUiProgram())
+        dispatch(tClearUiProgramRelatedDimensions())
+    }
+    
     dispatch(acClearUiRepetition())
     dispatch(
         acSetUiInput(value, {
@@ -264,8 +302,37 @@ export const acSetUiAccessoryPanelActiveTab = (value) => ({
     value,
 })
 
+export const acSetUiExpandedCards = (value) => ({
+    type: SET_UI_EXPANDED_CARDS,
+    value,
+})
+
+export const acToggleUiExpandedCard = (cardId) => (dispatch, getState) => {
+    const currentExpandedCards = sGetUiExpandedCards(getState()) || []
+    const isExpanded = currentExpandedCards.includes(cardId)
+    
+    if (isExpanded) {
+        // Remove the card from expanded list
+        const newExpandedCards = currentExpandedCards.filter(id => id !== cardId)
+        dispatch(acSetUiExpandedCards(newExpandedCards))
+    } else {
+        // Add the card to expanded list
+        const newExpandedCards = [...currentExpandedCards, cardId]
+        dispatch(acSetUiExpandedCards(newExpandedCards))
+    }
+}
+
+export const acToggleUiSplitDataCards = () => ({
+    type: TOGGLE_UI_SPLIT_DATA_CARDS,
+})
+
 export const acSetUiAccessoryPanelWidth = (value) => ({
     type: SET_UI_ACCESSORY_PANEL_WIDTH,
+    value,
+})
+
+export const acSetUiMainSidebarWidth = (value) => ({
+    type: SET_UI_MAIN_SIDEBAR_WIDTH,
     value,
 })
 

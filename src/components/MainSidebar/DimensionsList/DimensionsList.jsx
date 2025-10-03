@@ -12,7 +12,7 @@ const getNoResultsMessage = ({
     trackedEntityType,
 }) => {
     if (searchTerm) {
-        return i18n.t("No dimensions found for '{{- searchTerm}}'", {
+        return i18n.t("No results", {
             searchTerm,
         })
     } else if (programName) {
@@ -24,7 +24,7 @@ const getNoResultsMessage = ({
             trackedEntityType,
         })
     }
-    return i18n.t('No dimensions found')
+    return i18n.t('No results')
 }
 
 const isEndReached = (el) =>
