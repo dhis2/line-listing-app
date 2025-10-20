@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Input } from '@dhis2/ui'
+import { IconSearch16, Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDebounce } from '../../modules/utils.js'
@@ -24,6 +24,7 @@ const UnifiedSearch = ({ onSearchChange }) => {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 dense
+                prefixIcon={<IconSearch16 />}
                 placeholder={i18n.t('Search all dimensions')}
                 type="search"
                 dataTest="unified-search-input"
