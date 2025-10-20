@@ -1,8 +1,9 @@
 .titleBar {
     display: flex;
-    justify-content: flex-start;
+
     /* Same amount of whitespace as fullscreen button */
-    padding-inline-end: 28px;
+    border-bottom: 1px solid var(--colors-grey400);
+    background: white;
 }
 
 .titleBar > .buttonContainer {
@@ -14,24 +15,25 @@
 .titleBar > .titleContainer {
     display: flex;
     flex-grow: 1;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .cell {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     background-color: var(--colors-white);
-    padding: 6px;
+    padding: 4px 6px;
     border-radius: 5px;
     margin: 4px;
 }
 
 .title {
-    font-size: 14px;
+    font-size: 13px;
+    color: var(--colors-grey800);
 }
 
 .suffix {
-    padding-left: 4px;
+    margin-left: 4px;
 }
 
 .titleUnsaved {
@@ -40,5 +42,12 @@
 }
 
 .titleDirty {
-    color: var(--colors-grey700);
+    color: var(--colors-grey800);
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: var(--colors-grey200);
+    margin-top: -1px;
+    font-size: 11px;
+    letter-spacing: -0.2px;
+    font-family: monospace;
 }
