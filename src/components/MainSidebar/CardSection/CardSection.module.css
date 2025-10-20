@@ -24,16 +24,10 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 10px var(--spacers-dp8) var(--spacers-dp8)
-        2px;
-}
-
-.header.expanded {
-    /* background: linear-gradient(180deg, #fafbfc 0%, #f3f5f7 100%); */
+    padding: 6px 6px var(--spacers-dp8) 4px;
 }
 
 .header.expanded:hover {
-    /* background: linear-gradient(180deg, #f2f5f7 0%, #edf0f3 100%); */
     cursor: pointer;
 }
 
@@ -70,12 +64,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px 6px;
+    padding: 2px 4px;
     color: var(--colors-grey700);
     background-color: rgba(160, 173, 186, 0.2);
-    font-size: 12px;
-    line-height: 12px;
-    border-radius: 4px;
+    font-size: 11px;
+    font-family: monospace;
+    line-height: 11px;
+    border-radius: 3px;
     border: 1px dashed transparent;
 }
 
@@ -85,11 +80,18 @@
 }
 
 .chevron {
-    height: 16px;
-    min-width: 16px;
+    border-radius: 3px;
     margin-right: var(--spacers-dp4);
     display: flex;
     align-items: center;
+    padding: 2px;
+    color: var(--colors-grey600);
+}
+.chevron:hover,
+.header:hover .chevron,
+.card:not(.expanded):hover .chevron {
+    color: var(--colors-grey800);
+    background: var(--colors-grey200);
 }
 
 .moreIcon {
@@ -129,3 +131,9 @@
     background-color: transparent;
 }
 
+.card .moreRow .moreIcon {
+    color: var(--colors-grey500);
+}
+.card:hover .moreRow .moreIcon {
+    color: var(--colors-grey900);
+}
