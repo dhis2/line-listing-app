@@ -9,16 +9,9 @@
     align-items: center;
     padding: 8px 12px;
     border: 1px solid var(--colors-grey300);
-    border-radius: 4px;
     background-color: var(--colors-white);
     cursor: pointer;
-    font-size: 14px;
-    min-height: 36px;
     transition: border-color 150ms ease, box-shadow 150ms ease;
-}
-
-.trigger:hover {
-    border-color: var(--colors-grey400);
 }
 
 .trigger:focus {
@@ -36,6 +29,8 @@
     flex: 1;
     text-align: left;
     color: var(--colors-grey900);
+    font-size: 13px;
+    font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
