@@ -14,6 +14,7 @@ import { sGetVisualization } from '../../reducers/visualization.js'
 import { sGetUi } from '../../reducers/ui.js'
 import { ExpandedVisualizationCanvasToggle } from './ExpandedVisualizationCanvasToggle.jsx'
 import classes from './styles/TitleBar.module.css'
+import appClasses from '../App.module.css'
 
 export const getTitleUnsaved = () => i18n.t('Unsaved visualization')
 export const getTitleDirty = () => i18n.t('Unsaved changes')
@@ -50,7 +51,10 @@ export const TitleBar = ({ titleState, titleText }) => {
     )}`
 
     return titleText ? (
-        <div data-test="titlebar" className={classes.titleBar}>
+        <div
+            data-test="titlebar"
+            className={cx(classes.titleBar, appClasses.flexGrow1)}
+        >
             {/* <div className={classes.buttonContainer}>
                 <ExpandedVisualizationCanvasToggle />
             </div> */}

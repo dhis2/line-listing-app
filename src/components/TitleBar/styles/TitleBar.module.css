@@ -2,7 +2,9 @@
     display: flex;
 
     /* Same amount of whitespace as fullscreen button */
-    border-bottom: 1px solid var(--colors-grey400);
+    /* border-bottom: 1px solid var(--colors-grey400);
+     */
+    border-left: 1px solid var(--colors-grey400);
     background: white;
 }
 
@@ -28,8 +30,9 @@
 }
 
 .title {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--colors-grey800);
+    font-weight: 500;
 }
 
 .suffix {

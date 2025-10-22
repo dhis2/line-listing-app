@@ -5,12 +5,15 @@ import React from 'react'
 import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.jsx'
 import { MenuBar } from './MenuBar.jsx'
 import { UpdateButton } from './UpdateButton.jsx'
+import TitleBar from '../TitleBar/TitleBar.jsx'
 
 export const Toolbar = ({ onFileMenuAction }) => (
     <AnalyticsToolbar>
         <UpdateButton />
         <MenuBar onFileMenuAction={onFileMenuAction} />
-        <InterpretationsAndDetailsToggler />
+        <TitleBar />
+
+        {/* <InterpretationsAndDetailsToggler /> */}
     </AnalyticsToolbar>
 )
 

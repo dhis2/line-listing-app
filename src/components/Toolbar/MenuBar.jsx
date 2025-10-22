@@ -288,7 +288,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
             />
             <ViewDropDown />
             <VisualizationOptionsManager />
-            <ToolbarDownloadDropdown />
+            {/* <ToolbarDownloadDropdown /> */}
         </HoverMenuBar>
     )
 }
