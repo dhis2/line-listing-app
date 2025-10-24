@@ -258,9 +258,35 @@ const MainSidebar = () => {
                                 dataTest="program-dimensions-only-card"
                                 isEmpty={programDimensionsEmpty}
                             >
-                                {!(
-                                    selectedProgramId || selectedEntityTypeId
-                                ) ? (
+                                {selectedInputType ===
+                                OUTPUT_TYPE_TRACKED_ENTITY ? (
+                                    !(
+                                        selectedProgramId &&
+                                        selectedEntityTypeId
+                                    ) ? (
+                                        <div
+                                            style={{
+                                                padding: 'var(--spacers-dp16)',
+                                                textAlign: 'center',
+                                                color: 'var(--colors-grey600)',
+                                                fontSize: '13px',
+                                            }}
+                                        >
+                                            {i18n.t(
+                                                'Choose a program to show org. units, periods, and statuses'
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <ProgramDimensionsOnly
+                                            searchTerm={unifiedSearchTerm}
+                                            onEmptyStateChange={
+                                                setProgramDimensionsEmpty
+                                            }
+                                        />
+                                    )
+                                ) : !(
+                                      selectedProgramId || selectedEntityTypeId
+                                  ) ? (
                                     <div
                                         style={{
                                             padding: 'var(--spacers-dp16)',
@@ -298,15 +324,45 @@ const MainSidebar = () => {
                                     ACCESSORY_PANEL_TAB_PROGRAM
                                 )}
                                 count={
-                                    selectedProgramId || selectedEntityTypeId
+                                    selectedInputType ===
+                                    OUTPUT_TYPE_TRACKED_ENTITY
+                                        ? selectedProgramId &&
+                                          selectedEntityTypeId
+                                            ? counts.program
+                                            : undefined
+                                        : selectedProgramId ||
+                                          selectedEntityTypeId
                                         ? counts.program
                                         : undefined
                                 }
                                 dataTest="program-data-card"
                             >
-                                {!(
-                                    selectedProgramId || selectedEntityTypeId
-                                ) ? (
+                                {selectedInputType ===
+                                OUTPUT_TYPE_TRACKED_ENTITY ? (
+                                    !(
+                                        selectedProgramId &&
+                                        selectedEntityTypeId
+                                    ) ? (
+                                        <div
+                                            style={{
+                                                padding: 'var(--spacers-dp16)',
+                                                textAlign: 'center',
+                                                color: 'var(--colors-grey600)',
+                                                fontSize: '13px',
+                                            }}
+                                        >
+                                            {i18n.t(
+                                                'Choose a program to show available data'
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <ProgramDataOnly
+                                            searchTerm={unifiedSearchTerm}
+                                        />
+                                    )
+                                ) : !(
+                                      selectedProgramId || selectedEntityTypeId
+                                  ) ? (
                                     <div
                                         style={{
                                             padding: 'var(--spacers-dp16)',
@@ -345,13 +401,38 @@ const MainSidebar = () => {
                                 ACCESSORY_PANEL_TAB_PROGRAM
                             )}
                             count={
-                                selectedProgramId || selectedEntityTypeId
+                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
+                                    ? selectedProgramId && selectedEntityTypeId
+                                        ? counts.program
+                                        : undefined
+                                    : selectedProgramId || selectedEntityTypeId
                                     ? counts.program
                                     : undefined
                             }
                             dataTest="program-dimensions-card"
                         >
-                            {!(selectedProgramId || selectedEntityTypeId) ? (
+                            {selectedInputType ===
+                            OUTPUT_TYPE_TRACKED_ENTITY ? (
+                                !(selectedProgramId && selectedEntityTypeId) ? (
+                                    <div
+                                        style={{
+                                            padding: 'var(--spacers-dp16)',
+                                            textAlign: 'center',
+                                            color: 'var(--colors-grey600)',
+                                            fontSize: '13px',
+                                        }}
+                                    >
+                                        {i18n.t(
+                                            'Choose a program to show available data'
+                                        )}
+                                    </div>
+                                ) : (
+                                    <ProgramDimensionsPanel
+                                        visible={true}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                )
+                            ) : !(selectedProgramId || selectedEntityTypeId) ? (
                                 <div
                                     style={{
                                         padding: 'var(--spacers-dp16)',
