@@ -27,17 +27,20 @@ import { sGetUiInput, sGetUiProgram } from '../reducers/ui.js'
 // Helper function to check if a program is valid for a given input type
 const isProgramValidForInputType = (program, inputType) => {
     if (!program) return false
-    
+
     // Event and Enrollment can use any program
-    if (inputType === OUTPUT_TYPE_EVENT || inputType === OUTPUT_TYPE_ENROLLMENT) {
+    if (
+        inputType === OUTPUT_TYPE_EVENT ||
+        inputType === OUTPUT_TYPE_ENROLLMENT
+    ) {
         return true
     }
-    
+
     // Tracked entity requires programs with tracked entity type
     if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
         return program.trackedEntityType != null
     }
-    
+
     return false
 }
 
@@ -177,20 +180,21 @@ export const tSetUiInput = (value) => (dispatch, getState) => {
     const state = getState()
     const currentInput = sGetUiInput(state)
     const currentProgram = sGetUiProgram(state)
-    
+
     dispatch(acClearUiEntityType())
-    
+
     // Only clear program if switching to/from tracked entity or if current program is not valid for new input type
-    const shouldClearProgram = 
-        currentInput?.type === OUTPUT_TYPE_TRACKED_ENTITY || 
+    const shouldClearProgram =
+        currentInput?.type === OUTPUT_TYPE_TRACKED_ENTITY ||
         value.type === OUTPUT_TYPE_TRACKED_ENTITY ||
-        (currentProgram && !isProgramValidForInputType(currentProgram, value.type))
-    
+        (currentProgram &&
+            !isProgramValidForInputType(currentProgram, value.type))
+
     if (shouldClearProgram) {
         dispatch(acClearUiProgram())
         dispatch(tClearUiProgramRelatedDimensions())
     }
-    
+
     dispatch(acClearUiRepetition())
     dispatch(
         acSetUiInput(value, {
@@ -310,10 +314,12 @@ export const acSetUiExpandedCards = (value) => ({
 export const acToggleUiExpandedCard = (cardId) => (dispatch, getState) => {
     const currentExpandedCards = sGetUiExpandedCards(getState()) || []
     const isExpanded = currentExpandedCards.includes(cardId)
-    
+
     if (isExpanded) {
         // Remove the card from expanded list
-        const newExpandedCards = currentExpandedCards.filter(id => id !== cardId)
+        const newExpandedCards = currentExpandedCards.filter(
+            (id) => id !== cardId
+        )
         dispatch(acSetUiExpandedCards(newExpandedCards))
     } else {
         // Add the card to expanded list

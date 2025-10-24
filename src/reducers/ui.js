@@ -103,7 +103,7 @@ const EMPTY_UI = {
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
     expandedCards: [],
-    splitDataCards: false,
+    splitDataCards: true,
 }
 
 export const DEFAULT_UI = {
@@ -127,8 +127,14 @@ export const DEFAULT_UI = {
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
-    expandedCards: ['PROGRAM', 'TRACKED_ENTITY', 'MAIN_DIMENSIONS', 'YOUR'],
-    splitDataCards: false,
+    expandedCards: [
+        'PROGRAM',
+        'TRACKED_ENTITY',
+        'MAIN_DIMENSIONS',
+        'YOUR',
+        'PROGRAM_DIMENSIONS',
+    ],
+    splitDataCards: true,
     accessoryPanelWidth: getUserSidebarWidth(),
     mainSidebarWidth: 400,
     showDetailsPanel: false,
@@ -479,8 +485,7 @@ export const sGetUiExpandedCards = (state) => sGetUi(state).expandedCards
 export const sGetUiSplitDataCards = (state) => sGetUi(state).splitDataCards
 export const sGetUiAccessoryPanelWidth = (state) =>
     sGetUi(state).accessoryPanelWidth
-export const sGetUiMainSidebarWidth = (state) =>
-    sGetUi(state).mainSidebarWidth
+export const sGetUiMainSidebarWidth = (state) => sGetUi(state).mainSidebarWidth
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
