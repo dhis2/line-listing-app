@@ -19,6 +19,7 @@ import {
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
@@ -50,10 +51,12 @@ const MainSidebar = () => {
     const dispatch = useDispatch()
     const expandedCards = useSelector(sGetUiExpandedCards) || []
     const splitDataCards = useSelector(sGetUiSplitDataCards)
-    const { width, handleMouseDown, handleDoubleClick } = useResizableMainSidebar()
+    const { width, handleMouseDown, handleDoubleClick } =
+        useResizableMainSidebar()
     const [unifiedSearchTerm, setUnifiedSearchTerm] = useState('')
     const [mainDimensionsEmpty, setMainDimensionsEmpty] = useState(false)
-    const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] = useState(false)
+    const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] =
+        useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
     const [programDimensionsEmpty, setProgramDimensionsEmpty] = useState(false)
     const selectedInputType = useSelector(sGetUiInputType)
@@ -99,8 +102,14 @@ const MainSidebar = () => {
     useEffect(() => {
         if (splitDataCards) {
             // Only auto-expand if the card is not already expanded (respect user's manual collapse)
-            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)) {
-                dispatch(acToggleUiExpandedCard(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS))
+            if (
+                !expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
+            ) {
+                dispatch(
+                    acToggleUiExpandedCard(
+                        ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
+                    )
+                )
             }
         }
     }, [splitDataCards]) // Only trigger when split mode changes, not when program/entity changes
@@ -111,143 +120,308 @@ const MainSidebar = () => {
                 [styles.hidden]: isHidden,
             })}
         >
-            <div 
-                className={styles.main} 
+            <div
+                className={styles.main}
                 data-test="main-sidebar"
                 style={{ width: `${width}px` }}
             >
                 <InputPanel visible={true} />
-                
+
                 <UnifiedSearch onSearchChange={setUnifiedSearchTerm} />
-                
+
                 <div className={styles.cardsContainer}>
-                    {entityType?.name && (
+                    {/* Show placeholder cards for Events/Enrollments when no program is selected */}
+                    {(selectedInputType === OUTPUT_TYPE_EVENT ||
+                        selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                        !selectedProgramId && (
+                            <div className={styles.placeholderCardsWrapper}>
+                                <div
+                                    className={styles.placeholderCard}
+                                    data-test="placeholder-card-1"
+                                >
+                                    <div>
+                                        <svg
+                                            width="32"
+                                            height="32"
+                                            viewBox="0 0 32 32"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <g clip-path="url(#clip0_2936_26231)">
+                                                <path
+                                                    d="M27 29H13C11.9 29 11 28.1 11 27V23H13V27H27V13H23V11H27C28.1 11 29 11.9 29 13V27C29 28.1 28.1 29 27 29Z"
+                                                    fill="#A0ADBA"
+                                                />
+                                                <path
+                                                    d="M21 19H11V21H21V19Z"
+                                                    fill="#A0ADBA"
+                                                />
+                                                <path
+                                                    d="M21 15H11V17H21V15Z"
+                                                    fill="#A0ADBA"
+                                                />
+                                                <path
+                                                    d="M21 11H11V13H21V11Z"
+                                                    fill="#A0ADBA"
+                                                />
+                                                <path
+                                                    d="M5 3H19C20.1 3 21 3.9 21 5V9H19V5H5V19H9V21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3Z"
+                                                    fill="#A0ADBA"
+                                                />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_2936_26231">
+                                                    <rect
+                                                        width="32"
+                                                        height="32"
+                                                        fill="white"
+                                                    />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+
+                                        <p>
+                                            {selectedInputType ===
+                                            OUTPUT_TYPE_EVENT
+                                                ? i18n.t(
+                                                      'Choose a program to see event data'
+                                                  )
+                                                : i18n.t(
+                                                      'Choose a program to see enrollment data'
+                                                  )}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div
+                                    className={styles.placeholderCard}
+                                    data-test="placeholder-card-2"
+                                ></div>
+
+                                <div
+                                    className={styles.placeholderCard}
+                                    data-test="placeholder-card-3"
+                                ></div>
+                            </div>
+                        )}
+
+                    {entityType?.name &&
+                        !(
+                            (selectedInputType === OUTPUT_TYPE_EVENT ||
+                                selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                            !selectedProgramId
+                        ) && (
+                            <CardSection
+                                label={`${entityType.name} ${i18n.t('data')}`}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                )}
+                                count={counts.trackedEntity}
+                                dataTest="tracked-entity-dimensions-card"
+                                isEmpty={trackedEntityDimensionsEmpty}
+                            >
+                                <TrackedEntityDimensionsPanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
+                                    onEmptyStateChange={
+                                        setTrackedEntityDimensionsEmpty
+                                    }
+                                />
+                            </CardSection>
+                        )}
+
+                    {splitDataCards &&
+                    !(
+                        (selectedInputType === OUTPUT_TYPE_EVENT ||
+                            selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                        !selectedProgramId
+                    ) ? (
+                        <>
+                            {/* Program Dimensions Card */}
+                            <CardSection
+                                label={i18n.t(
+                                    'Org. units, periods, and statuses'
+                                )}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
+                                )}
+                                dataTest="program-dimensions-only-card"
+                                isEmpty={programDimensionsEmpty}
+                            >
+                                {!(
+                                    selectedProgramId || selectedEntityTypeId
+                                ) ? (
+                                    <div
+                                        style={{
+                                            padding: 'var(--spacers-dp16)',
+                                            textAlign: 'center',
+                                            color: 'var(--colors-grey600)',
+                                            fontSize: '13px',
+                                        }}
+                                    >
+                                        {i18n.t(
+                                            'Choose a program to show org. units, periods, and statuses'
+                                        )}
+                                    </div>
+                                ) : (
+                                    <ProgramDimensionsOnly
+                                        searchTerm={unifiedSearchTerm}
+                                        onEmptyStateChange={
+                                            setProgramDimensionsEmpty
+                                        }
+                                    />
+                                )}
+                            </CardSection>
+
+                            {/* Program Data Card */}
+                            <CardSection
+                                label={
+                                    selectedInputType ===
+                                    OUTPUT_TYPE_TRACKED_ENTITY
+                                        ? i18n.t('Program data')
+                                        : i18n.t('Data')
+                                }
+                                onClick={() =>
+                                    onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_PROGRAM
+                                )}
+                                count={
+                                    selectedProgramId || selectedEntityTypeId
+                                        ? counts.program
+                                        : undefined
+                                }
+                                dataTest="program-data-card"
+                            >
+                                {!(
+                                    selectedProgramId || selectedEntityTypeId
+                                ) ? (
+                                    <div
+                                        style={{
+                                            padding: 'var(--spacers-dp16)',
+                                            textAlign: 'center',
+                                            color: 'var(--colors-grey600)',
+                                            fontSize: '13px',
+                                        }}
+                                    >
+                                        {i18n.t(
+                                            'Choose a program to show available data'
+                                        )}
+                                    </div>
+                                ) : (
+                                    <ProgramDataOnly
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                )}
+                            </CardSection>
+                        </>
+                    ) : !(
+                          (selectedInputType === OUTPUT_TYPE_EVENT ||
+                              selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                          !selectedProgramId
+                      ) ? (
+                        /* Combined Program Dimensions Card (original behavior) */
                         <CardSection
-                            label={`${entityType.name} ${i18n.t('data')}`}
-                            onClick={() => onCardClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)}
-                            expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)}
-                            count={counts.trackedEntity}
-                            dataTest="tracked-entity-dimensions-card"
-                            isEmpty={trackedEntityDimensionsEmpty}
+                            label={
+                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
+                                    ? i18n.t('Program data')
+                                    : i18n.t('Data')
+                            }
+                            onClick={() =>
+                                onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)
+                            }
+                            expanded={expandedCards.includes(
+                                ACCESSORY_PANEL_TAB_PROGRAM
+                            )}
+                            count={
+                                selectedProgramId || selectedEntityTypeId
+                                    ? counts.program
+                                    : undefined
+                            }
+                            dataTest="program-dimensions-card"
                         >
-                            <TrackedEntityDimensionsPanel 
-                                visible={true} 
-                                searchTerm={unifiedSearchTerm} 
-                                onEmptyStateChange={setTrackedEntityDimensionsEmpty}
+                            {!(selectedProgramId || selectedEntityTypeId) ? (
+                                <div
+                                    style={{
+                                        padding: 'var(--spacers-dp16)',
+                                        textAlign: 'center',
+                                        color: 'var(--colors-grey600)',
+                                        fontSize: '13px',
+                                    }}
+                                >
+                                    {i18n.t(
+                                        'Choose a program to show available data'
+                                    )}
+                                </div>
+                            ) : (
+                                <ProgramDimensionsPanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
+                                />
+                            )}
+                        </CardSection>
+                    ) : null}
+
+                    {!(
+                        (selectedInputType === OUTPUT_TYPE_EVENT ||
+                            selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                        !selectedProgramId
+                    ) && (
+                        <CardSection
+                            label={i18n.t('Metadata')}
+                            onClick={() =>
+                                onCardClick(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)
+                            }
+                            expanded={expandedCards.includes(
+                                ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS
+                            )}
+                            dataTest="main-dimensions-card"
+                            isEmpty={mainDimensionsEmpty}
+                        >
+                            <MainDimensions
+                                searchTerm={unifiedSearchTerm}
+                                onEmptyStateChange={setMainDimensionsEmpty}
                             />
                         </CardSection>
                     )}
 
-                    {splitDataCards ? (
-                        <>
-                            {/* Program Dimensions Card */}
-                            <CardSection
-                                label={i18n.t('Org. units, periods, and statuses')}
-                                onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)}
-                                expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)}
-                                dataTest="program-dimensions-only-card"
-                                isEmpty={programDimensionsEmpty}
-                            >
-                                {!(selectedProgramId || selectedEntityTypeId) ? (
-                                    <div style={{ 
-                                        padding: 'var(--spacers-dp16)', 
-                                        textAlign: 'center', 
-                                        color: 'var(--colors-grey600)',
-                                        fontSize: '13px'
-                                    }}>
-                                        {i18n.t('Choose a program to show org. units, periods, and statuses')}
-                                    </div>
-                                ) : (
-                                    <ProgramDimensionsOnly 
-                                        searchTerm={unifiedSearchTerm}
-                                        onEmptyStateChange={setProgramDimensionsEmpty}
-                                    />
-                                )}
-                            </CardSection>
-                            
-                            {/* Program Data Card */}
-                            <CardSection
-                                label={
-                                    selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY 
-                                        ? i18n.t('Program data') 
-                                        : i18n.t('Data')
-                                }
-                                onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)}
-                                expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)}
-                                count={selectedProgramId || selectedEntityTypeId ? counts.program : undefined}
-                                dataTest="program-data-card"
-                            >
-                                {!(selectedProgramId || selectedEntityTypeId) ? (
-                                    <div style={{ 
-                                        padding: 'var(--spacers-dp16)', 
-                                        textAlign: 'center', 
-                                        color: 'var(--colors-grey600)',
-                                        fontSize: '13px'
-                                    }}>
-                                        {i18n.t('Choose a program to show available data')}
-                                    </div>
-                                ) : (
-                                    <ProgramDataOnly searchTerm={unifiedSearchTerm} />
-                                )}
-                            </CardSection>
-                        </>
-                    ) : (
-                        /* Combined Program Dimensions Card (original behavior) */
+                    {!(
+                        (selectedInputType === OUTPUT_TYPE_EVENT ||
+                            selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                        !selectedProgramId
+                    ) && (
                         <CardSection
-                            label={
-                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY 
-                                    ? i18n.t('Program data') 
-                                    : i18n.t('Data')
+                            label={i18n.t('Other')}
+                            onClick={() =>
+                                onCardClick(ACCESSORY_PANEL_TAB_YOUR)
                             }
-                            onClick={() => onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)}
-                            expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)}
-                            count={selectedProgramId || selectedEntityTypeId ? counts.program : undefined}
-                            dataTest="program-dimensions-card"
-                        >
-                            {!(selectedProgramId || selectedEntityTypeId) ? (
-                                <div style={{ 
-                                    padding: 'var(--spacers-dp16)', 
-                                    textAlign: 'center', 
-                                    color: 'var(--colors-grey600)',
-                                    fontSize: '13px'
-                                }}>
-                                    {i18n.t('Choose a program to show available data')}
-                                </div>
-                            ) : (
-                                <ProgramDimensionsPanel visible={true} searchTerm={unifiedSearchTerm} />
+                            expanded={expandedCards.includes(
+                                ACCESSORY_PANEL_TAB_YOUR
                             )}
+                            count={counts.your}
+                            dataTest="your-dimensions-card"
+                            isEmpty={yourDimensionsEmpty}
+                        >
+                            <YourDimensionsPanel
+                                visible={true}
+                                searchTerm={unifiedSearchTerm}
+                                onEmptyStateChange={setYourDimensionsEmpty}
+                            />
                         </CardSection>
                     )}
-
-                    <CardSection
-                        label={i18n.t('Metadata')}
-                        onClick={() => onCardClick(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)}
-                        expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)}
-                        dataTest="main-dimensions-card"
-                        isEmpty={mainDimensionsEmpty}
-                    >
-                        <MainDimensions 
-                            searchTerm={unifiedSearchTerm} 
-                            onEmptyStateChange={setMainDimensionsEmpty}
-                        />
-                    </CardSection>
-                    
-                    <CardSection
-                        label={i18n.t('Other')}
-                        onClick={() => onCardClick(ACCESSORY_PANEL_TAB_YOUR)}
-                        expanded={expandedCards.includes(ACCESSORY_PANEL_TAB_YOUR)}
-                        count={counts.your}
-                        dataTest="your-dimensions-card"
-                        isEmpty={yourDimensionsEmpty}
-                    >
-                        <YourDimensionsPanel 
-                            visible={true} 
-                            searchTerm={unifiedSearchTerm} 
-                            onEmptyStateChange={setYourDimensionsEmpty}
-                        />
-                    </CardSection>
                 </div>
-                <div 
+                <div
                     className={styles.resizeHandle}
                     onMouseDown={handleMouseDown}
                     onDoubleClick={handleDoubleClick}
