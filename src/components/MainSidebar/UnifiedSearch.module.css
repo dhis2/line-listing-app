@@ -2,6 +2,41 @@
     padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp4);
 }
 
+.searchRow {
+    display: flex;
+    gap: var(--spacers-dp8);
+    align-items: center;
+}
+
+.ghostButton {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 150ms ease;
+    color: var(--colors-grey600);
+}
+.ghostButton svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0;
+    display: block;
+    fill: currentColor;
+}
+.ghostButton:hover {
+    background-color: var(--colors-grey300);
+    color: var(--colors-grey700);
+}
+
+.ghostButton:active {
+    background-color: var(--colors-grey400);
+}
+
 .container :global(.dhis2-ui-input) {
     border: none !important;
     box-shadow: none !important;

@@ -7,6 +7,7 @@ import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import {
     acSetUiDetailsPanelOpen,
     acToggleUiExpandedCard,
+    acSetUiExpandedCards,
 } from '../../actions/ui.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
@@ -96,6 +97,10 @@ const MainSidebar = () => {
         },
         [dispatch]
     )
+    const onCollapseAllCards = useCallback(() => {
+        dispatch(acSetUiExpandedCards([]))
+        closeDetailsPanel()
+    }, [dispatch])
     const { counts } = useSelectedDimensions()
 
     // Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
@@ -127,7 +132,17 @@ const MainSidebar = () => {
             >
                 <InputPanel visible={true} />
 
-                <UnifiedSearch onSearchChange={setUnifiedSearchTerm} />
+                {/* Hide UnifiedSearch when no program is selected for Event/Enrollment */}
+                {!(
+                    (selectedInputType === OUTPUT_TYPE_EVENT ||
+                        selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                    !selectedProgramId
+                ) && (
+                    <UnifiedSearch
+                        onSearchChange={setUnifiedSearchTerm}
+                        onCollapseAll={onCollapseAllCards}
+                    />
+                )}
 
                 <div className={styles.cardsContainer}>
                     {/* Show placeholder cards for Events/Enrollments when no program is selected */}
