@@ -205,36 +205,6 @@ const MainSidebar = () => {
                             </div>
                         )}
 
-                    {entityType?.name &&
-                        !(
-                            (selectedInputType === OUTPUT_TYPE_EVENT ||
-                                selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
-                            !selectedProgramId
-                        ) && (
-                            <CardSection
-                                label={`${entityType.name} ${i18n.t('data')}`}
-                                onClick={() =>
-                                    onCardClick(
-                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                    )
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                )}
-                                count={counts.trackedEntity}
-                                dataTest="tracked-entity-dimensions-card"
-                                isEmpty={trackedEntityDimensionsEmpty}
-                            >
-                                <TrackedEntityDimensionsPanel
-                                    visible={true}
-                                    searchTerm={unifiedSearchTerm}
-                                    onEmptyStateChange={
-                                        setTrackedEntityDimensionsEmpty
-                                    }
-                                />
-                            </CardSection>
-                        )}
-
                     {splitDataCards &&
                     !(
                         (selectedInputType === OUTPUT_TYPE_EVENT ||
@@ -453,6 +423,37 @@ const MainSidebar = () => {
                             )}
                         </CardSection>
                     ) : null}
+
+                    {/* TrackedEntityDimensions Card - moved after Program cards for Tracked Entity input type */}
+                    {entityType?.name &&
+                        !(
+                            (selectedInputType === OUTPUT_TYPE_EVENT ||
+                                selectedInputType === OUTPUT_TYPE_ENROLLMENT) &&
+                            !selectedProgramId
+                        ) && (
+                            <CardSection
+                                label={`${entityType.name} ${i18n.t('data')}`}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                )}
+                                count={counts.trackedEntity}
+                                dataTest="tracked-entity-dimensions-card"
+                                isEmpty={trackedEntityDimensionsEmpty}
+                            >
+                                <TrackedEntityDimensionsPanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
+                                    onEmptyStateChange={
+                                        setTrackedEntityDimensionsEmpty
+                                    }
+                                />
+                            </CardSection>
+                        )}
 
                     {!(
                         (selectedInputType === OUTPUT_TYPE_EVENT ||
