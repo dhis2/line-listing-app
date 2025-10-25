@@ -5,19 +5,20 @@
 # Karoline Tufte Lien <karoline@dhis2.org>, 2022
 # Djibril Dione <dione.djibril@gmail.com>, 2022
 # Edem Kossi <ekossi@hispwca.org>, 2023
-# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2023
 # Yayra Gomado <ygomado@hispwca.org>, 2023
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2024
 # Elise Desailly, 2024
+# Esther Tokouli, 2025
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
 "POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Elise Desailly, 2024\n"
+"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,12 +94,15 @@ msgid "Choose options"
 msgstr "Choisir des options"
 
 msgid "Previous selection was cleared"
-msgstr ""
+msgstr "La sélection précédente a été supprimée"
 
 msgid ""
 "Fetching details for the previously selected organisation unit failed. The "
 "selected item has been cleared so that a new selection can be made."
 msgstr ""
+"L'extraction des détails de l'unité d'organisation précédemment sélectionnée"
+" a échoué. L'élément sélectionné a été supprimé afin qu'une nouvelle "
+"sélection puisse être effectuée."
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -148,13 +152,13 @@ msgid "Selected options"
 msgstr "Options sélectionnées"
 
 msgid "Nothing found for \"{{- searchTerm}}\""
-msgstr "Rien retrouvé pour \"{{- searchTerm}}\""
+msgstr "Rien trouvé pour \"{{- searchTerm}}\""
 
 msgid "No options"
 msgstr "Aucune option"
 
 msgid "Move to {{axisName}}"
-msgstr "Déménager à {{axisName}}"
+msgstr "Déplacer vers {{axisName}}"
 
 msgid "HTML"
 msgstr "HTML"
@@ -181,7 +185,7 @@ msgid "Download data from this date"
 msgstr "Télécharger les données à partir de cette date"
 
 msgid "Metadata ID scheme"
-msgstr "Schéma ID des métadata"
+msgstr "Schéma d'Identification des métadonnées"
 
 msgid "ID"
 msgstr "ID"
@@ -196,7 +200,7 @@ msgid "Download"
 msgstr "Télécharger"
 
 msgid "all"
-msgstr "Tout"
+msgstr "tout"
 
 msgid "Levels"
 msgstr "Niveaux"
@@ -229,7 +233,7 @@ msgid "No dimensions found in the {{- programName}} program"
 msgstr "Aucune dimension trouvée dans le programme {{- programName}}"
 
 msgid " {{- trackedEntityType}} has no dimensions"
-msgstr ""
+msgstr " {{- trackedEntityType}} n'a pas de dimensions"
 
 msgid "No dimensions found"
 msgstr "Aucune dimension trouvée"
@@ -248,7 +252,7 @@ msgid "Event"
 msgstr "Évènement"
 
 msgid "Enrollment"
-msgstr "Enrôlement"
+msgstr "Inscription"
 
 msgid "Tracked entity"
 msgstr "Entité suivie"
@@ -265,6 +269,8 @@ msgstr ""
 
 msgid "See individual tracked entities from one or more Tracker programs."
 msgstr ""
+"Consultez les entités suivies individuellement à partir d'un ou plusieurs "
+"programmes Tracker."
 
 msgid "Global dimensions"
 msgstr "Dimensions globales"
@@ -276,7 +282,7 @@ msgid "Input: {{type}}"
 msgstr "Entrée : {{type}}"
 
 msgid "Choose an input first"
-msgstr ""
+msgstr "Choisissez d'abord une entrée"
 
 msgid "Program data dimensions"
 msgstr "Dimensions des données du programme"
@@ -307,6 +313,7 @@ msgstr "Ensemble de groupes d'option de catégorie"
 
 msgid "Choose an input to get started adding program dimensions."
 msgstr ""
+"Choisissez une entrée pour commencer à ajouter des dimensions au programme."
 
 msgid "Program"
 msgstr "Programme"
@@ -337,42 +344,44 @@ msgid "No stages found"
 msgstr "Aucune étape trouvée"
 
 msgid "Could not load types"
-msgstr ""
+msgstr "Impossible de charger les types"
 
 msgid ""
 "The types couldn't be retrieved. Try again or contact your system "
 "administrator."
 msgstr ""
+"Les types n'ont pas pu être récupérés. Réessayez ou contactez votre "
+"administrateur système."
 
 msgid "Choose a type"
-msgstr ""
+msgstr "Choisir un type"
 
 msgid "No types found"
-msgstr ""
+msgstr "Aucun type trouvé"
 
 msgid "{{- itemName}} dimensions"
-msgstr ""
+msgstr "{{- itemName}} les dimensions"
 
 msgid "Filter by program usage"
 msgstr "Filtrer par utilisation du programme"
 
 msgid "Clear"
-msgstr "Effacer"
+msgstr "Supprimer"
 
 msgid "Search dimensions"
 msgstr "Rechercher les dimensions"
 
 msgid "Your dimensions"
-msgstr "Votre dimensions"
+msgstr "Vos dimensions"
 
 msgid "Search your dimensions"
 msgstr "Rechercher vos dimensions"
 
 msgid "Show panels"
-msgstr ""
+msgstr "Afficher les panneaux"
 
 msgid "Expand visualization and hide panels"
-msgstr ""
+msgstr "Agrandir la visualisation et masquer les panneaux"
 
 msgid "Unsaved visualization"
 msgstr "Visualisation non enregistrée"
@@ -397,7 +406,7 @@ msgstr ""
 " ou plusieurs tableaux de bord"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "Échec du renommage"
 
 msgid "Show layout"
 msgstr "Afficher la mise en page"
@@ -406,10 +415,10 @@ msgid "Hide layout"
 msgstr "Masquer la mise en page"
 
 msgid "Show dimensions sidebar"
-msgstr ""
+msgstr "Afficher la barre latérale des dimensions"
 
 msgid "Hide dimensions sidebar"
-msgstr ""
+msgstr "Masquer la barre latérale des dimensions"
 
 msgid "Hide interpretations and details"
 msgstr "Masquer les interprétations et les détails"
@@ -418,10 +427,10 @@ msgid "Show interpretations and details"
 msgstr "Afficher les interprétations et les détails"
 
 msgid "View"
-msgstr "Voir"
+msgstr "Visualiser"
 
 msgid "Reset sidebar width"
-msgstr ""
+msgstr "Réinitialiser la largeur de la barre latérale"
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -452,9 +461,11 @@ msgid ""
 "This line list may show data that was not available when the interpretation "
 "was written."
 msgstr ""
+"Cette liste peut contenir des données qui n'étaient pas disponibles au "
+"moment où l'interprétation a été rédigée."
 
 msgid "Sort by \"{{column}}\" and update"
-msgstr "Classer par \"1{{column}}\" et mettre à jour"
+msgstr "Trier par \"{{column}}\" et mettre à jour"
 
 msgid "No event"
 msgstr "Aucun événement"
@@ -484,7 +495,7 @@ msgid "Comma"
 msgstr "Virgule"
 
 msgid "Display density"
-msgstr "Afficher densité"
+msgstr "Densité de l'affichage"
 
 msgid "Comfortable"
 msgstr "Confortable"
@@ -505,7 +516,7 @@ msgid "Small"
 msgstr "Petit"
 
 msgid "Hide empty rows"
-msgstr "Cacher lignes vides"
+msgstr "Masquer lignes vides"
 
 msgid "Use a legend for table cell colors"
 msgstr "Utiliser une légende pour les couleurs des cellules du tableau"
@@ -658,8 +669,8 @@ msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
 msgstr ""
-"The selected dimensions didn’t return any data. Il peut ne pas y avoir de "
-"données, ou vous pourriez ne pas y avoir accès."
+"Les dimensions sélectionnées n'ont renvoyé aucune donnée. Il se peut qu'il "
+"n'y ait aucune donnée ou que vous n'y ayez pas accès."
 
 msgid "Visualization not found"
 msgstr "Visualisation introuvable"
@@ -672,16 +683,16 @@ msgstr ""
 "l'identifiant est peut-être incorrect ou a pu être supprimé"
 
 msgid "No tracked entity type selected"
-msgstr ""
+msgstr "Aucun type d'entité suivie sélectionné"
 
 msgid "Choose a type from the Input sidebar."
-msgstr ""
+msgstr "Choisir un type dans la barre latérale de saisie."
 
 msgid "No program selected"
 msgstr "Aucun programme sélectionné"
 
 msgid "Choose a program from the Input sidebar."
-msgstr ""
+msgstr "Choisir un programme dans la barre latérale de saisie."
 
 msgid "Columns is empty"
 msgstr "'Colonnes' est vide"
@@ -724,15 +735,17 @@ msgstr ""
 "administrateur système."
 
 msgid "Something went wrong"
-msgstr "Quelque chose a mal tourné"
+msgstr "Un problème est survenu"
 
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"Un problème est survenu avec les analyses générées. Contactez un "
+"administrateur système."
 
 msgid "There's a syntax problem with the analytics request."
-msgstr "Il y a un problème de syntaxe dans la demande d'analyse."
+msgstr "Un problème de syntaxe est survenue dans la demande d'analyse."
 
 msgid "Registration date"
 msgstr "Données d'enregistrement"
@@ -756,7 +769,7 @@ msgid "User sub-x2-units"
 msgstr "Sous-unités utilisateur x2"
 
 msgid "Registration org. unit"
-msgstr ""
+msgstr "Enregistrement de l'unité d'org."
 
 msgid "Organisation unit"
 msgstr "Unité d'organisation"
@@ -810,10 +823,10 @@ msgid "Event date"
 msgstr "Date d'événement"
 
 msgid "Enrollment date"
-msgstr "Date d'enrôlement"
+msgstr "Date d'inscription"
 
 msgid "Incident date"
-msgstr "Date de l´incident"
+msgstr "Date de l'incident"
 
 msgid "Scheduled date"
 msgstr "Date programmée"
