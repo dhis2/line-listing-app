@@ -1,27 +1,20 @@
-.container {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
 .trigger {
     display: flex;
     align-items: center;
     padding: 8px 12px;
-    border: 1px solid var(--colors-grey300);
-    background-color: var(--colors-white);
     cursor: pointer;
-    transition: border-color 150ms ease, box-shadow 150ms ease;
+    background-color: var(--colors-white);
+    transition: background-color 150ms ease;
+    gap: 8px;
 }
 
-.trigger:focus {
-    outline: 2px solid var(--theme-focus);
-    outline-offset: 2px;
+.trigger:hover {
+    background-color: var(--colors-grey050);
 }
 
 .prefixIcon {
     flex-shrink: 0;
-    margin-right: 12px;
+    margin-right: 8px;
     color: var(--colors-grey600);
 }
 
@@ -34,7 +27,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-left: 8px;
 }
 
 .chevron {
@@ -43,77 +35,6 @@
     color: var(--colors-grey600);
 }
 
-.dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: var(--colors-white);
-    border: 1px solid var(--colors-grey300);
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.menuItem {
-    position: relative;
-    border-bottom: 1px solid var(--colors-grey200);
-}
-
-.menuItem:last-child {
-    border-bottom: none;
-}
-
-.menuItemContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--colors-grey900);
-    transition: background-color 150ms ease;
-}
-
-.menuItemContent:hover {
-    background-color: var(--colors-grey100);
-}
-
-.submenuChevron {
-    color: var(--colors-grey600);
-    margin-left: 8px;
-}
-
-.submenu {
-    background-color: var(--colors-white);
-    border: 2px solid red;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 200px;
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 9999;
-}
-
-.submenuItem {
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--colors-grey900);
-    border-bottom: 1px solid var(--colors-grey200);
-    transition: background-color 150ms ease;
-}
-
-.submenuItem:last-child {
-    border-bottom: none;
-}
-
-.submenuItem:hover {
-    background-color: var(--colors-grey100);
-}
-
-.submenuItem:active {
-    background-color: var(--colors-blue100);
+.searchContainer {
+    padding: 6px;
 }

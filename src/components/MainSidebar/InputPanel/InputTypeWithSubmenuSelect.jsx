@@ -1,6 +1,17 @@
 import { useConfig, useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { IconChevronDown16, IconChevronRight16, IconArrowRight16 } from '@dhis2/ui'
+import {
+    IconSearch16,
+    IconChevronDown16,
+    IconArrowRight16,
+    FlyoutMenu,
+    MenuItem,
+    MenuDivider,
+    MenuSectionHeader,
+    Input,
+    Layer,
+    Popper,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,24 +29,14 @@ const inputTypeOptions = [
     {
         value: OUTPUT_TYPE_EVENT,
         label: i18n.t('Event'),
-        description: i18n.t(
-            'See individual event data from a Tracker program stage or event program.'
-        ),
     },
     {
         value: OUTPUT_TYPE_ENROLLMENT,
         label: i18n.t('Enrollment'),
-        description: i18n.t(
-            'See data from multiple program stages in a Tracker program.'
-        ),
     },
     {
         value: OUTPUT_TYPE_TRACKED_ENTITY,
         label: i18n.t('Tracked entity'),
-        description: i18n.t(
-            'See individual tracked entities from one or more Tracker programs.'
-        ),
-        hasSubmenu: true,
     },
 ]
 
@@ -53,17 +54,18 @@ const trackedEntityTypesQuery = {
 const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
     const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false)
-    const [hoveredItem, setHoveredItem] = useState(null)
-    const [showSubmenu, setShowSubmenu] = useState(false)
-    const [submenuPosition, setSubmenuPosition] = useState({ top: 0, left: 0 })
-    const containerRef = useRef(null)
-    
+    const [searchTerm, setSearchTerm] = useState('')
+    const buttonRef = useRef(null)
+
     const selectedInput = useSelector(sGetUiInput)?.type
     const selectedTypeId = useSelector(sGetUiEntityTypeId)
-    
-    const { fetching, error, data, refetch, called } = useDataQuery(trackedEntityTypesQuery, {
-        lazy: true,
-    })
+
+    const { fetching, error, data, refetch, called } = useDataQuery(
+        trackedEntityTypesQuery,
+        {
+            lazy: true,
+        }
+    )
 
     const types = data?.programs?.trackedEntityTypes
     const selectedType = useSelector((state) =>
@@ -73,9 +75,11 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
     // Filter options based on server version
     const availableOptions = inputTypeOptions.filter((option) => {
         if (option.value === OUTPUT_TYPE_TRACKED_ENTITY) {
-            return `${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.41.0'
+            return (
+                `${serverVersion.major}.${serverVersion.minor}.${
+                    serverVersion.patch || 0
+                }` >= '2.41.0'
+            )
         }
         return true
     })
@@ -87,27 +91,17 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
         }
     }, [called, refetch])
 
-    // Close dropdown when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
-                setIsOpen(false)
-                setShowSubmenu(false)
-                setHoveredItem(null)
-            }
-        }
+    // Filter tracked entity types based on search term
+    const filteredTypes = types?.filter(({ name }) =>
+        name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
-        if (isOpen) {
-            document.addEventListener('mousedown', handleClickOutside)
-        }
+    const handleInputClick = (inputType) => {
+        // Close menu first
+        setIsOpen(false)
+        setSearchTerm('')
 
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [isOpen])
-
-    const setSelectedInput = (inputType) => {
-        console.log('setSelectedInput called with:', inputType, 'current:', selectedInput)
+        // Update input type
         if (selectedInput !== inputType) {
             dispatch(tSetUiInput({ type: inputType }))
             // Clear entity type when switching away from tracked entity
@@ -117,148 +111,124 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
         }
     }
 
-    const setSelectedTypeId = (typeId) => {
-        if (typeId !== selectedTypeId) {
-            const type = types?.find(({ id }) => id === typeId)
+    const handleTrackedEntityTypeClick = (typeId) => {
+        // Close menu first
+        setIsOpen(false)
+        setSearchTerm('')
+
+        // Update input type
+        const type = types?.find(({ id }) => id === typeId)
+        if (type) {
+            dispatch(tSetUiInput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
             dispatch(tSetUiEntityType({ type }))
         }
-        setIsOpen(false)
-        setShowSubmenu(false)
     }
 
     const getDisplayText = () => {
         if (selectedInput === OUTPUT_TYPE_TRACKED_ENTITY && selectedType) {
             return selectedType.name
         }
-        const option = availableOptions.find(opt => opt.value === selectedInput)
+        const option = availableOptions.find(
+            (opt) => opt.value === selectedInput
+        )
         return option?.label || i18n.t('Choose input type')
     }
 
-    const handleItemClick = (option) => {
-        console.log('handleItemClick called with:', option.value, 'hasSubmenu:', option.hasSubmenu)
-        if (option.hasSubmenu) {
-            console.log('Opening submenu for tracked entity')
-            console.log('Types data:', types)
-            console.log('Fetching:', fetching)
-            console.log('Error:', error)
-            console.log('Called:', called)
-            console.log('Setting showSubmenu to true')
-            // Calculate submenu position
-            if (containerRef.current) {
-                const rect = containerRef.current.getBoundingClientRect()
-                setSubmenuPosition({
-                    top: rect.bottom,
-                    left: rect.right + 4
-                })
-            }
-            setShowSubmenu(true)
-            setHoveredItem(option.value)
-            console.log('After setting state - showSubmenu should be true')
-        } else {
-            console.log('Setting input type and closing dropdown')
-            // Always close dropdown first
-            setIsOpen(false)
-            setShowSubmenu(false)
-            setHoveredItem(null)
-            // Then update the input type
-            setSelectedInput(option.value)
+    const toggleMenu = () => {
+        setIsOpen(!isOpen)
+        if (!isOpen) {
+            setSearchTerm('')
         }
     }
 
-    const handleSubmenuItemClick = (typeId) => {
-        console.log('handleSubmenuItemClick called with:', typeId)
-        setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)
-        setSelectedTypeId(typeId)
+    const handleBackdropClick = () => {
         setIsOpen(false)
-        setShowSubmenu(false)
-        setHoveredItem(null)
+        setSearchTerm('')
     }
 
     return (
-        <div className={styles.container} ref={containerRef}>
-            <div 
+        <>
+            <div
                 className={styles.trigger}
-                onClick={() => setIsOpen(!isOpen)}
+                ref={buttonRef}
+                onClick={toggleMenu}
                 data-test="input-type-select"
             >
                 <IconArrowRight16 className={styles.prefixIcon} />
                 <span className={styles.triggerText}>{getDisplayText()}</span>
                 <IconChevronDown16 className={styles.chevron} />
             </div>
-            
+
             {isOpen && (
-                <div className={styles.dropdown}>
-                    {availableOptions.map((option) => (
-                        <div
-                            key={option.value}
-                            className={styles.menuItem}
-                            onMouseEnter={() => {
-                                setHoveredItem(option.value)
-                            }}
-                            onMouseLeave={() => {
-                                if (!option.hasSubmenu) {
-                                    setHoveredItem(null)
+                <Layer onBackdropClick={handleBackdropClick}>
+                    <Popper
+                        reference={buttonRef.current}
+                        placement="bottom-start"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <FlyoutMenu dense maxHeight="80vh">
+                            {/* Search bar */}
+                            <div className={styles.searchContainer}>
+                                <Input
+                                    value={searchTerm}
+                                    onChange={({ value }) =>
+                                        setSearchTerm(value)
+                                    }
+                                    placeholder={i18n.t('Search input types')}
+                                    prefixIcon={<IconSearch16 />}
+                                    dense
+                                    type="search"
+                                />
+                            </div>
+
+                            <MenuItem
+                                label={i18n.t('Events')}
+                                onClick={() =>
+                                    handleInputClick(OUTPUT_TYPE_EVENT)
                                 }
-                            }}
-                        >
-                            <div
-                                className={styles.menuItemContent}
-                                onClick={(e) => {
-                                    console.log('Menu item clicked:', option.label)
-                                    e.stopPropagation()
-                                    handleItemClick(option)
-                                }}
-                            >
-                                <span>{option.label}</span>
-                                {option.hasSubmenu && (
-                                    <IconChevronRight16 className={styles.submenuChevron} />
-                                )}
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                            />
+
+                            <MenuItem
+                                label={i18n.t('Enrollments')}
+                                onClick={() =>
+                                    handleInputClick(OUTPUT_TYPE_ENROLLMENT)
+                                }
+                            />
+
+                            <MenuDivider dense />
+
+                            <MenuSectionHeader
+                                label={i18n.t('Tracked entity types')}
+                                dense
+                                hideDivider
+                            />
+
+                            {fetching ? (
+                                <MenuItem
+                                    label={i18n.t('Loading...')}
+                                    disabled
+                                />
+                            ) : error ? (
+                                <MenuItem
+                                    label={i18n.t('Error loading types')}
+                                    disabled
+                                />
+                            ) : (
+                                filteredTypes?.map(({ id, name }) => (
+                                    <MenuItem
+                                        key={id}
+                                        label={name}
+                                        onClick={() =>
+                                            handleTrackedEntityTypeClick(id)
+                                        }
+                                    />
+                                ))
+                            )}
+                        </FlyoutMenu>
+                    </Popper>
+                </Layer>
             )}
-            
-            {/* Submenu rendered outside the main dropdown */}
-            {console.log('Submenu render check - isOpen:', isOpen, 'showSubmenu:', showSubmenu, 'hoveredItem:', hoveredItem)}
-            {isOpen && showSubmenu && (
-                console.log('Submenu should render now!') ||
-                <div className={styles.submenu} style={{
-                    position: 'fixed',
-                    top: `${submenuPosition.top}px`,
-                    left: `${submenuPosition.left}px`,
-                    zIndex: 99999
-                }}>
-                    {console.log('Rendering submenu, fetching:', fetching, 'error:', error, 'types:', types)}
-                    {fetching ? (
-                        <div className={styles.submenuItem}>
-                            {i18n.t('Loading...')}
-                        </div>
-                    ) : error ? (
-                        <div className={styles.submenuItem}>
-                            {i18n.t('Error loading types')}
-                        </div>
-                    ) : types && types.length > 0 ? (
-                        types.map(({ id, name }) => (
-                            <div
-                                key={id}
-                                className={styles.submenuItem}
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    handleSubmenuItemClick(id)
-                                }}
-                            >
-                                {name}
-                            </div>
-                        ))
-                    ) : (
-                        <div className={styles.submenuItem}>
-                            {i18n.t('No types available')}
-                        </div>
-                    )}
-                </div>
-            )}
-        </div>
+        </>
     )
 }
 

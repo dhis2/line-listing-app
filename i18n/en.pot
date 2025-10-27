@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-03T09:26:19.964Z\n"
-"PO-Revision-Date: 2025-10-03T09:26:19.965Z\n"
+"POT-Creation-Date: 2025-10-27T08:15:49.614Z\n"
+"PO-Revision-Date: 2025-10-27T08:15:49.614Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -250,8 +250,11 @@ msgstr "Line List"
 msgid "Pivot Table"
 msgstr "Pivot Table"
 
-msgid "data"
-msgstr "data"
+msgid "Choose a program to see event data"
+msgstr "Choose a program to see event data"
+
+msgid "Choose a program to see enrollment data"
+msgstr "Choose a program to see enrollment data"
 
 msgid "Org. units, periods, and statuses"
 msgstr "Org. units, periods, and statuses"
@@ -268,17 +271,14 @@ msgstr "Data"
 msgid "Choose a program to show available data"
 msgstr "Choose a program to show available data"
 
+msgid "data"
+msgstr "data"
+
 msgid "Metadata"
 msgstr "Metadata"
 
 msgid "Other"
 msgstr "Other"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "All types"
-msgstr "All types"
 
 msgid "Data element"
 msgstr "Data element"
@@ -294,6 +294,15 @@ msgstr "Category"
 
 msgid "Category option group set"
 msgstr "Category option group set"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Remove filter"
+msgstr "Remove filter"
+
+msgid "All types"
+msgstr "All types"
 
 msgid "Choose an input to get started adding program dimensions."
 msgstr "Choose an input to get started adding program dimensions."
@@ -357,6 +366,9 @@ msgstr "Clear"
 msgid "Search all dimensions"
 msgstr "Search all dimensions"
 
+msgid "Collapse all cards"
+msgstr "Collapse all cards"
+
 msgid "Your dimensions"
 msgstr "Your dimensions"
 
@@ -369,8 +381,8 @@ msgstr "Expand visualization and hide panels"
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
 
-msgid "Edited"
-msgstr "Edited"
+msgid "Unsaved changes"
+msgstr "Unsaved changes"
 
 msgid "Line list"
 msgstr "Line list"
@@ -578,9 +590,6 @@ msgstr "Columns"
 
 msgid "Rows"
 msgstr "Rows"
-
-msgid "Filter"
-msgstr "Filter"
 
 msgid "equal to (=)"
 msgstr "equal to (=)"
