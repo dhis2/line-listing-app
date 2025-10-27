@@ -42,6 +42,7 @@
 .titleUnsaved {
     color: var(--colors-grey500);
     font-style: italic;
+    font-weight: 400;
 }
 
 .titleDirty {
