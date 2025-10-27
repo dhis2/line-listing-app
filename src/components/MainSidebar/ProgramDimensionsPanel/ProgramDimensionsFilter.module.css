@@ -7,8 +7,8 @@
 .filtersRow {
     display: flex;
     flex-direction: row;
+    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp4);
     gap: var(--spacers-dp4);
-    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp4);
 }
 
 .filterWrapper {
@@ -16,6 +16,7 @@
     flex-direction: column;
     gap: var(--spacers-dp4);
     align-items: flex-start;
+    /* padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp4); */
 }
 
 .filterButtonContainer {

@@ -10,9 +10,14 @@ import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { ProgramFilter } from './ProgramFilter.jsx'
+import styles from './TrackedEntityDimensionsPanel.module.css'
 import { useTrackedEntityDimensions } from './useTrackedEntityDimensions.js'
 
-const TrackedEntityDimensionsPanel = ({ visible, searchTerm: externalSearchTerm, onEmptyStateChange }) => {
+const TrackedEntityDimensionsPanel = ({
+    visible,
+    searchTerm: externalSearchTerm,
+    onEmptyStateChange,
+}) => {
     const [selectedProgramId, setSelectedProgramId] = useState(null)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const entityType = useSelector((state) =>
@@ -52,7 +57,7 @@ const TrackedEntityDimensionsPanel = ({ visible, searchTerm: externalSearchTerm,
     return (
         <>
             <div>
-                <div>
+                <div className={styles.filtersRow}>
                     <ProgramFilter
                         setSelectedProgramId={setSelectedProgramId}
                         selectedProgramId={selectedProgramId}

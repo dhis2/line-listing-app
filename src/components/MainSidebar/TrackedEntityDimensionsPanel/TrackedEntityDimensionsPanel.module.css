@@ -1,0 +1,5 @@
+.filtersRow {
+    display: flex;
+    flex-direction: row;
+    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp4);
+}
