@@ -45,8 +45,6 @@
 }
 
 .placeholderCard {
-    background-color: rgba(255, 255, 255, 0.6);
-    border: 1px solid var(--colors-grey400);
     border-radius: 5px;
     margin-bottom: 4px;
     min-height: 120px;
@@ -65,8 +63,4 @@
 
 .placeholderCard p {
     margin: var(--spacers-dp4);
-}
-
-.placeholderCard:last-child {
-    margin-bottom: 0;
 }

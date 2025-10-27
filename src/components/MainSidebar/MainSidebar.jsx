@@ -235,16 +235,6 @@ const MainSidebar = () => {
                                         </p>
                                     </div>
                                 </div>
-
-                                <div
-                                    className={styles.placeholderCard}
-                                    data-test="placeholder-card-2"
-                                ></div>
-
-                                <div
-                                    className={styles.placeholderCard}
-                                    data-test="placeholder-card-3"
-                                ></div>
                             </div>
                         )}
 
