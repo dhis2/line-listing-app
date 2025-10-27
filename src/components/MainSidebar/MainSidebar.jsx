@@ -98,9 +98,37 @@ const MainSidebar = () => {
         [dispatch]
     )
     const onCollapseAllCards = useCallback(() => {
-        dispatch(acSetUiExpandedCards([]))
+        // Get all available card IDs based on current state
+        const availableCardIds = []
+
+        // Always available cards
+        availableCardIds.push(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)
+        availableCardIds.push(ACCESSORY_PANEL_TAB_YOUR)
+
+        // Tracked entity card (when entityType is available)
+        if (entityType?.name) {
+            availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+        }
+
+        // Program-related cards (when split mode is enabled)
+        if (splitDataCards) {
+            availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
+            availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM)
+        }
+
+        // Check if any cards are currently expanded
+        const hasExpandedCards = expandedCards.length > 0
+
+        if (hasExpandedCards) {
+            // If any cards are expanded, collapse all
+            dispatch(acSetUiExpandedCards([]))
+        } else {
+            // If all are collapsed, expand all available cards
+            dispatch(acSetUiExpandedCards(availableCardIds))
+        }
+
         closeDetailsPanel()
-    }, [dispatch])
+    }, [dispatch, expandedCards, entityType, splitDataCards])
     const { counts } = useSelectedDimensions()
 
     // Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
