@@ -197,12 +197,6 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
 
                             <MenuDivider dense />
 
-                            <MenuSectionHeader
-                                label={i18n.t('Tracked entity types')}
-                                dense
-                                hideDivider
-                            />
-
                             {fetching ? (
                                 <MenuItem
                                     label={i18n.t('Loading...')}
