@@ -4,93 +4,119 @@
     gap: var(--spacers-dp4);
 }
 
-.dropdownWrapper {
+.filterWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp4);
+    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp4);
+}
+
+.filterButtonContainer {
+    position: relative;
     display: inline-block;
-    width: auto;
 }
 
-.dropdownWrapper :global(.dhis2-ui-singleselect) {
-    width: auto !important;
-    min-width: auto !important;
-}
-
-.dropdownWrapper :global(.dhis2-ui-singleselect__button) {
-    width: auto !important;
-    min-width: auto !important;
-    display: inline-block !important;
-}
-
-.dropdownWrapper :global([class*="root-children"]) {
-    flex-grow: 0 !important;
-}
-
-.dropdownWrapper :global(*) {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    font-size: 13px !important;
-}
-
-.dropdownWrapper :global(.dhis2-ui-singleselect__button) {
-    padding: 2px !important;
-}
-
-.dropdownWrapper :global(*:focus) {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.dropdownWrapper:hover :global(.dhis2-ui-singleselect__button) {
-    border: 1px solid var(--colors-grey300) !important;
-    background-color: var(--colors-grey200) !important;
-    box-shadow: none !important;
-    outline: none !important;
-}
-
-.dropdownWrapper :global(.dhis2-ui-singleselect__prefix) {
-    margin-right: 0px !important;
-}
-
-
-.optionIcon {
-    flex: 0 0 auto;
-    width: 16px;
-    height: 16px;
-    margin-right: var(--spacers-dp8);
-}
-
-.option {
+.filterButton {
     display: flex;
     align-items: center;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 0;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 5px;
+    background-color: var(--colors-white);
+    color: var(--colors-grey700);
     cursor: pointer;
-    font-size: 14px;
-    text-decoration: none;
-    color: var(--colors-grey900);
-    padding: var(--spacers-dp8) var(--spacers-dp12);
-}
-.option:hover {
-    background-color: var(--colors-grey200);
-}
-.option:active,
-.option.active {
-    background-color: var(--colors-teal700);
-    color: var(--colors-white);
-    cursor: auto;
-}
-.option.disabled {
-    color: var(--colors-grey500);
-    cursor: not-allowed;
-    user-select: none;
-}
-.option.disabled:hover {
-    background-color: initial;
+    outline: none;
 }
 
-.header {
+.filterButton:hover {
+    border-color: var(--colors-grey400);
+}
+
+.filterButton:focus {
+    border-color: var(--colors-blue600);
+    box-shadow: 0 0 0 1px var(--colors-blue600);
+}
+
+.filterButtonActive {
+    border-color: var(--colors-grey500);
+    box-shadow: 0 1px 3px rgba(12, 12, 12, 0.09);
+}
+.filterButtonActive:hover {
+    border-color: var(--colors-grey500);
+    box-shadow: 0 1px 3px rgba(12, 12, 12, 0.09);
+}
+.filterButtonActive:focus {
+    border-color: var(--colors-grey500);
+    box-shadow: 0 1px 3px rgba(12, 12, 12, 0.09);
+}
+.filterIcon {
+    padding: 0 var(--spacers-dp4);
+}
+.filterLabel {
+    white-space: nowrap;
+    padding: var(--spacers-dp4) 6px var(--spacers-dp4) 0;
+}
+
+.removeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    width: 16px;
+    border: none;
+    background: none;
     color: var(--colors-grey600);
-    font-size: 11px;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-    margin-bottom: var(--spacers-dp8);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    border-start-end-radius: 5px;
+    border-end-end-radius: 5px;
+    padding: 0;
+    margin: 0;
+}
+
+.removeButton:hover {
+    background-color: var(--colors-grey300);
+    color: var(--colors-grey900);
+}
+
+.filterDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 200px;
+    background-color: var(--colors-white);
+    border: 1px solid var(--colors-grey300);
+    border-radius: 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 2px;
+}
+
+.filterOption {
+    display: block;
+    width: 100%;
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+    border: none;
+    background: none;
+    color: var(--colors-grey900);
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px solid var(--colors-grey200);
+}
+
+.filterOption:last-child {
+    border-bottom: none;
+}
+
+.filterOption:hover {
+    background-color: var(--colors-grey200);
+}
+
+.filterOption:focus {
+    background-color: var(--colors-blue100);
+    outline: none;
 }
