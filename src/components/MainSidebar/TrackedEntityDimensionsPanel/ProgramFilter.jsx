@@ -1,15 +1,16 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acAddMetadata } from '../../../actions/metadata.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
-import styles from '../ProgramDimensionsPanel/ProgramSelect.module.css'
+import styles from '../ProgramDimensionsPanel/ProgramDimensionsFilter.module.css'
+import { IconFilter16 } from '@dhis2/ui'
 
 const query = {
     programs: {
@@ -36,6 +37,7 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
         sGetMetadataById(state, selectedProgramId)
     )
     const dispatch = useDispatch()
+    const [showDropdown, setShowDropdown] = useState(false)
 
     useEffect(() => {
         if (!called) {
@@ -49,67 +51,95 @@ const ProgramFilter = ({ setSelectedProgramId, selectedProgramId }) => {
         }
     }, [called, currentUser, refetch, selectedEntityTypeId])
 
+    const handleFilterClick = () => {
+        setShowDropdown(!showDropdown)
+    }
+
+    const handleProgramSelect = (programId) => {
+        setSelectedProgramId(programId)
+        if (programId) {
+            dispatch(
+                acAddMetadata({
+                    [programId]: programs.find((p) => p.id === programId),
+                })
+            )
+        }
+        setShowDropdown(false)
+    }
+
+    const handleRemoveFilter = (e) => {
+        e.stopPropagation()
+        setSelectedProgramId(null)
+        setShowDropdown(false)
+    }
+
+    const isFilterActive = !!selectedProgramId
+
     return (
-        <div className={styles.rows}>
-            <div className={styles.columns}>
-                <div className={styles.stretch}>
-                    {error && !fetching ? (
-                        <div className={styles.section}>
-                            <NoticeBox
-                                error
-                                title={i18n.t('Could not load programs')}
-                            >
-                                {error?.message ||
-                                    i18n.t(
-                                        "The programs couldn't be retrieved. Try again or contact your system administrator."
-                                    )}
-                            </NoticeBox>
-                        </div>
-                    ) : (
-                        <div className={styles.dropdownWrapper}>
-                            <SingleSelect
-                                dense
-                                selected={selectedProgramId || ''}
-                                onChange={({ selected }) => {
-                                    setSelectedProgramId(selected)
-                                    dispatch(
-                                        acAddMetadata({
-                                            [selected]: programs.find(
-                                                (p) => p.id === selected
-                                            ),
-                                        })
-                                    )
-                                }}
-                                placeholder={i18n.t('Filter by program usage')}
-                                maxHeight="max(60vh, 460px)"
-                                dataTest="tet-dimensions-program-select"
-                                filterable
-                                noMatchText={i18n.t('No programs found')}
-                                prefix={selectedProgramId && i18n.t('Program')}
-                                clearable
-                                clearText={i18n.t('Clear')}
-                                loading={fetching}
-                            >
-                            {(fetching || !programs) && selectedProgram?.id && (
-                                <SingleSelectOption
-                                    key={selectedProgram?.id}
-                                    label={selectedProgram?.name}
-                                    value={selectedProgram?.id}
-                                />
+        <div className={styles.container}>
+            {error && !fetching ? (
+                <div className={styles.filterWrapper}>
+                    <NoticeBox error title={i18n.t('Could not load programs')}>
+                        {error?.message ||
+                            i18n.t(
+                                "The programs couldn't be retrieved. Try again or contact your system administrator."
                             )}
-                            {!fetching &&
-                                programs?.map(({ id, name }) => (
-                                    <SingleSelectOption
-                                        key={id}
-                                        label={name}
-                                        value={id}
-                                    />
-                                ))}
-                            </SingleSelect>
-                        </div>
-                    )}
+                    </NoticeBox>
                 </div>
-            </div>
+            ) : (
+                <div className={styles.filterWrapper}>
+                    <div className={styles.filterButtonContainer}>
+                        <button
+                            className={`${styles.filterButton} ${
+                                isFilterActive ? styles.filterButtonActive : ''
+                            }`}
+                            onClick={handleFilterClick}
+                        >
+                            <span className={styles.filterIcon}>
+                                <IconFilter16 />
+                            </span>
+                            {isFilterActive ? (
+                                <>
+                                    <span className={styles.filterLabel}>
+                                        {selectedProgram?.name}
+                                    </span>
+                                    <button
+                                        className={styles.removeButton}
+                                        onClick={handleRemoveFilter}
+                                        aria-label={i18n.t('Remove filter')}
+                                    >
+                                        ×
+                                    </button>
+                                </>
+                            ) : (
+                                <span className={styles.filterLabel}>
+                                    {i18n.t('Filter by program usage')}
+                                </span>
+                            )}
+                        </button>
+
+                        {showDropdown && (
+                            <div className={styles.filterDropdown}>
+                                <button
+                                    className={styles.filterOption}
+                                    onClick={() => handleProgramSelect(null)}
+                                >
+                                    {i18n.t('All programs')}
+                                </button>
+                                {programs?.map(({ id, name }) => (
+                                    <button
+                                        key={id}
+                                        className={styles.filterOption}
+                                        onClick={() => handleProgramSelect(id)}
+                                    >
+                                        {name}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

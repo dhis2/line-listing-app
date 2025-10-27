@@ -73,123 +73,141 @@ const ProgramDimensionsFilter = ({
 
     const isFilterActive = dimensionType !== DIMENSION_TYPE_ALL
 
+    const showStageFilter =
+        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+            inputType
+        ) &&
+        dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
+        (!stageFilter ||
+            program?.programStages.some((stage) => stage.id === stageFilter))
+
     return (
         <div className={styles.container}>
-            {shouldShowFilter && (
-                <div className={styles.filterWrapper}>
-                    <div className={styles.filterButtonContainer}>
-                        <button
-                            className={`${styles.filterButton} ${
-                                isFilterActive ? styles.filterButtonActive : ''
-                            }`}
-                            onClick={handleFilterClick}
-                        >
-                            <span className={styles.filterIcon}>
-                                <IconFilter16 />
-                            </span>
-                            {isFilterActive ? (
-                                <>
-                                    <span className={styles.filterLabel}>
-                                        {getDimensionTypeLabel(dimensionType)}
+            {(shouldShowFilter || showStageFilter) && (
+                <div className={styles.filtersRow}>
+                    {shouldShowFilter && (
+                        <div className={styles.filterWrapper}>
+                            <div className={styles.filterButtonContainer}>
+                                <button
+                                    className={`${styles.filterButton} ${
+                                        isFilterActive
+                                            ? styles.filterButtonActive
+                                            : ''
+                                    }`}
+                                    onClick={handleFilterClick}
+                                >
+                                    <span className={styles.filterIcon}>
+                                        <IconFilter16 />
                                     </span>
-                                    <button
-                                        className={styles.removeButton}
-                                        onClick={handleRemoveFilter}
-                                        aria-label={i18n.t('Remove filter')}
-                                    >
-                                        ×
-                                    </button>
-                                </>
-                            ) : (
-                                <span className={styles.filterLabel}>
-                                    {i18n.t('Filter data type')}
-                                </span>
-                            )}
-                        </button>
+                                    {isFilterActive ? (
+                                        <>
+                                            <span
+                                                className={styles.filterLabel}
+                                            >
+                                                {getDimensionTypeLabel(
+                                                    dimensionType
+                                                )}
+                                            </span>
+                                            <button
+                                                className={styles.removeButton}
+                                                onClick={handleRemoveFilter}
+                                                aria-label={i18n.t(
+                                                    'Remove filter'
+                                                )}
+                                            >
+                                                ×
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <span className={styles.filterLabel}>
+                                            {i18n.t('Filter data type')}
+                                        </span>
+                                    )}
+                                </button>
 
-                        {showDropdown && (
-                            <div className={styles.filterDropdown}>
-                                <button
-                                    className={styles.filterOption}
-                                    onClick={() =>
-                                        handleFilterSelect(DIMENSION_TYPE_ALL)
-                                    }
-                                >
-                                    {i18n.t('All types')}
-                                </button>
-                                <button
-                                    className={styles.filterOption}
-                                    onClick={() =>
-                                        handleFilterSelect(
-                                            DIMENSION_TYPE_DATA_ELEMENT
-                                        )
-                                    }
-                                >
-                                    {i18n.t('Data element')}
-                                </button>
-                                {showProgramAttribute && (
-                                    <button
-                                        className={styles.filterOption}
-                                        onClick={() =>
-                                            handleFilterSelect(
-                                                DIMENSION_TYPE_PROGRAM_ATTRIBUTE
-                                            )
-                                        }
-                                    >
-                                        {i18n.t('Program attribute')}
-                                    </button>
+                                {showDropdown && (
+                                    <div className={styles.filterDropdown}>
+                                        <button
+                                            className={styles.filterOption}
+                                            onClick={() =>
+                                                handleFilterSelect(
+                                                    DIMENSION_TYPE_ALL
+                                                )
+                                            }
+                                        >
+                                            {i18n.t('All types')}
+                                        </button>
+                                        <button
+                                            className={styles.filterOption}
+                                            onClick={() =>
+                                                handleFilterSelect(
+                                                    DIMENSION_TYPE_DATA_ELEMENT
+                                                )
+                                            }
+                                        >
+                                            {i18n.t('Data element')}
+                                        </button>
+                                        {showProgramAttribute && (
+                                            <button
+                                                className={styles.filterOption}
+                                                onClick={() =>
+                                                    handleFilterSelect(
+                                                        DIMENSION_TYPE_PROGRAM_ATTRIBUTE
+                                                    )
+                                                }
+                                            >
+                                                {i18n.t('Program attribute')}
+                                            </button>
+                                        )}
+                                        {inputType !==
+                                            OUTPUT_TYPE_TRACKED_ENTITY && (
+                                            <button
+                                                className={styles.filterOption}
+                                                onClick={() =>
+                                                    handleFilterSelect(
+                                                        DIMENSION_TYPE_PROGRAM_INDICATOR
+                                                    )
+                                                }
+                                            >
+                                                {i18n.t('Program indicator')}
+                                            </button>
+                                        )}
+                                        <button
+                                            className={styles.filterOption}
+                                            onClick={() =>
+                                                handleFilterSelect(
+                                                    DIMENSION_TYPE_CATEGORY
+                                                )
+                                            }
+                                        >
+                                            {i18n.t('Category')}
+                                        </button>
+                                        <button
+                                            className={styles.filterOption}
+                                            onClick={() =>
+                                                handleFilterSelect(
+                                                    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
+                                                )
+                                            }
+                                        >
+                                            {i18n.t(
+                                                'Category option group set'
+                                            )}
+                                        </button>
+                                    </div>
                                 )}
-                                {inputType !== OUTPUT_TYPE_TRACKED_ENTITY && (
-                                    <button
-                                        className={styles.filterOption}
-                                        onClick={() =>
-                                            handleFilterSelect(
-                                                DIMENSION_TYPE_PROGRAM_INDICATOR
-                                            )
-                                        }
-                                    >
-                                        {i18n.t('Program indicator')}
-                                    </button>
-                                )}
-                                <button
-                                    className={styles.filterOption}
-                                    onClick={() =>
-                                        handleFilterSelect(
-                                            DIMENSION_TYPE_CATEGORY
-                                        )
-                                    }
-                                >
-                                    {i18n.t('Category')}
-                                </button>
-                                <button
-                                    className={styles.filterOption}
-                                    onClick={() =>
-                                        handleFilterSelect(
-                                            DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
-                                        )
-                                    }
-                                >
-                                    {i18n.t('Category option group set')}
-                                </button>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
+                    {showStageFilter && (
+                        <StageFilter
+                            stages={program?.programStages}
+                            selected={stageFilter}
+                            setSelected={setStageFilter}
+                        />
+                    )}
                 </div>
             )}
-            {[OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
-                inputType
-            ) &&
-                dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
-                (!stageFilter ||
-                    program?.programStages.some(
-                        (stage) => stage.id === stageFilter
-                    )) && (
-                    <StageFilter
-                        stages={program?.programStages}
-                        selected={stageFilter}
-                        setSelected={setStageFilter}
-                    />
-                )}
         </div>
     )
 }

@@ -29,7 +29,10 @@ import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
-const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => {
+const ProgramDimensionsPanel = ({
+    visible,
+    searchTerm: externalSearchTerm,
+}) => {
     const inputType = useSelector(sGetUiInputType)
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedTrackedEntityTypeId = useSelector(sGetUiEntityTypeId)
@@ -44,35 +47,44 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
 
     // Get program dimensions to check if they have results
     const programDimensions = useProgramDimensions()
-    
+
     // Check if ProgramDimensions has results
     const hasProgramDimensions = React.useMemo(() => {
         if (!programDimensions) return false
         if (!externalSearchTerm) return programDimensions.length > 0
-        return programDimensions.some(dimension => 
-            dimension.name.toLowerCase().includes(externalSearchTerm.toLowerCase())
+        return programDimensions.some((dimension) =>
+            dimension.name
+                .toLowerCase()
+                .includes(externalSearchTerm.toLowerCase())
         )
     }, [programDimensions, externalSearchTerm])
 
     // Get program data dimensions to check if they have results
-    const { 
-        dimensions: programDataDimensions, 
-        loading: programDataLoading, 
-        fetching: programDataFetching, 
-        error: programDataError, 
-        setIsListEndVisible: programDataSetIsListEndVisible 
+    const {
+        dimensions: programDataDimensions,
+        loading: programDataLoading,
+        fetching: programDataFetching,
+        error: programDataError,
+        setIsListEndVisible: programDataSetIsListEndVisible,
     } = useProgramDataDimensions({
         inputType,
         trackedEntityTypeId: selectedTrackedEntityTypeId,
         program: selectedProgram,
-        stageId: inputType === OUTPUT_TYPE_EVENT ? selectedStageId : 
-                (inputType === OUTPUT_TYPE_ENROLLMENT && dimensionType === DIMENSION_TYPE_DATA_ELEMENT ? stageFilter : undefined),
+        stageId:
+            inputType === OUTPUT_TYPE_EVENT
+                ? selectedStageId
+                : [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+                      inputType
+                  ) && dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                ? stageFilter
+                : undefined,
         searchTerm: debouncedSearchTerm,
         dimensionType,
     })
 
     // Check if ProgramDataDimensionsList has results
-    const hasProgramDataDimensions = programDataDimensions && programDataDimensions.length > 0
+    const hasProgramDataDimensions =
+        programDataDimensions && programDataDimensions.length > 0
 
     // Show divider only if both sections have results
     const showDivider = hasProgramDimensions && hasProgramDataDimensions
@@ -110,8 +122,9 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
                 {isProgramSelectionComplete() ? (
                     <>
                         <div>
-                            
-                            <ProgramDimensions searchTerm={externalSearchTerm} />
+                            <ProgramDimensions
+                                searchTerm={externalSearchTerm}
+                            />
                         </div>
                         {showDivider && <div className={styles.divider}></div>}
                         <div>
@@ -127,10 +140,12 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
                                     selectedProgram.programType ===
                                     PROGRAM_TYPE_WITH_REGISTRATION
                                 }
-                                hasProgramDataDimensions={hasProgramDataDimensions}
+                                hasProgramDataDimensions={
+                                    hasProgramDataDimensions
+                                }
                             />
                         </div>
-                        
+
                         <ProgramDataDimensionsList
                             dimensions={programDataDimensions}
                             loading={programDataLoading}
@@ -161,9 +176,13 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
                         {selectedProgram && (
                             <>
                                 <div>
-                                    <ProgramDimensions searchTerm={externalSearchTerm} />
+                                    <ProgramDimensions
+                                        searchTerm={externalSearchTerm}
+                                    />
                                 </div>
-                                {showDivider && <div className={styles.divider}></div>}
+                                {showDivider && (
+                                    <div className={styles.divider}></div>
+                                )}
                                 <div className={styles.section}>
                                     <ProgramDimensionsFilter
                                         program={selectedProgram}
@@ -173,7 +192,13 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
                                         setDimensionType={setDimensionType}
                                         stageFilter={stageFilter}
                                         setStageFilter={setStageFilter}
-                                        hasProgramDataDimensions={hasProgramDataDimensions}
+                                        showProgramAttribute={
+                                            selectedProgram.programType ===
+                                            PROGRAM_TYPE_WITH_REGISTRATION
+                                        }
+                                        hasProgramDataDimensions={
+                                            hasProgramDataDimensions
+                                        }
                                     />
                                 </div>
 
@@ -182,7 +207,9 @@ const ProgramDimensionsPanel = ({ visible, searchTerm: externalSearchTerm }) => 
                                     loading={programDataLoading}
                                     fetching={programDataFetching}
                                     error={programDataError}
-                                    setIsListEndVisible={programDataSetIsListEndVisible}
+                                    setIsListEndVisible={
+                                        programDataSetIsListEndVisible
+                                    }
                                     program={selectedProgram}
                                     searchTerm={debouncedSearchTerm}
                                 />
