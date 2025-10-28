@@ -168,14 +168,7 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
                     >
                         <FlyoutMenu dense maxHeight="80vh">
                             {/* Search bar */}
-                            <div className={styles.introRow}>
-                                <span className={styles.introTitle}>
-                                    Input type
-                                </span>
-                                <span className={styles.introText}>
-                                    Choose what to see in the line list
-                                </span>
-                            </div>
+                            <div className={styles.introRow}>-</div>
                             {/* <div className={styles.searchContainer}>
                                 <Input
                                     value={searchTerm}
@@ -188,7 +181,6 @@ const InputTypeWithSubmenuSelect = ({ serverVersion }) => {
                                     type="search"
                                 />
                             </div> */}
-                            <MenuDivider dense />
 
                             <MenuItem
                                 label={i18n.t('Events')}
