@@ -1,6 +1,7 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
@@ -14,6 +15,7 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_TYPE_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
     formatDimensionId,
@@ -608,7 +610,16 @@ export const useProgramDimensions = () => {
                 })
         )
 
-        return programDimensions.concat(timeDimensions)
+        // Separate org units from status dimensions
+        const orgUnitDimensions = programDimensions.filter(
+            (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
+        )
+        const statusDimensions = programDimensions.filter(
+            (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
+        )
+
+        // Order: org units, then periods (time dimensions), then statuses
+        return orgUnitDimensions.concat(timeDimensions).concat(statusDimensions)
     }, [
         inputType,
         programId,
