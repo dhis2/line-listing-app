@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-27T08:15:49.614Z\n"
-"PO-Revision-Date: 2025-10-27T08:15:49.614Z\n"
+"POT-Creation-Date: 2025-10-28T11:11:34.539Z\n"
+"PO-Revision-Date: 2025-10-28T11:11:34.539Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -238,11 +238,17 @@ msgstr "Choose input type"
 msgid "No input types found"
 msgstr "No input types found"
 
+msgid "Search input types"
+msgstr "Search input types"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Enrollments"
+msgstr "Enrollments"
+
 msgid "Error loading types"
 msgstr "Error loading types"
-
-msgid "No types available"
-msgstr "No types available"
 
 msgid "Line List"
 msgstr "Line List"
@@ -280,6 +286,30 @@ msgstr "Metadata"
 msgid "Other"
 msgstr "Other"
 
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Program attributes"
+msgstr "Program attributes"
+
+msgid "Program indicators"
+msgstr "Program indicators"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Category option group sets"
+msgstr "Category option group sets"
+
+msgid "Remove filter"
+msgstr "Remove filter"
+
+msgid "Filter data type"
+msgstr "Filter data type"
+
+msgid "All types"
+msgstr "All types"
+
 msgid "Data element"
 msgstr "Data element"
 
@@ -294,15 +324,6 @@ msgstr "Category"
 
 msgid "Category option group set"
 msgstr "Category option group set"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Remove filter"
-msgstr "Remove filter"
-
-msgid "All types"
-msgstr "All types"
 
 msgid "Choose an input to get started adding program dimensions."
 msgstr "Choose an input to get started adding program dimensions."
@@ -326,11 +347,11 @@ msgstr "Choose a program"
 msgid "No programs found"
 msgstr "No programs found"
 
-msgid "Stage"
-msgstr "Stage"
+msgid "Filter by stage"
+msgstr "Filter by stage"
 
-msgid "All"
-msgstr "All"
+msgid "All stages"
+msgstr "All stages"
 
 msgid "No stages found"
 msgstr "No stages found"
@@ -360,8 +381,8 @@ msgstr "{{- itemName}} dimensions"
 msgid "Filter by program usage"
 msgstr "Filter by program usage"
 
-msgid "Clear"
-msgstr "Clear"
+msgid "All programs"
+msgstr "All programs"
 
 msgid "Search all dimensions"
 msgstr "Search all dimensions"
@@ -590,6 +611,9 @@ msgstr "Columns"
 
 msgid "Rows"
 msgstr "Rows"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "equal to (=)"
 msgstr "equal to (=)"

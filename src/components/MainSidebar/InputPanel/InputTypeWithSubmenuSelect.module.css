@@ -36,5 +36,26 @@
 }
 
 .searchContainer {
-    padding: 6px;
+    padding: 8px var(--spacers-dp8) 0 var(--spacers-dp8);
+}
+
+.introRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacers-dp8) var(--spacers-dp12) var(--spacers-dp8)
+        var(--spacers-dp12);
+    gap: 6px;
+    min-width: 260px;
+}
+
+.introTitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.introText {
+    font-size: 13px;
+    color: var(--colors-grey700);
 }
