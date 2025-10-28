@@ -12,7 +12,7 @@ const ProgramDimensionsOnly = ({ searchTerm, onEmptyStateChange }) => {
     const filteredDimensions = React.useMemo(() => {
         if (!programDimensions) return []
         if (!searchTerm) return programDimensions
-        return programDimensions.filter(dimension => 
+        return programDimensions.filter((dimension) =>
             dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     }, [programDimensions, searchTerm])
@@ -40,7 +40,8 @@ const ProgramDimensionsOnly = ({ searchTerm, onEmptyStateChange }) => {
             loading={false}
             fetching={false}
             error={null}
-            setIsListEndVisible={() => {}}
+            hasMore={false}
+            onLoadMore={() => {}}
             dataTest="program-dimensions-only-list"
         />
     )

@@ -25,7 +25,7 @@ const TrackedEntityDimensionsPanel = ({
     )
     const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
     const { currentUser } = useCachedDataQuery()
-    const { loading, fetching, error, dimensions, setIsListEndVisible } =
+    const { loading, fetching, error, dimensions, hasMore, loadMore } =
         useTrackedEntityDimensions({
             visible,
             searchTerm: debouncedSearchTerm,
@@ -65,7 +65,8 @@ const TrackedEntityDimensionsPanel = ({
                 </div>
             </div>
             <DimensionsList
-                setIsListEndVisible={setIsListEndVisible}
+                onLoadMore={loadMore}
+                hasMore={hasMore}
                 dimensions={draggableDimensions}
                 error={error}
                 fetching={fetching}

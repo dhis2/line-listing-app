@@ -65,7 +65,8 @@ const ProgramDimensionsPanel = ({
         loading: programDataLoading,
         fetching: programDataFetching,
         error: programDataError,
-        setIsListEndVisible: programDataSetIsListEndVisible,
+        hasMore: programDataHasMore,
+        loadMore: programDataLoadMore,
     } = useProgramDataDimensions({
         inputType,
         trackedEntityTypeId: selectedTrackedEntityTypeId,
@@ -151,7 +152,8 @@ const ProgramDimensionsPanel = ({
                             loading={programDataLoading}
                             fetching={programDataFetching}
                             error={programDataError}
-                            setIsListEndVisible={programDataSetIsListEndVisible}
+                            hasMore={programDataHasMore}
+                            onLoadMore={programDataLoadMore}
                             program={selectedProgram}
                             searchTerm={debouncedSearchTerm}
                         />
@@ -207,9 +209,8 @@ const ProgramDimensionsPanel = ({
                                     loading={programDataLoading}
                                     fetching={programDataFetching}
                                     error={programDataError}
-                                    setIsListEndVisible={
-                                        programDataSetIsListEndVisible
-                                    }
+                                    hasMore={programDataHasMore}
+                                    onLoadMore={programDataLoadMore}
                                     program={selectedProgram}
                                     searchTerm={debouncedSearchTerm}
                                 />

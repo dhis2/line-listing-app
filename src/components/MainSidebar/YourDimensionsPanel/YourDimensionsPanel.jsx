@@ -9,10 +9,14 @@ import { DimensionsList } from '../DimensionsList/index.js'
 import { useYourDimensions } from './useYourDimensions.js'
 import styles from './YourDimensionsPanel.module.css'
 
-const YourDimensionsPanel = ({ visible, searchTerm: externalSearchTerm, onEmptyStateChange }) => {
+const YourDimensionsPanel = ({
+    visible,
+    searchTerm: externalSearchTerm,
+    onEmptyStateChange,
+}) => {
     const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
     const { currentUser } = useCachedDataQuery()
-    const { loading, fetching, error, dimensions, setIsListEndVisible } =
+    const { loading, fetching, error, dimensions, hasMore, loadMore } =
         useYourDimensions({
             visible,
             searchTerm: debouncedSearchTerm,
@@ -42,7 +46,8 @@ const YourDimensionsPanel = ({ visible, searchTerm: externalSearchTerm, onEmptyS
     return (
         <>
             <DimensionsList
-                setIsListEndVisible={setIsListEndVisible}
+                onLoadMore={loadMore}
+                hasMore={hasMore}
                 dimensions={draggableDimensions}
                 error={error}
                 fetching={fetching}

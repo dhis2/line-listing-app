@@ -18,7 +18,6 @@ const ACTIONS_RESET = 'RESET'
 const ACTIONS_INIT = 'INIT'
 const ACTIONS_SUCCESS = 'SUCCESS'
 const ACTIONS_ERROR = 'ERROR'
-const ACTIONS_SET_LIST_END_VISIBLE = 'SET_LIST_END_VISIBLE'
 const ACTIONS_NO_PARAMS = 'NO_PARAMS'
 
 const initialState = {
@@ -28,7 +27,6 @@ const initialState = {
     dimensions: [],
     nextPage: 1,
     isLastPage: false,
-    isListEndVisible: false,
 }
 
 const reducer = (state, action) => {
@@ -68,11 +66,6 @@ const reducer = (state, action) => {
                 nextPage: 1,
                 isLastPage: true,
             }
-        case ACTIONS_SET_LIST_END_VISIBLE:
-            return {
-                ...state,
-                isListEndVisible: action.payload,
-            }
         default:
             throw new Error(
                 'Invalid action passed to useProgramDataDimensions reducer function'
@@ -97,7 +90,7 @@ const createDimensionsQuery = ({
     nameProp,
 }) => {
     const params = {
-        pageSize: 50,
+        pageSize: 25,
         page,
         fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
@@ -212,14 +205,14 @@ const transformResponseData = ({
         ? allDimensions
               .filter((dimension) => dimension && dimension.id)
               .map((dimension) => {
-                  const { dimensionId, programStageId } = extractDimensionIdParts(
-                      dimension.id
-                  )
+                  const { dimensionId, programStageId } =
+                      extractDimensionIdParts(dimension.id)
                   if (
                       dimensionId &&
                       deDimensionsMapRef.current.get(dimensionId) > 1
                   ) {
-                      dimension.stageName = programStageNames?.get(programStageId)
+                      dimension.stageName =
+                          programStageNames?.get(programStageId)
                   }
                   return dimension
               })
@@ -244,15 +237,7 @@ const useProgramDataDimensions = ({
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
-        {
-            loading,
-            fetching,
-            error,
-            dimensions,
-            nextPage,
-            isLastPage,
-            isListEndVisible,
-        },
+        { loading, fetching, error, dimensions, nextPage, isLastPage },
         dispatch,
     ] = useReducer(reducer, initialState)
 
@@ -271,18 +256,6 @@ const useProgramDataDimensions = ({
     const nameProp =
         currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
-    const setIsListEndVisible = useCallback(
-        (isVisible) => {
-            if (isVisible !== isListEndVisible) {
-                dispatch({
-                    type: ACTIONS_SET_LIST_END_VISIBLE,
-                    payload: isVisible,
-                })
-            }
-        },
-        [isListEndVisible]
-    )
-
     const fetchDimensions = useCallback(
         async (shouldReset) => {
             // Check if we have the required parameters for the API call
@@ -293,7 +266,7 @@ const useProgramDataDimensions = ({
                         programId: program?.id,
                         stageId,
                         result,
-                        program: !!program
+                        program: !!program,
                     })
                     return result
                 } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
@@ -304,7 +277,12 @@ const useProgramDataDimensions = ({
                 return false
             })()
 
-            console.log('hasRequiredParams:', hasRequiredParams, 'inputType:', inputType)
+            console.log(
+                'hasRequiredParams:',
+                hasRequiredParams,
+                'inputType:',
+                inputType
+            )
 
             if (!hasRequiredParams) {
                 console.log('NO PARAMS - dispatching ACTIONS_NO_PARAMS')
@@ -325,38 +303,38 @@ const useProgramDataDimensions = ({
                 dispatch({ type: ACTIONS_INIT })
             }
 
-                    try {
-                        const page = shouldReset ? 1 : nextPage
-                        const query = createDimensionsQuery({
-                            inputType,
-                            page,
-                            trackedEntityTypeId,
-                            programId,
-                            stageId,
-                            searchTerm,
-                            dimensionType,
-                            nameProp,
-                        })
-                        const data = await engine.query({
-                            dimensions: query,
-                        })
-                        
-                        const transformedData = transformResponseData({
-                            data,
-                            dimensions,
-                            deDimensionsMapRef,
-                            programStageNames,
-                            shouldReset,
-                            inputType,
-                        })
+            try {
+                const page = shouldReset ? 1 : nextPage
+                const query = createDimensionsQuery({
+                    inputType,
+                    page,
+                    trackedEntityTypeId,
+                    programId,
+                    stageId,
+                    searchTerm,
+                    dimensionType,
+                    nameProp,
+                })
+                const data = await engine.query({
+                    dimensions: query,
+                })
 
-                        dispatch({
-                            type: ACTIONS_SUCCESS,
-                            payload: transformedData,
-                        })
-                    } catch (error) {
-                        dispatch({ type: ACTIONS_ERROR, payload: error })
-                    }
+                const transformedData = transformResponseData({
+                    data,
+                    dimensions,
+                    deDimensionsMapRef,
+                    programStageNames,
+                    shouldReset,
+                    inputType,
+                })
+
+                dispatch({
+                    type: ACTIONS_SUCCESS,
+                    payload: transformedData,
+                })
+            } catch (error) {
+                dispatch({ type: ACTIONS_ERROR, payload: error })
+            }
         },
         [
             dimensions,
@@ -385,18 +363,19 @@ const useProgramDataDimensions = ({
         nameProp,
     ])
 
-    useEffect(() => {
-        if (isListEndVisible && !isLastPage && !fetching) {
+    const loadMore = useCallback(() => {
+        if (!isLastPage && !fetching) {
             fetchDimensions(false)
         }
-    }, [isListEndVisible, isLastPage])
+    }, [isLastPage, fetching, fetchDimensions])
 
     return {
         loading,
         fetching,
         error,
         dimensions,
-        setIsListEndVisible,
+        hasMore: !isLastPage,
+        loadMore,
     }
 }
 

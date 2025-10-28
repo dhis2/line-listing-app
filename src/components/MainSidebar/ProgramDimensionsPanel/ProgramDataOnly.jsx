@@ -1,11 +1,23 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
-import { DIMENSION_TYPE_ALL, DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
-import { sGetUiInputType, sGetUiProgramId, sGetUiEntityTypeId, sGetUiProgramStageId } from '../../../reducers/ui.js'
+import {
+    DIMENSION_TYPE_ALL,
+    DIMENSION_TYPE_DATA_ELEMENT,
+} from '@dhis2/analytics'
+import {
+    sGetUiInputType,
+    sGetUiProgramId,
+    sGetUiEntityTypeId,
+    sGetUiProgramStageId,
+} from '../../../reducers/ui.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { useDebounce } from '../../../modules/utils.js'
-import { OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY } from '../../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../../modules/visualization.js'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.jsx'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
@@ -19,7 +31,7 @@ const ProgramDataOnly = ({ searchTerm }) => {
         sGetMetadataById(state, programId)
     )
     const selectedStageId = useSelector(sGetUiProgramStageId)
-    
+
     const [stageFilter, setStageFilter] = useState()
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
     const debouncedSearchTerm = useDebounce(searchTerm || '')
@@ -37,18 +49,32 @@ const ProgramDataOnly = ({ searchTerm }) => {
     }
 
     // Call the hook - it now has internal guards to prevent API calls when params are missing
-    const { dimensions: programDataDimensions, loading, fetching, error, setIsListEndVisible } = useProgramDataDimensions({
+    const {
+        dimensions: programDataDimensions,
+        loading,
+        fetching,
+        error,
+        hasMore,
+        loadMore,
+    } = useProgramDataDimensions({
         inputType,
         trackedEntityTypeId: entityTypeId,
         program: selectedProgram,
-        stageId: inputType === OUTPUT_TYPE_EVENT ? selectedStageId : 
-                (inputType === OUTPUT_TYPE_ENROLLMENT && dimensionType === DIMENSION_TYPE_DATA_ELEMENT ? stageFilter : undefined),
+        stageId:
+            inputType === OUTPUT_TYPE_EVENT
+                ? selectedStageId
+                : inputType === OUTPUT_TYPE_ENROLLMENT &&
+                  dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                ? stageFilter
+                : undefined,
         searchTerm: debouncedSearchTerm,
         dimensionType,
     })
 
-
-    const hasProgramDataDimensions = isProgramSelectionComplete() && programDataDimensions && programDataDimensions.length > 0
+    const hasProgramDataDimensions =
+        isProgramSelectionComplete() &&
+        programDataDimensions &&
+        programDataDimensions.length > 0
 
     return (
         <div className={styles.container}>
@@ -66,15 +92,16 @@ const ProgramDataOnly = ({ searchTerm }) => {
                             hasProgramDataDimensions={hasProgramDataDimensions}
                         />
                     </div>
-                            <ProgramDataDimensionsList
-                                dimensions={programDataDimensions}
-                                loading={loading}
-                                fetching={fetching}
-                                error={error}
-                                setIsListEndVisible={setIsListEndVisible}
-                                program={selectedProgram}
-                                searchTerm={debouncedSearchTerm}
-                            />
+                    <ProgramDataDimensionsList
+                        dimensions={programDataDimensions}
+                        loading={loading}
+                        fetching={fetching}
+                        error={error}
+                        hasMore={hasMore}
+                        onLoadMore={loadMore}
+                        program={selectedProgram}
+                        searchTerm={debouncedSearchTerm}
+                    />
                 </>
             )}
         </div>

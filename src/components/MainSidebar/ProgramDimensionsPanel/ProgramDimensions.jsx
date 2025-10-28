@@ -15,7 +15,7 @@ export const ProgramDimensions = ({ searchTerm }) => {
     // Filter dimensions based on search term
     const filteredDimensions = React.useMemo(() => {
         if (!searchTerm) return programDimensions
-        return programDimensions.filter(dimension => 
+        return programDimensions.filter((dimension) =>
             dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     }, [programDimensions, searchTerm])
@@ -36,7 +36,8 @@ export const ProgramDimensions = ({ searchTerm }) => {
             loading={false}
             fetching={false}
             error={null}
-            setIsListEndVisible={() => {}}
+            hasMore={false}
+            onLoadMore={() => {}}
             dataTest="program-dimensions-list"
         />
     )

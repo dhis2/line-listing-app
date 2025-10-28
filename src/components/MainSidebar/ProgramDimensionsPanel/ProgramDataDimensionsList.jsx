@@ -7,11 +7,11 @@ const ProgramDataDimensionsList = ({
     loading = false,
     fetching = false,
     error = null,
-    setIsListEndVisible = () => {},
+    hasMore = false,
+    onLoadMore = () => {},
     program,
     searchTerm,
 }) => {
-
     const draggableDimensions = dimensions.map((dimension) => ({
         draggableId: `program-${dimension.id}`,
         ...dimension,
@@ -19,7 +19,8 @@ const ProgramDataDimensionsList = ({
 
     return (
         <DimensionsList
-            setIsListEndVisible={setIsListEndVisible}
+            onLoadMore={onLoadMore}
+            hasMore={hasMore}
             dimensions={draggableDimensions}
             error={error}
             fetching={fetching}
@@ -33,10 +34,11 @@ const ProgramDataDimensionsList = ({
 
 ProgramDataDimensionsList.propTypes = {
     dimensions: PropTypes.array,
-    loading: PropTypes.bool,
-    fetching: PropTypes.bool,
     error: PropTypes.object,
-    setIsListEndVisible: PropTypes.func,
+    fetching: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    loading: PropTypes.bool,
+    onLoadMore: PropTypes.func,
     program: PropTypes.object,
     searchTerm: PropTypes.string,
 }

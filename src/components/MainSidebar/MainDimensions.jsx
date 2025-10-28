@@ -8,11 +8,11 @@ import { useSelectedDimensions } from './SelectedDimensionsContext.jsx'
 export const MainDimensions = ({ searchTerm, onEmptyStateChange }) => {
     const mainDimensions = useMainDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
-    
+
     // Filter dimensions based on search term
     const filteredDimensions = React.useMemo(() => {
         if (!searchTerm) return mainDimensions
-        return mainDimensions.filter(dimension => 
+        return mainDimensions.filter((dimension) =>
             dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     }, [mainDimensions, searchTerm])
@@ -36,7 +36,8 @@ export const MainDimensions = ({ searchTerm, onEmptyStateChange }) => {
             loading={false}
             fetching={false}
             error={null}
-            setIsListEndVisible={() => {}}
+            hasMore={false}
+            onLoadMore={() => {}}
             dataTest="main-dimensions-list"
         />
     )
