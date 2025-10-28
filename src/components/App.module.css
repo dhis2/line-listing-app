@@ -52,16 +52,6 @@
     border-bottom: 1px solid var(--colors-grey400);
 }
 
-/* Override AnalyticsToolbar border - multiple selectors to catch different possible structures */
-.mainCenterLayout > div:first-child,
-.mainCenterLayout .c-toolbar,
-.mainCenterLayout [class*='toolbar'],
-.mainCenterLayout [data-test='toolbar'],
-.mainCenterLayout header,
-.eventReportsApp [class*='toolbar'] {
-    border-bottom-color: var(--colors-grey300) !important;
-}
-
 /* Main */
 .sectionMain {
     overflow: hidden;

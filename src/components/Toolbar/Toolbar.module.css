@@ -1,0 +1,15 @@
+.toolbarActions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    margin-left: auto;
+    padding: 0 var(--spacers-dp4);
+}
+
+.toolbarActions button {
+    border-color: transparent !important;
+}
+
+.toolbarActions button:hover {
+    border: 1px solid var(--colors-grey400) !important;
+}
