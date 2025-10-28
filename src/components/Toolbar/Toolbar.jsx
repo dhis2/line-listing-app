@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, IconShare16, IconDownload16, SharingDialog } from '@dhis2/ui'
 import { sGetCurrent } from '../../reducers/current.js'
-import { InterpretationsAndDetailsToggler } from './InterpretationsAndDetailsToggler.jsx'
+import { ChevronToggle } from './ChevronToggle.jsx'
 import { MenuBar } from './MenuBar.jsx'
 import { UpdateButton } from './UpdateButton.jsx'
 import TitleBar from '../TitleBar/TitleBar.jsx'
@@ -46,7 +46,7 @@ export const Toolbar = ({ onFileMenuAction }) => {
                         secondary
                     ></Button>
                 </div>
-                {/* <InterpretationsAndDetailsToggler /> */}
+                <ChevronToggle />
             </AnalyticsToolbar>
             {sharingDialogOpen && current?.id && (
                 <SharingDialog
