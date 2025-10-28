@@ -1,10 +1,10 @@
 .container {
-    padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp4);
+    padding: 6px var(--spacers-dp4) 2px var(--spacers-dp4);
 }
 
 .searchRow {
     display: flex;
-    gap: var(--spacers-dp8);
+    gap: var(--spacers-dp4);
     align-items: center;
 }
 
