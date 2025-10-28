@@ -263,10 +263,7 @@ const MainSidebar = () => {
                             >
                                 {selectedInputType ===
                                 OUTPUT_TYPE_TRACKED_ENTITY ? (
-                                    !(
-                                        selectedProgramId &&
-                                        selectedEntityTypeId
-                                    ) ? (
+                                    !selectedEntityTypeId ? (
                                         <div
                                             style={{
                                                 padding: 'var(--spacers-dp16)',
@@ -276,7 +273,7 @@ const MainSidebar = () => {
                                             }}
                                         >
                                             {i18n.t(
-                                                'Choose a program to show org. units, periods, and statuses'
+                                                'Choose a tracked entity type to show org. units, periods, and statuses'
                                             )}
                                         </div>
                                     ) : (

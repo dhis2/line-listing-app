@@ -15,6 +15,7 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_CREATED,
     DIMENSION_TYPE_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
@@ -572,6 +573,14 @@ export const useProgramDimensions = () => {
         sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
     )
 
+    // For tracked entity, get registration org unit and date from metadata
+    const registrationOrgUnitDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_ORGUNIT)
+    )
+    const registrationDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_CREATED)
+    )
+
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
@@ -597,29 +606,69 @@ export const useProgramDimensions = () => {
             return !hiddenTimeDimensions.includes(dimensionId)
         })
 
-        const programDimensions = Object.values(
-            getProgramDimensions(
-                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
-            )
-        ).filter(
-            (dimension) =>
-                !getIsProgramDimensionDisabled({
-                    dimensionId: dimension.id,
-                    inputType,
-                    programType: program?.programType,
-                })
-        )
+        // For tracked entity without program, only show registration dimensions
+        let allOrgUnitDimensions = []
+        let allTimeDimensions = []
+        let statusDimensions = []
 
-        // Separate org units from status dimensions
-        const orgUnitDimensions = programDimensions.filter(
-            (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
-        )
-        const statusDimensions = programDimensions.filter(
-            (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
-        )
+        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && !programId) {
+            // Only registration dimensions when no program selected
+            if (registrationOrgUnitDim) {
+                allOrgUnitDimensions = [registrationOrgUnitDim]
+            }
+            if (registrationDateDim) {
+                allTimeDimensions = [registrationDateDim]
+            }
+        } else {
+            // Include program dimensions when program is selected or for other input types
+            const programDimensions = Object.values(
+                getProgramDimensions(
+                    inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+                )
+            ).filter(
+                (dimension) =>
+                    !getIsProgramDimensionDisabled({
+                        dimensionId: dimension.id,
+                        inputType,
+                        programType: program?.programType,
+                    })
+            )
+
+            // Separate org units from status dimensions
+            const orgUnitDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
+            )
+            statusDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
+            )
+
+            // For tracked entity input type, prepend registration dimensions
+            if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                // Add registration org unit at the beginning
+                if (registrationOrgUnitDim) {
+                    allOrgUnitDimensions = [
+                        registrationOrgUnitDim,
+                        ...orgUnitDimensions,
+                    ]
+                } else {
+                    allOrgUnitDimensions = orgUnitDimensions
+                }
+                // Add registration date at the beginning of time dimensions
+                if (registrationDateDim) {
+                    allTimeDimensions = [registrationDateDim, ...timeDimensions]
+                } else {
+                    allTimeDimensions = timeDimensions
+                }
+            } else {
+                allOrgUnitDimensions = orgUnitDimensions
+                allTimeDimensions = timeDimensions
+            }
+        }
 
         // Order: org units, then periods (time dimensions), then statuses
-        return orgUnitDimensions.concat(timeDimensions).concat(statusDimensions)
+        return allOrgUnitDimensions
+            .concat(allTimeDimensions)
+            .concat(statusDimensions)
     }, [
         inputType,
         programId,
@@ -628,5 +677,7 @@ export const useProgramDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
+        registrationOrgUnitDim,
+        registrationDateDim,
     ])
 }
