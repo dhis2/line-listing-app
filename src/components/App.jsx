@@ -111,8 +111,6 @@ const optionsQuery = {
 const App = () => {
     const dataEngine = useDataEngine()
     const [aboutAOUnitRenderId, setAboutAOUnitRenderId] = useState(1)
-    const [interpretationsUnitRenderId, setInterpretationsUnitRenderId] =
-        useState(1)
     const [data, setData] = useState()
     const [previousLocation, setPreviousLocation] = useState()
     const [initialLoadIsComplete, setInitialLoadIsComplete] = useState(false)
@@ -130,11 +128,6 @@ const App = () => {
 
     const onFileMenuAction = () => {
         showDetailsPanel && setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
-    }
-
-    const onInterpretationUpdate = () => {
-        showDetailsPanel &&
-            setInterpretationsUnitRenderId(interpretationsUnitRenderId + 1)
     }
 
     const parseLocation = (location) => {
@@ -530,13 +523,7 @@ const App = () => {
                                             onError={onError}
                                         />
                                     )}
-                                    {current && (
-                                        <InterpretationModal
-                                            onInterpretationUpdate={
-                                                onInterpretationUpdate
-                                            }
-                                        />
-                                    )}
+                                    {current && <InterpretationModal />}
                                 </>
                             )}
                         </div>
@@ -550,9 +537,6 @@ const App = () => {
                     {showDetailsPanel && current && (
                         <DetailsPanel
                             aboutAOUnitRenderId={aboutAOUnitRenderId}
-                            interpretationsUnitRenderId={
-                                interpretationsUnitRenderId
-                            }
                         />
                     )}
                 </div>

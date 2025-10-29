@@ -1,3 +1,10 @@
+## [102.2.3](https://github.com/dhis2/line-listing-app/compare/v102.2.2...v102.2.3) (2025-10-29)
+
+
+### Bug Fixes
+
+* use new InterpretationsProvider component from analytics [DHIS2-19822] ([#716](https://github.com/dhis2/line-listing-app/issues/716)) ([207a0bd](https://github.com/dhis2/line-listing-app/commit/207a0bd995643c43ac160b85443a26025136df8e))
+
 ## [102.2.2](https://github.com/dhis2/line-listing-app/compare/v102.2.1...v102.2.2) (2025-08-12)
 
 
