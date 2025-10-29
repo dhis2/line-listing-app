@@ -58,7 +58,7 @@ const selectRelativePeriod = ({ label, period }) => {
     cy.contains('Relative periods').click()
 
     if (period.type) {
-        cy.getBySel('period-dimension-relative-period-filter-content').click()
+        cy.getBySel('period-dimension-relative-period-filter').click()
         cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
             .containsExact(period.type)
             .click()
