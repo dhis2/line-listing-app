@@ -1,9 +1,18 @@
 import { Toolbar as AnalyticsToolbar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Button, IconShare16, IconDownload16, SharingDialog } from '@dhis2/ui'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+    Button,
+    IconShare16,
+    IconDownload16,
+    IconFullscreen16,
+    IconFullscreenExit16,
+    SharingDialog,
+} from '@dhis2/ui'
 import { sGetCurrent } from '../../reducers/current.js'
+import { sGetUiShowExpandedVisualizationCanvas } from '../../reducers/ui.js'
+import { acToggleUiExpandedVisualizationCanvas } from '../../actions/ui.js'
 import { ChevronToggle } from './ChevronToggle.jsx'
 import { MenuBar } from './MenuBar.jsx'
 import { UpdateButton } from './UpdateButton.jsx'
@@ -13,6 +22,8 @@ import styles from './Toolbar.module.css'
 export const Toolbar = ({ onFileMenuAction }) => {
     const [sharingDialogOpen, setSharingDialogOpen] = useState(false)
     const current = useSelector(sGetCurrent)
+    const dispatch = useDispatch()
+    const isExpanded = useSelector(sGetUiShowExpandedVisualizationCanvas)
 
     const handleShareClick = () => {
         setSharingDialogOpen(true)
@@ -21,6 +32,10 @@ export const Toolbar = ({ onFileMenuAction }) => {
 
     const handleSharingDialogClose = () => {
         setSharingDialogOpen(false)
+    }
+
+    const handleExpandToggle = () => {
+        dispatch(acToggleUiExpandedVisualizationCanvas())
     }
 
     return (
@@ -46,6 +61,19 @@ export const Toolbar = ({ onFileMenuAction }) => {
                         secondary
                     ></Button>
                     <div className={styles.divider}></div>
+                    <Button
+                        icon={
+                            isExpanded ? (
+                                <IconFullscreenExit16 />
+                            ) : (
+                                <IconFullscreen16 />
+                            )
+                        }
+                        dense
+                        small
+                        secondary
+                        onClick={handleExpandToggle}
+                    />
                     <ChevronToggle />
                 </div>
             </AnalyticsToolbar>
