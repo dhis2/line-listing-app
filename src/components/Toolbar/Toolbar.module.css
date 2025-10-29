@@ -8,8 +8,15 @@
 
 .toolbarActions button {
     border-color: transparent !important;
+    cursor: pointer;
 }
 
 .toolbarActions button:hover {
-    border: 1px solid var(--colors-grey400) !important;
+    /* border: 1px solid var(--colors-grey400) !important; */
+    background-color: var(--colors-grey200) !important;
+}
+.divider {
+    width: 1px;
+    height: 66%;
+    background-color: var(--colors-grey300);
 }

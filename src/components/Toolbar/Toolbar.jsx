@@ -45,8 +45,9 @@ export const Toolbar = ({ onFileMenuAction }) => {
                         small
                         secondary
                     ></Button>
+                    <div className={styles.divider}></div>
+                    <ChevronToggle />
                 </div>
-                <ChevronToggle />
             </AnalyticsToolbar>
             {sharingDialogOpen && current?.id && (
                 <SharingDialog
