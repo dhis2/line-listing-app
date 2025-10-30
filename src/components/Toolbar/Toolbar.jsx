@@ -59,6 +59,7 @@ export const Toolbar = ({ onFileMenuAction }) => {
                         dense
                         small
                         secondary
+                        disabled={!current}
                     ></Button>
                     <div className={styles.divider}></div>
                     <Button

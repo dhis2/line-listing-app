@@ -73,6 +73,11 @@
 }
 /* Main canvas */
 
+/* Defeating a weird border offset issue */
+.mainCenterLayout {
+    margin-top: 1px;
+}
+
 .mainCenterCanvas {
     display: flex;
     gap: var(--spacers-dp4);

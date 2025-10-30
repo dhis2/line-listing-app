@@ -50,7 +50,7 @@ export const TitleBar = ({ titleState, titleText }) => {
         titleState
     )}`
 
-    return titleText ? (
+    return (
         <div
             data-test="titlebar"
             className={cx(classes.titleBar, appClasses.flexGrow1)}
@@ -58,14 +58,16 @@ export const TitleBar = ({ titleState, titleText }) => {
             {/* <div className={classes.buttonContainer}>
                 <ExpandedVisualizationCanvasToggle />
             </div> */}
-            <div className={classes.titleContainer}>
-                <div className={titleClasses}>
-                    {titleText}
-                    {getSuffix(titleState)}
+            {titleText && (
+                <div className={classes.titleContainer}>
+                    <div className={titleClasses}>
+                        {titleText}
+                        {getSuffix(titleState)}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
-    ) : null
+    )
 }
 
 TitleBar.propTypes = {
@@ -82,11 +84,13 @@ const mapStateToProps = (state) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
     const { visualization, current, ui } = stateProps
     const titleState = getVisualizationState(visualization, current, ui)
+    // Only show title text if there's an actual current visualization
+    const titleText = current ? getTitleText(titleState, visualization) : ''
     return {
         ...dispatchProps,
         ...ownProps,
         titleState: titleState,
-        titleText: getTitleText(titleState, visualization),
+        titleText,
     }
 }
 
