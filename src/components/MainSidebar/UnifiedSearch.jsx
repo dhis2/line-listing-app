@@ -5,7 +5,53 @@ import React, { useState } from 'react'
 import { useDebounce } from '../../modules/utils.js'
 import styles from './UnifiedSearch.module.css'
 
-const UnifiedSearch = ({ onSearchChange, onCollapseAll }) => {
+const CollapseIcon = () => (
+    <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M8 3V4H2V3H8Z" fill="#4A5768" />
+        <path d="M8 6V7H2V6H8Z" fill="#4A5768" />
+        <path d="M8 9V10H2V9H8Z" fill="#4A5768" />
+        <path d="M8 12V13H2V12H8Z" fill="#4A5768" />
+        <path
+            d="M14.4141 4.70703L12.207 6.91406L10 4.70703L10.707 4L12.207 5.5L13.707 4L14.4141 4.70703Z"
+            fill="#4A5768"
+        />
+        <path
+            d="M14.4141 11.707L13.707 12.4141L12.207 10.9141L10.707 12.4141L10 11.707L12.207 9.5L14.4141 11.707Z"
+            fill="#4A5768"
+        />
+    </svg>
+)
+
+const ExpandIcon = () => (
+    <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M8 3V4H2V3H8Z" fill="#4A5768" />
+        <path d="M8 6V7H2V6H8Z" fill="#4A5768" />
+        <path d="M8 9V10H2V9H8Z" fill="#4A5768" />
+        <path d="M8 12V13H2V12H8Z" fill="#4A5768" />
+        <path
+            d="M14.4141 6.20703L12.207 4L10 6.20703L10.707 6.91406L12.207 5.41406L13.707 6.91406L14.4141 6.20703Z"
+            fill="#4A5768"
+        />
+        <path
+            d="M14.4141 10.207L13.707 9.5L12.207 11L10.707 9.5L10 10.207L12.207 12.4141L14.4141 10.207Z"
+            fill="#4A5768"
+        />
+    </svg>
+)
+
+const UnifiedSearch = ({ onSearchChange, onCollapseAll, hasExpandedCards }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState(false)
     const debouncedSearchTerm = useDebounce(searchTerm)
@@ -35,11 +81,13 @@ const UnifiedSearch = ({ onSearchChange, onCollapseAll }) => {
                     className={styles.ghostButton}
                     onClick={onCollapseAll}
                     data-test="collapse-all-cards-button"
-                    title={i18n.t('Collapse all cards')}
+                    title={
+                        hasExpandedCards
+                            ? i18n.t('Collapse all cards')
+                            : i18n.t('Expand all cards')
+                    }
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                        <path d="M10.896 2H8.75V.75a.75.75 0 0 0-1.5 0V2H5.104a.25.25 0 0 0-.177.427l2.896 2.896a.25.25 0 0 0 .354 0l2.896-2.896A.25.25 0 0 0 10.896 2ZM8.75 15.25a.75.75 0 0 1-1.5 0V14H5.104a.25.25 0 0 1-.177-.427l2.896-2.896a.25.25 0 0 1 .354 0l2.896 2.896a.25.25 0 0 1-.177.427H8.75v1.25Zm-6.5-6.5a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5ZM6 8a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1 0-1.5h.5A.75.75 0 0 1 6 8Zm2.25.75a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5ZM12 8a.75.75 0 0 1-.75.75h-.5a.75.75 0 0 1 0-1.5h.5A.75.75 0 0 1 12 8Zm2.25.75a.75.75 0 0 0 0-1.5h-.5a.75.75 0 0 0 0 1.5h.5Z"></path>
-                    </svg>
+                    {hasExpandedCards ? <CollapseIcon /> : <ExpandIcon />}
                 </button>
             </div>
         </div>
@@ -49,6 +97,7 @@ const UnifiedSearch = ({ onSearchChange, onCollapseAll }) => {
 UnifiedSearch.propTypes = {
     onSearchChange: PropTypes.func.isRequired,
     onCollapseAll: PropTypes.func.isRequired,
+    hasExpandedCards: PropTypes.bool.isRequired,
 }
 
 export { UnifiedSearch }

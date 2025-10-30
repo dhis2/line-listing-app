@@ -169,6 +169,7 @@ const MainSidebar = () => {
                     <UnifiedSearch
                         onSearchChange={setUnifiedSearchTerm}
                         onCollapseAll={onCollapseAllCards}
+                        hasExpandedCards={expandedCards.length > 0}
                     />
                 )}
 
