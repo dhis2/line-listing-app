@@ -1,3 +1,10 @@
+## [102.2.4](https://github.com/dhis2/line-listing-app/compare/v102.2.3...v102.2.4) (2025-10-30)
+
+
+### Bug Fixes
+
+* upgrade analytics to get interpretations fixes ([#720](https://github.com/dhis2/line-listing-app/issues/720)) ([f7fb14a](https://github.com/dhis2/line-listing-app/commit/f7fb14a13099722a5f66c1b60c4519cb0f15cfbf))
+
 ## [102.2.3](https://github.com/dhis2/line-listing-app/compare/v102.2.2...v102.2.3) (2025-10-29)
 
 
