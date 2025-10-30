@@ -17,9 +17,9 @@ import styles from './InputPanel.module.css'
 export const getLabelForInputType = (type) => {
     switch (type) {
         case OUTPUT_TYPE_EVENT:
-            return i18n.t('Event')
+            return i18n.t('Events')
         case OUTPUT_TYPE_ENROLLMENT:
-            return i18n.t('Enrollment')
+            return i18n.t('Enrollments')
         case OUTPUT_TYPE_TRACKED_ENTITY:
             return i18n.t('Tracked entity')
         default:
@@ -48,7 +48,9 @@ export const InputPanel = ({ visible }) => {
                 return <ProgramSelect noBorders={true} />
             case OUTPUT_TYPE_TRACKED_ENTITY:
                 // Show program selection in InputPanel only when in split data cards mode
-                return splitDataCards ? <ProgramSelect noBorders={true} /> : null
+                return splitDataCards ? (
+                    <ProgramSelect noBorders={true} />
+                ) : null
             default:
                 return null
         }
@@ -59,12 +61,12 @@ export const InputPanel = ({ visible }) => {
             <div className={styles.section}>
                 <div className={styles.row}>
                     <div className={styles.dropdownWrapper}>
-                        <VisualizationTypeSelect 
-                            dataTest="visualization-type-select"
-                        />
+                        <VisualizationTypeSelect dataTest="visualization-type-select" />
                     </div>
                     <div className={styles.dropdownWrapper}>
-                        <InputTypeWithSubmenuSelect serverVersion={serverVersion} />
+                        <InputTypeWithSubmenuSelect
+                            serverVersion={serverVersion}
+                        />
                     </div>
                 </div>
             </div>

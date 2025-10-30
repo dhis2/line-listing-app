@@ -15,7 +15,7 @@ import { sGetUiInput } from '../../../reducers/ui.js'
 const inputTypeOptions = [
     {
         value: OUTPUT_TYPE_EVENT,
-        label: i18n.t('Event'),
+        label: i18n.t('Events'),
         description: i18n.t(
             'See individual event data from a Tracker program stage or event program.'
         ),
@@ -49,9 +49,11 @@ const InputTypeSelect = ({ serverVersion }) => {
     // Filter options based on server version
     const availableOptions = inputTypeOptions.filter((option) => {
         if (option.value === OUTPUT_TYPE_TRACKED_ENTITY) {
-            return `${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.41.0'
+            return (
+                `${serverVersion.major}.${serverVersion.minor}.${
+                    serverVersion.patch || 0
+                }` >= '2.41.0'
+            )
         }
         return true
     })

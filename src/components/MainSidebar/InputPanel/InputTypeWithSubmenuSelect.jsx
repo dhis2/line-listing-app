@@ -28,11 +28,11 @@ import styles from './InputTypeWithSubmenuSelect.module.css'
 const inputTypeOptions = [
     {
         value: OUTPUT_TYPE_EVENT,
-        label: i18n.t('Event'),
+        label: i18n.t('Events'),
     },
     {
         value: OUTPUT_TYPE_ENROLLMENT,
-        label: i18n.t('Enrollment'),
+        label: i18n.t('Enrollments'),
     },
     {
         value: OUTPUT_TYPE_TRACKED_ENTITY,

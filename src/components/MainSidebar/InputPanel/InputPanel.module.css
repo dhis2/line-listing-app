@@ -35,6 +35,11 @@
     font-weight: 500;
 }
 
+/* Override trigger padding */
+.dropdownWrapper :global(*[class*='trigger']) {
+    padding-inline-end: 4px !important;
+}
+
 .dropdownWrapper :global(*:focus) {
     border: none !important;
     box-shadow: none !important;
