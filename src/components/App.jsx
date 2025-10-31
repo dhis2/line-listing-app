@@ -86,6 +86,19 @@ import { Visualization } from './Visualization/Visualization.jsx'
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
 
+// Custom hook for viewport width
+const useViewportWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    return width
+}
+
 const dataStatisticsMutation = {
     resource: 'dataStatistics',
     params: ({ id }) => ({
@@ -121,6 +134,7 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const viewportWidth = useViewportWidth()
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
@@ -489,6 +503,11 @@ const App = () => {
                     >
                         <div className={classes.mainCenterLayout}>
                             <Toolbar onFileMenuAction={onFileMenuAction} />
+                            {viewportWidth < 1200 && current && (
+                                <div className={classes.standaloneTitleBar}>
+                                    <TitleBar />
+                                </div>
+                            )}
                             <Layout />
                         </div>
                         <div className={cx(classes.mainCenterCanvas)}>

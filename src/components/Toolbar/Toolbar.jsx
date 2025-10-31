@@ -1,6 +1,6 @@
 import { Toolbar as AnalyticsToolbar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     Button,
@@ -19,11 +19,25 @@ import { UpdateButton } from './UpdateButton.jsx'
 import TitleBar from '../TitleBar/TitleBar.jsx'
 import styles from './Toolbar.module.css'
 
+// Custom hook for viewport width
+const useViewportWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    return width
+}
+
 export const Toolbar = ({ onFileMenuAction }) => {
     const [sharingDialogOpen, setSharingDialogOpen] = useState(false)
     const current = useSelector(sGetCurrent)
     const dispatch = useDispatch()
     const isExpanded = useSelector(sGetUiShowExpandedVisualizationCanvas)
+    const viewportWidth = useViewportWidth()
 
     const handleShareClick = () => {
         setSharingDialogOpen(true)
@@ -38,12 +52,15 @@ export const Toolbar = ({ onFileMenuAction }) => {
         dispatch(acToggleUiExpandedVisualizationCanvas())
     }
 
+    // Show TitleBar in toolbar only if viewport >= 1200px
+    const showTitleBarInToolbar = viewportWidth >= 1200
+
     return (
         <>
             <AnalyticsToolbar>
                 <UpdateButton />
                 <MenuBar onFileMenuAction={onFileMenuAction} />
-                <TitleBar />
+                {showTitleBarInToolbar && <TitleBar />}
                 <div className={styles.toolbarActions}>
                     <Button
                         dense

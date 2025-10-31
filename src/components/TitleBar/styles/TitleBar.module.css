@@ -24,13 +24,14 @@
     display: flex;
     /* align-items: center; */
     background-color: var(--colors-white);
-    padding: 4px 6px;
+    padding: 4px;
     border-radius: 5px;
     margin: 4px;
 }
 
 .title {
     font-size: 13px;
+    line-height: 1.2;
     color: var(--colors-grey800);
     font-weight: 500;
 }

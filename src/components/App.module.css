@@ -78,6 +78,17 @@
     margin-top: 1px;
 }
 
+.standaloneTitleBar {
+    background-color: white;
+    border-bottom: 1px solid var(--colors-grey400);
+}
+
+/* Override TitleBar styles when standalone */
+.standaloneTitleBar :global([data-test='titlebar']) {
+    margin: 0;
+    border-left: none;
+}
+
 .mainCenterCanvas {
     display: flex;
     gap: var(--spacers-dp4);
