@@ -18,7 +18,7 @@ const ACTIONS_RESET = 'RESET'
 const ACTIONS_INIT = 'INIT'
 const ACTIONS_SUCCESS = 'SUCCESS'
 const ACTIONS_ERROR = 'ERROR'
-const ACTIONS_SET_LIST_END_VISIBLE = 'SET_LIST_END_VISIBLE'
+const ACTIONS_NO_PARAMS = 'NO_PARAMS'
 
 const initialState = {
     loading: true,
@@ -27,7 +27,6 @@ const initialState = {
     dimensions: [],
     nextPage: 1,
     isLastPage: false,
-    isListEndVisible: false,
 }
 
 const reducer = (state, action) => {
@@ -57,10 +56,15 @@ const reducer = (state, action) => {
                 error: action.payload,
                 dimensions: [],
             }
-        case ACTIONS_SET_LIST_END_VISIBLE:
+        case ACTIONS_NO_PARAMS:
             return {
                 ...state,
-                isListEndVisible: action.payload,
+                loading: false,
+                fetching: false,
+                error: null,
+                dimensions: [],
+                nextPage: 1,
+                isLastPage: true,
             }
         default:
             throw new Error(
@@ -86,7 +90,7 @@ const createDimensionsQuery = ({
     nameProp,
 }) => {
     const params = {
-        pageSize: 50,
+        pageSize: 25,
         page,
         fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
@@ -172,6 +176,7 @@ const transformResponseData = ({
         [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
     ) {
         data.dimensions.dimensions.forEach((dimension) => {
+            if (!dimension || !dimension.id) return
             const { dimensionId } = extractDimensionIdParts(dimension.id)
             if (
                 dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
@@ -197,19 +202,21 @@ const transformResponseData = ({
         : [...dimensions, ...data.dimensions.dimensions]
 
     const allDimensionsWithStageLabel = newDuplicateFound
-        ? allDimensions.map((dimension) => {
-              const { dimensionId, programStageId } = extractDimensionIdParts(
-                  dimension.id
-              )
-              if (
-                  dimensionId &&
-                  deDimensionsMapRef.current.get(dimensionId) > 1
-              ) {
-                  dimension.stageName = programStageNames?.get(programStageId)
-              }
-              return dimension
-          })
-        : allDimensions
+        ? allDimensions
+              .filter((dimension) => dimension && dimension.id)
+              .map((dimension) => {
+                  const { dimensionId, programStageId } =
+                      extractDimensionIdParts(dimension.id)
+                  if (
+                      dimensionId &&
+                      deDimensionsMapRef.current.get(dimensionId) > 1
+                  ) {
+                      dimension.stageName =
+                          programStageNames?.get(programStageId)
+                  }
+                  return dimension
+              })
+        : allDimensions.filter((dimension) => dimension && dimension.id)
 
     return {
         dimensions: allDimensionsWithStageLabel,
@@ -230,23 +237,17 @@ const useProgramDataDimensions = ({
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
-        {
-            loading,
-            fetching,
-            error,
-            dimensions,
-            nextPage,
-            isLastPage,
-            isListEndVisible,
-        },
+        { loading, fetching, error, dimensions, nextPage, isLastPage },
         dispatch,
     ] = useReducer(reducer, initialState)
 
-    const programId = useMemo(() => program.id, [program])
+    const programId = useMemo(() => program?.id, [program])
     const programStageNames = useMemo(
         () =>
-            program.programStages?.reduce((acc, stage) => {
-                acc.set(stage.id, stage.name)
+            program?.programStages?.reduce((acc, stage) => {
+                if (stage && stage.id) {
+                    acc.set(stage.id, stage.name)
+                }
                 return acc
             }, new Map()),
         [program]
@@ -255,20 +256,46 @@ const useProgramDataDimensions = ({
     const nameProp =
         currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
-    const setIsListEndVisible = useCallback(
-        (isVisible) => {
-            if (isVisible !== isListEndVisible) {
-                dispatch({
-                    type: ACTIONS_SET_LIST_END_VISIBLE,
-                    payload: isVisible,
-                })
-            }
-        },
-        [isListEndVisible]
-    )
-
     const fetchDimensions = useCallback(
         async (shouldReset) => {
+            // Check if we have the required parameters for the API call
+            const hasRequiredParams = (() => {
+                if (inputType === OUTPUT_TYPE_EVENT) {
+                    const result = !!(program?.id && stageId)
+                    console.log('Hook validation - EVENT:', {
+                        programId: program?.id,
+                        stageId,
+                        result,
+                        program: !!program,
+                    })
+                    return result
+                } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+                    return !!program?.id
+                } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                    return !!trackedEntityTypeId
+                }
+                return false
+            })()
+
+            console.log(
+                'hasRequiredParams:',
+                hasRequiredParams,
+                'inputType:',
+                inputType
+            )
+
+            if (!hasRequiredParams) {
+                console.log('NO PARAMS - dispatching ACTIONS_NO_PARAMS')
+                // Don't make API call, set to empty state without loading
+                if (shouldReset) {
+                    deDimensionsMapRef.current.clear()
+                }
+                dispatch({ type: ACTIONS_NO_PARAMS })
+                return
+            }
+
+            console.log('HAS PARAMS - proceeding with API call')
+
             if (shouldReset) {
                 deDimensionsMapRef.current.clear()
                 dispatch({ type: ACTIONS_RESET })
@@ -278,29 +305,32 @@ const useProgramDataDimensions = ({
 
             try {
                 const page = shouldReset ? 1 : nextPage
+                const query = createDimensionsQuery({
+                    inputType,
+                    page,
+                    trackedEntityTypeId,
+                    programId,
+                    stageId,
+                    searchTerm,
+                    dimensionType,
+                    nameProp,
+                })
                 const data = await engine.query({
-                    dimensions: createDimensionsQuery({
-                        inputType,
-                        page,
-                        trackedEntityTypeId,
-                        programId,
-                        stageId,
-                        searchTerm,
-                        dimensionType,
-                        nameProp,
-                    }),
+                    dimensions: query,
+                })
+
+                const transformedData = transformResponseData({
+                    data,
+                    dimensions,
+                    deDimensionsMapRef,
+                    programStageNames,
+                    shouldReset,
+                    inputType,
                 })
 
                 dispatch({
                     type: ACTIONS_SUCCESS,
-                    payload: transformResponseData({
-                        data,
-                        dimensions,
-                        deDimensionsMapRef,
-                        programStageNames,
-                        shouldReset,
-                        inputType,
-                    }),
+                    payload: transformedData,
                 })
             } catch (error) {
                 dispatch({ type: ACTIONS_ERROR, payload: error })
@@ -313,7 +343,7 @@ const useProgramDataDimensions = ({
             inputType,
             nextPage,
             trackedEntityTypeId,
-            programId,
+            program,
             stageId,
             searchTerm,
             dimensionType,
@@ -326,25 +356,26 @@ const useProgramDataDimensions = ({
     }, [
         inputType,
         trackedEntityTypeId,
-        programId,
+        program,
         stageId,
         searchTerm,
         dimensionType,
         nameProp,
     ])
 
-    useEffect(() => {
-        if (isListEndVisible && !isLastPage && !fetching) {
+    const loadMore = useCallback(() => {
+        if (!isLastPage && !fetching) {
             fetchDimensions(false)
         }
-    }, [isListEndVisible, isLastPage])
+    }, [isLastPage, fetching, fetchDimensions])
 
     return {
         loading,
         fetching,
         error,
         dimensions,
-        setIsListEndVisible,
+        hasMore: !isLastPage,
+        loadMore,
     }
 }
 

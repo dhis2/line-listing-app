@@ -6,8 +6,10 @@
 
 .container {
     display: flex;
+    margin: 4px;
+    border-radius: 5px;
     flex-direction: column;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+    /* box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.03); */
 }
 
 .container.hidden {
@@ -18,7 +20,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1;
-    min-height: 78px;
+    /* min-height: 78px; */
     max-height: 20vh;
     display: flex;
     flex-direction: column;
@@ -41,6 +43,7 @@
     border: none;
     border-top: 1px solid var(--colors-grey300);
     border-bottom: 1px solid var(--colors-grey400);
+    border-radius: 0 0 5px 5px;
 }
 .button:hover {
     background-color: var(--colors-grey100);

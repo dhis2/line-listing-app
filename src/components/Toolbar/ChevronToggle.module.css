@@ -1,0 +1,34 @@
+.chevronToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--colors-grey700);
+    fill: var(--colors-grey700);
+    /* transition: all 0.2s ease; */
+    border-left: 1px solid var(--colors-grey300);
+}
+
+.chevronToggle:hover:not(:disabled) {
+    color: var(--colors-grey900);
+    background-color: var(--colors-grey100);
+}
+
+.chevronToggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.chevron {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}
