@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { DimensionItem } from '../DimensionItem/index.js'
 import { useSelectedDimensions } from '../SelectedDimensionsContext.jsx'
+import { useMultiSelection } from '../MultiSelectionContext.jsx'
 import styles from './DimensionsList.module.css'
 
 const getNoResultsMessage = ({
@@ -40,6 +41,12 @@ const DimensionsList = ({
     trackedEntityType,
 }) => {
     const { getIsDimensionSelected } = useSelectedDimensions()
+    const { clearSelection } = useMultiSelection()
+
+    // Clear multi-selection when search term or dimensions change
+    React.useEffect(() => {
+        clearSelection()
+    }, [searchTerm, dimensions, clearSelection])
 
     if (loading) {
         return (

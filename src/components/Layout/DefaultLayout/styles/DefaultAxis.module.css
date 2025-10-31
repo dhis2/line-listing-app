@@ -15,6 +15,7 @@
 
 .axisContainer {
     display: flex;
+    flex-direction: column;
     background-color: var(--colors-white);
     border-radius: 5px;
     padding: 4px 4px 4px 6px;
@@ -25,11 +26,52 @@
 }
 
 .label {
-    min-width: 55px;
-    max-width: 55px;
-    padding: 2px 0 0 0;
-    font-size: 11px;
-    color: var(--colors-grey700);
+    width: 100%;
+    padding: 3px 0 3px 0;
+    font-size: 12px;
+    color: var(--colors-grey800);
     user-select: none;
-    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.labelActions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.axisContainer:hover .labelActions {
+    opacity: 1;
+}
+
+.iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--colors-grey700);
+    transition: color 0.15s ease;
+}
+
+.iconButton:hover {
+    color: var(--colors-grey900);
+}
+
+.iconButton:active {
+    color: var(--colors-grey800);
+}
+
+.iconButton:focus {
+    outline: 2px solid var(--colors-grey500);
+    outline-offset: 2px;
 }

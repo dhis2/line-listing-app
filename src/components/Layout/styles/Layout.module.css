@@ -20,7 +20,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     flex: 1;
-    min-height: 78px;
+    /* min-height: 78px; */
     max-height: 20vh;
     display: flex;
     flex-direction: column;
