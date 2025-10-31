@@ -1,27 +1,31 @@
-import i18n from '@dhis2/d2-i18n'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useProgramDimensions } from '../../../reducers/ui.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { useSelectedDimensions } from '../SelectedDimensionsContext.jsx'
 
-export const ProgramDimensions = ({ searchTerm }) => {
+const ProgramDimensionsOnly = ({ searchTerm, onEmptyStateChange }) => {
     const programDimensions = useProgramDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
 
-    if (!programDimensions) {
-        return null
-    }
-
     // Filter dimensions based on search term
     const filteredDimensions = React.useMemo(() => {
+        if (!programDimensions) return []
         if (!searchTerm) return programDimensions
         return programDimensions.filter((dimension) =>
             dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     }, [programDimensions, searchTerm])
 
-    // Hide component if no results after filtering
-    if (filteredDimensions.length === 0) {
+    // Check if empty and notify parent
+    const isEmpty = !programDimensions || filteredDimensions.length === 0
+    React.useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
+
+    if (!programDimensions || filteredDimensions.length === 0) {
         return null
     }
 
@@ -38,7 +42,14 @@ export const ProgramDimensions = ({ searchTerm }) => {
             error={null}
             hasMore={false}
             onLoadMore={() => {}}
-            dataTest="program-dimensions-list"
+            dataTest="program-dimensions-only-list"
         />
     )
 }
+
+ProgramDimensionsOnly.propTypes = {
+    searchTerm: PropTypes.string,
+    onEmptyStateChange: PropTypes.func,
+}
+
+export { ProgramDimensionsOnly }

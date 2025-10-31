@@ -1,7 +1,8 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, SingleSelect } from '@dhis2/ui'
+import { NoticeBox, SingleSelect, IconDimensionEventDataItem16 } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -54,7 +55,7 @@ const query = {
     },
 }
 
-const ProgramSelect = ({ prefix }) => {
+const ProgramSelect = ({ prefix, noBorders = false }) => {
     const { currentUser } = useCachedDataQuery()
     const dispatch = useDispatch()
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
@@ -128,9 +129,12 @@ const ProgramSelect = ({ prefix }) => {
         <div className={styles.rows}>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
-                    <SingleSelect
+                    <div className={cx(styles.dropdownWrapper, {
+                        [styles.noBorders]: noBorders
+                    })}>
+                        <SingleSelect
                         dense
-                        selected={selectedProgram?.id || ''}
+                        selected={selectedProgram?.id || undefined}
                         onChange={({ selected }) =>
                             setSelectedProgramId(selected)
                         }
@@ -139,7 +143,7 @@ const ProgramSelect = ({ prefix }) => {
                         dataTest="program-dimensions-program-select"
                         filterable
                         noMatchText={i18n.t('No programs found')}
-                        prefix={selectedProgram?.id ? prefix : ''}
+                        prefix={selectedProgram?.id ? (prefix || <IconDimensionEventDataItem16 />) : undefined}
                         empty={i18n.t('No programs found')}
                         loading={fetching}
                     >
@@ -171,7 +175,8 @@ const ProgramSelect = ({ prefix }) => {
                                     }
                                 />
                             ))}
-                    </SingleSelect>
+                        </SingleSelect>
+                    </div>
                 </div>
             </div>
             {showStageSelect && (
@@ -183,6 +188,7 @@ const ProgramSelect = ({ prefix }) => {
 
 ProgramSelect.propTypes = {
     prefix: PropTypes.string,
+    noBorders: PropTypes.bool,
 }
 
 export { ProgramSelect }
