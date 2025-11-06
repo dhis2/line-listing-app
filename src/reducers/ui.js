@@ -39,6 +39,7 @@ import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../modules/visualization.js'
+import { getInvalidDimensions } from '../modules/layoutValidation.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
@@ -736,3 +737,11 @@ export const useProgramDimensions = () => {
         registrationDateDim,
     ])
 }
+
+// Selector for invalid dimensions based on validation rules
+export const sGetInvalidDimensionIds = createSelector(
+    [sGetUiLayout, sGetUiOutputType, sGetMetadata],
+    (layout, outputType, metadata) => {
+        return getInvalidDimensions(layout, outputType, metadata)
+    }
+)

@@ -30,14 +30,7 @@ export const getDimensionsWithSuffix = ({
         return dimension
     })
 
-    if (
-        ![OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
-            inputType
-        )
-    ) {
-        return dimensions
-    }
-
+    // Apply suffix logic for all output types
     return dimensions.map((dimension) => {
         if (
             [DIMENSION_TYPE_DATA_ELEMENT, DIMENSION_TYPE_PERIOD].includes(
@@ -71,6 +64,9 @@ export const getDimensionsWithSuffix = ({
                 } else {
                     dimension.suffix = metadata[dimension.programId]?.name
                 }
+            } else if (dimension.programStageId) {
+                // Always show stage suffix for stage-specific dimensions even without duplicates
+                dimension.suffix = metadata[dimension.programStageId]?.name
             }
         } else if (
             // always suffix ou and statuses for TE
