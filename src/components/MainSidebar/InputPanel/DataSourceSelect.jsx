@@ -143,15 +143,25 @@ export const DataSourceSelect = ({ noBorders = false }) => {
                 programs.map(({ id, name }) => (
                     <SingleSelectOption
                         key={`program-${id}`}
-                        label={`${name} (Program)`}
+                        label={name}
                         value={`program-${id}`}
                     />
                 ))}
             {!fetching &&
+                programs.length > 0 &&
+                trackedEntityTypes.length > 0 && (
+                    <SingleSelectOption
+                        key="divider"
+                        label="──────────"
+                        value="divider"
+                        disabled
+                    />
+                )}
+            {!fetching &&
                 trackedEntityTypes.map(({ id, name }) => (
                     <SingleSelectOption
                         key={`tet-${id}`}
-                        label={`${name} (Tracked Entity)`}
+                        label={name}
                         value={`tet-${id}`}
                     />
                 ))}
