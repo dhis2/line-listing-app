@@ -14,8 +14,14 @@ import {
     noProgramError,
 } from './error.js'
 import {
+    DIMENSION_ID_EVENT_STATUS,
+    DIMENSION_ID_SCHEDULED_DATE,
+    DIMENSION_ID_EVENT_DATE,
+} from './dimensionConstants.js'
+import {
     OUTPUT_TYPE_TRACKED_ENTITY,
     OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
 } from './visualization.js'
 import { extractDimensionIdParts } from './dimensionId.js'
 
@@ -182,10 +188,56 @@ const validateMultipleStagesInEventOutput = (layout, outputType, metadata) => {
 }
 
 /**
+ * Validation rule: When output is ENROLLMENT, Event Status, Scheduled date, and Event date are not valid.
+ */
+const validateInvalidDimensionsInEnrollmentOutput = (
+    layout,
+    outputType,
+    metadata
+) => {
+    const invalidDimensionIds = new Set()
+
+    // Only apply this rule when output type is ENROLLMENT
+    if (outputType !== OUTPUT_TYPE_ENROLLMENT) {
+        return invalidDimensionIds
+    }
+
+    // Dimensions that are not valid for ENROLLMENT output
+    const invalidDimensionsForEnrollment = [
+        DIMENSION_ID_EVENT_STATUS,
+        DIMENSION_ID_SCHEDULED_DATE,
+        DIMENSION_ID_EVENT_DATE,
+    ]
+
+    // Get all dimensions from layout (columns and filters)
+    const allDimensionIds = [
+        ...(layout.columns || []),
+        ...(layout.filters || []),
+    ]
+
+    // Mark invalid dimensions
+    for (const dimensionId of allDimensionIds) {
+        const { dimensionId: baseDimensionId } = extractDimensionIdParts(
+            dimensionId,
+            outputType
+        )
+
+        if (invalidDimensionsForEnrollment.includes(baseDimensionId)) {
+            invalidDimensionIds.add(dimensionId)
+        }
+    }
+
+    return invalidDimensionIds
+}
+
+/**
  * Registry of validation rules
  * Each rule is a function that takes (layout, outputType, metadata) and returns Set of invalid dimension IDs
  */
-const validationRules = [validateMultipleStagesInEventOutput]
+const validationRules = [
+    validateMultipleStagesInEventOutput,
+    validateInvalidDimensionsInEnrollmentOutput,
+]
 
 /**
  * Get all invalid dimension IDs based on current layout, output type, and metadata
