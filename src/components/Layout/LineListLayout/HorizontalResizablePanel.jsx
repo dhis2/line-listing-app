@@ -6,13 +6,44 @@ const HorizontalResizablePanel = ({
     leftPanel,
     rightPanel,
     defaultWidth,
+    defaultWidthPercent = 70,
     minWidth,
 }) => {
     const [leftWidth, setLeftWidth] = useState(defaultWidth)
     const [isDragging, setIsDragging] = useState(false)
+    const [isInitialized, setIsInitialized] = useState(false)
     const containerRef = useRef(null)
     const startXRef = useRef(null)
     const startWidthRef = useRef(null)
+
+    // Initialize width based on percentage if no fixed width is provided
+    useEffect(() => {
+        if (!isInitialized && containerRef.current && !defaultWidth) {
+            const containerWidth = containerRef.current.offsetWidth
+            const calculatedWidth = (containerWidth * defaultWidthPercent) / 100
+            setLeftWidth(Math.max(minWidth, calculatedWidth))
+            setIsInitialized(true)
+        } else if (!isInitialized && defaultWidth) {
+            setIsInitialized(true)
+        }
+    }, [defaultWidth, defaultWidthPercent, minWidth, isInitialized])
+
+    // Handle window resize to maintain percentage-based width
+    useEffect(() => {
+        if (!defaultWidth && isInitialized) {
+            const handleResize = () => {
+                if (containerRef.current) {
+                    const containerWidth = containerRef.current.offsetWidth
+                    const calculatedWidth =
+                        (containerWidth * defaultWidthPercent) / 100
+                    setLeftWidth(Math.max(minWidth, calculatedWidth))
+                }
+            }
+
+            window.addEventListener('resize', handleResize)
+            return () => window.removeEventListener('resize', handleResize)
+        }
+    }, [defaultWidth, defaultWidthPercent, minWidth, isInitialized])
 
     const handleMouseDown = useCallback(
         (e) => {
@@ -88,11 +119,12 @@ HorizontalResizablePanel.propTypes = {
     leftPanel: PropTypes.node.isRequired,
     rightPanel: PropTypes.node.isRequired,
     defaultWidth: PropTypes.number,
+    defaultWidthPercent: PropTypes.number,
     minWidth: PropTypes.number,
 }
 
 HorizontalResizablePanel.defaultProps = {
-    defaultWidth: 400,
+    defaultWidth: undefined,
     minWidth: 200,
 }
 

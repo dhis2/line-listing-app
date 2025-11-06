@@ -11,7 +11,7 @@ import lineListLayoutStyles from './styles/LineListLayout.module.css'
 const Layout = () => (
     <div id="layout-ct" className={defaultLayoutStyles.ct}>
         <HorizontalResizablePanel
-            defaultWidth={450}
+            defaultWidthPercent={70}
             minWidth={200}
             leftPanel={
                 <div

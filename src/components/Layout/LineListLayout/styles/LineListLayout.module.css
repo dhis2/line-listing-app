@@ -16,3 +16,32 @@
 .outputAxis > div[class*='content'] > div {
     width: 100%;
 }
+
+/* Custom styling for output select input */
+.outputAxis :global(*[data-test='dhis2-uicore-select-input']) {
+    border: 1px solid var(--colors-grey300) !important;
+    border-radius: 4px !important;
+    background-color: var(--colors-grey050) !important;
+    /* padding: 8px 12px !important; */
+}
+
+/* Hover state */
+.outputAxis :global(*[data-test='dhis2-uicore-select-input']:hover) {
+    border-color: var(--colors-grey400) !important;
+    background-color: var(--colors-grey100) !important;
+}
+
+/* Focus state */
+.outputAxis :global(*[data-test='dhis2-uicore-select-input']:focus) {
+    border-color: var(--colors-grey500) !important;
+    background-color: var(--colors-white) !important;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1) !important;
+}
+
+/* Disabled state */
+.outputAxis :global(*[data-test='dhis2-uicore-select-input']:disabled) {
+    border-color: var(--colors-grey300) !important;
+    background-color: var(--colors-grey100) !important;
+    opacity: 0.6;
+    cursor: not-allowed;
+}

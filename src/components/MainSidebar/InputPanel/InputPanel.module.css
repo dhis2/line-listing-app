@@ -12,7 +12,7 @@
     gap: var(--spacers-dp8);
 }
 
-.row {
+.row:first-of-type {
     display: flex;
     width: 100%;
     border-bottom: 1px solid var(--colors-grey300);
@@ -20,10 +20,6 @@
 
 .dropdownWrapper {
     flex: 1;
-}
-
-.dropdownWrapper:first-child {
-    border-right: 1px solid var(--colors-grey300);
 }
 
 /* Override dropdown styles to remove borders */
