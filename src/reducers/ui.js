@@ -49,6 +49,8 @@ export const CLEAR_UI_ENTITY_TYPE = 'CLEAR_UI_ENTITY_TYPE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const UPDATE_UI_ENTITY_TYPE_ID = 'UPDATE_UI_ENTITY_TYPE_ID'
+export const SET_UI_DATA_SOURCE = 'SET_UI_DATA_SOURCE'
+export const SET_UI_OUTPUT = 'SET_UI_OUTPUT'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
@@ -94,6 +96,14 @@ const EMPTY_UI = {
         stageId: undefined,
     },
     entityType: { id: undefined },
+    dataSource: {
+        type: undefined, // 'PROGRAM' or 'TRACKED_ENTITY_TYPE'
+        id: undefined,
+        programType: undefined, // For programs: WITH_REGISTRATION or WITHOUT_REGISTRATION
+    },
+    output: {
+        type: OUTPUT_TYPE_EVENT, // EVENT, ENROLLMENT, or TRACKED_ENTITY
+    },
     layout: {
         columns: [],
         filters: [],
@@ -117,6 +127,14 @@ export const DEFAULT_UI = {
     },
     program: {},
     entityType: {},
+    dataSource: {
+        type: undefined,
+        id: undefined,
+        programType: undefined,
+    },
+    output: {
+        type: OUTPUT_TYPE_EVENT,
+    },
     layout: {
         // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
         columns: [DIMENSION_ID_ORGUNIT],
@@ -239,6 +257,18 @@ export default (state = EMPTY_UI, action) => {
                     ...state.entityType,
                     id: action.value,
                 },
+            }
+        }
+        case SET_UI_DATA_SOURCE: {
+            return {
+                ...state,
+                dataSource: action.value,
+            }
+        }
+        case SET_UI_OUTPUT: {
+            return {
+                ...state,
+                output: action.value,
             }
         }
         case SET_UI_OPTIONS: {
@@ -469,6 +499,8 @@ export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiEntityType = (state) => sGetUi(state).entityType
+export const sGetUiDataSource = (state) => sGetUi(state).dataSource
+export const sGetUiOutput = (state) => sGetUi(state).output
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiOptions = (state) => sGetUi(state).options
@@ -507,6 +539,15 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state)?.id
+
+// Data source selectors
+export const sGetUiDataSourceType = (state) => sGetUiDataSource(state)?.type
+export const sGetUiDataSourceId = (state) => sGetUiDataSource(state)?.id
+export const sGetUiDataSourceProgramType = (state) =>
+    sGetUiDataSource(state)?.programType
+
+// Output selectors
+export const sGetUiOutputType = (state) => sGetUiOutput(state)?.type
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||
@@ -549,9 +590,22 @@ export const useMainDimensions = () => {
 
 export const useProgramDimensions = () => {
     const store = useStore()
-    const inputType = useSelector(sGetUiInputType)
+    const dataSourceType = useSelector(sGetUiDataSourceType)
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
+
+    // Derive inputType from data source to avoid re-rendering when output changes
+    // For programs, we always use EVENT to get all dimensions
+    // For tracked entity types, we use TRACKED_ENTITY
+    const inputType = useMemo(() => {
+        if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+            return OUTPUT_TYPE_TRACKED_ENTITY
+        } else if (dataSourceType === 'PROGRAM') {
+            // Always use EVENT for programs to show all dimensions
+            return OUTPUT_TYPE_EVENT
+        }
+        return OUTPUT_TYPE_EVENT
+    }, [dataSourceType])
 
     const getId = (dimensionId) =>
         formatDimensionId({
@@ -621,6 +675,7 @@ export const useProgramDimensions = () => {
             }
         } else {
             // Include program dimensions when program is selected or for other input types
+            // For programs, show ALL status dimensions regardless of output type
             const programDimensions = Object.values(
                 getProgramDimensions(
                     inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId

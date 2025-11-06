@@ -5,7 +5,7 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
@@ -17,7 +17,7 @@ import {
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetUiEntityTypeId,
-    sGetUiInputType,
+    sGetUiDataSourceType,
     sGetUiProgramId,
     sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
@@ -33,7 +33,20 @@ const ProgramDimensionsPanel = ({
     visible,
     searchTerm: externalSearchTerm,
 }) => {
-    const inputType = useSelector(sGetUiInputType)
+    // Use data source type to determine what dimensions to show
+    const dataSourceType = useSelector(sGetUiDataSourceType)
+
+    // Derive the inputType from data source for API compatibility
+    const inputType = useMemo(() => {
+        if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+            return OUTPUT_TYPE_TRACKED_ENTITY
+        } else if (dataSourceType === 'PROGRAM') {
+            // For programs, default to EVENT for fetching all dimensions
+            return OUTPUT_TYPE_EVENT
+        }
+        return OUTPUT_TYPE_EVENT
+    }, [dataSourceType])
+
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedTrackedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const selectedProgram = useSelector((state) =>
@@ -102,7 +115,7 @@ const ProgramDimensionsPanel = ({
     useEffect(() => {
         setDimensionType(DIMENSION_TYPE_ALL)
         setStageFilter()
-    }, [inputType, selectedProgramId, selectedStageId])
+    }, [dataSourceType, selectedProgramId, selectedStageId])
 
     if (!visible) {
         return null

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-30T10:15:03.229Z\n"
-"PO-Revision-Date: 2025-10-30T10:15:03.230Z\n"
+"POT-Creation-Date: 2025-11-06T16:26:13.050Z\n"
+"PO-Revision-Date: 2025-11-06T16:26:13.051Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -172,6 +172,21 @@ msgstr "Download"
 msgid "all"
 msgstr "all"
 
+msgid "Tracked entities"
+msgstr "Tracked entities"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Enrollments"
+msgstr "Enrollments"
+
+msgid "Output"
+msgstr "Output"
+
+msgid "Select output type"
+msgstr "Select output type"
+
 msgid "Levels"
 msgstr "Levels"
 
@@ -220,17 +235,20 @@ msgstr "Loading more..."
 msgid "Load more"
 msgstr "Load more"
 
-msgid "Event"
-msgstr "Event"
+msgid "Choose a data source"
+msgstr "Choose a data source"
 
-msgid "Enrollment"
-msgstr "Enrollment"
+msgid "No data sources found"
+msgstr "No data sources found"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
 
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
+
+msgid "Enrollment"
+msgstr "Enrollment"
 
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
@@ -247,12 +265,6 @@ msgstr "No input types found"
 msgid "Search input types"
 msgstr "Search input types"
 
-msgid "Events"
-msgstr "Events"
-
-msgid "Enrollments"
-msgstr "Enrollments"
-
 msgid "Error loading types"
 msgstr "Error loading types"
 
@@ -262,29 +274,17 @@ msgstr "Line List"
 msgid "Pivot Table"
 msgstr "Pivot Table"
 
-msgid "Choose a program to see event data"
-msgstr "Choose a program to see event data"
-
-msgid "Choose a program to see enrollment data"
-msgstr "Choose a program to see enrollment data"
+msgid "Choose a data source to see available dimensions"
+msgstr "Choose a data source to see available dimensions"
 
 msgid "Org. units, periods, and statuses"
 msgstr "Org. units, periods, and statuses"
-
-msgid "Choose a tracked entity type to show org. units, periods, and statuses"
-msgstr "Choose a tracked entity type to show org. units, periods, and statuses"
-
-msgid "Choose a program to show org. units, periods, and statuses"
-msgstr "Choose a program to show org. units, periods, and statuses"
 
 msgid "Program data"
 msgstr "Program data"
 
 msgid "Data"
 msgstr "Data"
-
-msgid "Choose a program to show available data"
-msgstr "Choose a program to show available data"
 
 msgid "data"
 msgstr "data"
@@ -398,6 +398,9 @@ msgstr "Search all dimensions"
 
 msgid "Collapse all cards"
 msgstr "Collapse all cards"
+
+msgid "Expand all cards"
+msgstr "Expand all cards"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"

@@ -83,6 +83,8 @@ import {
     CLEAR_UI_ENTITY_TYPE,
     SET_UI_ACCESSORY_PANEL_WIDTH,
     SET_UI_MAIN_SIDEBAR_WIDTH,
+    SET_UI_DATA_SOURCE,
+    SET_UI_OUTPUT,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -403,3 +405,72 @@ export const acRemoveUiRepetition = (value) => ({
 export const acClearUiRepetition = () => ({
     type: CLEAR_UI_REPETITION,
 })
+
+// Data Source Actions
+export const acSetUiDataSource = (value, metadata) => ({
+    type: SET_UI_DATA_SOURCE,
+    value,
+    metadata,
+})
+
+export const tSetDataSource =
+    ({ type, id, programType, stage, metadata: additionalMetadata }) =>
+    (dispatch, getState) => {
+        const state = getState()
+
+        // Clear program-related dimensions when data source changes
+        dispatch(tClearUiProgramRelatedDimensions())
+
+        // Set the new data source
+        dispatch(
+            acSetUiDataSource(
+                { type, id, programType },
+                additionalMetadata || {}
+            )
+        )
+
+        // Sync with old state for backward compatibility
+        if (type === 'TRACKED_ENTITY_TYPE') {
+            // For tracked entity type, set entity type and clear program
+            dispatch(acClearUiProgram())
+            dispatch(acUpdateUiEntityTypeId(id, additionalMetadata || {}))
+            // Set input type to tracked entity
+            dispatch(acSetUiInput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+            // Auto-select tracked entity output
+            dispatch(acSetUiOutput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+        } else if (type === 'PROGRAM') {
+            // For program, set program and clear entity type
+            dispatch(acClearUiEntityType())
+            dispatch(acUpdateUiProgramId(id, additionalMetadata || {}))
+            // Stage is now optional - only set if explicitly provided
+            // (stage selection is no longer required to view dimensions)
+            if (stage) {
+                dispatch(
+                    acUpdateUiProgramStageId(stage.id, additionalMetadata || {})
+                )
+            } else {
+                // Clear any previously selected stage
+                dispatch(acClearUiStageId())
+            }
+            // Set input type to Event by default
+            dispatch(acSetUiInput({ type: OUTPUT_TYPE_EVENT }))
+            // Auto-select Event output by default
+            dispatch(acSetUiOutput({ type: OUTPUT_TYPE_EVENT }))
+        }
+    }
+
+// Output Actions
+export const acSetUiOutput = (value) => ({
+    type: SET_UI_OUTPUT,
+    value,
+})
+
+export const tSetUiOutput = (outputType) => (dispatch) => {
+    // Set the new output type
+    dispatch(acSetUiOutput({ type: outputType }))
+
+    // Sync with old inputType for backward compatibility
+    // Note: Dimension components should derive their inputType from dataSource
+    // instead of reading this directly to avoid unnecessary re-fetches
+    dispatch(acSetUiInput({ type: outputType }))
+}

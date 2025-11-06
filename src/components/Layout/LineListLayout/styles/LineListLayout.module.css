@@ -7,3 +7,12 @@
     height: 100%;
     border: none;
 }
+.outputAxis {
+    border-top: 1px solid var(--colors-grey300);
+}
+.outputAxis > div[class*='content'] {
+    width: 100%;
+}
+.outputAxis > div[class*='content'] > div {
+    width: 100%;
+}

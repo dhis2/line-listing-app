@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import {
@@ -6,7 +6,8 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
 } from '@dhis2/analytics'
 import {
-    sGetUiInputType,
+    sGetUiDataSourceType,
+    sGetUiDataSourceId,
     sGetUiProgramId,
     sGetUiEntityTypeId,
     sGetUiProgramStageId,
@@ -24,7 +25,21 @@ import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 import styles from './ProgramDimensionsPanel.module.css'
 
 const ProgramDataOnly = ({ searchTerm }) => {
-    const inputType = useSelector(sGetUiInputType)
+    // Use data source type to determine what dimensions to show
+    const dataSourceType = useSelector(sGetUiDataSourceType)
+    const dataSourceId = useSelector(sGetUiDataSourceId)
+
+    // Derive the inputType from data source for API compatibility
+    const inputType = useMemo(() => {
+        if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+            return OUTPUT_TYPE_TRACKED_ENTITY
+        } else if (dataSourceType === 'PROGRAM') {
+            // For programs, default to EVENT for fetching all dimensions
+            return OUTPUT_TYPE_EVENT
+        }
+        return OUTPUT_TYPE_EVENT
+    }, [dataSourceType])
+
     const programId = useSelector(sGetUiProgramId)
     const entityTypeId = useSelector(sGetUiEntityTypeId)
     const selectedProgram = useSelector((state) =>
@@ -37,10 +52,12 @@ const ProgramDataOnly = ({ searchTerm }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
 
     // Check if program selection is complete based on input type
+    // Note: Stage is no longer required - we show all dimensions from all stages
     const isProgramSelectionComplete = () => {
-        if (inputType === OUTPUT_TYPE_EVENT) {
-            return !!(selectedProgram && selectedStageId)
-        } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        if (
+            inputType === OUTPUT_TYPE_EVENT ||
+            inputType === OUTPUT_TYPE_ENROLLMENT
+        ) {
             return !!selectedProgram
         } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
             return !!entityTypeId
@@ -48,7 +65,7 @@ const ProgramDataOnly = ({ searchTerm }) => {
         return false
     }
 
-    // Call the hook - it now has internal guards to prevent API calls when params are missing
+    // Call the hook - stage is now optional and only used for filtering
     const {
         dimensions: programDataDimensions,
         loading,
@@ -61,10 +78,8 @@ const ProgramDataOnly = ({ searchTerm }) => {
         trackedEntityTypeId: entityTypeId,
         program: selectedProgram,
         stageId:
-            inputType === OUTPUT_TYPE_EVENT
-                ? selectedStageId
-                : inputType === OUTPUT_TYPE_ENROLLMENT &&
-                  dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+            // Only filter by stage when explicitly set via stage filter
+            dimensionType === DIMENSION_TYPE_DATA_ELEMENT
                 ? stageFilter
                 : undefined,
         searchTerm: debouncedSearchTerm,
