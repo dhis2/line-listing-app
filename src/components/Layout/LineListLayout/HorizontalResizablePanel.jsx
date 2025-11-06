@@ -15,18 +15,54 @@ const HorizontalResizablePanel = ({
     const containerRef = useRef(null)
     const startXRef = useRef(null)
     const startWidthRef = useRef(null)
+    const previousContainerWidthRef = useRef(0)
 
     // Initialize width based on percentage if no fixed width is provided
     useEffect(() => {
-        if (!isInitialized && containerRef.current && !defaultWidth) {
+        if (!defaultWidth && containerRef.current) {
             const containerWidth = containerRef.current.offsetWidth
-            const calculatedWidth = (containerWidth * defaultWidthPercent) / 100
-            setLeftWidth(Math.max(minWidth, calculatedWidth))
-            setIsInitialized(true)
-        } else if (!isInitialized && defaultWidth) {
+            // Only initialize if container has a width (is visible)
+            if (containerWidth > 0) {
+                const calculatedWidth =
+                    (containerWidth * defaultWidthPercent) / 100
+                setLeftWidth(Math.max(minWidth, calculatedWidth))
+                setIsInitialized(true)
+            }
+        } else if (defaultWidth && !isInitialized) {
             setIsInitialized(true)
         }
     }, [defaultWidth, defaultWidthPercent, minWidth, isInitialized])
+
+    // Use ResizeObserver to detect when container becomes visible
+    useEffect(() => {
+        if (!defaultWidth && containerRef.current) {
+            const resizeObserver = new ResizeObserver((entries) => {
+                for (const entry of entries) {
+                    const containerWidth = entry.contentRect.width
+                    const previousWidth = previousContainerWidthRef.current
+
+                    // If container just became visible (went from 0 or very small to a proper width)
+                    if (
+                        containerWidth > 0 &&
+                        previousWidth === 0 &&
+                        containerWidth > minWidth
+                    ) {
+                        const calculatedWidth =
+                            (containerWidth * defaultWidthPercent) / 100
+                        setLeftWidth(Math.max(minWidth, calculatedWidth))
+                    }
+
+                    previousContainerWidthRef.current = containerWidth
+                }
+            })
+
+            resizeObserver.observe(containerRef.current)
+
+            return () => {
+                resizeObserver.disconnect()
+            }
+        }
+    }, [defaultWidth, defaultWidthPercent, minWidth])
 
     // Handle window resize to maintain percentage-based width
     useEffect(() => {

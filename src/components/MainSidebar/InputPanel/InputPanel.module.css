@@ -9,7 +9,7 @@
 .section {
     display: flex;
     flex-direction: column;
-    gap: var(--spacers-dp8);
+    /* gap: var(--spacers-dp8); */
 }
 
 .row:first-of-type {
