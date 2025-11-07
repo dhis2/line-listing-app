@@ -418,8 +418,8 @@ export const tSetDataSource =
     (dispatch, getState) => {
         const state = getState()
 
-        // Clear program-related dimensions when data source changes
-        dispatch(tClearUiProgramRelatedDimensions())
+        // Note: No longer clearing layout when switching data sources
+        // This allows users to add dimensions from multiple data sources
 
         // Set the new data source
         dispatch(
@@ -431,16 +431,15 @@ export const tSetDataSource =
 
         // Sync with old state for backward compatibility
         if (type === 'TRACKED_ENTITY_TYPE') {
-            // For tracked entity type, set entity type and clear program
-            dispatch(acClearUiProgram())
+            // For tracked entity type, set entity type (but don't clear program to allow mixed sources)
             dispatch(acUpdateUiEntityTypeId(id, additionalMetadata || {}))
             // Set input type to tracked entity
             dispatch(acSetUiInput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
-            // Auto-select tracked entity output
+            // Tracked entity data source only supports TRACKED_ENTITY output
+            // Always set it to ensure consistency
             dispatch(acSetUiOutput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
         } else if (type === 'PROGRAM') {
-            // For program, set program and clear entity type
-            dispatch(acClearUiEntityType())
+            // For program, set program (but don't clear entity type to allow mixed sources)
             dispatch(acUpdateUiProgramId(id, additionalMetadata || {}))
             // Stage is now optional - only set if explicitly provided
             // (stage selection is no longer required to view dimensions)
@@ -452,10 +451,28 @@ export const tSetDataSource =
                 // Clear any previously selected stage
                 dispatch(acClearUiStageId())
             }
-            // Set input type to Event by default
+            // Set input type to Event by default for backward compatibility
             dispatch(acSetUiInput({ type: OUTPUT_TYPE_EVENT }))
-            // Auto-select Event output by default
-            dispatch(acSetUiOutput({ type: OUTPUT_TYPE_EVENT }))
+            // For programs, preserve the output type if it's valid for this program type
+            // Otherwise default to EVENT
+            const state = getState()
+            const currentOutput = state.ui.output?.type
+
+            // Determine valid outputs for this program type
+            const validOutputs =
+                programType === PROGRAM_TYPE_WITH_REGISTRATION
+                    ? [
+                          OUTPUT_TYPE_EVENT,
+                          OUTPUT_TYPE_ENROLLMENT,
+                          OUTPUT_TYPE_TRACKED_ENTITY,
+                      ]
+                    : [OUTPUT_TYPE_EVENT]
+
+            // If current output is not valid for this program, reset to EVENT
+            if (!currentOutput || !validOutputs.includes(currentOutput)) {
+                dispatch(acSetUiOutput({ type: OUTPUT_TYPE_EVENT }))
+            }
+            // Otherwise keep the current output type
         }
     }
 

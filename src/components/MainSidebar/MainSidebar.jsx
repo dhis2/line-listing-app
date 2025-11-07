@@ -324,7 +324,9 @@ const MainSidebar = () => {
                                 )
                             })}
                         </>
-                    ) : splitDataCards && hasDataSource ? (
+                    ) : splitDataCards &&
+                      hasDataSource &&
+                      dataSourceType !== 'TRACKED_ENTITY_TYPE' ? (
                         <>
                             {/* Legacy: Program Dimensions Card (split mode) */}
                             <CardSection
@@ -383,7 +385,8 @@ const MainSidebar = () => {
                                 />
                             </CardSection>
                         </>
-                    ) : hasDataSource ? (
+                    ) : hasDataSource &&
+                      dataSourceType !== 'TRACKED_ENTITY_TYPE' ? (
                         /* Legacy: Combined Program Dimensions Card (original behavior) */
                         <CardSection
                             label={
@@ -415,29 +418,33 @@ const MainSidebar = () => {
                         </CardSection>
                     ) : null}
 
-                    {/* TrackedEntityDimensions Card - shown for tracked entity type data sources */}
-                    {entityType?.name && hasDataSource && (
-                        <CardSection
-                            label={`${entityType.name} ${i18n.t('data')}`}
-                            onClick={() =>
-                                onCardClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
-                            }
-                            expanded={expandedCards.includes(
-                                ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                            )}
-                            count={counts.trackedEntity}
-                            dataTest="tracked-entity-dimensions-card"
-                            isEmpty={trackedEntityDimensionsEmpty}
-                        >
-                            <TrackedEntityDimensionsPanel
-                                visible={true}
-                                searchTerm={unifiedSearchTerm}
-                                onEmptyStateChange={
-                                    setTrackedEntityDimensionsEmpty
+                    {/* TrackedEntityDimensions Card - shown for tracked entity type data sources only */}
+                    {entityType?.name &&
+                        hasDataSource &&
+                        dataSourceType === 'TRACKED_ENTITY_TYPE' && (
+                            <CardSection
+                                label={`${entityType.name} ${i18n.t('data')}`}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                    )
                                 }
-                            />
-                        </CardSection>
-                    )}
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                )}
+                                count={counts.trackedEntity}
+                                dataTest="tracked-entity-dimensions-card"
+                                isEmpty={trackedEntityDimensionsEmpty}
+                            >
+                                <TrackedEntityDimensionsPanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
+                                    onEmptyStateChange={
+                                        setTrackedEntityDimensionsEmpty
+                                    }
+                                />
+                            </CardSection>
+                        )}
 
                     {hasDataSource && (
                         <CardSection
