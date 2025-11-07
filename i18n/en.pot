@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-06T16:26:13.050Z\n"
-"PO-Revision-Date: 2025-11-06T16:26:13.051Z\n"
+"POT-Creation-Date: 2025-11-07T12:14:59.692Z\n"
+"PO-Revision-Date: 2025-11-07T12:14:59.693Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -276,6 +276,9 @@ msgstr "Pivot Table"
 
 msgid "Choose a data source to see available dimensions"
 msgstr "Choose a data source to see available dimensions"
+
+msgid "Stage"
+msgstr "Stage"
 
 msgid "Org. units, periods, and statuses"
 msgstr "Org. units, periods, and statuses"

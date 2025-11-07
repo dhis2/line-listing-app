@@ -117,7 +117,7 @@ const EMPTY_UI = {
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
     expandedCards: [],
-    splitDataCards: true,
+    splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
 }
 
 export const DEFAULT_UI = {
@@ -156,7 +156,7 @@ export const DEFAULT_UI = {
         'YOUR',
         'PROGRAM_DIMENSIONS',
     ],
-    splitDataCards: true,
+    splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
     accessoryPanelWidth: getUserSidebarWidth(),
     mainSidebarWidth: 400,
     showDetailsPanel: false,

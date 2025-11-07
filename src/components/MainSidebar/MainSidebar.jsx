@@ -16,6 +16,8 @@ import {
     ACCESSORY_PANEL_TAB_YOUR,
     ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS,
     ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS,
+    ACCESSORY_PANEL_TAB_ENROLLMENT,
+    getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import {
@@ -43,6 +45,8 @@ import styles from './MainSidebar.module.css'
 import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
 import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
 import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
+import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
+import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
 import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
@@ -114,6 +118,12 @@ const MainSidebar = () => {
     // Check if data source is selected
     const hasDataSource = Boolean(dataSourceId)
 
+    // Check if this is a program with registration (should show stage cards)
+    const isProgramWithRegistration =
+        dataSource?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
+        dataSource?.programStages &&
+        dataSource.programStages.length > 0
+
     const isHidden = useSelector(sGetUiSidebarHidden)
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
     const onCardClick = useCallback(
@@ -136,8 +146,14 @@ const MainSidebar = () => {
             availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
         }
 
-        // Program-related cards (when split mode is enabled)
-        if (splitDataCards) {
+        // Program with registration cards (enrollment + stages)
+        if (isProgramWithRegistration) {
+            availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+            dataSource.programStages.forEach((stage) => {
+                availableCardIds.push(getStageCardId(stage.id))
+            })
+        } else if (splitDataCards) {
+            // Legacy: Program-related cards (when split mode is enabled)
             availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
             availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM)
         }
@@ -154,13 +170,25 @@ const MainSidebar = () => {
         }
 
         closeDetailsPanel()
-    }, [dispatch, expandedCards, entityType, splitDataCards])
+    }, [
+        dispatch,
+        expandedCards,
+        entityType,
+        splitDataCards,
+        isProgramWithRegistration,
+        dataSource,
+    ])
     const { counts } = useSelectedDimensions()
 
-    // Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
+    // Auto-expand cards when mode is first enabled
     useEffect(() => {
-        if (splitDataCards) {
-            // Only auto-expand if the card is not already expanded (respect user's manual collapse)
+        if (isProgramWithRegistration) {
+            // Auto-expand enrollment card for programs with registration
+            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)) {
+                dispatch(acToggleUiExpandedCard(ACCESSORY_PANEL_TAB_ENROLLMENT))
+            }
+        } else if (splitDataCards) {
+            // Legacy: Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
             if (
                 !expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
             ) {
@@ -171,7 +199,7 @@ const MainSidebar = () => {
                 )
             }
         }
-    }, [splitDataCards]) // Only trigger when split mode changes, not when program/entity changes
+    }, [splitDataCards, isProgramWithRegistration]) // Only trigger when mode changes, not when program/entity changes
 
     return (
         <div
@@ -254,9 +282,51 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {splitDataCards && hasDataSource ? (
+                    {/* Program with registration: Show enrollment + stage cards */}
+                    {isProgramWithRegistration ? (
                         <>
-                            {/* Program Dimensions Card */}
+                            {/* Enrollment Card */}
+                            <CardSection
+                                label={i18n.t('Enrollment')}
+                                onClick={() =>
+                                    onCardClick(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_ENROLLMENT
+                                )}
+                                dataTest="enrollment-card"
+                            >
+                                <EnrollmentDimensionsPanel
+                                    program={dataSource}
+                                    searchTerm={unifiedSearchTerm}
+                                />
+                            </CardSection>
+
+                            {/* Stage Cards - one per stage */}
+                            {dataSource.programStages.map((stage) => {
+                                const stageCardId = getStageCardId(stage.id)
+                                return (
+                                    <CardSection
+                                        key={stageCardId}
+                                        label={stage.name}
+                                        onClick={() => onCardClick(stageCardId)}
+                                        expanded={expandedCards.includes(
+                                            stageCardId
+                                        )}
+                                        dataTest={`stage-${stage.id}-card`}
+                                    >
+                                        <StageDimensionsPanel
+                                            program={dataSource}
+                                            stage={stage}
+                                            searchTerm={unifiedSearchTerm}
+                                        />
+                                    </CardSection>
+                                )
+                            })}
+                        </>
+                    ) : splitDataCards && hasDataSource ? (
+                        <>
+                            {/* Legacy: Program Dimensions Card (split mode) */}
                             <CardSection
                                 label={i18n.t(
                                     'Org. units, periods, and statuses'
@@ -280,7 +350,7 @@ const MainSidebar = () => {
                                 />
                             </CardSection>
 
-                            {/* Program Data Card */}
+                            {/* Legacy: Program Data Card (split mode) */}
                             <CardSection
                                 label={
                                     selectedInputType ===
@@ -314,7 +384,7 @@ const MainSidebar = () => {
                             </CardSection>
                         </>
                     ) : hasDataSource ? (
-                        /* Combined Program Dimensions Card (original behavior) */
+                        /* Legacy: Combined Program Dimensions Card (original behavior) */
                         <CardSection
                             label={
                                 selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY

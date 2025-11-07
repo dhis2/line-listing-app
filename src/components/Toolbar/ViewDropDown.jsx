@@ -11,7 +11,6 @@ import {
     acToggleUiLayoutPanelHidden,
     acSetUiDetailsPanelOpen,
     acSetUiAccessoryPanelWidth,
-    acToggleUiSplitDataCards,
 } from '../../actions/ui.js'
 import { ACCESSORY_PANEL_DEFAULT_WIDTH } from '../../modules/accessoryPanelConstants.js'
 import { setUserSidebarWidthToLocalStorage } from '../../modules/localStorage.js'
@@ -21,7 +20,6 @@ import {
     sGetUiSidebarHidden,
     sGetUiShowDetailsPanel,
     sGetUiAccessoryPanelWidth,
-    sGetUiSplitDataCards,
 } from '../../reducers/ui.js'
 
 export default function ViewDropDown() {
@@ -30,7 +28,6 @@ export default function ViewDropDown() {
     const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
     const userSettingWidth = useSelector(sGetUiAccessoryPanelWidth)
-    const splitDataCards = useSelector(sGetUiSplitDataCards)
     const id = useSelector(sGetCurrentId)
 
     const toggleLayoutPanelHidden = useCallback(() => {
@@ -50,10 +47,6 @@ export default function ViewDropDown() {
         dispatch(acSetUiDetailsPanelOpen(!isDetailsPanelOpen))
     }, [dispatch, isDetailsPanelOpen])
 
-    const toggleSplitDataCards = useCallback(() => {
-        dispatch(acToggleUiSplitDataCards())
-    }, [dispatch])
-
     const toggleLayoutPanelText = isLayoutPanelHidden
         ? i18n.t('Show layout')
         : i18n.t('Hide layout')
@@ -63,9 +56,6 @@ export default function ViewDropDown() {
     const toggleDetailsPanelText = isDetailsPanelOpen
         ? i18n.t('Hide interpretations and details')
         : i18n.t('Show interpretations and details')
-    const splitDataCardsText = splitDataCards
-        ? i18n.t('Debug: Split data cards')
-        : i18n.t('Debug: Split data cards')
 
     return (
         <HoverMenuDropdown label={i18n.t('View')}>
@@ -89,11 +79,6 @@ export default function ViewDropDown() {
                     label={toggleDetailsPanelText}
                     onClick={toggleDetailsPanelOpen}
                     disabled={!id}
-                />
-                <HoverMenuListItem
-                    label={splitDataCardsText}
-                    onClick={toggleSplitDataCards}
-                    icon={splitDataCards ? '✓' : ''}
                 />
             </HoverMenuList>
         </HoverMenuDropdown>

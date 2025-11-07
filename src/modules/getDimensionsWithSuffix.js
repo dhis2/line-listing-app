@@ -7,6 +7,7 @@ import { DIMENSION_TYPE_STATUS } from './dimensionConstants.js'
 import { extractDimensionIdParts } from './dimensionId.js'
 import {
     OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from './visualization.js'
 
@@ -69,14 +70,36 @@ export const getDimensionsWithSuffix = ({
                 dimension.suffix = metadata[dimension.programStageId]?.name
             }
         } else if (
-            // always suffix ou and statuses for TE
-            inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
             [DIMENSION_TYPE_ORGANISATION_UNIT, DIMENSION_TYPE_STATUS].includes(
                 dimension.dimensionType || dimension.dimensionItemType
-            ) &&
-            dimension.programId
+            )
         ) {
-            dimension.suffix = metadata[dimension.programId]?.name
+            // For EVENT and ENROLLMENT: apply stage suffix for stage-specific org units
+            if (
+                [OUTPUT_TYPE_EVENT, OUTPUT_TYPE_ENROLLMENT].includes(
+                    inputType
+                ) &&
+                dimension.programStageId
+            ) {
+                // Check if there are other org units with different stages
+                const duplicates = dimensions.filter(
+                    (d) =>
+                        d.dimensionId === dimension.dimensionId &&
+                        d !== dimension &&
+                        d.programStageId &&
+                        d.programStageId !== dimension.programStageId
+                )
+                // Apply stage suffix if there are duplicates or if it's stage-specific
+                if (duplicates.length > 0 || dimension.programStageId) {
+                    dimension.suffix = metadata[dimension.programStageId]?.name
+                }
+            } else if (
+                // For TRACKED_ENTITY: always suffix ou and statuses with program name
+                inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+                dimension.programId
+            ) {
+                dimension.suffix = metadata[dimension.programId]?.name
+            }
         }
 
         return dimension
