@@ -12,13 +12,14 @@
 # ericbp <ericbarredap@gmail.com>, 2024
 # Janeth Cruz, 2024
 # Pablo Del Médico, 2025
+# Bruno Raimbault, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
+"POT-Creation-Date: 2025-10-28T16:09:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Pablo Del Médico, 2025\n"
+"Last-Translator: Bruno Raimbault, 2025\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,12 +93,15 @@ msgid "Choose options"
 msgstr "elegir opciones"
 
 msgid "Previous selection was cleared"
-msgstr ""
+msgstr "Se ha borrado la selección anterior"
 
 msgid ""
 "Fetching details for the previously selected organisation unit failed. The "
 "selected item has been cleared so that a new selection can be made."
 msgstr ""
+"Ha fallado la obtención de detalles de la unidad organizativa seleccionada "
+"anteriormente. Se ha borrado el elemento seleccionado para poder realizar "
+"una nueva selección."
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -397,7 +401,7 @@ msgstr ""
 "tableros"
 
 msgid "Rename failed"
-msgstr ""
+msgstr "Error al renombrar"
 
 msgid "Show layout"
 msgstr "Mostrar diseño"
