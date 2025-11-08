@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-06-04T11:01:31.012Z\n"
+"POT-Creation-Date: 2025-04-15T10:46:20.007Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -78,6 +78,14 @@ msgstr ""
 
 msgid "Choose options"
 msgstr "Vyberte možnosti"
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
+msgstr ""
 
 msgid ""
 "From stages with repeatable events, show values for this data element from:"
@@ -369,15 +377,15 @@ msgstr "\"{{- deletedObject}}\" byl úspěšně odstraněn."
 msgid "Rename successful"
 msgstr "Přejmenování bylo úspěšné"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Vizualizace bez názvu {{visualizationType}}, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Tuto vizualizaci nelze odstranit, protože se používá na jednom nebo více "
 "ovládacích panelech"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr "Zobrazit rozvržení"

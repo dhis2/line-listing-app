@@ -3,13 +3,15 @@
 # Philip Larsen Donnelly, 2022
 # Viktor Varland <viktor@dhis2.org>, 2023
 # channara rin, 2024
+# Em Le <em.hispvietnam@gmail.com>, 2025
+# Kiry Heng, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2025-10-28T16:09:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: channara rin, 2024\n"
+"Last-Translator: Kiry Heng, 2025\n"
 "Language-Team: Khmer (https://app.transifex.com/hisp-uio/teams/100509/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add to {{axisName}}"
-msgstr ""
+msgstr "បន្ថែមទៅកាន់ {{axisName}}"
 
 msgid "Choose a condition type"
 msgstr ""
@@ -65,7 +67,7 @@ msgid "is one of preset options"
 msgstr ""
 
 msgid "Loading..."
-msgstr ""
+msgstr "កំពុងទាញទិន្នន័យ"
 
 msgid "Choose a set of options"
 msgstr ""
@@ -74,6 +76,14 @@ msgid "No preset option sets for this data item"
 msgstr ""
 
 msgid "Choose options"
+msgstr ""
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
 msgstr ""
 
 msgid ""
@@ -87,7 +97,7 @@ msgid "Oldest events:"
 msgstr ""
 
 msgid "Hide"
-msgstr ""
+msgstr "លាក់"
 
 msgid "Show items where the status is:"
 msgstr ""
@@ -150,7 +160,7 @@ msgid "CSV"
 msgstr ""
 
 msgid "Download data from this date"
-msgstr ""
+msgstr "ទាយយកទិន្នន័យចាប់ពីកាលបរិច្ឆេទនេះ"
 
 msgid "Metadata ID scheme"
 msgstr ""
@@ -159,29 +169,29 @@ msgid "ID"
 msgstr "​លេខ​សម្គាល់"
 
 msgid "Code"
-msgstr ""
+msgstr "លេខកូដ"
 
 msgid "Name"
 msgstr "ឈ្មោះ"
 
 msgid "Download"
-msgstr ""
+msgstr "ទាយយក"
 
 msgid "all"
-msgstr ""
+msgstr "ទាំងអស់"
 
 msgid "Levels"
-msgstr ""
+msgstr "កម្រិត"
 
 msgid "Groups"
-msgstr ""
+msgstr "ក្រុម"
 
 msgid "And {{count}} other..."
 msgid_plural "And {{count}} other..."
 msgstr[0] ""
 
 msgid "None selected"
-msgstr ""
+msgstr "មិនត្រូវបានជ្រើសរើស"
 
 msgid "Program stage: {{- stageName}}"
 msgstr ""
@@ -326,7 +336,7 @@ msgid "Search dimensions"
 msgstr ""
 
 msgid "Your dimensions"
-msgstr ""
+msgstr "វិមាត្ររបស់អ្នក"
 
 msgid "Search your dimensions"
 msgstr ""
@@ -338,27 +348,29 @@ msgid "Expand visualization and hide panels"
 msgstr ""
 
 msgid "Unsaved visualization"
-msgstr ""
+msgstr "ផ្ទាំងទិន្នន័យមិនទាន់រក្សាទុក"
 
 msgid "Edited"
-msgstr ""
+msgstr "ក្រែប្រែ"
 
 msgid "Line list"
 msgstr ""
 
 msgid "\"{{- deletedObject}}\" successfully deleted."
-msgstr ""
+msgstr "{{- deletedObject}}លុបបានជោគជ័យ។"
 
 msgid "Rename successful"
-msgstr ""
-
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr ""
+msgstr "ការផ្លាស់ប្តូរឈ្មោះ បានជោគជ័យ"
 
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
+"ផ្ទាំងទិន្នន័យនេះមិនអាចលុបចេញបានទេ "
+"ព្រោះកំពុងត្រូវបានប្រើប្រាស់នៅលើផ្ទាំងប៉ាណ្ណូបរិធាន ១​ ឬច្រើន"
+
+msgid "Rename failed"
+msgstr "ការផ្លាស់ប្តូរឈ្មោះ បរាជ័យ"
 
 msgid "Show layout"
 msgstr ""
@@ -381,11 +393,14 @@ msgstr ""
 msgid "View"
 msgstr "View"
 
+msgid "Reset sidebar width"
+msgstr ""
+
 msgid "Update"
 msgstr "ធ្វើ​បច្ចុប្បន្នភាព"
 
 msgid "Getting started"
-msgstr ""
+msgstr "ចាប់ផ្ដើម"
 
 msgid ""
 "All dimensions that you can use to build visualizations are shown in the "
@@ -402,7 +417,7 @@ msgid "Your most viewed line lists"
 msgstr ""
 
 msgid "Not available offline"
-msgstr ""
+msgstr "មិនអាចប្រើប្រាស់បាននៅពេលបណ្ដាញត្រូវបានផ្តាច់"
 
 msgid ""
 "This line list may show data that was not available when the interpretation "
@@ -422,55 +437,55 @@ msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
 
 msgid "Column sub-totals"
-msgstr ""
+msgstr "សរុបតាមផ្នែកនៃជួរឈរ"
 
 msgid "Columns totals"
-msgstr ""
+msgstr "សរុបនៃជួរឈរ"
 
 msgid "Digit group separator"
-msgstr ""
+msgstr "សញ្ញាបំបែកក្រុមលេខ"
 
 msgid "None"
 msgstr "គ្មាន"
 
 msgid "Space"
-msgstr ""
+msgstr "ដកឃ្លា"
 
 msgid "Comma"
-msgstr ""
+msgstr "សញ្ញាក្បៀស"
 
 msgid "Display density"
-msgstr ""
+msgstr "បង្ហាញដង់ស៊ីតេ"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "សមរម្យ"
 
 msgid "Normal"
-msgstr ""
+msgstr "ធម្មតា"
 
 msgid "Compact"
-msgstr ""
+msgstr "បង្រួម"
 
 msgid "Font size"
-msgstr ""
+msgstr "ទំហំពុម្ពអក្សរ"
 
 msgid "Large"
-msgstr ""
+msgstr "ធំ"
 
 msgid "Small"
-msgstr ""
+msgstr "តូច"
 
 msgid "Hide empty rows"
-msgstr ""
+msgstr "លាក់ជួរដេកទទេ"
 
 msgid "Use a legend for table cell colors"
 msgstr ""
 
 msgid "Legend style"
-msgstr ""
+msgstr "រចនាបថនៃរូបតំណាង"
 
 msgid "Legend type"
-msgstr ""
+msgstr "ប្រភេទនៃរូបតំណាង"
 
 msgid "Use pre-defined legend per data item"
 msgstr ""
@@ -479,58 +494,61 @@ msgid "Choose a single legend for the entire visualization"
 msgstr ""
 
 msgid "Legend changes background color"
-msgstr ""
+msgstr "រូបតំណាងប្តូរពណ៌ផ្ទៃខាងក្រោយ"
 
 msgid "Legend changes text color"
-msgstr ""
+msgstr "រូបតំណាងប្តូរពណ៌អក្សរ"
 
 msgid "Legend"
-msgstr ""
+msgstr "រូបតំណាង"
 
 msgid "Select from legends"
-msgstr ""
+msgstr "ជ្រើសរើសពីរូបតំណាង"
 
 msgid "Loading legends"
-msgstr ""
+msgstr "ទាញយកពីរូបតំណាង"
 
 msgid ""
 "You can set a minimum or maximum value. This will apply to the entire "
 "visualization, all values outside of the minimum/maximum range will not be "
 "displayed"
 msgstr ""
+"អ្នកអាចកំណត់តម្លៃអប្បបរិមា និងអតិបរមា។ "
+"ការកំណត់នេះនឹងត្រូវបានអនុវត្តន៍ផ្ទាំងទិន្នន័យទាំងមូល, "
+"តម្លៃនៅក្រៅចន្លោះតម្លៃអប្បបរិមា/អតិបរមា នឹងមិនបង្ហាញទេ"
 
 msgid "Minimum data value"
-msgstr ""
+msgstr "តម្លៃទិន្នន័យអប្បបរិមា"
 
 msgid "Maximum data value"
-msgstr ""
+msgstr "តម្លៃទិន្នន័យអតិបរមា"
 
 msgid "Clear min/max limits"
-msgstr ""
+msgstr "លុបការកំណត់តម្លៃអប្បបរិមា/អតិបរមា"
 
 msgid "Row sub-totals"
-msgstr ""
+msgstr "សរុបរងនៃជួរដេក"
 
 msgid "Row totals"
-msgstr ""
+msgstr "សរុបនៃជួរដេក"
 
 msgid "Dimension labels"
-msgstr ""
+msgstr "ស្លាកនៃវិមាត្រ"
 
 msgid "Display organisation unit hierarchy"
-msgstr ""
+msgstr "បង្ហាញរចនាសម្ព័ន្ធនៃមូលដ្ឋានសុខាភិបាល"
 
 msgid "Show legend key"
-msgstr ""
+msgstr "បង្ហាញរូបតំណាងគន្លឹះ"
 
 msgid "Skip rounding"
-msgstr ""
+msgstr "រំលងការបង្គត់"
 
 msgid "Add a title"
-msgstr ""
+msgstr "បន្ថែមចំណងជើង"
 
 msgid "Options"
-msgstr ""
+msgstr "ជម្រើស"
 
 msgid "Columns"
 msgstr ""
@@ -539,7 +557,7 @@ msgid "Rows"
 msgstr ""
 
 msgid "Filter"
-msgstr ""
+msgstr "ការច្រោះ"
 
 msgid "equal to (=)"
 msgstr ""
@@ -602,23 +620,27 @@ msgid "There is a problem with this visualization."
 msgstr ""
 
 msgid "There was a problem getting the data from the server."
-msgstr ""
+msgstr "មានបញ្ហាជាមួយនឹងការទាញយកទិន្នន័យពីម៉ាស៊ីនមេ។"
 
 msgid "No data available"
-msgstr ""
+msgstr "មិនមានទិន្នន័យទេ"
 
 msgid ""
 "The selected dimensions didn’t return any data. There may be no data, or you"
 " may not have access to it."
 msgstr ""
+"វិមាត្រដែលបានជ្រើសរើសមិនអាចផ្តល់ទិន្នន័យបានទេ។ ប្រហែលជាមិនមានទិន្នន័យ "
+"ឬអ្នកមប្រហែលជាគ្មានសិទ្ធិក្នុងការប្រើប្រាស់វិមាត្រនេះបានទេ។"
 
 msgid "Visualization not found"
-msgstr ""
+msgstr "ផ្ទាំងទិន្នន័យរកមិនឃើញទេ"
 
 msgid ""
 "The visualization you are trying to view could not be found, the ID could be"
 " incorrect or it could have been deleted."
 msgstr ""
+"ផ្ទាំងទិន្នន័យដែលអ្នកព្យាយាមបង្ហាញ មិនអាចរកឃើញទេ, លេខសម្គាល់មិនត្រឹមត្រូវ "
+"ឬក៏ត្រូវបានលុបចេញ។"
 
 msgid "No tracked entity type selected"
 msgstr ""
@@ -650,7 +672,7 @@ msgid "There's a problem with at least one selected indicator"
 msgstr ""
 
 msgid "Restricted access"
-msgstr ""
+msgstr "ការចូលប្រើប្រាស់មានកម្រិត"
 
 msgid ""
 "You don’t have access to the data in this visualization. Contact a system "
@@ -665,15 +687,17 @@ msgid ""
 msgstr ""
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "មានអ្វីមួយខុសប្រក្រតី"
 
 msgid ""
 "There's a problem with the generated analytics. Contact a system "
 "administrator."
 msgstr ""
+"មានបញ្ញាកើតឡើងជាមួយដំណើរការវិភាគទិន្នន័យ។ "
+"សូមធ្វើការទាក់ទងអ្នកគ្រប់គ្រងប្រព័ន្ធ។"
 
 msgid "There's a syntax problem with the analytics request."
-msgstr ""
+msgstr "មានបញ្ហារូបមន្តនៃការសរសេរ ចំពោះសំណើរនៃការវិភាគទិន្នន័យ។"
 
 msgid "Registration date"
 msgstr ""
@@ -688,13 +712,13 @@ msgid "Last updated by"
 msgstr ""
 
 msgid "User organisation unit"
-msgstr ""
+msgstr "មូលដ្ឋានសុខាភិបាល របស់អ្នកប្រើប្រាស់"
 
 msgid "User sub-units"
-msgstr ""
+msgstr "User sub-units"
 
 msgid "User sub-x2-units"
-msgstr ""
+msgstr "User sub-x2-units"
 
 msgid "Registration org. unit"
 msgstr ""
@@ -703,28 +727,28 @@ msgid "Organisation unit"
 msgstr "ផ្នែក​នៃ​អង្គការ"
 
 msgid "Table title"
-msgstr ""
+msgstr "ចំណងជើងតារាង"
 
 msgid "Display"
-msgstr ""
+msgstr "បង្ហាញ"
 
 msgid "Empty data"
-msgstr ""
+msgstr "ទិន្នន័យទទេ"
 
 msgid "Totals"
-msgstr ""
+msgstr "តម្លៃសរុប"
 
 msgid "Data"
 msgstr "Data"
 
 msgid "Limit values"
-msgstr ""
+msgstr "ការកំណត់តម្លៃ"
 
 msgid "Limit number of values"
-msgstr ""
+msgstr "ការកំណត់ចំនួននៃតម្លៃ"
 
 msgid "Limit minimum/maximum values"
-msgstr ""
+msgstr "ការកំណត់តម្លៃ អប្បបរមា/អតិបរមា"
 
 msgid "Style"
 msgstr "​រចនាបទ"
