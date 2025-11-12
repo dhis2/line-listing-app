@@ -1,0 +1,60 @@
+.trigger {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: var(--colors-white);
+    transition: background-color 150ms ease;
+    gap: 8px;
+}
+
+.trigger:hover {
+    background-color: var(--colors-grey050);
+}
+
+.prefixIcon {
+    flex-shrink: 0;
+    margin-right: 8px;
+    color: var(--colors-grey600);
+}
+
+.triggerText {
+    flex: 1;
+    text-align: left;
+    color: var(--colors-grey900);
+    font-size: 13px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chevron {
+    flex-shrink: 0;
+    margin-left: 8px;
+    color: var(--colors-grey600);
+}
+
+.searchContainer {
+}
+
+.introRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 260px;
+    height: 1px;
+    display: block;
+    color: white;
+}
+
+.introTitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.introText {
+    font-size: 13px;
+    color: var(--colors-grey700);
+}

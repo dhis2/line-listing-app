@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-10-28T16:09:33.958Z\n"
-"PO-Revision-Date: 2025-10-28T16:09:33.959Z\n"
+"POT-Creation-Date: 2025-11-07T12:14:59.692Z\n"
+"PO-Revision-Date: 2025-11-07T12:14:59.693Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -172,6 +172,21 @@ msgstr "Download"
 msgid "all"
 msgstr "all"
 
+msgid "Tracked entities"
+msgstr "Tracked entities"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Enrollments"
+msgstr "Enrollments"
+
+msgid "Output"
+msgstr "Output"
+
+msgid "Select output type"
+msgstr "Select output type"
+
 msgid "Levels"
 msgstr "Levels"
 
@@ -195,17 +210,14 @@ msgstr "Program: {{- programName}}"
 msgid "Showing all values for this dimension"
 msgstr "Showing all values for this dimension"
 
-msgid "No dimensions found for '{{- searchTerm}}'"
-msgstr "No dimensions found for '{{- searchTerm}}'"
+msgid "No results"
+msgstr "No results"
 
 msgid "No dimensions found in the {{- programName}} program"
 msgstr "No dimensions found in the {{- programName}} program"
 
 msgid " {{- trackedEntityType}} has no dimensions"
 msgstr " {{- trackedEntityType}} has no dimensions"
-
-msgid "No dimensions found"
-msgstr "No dimensions found"
 
 msgid "Couldn't load dimensions"
 msgstr "Couldn't load dimensions"
@@ -217,11 +229,17 @@ msgstr ""
 "There was a problem loading the dimensions. Try again, or contact your "
 "system administrator."
 
-msgid "Event"
-msgstr "Event"
+msgid "Loading more..."
+msgstr "Loading more..."
 
-msgid "Enrollment"
-msgstr "Enrollment"
+msgid "Load more"
+msgstr "Load more"
+
+msgid "Choose a data source"
+msgstr "Choose a data source"
+
+msgid "No data sources found"
+msgstr "No data sources found"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
@@ -229,32 +247,77 @@ msgstr "Tracked entity"
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
+msgid "Enrollment"
+msgstr "Enrollment"
+
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
 
 msgid "See individual tracked entities from one or more Tracker programs."
 msgstr "See individual tracked entities from one or more Tracker programs."
 
-msgid "Global dimensions"
-msgstr "Global dimensions"
+msgid "Choose input type"
+msgstr "Choose input type"
 
-msgid "Program dimensions"
-msgstr "Program dimensions"
+msgid "No input types found"
+msgstr "No input types found"
 
-msgid "Input: {{type}}"
-msgstr "Input: {{type}}"
+msgid "Search input types"
+msgstr "Search input types"
 
-msgid "Choose an input first"
-msgstr "Choose an input first"
+msgid "Error loading types"
+msgstr "Error loading types"
 
-msgid "Program data dimensions"
-msgstr "Program data dimensions"
+msgid "Line List"
+msgstr "Line List"
 
-msgid "Search data dimensions"
-msgstr "Search data dimensions"
+msgid "Pivot Table"
+msgstr "Pivot Table"
 
-msgid "Type"
-msgstr "Type"
+msgid "Choose a data source to see available dimensions"
+msgstr "Choose a data source to see available dimensions"
+
+msgid "Stage"
+msgstr "Stage"
+
+msgid "Org. units, periods, and statuses"
+msgstr "Org. units, periods, and statuses"
+
+msgid "Program data"
+msgstr "Program data"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "data"
+msgstr "data"
+
+msgid "Metadata"
+msgstr "Metadata"
+
+msgid "Other"
+msgstr "Other"
+
+msgid "Data elements"
+msgstr "Data elements"
+
+msgid "Program attributes"
+msgstr "Program attributes"
+
+msgid "Program indicators"
+msgstr "Program indicators"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Category option group sets"
+msgstr "Category option group sets"
+
+msgid "Remove filter"
+msgstr "Remove filter"
+
+msgid "Filter data type"
+msgstr "Filter data type"
 
 msgid "All types"
 msgstr "All types"
@@ -296,14 +359,17 @@ msgstr "Choose a program"
 msgid "No programs found"
 msgstr "No programs found"
 
-msgid "Stage"
-msgstr "Stage"
+msgid "Filter by stage"
+msgstr "Filter by stage"
 
-msgid "All"
-msgstr "All"
+msgid "All stages"
+msgstr "All stages"
 
 msgid "No stages found"
 msgstr "No stages found"
+
+msgid "Choose a stage"
+msgstr "Choose a stage"
 
 msgid "Could not load types"
 msgstr "Could not load types"
@@ -327,17 +393,20 @@ msgstr "{{- itemName}} dimensions"
 msgid "Filter by program usage"
 msgstr "Filter by program usage"
 
-msgid "Clear"
-msgstr "Clear"
+msgid "All programs"
+msgstr "All programs"
 
-msgid "Search dimensions"
-msgstr "Search dimensions"
+msgid "Search all dimensions"
+msgstr "Search all dimensions"
+
+msgid "Collapse all cards"
+msgstr "Collapse all cards"
+
+msgid "Expand all cards"
+msgstr "Expand all cards"
 
 msgid "Your dimensions"
 msgstr "Your dimensions"
-
-msgid "Search your dimensions"
-msgstr "Search your dimensions"
 
 msgid "Show panels"
 msgstr "Show panels"
@@ -348,8 +417,8 @@ msgstr "Expand visualization and hide panels"
 msgid "Unsaved visualization"
 msgstr "Unsaved visualization"
 
-msgid "Edited"
-msgstr "Edited"
+msgid "Unsaved changes"
+msgstr "Unsaved changes"
 
 msgid "Line list"
 msgstr "Line list"
@@ -397,24 +466,66 @@ msgstr "Reset sidebar width"
 msgid "Update"
 msgstr "Update"
 
-msgid "Getting started"
-msgstr "Getting started"
+msgid "Created"
+msgstr "Created"
+
+msgid "Last updated"
+msgstr "Last updated"
+
+msgid "Open a visualization"
+msgstr "Open a visualization"
+
+msgid "Search by name"
+msgstr "Search by name"
+
+msgid "All"
+msgstr "All"
+
+msgid "Created by me"
+msgstr "Created by me"
+
+msgid "Created by others"
+msgstr "Created by others"
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
+msgid "Could not load visualizations"
+msgstr "Could not load visualizations"
 
 msgid ""
-"All dimensions that you can use to build visualizations are shown in the "
-"sections in the left sidebar."
+"There was a problem loading visualizations. Check your network connection "
+"and try again."
 msgstr ""
-"All dimensions that you can use to build visualizations are shown in the "
-"sections in the left sidebar."
+"There was a problem loading visualizations. Check your network connection "
+"and try again."
 
-msgid "Add dimensions to the layout above."
-msgstr "Add dimensions to the layout above."
+msgid "Loading visualizations..."
+msgstr "Loading visualizations..."
 
-msgid "Click a dimension to add or remove conditions."
-msgstr "Click a dimension to add or remove conditions."
+msgid "No visualizations found matching the filter criteria"
+msgstr "No visualizations found matching the filter criteria"
 
-msgid "Your most viewed line lists"
-msgstr "Your most viewed line lists"
+msgid "No visualizations found"
+msgstr "No visualizations found"
+
+msgid "New visualization"
+msgstr "New visualization"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Page {{page}} of {{totalPages}}"
+msgstr "Page {{page}} of {{totalPages}}"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Read the app guide"
+msgstr "Read the app guide"
+
+msgid "Most viewed"
+msgstr "Most viewed"
 
 msgid "Not available offline"
 msgstr "Not available offline"
@@ -742,9 +853,6 @@ msgstr "Empty data"
 
 msgid "Totals"
 msgstr "Totals"
-
-msgid "Data"
-msgstr "Data"
 
 msgid "Limit values"
 msgstr "Limit values"

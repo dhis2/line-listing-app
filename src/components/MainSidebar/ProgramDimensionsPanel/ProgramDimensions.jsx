@@ -1,12 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { useProgramDimensions } from '../../../reducers/ui.js'
-import styles from '../common.module.css'
-import { DimensionItem } from '../DimensionItem/index.js'
-import { MainSidebarSection } from '../MainSidebarSection.jsx'
+import { DimensionsList } from '../DimensionsList/index.js'
 import { useSelectedDimensions } from '../SelectedDimensionsContext.jsx'
 
-export const ProgramDimensions = () => {
+export const ProgramDimensions = ({ searchTerm }) => {
     const programDimensions = useProgramDimensions()
     const { getIsDimensionSelected } = useSelectedDimensions()
 
@@ -14,24 +12,33 @@ export const ProgramDimensions = () => {
         return null
     }
 
-    const draggableDimensions = programDimensions.map((dimension) => ({
+    // Filter dimensions based on search term
+    const filteredDimensions = React.useMemo(() => {
+        if (!searchTerm) return programDimensions
+        return programDimensions.filter((dimension) =>
+            dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    }, [programDimensions, searchTerm])
+
+    // Hide component if no results after filtering
+    if (filteredDimensions.length === 0) {
+        return null
+    }
+
+    const draggableDimensions = filteredDimensions.map((dimension) => ({
         draggableId: `program-${dimension.id}`,
         ...dimension,
     }))
 
     return (
-        <MainSidebarSection
-            header={i18n.t('Program dimensions')}
-            dataTest="program-dimensions"
-        >
-            {draggableDimensions.map((dimension) => (
-                <span key={dimension.id} className={styles.span}>
-                    <DimensionItem
-                        {...dimension}
-                        selected={getIsDimensionSelected(dimension.id)}
-                    />
-                </span>
-            ))}
-        </MainSidebarSection>
+        <DimensionsList
+            dimensions={draggableDimensions}
+            loading={false}
+            fetching={false}
+            error={null}
+            hasMore={false}
+            onLoadMore={() => {}}
+            dataTest="program-dimensions-list"
+        />
     )
 }

@@ -11,11 +11,13 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
+import { sGetUi } from '../../reducers/ui.js'
 import { ExpandedVisualizationCanvasToggle } from './ExpandedVisualizationCanvasToggle.jsx'
 import classes from './styles/TitleBar.module.css'
+import appClasses from '../App.module.css'
 
 export const getTitleUnsaved = () => i18n.t('Unsaved visualization')
-export const getTitleDirty = () => i18n.t('Edited')
+export const getTitleDirty = () => i18n.t('Unsaved changes')
 
 const defaultTitleClasses = `${classes.cell} ${classes.title}`
 
@@ -38,7 +40,7 @@ const getSuffix = (titleState) =>
     titleState === STATE_DIRTY ? (
         <div
             className={cx(classes.titleDirty, classes.suffix)}
-        >{`- ${getTitleDirty()}`}</div>
+        >{` ${getTitleDirty()}`}</div>
     ) : (
         ''
     )
@@ -48,19 +50,24 @@ export const TitleBar = ({ titleState, titleText }) => {
         titleState
     )}`
 
-    return titleText ? (
-        <div data-test="titlebar" className={classes.titleBar}>
-            <div className={classes.buttonContainer}>
+    return (
+        <div
+            data-test="titlebar"
+            className={cx(classes.titleBar, appClasses.flexGrow1)}
+        >
+            {/* <div className={classes.buttonContainer}>
                 <ExpandedVisualizationCanvasToggle />
-            </div>
-            <div className={classes.titleContainer}>
-                <div className={titleClasses}>
-                    {titleText}
-                    {getSuffix(titleState)}
+            </div> */}
+            {titleText && (
+                <div className={classes.titleContainer}>
+                    <div className={titleClasses}>
+                        {titleText}
+                        {getSuffix(titleState)}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
-    ) : null
+    )
 }
 
 TitleBar.propTypes = {
@@ -71,16 +78,19 @@ TitleBar.propTypes = {
 const mapStateToProps = (state) => ({
     current: sGetCurrent(state),
     visualization: sGetVisualization(state),
+    ui: sGetUi(state),
 })
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-    const { visualization, current } = stateProps
-    const titleState = getVisualizationState(visualization, current)
+    const { visualization, current, ui } = stateProps
+    const titleState = getVisualizationState(visualization, current, ui)
+    // Only show title text if there's an actual current visualization
+    const titleText = current ? getTitleText(titleState, visualization) : ''
     return {
         ...dispatchProps,
         ...ownProps,
         titleState: titleState,
-        titleText: getTitleText(titleState, visualization),
+        titleText,
     }
 }
 

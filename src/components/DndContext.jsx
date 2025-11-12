@@ -31,6 +31,7 @@ import styles from './DndContext.module.css'
 import { ChipBase } from './Layout/ChipBase.jsx'
 import chipStyles from './Layout/styles/Chip.module.css'
 import { DimensionItemBase } from './MainSidebar/DimensionItem/DimensionItemBase.jsx'
+import { useMultiSelection } from './MainSidebar/MultiSelectionContext.jsx'
 
 const FIRST_POSITION = 0
 const LAST_POSITION = -1
@@ -119,6 +120,10 @@ const getIdFromDraggingId = (draggingId) => {
 
 const OuterDndContext = ({ children }) => {
     const [sourceAxis, setSourceAxis] = useState(null)
+    const [draggedMultipleIds, setDraggedMultipleIds] = useState(null)
+
+    const { getSelectedIds, getSelectedDimensionsMetadata, clearSelection } =
+        useMultiSelection()
 
     const draggingId = useSelector(sGetUiDraggingId)
     const id = draggingId ? getIdFromDraggingId(draggingId) : null
@@ -160,9 +165,15 @@ const OuterDndContext = ({ children }) => {
         }
 
         if (sourceAxis === DIMENSION_PANEL_SOURCE) {
+            const multipleCount = draggedMultipleIds
+                ? draggedMultipleIds.length
+                : 0
             return (
                 <div className={cx(styles.overlay, styles.dimensionItem)}>
                     <DimensionItemBase {...dimension} dragging={true} />
+                    {multipleCount > 1 && (
+                        <div className={styles.countBadge}>{multipleCount}</div>
+                    )}
                 </div>
             )
         }
@@ -249,21 +260,63 @@ const OuterDndContext = ({ children }) => {
 
         setSourceAxis(active.data.current.sortable.containerId)
         dispatch(acSetUiDraggingId(active.id))
-        dispatch(
-            acAddMetadata({
-                [id]: {
-                    id,
-                    name: active.data.current.name,
-                    dimensionType: active.data.current.dimensionType,
-                    valueType: active.data.current.valueType,
-                    optionSet: active.data.current.optionSet,
-                },
+
+        // Check if this item is part of multi-selection
+        const selectedIds = getSelectedIds()
+        const isMultiSelected = active.data.current.isMultiSelected
+
+        console.log('🎯 Drag start:', {
+            id,
+            isMultiSelected,
+            selectedIds,
+            activeData: active.data.current,
+        })
+
+        if (isMultiSelected && selectedIds.length > 0) {
+            // Include the dragged item and all other selected items
+            const allIds = selectedIds.includes(id)
+                ? selectedIds
+                : [id, ...selectedIds]
+            setDraggedMultipleIds(allIds)
+
+            // Add metadata for all multi-selected items
+            const selectedMetadata = getSelectedDimensionsMetadata()
+            const metadataForAll = {}
+            allIds.forEach((dimId) => {
+                if (selectedMetadata[dimId]) {
+                    metadataForAll[dimId] = selectedMetadata[dimId]
+                } else if (dimId === id) {
+                    // Add metadata for the currently dragged item
+                    metadataForAll[id] = {
+                        id,
+                        name: active.data.current.name,
+                        dimensionType: active.data.current.dimensionType,
+                        valueType: active.data.current.valueType,
+                        optionSet: active.data.current.optionSet,
+                    }
+                }
             })
-        )
+            dispatch(acAddMetadata(metadataForAll))
+        } else {
+            setDraggedMultipleIds(null)
+            // Add metadata for single item
+            dispatch(
+                acAddMetadata({
+                    [id]: {
+                        id,
+                        name: active.data.current.name,
+                        dimensionType: active.data.current.dimensionType,
+                        valueType: active.data.current.valueType,
+                        optionSet: active.data.current.optionSet,
+                    },
+                })
+            )
+        }
     }
 
     const onDragCancel = () => {
         dispatch(acSetUiDraggingId(null))
+        setDraggedMultipleIds(null)
     }
 
     const onDragEnd = (result) => {
@@ -306,11 +359,65 @@ const OuterDndContext = ({ children }) => {
                 ++destinationIndex
             }
 
-            addDimensionToLayout({
-                axisId: destinationAxisId,
-                index: destinationIndex,
-                dimensionId: getIdFromDraggingId(active.id),
+            // Check if we're dragging multiple items
+            console.log('🔍 Multi-drag check:', {
+                draggedMultipleIds,
+                length: draggedMultipleIds?.length,
             })
+            if (draggedMultipleIds && draggedMultipleIds.length > 0) {
+                // Filter out items that are already in the layout
+                const allLayoutIds = [...layout.columns, ...layout.filters]
+                const idsToAdd = draggedMultipleIds.filter(
+                    (dimId) => !allLayoutIds.includes(dimId)
+                )
+                console.log('📦 IDs to add:', idsToAdd)
+
+                if (idsToAdd.length > 0) {
+                    // Build the dimensions object for batch addition
+                    const dimensionsToAdd = {}
+                    idsToAdd.forEach((dimId, idx) => {
+                        const finalIndex =
+                            destinationIndex !== LAST_POSITION
+                                ? destinationIndex + idx
+                                : LAST_POSITION
+                        dimensionsToAdd[dimId] = {
+                            axisId: destinationAxisId,
+                            index: finalIndex,
+                        }
+                    })
+
+                    // Get metadata for all dimensions being added
+                    const selectedMetadata = getSelectedDimensionsMetadata()
+                    const metadataToAdd = {}
+                    idsToAdd.forEach((dimId) => {
+                        // Use metadata from selection context or fall back to store
+                        if (selectedMetadata[dimId]) {
+                            metadataToAdd[dimId] = selectedMetadata[dimId]
+                        } else if (metadata[dimId]) {
+                            metadataToAdd[dimId] = metadata[dimId]
+                        }
+                    })
+
+                    console.log('✅ Adding dimensions:', {
+                        dimensionsToAdd,
+                        metadataToAdd,
+                    })
+                    dispatch(
+                        acAddUiLayoutDimensions(dimensionsToAdd, metadataToAdd)
+                    )
+                } else {
+                    console.log('⚠️ No dimensions to add (all filtered out)')
+                }
+
+                // Clear multi-selection after successful drop
+                clearSelection()
+            } else {
+                addDimensionToLayout({
+                    axisId: destinationAxisId,
+                    index: destinationIndex,
+                    dimensionId: getIdFromDraggingId(active.id),
+                })
+            }
         } else {
             const sourceIndex = active.data.current.sortable.index
 

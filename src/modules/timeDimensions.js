@@ -68,44 +68,40 @@ export const getTimeDimensionName = (dimension, program, stage) => {
     return name || dimension.defaultName
 }
 
+// Returns dimensions that should be hidden based on program configuration only
+// (not based on output type - all dimensions for the program should be shown)
 export const getHiddenTimeDimensions = (inputType, program, stage) => {
     const hiddenDimensions = []
-    switch (inputType) {
-        case OUTPUT_TYPE_EVENT: {
-            if (program?.programType === PROGRAM_TYPE_WITH_REGISTRATION) {
-                if (program.displayIncidentDate === false) {
-                    hiddenDimensions.push(DIMENSION_ID_INCIDENT_DATE)
-                }
 
-                if (stage?.hideDueDate === true) {
-                    hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
-                }
-            } else {
-                hiddenDimensions.push(DIMENSION_ID_ENROLLMENT_DATE)
-                hiddenDimensions.push(DIMENSION_ID_INCIDENT_DATE)
-                hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
-            }
-            return hiddenDimensions
-        }
-        case OUTPUT_TYPE_ENROLLMENT:
-        case OUTPUT_TYPE_TRACKED_ENTITY: {
-            hiddenDimensions.push(DIMENSION_ID_EVENT_DATE)
-            hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
-
-            if (!program || program.displayIncidentDate === false) {
-                hiddenDimensions.push(DIMENSION_ID_INCIDENT_DATE)
-            }
-            return hiddenDimensions
-        }
-        default: {
-            return [
-                DIMENSION_ID_EVENT_DATE,
-                DIMENSION_ID_ENROLLMENT_DATE,
-                DIMENSION_ID_SCHEDULED_DATE,
-                DIMENSION_ID_INCIDENT_DATE,
-            ]
-        }
+    // If no program, hide all program-specific time dimensions
+    if (!program) {
+        return [
+            DIMENSION_ID_EVENT_DATE,
+            DIMENSION_ID_ENROLLMENT_DATE,
+            DIMENSION_ID_SCHEDULED_DATE,
+            DIMENSION_ID_INCIDENT_DATE,
+        ]
     }
+
+    // For Event programs (WITHOUT_REGISTRATION), hide tracker-specific dimensions
+    if (program.programType !== PROGRAM_TYPE_WITH_REGISTRATION) {
+        hiddenDimensions.push(DIMENSION_ID_ENROLLMENT_DATE)
+        hiddenDimensions.push(DIMENSION_ID_INCIDENT_DATE)
+        hiddenDimensions.push(DIMENSION_ID_SCHEDULED_DATE)
+        return hiddenDimensions
+    }
+
+    // For Tracker programs (WITH_REGISTRATION), only hide based on program config
+    // Hide incident date if program doesn't capture it
+    if (program.displayIncidentDate === false) {
+        hiddenDimensions.push(DIMENSION_ID_INCIDENT_DATE)
+    }
+
+    // Note: We don't hide scheduled date based on stage config anymore
+    // because we want to show all dimensions for the data source
+    // The stage filter will handle filtering dimensions by stage
+
+    return hiddenDimensions
 }
 
 export const isAoWithTimeDimension = (ao) =>
