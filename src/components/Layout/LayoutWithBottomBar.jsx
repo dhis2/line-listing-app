@@ -1,21 +1,69 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Layout from './Layout.jsx'
 import classes from './styles/LayoutWithBottomBar.module.css'
+import {
+    sGetUiLayout,
+    sGetUiOutputType,
+    sGetUiDataSource,
+    sGetUiProgramId,
+} from '../../reducers/ui.js'
+import { sGetMetadataById } from '../../reducers/metadata.js'
+import { tSetUiOutput, acUpdateUiEntityTypeId } from '../../actions/ui.js'
+import { tSetCurrentFromUi } from '../../actions/current.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+    OUTPUT_TYPE_TRACKED_ENTITY,
+} from '../../modules/visualization.js'
+import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 
 const LayoutWithBottomBar = () => {
-    const handleButton1Click = () => {
-        console.log('Button 1 clicked')
-        // Add your button 1 logic here
+    const dispatch = useDispatch()
+    const layout = useSelector(sGetUiLayout)
+    const outputType = useSelector(sGetUiOutputType)
+    const dataSource = useSelector(sGetUiDataSource)
+    const programId = useSelector(sGetUiProgramId)
+    const program = useSelector((state) => sGetMetadataById(state, programId))
+
+    // Check if there are any dimensions in the layout
+    const hasDimensions =
+        (layout?.columns && layout.columns.length > 0) ||
+        (layout?.filters && layout.filters.length > 0)
+
+    // Check if tracked entity output is supported
+    const supportsTrackedEntity =
+        dataSource?.type === 'TRACKED_ENTITY_TYPE' ||
+        dataSource?.programType === PROGRAM_TYPE_WITH_REGISTRATION ||
+        program?.programType === PROGRAM_TYPE_WITH_REGISTRATION
+
+    const handleOutputButtonClick = (outputTypeValue) => {
+        // For tracked entity output, ensure the entity type is set from the program if available
+        if (
+            outputTypeValue === OUTPUT_TYPE_TRACKED_ENTITY &&
+            program?.trackedEntityType
+        ) {
+            dispatch(
+                acUpdateUiEntityTypeId(program.trackedEntityType.id, {
+                    [program.trackedEntityType.id]: program.trackedEntityType,
+                })
+            )
+        }
+
+        dispatch(tSetUiOutput(outputTypeValue))
+        dispatch(tSetCurrentFromUi())
     }
 
-    const handleButton2Click = () => {
-        console.log('Button 2 clicked')
-        // Add your button 2 logic here
+    const handleEventClick = () => {
+        handleOutputButtonClick(OUTPUT_TYPE_EVENT)
     }
 
-    const handleButton3Click = () => {
-        console.log('Button 3 clicked')
-        // Add your button 3 logic here
+    const handleEnrollmentClick = () => {
+        handleOutputButtonClick(OUTPUT_TYPE_ENROLLMENT)
+    }
+
+    const handleTrackedEntityClick = () => {
+        handleOutputButtonClick(OUTPUT_TYPE_TRACKED_ENTITY)
     }
 
     return (
@@ -24,18 +72,32 @@ const LayoutWithBottomBar = () => {
                 <Layout />
             </div>
             <div className={classes.bottomBar}>
-                <button onClick={handleButton1Click} className={classes.button}>
-                    Create Event list
-                </button>
-                <button onClick={handleButton2Click} className={classes.button}>
-                    Create Enrollment list
+                <button
+                    onClick={handleEventClick}
+                    className={classes.button}
+                    disabled={!hasDimensions}
+                >
+                    {outputType === OUTPUT_TYPE_EVENT
+                        ? 'Update Event list'
+                        : 'Create Event list'}
                 </button>
                 <button
-                    onClick={handleButton3Click}
+                    onClick={handleEnrollmentClick}
                     className={classes.button}
-                    disabled
+                    disabled={!hasDimensions}
                 >
-                    Create Person list
+                    {outputType === OUTPUT_TYPE_ENROLLMENT
+                        ? 'Update Enrollment list'
+                        : 'Create Enrollment list'}
+                </button>
+                <button
+                    onClick={handleTrackedEntityClick}
+                    className={classes.button}
+                    disabled={!hasDimensions || !supportsTrackedEntity}
+                >
+                    {outputType === OUTPUT_TYPE_TRACKED_ENTITY
+                        ? 'Update Person list'
+                        : 'Create Person list'}
                 </button>
             </div>
         </div>

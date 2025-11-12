@@ -62,7 +62,7 @@ export const getDefaultFromUi = (current, ui, metadata = {}) => {
         // merge with current if current is a saved visualization to keep id, access etc
         ...(current?.id && current),
         [BASE_FIELD_TYPE]: adaptedUi.type,
-        outputType: adaptedUi.input.type,
+        outputType: outputType,
         sorting: adaptedUi.sorting,
         ...getEntityTypeFromUi(adaptedUi),
         ...getProgramFromUi(adaptedUi),
@@ -106,14 +106,38 @@ export const getOptionsFromUi = (ui) => {
     return { ...pick(ui.options, Object.keys(options)), legend }
 }
 
-export const getAxesFromUi = (ui) =>
-    Object.entries(ui.layout).reduce(
+export const getAxesFromUi = (ui) => {
+    const outputType = ui.output?.type || ui.input?.type
+
+    return Object.entries(ui.layout).reduce(
         (layout, [axisId, dimensionIds]) => ({
             ...layout,
             [axisId]: dimensionIds
                 .map((id) => {
                     const { programId, programStageId, dimensionId } =
-                        extractDimensionIdParts(id)
+                        extractDimensionIdParts(id, outputType)
+
+                    // For tracked entity output, we need to handle dimension ID conversion
+                    // from 2-part (stageId.dimensionId) to 3-part (programId.stageId.dimensionId)
+                    let actualProgramId = programId
+                    let actualProgramStageId = programStageId
+
+                    if (
+                        outputType === OUTPUT_TYPE_TRACKED_ENTITY &&
+                        ui.program?.id
+                    ) {
+                        // If we have a programId but no programStageId, it means the layout
+                        // has 2-part dimensions (stageId.dimensionId) that need conversion
+                        if (programId && !programStageId) {
+                            // The extracted programId is actually a stage ID
+                            actualProgramStageId = programId
+                            actualProgramId = ui.program.id
+                        }
+                        // If we already have both, use the real program ID
+                        else if (programStageId) {
+                            actualProgramId = ui.program.id
+                        }
+                    }
 
                     return dimensionCreate(
                         dimensionId,
@@ -133,14 +157,14 @@ export const getAxesFromUi = (ui) =>
                                         ),
                                     },
                                 }),
-                            ...(programId && {
+                            ...(actualProgramId && {
                                 program: {
-                                    id: programId,
+                                    id: actualProgramId,
                                 },
                             }),
-                            ...(programStageId && {
+                            ...(actualProgramStageId && {
                                 programStage: {
-                                    id: programStageId,
+                                    id: actualProgramStageId,
                                 },
                             }),
                         }
@@ -150,6 +174,7 @@ export const getAxesFromUi = (ui) =>
         }),
         {}
     )
+}
 
 export const getItemsByDimensionFromUi = (ui) => {
     const result = {}
