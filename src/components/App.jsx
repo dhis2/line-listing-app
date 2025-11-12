@@ -75,7 +75,7 @@ import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.jsx'
 import { default as DialogManager } from './Dialogs/DialogManager.jsx'
 import DndContext from './DndContext.jsx'
 import { InterpretationModal } from './InterpretationModal/index.js'
-import Layout from './Layout/Layout.jsx'
+import LayoutWithBottomBar from './Layout/LayoutWithBottomBar.jsx'
 import LoadingMask from './LoadingMask/LoadingMask.jsx'
 import { MainSidebar } from './MainSidebar/index.js'
 import { MultiSelectionProvider } from './MainSidebar/MultiSelectionContext.jsx'
@@ -510,7 +510,7 @@ const App = () => {
                                         <TitleBar />
                                     </div>
                                 )}
-                                <Layout />
+                                <LayoutWithBottomBar />
                             </div>
                             <div className={cx(classes.mainCenterCanvas)}>
                                 {(initialLoadIsComplete &&

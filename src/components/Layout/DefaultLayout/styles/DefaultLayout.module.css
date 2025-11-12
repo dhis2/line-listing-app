@@ -2,9 +2,8 @@
     display: flex;
     flex: 1;
     background-color: var(--colors-white);
-    border: 1px solid var(--colors-grey400);
-    border-radius: 5px;
-    margin-block-end: 4px;
+    /* border: 1px solid var(--colors-grey400); */
+    /* border-radius: 5px; */
 }
 .axisGroup {
     display: flex;
