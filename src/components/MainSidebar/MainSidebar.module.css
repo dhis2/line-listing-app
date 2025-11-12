@@ -20,7 +20,9 @@
 
 .headingContainer {
     width: 100%;
-    padding: 2px 2px 2px 6px;
+    padding: 6px 2px 4px 6px;
+    background: var(--colors-grey200);
+    border-bottom: 1px solid var(--colors-grey400);
     display: flex;
     align-items: center;
     justify-content: space-between;

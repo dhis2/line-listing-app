@@ -218,39 +218,6 @@ const MainSidebar = () => {
             >
                 <div className={styles.headingContainer}>
                     <h2 className={styles.heading}>{i18n.t('Data browser')}</h2>
-                    <Button
-                        icon={
-                            <svg
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect
-                                    x="-0.5"
-                                    y="0.5"
-                                    width="13"
-                                    height="13"
-                                    rx="1.5"
-                                    transform="matrix(-1 0 0 1 14 1)"
-                                    stroke="#A0ADBA"
-                                />
-                                <rect
-                                    width="1"
-                                    height="12"
-                                    transform="matrix(-1 0 0 1 7 2)"
-                                    fill="#A0ADBA"
-                                />
-                                <path d="M12 6V10L9 8L12 6Z" fill="#A0ADBA" />
-                            </svg>
-                        }
-                        small
-                        secondary
-                        className={styles.toggleButton}
-                        onClick={toggleSidebar}
-                        aria-label={i18n.t('Hide dimensions sidebar')}
-                    />
                 </div>
                 <InputPanel visible={true} />
 
