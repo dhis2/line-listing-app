@@ -4,7 +4,6 @@ import React from 'react'
 import DefaultAxis from '../DefaultLayout/DefaultAxis.jsx'
 import defaultAxisStyles from '../DefaultLayout/styles/DefaultAxis.module.css'
 import defaultLayoutStyles from '../DefaultLayout/styles/DefaultLayout.module.css'
-import OutputAxis from '../OutputAxis/OutputAxis.jsx'
 import HorizontalResizablePanel from './HorizontalResizablePanel.jsx'
 import lineListLayoutStyles from './styles/LineListLayout.module.css'
 
@@ -41,13 +40,6 @@ const Layout = () => (
                     <DefaultAxis
                         axisId={AXIS_ID_FILTERS}
                         className={defaultLayoutStyles.filters}
-                    />
-                    <OutputAxis
-                        className={cx(
-                            defaultLayoutStyles.filters,
-                            defaultAxisStyles.axisContainerLeft,
-                            lineListLayoutStyles.outputAxis
-                        )}
                     />
                 </div>
             }
