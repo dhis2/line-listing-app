@@ -14,8 +14,10 @@ import { sGetCurrent } from '../../reducers/current.js'
 import { sGetUiShowExpandedVisualizationCanvas } from '../../reducers/ui.js'
 import { acToggleUiExpandedVisualizationCanvas } from '../../actions/ui.js'
 import { ChevronToggle } from './ChevronToggle.jsx'
+import { MegaMenu } from './MegaMenu.jsx'
 import { MenuBar } from './MenuBar.jsx'
 import { UpdateButton } from './UpdateButton.jsx'
+import { VisualizationTypeSelect } from './VisualizationTypeSelect.jsx'
 import TitleBar from '../TitleBar/TitleBar.jsx'
 import styles from './Toolbar.module.css'
 
@@ -57,44 +59,51 @@ export const Toolbar = ({ onFileMenuAction }) => {
 
     return (
         <>
-            <AnalyticsToolbar>
-                <UpdateButton />
-                <MenuBar onFileMenuAction={onFileMenuAction} />
-                {showTitleBarInToolbar && <TitleBar />}
-                <div className={styles.toolbarActions}>
-                    <Button
-                        dense
-                        small
-                        secondary
-                        onClick={handleShareClick}
-                        disabled={!current?.id}
-                    >
-                        <IconShare16 />
-                    </Button>
-                    <Button
-                        icon={<IconDownload16 />}
-                        dense
-                        small
-                        secondary
-                        disabled={!current}
-                    ></Button>
-                    <div className={styles.divider}></div>
-                    <Button
-                        icon={
-                            isExpanded ? (
-                                <IconFullscreenExit16 />
-                            ) : (
-                                <IconFullscreen16 />
-                            )
-                        }
-                        dense
-                        small
-                        secondary
-                        onClick={handleExpandToggle}
-                    />
-                    <ChevronToggle />
-                </div>
-            </AnalyticsToolbar>
+            <div className={styles.toolbarWrapper}>
+                <AnalyticsToolbar>
+                    <div className={styles.toolbarLeft}>
+                        <MegaMenu onFileMenuAction={onFileMenuAction} />
+                        <div className={styles.toolbarLeftDivider}></div>
+                        <VisualizationTypeSelect dataTest="visualization-type-select" />
+                        <div className={styles.toolbarLeftDivider}></div>
+                        <MenuBar onFileMenuAction={onFileMenuAction} />
+                    </div>
+                    {showTitleBarInToolbar && <TitleBar />}
+                    <div className={styles.toolbarActions}>
+                        <Button
+                            dense
+                            small
+                            secondary
+                            onClick={handleShareClick}
+                            disabled={!current?.id}
+                        >
+                            <IconShare16 />
+                        </Button>
+                        <Button
+                            icon={<IconDownload16 />}
+                            dense
+                            small
+                            secondary
+                            disabled={!current}
+                        ></Button>
+                        <div className={styles.divider}></div>
+                        <Button
+                            icon={
+                                isExpanded ? (
+                                    <IconFullscreenExit16 />
+                                ) : (
+                                    <IconFullscreen16 />
+                                )
+                            }
+                            dense
+                            small
+                            secondary
+                            onClick={handleExpandToggle}
+                        />
+                        <ChevronToggle />
+                    </div>
+                </AnalyticsToolbar>
+            </div>
             {sharingDialogOpen && current?.id && (
                 <SharingDialog
                     id={current.id}

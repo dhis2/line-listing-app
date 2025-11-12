@@ -1,6 +1,6 @@
 .titleBar {
     display: flex;
-    margin: 0 0 0 var(--spacers-dp4);
+    margin: 0;
     padding: 0 var(--spacers-dp4);
     /* Same amount of whitespace as fullscreen button */
     /* border-bottom: 1px solid var(--colors-grey400);

@@ -7,7 +7,6 @@ import {
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
 import { DataSourceSelect } from './DataSourceSelect.jsx'
-import { VisualizationTypeSelect } from './VisualizationTypeSelect.jsx'
 import styles from './InputPanel.module.css'
 
 export const getLabelForInputType = (type) => {
@@ -31,11 +30,6 @@ export const InputPanel = ({ visible }) => {
     return (
         <div className={styles.container} data-test="input-panel">
             <div className={styles.section}>
-                <div className={styles.row}>
-                    <div className={styles.dropdownWrapper}>
-                        <VisualizationTypeSelect dataTest="visualization-type-select" />
-                    </div>
-                </div>
                 <div className={styles.row}>
                     <div className={styles.dropdownWrapper}>
                         <DataSourceSelect noBorders={true} />

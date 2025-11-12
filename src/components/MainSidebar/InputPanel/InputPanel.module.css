@@ -1,8 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    background-color: var(--colors-white);
-    border-bottom: 1px solid var(--colors-grey400);
+    /* background-color: var(--colors-white); */
+    /* border-bottom: 1px solid var(--colors-grey400); */
     /* gap: var(--spacers-dp12); */
 }
 
@@ -15,11 +15,11 @@
 .row:first-of-type {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid var(--colors-grey300);
 }
 
 .dropdownWrapper {
     flex: 1;
+    margin: 0 6px;
 }
 
 /* Override dropdown styles to remove borders */

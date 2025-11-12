@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconArrowRight16, IconFolder16 } from '@dhis2/ui'
+import { IconArrowRight16, IconFolder16, Button } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ import {
     acSetUiDetailsPanelOpen,
     acToggleUiExpandedCard,
     acSetUiExpandedCards,
+    acToggleUiSidebarHidden,
 } from '../../actions/ui.js'
 import {
     ACCESSORY_PANEL_TAB_INPUT,
@@ -126,6 +127,9 @@ const MainSidebar = () => {
 
     const isHidden = useSelector(sGetUiSidebarHidden)
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
+    const toggleSidebar = useCallback(() => {
+        dispatch(acToggleUiSidebarHidden())
+    }, [dispatch])
     const onCardClick = useCallback(
         (id) => {
             dispatch(acToggleUiExpandedCard(id))
@@ -212,6 +216,42 @@ const MainSidebar = () => {
                 data-test="main-sidebar"
                 style={{ width: `${width}px` }}
             >
+                <div className={styles.headingContainer}>
+                    <h2 className={styles.heading}>{i18n.t('Data browser')}</h2>
+                    <Button
+                        icon={
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    x="-0.5"
+                                    y="0.5"
+                                    width="13"
+                                    height="13"
+                                    rx="1.5"
+                                    transform="matrix(-1 0 0 1 14 1)"
+                                    stroke="#A0ADBA"
+                                />
+                                <rect
+                                    width="1"
+                                    height="12"
+                                    transform="matrix(-1 0 0 1 7 2)"
+                                    fill="#A0ADBA"
+                                />
+                                <path d="M12 6V10L9 8L12 6Z" fill="#A0ADBA" />
+                            </svg>
+                        }
+                        small
+                        secondary
+                        className={styles.toggleButton}
+                        onClick={toggleSidebar}
+                        aria-label={i18n.t('Hide dimensions sidebar')}
+                    />
+                </div>
                 <InputPanel visible={true} />
 
                 {/* Show UnifiedSearch when data source is selected */}

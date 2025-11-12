@@ -1,3 +1,22 @@
+.toolbarWrapper {
+    width: 100%;
+    background-color: white;
+}
+
+.toolbarLeft {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.toolbarLeftDivider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--colors-grey300);
+}
+
 .toolbarActions {
     display: flex;
     align-items: center;

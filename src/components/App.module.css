@@ -73,9 +73,8 @@
 }
 /* Main canvas */
 
-/* Defeating a weird border offset issue */
 .mainCenterLayout {
-    margin-top: 1px;
+    /* No margin needed now that Toolbar is full width */
 }
 
 .standaloneTitleBar {

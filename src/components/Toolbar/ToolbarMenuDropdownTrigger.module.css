@@ -1,0 +1,49 @@
+.wrapper {
+    display: inline-flex;
+    height: 100%;
+}
+
+.trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--colors-grey900);
+    line-height: 1;
+}
+
+.trigger:hover {
+    background-color: var(--colors-grey200);
+}
+
+.trigger:active {
+    background-color: var(--colors-grey300);
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-weight: 500;
+}
+
+.chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    line-height: 0;
+}

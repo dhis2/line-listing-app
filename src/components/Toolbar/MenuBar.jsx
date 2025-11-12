@@ -253,8 +253,9 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
 
     return (
-        <HoverMenuBar>
-            <FileMenu
+        <>
+            {/* <HoverMenuBar> */}
+            {/* <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
                 fileObject={{
@@ -285,11 +286,12 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onTranslate={onFileMenuAction}
                 onDelete={onDelete}
                 onError={onError}
-            />
-            <ViewDropDown />
+            /> */}
+            {/* <ViewDropDown /> */}
             <VisualizationOptionsManager />
             {/* <ToolbarDownloadDropdown /> */}
-        </HoverMenuBar>
+            {/* </HoverMenuBar> */}
+        </>
     )
 }
 

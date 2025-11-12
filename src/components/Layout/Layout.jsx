@@ -7,7 +7,6 @@ import { LAYOUT_TYPE_LINE_LIST } from '../../modules/layout.js'
 import {
     sGetUiLayoutPanelHidden,
     sGetUiShowExpandedLayoutPanel,
-    sGetUiDataSourceId,
 } from '../../reducers/ui.js'
 import LineListLayout from './LineListLayout/LineListLayout.jsx'
 import classes from './styles/Layout.module.css'
@@ -21,7 +20,6 @@ const Layout = () => {
         sGetUiShowExpandedLayoutPanel(state)
     )
     const isHidden = useSelector(sGetUiLayoutPanelHidden)
-    const dataSourceId = useSelector(sGetUiDataSourceId)
     const dispatch = useDispatch()
     const toggleExpanded = () =>
         dispatch(acSetShowExpandedLayoutPanel(!isExpanded))
@@ -31,8 +29,8 @@ const Layout = () => {
 
     const ButtonIcon = isExpanded ? IconChevronUp16 : IconChevronDown16
 
-    // Hide layout if no data source is selected or if manually hidden
-    const shouldHideLayout = isHidden || !dataSourceId
+    // Hide layout only when manually hidden
+    const shouldHideLayout = isHidden
 
     return (
         <div

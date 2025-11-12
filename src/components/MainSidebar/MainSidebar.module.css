@@ -18,6 +18,31 @@
     position: relative;
 }
 
+.headingContainer {
+    width: 100%;
+    padding: 2px 2px 2px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heading {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+    line-height: 1.4;
+}
+
+.toggleButton {
+    flex-shrink: 0;
+    border-color: transparent !important;
+}
+
+.toggleButton:hover {
+    background-color: var(--colors-grey200) !important;
+}
+
 .cardsContainer {
     padding: 4px;
     flex: 1;
