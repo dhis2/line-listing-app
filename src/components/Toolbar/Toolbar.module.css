@@ -3,11 +3,15 @@
     background-color: white;
 }
 
+:global([data-test='dhis2-analytics-toolbar']) {
+    max-height: 40px !important;
+}
+
 .toolbarLeft {
     display: flex;
     align-items: center;
-    gap: 0;
-    padding: 0;
+    gap: 4px;
+    padding: var(--spacers-dp4);
     flex-shrink: 0;
 }
 

@@ -16,6 +16,7 @@
     font-family: inherit;
     color: var(--colors-grey900);
     line-height: 1;
+    border-radius: 4px;
 }
 
 .trigger:hover {
