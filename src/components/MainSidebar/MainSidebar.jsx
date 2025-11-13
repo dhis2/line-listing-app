@@ -184,26 +184,70 @@ const MainSidebar = () => {
     ])
     const { counts } = useSelectedDimensions()
 
-    // Auto-expand cards when mode is first enabled
+    // Auto-expand cards when data source is selected
     useEffect(() => {
-        if (isProgramWithRegistration) {
-            // Auto-expand enrollment card for programs with registration
-            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)) {
-                dispatch(acToggleUiExpandedCard(ACCESSORY_PANEL_TAB_ENROLLMENT))
-            }
-        } else if (splitDataCards) {
-            // Legacy: Auto-expand "Org. units, periods, and statuses" card when split mode is first enabled
-            if (
-                !expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
+        if (dataSourceId) {
+            const cardsToExpand = []
+
+            if (isProgramWithRegistration) {
+                // Expand enrollment card for programs with registration
+                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)) {
+                    cardsToExpand.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                }
+                // Expand all stage cards
+                dataSource.programStages.forEach((stage) => {
+                    const stageCardId = getStageCardId(stage.id)
+                    if (!expandedCards.includes(stageCardId)) {
+                        cardsToExpand.push(stageCardId)
+                    }
+                })
+            } else if (
+                splitDataCards &&
+                dataSourceType !== 'TRACKED_ENTITY_TYPE'
             ) {
-                dispatch(
-                    acToggleUiExpandedCard(
+                // Legacy: Auto-expand split mode cards
+                if (
+                    !expandedCards.includes(
                         ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
                     )
-                )
+                ) {
+                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
+                }
+                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)) {
+                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM)
+                }
+            } else if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
+                // Non-split program card
+                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)) {
+                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM)
+                }
+            }
+
+            // Expand tracked entity card if applicable
+            if (
+                entityType?.name &&
+                dataSourceType === 'TRACKED_ENTITY_TYPE' &&
+                !expandedCards.includes(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+            ) {
+                cardsToExpand.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+            }
+
+            // Expand main dimensions and your dimensions cards
+            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)) {
+                cardsToExpand.push(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)
+            }
+            if (!expandedCards.includes(ACCESSORY_PANEL_TAB_YOUR)) {
+                cardsToExpand.push(ACCESSORY_PANEL_TAB_YOUR)
+            }
+
+            // Dispatch all expansions at once
+            if (cardsToExpand.length > 0) {
+                cardsToExpand.forEach((cardId) => {
+                    dispatch(acToggleUiExpandedCard(cardId))
+                })
             }
         }
-    }, [splitDataCards, isProgramWithRegistration]) // Only trigger when mode changes, not when program/entity changes
+    }, [dataSourceId]) // Trigger when data source changes
 
     return (
         <div
