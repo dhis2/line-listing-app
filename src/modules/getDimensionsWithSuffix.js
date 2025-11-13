@@ -47,27 +47,15 @@ export const getDimensionsWithSuffix = ({
             )
 
             if (duplicates.length > 0) {
-                const sameProgramId = duplicates.find(
-                    (dup) => dup.programId === dimension.programId
-                )
-                const thirdPartyDuplicates = duplicates
-                    .filter((dup) => dup.programId !== dimension.programId)
-                    .find((dpid) =>
-                        duplicates.find(
-                            (dup) =>
-                                dup.programStageId !== dpid.programStageId &&
-                                dup.programId === dpid.programId
-                        )
-                    )
-
-                if (sameProgramId || thirdPartyDuplicates) {
-                    dimension.suffix = metadata[dimension.programStageId]?.name
-                } else {
+                // Always show stage suffix for duplicates with stage IDs
+                if (dimension.programStageId) {
+                    dimension.suffix =
+                        metadata[dimension.programStageId]?.name ||
+                        metadata[dimension.programId]?.name
+                } else if (dimension.programId) {
+                    // Fall back to program suffix for duplicates without stage IDs (e.g., time dimensions)
                     dimension.suffix = metadata[dimension.programId]?.name
                 }
-            } else if (dimension.programStageId) {
-                // Always show stage suffix for stage-specific dimensions even without duplicates
-                dimension.suffix = metadata[dimension.programStageId]?.name
             }
         } else if (
             [DIMENSION_TYPE_ORGANISATION_UNIT, DIMENSION_TYPE_STATUS].includes(

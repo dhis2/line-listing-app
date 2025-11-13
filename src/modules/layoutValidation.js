@@ -110,6 +110,8 @@ export const isLayoutValidForSaveAs = (layout) =>
         : layoutHasProgramId(layout)
 
 // Dimension-level validation (visual indicators, non-blocking)
+// NOTE: These validation rules are currently DISABLED (see getInvalidDimensions function below)
+// They were used to mark chips as invalid, but now only button validation is active
 
 /**
  * Validation rule: When output is EVENT, data items from multiple stages are invalid.
@@ -249,13 +251,14 @@ const validationRules = [
 export const getInvalidDimensions = (layout, outputType, metadata) => {
     const invalidDimensionIds = new Set()
 
+    // COMMENTED OUT: Chip validation disabled in favor of button validation only
     // Run all validation rules and collect invalid dimensions
-    for (const rule of validationRules) {
-        const ruleInvalidIds = rule(layout, outputType, metadata)
-        for (const id of ruleInvalidIds) {
-            invalidDimensionIds.add(id)
-        }
-    }
+    // for (const rule of validationRules) {
+    //     const ruleInvalidIds = rule(layout, outputType, metadata)
+    //     for (const id of ruleInvalidIds) {
+    //         invalidDimensionIds.add(id)
+    //     }
+    // }
 
     return invalidDimensionIds
 }
