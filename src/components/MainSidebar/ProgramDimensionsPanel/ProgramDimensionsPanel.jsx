@@ -7,7 +7,10 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -104,6 +107,14 @@ const ProgramDimensionsPanel = ({
     const showDivider = hasProgramDimensions && hasProgramDataDimensions
     const isProgramSelectionComplete = () => {
         if (inputType === OUTPUT_TYPE_EVENT) {
+            // Programs without registration don't have stages
+            if (
+                selectedProgram?.programType ===
+                PROGRAM_TYPE_WITHOUT_REGISTRATION
+            ) {
+                return !!selectedProgram
+            }
+            // Programs with registration need both program and stage
             return selectedProgram && selectedStageId
         } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             return !!selectedProgram

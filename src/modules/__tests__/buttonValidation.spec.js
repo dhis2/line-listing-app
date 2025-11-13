@@ -5,6 +5,10 @@ import {
     validateTrackedEntityButton,
     validateButtons,
 } from '../buttonValidation.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from '../programTypes.js'
 
 describe('analyzeDimensionsInLayout', () => {
     it('returns empty analysis for null layout', () => {
@@ -14,7 +18,9 @@ describe('analyzeDimensionsInLayout', () => {
             dimensionCount: 0,
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
+            programTypes: new Set(),
             hasDimensions: false,
+            hasMixedProgramTypes: false,
         })
     })
 
@@ -29,7 +35,9 @@ describe('analyzeDimensionsInLayout', () => {
         expect(result.dimensionCount).toBe(0)
         expect(result.uniquePrograms.size).toBe(0)
         expect(result.uniqueStages.size).toBe(0)
+        expect(result.programTypes.size).toBe(0)
         expect(result.hasDimensions).toBe(false)
+        expect(result.hasMixedProgramTypes).toBe(false)
     })
 
     it('identifies single program and single stage from metadata', () => {
@@ -41,6 +49,7 @@ describe('analyzeDimensionsInLayout', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITHOUT_REGISTRATION,
                 programStages: [{ id: 'stageId1', name: 'Stage 1' }],
             },
         }
@@ -52,7 +61,12 @@ describe('analyzeDimensionsInLayout', () => {
         expect(result.uniqueStages.has('stageId1')).toBe(true)
         expect(result.uniquePrograms.size).toBe(1)
         expect(result.uniquePrograms.has('programId1')).toBe(true)
+        expect(result.programTypes.size).toBe(1)
+        expect(result.programTypes.has(PROGRAM_TYPE_WITHOUT_REGISTRATION)).toBe(
+            true
+        )
         expect(result.hasDimensions).toBe(true)
+        expect(result.hasMixedProgramTypes).toBe(false)
     })
 
     it('identifies multiple program stages from same program', () => {
@@ -64,6 +78,7 @@ describe('analyzeDimensionsInLayout', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [
                     { id: 'stageId1', name: 'Stage 1' },
                     { id: 'stageId2', name: 'Stage 2' },
@@ -81,6 +96,11 @@ describe('analyzeDimensionsInLayout', () => {
         expect(result.uniqueStages.has('stageId3')).toBe(true)
         expect(result.uniquePrograms.size).toBe(1)
         expect(result.uniquePrograms.has('programId1')).toBe(true)
+        expect(result.programTypes.size).toBe(1)
+        expect(result.programTypes.has(PROGRAM_TYPE_WITH_REGISTRATION)).toBe(
+            true
+        )
+        expect(result.hasMixedProgramTypes).toBe(false)
     })
 
     it('identifies multiple programs from 2-part dimension IDs using metadata', () => {
@@ -92,6 +112,7 @@ describe('analyzeDimensionsInLayout', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [
                     { id: 'stageId1', name: 'Stage 1' },
                     { id: 'stageId3', name: 'Stage 3' },
@@ -100,6 +121,7 @@ describe('analyzeDimensionsInLayout', () => {
             programId2: {
                 id: 'programId2',
                 name: 'Program 2',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [{ id: 'stageId2', name: 'Stage 2' }],
             },
         }
@@ -111,6 +133,45 @@ describe('analyzeDimensionsInLayout', () => {
         expect(result.uniquePrograms.has('programId1')).toBe(true)
         expect(result.uniquePrograms.has('programId2')).toBe(true)
         expect(result.uniqueStages.size).toBe(3)
+        expect(result.programTypes.size).toBe(1)
+        expect(result.programTypes.has(PROGRAM_TYPE_WITH_REGISTRATION)).toBe(
+            true
+        )
+        expect(result.hasMixedProgramTypes).toBe(false)
+    })
+
+    it('detects mixed program types (WITH_REGISTRATION and WITHOUT_REGISTRATION)', () => {
+        const layout = {
+            columns: ['stageId1.dimension1', 'stageId2.dimension2'],
+            filters: [],
+        }
+        const metadata = {
+            programId1: {
+                id: 'programId1',
+                name: 'Program 1',
+                programType: PROGRAM_TYPE_WITHOUT_REGISTRATION,
+                programStages: [{ id: 'stageId1', name: 'Stage 1' }],
+            },
+            programId2: {
+                id: 'programId2',
+                name: 'Program 2',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
+                programStages: [{ id: 'stageId2', name: 'Stage 2' }],
+            },
+        }
+
+        const result = analyzeDimensionsInLayout(layout, metadata)
+
+        expect(result.dimensionCount).toBe(2)
+        expect(result.uniquePrograms.size).toBe(2)
+        expect(result.programTypes.size).toBe(2)
+        expect(result.programTypes.has(PROGRAM_TYPE_WITH_REGISTRATION)).toBe(
+            true
+        )
+        expect(result.programTypes.has(PROGRAM_TYPE_WITHOUT_REGISTRATION)).toBe(
+            true
+        )
+        expect(result.hasMixedProgramTypes).toBe(true)
     })
 
     it('identifies multiple programs for tracked entity format dimensions', () => {
@@ -160,6 +221,7 @@ describe('validateEventButton', () => {
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
             hasDimensions: false,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEventButton(analysis)
@@ -174,6 +236,7 @@ describe('validateEventButton', () => {
             uniquePrograms: new Set(['programId1']),
             uniqueStages: new Set(['stageId1']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEventButton(analysis)
@@ -188,6 +251,7 @@ describe('validateEventButton', () => {
             uniquePrograms: new Set(['programId1']),
             uniqueStages: new Set(['stageId1', 'stageId2']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEventButton(analysis)
@@ -202,6 +266,7 @@ describe('validateEventButton', () => {
             uniquePrograms: new Set(['programId1', 'programId2']),
             uniqueStages: new Set(['stageId1']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEventButton(analysis)
@@ -216,11 +281,29 @@ describe('validateEventButton', () => {
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEventButton(analysis)
 
         expect(result.disabled).toBe(false)
+    })
+
+    it('disables when mixed program types are present', () => {
+        const analysis = {
+            dimensionCount: 3,
+            uniquePrograms: new Set(['programId1', 'programId2']),
+            uniqueStages: new Set(['stageId1', 'stageId2']),
+            hasDimensions: true,
+            hasMixedProgramTypes: true,
+        }
+
+        const result = validateEventButton(analysis)
+
+        expect(result.disabled).toBe(true)
+        expect(result.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
     })
 })
 
@@ -231,6 +314,7 @@ describe('validateEnrollmentButton', () => {
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
             hasDimensions: false,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEnrollmentButton(analysis)
@@ -245,6 +329,7 @@ describe('validateEnrollmentButton', () => {
             uniquePrograms: new Set(['programId1']),
             uniqueStages: new Set(['stageId1', 'stageId2']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEnrollmentButton(analysis)
@@ -259,6 +344,7 @@ describe('validateEnrollmentButton', () => {
             uniquePrograms: new Set(['programId1', 'programId2']),
             uniqueStages: new Set(['stageId1', 'stageId2']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEnrollmentButton(analysis)
@@ -273,11 +359,29 @@ describe('validateEnrollmentButton', () => {
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateEnrollmentButton(analysis)
 
         expect(result.disabled).toBe(false)
+    })
+
+    it('disables when mixed program types are present', () => {
+        const analysis = {
+            dimensionCount: 3,
+            uniquePrograms: new Set(['programId1', 'programId2']),
+            uniqueStages: new Set(['stageId1', 'stageId2']),
+            hasDimensions: true,
+            hasMixedProgramTypes: true,
+        }
+
+        const result = validateEnrollmentButton(analysis)
+
+        expect(result.disabled).toBe(true)
+        expect(result.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
     })
 })
 
@@ -288,6 +392,7 @@ describe('validateTrackedEntityButton', () => {
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
             hasDimensions: false,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateTrackedEntityButton(analysis, true)
@@ -302,6 +407,7 @@ describe('validateTrackedEntityButton', () => {
             uniquePrograms: new Set(['programId1']),
             uniqueStages: new Set(['stageId1']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateTrackedEntityButton(analysis, false)
@@ -318,6 +424,7 @@ describe('validateTrackedEntityButton', () => {
             uniquePrograms: new Set(['programId1']),
             uniqueStages: new Set(['stageId1', 'stageId2']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateTrackedEntityButton(analysis, true)
@@ -332,6 +439,7 @@ describe('validateTrackedEntityButton', () => {
             uniquePrograms: new Set(['programId1', 'programId2']),
             uniqueStages: new Set(['stageId1', 'stageId2']),
             hasDimensions: true,
+            hasMixedProgramTypes: false,
         }
 
         const result = validateTrackedEntityButton(analysis, true)
@@ -339,6 +447,23 @@ describe('validateTrackedEntityButton', () => {
         // Tracked entities can span multiple programs
         expect(result.disabled).toBe(false)
         expect(result.reason).toBeUndefined()
+    })
+
+    it('disables when mixed program types are present', () => {
+        const analysis = {
+            dimensionCount: 3,
+            uniquePrograms: new Set(['programId1', 'programId2']),
+            uniqueStages: new Set(['stageId1', 'stageId2']),
+            hasDimensions: true,
+            hasMixedProgramTypes: true,
+        }
+
+        const result = validateTrackedEntityButton(analysis, true)
+
+        expect(result.disabled).toBe(true)
+        expect(result.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
     })
 })
 
@@ -365,6 +490,7 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [{ id: 'stageId1', name: 'Stage 1' }],
             },
         }
@@ -385,6 +511,7 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [
                     { id: 'stageId1', name: 'Stage 1' },
                     { id: 'stageId2', name: 'Stage 2' },
@@ -432,11 +559,13 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [{ id: 'stageId1', name: 'Stage 1' }],
             },
             programId2: {
                 id: 'programId2',
                 name: 'Program 2',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [{ id: 'stageId2', name: 'Stage 2' }],
             },
         }
@@ -462,6 +591,7 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [{ id: 'stageId1', name: 'Stage 1' }],
             },
         }
@@ -485,6 +615,7 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [
                     { id: 'stageId1', name: 'Stage 1' },
                     { id: 'stageId2', name: 'Stage 2' },
@@ -510,6 +641,7 @@ describe('validateButtons', () => {
             programId1: {
                 id: 'programId1',
                 name: 'Program 1',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
                 programStages: [
                     { id: 'stage1', name: 'Stage 1' },
                     { id: 'stage2', name: 'Stage 2' },
@@ -534,5 +666,46 @@ describe('validateButtons', () => {
 
         // Tracked entity button should be enabled (only one program)
         expect(result.trackedEntity.disabled).toBe(false)
+    })
+
+    it('disables all buttons when mixed program types are present', () => {
+        const layout = {
+            columns: ['stageId1.dimension1', 'stageId2.dimension2'],
+            filters: ['ou'],
+        }
+        const metadata = {
+            programId1: {
+                id: 'programId1',
+                name: 'Event Program',
+                programType: PROGRAM_TYPE_WITHOUT_REGISTRATION,
+                programStages: [{ id: 'stageId1', name: 'Stage 1' }],
+            },
+            programId2: {
+                id: 'programId2',
+                name: 'Tracker Program',
+                programType: PROGRAM_TYPE_WITH_REGISTRATION,
+                programStages: [{ id: 'stageId2', name: 'Stage 2' }],
+            },
+        }
+
+        const result = validateButtons(layout, metadata, true)
+
+        // All buttons should be disabled with the mixed program types reason
+        expect(result.event.disabled).toBe(true)
+        expect(result.event.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
+        expect(result.enrollment.disabled).toBe(true)
+        expect(result.enrollment.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
+        expect(result.trackedEntity.disabled).toBe(true)
+        expect(result.trackedEntity.reason).toBe(
+            'Cannot combine programs with and without registration'
+        )
+
+        // Dimension analysis should detect mixed program types
+        expect(result.dimensionAnalysis.hasMixedProgramTypes).toBe(true)
+        expect(result.dimensionAnalysis.programTypes.size).toBe(2)
     })
 })

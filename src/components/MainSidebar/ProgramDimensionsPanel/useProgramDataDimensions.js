@@ -296,8 +296,10 @@ const useProgramDataDimensions = ({
             // Check if we have the required parameters for the API call
             const hasRequiredParams = (() => {
                 if (inputType === OUTPUT_TYPE_EVENT) {
-                    // For EVENT, we need a program with at least one stage
-                    return !!(program?.id && program?.programStages?.length)
+                    // For EVENT, we need a program
+                    // Programs without registration should have at least one stage
+                    // but we allow empty stages array to handle edge cases gracefully
+                    return !!program?.id
                 } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
                     return !!program?.id
                 } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
@@ -329,7 +331,8 @@ const useProgramDataDimensions = ({
                 if (
                     inputType === OUTPUT_TYPE_EVENT &&
                     !stageId &&
-                    program?.programStages
+                    program?.programStages &&
+                    program.programStages.length > 0
                 ) {
                     console.log(
                         'Multi-stage query - program:',

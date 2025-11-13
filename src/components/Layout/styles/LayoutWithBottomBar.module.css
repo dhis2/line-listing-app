@@ -29,9 +29,9 @@
 .bottomBar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 120px;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 4px;
     background-color: var(--colors-white);
     border-top: 1px solid var(--colors-grey300);
     width: 100%;

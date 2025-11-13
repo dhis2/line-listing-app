@@ -35,11 +35,15 @@ const LayoutWithBottomBar = () => {
         dataSource?.programType === PROGRAM_TYPE_WITH_REGISTRATION ||
         program?.programType === PROGRAM_TYPE_WITH_REGISTRATION
 
+    // Get program type from dataSource or program
+    const programType = dataSource?.programType || program?.programType
+
     // Validate button states based on layout dimensions
     const buttonValidation = validateButtons(
         layout,
         metadata,
-        supportsTrackedEntity
+        supportsTrackedEntity,
+        programType
     )
 
     const handleOutputButtonClick = (outputTypeValue) => {
@@ -79,6 +83,12 @@ const LayoutWithBottomBar = () => {
         createText
     ) => {
         const validation = buttonValidation[buttonKey]
+
+        // If button should be hidden, return null
+        if (validation.hidden) {
+            return null
+        }
+
         const button = (
             <button
                 onClick={onClick}

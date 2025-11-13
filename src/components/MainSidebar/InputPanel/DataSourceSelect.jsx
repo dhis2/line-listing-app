@@ -1,7 +1,11 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import {
+    SingleSelect,
+    SingleSelectOption,
+    IconDimensionEventDataItem16,
+} from '@dhis2/ui'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { tSetDataSource } from '../../../actions/ui.js'
@@ -154,6 +158,9 @@ export const DataSourceSelect = ({
             noMatchText={i18n.t('No data sources found')}
             empty={i18n.t('No data sources found')}
             loading={fetching}
+            prefix={
+                selectedValue ? <IconDimensionEventDataItem16 /> : undefined
+            }
         >
             {!fetching &&
                 programs.map(({ id, name }) => (

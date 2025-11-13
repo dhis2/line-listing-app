@@ -1,3 +1,8 @@
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from './programTypes.js'
+
 /**
  * Finds which program a stage belongs to by searching through all programs in metadata
  * @param {string} stageId - The stage ID to look up
@@ -65,7 +70,7 @@ const extractProgramAndStageFromDimensionId = (id, metadata) => {
  * Analyzes all dimensions in the layout to extract unique programs and program stages
  * @param {Object} layout - The layout object with columns and filters arrays
  * @param {Object} metadata - The metadata object containing dimension details
- * @returns {Object} Analysis result with unique programs, stages, and dimension count
+ * @returns {Object} Analysis result with unique programs, stages, program types, and dimension count
  */
 export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
     if (!layout) {
@@ -73,7 +78,9 @@ export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
             dimensionCount: 0,
             uniquePrograms: new Set(),
             uniqueStages: new Set(),
+            programTypes: new Set(),
             hasDimensions: false,
+            hasMixedProgramTypes: false,
         }
     }
 
@@ -84,6 +91,7 @@ export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
 
     const uniquePrograms = new Set()
     const uniqueStages = new Set()
+    const programTypes = new Set()
 
     allDimensionIds.forEach((dimensionId) => {
         const { programId, programStageId } =
@@ -91,6 +99,12 @@ export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
 
         if (programId) {
             uniquePrograms.add(programId)
+
+            // Look up the program type in metadata
+            const program = metadata[programId]
+            if (program?.programType) {
+                programTypes.add(program.programType)
+            }
         }
 
         if (programStageId) {
@@ -98,11 +112,18 @@ export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
         }
     })
 
+    // Check if we have both WITH_REGISTRATION and WITHOUT_REGISTRATION
+    const hasMixedProgramTypes =
+        programTypes.has(PROGRAM_TYPE_WITH_REGISTRATION) &&
+        programTypes.has(PROGRAM_TYPE_WITHOUT_REGISTRATION)
+
     return {
         dimensionCount: allDimensionIds.length,
         uniquePrograms,
         uniqueStages,
+        programTypes,
         hasDimensions: allDimensionIds.length > 0,
+        hasMixedProgramTypes,
     }
 }
 
@@ -112,13 +133,26 @@ export const analyzeDimensionsInLayout = (layout, metadata = {}) => {
  * @returns {Object} Validation result with disabled flag and optional reason
  */
 export const validateEventButton = (dimensionAnalysis) => {
-    const { hasDimensions, uniquePrograms, uniqueStages } = dimensionAnalysis
+    const {
+        hasDimensions,
+        uniquePrograms,
+        uniqueStages,
+        hasMixedProgramTypes,
+    } = dimensionAnalysis
 
     // Rule: Disabled if no dimensions
     if (!hasDimensions) {
         return {
             disabled: true,
             reason: 'No dimensions in layout',
+        }
+    }
+
+    // Rule: Disabled if mixed program types (WITH_REGISTRATION and WITHOUT_REGISTRATION)
+    if (hasMixedProgramTypes) {
+        return {
+            disabled: true,
+            reason: 'Cannot combine programs with and without registration',
         }
     }
 
@@ -146,16 +180,34 @@ export const validateEventButton = (dimensionAnalysis) => {
 /**
  * Validates whether the Enrollment button should be enabled
  * @param {Object} dimensionAnalysis - Result from analyzeDimensionsInLayout
- * @returns {Object} Validation result with disabled flag and optional reason
+ * @param {string} programType - The program type (WITH_REGISTRATION or WITHOUT_REGISTRATION)
+ * @returns {Object} Validation result with disabled/hidden flag and optional reason
  */
-export const validateEnrollmentButton = (dimensionAnalysis) => {
-    const { hasDimensions, uniquePrograms } = dimensionAnalysis
+export const validateEnrollmentButton = (dimensionAnalysis, programType) => {
+    const { hasDimensions, uniquePrograms, hasMixedProgramTypes } =
+        dimensionAnalysis
+
+    // Rule: Hidden if program type is WITHOUT_REGISTRATION
+    if (programType === 'WITHOUT_REGISTRATION') {
+        return {
+            disabled: false,
+            hidden: true,
+        }
+    }
 
     // Rule: Disabled if no dimensions
     if (!hasDimensions) {
         return {
             disabled: true,
             reason: 'No dimensions in layout',
+        }
+    }
+
+    // Rule: Disabled if mixed program types (WITH_REGISTRATION and WITHOUT_REGISTRATION)
+    if (hasMixedProgramTypes) {
+        return {
+            disabled: true,
+            reason: 'Cannot combine programs with and without registration',
         }
     }
 
@@ -176,19 +228,37 @@ export const validateEnrollmentButton = (dimensionAnalysis) => {
  * Validates whether the Tracked Entity button should be enabled
  * @param {Object} dimensionAnalysis - Result from analyzeDimensionsInLayout
  * @param {boolean} supportsTrackedEntity - Whether the data source supports tracked entities
- * @returns {Object} Validation result with disabled flag and optional reason
+ * @param {string} programType - The program type (WITH_REGISTRATION or WITHOUT_REGISTRATION)
+ * @returns {Object} Validation result with disabled/hidden flag and optional reason
  */
 export const validateTrackedEntityButton = (
     dimensionAnalysis,
-    supportsTrackedEntity
+    supportsTrackedEntity,
+    programType
 ) => {
-    const { hasDimensions } = dimensionAnalysis
+    const { hasDimensions, hasMixedProgramTypes } = dimensionAnalysis
+
+    // Rule: Hidden if program type is WITHOUT_REGISTRATION
+    if (programType === 'WITHOUT_REGISTRATION') {
+        return {
+            disabled: false,
+            hidden: true,
+        }
+    }
 
     // Rule: Disabled if no dimensions
     if (!hasDimensions) {
         return {
             disabled: true,
             reason: 'No dimensions in layout',
+        }
+    }
+
+    // Rule: Disabled if mixed program types (WITH_REGISTRATION and WITHOUT_REGISTRATION)
+    if (hasMixedProgramTypes) {
+        return {
+            disabled: true,
+            reason: 'Cannot combine programs with and without registration',
         }
     }
 
@@ -213,17 +283,24 @@ export const validateTrackedEntityButton = (
  * @param {Object} layout - The layout object with columns and filters arrays
  * @param {Object} metadata - The metadata object containing dimension details
  * @param {boolean} supportsTrackedEntity - Whether the data source supports tracked entities
+ * @param {string} programType - The program type (WITH_REGISTRATION or WITHOUT_REGISTRATION)
  * @returns {Object} Validation results for all three buttons
  */
-export const validateButtons = (layout, metadata, supportsTrackedEntity) => {
+export const validateButtons = (
+    layout,
+    metadata,
+    supportsTrackedEntity,
+    programType
+) => {
     const dimensionAnalysis = analyzeDimensionsInLayout(layout, metadata)
 
     return {
         event: validateEventButton(dimensionAnalysis),
-        enrollment: validateEnrollmentButton(dimensionAnalysis),
+        enrollment: validateEnrollmentButton(dimensionAnalysis, programType),
         trackedEntity: validateTrackedEntityButton(
             dimensionAnalysis,
-            supportsTrackedEntity
+            supportsTrackedEntity,
+            programType
         ),
         dimensionAnalysis, // Include for debugging/additional use
     }
