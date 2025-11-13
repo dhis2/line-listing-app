@@ -10,6 +10,8 @@ import {
     sGetUiProgramId,
 } from '../../reducers/ui.js'
 import { sGetMetadataById, sGetMetadata } from '../../reducers/metadata.js'
+import { sGetVisualization } from '../../reducers/visualization.js'
+import { sGetCurrent } from '../../reducers/current.js'
 import { tSetUiOutput, acUpdateUiEntityTypeId } from '../../actions/ui.js'
 import { tSetCurrentFromUi } from '../../actions/current.js'
 import {
@@ -28,6 +30,10 @@ const LayoutWithBottomBar = () => {
     const programId = useSelector(sGetUiProgramId)
     const program = useSelector((state) => sGetMetadataById(state, programId))
     const metadata = useSelector(sGetMetadata)
+    const current = useSelector(sGetCurrent)
+
+    // Check if we have a current visualization (created but maybe not saved)
+    const hasCurrentVisualization = Boolean(current)
 
     // Check if tracked entity output is supported
     const supportsTrackedEntity =
@@ -124,21 +130,23 @@ const LayoutWithBottomBar = () => {
                 {renderButton(
                     'event',
                     handleEventClick,
-                    outputType === OUTPUT_TYPE_EVENT,
+                    hasCurrentVisualization && outputType === OUTPUT_TYPE_EVENT,
                     'Update Event list',
                     'Create Event list'
                 )}
                 {renderButton(
                     'enrollment',
                     handleEnrollmentClick,
-                    outputType === OUTPUT_TYPE_ENROLLMENT,
+                    hasCurrentVisualization &&
+                        outputType === OUTPUT_TYPE_ENROLLMENT,
                     'Update Enrollment list',
                     'Create Enrollment list'
                 )}
                 {renderButton(
                     'trackedEntity',
                     handleTrackedEntityClick,
-                    outputType === OUTPUT_TYPE_TRACKED_ENTITY,
+                    hasCurrentVisualization &&
+                        outputType === OUTPUT_TYPE_TRACKED_ENTITY,
                     'Update Person list',
                     'Create Person list'
                 )}
