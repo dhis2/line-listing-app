@@ -46,6 +46,7 @@
     border: none;
     border-radius: 4px;
     font-size: 13px;
+    line-height: 1;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -53,6 +54,7 @@
 
 .button:hover:not(:disabled) {
     background-color: var(--colors-blue100);
+    color: var(--colors-blue800);
 }
 
 .button:active:not(:disabled) {
@@ -60,6 +62,27 @@
 }
 
 .button:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+}
+
+.buttonAlt {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey700);
+}
+
+.buttonAlt:hover:not(:disabled) {
+    background-color: var(--colors-blue100);
+    color: var(--colors-blue800);
+}
+
+.buttonAlt:active:not(:disabled) {
+    background-color: var(--colors-blue200);
+    color: var(--colors-blue800);
+}
+
+.buttonAlt:disabled {
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;

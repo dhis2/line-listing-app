@@ -86,7 +86,8 @@ const LayoutWithBottomBar = () => {
         onClick,
         isCurrentType,
         updateText,
-        createText
+        createText,
+        switchText
     ) => {
         const validation = buttonValidation[buttonKey]
 
@@ -95,13 +96,33 @@ const LayoutWithBottomBar = () => {
             return null
         }
 
+        // Determine the button label based on visualization state
+        let buttonLabel
+        let isAltMode = false
+        if (!hasCurrentVisualization) {
+            // No visualization exists: use "Create" pattern
+            buttonLabel = createText
+        } else if (isCurrentType) {
+            // Visualization exists and this is the current type: use "Update" pattern
+            buttonLabel = updateText
+        } else {
+            // Visualization exists but this is NOT the current type: use "Switch" pattern
+            buttonLabel = switchText
+            isAltMode = true
+        }
+
+        // Build className - only apply buttonAlt for "Switch to" mode
+        const buttonClassName = `${classes.button} ${
+            isAltMode && !validation.disabled ? classes.buttonAlt || '' : ''
+        }`
+
         const button = (
             <button
                 onClick={onClick}
-                className={classes.button}
+                className={buttonClassName}
                 disabled={validation.disabled}
             >
-                {isCurrentType ? updateText : createText}
+                {buttonLabel}
             </button>
         )
 
@@ -132,7 +153,8 @@ const LayoutWithBottomBar = () => {
                     handleEventClick,
                     hasCurrentVisualization && outputType === OUTPUT_TYPE_EVENT,
                     'Update Event list',
-                    'Create Event list'
+                    'Create Event list',
+                    'Switch to Event list'
                 )}
                 {renderButton(
                     'enrollment',
@@ -140,7 +162,8 @@ const LayoutWithBottomBar = () => {
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_ENROLLMENT,
                     'Update Enrollment list',
-                    'Create Enrollment list'
+                    'Create Enrollment list',
+                    'Switch to Enrollment list'
                 )}
                 {renderButton(
                     'trackedEntity',
@@ -148,7 +171,8 @@ const LayoutWithBottomBar = () => {
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_TRACKED_ENTITY,
                     'Update Person list',
-                    'Create Person list'
+                    'Create Person list',
+                    'Switch to Person list'
                 )}
             </div>
         </div>
