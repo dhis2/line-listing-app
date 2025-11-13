@@ -43,7 +43,11 @@ const query = {
     },
 }
 
-export const DataSourceSelect = ({ noBorders = false }) => {
+export const DataSourceSelect = ({
+    noBorders = false,
+    onSelect,
+    onSelectRef,
+}) => {
     const { currentUser } = useCachedDataQuery()
     const dispatch = useDispatch()
     const selectedDataSource = useSelector(sGetUiDataSource)
@@ -117,7 +121,19 @@ export const DataSourceSelect = ({ noBorders = false }) => {
                 )
             }
         }
+
+        // Call optional callback
+        if (onSelect) {
+            onSelect(selectedId)
+        }
     }
+
+    // Expose handleSelect via ref
+    useEffect(() => {
+        if (onSelectRef) {
+            onSelectRef.current = handleSelect
+        }
+    }, [handleSelect, onSelectRef])
 
     const selectedValue =
         selectedDataSource?.id && selectedDataSource?.type
