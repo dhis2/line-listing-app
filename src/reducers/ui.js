@@ -2,7 +2,6 @@
 import {
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_ORGANISATION_UNIT,
-    USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
@@ -137,15 +136,10 @@ export const DEFAULT_UI = {
         type: OUTPUT_TYPE_EVENT,
     },
     layout: {
-        // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
-        columns: [DIMENSION_ID_ORGUNIT],
+        columns: [],
         filters: [],
     },
-    itemsByDimension: {
-        [DIMENSION_ID_ORGUNIT]: [],
-        [DIMENSION_ID_EVENT_STATUS]: [],
-        [DIMENSION_ID_PROGRAM_STATUS]: [],
-    },
+    itemsByDimension: {},
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
@@ -170,16 +164,7 @@ export const DEFAULT_UI = {
 }
 
 const getPreselectedUi = (options) => {
-    const { rootOrgUnits, digitGroupSeparator } = options
-
-    const rootOrgUnitIds = rootOrgUnits
-        .filter((root) => root.id)
-        .map((root) => root.id)
-    const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
-
-    rootOrgUnitIds.forEach((id) => {
-        parentGraphMap[id] = ''
-    })
+    const { digitGroupSeparator } = options
 
     return {
         ...DEFAULT_UI,
@@ -187,11 +172,6 @@ const getPreselectedUi = (options) => {
             ...DEFAULT_UI.options,
             digitGroupSeparator,
         },
-        itemsByDimension: {
-            ...DEFAULT_UI.itemsByDimension,
-            [DIMENSION_ID_ORGUNIT]: [USER_ORG_UNIT],
-        },
-        parentGraphMap,
     }
 }
 

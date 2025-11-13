@@ -231,8 +231,8 @@ const hasUserStartedCreatingVisualization = (ui) => {
     const hasProgram = ui.program?.id && ui.program.id !== undefined
     const hasEntityType = ui.entityType?.id && ui.entityType.id !== undefined
 
-    // Check if user has added dimensions beyond the default (DEFAULT_UI has DIMENSION_ID_ORGUNIT by default)
-    const hasExtraColumns = ui.layout?.columns && ui.layout.columns.length > 1
+    // Check if user has added dimensions
+    const hasColumns = ui.layout?.columns && ui.layout.columns.length > 0
     const hasFilters = ui.layout?.filters && ui.layout.filters.length > 0
 
     // Check if user has selected any items for dimensions (beyond empty arrays)
@@ -245,7 +245,7 @@ const hasUserStartedCreatingVisualization = (ui) => {
     return (
         hasProgram ||
         hasEntityType ||
-        hasExtraColumns ||
+        hasColumns ||
         hasFilters ||
         hasSelectedItems
     )
