@@ -420,9 +420,20 @@ export const validateTrackedEntityButton = (
 
 /**
  * Validates whether the Custom Value button should be enabled
- * @returns {Object} Validation result - always enabled
+ * @param {Object} dimensionAnalysis - Result from analyzeDimensionsInLayout
+ * @returns {Object} Validation result
  */
-export const validateCustomValueButton = () => {
+export const validateCustomValueButton = (dimensionAnalysis) => {
+    const { hasDimensions } = dimensionAnalysis
+
+    // Rule: Disabled if no dimensions
+    if (!hasDimensions) {
+        return {
+            disabled: true,
+            reason: 'No dimensions in layout',
+        }
+    }
+
     return {
         disabled: false,
     }
@@ -452,7 +463,7 @@ export const validateButtons = (
             supportsTrackedEntity,
             programType
         ),
-        customValue: validateCustomValueButton(),
+        customValue: validateCustomValueButton(dimensionAnalysis),
         dimensionAnalysis, // Include for debugging/additional use
     }
 }

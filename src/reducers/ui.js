@@ -294,7 +294,8 @@ export default (state = EMPTY_UI, action) => {
                         if (
                             dimensionId === DIMENSION_ID_ORGUNIT &&
                             (!state.itemsByDimension[dimensionId] ||
-                                state.itemsByDimension[dimensionId].length === 0)
+                                state.itemsByDimension[dimensionId].length ===
+                                    0)
                         ) {
                             newItemsByDimension = {
                                 ...newItemsByDimension,

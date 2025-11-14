@@ -177,15 +177,26 @@ const LayoutWithBottomBar = () => {
                     `Create Enrollment ${terminology}`,
                     `Switch to Enrollment ${terminology}`
                 )}
-                {renderButton(
-                    'customValue',
-                    handleCustomValueClick,
-                    hasCurrentVisualization &&
-                        outputType === OUTPUT_TYPE_CUSTOM_VALUE,
-                    `Update custom value ${terminology}`,
-                    `Create custom value ${terminology}`,
-                    `Switch to custom value ${terminology}`
-                )}
+                {/* Show Person button for Line List, Custom value button for Pivot Table */}
+                {visualizationType === VIS_TYPE_PIVOT_TABLE
+                    ? renderButton(
+                          'customValue',
+                          handleCustomValueClick,
+                          hasCurrentVisualization &&
+                              outputType === OUTPUT_TYPE_CUSTOM_VALUE,
+                          `Update custom value ${terminology}`,
+                          `Create custom value ${terminology}`,
+                          `Switch to custom value ${terminology}`
+                      )
+                    : renderButton(
+                          'trackedEntity',
+                          handleTrackedEntityClick,
+                          hasCurrentVisualization &&
+                              outputType === OUTPUT_TYPE_TRACKED_ENTITY,
+                          `Update Person ${terminology}`,
+                          `Create Person ${terminology}`,
+                          `Switch to Person ${terminology}`
+                      )}
             </div>
         </div>
     )
