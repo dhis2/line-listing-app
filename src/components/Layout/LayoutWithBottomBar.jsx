@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Tooltip } from '@dhis2/ui'
+import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import Layout from './Layout.jsx'
 import classes from './styles/LayoutWithBottomBar.module.css'
 import {
@@ -8,6 +9,7 @@ import {
     sGetUiOutputType,
     sGetUiDataSource,
     sGetUiProgramId,
+    sGetUiType,
 } from '../../reducers/ui.js'
 import { sGetMetadataById, sGetMetadata } from '../../reducers/metadata.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
@@ -32,9 +34,14 @@ const LayoutWithBottomBar = () => {
     const program = useSelector((state) => sGetMetadataById(state, programId))
     const metadata = useSelector(sGetMetadata)
     const current = useSelector(sGetCurrent)
+    const visualizationType = useSelector(sGetUiType)
 
     // Check if we have a current visualization (created but maybe not saved)
     const hasCurrentVisualization = Boolean(current)
+
+    // Determine button terminology based on visualization type
+    const terminology =
+        visualizationType === VIS_TYPE_PIVOT_TABLE ? 'table' : 'list'
 
     // Check if tracked entity output is supported
     const supportsTrackedEntity =
@@ -157,27 +164,27 @@ const LayoutWithBottomBar = () => {
                     'event',
                     handleEventClick,
                     hasCurrentVisualization && outputType === OUTPUT_TYPE_EVENT,
-                    'Update Event table',
-                    'Create Event table',
-                    'Switch to Event table'
+                    `Update Event ${terminology}`,
+                    `Create Event ${terminology}`,
+                    `Switch to Event ${terminology}`
                 )}
                 {renderButton(
                     'enrollment',
                     handleEnrollmentClick,
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_ENROLLMENT,
-                    'Update Enrollment table',
-                    'Create Enrollment table',
-                    'Switch to Enrollment table'
+                    `Update Enrollment ${terminology}`,
+                    `Create Enrollment ${terminology}`,
+                    `Switch to Enrollment ${terminology}`
                 )}
                 {renderButton(
                     'customValue',
                     handleCustomValueClick,
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_CUSTOM_VALUE,
-                    'Update custom value table',
-                    'Create custom value table',
-                    'Switch to custom value table'
+                    `Update custom value ${terminology}`,
+                    `Create custom value ${terminology}`,
+                    `Switch to custom value ${terminology}`
                 )}
             </div>
         </div>
