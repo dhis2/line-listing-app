@@ -1,3 +1,4 @@
+import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
 import { PROP_MOST_RECENT, PROP_OLDEST } from '../../modules/repetition.js'
 import { OUTPUT_TYPE_EVENT } from '../../modules/visualization.js'
 import reducer, {
@@ -10,6 +11,7 @@ import reducer, {
     TOGGLE_UI_LAYOUT_PANEL_HIDDEN,
     TOGGLE_UI_SIDEBAR_HIDDEN,
     TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS,
+    ADD_UI_LAYOUT_DIMENSIONS,
 } from '../ui.js'
 
 describe('reducer: store.ui', () => {
@@ -258,6 +260,112 @@ describe('reducer: store.ui', () => {
                     { type: TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS }
                 )
             ).toEqual({ hideLayoutPanel: false, hideMainSideBar: false })
+        })
+    })
+
+    describe(`reducer: ${ADD_UI_LAYOUT_DIMENSIONS}`, () => {
+        const initialState = {
+            layout: {
+                columns: [],
+                filters: [],
+                rows: [],
+            },
+            itemsByDimension: {},
+        }
+
+        it('adds dimension to layout', () => {
+            const action = {
+                type: ADD_UI_LAYOUT_DIMENSIONS,
+                value: {
+                    testDimension: { axisId: 'columns' },
+                },
+            }
+
+            const result = reducer(initialState, action)
+
+            expect(result.layout.columns).toEqual(['testDimension'])
+        })
+
+        it('adds orgUnit dimension with USER_ORG_UNIT when no items are selected', () => {
+            const action = {
+                type: ADD_UI_LAYOUT_DIMENSIONS,
+                value: {
+                    [DIMENSION_ID_ORGUNIT]: { axisId: 'columns' },
+                },
+            }
+
+            const result = reducer(initialState, action)
+
+            expect(result.layout.columns).toEqual([DIMENSION_ID_ORGUNIT])
+            expect(result.itemsByDimension[DIMENSION_ID_ORGUNIT]).toEqual([
+                USER_ORG_UNIT,
+            ])
+        })
+
+        it('does not override existing orgUnit items when adding to layout', () => {
+            const stateWithOrgUnitItems = {
+                ...initialState,
+                itemsByDimension: {
+                    [DIMENSION_ID_ORGUNIT]: ['customOrgUnit1', 'customOrgUnit2'],
+                },
+            }
+
+            const action = {
+                type: ADD_UI_LAYOUT_DIMENSIONS,
+                value: {
+                    [DIMENSION_ID_ORGUNIT]: { axisId: 'columns' },
+                },
+            }
+
+            const result = reducer(stateWithOrgUnitItems, action)
+
+            expect(result.layout.columns).toEqual([DIMENSION_ID_ORGUNIT])
+            expect(result.itemsByDimension[DIMENSION_ID_ORGUNIT]).toEqual([
+                'customOrgUnit1',
+                'customOrgUnit2',
+            ])
+        })
+
+        it('does not apply USER_ORG_UNIT to non-orgUnit dimensions', () => {
+            const action = {
+                type: ADD_UI_LAYOUT_DIMENSIONS,
+                value: {
+                    pe: { axisId: 'filters' },
+                },
+            }
+
+            const result = reducer(initialState, action)
+
+            expect(result.layout.filters).toEqual(['pe'])
+            expect(result.itemsByDimension.pe).toBeUndefined()
+        })
+
+        it('moves orgUnit from one axis to another without changing items', () => {
+            const stateWithOrgUnitInFilters = {
+                layout: {
+                    columns: [],
+                    filters: [DIMENSION_ID_ORGUNIT],
+                    rows: [],
+                },
+                itemsByDimension: {
+                    [DIMENSION_ID_ORGUNIT]: [USER_ORG_UNIT],
+                },
+            }
+
+            const action = {
+                type: ADD_UI_LAYOUT_DIMENSIONS,
+                value: {
+                    [DIMENSION_ID_ORGUNIT]: { axisId: 'columns' },
+                },
+            }
+
+            const result = reducer(stateWithOrgUnitInFilters, action)
+
+            expect(result.layout.columns).toEqual([DIMENSION_ID_ORGUNIT])
+            expect(result.layout.filters).toEqual([])
+            expect(result.itemsByDimension[DIMENSION_ID_ORGUNIT]).toEqual([
+                USER_ORG_UNIT,
+            ])
         })
     })
 })

@@ -3,6 +3,7 @@ import {
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_ORGANISATION_UNIT,
     VIS_TYPE_LINE_LIST,
+    USER_ORG_UNIT,
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
@@ -275,6 +276,7 @@ export default (state = EMPTY_UI, action) => {
             }
 
             let newLayout = state.layout
+            let newItemsByDimension = state.itemsByDimension
 
             // Add dimension ids to destination (axisId === null means remove from layout)
             Object.entries(transfers).forEach(
@@ -287,6 +289,18 @@ export default (state = EMPTY_UI, action) => {
                         } else {
                             newLayout[axisId].splice(index, 0, dimensionId)
                         }
+
+                        // Automatically apply "user org unit" selection when org unit is added without items
+                        if (
+                            dimensionId === DIMENSION_ID_ORGUNIT &&
+                            (!state.itemsByDimension[dimensionId] ||
+                                state.itemsByDimension[dimensionId].length === 0)
+                        ) {
+                            newItemsByDimension = {
+                                ...newItemsByDimension,
+                                [dimensionId]: [USER_ORG_UNIT],
+                            }
+                        }
                     }
                 }
             )
@@ -294,6 +308,7 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 layout: newLayout,
+                itemsByDimension: newItemsByDimension,
             }
         }
         case REMOVE_UI_LAYOUT_DIMENSIONS: {
