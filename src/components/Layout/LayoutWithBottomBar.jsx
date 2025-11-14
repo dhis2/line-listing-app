@@ -18,6 +18,7 @@ import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
+    OUTPUT_TYPE_CUSTOM_VALUE,
 } from '../../modules/visualization.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import { validateButtons } from '../../modules/buttonValidation.js'
@@ -79,6 +80,10 @@ const LayoutWithBottomBar = () => {
 
     const handleTrackedEntityClick = () => {
         handleOutputButtonClick(OUTPUT_TYPE_TRACKED_ENTITY)
+    }
+
+    const handleCustomValueClick = () => {
+        handleOutputButtonClick(OUTPUT_TYPE_CUSTOM_VALUE)
     }
 
     const renderButton = (
@@ -152,27 +157,27 @@ const LayoutWithBottomBar = () => {
                     'event',
                     handleEventClick,
                     hasCurrentVisualization && outputType === OUTPUT_TYPE_EVENT,
-                    'Update Event list',
-                    'Create Event list',
-                    'Switch to Event list'
+                    'Update Event table',
+                    'Create Event table',
+                    'Switch to Event table'
                 )}
                 {renderButton(
                     'enrollment',
                     handleEnrollmentClick,
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_ENROLLMENT,
-                    'Update Enrollment list',
-                    'Create Enrollment list',
-                    'Switch to Enrollment list'
+                    'Update Enrollment table',
+                    'Create Enrollment table',
+                    'Switch to Enrollment table'
                 )}
                 {renderButton(
-                    'trackedEntity',
-                    handleTrackedEntityClick,
+                    'customValue',
+                    handleCustomValueClick,
                     hasCurrentVisualization &&
-                        outputType === OUTPUT_TYPE_TRACKED_ENTITY,
-                    'Update Person list',
-                    'Create Person list',
-                    'Switch to Person list'
+                        outputType === OUTPUT_TYPE_CUSTOM_VALUE,
+                    'Update custom value table',
+                    'Create custom value table',
+                    'Switch to custom value table'
                 )}
             </div>
         </div>

@@ -35,6 +35,7 @@ export const STATUS_SCHEDULED = 'SCHEDULE'
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 export const OUTPUT_TYPE_TRACKED_ENTITY = 'TRACKED_ENTITY_INSTANCE'
+export const OUTPUT_TYPE_CUSTOM_VALUE = 'CUSTOM_VALUE'
 
 export const getStatusNames = () => ({
     [STATUS_ACTIVE]: i18n.t('Active'),

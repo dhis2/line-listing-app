@@ -419,12 +419,22 @@ export const validateTrackedEntityButton = (
 }
 
 /**
- * Main validation function that returns the state for all three buttons
+ * Validates whether the Custom Value button should be enabled
+ * @returns {Object} Validation result - always enabled
+ */
+export const validateCustomValueButton = () => {
+    return {
+        disabled: false,
+    }
+}
+
+/**
+ * Main validation function that returns the state for all buttons
  * @param {Object} layout - The layout object with columns and filters arrays
  * @param {Object} metadata - The metadata object containing dimension details
  * @param {boolean} supportsTrackedEntity - Whether the data source supports tracked entities
  * @param {string} programType - The program type (WITH_REGISTRATION or WITHOUT_REGISTRATION)
- * @returns {Object} Validation results for all three buttons
+ * @returns {Object} Validation results for all buttons
  */
 export const validateButtons = (
     layout,
@@ -442,6 +452,7 @@ export const validateButtons = (
             supportsTrackedEntity,
             programType
         ),
+        customValue: validateCustomValueButton(),
         dimensionAnalysis, // Include for debugging/additional use
     }
 }

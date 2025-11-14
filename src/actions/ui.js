@@ -85,6 +85,7 @@ import {
     SET_UI_MAIN_SIDEBAR_WIDTH,
     SET_UI_DATA_SOURCE,
     SET_UI_OUTPUT,
+    SET_UI_TYPE,
 } from '../reducers/ui.js'
 
 export const acSetUiDraggingId = (value) => ({
@@ -491,3 +492,9 @@ export const tSetUiOutput = (outputType) => (dispatch) => {
     // instead of reading this directly to avoid unnecessary re-fetches
     dispatch(acSetUiInput({ type: outputType }))
 }
+
+// Visualization Type Actions
+export const acSetUiType = (value) => ({
+    type: SET_UI_TYPE,
+    value,
+})

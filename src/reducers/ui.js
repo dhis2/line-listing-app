@@ -80,6 +80,7 @@ export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
 export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const CLEAR_UI_SORTING = 'CLEAR_UI_SORTING'
+export const SET_UI_TYPE = 'SET_UI_TYPE'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -106,6 +107,7 @@ const EMPTY_UI = {
     },
     layout: {
         columns: [],
+        rows: [],
         filters: [],
     },
     itemsByDimension: {},
@@ -137,6 +139,7 @@ export const DEFAULT_UI = {
     },
     layout: {
         columns: [],
+        rows: [],
         filters: [],
     },
     itemsByDimension: {},
@@ -177,6 +180,9 @@ const getPreselectedUi = (options) => {
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_TYPE: {
+            return { ...state, type: action.value }
+        }
         case SET_UI_SORTING: {
             return { ...state, sorting: action.value }
         }

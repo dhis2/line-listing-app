@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-07T12:14:59.692Z\n"
-"PO-Revision-Date: 2025-11-07T12:14:59.693Z\n"
+"POT-Creation-Date: 2025-11-14T08:06:47.730Z\n"
+"PO-Revision-Date: 2025-11-14T08:06:47.738Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -244,6 +244,9 @@ msgstr "No data sources found"
 msgid "Tracked entity"
 msgstr "Tracked entity"
 
+msgid "Recently used data sources"
+msgstr "Recently used data sources"
+
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
@@ -268,17 +271,11 @@ msgstr "Search input types"
 msgid "Error loading types"
 msgstr "Error loading types"
 
-msgid "Line List"
-msgstr "Line List"
-
-msgid "Pivot Table"
-msgstr "Pivot Table"
+msgid "Data browser"
+msgstr "Data browser"
 
 msgid "Choose a data source to see available dimensions"
 msgstr "Choose a data source to see available dimensions"
-
-msgid "Stage"
-msgstr "Stage"
 
 msgid "Org. units, periods, and statuses"
 msgstr "Org. units, periods, and statuses"
@@ -426,18 +423,12 @@ msgstr "Line list"
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr "\"{{- deletedObject}}\" successfully deleted."
 
-msgid "Rename successful"
-msgstr "Rename successful"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
-
-msgid "Rename failed"
-msgstr "Rename failed"
 
 msgid "Show layout"
 msgstr "Show layout"
@@ -457,11 +448,50 @@ msgstr "Hide interpretations and details"
 msgid "Show interpretations and details"
 msgstr "Show interpretations and details"
 
+msgid "New"
+msgstr "New"
+
+msgid "Open..."
+msgstr "Open..."
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Save as..."
+msgstr "Save as..."
+
+msgid "Rename..."
+msgstr "Rename..."
+
+msgid "Translate"
+msgstr "Translate"
+
+msgid "Share..."
+msgstr "Share..."
+
+msgid "Get link..."
+msgstr "Get link..."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Rename successful"
+msgstr "Rename successful"
+
+msgid "Rename failed"
+msgstr "Rename failed"
+
 msgid "View"
 msgstr "View"
 
 msgid "Reset sidebar width"
 msgstr "Reset sidebar width"
+
+msgid "Line List"
+msgstr "Line List"
+
+msgid "Pivot Table"
+msgstr "Pivot Table"
 
 msgid "Update"
 msgstr "Update"
