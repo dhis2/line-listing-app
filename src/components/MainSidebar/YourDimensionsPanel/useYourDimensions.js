@@ -16,7 +16,7 @@ const query = {
             }
 
             return {
-                pageSize: 50,
+                pageSize: 25,
                 page,
                 fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
                 filter: filters,
@@ -27,8 +27,9 @@ const query = {
 }
 
 const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
-    const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [hasMore, setHasMore] = useState(false)
     const { data, error, loading, fetching, called, refetch } = useDataQuery(
         query,
         {
@@ -53,6 +54,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
         }
         // Reset when filter changes
         setDimensions(null)
+        setCurrentPage(1)
     }, [searchTerm, nameProp])
 
     useEffect(() => {
@@ -60,18 +62,8 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
             const { pager } = data.dimensions
             const isLastPage = pager.pageSize * pager.page >= pager.total
 
-            if (isListEndVisible && !isLastPage && !fetching) {
-                refetch({
-                    page: pager.page + 1,
-                    searchTerm,
-                    nameProp,
-                })
-            }
-        }
-    }, [isListEndVisible, nameProp])
-
-    useEffect(() => {
-        if (data) {
+            setHasMore(!isLastPage)
+            setCurrentPage(pager.page)
             setDimensions((currDimensions) => [
                 ...(currDimensions ?? []),
                 ...data.dimensions.dimensions,
@@ -79,12 +71,23 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
         }
     }, [data])
 
+    const loadMore = () => {
+        if (hasMore && !fetching) {
+            refetch({
+                page: currentPage + 1,
+                searchTerm,
+                nameProp,
+            })
+        }
+    }
+
     return {
         loading: dimensions ? false : loading,
         fetching,
         error,
         dimensions: dimensions ?? [],
-        setIsListEndVisible,
+        hasMore,
+        loadMore,
     }
 }
 

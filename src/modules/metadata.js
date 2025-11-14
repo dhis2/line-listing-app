@@ -64,7 +64,7 @@ export const getDefaultOrgUnitLabel = (inputType) => {
 }
 
 export const getProgramAsMetadata = (program) => ({
-    ...program.programStages.reduce((acc, stage) => {
+    ...(program.programStages || []).reduce((acc, stage) => {
         acc[stage.id] = stage
         return acc
     }, {}),

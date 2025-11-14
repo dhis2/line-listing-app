@@ -1,8 +1,9 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
-    USER_ORG_UNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
     VIS_TYPE_LINE_LIST,
+    USER_ORG_UNIT,
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
 import { useStore, useSelector } from 'react-redux'
@@ -14,6 +15,8 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_CREATED,
+    DIMENSION_TYPE_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
     formatDimensionId,
@@ -36,6 +39,7 @@ import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../modules/visualization.js'
+import { getInvalidDimensions } from '../modules/layoutValidation.js'
 import { sGetMetadata, sGetMetadataById } from './metadata.js'
 
 export const SET_UI_DRAGGING_ID = 'SET_UI_DRAGGING_ID'
@@ -46,6 +50,8 @@ export const CLEAR_UI_ENTITY_TYPE = 'CLEAR_UI_ENTITY_TYPE'
 export const UPDATE_UI_PROGRAM_ID = 'UPDATE_UI_PROGRAM_ID'
 export const UPDATE_UI_PROGRAM_STAGE_ID = 'UPDATE_UI_PROGRAM_STAGE_ID'
 export const UPDATE_UI_ENTITY_TYPE_ID = 'UPDATE_UI_ENTITY_TYPE_ID'
+export const SET_UI_DATA_SOURCE = 'SET_UI_DATA_SOURCE'
+export const SET_UI_OUTPUT = 'SET_UI_OUTPUT'
 export const SET_UI_OPTIONS = 'SET_UI_OPTIONS'
 export const ADD_UI_LAYOUT_DIMENSIONS = 'ADD_UI_LAYOUT_DIMENSIONS'
 export const REMOVE_UI_LAYOUT_DIMENSIONS = 'REMOVE_UI_LAYOUT_DIMENSIONS'
@@ -55,8 +61,11 @@ export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_WIDTH = 'SET_UI_ACCESSORY_PANEL_WIDTH'
+export const SET_UI_MAIN_SIDEBAR_WIDTH = 'SET_UI_MAIN_SIDEBAR_WIDTH'
 export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
     'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
+export const SET_UI_EXPANDED_CARDS = 'SET_UI_EXPANDED_CARDS'
+export const TOGGLE_UI_SPLIT_DATA_CARDS = 'TOGGLE_UI_SPLIT_DATA_CARDS'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
     'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
@@ -72,6 +81,7 @@ export const REMOVE_UI_REPETITION = 'REMOVE_UI_REPETITION'
 export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
 export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const CLEAR_UI_SORTING = 'CLEAR_UI_SORTING'
+export const SET_UI_TYPE = 'SET_UI_TYPE'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -88,16 +98,28 @@ const EMPTY_UI = {
         stageId: undefined,
     },
     entityType: { id: undefined },
+    dataSource: {
+        type: undefined, // 'PROGRAM' or 'TRACKED_ENTITY_TYPE'
+        id: undefined,
+        programType: undefined, // For programs: WITH_REGISTRATION or WITHOUT_REGISTRATION
+    },
+    output: {
+        type: OUTPUT_TYPE_EVENT, // EVENT, ENROLLMENT, or TRACKED_ENTITY
+    },
     layout: {
         columns: [],
+        rows: [],
         filters: [],
     },
     itemsByDimension: {},
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
+    expandedCards: [],
+    splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
 }
 
 export const DEFAULT_UI = {
@@ -108,20 +130,33 @@ export const DEFAULT_UI = {
     },
     program: {},
     entityType: {},
+    dataSource: {
+        type: undefined,
+        id: undefined,
+        programType: undefined,
+    },
+    output: {
+        type: OUTPUT_TYPE_EVENT,
+    },
     layout: {
-        // TODO: Populate the layout with the correct default dimensions, these are just temporary for testing
-        columns: [DIMENSION_ID_ORGUNIT],
+        columns: [],
+        rows: [],
         filters: [],
     },
-    itemsByDimension: {
-        [DIMENSION_ID_ORGUNIT]: [],
-        [DIMENSION_ID_EVENT_STATUS]: [],
-        [DIMENSION_ID_PROGRAM_STATUS]: [],
-    },
+    itemsByDimension: {},
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
+    expandedCards: [
+        'PROGRAM',
+        'TRACKED_ENTITY',
+        'MAIN_DIMENSIONS',
+        'YOUR',
+        'PROGRAM_DIMENSIONS',
+    ],
+    splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -133,16 +168,7 @@ export const DEFAULT_UI = {
 }
 
 const getPreselectedUi = (options) => {
-    const { rootOrgUnits, digitGroupSeparator } = options
-
-    const rootOrgUnitIds = rootOrgUnits
-        .filter((root) => root.id)
-        .map((root) => root.id)
-    const parentGraphMap = { ...DEFAULT_UI.parentGraphMap }
-
-    rootOrgUnitIds.forEach((id) => {
-        parentGraphMap[id] = ''
-    })
+    const { digitGroupSeparator } = options
 
     return {
         ...DEFAULT_UI,
@@ -150,16 +176,14 @@ const getPreselectedUi = (options) => {
             ...DEFAULT_UI.options,
             digitGroupSeparator,
         },
-        itemsByDimension: {
-            ...DEFAULT_UI.itemsByDimension,
-            [DIMENSION_ID_ORGUNIT]: [USER_ORG_UNIT],
-        },
-        parentGraphMap,
     }
 }
 
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
+        case SET_UI_TYPE: {
+            return { ...state, type: action.value }
+        }
         case SET_UI_SORTING: {
             return { ...state, sorting: action.value }
         }
@@ -223,6 +247,18 @@ export default (state = EMPTY_UI, action) => {
                 },
             }
         }
+        case SET_UI_DATA_SOURCE: {
+            return {
+                ...state,
+                dataSource: action.value,
+            }
+        }
+        case SET_UI_OUTPUT: {
+            return {
+                ...state,
+                output: action.value,
+            }
+        }
         case SET_UI_OPTIONS: {
             return {
                 ...state,
@@ -240,6 +276,7 @@ export default (state = EMPTY_UI, action) => {
             }
 
             let newLayout = state.layout
+            let newItemsByDimension = state.itemsByDimension
 
             // Add dimension ids to destination (axisId === null means remove from layout)
             Object.entries(transfers).forEach(
@@ -252,6 +289,19 @@ export default (state = EMPTY_UI, action) => {
                         } else {
                             newLayout[axisId].splice(index, 0, dimensionId)
                         }
+
+                        // Automatically apply "user org unit" selection when org unit is added without items
+                        if (
+                            dimensionId === DIMENSION_ID_ORGUNIT &&
+                            (!state.itemsByDimension[dimensionId] ||
+                                state.itemsByDimension[dimensionId].length ===
+                                    0)
+                        ) {
+                            newItemsByDimension = {
+                                ...newItemsByDimension,
+                                [dimensionId]: [USER_ORG_UNIT],
+                            }
+                        }
                     }
                 }
             )
@@ -259,6 +309,7 @@ export default (state = EMPTY_UI, action) => {
             return {
                 ...state,
                 layout: newLayout,
+                itemsByDimension: newItemsByDimension,
             }
         }
         case REMOVE_UI_LAYOUT_DIMENSIONS: {
@@ -310,10 +361,28 @@ export default (state = EMPTY_UI, action) => {
                 accessoryPanelWidth: action.value,
             }
         }
+        case SET_UI_MAIN_SIDEBAR_WIDTH: {
+            return {
+                ...state,
+                mainSidebarWidth: action.value,
+            }
+        }
         case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
             return {
                 ...state,
                 accessoryPanelActiveTab: action.value,
+            }
+        }
+        case SET_UI_EXPANDED_CARDS: {
+            return {
+                ...state,
+                expandedCards: action.value,
+            }
+        }
+        case TOGGLE_UI_SPLIT_DATA_CARDS: {
+            return {
+                ...state,
+                splitDataCards: !state.splitDataCards,
             }
         }
         case TOGGLE_UI_SIDEBAR_HIDDEN: {
@@ -433,6 +502,8 @@ export const sGetUiType = (state) => sGetUi(state).type
 export const sGetUiInput = (state) => sGetUi(state).input
 export const sGetUiProgram = (state) => sGetUi(state).program
 export const sGetUiEntityType = (state) => sGetUi(state).entityType
+export const sGetUiDataSource = (state) => sGetUi(state).dataSource
+export const sGetUiOutput = (state) => sGetUi(state).output
 export const sGetUiLayout = (state) => sGetUi(state).layout
 export const sGetUiItems = (state) => sGetUi(state).itemsByDimension
 export const sGetUiOptions = (state) => sGetUi(state).options
@@ -448,8 +519,11 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiAccessoryPanelActiveTab = (state) =>
     sGetUi(state).accessoryPanelActiveTab
+export const sGetUiExpandedCards = (state) => sGetUi(state).expandedCards
+export const sGetUiSplitDataCards = (state) => sGetUi(state).splitDataCards
 export const sGetUiAccessoryPanelWidth = (state) =>
     sGetUi(state).accessoryPanelWidth
+export const sGetUiMainSidebarWidth = (state) => sGetUi(state).mainSidebarWidth
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
@@ -468,6 +542,15 @@ export const sGetUiInputType = (state) => sGetUiInput(state).type
 export const sGetUiProgramId = (state) => sGetUiProgram(state).id
 export const sGetUiProgramStageId = (state) => sGetUiProgram(state).stageId
 export const sGetUiEntityTypeId = (state) => sGetUiEntityType(state)?.id
+
+// Data source selectors
+export const sGetUiDataSourceType = (state) => sGetUiDataSource(state)?.type
+export const sGetUiDataSourceId = (state) => sGetUiDataSource(state)?.id
+export const sGetUiDataSourceProgramType = (state) =>
+    sGetUiDataSource(state)?.programType
+
+// Output selectors
+export const sGetUiOutputType = (state) => sGetUiOutput(state)?.type
 
 export const sGetUiItemsByDimension = (state, dimension) =>
     sGetUiItems(state)[dimension] ||
@@ -510,9 +593,22 @@ export const useMainDimensions = () => {
 
 export const useProgramDimensions = () => {
     const store = useStore()
-    const inputType = useSelector(sGetUiInputType)
+    const dataSourceType = useSelector(sGetUiDataSourceType)
     const programId = useSelector(sGetUiProgramId)
     const programStageId = useSelector(sGetUiProgramStageId)
+
+    // Derive inputType from data source to avoid re-rendering when output changes
+    // For programs, we always use EVENT to get all dimensions
+    // For tracked entity types, we use TRACKED_ENTITY
+    const inputType = useMemo(() => {
+        if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+            return OUTPUT_TYPE_TRACKED_ENTITY
+        } else if (dataSourceType === 'PROGRAM') {
+            // Always use EVENT for programs to show all dimensions
+            return OUTPUT_TYPE_EVENT
+        }
+        return OUTPUT_TYPE_EVENT
+    }, [dataSourceType])
 
     const getId = (dimensionId) =>
         formatDimensionId({
@@ -532,6 +628,14 @@ export const useProgramDimensions = () => {
     )
     const scheduledDateDim = useSelector((state) =>
         sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
+    )
+
+    // For tracked entity, get registration org unit and date from metadata
+    const registrationOrgUnitDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_ORGUNIT)
+    )
+    const registrationDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_CREATED)
     )
 
     return useMemo(() => {
@@ -559,20 +663,70 @@ export const useProgramDimensions = () => {
             return !hiddenTimeDimensions.includes(dimensionId)
         })
 
-        const programDimensions = Object.values(
-            getProgramDimensions(
-                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
-            )
-        ).filter(
-            (dimension) =>
-                !getIsProgramDimensionDisabled({
-                    dimensionId: dimension.id,
-                    inputType,
-                    programType: program?.programType,
-                })
-        )
+        // For tracked entity without program, only show registration dimensions
+        let allOrgUnitDimensions = []
+        let allTimeDimensions = []
+        let statusDimensions = []
 
-        return programDimensions.concat(timeDimensions)
+        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && !programId) {
+            // Only registration dimensions when no program selected
+            if (registrationOrgUnitDim) {
+                allOrgUnitDimensions = [registrationOrgUnitDim]
+            }
+            if (registrationDateDim) {
+                allTimeDimensions = [registrationDateDim]
+            }
+        } else {
+            // Include program dimensions when program is selected or for other input types
+            // For programs, show ALL status dimensions regardless of output type
+            const programDimensions = Object.values(
+                getProgramDimensions(
+                    inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+                )
+            ).filter(
+                (dimension) =>
+                    !getIsProgramDimensionDisabled({
+                        dimensionId: dimension.id,
+                        inputType,
+                        programType: program?.programType,
+                    })
+            )
+
+            // Separate org units from status dimensions
+            const orgUnitDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
+            )
+            statusDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
+            )
+
+            // For tracked entity input type, prepend registration dimensions
+            if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                // Add registration org unit at the beginning
+                if (registrationOrgUnitDim) {
+                    allOrgUnitDimensions = [
+                        registrationOrgUnitDim,
+                        ...orgUnitDimensions,
+                    ]
+                } else {
+                    allOrgUnitDimensions = orgUnitDimensions
+                }
+                // Add registration date at the beginning of time dimensions
+                if (registrationDateDim) {
+                    allTimeDimensions = [registrationDateDim, ...timeDimensions]
+                } else {
+                    allTimeDimensions = timeDimensions
+                }
+            } else {
+                allOrgUnitDimensions = orgUnitDimensions
+                allTimeDimensions = timeDimensions
+            }
+        }
+
+        // Order: org units, then periods (time dimensions), then statuses
+        return allOrgUnitDimensions
+            .concat(allTimeDimensions)
+            .concat(statusDimensions)
     }, [
         inputType,
         programId,
@@ -581,5 +735,15 @@ export const useProgramDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
+        registrationOrgUnitDim,
+        registrationDateDim,
     ])
 }
+
+// Selector for invalid dimensions based on validation rules
+export const sGetInvalidDimensionIds = createSelector(
+    [sGetUiLayout, sGetUiOutputType, sGetMetadata],
+    (layout, outputType, metadata) => {
+        return getInvalidDimensions(layout, outputType, metadata)
+    }
+)

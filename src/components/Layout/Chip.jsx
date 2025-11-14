@@ -14,6 +14,7 @@ import {
     sGetUiConditionsByDimension,
     sGetUiOptions,
     sGetUiInputType,
+    sGetInvalidDimensionIds,
 } from '../../reducers/ui.js'
 import DimensionMenu from '../DimensionMenu/DimensionMenu.jsx'
 import { ChipBase } from './ChipBase.jsx'
@@ -62,6 +63,8 @@ const Chip = ({
     const items = useSelector((state) =>
         sGetUiItemsByDimension(state, dimension.id)
     )
+    const invalidDimensionIds = useSelector(sGetInvalidDimensionIds)
+    const isInvalid = invalidDimensionIds.has(id)
 
     const globalLoadError = useSelector(sGetLoadError)
     if (globalLoadError && !name) {
@@ -131,6 +134,7 @@ const Chip = ({
                     [styles.insertBefore]: insertPosition === BEFORE,
                     [styles.insertAfter]: insertPosition === AFTER,
                     [styles.showBlank]: !name,
+                    [styles.invalid]: isInvalid,
                 })}
             >
                 <div className={styles.content} data-test={`layout-chip-${id}`}>

@@ -75,9 +75,10 @@ import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.jsx'
 import { default as DialogManager } from './Dialogs/DialogManager.jsx'
 import DndContext from './DndContext.jsx'
 import { InterpretationModal } from './InterpretationModal/index.js'
-import Layout from './Layout/Layout.jsx'
+import LayoutWithBottomBar from './Layout/LayoutWithBottomBar.jsx'
 import LoadingMask from './LoadingMask/LoadingMask.jsx'
 import { MainSidebar } from './MainSidebar/index.js'
+import { MultiSelectionProvider } from './MainSidebar/MultiSelectionContext.jsx'
 import { default as TitleBar } from './TitleBar/TitleBar.jsx'
 import { Toolbar } from './Toolbar/Toolbar.jsx'
 import StartScreen from './Visualization/StartScreen.jsx'
@@ -85,6 +86,19 @@ import { Visualization } from './Visualization/Visualization.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
+
+// Custom hook for viewport width
+const useViewportWidth = () => {
+    const [width, setWidth] = useState(window.innerWidth)
+
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    return width
+}
 
 const dataStatisticsMutation = {
     resource: 'dataStatistics',
@@ -121,6 +135,7 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const viewportWidth = useViewportWidth()
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
@@ -476,62 +491,70 @@ const App = () => {
                     classes.flexCt
                 )}
             >
-                <DndContext>
-                    <MainSidebar />
-                    <DialogManager />
-                    <div
-                        className={cx(
-                            classes.flexGrow1,
-                            classes.minWidth0,
-                            classes.flexBasis0,
-                            classes.flexCt,
-                            classes.flexDirCol
-                        )}
-                    >
-                        <div className={classes.mainCenterLayout}>
-                            <Layout />
-                        </div>
-                        <div className={classes.mainCenterTitlebar}>
-                            <TitleBar />
-                        </div>
-                        <div className={cx(classes.mainCenterCanvas)}>
-                            {(initialLoadIsComplete &&
-                                !current &&
-                                !isLoading) ||
-                            error ? (
-                                <StartScreen />
-                            ) : (
-                                <>
-                                    {isLoading && (
-                                        <div className={classes.loadingCover}>
-                                            <LoadingMask />
-                                        </div>
-                                    )}
-                                    {current && (
-                                        <Visualization
-                                            isVisualizationLoading={isLoading}
-                                            visualization={current}
-                                            displayProperty={
-                                                currentUser.settings[
-                                                    USER_SETTINGS_DISPLAY_PROPERTY
-                                                ]
-                                            }
-                                            onResponsesReceived={
-                                                onResponsesReceived
-                                            }
-                                            onColumnHeaderClick={
-                                                onColumnHeaderClick
-                                            }
-                                            onDataSorted={onDataSorted}
-                                            onError={onError}
-                                        />
-                                    )}
-                                    {current && <InterpretationModal />}
-                                </>
+                <MultiSelectionProvider>
+                    <DndContext>
+                        <MainSidebar />
+                        <DialogManager />
+                        <div
+                            className={cx(
+                                classes.flexGrow1,
+                                classes.minWidth0,
+                                classes.flexBasis0,
+                                classes.flexCt,
+                                classes.flexDirCol
                             )}
+                        >
+                            <div className={classes.mainCenterLayout}>
+                                {viewportWidth < 1200 && current && (
+                                    <div className={classes.standaloneTitleBar}>
+                                        <TitleBar />
+                                    </div>
+                                )}
+                                <LayoutWithBottomBar />
+                            </div>
+                            <div className={cx(classes.mainCenterCanvas)}>
+                                {(initialLoadIsComplete &&
+                                    !current &&
+                                    !isLoading) ||
+                                error ? (
+                                    <StartScreen />
+                                ) : (
+                                    <>
+                                        {isLoading && (
+                                            <div
+                                                className={classes.loadingCover}
+                                            >
+                                                <LoadingMask />
+                                            </div>
+                                        )}
+                                        {current && (
+                                            <Visualization
+                                                isVisualizationLoading={
+                                                    isLoading
+                                                }
+                                                visualization={current}
+                                                displayProperty={
+                                                    currentUser.settings[
+                                                        USER_SETTINGS_DISPLAY_PROPERTY
+                                                    ]
+                                                }
+                                                onResponsesReceived={
+                                                    onResponsesReceived
+                                                }
+                                                onColumnHeaderClick={
+                                                    onColumnHeaderClick
+                                                }
+                                                onDataSorted={onDataSorted}
+                                                onError={onError}
+                                            />
+                                        )}
+                                        {current && <InterpretationModal />}
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </DndContext>
+                    </DndContext>
+                </MultiSelectionProvider>
                 <div
                     className={cx(classes.mainRight, {
                         [classes.hidden]: !showDetailsPanel,
