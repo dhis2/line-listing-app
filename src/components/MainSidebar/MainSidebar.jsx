@@ -293,11 +293,8 @@ const MainSidebar = () => {
             <div
                 className={styles.main}
                 data-test="main-sidebar"
-                style={{ width: `${width}px` }}
+                style={{ width: `${width}px`, paddingTop: '6px' }}
             >
-                <div className={styles.headingContainer}>
-                    <h2 className={styles.heading}>{i18n.t('Data browser')}</h2>
-                </div>
                 <InputPanel visible={true} />
 
                 {/* Show UnifiedSearch when data source is selected */}
