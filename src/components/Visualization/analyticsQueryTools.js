@@ -10,6 +10,8 @@ import {
     DIMENSION_ID_CREATED,
     DIMENSION_ID_CREATED_BY,
     DIMENSION_ID_LAST_UPDATED_BY,
+    DIMENSION_ID_REGISTRATION_OU,
+    DIMENSION_ID_REGISTRATION_DATE,
     DIMENSION_IDS_TIME,
 } from '../../modules/dimensionConstants.js'
 import { formatDimensionId } from '../../modules/dimensionId.js'
@@ -32,7 +34,16 @@ const isTimeDimension = (dimensionId) => DIMENSION_IDS_TIME.has(dimensionId)
 const adaptDimensions = (dimensions, parameters, outputType) => {
     const adaptedDimensions = []
     dimensions.forEach((dimensionObj) => {
-        const dimensionId = dimensionObj.dimension
+        let dimensionId = dimensionObj.dimension
+
+        // Translate mock registration dimension IDs to real backend IDs (prototype)
+        if (dimensionId === DIMENSION_ID_REGISTRATION_OU) {
+            dimensionId = DIMENSION_ID_ORGUNIT
+            dimensionObj = { ...dimensionObj, dimension: dimensionId }
+        } else if (dimensionId === DIMENSION_ID_REGISTRATION_DATE) {
+            dimensionId = DIMENSION_ID_CREATED
+            dimensionObj = { ...dimensionObj, dimension: dimensionId }
+        }
 
         if (
             isTimeDimension(dimensionId) ||

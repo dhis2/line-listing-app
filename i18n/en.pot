@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-17T13:46:25.158Z\n"
-"PO-Revision-Date: 2025-11-17T13:46:25.158Z\n"
+"POT-Creation-Date: 2025-11-17T18:45:24.255Z\n"
+"PO-Revision-Date: 2025-11-17T18:45:24.256Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -395,6 +395,12 @@ msgstr "Filter by program usage"
 
 msgid "All programs"
 msgstr "All programs"
+
+msgid "Registration org. unit"
+msgstr "Registration org. unit"
+
+msgid "Registration date"
+msgstr "Registration date"
 
 msgid "Search all dimensions"
 msgstr "Search all dimensions"
@@ -848,9 +854,6 @@ msgstr ""
 msgid "There's a syntax problem with the analytics request."
 msgstr "There's a syntax problem with the analytics request."
 
-msgid "Registration date"
-msgstr "Registration date"
-
 msgid "Last updated on"
 msgstr "Last updated on"
 
@@ -868,9 +871,6 @@ msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
-
-msgid "Registration org. unit"
-msgstr "Registration org. unit"
 
 msgid "Organisation unit"
 msgstr "Organisation unit"
@@ -946,3 +946,11 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Line Listing"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Line Listing"

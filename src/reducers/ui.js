@@ -664,26 +664,45 @@ export const useProgramDimensions = () => {
             return !hiddenTimeDimensions.includes(dimensionId)
         })
 
-        // For tracked entity without program, only show registration dimensions
+        // For tracked entity, program dimensions are managed separately
         let allOrgUnitDimensions = []
         let allTimeDimensions = []
         let statusDimensions = []
 
-        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && !programId) {
-            // Only registration dimensions when no program selected
-            if (registrationOrgUnitDim) {
-                allOrgUnitDimensions = [registrationOrgUnitDim]
-            }
-            if (registrationDateDim) {
-                allTimeDimensions = [registrationDateDim]
-            }
-        } else {
-            // Include program dimensions when program is selected or for other input types
-            // For programs, show ALL status dimensions regardless of output type
-            const programDimensions = Object.values(
-                getProgramDimensions(
-                    inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+            // For tracked entity, registration dimensions are shown in the
+            // TrackedEntityDimensionsPanel, not here in program dimensions
+            // Only include program-specific dimensions when a program is selected
+            if (programId) {
+                const programDimensions = Object.values(
+                    getProgramDimensions(programId)
+                ).filter(
+                    (dimension) =>
+                        !getIsProgramDimensionDisabled({
+                            dimensionId: dimension.id,
+                            inputType,
+                            programType: program?.programType,
+                        })
                 )
+
+                // Separate org units from status dimensions
+                allOrgUnitDimensions = programDimensions.filter(
+                    (dim) =>
+                        dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
+                )
+                statusDimensions = programDimensions.filter(
+                    (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
+                )
+
+                // Include program-specific time dimensions
+                allTimeDimensions = timeDimensions
+            }
+            // If no program selected, return empty arrays - registration dimensions
+            // are shown in the TrackedEntityDimensionsPanel
+        } else {
+            // For Event and Enrollment output types, include program dimensions
+            const programDimensions = Object.values(
+                getProgramDimensions(programId)
             ).filter(
                 (dimension) =>
                     !getIsProgramDimensionDisabled({
@@ -694,34 +713,14 @@ export const useProgramDimensions = () => {
             )
 
             // Separate org units from status dimensions
-            const orgUnitDimensions = programDimensions.filter(
+            allOrgUnitDimensions = programDimensions.filter(
                 (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
             )
             statusDimensions = programDimensions.filter(
                 (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
             )
 
-            // For tracked entity input type, prepend registration dimensions
-            if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-                // Add registration org unit at the beginning
-                if (registrationOrgUnitDim) {
-                    allOrgUnitDimensions = [
-                        registrationOrgUnitDim,
-                        ...orgUnitDimensions,
-                    ]
-                } else {
-                    allOrgUnitDimensions = orgUnitDimensions
-                }
-                // Add registration date at the beginning of time dimensions
-                if (registrationDateDim) {
-                    allTimeDimensions = [registrationDateDim, ...timeDimensions]
-                } else {
-                    allTimeDimensions = timeDimensions
-                }
-            } else {
-                allOrgUnitDimensions = orgUnitDimensions
-                allTimeDimensions = timeDimensions
-            }
+            allTimeDimensions = timeDimensions
         }
 
         // Order: org units, then periods (time dimensions), then statuses

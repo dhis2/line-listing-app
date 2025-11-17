@@ -7,7 +7,11 @@ import {
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { formatDimensionId } from './dimensionId.js'
-import { getMainDimensions, getCreatedDimension } from './mainDimensions.js'
+import {
+    getMainDimensions,
+    getCreatedDimension,
+    getRegistrationDimensions,
+} from './mainDimensions.js'
 import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
 import { OUTPUT_TYPE_TRACKED_ENTITY, getStatusNames } from './visualization.js'
@@ -27,6 +31,7 @@ const getOrganisationUnits = () => ({
 export const getDefaultMetadata = () => ({
     ...getMainDimensions(),
     ...getCreatedDimension(),
+    ...getRegistrationDimensions(),
     ...getProgramDimensions(),
     ...getDefaultTimeDimensionsMetadata(),
     ...formatObject(getOrganisationUnits()),
