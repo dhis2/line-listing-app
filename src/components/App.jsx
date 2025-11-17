@@ -483,7 +483,6 @@ const App = () => {
                 classes.flexDirCol
             )}
         >
-            <Toolbar onFileMenuAction={onFileMenuAction} />
             <div
                 className={cx(
                     classes.sectionMain,
@@ -504,6 +503,7 @@ const App = () => {
                                 classes.flexDirCol
                             )}
                         >
+                            <Toolbar onFileMenuAction={onFileMenuAction} />
                             <div className={classes.mainCenterLayout}>
                                 {viewportWidth < 1200 && current && (
                                     <div className={classes.standaloneTitleBar}>

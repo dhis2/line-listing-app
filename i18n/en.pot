@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-17T09:04:37.780Z\n"
-"PO-Revision-Date: 2025-11-17T09:04:37.781Z\n"
+"POT-Creation-Date: 2025-11-17T19:09:57.770Z\n"
+"PO-Revision-Date: 2025-11-17T19:09:57.771Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -946,11 +946,3 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Line Listing"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Line Listing"
