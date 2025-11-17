@@ -1,7 +1,8 @@
+import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { IconArrowRight16, IconFolder16, Button } from '@dhis2/ui'
 import cx from 'classnames'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     acSetUiDetailsPanelOpen,
@@ -21,6 +22,7 @@ import {
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
+import { useDebounce } from '../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
@@ -49,6 +51,7 @@ import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
 import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
 import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
+import { useProgramDataDimensions } from './ProgramDimensionsPanel/useProgramDataDimensions.js'
 import {
     SelectedDimensionsProvider,
     useSelectedDimensions,
@@ -126,6 +129,28 @@ const MainSidebar = () => {
         dataSource?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
         dataSource?.programStages &&
         dataSource.programStages.length > 0
+
+    // Get program indicators to check if we should show the card
+    const debouncedSearchTerm = useDebounce(unifiedSearchTerm || '')
+    const { dimensions: programIndicators, loading: programIndicatorsLoading } =
+        useProgramDataDimensions({
+            inputType: OUTPUT_TYPE_ENROLLMENT,
+            program: dataSource,
+            searchTerm: debouncedSearchTerm,
+            dimensionType: DIMENSION_TYPE_PROGRAM_INDICATOR,
+        })
+
+    // Check if there are any program indicators
+    const hasProgramIndicators = useMemo(() => {
+        if (!isProgramWithRegistration || !dataSource?.id) return false
+        if (programIndicatorsLoading) return true // Show card while loading
+        return programIndicators && programIndicators.length > 0
+    }, [
+        isProgramWithRegistration,
+        dataSource?.id,
+        programIndicatorsLoading,
+        programIndicators,
+    ])
 
     const isHidden = useSelector(sGetUiSidebarHidden)
     const closeDetailsPanel = () => dispatch(acSetUiDetailsPanelOpen(false))
@@ -385,24 +410,26 @@ const MainSidebar = () => {
                                 )
                             })}
 
-                            {/* Program Indicators Card */}
-                            <CardSection
-                                label={i18n.t('Program Indicators')}
-                                onClick={() =>
-                                    onCardClick(
+                            {/* Program Indicators Card - only show if there are indicators */}
+                            {hasProgramIndicators && (
+                                <CardSection
+                                    label={i18n.t('Program Indicators')}
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
                                         ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
-                                    )
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
-                                )}
-                                dataTest="program-indicators-card"
-                            >
-                                <ProgramIndicatorsPanel
-                                    program={dataSource}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
+                                    )}
+                                    dataTest="program-indicators-card"
+                                >
+                                    <ProgramIndicatorsPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+                            )}
                         </>
                     ) : splitDataCards &&
                       hasDataSource &&
