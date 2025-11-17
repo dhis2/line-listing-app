@@ -153,6 +153,7 @@ export const DEFAULT_UI = {
         'MAIN_DIMENSIONS',
         'YOUR',
         'PROGRAM_DIMENSIONS',
+        'PROGRAM_INDICATORS',
     ],
     splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
     accessoryPanelWidth: getUserSidebarWidth(),

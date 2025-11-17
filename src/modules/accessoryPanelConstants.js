@@ -5,6 +5,7 @@ export const ACCESSORY_PANEL_TAB_TRACKED_ENTITY = 'TRACKED_ENTITY'
 export const ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS = 'MAIN_DIMENSIONS'
 export const ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS = 'PROGRAM_DIMENSIONS'
 export const ACCESSORY_PANEL_TAB_ENROLLMENT = 'ENROLLMENT'
+export const ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
 
 // Helper function to generate unique card IDs for each stage
 export const getStageCardId = (stageId) => `STAGE_${stageId}`

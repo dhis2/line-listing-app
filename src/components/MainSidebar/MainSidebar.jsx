@@ -3,7 +3,6 @@ import { IconArrowRight16, IconFolder16, Button } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useCallback, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import {
     acSetUiDetailsPanelOpen,
     acToggleUiExpandedCard,
@@ -18,6 +17,7 @@ import {
     ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS,
     ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS,
     ACCESSORY_PANEL_TAB_ENROLLMENT,
+    ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
@@ -43,10 +43,11 @@ import { CardSection } from './CardSection/index.js'
 import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.jsx'
 import styles from './MainSidebar.module.css'
-import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
-import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
-import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
+import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
+import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
+import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
+import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
 import {
     SelectedDimensionsProvider,
@@ -54,6 +55,7 @@ import {
 } from './SelectedDimensionsContext.jsx'
 import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
 import { UnifiedSearch } from './UnifiedSearch.jsx'
+import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const MainSidebar = () => {
@@ -201,6 +203,14 @@ const MainSidebar = () => {
                         cardsToExpand.push(stageCardId)
                     }
                 })
+                // Expand program indicators card
+                if (
+                    !expandedCards.includes(
+                        ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                    )
+                ) {
+                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS)
+                }
             } else if (
                 splitDataCards &&
                 dataSourceType !== 'TRACKED_ENTITY_TYPE'
@@ -374,6 +384,25 @@ const MainSidebar = () => {
                                     </CardSection>
                                 )
                             })}
+
+                            {/* Program Indicators Card */}
+                            <CardSection
+                                label={i18n.t('Program Indicators')}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                )}
+                                dataTest="program-indicators-card"
+                            >
+                                <ProgramIndicatorsPanel
+                                    program={dataSource}
+                                    searchTerm={unifiedSearchTerm}
+                                />
+                            </CardSection>
                         </>
                     ) : splitDataCards &&
                       hasDataSource &&

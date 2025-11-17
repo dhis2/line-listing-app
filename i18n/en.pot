@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-14T08:26:34.158Z\n"
-"PO-Revision-Date: 2025-11-14T08:26:34.159Z\n"
+"POT-Creation-Date: 2025-11-17T09:04:37.780Z\n"
+"PO-Revision-Date: 2025-11-17T09:04:37.781Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -276,6 +276,9 @@ msgstr "Data browser"
 
 msgid "Choose a data source to see available dimensions"
 msgstr "Choose a data source to see available dimensions"
+
+msgid "Program Indicators"
+msgstr "Program Indicators"
 
 msgid "Org. units, periods, and statuses"
 msgstr "Org. units, periods, and statuses"
