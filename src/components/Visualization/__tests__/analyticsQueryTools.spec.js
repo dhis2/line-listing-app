@@ -135,4 +135,156 @@ describe('analyticsQueryTools', () => {
 
         expect(getAdaptedVisualization(visualization)).toEqual(expected)
     })
+    it('should not prefix eventDate with stage ID for EVENT output type', () => {
+        const visualization = {
+            outputType: 'EVENT',
+            columns: [
+                {
+                    dimension: 'ou',
+                    items: [
+                        {
+                            id: 'USER_ORGUNIT',
+                        },
+                    ],
+                },
+                {
+                    dimension: 'eventDate',
+                    items: [
+                        {
+                            id: 'LAST_MONTH',
+                        },
+                    ],
+                    programStage: {
+                        id: 'A03MvHHogjR',
+                    },
+                },
+            ],
+            rows: [],
+            filters: [],
+        }
+        const expected = {
+            adaptedVisualization: {
+                columns: [
+                    {
+                        dimension: 'ou',
+                        items: [
+                            {
+                                id: 'USER_ORGUNIT',
+                            },
+                        ],
+                    },
+                ],
+                rows: [],
+                filters: [],
+                outputType: 'EVENT',
+            },
+            headers: ['ouname', 'eventdate'],
+            parameters: {
+                eventDate: ['LAST_MONTH'],
+            },
+        }
+        expect(getAdaptedVisualization(visualization)).toEqual(expected)
+    })
+    it('should not prefix scheduledDate with stage ID for EVENT output type', () => {
+        const visualization = {
+            outputType: 'EVENT',
+            columns: [
+                {
+                    dimension: 'ou',
+                    items: [
+                        {
+                            id: 'USER_ORGUNIT',
+                        },
+                    ],
+                },
+            ],
+            rows: [
+                {
+                    dimension: 'scheduledDate',
+                    items: [
+                        {
+                            id: 'THIS_MONTH',
+                        },
+                    ],
+                    programStage: {
+                        id: 'B12345678',
+                    },
+                },
+            ],
+            filters: [],
+        }
+        const expected = {
+            adaptedVisualization: {
+                columns: [
+                    {
+                        dimension: 'ou',
+                        items: [
+                            {
+                                id: 'USER_ORGUNIT',
+                            },
+                        ],
+                    },
+                ],
+                rows: [],
+                filters: [],
+                outputType: 'EVENT',
+            },
+            headers: ['ouname', 'scheduleddate'],
+            parameters: {
+                scheduledDate: ['THIS_MONTH'],
+            },
+        }
+        expect(getAdaptedVisualization(visualization)).toEqual(expected)
+    })
+    it('should not prefix enrollmentDate with stage ID for ENROLLMENT output type', () => {
+        const visualization = {
+            outputType: 'ENROLLMENT',
+            columns: [
+                {
+                    dimension: 'ou',
+                    items: [
+                        {
+                            id: 'USER_ORGUNIT',
+                        },
+                    ],
+                },
+            ],
+            rows: [
+                {
+                    dimension: 'enrollmentDate',
+                    items: [
+                        {
+                            id: 'LAST_YEAR',
+                        },
+                    ],
+                    programStage: {
+                        id: 'C12345678',
+                    },
+                },
+            ],
+            filters: [],
+        }
+        const expected = {
+            adaptedVisualization: {
+                columns: [
+                    {
+                        dimension: 'ou',
+                        items: [
+                            {
+                                id: 'USER_ORGUNIT',
+                            },
+                        ],
+                    },
+                ],
+                rows: [],
+                filters: [],
+                outputType: 'ENROLLMENT',
+            },
+            headers: ['ouname', 'enrollmentdate'],
+            parameters: {
+                enrollmentDate: ['LAST_YEAR'],
+            },
+        }
+        expect(getAdaptedVisualization(visualization)).toEqual(expected)
+    })
 })
