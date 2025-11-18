@@ -103,12 +103,23 @@ export const getAdaptedVisualization = (visualization) => {
         ...visualization[AXIS_ID_ROWS],
     ].map(({ dimension, program, programStage, repetition }) => {
         const programStageId = programStage?.id
+        const isTimeDimension = DIMENSION_IDS_TIME.has(dimension)
+
+        // For EVENT and ENROLLMENT output types, time dimensions should not have stage/program prefix
+        // For EVENT: the stage is specified separately via the 'stage' parameter
+        // For ENROLLMENT: time dimensions are at the program/enrollment level, not stage level
+        const shouldIncludeStageId =
+            (outputType !== OUTPUT_TYPE_EVENT &&
+                outputType !== OUTPUT_TYPE_ENROLLMENT) ||
+            !isTimeDimension
 
         if (repetition?.indexes?.length) {
             return repetition.indexes.map((index) =>
                 formatDimensionId({
                     programId: program?.id,
-                    programStageId: `${programStageId}[${index}]`,
+                    programStageId: shouldIncludeStageId
+                        ? `${programStageId}[${index}]`
+                        : undefined,
                     dimensionId: dimensionHeadersMap[dimension] || dimension,
                     outputType,
                 })
@@ -116,7 +127,9 @@ export const getAdaptedVisualization = (visualization) => {
         } else {
             return formatDimensionId({
                 programId: program?.id,
-                programStageId,
+                programStageId: shouldIncludeStageId
+                    ? programStageId
+                    : undefined,
                 dimensionId: dimensionHeadersMap[dimension] || dimension,
                 outputType,
             })
