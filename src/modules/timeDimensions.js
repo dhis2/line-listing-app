@@ -60,10 +60,23 @@ export const getTimeDimensionName = (dimension, program, stage) => {
     if (!dimension.nameParentProperty || !program) {
         return dimension.defaultName
     }
-    const name =
-        dimension.nameParentProperty === NAME_PARENT_PROPERTY_PROGRAM
-            ? program[dimension.nameProperty]
-            : stage?.[dimension.nameProperty]
+
+    let name
+    if (dimension.nameParentProperty === NAME_PARENT_PROPERTY_PROGRAM) {
+        name = program[dimension.nameProperty]
+    } else {
+        // For stage properties, try both display and non-display versions
+        // to support different DHIS2 API versions
+        name = stage?.[dimension.nameProperty]
+
+        if (!name && dimension.nameProperty.startsWith('display')) {
+            // Fallback to non-display version (e.g., executionDateLabel instead of displayExecutionDateLabel)
+            const withoutDisplay = dimension.nameProperty.replace('display', '')
+            const fallbackProperty =
+                withoutDisplay.charAt(0).toLowerCase() + withoutDisplay.slice(1)
+            name = stage?.[fallbackProperty]
+        }
+    }
 
     return name || dimension.defaultName
 }

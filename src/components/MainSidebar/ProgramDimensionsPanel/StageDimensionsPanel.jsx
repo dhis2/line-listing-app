@@ -104,7 +104,10 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
         if (eventDateId && !eventDate) {
             mockMetadata[eventDateId] = {
                 id: eventDateId,
-                name: stage.displayExecutionDateLabel || 'Event date',
+                name:
+                    stage.displayExecutionDateLabel ||
+                    stage.executionDateLabel ||
+                    'Event date',
                 dimensionType: 'PERIOD',
                 programStage: { id: stage.id, name: stage.name },
             }
@@ -112,7 +115,10 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
         if (scheduledDateId && !scheduledDate && !stage.hideDueDate) {
             mockMetadata[scheduledDateId] = {
                 id: scheduledDateId,
-                name: stage.displayDueDateLabel || 'Scheduled date',
+                name:
+                    stage.displayDueDateLabel ||
+                    stage.dueDateLabel ||
+                    'Scheduled date',
                 dimensionType: 'PERIOD',
                 programStage: { id: stage.id, name: stage.name },
             }
@@ -134,7 +140,9 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
         stage?.id,
         stage?.name,
         stage?.displayExecutionDateLabel,
+        stage?.executionDateLabel,
         stage?.displayDueDateLabel,
+        stage?.dueDateLabel,
         stage?.hideDueDate,
         stageOrgUnitId,
         eventDateId,

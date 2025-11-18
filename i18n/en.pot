@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-17T19:09:57.770Z\n"
-"PO-Revision-Date: 2025-11-17T19:09:57.771Z\n"
+"POT-Creation-Date: 2025-11-18T10:33:15.348Z\n"
+"PO-Revision-Date: 2025-11-18T10:33:15.349Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -270,9 +270,6 @@ msgstr "Search input types"
 
 msgid "Error loading types"
 msgstr "Error loading types"
-
-msgid "Data browser"
-msgstr "Data browser"
 
 msgid "Choose a data source to see available dimensions"
 msgstr "Choose a data source to see available dimensions"
@@ -946,3 +943,11 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Line Listing"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Line Listing"
