@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
@@ -181,31 +182,28 @@ const PeriodsPanel = ({ program, searchTerm }) => {
             if (enrollmentDate) {
                 dims.push({
                     ...enrollmentDate,
-                    displayName: `${enrollmentDate.name} (Enrollment)`,
+                    stageName: i18n.t('Enrollment'),
                 })
             }
             if (incidentDate && program.displayIncidentDate !== false) {
                 dims.push({
                     ...incidentDate,
-                    displayName: `${incidentDate.name} (Enrollment)`,
+                    stageName: i18n.t('Enrollment'),
                 })
             }
 
-            // Add stage dates
+            // Add stage dates (already have stageName from programStage)
             stageDatesMetadata.forEach(({ metadata, stageName }) => {
                 if (metadata && metadata.id) {
                     dims.push({
                         ...metadata,
-                        displayName: `${metadata.name} (${stageName})`,
+                        stageName: metadata.programStage?.name || stageName,
                     })
                 }
             })
         } else if (programEventDate) {
             // For programs without registration, just show event date
-            dims.push({
-                ...programEventDate,
-                displayName: programEventDate.name,
-            })
+            dims.push(programEventDate)
         }
 
         return dims
@@ -221,11 +219,14 @@ const PeriodsPanel = ({ program, searchTerm }) => {
     // Filter dimensions based on search term
     const filteredPeriodDimensions = useMemo(() => {
         if (!searchTerm) return periodDimensions
-        return periodDimensions.filter((dimension) =>
-            dimension.displayName
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase())
-        )
+        const lowerSearch = searchTerm.toLowerCase()
+        return periodDimensions.filter((dimension) => {
+            const nameMatch = dimension.name.toLowerCase().includes(lowerSearch)
+            const stageMatch = dimension.stageName
+                ?.toLowerCase()
+                .includes(lowerSearch)
+            return nameMatch || stageMatch
+        })
     }, [periodDimensions, searchTerm])
 
     // Add draggableId to dimensions
@@ -233,7 +234,6 @@ const PeriodsPanel = ({ program, searchTerm }) => {
         (dimension) => ({
             draggableId: `period-${dimension.id}`,
             ...dimension,
-            name: dimension.displayName, // Use displayName for rendering
         })
     )
 

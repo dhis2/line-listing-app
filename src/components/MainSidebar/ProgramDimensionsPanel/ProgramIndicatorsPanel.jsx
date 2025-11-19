@@ -6,7 +6,15 @@ import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
-const ProgramIndicatorsPanel = ({ program, searchTerm }) => {
+// Type filter constants (must match MainSidebar)
+const TYPE_FILTER_ALL = 'ALL'
+const TYPE_FILTER_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
+
+const ProgramIndicatorsPanel = ({
+    program,
+    searchTerm,
+    typeFilter = TYPE_FILTER_ALL,
+}) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
 
     // Get program indicators (data dimensions)
@@ -34,6 +42,14 @@ const ProgramIndicatorsPanel = ({ program, searchTerm }) => {
         return null
     }
 
+    // Don't render if type filter doesn't match program indicators
+    if (
+        typeFilter !== TYPE_FILTER_ALL &&
+        typeFilter !== TYPE_FILTER_PROGRAM_INDICATORS
+    ) {
+        return null
+    }
+
     return (
         <ProgramDataDimensionsList
             dimensions={indicatorDimensions}
@@ -51,6 +67,7 @@ const ProgramIndicatorsPanel = ({ program, searchTerm }) => {
 ProgramIndicatorsPanel.propTypes = {
     program: PropTypes.object.isRequired,
     searchTerm: PropTypes.string,
+    typeFilter: PropTypes.string,
 }
 
 export { ProgramIndicatorsPanel }

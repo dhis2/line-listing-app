@@ -1,6 +1,5 @@
 import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { SegmentedControl } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,6 +15,7 @@ import {
     ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS,
     ACCESSORY_PANEL_TAB_ORG_UNITS,
     ACCESSORY_PANEL_TAB_PERIODS,
+    ACCESSORY_PANEL_TAB_STATUSES,
     ACCESSORY_PANEL_TAB_DATA,
     ACCESSORY_PANEL_TAB_ENROLLMENT,
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
@@ -39,6 +39,7 @@ import styles from './MainSidebar.module.css'
 import {
     OrganizationUnitsPanel,
     PeriodsPanel,
+    StatusesPanel,
     DataPanel,
 } from './DataTypeGrouping/index.js'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
@@ -57,6 +58,17 @@ import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 const VIEW_MODE_BY_TYPE = 'BY_TYPE'
 const VIEW_MODE_PROGRAM_CONFIG = 'PROGRAM_CONFIG'
 
+// Type filter constants for Program config mode
+const TYPE_FILTER_ALL = 'ALL'
+const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
+const TYPE_FILTER_PERIODS = 'PERIODS'
+const TYPE_FILTER_STATUSES = 'STATUSES'
+const TYPE_FILTER_DATA_ELEMENTS = 'DATA_ELEMENTS'
+const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
+const TYPE_FILTER_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
+const TYPE_FILTER_CATEGORIES = 'CATEGORIES'
+const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
+
 const MainSidebar = () => {
     const dispatch = useDispatch()
     const expandedCards = useSelector(sGetUiExpandedCards) || []
@@ -68,6 +80,7 @@ const MainSidebar = () => {
         useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
     const [viewMode, setViewMode] = useState(VIEW_MODE_BY_TYPE)
+    const [typeFilter, setTypeFilter] = useState(TYPE_FILTER_ALL)
 
     // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
@@ -138,6 +151,7 @@ const MainSidebar = () => {
                     // Data type grouping cards
                     availableCardIds.push(ACCESSORY_PANEL_TAB_ORG_UNITS)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_PERIODS)
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_STATUSES)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_DATA)
                 } else {
                     // Program config view (enrollment/stages)
@@ -206,6 +220,9 @@ const MainSidebar = () => {
                     }
                     if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERIODS)) {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_PERIODS)
+                    }
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_STATUSES)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_STATUSES)
                     }
                     if (!expandedCards.includes(ACCESSORY_PANEL_TAB_DATA)) {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_DATA)
@@ -283,31 +300,24 @@ const MainSidebar = () => {
                         onSearchChange={setUnifiedSearchTerm}
                         onCollapseAll={onCollapseAllCards}
                         hasExpandedCards={expandedCards.length > 0}
+                        viewMode={viewMode}
+                        onViewModeChange={(mode) => {
+                            setViewMode(mode)
+                            setTypeFilter(TYPE_FILTER_ALL)
+                        }}
+                        typeFilter={typeFilter}
+                        onTypeFilterChange={setTypeFilter}
+                        showModeToggle={
+                            dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                            isProgramWithRegistration
+                        }
+                        showTypeFilter={
+                            dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                            isProgramWithRegistration &&
+                            viewMode === VIEW_MODE_PROGRAM_CONFIG
+                        }
                     />
                 )}
-
-                {/* Show view mode control for programs with registration */}
-                {hasDataSource &&
-                    dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
-                    isProgramWithRegistration && (
-                        <div className={styles.viewModeControl}>
-                            <SegmentedControl
-                                selected={viewMode}
-                                onChange={({ value }) => setViewMode(value)}
-                                options={[
-                                    {
-                                        label: i18n.t('By type'),
-                                        value: VIEW_MODE_BY_TYPE,
-                                    },
-                                    {
-                                        label: i18n.t('Program config'),
-                                        value: VIEW_MODE_PROGRAM_CONFIG,
-                                    },
-                                ]}
-                                dataTest="view-mode-control"
-                            />
-                        </div>
-                    )}
 
                 <div className={styles.cardsContainer}>
                     {/* Show placeholder when no data source is selected */}
@@ -410,6 +420,25 @@ const MainSidebar = () => {
                                     />
                                 </CardSection>
 
+                                {/* Statuses Card */}
+                                <CardSection
+                                    label={i18n.t('Statuses')}
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_STATUSES
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_STATUSES
+                                    )}
+                                    dataTest="statuses-card"
+                                >
+                                    <StatusesPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
                                 {/* Data Card */}
                                 <CardSection
                                     label={i18n.t('Data')}
@@ -455,6 +484,7 @@ const MainSidebar = () => {
                                     <EnrollmentDimensionsPanel
                                         program={dataSource}
                                         searchTerm={unifiedSearchTerm}
+                                        typeFilter={typeFilter}
                                     />
                                 </CardSection>
 
@@ -477,6 +507,7 @@ const MainSidebar = () => {
                                                 program={dataSource}
                                                 stage={stage}
                                                 searchTerm={unifiedSearchTerm}
+                                                typeFilter={typeFilter}
                                             />
                                         </CardSection>
                                     )
@@ -499,6 +530,7 @@ const MainSidebar = () => {
                                         <ProgramIndicatorsPanel
                                             program={dataSource}
                                             searchTerm={unifiedSearchTerm}
+                                            typeFilter={typeFilter}
                                         />
                                     </CardSection>
                                 )}

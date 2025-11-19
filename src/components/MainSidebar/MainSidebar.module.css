@@ -91,12 +91,3 @@
 .placeholderCard p {
     margin: var(--spacers-dp4);
 }
-
-.viewModeControl {
-    padding: 4px 8px 8px 8px;
-    background: var(--colors-grey200);
-}
-
-.viewModeControl > div {
-    width: 100%;
-}

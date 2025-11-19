@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
 import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
 import { formatDimensionId } from '../../../modules/dimensionId.js'
 import {
@@ -118,26 +119,23 @@ const OrganizationUnitsPanel = ({ program, searchTerm }) => {
         if (isProgramWithRegistration && enrollmentOrgUnit) {
             dims.push({
                 ...enrollmentOrgUnit,
-                displayName: `${enrollmentOrgUnit.name} (Enrollment)`,
+                stageName: i18n.t('Enrollment'),
             })
         }
 
-        // Add stage org units
+        // Add stage org units (already have stageName from programStage)
         stageOrgUnitsMetadata.forEach((stageOu) => {
             if (stageOu && stageOu.id) {
                 dims.push({
                     ...stageOu,
-                    displayName: `${stageOu.name} (${stageOu.stageName})`,
+                    stageName: stageOu.programStage?.name || stageOu.stageName,
                 })
             }
         })
 
         // If it's a program without registration, just show one org unit
         if (!isProgramWithRegistration && programOrgUnit) {
-            dims.push({
-                ...programOrgUnit,
-                displayName: programOrgUnit.name,
-            })
+            dims.push(programOrgUnit)
         }
 
         return dims
@@ -151,11 +149,14 @@ const OrganizationUnitsPanel = ({ program, searchTerm }) => {
     // Filter dimensions based on search term
     const filteredOrgUnitDimensions = useMemo(() => {
         if (!searchTerm) return orgUnitDimensions
-        return orgUnitDimensions.filter((dimension) =>
-            dimension.displayName
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase())
-        )
+        const lowerSearch = searchTerm.toLowerCase()
+        return orgUnitDimensions.filter((dimension) => {
+            const nameMatch = dimension.name.toLowerCase().includes(lowerSearch)
+            const stageMatch = dimension.stageName
+                ?.toLowerCase()
+                .includes(lowerSearch)
+            return nameMatch || stageMatch
+        })
     }, [orgUnitDimensions, searchTerm])
 
     // Add draggableId to dimensions
@@ -163,7 +164,6 @@ const OrganizationUnitsPanel = ({ program, searchTerm }) => {
         (dimension) => ({
             draggableId: `orgunit-${dimension.id}`,
             ...dimension,
-            name: dimension.displayName, // Use displayName for rendering
         })
     )
 

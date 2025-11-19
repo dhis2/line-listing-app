@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
 } from '@dhis2/analytics'
 import {
     DIMENSION_ID_EVENT_DATE,
@@ -19,7 +21,45 @@ import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 import { useDebounce } from '../../../modules/utils.js'
 
-const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
+// Type filter constants (must match MainSidebar)
+const TYPE_FILTER_ALL = 'ALL'
+const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
+const TYPE_FILTER_PERIODS = 'PERIODS'
+const TYPE_FILTER_STATUSES = 'STATUSES'
+const TYPE_FILTER_DATA_ELEMENTS = 'DATA_ELEMENTS'
+const TYPE_FILTER_CATEGORIES = 'CATEGORIES'
+const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
+
+// Helper function to check if a dimension matches the type filter
+const matchesTypeFilter = (dimension, typeFilter) => {
+    if (typeFilter === TYPE_FILTER_ALL) return true
+
+    const dimensionType = dimension.dimensionType
+
+    switch (typeFilter) {
+        case TYPE_FILTER_ORG_UNITS:
+            return dimensionType === 'ORGANISATION_UNIT'
+        case TYPE_FILTER_PERIODS:
+            return dimensionType === 'PERIOD'
+        case TYPE_FILTER_STATUSES:
+            return dimensionType === 'STATUS'
+        case TYPE_FILTER_DATA_ELEMENTS:
+            return dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+        case TYPE_FILTER_CATEGORIES:
+            return dimensionType === DIMENSION_TYPE_CATEGORY
+        case TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS:
+            return dimensionType === DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
+        default:
+            return true
+    }
+}
+
+const StageDimensionsPanel = ({
+    program,
+    stage,
+    searchTerm,
+    typeFilter = TYPE_FILTER_ALL,
+}) => {
     const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(searchTerm || '')
 
@@ -182,13 +222,24 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
         return dims
     }, [stageOrgUnit, eventDate, scheduledDate, eventStatus, stage])
 
-    // Filter dimensions based on search term
+    // Filter dimensions based on search term and type filter
     const filteredStageDimensions = useMemo(() => {
-        if (!searchTerm) return stageDimensions
-        return stageDimensions.filter((dimension) =>
-            dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
+        let filtered = stageDimensions
+
+        // Apply search term filter
+        if (searchTerm) {
+            filtered = filtered.filter((dimension) =>
+                dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        }
+
+        // Apply type filter
+        filtered = filtered.filter((dimension) =>
+            matchesTypeFilter(dimension, typeFilter)
         )
-    }, [stageDimensions, searchTerm])
+
+        return filtered
+    }, [stageDimensions, searchTerm, typeFilter])
 
     // Add draggableId to dimensions
     const draggableStageDimensions = filteredStageDimensions.map(
@@ -198,15 +249,31 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
         })
     )
 
+    // Filter data elements based on type filter
+    const filteredDataElementDimensions = useMemo(() => {
+        if (!dataElementDimensions) return []
+        return dataElementDimensions.filter((dimension) =>
+            matchesTypeFilter(dimension, typeFilter)
+        )
+    }, [dataElementDimensions, typeFilter])
+
     // Don't render if program or stage is not available
     if (!program || !program.id || !stage || !stage.id) {
+        return null
+    }
+
+    // Don't render if no dimensions match the filter
+    const hasStageDimensions = filteredStageDimensions.length > 0
+    const hasDataElementDimensions = filteredDataElementDimensions.length > 0
+
+    if (!hasStageDimensions && !hasDataElementDimensions) {
         return null
     }
 
     return (
         <>
             {/* Stage org unit and periods */}
-            {filteredStageDimensions.length > 0 && (
+            {hasStageDimensions && (
                 <DimensionsList
                     dimensions={draggableStageDimensions}
                     loading={false}
@@ -219,9 +286,9 @@ const StageDimensionsPanel = ({ program, stage, searchTerm }) => {
             )}
 
             {/* Stage-specific data elements */}
-            {dataElementDimensions && dataElementDimensions.length > 0 && (
+            {hasDataElementDimensions && (
                 <ProgramDataDimensionsList
-                    dimensions={dataElementDimensions}
+                    dimensions={filteredDataElementDimensions}
                     loading={loading}
                     fetching={fetching}
                     error={error}
@@ -239,6 +306,7 @@ StageDimensionsPanel.propTypes = {
     program: PropTypes.object.isRequired,
     stage: PropTypes.object.isRequired,
     searchTerm: PropTypes.string,
+    typeFilter: PropTypes.string,
 }
 
 export { StageDimensionsPanel }

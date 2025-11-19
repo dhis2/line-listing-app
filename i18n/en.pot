@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-18T18:25:29.800Z\n"
-"PO-Revision-Date: 2025-11-18T18:25:29.801Z\n"
+"POT-Creation-Date: 2025-11-19T10:00:09.034Z\n"
+"PO-Revision-Date: 2025-11-19T10:00:09.034Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -210,6 +210,9 @@ msgstr "Program: {{- programName}}"
 msgid "Showing all values for this dimension"
 msgstr "Showing all values for this dimension"
 
+msgid "Enrollment"
+msgstr "Enrollment"
+
 msgid "No results"
 msgstr "No results"
 
@@ -250,9 +253,6 @@ msgstr "Recently used data sources"
 msgid "See individual event data from a Tracker program stage or event program."
 msgstr "See individual event data from a Tracker program stage or event program."
 
-msgid "Enrollment"
-msgstr "Enrollment"
-
 msgid "See data from multiple program stages in a Tracker program."
 msgstr "See data from multiple program stages in a Tracker program."
 
@@ -271,12 +271,6 @@ msgstr "Search input types"
 msgid "Error loading types"
 msgstr "Error loading types"
 
-msgid "By type"
-msgstr "By type"
-
-msgid "Program config"
-msgstr "Program config"
-
 msgid "Choose a data source to see available dimensions"
 msgstr "Choose a data source to see available dimensions"
 
@@ -285,6 +279,9 @@ msgstr "Organisation units"
 
 msgid "Periods"
 msgstr "Periods"
+
+msgid "Statuses"
+msgstr "Statuses"
 
 msgid "Data"
 msgstr "Data"
@@ -408,8 +405,23 @@ msgstr "Registration org. unit"
 msgid "Registration date"
 msgstr "Registration date"
 
+msgid "All"
+msgstr "All"
+
+msgid "Org units"
+msgstr "Org units"
+
 msgid "Search all dimensions"
 msgstr "Search all dimensions"
+
+msgid "Group by data type"
+msgstr "Group by data type"
+
+msgid "Group by program configuration"
+msgstr "Group by program configuration"
+
+msgid "Filter by data type"
+msgstr "Filter by data type"
 
 msgid "Collapse all cards"
 msgstr "Collapse all cards"
@@ -522,9 +534,6 @@ msgstr "Open a visualization"
 
 msgid "Search by name"
 msgstr "Search by name"
-
-msgid "All"
-msgstr "All"
 
 msgid "Created by me"
 msgstr "Created by me"

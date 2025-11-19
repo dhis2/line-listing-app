@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import {
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_CATEGORY,
+    DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
 } from '@dhis2/analytics'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
@@ -18,7 +20,44 @@ import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 import { useDebounce } from '../../../modules/utils.js'
 
-const EnrollmentDimensionsPanel = ({ program, searchTerm }) => {
+// Type filter constants (must match MainSidebar)
+const TYPE_FILTER_ALL = 'ALL'
+const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
+const TYPE_FILTER_PERIODS = 'PERIODS'
+const TYPE_FILTER_STATUSES = 'STATUSES'
+const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
+const TYPE_FILTER_CATEGORIES = 'CATEGORIES'
+const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
+
+// Helper function to check if a dimension matches the type filter
+const matchesTypeFilter = (dimension, typeFilter) => {
+    if (typeFilter === TYPE_FILTER_ALL) return true
+
+    const dimensionType = dimension.dimensionType
+
+    switch (typeFilter) {
+        case TYPE_FILTER_ORG_UNITS:
+            return dimensionType === 'ORGANISATION_UNIT'
+        case TYPE_FILTER_PERIODS:
+            return dimensionType === 'PERIOD'
+        case TYPE_FILTER_STATUSES:
+            return dimensionType === 'STATUS'
+        case TYPE_FILTER_PROGRAM_ATTRIBUTES:
+            return dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE
+        case TYPE_FILTER_CATEGORIES:
+            return dimensionType === DIMENSION_TYPE_CATEGORY
+        case TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS:
+            return dimensionType === DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
+        default:
+            return true
+    }
+}
+
+const EnrollmentDimensionsPanel = ({
+    program,
+    searchTerm,
+    typeFilter = TYPE_FILTER_ALL,
+}) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
 
     // Get enrollment-specific dimensions from metadata
@@ -97,13 +136,24 @@ const EnrollmentDimensionsPanel = ({ program, searchTerm }) => {
         program,
     ])
 
-    // Filter dimensions based on search term
+    // Filter dimensions based on search term and type filter
     const filteredEnrollmentDimensions = useMemo(() => {
-        if (!searchTerm) return enrollmentDimensions
-        return enrollmentDimensions.filter((dimension) =>
-            dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
+        let filtered = enrollmentDimensions
+
+        // Apply search term filter
+        if (searchTerm) {
+            filtered = filtered.filter((dimension) =>
+                dimension.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        }
+
+        // Apply type filter
+        filtered = filtered.filter((dimension) =>
+            matchesTypeFilter(dimension, typeFilter)
         )
-    }, [enrollmentDimensions, searchTerm])
+
+        return filtered
+    }, [enrollmentDimensions, searchTerm, typeFilter])
 
     // Add draggableId to dimensions
     const draggableEnrollmentDimensions = filteredEnrollmentDimensions.map(
@@ -113,15 +163,31 @@ const EnrollmentDimensionsPanel = ({ program, searchTerm }) => {
         })
     )
 
+    // Filter program attributes based on type filter
+    const filteredAttributeDimensions = useMemo(() => {
+        if (!attributeDimensions) return []
+        return attributeDimensions.filter((dimension) =>
+            matchesTypeFilter(dimension, typeFilter)
+        )
+    }, [attributeDimensions, typeFilter])
+
     // Don't render if program is not available
     if (!program || !program.id) {
+        return null
+    }
+
+    // Don't render if no dimensions match the filter
+    const hasEnrollmentDimensions = filteredEnrollmentDimensions.length > 0
+    const hasAttributeDimensions = filteredAttributeDimensions.length > 0
+
+    if (!hasEnrollmentDimensions && !hasAttributeDimensions) {
         return null
     }
 
     return (
         <>
             {/* Enrollment org unit, periods, and status */}
-            {filteredEnrollmentDimensions.length > 0 && (
+            {hasEnrollmentDimensions && (
                 <DimensionsList
                     dimensions={draggableEnrollmentDimensions}
                     loading={false}
@@ -134,9 +200,9 @@ const EnrollmentDimensionsPanel = ({ program, searchTerm }) => {
             )}
 
             {/* Program attributes */}
-            {attributeDimensions && attributeDimensions.length > 0 && (
+            {hasAttributeDimensions && (
                 <ProgramDataDimensionsList
-                    dimensions={attributeDimensions}
+                    dimensions={filteredAttributeDimensions}
                     loading={loading}
                     fetching={fetching}
                     error={error}
@@ -153,6 +219,7 @@ const EnrollmentDimensionsPanel = ({ program, searchTerm }) => {
 EnrollmentDimensionsPanel.propTypes = {
     program: PropTypes.object.isRequired,
     searchTerm: PropTypes.string,
+    typeFilter: PropTypes.string,
 }
 
 export { EnrollmentDimensionsPanel }
