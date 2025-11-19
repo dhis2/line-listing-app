@@ -7,6 +7,11 @@ export const ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS = 'PROGRAM_DIMENSIONS'
 export const ACCESSORY_PANEL_TAB_ENROLLMENT = 'ENROLLMENT'
 export const ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
 
+// Data type grouping constants
+export const ACCESSORY_PANEL_TAB_ORG_UNITS = 'ORG_UNITS'
+export const ACCESSORY_PANEL_TAB_PERIODS = 'PERIODS'
+export const ACCESSORY_PANEL_TAB_DATA = 'DATA'
+
 // Helper function to generate unique card IDs for each stage
 export const getStageCardId = (stageId) => `STAGE_${stageId}`
 export const ACCESSORY_PANEL_DEFAULT_WIDTH = 260

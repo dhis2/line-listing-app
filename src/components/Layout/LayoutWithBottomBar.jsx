@@ -36,12 +36,22 @@ const LayoutWithBottomBar = () => {
     const current = useSelector(sGetCurrent)
     const visualizationType = useSelector(sGetUiType)
 
+    // Get full program/entity metadata from dataSource ID
+    const dataSourceId = dataSource?.id
+    const dataSourceMetadata = useSelector((state) =>
+        sGetMetadataById(state, dataSourceId)
+    )
+
     // Check if we have a current visualization (created but maybe not saved)
     const hasCurrentVisualization = Boolean(current)
 
     // Determine button terminology based on visualization type
     const terminology =
         visualizationType === VIS_TYPE_PIVOT_TABLE ? 'table' : 'list'
+
+    // PROTOTYPE: Check if using Child Programme to customize enrollment label
+    const isChildProgramme = dataSourceMetadata?.name === 'Child Programme'
+    const enrollmentLabel = isChildProgramme ? 'Pregnancy' : 'Enrollment'
 
     // Check if tracked entity output is supported
     const supportsTrackedEntity =
@@ -173,9 +183,9 @@ const LayoutWithBottomBar = () => {
                     handleEnrollmentClick,
                     hasCurrentVisualization &&
                         outputType === OUTPUT_TYPE_ENROLLMENT,
-                    `Update Enrollment ${terminology}`,
-                    `Create Enrollment ${terminology}`,
-                    `Switch to Enrollment ${terminology}`
+                    `Update ${enrollmentLabel} ${terminology}`,
+                    `Create ${enrollmentLabel} ${terminology}`,
+                    `Switch to ${enrollmentLabel} ${terminology}`
                 )}
                 {/* Show Person button for Line List, Custom value button for Pivot Table */}
                 {visualizationType === VIS_TYPE_PIVOT_TABLE

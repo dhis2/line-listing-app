@@ -1,6 +1,6 @@
 import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { IconArrowRight16, IconFolder16, Button } from '@dhis2/ui'
+import { SegmentedControl } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,46 +11,39 @@ import {
     acToggleUiSidebarHidden,
 } from '../../actions/ui.js'
 import {
-    ACCESSORY_PANEL_TAB_INPUT,
-    ACCESSORY_PANEL_TAB_PROGRAM,
     ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
     ACCESSORY_PANEL_TAB_YOUR,
     ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS,
-    ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS,
+    ACCESSORY_PANEL_TAB_ORG_UNITS,
+    ACCESSORY_PANEL_TAB_PERIODS,
+    ACCESSORY_PANEL_TAB_DATA,
     ACCESSORY_PANEL_TAB_ENROLLMENT,
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import { useDebounce } from '../../modules/utils.js'
-import {
-    OUTPUT_TYPE_EVENT,
-    OUTPUT_TYPE_ENROLLMENT,
-    OUTPUT_TYPE_TRACKED_ENTITY,
-} from '../../modules/visualization.js'
+import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
-    sGetUiInputType,
-    sGetUiProgramId,
     sGetUiSidebarHidden,
-    sGetUiProgramStageId,
     sGetUiExpandedCards,
     sGetUiEntityTypeId,
-    sGetUiSplitDataCards,
     sGetUiDataSourceType,
     sGetUiDataSourceId,
-    sGetUiOutputType,
 } from '../../reducers/ui.js'
 import { CardSection } from './CardSection/index.js'
-import { InputPanel, getLabelForInputType } from './InputPanel/index.js'
+import { InputPanel } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.jsx'
 import styles from './MainSidebar.module.css'
+import {
+    OrganizationUnitsPanel,
+    PeriodsPanel,
+    DataPanel,
+} from './DataTypeGrouping/index.js'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
-import { ProgramDimensionsPanel } from './ProgramDimensionsPanel/index.js'
-import { ProgramDataOnly } from './ProgramDimensionsPanel/ProgramDataOnly.jsx'
-import { ProgramDimensionsOnly } from './ProgramDimensionsPanel/ProgramDimensionsOnly.jsx'
-import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
+import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
 import { useProgramDataDimensions } from './ProgramDimensionsPanel/useProgramDataDimensions.js'
 import {
     SelectedDimensionsProvider,
@@ -61,10 +54,12 @@ import { UnifiedSearch } from './UnifiedSearch.jsx'
 import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
+const VIEW_MODE_BY_TYPE = 'BY_TYPE'
+const VIEW_MODE_PROGRAM_CONFIG = 'PROGRAM_CONFIG'
+
 const MainSidebar = () => {
     const dispatch = useDispatch()
     const expandedCards = useSelector(sGetUiExpandedCards) || []
-    const splitDataCards = useSelector(sGetUiSplitDataCards)
     const { width, handleMouseDown, handleDoubleClick } =
         useResizableMainSidebar()
     const [unifiedSearchTerm, setUnifiedSearchTerm] = useState('')
@@ -72,17 +67,11 @@ const MainSidebar = () => {
     const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] =
         useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
-    const [programDimensionsEmpty, setProgramDimensionsEmpty] = useState(false)
+    const [viewMode, setViewMode] = useState(VIEW_MODE_BY_TYPE)
 
-    // New data source state
+    // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
     const dataSourceId = useSelector(sGetUiDataSourceId)
-    const outputType = useSelector(sGetUiOutputType)
-
-    // Legacy state (still used by existing dimension hooks)
-    const selectedInputType = useSelector(sGetUiInputType)
-    const selectedProgramId = useSelector(sGetUiProgramId)
-    const selectedStageId = useSelector(sGetUiProgramStageId)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
 
     // Get metadata based on data source
@@ -90,47 +79,21 @@ const MainSidebar = () => {
         sGetMetadataById(state, dataSourceId)
     )
 
-    // Legacy metadata (for backward compatibility)
-    const program = useSelector((state) =>
-        sGetMetadataById(state, selectedProgramId)
-    )
-    const stage = useSelector((state) =>
-        sGetMetadataById(state, selectedStageId)
-    )
+    // Entity type metadata
     const entityType = useSelector((state) =>
         sGetMetadataById(state, selectedEntityTypeId)
     )
-    const getSubtitle = () => {
-        // Use data source if available, fallback to legacy logic
-        if (dataSource?.name) {
-            return dataSource.name
-        }
-
-        // Legacy logic
-        if (
-            selectedInputType === OUTPUT_TYPE_EVENT &&
-            program?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
-            program?.name &&
-            stage?.name
-        ) {
-            return `${program.name} - ${stage.name}`
-        } else if (selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY) {
-            return entityType?.name
-        } else {
-            return program?.name
-        }
-    }
 
     // Check if data source is selected
     const hasDataSource = Boolean(dataSourceId)
 
-    // Check if this is a program with registration (should show stage cards)
+    // Check if this is a program with registration (for program config view)
     const isProgramWithRegistration =
         dataSource?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
         dataSource?.programStages &&
         dataSource.programStages.length > 0
 
-    // Get program indicators to check if we should show the card
+    // Get program indicators to check if we should show the card (for program config view)
     const debouncedSearchTerm = useDebounce(unifiedSearchTerm || '')
     const { dimensions: programIndicators, loading: programIndicatorsLoading } =
         useProgramDataDimensions({
@@ -165,28 +128,41 @@ const MainSidebar = () => {
         [dispatch]
     )
     const onCollapseAllCards = useCallback(() => {
-        // Get all available card IDs based on current state
+        // Get all available card IDs based on current state and view mode
         const availableCardIds = []
 
-        // Always available cards
-        availableCardIds.push(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)
-        availableCardIds.push(ACCESSORY_PANEL_TAB_YOUR)
+        if (hasDataSource) {
+            if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
+                // Program cards based on view mode
+                if (viewMode === VIEW_MODE_BY_TYPE) {
+                    // Data type grouping cards
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_ORG_UNITS)
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_PERIODS)
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_DATA)
+                } else {
+                    // Program config view (enrollment/stages)
+                    if (isProgramWithRegistration) {
+                        availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                        dataSource.programStages.forEach((stage) => {
+                            availableCardIds.push(getStageCardId(stage.id))
+                        })
+                        if (hasProgramIndicators) {
+                            availableCardIds.push(
+                                ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                            )
+                        }
+                    }
+                }
+            } else {
+                // Tracked entity card
+                if (entityType?.name) {
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+                }
+            }
 
-        // Tracked entity card (when entityType is available)
-        if (entityType?.name) {
-            availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
-        }
-
-        // Program with registration cards (enrollment + stages)
-        if (isProgramWithRegistration) {
-            availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
-            dataSource.programStages.forEach((stage) => {
-                availableCardIds.push(getStageCardId(stage.id))
-            })
-        } else if (splitDataCards) {
-            // Legacy: Program-related cards (when split mode is enabled)
-            availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
-            availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM)
+            // Always available cards (when data source is selected)
+            availableCardIds.push(ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS)
+            availableCardIds.push(ACCESSORY_PANEL_TAB_YOUR)
         }
 
         // Check if any cards are currently expanded
@@ -205,56 +181,60 @@ const MainSidebar = () => {
         dispatch,
         expandedCards,
         entityType,
-        splitDataCards,
+        hasDataSource,
+        dataSourceType,
+        viewMode,
         isProgramWithRegistration,
         dataSource,
+        hasProgramIndicators,
     ])
     const { counts } = useSelectedDimensions()
 
-    // Auto-expand cards when data source is selected
+    // Auto-expand cards when data source is selected or view mode changes
     useEffect(() => {
         if (dataSourceId) {
             const cardsToExpand = []
 
-            if (isProgramWithRegistration) {
-                // Expand enrollment card for programs with registration
-                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)) {
-                    cardsToExpand.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
-                }
-                // Expand all stage cards
-                dataSource.programStages.forEach((stage) => {
-                    const stageCardId = getStageCardId(stage.id)
-                    if (!expandedCards.includes(stageCardId)) {
-                        cardsToExpand.push(stageCardId)
+            if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
+                // Expand cards based on view mode
+                if (viewMode === VIEW_MODE_BY_TYPE) {
+                    // Data type grouping cards
+                    if (
+                        !expandedCards.includes(ACCESSORY_PANEL_TAB_ORG_UNITS)
+                    ) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_ORG_UNITS)
                     }
-                })
-                // Expand program indicators card
-                if (
-                    !expandedCards.includes(
-                        ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
-                    )
-                ) {
-                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS)
-                }
-            } else if (
-                splitDataCards &&
-                dataSourceType !== 'TRACKED_ENTITY_TYPE'
-            ) {
-                // Legacy: Auto-expand split mode cards
-                if (
-                    !expandedCards.includes(
-                        ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
-                    )
-                ) {
-                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS)
-                }
-                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)) {
-                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM)
-                }
-            } else if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
-                // Non-split program card
-                if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PROGRAM)) {
-                    cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM)
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERIODS)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_PERIODS)
+                    }
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_DATA)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_DATA)
+                    }
+                } else if (isProgramWithRegistration) {
+                    // Program config view (enrollment/stages)
+                    if (
+                        !expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                    ) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                    }
+                    // Expand all stage cards
+                    dataSource.programStages.forEach((stage) => {
+                        const stageCardId = getStageCardId(stage.id)
+                        if (!expandedCards.includes(stageCardId)) {
+                            cardsToExpand.push(stageCardId)
+                        }
+                    })
+                    // Expand program indicators card if applicable
+                    if (
+                        hasProgramIndicators &&
+                        !expandedCards.includes(
+                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                        )
+                    ) {
+                        cardsToExpand.push(
+                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                        )
+                    }
                 }
             }
 
@@ -282,7 +262,7 @@ const MainSidebar = () => {
                 })
             }
         }
-    }, [dataSourceId]) // Trigger when data source changes
+    }, [dataSourceId, viewMode]) // Trigger when data source or view mode changes
 
     return (
         <div
@@ -305,6 +285,29 @@ const MainSidebar = () => {
                         hasExpandedCards={expandedCards.length > 0}
                     />
                 )}
+
+                {/* Show view mode control for programs with registration */}
+                {hasDataSource &&
+                    dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                    isProgramWithRegistration && (
+                        <div className={styles.viewModeControl}>
+                            <SegmentedControl
+                                selected={viewMode}
+                                onChange={({ value }) => setViewMode(value)}
+                                options={[
+                                    {
+                                        label: i18n.t('By type'),
+                                        value: VIEW_MODE_BY_TYPE,
+                                    },
+                                    {
+                                        label: i18n.t('Program config'),
+                                        value: VIEW_MODE_PROGRAM_CONFIG,
+                                    },
+                                ]}
+                                dataTest="view-mode-control"
+                            />
+                        </div>
+                    )}
 
                 <div className={styles.cardsContainer}>
                     {/* Show placeholder when no data source is selected */}
@@ -365,162 +368,142 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {/* Program with registration: Show enrollment + stage cards */}
-                    {isProgramWithRegistration ? (
-                        <>
-                            {/* Enrollment Card */}
-                            <CardSection
-                                label={i18n.t('Enrollment')}
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_ENROLLMENT)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_ENROLLMENT
-                                )}
-                                dataTest="enrollment-card"
-                            >
-                                <EnrollmentDimensionsPanel
-                                    program={dataSource}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-
-                            {/* Stage Cards - one per stage */}
-                            {dataSource.programStages.map((stage) => {
-                                const stageCardId = getStageCardId(stage.id)
-                                return (
-                                    <CardSection
-                                        key={stageCardId}
-                                        label={stage.name}
-                                        onClick={() => onCardClick(stageCardId)}
-                                        expanded={expandedCards.includes(
-                                            stageCardId
-                                        )}
-                                        dataTest={`stage-${stage.id}-card`}
-                                    >
-                                        <StageDimensionsPanel
-                                            program={dataSource}
-                                            stage={stage}
-                                            searchTerm={unifiedSearchTerm}
-                                        />
-                                    </CardSection>
-                                )
-                            })}
-
-                            {/* Program Indicators Card - only show if there are indicators */}
-                            {hasProgramIndicators && (
+                    {/* Program dimensions cards - show based on view mode */}
+                    {hasDataSource &&
+                        dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                        viewMode === VIEW_MODE_BY_TYPE && (
+                            <>
+                                {/* Data type grouping: Show org units, periods, and data cards */}
+                                {/* Organization Units Card */}
                                 <CardSection
-                                    label={i18n.t('Program Indicators')}
+                                    label={i18n.t('Organisation units')}
                                     onClick={() =>
                                         onCardClick(
-                                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                            ACCESSORY_PANEL_TAB_ORG_UNITS
                                         )
                                     }
                                     expanded={expandedCards.includes(
-                                        ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                        ACCESSORY_PANEL_TAB_ORG_UNITS
                                     )}
-                                    dataTest="program-indicators-card"
+                                    dataTest="org-units-card"
                                 >
-                                    <ProgramIndicatorsPanel
+                                    <OrganizationUnitsPanel
                                         program={dataSource}
                                         searchTerm={unifiedSearchTerm}
                                     />
                                 </CardSection>
-                            )}
-                        </>
-                    ) : splitDataCards &&
-                      hasDataSource &&
-                      dataSourceType !== 'TRACKED_ENTITY_TYPE' ? (
-                        <>
-                            {/* Legacy: Program Dimensions Card (split mode) */}
-                            <CardSection
-                                label={i18n.t(
-                                    'Org. units, periods, and statuses'
-                                )}
-                                onClick={() =>
-                                    onCardClick(
-                                        ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
-                                    )
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_PROGRAM_DIMENSIONS
-                                )}
-                                dataTest="program-dimensions-only-card"
-                                isEmpty={programDimensionsEmpty}
-                            >
-                                <ProgramDimensionsOnly
-                                    searchTerm={unifiedSearchTerm}
-                                    onEmptyStateChange={
-                                        setProgramDimensionsEmpty
-                                    }
-                                />
-                            </CardSection>
 
-                            {/* Legacy: Program Data Card (split mode) */}
-                            <CardSection
-                                label={
-                                    selectedInputType ===
-                                    OUTPUT_TYPE_TRACKED_ENTITY
-                                        ? i18n.t('Program data')
-                                        : i18n.t('Data')
-                                }
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_PROGRAM
+                                {/* Periods Card */}
+                                <CardSection
+                                    label={i18n.t('Periods')}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_PERIODS)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_PERIODS
+                                    )}
+                                    dataTest="periods-card"
+                                >
+                                    <PeriodsPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
+                                {/* Data Card */}
+                                <CardSection
+                                    label={i18n.t('Data')}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_DATA)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_DATA
+                                    )}
+                                    dataTest="data-card"
+                                >
+                                    <DataPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+                            </>
+                        )}
+
+                    {/* Program config view: Show enrollment + stage cards */}
+                    {hasDataSource &&
+                        dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                        viewMode === VIEW_MODE_PROGRAM_CONFIG &&
+                        isProgramWithRegistration && (
+                            <>
+                                {/* Enrollment Card */}
+                                <CardSection
+                                    label={
+                                        dataSource?.name === 'Child Programme'
+                                            ? i18n.t('Pregnancy')
+                                            : i18n.t('Enrollment')
+                                    }
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_ENROLLMENT
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_ENROLLMENT
+                                    )}
+                                    dataTest="enrollment-card"
+                                >
+                                    <EnrollmentDimensionsPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
+                                {/* Stage Cards - one per stage */}
+                                {dataSource.programStages.map((stage) => {
+                                    const stageCardId = getStageCardId(stage.id)
+                                    return (
+                                        <CardSection
+                                            key={stageCardId}
+                                            label={stage.name}
+                                            onClick={() =>
+                                                onCardClick(stageCardId)
+                                            }
+                                            expanded={expandedCards.includes(
+                                                stageCardId
+                                            )}
+                                            dataTest={`stage-${stage.id}-card`}
+                                        >
+                                            <StageDimensionsPanel
+                                                program={dataSource}
+                                                stage={stage}
+                                                searchTerm={unifiedSearchTerm}
+                                            />
+                                        </CardSection>
+                                    )
+                                })}
+
+                                {/* Program Indicators Card - only show if there are indicators */}
+                                {hasProgramIndicators && (
+                                    <CardSection
+                                        label={i18n.t('Program Indicators')}
+                                        onClick={() =>
+                                            onCardClick(
+                                                ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                            )
+                                        }
+                                        expanded={expandedCards.includes(
+                                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                                        )}
+                                        dataTest="program-indicators-card"
+                                    >
+                                        <ProgramIndicatorsPanel
+                                            program={dataSource}
+                                            searchTerm={unifiedSearchTerm}
+                                        />
+                                    </CardSection>
                                 )}
-                                count={
-                                    selectedInputType ===
-                                    OUTPUT_TYPE_TRACKED_ENTITY
-                                        ? selectedProgramId &&
-                                          selectedEntityTypeId
-                                            ? counts.program
-                                            : undefined
-                                        : selectedProgramId ||
-                                          selectedEntityTypeId
-                                        ? counts.program
-                                        : undefined
-                                }
-                                dataTest="program-data-card"
-                            >
-                                <ProgramDataOnly
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-                        </>
-                    ) : hasDataSource &&
-                      dataSourceType !== 'TRACKED_ENTITY_TYPE' ? (
-                        /* Legacy: Combined Program Dimensions Card (original behavior) */
-                        <CardSection
-                            label={
-                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
-                                    ? i18n.t('Program data')
-                                    : i18n.t('Data')
-                            }
-                            onClick={() =>
-                                onCardClick(ACCESSORY_PANEL_TAB_PROGRAM)
-                            }
-                            expanded={expandedCards.includes(
-                                ACCESSORY_PANEL_TAB_PROGRAM
-                            )}
-                            count={
-                                selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
-                                    ? selectedProgramId && selectedEntityTypeId
-                                        ? counts.program
-                                        : undefined
-                                    : selectedProgramId || selectedEntityTypeId
-                                    ? counts.program
-                                    : undefined
-                            }
-                            dataTest="program-dimensions-card"
-                        >
-                            <ProgramDimensionsPanel
-                                visible={true}
-                                searchTerm={unifiedSearchTerm}
-                            />
-                        </CardSection>
-                    ) : null}
+                            </>
+                        )}
 
                     {/* TrackedEntityDimensions Card - shown for tracked entity type data sources only */}
                     {entityType?.name &&
