@@ -19,6 +19,7 @@ import {
     ACCESSORY_PANEL_TAB_DATA,
     ACCESSORY_PANEL_TAB_ENROLLMENT,
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
+    ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
@@ -51,6 +52,7 @@ import {
     useSelectedDimensions,
 } from './SelectedDimensionsContext.jsx'
 import { TrackedEntityDimensionsPanel } from './TrackedEntityDimensionsPanel/index.js'
+import { ProgramsUsingTypePanel } from './ProgramsUsingTypePanel/index.js'
 import { UnifiedSearch } from './UnifiedSearch.jsx'
 import { useResizableMainSidebar } from './useResizableMainSidebar.js'
 import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
@@ -173,6 +175,9 @@ const MainSidebar = () => {
                 // Tracked entity card
                 if (entityType?.name) {
                     availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+                    availableCardIds.push(
+                        ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE
+                    )
                 }
             }
 
@@ -577,6 +582,34 @@ const MainSidebar = () => {
                                     onEmptyStateChange={
                                         setTrackedEntityDimensionsEmpty
                                     }
+                                />
+                            </CardSection>
+                        )}
+
+                    {/* Programs Using Type Card - shown for tracked entity type data sources only */}
+                    {entityType?.name &&
+                        hasDataSource &&
+                        dataSourceType === 'TRACKED_ENTITY_TYPE' && (
+                            <CardSection
+                                label={i18n.t(
+                                    'Programs where {{typeName}} is used',
+                                    {
+                                        typeName: entityType.name,
+                                    }
+                                )}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE
+                                )}
+                                dataTest="programs-using-type-card"
+                            >
+                                <ProgramsUsingTypePanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
                                 />
                             </CardSection>
                         )}
