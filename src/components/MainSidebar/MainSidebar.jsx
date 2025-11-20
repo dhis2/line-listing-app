@@ -81,6 +81,8 @@ const MainSidebar = () => {
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
     const [viewMode, setViewMode] = useState(VIEW_MODE_BY_TYPE)
     const [typeFilter, setTypeFilter] = useState(TYPE_FILTER_ALL)
+    const [isScrolled, setIsScrolled] = useState(false)
+    const cardsContainerRef = React.useRef(null)
 
     // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
@@ -204,6 +206,19 @@ const MainSidebar = () => {
     ])
     const { counts } = useSelectedDimensions()
 
+    // Handle scroll detection for UnifiedSearch shadow
+    useEffect(() => {
+        const container = cardsContainerRef.current
+        if (!container) return
+
+        const handleScroll = () => {
+            setIsScrolled(container.scrollTop > 0)
+        }
+
+        container.addEventListener('scroll', handleScroll)
+        return () => container.removeEventListener('scroll', handleScroll)
+    }, [])
+
     // Auto-expand cards when data source is selected or view mode changes
     useEffect(() => {
         if (dataSourceId) {
@@ -316,10 +331,11 @@ const MainSidebar = () => {
                             isProgramWithRegistration &&
                             viewMode === VIEW_MODE_PROGRAM_CONFIG
                         }
+                        isScrolled={isScrolled}
                     />
                 )}
 
-                <div className={styles.cardsContainer}>
+                <div ref={cardsContainerRef} className={styles.cardsContainer}>
                     {/* Show placeholder when no data source is selected */}
                     {!hasDataSource && (
                         <div className={styles.placeholderCardsWrapper}>

@@ -88,6 +88,7 @@ const UnifiedSearch = ({
     onTypeFilterChange,
     showModeToggle,
     showTypeFilter,
+    isScrolled,
 }) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [isFocused, setIsFocused] = useState(false)
@@ -138,7 +139,11 @@ const UnifiedSearch = ({
     }
 
     return (
-        <div className={styles.container}>
+        <div
+            className={`${styles.container} ${
+                isScrolled ? styles.scrolled : ''
+            }`}
+        >
             <div className={styles.searchRow}>
                 <Input
                     value={searchTerm}
@@ -374,6 +379,7 @@ UnifiedSearch.propTypes = {
     hasExpandedCards: PropTypes.bool.isRequired,
     onCollapseAll: PropTypes.func.isRequired,
     onSearchChange: PropTypes.func.isRequired,
+    isScrolled: PropTypes.bool,
     onTypeFilterChange: PropTypes.func,
     onViewModeChange: PropTypes.func,
     showModeToggle: PropTypes.bool,

@@ -1,5 +1,14 @@
 .container {
     padding: 6px var(--spacers-dp4) 2px var(--spacers-dp4);
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--colors-grey200);
+}
+
+.container.scrolled {
+    box-shadow: 0 1px 4px rgba(9, 10, 15, 0.1);
 }
 
 .searchRow {
