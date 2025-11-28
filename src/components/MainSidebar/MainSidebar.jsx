@@ -133,7 +133,7 @@ const MainSidebar = () => {
     const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] =
         useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
-    const [viewMode, setViewMode] = useState(VIEW_MODE_BY_TYPE)
+    const [viewMode, setViewMode] = useState(VIEW_MODE_PROGRAM_CONFIG)
     const [typeFilter, setTypeFilter] = useState(TYPE_FILTER_ALL)
     const [isScrolled, setIsScrolled] = useState(false)
     const cardsContainerRef = React.useRef(null)
