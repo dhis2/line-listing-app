@@ -50,6 +50,7 @@ import {
     sGetUiDataSourceId,
     sGetUiLayout,
 } from '../../reducers/ui.js'
+import { sGetVisualization } from '../../reducers/visualization.js'
 import { CardSection } from './CardSection/index.js'
 import { DataSourceTabs } from './DataSourceTabs/index.js'
 import { InputPanel } from './InputPanel/index.js'
@@ -271,6 +272,9 @@ const MainSidebar = () => {
 
     // Layout for checking if data source has dimensions
     const layout = useSelector(sGetUiLayout)
+
+    // Watch for loaded visualization to auto-open tabs
+    const visualization = useSelector(sGetVisualization)
 
     // Get metadata based on data source
     const dataSource = useSelector((state) =>
@@ -573,6 +577,91 @@ const MainSidebar = () => {
             )
         }
     }, [dataSource?.name, dataSourceId])
+
+    // Auto-open tabs when a saved visualization is loaded
+    const visualizationIdRef = React.useRef(null)
+    useEffect(() => {
+        // Only run when a new visualization is loaded (id changes)
+        if (
+            !visualization?.id ||
+            visualization.id === visualizationIdRef.current
+        ) {
+            return
+        }
+        visualizationIdRef.current = visualization.id
+
+        const tabsToOpen = []
+
+        // Check for program in the visualization
+        if (visualization.program?.id) {
+            const programTab = {
+                id: visualization.program.id,
+                type: 'PROGRAM',
+                name: visualization.program.name || visualization.program.id,
+                stageIds:
+                    visualization.program.programStages?.map((s) => s.id) || [],
+            }
+            tabsToOpen.push(programTab)
+        }
+
+        // Check for tracked entity type in the visualization
+        if (visualization.trackedEntityType?.id) {
+            const tetTab = {
+                id: visualization.trackedEntityType.id,
+                type: 'TRACKED_ENTITY_TYPE',
+                name:
+                    visualization.trackedEntityType.name ||
+                    visualization.trackedEntityType.id,
+                stageIds: [],
+            }
+            // Only add if not already added via program (avoid duplicates)
+            if (
+                !tabsToOpen.some(
+                    (t) => t.id === tetTab.id && t.type === tetTab.type
+                )
+            ) {
+                tabsToOpen.push(tetTab)
+            }
+        }
+
+        // Check for additional programs in programDimensions (for tracked entity visualizations)
+        if (visualization.programDimensions?.length > 0) {
+            visualization.programDimensions.forEach((prog) => {
+                if (
+                    prog.id &&
+                    !tabsToOpen.some(
+                        (t) => t.id === prog.id && t.type === 'PROGRAM'
+                    )
+                ) {
+                    tabsToOpen.push({
+                        id: prog.id,
+                        type: 'PROGRAM',
+                        name: prog.name || prog.id,
+                        stageIds: prog.programStages?.map((s) => s.id) || [],
+                    })
+                }
+            })
+        }
+
+        // If we found data sources, open tabs for them
+        if (tabsToOpen.length > 0) {
+            setOpenTabs(tabsToOpen)
+            setActiveTabIndex(0)
+            setIsAddingDataSource(false)
+
+            // Set the first data source as active in Redux
+            const firstTab = tabsToOpen[0]
+            dispatch(
+                acSetUiDataSource(
+                    {
+                        type: firstTab.type,
+                        id: firstTab.id,
+                    },
+                    {}
+                )
+            )
+        }
+    }, [visualization?.id, dispatch])
 
     // Handle tab click - switch to a different tab
     const handleTabClick = useCallback(
