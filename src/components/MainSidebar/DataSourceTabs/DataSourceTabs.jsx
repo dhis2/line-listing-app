@@ -10,10 +10,6 @@ export const DataSourceTabs = ({
     onTabClose,
     onAddClick,
 }) => {
-    if (tabs.length === 0) {
-        return null
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.tabsWrapper}>

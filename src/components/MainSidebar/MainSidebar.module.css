@@ -92,45 +92,97 @@
     margin: var(--spacers-dp4);
 }
 
-/* Recently used data sources panel (shown when clicking + to add new tab) */
-.recentDataSourcesPanel {
-    padding: 12px 8px;
-}
-
-.recentHeader {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    color: var(--colors-grey600);
-    margin-bottom: 8px;
-    letter-spacing: 0.3px;
-}
-
-.recentList {
+/* "New..." tab panel - shows all data sources (Linear-inspired) */
+.newTabPanel {
+    padding: 8px 0;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
 }
 
-.recentItem {
-    display: block;
+.newTabSearchWrapper {
+    padding: 0 8px 8px;
+}
+
+.newTabSearchInput {
     width: 100%;
-    padding: 10px 12px;
-    background: var(--colors-white);
+    padding: 8px 10px;
+    font-size: 13px;
     border: 1px solid var(--colors-grey300);
     border-radius: 4px;
-    font-size: 13px;
+    background: var(--colors-white);
     color: var(--colors-grey900);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.newTabSearchInput::placeholder {
+    color: var(--colors-grey500);
+}
+
+.newTabSearchInput:focus {
+    border-color: var(--colors-blue500);
+    box-shadow: 0 0 0 1px var(--colors-blue500);
+}
+
+.newTabHeader {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--colors-grey600);
+    margin-bottom: 4px;
+    padding: 0 12px;
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
+
+.dataSourcesList {
+    display: flex;
+    flex-direction: column;
+}
+
+.dataSourcesSection {
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--colors-grey600);
+    padding: 16px 12px 4px;
+}
+
+.dataSourcesSection:first-child {
+    padding-top: 8px;
+}
+
+.dataSourceItem {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--colors-grey700);
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: background-color 0.1s ease;
 }
 
-.recentItem:hover {
-    background-color: var(--colors-grey100);
-    border-color: var(--colors-grey400);
+.dataSourceItem:hover {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
-.recentItem:active {
-    background-color: var(--colors-grey200);
+.dataSourceItem:active {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.noDataSourcesMessage {
+    padding: 24px 12px;
+    text-align: center;
+    color: var(--colors-grey500);
+    font-size: 13px;
 }

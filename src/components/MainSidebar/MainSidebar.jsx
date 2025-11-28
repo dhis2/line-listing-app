@@ -1,8 +1,14 @@
-import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
+import {
+    useCachedDataQuery,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
+} from '@dhis2/analytics'
+import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
+import { CircularLoader } from '@dhis2/ui'
 import cx from 'classnames'
 import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { acAddMetadata } from '../../actions/metadata.js'
 import {
     acSetUiDetailsPanelOpen,
     acToggleUiExpandedCard,
@@ -24,9 +30,17 @@ import {
     ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
+import {
+    getDynamicTimeDimensionsMetadata,
+    getProgramAsMetadata,
+} from '../../modules/metadata.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
+import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../modules/userSettings.js'
 import { useDebounce } from '../../modules/utils.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
+import {
+    OUTPUT_TYPE_EVENT,
+    OUTPUT_TYPE_ENROLLMENT,
+} from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
 import {
     sGetUiSidebarHidden,
@@ -64,14 +78,34 @@ import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 const VIEW_MODE_BY_TYPE = 'BY_TYPE'
 const VIEW_MODE_PROGRAM_CONFIG = 'PROGRAM_CONFIG'
 
-// Prototype: Recently used data sources (hardcoded for now)
-const RECENT_DATA_SOURCES = [
-    { id: 'IpHINAT79UW', name: 'Child Programme', type: 'PROGRAM' },
-    { id: 'WSGAb5XwJ3Y', name: 'Malaria case management', type: 'PROGRAM' },
-    { id: 'ur1Edk5Oe2n', name: 'TB program', type: 'PROGRAM' },
-    { id: 'nEenWmSyUEp', name: 'Person', type: 'TRACKED_ENTITY_TYPE' },
-    { id: 'M3xtLkYBlKI', name: 'Nutrition assessment', type: 'PROGRAM' },
-]
+// Query for fetching all data sources (programs and tracked entity types)
+const dataSourcesQuery = {
+    programs: {
+        resource: 'programs',
+        params: ({ nameProp }) => ({
+            fields: [
+                'id',
+                `${nameProp}~rename(name)`,
+                'programType',
+                'trackedEntityType[id]',
+                'displayIncidentDate',
+                'displayEnrollmentDateLabel',
+                'displayIncidentDateLabel',
+                'programStages[id,displayName~rename(name),executionDateLabel,displayExecutionDateLabel,hideDueDate,dueDateLabel,displayDueDateLabel,repeatable]',
+            ],
+            paging: false,
+            filter: 'access.data.read:eq:true',
+        }),
+    },
+    trackedEntityTypes: {
+        resource: 'trackedEntityTypes',
+        params: ({ nameProp }) => ({
+            fields: ['id', `${nameProp}~rename(name)`],
+            paging: false,
+            filter: 'access.data.read:eq:true',
+        }),
+    },
+}
 
 // Helper function to check if a tab (data source) has dimensions in the layout
 const tabHasDimensionsInLayout = (tab, layout) => {
@@ -125,6 +159,7 @@ const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
 
 const MainSidebar = () => {
     const dispatch = useDispatch()
+    const { currentUser } = useCachedDataQuery()
     const expandedCards = useSelector(sGetUiExpandedCards) || []
     const { width, handleMouseDown, handleDoubleClick } =
         useResizableMainSidebar()
@@ -143,6 +178,91 @@ const MainSidebar = () => {
     const [activeTabIndex, setActiveTabIndex] = useState(-1)
     const [isAddingDataSource, setIsAddingDataSource] = useState(false)
     const pendingTabNameRef = React.useRef(null) // Store name when selecting from recently used
+
+    // Fetch all data sources (programs and tracked entity types)
+    const nameProp =
+        currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
+    const {
+        fetching: dataSourcesLoading,
+        data: dataSourcesData,
+        refetch: refetchDataSources,
+        called: dataSourcesCalled,
+    } = useDataQuery(dataSourcesQuery, { lazy: true })
+
+    useEffect(() => {
+        if (!dataSourcesCalled) {
+            refetchDataSources({ nameProp })
+        }
+    }, [dataSourcesCalled, refetchDataSources, nameProp])
+
+    const allPrograms = dataSourcesData?.programs?.programs || []
+    const allTrackedEntityTypes =
+        dataSourcesData?.trackedEntityTypes?.trackedEntityTypes || []
+
+    // Search state for filtering data sources in "New..." tab
+    const [dataSourceSearchTerm, setDataSourceSearchTerm] = useState('')
+
+    // Filter data sources based on search term
+    const filteredPrograms = useMemo(() => {
+        if (!dataSourceSearchTerm.trim()) return allPrograms
+        const searchLower = dataSourceSearchTerm.toLowerCase()
+        return allPrograms.filter((p) =>
+            p.name.toLowerCase().includes(searchLower)
+        )
+    }, [allPrograms, dataSourceSearchTerm])
+
+    const filteredTrackedEntityTypes = useMemo(() => {
+        if (!dataSourceSearchTerm.trim()) return allTrackedEntityTypes
+        const searchLower = dataSourceSearchTerm.toLowerCase()
+        return allTrackedEntityTypes.filter((t) =>
+            t.name.toLowerCase().includes(searchLower)
+        )
+    }, [allTrackedEntityTypes, dataSourceSearchTerm])
+
+    // Handler for selecting a data source from the "New..." tab
+    const handleDataSourceSelect = useCallback(
+        (type, id, name, programData) => {
+            // Store the name so the tab can use it immediately
+            pendingTabNameRef.current = name
+            // Clear search term for next time
+            setDataSourceSearchTerm('')
+
+            if (type === 'PROGRAM' && programData) {
+                // Prepare all metadata including time dimensions
+                const allMetadata = {
+                    ...getProgramAsMetadata(programData),
+                    ...getDynamicTimeDimensionsMetadata(
+                        programData,
+                        undefined,
+                        OUTPUT_TYPE_EVENT
+                    ),
+                }
+
+                dispatch(
+                    tSetDataSource({
+                        type: 'PROGRAM',
+                        id: programData.id,
+                        programType: programData.programType,
+                        stage: undefined,
+                        metadata: allMetadata,
+                    })
+                )
+
+                dispatch(acAddMetadata(allMetadata))
+            } else {
+                // Tracked entity type
+                dispatch(acAddMetadata({ [id]: { id, name } }))
+                dispatch(
+                    tSetDataSource({
+                        type: 'TRACKED_ENTITY_TYPE',
+                        id,
+                        metadata: { [id]: { id, name } },
+                    })
+                )
+            }
+        },
+        [dispatch]
+    )
 
     // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
@@ -395,7 +515,9 @@ const MainSidebar = () => {
                 // New data source - check if current tab should be replaced or new tab added
                 // Use pending name (from recently used click) if available, then metadata, then ID
                 const dataSourceName =
-                    pendingTabNameRef.current || dataSource?.name || dataSourceId
+                    pendingTabNameRef.current ||
+                    dataSource?.name ||
+                    dataSourceId
                 pendingTabNameRef.current = null // Clear the pending name
 
                 // Store stage IDs for programs so we can check for dimensions later
@@ -542,16 +664,14 @@ const MainSidebar = () => {
             >
                 <InputPanel visible={true} />
 
-                {/* Data source tabs - show when there are open tabs */}
-                {openTabs.length > 0 && (
-                    <DataSourceTabs
-                        tabs={openTabs}
-                        activeIndex={activeTabIndex}
-                        onTabClick={handleTabClick}
-                        onTabClose={handleTabClose}
-                        onAddClick={handleAddTab}
-                    />
-                )}
+                {/* Data source tabs - always show so + button is available */}
+                <DataSourceTabs
+                    tabs={openTabs}
+                    activeIndex={activeTabIndex}
+                    onTabClick={handleTabClick}
+                    onTabClose={handleTabClose}
+                    onAddClick={handleAddTab}
+                />
 
                 {/* Show UnifiedSearch when data source is selected */}
                 {hasDataSource && !isAddingDataSource && (
@@ -580,90 +700,119 @@ const MainSidebar = () => {
                 )}
 
                 <div ref={cardsContainerRef} className={styles.cardsContainer}>
-                    {/* Show recently used data sources when clicking + to add new tab */}
-                    {isAddingDataSource && openTabs.length > 0 && (
-                        <div className={styles.recentDataSourcesPanel}>
-                            <div className={styles.recentHeader}>
-                                {i18n.t('Recently used data sources')}
+                    {/* Show "New..." tab panel when no tabs or when + is clicked */}
+                    {(openTabs.length === 0 || isAddingDataSource) && (
+                        <div
+                            className={styles.newTabPanel}
+                            data-test="new-tab-panel"
+                        >
+                            <div className={styles.newTabSearchWrapper}>
+                                <input
+                                    type="text"
+                                    className={styles.newTabSearchInput}
+                                    placeholder={i18n.t(
+                                        'Search data sources...'
+                                    )}
+                                    value={dataSourceSearchTerm}
+                                    onChange={(e) =>
+                                        setDataSourceSearchTerm(e.target.value)
+                                    }
+                                    data-test="data-source-search"
+                                />
                             </div>
-                            <div className={styles.recentList}>
-                                {RECENT_DATA_SOURCES.map((source) => (
-                                    <button
-                                        key={source.id}
-                                        className={styles.recentItem}
-                                        onClick={() => {
-                                            // Store the name so the tab can use it immediately
-                                            pendingTabNameRef.current = source.name
-                                            dispatch(
-                                                tSetDataSource({
-                                                    type: source.type,
-                                                    id: source.id,
-                                                })
-                                            )
-                                        }}
-                                    >
-                                        {source.name}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Show placeholder when no data source is selected and no tabs */}
-                    {!hasDataSource && openTabs.length === 0 && (
-                        <div className={styles.placeholderCardsWrapper}>
-                            <div
-                                className={styles.placeholderCard}
-                                data-test="placeholder-card-1"
-                            >
-                                <div>
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <g clipPath="url(#clip0_2936_26231)">
-                                            <path
-                                                d="M27 29H13C11.9 29 11 28.1 11 27V23H13V27H27V13H23V11H27C28.1 11 29 11.9 29 13V27C29 28.1 28.1 29 27 29Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 19H11V21H21V19Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 15H11V17H21V15Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 11H11V13H21V11Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M5 3H19C20.1 3 21 3.9 21 5V9H19V5H5V19H9V21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3Z"
-                                                fill="#A0ADBA"
-                                            />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_2936_26231">
-                                                <rect
-                                                    width="32"
-                                                    height="32"
-                                                    fill="white"
-                                                />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-
-                                    <p>
-                                        {i18n.t(
-                                            'Choose a data source to see available dimensions'
-                                        )}
-                                    </p>
+                            {dataSourcesLoading ? (
+                                <div className={styles.loadingContainer}>
+                                    <CircularLoader small />
                                 </div>
-                            </div>
+                            ) : (
+                                <div className={styles.dataSourcesList}>
+                                    {/* Programs section */}
+                                    {filteredPrograms.length > 0 && (
+                                        <>
+                                            <div
+                                                className={
+                                                    styles.dataSourcesSection
+                                                }
+                                            >
+                                                {i18n.t('Programs')}
+                                            </div>
+                                            {filteredPrograms.map((program) => (
+                                                <button
+                                                    key={program.id}
+                                                    className={
+                                                        styles.dataSourceItem
+                                                    }
+                                                    onClick={() =>
+                                                        handleDataSourceSelect(
+                                                            'PROGRAM',
+                                                            program.id,
+                                                            program.name,
+                                                            program
+                                                        )
+                                                    }
+                                                    data-test={`data-source-${program.id}`}
+                                                >
+                                                    {program.name}
+                                                </button>
+                                            ))}
+                                        </>
+                                    )}
+                                    {/* Tracked Entity Types section */}
+                                    {filteredTrackedEntityTypes.length > 0 && (
+                                        <>
+                                            <div
+                                                className={
+                                                    styles.dataSourcesSection
+                                                }
+                                            >
+                                                {i18n.t(
+                                                    'Cross-program sources'
+                                                )}
+                                            </div>
+                                            {filteredTrackedEntityTypes.map(
+                                                (tet) => (
+                                                    <button
+                                                        key={tet.id}
+                                                        className={
+                                                            styles.dataSourceItem
+                                                        }
+                                                        onClick={() =>
+                                                            handleDataSourceSelect(
+                                                                'TRACKED_ENTITY_TYPE',
+                                                                tet.id,
+                                                                tet.name,
+                                                                null
+                                                            )
+                                                        }
+                                                        data-test={`data-source-${tet.id}`}
+                                                    >
+                                                        {tet.name}
+                                                    </button>
+                                                )
+                                            )}
+                                        </>
+                                    )}
+                                    {/* Empty state - no results */}
+                                    {filteredPrograms.length === 0 &&
+                                        filteredTrackedEntityTypes.length ===
+                                            0 &&
+                                        !dataSourcesLoading && (
+                                            <div
+                                                className={
+                                                    styles.noDataSourcesMessage
+                                                }
+                                            >
+                                                {dataSourceSearchTerm
+                                                    ? i18n.t(
+                                                          'No matching data sources'
+                                                      )
+                                                    : i18n.t(
+                                                          'No data sources available'
+                                                      )}
+                                            </div>
+                                        )}
+                                </div>
+                            )}
                         </div>
                     )}
 
