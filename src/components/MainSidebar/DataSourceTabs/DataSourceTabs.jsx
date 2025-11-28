@@ -10,6 +10,11 @@ export const DataSourceTabs = ({
     onTabClose,
     onAddClick,
 }) => {
+    // Hide entire tab bar when no tabs (user is on "New..." tab)
+    if (tabs.length === 0) {
+        return null
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.tabsWrapper}>
@@ -62,5 +67,3 @@ DataSourceTabs.propTypes = {
     onTabClose: PropTypes.func.isRequired,
     onAddClick: PropTypes.func.isRequired,
 }
-
-
