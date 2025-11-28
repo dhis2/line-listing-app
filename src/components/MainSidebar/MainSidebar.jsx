@@ -8,6 +8,8 @@ import {
     acToggleUiExpandedCard,
     acSetUiExpandedCards,
     acToggleUiSidebarHidden,
+    acSetUiDataSource,
+    tSetDataSource,
 } from '../../actions/ui.js'
 import {
     ACCESSORY_PANEL_TAB_TRACKED_ENTITY,
@@ -32,8 +34,10 @@ import {
     sGetUiEntityTypeId,
     sGetUiDataSourceType,
     sGetUiDataSourceId,
+    sGetUiLayout,
 } from '../../reducers/ui.js'
 import { CardSection } from './CardSection/index.js'
+import { DataSourceTabs } from './DataSourceTabs/index.js'
 import { InputPanel } from './InputPanel/index.js'
 import { MainDimensions } from './MainDimensions.jsx'
 import styles from './MainSidebar.module.css'
@@ -59,6 +63,54 @@ import { YourDimensionsPanel } from './YourDimensionsPanel/index.js'
 
 const VIEW_MODE_BY_TYPE = 'BY_TYPE'
 const VIEW_MODE_PROGRAM_CONFIG = 'PROGRAM_CONFIG'
+
+// Prototype: Recently used data sources (hardcoded for now)
+const RECENT_DATA_SOURCES = [
+    { id: 'IpHINAT79UW', name: 'Child Programme', type: 'PROGRAM' },
+    { id: 'WSGAb5XwJ3Y', name: 'Malaria case management', type: 'PROGRAM' },
+    { id: 'ur1Edk5Oe2n', name: 'TB program', type: 'PROGRAM' },
+    { id: 'nEenWmSyUEp', name: 'Person', type: 'TRACKED_ENTITY_TYPE' },
+    { id: 'M3xtLkYBlKI', name: 'Nutrition assessment', type: 'PROGRAM' },
+]
+
+// Helper function to check if a tab (data source) has dimensions in the layout
+const tabHasDimensionsInLayout = (tab, layout) => {
+    if (!tab || !layout) return false
+
+    // Get all dimension IDs from layout
+    const allDimensionIds = [
+        ...(layout.columns || []),
+        ...(layout.rows || []),
+        ...(layout.filters || []),
+    ]
+
+    if (allDimensionIds.length === 0) return false
+
+    if (tab.type === 'PROGRAM' && tab.stageIds?.length > 0) {
+        // For programs, check if any dimension starts with one of the program's stage IDs
+        return allDimensionIds.some((dimId) => {
+            // Dimension IDs for programs are formatted as: stageId.dimensionId
+            // Check if the dimension ID starts with any of the program's stage IDs
+            return tab.stageIds.some(
+                (stageId) =>
+                    dimId === stageId || dimId.startsWith(`${stageId}.`)
+            )
+        })
+    }
+
+    if (tab.type === 'TRACKED_ENTITY_TYPE') {
+        // For tracked entity types, check if any dimension contains the entity type ID
+        // Dimension IDs for TE are: programId.stageId.dimensionId or entityTypeId.dimensionId
+        return allDimensionIds.some(
+            (dimId) =>
+                dimId === tab.id ||
+                dimId.startsWith(`${tab.id}.`) ||
+                dimId.includes(`.${tab.id}.`)
+        )
+    }
+
+    return false
+}
 
 // Type filter constants for Program config mode
 const TYPE_FILTER_ALL = 'ALL'
@@ -86,10 +138,19 @@ const MainSidebar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const cardsContainerRef = React.useRef(null)
 
+    // Tab state for data source tabs
+    const [openTabs, setOpenTabs] = useState([])
+    const [activeTabIndex, setActiveTabIndex] = useState(-1)
+    const [isAddingDataSource, setIsAddingDataSource] = useState(false)
+    const pendingTabNameRef = React.useRef(null) // Store name when selecting from recently used
+
     // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
     const dataSourceId = useSelector(sGetUiDataSourceId)
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
+
+    // Layout for checking if data source has dimensions
+    const layout = useSelector(sGetUiLayout)
 
     // Get metadata based on data source
     const dataSource = useSelector((state) =>
@@ -301,6 +362,173 @@ const MainSidebar = () => {
         }
     }, [dataSourceId, viewMode]) // Trigger when data source or view mode changes
 
+    // Sync Redux data source selection with tabs
+    // Use refs to access current values without adding to dependencies
+    const openTabsRef = React.useRef(openTabs)
+    const activeTabIndexRef = React.useRef(activeTabIndex)
+    const layoutRef = React.useRef(layout)
+
+    useEffect(() => {
+        openTabsRef.current = openTabs
+        activeTabIndexRef.current = activeTabIndex
+        layoutRef.current = layout
+    }, [openTabs, activeTabIndex, layout])
+
+    useEffect(() => {
+        if (dataSourceId && dataSourceType) {
+            // Exit "adding data source" mode when a data source is selected
+            setIsAddingDataSource(false)
+
+            const currentOpenTabs = openTabsRef.current
+            const currentActiveTabIndex = activeTabIndexRef.current
+            const currentLayout = layoutRef.current
+
+            // Check if this data source is already in tabs
+            const existingIndex = currentOpenTabs.findIndex(
+                (tab) => tab.id === dataSourceId && tab.type === dataSourceType
+            )
+
+            if (existingIndex !== -1) {
+                // Tab already exists, just switch to it
+                setActiveTabIndex(existingIndex)
+            } else {
+                // New data source - check if current tab should be replaced or new tab added
+                // Use pending name (from recently used click) if available, then metadata, then ID
+                const dataSourceName =
+                    pendingTabNameRef.current || dataSource?.name || dataSourceId
+                pendingTabNameRef.current = null // Clear the pending name
+
+                // Store stage IDs for programs so we can check for dimensions later
+                const stageIds =
+                    dataSourceType === 'PROGRAM' && dataSource?.programStages
+                        ? dataSource.programStages.map((s) => s.id)
+                        : []
+
+                const newTab = {
+                    id: dataSourceId,
+                    type: dataSourceType,
+                    name: dataSourceName,
+                    stageIds,
+                }
+
+                // Check if current active tab has dimensions in the layout
+                const currentTab = currentOpenTabs[currentActiveTabIndex]
+                const currentTabHasDimensions = tabHasDimensionsInLayout(
+                    currentTab,
+                    currentLayout
+                )
+
+                if (
+                    currentOpenTabs.length === 0 ||
+                    currentActiveTabIndex === -1 ||
+                    currentTabHasDimensions
+                ) {
+                    // Either no tabs, no active tab, or current tab has dimensions - add new tab
+                    setOpenTabs((prev) => [...prev, newTab])
+                    setActiveTabIndex(currentOpenTabs.length)
+                } else {
+                    // Current tab has no dimensions - replace it
+                    setOpenTabs((prev) => {
+                        const updated = [...prev]
+                        updated[currentActiveTabIndex] = newTab
+                        return updated
+                    })
+                    // activeTabIndex stays the same since we're replacing
+                }
+            }
+        }
+    }, [dataSourceId, dataSourceType, dataSource?.programStages])
+
+    // Update tab name when metadata becomes available (fixes showing ID instead of name)
+    useEffect(() => {
+        if (dataSource?.name && dataSourceId) {
+            setOpenTabs((prev) =>
+                prev.map((tab) =>
+                    tab.id === dataSourceId && tab.name !== dataSource.name
+                        ? { ...tab, name: dataSource.name }
+                        : tab
+                )
+            )
+        }
+    }, [dataSource?.name, dataSourceId])
+
+    // Handle tab click - switch to a different tab
+    const handleTabClick = useCallback(
+        (index) => {
+            if (index === activeTabIndex && !isAddingDataSource) return
+
+            // Exit "adding data source" mode
+            setIsAddingDataSource(false)
+
+            const tab = openTabs[index]
+            if (tab) {
+                setActiveTabIndex(index)
+                // Update Redux state to reflect the selected data source
+                dispatch(
+                    acSetUiDataSource(
+                        {
+                            type: tab.type,
+                            id: tab.id,
+                        },
+                        {}
+                    )
+                )
+            }
+        },
+        [activeTabIndex, openTabs, dispatch]
+    )
+
+    // Handle tab close - remove a tab
+    const handleTabClose = useCallback(
+        (index) => {
+            const newTabs = openTabs.filter((_, i) => i !== index)
+            setOpenTabs(newTabs)
+
+            // If we closed the active tab, switch to another tab
+            if (index === activeTabIndex) {
+                if (newTabs.length === 0) {
+                    // No tabs left, clear selection
+                    setActiveTabIndex(-1)
+                    dispatch(
+                        acSetUiDataSource(
+                            {
+                                type: undefined,
+                                id: undefined,
+                            },
+                            {}
+                        )
+                    )
+                } else {
+                    // Switch to next tab, or previous if we were at the end
+                    const newActiveIndex =
+                        index < newTabs.length ? index : newTabs.length - 1
+                    setActiveTabIndex(newActiveIndex)
+                    const newActiveTab = newTabs[newActiveIndex]
+                    dispatch(
+                        acSetUiDataSource(
+                            {
+                                type: newActiveTab.type,
+                                id: newActiveTab.id,
+                            },
+                            {}
+                        )
+                    )
+                }
+            } else if (index < activeTabIndex) {
+                // If we closed a tab before the active one, adjust the active index
+                setActiveTabIndex(activeTabIndex - 1)
+            }
+        },
+        [openTabs, activeTabIndex, dispatch]
+    )
+
+    // Handle add button click - show the "add data source" state
+    const handleAddTab = useCallback(() => {
+        // Enter "adding data source" mode - shows recently used in cards area
+        setIsAddingDataSource(true)
+        setActiveTabIndex(-1)
+    }, [])
+
     return (
         <div
             className={cx(styles.container, {
@@ -314,8 +542,19 @@ const MainSidebar = () => {
             >
                 <InputPanel visible={true} />
 
+                {/* Data source tabs - show when there are open tabs */}
+                {openTabs.length > 0 && (
+                    <DataSourceTabs
+                        tabs={openTabs}
+                        activeIndex={activeTabIndex}
+                        onTabClick={handleTabClick}
+                        onTabClose={handleTabClose}
+                        onAddClick={handleAddTab}
+                    />
+                )}
+
                 {/* Show UnifiedSearch when data source is selected */}
-                {hasDataSource && (
+                {hasDataSource && !isAddingDataSource && (
                     <UnifiedSearch
                         onSearchChange={setUnifiedSearchTerm}
                         onCollapseAll={onCollapseAllCards}
@@ -341,8 +580,37 @@ const MainSidebar = () => {
                 )}
 
                 <div ref={cardsContainerRef} className={styles.cardsContainer}>
-                    {/* Show placeholder when no data source is selected */}
-                    {!hasDataSource && (
+                    {/* Show recently used data sources when clicking + to add new tab */}
+                    {isAddingDataSource && openTabs.length > 0 && (
+                        <div className={styles.recentDataSourcesPanel}>
+                            <div className={styles.recentHeader}>
+                                {i18n.t('Recently used data sources')}
+                            </div>
+                            <div className={styles.recentList}>
+                                {RECENT_DATA_SOURCES.map((source) => (
+                                    <button
+                                        key={source.id}
+                                        className={styles.recentItem}
+                                        onClick={() => {
+                                            // Store the name so the tab can use it immediately
+                                            pendingTabNameRef.current = source.name
+                                            dispatch(
+                                                tSetDataSource({
+                                                    type: source.type,
+                                                    id: source.id,
+                                                })
+                                            )
+                                        }}
+                                    >
+                                        {source.name}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Show placeholder when no data source is selected and no tabs */}
+                    {!hasDataSource && openTabs.length === 0 && (
                         <div className={styles.placeholderCardsWrapper}>
                             <div
                                 className={styles.placeholderCard}
@@ -401,6 +669,7 @@ const MainSidebar = () => {
 
                     {/* Program dimensions cards - show based on view mode */}
                     {hasDataSource &&
+                        !isAddingDataSource &&
                         dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
                         viewMode === VIEW_MODE_BY_TYPE && (
                             <>
@@ -481,6 +750,7 @@ const MainSidebar = () => {
 
                     {/* Program config view: Show enrollment + stage cards */}
                     {hasDataSource &&
+                        !isAddingDataSource &&
                         dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
@@ -561,6 +831,7 @@ const MainSidebar = () => {
                     {/* TrackedEntityDimensions Card - shown for tracked entity type data sources only */}
                     {entityType?.name &&
                         hasDataSource &&
+                        !isAddingDataSource &&
                         dataSourceType === 'TRACKED_ENTITY_TYPE' && (
                             <CardSection
                                 label={`${entityType.name} ${i18n.t('data')}`}
@@ -589,6 +860,7 @@ const MainSidebar = () => {
                     {/* Programs Using Type Card - shown for tracked entity type data sources only */}
                     {entityType?.name &&
                         hasDataSource &&
+                        !isAddingDataSource &&
                         dataSourceType === 'TRACKED_ENTITY_TYPE' && (
                             <CardSection
                                 label={i18n.t(
@@ -614,7 +886,7 @@ const MainSidebar = () => {
                             </CardSection>
                         )}
 
-                    {hasDataSource && (
+                    {hasDataSource && !isAddingDataSource && (
                         <CardSection
                             label={i18n.t('Metadata')}
                             onClick={() =>
@@ -633,7 +905,7 @@ const MainSidebar = () => {
                         </CardSection>
                     )}
 
-                    {hasDataSource && (
+                    {hasDataSource && !isAddingDataSource && (
                         <CardSection
                             label={i18n.t('Other')}
                             onClick={() =>

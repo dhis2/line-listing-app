@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-19T10:00:09.034Z\n"
-"PO-Revision-Date: 2025-11-19T10:00:09.034Z\n"
+"POT-Creation-Date: 2025-11-27T10:00:32.520Z\n"
+"PO-Revision-Date: 2025-11-27T10:00:32.521Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -295,6 +295,9 @@ msgstr "Program Indicators"
 msgid "data"
 msgstr "data"
 
+msgid "Programs where {{typeName}} is used"
+msgstr "Programs where {{typeName}} is used"
+
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -389,6 +392,16 @@ msgstr "Choose a type"
 
 msgid "No types found"
 msgstr "No types found"
+
+msgid "Couldn't load programs"
+msgstr "Couldn't load programs"
+
+msgid ""
+"There was a problem loading the programs. Try again, or contact your system "
+"administrator."
+msgstr ""
+"There was a problem loading the programs. Try again, or contact your system "
+"administrator."
 
 msgid "{{- itemName}} dimensions"
 msgstr "{{- itemName}} dimensions"
@@ -961,11 +974,3 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Line Listing"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Line Listing"
