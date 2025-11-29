@@ -542,7 +542,7 @@ msgid "Add a title"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "ऑप्शन्स"
 
 msgid "Columns"
 msgstr ""
