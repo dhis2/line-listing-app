@@ -507,16 +507,38 @@ const MainSidebar = () => {
             const currentActiveTabIndex = activeTabIndexRef.current
             const currentLayout = layoutRef.current
 
-            // Check if this data source is already in tabs
+            // Check if this data source is already in tabs (exclude placeholder)
             const existingIndex = currentOpenTabs.findIndex(
-                (tab) => tab.id === dataSourceId && tab.type === dataSourceType
+                (tab) =>
+                    !tab.isPlaceholder &&
+                    tab.id === dataSourceId &&
+                    tab.type === dataSourceType
             )
 
             if (existingIndex !== -1) {
                 // Tab already exists, just switch to it
-                setActiveTabIndex(existingIndex)
+                // Also remove any placeholder tab
+                const hasPlaceholder = currentOpenTabs.some(
+                    (tab) => tab.isPlaceholder
+                )
+                if (hasPlaceholder) {
+                    setOpenTabs((prev) =>
+                        prev.filter((tab) => !tab.isPlaceholder)
+                    )
+                    // Adjust index if placeholder was before existing tab
+                    const placeholderIndex = currentOpenTabs.findIndex(
+                        (tab) => tab.isPlaceholder
+                    )
+                    const adjustedIndex =
+                        placeholderIndex < existingIndex
+                            ? existingIndex - 1
+                            : existingIndex
+                    setActiveTabIndex(adjustedIndex)
+                } else {
+                    setActiveTabIndex(existingIndex)
+                }
             } else {
-                // New data source - check if current tab should be replaced or new tab added
+                // New data source - check if current tab is a placeholder to replace
                 // Use pending name (from recently used click) if available, then metadata, then ID
                 const dataSourceName =
                     pendingTabNameRef.current ||
@@ -535,31 +557,45 @@ const MainSidebar = () => {
                     type: dataSourceType,
                     name: dataSourceName,
                     stageIds,
+                    isPlaceholder: false,
                 }
 
-                // Check if current active tab has dimensions in the layout
+                // Check if current active tab is a placeholder
                 const currentTab = currentOpenTabs[currentActiveTabIndex]
-                const currentTabHasDimensions = tabHasDimensionsInLayout(
-                    currentTab,
-                    currentLayout
-                )
+                const currentTabIsPlaceholder = currentTab?.isPlaceholder
 
-                if (
-                    currentOpenTabs.length === 0 ||
-                    currentActiveTabIndex === -1 ||
-                    currentTabHasDimensions
-                ) {
-                    // Either no tabs, no active tab, or current tab has dimensions - add new tab
-                    setOpenTabs((prev) => [...prev, newTab])
-                    setActiveTabIndex(currentOpenTabs.length)
-                } else {
-                    // Current tab has no dimensions - replace it
+                if (currentTabIsPlaceholder) {
+                    // Replace the placeholder tab with the real data source
                     setOpenTabs((prev) => {
                         const updated = [...prev]
                         updated[currentActiveTabIndex] = newTab
                         return updated
                     })
                     // activeTabIndex stays the same since we're replacing
+                } else {
+                    // Check if current active tab has dimensions in the layout
+                    const currentTabHasDimensions = tabHasDimensionsInLayout(
+                        currentTab,
+                        currentLayout
+                    )
+
+                    if (
+                        currentOpenTabs.length === 0 ||
+                        currentActiveTabIndex === -1 ||
+                        currentTabHasDimensions
+                    ) {
+                        // Either no tabs, no active tab, or current tab has dimensions - add new tab
+                        setOpenTabs((prev) => [...prev, newTab])
+                        setActiveTabIndex(currentOpenTabs.length)
+                    } else {
+                        // Current tab has no dimensions - replace it
+                        setOpenTabs((prev) => {
+                            const updated = [...prev]
+                            updated[currentActiveTabIndex] = newTab
+                            return updated
+                        })
+                        // activeTabIndex stays the same since we're replacing
+                    }
                 }
             }
         }
@@ -668,38 +704,83 @@ const MainSidebar = () => {
         (index) => {
             if (index === activeTabIndex && !isAddingDataSource) return
 
+            const clickedTab = openTabs[index]
+            const currentTab = openTabs[activeTabIndex]
+
+            // If leaving a placeholder tab, remove it
+            if (currentTab?.isPlaceholder && !clickedTab?.isPlaceholder) {
+                // Remove the placeholder tab
+                const newTabs = openTabs.filter((_, i) => i !== activeTabIndex)
+                setOpenTabs(newTabs)
+
+                // Adjust the clicked index if it was after the removed placeholder
+                const adjustedIndex = index > activeTabIndex ? index - 1 : index
+                setActiveTabIndex(adjustedIndex)
+
+                // Exit "adding data source" mode
+                setIsAddingDataSource(false)
+
+                // Update Redux state to the clicked tab
+                const adjustedTab = newTabs[adjustedIndex]
+                if (adjustedTab) {
+                    dispatch(
+                        acSetUiDataSource(
+                            {
+                                type: adjustedTab.type,
+                                id: adjustedTab.id,
+                            },
+                            {}
+                        )
+                    )
+                }
+                return
+            }
+
+            // If clicking on a placeholder tab
+            if (clickedTab?.isPlaceholder) {
+                setActiveTabIndex(index)
+                setIsAddingDataSource(true)
+                return
+            }
+
             // Exit "adding data source" mode
             setIsAddingDataSource(false)
 
-            const tab = openTabs[index]
-            if (tab) {
+            if (clickedTab) {
                 setActiveTabIndex(index)
                 // Update Redux state to reflect the selected data source
                 dispatch(
                     acSetUiDataSource(
                         {
-                            type: tab.type,
-                            id: tab.id,
+                            type: clickedTab.type,
+                            id: clickedTab.id,
                         },
                         {}
                     )
                 )
             }
         },
-        [activeTabIndex, openTabs, dispatch]
+        [activeTabIndex, openTabs, dispatch, isAddingDataSource]
     )
 
     // Handle tab close - remove a tab
     const handleTabClose = useCallback(
         (index) => {
+            const closedTab = openTabs[index]
             const newTabs = openTabs.filter((_, i) => i !== index)
             setOpenTabs(newTabs)
+
+            // If closing a placeholder tab, exit adding mode
+            if (closedTab?.isPlaceholder) {
+                setIsAddingDataSource(false)
+            }
 
             // If we closed the active tab, switch to another tab
             if (index === activeTabIndex) {
                 if (newTabs.length === 0) {
-                    // No tabs left, clear selection
+                    // No tabs left, clear selection and show "add new" state
                     setActiveTabIndex(-1)
+                    setIsAddingDataSource(false)
                     dispatch(
                         acSetUiDataSource(
                             {
@@ -715,15 +796,22 @@ const MainSidebar = () => {
                         index < newTabs.length ? index : newTabs.length - 1
                     setActiveTabIndex(newActiveIndex)
                     const newActiveTab = newTabs[newActiveIndex]
-                    dispatch(
-                        acSetUiDataSource(
-                            {
-                                type: newActiveTab.type,
-                                id: newActiveTab.id,
-                            },
-                            {}
+
+                    // If switching to a placeholder tab, enter adding mode
+                    if (newActiveTab.isPlaceholder) {
+                        setIsAddingDataSource(true)
+                    } else {
+                        setIsAddingDataSource(false)
+                        dispatch(
+                            acSetUiDataSource(
+                                {
+                                    type: newActiveTab.type,
+                                    id: newActiveTab.id,
+                                },
+                                {}
+                            )
                         )
-                    )
+                    }
                 }
             } else if (index < activeTabIndex) {
                 // If we closed a tab before the active one, adjust the active index
@@ -733,12 +821,26 @@ const MainSidebar = () => {
         [openTabs, activeTabIndex, dispatch]
     )
 
-    // Handle add button click - show the "add data source" state
+    // Handle add button click - create a new placeholder tab
     const handleAddTab = useCallback(() => {
-        // Enter "adding data source" mode - shows recently used in cards area
+        // Check if there's already a placeholder tab
+        const hasPlaceholder = openTabs.some((tab) => tab.isPlaceholder)
+        if (hasPlaceholder) {
+            return // Don't create another placeholder
+        }
+
+        // Create placeholder tab
+        const placeholderTab = {
+            id: 'placeholder',
+            type: 'PLACEHOLDER',
+            name: '', // Will be displayed as "New data source" by the component
+            isPlaceholder: true,
+        }
+
+        setOpenTabs((prev) => [...prev, placeholderTab])
+        setActiveTabIndex(openTabs.length) // Point to the new tab
         setIsAddingDataSource(true)
-        setActiveTabIndex(-1)
-    }, [])
+    }, [openTabs])
 
     return (
         <div
@@ -749,7 +851,7 @@ const MainSidebar = () => {
             <div
                 className={styles.main}
                 data-test="main-sidebar"
-                style={{ width: `${width}px`, paddingTop: '4px' }}
+                style={{ width: `${width}px` }}
             >
                 <InputPanel visible={true} />
 
@@ -789,8 +891,9 @@ const MainSidebar = () => {
                 )}
 
                 <div ref={cardsContainerRef} className={styles.cardsContainer}>
-                    {/* Show "New..." tab panel when no tabs or when + is clicked */}
-                    {(openTabs.length === 0 || isAddingDataSource) && (
+                    {/* Show "New..." tab panel when viewing a placeholder tab */}
+                    {(openTabs.length === 0 ||
+                        openTabs[activeTabIndex]?.isPlaceholder) && (
                         <div
                             className={styles.newTabPanel}
                             data-test="new-tab-panel"

@@ -1,7 +1,7 @@
 .container {
-    margin-top: 2px;
-    background-color: #f3f5f7;
-    border-bottom: 1px solid #d5dde5;
+    /* margin-top: 2px; */
+    background-color: var(--colors-grey300);
+    display: flex;
 }
 
 .tabsWrapper {
@@ -11,6 +11,13 @@
     overflow-y: hidden;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Border fills the empty space to the right of tabsWrapper */
+.container::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--colors-grey400);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -27,6 +34,8 @@
     border: none;
     border-top: 2px solid transparent;
     border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid var(--colors-grey400);
     cursor: pointer;
     transition: background-color 0.15s ease, border-top-color 0.15s ease;
     white-space: nowrap;
@@ -40,13 +49,16 @@
 }
 
 .tab.active {
-    background-color: #ffffff;
-    border-top-color: #147cc0;
-    border-right-color: #e0e0e0;
+    background-color: var(--colors-grey100);
+
+    border-right-color: var(--colors-grey400);
+    border-left: 1px solid var(--colors-grey400);
+
+    border-bottom: none;
 }
 
 .tab.active:first-child {
-    border-left: 1px solid #e0e0e0;
+    border-left: 1px solid var(--colors-grey400);
 }
 
 .tab:not(.active) + .tab:not(.active) {
@@ -54,8 +66,8 @@
 }
 
 .tabLabel {
-    font-size: 12px;
-    color: #6c7787;
+    font-size: 13px;
+    color: var(--colors-grey600);
     font-weight: 400;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -65,7 +77,8 @@
 
 .tab.active .tabLabel {
     font-weight: 400;
-    color: #212934;
+    font-weight: 500;
+    color: var(--colors-grey900);
 }
 
 .closeButton {
@@ -110,11 +123,13 @@
     justify-content: center;
     background: none;
     border: none;
-    padding: 4px 8px;
+    border-bottom: 1px solid var(--colors-grey400);
+    padding: 2px 6px 2px 2px;
     cursor: pointer;
     color: #6c7787;
     transition: color 0.15s ease, background-color 0.15s ease;
     flex-shrink: 0;
+    gap: 2px;
 }
 
 .addButton:hover {
@@ -124,4 +139,17 @@
 
 .addButton:active {
     background-color: rgba(0, 0, 0, 0.08);
+}
+
+.addButtonLabel {
+    font-size: 13px;
+    line-height: 1;
+    color: var(--colors-grey600);
+    font-weight: 400;
+}
+
+/* Placeholder tab styling */
+.tab.placeholder .tabLabel {
+    font-style: italic;
+    color: var(--colors-grey600);
 }
