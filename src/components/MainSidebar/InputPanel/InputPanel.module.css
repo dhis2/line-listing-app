@@ -17,7 +17,7 @@
     display: flex;
     width: 100%;
     align-items: center;
-    gap: var(--spacers-dp4);
+    gap: 0;
 }
 
 .row:first-of-type {

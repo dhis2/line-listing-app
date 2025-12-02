@@ -16,6 +16,10 @@
     background-color: var(--colors-grey100) !important;
     border: 1px solid var(--colors-grey400) !important;
     border-radius: 3px;
+    border-right: 1px solid var(--colors-grey400) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    margin-right: -2px !important;
 }
 
 .container :global(button):hover {
