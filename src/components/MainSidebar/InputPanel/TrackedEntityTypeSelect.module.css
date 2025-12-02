@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    min-width: auto;
+}
+
+.explainer {
+    padding: var(--spacers-dp8) var(--spacers-dp12);
+    background-color: var(--colors-grey100);
+    margin-top: -4px;
+    border-bottom: 1px solid var(--colors-grey400);
+}
+
+.explainerText {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--colors-grey600);
+    line-height: 1.4;
+}
+
+/* Style the dropdown button */
+.container :global(button) {
+    padding: var(--spacers-dp8) var(--spacers-dp8) !important;
+    min-width: auto !important;
+    gap: 4px;
+    height: 32px !important;
+    background-color: var(--colors-grey100) !important;
+    border: 1px solid var(--colors-grey400) !important;
+    border-radius: 3px;
+}
+
+.container :global(button):hover {
+    background-color: var(--colors-grey100) !important;
+    border-color: var(--colors-grey500) !important;
+}
+
+.container :global(button):active,
+.container :global(button[aria-expanded='true']) {
+    background-color: var(--colors-grey200) !important;
+}
+
+/* Ensure the icon is centered */
+.container :global(button) > :global(span):first-child {
+    margin: 0;
+}
+
+/* Hide the chevron (dropdown arrow icon) - target only the last svg */
+.container :global(button) > :global(svg):last-of-type:not(:first-of-type) {
+    display: none !important;
+}

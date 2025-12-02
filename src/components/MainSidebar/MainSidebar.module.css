@@ -91,3 +91,27 @@
 .placeholderCard p {
     margin: var(--spacers-dp4);
 }
+
+.programPlaceholderCard {
+    border-radius: 5px;
+    margin-bottom: 4px;
+    min-height: 60px;
+    position: relative;
+    z-index: 0;
+    padding: var(--spacers-dp12) var(--spacers-dp16);
+    text-align: center;
+    color: var(--colors-grey600);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
+    background-color: var(--colors-white);
+    border: 1px dashed var(--colors-grey400);
+    opacity: 0.6;
+}
+
+.programPlaceholderCard p {
+    margin: 0;
+}

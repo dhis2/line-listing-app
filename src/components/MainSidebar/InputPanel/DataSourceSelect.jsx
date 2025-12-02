@@ -6,64 +6,56 @@ import {
     SingleSelectOption,
     IconDimensionEventDataItem16,
 } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { tSetDataSource } from '../../../actions/ui.js'
+import { tSetDataSource, tClearProgramSelection } from '../../../actions/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
 import {
-    sGetUiDataSource,
     sGetUiLayout,
     sGetUiInputType,
-    sGetUiDataSourceType,
-    sGetUiDataSourceId,
+    sGetUiProgramId,
 } from '../../../reducers/ui.js'
 import { acAddMetadata } from '../../../actions/metadata.js'
 import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../../../modules/metadata.js'
-import {
-    OUTPUT_TYPE_EVENT,
-    OUTPUT_TYPE_ENROLLMENT,
-    OUTPUT_TYPE_TRACKED_ENTITY,
-} from '../../../modules/visualization.js'
+import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
 import styles from './DataSourceSelect.module.css'
 
+// Query that filters programs by tracked entity type
 const query = {
     programs: {
         resource: 'programs',
-        params: ({ nameProp }) => ({
-            fields: [
-                'id',
-                `${nameProp}~rename(name)`,
-                'programType',
-                'trackedEntityType[id]',
-                'displayIncidentDate',
-                'displayEnrollmentDateLabel',
-                'displayIncidentDateLabel',
-                'programStages[id,displayName~rename(name),executionDateLabel,displayExecutionDateLabel,hideDueDate,dueDateLabel,displayDueDateLabel,repeatable]',
-            ],
-            paging: false,
-            filter: 'access.data.read:eq:true',
-        }),
-    },
-    trackedEntityTypes: {
-        resource: 'trackedEntityTypes',
-        params: ({ nameProp }) => ({
-            fields: ['id', `${nameProp}~rename(name)`],
-            paging: false,
-            filter: 'access.data.read:eq:true',
-        }),
+        params: ({ nameProp, trackedEntityTypeId }) => {
+            const filters = ['access.data.read:eq:true']
+            if (trackedEntityTypeId) {
+                filters.push(`trackedEntityType.id:eq:${trackedEntityTypeId}`)
+            }
+            return {
+                fields: [
+                    'id',
+                    `${nameProp}~rename(name)`,
+                    'programType',
+                    'trackedEntityType[id]',
+                    'displayIncidentDate',
+                    'displayEnrollmentDateLabel',
+                    'displayIncidentDateLabel',
+                    'programStages[id,displayName~rename(name),executionDateLabel,displayExecutionDateLabel,hideDueDate,dueDateLabel,displayDueDateLabel,repeatable]',
+                ],
+                paging: false,
+                filter: filters,
+            }
+        },
     },
 }
 
-// Hook to count dimensions per data source from the layout
-const useDimensionCountsByDataSource = (programs) => {
+// Hook to count dimensions per program from the layout
+const useDimensionCountsByProgram = (programs) => {
     const layout = useSelector(sGetUiLayout)
     const inputType = useSelector(sGetUiInputType)
-    const currentDataSourceType = useSelector(sGetUiDataSourceType)
-    const currentDataSourceId = useSelector(sGetUiDataSourceId)
 
     return useMemo(() => {
         const counts = {}
@@ -99,33 +91,8 @@ const useDimensionCountsByDataSource = (programs) => {
             }
         })
 
-        // For tracked entity type data sources, count all dimensions
-        // since TET dimensions don't have program/stage prefixes
-        if (
-            currentDataSourceType === 'TRACKED_ENTITY_TYPE' &&
-            currentDataSourceId &&
-            allDimensionIds.length > 0
-        ) {
-            // Count dimensions that don't belong to any program
-            const programDimensionCount = Object.values(counts).reduce(
-                (sum, c) => sum + c,
-                0
-            )
-            const tetDimensionCount =
-                allDimensionIds.length - programDimensionCount
-            if (tetDimensionCount > 0) {
-                counts[currentDataSourceId] = tetDimensionCount
-            }
-        }
-
         return counts
-    }, [
-        layout,
-        inputType,
-        programs,
-        currentDataSourceType,
-        currentDataSourceId,
-    ])
+    }, [layout, inputType, programs])
 }
 
 // Component for rendering option label with badge
@@ -141,217 +108,168 @@ const SectionHeader = ({ label }) => (
     <span className={styles.sectionHeader}>{label}</span>
 )
 
-export const DataSourceSelect = ({
-    noBorders = false,
-    onSelect,
-    onSelectRef,
-}) => {
+export const DataSourceSelect = ({ trackedEntityTypeId }) => {
     const { currentUser } = useCachedDataQuery()
     const dispatch = useDispatch()
-    const selectedDataSource = useSelector(sGetUiDataSource)
+    const selectedProgramId = useSelector(sGetUiProgramId)
     const nameProp =
         currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
-    const { fetching, error, data, refetch, called } = useDataQuery(query, {
+    const { fetching, data, refetch } = useDataQuery(query, {
         lazy: true,
     })
 
+    // Refetch when trackedEntityTypeId changes
     useEffect(() => {
-        if (!called) {
-            refetch({ nameProp })
+        if (trackedEntityTypeId) {
+            refetch({ nameProp, trackedEntityTypeId })
         }
-    }, [called, refetch, nameProp])
+    }, [trackedEntityTypeId, refetch, nameProp])
 
     const programs = data?.programs?.programs || []
-    // PROTOTYPE HACK: Only show Person and Lab sample tracked entity types
-    const trackedEntityTypes = (
-        data?.trackedEntityTypes?.trackedEntityTypes || []
-    ).filter((tet) => ['Person', 'Lab sample'].includes(tet.name))
 
-    // Get dimension counts per data source
-    const dimensionCounts = useDimensionCountsByDataSource(programs)
+    // Get dimension counts per program
+    const dimensionCounts = useDimensionCountsByProgram(programs)
 
-    // Separate data sources into "used in visualization" and regular sections
-    const { usedDataSources, remainingPrograms, remainingTets } =
-        useMemo(() => {
-            const used = []
-            const remPrograms = []
-            const remTets = []
+    // Separate programs into "used in visualization" and regular sections
+    const { usedPrograms, remainingPrograms } = useMemo(() => {
+        const used = []
+        const remaining = []
 
-            // Check programs
-            programs.forEach((program) => {
-                if (dimensionCounts[program.id]) {
-                    used.push({
-                        ...program,
-                        type: 'PROGRAM',
-                        count: dimensionCounts[program.id],
-                    })
-                } else {
-                    remPrograms.push(program)
-                }
-            })
-
-            // Check tracked entity types
-            trackedEntityTypes.forEach((tet) => {
-                if (dimensionCounts[tet.id]) {
-                    used.push({
-                        ...tet,
-                        type: 'TRACKED_ENTITY_TYPE',
-                        count: dimensionCounts[tet.id],
-                    })
-                } else {
-                    remTets.push(tet)
-                }
-            })
-
-            return {
-                usedDataSources: used,
-                remainingPrograms: remPrograms,
-                remainingTets: remTets,
+        programs.forEach((program) => {
+            if (dimensionCounts[program.id]) {
+                used.push({
+                    ...program,
+                    count: dimensionCounts[program.id],
+                })
+            } else {
+                remaining.push(program)
             }
-        }, [programs, trackedEntityTypes, dimensionCounts])
+        })
 
-    const handleSelect = (selectedId) => {
-        if (!selectedId || selectedId.startsWith('header-')) {
+        return {
+            usedPrograms: used,
+            remainingPrograms: remaining,
+        }
+    }, [programs, dimensionCounts])
+
+    const handleChange = ({ selected }) => {
+        // Handle clear - when selection is cleared
+        if (!selected) {
+            dispatch(tClearProgramSelection())
             return
         }
 
-        // Check if it's a program or tracked entity type
-        const isProgram = selectedId.startsWith('program-')
-        const id = selectedId.replace(/^(program|tet)-/, '')
-
-        if (isProgram) {
-            const program = programs.find((p) => p.id === id)
-
-            if (program) {
-                // Prepare all metadata including time dimensions (without specific stage)
-                const allMetadata = {
-                    ...getProgramAsMetadata(program),
-                    ...getDynamicTimeDimensionsMetadata(
-                        program,
-                        undefined, // No stage required - show all dimensions
-                        OUTPUT_TYPE_EVENT
-                    ),
-                }
-
-                // Set data source (this will clear old dimensions first)
-                dispatch(
-                    tSetDataSource({
-                        type: 'PROGRAM',
-                        id: program.id,
-                        programType: program.programType,
-                        stage: undefined, // No stage auto-selection
-                        metadata: allMetadata,
-                    })
-                )
-
-                // Add metadata AFTER setting data source (after clearing)
-                dispatch(acAddMetadata(allMetadata))
-            }
-        } else {
-            const tet = trackedEntityTypes.find((t) => t.id === id)
-
-            if (tet) {
-                // Add tracked entity type metadata to store
-                dispatch(acAddMetadata({ [tet.id]: tet }))
-
-                dispatch(
-                    tSetDataSource({
-                        type: 'TRACKED_ENTITY_TYPE',
-                        id: tet.id,
-                        metadata: { [tet.id]: tet },
-                    })
-                )
-            }
+        // Ignore header clicks
+        if (selected.startsWith('header-')) {
+            return
         }
 
-        // Call optional callback
-        if (onSelect) {
-            onSelect(selectedId)
+        // Handle program selection
+        const programId = selected.replace(/^program-/, '')
+        const program = programs.find((p) => p.id === programId)
+
+        if (program) {
+            // Prepare all metadata including time dimensions (without specific stage)
+            const allMetadata = {
+                ...getProgramAsMetadata(program),
+                ...getDynamicTimeDimensionsMetadata(
+                    program,
+                    undefined, // No stage required - show all dimensions
+                    OUTPUT_TYPE_EVENT
+                ),
+            }
+
+            // Set data source - preserve the tracked entity type
+            dispatch(
+                tSetDataSource({
+                    type: 'PROGRAM',
+                    id: program.id,
+                    programType: program.programType,
+                    stage: undefined, // No stage auto-selection
+                    metadata: allMetadata,
+                })
+            )
+
+            // Add metadata AFTER setting data source (after clearing)
+            dispatch(acAddMetadata(allMetadata))
         }
     }
 
-    // Expose handleSelect via ref
-    useEffect(() => {
-        if (onSelectRef) {
-            onSelectRef.current = handleSelect
-        }
-    }, [handleSelect, onSelectRef])
+    // Determine selected value - empty string when no program selected
+    const selectedValue = selectedProgramId
+        ? `program-${selectedProgramId}`
+        : ''
 
-    const selectedValue =
-        selectedDataSource?.id && selectedDataSource?.type
-            ? `${selectedDataSource.type === 'PROGRAM' ? 'program' : 'tet'}-${
-                  selectedDataSource.id
-              }`
-            : ''
+    // Don't render if no tracked entity type is selected
+    if (!trackedEntityTypeId) {
+        return (
+            <SingleSelect
+                dense
+                selected=""
+                disabled
+                placeholder={i18n.t('Select a tracked entity type first')}
+                dataTest="data-source-select"
+            />
+        )
+    }
 
-    // Build the options list with sections
+    const hasNoPrograms =
+        !fetching && programs.length === 0 && trackedEntityTypeId
+
+    // Render program options
     const renderOptions = () => {
         const options = []
 
-        // Section 1: Used in this visualization (only if there are any)
-        if (usedDataSources.length > 0) {
-            options.push(
-                <SingleSelectOption
-                    key="header-used"
-                    label={<SectionHeader label={i18n.t('Used in this visualization')} />}
-                    value="header-used"
-                    disabled
-                />
-            )
-            usedDataSources.forEach(({ id, name, type, count }) => {
-                const value =
-                    type === 'PROGRAM' ? `program-${id}` : `tet-${id}`
+        // Only add program options when not loading and programs exist
+        if (!fetching && !hasNoPrograms) {
+            // Section 1: Used in this visualization (only if there are any)
+            if (usedPrograms.length > 0) {
                 options.push(
                     <SingleSelectOption
-                        key={value}
-                        label={<OptionLabelWithBadge name={name} count={count} />}
-                        value={value}
+                        key="header-used"
+                        label={
+                            <SectionHeader
+                                label={i18n.t('Used in this visualization')}
+                            />
+                        }
+                        value="header-used"
+                        disabled
                     />
                 )
-            })
-        }
+                usedPrograms.forEach(({ id, name, count }) => {
+                    options.push(
+                        <SingleSelectOption
+                            key={`program-${id}`}
+                            label={
+                                <OptionLabelWithBadge name={name} count={count} />
+                            }
+                            value={`program-${id}`}
+                        />
+                    )
+                })
+            }
 
-        // Section 2: Tracked entity types (only remaining ones not in "used")
-        if (remainingTets.length > 0) {
-            options.push(
-                <SingleSelectOption
-                    key="header-tet"
-                    label={<SectionHeader label={i18n.t('Tracked entity types')} />}
-                    value="header-tet"
-                    disabled
-                />
-            )
-            remainingTets.forEach(({ id, name }) => {
+            // Section 2: Available programs
+            if (remainingPrograms.length > 0) {
                 options.push(
                     <SingleSelectOption
-                        key={`tet-${id}`}
-                        label={name}
-                        value={`tet-${id}`}
+                        key="header-programs"
+                        label={<SectionHeader label={i18n.t('Programs')} />}
+                        value="header-programs"
+                        disabled
                     />
                 )
-            })
-        }
-
-        // Section 3: Programs (only remaining ones not in "used")
-        if (remainingPrograms.length > 0) {
-            options.push(
-                <SingleSelectOption
-                    key="header-programs"
-                    label={<SectionHeader label={i18n.t('Programs')} />}
-                    value="header-programs"
-                    disabled
-                />
-            )
-            remainingPrograms.forEach(({ id, name }) => {
-                options.push(
-                    <SingleSelectOption
-                        key={`program-${id}`}
-                        label={name}
-                        value={`program-${id}`}
-                    />
-                )
-            })
+                remainingPrograms.forEach(({ id, name }) => {
+                    options.push(
+                        <SingleSelectOption
+                            key={`program-${id}`}
+                            label={name}
+                            value={`program-${id}`}
+                        />
+                    )
+                })
+            }
         }
 
         return options
@@ -361,20 +279,24 @@ export const DataSourceSelect = ({
         <SingleSelect
             dense
             selected={selectedValue}
-            onChange={({ selected }) => handleSelect(selected)}
-            placeholder={i18n.t('Choose a data source')}
+            onChange={handleChange}
+            placeholder={i18n.t('Choose a program')}
             maxHeight="max(60vh, 460px)"
             dataTest="data-source-select"
             filterable
-            filterPlaceholder={i18n.t('Filter data sources')}
-            noMatchText={i18n.t('No data sources found')}
-            empty={i18n.t('No data sources found')}
+            filterPlaceholder={i18n.t('Filter programs')}
+            noMatchText={i18n.t('No programs found')}
+            empty={i18n.t('No programs available for this tracked entity type')}
             loading={fetching}
-            prefix={
-                selectedValue ? <IconDimensionEventDataItem16 /> : undefined
-            }
+            clearable
+            clearText={i18n.t('Clear program selection')}
+            prefix={selectedProgramId ? <IconDimensionEventDataItem16 /> : undefined}
         >
-            {!fetching && renderOptions()}
+            {renderOptions()}
         </SingleSelect>
     )
+}
+
+DataSourceSelect.propTypes = {
+    trackedEntityTypeId: PropTypes.string,
 }

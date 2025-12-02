@@ -5,7 +5,7 @@ import {
 } from '@dhis2/analytics'
 import { useAlert, useDataMutation, useDataEngine } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { FlyoutMenu, MenuItem, Divider, Popper, Layer } from '@dhis2/ui'
+import { FlyoutMenu, MenuItem, Divider, Popper, Layer, MenuSectionHeader } from '@dhis2/ui'
 import React, { useCallback, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -44,6 +44,9 @@ import {
     sGetUiSidebarHidden,
     sGetUiShowDetailsPanel,
 } from '../../reducers/ui.js'
+
+// Debug: localStorage key for tracked entity type (keep in sync with TrackedEntityTypeSelect.jsx)
+const TET_STORAGE_KEY = 'lineListing.lastTrackedEntityTypeId'
 
 const visualizationSaveAsMutation = {
     type: 'create',
@@ -222,6 +225,17 @@ export const MegaMenu = ({ onFileMenuAction }) => {
         dispatch(acSetUiDetailsPanelOpen(!isDetailsPanelOpen))
     }, [dispatch, isDetailsPanelOpen])
 
+    const clearLastUsedEntityType = useCallback(() => {
+        localStorage.removeItem(TET_STORAGE_KEY)
+        showAlert({
+            message: i18n.t('Cleared last used entity type from localStorage'),
+            options: {
+                success: true,
+                duration: 2000,
+            },
+        })
+    }, [showAlert])
+
     const toggleLayoutPanelText = isLayoutPanelHidden
         ? i18n.t('Show layout')
         : i18n.t('Hide layout')
@@ -369,6 +383,15 @@ export const MegaMenu = ({ onFileMenuAction }) => {
                                 label={toggleSidebarText}
                                 onClick={() => {
                                     toggleSidebarHidden()
+                                    setMenuOpen(false)
+                                }}
+                            />
+                            <Divider />
+                            <MenuSectionHeader label={i18n.t('Debug')} />
+                            <MenuItem
+                                label={i18n.t('Clear last used entity type')}
+                                onClick={() => {
+                                    clearLastUsedEntityType()
                                     setMenuOpen(false)
                                 }}
                             />

@@ -239,6 +239,65 @@ export const tSetUiEntityType =
         dispatch(acUpdateUiEntityTypeId(type.id, { [type.id]: type }))
     }
 
+// Set tracked entity type and reset everything (used by new TET-first selection)
+export const tSetTrackedEntityType =
+    ({ type }) =>
+    (dispatch) => {
+        // Clear program and all program-related dimensions
+        dispatch(acClearUiProgram())
+        dispatch(tClearUiProgramRelatedDimensions())
+
+        // Clear entity type first, then set the new one
+        dispatch(acClearUiEntityType())
+        dispatch(acUpdateUiEntityTypeId(type.id, { [type.id]: type }))
+
+        // Reset data source to tracked entity type mode
+        dispatch(
+            acSetUiDataSource({
+                type: 'TRACKED_ENTITY_TYPE',
+                id: type.id,
+                programType: undefined,
+            })
+        )
+
+        // Set input/output type to tracked entity
+        dispatch(acSetUiInput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+        dispatch(acSetUiOutput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+
+        // Reset expanded cards
+        dispatch(acSetUiExpandedCards([]))
+
+        // Clear repetition
+        dispatch(acClearUiRepetition())
+    }
+
+// Clear program selection (return to TET-only state)
+export const tClearProgramSelection = () => (dispatch, getState) => {
+    const state = getState()
+    const entityTypeId = state.ui.entityType?.id
+
+    if (!entityTypeId) {
+        return
+    }
+
+    // Clear program
+    dispatch(acClearUiProgram())
+    dispatch(tClearUiProgramRelatedDimensions())
+
+    // Reset data source to tracked entity type mode
+    dispatch(
+        acSetUiDataSource({
+            type: 'TRACKED_ENTITY_TYPE',
+            id: entityTypeId,
+            programType: undefined,
+        })
+    )
+
+    // Set input/output type to tracked entity
+    dispatch(acSetUiInput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+    dispatch(acSetUiOutput({ type: OUTPUT_TYPE_TRACKED_ENTITY }))
+}
+
 export const tClearUiStage = () => (dispatch, getState) => {
     const state = getState()
     const program = sGetMetadataById(state, sGetUiProgramId(state))
