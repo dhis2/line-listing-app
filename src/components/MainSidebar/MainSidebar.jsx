@@ -175,9 +175,10 @@ const MainSidebar = () => {
                 // Tracked entity card
                 if (entityType?.name) {
                     availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
-                    availableCardIds.push(
-                        ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE
-                    )
+                    // Programs using type card removed for prototype
+                    // availableCardIds.push(
+                    //     ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE
+                    // )
                 }
             }
 
@@ -586,8 +587,8 @@ const MainSidebar = () => {
                             </CardSection>
                         )}
 
-                    {/* Programs Using Type Card - shown for tracked entity type data sources only */}
-                    {entityType?.name &&
+                    {/* Programs Using Type Card - hidden for prototype when data source is tracked entity type */}
+                    {/* {entityType?.name &&
                         hasDataSource &&
                         dataSourceType === 'TRACKED_ENTITY_TYPE' && (
                             <CardSection
@@ -612,7 +613,7 @@ const MainSidebar = () => {
                                     searchTerm={unifiedSearchTerm}
                                 />
                             </CardSection>
-                        )}
+                        )} */}
 
                     {hasDataSource && (
                         <CardSection
