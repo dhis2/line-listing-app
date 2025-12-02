@@ -3,10 +3,11 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import {
     DropdownButton,
-    Menu,
     MenuItem,
     IconDimensionData16,
     FlyoutMenu,
+    IconCross16,
+    IconCheckmark16,
 } from '@dhis2/ui'
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +16,6 @@ import { tSetTrackedEntityType } from '../../../actions/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
-import { TrackedEntityMenuItem } from './TrackedEntityMenuItem.jsx'
 import styles from './TrackedEntityTypeSelect.module.css'
 
 const MAX_VISIBLE_PROGRAMS = 3
@@ -62,6 +62,24 @@ const formatProgramsSubtitle = (programs) => {
         count: remainingCount,
     })
 }
+
+const TrackedEntityOption = ({ name, subtitle, active, onClick }) => (
+    <button
+        className={`${styles.option} ${active ? styles.optionActive : ''}`}
+        onClick={onClick}
+        type="button"
+    >
+        <span className={styles.checkmark}>
+            {active && <IconCheckmark16 />}
+        </span>
+        <span className={styles.optionContent}>
+            <span className={styles.optionName}>{name}</span>
+            {subtitle && (
+                <span className={styles.optionSubtitle}>{subtitle}</span>
+            )}
+        </span>
+    </button>
+)
 
 export const TrackedEntityTypeSelect = () => {
     const { currentUser } = useCachedDataQuery()
@@ -138,6 +156,10 @@ export const TrackedEntityTypeSelect = () => {
         setIsOpen((currentIsOpen) => !currentIsOpen)
     }, [])
 
+    const handleClose = useCallback(() => {
+        setIsOpen(false)
+    }, [])
+
     const handleSelect = useCallback(
         (tet) => {
             // Add TET to metadata first
@@ -155,30 +177,31 @@ export const TrackedEntityTypeSelect = () => {
     )
 
     const menuComponent = (
-        <FlyoutMenu>
-            <div className={styles.explainer}>
-                <div className={styles.explainerText}>
+        <div className={styles.dropdown}>
+            <div className={styles.header}>
+                <span className={styles.headerTitle}>
                     {i18n.t(
                         'Choose a data type to show available data and programs'
                     )}
-                </div>
+                </span>
             </div>
-            {trackedEntityTypesWithPrograms.map((tet) => (
-                <TrackedEntityMenuItem
-                    key={tet.id}
-                    name={tet.name}
-                    subtitle={formatProgramsSubtitle(tet.programs)}
-                    active={tet.id === selectedEntityTypeId}
-                    onClick={() => handleSelect(tet)}
-                />
-            ))}
-            {trackedEntityTypesWithPrograms.length === 0 && !fetching && (
-                <MenuItem
-                    label={i18n.t('No tracked entity types available')}
-                    disabled
-                />
-            )}
-        </FlyoutMenu>
+            <div className={styles.optionsList}>
+                {trackedEntityTypesWithPrograms.map((tet) => (
+                    <TrackedEntityOption
+                        key={tet.id}
+                        name={tet.name}
+                        subtitle={formatProgramsSubtitle(tet.programs)}
+                        active={tet.id === selectedEntityTypeId}
+                        onClick={() => handleSelect(tet)}
+                    />
+                ))}
+                {trackedEntityTypesWithPrograms.length === 0 && !fetching && (
+                    <div className={styles.emptyState}>
+                        {i18n.t('No tracked entity types available')}
+                    </div>
+                )}
+            </div>
+        </div>
     )
 
     return (

@@ -272,6 +272,8 @@ export const tSetTrackedEntityType =
     }
 
 // Clear program selection (return to TET-only state)
+// Note: We intentionally do NOT clear program-related dimensions from the layout
+// This allows users to keep dimensions from a program even after clearing the program selection
 export const tClearProgramSelection = () => (dispatch, getState) => {
     const state = getState()
     const entityTypeId = state.ui.entityType?.id
@@ -280,9 +282,8 @@ export const tClearProgramSelection = () => (dispatch, getState) => {
         return
     }
 
-    // Clear program
+    // Clear program (but keep its dimensions in the layout)
     dispatch(acClearUiProgram())
-    dispatch(tClearUiProgramRelatedDimensions())
 
     // Reset data source to tracked entity type mode
     dispatch(

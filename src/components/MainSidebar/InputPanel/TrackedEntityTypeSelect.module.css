@@ -7,20 +7,6 @@
     min-width: auto;
 }
 
-.explainer {
-    padding: var(--spacers-dp8) var(--spacers-dp12);
-    background-color: var(--colors-grey100);
-    margin-top: -4px;
-    border-bottom: 1px solid var(--colors-grey400);
-}
-
-.explainerText {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--colors-grey600);
-    line-height: 1.4;
-}
-
 /* Style the dropdown button */
 .container :global(button) {
     padding: var(--spacers-dp8) var(--spacers-dp8) !important;
@@ -50,4 +36,135 @@
 /* Hide the chevron (dropdown arrow icon) - target only the last svg */
 .container :global(button) > :global(svg):last-of-type:not(:first-of-type) {
     display: none !important;
+}
+
+/* Dropdown panel */
+.dropdown {
+    min-width: 320px;
+    background: var(--colors-white);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.headerTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-grey900);
+}
+
+.closeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--colors-grey600);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.closeButton:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+}
+
+.closeButton:active {
+    background-color: var(--colors-grey300);
+}
+
+/* Options list */
+.optionsList {
+    padding: 8px 0;
+}
+
+/* Individual option */
+.option {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+}
+
+.option:hover {
+    background-color: var(--colors-grey100);
+}
+
+.option:focus {
+    outline: none;
+    background-color: var(--colors-grey100);
+}
+
+.option:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: -2px;
+}
+
+.optionActive {
+    background-color: transparent;
+}
+
+.optionActive:hover {
+    background-color: var(--colors-grey100);
+}
+
+/* Checkmark area */
+.checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: var(--colors-grey900);
+}
+
+/* Option content */
+.optionContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.optionName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-grey900);
+    line-height: 1.4;
+}
+
+.optionSubtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colors-grey600);
+    line-height: 1.4;
+}
+
+/* Empty state */
+.emptyState {
+    padding: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--colors-grey600);
 }
