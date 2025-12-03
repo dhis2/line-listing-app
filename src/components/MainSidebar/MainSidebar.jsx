@@ -18,9 +18,13 @@ import {
     ACCESSORY_PANEL_TAB_DATA,
     ACCESSORY_PANEL_TAB_ENROLLMENT,
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
+    ACCESSORY_PANEL_TAB_EVENT,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    EVENTS_WITHOUT_REGISTRATION_ID,
+} from '../../modules/programTypes.js'
 import { useDebounce } from '../../modules/utils.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../modules/visualization.js'
 import { sGetMetadataById } from '../../reducers/metadata.js'
@@ -39,6 +43,7 @@ import {
     PeriodsPanel,
     StatusesPanel,
     DataPanel,
+    EventDimensionsPanel,
 } from './DataTypeGrouping/index.js'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
@@ -102,6 +107,10 @@ const MainSidebar = () => {
     // hasDataSource is true if we have either a TET or a program selected
     const hasDataSource = hasEntityType || hasProgram
 
+    // Check if this is "Events without registration" mode
+    const isEventsWithoutRegistration =
+        selectedEntityTypeId === EVENTS_WITHOUT_REGISTRATION_ID
+
     // Check if this is a program with registration (for program config view)
     const isProgramWithRegistration =
         program?.programType === PROGRAM_TYPE_WITH_REGISTRATION &&
@@ -143,13 +152,18 @@ const MainSidebar = () => {
         // Get all available card IDs based on current state and view mode
         const availableCardIds = []
 
-        // Tracked entity card (always show when TET is selected)
-        if (hasEntityType && entityType?.name) {
+        // Tracked entity card (only show when TET is selected and NOT events without registration)
+        if (hasEntityType && entityType?.name && !isEventsWithoutRegistration) {
             availableCardIds.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
         }
 
-        // Program cards (only when a program is selected)
-        if (hasProgram) {
+        // Event card (for events without registration with a program selected)
+        if (isEventsWithoutRegistration && hasProgram) {
+            availableCardIds.push(ACCESSORY_PANEL_TAB_EVENT)
+        }
+
+        // Program cards (only when a program is selected and NOT events without registration)
+        if (hasProgram && !isEventsWithoutRegistration) {
             if (viewMode === VIEW_MODE_BY_TYPE) {
                 // Data type grouping cards
                 availableCardIds.push(ACCESSORY_PANEL_TAB_ORG_UNITS)
@@ -199,6 +213,7 @@ const MainSidebar = () => {
         hasProgram,
         viewMode,
         isProgramWithRegistration,
+        isEventsWithoutRegistration,
         program,
         hasProgramIndicators,
     ])
@@ -221,17 +236,27 @@ const MainSidebar = () => {
     useEffect(() => {
         const cardsToExpand = []
 
-        // Expand tracked entity card when TET is selected
+        // Expand tracked entity card when TET is selected (but NOT for events without registration)
         if (
             hasEntityType &&
             entityType?.name &&
+            !isEventsWithoutRegistration &&
             !expandedCards.includes(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
         ) {
             cardsToExpand.push(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
         }
 
-        // Expand program cards when program is selected
-        if (hasProgram) {
+        // Expand Event card when program is selected in events without registration mode
+        if (
+            isEventsWithoutRegistration &&
+            hasProgram &&
+            !expandedCards.includes(ACCESSORY_PANEL_TAB_EVENT)
+        ) {
+            cardsToExpand.push(ACCESSORY_PANEL_TAB_EVENT)
+        }
+
+        // Expand program cards when program is selected (but NOT for events without registration)
+        if (hasProgram && !isEventsWithoutRegistration) {
             if (viewMode === VIEW_MODE_BY_TYPE) {
                 // Data type grouping cards
                 if (!expandedCards.includes(ACCESSORY_PANEL_TAB_ORG_UNITS)) {
@@ -286,7 +311,12 @@ const MainSidebar = () => {
                 dispatch(acToggleUiExpandedCard(cardId))
             })
         }
-    }, [selectedEntityTypeId, selectedProgramId, viewMode]) // Trigger when TET, program, or view mode changes
+    }, [
+        selectedEntityTypeId,
+        selectedProgramId,
+        viewMode,
+        isEventsWithoutRegistration,
+    ]) // Trigger when TET, program, or view mode changes
 
     return (
         <div
@@ -314,10 +344,15 @@ const MainSidebar = () => {
                         }}
                         typeFilter={typeFilter}
                         onTypeFilterChange={setTypeFilter}
-                        showModeToggle={hasProgram && isProgramWithRegistration}
+                        showModeToggle={
+                            hasProgram &&
+                            isProgramWithRegistration &&
+                            !isEventsWithoutRegistration
+                        }
                         showTypeFilter={
                             hasProgram &&
                             isProgramWithRegistration &&
+                            !isEventsWithoutRegistration &&
                             viewMode === VIEW_MODE_PROGRAM_CONFIG
                         }
                         isScrolled={isScrolled}
@@ -325,7 +360,7 @@ const MainSidebar = () => {
                 )}
 
                 <div ref={cardsContainerRef} className={styles.cardsContainer}>
-                    {/* Show placeholder when no tracked entity type is selected */}
+                    {/* Show placeholder when no data type is selected */}
                     {!hasEntityType && (
                         <div className={styles.placeholderCardsWrapper}>
                             <div
@@ -375,7 +410,7 @@ const MainSidebar = () => {
 
                                     <p>
                                         {i18n.t(
-                                            'Select a tracked entity type to see available dimensions'
+                                            'Select a data type to see available dimensions'
                                         )}
                                     </p>
                                 </div>
@@ -383,7 +418,7 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {/* Program placeholder card - shown when TET is selected but NO program */}
+                    {/* Program placeholder card - shown when data type is selected but NO program */}
                     {hasEntityType && !hasProgram && (
                         <div
                             className={styles.programPlaceholderCard}
@@ -397,106 +432,136 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {/* TrackedEntityDimensions Card - ALWAYS shown first when TET is selected */}
-                    {hasEntityType && entityType?.name && (
+                    {/* TrackedEntityDimensions Card - shown when TET is selected (NOT for events without registration) */}
+                    {hasEntityType &&
+                        entityType?.name &&
+                        !isEventsWithoutRegistration && (
+                            <CardSection
+                                label={entityType.name}
+                                onClick={() =>
+                                    onCardClick(
+                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                    )
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                )}
+                                count={counts.trackedEntity}
+                                dataTest="tracked-entity-dimensions-card"
+                                isEmpty={trackedEntityDimensionsEmpty}
+                            >
+                                <TrackedEntityDimensionsPanel
+                                    visible={true}
+                                    searchTerm={unifiedSearchTerm}
+                                    onEmptyStateChange={
+                                        setTrackedEntityDimensionsEmpty
+                                    }
+                                />
+                            </CardSection>
+                        )}
+
+                    {/* Event Card - shown when program is selected in events without registration mode */}
+                    {isEventsWithoutRegistration && hasProgram && program && (
                         <CardSection
-                            label={entityType.name}
+                            label={i18n.t('Event')}
                             onClick={() =>
-                                onCardClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
+                                onCardClick(ACCESSORY_PANEL_TAB_EVENT)
                             }
                             expanded={expandedCards.includes(
-                                ACCESSORY_PANEL_TAB_TRACKED_ENTITY
+                                ACCESSORY_PANEL_TAB_EVENT
                             )}
-                            count={counts.trackedEntity}
-                            dataTest="tracked-entity-dimensions-card"
-                            isEmpty={trackedEntityDimensionsEmpty}
+                            dataTest="event-dimensions-card"
                         >
-                            <TrackedEntityDimensionsPanel
-                                visible={true}
+                            <EventDimensionsPanel
+                                program={program}
                                 searchTerm={unifiedSearchTerm}
-                                onEmptyStateChange={
-                                    setTrackedEntityDimensionsEmpty
-                                }
                             />
                         </CardSection>
                     )}
 
-                    {/* Program dimensions cards - show when program is selected, based on view mode */}
-                    {hasProgram && viewMode === VIEW_MODE_BY_TYPE && (
-                        <>
-                            {/* Data type grouping: Show org units, periods, and data cards */}
-                            {/* Organization Units Card */}
-                            <CardSection
-                                label={i18n.t('Organisation units')}
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_ORG_UNITS)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_ORG_UNITS
-                                )}
-                                dataTest="org-units-card"
-                            >
-                                <OrganizationUnitsPanel
-                                    program={program}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-
-                            {/* Periods Card */}
-                            <CardSection
-                                label={i18n.t('Periods')}
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_PERIODS)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_PERIODS
-                                )}
-                                dataTest="periods-card"
-                            >
-                                <PeriodsPanel
-                                    program={program}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-
-                            {/* Statuses Card */}
-                            <CardSection
-                                label={i18n.t('Statuses')}
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_STATUSES)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_STATUSES
-                                )}
-                                dataTest="statuses-card"
-                            >
-                                <StatusesPanel
-                                    program={program}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-
-                            {/* Data Card */}
-                            <CardSection
-                                label={i18n.t('Data')}
-                                onClick={() =>
-                                    onCardClick(ACCESSORY_PANEL_TAB_DATA)
-                                }
-                                expanded={expandedCards.includes(
-                                    ACCESSORY_PANEL_TAB_DATA
-                                )}
-                                dataTest="data-card"
-                            >
-                                <DataPanel
-                                    program={program}
-                                    searchTerm={unifiedSearchTerm}
-                                />
-                            </CardSection>
-                        </>
-                    )}
-
-                    {/* Program config view: Show enrollment + stage cards */}
+                    {/* Program dimensions cards - show when program is selected (NOT for events without registration), based on view mode */}
                     {hasProgram &&
+                        !isEventsWithoutRegistration &&
+                        viewMode === VIEW_MODE_BY_TYPE && (
+                            <>
+                                {/* Data type grouping: Show org units, periods, and data cards */}
+                                {/* Organization Units Card */}
+                                <CardSection
+                                    label={i18n.t('Organisation units')}
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_ORG_UNITS
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_ORG_UNITS
+                                    )}
+                                    dataTest="org-units-card"
+                                >
+                                    <OrganizationUnitsPanel
+                                        program={program}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
+                                {/* Periods Card */}
+                                <CardSection
+                                    label={i18n.t('Periods')}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_PERIODS)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_PERIODS
+                                    )}
+                                    dataTest="periods-card"
+                                >
+                                    <PeriodsPanel
+                                        program={program}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
+                                {/* Statuses Card */}
+                                <CardSection
+                                    label={i18n.t('Statuses')}
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_STATUSES
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_STATUSES
+                                    )}
+                                    dataTest="statuses-card"
+                                >
+                                    <StatusesPanel
+                                        program={program}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+
+                                {/* Data Card */}
+                                <CardSection
+                                    label={i18n.t('Data')}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_DATA)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_DATA
+                                    )}
+                                    dataTest="data-card"
+                                >
+                                    <DataPanel
+                                        program={program}
+                                        searchTerm={unifiedSearchTerm}
+                                    />
+                                </CardSection>
+                            </>
+                        )}
+
+                    {/* Program config view: Show enrollment + stage cards (NOT for events without registration) */}
+                    {hasProgram &&
+                        !isEventsWithoutRegistration &&
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
                             <>

@@ -22,6 +22,7 @@ import {
     getDynamicTimeDimensionsMetadata,
     getProgramAsMetadata,
 } from '../../../modules/metadata.js'
+import { EVENTS_WITHOUT_REGISTRATION_ID } from '../../../modules/programTypes.js'
 import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
 import styles from './DataSourceSelect.module.css'
 
@@ -29,9 +30,12 @@ import styles from './DataSourceSelect.module.css'
 const query = {
     programs: {
         resource: 'programs',
-        params: ({ nameProp, trackedEntityTypeId }) => {
+        params: ({ nameProp, trackedEntityTypeId, isEventsWithoutRegistration }) => {
             const filters = ['access.data.read:eq:true']
-            if (trackedEntityTypeId) {
+            if (isEventsWithoutRegistration) {
+                // Filter for programs without a tracked entity type (event programs)
+                filters.push('programType:eq:WITHOUT_REGISTRATION')
+            } else if (trackedEntityTypeId) {
                 filters.push(`trackedEntityType.id:eq:${trackedEntityTypeId}`)
             }
             return {
@@ -119,12 +123,21 @@ export const DataSourceSelect = ({ trackedEntityTypeId }) => {
         lazy: true,
     })
 
+    const isEventsWithoutRegistration =
+        trackedEntityTypeId === EVENTS_WITHOUT_REGISTRATION_ID
+
     // Refetch when trackedEntityTypeId changes
     useEffect(() => {
         if (trackedEntityTypeId) {
-            refetch({ nameProp, trackedEntityTypeId })
+            refetch({
+                nameProp,
+                trackedEntityTypeId: isEventsWithoutRegistration
+                    ? undefined
+                    : trackedEntityTypeId,
+                isEventsWithoutRegistration,
+            })
         }
-    }, [trackedEntityTypeId, refetch, nameProp])
+    }, [trackedEntityTypeId, isEventsWithoutRegistration, refetch, nameProp])
 
     const programs = data?.programs?.programs || []
 
@@ -208,7 +221,7 @@ export const DataSourceSelect = ({ trackedEntityTypeId }) => {
                 dense
                 selected=""
                 disabled
-                placeholder={i18n.t('Select a tracked entity type first')}
+                placeholder={i18n.t('Select a data type first')}
                 dataTest="data-source-select"
             />
         )
@@ -216,6 +229,10 @@ export const DataSourceSelect = ({ trackedEntityTypeId }) => {
 
     const hasNoPrograms =
         !fetching && programs.length === 0 && trackedEntityTypeId
+
+    const emptyText = isEventsWithoutRegistration
+        ? i18n.t('No event programs available')
+        : i18n.t('No programs available for this tracked entity type')
 
     // Render program options
     const renderOptions = () => {
@@ -252,10 +269,13 @@ export const DataSourceSelect = ({ trackedEntityTypeId }) => {
 
             // Section 2: Available programs
             if (remainingPrograms.length > 0) {
+                const programsHeaderLabel = isEventsWithoutRegistration
+                    ? i18n.t('Event programs')
+                    : i18n.t('Programs')
                 options.push(
                     <SingleSelectOption
                         key="header-programs"
-                        label={<SectionHeader label={i18n.t('Programs')} />}
+                        label={<SectionHeader label={programsHeaderLabel} />}
                         value="header-programs"
                         disabled
                     />
@@ -286,7 +306,7 @@ export const DataSourceSelect = ({ trackedEntityTypeId }) => {
             filterable
             filterPlaceholder={i18n.t('Filter programs')}
             noMatchText={i18n.t('No programs found')}
-            empty={i18n.t('No programs available for this tracked entity type')}
+            empty={emptyText}
             loading={fetching}
             clearable
             clearText={i18n.t('Clear program selection')}

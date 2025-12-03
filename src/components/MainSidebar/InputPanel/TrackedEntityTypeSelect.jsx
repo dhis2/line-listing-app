@@ -12,7 +12,11 @@ import {
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { acAddMetadata } from '../../../actions/metadata.js'
-import { tSetTrackedEntityType } from '../../../actions/ui.js'
+import {
+    tSetTrackedEntityType,
+    tSetEventsWithoutRegistration,
+} from '../../../actions/ui.js'
+import { EVENTS_WITHOUT_REGISTRATION_ID } from '../../../modules/programTypes.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { sGetUiEntityTypeId } from '../../../reducers/ui.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
@@ -105,52 +109,77 @@ export const TrackedEntityTypeSelect = () => {
     }, [called, refetch, nameProp])
 
     // Process data: group programs by TET and filter TETs with programs
-    const trackedEntityTypesWithPrograms = useMemo(() => {
-        const programs = data?.programs?.programs || []
-        const trackedEntityTypes =
-            data?.trackedEntityTypes?.trackedEntityTypes || []
+    const { trackedEntityTypesWithPrograms, programsWithoutRegistration } =
+        useMemo(() => {
+            const programs = data?.programs?.programs || []
+            const trackedEntityTypes =
+                data?.trackedEntityTypes?.trackedEntityTypes || []
 
-        // Group programs by tracked entity type ID
-        const programsByTetId = {}
-        programs.forEach((program) => {
-            const tetId = program.trackedEntityType?.id
-            if (tetId) {
-                if (!programsByTetId[tetId]) {
-                    programsByTetId[tetId] = []
+            // Group programs by tracked entity type ID
+            const programsByTetId = {}
+            const noRegistrationPrograms = []
+
+            programs.forEach((program) => {
+                const tetId = program.trackedEntityType?.id
+                if (tetId) {
+                    if (!programsByTetId[tetId]) {
+                        programsByTetId[tetId] = []
+                    }
+                    programsByTetId[tetId].push(program)
+                } else {
+                    // Programs without a tracked entity type (event programs)
+                    noRegistrationPrograms.push(program)
                 }
-                programsByTetId[tetId].push(program)
-            }
-        })
+            })
 
-        // Filter TETs to only those with programs and attach program list
-        return trackedEntityTypes
-            .filter((tet) => programsByTetId[tet.id]?.length > 0)
-            .map((tet) => ({
-                ...tet,
-                programs: programsByTetId[tet.id] || [],
-            }))
-    }, [data])
+            // Filter TETs to only those with programs and attach program list
+            const tetsWithPrograms = trackedEntityTypes
+                .filter((tet) => programsByTetId[tet.id]?.length > 0)
+                .map((tet) => ({
+                    ...tet,
+                    programs: programsByTetId[tet.id] || [],
+                }))
+
+            return {
+                trackedEntityTypesWithPrograms: tetsWithPrograms,
+                programsWithoutRegistration: noRegistrationPrograms,
+            }
+        }, [data])
 
     // Restore last selection from localStorage when data is loaded
     useEffect(() => {
         if (
             !hasRestoredSelection.current &&
             !selectedEntityTypeId &&
-            trackedEntityTypesWithPrograms.length > 0
+            (trackedEntityTypesWithPrograms.length > 0 ||
+                programsWithoutRegistration.length > 0)
         ) {
             hasRestoredSelection.current = true
             const savedTetId = localStorage.getItem(STORAGE_KEY)
             if (savedTetId) {
-                const savedTet = trackedEntityTypesWithPrograms.find(
-                    (tet) => tet.id === savedTetId
-                )
-                if (savedTet) {
-                    dispatch(acAddMetadata({ [savedTet.id]: savedTet }))
-                    dispatch(tSetTrackedEntityType({ type: savedTet }))
+                // Check if it's the "Events without registration" option
+                if (
+                    savedTetId === EVENTS_WITHOUT_REGISTRATION_ID &&
+                    programsWithoutRegistration.length > 0
+                ) {
+                    dispatch(tSetEventsWithoutRegistration())
+                } else {
+                    const savedTet = trackedEntityTypesWithPrograms.find(
+                        (tet) => tet.id === savedTetId
+                    )
+                    if (savedTet) {
+                        dispatch(acAddMetadata({ [savedTet.id]: savedTet }))
+                        dispatch(tSetTrackedEntityType({ type: savedTet }))
+                    }
                 }
             }
         }
-    }, [selectedEntityTypeId, trackedEntityTypesWithPrograms, dispatch])
+    }, [
+        selectedEntityTypeId,
+        trackedEntityTypesWithPrograms,
+        programsWithoutRegistration,
+        dispatch,
+    ])
 
     const toggleOpen = useCallback(() => {
         setIsOpen((currentIsOpen) => !currentIsOpen)
@@ -176,6 +205,16 @@ export const TrackedEntityTypeSelect = () => {
         [dispatch]
     )
 
+    const handleSelectEventsWithoutRegistration = useCallback(() => {
+        // Set the events without registration mode
+        dispatch(tSetEventsWithoutRegistration())
+
+        // Remember this selection for next time
+        localStorage.setItem(STORAGE_KEY, EVENTS_WITHOUT_REGISTRATION_ID)
+
+        setIsOpen(false)
+    }, [dispatch])
+
     const menuComponent = (
         <div className={styles.dropdown}>
             <div className={styles.header}>
@@ -195,14 +234,37 @@ export const TrackedEntityTypeSelect = () => {
                         onClick={() => handleSelect(tet)}
                     />
                 ))}
-                {trackedEntityTypesWithPrograms.length === 0 && !fetching && (
-                    <div className={styles.emptyState}>
-                        {i18n.t('No tracked entity types available')}
-                    </div>
+                {programsWithoutRegistration.length > 0 && (
+                    <TrackedEntityOption
+                        name={i18n.t('Events without registration')}
+                        subtitle={formatProgramsSubtitle(
+                            programsWithoutRegistration
+                        )}
+                        active={
+                            selectedEntityTypeId ===
+                            EVENTS_WITHOUT_REGISTRATION_ID
+                        }
+                        onClick={handleSelectEventsWithoutRegistration}
+                    />
                 )}
+                {trackedEntityTypesWithPrograms.length === 0 &&
+                    programsWithoutRegistration.length === 0 &&
+                    !fetching && (
+                        <div className={styles.emptyState}>
+                            {i18n.t('No data types available')}
+                        </div>
+                    )}
             </div>
         </div>
     )
+
+    // Get the display name for the button
+    const buttonLabel = useMemo(() => {
+        if (selectedEntityTypeId === EVENTS_WITHOUT_REGISTRATION_ID) {
+            return i18n.t('Events without registration')
+        }
+        return selectedEntityType?.name || i18n.t('Select data type')
+    }, [selectedEntityTypeId, selectedEntityType])
 
     return (
         <div className={styles.container}>
@@ -212,10 +274,7 @@ export const TrackedEntityTypeSelect = () => {
                 open={isOpen}
                 small
                 className={styles.button}
-                title={
-                    selectedEntityType?.name ||
-                    i18n.t('Select tracked entity type')
-                }
+                title={buttonLabel}
             >
                 <IconDimensionData16 />
             </DropdownButton>

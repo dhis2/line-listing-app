@@ -8,6 +8,7 @@ import {
     DIMENSION_ID_LAST_UPDATED,
     DIMENSION_ID_CREATED,
 } from '../modules/dimensionConstants.js'
+import { EVENTS_WITHOUT_REGISTRATION_ID } from '../modules/programTypes.js'
 import { extractDimensionIdParts } from '../modules/dimensionId.js'
 import {
     getDefaultTimeDimensionsMetadata,
@@ -270,6 +271,45 @@ export const tSetTrackedEntityType =
         // Clear repetition
         dispatch(acClearUiRepetition())
     }
+
+// Set "Events without registration" mode - for programs that don't have a tracked entity type
+export const tSetEventsWithoutRegistration = () => (dispatch) => {
+    // Clear program and all program-related dimensions
+    dispatch(acClearUiProgram())
+    dispatch(tClearUiProgramRelatedDimensions())
+
+    // Clear entity type - there's no TET for event programs
+    dispatch(acClearUiEntityType())
+
+    // Set entity type ID to special identifier so DataSourceSelect knows to filter appropriately
+    dispatch(
+        acUpdateUiEntityTypeId(EVENTS_WITHOUT_REGISTRATION_ID, {
+            [EVENTS_WITHOUT_REGISTRATION_ID]: {
+                id: EVENTS_WITHOUT_REGISTRATION_ID,
+                name: 'Events without registration',
+            },
+        })
+    )
+
+    // Reset data source to event program mode
+    dispatch(
+        acSetUiDataSource({
+            type: 'EVENTS_WITHOUT_REGISTRATION',
+            id: EVENTS_WITHOUT_REGISTRATION_ID,
+            programType: undefined,
+        })
+    )
+
+    // Set input/output type to event (the only valid output for programs without registration)
+    dispatch(acSetUiInput({ type: OUTPUT_TYPE_EVENT }))
+    dispatch(acSetUiOutput({ type: OUTPUT_TYPE_EVENT }))
+
+    // Reset expanded cards
+    dispatch(acSetUiExpandedCards([]))
+
+    // Clear repetition
+    dispatch(acClearUiRepetition())
+}
 
 // Clear program selection (return to TET-only state)
 // Note: We intentionally do NOT clear program-related dimensions from the layout
