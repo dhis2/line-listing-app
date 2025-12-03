@@ -312,28 +312,7 @@ export const DataSourceSelect = ({
             })
         }
 
-        // Section 2: Tracked entity types (only remaining ones not in "used")
-        if (remainingTets.length > 0) {
-            options.push(
-                <SingleSelectOption
-                    key="header-tet"
-                    label={<SectionHeader label={i18n.t('Tracked entity types')} />}
-                    value="header-tet"
-                    disabled
-                />
-            )
-            remainingTets.forEach(({ id, name }) => {
-                options.push(
-                    <SingleSelectOption
-                        key={`tet-${id}`}
-                        label={name}
-                        value={`tet-${id}`}
-                    />
-                )
-            })
-        }
-
-        // Section 3: Programs (only remaining ones not in "used")
+        // Section 2: Programs (only remaining ones not in "used")
         if (remainingPrograms.length > 0) {
             options.push(
                 <SingleSelectOption
@@ -349,6 +328,27 @@ export const DataSourceSelect = ({
                         key={`program-${id}`}
                         label={name}
                         value={`program-${id}`}
+                    />
+                )
+            })
+        }
+
+        // Section 3: Tracked entity types (only remaining ones not in "used")
+        if (remainingTets.length > 0) {
+            options.push(
+                <SingleSelectOption
+                    key="header-tet"
+                    label={<SectionHeader label={i18n.t('Analyze without a program')} />}
+                    value="header-tet"
+                    disabled
+                />
+            )
+            remainingTets.forEach(({ id, name }) => {
+                options.push(
+                    <SingleSelectOption
+                        key={`tet-${id}`}
+                        label={name}
+                        value={`tet-${id}`}
                     />
                 )
             })
