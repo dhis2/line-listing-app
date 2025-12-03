@@ -397,10 +397,10 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {/* TrackedEntityDimensions Card - shown when TET is selected but NO program */}
-                    {hasEntityType && entityType?.name && !hasProgram && (
+                    {/* TrackedEntityDimensions Card - ALWAYS shown first when TET is selected */}
+                    {hasEntityType && entityType?.name && (
                         <CardSection
-                            label={`${entityType.name} ${i18n.t('data')}`}
+                            label={entityType.name}
                             onClick={() =>
                                 onCardClick(ACCESSORY_PANEL_TAB_TRACKED_ENTITY)
                             }
@@ -492,34 +492,6 @@ const MainSidebar = () => {
                                     searchTerm={unifiedSearchTerm}
                                 />
                             </CardSection>
-
-                            {/* TrackedEntityDimensions Card - shown after data when program is selected (BY_TYPE view) */}
-                            {hasEntityType && entityType?.name && (
-                                <CardSection
-                                    label={`${entityType.name} ${i18n.t(
-                                        'data'
-                                    )}`}
-                                    onClick={() =>
-                                        onCardClick(
-                                            ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                        )
-                                    }
-                                    expanded={expandedCards.includes(
-                                        ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                    )}
-                                    count={counts.trackedEntity}
-                                    dataTest="tracked-entity-dimensions-card"
-                                    isEmpty={trackedEntityDimensionsEmpty}
-                                >
-                                    <TrackedEntityDimensionsPanel
-                                        visible={true}
-                                        searchTerm={unifiedSearchTerm}
-                                        onEmptyStateChange={
-                                            setTrackedEntityDimensionsEmpty
-                                        }
-                                    />
-                                </CardSection>
-                            )}
                         </>
                     )}
 
@@ -548,7 +520,6 @@ const MainSidebar = () => {
                                     <EnrollmentDimensionsPanel
                                         program={program}
                                         searchTerm={unifiedSearchTerm}
-                                        typeFilter={typeFilter}
                                     />
                                 </CardSection>
 
@@ -576,34 +547,6 @@ const MainSidebar = () => {
                                         </CardSection>
                                     )
                                 })}
-
-                                {/* TrackedEntityDimensions Card - shown after stages when program is selected */}
-                                {hasEntityType && entityType?.name && (
-                                    <CardSection
-                                        label={`${entityType.name} ${i18n.t(
-                                            'data'
-                                        )}`}
-                                        onClick={() =>
-                                            onCardClick(
-                                                ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                            )
-                                        }
-                                        expanded={expandedCards.includes(
-                                            ACCESSORY_PANEL_TAB_TRACKED_ENTITY
-                                        )}
-                                        count={counts.trackedEntity}
-                                        dataTest="tracked-entity-dimensions-card"
-                                        isEmpty={trackedEntityDimensionsEmpty}
-                                    >
-                                        <TrackedEntityDimensionsPanel
-                                            visible={true}
-                                            searchTerm={unifiedSearchTerm}
-                                            onEmptyStateChange={
-                                                setTrackedEntityDimensionsEmpty
-                                            }
-                                        />
-                                    </CardSection>
-                                )}
 
                                 {/* Program Indicators Card - only show if there are indicators */}
                                 {hasProgramIndicators && (
