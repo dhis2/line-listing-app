@@ -20,6 +20,7 @@ import {
     ACCESSORY_PANEL_TAB_ENROLLMENT,
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
     ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE,
+    ACCESSORY_PANEL_TAB_PERSON,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
@@ -46,6 +47,7 @@ import {
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
 import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
+import { PersonDimensionsPanel } from './ProgramDimensionsPanel/PersonDimensionsPanel.jsx'
 import { useProgramDataDimensions } from './ProgramDimensionsPanel/useProgramDataDimensions.js'
 import {
     SelectedDimensionsProvider,
@@ -160,6 +162,8 @@ const MainSidebar = () => {
                 } else {
                     // Program config view (enrollment/stages)
                     if (isProgramWithRegistration) {
+                        // Person card first
+                        availableCardIds.push(ACCESSORY_PANEL_TAB_PERSON)
                         availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
                         dataSource.programStages.forEach((stage) => {
                             availableCardIds.push(getStageCardId(stage.id))
@@ -249,7 +253,11 @@ const MainSidebar = () => {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_DATA)
                     }
                 } else if (isProgramWithRegistration) {
-                    // Program config view (enrollment/stages)
+                    // Program config view (person/enrollment/stages)
+                    // Expand Person card first
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERSON)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_PERSON)
+                    }
                     if (
                         !expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)
                     ) {
@@ -480,12 +488,30 @@ const MainSidebar = () => {
                             </>
                         )}
 
-                    {/* Program config view: Show enrollment + stage cards */}
+                    {/* Program config view: Show person + enrollment + stage cards */}
                     {hasDataSource &&
                         dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
                             <>
+                                {/* Person Card - shown first */}
+                                <CardSection
+                                    label={i18n.t('Person')}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_PERSON)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_PERSON
+                                    )}
+                                    dataTest="person-card"
+                                >
+                                    <PersonDimensionsPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                        typeFilter={typeFilter}
+                                    />
+                                </CardSection>
+
                                 {/* Enrollment Card */}
                                 <CardSection
                                     label={
