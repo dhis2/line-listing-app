@@ -6,9 +6,9 @@ import {
     SingleSelectOption,
     IconDimensionEventDataItem16,
 } from '@dhis2/ui'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { tSetDataSource } from '../../../actions/ui.js'
+import { tSetDataSource, tRemoveDataSourceDimensions } from '../../../actions/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
 import {
@@ -128,11 +128,30 @@ const useDimensionCountsByDataSource = (programs) => {
     ])
 }
 
-// Component for rendering option label with badge
-const OptionLabelWithBadge = ({ name, count }) => (
+// Component for rendering option label with badge and optional remove button
+const OptionLabelWithBadge = ({ name, count, onRemove }) => (
     <span className={styles.optionWithBadge}>
         <span className={styles.optionName}>{name}</span>
-        {count > 0 && <span className={styles.badge}>{count}</span>}
+        {count > 0 && onRemove ? (
+            <button
+                className={styles.removeBadge}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    onRemove()
+                }}
+                onMouseDown={(e) => {
+                    // Prevent dropdown from closing
+                    e.stopPropagation()
+                }}
+                title={i18n.t('Remove all {{count}} dimensions from this data source', { count })}
+                aria-label={i18n.t('Remove all {{count}} dimensions from this data source', { count })}
+            >
+                {count} ×
+            </button>
+        ) : count > 0 ? (
+            <span className={styles.badge}>{count}</span>
+        ) : null}
     </span>
 )
 
@@ -285,6 +304,20 @@ export const DataSourceSelect = ({
               }`
             : ''
 
+    // Handler to remove all dimensions from a data source
+    const handleRemoveDataSourceDimensions = useCallback(
+        (dataSourceType, dataSourceId) => {
+            dispatch(
+                tRemoveDataSourceDimensions({
+                    dataSourceType,
+                    dataSourceId,
+                    programs,
+                })
+            )
+        },
+        [dispatch, programs]
+    )
+
     // Build the options list with sections
     const renderOptions = () => {
         const options = []
@@ -305,7 +338,15 @@ export const DataSourceSelect = ({
                 options.push(
                     <SingleSelectOption
                         key={value}
-                        label={<OptionLabelWithBadge name={name} count={count} />}
+                        label={
+                            <OptionLabelWithBadge
+                                name={name}
+                                count={count}
+                                onRemove={() =>
+                                    handleRemoveDataSourceDimensions(type, id)
+                                }
+                            />
+                        }
                         value={value}
                     />
                 )

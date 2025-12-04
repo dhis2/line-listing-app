@@ -38,6 +38,32 @@
     font-weight: 500;
     padding: 2px 8px;
     border-radius: 4px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.removeBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
     margin-left: 8px;
     flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+.removeBadge:hover {
+    background-color: var(--colors-grey300);
+    color: var(--colors-grey900);
+}
+
+.removeBadge:active {
+    background-color: var(--colors-grey400);
 }

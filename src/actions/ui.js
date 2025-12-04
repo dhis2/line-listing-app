@@ -498,3 +498,65 @@ export const acSetUiType = (value) => ({
     type: SET_UI_TYPE,
     value,
 })
+
+// Remove all dimensions from a specific data source
+export const tRemoveDataSourceDimensions =
+    ({ dataSourceType, dataSourceId, programs }) =>
+    (dispatch, getState) => {
+        const state = getState()
+        const layout = state.ui.layout
+        const inputType = sGetUiInputType(state)
+
+        // Get all dimension IDs from layout (columns + filters)
+        const allDimensionIds = [
+            ...(layout.columns || []),
+            ...(layout.filters || []),
+        ]
+
+        // Find which dimensions belong to this data source
+        const idsToRemove = allDimensionIds.filter((id) => {
+            const { programId, programStageId } = extractDimensionIdParts(
+                id,
+                inputType
+            )
+
+            if (dataSourceType === 'PROGRAM') {
+                // For programs: check if dimension has this program's ID or belongs to one of its stages
+                if (programId === dataSourceId) {
+                    return true
+                }
+                // Check if dimension belongs to a stage of this program
+                if (programStageId) {
+                    const program = programs?.find((p) => p.id === dataSourceId)
+                    if (
+                        program?.programStages?.some(
+                            (s) => s.id === programStageId
+                        )
+                    ) {
+                        return true
+                    }
+                }
+            } else if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+                // For TET: dimensions without program/stage prefix belong to TET
+                // when the current data source is this TET
+                if (!programId && !programStageId) {
+                    // Check if current data source is this TET
+                    const currentDataSourceId = state.ui.dataSource?.id
+                    const currentDataSourceType = state.ui.dataSource?.type
+                    if (
+                        currentDataSourceType === 'TRACKED_ENTITY_TYPE' &&
+                        currentDataSourceId === dataSourceId
+                    ) {
+                        return true
+                    }
+                }
+            }
+
+            return false
+        })
+
+        if (idsToRemove.length > 0) {
+            dispatch(acRemoveUiLayoutDimensions(idsToRemove))
+            dispatch(acRemoveUiItems(idsToRemove))
+        }
+    }
