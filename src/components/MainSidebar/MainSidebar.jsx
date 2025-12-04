@@ -531,9 +531,12 @@ const MainSidebar = () => {
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
                             <>
-                                {/* Person Card - shown first */}
+                                {/* Tracked Entity Type Card - shown first */}
                                 <CardSection
-                                    label={i18n.t('Person')}
+                                    label={
+                                        dataSource?.trackedEntityType?.name ||
+                                        i18n.t('Tracked entity')
+                                    }
                                     onClick={() =>
                                         onCardClick(ACCESSORY_PANEL_TAB_PERSON)
                                     }

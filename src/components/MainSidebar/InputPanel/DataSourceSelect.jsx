@@ -38,7 +38,7 @@ const query = {
                 'id',
                 `${nameProp}~rename(name)`,
                 'programType',
-                'trackedEntityType[id]',
+                'trackedEntityType[id,displayName~rename(name)]',
                 'displayIncidentDate',
                 'displayEnrollmentDateLabel',
                 'displayIncidentDateLabel',
