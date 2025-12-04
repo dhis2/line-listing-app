@@ -21,6 +21,7 @@ import {
     ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS,
     ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE,
     ACCESSORY_PANEL_TAB_PERSON,
+    ACCESSORY_PANEL_TAB_EVENT,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
@@ -47,6 +48,7 @@ import {
 import { CARD_TYPE_PROGRAM_INDICATORS } from '../../modules/paginationConfig.js'
 import { usePaginationConfig } from '../PaginationConfigContext.jsx'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
+import { EventDimensionsPanel } from './ProgramDimensionsPanel/EventDimensionsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
 import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
 import { PersonDimensionsPanel } from './ProgramDimensionsPanel/PersonDimensionsPanel.jsx'
@@ -159,27 +161,28 @@ const MainSidebar = () => {
 
         if (hasDataSource) {
             if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
-                // Program cards based on view mode
-                if (viewMode === VIEW_MODE_BY_TYPE) {
-                    // Data type grouping cards
+                // Program cards based on program type and view mode
+                if (!isProgramWithRegistration) {
+                    // Programs without registration get a single Event card
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_EVENT)
+                } else if (viewMode === VIEW_MODE_BY_TYPE) {
+                    // Data type grouping cards for programs WITH registration
                     availableCardIds.push(ACCESSORY_PANEL_TAB_ORG_UNITS)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_PERIODS)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_STATUSES)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_DATA)
                 } else {
-                    // Program config view (enrollment/stages)
-                    if (isProgramWithRegistration) {
-                        // Person card first
-                        availableCardIds.push(ACCESSORY_PANEL_TAB_PERSON)
-                        availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
-                        dataSource.programStages.forEach((stage) => {
-                            availableCardIds.push(getStageCardId(stage.id))
-                        })
-                        if (hasProgramIndicators) {
-                            availableCardIds.push(
-                                ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
-                            )
-                        }
+                    // Program config view (enrollment/stages) for programs WITH registration
+                    // Person card first
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_PERSON)
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                    dataSource.programStages.forEach((stage) => {
+                        availableCardIds.push(getStageCardId(stage.id))
+                    })
+                    if (hasProgramIndicators) {
+                        availableCardIds.push(
+                            ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
+                        )
                     }
                 }
             } else {
@@ -242,9 +245,14 @@ const MainSidebar = () => {
             const cardsToExpand = []
 
             if (dataSourceType !== 'TRACKED_ENTITY_TYPE') {
-                // Expand cards based on view mode
-                if (viewMode === VIEW_MODE_BY_TYPE) {
-                    // Data type grouping cards
+                // Expand cards based on program type and view mode
+                if (!isProgramWithRegistration) {
+                    // Programs without registration get a single Event card
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_EVENT)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_EVENT)
+                    }
+                } else if (viewMode === VIEW_MODE_BY_TYPE) {
+                    // Data type grouping cards for programs WITH registration
                     if (
                         !expandedCards.includes(ACCESSORY_PANEL_TAB_ORG_UNITS)
                     ) {
@@ -259,7 +267,7 @@ const MainSidebar = () => {
                     if (!expandedCards.includes(ACCESSORY_PANEL_TAB_DATA)) {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_DATA)
                     }
-                } else if (isProgramWithRegistration) {
+                } else {
                     // Program config view (person/enrollment/stages)
                     // Expand Person card first
                     if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERSON)) {
@@ -415,9 +423,31 @@ const MainSidebar = () => {
                         </div>
                     )}
 
-                    {/* Program dimensions cards - show based on view mode */}
+                    {/* Event card for programs WITHOUT registration */}
                     {hasDataSource &&
                         dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                        !isProgramWithRegistration && (
+                            <CardSection
+                                label={i18n.t('Event')}
+                                onClick={() =>
+                                    onCardClick(ACCESSORY_PANEL_TAB_EVENT)
+                                }
+                                expanded={expandedCards.includes(
+                                    ACCESSORY_PANEL_TAB_EVENT
+                                )}
+                                dataTest="event-card"
+                            >
+                                <EventDimensionsPanel
+                                    program={dataSource}
+                                    searchTerm={unifiedSearchTerm}
+                                />
+                            </CardSection>
+                        )}
+
+                    {/* BY_TYPE view for programs WITH registration */}
+                    {hasDataSource &&
+                        dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                        isProgramWithRegistration &&
                         viewMode === VIEW_MODE_BY_TYPE && (
                             <>
                                 {/* Data type grouping: Show org units, periods, and data cards */}

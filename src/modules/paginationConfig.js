@@ -2,6 +2,7 @@
 export const CARD_TYPE_TRACKED_ENTITY = 'TRACKED_ENTITY'
 export const CARD_TYPE_ENROLLMENT = 'ENROLLMENT'
 export const CARD_TYPE_STAGE = 'STAGE'
+export const CARD_TYPE_EVENT = 'EVENT'
 export const CARD_TYPE_METADATA = 'METADATA'
 export const CARD_TYPE_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
 export const CARD_TYPE_OTHER = 'OTHER'
@@ -14,6 +15,7 @@ export const DEFAULT_PAGE_SIZES = {
     [CARD_TYPE_TRACKED_ENTITY]: 5,
     [CARD_TYPE_ENROLLMENT]: 10,
     [CARD_TYPE_STAGE]: 10,
+    [CARD_TYPE_EVENT]: 10,
     [CARD_TYPE_METADATA]: 10,
     [CARD_TYPE_PROGRAM_INDICATORS]: 10,
     [CARD_TYPE_OTHER]: 10,
@@ -24,6 +26,7 @@ export const CARD_TYPE_LABELS = {
     [CARD_TYPE_TRACKED_ENTITY]: 'Tracked Entity / Person',
     [CARD_TYPE_ENROLLMENT]: 'Enrollment',
     [CARD_TYPE_STAGE]: 'Stage',
+    [CARD_TYPE_EVENT]: 'Event',
     [CARD_TYPE_METADATA]: 'Metadata',
     [CARD_TYPE_PROGRAM_INDICATORS]: 'Program Indicators',
     [CARD_TYPE_OTHER]: 'Other',
