@@ -1,8 +1,10 @@
 import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { CARD_TYPE_PROGRAM_INDICATORS } from '../../../modules/paginationConfig.js'
 import { useDebounce } from '../../../modules/utils.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
@@ -16,6 +18,8 @@ const ProgramIndicatorsPanel = ({
     typeFilter = TYPE_FILTER_ALL,
 }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
+    const { getPageSize } = usePaginationConfig()
+    const pageSize = getPageSize(CARD_TYPE_PROGRAM_INDICATORS)
 
     // Get program indicators (data dimensions)
     const {
@@ -30,6 +34,7 @@ const ProgramIndicatorsPanel = ({
         program,
         searchTerm: debouncedSearchTerm,
         dimensionType: DIMENSION_TYPE_PROGRAM_INDICATOR,
+        pageSize,
     })
 
     // Don't render if program is not available

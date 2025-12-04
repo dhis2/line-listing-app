@@ -82,6 +82,7 @@ const resourceMap = {
 const createDimensionsQuery = ({
     inputType,
     page,
+    pageSize = 25,
     trackedEntityTypeId,
     programId,
     stageId,
@@ -90,7 +91,7 @@ const createDimensionsQuery = ({
     nameProp,
 }) => {
     const params = {
-        pageSize: 25,
+        pageSize,
         page,
         fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
@@ -267,6 +268,7 @@ const useProgramDataDimensions = ({
     stageId,
     searchTerm,
     dimensionType,
+    pageSize = 25,
 }) => {
     const { currentUser } = useCachedDataQuery()
     const deDimensionsMapRef = useRef(new Map())
@@ -351,6 +353,7 @@ const useProgramDataDimensions = ({
                         stageQueries[`stage${index}`] = createDimensionsQuery({
                             inputType,
                             page,
+                            pageSize,
                             trackedEntityTypeId,
                             programId,
                             stageId: stage.id,
@@ -429,6 +432,7 @@ const useProgramDataDimensions = ({
                     const query = createDimensionsQuery({
                         inputType,
                         page,
+                        pageSize,
                         trackedEntityTypeId,
                         programId,
                         stageId,
@@ -470,6 +474,7 @@ const useProgramDataDimensions = ({
             searchTerm,
             dimensionType,
             nameProp,
+            pageSize,
         ]
     )
 
@@ -483,6 +488,7 @@ const useProgramDataDimensions = ({
         searchTerm,
         dimensionType,
         nameProp,
+        pageSize,
     ])
 
     const loadMore = useCallback(() => {

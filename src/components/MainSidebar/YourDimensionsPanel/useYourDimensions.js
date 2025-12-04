@@ -8,7 +8,7 @@ const YOUR_DIMENSIONS_FILTER = 'dimensionType:eq:ORGANISATION_UNIT_GROUP_SET'
 const query = {
     dimensions: {
         resource: YOUR_DIMENSIONS_RESOURCE,
-        params: ({ page, searchTerm, nameProp }) => {
+        params: ({ page, pageSize = 25, searchTerm, nameProp }) => {
             const filters = [YOUR_DIMENSIONS_FILTER]
 
             if (searchTerm) {
@@ -16,7 +16,7 @@ const query = {
             }
 
             return {
-                pageSize: 25,
+                pageSize,
                 page,
                 fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
                 filter: filters,
@@ -26,7 +26,7 @@ const query = {
     },
 }
 
-const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
+const useYourDimensions = ({ visible, searchTerm, nameProp, pageSize = 25 }) => {
     const [dimensions, setDimensions] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
     const [hasMore, setHasMore] = useState(false)
@@ -40,14 +40,15 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
     useEffect(() => {
         // Delay initial fetch until component comes into view
         if (visible && !called) {
-            refetch({ page: 1, nameProp })
+            refetch({ page: 1, pageSize, nameProp })
         }
-    }, [visible, called])
+    }, [visible, called, pageSize])
 
     useEffect(() => {
         if (visible) {
             refetch({
                 page: 1,
+                pageSize,
                 searchTerm,
                 nameProp,
             })
@@ -55,7 +56,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
         // Reset when filter changes
         setDimensions(null)
         setCurrentPage(1)
-    }, [searchTerm, nameProp])
+    }, [searchTerm, nameProp, pageSize])
 
     useEffect(() => {
         if (data) {
@@ -75,6 +76,7 @@ const useYourDimensions = ({ visible, searchTerm, nameProp }) => {
         if (hasMore && !fetching) {
             refetch({
                 page: currentPage + 1,
+                pageSize,
                 searchTerm,
                 nameProp,
             })

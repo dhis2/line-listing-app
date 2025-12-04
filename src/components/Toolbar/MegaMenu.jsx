@@ -9,6 +9,7 @@ import { FlyoutMenu, MenuItem, Divider, Popper, Layer } from '@dhis2/ui'
 import React, { useCallback, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
+import PaginationSettingsModal from '../Dialogs/PaginationSettingsModal.jsx'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './ToolbarMenuDropdownTrigger.module.css'
 import { tSetCurrent } from '../../actions/current.js'
@@ -78,6 +79,7 @@ export const MegaMenu = ({ onFileMenuAction }) => {
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
     const id = useSelector(sGetCurrentId)
     const [menuOpen, setMenuOpen] = useState(false)
+    const [paginationModalOpen, setPaginationModalOpen] = useState(false)
     const anchorRef = useRef(null)
 
     const { show: showAlert } = useAlert(
@@ -372,9 +374,22 @@ export const MegaMenu = ({ onFileMenuAction }) => {
                                     setMenuOpen(false)
                                 }}
                             />
+                            <Divider />
+                            <MenuItem
+                                label={i18n.t('Set pagination numbers (Debug)')}
+                                onClick={() => {
+                                    setPaginationModalOpen(true)
+                                    setMenuOpen(false)
+                                }}
+                            />
                         </FlyoutMenu>
                     </Popper>
                 </Layer>
+            )}
+            {paginationModalOpen && (
+                <PaginationSettingsModal
+                    onClose={() => setPaginationModalOpen(false)}
+                />
             )}
         </>
     )

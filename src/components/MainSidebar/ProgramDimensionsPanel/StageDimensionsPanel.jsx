@@ -13,9 +13,11 @@ import {
     DIMENSION_ID_EVENT_STATUS,
 } from '../../../modules/dimensionConstants.js'
 import { formatDimensionId } from '../../../modules/dimensionId.js'
+import { CARD_TYPE_STAGE } from '../../../modules/paginationConfig.js'
 import { OUTPUT_TYPE_EVENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { acAddMetadata } from '../../../actions/metadata.js'
+import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
@@ -62,6 +64,8 @@ const StageDimensionsPanel = ({
 }) => {
     const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(searchTerm || '')
+    const { getPageSize } = usePaginationConfig()
+    const pageSize = getPageSize(CARD_TYPE_STAGE)
 
     // Get stage-specific dimensions from metadata
     // NOTE: Backend doesn't support stage-specific org units, so we create mock dimensions
@@ -208,6 +212,7 @@ const StageDimensionsPanel = ({
         stageId: stage?.id,
         searchTerm: debouncedSearchTerm,
         dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
+        pageSize,
     })
 
     // Build stage-specific dimensions list (org unit, periods, status)

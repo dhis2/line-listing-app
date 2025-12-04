@@ -10,7 +10,9 @@ import {
     DIMENSION_ID_REGISTRATION_OU,
     DIMENSION_ID_REGISTRATION_DATE,
 } from '../../../modules/dimensionConstants.js'
+import { CARD_TYPE_TRACKED_ENTITY } from '../../../modules/paginationConfig.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
@@ -46,6 +48,8 @@ const PersonDimensionsPanel = ({
     typeFilter = TYPE_FILTER_ALL,
 }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
+    const { getPageSize } = usePaginationConfig()
+    const pageSize = getPageSize(CARD_TYPE_TRACKED_ENTITY)
 
     // Get program attributes (data dimensions)
     const {
@@ -60,6 +64,7 @@ const PersonDimensionsPanel = ({
         program,
         searchTerm: debouncedSearchTerm,
         dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+        pageSize,
     })
 
     // Create fixed registration dimensions to show first

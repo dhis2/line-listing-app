@@ -44,6 +44,8 @@ import {
     StatusesPanel,
     DataPanel,
 } from './DataTypeGrouping/index.js'
+import { CARD_TYPE_PROGRAM_INDICATORS } from '../../modules/paginationConfig.js'
+import { usePaginationConfig } from '../PaginationConfigContext.jsx'
 import { EnrollmentDimensionsPanel } from './ProgramDimensionsPanel/EnrollmentDimensionsPanel.jsx'
 import { StageDimensionsPanel } from './ProgramDimensionsPanel/StageDimensionsPanel.jsx'
 import { ProgramIndicatorsPanel } from './ProgramDimensionsPanel/ProgramIndicatorsPanel.jsx'
@@ -88,6 +90,10 @@ const MainSidebar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const cardsContainerRef = React.useRef(null)
 
+    // Pagination config
+    const { getPageSize } = usePaginationConfig()
+    const programIndicatorsPageSize = getPageSize(CARD_TYPE_PROGRAM_INDICATORS)
+
     // Data source state
     const dataSourceType = useSelector(sGetUiDataSourceType)
     const dataSourceId = useSelector(sGetUiDataSourceId)
@@ -120,6 +126,7 @@ const MainSidebar = () => {
             program: dataSource,
             searchTerm: debouncedSearchTerm,
             dimensionType: DIMENSION_TYPE_PROGRAM_INDICATOR,
+            pageSize: programIndicatorsPageSize,
         })
 
     // Check if there are any program indicators
