@@ -60,39 +60,37 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacers-dp8);
-    padding: var(--spacers-dp12) var(--spacers-dp12) var(--spacers-dp16);
+    padding: 20px var(--spacers-dp12) var(--spacers-dp16);
 }
 
 .recentHeader {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--colors-grey700);
-    padding: 0 var(--spacers-dp4);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--colors-grey600);
+    margin: 0;
 }
 
 .recentButtons {
     display: flex;
     flex-direction: column;
-    gap: var(--spacers-dp4);
+    gap: 0;
 }
 
 .recentButton {
-    background: var(--colors-grey100);
-    border: 1px solid var(--colors-grey300);
-    border-radius: 4px;
-    padding: var(--spacers-dp8) var(--spacers-dp12);
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
     font-size: 13px;
     font-weight: 400;
-    color: var(--colors-grey900);
+    color: var(--colors-grey700);
     text-align: left;
     cursor: pointer;
-    transition: all 0.15s ease-in-out;
+    margin: 0 0 0 -4px;
 }
 
 .recentButton:hover {
-    background: var(--colors-grey200);
+    background: var(--colors-grey300);
     border-color: var(--colors-grey400);
 }
 

@@ -366,62 +366,62 @@ const MainSidebar = () => {
 
                 <div ref={cardsContainerRef} className={styles.cardsContainer}>
                     {/* Show placeholder when no data source is selected */}
-                    {!hasDataSource && (
-                        <div className={styles.placeholderCardsWrapper}>
-                            <div
-                                className={styles.placeholderCard}
-                                data-test="placeholder-card-1"
-                            >
-                                <div>
-                                    <svg
-                                        width="32"
-                                        height="32"
-                                        viewBox="0 0 32 32"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <g clipPath="url(#clip0_2936_26231)">
-                                            <path
-                                                d="M27 29H13C11.9 29 11 28.1 11 27V23H13V27H27V13H23V11H27C28.1 11 29 11.9 29 13V27C29 28.1 28.1 29 27 29Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 19H11V21H21V19Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 15H11V17H21V15Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M21 11H11V13H21V11Z"
-                                                fill="#A0ADBA"
-                                            />
-                                            <path
-                                                d="M5 3H19C20.1 3 21 3.9 21 5V9H19V5H5V19H9V21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3Z"
-                                                fill="#A0ADBA"
-                                            />
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_2936_26231">
-                                                <rect
-                                                    width="32"
-                                                    height="32"
-                                                    fill="white"
-                                                />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
+                    {/* {!hasDataSource && (
+                        // <div className={styles.placeholderCardsWrapper}>
+                        //     <div
+                        //         className={styles.placeholderCard}
+                        //         data-test="placeholder-card-1"
+                        //     >
+                        //         <div>
+                        //             <svg
+                        //                 width="32"
+                        //                 height="32"
+                        //                 viewBox="0 0 32 32"
+                        //                 fill="none"
+                        //                 xmlns="http://www.w3.org/2000/svg"
+                        //             >
+                        //                 <g clipPath="url(#clip0_2936_26231)">
+                        //                     <path
+                        //                         d="M27 29H13C11.9 29 11 28.1 11 27V23H13V27H27V13H23V11H27C28.1 11 29 11.9 29 13V27C29 28.1 28.1 29 27 29Z"
+                        //                         fill="#A0ADBA"
+                        //                     />
+                        //                     <path
+                        //                         d="M21 19H11V21H21V19Z"
+                        //                         fill="#A0ADBA"
+                        //                     />
+                        //                     <path
+                        //                         d="M21 15H11V17H21V15Z"
+                        //                         fill="#A0ADBA"
+                        //                     />
+                        //                     <path
+                        //                         d="M21 11H11V13H21V11Z"
+                        //                         fill="#A0ADBA"
+                        //                     />
+                        //                     <path
+                        //                         d="M5 3H19C20.1 3 21 3.9 21 5V9H19V5H5V19H9V21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3Z"
+                        //                         fill="#A0ADBA"
+                        //                     />
+                        //                 </g>
+                        //                 <defs>
+                        //                     <clipPath id="clip0_2936_26231">
+                        //                         <rect
+                        //                             width="32"
+                        //                             height="32"
+                        //                             fill="white"
+                        //                         />
+                        //                     </clipPath>
+                        //                 </defs>
+                        //             </svg>
 
-                                    <p>
-                                        {i18n.t(
-                                            'Choose a data source to see available dimensions'
-                                        )}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                        //             <p>
+                        //                 {i18n.t(
+                        //                     'Choose a data source to see available dimensions'
+                        //                 )}
+                        //             </p>
+                        //         </div>
+                        //     </div>
+                        // </div>
+                    )} */}
 
                     {/* Event card for programs WITHOUT registration */}
                     {hasDataSource &&
