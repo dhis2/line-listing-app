@@ -57,9 +57,10 @@ describe('period dimension', { testIsolation: false }, () => {
             'selected'
         )
 
-        cy.getBySelLike(
-            'period-dimension-relative-period-filter-content'
-        ).should('contain', 'Months')
+        cy.getBySelLike('period-dimension-relative-period-filter').should(
+            'contain',
+            'Months'
+        )
     })
     it('a relative period can be added', () => {
         cy.getBySelLike('period-dimension-transfer-sourceoptions')
