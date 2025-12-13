@@ -727,7 +727,7 @@ msgid "Totals"
 msgstr "कुल"
 
 msgid "Data"
-msgstr ""
+msgstr "डेटा"
 
 msgid "Limit values"
 msgstr ""
