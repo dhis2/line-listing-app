@@ -68,7 +68,7 @@ export const InputPanel = ({ visible }) => {
                         />
                     </div>
                 </div>
-                {!hasDataSource && (
+                {/* {!hasDataSource && (
                     <div className={styles.recentSection}>
                         <div className={styles.recentHeader}>
                             {i18n.t('Recently used data sources')}
@@ -87,7 +87,7 @@ export const InputPanel = ({ visible }) => {
                             ))}
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     )
