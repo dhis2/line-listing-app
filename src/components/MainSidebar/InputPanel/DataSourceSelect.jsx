@@ -190,45 +190,6 @@ export const DataSourceSelect = ({
     // Get dimension counts per data source
     const dimensionCounts = useDimensionCountsByDataSource(programs)
 
-    // Separate data sources into "used in visualization" and regular sections
-    const { usedDataSources, remainingPrograms, remainingTets } =
-        useMemo(() => {
-            const used = []
-            const remPrograms = []
-            const remTets = []
-
-            // Check programs
-            programs.forEach((program) => {
-                if (dimensionCounts[program.id]) {
-                    used.push({
-                        ...program,
-                        type: 'PROGRAM',
-                        count: dimensionCounts[program.id],
-                    })
-                } else {
-                    remPrograms.push(program)
-                }
-            })
-
-            // Check tracked entity types
-            trackedEntityTypes.forEach((tet) => {
-                if (dimensionCounts[tet.id]) {
-                    used.push({
-                        ...tet,
-                        type: 'TRACKED_ENTITY_TYPE',
-                        count: dimensionCounts[tet.id],
-                    })
-                } else {
-                    remTets.push(tet)
-                }
-            })
-
-            return {
-                usedDataSources: used,
-                remainingPrograms: remPrograms,
-                remainingTets: remTets,
-            }
-        }, [programs, trackedEntityTypes, dimensionCounts])
 
     const handleSelect = (selectedId) => {
         if (!selectedId || selectedId.startsWith('header-')) {
@@ -322,39 +283,8 @@ export const DataSourceSelect = ({
     const renderOptions = () => {
         const options = []
 
-        // Section 1: Used in this visualization (only if there are any)
-        if (usedDataSources.length > 0) {
-            options.push(
-                <SingleSelectOption
-                    key="header-used"
-                    label={<SectionHeader label={i18n.t('Used in this visualization')} />}
-                    value="header-used"
-                    disabled
-                />
-            )
-            usedDataSources.forEach(({ id, name, type, count }) => {
-                const value =
-                    type === 'PROGRAM' ? `program-${id}` : `tet-${id}`
-                options.push(
-                    <SingleSelectOption
-                        key={value}
-                        label={
-                            <OptionLabelWithBadge
-                                name={name}
-                                count={count}
-                                onRemove={() =>
-                                    handleRemoveDataSourceDimensions(type, id)
-                                }
-                            />
-                        }
-                        value={value}
-                    />
-                )
-            })
-        }
-
-        // Section 2: Programs (only remaining ones not in "used")
-        if (remainingPrograms.length > 0) {
+        // Section 1: Programs
+        if (programs.length > 0) {
             options.push(
                 <SingleSelectOption
                     key="header-programs"
@@ -363,19 +293,32 @@ export const DataSourceSelect = ({
                     disabled
                 />
             )
-            remainingPrograms.forEach(({ id, name }) => {
+            programs.forEach(({ id, name }) => {
+                const count = dimensionCounts[id] || 0
                 options.push(
                     <SingleSelectOption
                         key={`program-${id}`}
-                        label={name}
+                        label={
+                            count > 0 ? (
+                                <OptionLabelWithBadge
+                                    name={name}
+                                    count={count}
+                                    onRemove={() =>
+                                        handleRemoveDataSourceDimensions('PROGRAM', id)
+                                    }
+                                />
+                            ) : (
+                                name
+                            )
+                        }
                         value={`program-${id}`}
                     />
                 )
             })
         }
 
-        // Section 3: Tracked entity types (only remaining ones not in "used")
-        if (remainingTets.length > 0) {
+        // Section 2: Tracked entity types
+        if (trackedEntityTypes.length > 0) {
             options.push(
                 <SingleSelectOption
                     key="header-tet"
@@ -384,11 +327,24 @@ export const DataSourceSelect = ({
                     disabled
                 />
             )
-            remainingTets.forEach(({ id, name }) => {
+            trackedEntityTypes.forEach(({ id, name }) => {
+                const count = dimensionCounts[id] || 0
                 options.push(
                     <SingleSelectOption
                         key={`tet-${id}`}
-                        label={name}
+                        label={
+                            count > 0 ? (
+                                <OptionLabelWithBadge
+                                    name={name}
+                                    count={count}
+                                    onRemove={() =>
+                                        handleRemoveDataSourceDimensions('TRACKED_ENTITY_TYPE', id)
+                                    }
+                                />
+                            ) : (
+                                name
+                            )
+                        }
                         value={`tet-${id}`}
                     />
                 )
