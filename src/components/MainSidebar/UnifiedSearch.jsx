@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import {
     IconSearch16,
+    IconFilter16,
     Input,
     IconChevronDown16,
     IconCross16,
@@ -176,10 +177,10 @@ const UnifiedSearch = ({
                                 data-test="type-filter-button"
                                 title={i18n.t('Filter by type')}
                             >
+                                <IconFilter16 />
                                 <span className={styles.filterButtonText}>
                                     {i18n.t('Filter')}
                                 </span>
-                                <IconChevronDown16 />
                             </button>
                         ) : (
                             /* Filter applied - show chip */
@@ -193,6 +194,7 @@ const UnifiedSearch = ({
                                     onClick={handleTypeFilterMenuToggle}
                                     title={i18n.t('Change filter')}
                                 >
+                                    <IconFilter16 />
                                     {getTypeFilterLabel(typeFilter)}
                                 </button>
                                 <button
@@ -220,7 +222,9 @@ const UnifiedSearch = ({
                                         <MenuItem
                                             label={i18n.t('Org units')}
                                             onClick={() =>
-                                                handleTypeFilterSelect('ORG_UNITS')
+                                                handleTypeFilterSelect(
+                                                    'ORG_UNITS'
+                                                )
                                             }
                                             active={typeFilter === 'ORG_UNITS'}
                                             dataTest="type-filter-org-units"
@@ -228,7 +232,9 @@ const UnifiedSearch = ({
                                         <MenuItem
                                             label={i18n.t('Periods')}
                                             onClick={() =>
-                                                handleTypeFilterSelect('PERIODS')
+                                                handleTypeFilterSelect(
+                                                    'PERIODS'
+                                                )
                                             }
                                             active={typeFilter === 'PERIODS'}
                                             dataTest="type-filter-periods"
@@ -236,7 +242,9 @@ const UnifiedSearch = ({
                                         <MenuItem
                                             label={i18n.t('Statuses')}
                                             onClick={() =>
-                                                handleTypeFilterSelect('STATUSES')
+                                                handleTypeFilterSelect(
+                                                    'STATUSES'
+                                                )
                                             }
                                             active={typeFilter === 'STATUSES'}
                                             dataTest="type-filter-statuses"
@@ -248,7 +256,9 @@ const UnifiedSearch = ({
                                                     'DATA_ELEMENTS'
                                                 )
                                             }
-                                            active={typeFilter === 'DATA_ELEMENTS'}
+                                            active={
+                                                typeFilter === 'DATA_ELEMENTS'
+                                            }
                                             dataTest="type-filter-data-elements"
                                         />
                                         <MenuItem
@@ -259,7 +269,8 @@ const UnifiedSearch = ({
                                                 )
                                             }
                                             active={
-                                                typeFilter === 'PROGRAM_ATTRIBUTES'
+                                                typeFilter ===
+                                                'PROGRAM_ATTRIBUTES'
                                             }
                                             dataTest="type-filter-program-attributes"
                                         />
@@ -271,14 +282,17 @@ const UnifiedSearch = ({
                                                 )
                                             }
                                             active={
-                                                typeFilter === 'PROGRAM_INDICATORS'
+                                                typeFilter ===
+                                                'PROGRAM_INDICATORS'
                                             }
                                             dataTest="type-filter-program-indicators"
                                         />
                                         <MenuItem
                                             label={i18n.t('Categories')}
                                             onClick={() =>
-                                                handleTypeFilterSelect('CATEGORIES')
+                                                handleTypeFilterSelect(
+                                                    'CATEGORIES'
+                                                )
                                             }
                                             active={typeFilter === 'CATEGORIES'}
                                             dataTest="type-filter-categories"

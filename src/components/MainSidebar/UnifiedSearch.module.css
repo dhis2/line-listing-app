@@ -76,14 +76,14 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    padding: 6px 2px 6px 6px;
-    border: 1px solid var(--colors-grey400);
+    padding: 6px 6px 6px 4px;
+    border: 1px dashed var(--colors-grey400);
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
     font-size: 13px;
     font-weight: 400;
-    color: var(--colors-grey700);
+    color: var(--colors-grey600);
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -121,7 +121,10 @@
 }
 
 .filterChipLabel {
-    padding: 4px 6px 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 6px 4px 4px;
     height: 28px;
     border: none;
     background: none;
