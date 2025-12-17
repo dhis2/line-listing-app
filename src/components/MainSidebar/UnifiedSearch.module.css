@@ -17,9 +17,9 @@
     align-items: center;
 }
 
-/* Allow search input wrapper to shrink */
+/* Search input takes remaining space after other elements are sized */
 .searchRow > div:first-child {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     min-width: 80px;
 }
 
@@ -116,8 +116,10 @@
     box-shadow: 0 1px 3px rgba(12, 12, 12, 0.09);
     border-radius: 4px;
     background-color: var(--colors-white);
-    flex-shrink: 0;
     overflow: hidden;
+    min-width: 0;
+    flex-shrink: 0;
+    max-width: 50%;
 }
 
 .filterChipLabel {
@@ -135,6 +137,17 @@
     white-space: nowrap;
     line-height: 1;
     transition: background-color 150ms ease;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.filterChipLabel svg {
+    flex-shrink: 0;
+}
+
+.filterChipLabelText {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .filterChipLabel:hover {
@@ -153,6 +166,7 @@
     cursor: pointer;
     color: var(--colors-grey600);
     transition: background-color 150ms ease, color 150ms ease;
+    flex-shrink: 0;
 }
 
 .filterChipClear:hover {

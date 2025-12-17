@@ -195,7 +195,11 @@ const UnifiedSearch = ({
                                     title={i18n.t('Change filter')}
                                 >
                                     <IconFilter16 />
-                                    {getTypeFilterLabel(typeFilter)}
+                                    <span
+                                        className={styles.filterChipLabelText}
+                                    >
+                                        {getTypeFilterLabel(typeFilter)}
+                                    </span>
                                 </button>
                                 <button
                                     className={styles.filterChipClear}
