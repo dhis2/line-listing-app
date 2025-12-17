@@ -19,14 +19,14 @@ import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 import { useDebounce } from '../../../modules/utils.js'
 
 // Type filter constants (must match MainSidebar)
-const TYPE_FILTER_ALL = 'ALL'
 const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
 const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
 
 // Helper function to check if a dimension matches the type filter
 const matchesTypeFilter = (dimension, typeFilter) => {
-    if (typeFilter === TYPE_FILTER_ALL) return true
+    // If no filter selected, show all
+    if (!typeFilter) return true
 
     const dimensionType = dimension.dimensionType
 
@@ -45,7 +45,7 @@ const matchesTypeFilter = (dimension, typeFilter) => {
 const PersonDimensionsPanel = ({
     program,
     searchTerm,
-    typeFilter = TYPE_FILTER_ALL,
+    typeFilter = null,
 }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
     const { getPageSize } = usePaginationConfig()

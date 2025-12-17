@@ -17,6 +17,12 @@
     align-items: center;
 }
 
+/* Allow search input wrapper to shrink */
+.searchRow > div:first-child {
+    flex: 1 1 auto;
+    min-width: 80px;
+}
+
 .ghostButton {
     width: 24px;
     height: 24px;
@@ -30,6 +36,7 @@
     transition: background-color 150ms ease;
     color: var(--colors-grey600);
     position: relative;
+    flex-shrink: 0;
 }
 .ghostButton svg {
     width: 16px !important;
@@ -64,13 +71,93 @@
     color: var(--colors-grey600) !important;
 }
 
-.activeIndicator {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 6px;
-    height: 6px;
-    background-color: var(--colors-blue600);
-    border-radius: 50%;
-    pointer-events: none;
+/* Filter dropdown button (no filter applied state) */
+.filterDropdownButton {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 2px 6px 6px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colors-grey700);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.filterDropdownButton:hover {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+}
+
+.filterDropdownButton:active {
+    background-color: var(--colors-grey200);
+}
+
+.filterDropdownButton svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--colors-grey600);
+}
+
+.filterButtonText {
+    line-height: 1;
+}
+
+/* Filter chip (filter applied state) */
+.filterChip {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--colors-grey500);
+    box-shadow: 0 1px 3px rgba(12, 12, 12, 0.09);
+    border-radius: 4px;
+    background-color: var(--colors-white);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.filterChipLabel {
+    padding: 4px 6px 4px 6px;
+    height: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colors-grey900);
+    white-space: nowrap;
+    line-height: 1;
+    transition: background-color 150ms ease;
+}
+
+.filterChipLabel:hover {
+    background-color: var(--colors-grey100);
+}
+
+.filterChipClear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 4px;
+    border: none;
+    height: 28px;
+    border-left: 1px solid var(--colors-grey300);
+    background: none;
+    cursor: pointer;
+    color: var(--colors-grey600);
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.filterChipClear:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+}
+
+.filterChipClear svg {
+    width: 16px;
+    height: 16px;
 }

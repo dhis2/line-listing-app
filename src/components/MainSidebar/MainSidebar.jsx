@@ -88,7 +88,7 @@ const MainSidebar = () => {
         useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
     const [viewMode, setViewMode] = useState(VIEW_MODE_PROGRAM_CONFIG)
-    const [typeFilter, setTypeFilter] = useState(TYPE_FILTER_ALL)
+    const [typeFilter, setTypeFilter] = useState(null)
     const [isScrolled, setIsScrolled] = useState(false)
     const cardsContainerRef = React.useRef(null)
 
@@ -347,7 +347,7 @@ const MainSidebar = () => {
                         viewMode={viewMode}
                         onViewModeChange={(mode) => {
                             setViewMode(mode)
-                            setTypeFilter(TYPE_FILTER_ALL)
+                            setTypeFilter(null)
                         }}
                         typeFilter={typeFilter}
                         onTypeFilterChange={setTypeFilter}

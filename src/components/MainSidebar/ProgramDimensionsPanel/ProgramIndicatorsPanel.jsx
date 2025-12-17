@@ -9,13 +9,12 @@ import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
 // Type filter constants (must match MainSidebar)
-const TYPE_FILTER_ALL = 'ALL'
 const TYPE_FILTER_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
 
 const ProgramIndicatorsPanel = ({
     program,
     searchTerm,
-    typeFilter = TYPE_FILTER_ALL,
+    typeFilter = null,
 }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
     const { getPageSize } = usePaginationConfig()
@@ -47,11 +46,8 @@ const ProgramIndicatorsPanel = ({
         return null
     }
 
-    // Don't render if type filter doesn't match program indicators
-    if (
-        typeFilter !== TYPE_FILTER_ALL &&
-        typeFilter !== TYPE_FILTER_PROGRAM_INDICATORS
-    ) {
+    // Don't render if type filter is active and doesn't match program indicators
+    if (typeFilter && typeFilter !== TYPE_FILTER_PROGRAM_INDICATORS) {
         return null
     }
 

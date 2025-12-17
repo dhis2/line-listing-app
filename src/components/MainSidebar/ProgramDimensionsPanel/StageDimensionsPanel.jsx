@@ -24,7 +24,6 @@ import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 import { useDebounce } from '../../../modules/utils.js'
 
 // Type filter constants (must match MainSidebar)
-const TYPE_FILTER_ALL = 'ALL'
 const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
 const TYPE_FILTER_STATUSES = 'STATUSES'
@@ -34,7 +33,8 @@ const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
 
 // Helper function to check if a dimension matches the type filter
 const matchesTypeFilter = (dimension, typeFilter) => {
-    if (typeFilter === TYPE_FILTER_ALL) return true
+    // If no filter selected, show all
+    if (!typeFilter) return true
 
     const dimensionType = dimension.dimensionType
 
@@ -60,7 +60,7 @@ const StageDimensionsPanel = ({
     program,
     stage,
     searchTerm,
-    typeFilter = TYPE_FILTER_ALL,
+    typeFilter = null,
 }) => {
     const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(searchTerm || '')

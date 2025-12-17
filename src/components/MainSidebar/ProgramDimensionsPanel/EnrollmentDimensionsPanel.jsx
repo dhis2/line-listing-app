@@ -13,14 +13,14 @@ import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { DimensionsList } from '../DimensionsList/index.js'
 
 // Type filter constants (must match MainSidebar)
-const TYPE_FILTER_ALL = 'ALL'
 const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
 const TYPE_FILTER_STATUSES = 'STATUSES'
 
 // Helper function to check if a dimension matches the type filter
 const matchesTypeFilter = (dimension, typeFilter) => {
-    if (typeFilter === TYPE_FILTER_ALL) return true
+    // If no filter selected, show all
+    if (!typeFilter) return true
 
     const dimensionType = dimension.dimensionType
 
@@ -39,7 +39,7 @@ const matchesTypeFilter = (dimension, typeFilter) => {
 const EnrollmentDimensionsPanel = ({
     program,
     searchTerm,
-    typeFilter = TYPE_FILTER_ALL,
+    typeFilter = null,
 }) => {
     // Get enrollment-specific dimensions from metadata
     const enrollmentOrgUnitId = program?.id
