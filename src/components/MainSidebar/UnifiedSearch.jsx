@@ -152,245 +152,271 @@ const UnifiedSearch = ({
             }`}
         >
             <div className={styles.searchRow}>
-                <Input
-                    value={searchTerm}
-                    onChange={({ value }) => setSearchTerm(value)}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    dense
-                    prefixIcon={<IconSearch16 />}
-                    placeholder={i18n.t('Search')}
-                    type="search"
-                    dataTest="unified-search-input"
-                    className={isActive ? styles.active : styles.inactive}
-                />
+                <div className={styles.searchAndFilter}>
+                    <Input
+                        value={searchTerm}
+                        onChange={({ value }) => setSearchTerm(value)}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        dense
+                        prefixIcon={<IconSearch16 />}
+                        placeholder={i18n.t('Search')}
+                        type="search"
+                        dataTest="unified-search-input"
+                        className={isActive ? styles.active : styles.inactive}
+                    />
 
-                {/* Type filter: dropdown button or applied filter chip */}
-                {showTypeFilter && (
-                    <>
-                        {!hasFilter ? (
-                            /* No filter applied - show dropdown button */
-                            <button
-                                ref={typeFilterButtonRef}
-                                className={styles.filterDropdownButton}
-                                onClick={handleTypeFilterMenuToggle}
-                                data-test="type-filter-button"
-                                title={i18n.t('Filter by type')}
-                            >
-                                <IconFilter16 />
-                                <span className={styles.filterButtonText}>
-                                    {i18n.t('Filter')}
-                                </span>
-                            </button>
-                        ) : (
-                            /* Filter applied - show chip */
-                            <div
-                                ref={typeFilterButtonRef}
-                                className={styles.filterChip}
-                                data-test="type-filter-chip"
-                            >
+                    {/* Type filter: dropdown button or applied filter chip */}
+                    {showTypeFilter && (
+                        <>
+                            {!hasFilter ? (
+                                /* No filter applied - show dropdown button */
                                 <button
-                                    className={styles.filterChipLabel}
+                                    ref={typeFilterButtonRef}
+                                    className={styles.filterDropdownButton}
                                     onClick={handleTypeFilterMenuToggle}
-                                    title={i18n.t('Change filter')}
+                                    data-test="type-filter-button"
+                                    title={i18n.t('Filter by type')}
                                 >
                                     <IconFilter16 />
-                                    <span
-                                        className={styles.filterChipLabelText}
-                                    >
-                                        {getTypeFilterLabel(typeFilter)}
+                                    <span className={styles.filterButtonText}>
+                                        {i18n.t('Filter')}
                                     </span>
                                 </button>
-                                <button
-                                    className={styles.filterChipClear}
-                                    onClick={handleClearFilter}
-                                    title={i18n.t('Clear filter')}
-                                    data-test="type-filter-clear"
+                            ) : (
+                                /* Filter applied - show chip */
+                                <div
+                                    ref={typeFilterButtonRef}
+                                    className={styles.filterChip}
+                                    data-test="type-filter-chip"
                                 >
-                                    <IconCross16 />
-                                </button>
-                            </div>
-                        )}
+                                    <button
+                                        className={styles.filterChipLabel}
+                                        onClick={handleTypeFilterMenuToggle}
+                                        title={i18n.t('Change filter')}
+                                    >
+                                        <IconFilter16 />
+                                        <span
+                                            className={
+                                                styles.filterChipLabelText
+                                            }
+                                        >
+                                            {getTypeFilterLabel(typeFilter)}
+                                        </span>
+                                    </button>
+                                    <button
+                                        className={styles.filterChipClear}
+                                        onClick={handleClearFilter}
+                                        title={i18n.t('Clear filter')}
+                                        data-test="type-filter-clear"
+                                    >
+                                        <IconCross16 />
+                                    </button>
+                                </div>
+                            )}
 
-                        {isTypeFilterMenuOpen && (
-                            <Layer
-                                onBackdropClick={() =>
-                                    setIsTypeFilterMenuOpen(false)
+                            {isTypeFilterMenuOpen && (
+                                <Layer
+                                    onBackdropClick={() =>
+                                        setIsTypeFilterMenuOpen(false)
+                                    }
+                                >
+                                    <Popper
+                                        reference={typeFilterButtonRef.current}
+                                        placement="bottom-end"
+                                    >
+                                        <FlyoutMenu dense>
+                                            <MenuItem
+                                                label={i18n.t('Org units')}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'ORG_UNITS'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter === 'ORG_UNITS'
+                                                }
+                                                dataTest="type-filter-org-units"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t('Periods')}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'PERIODS'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter === 'PERIODS'
+                                                }
+                                                dataTest="type-filter-periods"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t('Statuses')}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'STATUSES'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter === 'STATUSES'
+                                                }
+                                                dataTest="type-filter-statuses"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t('Data elements')}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'DATA_ELEMENTS'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter ===
+                                                    'DATA_ELEMENTS'
+                                                }
+                                                dataTest="type-filter-data-elements"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t(
+                                                    'Program attributes'
+                                                )}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'PROGRAM_ATTRIBUTES'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter ===
+                                                    'PROGRAM_ATTRIBUTES'
+                                                }
+                                                dataTest="type-filter-program-attributes"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t(
+                                                    'Program indicators'
+                                                )}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'PROGRAM_INDICATORS'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter ===
+                                                    'PROGRAM_INDICATORS'
+                                                }
+                                                dataTest="type-filter-program-indicators"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t('Categories')}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'CATEGORIES'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter === 'CATEGORIES'
+                                                }
+                                                dataTest="type-filter-categories"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t(
+                                                    'Category option group sets'
+                                                )}
+                                                onClick={() =>
+                                                    handleTypeFilterSelect(
+                                                        'CATEGORY_OPTION_GROUP_SETS'
+                                                    )
+                                                }
+                                                active={
+                                                    typeFilter ===
+                                                    'CATEGORY_OPTION_GROUP_SETS'
+                                                }
+                                                dataTest="type-filter-category-option-group-sets"
+                                            />
+                                        </FlyoutMenu>
+                                    </Popper>
+                                </Layer>
+                            )}
+                        </>
+                    )}
+                </div>
+
+                <div className={styles.iconButtons}>
+                    {/* Mode toggle button */}
+                    {showModeToggle && (
+                        <>
+                            <button
+                                ref={modeButtonRef}
+                                className={styles.ghostButton}
+                                onClick={handleModeMenuToggle}
+                                data-test="mode-toggle-button"
+                                title={
+                                    viewMode === 'BY_TYPE'
+                                        ? i18n.t('Group by data type')
+                                        : i18n.t(
+                                              'Group by program configuration'
+                                          )
                                 }
                             >
-                                <Popper
-                                    reference={typeFilterButtonRef.current}
-                                    placement="bottom-end"
-                                >
-                                    <FlyoutMenu dense>
-                                        <MenuItem
-                                            label={i18n.t('Org units')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'ORG_UNITS'
-                                                )
-                                            }
-                                            active={typeFilter === 'ORG_UNITS'}
-                                            dataTest="type-filter-org-units"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Periods')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'PERIODS'
-                                                )
-                                            }
-                                            active={typeFilter === 'PERIODS'}
-                                            dataTest="type-filter-periods"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Statuses')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'STATUSES'
-                                                )
-                                            }
-                                            active={typeFilter === 'STATUSES'}
-                                            dataTest="type-filter-statuses"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Data elements')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'DATA_ELEMENTS'
-                                                )
-                                            }
-                                            active={
-                                                typeFilter === 'DATA_ELEMENTS'
-                                            }
-                                            dataTest="type-filter-data-elements"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Program attributes')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'PROGRAM_ATTRIBUTES'
-                                                )
-                                            }
-                                            active={
-                                                typeFilter ===
-                                                'PROGRAM_ATTRIBUTES'
-                                            }
-                                            dataTest="type-filter-program-attributes"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Program indicators')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'PROGRAM_INDICATORS'
-                                                )
-                                            }
-                                            active={
-                                                typeFilter ===
-                                                'PROGRAM_INDICATORS'
-                                            }
-                                            dataTest="type-filter-program-indicators"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t('Categories')}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'CATEGORIES'
-                                                )
-                                            }
-                                            active={typeFilter === 'CATEGORIES'}
-                                            dataTest="type-filter-categories"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t(
-                                                'Category option group sets'
-                                            )}
-                                            onClick={() =>
-                                                handleTypeFilterSelect(
-                                                    'CATEGORY_OPTION_GROUP_SETS'
-                                                )
-                                            }
-                                            active={
-                                                typeFilter ===
-                                                'CATEGORY_OPTION_GROUP_SETS'
-                                            }
-                                            dataTest="type-filter-category-option-group-sets"
-                                        />
-                                    </FlyoutMenu>
-                                </Popper>
-                            </Layer>
-                        )}
-                    </>
-                )}
+                                <ModeToggleIcon />
+                            </button>
 
-                {/* Mode toggle button */}
-                {showModeToggle && (
-                    <>
-                        <button
-                            ref={modeButtonRef}
-                            className={styles.ghostButton}
-                            onClick={handleModeMenuToggle}
-                            data-test="mode-toggle-button"
-                            title={
-                                viewMode === 'BY_TYPE'
-                                    ? i18n.t('Group by data type')
-                                    : i18n.t('Group by program configuration')
-                            }
-                        >
-                            <ModeToggleIcon />
-                        </button>
-
-                        {isModeMenuOpen && (
-                            <Layer
-                                onBackdropClick={() => setIsModeMenuOpen(false)}
-                            >
-                                <Popper
-                                    reference={modeButtonRef.current}
-                                    placement="bottom-end"
+                            {isModeMenuOpen && (
+                                <Layer
+                                    onBackdropClick={() =>
+                                        setIsModeMenuOpen(false)
+                                    }
                                 >
-                                    <FlyoutMenu dense>
-                                        <MenuItem
-                                            label={i18n.t('Group by data type')}
-                                            onClick={() =>
-                                                handleModeSelect('BY_TYPE')
-                                            }
-                                            active={viewMode === 'BY_TYPE'}
-                                            dataTest="mode-option-by-type"
-                                        />
-                                        <MenuItem
-                                            label={i18n.t(
-                                                'Group by program configuration'
-                                            )}
-                                            onClick={() =>
-                                                handleModeSelect(
+                                    <Popper
+                                        reference={modeButtonRef.current}
+                                        placement="bottom-end"
+                                    >
+                                        <FlyoutMenu dense>
+                                            <MenuItem
+                                                label={i18n.t(
+                                                    'Group by data type'
+                                                )}
+                                                onClick={() =>
+                                                    handleModeSelect('BY_TYPE')
+                                                }
+                                                active={viewMode === 'BY_TYPE'}
+                                                dataTest="mode-option-by-type"
+                                            />
+                                            <MenuItem
+                                                label={i18n.t(
+                                                    'Group by program configuration'
+                                                )}
+                                                onClick={() =>
+                                                    handleModeSelect(
+                                                        'PROGRAM_CONFIG'
+                                                    )
+                                                }
+                                                active={
+                                                    viewMode ===
                                                     'PROGRAM_CONFIG'
-                                                )
-                                            }
-                                            active={
-                                                viewMode === 'PROGRAM_CONFIG'
-                                            }
-                                            dataTest="mode-option-program-config"
-                                        />
-                                    </FlyoutMenu>
-                                </Popper>
-                            </Layer>
-                        )}
-                    </>
-                )}
+                                                }
+                                                dataTest="mode-option-program-config"
+                                            />
+                                        </FlyoutMenu>
+                                    </Popper>
+                                </Layer>
+                            )}
+                        </>
+                    )}
 
-                {/* Collapse/Expand all button */}
-                <button
-                    className={styles.ghostButton}
-                    onClick={onCollapseAll}
-                    data-test="collapse-all-cards-button"
-                    title={
-                        hasExpandedCards
-                            ? i18n.t('Collapse all cards')
-                            : i18n.t('Expand all cards')
-                    }
-                >
-                    {hasExpandedCards ? <CollapseIcon /> : <ExpandIcon />}
-                </button>
+                    {/* Collapse/Expand all button */}
+                    <button
+                        className={styles.ghostButton}
+                        onClick={onCollapseAll}
+                        data-test="collapse-all-cards-button"
+                        title={
+                            hasExpandedCards
+                                ? i18n.t('Collapse all cards')
+                                : i18n.t('Expand all cards')
+                        }
+                    >
+                        {hasExpandedCards ? <CollapseIcon /> : <ExpandIcon />}
+                    </button>
+                </div>
             </div>
         </div>
     )

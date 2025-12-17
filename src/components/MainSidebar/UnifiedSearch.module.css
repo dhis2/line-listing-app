@@ -13,14 +13,31 @@
 
 .searchRow {
     display: flex;
-    gap: var(--spacers-dp4);
+    gap: var(--spacers-dp8);
     align-items: center;
 }
 
-/* Search input takes remaining space after other elements are sized */
-.searchRow > div:first-child {
+/* Wrapper for search input and filter controls */
+.searchAndFilter {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Search input takes remaining space */
+.searchAndFilter > div:first-child {
     flex: 1 1 0;
     min-width: 80px;
+}
+
+/* Wrapper for icon buttons */
+.iconButtons {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .ghostButton {
@@ -60,8 +77,8 @@
 
 .searchRow input {
     font-size: 13px !important;
-    padding-block-start: 6px !important;
-    padding-block-end: 6px !important;
+    padding-block-start: 5px !important;
+    padding-block-end: 5px !important;
     padding-inline-end: var(--spacers-dp4) !important;
 }
 
@@ -76,10 +93,11 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    padding: 6px 6px 6px 4px;
-    border: 1px dashed var(--colors-grey400);
+    padding: 5px 6px 5px 4px;
+    border: 1px dashed #c8d1db;
     border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.6);
+
+    background-color: transparent;
     cursor: pointer;
     font-size: 13px;
     font-weight: 400;
@@ -117,6 +135,7 @@
     border-radius: 4px;
     background-color: var(--colors-white);
     overflow: hidden;
+    height: 28px;
     min-width: 0;
     flex-shrink: 0;
     max-width: 50%;
@@ -127,7 +146,7 @@
     align-items: center;
     gap: 4px;
     padding: 4px 6px 4px 4px;
-    height: 28px;
+    height: 26px;
     border: none;
     background: none;
     cursor: pointer;
