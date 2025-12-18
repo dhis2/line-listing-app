@@ -168,16 +168,31 @@ export const DEFAULT_UI = {
     conditions: DEFAULT_CONDITIONS,
 }
 
-const getPreselectedUi = (options) => {
-    const { digitGroupSeparator } = options
+const getPreselectedUi = (options, currentState) => {
+    const { digitGroupSeparator, preserveDataSource } = options
 
-    return {
+    const baseUi = {
         ...DEFAULT_UI,
         options: {
             ...DEFAULT_UI.options,
             digitGroupSeparator,
         },
     }
+
+    // Preserve data source related state when resetting
+    if (preserveDataSource && currentState) {
+        return {
+            ...baseUi,
+            dataSource: currentState.dataSource,
+            program: currentState.program,
+            entityType: currentState.entityType,
+            input: currentState.input,
+            output: currentState.output,
+            expandedCards: currentState.expandedCards,
+        }
+    }
+
+    return baseUi
 }
 
 export default (state = EMPTY_UI, action) => {
@@ -405,7 +420,7 @@ export default (state = EMPTY_UI, action) => {
             return { ...state, showExpandedLayoutPanel: action.value }
         }
         case CLEAR_UI: {
-            return getPreselectedUi(action.value)
+            return getPreselectedUi(action.value, state)
         }
         case SET_UI_ACTIVE_MODAL_DIALOG: {
             return {
