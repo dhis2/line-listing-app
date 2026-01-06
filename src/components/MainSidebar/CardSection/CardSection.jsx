@@ -1,4 +1,4 @@
-import { IconChevronDown16, IconChevronRight16, IconMore16 } from '@dhis2/ui'
+import { IconChevronDown16, IconChevronRight16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -61,13 +61,6 @@ const CardSection = ({
                 </div>
             )}
         </div>
-        {!expanded && !disabled && (
-            <div className={styles.moreRow}>
-                <div className={styles.moreIcon}>
-                    <IconMore16 />
-                </div>
-            </div>
-        )}
         {expanded && !disabled && (
             <div 
                 className={styles.content} 

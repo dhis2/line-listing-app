@@ -1,8 +1,9 @@
 .card {
     background-color: var(--colors-white);
-    border: 1px solid var(--colors-grey400);
-    border-radius: 5px;
+    /* border: 1px solid var(--colors-red400); */
+    /* border-radius: 5px; */
     cursor: pointer;
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
 .card:focus {
@@ -24,7 +25,18 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 6px 6px var(--spacers-dp8) 4px;
+    padding: 4px 6px var(--spacers-dp4) 2px;
+    background-color: var(--colors-grey100);
+    min-height: 29px;
+}
+
+.header.expanded {
+    margin-bottom: var(--spacers-dp4);
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.header:hover {
+    background-color: var(--colors-grey200);
 }
 
 .header.expanded:hover {
@@ -81,7 +93,7 @@
 
 .chevron {
     border-radius: 3px;
-    margin-right: var(--spacers-dp4);
+    margin-right: 0;
     display: flex;
     align-items: center;
     padding: 2px;
@@ -94,15 +106,6 @@
     background: var(--colors-grey200);
 }
 
-.moreIcon {
-    height: 16px;
-    min-width: 16px;
-    margin-left: var(--spacers-dp4);
-    display: flex;
-    align-items: center;
-    color: var(--colors-grey500);
-}
-
 .subtitle {
     font-size: 13px;
     color: var(--colors-grey700);
@@ -112,35 +115,16 @@
 }
 
 .content {
-    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp4);
+    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp16);
 }
 
 .card.empty .content {
     background-color: transparent;
 }
 
-.moreRow {
-    margin-top: -8px;
-    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card.empty .moreRow {
-    background-color: transparent;
-}
-
-.card .moreRow .moreIcon {
-    color: var(--colors-grey500);
-}
-.card:hover .moreRow .moreIcon {
-    color: var(--colors-grey900);
-}
-
 /* Nested card styles */
 .card.nested {
-    margin: var(--spacers-dp8) var(--spacers-dp4);
+    margin: 0 0 0 var(--spacers-dp8);
     background-color: var(--colors-white);
     border-color: var(--colors-grey300);
 }
@@ -154,11 +138,15 @@
     /* font-weight: 400; */
 }
 
-.card.nested .moreRow {
-    margin-top: -6px;
-    padding-bottom: 2px;
+.card.nested .content {
+    /* padding-bottom: var(--spacers-dp4); */
 }
 
-.card.nested .content {
-    padding-bottom: var(--spacers-dp4);
+/* Parent section containing nested cards - remove extra padding */
+.content:has(> .card.nested) {
+    padding: 0;
+}
+
+.card:has(.content > .card.nested) > .header.expanded {
+    margin-bottom: 0;
 }

@@ -564,7 +564,7 @@ const MainSidebar = () => {
 
                                 {/* Program Data Card - contains nested stage cards */}
                                 <CardSection
-                                    label={i18n.t('Program data')}
+                                    label={i18n.t('Event data')}
                                     onClick={() =>
                                         onCardClick(
                                             ACCESSORY_PANEL_TAB_PROGRAM_DATA
