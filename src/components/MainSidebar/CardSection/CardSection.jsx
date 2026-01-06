@@ -15,12 +15,14 @@ const CardSection = ({
     subtitle,
     children,
     isEmpty,
+    nested,
 }) => (
     <div
         className={cx(styles.card, {
             [styles.expanded]: expanded,
             [styles.disabled]: disabled,
             [styles.empty]: isEmpty,
+            [styles.nested]: nested,
         })}
         data-test={dataTest}
         onClick={!disabled ? onClick : null}
@@ -86,6 +88,7 @@ CardSection.propTypes = {
     expanded: PropTypes.bool,
     icon: PropTypes.node,
     label: PropTypes.string.isRequired,
+    nested: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     subtitle: PropTypes.string,
     isEmpty: PropTypes.bool,

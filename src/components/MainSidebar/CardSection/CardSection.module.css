@@ -137,3 +137,28 @@
 .card:hover .moreRow .moreIcon {
     color: var(--colors-grey900);
 }
+
+/* Nested card styles */
+.card.nested {
+    margin: var(--spacers-dp8) var(--spacers-dp4);
+    background-color: var(--colors-white);
+    border-color: var(--colors-grey300);
+}
+
+.card.nested .header {
+    padding: 4px 6px 6px 2px;
+}
+
+.card.nested .labelWrapper {
+    /* font-size: 12px; */
+    /* font-weight: 400; */
+}
+
+.card.nested .moreRow {
+    margin-top: -6px;
+    padding-bottom: 2px;
+}
+
+.card.nested .content {
+    padding-bottom: var(--spacers-dp4);
+}

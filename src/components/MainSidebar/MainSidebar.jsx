@@ -22,6 +22,7 @@ import {
     ACCESSORY_PANEL_TAB_PROGRAMS_USING_TYPE,
     ACCESSORY_PANEL_TAB_PERSON,
     ACCESSORY_PANEL_TAB_EVENT,
+    ACCESSORY_PANEL_TAB_PROGRAM_DATA,
     getStageCardId,
 } from '../../modules/accessoryPanelConstants.js'
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
@@ -172,13 +173,16 @@ const MainSidebar = () => {
                     availableCardIds.push(ACCESSORY_PANEL_TAB_STATUSES)
                     availableCardIds.push(ACCESSORY_PANEL_TAB_DATA)
                 } else {
-                    // Program config view (enrollment/stages) for programs WITH registration
-                    // Person card first
-                    availableCardIds.push(ACCESSORY_PANEL_TAB_PERSON)
+                    // Program config view: Enrollment, Program data (with nested stages), Person registration, Program Indicators
                     availableCardIds.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
+                    // Program data card (contains nested stage cards)
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_PROGRAM_DATA)
+                    // Stage cards (nested inside Program data but still tracked separately)
                     dataSource.programStages.forEach((stage) => {
                         availableCardIds.push(getStageCardId(stage.id))
                     })
+                    // Person registration card
+                    availableCardIds.push(ACCESSORY_PANEL_TAB_PERSON)
                     if (hasProgramIndicators) {
                         availableCardIds.push(
                             ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
@@ -268,23 +272,26 @@ const MainSidebar = () => {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_DATA)
                     }
                 } else {
-                    // Program config view (person/enrollment/stages)
-                    // Expand Person card first
-                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERSON)) {
-                        cardsToExpand.push(ACCESSORY_PANEL_TAB_PERSON)
-                    }
+                    // Program config view: Enrollment, Program data (with nested stages), Person registration
+                    // Expand Enrollment card
                     if (
                         !expandedCards.includes(ACCESSORY_PANEL_TAB_ENROLLMENT)
                     ) {
                         cardsToExpand.push(ACCESSORY_PANEL_TAB_ENROLLMENT)
                     }
-                    // Expand all stage cards
-                    dataSource.programStages.forEach((stage) => {
-                        const stageCardId = getStageCardId(stage.id)
-                        if (!expandedCards.includes(stageCardId)) {
-                            cardsToExpand.push(stageCardId)
-                        }
-                    })
+                    // Expand Program data card
+                    if (
+                        !expandedCards.includes(
+                            ACCESSORY_PANEL_TAB_PROGRAM_DATA
+                        )
+                    ) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_PROGRAM_DATA)
+                    }
+                    // Stage cards are NOT auto-expanded (collapsed by default inside Program data)
+                    // Expand Person registration card
+                    if (!expandedCards.includes(ACCESSORY_PANEL_TAB_PERSON)) {
+                        cardsToExpand.push(ACCESSORY_PANEL_TAB_PERSON)
+                    }
                     // Expand program indicators card if applicable
                     if (
                         hasProgramIndicators &&
@@ -525,34 +532,13 @@ const MainSidebar = () => {
                             </>
                         )}
 
-                    {/* Program config view: Show person + enrollment + stage cards */}
+                    {/* Program config view: Enrollment, Program data (with nested stages), Person registration, Program Indicators */}
                     {hasDataSource &&
                         dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
                             <>
-                                {/* Tracked Entity Type Card - shown first */}
-                                <CardSection
-                                    label={
-                                        dataSource?.trackedEntityType?.name ||
-                                        i18n.t('Tracked entity')
-                                    }
-                                    onClick={() =>
-                                        onCardClick(ACCESSORY_PANEL_TAB_PERSON)
-                                    }
-                                    expanded={expandedCards.includes(
-                                        ACCESSORY_PANEL_TAB_PERSON
-                                    )}
-                                    dataTest="person-card"
-                                >
-                                    <PersonDimensionsPanel
-                                        program={dataSource}
-                                        searchTerm={unifiedSearchTerm}
-                                        typeFilter={typeFilter}
-                                    />
-                                </CardSection>
-
-                                {/* Enrollment Card */}
+                                {/* Enrollment Card - contains enrollment dimensions and tracked entity attributes */}
                                 <CardSection
                                     label={
                                         dataSource?.name === 'Child Programme'
@@ -576,30 +562,75 @@ const MainSidebar = () => {
                                     />
                                 </CardSection>
 
-                                {/* Stage Cards - one per stage */}
-                                {dataSource.programStages.map((stage) => {
-                                    const stageCardId = getStageCardId(stage.id)
-                                    return (
-                                        <CardSection
-                                            key={stageCardId}
-                                            label={stage.name}
-                                            onClick={() =>
-                                                onCardClick(stageCardId)
-                                            }
-                                            expanded={expandedCards.includes(
-                                                stageCardId
-                                            )}
-                                            dataTest={`stage-${stage.id}-card`}
-                                        >
-                                            <StageDimensionsPanel
-                                                program={dataSource}
-                                                stage={stage}
-                                                searchTerm={unifiedSearchTerm}
-                                                typeFilter={typeFilter}
-                                            />
-                                        </CardSection>
-                                    )
-                                })}
+                                {/* Program Data Card - contains nested stage cards */}
+                                <CardSection
+                                    label={i18n.t('Program data')}
+                                    onClick={() =>
+                                        onCardClick(
+                                            ACCESSORY_PANEL_TAB_PROGRAM_DATA
+                                        )
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_PROGRAM_DATA
+                                    )}
+                                    dataTest="program-data-card"
+                                >
+                                    {/* Nested Stage Cards - one per stage, collapsed by default */}
+                                    {dataSource.programStages.map((stage) => {
+                                        const stageCardId = getStageCardId(
+                                            stage.id
+                                        )
+                                        return (
+                                            <CardSection
+                                                key={stageCardId}
+                                                label={stage.name}
+                                                onClick={() =>
+                                                    onCardClick(stageCardId)
+                                                }
+                                                expanded={expandedCards.includes(
+                                                    stageCardId
+                                                )}
+                                                dataTest={`stage-${stage.id}-card`}
+                                                nested
+                                            >
+                                                <StageDimensionsPanel
+                                                    program={dataSource}
+                                                    stage={stage}
+                                                    searchTerm={
+                                                        unifiedSearchTerm
+                                                    }
+                                                    typeFilter={typeFilter}
+                                                />
+                                            </CardSection>
+                                        )
+                                    })}
+                                </CardSection>
+
+                                {/* Person Registration Card - only registration org unit and date */}
+                                <CardSection
+                                    label={i18n.t(
+                                        '{{entityTypeName}} registration',
+                                        {
+                                            entityTypeName:
+                                                dataSource?.trackedEntityType
+                                                    ?.name ||
+                                                i18n.t('Tracked entity'),
+                                        }
+                                    )}
+                                    onClick={() =>
+                                        onCardClick(ACCESSORY_PANEL_TAB_PERSON)
+                                    }
+                                    expanded={expandedCards.includes(
+                                        ACCESSORY_PANEL_TAB_PERSON
+                                    )}
+                                    dataTest="person-card"
+                                >
+                                    <PersonDimensionsPanel
+                                        program={dataSource}
+                                        searchTerm={unifiedSearchTerm}
+                                        typeFilter={typeFilter}
+                                    />
+                                </CardSection>
 
                                 {/* Program Indicators Card - only show if there are indicators */}
                                 {hasProgramIndicators && (

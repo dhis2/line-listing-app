@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
-    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
     DIMENSION_TYPE_ORGANISATION_UNIT,
     DIMENSION_TYPE_PERIOD,
 } from '@dhis2/analytics'
@@ -10,18 +9,11 @@ import {
     DIMENSION_ID_REGISTRATION_OU,
     DIMENSION_ID_REGISTRATION_DATE,
 } from '../../../modules/dimensionConstants.js'
-import { CARD_TYPE_TRACKED_ENTITY } from '../../../modules/paginationConfig.js'
-import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
-import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
-import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
-import { useProgramDataDimensions } from './useProgramDataDimensions.js'
-import { useDebounce } from '../../../modules/utils.js'
 
 // Type filter constants (must match MainSidebar)
 const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
-const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
 
 // Helper function to check if a dimension matches the type filter
 const matchesTypeFilter = (dimension, typeFilter) => {
@@ -35,8 +27,6 @@ const matchesTypeFilter = (dimension, typeFilter) => {
             return dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
         case TYPE_FILTER_PERIODS:
             return dimensionType === DIMENSION_TYPE_PERIOD
-        case TYPE_FILTER_PROGRAM_ATTRIBUTES:
-            return dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE
         default:
             return true
     }
@@ -47,27 +37,7 @@ const PersonDimensionsPanel = ({
     searchTerm,
     typeFilter = null,
 }) => {
-    const debouncedSearchTerm = useDebounce(searchTerm || '')
-    const { getPageSize } = usePaginationConfig()
-    const pageSize = getPageSize(CARD_TYPE_TRACKED_ENTITY)
-
-    // Get program attributes (data dimensions)
-    const {
-        dimensions: attributeDimensions,
-        loading,
-        fetching,
-        error,
-        hasMore,
-        loadMore,
-    } = useProgramDataDimensions({
-        inputType: OUTPUT_TYPE_ENROLLMENT,
-        program,
-        searchTerm: debouncedSearchTerm,
-        dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-        pageSize,
-    })
-
-    // Create fixed registration dimensions to show first
+    // Create fixed registration dimensions (only registration org unit and date)
     const registrationDimensions = useMemo(() => {
         return [
             {
@@ -110,14 +80,6 @@ const PersonDimensionsPanel = ({
         })
     )
 
-    // Filter program attributes based on type filter
-    const filteredAttributeDimensions = useMemo(() => {
-        if (!attributeDimensions) return []
-        return attributeDimensions.filter((dimension) =>
-            matchesTypeFilter(dimension, typeFilter)
-        )
-    }, [attributeDimensions, typeFilter])
-
     // Don't render if program is not available
     if (!program || !program.id) {
         return null
@@ -125,41 +87,21 @@ const PersonDimensionsPanel = ({
 
     // Don't render if no dimensions match the filter
     const hasRegistrationDimensions = filteredRegistrationDimensions.length > 0
-    const hasAttributeDimensions = filteredAttributeDimensions.length > 0
 
-    if (!hasRegistrationDimensions && !hasAttributeDimensions) {
+    if (!hasRegistrationDimensions) {
         return null
     }
 
     return (
-        <>
-            {/* Registration org unit and registration date */}
-            {hasRegistrationDimensions && (
-                <DimensionsList
-                    dimensions={draggableRegistrationDimensions}
-                    loading={false}
-                    fetching={false}
-                    error={null}
-                    hasMore={false}
-                    onLoadMore={() => {}}
-                    dataTest="person-registration-dimensions-list"
-                />
-            )}
-
-            {/* Program attributes (tracked entity attributes for this program) */}
-            {hasAttributeDimensions && (
-                <ProgramDataDimensionsList
-                    dimensions={filteredAttributeDimensions}
-                    loading={loading}
-                    fetching={fetching}
-                    error={error}
-                    hasMore={hasMore}
-                    onLoadMore={loadMore}
-                    program={program}
-                    searchTerm={debouncedSearchTerm}
-                />
-            )}
-        </>
+        <DimensionsList
+            dimensions={draggableRegistrationDimensions}
+            loading={false}
+            fetching={false}
+            error={null}
+            hasMore={false}
+            onLoadMore={() => {}}
+            dataTest="person-registration-dimensions-list"
+        />
     )
 }
 
@@ -170,4 +112,3 @@ PersonDimensionsPanel.propTypes = {
 }
 
 export { PersonDimensionsPanel }
-
