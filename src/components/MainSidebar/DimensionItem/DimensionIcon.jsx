@@ -36,7 +36,7 @@ const IconDimensionProgramAttribute16 = () => (
     >
         <path
             d="m15 3 v10h-7v-10z m-1 1 v2h-5v-2z m0 3 v2h-5v-2z m0 3 v2h-5v-2z m-7 -6 h-5v7h5v1h-6v-10h6z"
-            fill="#010101"
+            fill="currentColor"
             fillRule="evenodd"
         />
     </svg>

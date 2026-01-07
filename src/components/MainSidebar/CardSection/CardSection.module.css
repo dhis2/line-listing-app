@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     padding: 4px 6px var(--spacers-dp4) 2px;
-    background-color: var(--colors-grey100);
+    background-color: var(--colors-grey200);
     min-height: 29px;
 }
 
@@ -53,7 +53,7 @@
     font-size: 13px;
     line-height: 16px;
     font-weight: 500;
-    color: var(--colors-grey700);
+    color: var(--colors-grey900);
     overflow: hidden;
 }
 
@@ -135,7 +135,7 @@
 }
 
 .card.nested .header {
-    padding: 2px 6px 2px 10px;
+    padding: 2px 6px 2px 16px;
     background-color: var(--colors-white);
     border-bottom: none;
 }
@@ -157,7 +157,7 @@
 
 .card.nested .labelWrapper {
     /* font-size: 12px; */
-    font-weight: 400;
+    font-weight: 500;
     color: var(--colors-grey900);
 }
 
