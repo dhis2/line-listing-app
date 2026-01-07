@@ -1,10 +1,11 @@
 .container {
-    padding: 6px var(--spacers-dp4) 2px var(--spacers-dp4);
+    padding: 6px var(--spacers-dp4) 6px var(--spacers-dp4);
 
     position: sticky;
     top: 0;
     z-index: 10;
-    background-color: var(--colors-grey200);
+    background-color: var(--colors-grey100);
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
 .container.scrolled {
