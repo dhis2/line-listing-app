@@ -442,6 +442,7 @@ const MainSidebar = () => {
                                 expanded={expandedCards.includes(
                                     ACCESSORY_PANEL_TAB_EVENT
                                 )}
+                                count={counts.event}
                                 dataTest="event-card"
                             >
                                 <EventDimensionsPanel
@@ -542,8 +543,8 @@ const MainSidebar = () => {
                                 <CardSection
                                     label={
                                         dataSource?.name === 'Child Programme'
-                                            ? i18n.t('Pregnancy')
-                                            : i18n.t('Enrollment')
+                                            ? i18n.t('Pregnancy data')
+                                            : i18n.t('Enrollment data')
                                     }
                                     onClick={() =>
                                         onCardClick(
@@ -553,6 +554,7 @@ const MainSidebar = () => {
                                     expanded={expandedCards.includes(
                                         ACCESSORY_PANEL_TAB_ENROLLMENT
                                     )}
+                                    count={counts.enrollment}
                                     dataTest="enrollment-card"
                                 >
                                     <EnrollmentDimensionsPanel
@@ -573,6 +575,7 @@ const MainSidebar = () => {
                                     expanded={expandedCards.includes(
                                         ACCESSORY_PANEL_TAB_PROGRAM_DATA
                                     )}
+                                    count={counts.event}
                                     dataTest="program-data-card"
                                 >
                                     {/* Nested Stage Cards - one per stage, collapsed by default */}
@@ -590,6 +593,7 @@ const MainSidebar = () => {
                                                 expanded={expandedCards.includes(
                                                     stageCardId
                                                 )}
+                                                count={counts.stages[stage.id]}
                                                 dataTest={`stage-${stage.id}-card`}
                                                 nested
                                             >
@@ -623,6 +627,7 @@ const MainSidebar = () => {
                                     expanded={expandedCards.includes(
                                         ACCESSORY_PANEL_TAB_PERSON
                                     )}
+                                    count={counts.person}
                                     dataTest="person-card"
                                 >
                                     <PersonDimensionsPanel
@@ -644,6 +649,7 @@ const MainSidebar = () => {
                                         expanded={expandedCards.includes(
                                             ACCESSORY_PANEL_TAB_PROGRAM_INDICATORS
                                         )}
+                                        count={counts.programIndicators}
                                         dataTest="program-indicators-card"
                                     >
                                         <ProgramIndicatorsPanel
@@ -721,6 +727,7 @@ const MainSidebar = () => {
                             expanded={expandedCards.includes(
                                 ACCESSORY_PANEL_TAB_MAIN_DIMENSIONS
                             )}
+                            count={counts.metadata}
                             dataTest="main-dimensions-card"
                             isEmpty={mainDimensionsEmpty}
                         >

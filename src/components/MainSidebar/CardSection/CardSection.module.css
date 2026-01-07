@@ -124,22 +124,45 @@
 
 /* Nested card styles */
 .card.nested {
-    margin: 0 0 0 var(--spacers-dp8);
     background-color: var(--colors-white);
-    border-color: var(--colors-grey300);
+    border-color: var(--colors-grey200);
+    /* border-bottom: none; */
+}
+
+.card.nested:last-child {
+    border-bottom: none;
 }
 
 .card.nested .header {
-    padding: 4px 6px 6px 2px;
+    padding: 2px 6px 2px 10px;
+    background-color: var(--colors-white);
+    border-bottom: none;
+}
+
+.card.nested .header:hover {
+    background-color: var(--colors-grey100);
+}
+
+.card.nested.chevron:hover,
+.card.nested.header:hover .chevron,
+.card.nested:not(.expanded):hover .chevron {
+    color: var(--colors-grey800);
+    background: transparent;
+}
+
+.card.nested .header.expanded {
+    margin-bottom: 2px;
 }
 
 .card.nested .labelWrapper {
     /* font-size: 12px; */
-    /* font-weight: 400; */
+    font-weight: 400;
+    color: var(--colors-grey900);
 }
 
 .card.nested .content {
-    /* padding-bottom: var(--spacers-dp4); */
+    padding-bottom: 4px;
+    margin-left: 8px;
 }
 
 /* Parent section containing nested cards - remove extra padding */
