@@ -88,6 +88,11 @@ const MainSidebar = () => {
     const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] =
         useState(false)
     const [yourDimensionsEmpty, setYourDimensionsEmpty] = useState(false)
+    const [enrollmentDimensionsEmpty, setEnrollmentDimensionsEmpty] =
+        useState(false)
+    const [personDimensionsEmpty, setPersonDimensionsEmpty] = useState(false)
+    const [programIndicatorsEmpty, setProgramIndicatorsEmpty] = useState(false)
+    const [stageEmptyStates, setStageEmptyStates] = useState({})
     const [viewMode, setViewMode] = useState(VIEW_MODE_PROGRAM_CONFIG)
     const [typeFilter, setTypeFilter] = useState(null)
     const [isScrolled, setIsScrolled] = useState(false)
@@ -229,6 +234,22 @@ const MainSidebar = () => {
         hasProgramIndicators,
     ])
     const { counts } = useSelectedDimensions()
+
+    // Callback to update individual stage empty state
+    const handleStageEmptyStateChange = useCallback((stageId, isEmpty) => {
+        setStageEmptyStates((prev) => {
+            if (prev[stageId] === isEmpty) return prev
+            return { ...prev, [stageId]: isEmpty }
+        })
+    }, [])
+
+    // Check if all stages are empty (for parent Event data card)
+    const allStagesEmpty = useMemo(() => {
+        if (!dataSource?.programStages?.length) return false
+        return dataSource.programStages.every(
+            (stage) => stageEmptyStates[stage.id] === true
+        )
+    }, [dataSource?.programStages, stageEmptyStates])
 
     // Handle scroll detection for UnifiedSearch shadow
     useEffect(() => {
@@ -556,11 +577,15 @@ const MainSidebar = () => {
                                     )}
                                     count={counts.enrollment}
                                     dataTest="enrollment-card"
+                                    isEmpty={enrollmentDimensionsEmpty}
                                 >
                                     <EnrollmentDimensionsPanel
                                         program={dataSource}
                                         searchTerm={unifiedSearchTerm}
                                         typeFilter={typeFilter}
+                                        onEmptyStateChange={
+                                            setEnrollmentDimensionsEmpty
+                                        }
                                     />
                                 </CardSection>
 
@@ -577,6 +602,7 @@ const MainSidebar = () => {
                                     )}
                                     count={counts.event}
                                     dataTest="program-data-card"
+                                    isEmpty={allStagesEmpty}
                                 >
                                     {/* Nested Stage Cards - one per stage, collapsed by default */}
                                     {dataSource.programStages.map((stage) => {
@@ -596,6 +622,9 @@ const MainSidebar = () => {
                                                 count={counts.stages[stage.id]}
                                                 dataTest={`stage-${stage.id}-card`}
                                                 nested
+                                                isEmpty={
+                                                    stageEmptyStates[stage.id]
+                                                }
                                             >
                                                 <StageDimensionsPanel
                                                     program={dataSource}
@@ -604,6 +633,14 @@ const MainSidebar = () => {
                                                         unifiedSearchTerm
                                                     }
                                                     typeFilter={typeFilter}
+                                                    onEmptyStateChange={(
+                                                        isEmpty
+                                                    ) =>
+                                                        handleStageEmptyStateChange(
+                                                            stage.id,
+                                                            isEmpty
+                                                        )
+                                                    }
                                                 />
                                             </CardSection>
                                         )
@@ -629,11 +666,15 @@ const MainSidebar = () => {
                                     )}
                                     count={counts.person}
                                     dataTest="person-card"
+                                    isEmpty={personDimensionsEmpty}
                                 >
                                     <PersonDimensionsPanel
                                         program={dataSource}
                                         searchTerm={unifiedSearchTerm}
                                         typeFilter={typeFilter}
+                                        onEmptyStateChange={
+                                            setPersonDimensionsEmpty
+                                        }
                                     />
                                 </CardSection>
 
@@ -651,11 +692,15 @@ const MainSidebar = () => {
                                         )}
                                         count={counts.programIndicators}
                                         dataTest="program-indicators-card"
+                                        isEmpty={programIndicatorsEmpty}
                                     >
                                         <ProgramIndicatorsPanel
                                             program={dataSource}
                                             searchTerm={unifiedSearchTerm}
                                             typeFilter={typeFilter}
+                                            onEmptyStateChange={
+                                                setProgramIndicatorsEmpty
+                                            }
                                         />
                                     </CardSection>
                                 )}
@@ -733,6 +778,7 @@ const MainSidebar = () => {
                         >
                             <MainDimensions
                                 searchTerm={unifiedSearchTerm}
+                                typeFilter={typeFilter}
                                 onEmptyStateChange={setMainDimensionsEmpty}
                             />
                         </CardSection>
@@ -754,6 +800,7 @@ const MainSidebar = () => {
                             <YourDimensionsPanel
                                 visible={true}
                                 searchTerm={unifiedSearchTerm}
+                                typeFilter={typeFilter}
                                 onEmptyStateChange={setYourDimensionsEmpty}
                             />
                         </CardSection>

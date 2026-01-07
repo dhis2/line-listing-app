@@ -32,6 +32,7 @@ const TYPE_FILTER_CATEGORIES = 'CATEGORIES'
 const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
 
 // Helper function to check if a dimension matches the type filter
+// StageDimensionsPanel contains: org unit, dates (periods), status, data elements, categories, and category option group sets
 const matchesTypeFilter = (dimension, typeFilter) => {
     // If no filter selected, show all
     if (!typeFilter) return true
@@ -51,8 +52,9 @@ const matchesTypeFilter = (dimension, typeFilter) => {
             return dimensionType === DIMENSION_TYPE_CATEGORY
         case TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS:
             return dimensionType === DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET
+        // StageDimensionsPanel doesn't contain program attributes or program indicators
         default:
-            return true
+            return false
     }
 }
 
@@ -61,6 +63,7 @@ const StageDimensionsPanel = ({
     stage,
     searchTerm,
     typeFilter = null,
+    onEmptyStateChange,
 }) => {
     const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(searchTerm || '')
@@ -262,17 +265,37 @@ const StageDimensionsPanel = ({
         )
     }, [dataElementDimensions, typeFilter])
 
+    // Check what dimensions are available
+    const hasStageDimensions = filteredStageDimensions.length > 0
+    const hasDataElementDimensions = filteredDataElementDimensions.length > 0
+
+    // Check if empty and notify parent
+    const isEmpty =
+        !loading && !fetching && !hasStageDimensions && !hasDataElementDimensions
+    useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
+
     // Don't render if program or stage is not available
     if (!program || !program.id || !stage || !stage.id) {
         return null
     }
 
-    // Don't render if no dimensions match the filter
-    const hasStageDimensions = filteredStageDimensions.length > 0
-    const hasDataElementDimensions = filteredDataElementDimensions.length > 0
-
+    // If no dimensions match the filter, show empty state
     if (!hasStageDimensions && !hasDataElementDimensions) {
-        return null
+        return (
+            <DimensionsList
+                dimensions={[]}
+                loading={loading}
+                fetching={fetching}
+                error={null}
+                hasMore={false}
+                onLoadMore={() => {}}
+                dataTest={`stage-${stage.id}-dimensions-list`}
+            />
+        )
     }
 
     return (
@@ -310,6 +333,7 @@ const StageDimensionsPanel = ({
 StageDimensionsPanel.propTypes = {
     program: PropTypes.object.isRequired,
     stage: PropTypes.object.isRequired,
+    onEmptyStateChange: PropTypes.func,
     searchTerm: PropTypes.string,
     typeFilter: PropTypes.string,
 }

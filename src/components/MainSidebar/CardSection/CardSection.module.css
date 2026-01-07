@@ -16,10 +16,7 @@
 }
 
 .card.empty {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-.card.empty:hover {
-    border: 1px solid var(--colors-grey300);
+    opacity: 0.5;
 }
 
 .header {
@@ -116,6 +113,10 @@
 
 .content {
     padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp16);
+}
+
+.content.collapsed {
+    display: none;
 }
 
 .card.empty .content {

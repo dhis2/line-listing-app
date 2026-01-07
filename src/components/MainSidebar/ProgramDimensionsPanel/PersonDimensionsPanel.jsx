@@ -16,6 +16,7 @@ const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
 
 // Helper function to check if a dimension matches the type filter
+// PersonDimensionsPanel contains: registration org unit and registration date
 const matchesTypeFilter = (dimension, typeFilter) => {
     // If no filter selected, show all
     if (!typeFilter) return true
@@ -27,8 +28,10 @@ const matchesTypeFilter = (dimension, typeFilter) => {
             return dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
         case TYPE_FILTER_PERIODS:
             return dimensionType === DIMENSION_TYPE_PERIOD
+        // PersonDimensionsPanel doesn't contain statuses, data elements,
+        // program attributes, program indicators, categories, or category option group sets
         default:
-            return true
+            return false
     }
 }
 
@@ -36,6 +39,7 @@ const PersonDimensionsPanel = ({
     program,
     searchTerm,
     typeFilter = null,
+    onEmptyStateChange,
 }) => {
     // Create fixed registration dimensions (only registration org unit and date)
     const registrationDimensions = useMemo(() => {
@@ -80,15 +84,17 @@ const PersonDimensionsPanel = ({
         })
     )
 
+    // Check if empty and notify parent
+    const hasRegistrationDimensions = filteredRegistrationDimensions.length > 0
+    const isEmpty = !hasRegistrationDimensions
+    React.useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
+
     // Don't render if program is not available
     if (!program || !program.id) {
-        return null
-    }
-
-    // Don't render if no dimensions match the filter
-    const hasRegistrationDimensions = filteredRegistrationDimensions.length > 0
-
-    if (!hasRegistrationDimensions) {
         return null
     }
 
@@ -107,6 +113,7 @@ const PersonDimensionsPanel = ({
 
 PersonDimensionsPanel.propTypes = {
     program: PropTypes.object.isRequired,
+    onEmptyStateChange: PropTypes.func,
     searchTerm: PropTypes.string,
     typeFilter: PropTypes.string,
 }

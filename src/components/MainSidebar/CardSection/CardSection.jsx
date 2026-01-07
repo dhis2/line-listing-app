@@ -85,9 +85,11 @@ const CardSection = ({
                 </div>
             )}
         </div>
-        {expanded && !disabled && (
+        {!disabled && (
             <div 
-                className={styles.content} 
+                className={cx(styles.content, {
+                    [styles.collapsed]: !expanded,
+                })} 
                 data-test={`${dataTest}-content`}
                 onClick={(e) => e.stopPropagation()}
             >

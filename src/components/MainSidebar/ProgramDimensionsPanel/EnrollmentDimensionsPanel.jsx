@@ -27,6 +27,7 @@ const TYPE_FILTER_STATUSES = 'STATUSES'
 const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
 
 // Helper function to check if a dimension matches the type filter
+// EnrollmentDimensionsPanel contains: org unit, dates (periods), status, and program attributes
 const matchesTypeFilter = (dimension, typeFilter) => {
     // If no filter selected, show all
     if (!typeFilter) return true
@@ -42,8 +43,10 @@ const matchesTypeFilter = (dimension, typeFilter) => {
             return dimensionType === 'STATUS'
         case TYPE_FILTER_PROGRAM_ATTRIBUTES:
             return dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE
+        // EnrollmentDimensionsPanel doesn't contain data elements, program indicators,
+        // categories, or category option group sets
         default:
-            return true
+            return false
     }
 }
 
@@ -51,6 +54,7 @@ const EnrollmentDimensionsPanel = ({
     program,
     searchTerm,
     typeFilter = null,
+    onEmptyStateChange,
 }) => {
     const debouncedSearchTerm = useDebounce(searchTerm || '')
     const { getPageSize } = usePaginationConfig()
@@ -168,18 +172,40 @@ const EnrollmentDimensionsPanel = ({
         )
     }, [attributeDimensions, typeFilter])
 
+    // Check what dimensions are available
+    const hasEnrollmentDimensions = filteredEnrollmentDimensions.length > 0
+    const hasAttributeDimensions = filteredAttributeDimensions.length > 0
+
+    // Check if empty and notify parent
+    const isEmpty =
+        !attributesLoading &&
+        !attributesFetching &&
+        !hasEnrollmentDimensions &&
+        !hasAttributeDimensions
+    React.useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
+
     // Don't render if program is not available
     if (!program || !program.id) {
         return null
     }
 
-    // Check what dimensions are available
-    const hasEnrollmentDimensions = filteredEnrollmentDimensions.length > 0
-    const hasAttributeDimensions = filteredAttributeDimensions.length > 0
-
-    // Don't render if no dimensions match the filter
+    // If no dimensions match the filter, show empty state
     if (!hasEnrollmentDimensions && !hasAttributeDimensions) {
-        return null
+        return (
+            <DimensionsList
+                dimensions={[]}
+                loading={attributesLoading}
+                fetching={attributesFetching}
+                error={null}
+                hasMore={false}
+                onLoadMore={() => {}}
+                dataTest="enrollment-dimensions-list"
+            />
+        )
     }
 
     return (
@@ -216,6 +242,7 @@ const EnrollmentDimensionsPanel = ({
 
 EnrollmentDimensionsPanel.propTypes = {
     program: PropTypes.object.isRequired,
+    onEmptyStateChange: PropTypes.func,
     searchTerm: PropTypes.string,
     typeFilter: PropTypes.string,
 }
