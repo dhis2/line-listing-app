@@ -7,6 +7,7 @@ import {
     DIMENSION_TYPE_CATEGORY,
     DIMENSION_TYPE_CATEGORY_OPTION_GROUP_SET,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
@@ -221,7 +222,12 @@ const StageDimensionsPanel = ({
     // Build stage-specific dimensions list (org unit, periods, status)
     const stageDimensions = useMemo(() => {
         const dims = []
-        if (stageOrgUnit) dims.push(stageOrgUnit)
+        if (stageOrgUnit) {
+            dims.push({
+                ...stageOrgUnit,
+                name: i18n.t('Event org. unit'),
+            })
+        }
         if (eventDate) dims.push(eventDate)
         if (scheduledDate && !stage.hideDueDate) {
             dims.push(scheduledDate)

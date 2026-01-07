@@ -5,6 +5,7 @@ import {
     DIMENSION_TYPE_DATA_ELEMENT,
     DIMENSION_ID_ORGUNIT,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_SCHEDULED_DATE,
@@ -182,7 +183,12 @@ const EventDimensionsPanel = ({ program, searchTerm }) => {
     // Build event dimensions list (org unit, periods, status)
     const eventDimensions = useMemo(() => {
         const dims = []
-        if (orgUnit) dims.push(orgUnit)
+        if (orgUnit) {
+            dims.push({
+                ...orgUnit,
+                name: i18n.t('Event org. unit'),
+            })
+        }
         if (eventDate) dims.push(eventDate)
         if (scheduledDate && !stage?.hideDueDate) {
             dims.push(scheduledDate)

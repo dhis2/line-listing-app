@@ -1,4 +1,4 @@
-import { DIMENSION_ID_ORGUNIT } from '@dhis2/analytics'
+import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { IconCalendar16, IconLocation16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -75,7 +75,7 @@ const QuickStartSection = () => {
         // Get dimension metadata
         const orgUnitMetadata = metadata[orgUnitId] || {
             id: orgUnitId,
-            name: i18n.t('Organisation unit'),
+            name: i18n.t('Enrollment org. unit'),
         }
 
         const enrollmentDateMetadata = metadata[enrollmentDateId] || {
@@ -175,6 +175,19 @@ const QuickStartSection = () => {
                     [LAST_12_MONTHS]: {
                         id: LAST_12_MONTHS,
                         name: i18n.t('Last 12 months'),
+                    },
+                }
+            )
+        )
+
+        // Set User org unit for the stage org unit dimension
+        dispatch(
+            acSetUiItems(
+                { dimensionId: orgUnitId, itemIds: [USER_ORG_UNIT] },
+                {
+                    [USER_ORG_UNIT]: {
+                        id: USER_ORG_UNIT,
+                        name: i18n.t('User organisation unit'),
                     },
                 }
             )

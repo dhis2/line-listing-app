@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
 } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import {
     DIMENSION_ID_ENROLLMENT_DATE,
     DIMENSION_ID_INCIDENT_DATE,
@@ -14,6 +15,7 @@ import { formatDimensionId } from '../../../modules/dimensionId.js'
 import { CARD_TYPE_TRACKED_ENTITY } from '../../../modules/paginationConfig.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
+import { acAddMetadata } from '../../../actions/metadata.js'
 import { useDebounce } from '../../../modules/utils.js'
 import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
@@ -56,6 +58,7 @@ const EnrollmentDimensionsPanel = ({
     typeFilter = null,
     onEmptyStateChange,
 }) => {
+    const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(searchTerm || '')
     const { getPageSize } = usePaginationConfig()
     const pageSize = getPageSize(CARD_TYPE_TRACKED_ENTITY)
@@ -103,6 +106,70 @@ const EnrollmentDimensionsPanel = ({
         sGetMetadataById(state, programStatusId)
     )
 
+    // Create and store mock enrollment dimensions in Redux metadata
+    useEffect(() => {
+        if (!program?.id) {
+            return
+        }
+
+        const mockMetadata = {}
+
+        // Create enrollment org unit dimension if it doesn't exist
+        if (enrollmentOrgUnitId && !enrollmentOrgUnit) {
+            mockMetadata[enrollmentOrgUnitId] = {
+                id: enrollmentOrgUnitId,
+                name: i18n.t('Enrollment org. unit'),
+                dimensionType: 'ORGANISATION_UNIT',
+            }
+        }
+        // Create enrollment date dimension if it doesn't exist
+        if (enrollmentDateId && !enrollmentDate) {
+            mockMetadata[enrollmentDateId] = {
+                id: enrollmentDateId,
+                name:
+                    program.displayEnrollmentDateLabel ||
+                    i18n.t('Enrollment date'),
+                dimensionType: 'PERIOD',
+            }
+        }
+        // Create incident date dimension if it doesn't exist
+        if (incidentDateId && !incidentDate && program.displayIncidentDate !== false) {
+            mockMetadata[incidentDateId] = {
+                id: incidentDateId,
+                name:
+                    program.displayIncidentDateLabel ||
+                    i18n.t('Incident date'),
+                dimensionType: 'PERIOD',
+            }
+        }
+        // Create program status dimension if it doesn't exist
+        if (programStatusId && !programStatus) {
+            mockMetadata[programStatusId] = {
+                id: programStatusId,
+                name: i18n.t('Program status'),
+                dimensionType: 'STATUS',
+            }
+        }
+
+        if (Object.keys(mockMetadata).length > 0) {
+            dispatch(acAddMetadata(mockMetadata))
+        }
+    }, [
+        dispatch,
+        program?.id,
+        program?.displayEnrollmentDateLabel,
+        program?.displayIncidentDateLabel,
+        program?.displayIncidentDate,
+        enrollmentOrgUnitId,
+        enrollmentOrgUnit,
+        enrollmentDateId,
+        enrollmentDate,
+        incidentDateId,
+        incidentDate,
+        programStatusId,
+        programStatus,
+    ])
+
     // Get program attributes (tracked entity attributes for this program)
     const {
         dimensions: attributeDimensions,
@@ -122,7 +189,12 @@ const EnrollmentDimensionsPanel = ({
     // Build enrollment-specific dimensions list (org unit, periods, status)
     const enrollmentDimensions = useMemo(() => {
         const dims = []
-        if (enrollmentOrgUnit) dims.push(enrollmentOrgUnit)
+        if (enrollmentOrgUnit) {
+            dims.push({
+                ...enrollmentOrgUnit,
+                name: i18n.t('Enrollment org. unit'),
+            })
+        }
         if (enrollmentDate) dims.push(enrollmentDate)
         if (incidentDate && program.displayIncidentDate !== false) {
             dims.push(incidentDate)

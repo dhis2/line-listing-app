@@ -14,7 +14,7 @@ import {
 } from './mainDimensions.js'
 import { getProgramDimensions } from './programDimensions.js'
 import { getTimeDimensions, getTimeDimensionName } from './timeDimensions.js'
-import { OUTPUT_TYPE_TRACKED_ENTITY, getStatusNames } from './visualization.js'
+import { OUTPUT_TYPE_TRACKED_ENTITY, OUTPUT_TYPE_ENROLLMENT, getStatusNames } from './visualization.js'
 
 const formatObject = (object) =>
     Object.entries(object).reduce(
@@ -63,6 +63,8 @@ export const getDefaultOuMetadata = (inputType) => ({
 export const getDefaultOrgUnitLabel = (inputType) => {
     if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
         return i18n.t('Registration org. unit')
+    } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        return i18n.t('Enrollment org. unit')
     } else {
         return i18n.t('Organisation unit')
     }
