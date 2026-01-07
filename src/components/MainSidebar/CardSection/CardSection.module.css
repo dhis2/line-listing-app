@@ -93,11 +93,11 @@
 
 .chevron {
     border-radius: 3px;
-    margin-right: 0;
+    margin-right: 2px;
     display: flex;
     align-items: center;
     padding: 2px;
-    color: var(--colors-grey600);
+    color: var(--colors-grey500);
 }
 .chevron:hover,
 .header:hover .chevron,
