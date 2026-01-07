@@ -1,0 +1,70 @@
+.container {
+    background-color: rgba(232, 237, 242, 0.5);
+    padding: var(--spacers-dp16);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-family: monospace;
+    margin: 0 0 var(--spacers-dp12) 0;
+    line-height: 15px;
+    color: var(--colors-grey600);
+}
+
+.buttonsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp8);
+}
+
+.quickStartButton {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--colors-grey800);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    padding: var(--spacers-dp12) var(--spacers-dp16);
+    border: 1px solid var(--colors-grey300);
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.quickStartButton:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: var(--colors-teal400);
+    color: var(--colors-grey900);
+}
+
+.quickStartButton:active {
+    background-color: var(--colors-teal050);
+}
+
+.buttonContent {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+}
+
+.iconGroup {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--colors-grey600);
+}
+
+.quickStartButton:hover .iconGroup {
+    color: var(--colors-teal600);
+}
+
+.buttonText {
+    flex: 1;
+}
+

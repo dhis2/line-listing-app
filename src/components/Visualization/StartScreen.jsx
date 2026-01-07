@@ -8,14 +8,17 @@ import i18n from '@dhis2/d2-i18n'
 import { colors, IconFolderOpen16, IconQuestion16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { GenericError } from '../../assets/ErrorIcons.jsx'
 import { EVENT_TYPE } from '../../modules/dataStatistics.js'
 import { genericErrorTitle, isVisualizationError } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import { sGetLoadError } from '../../reducers/loader.js'
+import { sGetMetadataById } from '../../reducers/metadata.js'
+import { sGetUiDataSource } from '../../reducers/ui.js'
 import OpenVisualizationDialog from './OpenVisualizationDialog.jsx'
+import QuickStartSection from './QuickStartSection.jsx'
 import styles from './styles/StartScreen.module.css'
 
 const mostViewedQuery = {
@@ -79,6 +82,17 @@ const StartScreen = ({ error, setLoadError }) => {
     )
     const lastUpdatedData = useLastUpdatedVisualizations(error, setLoadError)
 
+    // Check if data source is selected for Quick start section
+    const dataSource = useSelector(sGetUiDataSource)
+    const program = useSelector((state) =>
+        sGetMetadataById(state, dataSource?.id)
+    )
+    const hasDataSource = Boolean(dataSource?.id)
+    const showQuickStart =
+        !error &&
+        hasDataSource &&
+        program?.programStages?.length > 0
+
     const handleOpenVisualization = () => {
         setIsOpenDialogVisible(true)
     }
@@ -133,34 +147,37 @@ const StartScreen = ({ error, setLoadError }) => {
                         </div>
                     ) : (
                         <div className={styles.startScreenListsWrapper}>
-                            <div className={styles.actionsWrapper}>
-                                <button
-                                    type="button"
-                                    className={styles.actionItem}
-                                    onClick={handleOpenVisualization}
-                                >
-                                    <span>
-                                        <IconFolderOpen16
-                                            color={colors.grey700}
-                                        />
-                                    </span>
-                                    <span>
-                                        {i18n.t('Open a visualization')}
-                                    </span>
-                                </button>
-                                <button
-                                    type="button"
-                                    className={styles.actionItem}
-                                    onClick={handleOpenGuide}
-                                >
-                                    <span>
-                                        <IconQuestion16
-                                            color={colors.grey700}
-                                        />
-                                    </span>
-                                    <span>{i18n.t('Read the app guide')}</span>
-                                </button>
-                            </div>
+                            {showQuickStart && <QuickStartSection />}
+                            {!showQuickStart && (
+                                <div className={styles.actionsWrapper}>
+                                    <button
+                                        type="button"
+                                        className={styles.actionItem}
+                                        onClick={handleOpenVisualization}
+                                    >
+                                        <span>
+                                            <IconFolderOpen16
+                                                color={colors.grey700}
+                                            />
+                                        </span>
+                                        <span>
+                                            {i18n.t('Open a visualization')}
+                                        </span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={styles.actionItem}
+                                        onClick={handleOpenGuide}
+                                    >
+                                        <span>
+                                            <IconQuestion16
+                                                color={colors.grey700}
+                                            />
+                                        </span>
+                                        <span>{i18n.t('Read the app guide')}</span>
+                                    </button>
+                                </div>
+                            )}
                             <div className={styles.filesWrapper}>
                                 {/* TODO add a spinner when loading? */}
                                 {data.mostViewed?.length > 0 && (
