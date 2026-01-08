@@ -1,6 +1,6 @@
 .dimensionItem {
     background-color: var(--colors-white);
-    color: #7a8899;
+    color: #8a949f;
     display: flex;
     justify-content: space-between;
     padding: 0 0 0 var(--spacers-dp4);
