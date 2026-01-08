@@ -176,6 +176,10 @@
 .card.nested .labelWrapper {
     /* font-size: 12px; */
     font-weight: 500;
+    color: var(--colors-grey700);
+}
+
+.card.nested:hover .labelWrapper {
     color: var(--colors-grey900);
 }
 
