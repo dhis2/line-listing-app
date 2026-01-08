@@ -68,8 +68,8 @@ import {
     sGetIsVisualizationLoading,
     sGetLoadError,
 } from '../reducers/loader.js'
-import { sGetMetadata } from '../reducers/metadata.js'
-import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
+import { sGetMetadata, sGetMetadataById } from '../reducers/metadata.js'
+import { sGetUiShowDetailsPanel, sGetUiDataSource } from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.jsx'
 import { default as DialogManager } from './Dialogs/DialogManager.jsx'
@@ -81,6 +81,7 @@ import { MainSidebar } from './MainSidebar/index.js'
 import { MultiSelectionProvider } from './MainSidebar/MultiSelectionContext.jsx'
 import { default as TitleBar } from './TitleBar/TitleBar.jsx'
 import { Toolbar } from './Toolbar/Toolbar.jsx'
+import QuickStartSection from './Visualization/QuickStartSection.jsx'
 import StartScreen from './Visualization/StartScreen.jsx'
 import { Visualization } from './Visualization/Visualization.jsx'
 
@@ -135,11 +136,24 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const dataSource = useSelector(sGetUiDataSource)
+    const program = useSelector((state) =>
+        sGetMetadataById(state, dataSource?.id)
+    )
     const viewportWidth = useViewportWidth()
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
+
+    // Show Quick Start when program is selected and has stages, no current visualization, and no error
+    const showQuickStart =
+        !error &&
+        !current &&
+        !isLoading &&
+        initialLoadIsComplete &&
+        Boolean(dataSource?.id) &&
+        program?.programStages?.length > 0
 
     const onFileMenuAction = () => {
         showDetailsPanel && setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
@@ -512,6 +526,11 @@ const App = () => {
                                 )}
                                 <LayoutWithBottomBar />
                             </div>
+                            {showQuickStart && (
+                                <div className={classes.quickStartWrapper}>
+                                    <QuickStartSection />
+                                </div>
+                            )}
                             <div className={cx(classes.mainCenterCanvas)}>
                                 {(initialLoadIsComplete &&
                                     !current &&

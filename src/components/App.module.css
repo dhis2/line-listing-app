@@ -88,6 +88,10 @@
     border-left: none;
 }
 
+.quickStartWrapper {
+    margin: 0 var(--spacers-dp4);
+}
+
 .mainCenterCanvas {
     display: flex;
     gap: var(--spacers-dp4);

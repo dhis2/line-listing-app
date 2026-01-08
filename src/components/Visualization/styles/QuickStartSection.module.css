@@ -1,50 +1,59 @@
 .container {
-    background-color: rgba(232, 237, 242, 0.5);
-    padding: var(--spacers-dp16);
+    /* background-color: rgba(232, 237, 242, 0.5); */
+    padding: 8px var(--spacers-dp12);
     border-radius: 5px;
     width: 100%;
 }
 
 .title {
     font-weight: 500;
-    font-size: 11px;
-    text-transform: uppercase;
-    font-family: monospace;
-    margin: 0 0 var(--spacers-dp12) 0;
-    line-height: 15px;
-    color: var(--colors-grey600);
+    font-size: 13px;
+    margin: 0 0 var(--spacers-dp8) 0;
+    line-height: 12px;
+    color: #7c5095;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.titleIcon {
+    color: #7c5095;
 }
 
 .buttonsWrapper {
     display: flex;
-    flex-direction: column;
-    gap: var(--spacers-dp8);
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: var(--spacers-dp4);
+    column-gap: var(--spacers-dp4);
 }
 
 .quickStartButton {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-size: 13px;
+    line-height: 1;
     color: var(--colors-grey800);
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: var(--colors-white);
     border-radius: 5px;
-    padding: var(--spacers-dp12) var(--spacers-dp16);
-    border: 1px solid var(--colors-grey300);
+    padding: 6px var(--spacers-dp8);
+    border: 1px solid var(--colors-grey400);
     font-family: inherit;
     text-align: left;
-    width: 100%;
     cursor: pointer;
     transition: all 0.15s ease;
+    white-space: nowrap;
 }
 
 .quickStartButton:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-color: var(--colors-teal400);
+    background-color: var(--colors-white);
+    border-color: var(--colors-grey500);
     color: var(--colors-grey900);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .quickStartButton:active {
-    background-color: var(--colors-teal050);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.2);
 }
 
 .buttonContent {
@@ -67,4 +76,3 @@
 .buttonText {
     flex: 1;
 }
-

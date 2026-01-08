@@ -5,20 +5,17 @@ import {
 } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { colors, IconFolderOpen16, IconQuestion16 } from '@dhis2/ui'
+import { colors } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { acSetLoadError } from '../../actions/loader.js'
 import { GenericError } from '../../assets/ErrorIcons.jsx'
 import { EVENT_TYPE } from '../../modules/dataStatistics.js'
 import { genericErrorTitle, isVisualizationError } from '../../modules/error.js'
 import history from '../../modules/history.js'
 import { sGetLoadError } from '../../reducers/loader.js'
-import { sGetMetadataById } from '../../reducers/metadata.js'
-import { sGetUiDataSource } from '../../reducers/ui.js'
 import OpenVisualizationDialog from './OpenVisualizationDialog.jsx'
-import QuickStartSection from './QuickStartSection.jsx'
 import styles from './styles/StartScreen.module.css'
 
 const mostViewedQuery = {
@@ -29,17 +26,6 @@ const mostViewedQuery = {
             pageSize: 6,
             ...(username ? { username } : {}),
         }),
-    },
-}
-
-const lastUpdatedQuery = {
-    lastUpdated: {
-        resource: 'eventVisualizations',
-        params: {
-            fields: 'id,name,displayName',
-            order: 'lastUpdated:desc',
-            pageSize: 6,
-        },
     },
 }
 
@@ -58,20 +44,6 @@ const useMostViewedVisualizations = (username, error, setLoadError) => {
     }
 }
 
-const useLastUpdatedVisualizations = (error, setLoadError) => {
-    const lastUpdated = useDataQuery(lastUpdatedQuery, {
-        lazy: !!error,
-        onError: (error) => setLoadError(error),
-    })
-
-    return {
-        lastUpdated: lastUpdated.data?.lastUpdated?.eventVisualizations,
-        loading: lastUpdated.loading,
-        fetching: lastUpdated.fetching,
-        error: lastUpdated.error,
-    }
-}
-
 const StartScreen = ({ error, setLoadError }) => {
     const { currentUser } = useCachedDataQuery()
     const [isOpenDialogVisible, setIsOpenDialogVisible] = useState(false)
@@ -80,29 +52,13 @@ const StartScreen = ({ error, setLoadError }) => {
         error,
         setLoadError
     )
-    const lastUpdatedData = useLastUpdatedVisualizations(error, setLoadError)
 
-    // Check if data source is selected for Quick start section
-    const dataSource = useSelector(sGetUiDataSource)
-    const program = useSelector((state) =>
-        sGetMetadataById(state, dataSource?.id)
-    )
-    const hasDataSource = Boolean(dataSource?.id)
-    const showQuickStart =
-        !error &&
-        hasDataSource &&
-        program?.programStages?.length > 0
-
-    const handleOpenVisualization = () => {
+    const handleOpenDialog = () => {
         setIsOpenDialogVisible(true)
     }
 
     const handleCloseDialog = () => {
         setIsOpenDialogVisible(false)
-    }
-
-    const handleOpenGuide = () => {
-        window.open('https://dhis2.org', '_blank', 'noopener,noreferrer')
     }
 
     return (
@@ -147,113 +103,44 @@ const StartScreen = ({ error, setLoadError }) => {
                         </div>
                     ) : (
                         <div className={styles.startScreenListsWrapper}>
-                            {showQuickStart && <QuickStartSection />}
-                            {!showQuickStart && (
-                                <div className={styles.actionsWrapper}>
-                                    <button
-                                        type="button"
-                                        className={styles.actionItem}
-                                        onClick={handleOpenVisualization}
-                                    >
-                                        <span>
-                                            <IconFolderOpen16
-                                                color={colors.grey700}
-                                            />
-                                        </span>
-                                        <span>
-                                            {i18n.t('Open a visualization')}
-                                        </span>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className={styles.actionItem}
-                                        onClick={handleOpenGuide}
-                                    >
-                                        <span>
-                                            <IconQuestion16
-                                                color={colors.grey700}
-                                            />
-                                        </span>
-                                        <span>{i18n.t('Read the app guide')}</span>
-                                    </button>
-                                </div>
-                            )}
                             <div className={styles.filesWrapper}>
-                                {/* TODO add a spinner when loading? */}
-                                {data.mostViewed?.length > 0 && (
-                                    <div className={styles.section}>
-                                        <h3 className={styles.title}>
-                                            {i18n.t('Most viewed')}
-                                        </h3>
-                                        {data.mostViewed.map((vis) => (
-                                            <p
-                                                key={vis.id}
-                                                className={styles.visualization}
-                                                onClick={() =>
-                                                    history.push(`/${vis.id}`)
-                                                }
-                                                data-test={
-                                                    'start-screen-most-viewed-list-item'
-                                                }
+                                <div className={styles.section}>
+                                    <h3 className={styles.title}>
+                                        {i18n.t('Most viewed')}
+                                    </h3>
+                                    {data.mostViewed?.map((vis) => (
+                                        <p
+                                            key={vis.id}
+                                            className={styles.visualization}
+                                            onClick={() =>
+                                                history.push(`/${vis.id}`)
+                                            }
+                                            data-test={
+                                                'start-screen-most-viewed-list-item'
+                                            }
+                                        >
+                                            <span
+                                                className={styles.visIcon}
                                             >
-                                                <span
-                                                    className={styles.visIcon}
-                                                >
-                                                    <VisTypeIcon
-                                                        type={
-                                                            VIS_TYPE_LINE_LIST
-                                                        }
-                                                        useSmall
-                                                        color={colors.grey600}
-                                                    />
-                                                </span>
-                                                <span>{vis.name}</span>
-                                            </p>
-                                        ))}
-                                    </div>
-                                )}
-                                {lastUpdatedData.lastUpdated?.length > 0 && (
-                                    <div className={styles.section}>
-                                        <h3 className={styles.title}>
-                                            {i18n.t('Last updated')}
-                                        </h3>
-                                        {lastUpdatedData.lastUpdated.map(
-                                            (vis) => (
-                                                <p
-                                                    key={vis.id}
-                                                    className={
-                                                        styles.visualization
+                                                <VisTypeIcon
+                                                    type={
+                                                        VIS_TYPE_LINE_LIST
                                                     }
-                                                    onClick={() =>
-                                                        history.push(
-                                                            `/${vis.id}`
-                                                        )
-                                                    }
-                                                    data-test={
-                                                        'start-screen-last-updated-list-item'
-                                                    }
-                                                >
-                                                    <span
-                                                        className={
-                                                            styles.visIcon
-                                                        }
-                                                    >
-                                                        <VisTypeIcon
-                                                            type={
-                                                                VIS_TYPE_LINE_LIST
-                                                            }
-                                                            useSmall
-                                                            color={
-                                                                colors.grey600
-                                                            }
-                                                        />
-                                                    </span>
-                                                    <span>{vis.name}</span>
-                                                </p>
-                                            )
-                                        )}
-                                    </div>
-                                )}
+                                                    useSmall
+                                                    color={colors.grey600}
+                                                />
+                                            </span>
+                                            <span>{vis.name}</span>
+                                        </p>
+                                    ))}
+                                    <p
+                                        className={styles.browseAll}
+                                        onClick={handleOpenDialog}
+                                        data-test="start-screen-browse-all"
+                                    >
+                                        {i18n.t('Browse all...')}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     )}
