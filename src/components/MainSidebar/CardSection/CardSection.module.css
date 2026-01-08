@@ -1,9 +1,12 @@
 .card {
     background-color: var(--colors-white);
-    /* border: 1px solid var(--colors-red400); */
-    /* border-radius: 5px; */
+    border: 1px solid var(--colors-grey400);
+    border-radius: 5px;
     cursor: pointer;
-    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.card:hover {
+    border-color: #b7c4d2;
 }
 
 .card:focus {
@@ -22,18 +25,21 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 4px 6px var(--spacers-dp4) 2px;
-    background-color: var(--colors-grey200);
+    padding: 6px 6px 6px 2px;
+    padding: 10px 6px 10px 4px;
+    background-color: var(--colors-grey050);
     min-height: 29px;
+    border-radius: 4px; /* Clip bg to card corners (1px less than card's 5px to account for border) */
 }
 
 .header.expanded {
+    border-radius: 4px 4px 0 0; /* Only top corners when expanded */
     margin-bottom: var(--spacers-dp4);
     border-bottom: 1px solid var(--colors-grey300);
 }
 
 .header:hover {
-    background-color: var(--colors-grey200);
+    /* background-color: var(--colors-grey200); */
 }
 
 .header.expanded:hover {
@@ -53,7 +59,7 @@
     font-size: 13px;
     line-height: 16px;
     font-weight: 500;
-    color: var(--colors-grey900);
+    color: var(--colors-grey700);
     overflow: hidden;
 }
 
@@ -68,14 +74,22 @@
     text-overflow: ellipsis;
 }
 
+.label.hasSelections {
+    color: var(--colors-teal600);
+}
+
+.header.hasSelections {
+    /* background-color: var(--colors-teal050); */
+}
+
 .count {
     flex-grow: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2px 4px;
-    color: var(--colors-grey700);
-    background-color: rgba(160, 173, 186, 0.2);
+    color: var(--colors-teal800);
+    background-color: rgba(7, 111, 114, 0.1);
     font-size: 11px;
     font-family: monospace;
     line-height: 11px;
@@ -94,13 +108,13 @@
     display: flex;
     align-items: center;
     padding: 2px;
-    color: var(--colors-grey500);
+    color: var(--colors-grey700);
 }
 .chevron:hover,
 .header:hover .chevron,
 .card:not(.expanded):hover .chevron {
     color: var(--colors-grey800);
-    background: var(--colors-grey200);
+    /* background: var(--colors-grey200); */
 }
 
 .subtitle {
@@ -112,7 +126,8 @@
 }
 
 .content {
-    padding: 0 var(--spacers-dp4) var(--spacers-dp8) var(--spacers-dp16);
+    /* background-color: var(--colors-yellow100); */
+    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp16);
 }
 
 .content.collapsed {
@@ -125,17 +140,20 @@
 
 /* Nested card styles */
 .card.nested {
-    background-color: var(--colors-white);
-    border-color: var(--colors-grey200);
+    /* background-color: var(--colors-yellow100); */
+    border: none;
+    border-bottom: 1px solid var(--colors-grey300);
+    border-radius: 0;
     /* border-bottom: none; */
 }
 
 .card.nested:last-child {
     border-bottom: none;
+    border-radius: 0 0 4px 4px;
 }
 
 .card.nested .header {
-    padding: 2px 6px 2px 16px;
+    padding: 8px 6px 8px 12px;
     background-color: var(--colors-white);
     border-bottom: none;
 }
@@ -152,7 +170,7 @@
 }
 
 .card.nested .header.expanded {
-    margin-bottom: 2px;
+    margin-bottom: 0;
 }
 
 .card.nested .labelWrapper {
