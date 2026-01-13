@@ -1,101 +1,79 @@
-import {
-    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-    useCachedDataQuery,
-} from '@dhis2/analytics'
-import { useDataEngine } from '@dhis2/app-runtime'
-import { useEffect, useState, useCallback } from 'react'
-import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
-import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
+import { DIMENSION_TYPE_PROGRAM_ATTRIBUTE } from '@dhis2/analytics'
+import { useDataQuery } from '@dhis2/app-runtime'
+import { useEffect, useState } from 'react'
 
-// Use the analytics dimensions API which returns ALL dimensions available
-// for a tracked entity type, including attributes from all programs that use it
-const createDimensionsQuery = ({ trackedEntityTypeId, nameProp, searchTerm }) => ({
-    resource: 'analytics/trackedEntities/query/dimensions',
-    params: {
-        trackedEntityType: trackedEntityTypeId,
-        fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
-        filter: [
-            // Only get program attributes (tracked entity attributes)
-            'dimensionType:eq:PROGRAM_ATTRIBUTE',
-            // Apply search filter if provided
-            ...(searchTerm ? [`${nameProp}:ilike:${searchTerm}`] : []),
-        ],
-        order: `${nameProp}:asc`,
-        paging: false, // Get all at once
+// Query to fetch tracked entity type with its attributes
+const query = {
+    trackedEntityType: {
+        resource: 'trackedEntityTypes',
+        id: ({ id }) => id,
+        params: ({ nameProp }) => ({
+            fields: [
+                'id',
+                `${nameProp}~rename(name)`,
+                `trackedEntityTypeAttributes[trackedEntityAttribute[id,${nameProp}~rename(name),valueType,optionSet]]`,
+            ],
+        }),
     },
-})
+}
 
 const useTrackedEntityDimensions = ({
     visible,
     searchTerm,
-    nameProp: externalNameProp,
+    nameProp,
     id,
     programId, // Not used for TET attributes, but kept for API compatibility
 }) => {
-    const { currentUser } = useCachedDataQuery()
-    const nameProp = externalNameProp || currentUser?.settings?.[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY] || 'displayName'
-    const engine = useDataEngine()
     const [dimensions, setDimensions] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const [fetching, setFetching] = useState(false)
-    const [error, setError] = useState(null)
-
-    const fetchDimensions = useCallback(async () => {
-        if (!id) {
-            setDimensions([])
-            return
-        }
-
-        setLoading(dimensions === null)
-        setFetching(true)
-        setError(null)
-
-        try {
-            const query = createDimensionsQuery({
-                trackedEntityTypeId: id,
-                nameProp,
-                searchTerm,
-            })
-
-            const data = await engine.query({ dimensions: query })
-            
-            // Transform the response - the API returns dimensions with all info
-            const fetchedDimensions = data?.dimensions?.dimensions || []
-            
-            // Ensure all dimensions have the correct dimensionType
-            const transformedDimensions = fetchedDimensions.map((dim) => ({
-                ...dim,
-                dimensionType: dim.dimensionType || DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-            }))
-
-            setDimensions(transformedDimensions)
-        } catch (err) {
-            console.error('Error fetching tracked entity dimensions:', err)
-            setError(err)
-            setDimensions([])
-        } finally {
-            setLoading(false)
-            setFetching(false)
-        }
-    }, [id, nameProp, searchTerm, engine, dimensions])
+    const { data, error, loading, fetching, refetch } = useDataQuery(query, {
+        lazy: true,
+    })
 
     useEffect(() => {
         // Delay initial fetch until component comes into view
-        if (visible && dimensions === null && id) {
-            fetchDimensions()
+        if (visible && !dimensions && id) {
+            refetch({ id, nameProp })
         }
-    }, [visible, id])
+    }, [visible, id, nameProp])
 
     useEffect(() => {
-        // Reset and refetch when id or search term changes
+        // Reset when id changes
+        setDimensions(null)
         if (visible && id) {
-            setDimensions(null)
-            fetchDimensions()
+            refetch({ id, nameProp })
         }
-    }, [id, searchTerm])
+    }, [id])
+
+    useEffect(() => {
+        if (!fetching && data?.trackedEntityType) {
+            // Transform the tracked entity type attributes into dimension format
+            const tetAttributes =
+                data.trackedEntityType.trackedEntityTypeAttributes || []
+
+            const transformedDimensions = tetAttributes
+                .map((attr) => ({
+                    id: attr.trackedEntityAttribute.id,
+                    name: attr.trackedEntityAttribute.name,
+                    valueType: attr.trackedEntityAttribute.valueType,
+                    optionSet: attr.trackedEntityAttribute.optionSet,
+                    dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+                }))
+                .filter((dim) => {
+                    // Apply search filter if provided
+                    if (searchTerm) {
+                        return dim.name
+                            ?.toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                    }
+                    return true
+                })
+
+            setDimensions(transformedDimensions)
+        }
+    }, [data, fetching, searchTerm])
 
     return {
-        loading,
+        loading: dimensions === null ? loading : false,
         fetching,
         error,
         dimensions: dimensions ?? [],
