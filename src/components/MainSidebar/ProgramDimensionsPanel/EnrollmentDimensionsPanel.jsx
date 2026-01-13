@@ -134,7 +134,7 @@ const EnrollmentDimensionsPanel = ({
         if (programStatusId && !programStatus) {
             mockMetadata[programStatusId] = {
                 id: programStatusId,
-                name: i18n.t('Program status'),
+                name: i18n.t('Enrollment status'),
                 dimensionType: 'STATUS',
             }
         }
@@ -171,7 +171,12 @@ const EnrollmentDimensionsPanel = ({
         if (incidentDate && program.displayIncidentDate !== false) {
             dims.push(incidentDate)
         }
-        if (programStatus) dims.push(programStatus)
+        if (programStatus) {
+            dims.push({
+                ...programStatus,
+                name: i18n.t('Enrollment status'),
+            })
+        }
         return dims
     }, [
         enrollmentOrgUnit,
