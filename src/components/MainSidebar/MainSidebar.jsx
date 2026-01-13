@@ -560,7 +560,7 @@ const MainSidebar = () => {
                         viewMode === VIEW_MODE_PROGRAM_CONFIG &&
                         isProgramWithRegistration && (
                             <>
-                                {/* Enrollment Card - contains enrollment dimensions and tracked entity attributes */}
+                                {/* Enrollment Card - contains enrollment dimensions (org unit, dates, status) */}
                                 <CardSection
                                     label={
                                         dataSource?.name === 'Child Programme'
@@ -647,7 +647,7 @@ const MainSidebar = () => {
                                     })}
                                 </CardSection>
 
-                                {/* Person Registration Card - only registration org unit and date */}
+                                {/* Person Registration Card - registration org unit, date, and tracked entity attributes */}
                                 <CardSection
                                     label={i18n.t(
                                         '{{entityTypeName}} registration',

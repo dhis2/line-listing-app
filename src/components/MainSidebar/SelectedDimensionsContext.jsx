@@ -102,7 +102,7 @@ export const SelectedDimensionsProvider = ({ children }) => {
                     selectedInputType
                 )
 
-                // Tracked entity attributes (for tracked entity output type)
+                // Tracked entity attributes (for tracked entity output type only)
                 if (
                     dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE &&
                     selectedInputType === OUTPUT_TYPE_TRACKED_ENTITY
@@ -139,11 +139,15 @@ export const SelectedDimensionsProvider = ({ children }) => {
                     }
                     acc.stages[programStageId] += 1
                 }
-                // Enrollment-specific dimensions (program attributes without stage, or enrollment dates/status)
+                // Tracked entity attributes (program attributes without stage) - count under person
                 else if (
-                    ENROLLMENT_DIMENSION_IDS.has(dimensionId) ||
-                    (dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE && !programStageId)
+                    dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE && !programStageId
                 ) {
+                    acc.person += 1
+                    acc.program += 1
+                }
+                // Enrollment-specific dimensions (enrollment dates/status)
+                else if (ENROLLMENT_DIMENSION_IDS.has(dimensionId)) {
                     acc.enrollment += 1
                     acc.program += 1
                 }

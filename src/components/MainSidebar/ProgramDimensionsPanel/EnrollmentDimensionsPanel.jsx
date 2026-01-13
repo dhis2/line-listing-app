@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     DIMENSION_ID_ORGUNIT,
-    DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import {
@@ -12,24 +11,18 @@ import {
     DIMENSION_ID_PROGRAM_STATUS,
 } from '../../../modules/dimensionConstants.js'
 import { formatDimensionId } from '../../../modules/dimensionId.js'
-import { CARD_TYPE_TRACKED_ENTITY } from '../../../modules/paginationConfig.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import { acAddMetadata } from '../../../actions/metadata.js'
-import { useDebounce } from '../../../modules/utils.js'
-import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
-import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
-import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
 // Type filter constants (must match MainSidebar)
 const TYPE_FILTER_ORG_UNITS = 'ORG_UNITS'
 const TYPE_FILTER_PERIODS = 'PERIODS'
 const TYPE_FILTER_STATUSES = 'STATUSES'
-const TYPE_FILTER_PROGRAM_ATTRIBUTES = 'PROGRAM_ATTRIBUTES'
 
 // Helper function to check if a dimension matches the type filter
-// EnrollmentDimensionsPanel contains: org unit, dates (periods), status, and program attributes
+// EnrollmentDimensionsPanel contains: org unit, dates (periods), and status
 const matchesTypeFilter = (dimension, typeFilter) => {
     // If no filter selected, show all
     if (!typeFilter) return true
@@ -43,10 +36,8 @@ const matchesTypeFilter = (dimension, typeFilter) => {
             return dimensionType === 'PERIOD'
         case TYPE_FILTER_STATUSES:
             return dimensionType === 'STATUS'
-        case TYPE_FILTER_PROGRAM_ATTRIBUTES:
-            return dimensionType === DIMENSION_TYPE_PROGRAM_ATTRIBUTE
-        // EnrollmentDimensionsPanel doesn't contain data elements, program indicators,
-        // categories, or category option group sets
+        // EnrollmentDimensionsPanel doesn't contain program attributes, data elements,
+        // program indicators, categories, or category option group sets
         default:
             return false
     }
@@ -59,9 +50,6 @@ const EnrollmentDimensionsPanel = ({
     onEmptyStateChange,
 }) => {
     const dispatch = useDispatch()
-    const debouncedSearchTerm = useDebounce(searchTerm || '')
-    const { getPageSize } = usePaginationConfig()
-    const pageSize = getPageSize(CARD_TYPE_TRACKED_ENTITY)
 
     // Get enrollment-specific dimensions from metadata
     const enrollmentOrgUnitId = program?.id
@@ -170,22 +158,6 @@ const EnrollmentDimensionsPanel = ({
         programStatus,
     ])
 
-    // Get program attributes (tracked entity attributes for this program)
-    const {
-        dimensions: attributeDimensions,
-        loading: attributesLoading,
-        fetching: attributesFetching,
-        error: attributesError,
-        hasMore: attributesHasMore,
-        loadMore: attributesLoadMore,
-    } = useProgramDataDimensions({
-        inputType: OUTPUT_TYPE_ENROLLMENT,
-        program,
-        searchTerm: debouncedSearchTerm,
-        dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
-        pageSize,
-    })
-
     // Build enrollment-specific dimensions list (org unit, periods, status)
     const enrollmentDimensions = useMemo(() => {
         const dims = []
@@ -236,24 +208,11 @@ const EnrollmentDimensionsPanel = ({
         })
     )
 
-    // Filter program attributes based on type filter
-    const filteredAttributeDimensions = useMemo(() => {
-        if (!attributeDimensions) return []
-        return attributeDimensions.filter((dimension) =>
-            matchesTypeFilter(dimension, typeFilter)
-        )
-    }, [attributeDimensions, typeFilter])
-
     // Check what dimensions are available
     const hasEnrollmentDimensions = filteredEnrollmentDimensions.length > 0
-    const hasAttributeDimensions = filteredAttributeDimensions.length > 0
 
     // Check if empty and notify parent
-    const isEmpty =
-        !attributesLoading &&
-        !attributesFetching &&
-        !hasEnrollmentDimensions &&
-        !hasAttributeDimensions
+    const isEmpty = !hasEnrollmentDimensions
     React.useEffect(() => {
         if (onEmptyStateChange) {
             onEmptyStateChange(isEmpty)
@@ -265,50 +224,16 @@ const EnrollmentDimensionsPanel = ({
         return null
     }
 
-    // If no dimensions match the filter, show empty state
-    if (!hasEnrollmentDimensions && !hasAttributeDimensions) {
-        return (
-            <DimensionsList
-                dimensions={[]}
-                loading={attributesLoading}
-                fetching={attributesFetching}
-                error={null}
-                hasMore={false}
-                onLoadMore={() => {}}
-                dataTest="enrollment-dimensions-list"
-            />
-        )
-    }
-
     return (
-        <>
-            {/* Enrollment org unit, dates, and status */}
-            {hasEnrollmentDimensions && (
-                <DimensionsList
-                    dimensions={draggableEnrollmentDimensions}
-                    loading={false}
-                    fetching={false}
-                    error={null}
-                    hasMore={false}
-                    onLoadMore={() => {}}
-                    dataTest="enrollment-dimensions-list"
-                />
-            )}
-
-            {/* Program attributes (tracked entity attributes for this program) */}
-            {hasAttributeDimensions && (
-                <ProgramDataDimensionsList
-                    dimensions={filteredAttributeDimensions}
-                    loading={attributesLoading}
-                    fetching={attributesFetching}
-                    error={attributesError}
-                    hasMore={attributesHasMore}
-                    onLoadMore={attributesLoadMore}
-                    program={program}
-                    searchTerm={debouncedSearchTerm}
-                />
-            )}
-        </>
+        <DimensionsList
+            dimensions={draggableEnrollmentDimensions}
+            loading={false}
+            fetching={false}
+            error={null}
+            hasMore={false}
+            onLoadMore={() => {}}
+            dataTest="enrollment-dimensions-list"
+        />
     )
 }
 
