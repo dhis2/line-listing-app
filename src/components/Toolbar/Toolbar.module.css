@@ -1,6 +1,8 @@
 .toolbarWrapper {
     width: 100%;
     background-color: white;
+    /* border-bottom: 1px solid var(--colors-grey400); */
+    flex-shrink: 0;
 }
 
 :global([data-test='dhis2-analytics-toolbar']) {
