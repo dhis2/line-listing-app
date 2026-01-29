@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2025-11-19T10:00:09.034Z\n"
-"PO-Revision-Date: 2025-11-19T10:00:09.034Z\n"
+"POT-Creation-Date: 2026-01-29T18:27:15.714Z\n"
+"PO-Revision-Date: 2026-01-29T18:27:15.714Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -93,6 +93,25 @@ msgstr "Hide"
 
 msgid "Show items where the status is:"
 msgstr "Show items where the status is:"
+
+msgid "Pagination Settings (Debug)"
+msgstr "Pagination Settings (Debug)"
+
+msgid ""
+"Configure how many items are shown per page for each card type. Values must "
+"be between 1 and 100."
+msgstr ""
+"Configure how many items are shown per page for each card type. Values must "
+"be between 1 and 100."
+
+msgid "Reset to defaults"
+msgstr "Reset to defaults"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
 
 msgid "Choose from presets"
 msgstr "Choose from presets"
@@ -238,8 +257,22 @@ msgstr "Loading more..."
 msgid "Load more"
 msgstr "Load more"
 
+msgid "Remove all {{count}} dimensions from this data source"
+msgid_plural "Remove all {{count}} dimensions from this data source"
+msgstr[0] "Remove all {{count}} dimensions from this data source"
+msgstr[1] "Remove all {{count}} dimensions from this data source"
+
+msgid "Programs"
+msgstr "Programs"
+
+msgid "Analyze without a program"
+msgstr "Analyze without a program"
+
 msgid "Choose a data source"
 msgstr "Choose a data source"
+
+msgid "Filter data sources"
+msgstr "Filter data sources"
 
 msgid "No data sources found"
 msgstr "No data sources found"
@@ -271,8 +304,8 @@ msgstr "Search input types"
 msgid "Error loading types"
 msgstr "Error loading types"
 
-msgid "Choose a data source to see available dimensions"
-msgstr "Choose a data source to see available dimensions"
+msgid "Event"
+msgstr "Event"
 
 msgid "Organisation units"
 msgstr "Organisation units"
@@ -286,8 +319,17 @@ msgstr "Statuses"
 msgid "Data"
 msgstr "Data"
 
-msgid "Pregnancy"
-msgstr "Pregnancy"
+msgid "Pregnancy data"
+msgstr "Pregnancy data"
+
+msgid "Enrollment data"
+msgstr "Enrollment data"
+
+msgid "Event data"
+msgstr "Event data"
+
+msgid "{{entityTypeName}} registration"
+msgstr "{{entityTypeName}} registration"
 
 msgid "Program Indicators"
 msgstr "Program Indicators"
@@ -295,11 +337,35 @@ msgstr "Program Indicators"
 msgid "data"
 msgstr "data"
 
+msgid "Programs where {{typeName}} is used"
+msgstr "Programs where {{typeName}} is used"
+
 msgid "Metadata"
 msgstr "Metadata"
 
 msgid "Other"
 msgstr "Other"
+
+msgid "Enrollment org. unit"
+msgstr "Enrollment org. unit"
+
+msgid "Enrollment date"
+msgstr "Enrollment date"
+
+msgid "Incident date"
+msgstr "Incident date"
+
+msgid "Enrollment status"
+msgstr "Enrollment status"
+
+msgid "Event org. unit"
+msgstr "Event org. unit"
+
+msgid "Registration org. unit"
+msgstr "Registration org. unit"
+
+msgid "Registration date"
+msgstr "Registration date"
 
 msgid "Data elements"
 msgstr "Data elements"
@@ -390,6 +456,16 @@ msgstr "Choose a type"
 msgid "No types found"
 msgstr "No types found"
 
+msgid "Couldn't load programs"
+msgstr "Couldn't load programs"
+
+msgid ""
+"There was a problem loading the programs. Try again, or contact your system "
+"administrator."
+msgstr ""
+"There was a problem loading the programs. Try again, or contact your system "
+"administrator."
+
 msgid "{{- itemName}} dimensions"
 msgstr "{{- itemName}} dimensions"
 
@@ -399,29 +475,29 @@ msgstr "Filter by program usage"
 msgid "All programs"
 msgstr "All programs"
 
-msgid "Registration org. unit"
-msgstr "Registration org. unit"
-
-msgid "Registration date"
-msgstr "Registration date"
-
-msgid "All"
-msgstr "All"
-
 msgid "Org units"
 msgstr "Org units"
 
-msgid "Search all dimensions"
-msgstr "Search all dimensions"
+msgid "Search"
+msgstr "Search"
+
+msgid "Filter by type"
+msgstr "Filter by type"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Change filter"
+msgstr "Change filter"
+
+msgid "Clear filter"
+msgstr "Clear filter"
 
 msgid "Group by data type"
 msgstr "Group by data type"
 
 msgid "Group by program configuration"
 msgstr "Group by program configuration"
-
-msgid "Filter by data type"
-msgstr "Filter by data type"
 
 msgid "Collapse all cards"
 msgstr "Collapse all cards"
@@ -447,6 +523,9 @@ msgstr "Unsaved changes"
 msgid "Line list"
 msgstr "Line list"
 
+msgid "Export"
+msgstr "Export"
+
 msgid "\"{{- deletedObject}}\" successfully deleted."
 msgstr "\"{{- deletedObject}}\" successfully deleted."
 
@@ -456,6 +535,30 @@ msgid ""
 msgstr ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
+
+msgid "File"
+msgstr "File"
+
+msgid "Open..."
+msgstr "Open..."
+
+msgid "Save as..."
+msgstr "Save as..."
+
+msgid "Rename..."
+msgstr "Rename..."
+
+msgid "Translate..."
+msgstr "Translate..."
+
+msgid "Share..."
+msgstr "Share..."
+
+msgid "Get link..."
+msgstr "Get link..."
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Show layout"
 msgstr "Show layout"
@@ -478,29 +581,11 @@ msgstr "Show interpretations and details"
 msgid "New"
 msgstr "New"
 
-msgid "Open..."
-msgstr "Open..."
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Save as..."
-msgstr "Save as..."
-
-msgid "Rename..."
-msgstr "Rename..."
-
 msgid "Translate"
 msgstr "Translate"
 
-msgid "Share..."
-msgstr "Share..."
-
-msgid "Get link..."
-msgstr "Get link..."
-
-msgid "Delete"
-msgstr "Delete"
+msgid "Set pagination numbers (Debug)"
+msgstr "Set pagination numbers (Debug)"
 
 msgid "Rename successful"
 msgstr "Rename successful"
@@ -514,11 +599,56 @@ msgstr "View"
 msgid "Reset sidebar width"
 msgstr "Reset sidebar width"
 
-msgid "Line List"
-msgstr "Line List"
+msgid "Pivot table"
+msgstr "Pivot table"
 
-msgid "Pivot Table"
-msgstr "Pivot Table"
+msgid "Column"
+msgstr "Column"
+
+msgid "Stacked cols"
+msgstr "Stacked cols"
+
+msgid "Bar"
+msgstr "Bar"
+
+msgid "Stacked bar"
+msgstr "Stacked bar"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Area"
+msgstr "Area"
+
+msgid "Stacked area"
+msgstr "Stacked area"
+
+msgid "Pie"
+msgstr "Pie"
+
+msgid "Radar"
+msgstr "Radar"
+
+msgid "Gauge"
+msgstr "Gauge"
+
+msgid "Single value"
+msgstr "Single value"
+
+msgid "Scatter"
+msgstr "Scatter"
+
+msgid "Coming soon"
+msgstr "Coming soon"
+
+msgid "Individual data view"
+msgstr "Individual data view"
+
+msgid "Aggregated view"
+msgstr "Aggregated view"
+
+msgid "Choose a visualization type"
+msgstr "Choose a visualization type"
 
 msgid "Update"
 msgstr "Update"
@@ -534,6 +664,9 @@ msgstr "Open a visualization"
 
 msgid "Search by name"
 msgstr "Search by name"
+
+msgid "All"
+msgstr "All"
 
 msgid "Created by me"
 msgstr "Created by me"
@@ -575,11 +708,32 @@ msgstr "Page {{page}} of {{totalPages}}"
 msgid "Next"
 msgstr "Next"
 
-msgid "Read the app guide"
-msgstr "Read the app guide"
+msgid "Last 12 months"
+msgstr "Last 12 months"
+
+msgid "Organisation unit"
+msgstr "Organisation unit"
+
+msgid "Event date"
+msgstr "Event date"
+
+msgid "User organisation unit"
+msgstr "User organisation unit"
+
+msgid "Quick start templates"
+msgstr "Quick start templates"
+
+msgid "Enrollments from last 12 months"
+msgstr "Enrollments from last 12 months"
+
+msgid "{{stageName}} events from last 12 months"
+msgstr "{{stageName}} events from last 12 months"
 
 msgid "Most viewed"
 msgstr "Most viewed"
+
+msgid "Browse all..."
+msgstr "Browse all..."
 
 msgid "Not available offline"
 msgstr "Not available offline"
@@ -714,6 +868,9 @@ msgstr "Skip rounding"
 msgid "Add a title"
 msgstr "Add a title"
 
+msgid "All options"
+msgstr "All options"
+
 msgid "Options"
 msgstr "Options"
 
@@ -722,9 +879,6 @@ msgstr "Columns"
 
 msgid "Rows"
 msgstr "Rows"
-
-msgid "Filter"
-msgstr "Filter"
 
 msgid "equal to (=)"
 msgstr "equal to (=)"
@@ -878,17 +1032,11 @@ msgstr "Created by"
 msgid "Last updated by"
 msgstr "Last updated by"
 
-msgid "User organisation unit"
-msgstr "User organisation unit"
-
 msgid "User sub-units"
 msgstr "User sub-units"
 
 msgid "User sub-x2-units"
 msgstr "User sub-x2-units"
-
-msgid "Organisation unit"
-msgstr "Organisation unit"
 
 msgid "Table title"
 msgstr "Table title"
@@ -932,15 +1080,6 @@ msgstr "oldest {{repeatEventIndex}}"
 msgid "most recent {{repeatEventIndex}}"
 msgstr "most recent {{repeatEventIndex}}"
 
-msgid "Event date"
-msgstr "Event date"
-
-msgid "Enrollment date"
-msgstr "Enrollment date"
-
-msgid "Incident date"
-msgstr "Incident date"
-
 msgid "Scheduled date"
 msgstr "Scheduled date"
 
@@ -961,11 +1100,3 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
-
-msgctxt "Application title"
-msgid "__MANIFEST_APP_TITLE"
-msgstr "Line Listing"
-
-msgctxt "Application description"
-msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr "DHIS2 Line Listing"

@@ -2,7 +2,6 @@
 import {
     DIMENSION_ID_ORGUNIT,
     DIMENSION_TYPE_ORGANISATION_UNIT,
-    VIS_TYPE_LINE_LIST,
     USER_ORG_UNIT,
 } from '@dhis2/analytics'
 import { useMemo } from 'react'
@@ -89,7 +88,7 @@ const DEFAULT_DIMENSION_ITEMS = []
 
 const EMPTY_UI = {
     draggingId: null,
-    type: VIS_TYPE_LINE_LIST,
+    type: null, // No default - user must select visualization type
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
@@ -124,7 +123,7 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     draggingId: null,
-    type: VIS_TYPE_LINE_LIST,
+    type: null, // No default - user must select visualization type
     input: {
         type: OUTPUT_TYPE_EVENT,
     },

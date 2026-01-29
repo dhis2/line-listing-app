@@ -6,12 +6,22 @@
     border-radius: 5px;
     border: 1px solid var(--colors-grey400);
     overflow: hidden;
+    background: var(--colors-white);
+}
+
+/* Content area wrapper */
+.contentArea {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
 .layoutContainer {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
 }
 
 /* Remove the margin and border-radius from the Layout component inside */
@@ -49,6 +59,16 @@
 /* Options buttons container */
 .optionsButtons {
     margin-left: auto;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .bottomBar {
@@ -111,4 +131,26 @@
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;
+}
+
+/* Empty layout area - shown when no visualization type is selected */
+.emptyLayoutArea {
+    display: flex;
+    background-color: var(--colors-grey050);
+    min-height: 200px;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Fade out animation for empty state */
+.fadeOut {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+.slideIn {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.slideInBottom {
+    animation: fadeIn 0.3s ease-out forwards;
 }
