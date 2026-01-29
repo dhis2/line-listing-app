@@ -1,13 +1,14 @@
 import { VisualizationOptions } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { FlyoutMenu, MenuItem, IconSettings16, Popper, Layer } from '@dhis2/ui'
+import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { getOptionsByType } from '../../modules/options/config.js'
 import { ToolbarMenuDropdownTrigger } from '../Toolbar/ToolbarMenuDropdownTrigger.jsx'
 import styles from '../Toolbar/ToolbarMenuDropdownTrigger.module.css'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 
-const VisualizationOptionsManager = () => {
+const VisualizationOptionsManager = ({ className }) => {
     const [selectedOptionConfigKey, setSelectedOptionConfigKey] = useState(null)
     const [menuOpen, setMenuOpen] = useState(false)
     const anchorRef = useRef(null)
@@ -33,6 +34,7 @@ const VisualizationOptionsManager = () => {
                     onClick={() => setMenuOpen(!menuOpen)}
                     dataTest="options-menu-button"
                     open={menuOpen}
+                    className={className}
                 />
             </div>
             {menuOpen && (
@@ -64,6 +66,10 @@ const VisualizationOptionsManager = () => {
             )}
         </>
     )
+}
+
+VisualizationOptionsManager.propTypes = {
+    className: PropTypes.string,
 }
 
 export default VisualizationOptionsManager

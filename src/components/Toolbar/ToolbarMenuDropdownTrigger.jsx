@@ -9,11 +9,16 @@ export const ToolbarMenuDropdownTrigger = ({
     onClick,
     open,
     dataTest,
+    className,
 }) => {
+    const triggerClassName = className
+        ? `${styles.trigger} ${className}`
+        : styles.trigger
+
     return (
         <button
             type="button"
-            className={styles.trigger}
+            className={triggerClassName}
             onClick={onClick}
             data-test={dataTest}
             aria-expanded={open}
@@ -33,4 +38,5 @@ ToolbarMenuDropdownTrigger.propTypes = {
     onClick: PropTypes.func.isRequired,
     open: PropTypes.bool,
     dataTest: PropTypes.string,
+    className: PropTypes.string,
 }

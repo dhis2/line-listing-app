@@ -35,7 +35,6 @@ import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { sGetUi } from '../../reducers/ui.js'
 import { ToolbarDownloadDropdown } from '../DownloadMenu/index.js'
-import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager.jsx'
 import ViewDropDown from './ViewDropDown.jsx'
 
 const visualizationSaveAsMutation = {
@@ -288,7 +287,6 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onError={onError}
             /> */}
             {/* <ViewDropDown /> */}
-            <VisualizationOptionsManager />
             {/* <ToolbarDownloadDropdown /> */}
             {/* </HoverMenuBar> */}
         </>

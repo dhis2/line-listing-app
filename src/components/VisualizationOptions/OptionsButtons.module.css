@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.optionButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--colors-grey700);
+    line-height: 0;
+    font-weight: 400;
+    border-radius: 4px;
+}
+
+.optionButton:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
+}
+
+.optionButton:active {
+    background-color: var(--colors-grey300);
+}
+
+.allOptionsButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--colors-grey600);
+    line-height: 1;
+    font-weight: 400;
+    border-radius: 4px;
+}
+
+.allOptionsButton:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
+}
+
+.allOptionsButton:active {
+    background-color: var(--colors-grey300);
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.allOptionsButton .icon {
+    margin-right: 6px;
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}

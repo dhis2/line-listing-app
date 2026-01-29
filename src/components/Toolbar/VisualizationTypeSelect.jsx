@@ -26,7 +26,7 @@ const VISUALIZATION_TYPES = [
     { value: VIS_TYPE_PIVOT_TABLE, label: i18n.t('Pivot Table') },
 ]
 
-const VisualizationTypeSelect = ({ dataTest }) => {
+const VisualizationTypeSelect = ({ dataTest, className }) => {
     const [menuOpen, setMenuOpen] = useState(false)
     const anchorRef = useRef(null)
     const dispatch = useDispatch()
@@ -93,6 +93,7 @@ const VisualizationTypeSelect = ({ dataTest }) => {
                     onClick={() => setMenuOpen(!menuOpen)}
                     dataTest={dataTest}
                     open={menuOpen}
+                    className={className}
                 />
             </div>
             {menuOpen && (
@@ -117,6 +118,7 @@ const VisualizationTypeSelect = ({ dataTest }) => {
 
 VisualizationTypeSelect.propTypes = {
     dataTest: PropTypes.string,
+    className: PropTypes.string,
 }
 
 export { VisualizationTypeSelect }

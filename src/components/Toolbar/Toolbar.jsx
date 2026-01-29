@@ -17,7 +17,6 @@ import { ChevronToggle } from './ChevronToggle.jsx'
 import { MegaMenu } from './MegaMenu.jsx'
 import { MenuBar } from './MenuBar.jsx'
 import { UpdateButton } from './UpdateButton.jsx'
-import { VisualizationTypeSelect } from './VisualizationTypeSelect.jsx'
 import TitleBar from '../TitleBar/TitleBar.jsx'
 import styles from './Toolbar.module.css'
 
@@ -63,9 +62,6 @@ export const Toolbar = ({ onFileMenuAction }) => {
                 <AnalyticsToolbar>
                     <div className={styles.toolbarLeft}>
                         <MegaMenu onFileMenuAction={onFileMenuAction} />
-                        <div className={styles.toolbarLeftDivider}></div>
-                        <VisualizationTypeSelect dataTest="visualization-type-select" />
-                        <div className={styles.toolbarLeftDivider}></div>
                         <MenuBar onFileMenuAction={onFileMenuAction} />
                     </div>
                     {showTitleBarInToolbar && <TitleBar />}
