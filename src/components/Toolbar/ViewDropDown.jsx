@@ -1,10 +1,6 @@
-import {
-    HoverMenuDropdown,
-    HoverMenuList,
-    HoverMenuListItem,
-} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import React, { useCallback } from 'react'
+import { FlyoutMenu, MenuItem, Popper, Layer } from '@dhis2/ui'
+import React, { useCallback, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     acToggleUiSidebarHidden,
@@ -21,6 +17,8 @@ import {
     sGetUiShowDetailsPanel,
     sGetUiAccessoryPanelWidth,
 } from '../../reducers/ui.js'
+import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
+import styles from './ToolbarMenuDropdownTrigger.module.css'
 
 export default function ViewDropDown() {
     const dispatch = useDispatch()
@@ -29,22 +27,28 @@ export default function ViewDropDown() {
     const isDetailsPanelOpen = useSelector(sGetUiShowDetailsPanel)
     const userSettingWidth = useSelector(sGetUiAccessoryPanelWidth)
     const id = useSelector(sGetCurrentId)
+    const [menuOpen, setMenuOpen] = useState(false)
+    const anchorRef = useRef(null)
 
     const toggleLayoutPanelHidden = useCallback(() => {
         dispatch(acToggleUiLayoutPanelHidden())
+        setMenuOpen(false)
     }, [dispatch])
 
     const toggleSidebarHidden = useCallback(() => {
         dispatch(acToggleUiSidebarHidden())
+        setMenuOpen(false)
     }, [dispatch])
 
     const resetAccessorySidebarWidth = useCallback(() => {
         setUserSidebarWidthToLocalStorage(ACCESSORY_PANEL_DEFAULT_WIDTH)
         dispatch(acSetUiAccessoryPanelWidth(ACCESSORY_PANEL_DEFAULT_WIDTH))
+        setMenuOpen(false)
     }, [dispatch])
 
     const toggleDetailsPanelOpen = useCallback(() => {
         dispatch(acSetUiDetailsPanelOpen(!isDetailsPanelOpen))
+        setMenuOpen(false)
     }, [dispatch, isDetailsPanelOpen])
 
     const toggleLayoutPanelText = isLayoutPanelHidden
@@ -58,29 +62,44 @@ export default function ViewDropDown() {
         : i18n.t('Show interpretations and details')
 
     return (
-        <HoverMenuDropdown label={i18n.t('View')}>
-            <HoverMenuList>
-                <HoverMenuListItem
-                    label={toggleLayoutPanelText}
-                    onClick={toggleLayoutPanelHidden}
+        <>
+            <div ref={anchorRef} className={styles.wrapper}>
+                <ToolbarMenuDropdownTrigger
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    dataTest="view-menu"
+                    open={menuOpen}
+                    label={i18n.t('View')}
                 />
-                <HoverMenuListItem
-                    label={toggleSidebarText}
-                    onClick={toggleSidebarHidden}
-                />
-                <HoverMenuListItem
-                    label={i18n.t('Reset sidebar width')}
-                    onClick={resetAccessorySidebarWidth}
-                    disabled={
-                        userSettingWidth === ACCESSORY_PANEL_DEFAULT_WIDTH
-                    }
-                />
-                <HoverMenuListItem
-                    label={toggleDetailsPanelText}
-                    onClick={toggleDetailsPanelOpen}
-                    disabled={!id}
-                />
-            </HoverMenuList>
-        </HoverMenuDropdown>
+            </div>
+            {menuOpen && (
+                <Layer onBackdropClick={() => setMenuOpen(false)}>
+                    <Popper reference={anchorRef} placement="bottom-start">
+                        <FlyoutMenu dense>
+                            <MenuItem
+                                label={toggleLayoutPanelText}
+                                onClick={toggleLayoutPanelHidden}
+                            />
+                            <MenuItem
+                                label={toggleSidebarText}
+                                onClick={toggleSidebarHidden}
+                            />
+                            <MenuItem
+                                label={i18n.t('Reset sidebar width')}
+                                onClick={resetAccessorySidebarWidth}
+                                disabled={
+                                    userSettingWidth ===
+                                    ACCESSORY_PANEL_DEFAULT_WIDTH
+                                }
+                            />
+                            <MenuItem
+                                label={toggleDetailsPanelText}
+                                onClick={toggleDetailsPanelOpen}
+                                disabled={!id}
+                            />
+                        </FlyoutMenu>
+                    </Popper>
+                </Layer>
+            )}
+        </>
     )
 }

@@ -10,10 +10,16 @@ export const ToolbarMenuDropdownTrigger = ({
     open,
     dataTest,
     className,
+    showChevron = true,
+    disabled = false,
 }) => {
-    const triggerClassName = className
-        ? `${styles.trigger} ${className}`
-        : styles.trigger
+    const triggerClassName = [
+        styles.trigger,
+        className,
+        disabled && styles.disabled,
+    ]
+        .filter(Boolean)
+        .join(' ')
 
     return (
         <button
@@ -22,21 +28,26 @@ export const ToolbarMenuDropdownTrigger = ({
             onClick={onClick}
             data-test={dataTest}
             aria-expanded={open}
+            disabled={disabled}
         >
             {icon && <span className={styles.icon}>{icon}</span>}
-            <span className={styles.label}>{label}</span>
-            <span className={styles.chevron}>
-                <IconChevronDown16 />
-            </span>
+            {label && <span className={styles.label}>{label}</span>}
+            {showChevron && (
+                <span className={styles.chevron}>
+                    <IconChevronDown16 />
+                </span>
+            )}
         </button>
     )
 }
 
 ToolbarMenuDropdownTrigger.propTypes = {
-    icon: PropTypes.node,
-    label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
+    icon: PropTypes.node,
+    label: PropTypes.string,
     open: PropTypes.bool,
     dataTest: PropTypes.string,
     className: PropTypes.string,
+    showChevron: PropTypes.bool,
+    disabled: PropTypes.bool,
 }
