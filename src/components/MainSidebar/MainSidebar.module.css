@@ -4,9 +4,68 @@
     margin: 4px;
     border-radius: 5px;
     border: 1px solid var(--colors-grey400);
+    position: relative;
 }
 .container.hidden {
     display: none;
+}
+
+/* Position right - moves sidebar to right side via flex order */
+.container.positionRight {
+    order: 2;
+}
+
+/* Dragging state */
+.container.dragging {
+    opacity: 0.9;
+    cursor: grabbing;
+}
+
+/* Drag handle for repositioning the sidebar */
+.dragHandle {
+    width: 4px;
+    background-color: transparent;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 150ms ease;
+    border-radius: 5px 0 0 5px;
+}
+
+.dragHandle:hover {
+    background-color: var(--colors-grey300);
+}
+
+.dragHandle:active {
+    cursor: grabbing;
+    background-color: var(--colors-blue500);
+}
+
+/* Drag handle on right side of sidebar (when sidebar is on right) */
+.dragHandleRight {
+    order: 2;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Grip pattern inside drag handle */
+.dragHandleGrip {
+    width: 2px;
+    height: 24px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--colors-grey500) 0px,
+        var(--colors-grey500) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.dragHandle:hover .dragHandleGrip {
+    opacity: 1;
 }
 .main {
     box-sizing: border-box;
@@ -73,6 +132,12 @@
 
 .resizeHandle:hover {
     background-color: var(--colors-blue500);
+}
+
+/* Resize handle on left side when sidebar is positioned right */
+.resizeHandleLeft {
+    right: auto;
+    left: 0;
 }
 
 .placeholderCard {

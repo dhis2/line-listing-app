@@ -101,6 +101,21 @@ const useViewportWidth = () => {
     return width
 }
 
+// Custom hook for sidebar position with localStorage persistence
+const useSidebarPosition = () => {
+    const [position, setPosition] = useState(() => {
+        const saved = localStorage.getItem('sidebarPosition')
+        return saved === 'right' ? 'right' : 'left'
+    })
+
+    const setPositionWithPersist = (newPosition) => {
+        setPosition(newPosition)
+        localStorage.setItem('sidebarPosition', newPosition)
+    }
+
+    return [position, setPositionWithPersist]
+}
+
 const dataStatisticsMutation = {
     resource: 'dataStatistics',
     params: ({ id }) => ({
@@ -141,6 +156,7 @@ const App = () => {
         sGetMetadataById(state, dataSource?.id)
     )
     const viewportWidth = useViewportWidth()
+    const [sidebarPosition, setSidebarPosition] = useSidebarPosition()
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
@@ -507,7 +523,10 @@ const App = () => {
             >
                 <MultiSelectionProvider>
                     <DndContext>
-                        <MainSidebar />
+                        <MainSidebar
+                            position={sidebarPosition}
+                            onPositionChange={setSidebarPosition}
+                        />
                         <DialogManager />
                         <div
                             className={cx(

@@ -56,6 +56,11 @@
     overflow: hidden;
 }
 
+/* Sidebar position right - moves sidebar to end of flex row */
+.sidebarRight {
+    order: 2;
+}
+
 .mainRight {
     width: 380px;
     background-color: #f0f2f4;

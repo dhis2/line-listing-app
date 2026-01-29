@@ -78,11 +78,13 @@ const TYPE_FILTER_PROGRAM_INDICATORS = 'PROGRAM_INDICATORS'
 const TYPE_FILTER_CATEGORIES = 'CATEGORIES'
 const TYPE_FILTER_CATEGORY_OPTION_GROUP_SETS = 'CATEGORY_OPTION_GROUP_SETS'
 
-const MainSidebar = () => {
+const MainSidebar = ({ position = 'left', onPositionChange }) => {
     const dispatch = useDispatch()
     const expandedCards = useSelector(sGetUiExpandedCards) || []
     const { width, handleMouseDown, handleDoubleClick } =
         useResizableMainSidebar()
+    const [isDragging, setIsDragging] = useState(false)
+    const sidebarRef = React.useRef(null)
     const [unifiedSearchTerm, setUnifiedSearchTerm] = useState('')
     const [mainDimensionsEmpty, setMainDimensionsEmpty] = useState(false)
     const [trackedEntityDimensionsEmpty, setTrackedEntityDimensionsEmpty] =
@@ -235,6 +237,36 @@ const MainSidebar = () => {
     ])
     const { counts } = useSelectedDimensions()
 
+    // Drag handle for sidebar repositioning
+    const handleDragStart = useCallback(
+        (e) => {
+            e.preventDefault()
+            setIsDragging(true)
+
+            const handleDragMove = (moveEvent) => {
+                const currentX = moveEvent.clientX
+                const viewportCenter = window.innerWidth / 2
+
+                // Determine if we should switch sides based on cursor position
+                if (position === 'left' && currentX > viewportCenter) {
+                    onPositionChange?.('right')
+                } else if (position === 'right' && currentX < viewportCenter) {
+                    onPositionChange?.('left')
+                }
+            }
+
+            const handleDragEnd = () => {
+                setIsDragging(false)
+                document.removeEventListener('mousemove', handleDragMove)
+                document.removeEventListener('mouseup', handleDragEnd)
+            }
+
+            document.addEventListener('mousemove', handleDragMove)
+            document.addEventListener('mouseup', handleDragEnd)
+        },
+        [position, onPositionChange]
+    )
+
     // Callback to update individual stage empty state
     const handleStageEmptyStateChange = useCallback((stageId, isEmpty) => {
         setStageEmptyStates((prev) => {
@@ -355,10 +387,28 @@ const MainSidebar = () => {
 
     return (
         <div
+            ref={sidebarRef}
             className={cx(styles.container, {
                 [styles.hidden]: isHidden,
+                [styles.positionRight]: position === 'right',
+                [styles.dragging]: isDragging,
             })}
         >
+            {/* Drag handle for repositioning sidebar */}
+            <div
+                className={cx(styles.dragHandle, {
+                    [styles.dragHandleRight]: position === 'right',
+                })}
+                onMouseDown={handleDragStart}
+                title={
+                    position === 'left'
+                        ? i18n.t('Drag to move sidebar to the right')
+                        : i18n.t('Drag to move sidebar to the left')
+                }
+                data-test="sidebar-drag-handle"
+            >
+                <div className={styles.dragHandleGrip} />
+            </div>
             <div
                 className={styles.main}
                 data-test="main-sidebar"
@@ -807,7 +857,9 @@ const MainSidebar = () => {
                     )}
                 </div>
                 <div
-                    className={styles.resizeHandle}
+                    className={cx(styles.resizeHandle, {
+                        [styles.resizeHandleLeft]: position === 'right',
+                    })}
                     onMouseDown={handleMouseDown}
                     onDoubleClick={handleDoubleClick}
                     data-test="main-sidebar-resize-handle"
@@ -817,9 +869,12 @@ const MainSidebar = () => {
     )
 }
 
-const MainSidebarWithSelectedDimensionsProvider = () => (
+const MainSidebarWithSelectedDimensionsProvider = ({
+    position,
+    onPositionChange,
+}) => (
     <SelectedDimensionsProvider>
-        <MainSidebar />
+        <MainSidebar position={position} onPositionChange={onPositionChange} />
     </SelectedDimensionsProvider>
 )
 
