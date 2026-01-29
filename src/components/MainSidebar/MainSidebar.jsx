@@ -362,7 +362,7 @@ const MainSidebar = () => {
             <div
                 className={styles.main}
                 data-test="main-sidebar"
-                style={{ width: `${width}px`, paddingTop: '4px' }}
+                style={{ width: `${width}px` }}
             >
                 <InputPanel visible={true} />
 

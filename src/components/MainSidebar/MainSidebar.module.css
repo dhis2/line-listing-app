@@ -1,21 +1,25 @@
 .container {
     display: flex;
     z-index: 4;
+    margin: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--colors-grey400);
 }
 .container.hidden {
     display: none;
 }
 .main {
     box-sizing: border-box;
-    background-color: var(--colors-grey200);
-    border-right: 1px solid var(--colors-grey400);
-    box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03);
+    background-color: var(--colors-grey100);
+    /* border-right: 1px solid var(--colors-grey400); */
+    /* box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03); */
     z-index: 5;
     overflow-y: auto;
     max-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
+    border-radius: 5px;
 }
 
 .headingContainer {
