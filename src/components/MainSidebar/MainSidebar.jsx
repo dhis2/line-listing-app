@@ -394,21 +394,6 @@ const MainSidebar = ({ position = 'left', onPositionChange }) => {
                 [styles.dragging]: isDragging,
             })}
         >
-            {/* Drag handle for repositioning sidebar */}
-            <div
-                className={cx(styles.dragHandle, {
-                    [styles.dragHandleRight]: position === 'right',
-                })}
-                onMouseDown={handleDragStart}
-                title={
-                    position === 'left'
-                        ? i18n.t('Drag to move sidebar to the right')
-                        : i18n.t('Drag to move sidebar to the left')
-                }
-                data-test="sidebar-drag-handle"
-            >
-                <div className={styles.dragHandleGrip} />
-            </div>
             <div
                 className={styles.main}
                 data-test="main-sidebar"
@@ -864,6 +849,21 @@ const MainSidebar = ({ position = 'left', onPositionChange }) => {
                     onDoubleClick={handleDoubleClick}
                     data-test="main-sidebar-resize-handle"
                 />
+                {/* Drag handle for repositioning sidebar - at bottom */}
+                <div
+                    className={cx(styles.dragHandle, {
+                        [styles.dragHandleRight]: position === 'right',
+                    })}
+                    onMouseDown={handleDragStart}
+                    title={
+                        position === 'left'
+                            ? i18n.t('Drag to move sidebar to the right')
+                            : i18n.t('Drag to move sidebar to the left')
+                    }
+                    data-test="sidebar-drag-handle"
+                >
+                    <div className={styles.dragHandleGrip} />
+                </div>
             </div>
         </div>
     )
