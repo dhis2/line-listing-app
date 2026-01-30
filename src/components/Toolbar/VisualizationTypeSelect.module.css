@@ -82,3 +82,35 @@
 .tooltipWrapper {
     display: contents;
 }
+
+/* Empty state placeholder - shown when no visualization type is selected */
+.emptyPlaceholder {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 4px;
+    height: 28px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--colors-grey700);
+    line-height: 1;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: default;
+    display: none;
+}
+
+.emptyPlaceholderIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.emptyPlaceholderLabel {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    color: var(--colors-grey600);
+    font-weight: 400;
+}

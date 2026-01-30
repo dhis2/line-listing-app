@@ -43,9 +43,10 @@
     gap: 4px;
     padding: 4px;
     background-color: var(--colors-white);
-    border-bottom: 1px solid var(--colors-grey300);
+    border-bottom: 1px solid var(--colors-grey400);
     width: 100%;
     box-sizing: border-box;
+    animation: fadeIn 0.3s ease-out forwards;
 }
 
 /* Visualization type selector (Line List / Pivot Table) */
@@ -58,7 +59,7 @@
 
 /* Options buttons container */
 .optionsButtons {
-    animation: fadeIn 0.3s ease-out forwards;
+    /* Animation handled by parent .topBar */
 }
 
 @keyframes fadeIn {

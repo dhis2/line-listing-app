@@ -13,16 +13,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    background-image: radial-gradient(
-            circle,
-            var(--colors-grey400) 1px,
-            transparent 1px
-        ),
-        radial-gradient(
-            ellipse at center,
-            rgba(255, 255, 255, 0) 60%,
-            var(--colors-grey300) 100%
-        );
     background-size: 8px 8px, 100% 100%;
     background-position: 0 0, 0 0;
     background-blend-mode: lighten;

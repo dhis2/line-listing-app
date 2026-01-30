@@ -51,6 +51,10 @@
     border-radius: 5px !important;
 }
 
+.dropdownWrapper :global(*[data-test*='data-source-select-placeholder']) {
+    font-weight: 400 !important;
+}
+
 .dropdownWrapper:hover :global(*[data-test*='dhis2-uicore-select-input']) {
     /* background-color: var(--colors-red300) !important; */
 }

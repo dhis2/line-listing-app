@@ -195,14 +195,14 @@ const LayoutWithBottomBar = () => {
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.topBar}>
-                <VisualizationTypeSelect
-                    className={classes.visualizationTypeSelect}
-                />
-                {(hasVisualizationType || showLayout) && (
+            {(hasVisualizationType || showLayout) && (
+                <div className={classes.topBar}>
+                    <VisualizationTypeSelect
+                        className={classes.visualizationTypeSelect}
+                    />
                     <OptionsButtons className={classes.optionsButtons} />
-                )}
-            </div>
+                </div>
+            )}
             <div className={classes.contentArea}>
                 {showLayout ? (
                     <>

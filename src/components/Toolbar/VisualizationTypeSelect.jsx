@@ -160,7 +160,7 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     // Determine label - show placeholder when no type selected
     const selectedLabel = currentType
         ? currentTypeConfig?.label || currentType
-        : i18n.t('Choose a visualization type')
+        : i18n.t('Visualization type')
 
     // Get the icon for the current type
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
@@ -266,21 +266,28 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     return (
         <>
             <div ref={anchorRef} className={styles.wrapper}>
-                <ToolbarMenuDropdownTrigger
-                    icon={
-                        currentType ? (
-                            <CurrentIcon color="#6C7787" />
-                        ) : (
-                            <IconVisualizationLinelist16 color="#6C7787" />
-                        )
-                    }
-                    label={selectedLabel}
-                    onClick={() => currentType && setMenuOpen(!menuOpen)}
-                    dataTest={dataTest}
-                    open={menuOpen}
-                    className={className}
-                    showChevron={Boolean(currentType)}
-                />
+                {currentType ? (
+                    <ToolbarMenuDropdownTrigger
+                        icon={<CurrentIcon color="#6C7787" />}
+                        label={selectedLabel}
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        dataTest={dataTest}
+                        open={menuOpen}
+                        className={className}
+                        showChevron={true}
+                    />
+                ) : (
+                    <span
+                        className={`${styles.emptyPlaceholder} ${
+                            className || ''
+                        }`}
+                        data-test={dataTest}
+                    >
+                        <span className={styles.emptyPlaceholderLabel}>
+                            {selectedLabel}
+                        </span>
+                    </span>
+                )}
             </div>
             {showDropdown && (
                 <Layer onBackdropClick={() => setMenuOpen(false)}>
