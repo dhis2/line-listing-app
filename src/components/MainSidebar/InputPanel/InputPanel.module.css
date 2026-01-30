@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    padding: 2px var(--spacers-dp4);
+    padding: var(--spacers-dp4);
     background-color: var(--colors-white);
     border-bottom: 1px solid var(--colors-grey400);
     border-radius: 5px;
@@ -35,13 +35,25 @@
     font-size: 13px !important;
     font-weight: 500;
     border-radius: 5px;
+    line-height: 1;
+    overflow: hidden;
 }
 
 /* Override trigger padding */
 .dropdownWrapper :global(*[class*='trigger']) {
     padding-inline-end: 4px !important;
+    padding-block-start: 23px !important;
 }
 
+.dropdownWrapper :global(*[data-test*='dhis2-uicore-select-input']) {
+    height: 28px !important;
+    min-height: 28px !important;
+    border-radius: 5px !important;
+}
+
+.dropdownWrapper:hover :global(*[data-test*='dhis2-uicore-select-input']) {
+    /* background-color: var(--colors-red300) !important; */
+}
 .dropdownWrapper :global(*:focus) {
     /* border: none !important; */
     box-shadow: none !important;
@@ -50,7 +62,7 @@
 
 .dropdownWrapper:hover :global(*) {
     border: none !important;
-    background-color: var(--colors-grey100) !important;
+    background-color: var(--colors-grey200) !important;
     box-shadow: none !important;
     outline: none !important;
 }

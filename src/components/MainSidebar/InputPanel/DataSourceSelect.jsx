@@ -8,7 +8,10 @@ import {
 } from '@dhis2/ui'
 import React, { useEffect, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { tSetDataSource, tRemoveDataSourceDimensions } from '../../../actions/ui.js'
+import {
+    tSetDataSource,
+    tRemoveDataSourceDimensions,
+} from '../../../actions/ui.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { extractDimensionIdParts } from '../../../modules/dimensionId.js'
 import {
@@ -93,8 +96,7 @@ const useDimensionCountsByDataSource = (programs) => {
                     p.programStages?.some((s) => s.id === programStageId)
                 )
                 if (ownerProgram) {
-                    counts[ownerProgram.id] =
-                        (counts[ownerProgram.id] || 0) + 1
+                    counts[ownerProgram.id] = (counts[ownerProgram.id] || 0) + 1
                 }
             }
         })
@@ -144,8 +146,14 @@ const OptionLabelWithBadge = ({ name, count, onRemove }) => (
                     // Prevent dropdown from closing
                     e.stopPropagation()
                 }}
-                title={i18n.t('Remove all {{count}} dimensions from this data source', { count })}
-                aria-label={i18n.t('Remove all {{count}} dimensions from this data source', { count })}
+                title={i18n.t(
+                    'Remove all {{count}} dimensions from this data source',
+                    { count }
+                )}
+                aria-label={i18n.t(
+                    'Remove all {{count}} dimensions from this data source',
+                    { count }
+                )}
             >
                 {count} ×
             </button>
@@ -189,7 +197,6 @@ export const DataSourceSelect = ({
 
     // Get dimension counts per data source
     const dimensionCounts = useDimensionCountsByDataSource(programs)
-
 
     const handleSelect = (selectedId) => {
         if (!selectedId || selectedId.startsWith('header-')) {
@@ -304,7 +311,10 @@ export const DataSourceSelect = ({
                                     name={name}
                                     count={count}
                                     onRemove={() =>
-                                        handleRemoveDataSourceDimensions('PROGRAM', id)
+                                        handleRemoveDataSourceDimensions(
+                                            'PROGRAM',
+                                            id
+                                        )
                                     }
                                 />
                             ) : (
@@ -322,7 +332,11 @@ export const DataSourceSelect = ({
             options.push(
                 <SingleSelectOption
                     key="header-tet"
-                    label={<SectionHeader label={i18n.t('Analyze without a program')} />}
+                    label={
+                        <SectionHeader
+                            label={i18n.t('Analyze without a program')}
+                        />
+                    }
                     value="header-tet"
                     disabled
                 />
@@ -338,7 +352,10 @@ export const DataSourceSelect = ({
                                     name={name}
                                     count={count}
                                     onRemove={() =>
-                                        handleRemoveDataSourceDimensions('TRACKED_ENTITY_TYPE', id)
+                                        handleRemoveDataSourceDimensions(
+                                            'TRACKED_ENTITY_TYPE',
+                                            id
+                                        )
                                     }
                                 />
                             ) : (
@@ -367,9 +384,6 @@ export const DataSourceSelect = ({
             noMatchText={i18n.t('No data sources found')}
             empty={i18n.t('No data sources found')}
             loading={fetching}
-            prefix={
-                selectedValue ? <IconDimensionEventDataItem16 /> : undefined
-            }
         >
             {!fetching && renderOptions()}
         </SingleSelect>
