@@ -1,6 +1,6 @@
 .container {
     /* background-color: rgba(232, 237, 242, 0.5); */
-    padding: 8px var(--spacers-dp12);
+    padding: 16px var(--spacers-dp16);
     border-radius: 5px;
     width: 100%;
 }
