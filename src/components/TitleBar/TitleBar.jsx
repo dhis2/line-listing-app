@@ -53,7 +53,9 @@ export const TitleBar = ({ titleState, titleText }) => {
     return (
         <div
             data-test="titlebar"
-            className={cx(classes.titleBar, appClasses.flexGrow1)}
+            className={cx(classes.titleBar, appClasses.flexGrow1, {
+                [classes.titleBarWithContent]: titleText,
+            })}
         >
             {/* <div className={classes.buttonContainer}>
                 <ExpandedVisualizationCanvasToggle />
