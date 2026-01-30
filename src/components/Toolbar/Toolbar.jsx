@@ -5,6 +5,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     IconAdd16,
+    IconFolderOpen16,
     IconSave16,
     IconFullscreen16,
     IconFullscreenExit16,
@@ -30,6 +31,7 @@ import {
     getVisualizationState,
 } from '../../modules/visualization.js'
 import TitleBar from '../TitleBar/TitleBar.jsx'
+import OpenVisualizationDialog from '../Visualization/OpenVisualizationDialog.jsx'
 import { ChevronToggle } from './ChevronToggle.jsx'
 import { FileDropDown } from './FileDropDown.jsx'
 import ViewDropDown from './ViewDropDown.jsx'
@@ -63,12 +65,14 @@ const useViewportWidth = () => {
 
 export const Toolbar = ({ onFileMenuAction }) => {
     const [sharingDialogOpen, setSharingDialogOpen] = useState(false)
+    const [isOpenDialogVisible, setIsOpenDialogVisible] = useState(false)
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const current = useSelector(sGetCurrent)
     const visualization = useSelector(sGetVisualization)
     const ui = useSelector(sGetUi)
     const isExpanded = useSelector(sGetUiShowExpandedVisualizationCanvas)
+    const { currentUser } = useCachedDataQuery()
 
     const { show: showAlert } = useAlert(
         ({ message }) => message,
@@ -114,6 +118,10 @@ export const Toolbar = ({ onFileMenuAction }) => {
         } else {
             history.push('/')
         }
+    }
+
+    const handleOpen = () => {
+        setIsOpenDialogVisible(true)
     }
 
     const canSave =
@@ -168,6 +176,14 @@ export const Toolbar = ({ onFileMenuAction }) => {
                             className={styles.newButton}
                         />
                         <ToolbarMenuDropdownTrigger
+                            icon={<IconFolderOpen16 color="#6C7787" />}
+                            label={i18n.t('Open')}
+                            onClick={handleOpen}
+                            dataTest="open-button"
+                            showChevron={false}
+                            className={styles.iconButton}
+                        />
+                        <ToolbarMenuDropdownTrigger
                             icon={<IconSave16 color="#6C7787" />}
                             label={i18n.t('Save')}
                             onClick={handleSave}
@@ -207,6 +223,11 @@ export const Toolbar = ({ onFileMenuAction }) => {
                     onClose={handleSharingDialogClose}
                 />
             )}
+            <OpenVisualizationDialog
+                open={isOpenDialogVisible}
+                onClose={() => setIsOpenDialogVisible(false)}
+                currentUser={currentUser}
+            />
         </>
     )
 }

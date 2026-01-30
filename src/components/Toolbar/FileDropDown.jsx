@@ -34,6 +34,7 @@ import {
 import { sGetCurrent, sGetCurrentId } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { sGetUi } from '../../reducers/ui.js'
+import OpenVisualizationDialog from '../Visualization/OpenVisualizationDialog.jsx'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './ToolbarMenuDropdownTrigger.module.css'
 
@@ -67,6 +68,7 @@ export const FileDropDown = ({ onFileMenuAction }) => {
     const { currentUser } = useCachedDataQuery()
     const id = useSelector(sGetCurrentId)
     const [menuOpen, setMenuOpen] = useState(false)
+    const [isOpenDialogVisible, setIsOpenDialogVisible] = useState(false)
     const anchorRef = useRef(null)
 
     const { show: showAlert } = useAlert(
@@ -89,7 +91,7 @@ export const FileDropDown = ({ onFileMenuAction }) => {
     )
 
     const onOpen = () => {
-        // This would typically open a dialog to select a visualization
+        setIsOpenDialogVisible(true)
         setMenuOpen(false)
     }
 
@@ -207,6 +209,11 @@ export const FileDropDown = ({ onFileMenuAction }) => {
                     </Popper>
                 </Layer>
             )}
+            <OpenVisualizationDialog
+                open={isOpenDialogVisible}
+                onClose={() => setIsOpenDialogVisible(false)}
+                currentUser={currentUser}
+            />
         </>
     )
 }

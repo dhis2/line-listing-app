@@ -10,6 +10,7 @@ import React, { useCallback, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import PaginationSettingsModal from '../Dialogs/PaginationSettingsModal.jsx'
+import OpenVisualizationDialog from '../Visualization/OpenVisualizationDialog.jsx'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './ToolbarMenuDropdownTrigger.module.css'
 import { tSetCurrent } from '../../actions/current.js'
@@ -80,6 +81,7 @@ export const MegaMenu = ({ onFileMenuAction }) => {
     const id = useSelector(sGetCurrentId)
     const [menuOpen, setMenuOpen] = useState(false)
     const [paginationModalOpen, setPaginationModalOpen] = useState(false)
+    const [isOpenDialogVisible, setIsOpenDialogVisible] = useState(false)
     const anchorRef = useRef(null)
 
     const { show: showAlert } = useAlert(
@@ -110,8 +112,8 @@ export const MegaMenu = ({ onFileMenuAction }) => {
     }
 
     const onOpen = () => {
-        // This would typically open a dialog to select a visualization
-        console.log('Open clicked')
+        setIsOpenDialogVisible(true)
+        setMenuOpen(false)
     }
 
     const onSave = async () => {
@@ -283,10 +285,7 @@ export const MegaMenu = ({ onFileMenuAction }) => {
                             />
                             <MenuItem
                                 label={i18n.t('Open...')}
-                                onClick={() => {
-                                    onOpen()
-                                    setMenuOpen(false)
-                                }}
+                                onClick={onOpen}
                             />
                             <MenuItem
                                 label={i18n.t('Save')}
@@ -391,6 +390,11 @@ export const MegaMenu = ({ onFileMenuAction }) => {
                     onClose={() => setPaginationModalOpen(false)}
                 />
             )}
+            <OpenVisualizationDialog
+                open={isOpenDialogVisible}
+                onClose={() => setIsOpenDialogVisible(false)}
+                currentUser={currentUser}
+            />
         </>
     )
 }
