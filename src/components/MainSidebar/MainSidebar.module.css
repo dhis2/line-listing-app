@@ -1,7 +1,7 @@
 .container {
     display: flex;
     z-index: 4;
-    margin: 4px;
+    margin: 4px 0 4px 4px;
     border-radius: 5px;
     border: 1px solid var(--colors-grey400);
     position: relative;

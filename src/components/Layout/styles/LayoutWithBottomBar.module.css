@@ -40,7 +40,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 8px;
+    gap: 4px;
     padding: 4px;
     background-color: var(--colors-white);
     border-bottom: 1px solid var(--colors-grey300);
@@ -51,7 +51,7 @@
 /* Visualization type selector (Line List / Pivot Table) */
 .visualizationTypeSelect {
     /* Add your custom styles here */
-    background-color: var(--colors-grey100);
+    background-color: var(--colors-white);
     border-radius: 5px;
     color: var(--colors-grey800);
 }
