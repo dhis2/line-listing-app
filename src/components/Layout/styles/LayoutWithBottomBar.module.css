@@ -74,7 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 12px;
     padding: 4px;
     background-color: var(--colors-white);
     border-top: 1px solid var(--colors-grey300);
@@ -84,9 +84,13 @@
 
 .button {
     flex-shrink: 0;
-    padding: 6px 12px;
-    background-color: var(--colors-blue050);
-    color: var(--colors-blue700);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0px 8px;
+    min-height: 28px;
+    background-color: var(--colors-blue100);
+    color: var(--colors-blue800);
     border: none;
     border-radius: 4px;
     font-size: 13px;
@@ -97,8 +101,8 @@
 }
 
 .button:hover:not(:disabled) {
-    background-color: var(--colors-blue100);
-    color: var(--colors-blue800);
+    background-color: var(--colors-blue200);
+    color: var(--colors-blue900);
 }
 
 .button:active:not(:disabled) {
@@ -114,11 +118,12 @@
 .buttonAlt {
     background-color: var(--colors-grey100);
     color: var(--colors-grey700);
+    font-weight: 400;
 }
 
 .buttonAlt:hover:not(:disabled) {
-    background-color: var(--colors-blue100);
-    color: var(--colors-blue800);
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
 }
 
 .buttonAlt:active:not(:disabled) {
@@ -127,6 +132,28 @@
 }
 
 .buttonAlt:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+}
+
+.buttonCreate {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey800);
+    font-weight: 500;
+}
+
+.buttonCreate:hover:not(:disabled) {
+    background-color: var(--colors-grey300);
+    color: var(--colors-grey900);
+}
+
+.buttonCreate:active:not(:disabled) {
+    background-color: var(--colors-blue200);
+    color: var(--colors-blue800);
+}
+
+.buttonCreate:disabled {
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;

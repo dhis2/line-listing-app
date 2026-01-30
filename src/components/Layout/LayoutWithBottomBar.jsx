@@ -5,6 +5,7 @@ import {
     IconTable16,
     IconVisualizationColumnStacked16,
     IconLegend16,
+    IconSync16,
 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import Layout from './Layout.jsx'
@@ -128,7 +129,6 @@ const LayoutWithBottomBar = () => {
 
         // Determine the button label based on visualization state
         let buttonLabel
-        let isAltMode = false
         if (!hasCurrentVisualization) {
             // No visualization exists: use "Create" pattern
             buttonLabel = createText
@@ -138,13 +138,22 @@ const LayoutWithBottomBar = () => {
         } else {
             // Visualization exists but this is NOT the current type: use "Switch" pattern
             buttonLabel = switchText
-            isAltMode = true
         }
 
-        // Build className - only apply buttonAlt for "Switch to" mode
-        const buttonClassName = `${classes.button} ${
-            isAltMode && !validation.disabled ? classes.buttonAlt || '' : ''
-        }`
+        // Show icon only for the "Update" button (active button)
+        const isActiveButton = hasCurrentVisualization && isCurrentType
+        const isCreateButton = !hasCurrentVisualization
+        const isSwitchButton = hasCurrentVisualization && !isCurrentType
+
+        // Build className - apply buttonCreate for Create buttons, buttonAlt for Switch buttons
+        let buttonClassName = classes.button
+        if (!validation.disabled) {
+            if (isCreateButton) {
+                buttonClassName += ` ${classes.buttonCreate}`
+            } else if (isSwitchButton) {
+                buttonClassName += ` ${classes.buttonAlt}`
+            }
+        }
 
         const button = (
             <button
@@ -152,6 +161,7 @@ const LayoutWithBottomBar = () => {
                 className={buttonClassName}
                 disabled={validation.disabled}
             >
+                {isActiveButton && <IconSync16 />}
                 {buttonLabel}
             </button>
         )
