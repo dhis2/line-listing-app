@@ -1,38 +1,12 @@
 .container {
     display: flex;
     align-items: center;
-    gap: 4px;
-}
-
-.optionButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 13px;
-    font-family: inherit;
-    color: var(--colors-grey700);
-    line-height: 0;
-    font-weight: 400;
-    border-radius: 4px;
-}
-
-.optionButton:hover {
-    background-color: var(--colors-grey200);
-    color: var(--colors-grey900);
-}
-
-.optionButton:active {
-    background-color: var(--colors-grey300);
 }
 
 .allOptionsButton {
     display: inline-flex;
     align-items: center;
-    padding: 6px 10px;
+    padding: 6px 8px;
     border: none;
     background: transparent;
     cursor: pointer;

@@ -40,7 +40,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 8px;
     padding: 4px;
     background-color: var(--colors-white);
     border-bottom: 1px solid var(--colors-grey300);
@@ -58,7 +58,6 @@
 
 /* Options buttons container */
 .optionsButtons {
-    margin-left: auto;
     animation: fadeIn 0.3s ease-out forwards;
 }
 
