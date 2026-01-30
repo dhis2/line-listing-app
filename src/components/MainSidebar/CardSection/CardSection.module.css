@@ -27,7 +27,7 @@
     align-items: center;
     padding: 6px 6px 6px 2px;
     padding: 10px 6px 10px 4px;
-    background-color: var(--colors-grey050);
+    /* background-color: var(--colors-grey050); */
     min-height: 29px;
     border-radius: 4px; /* Clip bg to card corners (1px less than card's 5px to account for border) */
 }
@@ -35,7 +35,7 @@
 .header.expanded {
     border-radius: 4px 4px 0 0; /* Only top corners when expanded */
     margin-bottom: var(--spacers-dp4);
-    border-bottom: 1px solid var(--colors-grey300);
+    /* border-bottom: 1px solid var(--colors-grey300); */
 }
 
 .header:hover {
@@ -75,7 +75,7 @@
 }
 
 .label.hasSelections {
-    color: var(--colors-teal600);
+    /* color: var(--colors-teal600); */
 }
 
 .header.hasSelections {
@@ -142,7 +142,7 @@
 .card.nested {
     /* background-color: var(--colors-yellow100); */
     border: none;
-    border-bottom: 1px solid var(--colors-grey300);
+    border-top: 1px solid var(--colors-grey300);
     border-radius: 0;
     /* border-bottom: none; */
 }
