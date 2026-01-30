@@ -163,7 +163,7 @@
 /* Empty layout area - shown when no visualization type is selected */
 .emptyLayoutArea {
     display: flex;
-    background-color: var(--colors-grey050);
+    background-color: var(--colors-white);
     min-height: 200px;
     transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }

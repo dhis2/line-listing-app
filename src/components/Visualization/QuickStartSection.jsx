@@ -1,4 +1,8 @@
-import { DIMENSION_ID_ORGUNIT, USER_ORG_UNIT } from '@dhis2/analytics'
+import {
+    DIMENSION_ID_ORGUNIT,
+    USER_ORG_UNIT,
+    VIS_TYPE_LINE_LIST,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { IconLaunch16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
@@ -9,6 +13,7 @@ import {
     acAddUiLayoutDimensions,
     acSetUiExpandedCards,
     acSetUiItems,
+    acSetUiType,
     tSetUiOutput,
 } from '../../actions/ui.js'
 import {
@@ -111,7 +116,8 @@ const QuickStartSection = () => {
             )
         )
 
-        // Set output type to enrollment and trigger visualization
+        // Set visualization type and output type, then trigger visualization
+        dispatch(acSetUiType(VIS_TYPE_LINE_LIST))
         dispatch(tSetUiOutput(OUTPUT_TYPE_ENROLLMENT))
         dispatch(tSetCurrentFromUi())
     }
@@ -206,7 +212,8 @@ const QuickStartSection = () => {
             ])
         )
 
-        // Set output type to event and trigger visualization
+        // Set visualization type and output type, then trigger visualization
+        dispatch(acSetUiType(VIS_TYPE_LINE_LIST))
         dispatch(tSetUiOutput(OUTPUT_TYPE_EVENT))
         dispatch(tSetCurrentFromUi())
     }
