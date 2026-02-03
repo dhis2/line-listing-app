@@ -146,10 +146,12 @@ const LayoutWithBottomBar = () => {
         const isCreateButton = !hasCurrentVisualization
         const isSwitchButton = hasCurrentVisualization && !isCurrentType
 
-        // Build className - apply buttonCreate for Create buttons, buttonAlt for Switch buttons
+        // Build className - apply buttonCreate for Create buttons, buttonAlt for Switch buttons, buttonUpdate for Update buttons
         let buttonClassName = classes.button
         if (!validation.disabled) {
-            if (isCreateButton) {
+            if (isActiveButton) {
+                buttonClassName += ` ${classes.buttonUpdate}`
+            } else if (isCreateButton) {
                 buttonClassName += ` ${classes.buttonCreate}`
             } else if (isSwitchButton) {
                 buttonClassName += ` ${classes.buttonAlt}`

@@ -95,33 +95,54 @@
     gap: 4px;
     padding: 0px 8px;
     min-height: 28px;
-    background-color: var(--colors-blue100);
-    color: var(--colors-blue800);
-    border: 1px solid #c8e4f9;
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
+    color: var(--colors-grey700);
+
     border-radius: 3px;
     font-size: 13px;
     line-height: 1;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 1px 2px 0 rgba(33, 41, 52, 0.04);
 }
 
 .button:hover:not(:disabled) {
-    background-color: #daedfb;
-    border-color: #c8e4f9;
-    color: var(--colors-blue900);
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
 }
 
 .button:active:not(:disabled) {
-    background-color: #d1e8fa;
-    border-color: #c8e4f9;
-    transform: translateY(1px);
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
 }
 
 .button:disabled {
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;
+    font-weight: 400;
+    border-color: var(--colors-grey300);
+}
+
+.buttonUpdate {
+    border: 1px solid #c8e4f9;
+    color: var(--colors-blue800);
+    background-color: var(--colors-blue100);
+    box-shadow: 0 1px 2px 0 rgba(33, 41, 52, 0.04);
+}
+
+.buttonUpdate:hover:not(:disabled) {
+    background-color: #daedfb;
+    border-color: #c8e4f9;
+    color: var(--colors-blue900);
+}
+
+.buttonUpdate:active:not(:disabled) {
+    background-color: #d1e8fa;
+    border-color: #c8e4f9;
+    transform: translateY(1px);
 }
 
 .buttonAlt {
@@ -148,28 +169,32 @@
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;
+    font-weight: 400 !important;
 }
 
 .buttonCreate {
     background-color: var(--colors-grey100);
     color: var(--colors-grey800);
-    font-weight: 500;
+    font-weight: 400 !important;
 }
 
 .buttonCreate:hover:not(:disabled) {
-    background-color: var(--colors-grey300);
+    background-color: var(--colors-grey100);
     color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
 }
 
 .buttonCreate:active:not(:disabled) {
-    background-color: var(--colors-blue200);
-    color: var(--colors-blue800);
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
 }
 
 .buttonCreate:disabled {
     background-color: transparent;
     color: var(--colors-grey500);
     cursor: not-allowed;
+    font-weight: 400 !important;
 }
 
 /* Empty layout area - shown when no visualization type is selected */
