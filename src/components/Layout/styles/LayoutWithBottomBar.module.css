@@ -81,7 +81,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
-    padding: 4px;
+    padding: 6px 6px;
     background-color: var(--colors-white);
     border-top: 1px solid var(--colors-grey300);
     width: 100%;
@@ -97,22 +97,25 @@
     min-height: 28px;
     background-color: var(--colors-blue100);
     color: var(--colors-blue800);
-    border: none;
-    border-radius: 4px;
+    border: 1px solid #c8e4f9;
+    border-radius: 3px;
     font-size: 13px;
     line-height: 1;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(33, 41, 52, 0.04);
 }
 
 .button:hover:not(:disabled) {
-    background-color: var(--colors-blue200);
+    background-color: #daedfb;
+    border-color: #c8e4f9;
     color: var(--colors-blue900);
 }
 
 .button:active:not(:disabled) {
-    background-color: var(--colors-blue200);
+    background-color: #d1e8fa;
+    border-color: #c8e4f9;
+    transform: translateY(1px);
 }
 
 .button:disabled {
@@ -122,19 +125,23 @@
 }
 
 .buttonAlt {
-    background-color: var(--colors-grey100);
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
     color: var(--colors-grey700);
     font-weight: 400;
+    box-shadow: none;
 }
 
 .buttonAlt:hover:not(:disabled) {
-    background-color: var(--colors-grey200);
+    background-color: var(--colors-grey100);
     color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
 }
 
 .buttonAlt:active:not(:disabled) {
-    background-color: var(--colors-blue200);
-    color: var(--colors-blue800);
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
 }
 
 .buttonAlt:disabled {

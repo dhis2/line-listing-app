@@ -221,15 +221,13 @@ const LayoutUtilitiesMenu = () => {
                                     dataTest="layout-utilities-clear-rows"
                                 />
                             )}
-                            {isLineList && (
-                                <MenuItem
-                                    destructive
-                                    label={i18n.t('Clear Filter')}
-                                    onClick={handleClearFilter}
-                                    disabled={filters.length === 0}
-                                    dataTest="layout-utilities-clear-filter"
-                                />
-                            )}
+                            <MenuItem
+                                destructive
+                                label={i18n.t('Clear Filter')}
+                                onClick={handleClearFilter}
+                                disabled={filters.length === 0}
+                                dataTest="layout-utilities-clear-filter"
+                            />
                             <MenuItem
                                 label={i18n.t('Clear all')}
                                 destructive={true}
