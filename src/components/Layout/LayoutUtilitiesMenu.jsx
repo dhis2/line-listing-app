@@ -6,7 +6,14 @@ import {
     VIS_TYPE_PIVOT_TABLE,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { Layer, Popper, FlyoutMenu, MenuItem, IconMore16 } from '@dhis2/ui'
+import {
+    Layer,
+    Popper,
+    FlyoutMenu,
+    MenuItem,
+    IconMore16,
+    MenuDivider,
+} from '@dhis2/ui'
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiLayout, acRemoveUiLayoutDimensions } from '../../actions/ui.js'
@@ -98,6 +105,30 @@ const LayoutUtilitiesMenu = () => {
         closeMenu()
     }
 
+    // Clear columns
+    const handleClearColumns = () => {
+        if (columns.length > 0) {
+            dispatch(acRemoveUiLayoutDimensions(columns))
+        }
+        closeMenu()
+    }
+
+    // Clear rows
+    const handleClearRows = () => {
+        if (rows.length > 0) {
+            dispatch(acRemoveUiLayoutDimensions(rows))
+        }
+        closeMenu()
+    }
+
+    // Clear filter
+    const handleClearFilter = () => {
+        if (filters.length > 0) {
+            dispatch(acRemoveUiLayoutDimensions(filters))
+        }
+        closeMenu()
+    }
+
     // Clear all dimensions
     const handleClearAll = () => {
         const allIds = [...columns, ...rows, ...filters]
@@ -173,6 +204,32 @@ const LayoutUtilitiesMenu = () => {
                                 }
                                 dataTest="layout-utilities-move-all-filter"
                             />
+                            <MenuDivider dense />
+                            <MenuItem
+                                destructive
+                                label={i18n.t('Clear Columns')}
+                                onClick={handleClearColumns}
+                                disabled={columns.length === 0}
+                                dataTest="layout-utilities-clear-columns"
+                            />
+                            {isPivotTable && (
+                                <MenuItem
+                                    destructive
+                                    label={i18n.t('Clear Rows')}
+                                    onClick={handleClearRows}
+                                    disabled={rows.length === 0}
+                                    dataTest="layout-utilities-clear-rows"
+                                />
+                            )}
+                            {isLineList && (
+                                <MenuItem
+                                    destructive
+                                    label={i18n.t('Clear Filter')}
+                                    onClick={handleClearFilter}
+                                    disabled={filters.length === 0}
+                                    dataTest="layout-utilities-clear-filter"
+                                />
+                            )}
                             <MenuItem
                                 label={i18n.t('Clear all')}
                                 destructive={true}
