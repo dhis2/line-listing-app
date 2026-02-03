@@ -69,7 +69,7 @@
 }
 .main {
     box-sizing: border-box;
-    background-color: var(--colors-grey200);
+    background-color: var(--colors-grey100);
     /* border-right: 1px solid var(--colors-grey400); */
     /* box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03); */
     z-index: 5;
@@ -116,6 +116,25 @@
     gap: 4px;
     overflow-y: auto;
     scrollbar-width: thin;
+    scrollbar-color: #c7cfd6 transparent;
+}
+
+.cardsContainer:hover {
+    scrollbar-color: #b2bdc7 transparent;
+}
+
+/* Safari fallback (doesn't support standardized scrollbar properties) */
+@supports not (scrollbar-color: auto) {
+    .cardsContainer::-webkit-scrollbar {
+        width: 8px;
+    }
+    .cardsContainer::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .cardsContainer::-webkit-scrollbar-thumb {
+        background: #c7cfd6;
+        border-radius: 4px;
+    }
 }
 
 .resizeHandle {
