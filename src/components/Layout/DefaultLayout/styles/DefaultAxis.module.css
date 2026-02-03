@@ -33,7 +33,7 @@
 .label {
     width: 100%;
     text-transform: uppercase;
-    padding: 2px 0 1px 0;
+    padding: 2px 0 2px 0;
     font-size: 10px;
     font-weight: 500;
     color: var(--colors-grey600);
@@ -43,42 +43,26 @@
     justify-content: space-between;
 }
 
-.labelActions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-}
-
-.axisContainer:hover .labelActions {
-    /* opacity: 1; */
-}
-
-.iconButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    margin: 0;
-    border: none;
-    background: transparent;
+.labelClickable {
     cursor: pointer;
-    color: var(--colors-grey700);
-    transition: color 0.15s ease;
+    padding: 2px 2px 0 2px;
+    margin: -2px 0 0 -2px;
+    border-radius: 3px;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.iconButton:hover {
+.labelClickable:hover {
+    background-color: var(--colors-grey100);
     color: var(--colors-grey900);
+    outline: 1px solid var(--colors-grey400);
+    outline-offset: -1px;
 }
 
-.iconButton:active {
-    color: var(--colors-grey800);
+.labelClickable:active {
+    background-color: var(--colors-grey300);
 }
 
-.iconButton:focus {
-    outline: 2px solid var(--colors-grey500);
-    outline-offset: 2px;
+.labelClickable:focus {
+    outline: 1px solid var(--colors-grey500);
+    outline-offset: -1px;
 }
