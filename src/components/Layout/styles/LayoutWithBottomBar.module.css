@@ -62,6 +62,11 @@
     /* Animation handled by parent .topBar */
 }
 
+/* Spacer to push utilities button to right edge */
+.topBarSpacer {
+    flex: 1;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

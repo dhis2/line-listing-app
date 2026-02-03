@@ -9,6 +9,7 @@ import {
 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import Layout from './Layout.jsx'
+import LayoutUtilitiesMenu from './LayoutUtilitiesMenu.jsx'
 import { VisualizationTypeSelect } from '../Toolbar/VisualizationTypeSelect.jsx'
 import { VisualizationTypeGrid } from '../Toolbar/VisualizationTypeGrid.jsx'
 import OptionsButtons from '../VisualizationOptions/OptionsButtons.jsx'
@@ -201,6 +202,8 @@ const LayoutWithBottomBar = () => {
                         className={classes.visualizationTypeSelect}
                     />
                     <OptionsButtons className={classes.optionsButtons} />
+                    <div className={classes.topBarSpacer} />
+                    <LayoutUtilitiesMenu />
                 </div>
             )}
             <div className={classes.contentArea}>
