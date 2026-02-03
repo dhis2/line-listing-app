@@ -179,3 +179,10 @@
 .placeholderCard p {
     margin: var(--spacers-dp4);
 }
+
+.loadingPlaceholder {
+    padding: var(--spacers-dp16);
+    text-align: center;
+    color: var(--colors-grey600);
+    font-size: 13px;
+}

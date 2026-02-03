@@ -22,11 +22,16 @@ const TrackedEntityDimensionsPanel = ({
     visible,
     searchTerm: externalSearchTerm,
     onEmptyStateChange,
+    trackedEntityType: trackedEntityTypeProp,
 }) => {
+    // Support both prop-based and Redux-based entity type
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
-    const entityType = useSelector((state) =>
+    const entityTypeFromRedux = useSelector((state) =>
         sGetMetadataById(state, selectedEntityTypeId)
     )
+    // Use prop if provided, otherwise fall back to Redux
+    const entityType = trackedEntityTypeProp || entityTypeFromRedux
+    const entityTypeId = trackedEntityTypeProp?.id || selectedEntityTypeId
     const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
     const { currentUser } = useCachedDataQuery()
     const { loading, fetching, error, dimensions, hasMore, loadMore } =
@@ -37,7 +42,7 @@ const TrackedEntityDimensionsPanel = ({
                 currentUser.settings[
                     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                 ],
-            id: selectedEntityTypeId,
+            id: entityTypeId,
         })
 
     // Check if empty and notify parent
@@ -101,6 +106,10 @@ const TrackedEntityDimensionsPanel = ({
 TrackedEntityDimensionsPanel.propTypes = {
     onEmptyStateChange: PropTypes.func,
     searchTerm: PropTypes.string,
+    trackedEntityType: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+    }),
     visible: PropTypes.bool,
 }
 
