@@ -13,7 +13,7 @@
 }
 
 .divider {
-    width: 2px;
+    width: 1px;
     cursor: ew-resize;
     background-color: var(--colors-grey300);
     display: flex;
