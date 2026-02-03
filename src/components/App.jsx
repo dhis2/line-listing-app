@@ -24,6 +24,7 @@ import {
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
     acSetUiAccessoryPanelActiveTab,
+    tSetDataSource,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { apiFetchVisualization } from '../api/visualization.js'
@@ -49,6 +50,7 @@ import history from '../modules/history.js'
 import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
+    getProgramAsMetadata,
     isPopulatedObject,
     transformMetaDataResponseObject,
 } from '../modules/metadata.js'
@@ -475,6 +477,72 @@ const App = () => {
         }
     }
 
+    // Detect program from dimensions in the layout and set data source
+    const setDataSourceFromVisualization = (visualization) => {
+        // Collect all programs from dimensions in the layout
+        const dimensions = [
+            ...(visualization.columns || []),
+            ...(visualization.rows || []),
+            ...(visualization.filters || []),
+        ]
+
+        // Extract unique program IDs from dimensions
+        const programsFromDimensions = dimensions
+            .filter((dim) => dim.program?.id)
+            .map((dim) => dim.program.id)
+
+        // Get unique program IDs (preserving order, first one wins)
+        const uniqueProgramIds = [...new Set(programsFromDimensions)]
+
+        // Try to get program from dimensions first, fall back to visualization.program
+        let programToOpen = null
+
+        if (uniqueProgramIds.length > 0) {
+            // Get the first program found in dimensions
+            const firstProgramId = uniqueProgramIds[0]
+            // Check if visualization.program matches the first dimension program
+            if (visualization.program?.id === firstProgramId) {
+                programToOpen = visualization.program
+            } else {
+                // For tracked entity, check programDimensions for the program metadata
+                const programFromDimensions =
+                    visualization.programDimensions?.find(
+                        (p) => p.id === firstProgramId
+                    )
+                if (programFromDimensions) {
+                    programToOpen = programFromDimensions
+                }
+            }
+        }
+
+        // Fall back to visualization.program if no program found in dimensions
+        if (!programToOpen && visualization.program?.id) {
+            programToOpen = visualization.program
+        }
+
+        // Set the data source if we found a program
+        if (programToOpen) {
+            const allMetadata = {
+                ...getProgramAsMetadata(programToOpen),
+                ...getDynamicTimeDimensionsMetadata(
+                    programToOpen,
+                    visualization.programStage,
+                    visualization.outputType
+                ),
+            }
+
+            dispatch(
+                tSetDataSource({
+                    type: 'PROGRAM',
+                    id: programToOpen.id,
+                    programType: programToOpen.programType,
+                    stage: visualization.programStage,
+                    metadata: allMetadata,
+                })
+            )
+        }
+    }
+
     useEffect(() => {
         if (data?.eventVisualization) {
             dispatch(acClearLoadError())
@@ -501,6 +569,7 @@ const App = () => {
             dispatch(tSetCurrent(visualization))
             dispatch(acSetUiFromVisualization(visualization))
             dispatch(tSetCurrentFromUi({ validateOnly: true }))
+            setDataSourceFromVisualization(visualization)
             postDataStatistics({ id: visualization.id })
         }
     }, [data])
