@@ -414,10 +414,11 @@ const MainSidebar = ({ position = 'left', onPositionChange }) => {
                         }}
                         typeFilter={typeFilter}
                         onTypeFilterChange={setTypeFilter}
-                        showModeToggle={
-                            dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
-                            isProgramWithRegistration
-                        }
+                        // showModeToggle={
+                        //     dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
+                        //     isProgramWithRegistration
+                        // }
+                        showModeToggle={false}
                         showTypeFilter={
                             dataSourceType !== 'TRACKED_ENTITY_TYPE' &&
                             isProgramWithRegistration &&
