@@ -24,6 +24,7 @@ import {
 import { sGetMetadataById, sGetMetadata } from '../../reducers/metadata.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
+import { sGetIsVisualizationLoading } from '../../reducers/loader.js'
 import { tSetUiOutput, acUpdateUiEntityTypeId } from '../../actions/ui.js'
 import { tSetCurrentFromUi } from '../../actions/current.js'
 import {
@@ -45,6 +46,7 @@ const LayoutWithBottomBar = () => {
     const metadata = useSelector(sGetMetadata)
     const current = useSelector(sGetCurrent)
     const visualizationType = useSelector(sGetUiType)
+    const isVisualizationLoading = useSelector(sGetIsVisualizationLoading)
 
     // Get full program/entity metadata from dataSource ID
     const dataSourceId = dataSource?.id
@@ -200,16 +202,45 @@ const LayoutWithBottomBar = () => {
         <div className={classes.wrapper}>
             {(hasVisualizationType || showLayout) && (
                 <div className={classes.topBar}>
-                    <VisualizationTypeSelect
-                        className={classes.visualizationTypeSelect}
-                    />
-                    <OptionsButtons className={classes.optionsButtons} />
-                    <div className={classes.topBarSpacer} />
-                    <LayoutUtilitiesMenu />
+                    {isVisualizationLoading ? (
+                        <div className={classes.topBarPlaceholder} />
+                    ) : (
+                        <>
+                            <VisualizationTypeSelect
+                                className={classes.visualizationTypeSelect}
+                            />
+                            <OptionsButtons
+                                className={classes.optionsButtons}
+                            />
+                            <div className={classes.topBarSpacer} />
+                            <LayoutUtilitiesMenu />
+                        </>
+                    )}
                 </div>
             )}
             <div className={classes.contentArea}>
-                {showLayout ? (
+                {isVisualizationLoading && showLayout ? (
+                    <div className={classes.skeletonLayout}>
+                        <div className={classes.skeletonAxis}>
+                            <div
+                                className={classes.skeletonChip}
+                                style={{ width: '120px' }}
+                            />
+                            <div
+                                className={classes.skeletonChip}
+                                style={{ width: '90px' }}
+                            />
+                            <div
+                                className={classes.skeletonChip}
+                                style={{ width: '140px' }}
+                            />
+                            <div
+                                className={classes.skeletonChip}
+                                style={{ width: '100px' }}
+                            />
+                        </div>
+                    </div>
+                ) : showLayout ? (
                     <>
                         <div
                             className={`${classes.layoutContainer} ${classes.slideIn}`}

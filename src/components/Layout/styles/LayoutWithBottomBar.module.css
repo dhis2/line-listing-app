@@ -49,6 +49,12 @@
     animation: fadeIn 0.3s ease-out forwards;
 }
 
+/* Placeholder to maintain top bar height during loading */
+.topBarPlaceholder {
+    height: 28px;
+    width: 100%;
+}
+
 /* Visualization type selector (Line List / Pivot Table) */
 .visualizationTypeSelect {
     /* Add your custom styles here */
@@ -195,6 +201,43 @@
     color: var(--colors-grey500);
     cursor: not-allowed;
     font-weight: 400 !important;
+}
+
+/* Skeleton loading state - shown when loading a saved visualization */
+.skeletonLayout {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--colors-white);
+    padding: 8px 6px;
+}
+
+.skeletonAxis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    /* padding: 4px; */
+}
+
+.skeletonChip {
+    height: 22px;
+    border-radius: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--colors-grey100) 25%,
+        var(--colors-grey200) 50%,
+        var(--colors-grey100) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* Empty layout area - shown when no visualization type is selected */
