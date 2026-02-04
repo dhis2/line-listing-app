@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-    Tooltip,
-    IconTable16,
-    IconVisualizationColumnStacked16,
-    IconLegend16,
-    IconSync16,
-} from '@dhis2/ui'
+import { Tooltip, IconSync16, IconMore16 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import Layout from './Layout.jsx'
 import LayoutUtilitiesMenu from './LayoutUtilitiesMenu.jsx'
 import { VisualizationTypeSelect } from '../Toolbar/VisualizationTypeSelect.jsx'
 import { VisualizationTypeGrid } from '../Toolbar/VisualizationTypeGrid.jsx'
 import OptionsButtons from '../VisualizationOptions/OptionsButtons.jsx'
+import IconButton from '../IconButton/IconButton.jsx'
+import { IconExpand, IconCollapse } from '../../assets/LayoutIcons.jsx'
 import classes from './styles/LayoutWithBottomBar.module.css'
 import {
     sGetUiLayout,
@@ -195,6 +191,17 @@ const LayoutWithBottomBar = () => {
     // Track layout visibility
     const [showLayout, setShowLayout] = useState(hasVisualizationType)
 
+    // Track collapsed state for layout content area
+    const [isCollapsed, setIsCollapsed] = useState(false)
+
+    const toggleCollapsed = () => {
+        setIsCollapsed((prev) => !prev)
+    }
+
+    const handleExpandClick = () => {
+        setIsCollapsed(false)
+    }
+
     useEffect(() => {
         // Sync showLayout with hasVisualizationType immediately
         setShowLayout(hasVisualizationType)
@@ -215,6 +222,18 @@ const LayoutWithBottomBar = () => {
                                 className={classes.optionsButtons}
                             />
                             <div className={classes.topBarSpacer} />
+                            <div className={classes.collapseToggle}>
+                                <IconButton
+                                    onClick={toggleCollapsed}
+                                    dataTest="layout-collapse-toggle"
+                                >
+                                    {isCollapsed ? (
+                                        <IconExpand />
+                                    ) : (
+                                        <IconCollapse />
+                                    )}
+                                </IconButton>
+                            </div>
                             <LayoutUtilitiesMenu />
                         </>
                     )}
@@ -244,11 +263,27 @@ const LayoutWithBottomBar = () => {
                     </div>
                 ) : showLayout ? (
                     <>
-                        <div
-                            className={`${classes.layoutContainer} ${classes.slideIn}`}
-                        >
-                            <Layout />
-                        </div>
+                        {isCollapsed ? (
+                            <div
+                                className={classes.collapsedContent}
+                                onClick={handleExpandClick}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        handleExpandClick()
+                                    }
+                                }}
+                            >
+                                <IconMore16 color="var(--colors-grey800)" />
+                            </div>
+                        ) : (
+                            <div
+                                className={`${classes.layoutContainer} ${classes.slideIn}`}
+                            >
+                                <Layout />
+                            </div>
+                        )}
                         <div
                             className={`${classes.bottomBar} ${classes.slideInBottom}`}
                         >
