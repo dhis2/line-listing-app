@@ -96,7 +96,9 @@ const LayoutWithBottomBar = () => {
         }
 
         dispatch(tSetUiOutput(outputTypeValue))
-        dispatch(tSetCurrentFromUi())
+        // Skip loading state for output type switches - the layout doesn't change,
+        // only the data refreshes. This avoids showing skeleton UI for quick transitions.
+        dispatch(tSetCurrentFromUi({ skipLoadingState: true }))
     }
 
     const handleEventClick = () => {

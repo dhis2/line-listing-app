@@ -298,7 +298,9 @@ const App = () => {
             dispatch(acSetUiDataSorting(sorting))
         }
 
-        dispatch(tSetCurrentFromUi())
+        // Skip loading state for sorting - only the data order changes,
+        // the layout remains the same
+        dispatch(tSetCurrentFromUi({ skipLoadingState: true }))
     }
 
     const onResponsesReceived = (response) => {
