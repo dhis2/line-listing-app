@@ -593,7 +593,9 @@ const App = () => {
                                 classes.flexDirCol
                             )}
                         >
-                            <LayoutWithBottomBar />
+                            <div>
+                                <LayoutWithBottomBar />
+                            </div>
                             {showQuickStart && (
                                 <div className={classes.quickStartWrapper}>
                                     <QuickStartSection />
