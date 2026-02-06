@@ -157,10 +157,8 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
         (type) => type.value === currentType
     )
 
-    // Determine label - show placeholder when no type selected
-    const selectedLabel = currentType
-        ? currentTypeConfig?.label || currentType
-        : i18n.t('Visualization type')
+    // Determine label from current type config
+    const selectedLabel = currentTypeConfig?.label || currentType
 
     // Get the icon for the current type
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
@@ -260,36 +258,20 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
         return item
     }
 
-    // Don't show dropdown when no type is selected (grid is shown inline)
-    const showDropdown = currentType && menuOpen
-
     return (
         <>
             <div ref={anchorRef} className={styles.wrapper}>
-                {currentType ? (
-                    <ToolbarMenuDropdownTrigger
-                        icon={<CurrentIcon color="#6C7787" />}
-                        label={selectedLabel}
-                        onClick={() => setMenuOpen(!menuOpen)}
-                        dataTest={dataTest}
-                        open={menuOpen}
-                        className={className}
-                        showChevron={true}
-                    />
-                ) : (
-                    <span
-                        className={`${styles.emptyPlaceholder} ${
-                            className || ''
-                        }`}
-                        data-test={dataTest}
-                    >
-                        <span className={styles.emptyPlaceholderLabel}>
-                            {selectedLabel}
-                        </span>
-                    </span>
-                )}
+                <ToolbarMenuDropdownTrigger
+                    icon={<CurrentIcon color="#6C7787" />}
+                    label={selectedLabel}
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    dataTest={dataTest}
+                    open={menuOpen}
+                    className={className}
+                    showChevron={true}
+                />
             </div>
-            {showDropdown && (
+            {menuOpen && (
                 <Layer onBackdropClick={() => setMenuOpen(false)}>
                     <Popper reference={anchorRef} placement="bottom-start">
                         <div className={styles.dropdownPanel}>

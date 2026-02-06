@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Tooltip, IconSync16, IconMore16 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import Layout from './Layout.jsx'
 import LayoutUtilitiesMenu from './LayoutUtilitiesMenu.jsx'
 import { VisualizationTypeSelect } from '../Toolbar/VisualizationTypeSelect.jsx'
-import { VisualizationTypeGrid } from '../Toolbar/VisualizationTypeGrid.jsx'
 import OptionsButtons from '../VisualizationOptions/OptionsButtons.jsx'
 import IconButton from '../IconButton/IconButton.jsx'
 import { IconExpand, IconCollapse } from '../../assets/LayoutIcons.jsx'
@@ -185,12 +184,6 @@ const LayoutWithBottomBar = () => {
         return <React.Fragment key={buttonKey}>{button}</React.Fragment>
     }
 
-    // Check if a visualization type has been selected
-    const hasVisualizationType = Boolean(visualizationType)
-
-    // Track layout visibility
-    const [showLayout, setShowLayout] = useState(hasVisualizationType)
-
     // Track collapsed state for layout content area
     const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -202,45 +195,36 @@ const LayoutWithBottomBar = () => {
         setIsCollapsed(false)
     }
 
-    useEffect(() => {
-        // Sync showLayout with hasVisualizationType immediately
-        setShowLayout(hasVisualizationType)
-    }, [hasVisualizationType])
-
     return (
         <div className={classes.wrapper}>
-            {(hasVisualizationType || showLayout) && (
-                <div className={classes.topBar}>
-                    {isVisualizationLoading ? (
-                        <div className={classes.topBarPlaceholder} />
-                    ) : (
-                        <>
-                            <VisualizationTypeSelect
-                                className={classes.visualizationTypeSelect}
-                            />
-                            <OptionsButtons
-                                className={classes.optionsButtons}
-                            />
-                            <div className={classes.topBarSpacer} />
-                            <div className={classes.collapseToggle}>
-                                <IconButton
-                                    onClick={toggleCollapsed}
-                                    dataTest="layout-collapse-toggle"
-                                >
-                                    {isCollapsed ? (
-                                        <IconExpand />
-                                    ) : (
-                                        <IconCollapse />
-                                    )}
-                                </IconButton>
-                            </div>
-                            <LayoutUtilitiesMenu />
-                        </>
-                    )}
-                </div>
-            )}
+            <div className={classes.topBar}>
+                {isVisualizationLoading ? (
+                    <div className={classes.topBarPlaceholder} />
+                ) : (
+                    <>
+                        <VisualizationTypeSelect
+                            className={classes.visualizationTypeSelect}
+                        />
+                        <OptionsButtons className={classes.optionsButtons} />
+                        <div className={classes.topBarSpacer} />
+                        <div className={classes.collapseToggle}>
+                            <IconButton
+                                onClick={toggleCollapsed}
+                                dataTest="layout-collapse-toggle"
+                            >
+                                {isCollapsed ? (
+                                    <IconExpand />
+                                ) : (
+                                    <IconCollapse />
+                                )}
+                            </IconButton>
+                        </div>
+                        <LayoutUtilitiesMenu />
+                    </>
+                )}
+            </div>
             <div className={classes.contentArea}>
-                {isVisualizationLoading && showLayout ? (
+                {isVisualizationLoading ? (
                     <div className={classes.skeletonLayout}>
                         <div className={classes.skeletonAxis}>
                             <div
@@ -261,29 +245,27 @@ const LayoutWithBottomBar = () => {
                             />
                         </div>
                     </div>
-                ) : showLayout ? (
+                ) : isCollapsed ? (
+                    <div
+                        className={classes.collapsedContent}
+                        onClick={handleExpandClick}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                handleExpandClick()
+                            }
+                        }}
+                    >
+                        <IconMore16 color="var(--colors-grey800)" />
+                    </div>
+                ) : (
                     <>
-                        {isCollapsed ? (
-                            <div
-                                className={classes.collapsedContent}
-                                onClick={handleExpandClick}
-                                role="button"
-                                tabIndex={0}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        handleExpandClick()
-                                    }
-                                }}
-                            >
-                                <IconMore16 color="var(--colors-grey800)" />
-                            </div>
-                        ) : (
-                            <div
-                                className={`${classes.layoutContainer} ${classes.slideIn}`}
-                            >
-                                <Layout />
-                            </div>
-                        )}
+                        <div
+                            className={`${classes.layoutContainer} ${classes.slideIn}`}
+                        >
+                            <Layout />
+                        </div>
                         <div
                             className={`${classes.bottomBar} ${classes.slideInBottom}`}
                         >
@@ -329,15 +311,6 @@ const LayoutWithBottomBar = () => {
                                   )}
                         </div>
                     </>
-                ) : (
-                    <div
-                        className={classes.emptyLayoutArea}
-                        // className={`${classes.emptyLayoutArea} ${
-                        //     isTransitioning ? classes.fadeOut : ''
-                        // }`}
-                    >
-                        <VisualizationTypeGrid />
-                    </div>
                 )}
             </div>
         </div>

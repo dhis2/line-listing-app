@@ -35,6 +35,10 @@ import {
     getUserSidebarWidth,
 } from '../modules/ui.js'
 import {
+    getLastUsedVisualizationType,
+    setLastUsedVisualizationType,
+} from '../modules/localStorage.js'
+import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../modules/visualization.js'
@@ -88,7 +92,7 @@ const DEFAULT_DIMENSION_ITEMS = []
 
 const EMPTY_UI = {
     draggingId: null,
-    type: null, // No default - user must select visualization type
+    type: getLastUsedVisualizationType(), // Default to last used type, or Line List
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
@@ -123,7 +127,7 @@ const EMPTY_UI = {
 
 export const DEFAULT_UI = {
     draggingId: null,
-    type: null, // No default - user must select visualization type
+    type: getLastUsedVisualizationType(), // Default to last used type, or Line List
     input: {
         type: OUTPUT_TYPE_EVENT,
     },
@@ -197,6 +201,8 @@ const getPreselectedUi = (options, currentState) => {
 export default (state = EMPTY_UI, action) => {
     switch (action.type) {
         case SET_UI_TYPE: {
+            // Save to localStorage so it persists as the default for next time
+            setLastUsedVisualizationType(action.value)
             return { ...state, type: action.value }
         }
         case SET_UI_SORTING: {
