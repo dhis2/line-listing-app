@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Tooltip, IconSync16, IconMore16 } from '@dhis2/ui'
+import { Tooltip, IconSync16, IconMore16, IconSettings16 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
+import CustomValueModal from '../Dialogs/CustomValueModal.jsx'
 import Layout from './Layout.jsx'
 import LayoutUtilitiesMenu from './LayoutUtilitiesMenu.jsx'
 import { VisualizationTypeSelect } from '../Toolbar/VisualizationTypeSelect.jsx'
@@ -42,6 +43,20 @@ const LayoutWithBottomBar = () => {
     const current = useSelector(sGetCurrent)
     const visualizationType = useSelector(sGetUiType)
     const isVisualizationLoading = useSelector(sGetIsVisualizationLoading)
+
+    // Track collapsed state for layout content area
+    const [isCollapsed, setIsCollapsed] = useState(false)
+
+    // Track custom value modal state and selected data element
+    const [showCustomValueModal, setShowCustomValueModal] = useState(false)
+    const [customValueDataElement, setCustomValueDataElement] = useState(null)
+
+    // Clear custom value selection when "New" is clicked (current visualization becomes null)
+    useEffect(() => {
+        if (!current) {
+            setCustomValueDataElement(null)
+        }
+    }, [current])
 
     // Get full program/entity metadata from dataSource ID
     const dataSourceId = dataSource?.id
@@ -108,7 +123,35 @@ const LayoutWithBottomBar = () => {
         handleOutputButtonClick(OUTPUT_TYPE_TRACKED_ENTITY)
     }
 
+    // Check if we already have a custom value selected
+    const hasCustomValueSelected = customValueDataElement !== null
+    const isCustomValueActive =
+        hasCurrentVisualization && outputType === OUTPUT_TYPE_CUSTOM_VALUE
+
     const handleCustomValueClick = () => {
+        // If we already have a selection, just proceed (no need to reselect)
+        if (hasCustomValueSelected) {
+            handleOutputButtonClick(OUTPUT_TYPE_CUSTOM_VALUE)
+        } else {
+            // No selection yet - open modal to select a data element
+            setShowCustomValueModal(true)
+        }
+    }
+
+    const handleCustomValueAdjustClick = () => {
+        // Open modal to adjust the selected data element
+        setShowCustomValueModal(true)
+    }
+
+    const handleCustomValueModalClose = () => {
+        setShowCustomValueModal(false)
+    }
+
+    const handleCustomValueModalConfirm = (selectedDataElement) => {
+        // Store the selected data element and proceed with output type switch
+        console.log('Custom value data element selected:', selectedDataElement)
+        setCustomValueDataElement(selectedDataElement)
+        setShowCustomValueModal(false)
         handleOutputButtonClick(OUTPUT_TYPE_CUSTOM_VALUE)
     }
 
@@ -184,8 +227,105 @@ const LayoutWithBottomBar = () => {
         return <React.Fragment key={buttonKey}>{button}</React.Fragment>
     }
 
-    // Track collapsed state for layout content area
-    const [isCollapsed, setIsCollapsed] = useState(false)
+    // Render custom value button with split button when a selection exists
+    const renderCustomValueButton = () => {
+        const validation = buttonValidation.customValue
+
+        // If button should be hidden, return null
+        if (validation.hidden) {
+            return null
+        }
+
+        // Determine the button label
+        let buttonLabel
+        if (!hasCurrentVisualization) {
+            buttonLabel = `Create custom value ${terminology}`
+        } else if (isCustomValueActive) {
+            buttonLabel = `Update custom value ${terminology}`
+        } else {
+            buttonLabel = `Switch to custom value ${terminology}`
+        }
+
+        // Build className based on current state
+        let buttonClassName = classes.button
+        if (!validation.disabled) {
+            if (isCustomValueActive) {
+                buttonClassName += ` ${classes.buttonUpdate}`
+            } else if (!hasCurrentVisualization) {
+                buttonClassName += ` ${classes.buttonCreate}`
+            } else {
+                buttonClassName += ` ${classes.buttonAlt}`
+            }
+        }
+
+        // If we have a selection, show split button (for Update or Switch modes)
+        if (hasCustomValueSelected) {
+            const splitButton = (
+                <div className={classes.splitButtonGroup}>
+                    <button
+                        onClick={handleCustomValueClick}
+                        className={`${buttonClassName} ${classes.splitButtonMain}`}
+                        disabled={validation.disabled}
+                    >
+                        {isCustomValueActive && <IconSync16 />}
+                        {buttonLabel}
+                    </button>
+                    <button
+                        onClick={handleCustomValueAdjustClick}
+                        className={`${buttonClassName} ${classes.splitButtonDropdown}`}
+                        disabled={validation.disabled}
+                        title={`Change: ${
+                            customValueDataElement?.name ||
+                            'Select data element'
+                        }`}
+                    >
+                        <IconSettings16 />
+                    </button>
+                </div>
+            )
+
+            if (validation.disabled && validation.reason) {
+                return (
+                    <Tooltip
+                        key="customValue"
+                        content={validation.reason}
+                        placement="top"
+                    >
+                        {splitButton}
+                    </Tooltip>
+                )
+            }
+
+            return (
+                <React.Fragment key="customValue">{splitButton}</React.Fragment>
+            )
+        }
+
+        // For Create/Switch mode, show regular button that opens modal
+        const button = (
+            <button
+                onClick={handleCustomValueClick}
+                className={buttonClassName}
+                disabled={validation.disabled}
+            >
+                {buttonLabel}
+            </button>
+        )
+
+        if (validation.disabled && validation.reason) {
+            return (
+                <Tooltip
+                    key="customValue"
+                    content={validation.reason}
+                    placement="top"
+                >
+                    {button}
+                </Tooltip>
+            )
+        }
+
+        return <React.Fragment key="customValue">{button}</React.Fragment>
+    }
 
     const toggleCollapsed = () => {
         setIsCollapsed((prev) => !prev)
@@ -289,16 +429,7 @@ const LayoutWithBottomBar = () => {
                             )}
                             {/* Show Person button for Line List, Custom value button for Pivot Table */}
                             {visualizationType === VIS_TYPE_PIVOT_TABLE
-                                ? renderButton(
-                                      'customValue',
-                                      handleCustomValueClick,
-                                      hasCurrentVisualization &&
-                                          outputType ===
-                                              OUTPUT_TYPE_CUSTOM_VALUE,
-                                      `Update custom value ${terminology}`,
-                                      `Create custom value ${terminology}`,
-                                      `Switch to custom value ${terminology}`
-                                  )
+                                ? renderCustomValueButton()
                                 : renderButton(
                                       'trackedEntity',
                                       handleTrackedEntityClick,
@@ -313,6 +444,15 @@ const LayoutWithBottomBar = () => {
                     </>
                 )}
             </div>
+
+            {/* Custom Value Table Modal */}
+            {showCustomValueModal && (
+                <CustomValueModal
+                    onClose={handleCustomValueModalClose}
+                    onConfirm={handleCustomValueModalConfirm}
+                    initialSelection={customValueDataElement}
+                />
+            )}
         </div>
     )
 }

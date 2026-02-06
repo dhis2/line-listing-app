@@ -314,3 +314,35 @@
 .slideInBottom {
     animation: fadeIn 0.3s ease-out forwards;
 }
+
+/* Split button group for custom value button */
+.splitButtonGroup {
+    display: flex;
+    align-items: stretch;
+}
+
+.splitButtonMain {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.splitButtonMain:hover:not(:disabled) {
+    border-right: none;
+}
+
+.splitButtonDropdown {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0 4px;
+    min-width: 24px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.splitButtonDropdown:hover:not(:disabled) {
+    background-color: #d1e8fa;
+}
+
+.splitButtonDropdown:active:not(:disabled) {
+    background-color: #c8e4f9;
+}
