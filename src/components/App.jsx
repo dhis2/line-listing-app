@@ -81,7 +81,6 @@ import LayoutWithBottomBar from './Layout/LayoutWithBottomBar.jsx'
 import LoadingMask from './LoadingMask/LoadingMask.jsx'
 import { MainSidebar } from './MainSidebar/index.js'
 import { MultiSelectionProvider } from './MainSidebar/MultiSelectionContext.jsx'
-import { default as TitleBar } from './TitleBar/TitleBar.jsx'
 import { Toolbar } from './Toolbar/Toolbar.jsx'
 import QuickStartSection from './Visualization/QuickStartSection.jsx'
 import StartScreen from './Visualization/StartScreen.jsx'
@@ -89,19 +88,6 @@ import { Visualization } from './Visualization/Visualization.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
-
-// Custom hook for viewport width
-const useViewportWidth = () => {
-    const [width, setWidth] = useState(window.innerWidth)
-
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth)
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    return width
-}
 
 // Custom hook for sidebar position with localStorage persistence
 const useSidebarPosition = () => {
@@ -157,12 +143,11 @@ const App = () => {
     const program = useSelector((state) =>
         sGetMetadataById(state, dataSource?.id)
     )
-    const viewportWidth = useViewportWidth()
-    const [sidebarPosition, setSidebarPosition] = useSidebarPosition()
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
+    const [sidebarPosition, setSidebarPosition] = useSidebarPosition()
 
     // Show Quick Start when program is selected and has stages, no current visualization, and no error
     const showQuickStart =
@@ -608,14 +593,7 @@ const App = () => {
                                 classes.flexDirCol
                             )}
                         >
-                            <div className={classes.mainCenterLayout}>
-                                {viewportWidth < 1200 && current && (
-                                    <div className={classes.standaloneTitleBar}>
-                                        <TitleBar />
-                                    </div>
-                                )}
-                                <LayoutWithBottomBar />
-                            </div>
+                            <LayoutWithBottomBar />
                             {showQuickStart && (
                                 <div className={classes.quickStartWrapper}>
                                     <QuickStartSection />
