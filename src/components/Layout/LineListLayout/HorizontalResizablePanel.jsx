@@ -8,6 +8,7 @@ const HorizontalResizablePanel = ({
     defaultWidth,
     defaultWidthPercent = 70,
     minWidth,
+    isCompletelyBlankState,
 }) => {
     const [leftWidth, setLeftWidth] = useState(defaultWidth)
     const [isDragging, setIsDragging] = useState(false)
@@ -140,7 +141,9 @@ const HorizontalResizablePanel = ({
                 {leftPanel}
             </div>
             <div
-                className={classes.divider}
+                className={`${classes.divider} ${
+                    isCompletelyBlankState ? classes.hiddenKeepSpace : ''
+                }`}
                 onMouseDown={handleMouseDown}
                 data-test="horizontal-resizable-divider"
             >
@@ -157,6 +160,7 @@ HorizontalResizablePanel.propTypes = {
     defaultWidth: PropTypes.number,
     defaultWidthPercent: PropTypes.number,
     minWidth: PropTypes.number,
+    isCompletelyBlankState: PropTypes.bool,
 }
 
 HorizontalResizablePanel.defaultProps = {

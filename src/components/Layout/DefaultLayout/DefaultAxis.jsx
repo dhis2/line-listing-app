@@ -27,7 +27,7 @@ import Chip from '../Chip.jsx'
 import { DropZone } from './DropZone.jsx'
 import styles from './styles/DefaultAxis.module.css'
 
-const DefaultAxis = ({ axisId, className }) => {
+const DefaultAxis = ({ axisId, className, isCompletelyBlankState }) => {
     const lastDropZoneId = getDropzoneId(axisId, LAST)
     const { over, setNodeRef } = useDroppable({
         id: lastDropZoneId,
@@ -133,7 +133,12 @@ const DefaultAxis = ({ axisId, className }) => {
 
     return (
         <div ref={setNodeRef} className={styles.lastDropzone}>
-            <div id={axisId} className={cx(styles.axisContainer, className)}>
+            <div
+                id={axisId}
+                className={cx(styles.axisContainer, className, {
+                    [styles.hiddenKeepSpace]: isCompletelyBlankState,
+                })}
+            >
                 <div className={styles.label}>
                     <span
                         ref={labelRef}
@@ -228,6 +233,7 @@ const DefaultAxis = ({ axisId, className }) => {
 DefaultAxis.propTypes = {
     axisId: PropTypes.string,
     className: PropTypes.string,
+    isCompletelyBlankState: PropTypes.bool,
 }
 
 export default DefaultAxis

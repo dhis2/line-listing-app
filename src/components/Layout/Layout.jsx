@@ -1,6 +1,7 @@
 import { IconChevronUp16, IconChevronDown16, colors } from '@dhis2/ui'
 import { VIS_TYPE_LINE_LIST, VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import cx from 'classnames'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetShowExpandedLayoutPanel } from '../../actions/ui.js'
@@ -22,7 +23,7 @@ const componentMap = {
     [LAYOUT_TYPE_PIVOT_TABLE]: PivotTableLayout,
 }
 
-const Layout = () => {
+const Layout = ({ isCompletelyBlankState }) => {
     const isExpanded = useSelector((state) =>
         sGetUiShowExpandedLayoutPanel(state)
     )
@@ -56,7 +57,9 @@ const Layout = () => {
                     [classes.expanded]: isExpanded,
                 })}
             >
-                <LayoutComponent />
+                <LayoutComponent
+                    isCompletelyBlankState={isCompletelyBlankState}
+                />
             </div>
             {/* <button
                 className={classes.button}
@@ -67,6 +70,10 @@ const Layout = () => {
             </button> */}
         </div>
     )
+}
+
+Layout.propTypes = {
+    isCompletelyBlankState: PropTypes.bool,
 }
 
 export default Layout

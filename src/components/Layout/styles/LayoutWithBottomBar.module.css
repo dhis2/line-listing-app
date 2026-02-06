@@ -346,3 +346,16 @@
 .splitButtonDropdown:active:not(:disabled) {
     background-color: #c8e4f9;
 }
+
+/* Hidden but keep space - for completely blank empty state */
+.hiddenKeepSpace {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Elements that can fade in from blank state */
+.bottomBar,
+.collapseToggle,
+.utilitiesWrapper {
+    transition: opacity 0.4s ease-out;
+}

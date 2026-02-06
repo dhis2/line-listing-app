@@ -67,6 +67,18 @@ const LayoutWithBottomBar = () => {
     // Check if we have a current visualization (created but maybe not saved)
     const hasCurrentVisualization = Boolean(current)
 
+    // Check if layout has any dimensions
+    const layoutHasDimensions =
+        (layout.columns?.length || 0) +
+            (layout.rows?.length || 0) +
+            (layout.filters?.length || 0) >
+        0
+
+    // Completely blank empty state: no visualization, no layout items, no data source
+    // This is the initial state when the app first launches
+    const isCompletelyBlankState =
+        !hasCurrentVisualization && !layoutHasDimensions && !dataSource?.id
+
     // Determine button terminology based on visualization type
     const terminology =
         visualizationType === VIS_TYPE_PIVOT_TABLE ? 'table' : 'list'
@@ -347,7 +359,13 @@ const LayoutWithBottomBar = () => {
                         />
                         <OptionsButtons className={classes.optionsButtons} />
                         <div className={classes.topBarSpacer} />
-                        <div className={classes.collapseToggle}>
+                        <div
+                            className={`${classes.collapseToggle} ${
+                                isCompletelyBlankState
+                                    ? classes.hiddenKeepSpace
+                                    : ''
+                            }`}
+                        >
                             <IconButton
                                 onClick={toggleCollapsed}
                                 dataTest="layout-collapse-toggle"
@@ -359,7 +377,15 @@ const LayoutWithBottomBar = () => {
                                 )}
                             </IconButton>
                         </div>
-                        <LayoutUtilitiesMenu />
+                        <div
+                            className={`${classes.utilitiesWrapper} ${
+                                isCompletelyBlankState
+                                    ? classes.hiddenKeepSpace
+                                    : ''
+                            }`}
+                        >
+                            <LayoutUtilitiesMenu />
+                        </div>
                     </>
                 )}
             </div>
@@ -404,10 +430,16 @@ const LayoutWithBottomBar = () => {
                         <div
                             className={`${classes.layoutContainer} ${classes.slideIn}`}
                         >
-                            <Layout />
+                            <Layout
+                                isCompletelyBlankState={isCompletelyBlankState}
+                            />
                         </div>
                         <div
-                            className={`${classes.bottomBar} ${classes.slideInBottom}`}
+                            className={`${classes.bottomBar} ${
+                                isCompletelyBlankState
+                                    ? classes.hiddenKeepSpace
+                                    : classes.slideInBottom
+                            }`}
                         >
                             {renderButton(
                                 'event',

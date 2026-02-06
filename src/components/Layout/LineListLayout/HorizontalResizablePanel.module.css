@@ -43,3 +43,15 @@
     display: flex;
     flex-direction: column;
 }
+
+/* Hidden but keep space - for completely blank empty state */
+.hiddenKeepSpace {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Fade in transition for divider */
+.divider {
+    transition: opacity 0.4s ease-out, background-color 0.2s ease,
+        outline 0.2s ease;
+}
