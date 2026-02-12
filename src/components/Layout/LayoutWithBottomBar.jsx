@@ -32,6 +32,10 @@ import {
 import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import { validateButtons } from '../../modules/buttonValidation.js'
 
+const AXES_HEIGHT_STORAGE_KEY = 'axes-panel-height'
+const MIN_AXES_HEIGHT = 50
+const MAX_AXES_HEIGHT_FRACTION = 0.8
+
 const LayoutWithBottomBar = () => {
     const dispatch = useDispatch()
     const layout = useSelector(sGetUiLayout)
@@ -47,6 +51,20 @@ const LayoutWithBottomBar = () => {
     // Track collapsed state for layout content area
     const [isCollapsed, setIsCollapsed] = useState(false)
 
+    // Resizable axes panel height (null = use CSS default of 20vh)
+    const [axesMaxHeight, setAxesMaxHeight] = useState(() => {
+        try {
+            const stored = localStorage.getItem(AXES_HEIGHT_STORAGE_KEY)
+            return stored ? parseInt(stored, 10) : null
+        } catch {
+            return null
+        }
+    })
+    const [isDraggingAxes, setIsDraggingAxes] = useState(false)
+    const layoutContainerRef = useRef(null)
+    const axesMaxHeightRef = useRef(axesMaxHeight)
+    axesMaxHeightRef.current = axesMaxHeight
+
     // Track custom value modal state and selected data element
     const [showCustomValueModal, setShowCustomValueModal] = useState(false)
     const [customValueDataElement, setCustomValueDataElement] = useState(null)
@@ -57,6 +75,51 @@ const LayoutWithBottomBar = () => {
             setCustomValueDataElement(null)
         }
     }, [current])
+
+    // Handle axes panel resize drag
+    useEffect(() => {
+        if (!isDraggingAxes) return
+
+        const handleMouseMove = (e) => {
+            if (!layoutContainerRef.current) return
+            const containerTop =
+                layoutContainerRef.current.getBoundingClientRect().top
+            const newHeight = e.clientY - containerTop
+            const maxHeight = window.innerHeight * MAX_AXES_HEIGHT_FRACTION
+            const clamped = Math.max(
+                MIN_AXES_HEIGHT,
+                Math.min(newHeight, maxHeight)
+            )
+            setAxesMaxHeight(clamped)
+        }
+
+        const handleMouseUp = () => {
+            setIsDraggingAxes(false)
+            const height = axesMaxHeightRef.current
+            if (height !== null) {
+                try {
+                    localStorage.setItem(
+                        AXES_HEIGHT_STORAGE_KEY,
+                        String(height)
+                    )
+                } catch {
+                    // ignore storage errors
+                }
+            }
+        }
+
+        document.addEventListener('mousemove', handleMouseMove)
+        document.addEventListener('mouseup', handleMouseUp)
+        document.body.style.cursor = 'row-resize'
+        document.body.style.userSelect = 'none'
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove)
+            document.removeEventListener('mouseup', handleMouseUp)
+            document.body.style.cursor = ''
+            document.body.style.userSelect = ''
+        }
+    }, [isDraggingAxes])
 
     // Get full program/entity metadata from dataSource ID
     const dataSourceId = dataSource?.id
@@ -347,6 +410,20 @@ const LayoutWithBottomBar = () => {
         setIsCollapsed(false)
     }
 
+    const handleAxesResizeStart = (e) => {
+        e.preventDefault()
+        setIsDraggingAxes(true)
+    }
+
+    const handleAxesResizeDoubleClick = () => {
+        setAxesMaxHeight(null)
+        try {
+            localStorage.removeItem(AXES_HEIGHT_STORAGE_KEY)
+        } catch {
+            // ignore
+        }
+    }
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.topBar}>
@@ -427,13 +504,36 @@ const LayoutWithBottomBar = () => {
                     </div>
                 ) : (
                     <div
+                        ref={layoutContainerRef}
                         className={`${classes.layoutContainer} ${classes.slideIn}`}
+                        style={
+                            axesMaxHeight !== null
+                                ? {
+                                      '--axes-max-height': `${axesMaxHeight}px`,
+                                  }
+                                : undefined
+                        }
                     >
                         <Layout
                             isCompletelyBlankState={isCompletelyBlankState}
                         />
                     </div>
                 )}
+                {/* Resize handle for axes panel */}
+                {!isCollapsed &&
+                    !isVisualizationLoading &&
+                    !isCompletelyBlankState && (
+                        <div
+                            className={`${classes.resizeHandle} ${
+                                isDraggingAxes ? classes.resizeHandleActive : ''
+                            }`}
+                            onMouseDown={handleAxesResizeStart}
+                            onDoubleClick={handleAxesResizeDoubleClick}
+                            role="separator"
+                            aria-orientation="horizontal"
+                            aria-label="Resize axes panel"
+                        />
+                    )}
                 {/* Bottom bar - always rendered to maintain height, buttons hidden during loading or blank state */}
                 {!isCollapsed && (
                     <div className={classes.bottomBar}>

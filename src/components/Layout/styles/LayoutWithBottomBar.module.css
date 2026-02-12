@@ -298,6 +298,44 @@
     background-color: var(--colors-grey100);
 }
 
+/* Resize handle for axes panel - sits between layout and bottom bar */
+.resizeHandle {
+    position: relative;
+    height: 0;
+    flex-shrink: 0;
+    cursor: row-resize;
+    z-index: 2;
+}
+
+/* Invisible hit area for easier grabbing */
+.resizeHandle::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 9px;
+    cursor: row-resize;
+}
+
+/* Visual indicator line */
+.resizeHandle::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: transparent;
+    transition: background-color 0.15s ease;
+    border-radius: 1px;
+}
+
+.resizeHandle:hover::after,
+.resizeHandleActive::after {
+    background-color: var(--colors-blue400);
+}
+
 /* Empty layout area - shown when no visualization type is selected */
 .emptyLayoutArea {
     display: flex;

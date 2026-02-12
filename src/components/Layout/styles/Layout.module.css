@@ -21,7 +21,7 @@
     overflow-y: auto;
     flex: 1;
     /* min-height: 78px; */
-    max-height: 20vh;
+    max-height: var(--axes-max-height, 20vh);
     display: flex;
     flex-direction: column;
 }
