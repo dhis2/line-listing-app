@@ -70,11 +70,20 @@ const LayoutWithBottomBar = () => {
     const [customValueDataElement, setCustomValueDataElement] = useState(null)
 
     // Clear custom value selection when "New" is clicked (current visualization becomes null)
+    // Also expand the layout so the user always starts in expanded mode
     useEffect(() => {
         if (!current) {
             setCustomValueDataElement(null)
+            setIsCollapsed(false)
         }
     }, [current])
+
+    // Always expand when loading a saved visualization
+    useEffect(() => {
+        if (isVisualizationLoading) {
+            setIsCollapsed(false)
+        }
+    }, [isVisualizationLoading])
 
     // Handle axes panel resize drag
     useEffect(() => {
@@ -535,49 +544,46 @@ const LayoutWithBottomBar = () => {
                         />
                     )}
                 {/* Bottom bar - always rendered to maintain height, buttons hidden during loading or blank state */}
-                {!isCollapsed && (
-                    <div className={classes.bottomBar}>
-                        <div
-                            className={`${classes.bottomBarButtons} ${
-                                isCompletelyBlankState || isVisualizationLoading
-                                    ? classes.hiddenKeepSpace
-                                    : classes.slideInBottom
-                            }`}
-                        >
-                            {renderButton(
-                                'event',
-                                handleEventClick,
-                                hasCurrentVisualization &&
-                                    outputType === OUTPUT_TYPE_EVENT,
-                                `Update Event ${terminology}`,
-                                `Create Event ${terminology}`,
-                                `Switch to Event ${terminology}`
-                            )}
-                            {renderButton(
-                                'enrollment',
-                                handleEnrollmentClick,
-                                hasCurrentVisualization &&
-                                    outputType === OUTPUT_TYPE_ENROLLMENT,
-                                `Update ${enrollmentLabel} ${terminology}`,
-                                `Create ${enrollmentLabel} ${terminology}`,
-                                `Switch to ${enrollmentLabel} ${terminology}`
-                            )}
-                            {/* Show Person button for Line List, Custom value button for Pivot Table */}
-                            {visualizationType === VIS_TYPE_PIVOT_TABLE
-                                ? renderCustomValueButton()
-                                : renderButton(
-                                      'trackedEntity',
-                                      handleTrackedEntityClick,
-                                      hasCurrentVisualization &&
-                                          outputType ===
-                                              OUTPUT_TYPE_TRACKED_ENTITY,
-                                      `Update Person ${terminology}`,
-                                      `Create Person ${terminology}`,
-                                      `Switch to Person ${terminology}`
-                                  )}
-                        </div>
+                <div className={classes.bottomBar}>
+                    <div
+                        className={`${classes.bottomBarButtons} ${
+                            isCompletelyBlankState || isVisualizationLoading
+                                ? classes.hiddenKeepSpace
+                                : classes.slideInBottom
+                        }`}
+                    >
+                        {renderButton(
+                            'event',
+                            handleEventClick,
+                            hasCurrentVisualization &&
+                                outputType === OUTPUT_TYPE_EVENT,
+                            `Update Event ${terminology}`,
+                            `Create Event ${terminology}`,
+                            `Switch to Event ${terminology}`
+                        )}
+                        {renderButton(
+                            'enrollment',
+                            handleEnrollmentClick,
+                            hasCurrentVisualization &&
+                                outputType === OUTPUT_TYPE_ENROLLMENT,
+                            `Update ${enrollmentLabel} ${terminology}`,
+                            `Create ${enrollmentLabel} ${terminology}`,
+                            `Switch to ${enrollmentLabel} ${terminology}`
+                        )}
+                        {/* Show Person button for Line List, Custom value button for Pivot Table */}
+                        {visualizationType === VIS_TYPE_PIVOT_TABLE
+                            ? renderCustomValueButton()
+                            : renderButton(
+                                  'trackedEntity',
+                                  handleTrackedEntityClick,
+                                  hasCurrentVisualization &&
+                                      outputType === OUTPUT_TYPE_TRACKED_ENTITY,
+                                  `Update Person ${terminology}`,
+                                  `Create Person ${terminology}`,
+                                  `Switch to Person ${terminology}`
+                              )}
                     </div>
-                )}
+                </div>
             </div>
 
             {/* Custom Value Table Modal */}
