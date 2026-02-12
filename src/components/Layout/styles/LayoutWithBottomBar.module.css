@@ -121,12 +121,17 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 12px;
     padding: 6px 6px;
     background-color: var(--colors-white);
     border-top: 1px solid var(--colors-grey300);
     width: 100%;
     box-sizing: border-box;
+}
+
+.bottomBarButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .button {
@@ -354,7 +359,7 @@
 }
 
 /* Elements that can fade in from blank state */
-.bottomBar,
+.bottomBarButtons,
 .collapseToggle,
 .utilitiesWrapper {
     transition: opacity 0.4s ease-out;

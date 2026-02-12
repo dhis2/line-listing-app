@@ -426,17 +426,20 @@ const LayoutWithBottomBar = () => {
                         <IconMore16 color="var(--colors-grey800)" />
                     </div>
                 ) : (
-                    <>
+                    <div
+                        className={`${classes.layoutContainer} ${classes.slideIn}`}
+                    >
+                        <Layout
+                            isCompletelyBlankState={isCompletelyBlankState}
+                        />
+                    </div>
+                )}
+                {/* Bottom bar - always rendered to maintain height, buttons hidden during loading or blank state */}
+                {!isCollapsed && (
+                    <div className={classes.bottomBar}>
                         <div
-                            className={`${classes.layoutContainer} ${classes.slideIn}`}
-                        >
-                            <Layout
-                                isCompletelyBlankState={isCompletelyBlankState}
-                            />
-                        </div>
-                        <div
-                            className={`${classes.bottomBar} ${
-                                isCompletelyBlankState
+                            className={`${classes.bottomBarButtons} ${
+                                isCompletelyBlankState || isVisualizationLoading
                                     ? classes.hiddenKeepSpace
                                     : classes.slideInBottom
                             }`}
@@ -473,7 +476,7 @@ const LayoutWithBottomBar = () => {
                                       `Switch to Person ${terminology}`
                                   )}
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
 

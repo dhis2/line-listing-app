@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-01-29T18:27:15.714Z\n"
-"PO-Revision-Date: 2026-01-29T18:27:15.714Z\n"
+"POT-Creation-Date: 2026-02-12T18:34:59.074Z\n"
+"PO-Revision-Date: 2026-02-12T18:34:59.074Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -88,6 +88,33 @@ msgstr "Most recent events:"
 msgid "Oldest events:"
 msgstr "Oldest events:"
 
+msgid "Select Custom Value Data Element"
+msgstr "Select Custom Value Data Element"
+
+msgid "Select a numeric data element to use as the custom value for your table."
+msgstr "Select a numeric data element to use as the custom value for your table."
+
+msgid "Loading data elements..."
+msgstr "Loading data elements..."
+
+msgid "Error loading data"
+msgstr "Error loading data"
+
+msgid "Failed to load data elements"
+msgstr "Failed to load data elements"
+
+msgid "No numeric data elements"
+msgstr "No numeric data elements"
+
+msgid "This program does not have any numeric data elements available."
+msgstr "This program does not have any numeric data elements available."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Apply"
+msgstr "Apply"
+
 msgid "Hide"
 msgstr "Hide"
 
@@ -106,9 +133,6 @@ msgstr ""
 
 msgid "Reset to defaults"
 msgstr "Reset to defaults"
-
-msgid "Cancel"
-msgstr "Cancel"
 
 msgid "Save"
 msgstr "Save"
@@ -190,6 +214,42 @@ msgstr "Download"
 
 msgid "all"
 msgstr "all"
+
+msgid "Arrange items A-Z"
+msgstr "Arrange items A-Z"
+
+msgid "Arrange items by type"
+msgstr "Arrange items by type"
+
+msgid "Clear {{axisName}}"
+msgstr "Clear {{axisName}}"
+
+msgid "Swap Columns and Filter"
+msgstr "Swap Columns and Filter"
+
+msgid "Swap Columns and Rows"
+msgstr "Swap Columns and Rows"
+
+msgid "Move all to Columns"
+msgstr "Move all to Columns"
+
+msgid "Move all to Rows"
+msgstr "Move all to Rows"
+
+msgid "Move all to Filter"
+msgstr "Move all to Filter"
+
+msgid "Clear Columns"
+msgstr "Clear Columns"
+
+msgid "Clear Rows"
+msgstr "Clear Rows"
+
+msgid "Clear Filter"
+msgstr "Clear Filter"
+
+msgid "Clear all"
+msgstr "Clear all"
 
 msgid "Tracked entities"
 msgstr "Tracked entities"
@@ -345,6 +405,12 @@ msgstr "Metadata"
 
 msgid "Other"
 msgstr "Other"
+
+msgid "Drag to move sidebar to the right"
+msgstr "Drag to move sidebar to the right"
+
+msgid "Drag to move sidebar to the left"
+msgstr "Drag to move sidebar to the left"
 
 msgid "Enrollment org. unit"
 msgstr "Enrollment org. unit"
@@ -593,6 +659,9 @@ msgstr "Rename successful"
 msgid "Rename failed"
 msgstr "Rename failed"
 
+msgid "Open"
+msgstr "Open"
+
 msgid "View"
 msgstr "View"
 
@@ -646,9 +715,6 @@ msgstr "Individual data view"
 
 msgid "Aggregated view"
 msgstr "Aggregated view"
-
-msgid "Choose a visualization type"
-msgstr "Choose a visualization type"
 
 msgid "Update"
 msgstr "Update"
@@ -728,12 +794,6 @@ msgstr "Enrollments from last 12 months"
 
 msgid "{{stageName}} events from last 12 months"
 msgstr "{{stageName}} events from last 12 months"
-
-msgid "Most viewed"
-msgstr "Most viewed"
-
-msgid "Browse all..."
-msgstr "Browse all..."
 
 msgid "Not available offline"
 msgstr "Not available offline"
@@ -868,8 +928,11 @@ msgstr "Skip rounding"
 msgid "Add a title"
 msgstr "Add a title"
 
-msgid "All options"
-msgstr "All options"
+msgid "Table options"
+msgstr "Table options"
+
+msgid "List options"
+msgstr "List options"
 
 msgid "Options"
 msgstr "Options"
