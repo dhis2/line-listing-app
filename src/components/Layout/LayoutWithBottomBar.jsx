@@ -33,7 +33,8 @@ import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../modules/programTypes.js'
 import { validateButtons } from '../../modules/buttonValidation.js'
 
 const AXES_HEIGHT_STORAGE_KEY = 'axes-panel-height'
-const MIN_AXES_HEIGHT = 50
+const COLLAPSE_THRESHOLD = 56
+const MIN_AXES_HEIGHT = COLLAPSE_THRESHOLD
 const MAX_AXES_HEIGHT_FRACTION = 0.8
 
 const LayoutWithBottomBar = () => {
@@ -64,6 +65,7 @@ const LayoutWithBottomBar = () => {
     const layoutContainerRef = useRef(null)
     const axesMaxHeightRef = useRef(axesMaxHeight)
     axesMaxHeightRef.current = axesMaxHeight
+    const preDragHeightRef = useRef(null)
 
     // Track custom value modal state and selected data element
     const [showCustomValueModal, setShowCustomValueModal] = useState(false)
@@ -95,11 +97,20 @@ const LayoutWithBottomBar = () => {
                 layoutContainerRef.current.getBoundingClientRect().top
             const newHeight = e.clientY - containerTop
             const maxHeight = window.innerHeight * MAX_AXES_HEIGHT_FRACTION
-            const clamped = Math.max(
-                MIN_AXES_HEIGHT,
-                Math.min(newHeight, maxHeight)
-            )
-            setAxesMaxHeight(clamped)
+
+            if (newHeight < COLLAPSE_THRESHOLD) {
+                // Snap to collapsed when dragged below threshold
+                // Restore pre-drag height so expanding returns to previous size
+                setAxesMaxHeight(preDragHeightRef.current)
+                setIsCollapsed(true)
+                setIsDraggingAxes(false)
+            } else {
+                const clamped = Math.max(
+                    MIN_AXES_HEIGHT,
+                    Math.min(newHeight, maxHeight)
+                )
+                setAxesMaxHeight(clamped)
+            }
         }
 
         const handleMouseUp = () => {
@@ -421,6 +432,7 @@ const LayoutWithBottomBar = () => {
 
     const handleAxesResizeStart = (e) => {
         e.preventDefault()
+        preDragHeightRef.current = axesMaxHeight
         setIsDraggingAxes(true)
     }
 
