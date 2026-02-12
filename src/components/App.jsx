@@ -71,7 +71,11 @@ import {
     sGetLoadError,
 } from '../reducers/loader.js'
 import { sGetMetadata, sGetMetadataById } from '../reducers/metadata.js'
-import { sGetUiShowDetailsPanel, sGetUiDataSource } from '../reducers/ui.js'
+import {
+    sGetUiShowDetailsPanel,
+    sGetUiDataSource,
+    sGetUiLayoutPanelHidden,
+} from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.jsx'
 import { default as DialogManager } from './Dialogs/DialogManager.jsx'
@@ -139,6 +143,7 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
     const dataSource = useSelector(sGetUiDataSource)
     const program = useSelector((state) =>
         sGetMetadataById(state, dataSource?.id)
@@ -593,9 +598,11 @@ const App = () => {
                                 classes.flexDirCol
                             )}
                         >
-                            <div>
-                                <LayoutWithBottomBar />
-                            </div>
+                            {!isLayoutPanelHidden && (
+                                <div>
+                                    <LayoutWithBottomBar />
+                                </div>
+                            )}
                             {showQuickStart && (
                                 <div className={classes.quickStartWrapper}>
                                     <QuickStartSection />
