@@ -22,7 +22,7 @@ import {
     NoticeBox,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
     OUTPUT_TYPE_EVENT,
@@ -90,6 +90,22 @@ const CustomValueModal = ({
         dimensionType: DIMENSION_TYPE_DATA_ELEMENT,
     })
 
+    // Show loading state for a minimum of 400ms to avoid a flash
+    const [showLoading, setShowLoading] = useState(true)
+    const minLoadTimerRef = useRef(null)
+    useEffect(() => {
+        if (loading) {
+            setShowLoading(true)
+            clearTimeout(minLoadTimerRef.current)
+        } else {
+            minLoadTimerRef.current = setTimeout(
+                () => setShowLoading(false),
+                400
+            )
+        }
+        return () => clearTimeout(minLoadTimerRef.current)
+    }, [loading])
+
     // Filter to only numeric data elements
     const numericDimensions = useMemo(() => {
         if (!dimensions) return []
@@ -120,31 +136,29 @@ const CustomValueModal = ({
                     )}
                 </p>
 
-                {loading && (
-                    <div className={classes.loadingContainer}>
-                        <CircularLoader small />
-                        <span>{i18n.t('Loading data elements...')}</span>
-                    </div>
-                )}
-
-                {error && (
-                    <NoticeBox error title={i18n.t('Error loading data')}>
-                        {error.message ||
-                            i18n.t('Failed to load data elements')}
-                    </NoticeBox>
-                )}
-
-                {!loading && !error && numericDimensions.length === 0 && (
-                    <NoticeBox title={i18n.t('No numeric data elements')}>
-                        {i18n.t(
-                            'This program does not have any numeric data elements available.'
-                        )}
-                    </NoticeBox>
-                )}
-
-                {!loading && !error && numericDimensions.length > 0 && (
-                    <div className={classes.listContainer}>
-                        {numericDimensions.map((dimension) => (
+                <div className={classes.listContainer}>
+                    {showLoading && (
+                        <div className={classes.listLoading}>
+                            <CircularLoader extrasmall />
+                            <span>{i18n.t('Loading data')}</span>
+                        </div>
+                    )}
+                    {!showLoading && error && (
+                        <NoticeBox error title={i18n.t('Error loading data')}>
+                            {error.message ||
+                                i18n.t('Failed to load data elements')}
+                        </NoticeBox>
+                    )}
+                    {!showLoading && !error && numericDimensions.length === 0 && (
+                        <NoticeBox title={i18n.t('No numeric data elements')}>
+                            {i18n.t(
+                                'This program does not have any numeric data elements available.'
+                            )}
+                        </NoticeBox>
+                    )}
+                    {!showLoading &&
+                        !error &&
+                        numericDimensions.map((dimension) => (
                             <SingleSelectOption
                                 key={dimension.id}
                                 label={dimension.name}
@@ -153,29 +167,26 @@ const CustomValueModal = ({
                                 onClick={() => handleSelect(dimension)}
                             />
                         ))}
-                    </div>
-                )}
+                </div>
 
-                {selectedItem && (
-                    <div className={classes.aggregationSelect}>
-                        <SingleSelectField
-                            label={i18n.t('Aggregation mode')}
-                            selected={aggregationMode}
-                            onChange={({ selected }) =>
-                                setAggregationMode(selected)
-                            }
-                            dense
-                        >
-                            {AGGREGATION_MODES.map(({ value, label }) => (
-                                <SingleSelectOption
-                                    key={value}
-                                    label={i18n.t(label)}
-                                    value={value}
-                                />
-                            ))}
-                        </SingleSelectField>
-                    </div>
-                )}
+                <div className={classes.aggregationSelect}>
+                    <SingleSelectField
+                        label={i18n.t('Aggregation mode')}
+                        selected={aggregationMode}
+                        onChange={({ selected }) =>
+                            setAggregationMode(selected)
+                        }
+                        dense
+                    >
+                        {AGGREGATION_MODES.map(({ value, label }) => (
+                            <SingleSelectOption
+                                key={value}
+                                label={i18n.t(label)}
+                                value={value}
+                            />
+                        ))}
+                    </SingleSelectField>
+                </div>
             </ModalContent>
             <ModalActions>
                 <ButtonStrip>
