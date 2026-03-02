@@ -67,15 +67,15 @@ const LayoutWithBottomBar = () => {
     axesMaxHeightRef.current = axesMaxHeight
     const preDragHeightRef = useRef(null)
 
-    // Track custom value modal state and selected data element
+    // Track custom value modal state and selected data element + aggregation mode
     const [showCustomValueModal, setShowCustomValueModal] = useState(false)
-    const [customValueDataElement, setCustomValueDataElement] = useState(null)
+    const [customValueSelection, setCustomValueSelection] = useState(null)
 
     // Clear custom value selection when "New" is clicked (current visualization becomes null)
     // Also expand the layout so the user always starts in expanded mode
     useEffect(() => {
         if (!current) {
-            setCustomValueDataElement(null)
+            setCustomValueSelection(null)
             setIsCollapsed(false)
         }
     }, [current])
@@ -219,7 +219,7 @@ const LayoutWithBottomBar = () => {
     }
 
     // Check if we already have a custom value selected
-    const hasCustomValueSelected = customValueDataElement !== null
+    const hasCustomValueSelected = customValueSelection?.dataItem != null
     const isCustomValueActive =
         hasCurrentVisualization && outputType === OUTPUT_TYPE_CUSTOM_VALUE
 
@@ -242,10 +242,8 @@ const LayoutWithBottomBar = () => {
         setShowCustomValueModal(false)
     }
 
-    const handleCustomValueModalConfirm = (selectedDataElement) => {
-        // Store the selected data element and proceed with output type switch
-        console.log('Custom value data element selected:', selectedDataElement)
-        setCustomValueDataElement(selectedDataElement)
+    const handleCustomValueModalConfirm = ({ dataItem, aggregationMode }) => {
+        setCustomValueSelection({ dataItem, aggregationMode })
         setShowCustomValueModal(false)
         handleOutputButtonClick(OUTPUT_TYPE_CUSTOM_VALUE)
     }
@@ -370,7 +368,7 @@ const LayoutWithBottomBar = () => {
                         className={`${buttonClassName} ${classes.splitButtonDropdown}`}
                         disabled={validation.disabled}
                         title={`Change: ${
-                            customValueDataElement?.name ||
+                            customValueSelection?.dataItem?.name ||
                             'Select data element'
                         }`}
                     >
@@ -603,7 +601,8 @@ const LayoutWithBottomBar = () => {
                 <CustomValueModal
                     onClose={handleCustomValueModalClose}
                     onConfirm={handleCustomValueModalConfirm}
-                    initialSelection={customValueDataElement}
+                    initialSelection={customValueSelection?.dataItem ?? null}
+                    initialAggregationMode={customValueSelection?.aggregationMode}
                 />
             )}
         </div>

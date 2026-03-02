@@ -16,7 +16,8 @@ import {
     ModalActions,
     ButtonStrip,
     Button,
-    Radio,
+    SingleSelectField,
+    SingleSelectOption,
     CircularLoader,
     NoticeBox,
 } from '@dhis2/ui'
@@ -50,7 +51,22 @@ const SUPPORTED_INPUT_TYPES = [
     OUTPUT_TYPE_TRACKED_ENTITY,
 ]
 
-const CustomValueModal = ({ onClose, onConfirm, initialSelection }) => {
+const AGGREGATION_MODE_DATA_ITEM_DEFAULT = 'DATA_ITEM_DEFAULT'
+const AGGREGATION_MODE_SUM = 'SUM'
+const AGGREGATION_MODE_AVERAGE = 'AVERAGE'
+
+const AGGREGATION_MODES = [
+    { value: AGGREGATION_MODE_DATA_ITEM_DEFAULT, label: 'Data item default' },
+    { value: AGGREGATION_MODE_SUM, label: 'Sum' },
+    { value: AGGREGATION_MODE_AVERAGE, label: 'Average' },
+]
+
+const CustomValueModal = ({
+    onClose,
+    onConfirm,
+    initialSelection,
+    initialAggregationMode = AGGREGATION_MODE_DATA_ITEM_DEFAULT,
+}) => {
     const programId = useSelector(sGetUiProgramId)
     const program = useSelector((state) => sGetMetadataById(state, programId))
     const currentInputType = useSelector(sGetUiInputType)
@@ -63,6 +79,9 @@ const CustomValueModal = ({ onClose, onConfirm, initialSelection }) => {
 
     // Single selection - store just the selected dimension object
     const [selectedItem, setSelectedItem] = useState(initialSelection || null)
+    const [aggregationMode, setAggregationMode] = useState(
+        initialAggregationMode || AGGREGATION_MODE_DATA_ITEM_DEFAULT
+    )
 
     // Fetch all data elements for the program
     const { loading, error, dimensions } = useProgramDataDimensions({
@@ -85,8 +104,7 @@ const CustomValueModal = ({ onClose, onConfirm, initialSelection }) => {
 
     const handleConfirm = () => {
         if (selectedItem) {
-            console.log('Selected custom value data element:', selectedItem)
-            onConfirm(selectedItem)
+            onConfirm({ dataItem: selectedItem, aggregationMode })
         }
     }
 
@@ -127,27 +145,35 @@ const CustomValueModal = ({ onClose, onConfirm, initialSelection }) => {
                 {!loading && !error && numericDimensions.length > 0 && (
                     <div className={classes.listContainer}>
                         {numericDimensions.map((dimension) => (
-                            <div
+                            <SingleSelectOption
                                 key={dimension.id}
-                                className={`${classes.listItem} ${
-                                    selectedItem?.id === dimension.id
-                                        ? classes.listItemSelected
-                                        : ''
-                                }`}
+                                label={dimension.name}
+                                value={dimension.id}
+                                active={selectedItem?.id === dimension.id}
                                 onClick={() => handleSelect(dimension)}
-                            >
-                                <Radio
-                                    checked={selectedItem?.id === dimension.id}
-                                    onChange={() => handleSelect(dimension)}
-                                    label={dimension.name}
-                                    name="customValueSelection"
-                                    value={dimension.id}
-                                />
-                                <span className={classes.valueType}>
-                                    {dimension.valueType}
-                                </span>
-                            </div>
+                            />
                         ))}
+                    </div>
+                )}
+
+                {selectedItem && (
+                    <div className={classes.aggregationSelect}>
+                        <SingleSelectField
+                            label={i18n.t('Aggregation mode')}
+                            selected={aggregationMode}
+                            onChange={({ selected }) =>
+                                setAggregationMode(selected)
+                            }
+                            dense
+                        >
+                            {AGGREGATION_MODES.map(({ value, label }) => (
+                                <SingleSelectOption
+                                    key={value}
+                                    label={i18n.t(label)}
+                                    value={value}
+                                />
+                            ))}
+                        </SingleSelectField>
                     </div>
                 )}
             </ModalContent>
@@ -177,6 +203,11 @@ CustomValueModal.propTypes = {
         name: PropTypes.string,
         valueType: PropTypes.string,
     }),
+    initialAggregationMode: PropTypes.oneOf([
+        AGGREGATION_MODE_DATA_ITEM_DEFAULT,
+        AGGREGATION_MODE_SUM,
+        AGGREGATION_MODE_AVERAGE,
+    ]),
 }
 
 export default CustomValueModal
