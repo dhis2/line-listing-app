@@ -56,7 +56,10 @@ const AGGREGATION_MODE_SUM = 'SUM'
 const AGGREGATION_MODE_AVERAGE = 'AVERAGE'
 
 const AGGREGATION_MODES = [
-    { value: AGGREGATION_MODE_DATA_ITEM_DEFAULT, label: 'Data item default' },
+    {
+        value: AGGREGATION_MODE_DATA_ITEM_DEFAULT,
+        label: 'Use data item default',
+    },
     { value: AGGREGATION_MODE_SUM, label: 'Sum' },
     { value: AGGREGATION_MODE_AVERAGE, label: 'Average' },
 ]
@@ -126,13 +129,11 @@ const CustomValueModal = ({
 
     return (
         <Modal onClose={onClose} position="top" large>
-            <ModalTitle>
-                {i18n.t('Select Custom Value Data Element')}
-            </ModalTitle>
+            <ModalTitle>{i18n.t('Configure custom value')}</ModalTitle>
             <ModalContent className={classes.modalContent}>
                 <p className={classes.description}>
                     {i18n.t(
-                        'Select a numeric data element to use as the custom value for your table.'
+                        'Choose the numeric data element to show in table cells.'
                     )}
                 </p>
 
@@ -149,13 +150,17 @@ const CustomValueModal = ({
                                 i18n.t('Failed to load data elements')}
                         </NoticeBox>
                     )}
-                    {!showLoading && !error && numericDimensions.length === 0 && (
-                        <NoticeBox title={i18n.t('No numeric data elements')}>
-                            {i18n.t(
-                                'This program does not have any numeric data elements available.'
-                            )}
-                        </NoticeBox>
-                    )}
+                    {!showLoading &&
+                        !error &&
+                        numericDimensions.length === 0 && (
+                            <NoticeBox
+                                title={i18n.t('No numeric data elements')}
+                            >
+                                {i18n.t(
+                                    'This program does not have any numeric data elements available.'
+                                )}
+                            </NoticeBox>
+                        )}
                     {!showLoading &&
                         !error &&
                         numericDimensions.map((dimension) => (
@@ -171,7 +176,7 @@ const CustomValueModal = ({
 
                 <div className={classes.aggregationSelect}>
                     <SingleSelectField
-                        label={i18n.t('Aggregation mode')}
+                        label={i18n.t('Aggregation')}
                         selected={aggregationMode}
                         onChange={({ selected }) =>
                             setAggregationMode(selected)
@@ -198,7 +203,7 @@ const CustomValueModal = ({
                         onClick={handleConfirm}
                         disabled={!selectedItem}
                     >
-                        {i18n.t('Apply')}
+                        {i18n.t('Update')}
                     </Button>
                 </ButtonStrip>
             </ModalActions>
