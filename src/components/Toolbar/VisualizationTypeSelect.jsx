@@ -17,6 +17,12 @@ import {
     Popper,
     Layer,
     Tooltip,
+    Modal,
+    ModalTitle,
+    ModalContent,
+    ModalActions,
+    ButtonStrip,
+    Button,
 } from '@dhis2/ui'
 import {
     VIS_TYPE_LINE_LIST,
@@ -24,11 +30,15 @@ import {
     AXIS_ID_COLUMNS,
     AXIS_ID_ROWS,
     AXIS_ID_FILTERS,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
+    DIMENSION_TYPE_PERIOD,
+    DIMENSION_TYPE_PROGRAM_INDICATOR,
 } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { acSetUiType, acSetUiLayout } from '../../actions/ui.js'
+import { sGetMetadata } from '../../reducers/metadata.js'
 import { sGetUiType, sGetUiLayout } from '../../reducers/ui.js'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './VisualizationTypeSelect.module.css'
@@ -145,12 +155,18 @@ const ALL_VISUALIZATION_TYPES = [
     ...AGGREGATED_DATA_TYPES,
 ]
 
+const hasLayoutDimensions = (layout) =>
+    Object.values(layout).some((axisDims) => axisDims.length > 0)
+
 const VisualizationTypeSelect = ({ dataTest, className }) => {
     const [menuOpen, setMenuOpen] = useState(false)
+    const [pendingType, setPendingType] = useState(null)
+    const [conversionModalOpen, setConversionModalOpen] = useState(false)
     const anchorRef = useRef(null)
     const dispatch = useDispatch()
     const currentType = useSelector(sGetUiType)
     const currentLayout = useSelector(sGetUiLayout)
+    const metadata = useSelector(sGetMetadata)
 
     // Find the current type's config
     const currentTypeConfig = ALL_VISUALIZATION_TYPES.find(
@@ -163,56 +179,98 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     // Get the icon for the current type
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
 
+    const applyConversion = (newType) => {
+        let newLayout = { ...currentLayout }
+
+        if (
+            currentType === VIS_TYPE_LINE_LIST &&
+            newType === VIS_TYPE_PIVOT_TABLE
+        ) {
+            // Line List → Pivot Table:
+            // - Org units → columns, periods → rows, everything else → filters
+            // - Program indicators are discarded
+            const allDimensions = [
+                ...(currentLayout[AXIS_ID_COLUMNS] || []),
+                ...(currentLayout[AXIS_ID_ROWS] || []),
+                ...(currentLayout[AXIS_ID_FILTERS] || []),
+            ]
+            const columns = []
+            const rows = []
+            const filters = []
+
+            for (const dimensionId of allDimensions) {
+                const dimensionType = metadata[dimensionId]?.dimensionType
+                if (dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT) {
+                    columns.push(dimensionId)
+                } else if (dimensionType === DIMENSION_TYPE_PERIOD) {
+                    rows.push(dimensionId)
+                } else if (dimensionType === DIMENSION_TYPE_PROGRAM_INDICATOR) {
+                    // discard
+                } else {
+                    filters.push(dimensionId)
+                }
+            }
+
+            newLayout = {
+                [AXIS_ID_COLUMNS]: columns,
+                [AXIS_ID_ROWS]: rows,
+                [AXIS_ID_FILTERS]: filters,
+            }
+        } else if (
+            currentType === VIS_TYPE_PIVOT_TABLE &&
+            newType === VIS_TYPE_LINE_LIST
+        ) {
+            // Pivot Table → Line List: Merge columns + rows into columns, keep filters
+            const mergedColumns = [
+                ...(currentLayout[AXIS_ID_COLUMNS] || []),
+                ...(currentLayout[AXIS_ID_ROWS] || []),
+            ]
+            newLayout = {
+                [AXIS_ID_COLUMNS]: mergedColumns,
+                [AXIS_ID_ROWS]: [],
+                [AXIS_ID_FILTERS]: currentLayout[AXIS_ID_FILTERS] || [],
+            }
+        }
+
+        dispatch(acSetUiLayout(newLayout))
+        dispatch(acSetUiType(newType))
+    }
+
     const handleMenuItemClick = (value, enabled) => {
-        // Don't do anything for disabled types
         if (!enabled) {
             return
         }
 
         const newType = value
 
-        // If switching types, handle dimension movement
         if (newType !== currentType) {
-            let newLayout = { ...currentLayout }
-
-            if (
-                currentType === VIS_TYPE_LINE_LIST &&
-                newType === VIS_TYPE_PIVOT_TABLE
-            ) {
-                // Line List → Pivot Table: Move all dimensions to filters (empty columns/rows)
-                const allDimensions = [
-                    ...(currentLayout[AXIS_ID_COLUMNS] || []),
-                    ...(currentLayout[AXIS_ID_ROWS] || []),
-                    ...(currentLayout[AXIS_ID_FILTERS] || []),
-                ]
-                newLayout = {
-                    [AXIS_ID_COLUMNS]: [],
-                    [AXIS_ID_ROWS]: [],
-                    [AXIS_ID_FILTERS]: allDimensions,
-                }
-            } else if (
-                currentType === VIS_TYPE_PIVOT_TABLE &&
-                newType === VIS_TYPE_LINE_LIST
-            ) {
-                // Pivot Table → Line List: Merge columns + rows into columns, keep filters
-                const mergedColumns = [
-                    ...(currentLayout[AXIS_ID_COLUMNS] || []),
-                    ...(currentLayout[AXIS_ID_ROWS] || []),
-                ]
-                newLayout = {
-                    [AXIS_ID_COLUMNS]: mergedColumns,
-                    [AXIS_ID_ROWS]: [],
-                    [AXIS_ID_FILTERS]: currentLayout[AXIS_ID_FILTERS] || [],
-                }
+            if (hasLayoutDimensions(currentLayout)) {
+                setPendingType(newType)
+                setConversionModalOpen(true)
+                setMenuOpen(false)
+                return
             }
 
-            // Update layout and type
-            dispatch(acSetUiLayout(newLayout))
-            dispatch(acSetUiType(newType))
+            applyConversion(newType)
         }
 
         setMenuOpen(false)
     }
+
+    const handleConversionConfirm = () => {
+        applyConversion(pendingType)
+        setConversionModalOpen(false)
+        setPendingType(null)
+    }
+
+    const handleConversionCancel = () => {
+        setConversionModalOpen(false)
+        setPendingType(null)
+    }
+
+    const pendingTypeLabel = ALL_VISUALIZATION_TYPES.find(
+        (t) => t.value === pendingType
+    )?.label
 
     const renderGridItem = ({ value, label, icon: Icon, enabled }) => {
         const isActive = value === currentType
@@ -260,6 +318,37 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
 
     return (
         <>
+            {conversionModalOpen && (
+                <Modal onClose={handleConversionCancel} medium>
+                    <ModalTitle>
+                        {i18n.t('Convert visualization')}
+                    </ModalTitle>
+                    <ModalContent>
+                        <span className={styles.modalContentText}>
+                            {i18n.t(
+                                'Converting to {{vizTypeName}} may move or remove some dimensions.',
+                                { vizTypeName: pendingTypeLabel }
+                            )}
+                        </span>
+                    </ModalContent>
+                    <ModalActions>
+                        <ButtonStrip end>
+                            <Button
+                                secondary
+                                onClick={handleConversionCancel}
+                            >
+                                {i18n.t('Cancel')}
+                            </Button>
+                            <Button
+                                primary
+                                onClick={handleConversionConfirm}
+                            >
+                                {i18n.t('Convert')}
+                            </Button>
+                        </ButtonStrip>
+                    </ModalActions>
+                </Modal>
+            )}
             <div ref={anchorRef} className={styles.wrapper}>
                 <ToolbarMenuDropdownTrigger
                     icon={<CurrentIcon color="#6C7787" />}

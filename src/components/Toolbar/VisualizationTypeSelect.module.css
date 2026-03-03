@@ -114,3 +114,9 @@
     color: var(--colors-grey600);
     font-weight: 400;
 }
+
+.modalContentText {
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--colors-grey900);
+}
