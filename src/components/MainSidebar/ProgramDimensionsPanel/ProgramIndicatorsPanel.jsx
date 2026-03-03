@@ -1,9 +1,12 @@
-import { DIMENSION_TYPE_PROGRAM_INDICATOR } from '@dhis2/analytics'
+import { DIMENSION_TYPE_PROGRAM_INDICATOR, VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
+import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { CARD_TYPE_PROGRAM_INDICATORS } from '../../../modules/paginationConfig.js'
 import { useDebounce } from '../../../modules/utils.js'
 import { OUTPUT_TYPE_ENROLLMENT } from '../../../modules/visualization.js'
+import { sGetUiType } from '../../../reducers/ui.js'
 import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
@@ -18,6 +21,8 @@ const ProgramIndicatorsPanel = ({
     typeFilter = null,
     onEmptyStateChange,
 }) => {
+    const uiType = useSelector(sGetUiType)
+    const isPivotTable = uiType === VIS_TYPE_PIVOT_TABLE
     const debouncedSearchTerm = useDebounce(searchTerm || '')
     const { getPageSize } = usePaginationConfig()
     const pageSize = getPageSize(CARD_TYPE_PROGRAM_INDICATORS)
@@ -76,9 +81,17 @@ const ProgramIndicatorsPanel = ({
         )
     }
 
+    const disabledDimensions = isPivotTable
+        ? filteredDimensions.map((d) => ({
+              ...d,
+              disabled: true,
+              disabledTooltip: i18n.t('Not valid with pivot tables'),
+          }))
+        : filteredDimensions
+
     return (
         <ProgramDataDimensionsList
-            dimensions={filteredDimensions}
+            dimensions={disabledDimensions}
             loading={loading}
             fetching={fetching}
             error={error}

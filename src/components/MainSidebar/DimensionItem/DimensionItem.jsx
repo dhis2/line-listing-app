@@ -1,4 +1,4 @@
-import { IconAdd16 } from '@dhis2/ui'
+import { IconAdd16, Tooltip } from '@dhis2/ui'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import PropTypes from 'prop-types'
@@ -37,6 +37,7 @@ export const DimensionItem = ({
     optionSet,
     stageName,
     disabled,
+    disabledTooltip,
     selected,
 }) => {
     const dispatch = useDispatch()
@@ -112,46 +113,68 @@ export const DimensionItem = ({
           }
         : undefined
 
+    const itemBase = (
+        <DimensionItemBase
+            name={name}
+            dimensionType={dimensionType}
+            disabled={disabled}
+            selected={selected}
+            multiSelected={multiSelected}
+            stageName={stageName}
+            onClick={onClick}
+            dataTest={`dimension-item-${id}`}
+            contextMenu={
+                !disabled && (
+                    <DimensionItemButton
+                        dataTest={`item-button-${id}`}
+                        icon={
+                            selected ? (
+                                <IconSubtract16 />
+                            ) : (
+                                <IconAdd16 color="var(--colors-grey600)" />
+                            )
+                        }
+                        onClick={(e) => {
+                            e?.stopPropagation()
+
+                            if (!selected) {
+                                dispatch(
+                                    acAddUiLayoutDimensions(
+                                        { [id]: { axisId: 'columns' } },
+                                        dimensionMetadata
+                                    )
+                                )
+                            } else {
+                                dispatch(acRemoveUiLayoutDimensions(id))
+                            }
+                        }}
+                    />
+                )
+            }
+        />
+    )
+
     return (
         <div {...attributes} {...listeners} ref={setNodeRef} style={style}>
-            <DimensionItemBase
-                name={name}
-                dimensionType={dimensionType}
-                disabled={disabled}
-                selected={selected}
-                multiSelected={multiSelected}
-                stageName={stageName}
-                onClick={onClick}
-                dataTest={`dimension-item-${id}`}
-                contextMenu={
-                    !disabled && (
-                        <DimensionItemButton
-                            dataTest={`item-button-${id}`}
-                            icon={
-                                selected ? (
-                                    <IconSubtract16 />
-                                ) : (
-                                    <IconAdd16 color="var(--colors-grey600)" />
-                                )
-                            }
-                            onClick={(e) => {
-                                e?.stopPropagation()
-
-                                if (!selected) {
-                                    dispatch(
-                                        acAddUiLayoutDimensions(
-                                            { [id]: { axisId: 'columns' } },
-                                            dimensionMetadata
-                                        )
-                                    )
-                                } else {
-                                    dispatch(acRemoveUiLayoutDimensions(id))
-                                }
-                            }}
-                        />
-                    )
-                }
-            />
+            {disabled && disabledTooltip ? (
+                <Tooltip
+                    content={disabledTooltip}
+                    placement="top"
+                    openDelay={1000}
+                >
+                    {({ ref, onMouseOver, onMouseOut }) => (
+                        <div
+                            ref={ref}
+                            onMouseOver={onMouseOver}
+                            onMouseOut={onMouseOut}
+                        >
+                            {itemBase}
+                        </div>
+                    )}
+                </Tooltip>
+            ) : (
+                itemBase
+            )}
         </div>
     )
 }
@@ -162,6 +185,7 @@ DimensionItem.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
+    disabledTooltip: PropTypes.string,
     optionSet: PropTypes.string,
     selected: PropTypes.bool,
     stageName: PropTypes.string,
