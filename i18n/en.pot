@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-02-12T18:34:59.074Z\n"
-"PO-Revision-Date: 2026-02-12T18:34:59.074Z\n"
+"POT-Creation-Date: 2026-03-03T13:06:41.855Z\n"
+"PO-Revision-Date: 2026-03-03T13:06:41.856Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -88,14 +88,60 @@ msgstr "Most recent events:"
 msgid "Oldest events:"
 msgstr "Oldest events:"
 
-msgid "Select Custom Value Data Element"
-msgstr "Select Custom Value Data Element"
+msgid "Add all here"
+msgstr "Add all here"
 
-msgid "Select a numeric data element to use as the custom value for your table."
-msgstr "Select a numeric data element to use as the custom value for your table."
+msgid "Drag or click a dimension to place it here"
+msgstr "Drag or click a dimension to place it here"
 
-msgid "Loading data elements..."
-msgstr "Loading data elements..."
+msgid "Place here"
+msgstr "Place here"
+
+msgid "+ Place here"
+msgstr "+ Place here"
+
+msgid "Discard"
+msgstr "Discard"
+
+msgid "Drag dimensions here to discard them"
+msgstr "Drag dimensions here to discard them"
+
+msgid "Discard here"
+msgstr "Discard here"
+
+msgid "+ Discard here"
+msgstr "+ Discard here"
+
+msgid "Line list"
+msgstr "Line list"
+
+msgid "Pivot table"
+msgstr "Pivot table"
+
+msgid "Convert to {{targetType}}"
+msgstr "Convert to {{targetType}}"
+
+msgid ""
+"Drag dimensions from the current layout into the target axes, or click a "
+"dimension to select it then click an axis to place it."
+msgstr ""
+"Drag dimensions from the current layout into the target axes, or click a "
+"dimension to select it then click an axis to place it."
+
+msgid "converting to"
+msgstr "converting to"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Configure custom value"
+msgstr "Configure custom value"
+
+msgid "Choose the numeric data element to show in table cells."
+msgstr "Choose the numeric data element to show in table cells."
+
+msgid "Loading data"
+msgstr "Loading data"
 
 msgid "Error loading data"
 msgstr "Error loading data"
@@ -109,11 +155,11 @@ msgstr "No numeric data elements"
 msgid "This program does not have any numeric data elements available."
 msgstr "This program does not have any numeric data elements available."
 
-msgid "Cancel"
-msgstr "Cancel"
+msgid "Aggregation"
+msgstr "Aggregation"
 
-msgid "Apply"
-msgstr "Apply"
+msgid "Update"
+msgstr "Update"
 
 msgid "Hide"
 msgstr "Hide"
@@ -478,6 +524,9 @@ msgstr "Choose an input to get started adding program dimensions."
 msgid "Program"
 msgstr "Program"
 
+msgid "Not valid with pivot tables"
+msgstr "Not valid with pivot tables"
+
 msgid "Could not load programs"
 msgstr "Could not load programs"
 
@@ -586,9 +635,6 @@ msgstr "Unsaved visualization"
 msgid "Unsaved changes"
 msgstr "Unsaved changes"
 
-msgid "Line list"
-msgstr "Line list"
-
 msgid "Export"
 msgstr "Export"
 
@@ -668,9 +714,6 @@ msgstr "View"
 msgid "Reset sidebar width"
 msgstr "Reset sidebar width"
 
-msgid "Pivot table"
-msgstr "Pivot table"
-
 msgid "Column"
 msgstr "Column"
 
@@ -715,9 +758,6 @@ msgstr "Individual data view"
 
 msgid "Aggregated view"
 msgstr "Aggregated view"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Created"
 msgstr "Created"
@@ -1163,3 +1203,11 @@ msgstr "List data from tracked entities and events."
 
 msgid "Explore data with manipulatable columns, rows, and aggregations."
 msgstr "Explore data with manipulatable columns, rows, and aggregations."
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Line Listing"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr "DHIS2 Line Listing"

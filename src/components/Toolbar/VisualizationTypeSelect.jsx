@@ -28,8 +28,9 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { acSetUiType, acSetUiLayout } from '../../actions/ui.js'
+import { acSetUiType } from '../../actions/ui.js'
 import { sGetUiType, sGetUiLayout } from '../../reducers/ui.js'
+import ConversionDialog from '../Dialogs/ConversionDialog/ConversionDialog.jsx'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './VisualizationTypeSelect.module.css'
 
@@ -147,6 +148,7 @@ const ALL_VISUALIZATION_TYPES = [
 
 const VisualizationTypeSelect = ({ dataTest, className }) => {
     const [menuOpen, setMenuOpen] = useState(false)
+    const [conversionTargetType, setConversionTargetType] = useState(null)
     const anchorRef = useRef(null)
     const dispatch = useDispatch()
     const currentType = useSelector(sGetUiType)
@@ -164,54 +166,32 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
 
     const handleMenuItemClick = (value, enabled) => {
-        // Don't do anything for disabled types
         if (!enabled) {
             return
         }
 
-        const newType = value
+        if (value !== currentType) {
+            const totalDimensions =
+                (currentLayout[AXIS_ID_COLUMNS]?.length || 0) +
+                (currentLayout[AXIS_ID_ROWS]?.length || 0) +
+                (currentLayout[AXIS_ID_FILTERS]?.length || 0)
 
-        // If switching types, handle dimension movement
-        if (newType !== currentType) {
-            let newLayout = { ...currentLayout }
-
-            if (
-                currentType === VIS_TYPE_LINE_LIST &&
-                newType === VIS_TYPE_PIVOT_TABLE
-            ) {
-                // Line List → Pivot Table: Move all dimensions to filters (empty columns/rows)
-                const allDimensions = [
-                    ...(currentLayout[AXIS_ID_COLUMNS] || []),
-                    ...(currentLayout[AXIS_ID_ROWS] || []),
-                    ...(currentLayout[AXIS_ID_FILTERS] || []),
-                ]
-                newLayout = {
-                    [AXIS_ID_COLUMNS]: [],
-                    [AXIS_ID_ROWS]: [],
-                    [AXIS_ID_FILTERS]: allDimensions,
-                }
-            } else if (
-                currentType === VIS_TYPE_PIVOT_TABLE &&
-                newType === VIS_TYPE_LINE_LIST
-            ) {
-                // Pivot Table → Line List: Merge columns + rows into columns, keep filters
-                const mergedColumns = [
-                    ...(currentLayout[AXIS_ID_COLUMNS] || []),
-                    ...(currentLayout[AXIS_ID_ROWS] || []),
-                ]
-                newLayout = {
-                    [AXIS_ID_COLUMNS]: mergedColumns,
-                    [AXIS_ID_ROWS]: [],
-                    [AXIS_ID_FILTERS]: currentLayout[AXIS_ID_FILTERS] || [],
-                }
+            if (totalDimensions === 0) {
+                dispatch(acSetUiType(value))
+                setMenuOpen(false)
+                return
             }
 
-            // Update layout and type
-            dispatch(acSetUiLayout(newLayout))
-            dispatch(acSetUiType(newType))
+            setConversionTargetType(value)
+            setMenuOpen(false)
+            return
         }
 
         setMenuOpen(false)
+    }
+
+    const handleConversionClose = () => {
+        setConversionTargetType(null)
     }
 
     const renderGridItem = ({ value, label, icon: Icon, enabled }) => {
@@ -294,6 +274,12 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
                         </div>
                     </Popper>
                 </Layer>
+            )}
+            {conversionTargetType && (
+                <ConversionDialog
+                    targetType={conversionTargetType}
+                    onClose={handleConversionClose}
+                />
             )}
         </>
     )
