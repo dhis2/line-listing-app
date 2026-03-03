@@ -65,6 +65,11 @@
     cursor: not-allowed;
 }
 
+.dimensionItem.disabled:hover {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey300);
+}
+
 .icon {
     flex: 0 0 auto;
     align-self: flex-start;
