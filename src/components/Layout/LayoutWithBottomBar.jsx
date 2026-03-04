@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Tooltip, IconSync16, IconMore16, IconSettings16 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import CustomValueModal from '../Dialogs/CustomValueModal.jsx'
+import UndoConversionButton from './UndoConversionButton.jsx'
 import Layout from './Layout.jsx'
 import LayoutUtilitiesMenu from './LayoutUtilitiesMenu.jsx'
 import { VisualizationTypeSelect } from '../Toolbar/VisualizationTypeSelect.jsx'
@@ -16,6 +17,7 @@ import {
     sGetUiDataSource,
     sGetUiProgramId,
     sGetUiType,
+    sGetUiConversionSnapshot,
 } from '../../reducers/ui.js'
 import { sGetMetadataById, sGetMetadata } from '../../reducers/metadata.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
@@ -48,6 +50,7 @@ const LayoutWithBottomBar = () => {
     const current = useSelector(sGetCurrent)
     const visualizationType = useSelector(sGetUiType)
     const isVisualizationLoading = useSelector(sGetIsVisualizationLoading)
+    const conversionSnapshot = useSelector(sGetUiConversionSnapshot)
 
     // Track collapsed state for layout content area
     const [isCollapsed, setIsCollapsed] = useState(false)
@@ -455,6 +458,12 @@ const LayoutWithBottomBar = () => {
                         />
                         <OptionsButtons className={classes.optionsButtons} />
                         <div className={classes.topBarSpacer} />
+                        {conversionSnapshot && (
+                            <UndoConversionButton
+                                key={conversionSnapshot.snapshotId}
+                                snapshot={conversionSnapshot}
+                            />
+                        )}
                         <div
                             className={`${classes.collapseToggle} ${
                                 isCompletelyBlankState

@@ -17,12 +17,6 @@ import {
     Popper,
     Layer,
     Tooltip,
-    Modal,
-    ModalTitle,
-    ModalContent,
-    ModalActions,
-    ButtonStrip,
-    Button,
 } from '@dhis2/ui'
 import {
     VIS_TYPE_LINE_LIST,
@@ -37,9 +31,19 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { acSetUiType, acSetUiLayout } from '../../actions/ui.js'
+import {
+    acSetUiType,
+    acSetUiLayout,
+    acSetUiConversionSnapshot,
+} from '../../actions/ui.js'
 import { sGetMetadata } from '../../reducers/metadata.js'
-import { sGetUiType, sGetUiLayout } from '../../reducers/ui.js'
+import {
+    sGetUiType,
+    sGetUiLayout,
+    sGetUiItems,
+    sGetUiConditions,
+    sGetUiRepetition,
+} from '../../reducers/ui.js'
 import { ToolbarMenuDropdownTrigger } from './ToolbarMenuDropdownTrigger.jsx'
 import styles from './VisualizationTypeSelect.module.css'
 
@@ -155,17 +159,15 @@ const ALL_VISUALIZATION_TYPES = [
     ...AGGREGATED_DATA_TYPES,
 ]
 
-const hasLayoutDimensions = (layout) =>
-    Object.values(layout).some((axisDims) => axisDims.length > 0)
-
 const VisualizationTypeSelect = ({ dataTest, className }) => {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [pendingType, setPendingType] = useState(null)
-    const [conversionModalOpen, setConversionModalOpen] = useState(false)
     const anchorRef = useRef(null)
     const dispatch = useDispatch()
     const currentType = useSelector(sGetUiType)
     const currentLayout = useSelector(sGetUiLayout)
+    const currentItems = useSelector(sGetUiItems)
+    const currentConditions = useSelector(sGetUiConditions)
+    const currentRepetitions = useSelector(sGetUiRepetition)
     const metadata = useSelector(sGetMetadata)
 
     // Find the current type's config
@@ -180,6 +182,15 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
 
     const applyConversion = (newType) => {
+        const snapshot = {
+            snapshotId: Date.now(),
+            type: currentType,
+            layout: currentLayout,
+            itemsByDimension: currentItems,
+            conditions: currentConditions,
+            repetitionByDimension: currentRepetitions,
+        }
+
         let newLayout = { ...currentLayout }
 
         if (
@@ -234,6 +245,7 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
 
         dispatch(acSetUiLayout(newLayout))
         dispatch(acSetUiType(newType))
+        dispatch(acSetUiConversionSnapshot(snapshot))
     }
 
     const handleMenuItemClick = (value, enabled) => {
@@ -241,36 +253,12 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
             return
         }
 
-        const newType = value
-
-        if (newType !== currentType) {
-            if (hasLayoutDimensions(currentLayout)) {
-                setPendingType(newType)
-                setConversionModalOpen(true)
-                setMenuOpen(false)
-                return
-            }
-
-            applyConversion(newType)
+        if (value !== currentType) {
+            applyConversion(value)
         }
 
         setMenuOpen(false)
     }
-
-    const handleConversionConfirm = () => {
-        applyConversion(pendingType)
-        setConversionModalOpen(false)
-        setPendingType(null)
-    }
-
-    const handleConversionCancel = () => {
-        setConversionModalOpen(false)
-        setPendingType(null)
-    }
-
-    const pendingTypeLabel = ALL_VISUALIZATION_TYPES.find(
-        (t) => t.value === pendingType
-    )?.label
 
     const renderGridItem = ({ value, label, icon: Icon, enabled }) => {
         const isActive = value === currentType
@@ -318,37 +306,6 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
 
     return (
         <>
-            {conversionModalOpen && (
-                <Modal onClose={handleConversionCancel} medium>
-                    <ModalTitle>
-                        {i18n.t('Convert visualization')}
-                    </ModalTitle>
-                    <ModalContent>
-                        <span className={styles.modalContentText}>
-                            {i18n.t(
-                                'Converting to {{vizTypeName}} may move or remove some dimensions.',
-                                { vizTypeName: pendingTypeLabel }
-                            )}
-                        </span>
-                    </ModalContent>
-                    <ModalActions>
-                        <ButtonStrip end>
-                            <Button
-                                secondary
-                                onClick={handleConversionCancel}
-                            >
-                                {i18n.t('Cancel')}
-                            </Button>
-                            <Button
-                                primary
-                                onClick={handleConversionConfirm}
-                            >
-                                {i18n.t('Convert')}
-                            </Button>
-                        </ButtonStrip>
-                    </ModalActions>
-                </Modal>
-            )}
             <div ref={anchorRef} className={styles.wrapper}>
                 <ToolbarMenuDropdownTrigger
                     icon={<CurrentIcon color="#6C7787" />}

@@ -85,6 +85,9 @@ export const CLEAR_UI_REPETITION = 'CLEAR_UI_REPETITION'
 export const SET_UI_SORTING = 'SET_UI_SORTING'
 export const CLEAR_UI_SORTING = 'CLEAR_UI_SORTING'
 export const SET_UI_TYPE = 'SET_UI_TYPE'
+export const RESTORE_UI_CONVERSION_SNAPSHOT = 'RESTORE_UI_CONVERSION_SNAPSHOT'
+export const SET_UI_CONVERSION_SNAPSHOT = 'SET_UI_CONVERSION_SNAPSHOT'
+export const CLEAR_UI_CONVERSION_SNAPSHOT = 'CLEAR_UI_CONVERSION_SNAPSHOT'
 
 const DEFAULT_CONDITIONS = {}
 const DEFAULT_DIMENSION_CONDITIONS = {}
@@ -123,6 +126,7 @@ const EMPTY_UI = {
     conditions: DEFAULT_CONDITIONS,
     expandedCards: [],
     splitDataCards: false, // Deprecated: replaced by stage-based cards for programs with registration
+    conversionSnapshot: null,
 }
 
 export const DEFAULT_UI = {
@@ -169,6 +173,7 @@ export const DEFAULT_UI = {
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
+    conversionSnapshot: null,
 }
 
 const getPreselectedUi = (options, currentState) => {
@@ -204,6 +209,31 @@ export default (state = EMPTY_UI, action) => {
             // Save to localStorage so it persists as the default for next time
             setLastUsedVisualizationType(action.value)
             return { ...state, type: action.value }
+        }
+        case RESTORE_UI_CONVERSION_SNAPSHOT: {
+            const {
+                type,
+                layout,
+                itemsByDimension,
+                conditions,
+                repetitionByDimension,
+            } = action.value
+            setLastUsedVisualizationType(type)
+            return {
+                ...state,
+                type,
+                layout,
+                itemsByDimension,
+                conditions,
+                repetitionByDimension,
+                conversionSnapshot: null,
+            }
+        }
+        case SET_UI_CONVERSION_SNAPSHOT: {
+            return { ...state, conversionSnapshot: action.value }
+        }
+        case CLEAR_UI_CONVERSION_SNAPSHOT: {
+            return { ...state, conversionSnapshot: null }
         }
         case SET_UI_SORTING: {
             return { ...state, sorting: action.value }
@@ -533,6 +563,8 @@ export const sGetUiRepetition = (state) =>
     sGetUi(state).repetitionByDimension || {}
 export const sGetUiConditions = (state) =>
     sGetUi(state).conditions || DEFAULT_CONDITIONS
+export const sGetUiConversionSnapshot = (state) =>
+    sGetUi(state).conversionSnapshot
 
 // TODO - should these props have empty values in the DEFAULT_UI and EMPTY_UI?
 export const sGetUiShowDetailsPanel = (state) => sGetUi(state).showDetailsPanel

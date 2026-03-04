@@ -64,6 +64,9 @@ import {
     SET_UI_REPETITION,
     REMOVE_UI_REPETITION,
     CLEAR_UI_REPETITION,
+    RESTORE_UI_CONVERSION_SNAPSHOT,
+    SET_UI_CONVERSION_SNAPSHOT,
+    CLEAR_UI_CONVERSION_SNAPSHOT,
     SET_UI_INPUT,
     UPDATE_UI_PROGRAM_ID,
     UPDATE_UI_PROGRAM_STAGE_ID,
@@ -497,6 +500,20 @@ export const tSetUiOutput = (outputType) => (dispatch) => {
 export const acSetUiType = (value) => ({
     type: SET_UI_TYPE,
     value,
+})
+
+export const acRestoreUiConversionSnapshot = (snapshot) => ({
+    type: RESTORE_UI_CONVERSION_SNAPSHOT,
+    value: snapshot,
+})
+
+export const acSetUiConversionSnapshot = (snapshot) => ({
+    type: SET_UI_CONVERSION_SNAPSHOT,
+    value: snapshot,
+})
+
+export const acClearUiConversionSnapshot = () => ({
+    type: CLEAR_UI_CONVERSION_SNAPSHOT,
 })
 
 // Remove all dimensions from a specific data source

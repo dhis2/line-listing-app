@@ -1,0 +1,51 @@
+.undoButton {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    min-height: 26px;
+    background-color: var(--colors-grey050);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 400;
+    color: var(--colors-grey800);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.undoButton:hover {
+    border: 1px solid var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.undoButton:active {
+    transform: translateY(1px);
+}
+
+/* Countdown fill — drains left to right over 10s */
+.countdown {
+    position: absolute;
+    inset: 0;
+    background-color: var(--colors-grey200);
+    transform-origin: left center;
+    animation: drain 10s linear forwards;
+    pointer-events: none;
+}
+
+.label {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes drain {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
