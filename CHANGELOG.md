@@ -1,3 +1,10 @@
+# [102.3.0](https://github.com/dhis2/line-listing-app/compare/v102.2.4...v102.3.0) (2026-03-14)
+
+
+### Features
+
+* data output period types (DHIS2-20270) ([#738](https://github.com/dhis2/line-listing-app/issues/738)) ([0651b59](https://github.com/dhis2/line-listing-app/commit/0651b59b07b5183cc47bd82195378382198c7de7))
+
 ## [102.2.4](https://github.com/dhis2/line-listing-app/compare/v102.2.3...v102.2.4) (2025-10-30)
 
 
