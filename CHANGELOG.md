@@ -1,3 +1,10 @@
+# [102.4.0](https://github.com/dhis2/line-listing-app/compare/v102.3.0...v102.4.0) (2026-03-17)
+
+
+### Features
+
+* support loading custom translations from the data store ([#739](https://github.com/dhis2/line-listing-app/issues/739)) ([5088926](https://github.com/dhis2/line-listing-app/commit/50889262f99e87064744f2004e464e16881df3f9))
+
 # [102.3.0](https://github.com/dhis2/line-listing-app/compare/v102.2.4...v102.3.0) (2026-03-14)
 
 
