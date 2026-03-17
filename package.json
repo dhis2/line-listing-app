@@ -41,7 +41,7 @@
         "typescript-eslint": "^8.35.0"
     },
     "dependencies": {
-        "@dhis2/analytics": "^29.3.3",
+        "@dhis2/analytics": "git+https://github.com/d2-ci/analytics.git#bbdbee140ea3543d43c1b52debceb5ef4f5d2e50",
         "@dhis2/app-runtime": "^3.13.2",
         "@dhis2/ui": "^10.7.7",
         "@dnd-kit/core": "^5.0.3",
