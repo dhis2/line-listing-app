@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* gap: 8px; */
+}
+
+.leftPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 1.5;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.rightPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+    border-left: 1px solid var(--colors-grey300);
+}
+
+.rowsAxis {
+    border-top: 1px solid var(--colors-grey300);
+}
+
+/* Hide borders in completely blank empty state */
+.hiddenBorder {
+    border-color: transparent;
+}
+
+/* Fade in transition for borders */
+.rightPanel,
+.rowsAxis {
+    transition: border-color 0.4s ease-out;
+}

@@ -16,12 +16,14 @@ const DimensionItemBase = ({
     contextMenu,
     onClick,
     dataTest,
+    multiSelected,
 }) => (
     <div
         className={cx(styles.dimensionItem, {
             [styles.selected]: selected,
             [styles.disabled]: disabled,
             [styles.dragging]: dragging,
+            [styles.multiSelected]: multiSelected,
         })}
         onClick={onClick}
         data-test={dataTest}
@@ -53,6 +55,7 @@ DimensionItemBase.propTypes = {
     dimensionType: PropTypes.string,
     disabled: PropTypes.bool,
     dragging: PropTypes.bool,
+    multiSelected: PropTypes.bool,
     selected: PropTypes.bool,
     stageName: PropTypes.string,
     onClick: PropTypes.func,

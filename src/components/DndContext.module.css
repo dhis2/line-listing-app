@@ -2,8 +2,26 @@
     border: 2px solid #4c9ffe;
     border-radius: 2px;
     width: fit-content;
+    position: relative;
 }
 
 .dimensionItem {
     width: 228px;
+}
+
+.countBadge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #1976d2;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

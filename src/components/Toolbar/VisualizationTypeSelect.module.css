@@ -1,0 +1,120 @@
+.wrapper {
+    display: inline-flex;
+    height: 100%;
+}
+
+.dropdownPanel {
+    background-color: var(--colors-white);
+    border: 1px solid var(--colors-grey300);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 280px;
+}
+
+.section {
+    margin-bottom: 16px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.sectionHeader {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--colors-grey800);
+    margin-bottom: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.gridItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    border: none;
+    border-radius: 5px;
+    background: var(--colors-grey100);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    min-width: 88px;
+    width: 88px;
+}
+
+.gridItem:hover:not(.disabled) {
+    background-color: var(--colors-grey200);
+}
+
+.gridItem:active:not(.disabled) {
+    background-color: var(--colors-blue100);
+}
+
+.gridItem.active {
+    background-color: var(--colors-blue100);
+}
+
+.gridItem.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: var(--colors-grey050);
+}
+
+.gridItemLabel {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+    margin-top: 4px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.gridItem.disabled .gridItemLabel {
+    color: var(--colors-grey500);
+}
+
+.tooltipWrapper {
+    display: flex;
+}
+
+.tooltipWrapper > button:disabled {
+    pointer-events: none;
+}
+
+/* Empty state placeholder - shown when no visualization type is selected */
+.emptyPlaceholder {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 4px;
+    height: 28px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--colors-grey700);
+    line-height: 1;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: default;
+    display: none;
+}
+
+.emptyPlaceholderIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.emptyPlaceholderLabel {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    color: var(--colors-grey600);
+    font-weight: 400;
+}

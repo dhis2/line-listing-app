@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--colors-grey700);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.wrapper button:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
+}
+
+.wrapper button:active {
+    background-color: var(--colors-grey300);
+}
+
+.wrapper button:focus {
+    outline: none;
+}

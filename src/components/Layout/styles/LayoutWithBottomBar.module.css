@@ -1,0 +1,404 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 8px);
+    margin: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--colors-grey400);
+    overflow: hidden;
+    background: var(--colors-white);
+}
+
+/* Content area wrapper */
+.contentArea {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.layoutContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Remove the margin and border-radius from the Layout component inside */
+.layoutContainer > div {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    flex: 1;
+}
+
+/* Remove margin-block-end from the inner layout container */
+.layoutContainer > div > div {
+    margin-block-end: 0 !important;
+}
+
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 4px;
+    background-color: var(--colors-white);
+    border-bottom: 1px solid var(--colors-grey300);
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Placeholder to maintain top bar height during loading */
+.topBarPlaceholder {
+    height: 28px;
+    width: 100%;
+}
+
+/* Visualization type selector (Line List / Pivot Table) */
+.visualizationTypeSelect {
+    /* Add your custom styles here */
+    background-color: var(--colors-white);
+    border-radius: 5px;
+    color: var(--colors-grey800);
+}
+
+/* Options buttons container */
+.optionsButtons {
+    /* Animation handled by parent .topBar */
+}
+
+/* Spacer to push utilities button to right edge */
+.topBarSpacer {
+    flex: 1;
+}
+
+/* Collapse toggle button wrapper - matches LayoutUtilitiesMenu button styling */
+.collapseToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapseToggle button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--colors-grey600);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.collapseToggle button:hover {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+}
+
+.collapseToggle button:active {
+    background-color: var(--colors-grey300);
+}
+
+.collapseToggle button:focus {
+    outline: none;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.bottomBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6px 6px;
+    background-color: var(--colors-white);
+    border-top: 1px solid var(--colors-grey300);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bottomBarButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0px 8px;
+    min-height: 28px;
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
+    color: var(--colors-grey700);
+
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.button:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.button:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400;
+    border-color: var(--colors-grey300);
+}
+
+.buttonUpdate {
+    border: 1px solid #c8e4f9;
+    padding: 0 8px 0 6px;
+    color: var(--colors-blue800);
+    background-color: var(--colors-blue100);
+    box-shadow: 0 1px 2px 0 rgba(33, 41, 52, 0.04);
+}
+
+.buttonUpdate:hover:not(:disabled) {
+    background-color: #daedfb;
+    border-color: #c8e4f9;
+    color: var(--colors-blue900);
+}
+
+.buttonUpdate:active:not(:disabled) {
+    background-color: #d1e8fa;
+    border-color: #c8e4f9;
+    transform: translateY(1px);
+}
+
+.buttonAlt {
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
+    color: var(--colors-grey700);
+    font-weight: 400;
+    box-shadow: none;
+}
+
+.buttonAlt:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.buttonAlt:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.buttonAlt:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400 !important;
+}
+
+.buttonCreate {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey800);
+    font-weight: 400 !important;
+}
+
+.buttonCreate:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.buttonCreate:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.buttonCreate:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400 !important;
+}
+
+/* Skeleton loading state - shown when loading a saved visualization */
+.skeletonLayout {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--colors-white);
+    padding: 8px 6px;
+}
+
+.skeletonAxis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    /* padding: 4px; */
+}
+
+.skeletonChip {
+    height: 22px;
+    border-radius: 2px;
+    background: linear-gradient(
+        90deg,
+        var(--colors-grey100) 25%,
+        var(--colors-grey200) 50%,
+        var(--colors-grey100) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Collapsed content area - shown when user collapses the layout */
+.collapsedContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    box-shadow: inset 0 4px 8px -6px rgba(40, 60, 85, 0.05),
+        inset 0 -4px 8px -6px rgba(40, 60, 85, 0.05);
+    background-color: var(--colors-white);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.collapsedContent:hover {
+    background-color: var(--colors-grey100);
+}
+
+/* Resize handle for axes panel - sits between layout and bottom bar */
+.resizeHandle {
+    position: relative;
+    height: 0;
+    flex-shrink: 0;
+    cursor: row-resize;
+    z-index: 2;
+}
+
+/* Invisible hit area for easier grabbing */
+.resizeHandle::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    right: 0;
+    height: 9px;
+    cursor: row-resize;
+}
+
+/* Visual indicator line */
+.resizeHandle::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: transparent;
+    transition: background-color 0.15s ease;
+    border-radius: 1px;
+}
+
+.resizeHandle:hover::after,
+.resizeHandleActive::after {
+    background-color: var(--colors-blue400);
+}
+
+/* Empty layout area - shown when no visualization type is selected */
+.emptyLayoutArea {
+    display: flex;
+    background-color: var(--colors-white);
+    min-height: 200px;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Fade out animation for empty state */
+.fadeOut {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+.slideIn {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.slideInBottom {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Split button group for custom value button */
+.splitButtonGroup {
+    display: flex;
+    align-items: stretch;
+}
+
+.splitButtonMain {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
+.splitButtonMain:hover:not(:disabled) {
+    border-right: none;
+}
+
+.splitButtonDropdown {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 0 4px;
+    min-width: 24px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.splitButtonDropdown:hover:not(:disabled) {
+    background-color: #d1e8fa;
+}
+
+.splitButtonDropdown:active:not(:disabled) {
+    background-color: #c8e4f9;
+}
+
+/* Hidden but keep space - for completely blank empty state */
+.hiddenKeepSpace {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Elements that can fade in from blank state */
+.bottomBarButtons,
+.collapseToggle,
+.utilitiesWrapper {
+    transition: opacity 0.4s ease-out;
+}

@@ -24,6 +24,7 @@ import {
     acAddParentGraphMap,
     acSetShowExpandedLayoutPanel,
     acSetUiAccessoryPanelActiveTab,
+    tSetDataSource,
 } from '../actions/ui.js'
 import { acSetVisualization } from '../actions/visualization.js'
 import { apiFetchVisualization } from '../api/visualization.js'
@@ -49,6 +50,7 @@ import history from '../modules/history.js'
 import {
     getDefaultOuMetadata,
     getDynamicTimeDimensionsMetadata,
+    getProgramAsMetadata,
     isPopulatedObject,
     transformMetaDataResponseObject,
 } from '../modules/metadata.js'
@@ -68,23 +70,43 @@ import {
     sGetIsVisualizationLoading,
     sGetLoadError,
 } from '../reducers/loader.js'
-import { sGetMetadata } from '../reducers/metadata.js'
-import { sGetUiShowDetailsPanel } from '../reducers/ui.js'
+import { sGetMetadata, sGetMetadataById } from '../reducers/metadata.js'
+import {
+    sGetUiShowDetailsPanel,
+    sGetUiDataSource,
+    sGetUiLayoutPanelHidden,
+} from '../reducers/ui.js'
 import classes from './App.module.css'
 import { default as DetailsPanel } from './DetailsPanel/DetailsPanel.jsx'
 import { default as DialogManager } from './Dialogs/DialogManager.jsx'
 import DndContext from './DndContext.jsx'
 import { InterpretationModal } from './InterpretationModal/index.js'
-import Layout from './Layout/Layout.jsx'
+import LayoutWithBottomBar from './Layout/LayoutWithBottomBar.jsx'
 import LoadingMask from './LoadingMask/LoadingMask.jsx'
 import { MainSidebar } from './MainSidebar/index.js'
-import { default as TitleBar } from './TitleBar/TitleBar.jsx'
+import { MultiSelectionProvider } from './MainSidebar/MultiSelectionContext.jsx'
 import { Toolbar } from './Toolbar/Toolbar.jsx'
+import QuickStartSection from './Visualization/QuickStartSection.jsx'
 import StartScreen from './Visualization/StartScreen.jsx'
 import { Visualization } from './Visualization/Visualization.jsx'
 
 // Used to avoid repeating `history` listener calls -- see below
 let lastLocation
+
+// Custom hook for sidebar position with localStorage persistence
+const useSidebarPosition = () => {
+    const [position, setPosition] = useState(() => {
+        const saved = localStorage.getItem('sidebarPosition')
+        return saved === 'right' ? 'right' : 'left'
+    })
+
+    const setPositionWithPersist = (newPosition) => {
+        setPosition(newPosition)
+        localStorage.setItem('sidebarPosition', newPosition)
+    }
+
+    return [position, setPositionWithPersist]
+}
 
 const dataStatisticsMutation = {
     resource: 'dataStatistics',
@@ -121,10 +143,25 @@ const App = () => {
     const isLoading = useSelector(sGetIsVisualizationLoading)
     const error = useSelector(sGetLoadError)
     const showDetailsPanel = useSelector(sGetUiShowDetailsPanel)
+    const isLayoutPanelHidden = useSelector(sGetUiLayoutPanelHidden)
+    const dataSource = useSelector(sGetUiDataSource)
+    const program = useSelector((state) =>
+        sGetMetadataById(state, dataSource?.id)
+    )
     const { systemSettings, rootOrgUnits, orgUnitLevels, currentUser } =
         useCachedDataQuery()
     const digitGroupSeparator =
         systemSettings[SYSTEM_SETTINGS_DIGIT_GROUP_SEPARATOR]
+    const [sidebarPosition, setSidebarPosition] = useSidebarPosition()
+
+    // Show Quick Start when program is selected and has stages, no current visualization, and no error
+    const showQuickStart =
+        !error &&
+        !current &&
+        !isLoading &&
+        initialLoadIsComplete &&
+        Boolean(dataSource?.id) &&
+        program?.programStages?.length > 0
 
     const onFileMenuAction = () => {
         showDetailsPanel && setAboutAOUnitRenderId(aboutAOUnitRenderId + 1)
@@ -251,7 +288,9 @@ const App = () => {
             dispatch(acSetUiDataSorting(sorting))
         }
 
-        dispatch(tSetCurrentFromUi())
+        // Skip loading state for sorting - only the data order changes,
+        // the layout remains the same
+        dispatch(tSetCurrentFromUi({ skipLoadingState: true }))
     }
 
     const onResponsesReceived = (response) => {
@@ -430,6 +469,72 @@ const App = () => {
         }
     }
 
+    // Detect program from dimensions in the layout and set data source
+    const setDataSourceFromVisualization = (visualization) => {
+        // Collect all programs from dimensions in the layout
+        const dimensions = [
+            ...(visualization.columns || []),
+            ...(visualization.rows || []),
+            ...(visualization.filters || []),
+        ]
+
+        // Extract unique program IDs from dimensions
+        const programsFromDimensions = dimensions
+            .filter((dim) => dim.program?.id)
+            .map((dim) => dim.program.id)
+
+        // Get unique program IDs (preserving order, first one wins)
+        const uniqueProgramIds = [...new Set(programsFromDimensions)]
+
+        // Try to get program from dimensions first, fall back to visualization.program
+        let programToOpen = null
+
+        if (uniqueProgramIds.length > 0) {
+            // Get the first program found in dimensions
+            const firstProgramId = uniqueProgramIds[0]
+            // Check if visualization.program matches the first dimension program
+            if (visualization.program?.id === firstProgramId) {
+                programToOpen = visualization.program
+            } else {
+                // For tracked entity, check programDimensions for the program metadata
+                const programFromDimensions =
+                    visualization.programDimensions?.find(
+                        (p) => p.id === firstProgramId
+                    )
+                if (programFromDimensions) {
+                    programToOpen = programFromDimensions
+                }
+            }
+        }
+
+        // Fall back to visualization.program if no program found in dimensions
+        if (!programToOpen && visualization.program?.id) {
+            programToOpen = visualization.program
+        }
+
+        // Set the data source if we found a program
+        if (programToOpen) {
+            const allMetadata = {
+                ...getProgramAsMetadata(programToOpen),
+                ...getDynamicTimeDimensionsMetadata(
+                    programToOpen,
+                    visualization.programStage,
+                    visualization.outputType
+                ),
+            }
+
+            dispatch(
+                tSetDataSource({
+                    type: 'PROGRAM',
+                    id: programToOpen.id,
+                    programType: programToOpen.programType,
+                    stage: visualization.programStage,
+                    metadata: allMetadata,
+                })
+            )
+        }
+    }
+
     useEffect(() => {
         if (data?.eventVisualization) {
             dispatch(acClearLoadError())
@@ -456,6 +561,7 @@ const App = () => {
             dispatch(tSetCurrent(visualization))
             dispatch(acSetUiFromVisualization(visualization))
             dispatch(tSetCurrentFromUi({ validateOnly: true }))
+            setDataSourceFromVisualization(visualization)
             postDataStatistics({ id: visualization.id })
         }
     }, [data])
@@ -476,62 +582,75 @@ const App = () => {
                     classes.flexCt
                 )}
             >
-                <DndContext>
-                    <MainSidebar />
-                    <DialogManager />
-                    <div
-                        className={cx(
-                            classes.flexGrow1,
-                            classes.minWidth0,
-                            classes.flexBasis0,
-                            classes.flexCt,
-                            classes.flexDirCol
-                        )}
-                    >
-                        <div className={classes.mainCenterLayout}>
-                            <Layout />
-                        </div>
-                        <div className={classes.mainCenterTitlebar}>
-                            <TitleBar />
-                        </div>
-                        <div className={cx(classes.mainCenterCanvas)}>
-                            {(initialLoadIsComplete &&
-                                !current &&
-                                !isLoading) ||
-                            error ? (
-                                <StartScreen />
-                            ) : (
-                                <>
-                                    {isLoading && (
-                                        <div className={classes.loadingCover}>
-                                            <LoadingMask />
-                                        </div>
-                                    )}
-                                    {current && (
-                                        <Visualization
-                                            isVisualizationLoading={isLoading}
-                                            visualization={current}
-                                            displayProperty={
-                                                currentUser.settings[
-                                                    USER_SETTINGS_DISPLAY_PROPERTY
-                                                ]
-                                            }
-                                            onResponsesReceived={
-                                                onResponsesReceived
-                                            }
-                                            onColumnHeaderClick={
-                                                onColumnHeaderClick
-                                            }
-                                            onDataSorted={onDataSorted}
-                                            onError={onError}
-                                        />
-                                    )}
-                                    {current && <InterpretationModal />}
-                                </>
+                <MultiSelectionProvider>
+                    <DndContext>
+                        <MainSidebar
+                            position={sidebarPosition}
+                            onPositionChange={setSidebarPosition}
+                        />
+                        <DialogManager />
+                        <div
+                            className={cx(
+                                classes.flexGrow1,
+                                classes.minWidth0,
+                                classes.flexBasis0,
+                                classes.flexCt,
+                                classes.flexDirCol
                             )}
+                        >
+                            {!isLayoutPanelHidden && (
+                                <div>
+                                    <LayoutWithBottomBar />
+                                </div>
+                            )}
+                            {showQuickStart && (
+                                <div className={classes.quickStartWrapper}>
+                                    <QuickStartSection />
+                                </div>
+                            )}
+                            <div className={cx(classes.mainCenterCanvas)}>
+                                {(initialLoadIsComplete &&
+                                    !current &&
+                                    !isLoading) ||
+                                error ? (
+                                    <StartScreen />
+                                ) : (
+                                    <>
+                                        {isLoading && (
+                                            <div
+                                                className={classes.loadingCover}
+                                            >
+                                                <LoadingMask />
+                                            </div>
+                                        )}
+                                        {current && (
+                                            <Visualization
+                                                isVisualizationLoading={
+                                                    isLoading
+                                                }
+                                                visualization={current}
+                                                displayProperty={
+                                                    currentUser.settings[
+                                                        USER_SETTINGS_DISPLAY_PROPERTY
+                                                    ]
+                                                }
+                                                onResponsesReceived={
+                                                    onResponsesReceived
+                                                }
+                                                onColumnHeaderClick={
+                                                    onColumnHeaderClick
+                                                }
+                                                onDataSorted={onDataSorted}
+                                                onError={onError}
+                                            />
+                                        )}
+                                        {current && <InterpretationModal />}
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </DndContext>
+                    </DndContext>
+                </MultiSelectionProvider>
                 <div
                     className={cx(classes.mainRight, {
                         [classes.hidden]: !showDetailsPanel,

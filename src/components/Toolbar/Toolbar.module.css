@@ -1,0 +1,58 @@
+.toolbarWrapper {
+    width: 100%;
+    background-color: white;
+    flex-shrink: 0;
+    /* border-bottom: 1px solid var(--colors-grey300); */
+}
+
+:global([data-test='dhis2-analytics-toolbar']) {
+    max-height: 40px !important;
+    min-height: 36px !important;
+    justify-content: space-between !important;
+}
+
+.toolbarLeft {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: var(--spacers-dp4);
+    flex-shrink: 0;
+}
+
+.toolbarRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: var(--spacers-dp4);
+}
+
+.toolbarRight button {
+    border: none !important;
+}
+
+.menuDivider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--colors-grey300);
+    margin: 0 4px;
+}
+
+.iconButton {
+    padding: 6px !important;
+    border: none !important;
+}
+
+.inputsButton {
+    font-weight: 500;
+    color: var(--colors-grey700);
+}
+
+/* Override analytics library toolbar styles */
+:global([data-test='dhis2-analytics-toolbar']) button {
+    font-size: 13px !important;
+}
+
+:global([data-test='dhis2-analytics-toolbar']) button span {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
