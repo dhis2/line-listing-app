@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-02-12T18:34:59.074Z\n"
-"PO-Revision-Date: 2026-02-12T18:34:59.074Z\n"
+"POT-Creation-Date: 2026-03-18T07:53:13.090Z\n"
+"PO-Revision-Date: 2026-03-18T07:53:13.091Z\n"
 
 msgid "Add to {{axisName}}"
 msgstr "Add to {{axisName}}"
@@ -88,14 +88,14 @@ msgstr "Most recent events:"
 msgid "Oldest events:"
 msgstr "Oldest events:"
 
-msgid "Select Custom Value Data Element"
-msgstr "Select Custom Value Data Element"
+msgid "Configure custom value"
+msgstr "Configure custom value"
 
-msgid "Select a numeric data element to use as the custom value for your table."
-msgstr "Select a numeric data element to use as the custom value for your table."
+msgid "Choose the numeric data element to show in table cells."
+msgstr "Choose the numeric data element to show in table cells."
 
-msgid "Loading data elements..."
-msgstr "Loading data elements..."
+msgid "Loading data"
+msgstr "Loading data"
 
 msgid "Error loading data"
 msgstr "Error loading data"
@@ -109,11 +109,14 @@ msgstr "No numeric data elements"
 msgid "This program does not have any numeric data elements available."
 msgstr "This program does not have any numeric data elements available."
 
+msgid "Aggregation"
+msgstr "Aggregation"
+
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "Apply"
-msgstr "Apply"
+msgid "Update"
+msgstr "Update"
 
 msgid "Hide"
 msgstr "Hide"
@@ -288,6 +291,9 @@ msgstr "Program: {{- programName}}"
 
 msgid "Showing all values for this dimension"
 msgstr "Showing all values for this dimension"
+
+msgid "Undo"
+msgstr "Undo"
 
 msgid "Enrollment"
 msgstr "Enrollment"
@@ -477,6 +483,9 @@ msgstr "Choose an input to get started adding program dimensions."
 
 msgid "Program"
 msgstr "Program"
+
+msgid "Not valid with pivot tables"
+msgstr "Not valid with pivot tables"
 
 msgid "Could not load programs"
 msgstr "Could not load programs"
@@ -715,9 +724,6 @@ msgstr "Individual data view"
 
 msgid "Aggregated view"
 msgstr "Aggregated view"
-
-msgid "Update"
-msgstr "Update"
 
 msgid "Created"
 msgstr "Created"

@@ -1,3 +1,4 @@
+import { IconUndo16 } from '@dhis2/ui'
 import i18n from '@dhis2/d2-i18n'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -30,7 +31,10 @@ const UndoConversionButton = ({ snapshot }) => {
             type="button"
         >
             <span className={styles.countdown} aria-hidden="true" />
-            <span className={styles.label}>{i18n.t('Undo conversion')}</span>
+            <span className={styles.label}>
+                <IconUndo16 />
+                {i18n.t('Undo')}
+            </span>
         </button>
     )
 }
