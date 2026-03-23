@@ -181,6 +181,12 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
     // Get the icon for the current type
     const CurrentIcon = currentTypeConfig?.icon || IconVisualizationLinelist16
 
+    const layoutHasDimensions =
+        (currentLayout[AXIS_ID_COLUMNS]?.length || 0) +
+            (currentLayout[AXIS_ID_ROWS]?.length || 0) +
+            (currentLayout[AXIS_ID_FILTERS]?.length || 0) >
+        0
+
     const applyConversion = (newType) => {
         const snapshot = {
             snapshotId: Date.now(),
@@ -245,7 +251,15 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
 
         dispatch(acSetUiLayout(newLayout))
         dispatch(acSetUiType(newType))
-        dispatch(acSetUiConversionSnapshot(snapshot))
+
+        const hadDimensions =
+            (currentLayout[AXIS_ID_COLUMNS]?.length || 0) +
+                (currentLayout[AXIS_ID_ROWS]?.length || 0) +
+                (currentLayout[AXIS_ID_FILTERS]?.length || 0) >
+            0
+        if (hadDimensions) {
+            dispatch(acSetUiConversionSnapshot(snapshot))
+        }
     }
 
     const handleMenuItemClick = (value, enabled) => {
@@ -282,11 +296,7 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
         // Wrap disabled items with tooltip
         if (!enabled) {
             return (
-                <Tooltip
-                    key={value}
-                    content={i18n.t('Coming soon')}
-                    placement="bottom"
-                >
+                <Tooltip key={value} content={i18n.t('Coming soon...')}>
                     {({ onMouseOver, onMouseOut, ref }) => (
                         <div
                             ref={ref}
@@ -323,7 +333,12 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
                         <div className={styles.dropdownPanel}>
                             <div className={styles.section}>
                                 <div className={styles.sectionHeader}>
-                                    {i18n.t('Individual data view')}
+                                    {layoutHasDimensions &&
+                                    currentType === VIS_TYPE_PIVOT_TABLE
+                                        ? i18n.t(
+                                              'Convert to individual data view…'
+                                          )
+                                        : i18n.t('Individual data view')}
                                 </div>
                                 <div className={styles.grid}>
                                     {INDIVIDUAL_DATA_TYPES.map(renderGridItem)}
@@ -331,7 +346,10 @@ const VisualizationTypeSelect = ({ dataTest, className }) => {
                             </div>
                             <div className={styles.section}>
                                 <div className={styles.sectionHeader}>
-                                    {i18n.t('Aggregated view')}
+                                    {layoutHasDimensions &&
+                                    currentType === VIS_TYPE_LINE_LIST
+                                        ? i18n.t('Convert to aggregated view…')
+                                        : i18n.t('Aggregated view')}
                                 </div>
                                 <div className={styles.grid}>
                                     {AGGREGATED_DATA_TYPES.map(renderGridItem)}

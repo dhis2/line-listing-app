@@ -80,7 +80,11 @@
 }
 
 .tooltipWrapper {
-    display: contents;
+    display: flex;
+}
+
+.tooltipWrapper > button:disabled {
+    pointer-events: none;
 }
 
 /* Empty state placeholder - shown when no visualization type is selected */
