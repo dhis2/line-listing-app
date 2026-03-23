@@ -598,11 +598,7 @@ const MainSidebar = ({ position = 'left', onPositionChange }) => {
                             <>
                                 {/* Enrollment Card - contains enrollment dimensions (org unit, dates, status) */}
                                 <CardSection
-                                    label={
-                                        dataSource?.name === 'Child Programme'
-                                            ? i18n.t('Pregnancy data')
-                                            : i18n.t('Enrollment data')
-                                    }
+                                    label={i18n.t('Enrollment data')}
                                     onClick={() =>
                                         onCardClick(
                                             ACCESSORY_PANEL_TAB_ENROLLMENT

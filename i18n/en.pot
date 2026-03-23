@@ -385,9 +385,6 @@ msgstr "Statuses"
 msgid "Data"
 msgstr "Data"
 
-msgid "Pregnancy data"
-msgstr "Pregnancy data"
-
 msgid "Enrollment data"
 msgstr "Enrollment data"
 

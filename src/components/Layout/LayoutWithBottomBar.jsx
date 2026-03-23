@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import i18n from '@dhis2/d2-i18n'
 import { Tooltip, IconSync16, IconMore16, IconSettings16 } from '@dhis2/ui'
 import { VIS_TYPE_PIVOT_TABLE } from '@dhis2/analytics'
 import CustomValueModal from '../Dialogs/CustomValueModal.jsx'
@@ -144,12 +145,6 @@ const LayoutWithBottomBar = () => {
         }
     }, [isDraggingAxes])
 
-    // Get full program/entity metadata from dataSource ID
-    const dataSourceId = dataSource?.id
-    const dataSourceMetadata = useSelector((state) =>
-        sGetMetadataById(state, dataSourceId)
-    )
-
     // Check if we have a current visualization (created but maybe not saved)
     const hasCurrentVisualization = Boolean(current)
 
@@ -165,13 +160,11 @@ const LayoutWithBottomBar = () => {
     const isCompletelyBlankState =
         !hasCurrentVisualization && !layoutHasDimensions && !dataSource?.id
 
-    // Determine button terminology based on visualization type
-    const terminology =
-        visualizationType === VIS_TYPE_PIVOT_TABLE ? 'table' : 'list'
-
-    // PROTOTYPE: Check if using Child Programme to customize enrollment label
-    const isChildProgramme = dataSourceMetadata?.name === 'Child Programme'
-    const enrollmentLabel = isChildProgramme ? 'Pregnancy' : 'Enrollment'
+    const isPivotTable = visualizationType === VIS_TYPE_PIVOT_TABLE
+    // Line list: "Event list", …; pivot: "Event count table", …
+    const eventOutputLabelSuffix = isPivotTable ? 'count table' : 'list'
+    const enrollmentOutputLabelSuffix = isPivotTable ? 'count table' : 'list'
+    const enrollmentLabel = i18n.t('Enrollment')
 
     // Check if tracked entity output is supported
     const supportsTrackedEntity =
@@ -332,14 +325,15 @@ const LayoutWithBottomBar = () => {
             return null
         }
 
-        // Determine the button label
+        // Ellipsis only when the main click opens the modal (no data element chosen yet)
+        const ellipsis = !hasCustomValueSelected ? '…' : ''
         let buttonLabel
         if (!hasCurrentVisualization) {
-            buttonLabel = `Create custom value ${terminology}`
+            buttonLabel = `Create Event value table${ellipsis}`
         } else if (isCustomValueActive) {
-            buttonLabel = `Update custom value ${terminology}`
+            buttonLabel = `Update Event value table${ellipsis}`
         } else {
-            buttonLabel = `Switch to custom value ${terminology}`
+            buttonLabel = `Switch to Event value table${ellipsis}`
         }
 
         // Build className based on current state
@@ -576,30 +570,30 @@ const LayoutWithBottomBar = () => {
                             handleEventClick,
                             hasCurrentVisualization &&
                                 outputType === OUTPUT_TYPE_EVENT,
-                            `Update Event ${terminology}`,
-                            `Create Event ${terminology}`,
-                            `Switch to Event ${terminology}`
+                            `Update Event ${eventOutputLabelSuffix}`,
+                            `Create Event ${eventOutputLabelSuffix}`,
+                            `Switch to Event ${eventOutputLabelSuffix}`
                         )}
                         {renderButton(
                             'enrollment',
                             handleEnrollmentClick,
                             hasCurrentVisualization &&
                                 outputType === OUTPUT_TYPE_ENROLLMENT,
-                            `Update ${enrollmentLabel} ${terminology}`,
-                            `Create ${enrollmentLabel} ${terminology}`,
-                            `Switch to ${enrollmentLabel} ${terminology}`
+                            `Update ${enrollmentLabel} ${enrollmentOutputLabelSuffix}`,
+                            `Create ${enrollmentLabel} ${enrollmentOutputLabelSuffix}`,
+                            `Switch to ${enrollmentLabel} ${enrollmentOutputLabelSuffix}`
                         )}
                         {/* Show Person button for Line List, Custom value button for Pivot Table */}
-                        {visualizationType === VIS_TYPE_PIVOT_TABLE
+                        {isPivotTable
                             ? renderCustomValueButton()
                             : renderButton(
                                   'trackedEntity',
                                   handleTrackedEntityClick,
                                   hasCurrentVisualization &&
                                       outputType === OUTPUT_TYPE_TRACKED_ENTITY,
-                                  `Update Person ${terminology}`,
-                                  `Create Person ${terminology}`,
-                                  `Switch to Person ${terminology}`
+                                  'Update Person list',
+                                  'Create Person list',
+                                  'Switch to Person list'
                               )}
                     </div>
                 </div>
