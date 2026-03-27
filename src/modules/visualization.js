@@ -35,6 +35,7 @@ export const STATUS_SCHEDULED = 'SCHEDULE'
 export const OUTPUT_TYPE_EVENT = 'EVENT'
 export const OUTPUT_TYPE_ENROLLMENT = 'ENROLLMENT'
 export const OUTPUT_TYPE_TRACKED_ENTITY = 'TRACKED_ENTITY_INSTANCE'
+export const OUTPUT_TYPE_CUSTOM_VALUE = 'CUSTOM_VALUE'
 
 export const getStatusNames = () => ({
     [STATUS_ACTIVE]: i18n.t('Active'),
@@ -209,14 +210,46 @@ export const getSaveableVisualization = (vis) => {
     return visualization
 }
 
-export const getVisualizationState = (visualization, current) => {
+export const getVisualizationState = (visualization, current, ui = null) => {
     if (visualization === DEFAULT_VISUALIZATION) {
-        return current === DEFAULT_CURRENT ? STATE_EMPTY : STATE_UNSAVED
+        if (current === DEFAULT_CURRENT) {
+            // Check if UI state indicates user has started creating a visualization
+            if (ui && hasUserStartedCreatingVisualization(ui)) {
+                return STATE_UNSAVED
+            }
+            return STATE_EMPTY
+        }
+        return STATE_UNSAVED
     } else if (current === visualization) {
         return STATE_SAVED
     } else {
         return STATE_DIRTY
     }
+}
+
+const hasUserStartedCreatingVisualization = (ui) => {
+    // Check if user has selected a program or tracked entity type
+    const hasProgram = ui.program?.id && ui.program.id !== undefined
+    const hasEntityType = ui.entityType?.id && ui.entityType.id !== undefined
+
+    // Check if user has added dimensions
+    const hasColumns = ui.layout?.columns && ui.layout.columns.length > 0
+    const hasFilters = ui.layout?.filters && ui.layout.filters.length > 0
+
+    // Check if user has selected any items for dimensions (beyond empty arrays)
+    const hasSelectedItems =
+        ui.itemsByDimension &&
+        Object.values(ui.itemsByDimension).some(
+            (items) => items && items.length > 0
+        )
+
+    return (
+        hasProgram ||
+        hasEntityType ||
+        hasColumns ||
+        hasFilters ||
+        hasSelectedItems
+    )
 }
 
 export const STATE_EMPTY = 'EMPTY'

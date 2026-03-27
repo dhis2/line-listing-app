@@ -3,17 +3,24 @@ import i18n from '@dhis2/d2-i18n'
 import { Input } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import { CARD_TYPE_OTHER } from '../../../modules/paginationConfig.js'
 import { DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY } from '../../../modules/userSettings.js'
 import { useDebounce } from '../../../modules/utils.js'
+import { usePaginationConfig } from '../../PaginationConfigContext.jsx'
 import { DimensionsList } from '../DimensionsList/index.js'
 import { useYourDimensions } from './useYourDimensions.js'
 import styles from './YourDimensionsPanel.module.css'
 
-const YourDimensionsPanel = ({ visible }) => {
-    const [searchTerm, setSearchTerm] = useState('')
-    const debouncedSearchTerm = useDebounce(searchTerm)
+const YourDimensionsPanel = ({
+    visible,
+    searchTerm: externalSearchTerm,
+    onEmptyStateChange,
+}) => {
+    const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
     const { currentUser } = useCachedDataQuery()
-    const { loading, fetching, error, dimensions, setIsListEndVisible } =
+    const { getPageSize } = usePaginationConfig()
+    const pageSize = getPageSize(CARD_TYPE_OTHER)
+    const { loading, fetching, error, dimensions, hasMore, loadMore } =
         useYourDimensions({
             visible,
             searchTerm: debouncedSearchTerm,
@@ -21,11 +28,20 @@ const YourDimensionsPanel = ({ visible }) => {
                 currentUser.settings[
                     DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY
                 ],
+            pageSize,
         })
 
     if (!visible) {
         return null
     }
+
+    // Check if empty and notify parent
+    const isEmpty = !loading && !fetching && dimensions.length === 0
+    React.useEffect(() => {
+        if (onEmptyStateChange) {
+            onEmptyStateChange(isEmpty)
+        }
+    }, [isEmpty, onEmptyStateChange])
 
     const draggableDimensions = dimensions.map((dimension) => ({
         draggableId: `your-${dimension.id}`,
@@ -34,18 +50,9 @@ const YourDimensionsPanel = ({ visible }) => {
 
     return (
         <>
-            <div className={styles.search}>
-                <Input
-                    value={searchTerm}
-                    onChange={({ value }) => setSearchTerm(value)}
-                    dense
-                    placeholder={i18n.t('Search your dimensions')}
-                    type="search"
-                    dataTest="search-dimension-input"
-                />
-            </div>
             <DimensionsList
-                setIsListEndVisible={setIsListEndVisible}
+                onLoadMore={loadMore}
+                hasMore={hasMore}
                 dimensions={draggableDimensions}
                 error={error}
                 fetching={fetching}
@@ -59,6 +66,8 @@ const YourDimensionsPanel = ({ visible }) => {
 
 YourDimensionsPanel.propTypes = {
     visible: PropTypes.bool,
+    searchTerm: PropTypes.string,
+    onEmptyStateChange: PropTypes.func,
 }
 
 export { YourDimensionsPanel }

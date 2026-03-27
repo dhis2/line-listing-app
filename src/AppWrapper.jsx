@@ -9,6 +9,7 @@ import React from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
 import thunk from 'redux-thunk'
 import App from './components/App.jsx'
+import { PaginationConfigProvider } from './components/PaginationConfigContext.jsx'
 import configureStore from './configureStore.js'
 import metadataMiddleware from './middleware/metadata.js'
 import { systemSettingsKeys } from './modules/systemSettings.js'
@@ -109,9 +110,11 @@ const AppWrapper = () => {
                 query={query}
                 dataTransformation={providerDataTransformation}
             >
-                <InterpretationsProvider>
-                    <App />
-                </InterpretationsProvider>
+                <PaginationConfigProvider>
+                    <InterpretationsProvider>
+                        <App />
+                    </InterpretationsProvider>
+                </PaginationConfigProvider>
             </CachedDataQueryProvider>
         </ReduxProvider>
     )

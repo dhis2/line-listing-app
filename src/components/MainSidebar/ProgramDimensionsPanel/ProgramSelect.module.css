@@ -1,18 +1,19 @@
 .rows {
     display: flex;
     flex-direction: column;
-    gap: var(--spacers-dp4);
+    
 }
 .columns {
     display: flex;
     align-items: flex-start;
-    gap: var(--spacers-dp4);
+    /* gap: var(--spacers-dp4); */
 }
 .stretch {
     flex-grow: 1;
 }
 .stage {
-    margin-left: var(--spacers-dp4);
+    border-top: 1px solid var(--colors-grey300);
+    /* margin-left: var(--spacers-dp4); */
 }
 
 .label {
@@ -21,3 +22,73 @@
     font-weight: 500;
     margin-top: 2px;
 }
+
+/* Remove borders only when noBorders is true */
+.noBorders :global(*) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.noBorders :global(*:focus) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.noBorders :global(*:hover) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.placeholderIcon {
+    margin-right: 12px !important;
+}
+
+/* Custom dropdown styling for filter dropdowns */
+.dropdownWrapper {
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect) {
+    
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect__button) {
+
+    /* display: inline-block !important; */
+    padding: 2px !important;
+}
+
+.dropdownWrapper :global([class*="root-children"]) {
+    /* flex-grow: 0 !important; */
+}
+
+.dropdownWrapper :global(*) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 13px !important;
+}
+
+.dropdownWrapper :global(*:focus) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper:hover :global(.dhis2-ui-singleselect__button) {
+    border: 1px solid var(--colors-grey300) !important;
+    background-color: var(--colors-grey200) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper :global(.dhis2-ui-singleselect__prefix) {
+    margin-right: 0px !important;
+}
+
+.dropdownWrapper :global(.dhis2-ui-divider) {
+    margin: 4px 0 !important;
+}
+

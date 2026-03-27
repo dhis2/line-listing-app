@@ -1,32 +1,19 @@
+import { DIMENSION_TYPE_PROGRAM_ATTRIBUTE } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import { useEffect, useState } from 'react'
-import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
-const TRACKED_ENTITY_DIMENSIONS_RESOURCE =
-    'analytics/trackedEntities/query/dimensions'
-
-const TRACKED_ENTITY_DIMENSIONS_FILTER = 'dimensionType:eq:PROGRAM_ATTRIBUTE'
-
+// Query to fetch tracked entity type with its attributes
 const query = {
-    dimensions: {
-        resource: TRACKED_ENTITY_DIMENSIONS_RESOURCE,
-        params: ({ page, searchTerm, nameProp, id, programId }) => {
-            const filters = [TRACKED_ENTITY_DIMENSIONS_FILTER]
-
-            if (searchTerm) {
-                filters.push(`${nameProp}:ilike:${searchTerm}`)
-            }
-
-            return {
-                pageSize: 50,
-                page,
-                fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
-                filter: filters,
-                order: `${nameProp}:asc`,
-                trackedEntityType: id,
-                ...(programId ? { program: programId } : {}),
-            }
-        },
+    trackedEntityType: {
+        resource: 'trackedEntityTypes',
+        id: ({ id }) => id,
+        params: ({ nameProp }) => ({
+            fields: [
+                'id',
+                `${nameProp}~rename(name)`,
+                `trackedEntityTypeAttributes[trackedEntityAttribute[id,${nameProp}~rename(name),valueType,optionSet]]`,
+            ],
+        }),
     },
 }
 
@@ -35,9 +22,8 @@ const useTrackedEntityDimensions = ({
     searchTerm,
     nameProp,
     id,
-    programId,
+    programId, // Not used for TET attributes, but kept for API compatibility
 }) => {
-    const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
@@ -45,57 +31,54 @@ const useTrackedEntityDimensions = ({
 
     useEffect(() => {
         // Delay initial fetch until component comes into view
-        if (visible && !dimensions) {
-            refetch({ page: 1, nameProp, id, programId })
+        if (visible && !dimensions && id) {
+            refetch({ id, nameProp })
         }
-    }, [visible])
+    }, [visible, id, nameProp])
 
     useEffect(() => {
-        // Reset when filter changes
+        // Reset when id changes
         setDimensions(null)
-        if (visible) {
-            refetch({
-                page: 1,
-                searchTerm,
-                nameProp,
-                id,
-                programId,
-            })
+        if (visible && id) {
+            refetch({ id, nameProp })
         }
-    }, [searchTerm, id, programId])
+    }, [id])
 
     useEffect(() => {
-        if (data) {
-            const { pager } = data.dimensions
-            const isLastPage = pager.pageSize * pager.page >= pager.total
+        if (!fetching && data?.trackedEntityType) {
+            // Transform the tracked entity type attributes into dimension format
+            const tetAttributes =
+                data.trackedEntityType.trackedEntityTypeAttributes || []
 
-            if (isListEndVisible && !isLastPage && !fetching) {
-                refetch({
-                    page: pager.page + 1,
-                    searchTerm,
-                    nameProp,
-                    id,
-                    programId,
+            const transformedDimensions = tetAttributes
+                .map((attr) => ({
+                    id: attr.trackedEntityAttribute.id,
+                    name: attr.trackedEntityAttribute.name,
+                    valueType: attr.trackedEntityAttribute.valueType,
+                    optionSet: attr.trackedEntityAttribute.optionSet,
+                    dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+                }))
+                .filter((dim) => {
+                    // Apply search filter if provided
+                    if (searchTerm) {
+                        return dim.name
+                            ?.toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                    }
+                    return true
                 })
-            }
-        }
-    }, [isListEndVisible, nameProp])
 
-    useEffect(() => {
-        if (!fetching && data) {
-            setDimensions((currDimensions) => [
-                ...(currDimensions ?? []),
-                ...data.dimensions.dimensions,
-            ])
+            setDimensions(transformedDimensions)
         }
-    }, [data, fetching])
+    }, [data, fetching, searchTerm])
 
     return {
-        loading: dimensions ? false : loading,
+        loading: dimensions === null ? loading : false,
         fetching,
         error,
         dimensions: dimensions ?? [],
-        setIsListEndVisible,
+        hasMore: false, // No pagination needed - all attributes fetched at once
+        loadMore: () => {}, // No-op since we fetch all at once
     }
 }
 
