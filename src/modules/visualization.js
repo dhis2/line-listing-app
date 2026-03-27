@@ -209,14 +209,46 @@ export const getSaveableVisualization = (vis) => {
     return visualization
 }
 
-export const getVisualizationState = (visualization, current) => {
+export const getVisualizationState = (visualization, current, ui = null) => {
     if (visualization === DEFAULT_VISUALIZATION) {
-        return current === DEFAULT_CURRENT ? STATE_EMPTY : STATE_UNSAVED
+        if (current === DEFAULT_CURRENT) {
+            // Check if UI state indicates user has started creating a visualization
+            if (ui && hasUserStartedCreatingVisualization(ui)) {
+                return STATE_UNSAVED
+            }
+            return STATE_EMPTY
+        }
+        return STATE_UNSAVED
     } else if (current === visualization) {
         return STATE_SAVED
     } else {
         return STATE_DIRTY
     }
+}
+
+const hasUserStartedCreatingVisualization = (ui) => {
+    // Check if user has selected a program or tracked entity type
+    const hasProgram = ui.program?.id && ui.program.id !== undefined
+    const hasEntityType = ui.entityType?.id && ui.entityType.id !== undefined
+
+    // Check if user has added dimensions beyond the default (DEFAULT_UI has DIMENSION_ID_ORGUNIT by default)
+    const hasExtraColumns = ui.layout?.columns && ui.layout.columns.length > 1
+    const hasFilters = ui.layout?.filters && ui.layout.filters.length > 0
+
+    // Check if user has selected any items for dimensions (beyond empty arrays)
+    const hasSelectedItems =
+        ui.itemsByDimension &&
+        Object.values(ui.itemsByDimension).some(
+            (items) => items && items.length > 0
+        )
+
+    return (
+        hasProgram ||
+        hasEntityType ||
+        hasExtraColumns ||
+        hasFilters ||
+        hasSelectedItems
+    )
 }
 
 export const STATE_EMPTY = 'EMPTY'
