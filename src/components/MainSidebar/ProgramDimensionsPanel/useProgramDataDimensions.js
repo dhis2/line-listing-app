@@ -18,7 +18,7 @@ const ACTIONS_RESET = 'RESET'
 const ACTIONS_INIT = 'INIT'
 const ACTIONS_SUCCESS = 'SUCCESS'
 const ACTIONS_ERROR = 'ERROR'
-const ACTIONS_SET_LIST_END_VISIBLE = 'SET_LIST_END_VISIBLE'
+const ACTIONS_NO_PARAMS = 'NO_PARAMS'
 
 const initialState = {
     loading: true,
@@ -27,7 +27,6 @@ const initialState = {
     dimensions: [],
     nextPage: 1,
     isLastPage: false,
-    isListEndVisible: false,
 }
 
 const reducer = (state, action) => {
@@ -57,10 +56,15 @@ const reducer = (state, action) => {
                 error: action.payload,
                 dimensions: [],
             }
-        case ACTIONS_SET_LIST_END_VISIBLE:
+        case ACTIONS_NO_PARAMS:
             return {
                 ...state,
-                isListEndVisible: action.payload,
+                loading: false,
+                fetching: false,
+                error: null,
+                dimensions: [],
+                nextPage: 1,
+                isLastPage: true,
             }
         default:
             throw new Error(
@@ -86,7 +90,7 @@ const createDimensionsQuery = ({
     nameProp,
 }) => {
     const params = {
-        pageSize: 50,
+        pageSize: 25,
         page,
         fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
         filter: [],
@@ -98,24 +102,27 @@ const createDimensionsQuery = ({
     }
 
     if (programId) {
-        if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+        if (inputType === OUTPUT_TYPE_EVENT) {
+            // For Event output with a specific stage, use programStageId
+            // When no stage is specified, don't add program filter to get all dimensions
+            if (stageId) {
+                params.programStageId = stageId
+            }
+        } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             params.programId = programId
         } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
             params.program = programId
         }
     }
 
-    if (stageId && inputType === OUTPUT_TYPE_EVENT) {
-        params.programStageId = stageId
-    }
-
+    // Stage filter is now optional - only apply if explicitly filtering by stage
     if (
         stageId &&
         inputType === OUTPUT_TYPE_ENROLLMENT &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
-        // This works because data element IDs have the following notation:
-        // `${programStageId}.${dataElementId}`
+        // Filter data elements by stage for enrollment
+        // Data element IDs have the notation: `${programStageId}.${dataElementId}`
         params.filter.push(`id:startsWith:${stageId}`)
     }
 
@@ -125,8 +132,8 @@ const createDimensionsQuery = ({
         inputType === OUTPUT_TYPE_TRACKED_ENTITY &&
         dimensionType === DIMENSION_TYPE_DATA_ELEMENT
     ) {
-        // This works because data element IDs have the following notation:
-        // `${programId}.${programStageId}.${dataElementId}`
+        // Filter data elements by stage for tracked entity
+        // Data element IDs have the notation: `${programId}.${programStageId}.${dataElementId}`
         params.filter.push(`id:startsWith:${programId}.${stageId}`)
     }
 
@@ -168,11 +175,20 @@ const transformResponseData = ({
     const pager = data.dimensions.pager
     let newDuplicateFound = false
 
+    // For EVENT, ENROLLMENT, and TRACKED_ENTITY, track duplicate data elements
     if (
-        [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(inputType)
+        [
+            OUTPUT_TYPE_EVENT,
+            OUTPUT_TYPE_ENROLLMENT,
+            OUTPUT_TYPE_TRACKED_ENTITY,
+        ].includes(inputType)
     ) {
         data.dimensions.dimensions.forEach((dimension) => {
-            const { dimensionId } = extractDimensionIdParts(dimension.id)
+            if (!dimension || !dimension.id) return
+            const { dimensionId } = extractDimensionIdParts(
+                dimension.id,
+                inputType
+            )
             if (
                 dimension.dimensionType === DIMENSION_TYPE_DATA_ELEMENT &&
                 dimensionId
@@ -196,23 +212,49 @@ const transformResponseData = ({
         ? data.dimensions.dimensions
         : [...dimensions, ...data.dimensions.dimensions]
 
+    // Filter out null/undefined dimensions and add stage labels for duplicates
     const allDimensionsWithStageLabel = newDuplicateFound
-        ? allDimensions.map((dimension) => {
-              const { dimensionId, programStageId } = extractDimensionIdParts(
-                  dimension.id
-              )
-              if (
-                  dimensionId &&
-                  deDimensionsMapRef.current.get(dimensionId) > 1
-              ) {
-                  dimension.stageName = programStageNames?.get(programStageId)
-              }
-              return dimension
-          })
-        : allDimensions
+        ? allDimensions
+              .filter((dimension) => dimension && dimension.id)
+              .map((dimension) => {
+                  const { dimensionId, programStageId } =
+                      extractDimensionIdParts(dimension.id, inputType)
+                  if (
+                      dimensionId &&
+                      deDimensionsMapRef.current.get(dimensionId) > 1
+                  ) {
+                      dimension.stageName =
+                          programStageNames?.get(programStageId)
+                  }
+                  return dimension
+              })
+        : allDimensions.filter((dimension) => dimension && dimension.id)
+
+    // For EVENT output, deduplicate non-stage-specific dimensions (like program indicators)
+    // that don't have a stage prefix in their ID
+    let finalDimensions = allDimensionsWithStageLabel
+    if (inputType === OUTPUT_TYPE_EVENT) {
+        const seenNonStageIds = new Set()
+        finalDimensions = allDimensionsWithStageLabel.filter((dimension) => {
+            const { programStageId } = extractDimensionIdParts(
+                dimension.id,
+                inputType
+            )
+            // If dimension has a stage prefix, keep it (it's stage-specific)
+            if (programStageId) {
+                return true
+            }
+            // If no stage prefix, it's program-level - deduplicate it
+            if (seenNonStageIds.has(dimension.id)) {
+                return false
+            }
+            seenNonStageIds.add(dimension.id)
+            return true
+        })
+    }
 
     return {
-        dimensions: allDimensionsWithStageLabel,
+        dimensions: finalDimensions,
         nextPage: pager.page + 1,
         isLastPage: pager.pageSize * pager.page >= pager.total,
     }
@@ -230,23 +272,17 @@ const useProgramDataDimensions = ({
     const deDimensionsMapRef = useRef(new Map())
     const engine = useDataEngine()
     const [
-        {
-            loading,
-            fetching,
-            error,
-            dimensions,
-            nextPage,
-            isLastPage,
-            isListEndVisible,
-        },
+        { loading, fetching, error, dimensions, nextPage, isLastPage },
         dispatch,
     ] = useReducer(reducer, initialState)
 
-    const programId = useMemo(() => program.id, [program])
+    const programId = useMemo(() => program?.id, [program])
     const programStageNames = useMemo(
         () =>
-            program.programStages?.reduce((acc, stage) => {
-                acc.set(stage.id, stage.name)
+            program?.programStages?.reduce((acc, stage) => {
+                if (stage && stage.id) {
+                    acc.set(stage.id, stage.name)
+                }
                 return acc
             }, new Map()),
         [program]
@@ -255,20 +291,32 @@ const useProgramDataDimensions = ({
     const nameProp =
         currentUser.settings[DERIVED_USER_SETTINGS_DISPLAY_NAME_PROPERTY]
 
-    const setIsListEndVisible = useCallback(
-        (isVisible) => {
-            if (isVisible !== isListEndVisible) {
-                dispatch({
-                    type: ACTIONS_SET_LIST_END_VISIBLE,
-                    payload: isVisible,
-                })
-            }
-        },
-        [isListEndVisible]
-    )
-
     const fetchDimensions = useCallback(
         async (shouldReset) => {
+            // Check if we have the required parameters for the API call
+            const hasRequiredParams = (() => {
+                if (inputType === OUTPUT_TYPE_EVENT) {
+                    // For EVENT, we need a program
+                    // Programs without registration should have at least one stage
+                    // but we allow empty stages array to handle edge cases gracefully
+                    return !!program?.id
+                } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
+                    return !!program?.id
+                } else if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                    return !!trackedEntityTypeId
+                }
+                return false
+            })()
+
+            if (!hasRequiredParams) {
+                // Don't make API call, set to empty state without loading
+                if (shouldReset) {
+                    deDimensionsMapRef.current.clear()
+                }
+                dispatch({ type: ACTIONS_NO_PARAMS })
+                return
+            }
+
             if (shouldReset) {
                 deDimensionsMapRef.current.clear()
                 dispatch({ type: ACTIONS_RESET })
@@ -278,8 +326,107 @@ const useProgramDataDimensions = ({
 
             try {
                 const page = shouldReset ? 1 : nextPage
-                const data = await engine.query({
-                    dimensions: createDimensionsQuery({
+
+                // For EVENT output without a specific stage filter, fetch from all stages
+                if (
+                    inputType === OUTPUT_TYPE_EVENT &&
+                    !stageId &&
+                    program?.programStages &&
+                    program.programStages.length > 0
+                ) {
+                    console.log(
+                        'Multi-stage query - program:',
+                        program?.name,
+                        'stages:',
+                        program?.programStages?.length
+                    )
+                    // Query each stage separately and combine results
+                    const stageQueries = {}
+                    program.programStages.forEach((stage, index) => {
+                        console.log(
+                            `Creating query for stage ${index}:`,
+                            stage.id,
+                            stage.name
+                        )
+                        stageQueries[`stage${index}`] = createDimensionsQuery({
+                            inputType,
+                            page,
+                            trackedEntityTypeId,
+                            programId,
+                            stageId: stage.id,
+                            searchTerm,
+                            dimensionType,
+                            nameProp,
+                        })
+                    })
+
+                    console.log('Stage queries:', stageQueries)
+                    const allStageData = await engine.query(stageQueries)
+                    console.log(
+                        'All stage data received:',
+                        Object.keys(allStageData),
+                        allStageData
+                    )
+
+                    // Combine all dimensions from all stages
+                    const combinedDimensions = []
+                    Object.entries(allStageData).forEach(
+                        ([key, stageResult]) => {
+                            // Multi-query returns dimensions directly as an array, not nested
+                            if (
+                                stageResult?.dimensions &&
+                                Array.isArray(stageResult.dimensions)
+                            ) {
+                                console.log(
+                                    `  Adding ${stageResult.dimensions.length} dimensions from ${key}`
+                                )
+                                combinedDimensions.push(
+                                    ...stageResult.dimensions
+                                )
+                            }
+                        }
+                    )
+
+                    // Sort combined dimensions alphabetically by name
+                    combinedDimensions.sort((a, b) => {
+                        const nameA = (a?.name || '').toLowerCase()
+                        const nameB = (b?.name || '').toLowerCase()
+                        return nameA.localeCompare(nameB)
+                    })
+
+                    console.log(
+                        'Combined dimensions total:',
+                        combinedDimensions.length
+                    )
+
+                    // Create synthetic pager - we're showing all results at once (no pagination)
+                    const syntheticData = {
+                        dimensions: {
+                            dimensions: combinedDimensions,
+                            pager: {
+                                page: 1,
+                                pageSize: combinedDimensions.length,
+                                total: combinedDimensions.length,
+                            },
+                        },
+                    }
+
+                    const transformedData = transformResponseData({
+                        data: syntheticData,
+                        dimensions,
+                        deDimensionsMapRef,
+                        programStageNames,
+                        shouldReset,
+                        inputType,
+                    })
+
+                    dispatch({
+                        type: ACTIONS_SUCCESS,
+                        payload: transformedData,
+                    })
+                } else {
+                    // Normal single query for ENROLLMENT, TRACKED_ENTITY, or filtered EVENT
+                    const query = createDimensionsQuery({
                         inputType,
                         page,
                         trackedEntityTypeId,
@@ -288,20 +435,25 @@ const useProgramDataDimensions = ({
                         searchTerm,
                         dimensionType,
                         nameProp,
-                    }),
-                })
+                    })
+                    const data = await engine.query({
+                        dimensions: query,
+                    })
 
-                dispatch({
-                    type: ACTIONS_SUCCESS,
-                    payload: transformResponseData({
+                    const transformedData = transformResponseData({
                         data,
                         dimensions,
                         deDimensionsMapRef,
                         programStageNames,
                         shouldReset,
                         inputType,
-                    }),
-                })
+                    })
+
+                    dispatch({
+                        type: ACTIONS_SUCCESS,
+                        payload: transformedData,
+                    })
+                }
             } catch (error) {
                 dispatch({ type: ACTIONS_ERROR, payload: error })
             }
@@ -313,7 +465,7 @@ const useProgramDataDimensions = ({
             inputType,
             nextPage,
             trackedEntityTypeId,
-            programId,
+            program,
             stageId,
             searchTerm,
             dimensionType,
@@ -326,25 +478,31 @@ const useProgramDataDimensions = ({
     }, [
         inputType,
         trackedEntityTypeId,
-        programId,
+        program,
         stageId,
         searchTerm,
         dimensionType,
         nameProp,
     ])
 
-    useEffect(() => {
-        if (isListEndVisible && !isLastPage && !fetching) {
+    const loadMore = useCallback(() => {
+        // Disable pagination for EVENT output without stage filter (multi-stage query)
+        const isMultiStageQuery =
+            inputType === OUTPUT_TYPE_EVENT &&
+            !stageId &&
+            program?.programStages
+        if (!isMultiStageQuery && !isLastPage && !fetching) {
             fetchDimensions(false)
         }
-    }, [isListEndVisible, isLastPage])
+    }, [isLastPage, fetching, fetchDimensions, inputType, stageId, program])
 
     return {
         loading,
         fetching,
         error,
         dimensions,
-        setIsListEndVisible,
+        hasMore: !isLastPage,
+        loadMore,
     }
 }
 

@@ -1,26 +1,22 @@
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { tSetUiInput } from '../../../actions/ui.js'
+import { useSelector } from 'react-redux'
 import {
     OUTPUT_TYPE_EVENT,
     OUTPUT_TYPE_ENROLLMENT,
     OUTPUT_TYPE_TRACKED_ENTITY,
 } from '../../../modules/visualization.js'
-import { sGetUiInput } from '../../../reducers/ui.js'
-import { ProgramSelect } from '../ProgramDimensionsPanel/ProgramSelect.jsx'
-import { TypeSelect } from '../ProgramDimensionsPanel/TypeSelect.jsx'
-import { InputOption } from './InputOption.jsx'
+import { sGetUiDataSource } from '../../../reducers/ui.js'
+import { DataSourceSelect } from './DataSourceSelect.jsx'
 import styles from './InputPanel.module.css'
 
 export const getLabelForInputType = (type) => {
     switch (type) {
         case OUTPUT_TYPE_EVENT:
-            return i18n.t('Event')
+            return i18n.t('Events')
         case OUTPUT_TYPE_ENROLLMENT:
-            return i18n.t('Enrollment')
+            return i18n.t('Enrollments')
         case OUTPUT_TYPE_TRACKED_ENTITY:
             return i18n.t('Tracked entity')
         default:
@@ -28,62 +24,71 @@ export const getLabelForInputType = (type) => {
     }
 }
 
+// Prototype: Recently used data sources (hardcoded for now)
+const RECENT_DATA_SOURCES = [
+    { id: 'program-IpHINAT79UW', name: 'Child Programme', type: 'program' },
+    {
+        id: 'program-WSGAb5XwJ3Y',
+        name: 'Malaria case management',
+        type: 'program',
+    },
+    { id: 'program-ur1Edk5Oe2n', name: 'TB program', type: 'program' },
+    { id: 'tet-nEenWmSyUEp', name: 'Person', type: 'tet' },
+    {
+        id: 'program-M3xtLkYBlKI',
+        name: 'Nutrition assessment',
+        type: 'program',
+    },
+]
+
 export const InputPanel = ({ visible }) => {
-    const dispatch = useDispatch()
-    const { serverVersion } = useConfig()
-    const selectedInput = useSelector(sGetUiInput)?.type
+    const selectedDataSource = useSelector(sGetUiDataSource)
+    const hasDataSource = selectedDataSource?.id && selectedDataSource?.type
+    const selectRef = React.useRef(null)
 
     if (!visible) {
         return null
     }
 
-    const setSelectedInput = (input) => {
-        if (selectedInput !== input) {
-            dispatch(tSetUiInput({ type: input }))
+    const handleRecentDataSourceClick = (sourceId) => {
+        // Trigger selection via the DataSourceSelect component
+        if (selectRef.current) {
+            selectRef.current(sourceId)
         }
     }
 
     return (
         <div className={styles.container} data-test="input-panel">
-            <InputOption
-                dataTest="input-event"
-                header={getLabelForInputType(OUTPUT_TYPE_EVENT)}
-                description={i18n.t(
-                    'See individual event data from a Tracker program stage or event program.'
+            <div className={styles.section}>
+                <div className={styles.row}>
+                    <div className={styles.dropdownWrapper}>
+                        <DataSourceSelect
+                            noBorders={true}
+                            onSelectRef={selectRef}
+                        />
+                    </div>
+                </div>
+                {!hasDataSource && (
+                    <div className={styles.recentSection}>
+                        <div className={styles.recentHeader}>
+                            {i18n.t('Recently used data sources')}
+                        </div>
+                        <div className={styles.recentButtons}>
+                            {RECENT_DATA_SOURCES.map((source) => (
+                                <button
+                                    key={source.id}
+                                    className={styles.recentButton}
+                                    onClick={() =>
+                                        handleRecentDataSourceClick(source.id)
+                                    }
+                                >
+                                    {source.name}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 )}
-                onClick={() => setSelectedInput(OUTPUT_TYPE_EVENT)}
-                selected={selectedInput === OUTPUT_TYPE_EVENT}
-            >
-                {selectedInput === OUTPUT_TYPE_EVENT && <ProgramSelect />}
-            </InputOption>
-            <InputOption
-                dataTest="input-enrollment"
-                header={getLabelForInputType(OUTPUT_TYPE_ENROLLMENT)}
-                description={i18n.t(
-                    'See data from multiple program stages in a Tracker program.'
-                )}
-                onClick={() => setSelectedInput(OUTPUT_TYPE_ENROLLMENT)}
-                selected={selectedInput === OUTPUT_TYPE_ENROLLMENT}
-            >
-                {selectedInput === OUTPUT_TYPE_ENROLLMENT && <ProgramSelect />}
-            </InputOption>
-            {`${serverVersion.major}.${serverVersion.minor}.${
-                serverVersion.patch || 0
-            }` >= '2.41.0' && (
-                <InputOption
-                    dataTest="input-tracked-entity"
-                    header={getLabelForInputType(OUTPUT_TYPE_TRACKED_ENTITY)}
-                    description={i18n.t(
-                        'See individual tracked entities from one or more Tracker programs.'
-                    )}
-                    onClick={() => setSelectedInput(OUTPUT_TYPE_TRACKED_ENTITY)}
-                    selected={selectedInput === OUTPUT_TYPE_TRACKED_ENTITY}
-                >
-                    {selectedInput === OUTPUT_TYPE_TRACKED_ENTITY && (
-                        <TypeSelect />
-                    )}
-                </InputOption>
-            )}
+            </div>
         </div>
     )
 }

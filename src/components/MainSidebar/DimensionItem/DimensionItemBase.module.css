@@ -44,6 +44,23 @@
     background-color: #bbe2e0;
 }
 
+.dimensionItem.multiSelected {
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    fill: var(--colors-grey800);
+    font-weight: 400;
+}
+
+.dimensionItem.multiSelected:not(.disabled):hover {
+    background: #bbdefb;
+    border-color: #64b5f6;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.dimensionItem.multiSelected:not(.disabled):active {
+    background-color: #90caf9;
+}
+
 .dimensionItem.disabled {
     opacity: 0.5;
     cursor: not-allowed;
