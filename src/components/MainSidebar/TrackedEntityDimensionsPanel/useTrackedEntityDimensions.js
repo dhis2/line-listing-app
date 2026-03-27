@@ -1,32 +1,48 @@
+import { DIMENSION_TYPE_PROGRAM_ATTRIBUTE } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { DIMENSION_LIST_FIELDS } from '../DimensionsList/index.js'
 
+// Analytics dimensions endpoint for program attributes
 const TRACKED_ENTITY_DIMENSIONS_RESOURCE =
     'analytics/trackedEntities/query/dimensions'
 
-const TRACKED_ENTITY_DIMENSIONS_FILTER = 'dimensionType:eq:PROGRAM_ATTRIBUTE'
-
-const query = {
+// Query for program attributes (when a program is selected)
+const programAttributesQuery = {
     dimensions: {
         resource: TRACKED_ENTITY_DIMENSIONS_RESOURCE,
         params: ({ page, searchTerm, nameProp, id, programId }) => {
-            const filters = [TRACKED_ENTITY_DIMENSIONS_FILTER]
+            const filters = ['dimensionType:eq:PROGRAM_ATTRIBUTE']
 
             if (searchTerm) {
                 filters.push(`${nameProp}:ilike:${searchTerm}`)
             }
 
             return {
-                pageSize: 50,
+                pageSize: 25,
                 page,
                 fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
                 filter: filters,
                 order: `${nameProp}:asc`,
                 trackedEntityType: id,
-                ...(programId ? { program: programId } : {}),
+                program: programId,
             }
         },
+    },
+}
+
+// Query for tracked entity type attributes (when no program is selected)
+// Fetches attributes directly from the tracked entity type metadata
+const trackedEntityTypeAttributesQuery = {
+    trackedEntityType: {
+        resource: 'trackedEntityTypes',
+        id: ({ id }) => id,
+        params: ({ nameProp }) => ({
+            fields: [
+                'id',
+                `trackedEntityTypeAttributes[trackedEntityAttribute[id,${nameProp}~rename(name),valueType,optionSet]]`,
+            ],
+        }),
     },
 }
 
@@ -37,65 +53,164 @@ const useTrackedEntityDimensions = ({
     id,
     programId,
 }) => {
-    const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
-    const { data, error, loading, fetching, refetch } = useDataQuery(query, {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [hasMore, setHasMore] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [fetching, setFetching] = useState(false)
+    const [error, setError] = useState(null)
+
+    // Query for program attributes
+    const {
+        data: programData,
+        error: programError,
+        loading: programLoading,
+        fetching: programFetching,
+        refetch: refetchProgram,
+    } = useDataQuery(programAttributesQuery, {
         lazy: true,
     })
 
-    useEffect(() => {
-        // Delay initial fetch until component comes into view
-        if (visible && !dimensions) {
-            refetch({ page: 1, nameProp, id, programId })
-        }
-    }, [visible])
+    // Query for tracked entity type attributes
+    const {
+        data: tetData,
+        error: tetError,
+        loading: tetLoading,
+        fetching: tetFetching,
+        refetch: refetchTet,
+    } = useDataQuery(trackedEntityTypeAttributesQuery, {
+        lazy: true,
+    })
 
+    // Transform tracked entity type attributes to dimension format
+    const transformTetAttributes = useCallback(
+        (data, searchTermFilter) => {
+            const tetAttributes =
+                data?.trackedEntityType?.trackedEntityTypeAttributes || []
+
+            let transformed = tetAttributes
+                .map((attr) => ({
+                    id: attr.trackedEntityAttribute?.id,
+                    name: attr.trackedEntityAttribute?.name,
+                    valueType: attr.trackedEntityAttribute?.valueType,
+                    optionSet: attr.trackedEntityAttribute?.optionSet,
+                    dimensionType: DIMENSION_TYPE_PROGRAM_ATTRIBUTE,
+                }))
+                .filter((attr) => attr.id && attr.name) // Filter out invalid entries
+
+            // Apply search filter if provided
+            if (searchTermFilter) {
+                const lowerSearch = searchTermFilter.toLowerCase()
+                transformed = transformed.filter((attr) =>
+                    attr.name.toLowerCase().includes(lowerSearch)
+                )
+            }
+
+            // Sort alphabetically by name
+            transformed.sort((a, b) => a.name.localeCompare(b.name))
+
+            return transformed
+        },
+        []
+    )
+
+    // Handle fetching based on whether program is selected
     useEffect(() => {
-        // Reset when filter changes
+        if (!visible || !id) {
+            return
+        }
+
+        // Reset state
         setDimensions(null)
-        if (visible) {
-            refetch({
+        setCurrentPage(1)
+        setError(null)
+
+        if (programId) {
+            // Program selected - fetch program attributes from analytics endpoint
+            refetchProgram({
                 page: 1,
                 searchTerm,
                 nameProp,
                 id,
                 programId,
             })
+        } else {
+            // No program selected - fetch tracked entity type attributes
+            refetchTet({
+                id,
+                nameProp,
+            })
         }
-    }, [searchTerm, id, programId])
+    }, [visible, id, programId, searchTerm, nameProp, refetchProgram, refetchTet])
 
+    // Process program attributes data
     useEffect(() => {
-        if (data) {
-            const { pager } = data.dimensions
+        if (programId && programData && !programFetching) {
+            const { pager } = programData.dimensions
             const isLastPage = pager.pageSize * pager.page >= pager.total
 
-            if (isListEndVisible && !isLastPage && !fetching) {
-                refetch({
-                    page: pager.page + 1,
-                    searchTerm,
-                    nameProp,
-                    id,
-                    programId,
-                })
-            }
-        }
-    }, [isListEndVisible, nameProp])
-
-    useEffect(() => {
-        if (!fetching && data) {
+            setHasMore(!isLastPage)
+            setCurrentPage(pager.page)
             setDimensions((currDimensions) => [
                 ...(currDimensions ?? []),
-                ...data.dimensions.dimensions,
+                ...programData.dimensions.dimensions,
             ])
+            setLoading(false)
+            setFetching(false)
         }
-    }, [data, fetching])
+    }, [programData, programFetching, programId])
+
+    // Process tracked entity type attributes data
+    useEffect(() => {
+        if (!programId && tetData && !tetFetching) {
+            const transformed = transformTetAttributes(tetData, searchTerm)
+            setDimensions(transformed)
+            setHasMore(false) // No pagination for TET attributes
+            setLoading(false)
+            setFetching(false)
+        }
+    }, [tetData, tetFetching, programId, searchTerm, transformTetAttributes])
+
+    // Update loading/fetching states
+    useEffect(() => {
+        if (programId) {
+            setLoading(programLoading)
+            setFetching(programFetching)
+        } else {
+            setLoading(tetLoading)
+            setFetching(tetFetching)
+        }
+    }, [programId, programLoading, programFetching, tetLoading, tetFetching])
+
+    // Update error state
+    useEffect(() => {
+        if (programId) {
+            setError(programError)
+        } else {
+            setError(tetError)
+        }
+    }, [programId, programError, tetError])
+
+    const loadMore = () => {
+        // Only support pagination for program attributes
+        if (programId && hasMore && !fetching) {
+            refetchProgram({
+                page: currentPage + 1,
+                searchTerm,
+                nameProp,
+                id,
+                programId,
+            })
+        }
+    }
 
     return {
         loading: dimensions ? false : loading,
         fetching,
         error,
         dimensions: dimensions ?? [],
-        setIsListEndVisible,
+        hasMore,
+        loadMore,
     }
 }
 
