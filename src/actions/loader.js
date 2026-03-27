@@ -22,20 +22,31 @@ export const acSetVisualizationLoading = (value) => ({
 
 export const acClearAll =
     ({ error = null, digitGroupSeparator, rootOrgUnits }) =>
-    (dispatch) => {
+    (dispatch, getState) => {
+        // Check if there's a data source selected that should be preserved
+        const state = getState()
+        const hasDataSource = !!state.ui?.dataSource?.id
+        const preserveDataSource = hasDataSource && !error
+
         if (error) {
             dispatch(acSetLoadError(error))
         } else {
             dispatch(acClearLoadError())
         }
 
-        dispatch(tSetInitMetadata(rootOrgUnits))
+        // Only reset metadata if we're not preserving the data source
+        // (preserving data source means we want to keep the program/TET metadata)
+        if (!preserveDataSource) {
+            dispatch(tSetInitMetadata(rootOrgUnits))
+        }
+
         dispatch(acClearVisualization())
         dispatch(acClearCurrent())
         dispatch(
             acClearUi({
                 rootOrgUnits,
                 digitGroupSeparator,
+                preserveDataSource,
             })
         )
     }

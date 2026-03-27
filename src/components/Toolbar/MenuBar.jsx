@@ -33,8 +33,8 @@ import {
 } from '../../modules/visualization.js'
 import { sGetCurrent } from '../../reducers/current.js'
 import { sGetVisualization } from '../../reducers/visualization.js'
+import { sGetUi } from '../../reducers/ui.js'
 import { ToolbarDownloadDropdown } from '../DownloadMenu/index.js'
-import VisualizationOptionsManager from '../VisualizationOptions/VisualizationOptionsManager.jsx'
 import ViewDropDown from './ViewDropDown.jsx'
 
 const visualizationSaveAsMutation = {
@@ -63,6 +63,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
     const engine = useDataEngine()
     const current = useSelector(sGetCurrent)
     const visualization = useSelector(sGetVisualization)
+    const ui = useSelector(sGetUi)
     const { currentUser } = useCachedDataQuery()
 
     const { show: showAlert } = useAlert(
@@ -251,8 +252,9 @@ export const MenuBar = ({ onFileMenuAction }) => {
     })
 
     return (
-        <HoverMenuBar>
-            <FileMenu
+        <>
+            {/* <HoverMenuBar> */}
+            {/* <FileMenu
                 currentUser={currentUser}
                 fileType={'eventVisualization'}
                 fileObject={{
@@ -265,7 +267,7 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onRename={onRename}
                 onSave={
                     [STATE_UNSAVED, STATE_DIRTY].includes(
-                        getVisualizationState(visualization, current)
+                        getVisualizationState(visualization, current, ui)
                     ) &&
                     isLayoutValidForSave({
                         ...current,
@@ -283,11 +285,11 @@ export const MenuBar = ({ onFileMenuAction }) => {
                 onTranslate={onFileMenuAction}
                 onDelete={onDelete}
                 onError={onError}
-            />
-            <ViewDropDown />
-            <VisualizationOptionsManager />
-            <ToolbarDownloadDropdown />
-        </HoverMenuBar>
+            /> */}
+            {/* <ViewDropDown /> */}
+            {/* <ToolbarDownloadDropdown /> */}
+            {/* </HoverMenuBar> */}
+        </>
     )
 }
 

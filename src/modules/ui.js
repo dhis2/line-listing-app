@@ -30,6 +30,7 @@ export const getAdaptedUiByType = (ui) => {
 
 export const getUiFromVisualization = (vis, currentState = {}) => ({
     ...currentState,
+    type: vis.type || VIS_TYPE_LINE_LIST,
     input: {
         type: vis.outputType,
     },
