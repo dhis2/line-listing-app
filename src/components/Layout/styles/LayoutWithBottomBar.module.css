@@ -1,0 +1,89 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--colors-grey400);
+    overflow: hidden;
+}
+
+.layoutContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Remove the margin and border-radius from the Layout component inside */
+.layoutContainer > div {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    flex: 1;
+}
+
+/* Remove margin-block-end from the inner layout container */
+.layoutContainer > div > div {
+    margin-block-end: 0 !important;
+}
+
+.bottomBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 4px;
+    background-color: var(--colors-white);
+    border-top: 1px solid var(--colors-grey300);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background-color: var(--colors-blue050);
+    color: var(--colors-blue700);
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover:not(:disabled) {
+    background-color: var(--colors-blue100);
+    color: var(--colors-blue800);
+}
+
+.button:active:not(:disabled) {
+    background-color: var(--colors-blue200);
+}
+
+.button:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+}
+
+.buttonAlt {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey700);
+}
+
+.buttonAlt:hover:not(:disabled) {
+    background-color: var(--colors-blue100);
+    color: var(--colors-blue800);
+}
+
+.buttonAlt:active:not(:disabled) {
+    background-color: var(--colors-blue200);
+    color: var(--colors-blue800);
+}
+
+.buttonAlt:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+}

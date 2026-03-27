@@ -1,0 +1,174 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    min-width: auto;
+}
+
+/* Style the dropdown button */
+.container :global(button) {
+    padding: var(--spacers-dp8) var(--spacers-dp8) !important;
+    min-width: auto !important;
+    gap: 4px;
+    height: 32px !important;
+    background-color: var(--colors-grey100) !important;
+    border: 1px solid var(--colors-grey400) !important;
+    border-radius: 3px;
+    border-right: 1px solid var(--colors-grey400) !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    margin-right: -2px !important;
+}
+
+.container :global(button):hover {
+    background-color: var(--colors-grey100) !important;
+    border-color: var(--colors-grey500) !important;
+}
+
+.container :global(button):active,
+.container :global(button[aria-expanded='true']) {
+    background-color: var(--colors-grey200) !important;
+}
+
+/* Ensure the icon is centered */
+.container :global(button) > :global(span):first-child {
+    margin: 0;
+}
+
+/* Hide the chevron (dropdown arrow icon) - target only the last svg */
+.container :global(button) > :global(svg):last-of-type:not(:first-of-type) {
+    display: none !important;
+}
+
+/* Dropdown panel */
+.dropdown {
+    min-width: 320px;
+    background: var(--colors-white);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.headerTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-grey900);
+}
+
+.closeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--colors-grey600);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.closeButton:hover {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+}
+
+.closeButton:active {
+    background-color: var(--colors-grey300);
+}
+
+/* Options list */
+.optionsList {
+    padding: 8px 0;
+}
+
+/* Individual option */
+.option {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+}
+
+.option:hover {
+    background-color: var(--colors-grey100);
+}
+
+.option:focus {
+    outline: none;
+    background-color: var(--colors-grey100);
+}
+
+.option:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: -2px;
+}
+
+.optionActive {
+    background-color: transparent;
+}
+
+.optionActive:hover {
+    background-color: var(--colors-grey100);
+}
+
+/* Checkmark area */
+.checkmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: var(--colors-grey900);
+}
+
+/* Option content */
+.optionContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.optionName {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--colors-grey900);
+    line-height: 1.4;
+}
+
+.optionSubtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colors-grey600);
+    line-height: 1.4;
+}
+
+/* Empty state */
+.emptyState {
+    padding: 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--colors-grey600);
+}

@@ -1,0 +1,43 @@
+.sectionHeader {
+    font-size: 12px;
+    font-weight: 500;
+    /* text-transform: uppercase; */
+    letter-spacing: 0.3px;
+    color: var(--colors-grey600);
+    /* padding: 4px 0; */
+    display: block;
+    margin-left: -12px;
+    margin-bottom: -8px;
+}
+
+/* Remove top border for the first section */
+:global([data-value='header-used']) .sectionHeader {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 4px;
+}
+
+.optionWithBadge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.optionName {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
