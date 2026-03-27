@@ -1,5 +1,56 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: var(--spacers-dp8);
+    background-color: var(--colors-white);
+    border-bottom: 1px solid var(--colors-grey400);
+    /* gap: var(--spacers-dp12); */
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    /* gap: var(--spacers-dp8); */
+}
+
+.row:first-of-type {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.dropdownWrapper {
+    flex: 1;
+}
+
+/* Override dropdown styles to remove borders */
+.dropdownWrapper :global(*) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 13px !important;
+    font-weight: 500;
+}
+
+/* Override trigger padding */
+.dropdownWrapper :global(*[class*='trigger']) {
+    padding-inline-end: 4px !important;
+}
+
+.dropdownWrapper :global(*:focus) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper :global(*:hover) {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-red500);
+    margin: 0;
 }

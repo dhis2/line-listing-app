@@ -2,7 +2,8 @@ import { dimensionCreate, VIS_TYPE_LINE_LIST } from '@dhis2/analytics'
 import pick from 'lodash-es/pick'
 import { extractDimensionIdParts } from './dimensionId.js'
 import { BASE_FIELD_TYPE } from './fields.js'
-import { getAdaptedUiLayoutByType } from './layout.js'
+import { getAdaptedUiLayoutByType, getFilteredLayout } from './layout.js'
+import { getInvalidDimensions } from './layoutValidation.js'
 import {
     options,
     OPTION_LEGEND_DISPLAY_STRATEGY,
@@ -30,12 +31,29 @@ export const getAdaptedUiSorting = (sorting, visualization) =>
           ]
         : undefined
 
-export const getDefaultFromUi = (current, ui) => {
+export const getDefaultFromUi = (current, ui, metadata = {}) => {
+    // Get the adapted layout
+    const adaptedLayout = getAdaptedUiLayoutByType(
+        ui.layout,
+        VIS_TYPE_LINE_LIST
+    )
+
+    // Filter out invalid dimensions
+    const outputType = ui.output?.type || ui.input?.type
+    const invalidDimensionIds = getInvalidDimensions(
+        adaptedLayout,
+        outputType,
+        metadata
+    )
+
+    const filteredLayout = getFilteredLayout(
+        adaptedLayout,
+        Array.from(invalidDimensionIds)
+    )
+
     const adaptedUi = {
         ...ui,
-        layout: {
-            ...getAdaptedUiLayoutByType(ui.layout, VIS_TYPE_LINE_LIST),
-        },
+        layout: filteredLayout,
         itemsByDimension: getItemsByDimensionFromUi(ui),
         sorting: getAdaptedUiSorting(ui.sorting, current),
     }
