@@ -18,7 +18,7 @@ const query = {
             }
 
             return {
-                pageSize: 50,
+                pageSize: 25,
                 page,
                 fields: [...DIMENSION_LIST_FIELDS, `${nameProp}~rename(name)`],
                 filter: filters,
@@ -37,8 +37,9 @@ const useTrackedEntityDimensions = ({
     id,
     programId,
 }) => {
-    const [isListEndVisible, setIsListEndVisible] = useState(false)
     const [dimensions, setDimensions] = useState(null)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [hasMore, setHasMore] = useState(false)
     const { data, error, loading, fetching, refetch } = useDataQuery(query, {
         lazy: true,
     })
@@ -53,6 +54,7 @@ const useTrackedEntityDimensions = ({
     useEffect(() => {
         // Reset when filter changes
         setDimensions(null)
+        setCurrentPage(1)
         if (visible) {
             refetch({
                 page: 1,
@@ -65,24 +67,12 @@ const useTrackedEntityDimensions = ({
     }, [searchTerm, id, programId])
 
     useEffect(() => {
-        if (data) {
+        if (!fetching && data) {
             const { pager } = data.dimensions
             const isLastPage = pager.pageSize * pager.page >= pager.total
 
-            if (isListEndVisible && !isLastPage && !fetching) {
-                refetch({
-                    page: pager.page + 1,
-                    searchTerm,
-                    nameProp,
-                    id,
-                    programId,
-                })
-            }
-        }
-    }, [isListEndVisible, nameProp])
-
-    useEffect(() => {
-        if (!fetching && data) {
+            setHasMore(!isLastPage)
+            setCurrentPage(pager.page)
             setDimensions((currDimensions) => [
                 ...(currDimensions ?? []),
                 ...data.dimensions.dimensions,
@@ -90,12 +80,25 @@ const useTrackedEntityDimensions = ({
         }
     }, [data, fetching])
 
+    const loadMore = () => {
+        if (hasMore && !fetching) {
+            refetch({
+                page: currentPage + 1,
+                searchTerm,
+                nameProp,
+                id,
+                programId,
+            })
+        }
+    }
+
     return {
         loading: dimensions ? false : loading,
         fetching,
         error,
         dimensions: dimensions ?? [],
-        setIsListEndVisible,
+        hasMore,
+        loadMore,
     }
 }
 
