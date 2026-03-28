@@ -9,12 +9,16 @@ import {
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { sGetCurrent } from '../../reducers/current.js'
 import UpdateButton from '../UpdateButton/UpdateButton.jsx'
 import UpdateVisualizationContainer from '../UpdateButton/UpdateVisualizationContainer.js'
 import AddToLayoutButton from './AddToLayoutButton/AddToLayoutButton.jsx'
 import classes from './styles/DimensionModal.module.css'
 
 const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
+    const current = useSelector(sGetCurrent)
+    const hasVisualization = !!current
     const onClick = (handler) => {
         onClose()
         handler()
@@ -45,6 +49,7 @@ const DimensionModal = ({ children, dataTest, isInLayout, onClose, title }) => {
                                 <UpdateButton
                                     onClick={() => onClick(handler)}
                                     dataTest={`${dataTest}-action-confirm`}
+                                    disabled={!hasVisualization}
                                 />
                             )}
                         />

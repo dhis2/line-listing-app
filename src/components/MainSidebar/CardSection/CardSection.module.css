@@ -1,0 +1,198 @@
+.card {
+    background-color: var(--colors-white);
+    border: 1px solid var(--colors-grey400);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: #b7c4d2;
+}
+
+.card:focus {
+    outline: 3px solid var(--theme-focus);
+    outline-offset: -3px;
+}
+
+.card:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.card.empty {
+    opacity: 0.5;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 6px 6px 6px 2px;
+    padding: 10px 6px 10px 4px;
+    background-color: var(--colors-grey050);
+    min-height: 29px;
+    border-radius: 4px; /* Clip bg to card corners (1px less than card's 5px to account for border) */
+}
+
+.header.expanded {
+    border-radius: 4px 4px 0 0; /* Only top corners when expanded */
+    margin-bottom: var(--spacers-dp4);
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+.header:hover {
+    /* background-color: var(--colors-grey200); */
+}
+
+.header.expanded:hover {
+    cursor: pointer;
+}
+
+.header.disabled {
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    user-select: none;
+}
+
+.labelWrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+    overflow: hidden;
+}
+
+.labelRow {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.label.hasSelections {
+    color: var(--colors-teal600);
+}
+
+.header.hasSelections {
+    /* background-color: var(--colors-teal050); */
+}
+
+.count {
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    color: var(--colors-teal800);
+    background-color: rgba(7, 111, 114, 0.1);
+    font-size: 11px;
+    font-family: monospace;
+    line-height: 11px;
+    border-radius: 3px;
+    border: 1px dashed transparent;
+}
+
+.count.dashed {
+    border-color: rgba(74, 87, 104, 0.4);
+    background-color: transparent;
+}
+
+.chevron {
+    border-radius: 3px;
+    margin-right: 2px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    color: var(--colors-grey700);
+}
+.chevron:hover,
+.header:hover .chevron,
+.card:not(.expanded):hover .chevron {
+    color: var(--colors-grey800);
+    /* background: var(--colors-grey200); */
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--colors-grey700);
+    margin-top: var(--spacers-dp4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content {
+    /* background-color: var(--colors-yellow100); */
+    padding: 0 var(--spacers-dp4) var(--spacers-dp4) var(--spacers-dp16);
+}
+
+.content.collapsed {
+    display: none;
+}
+
+.card.empty .content {
+    background-color: transparent;
+}
+
+/* Nested card styles */
+.card.nested {
+    /* background-color: var(--colors-yellow100); */
+    border: none;
+    border-bottom: 1px solid var(--colors-grey300);
+    border-radius: 0;
+    /* border-bottom: none; */
+}
+
+.card.nested:last-child {
+    border-bottom: none;
+    border-radius: 0 0 4px 4px;
+}
+
+.card.nested .header {
+    padding: 8px 6px 8px 12px;
+    background-color: var(--colors-white);
+    border-bottom: none;
+}
+
+.card.nested .header:hover {
+    background-color: var(--colors-grey100);
+}
+
+.card.nested.chevron:hover,
+.card.nested.header:hover .chevron,
+.card.nested:not(.expanded):hover .chevron {
+    color: var(--colors-grey800);
+    background: transparent;
+}
+
+.card.nested .header.expanded {
+    margin-bottom: 0;
+}
+
+.card.nested .labelWrapper {
+    /* font-size: 12px; */
+    font-weight: 500;
+    color: var(--colors-grey700);
+}
+
+.card.nested:hover .labelWrapper {
+    color: var(--colors-grey900);
+}
+
+.card.nested .content {
+    padding-bottom: 4px;
+    margin-left: 8px;
+}
+
+/* Parent section containing nested cards - remove extra padding */
+.content:has(> .card.nested) {
+    padding: 0;
+}
+
+.card:has(.content > .card.nested) > .header.expanded {
+    margin-bottom: 0;
+}

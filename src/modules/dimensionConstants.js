@@ -40,6 +40,10 @@ export const DIMENSION_ID_SCHEDULED_DATE = 'scheduledDate'
 export const DIMENSION_ID_LAST_UPDATED = 'lastUpdated'
 export const DIMENSION_ID_CREATED = 'created'
 
+/**TRACKED ENTITY - registration dimensions (prototype mock IDs)**/
+export const DIMENSION_ID_REGISTRATION_OU = 'trackedEntity.ou'
+export const DIMENSION_ID_REGISTRATION_DATE = 'trackedEntity.created'
+
 export const DIMENSION_IDS_TIME = new Set([
     DIMENSION_ID_EVENT_DATE,
     DIMENSION_ID_ENROLLMENT_DATE,
