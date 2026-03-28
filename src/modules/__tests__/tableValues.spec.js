@@ -342,3 +342,19 @@ describe('getHeaderText', () => {
         expect(getHeaderText({ stageOffset: 1 })).toEqual('')
     })
 })
+
+// DHIS2-15225
+describe('partial user info bug workaround', () => {
+    it("returns empty string when createdbydisplayname is ', ()'", () => {
+        const header = { name: 'createdbydisplayname' }
+        const value = ',  ()' // 2 spaces between the comma and parentheses
+        expect(getFormattedCellValue({ header, value })).toBe('')
+    })
+
+    it("returns empty string when lastupdatedbydisplayname is ', ()'", () => {
+        const header = { name: 'lastupdatedbydisplayname' }
+        const value = ',  ()' // 2 spaces between the comma and parentheses
+
+        expect(getFormattedCellValue({ header, value })).toBe('')
+    })
+})
