@@ -5,74 +5,62 @@
 .container.hidden {
     display: none;
 }
-.main,
-.accessory {
-    box-sizing: border-box;
-}
 .main {
-    background-color: var(--colors-grey100);
+    box-sizing: border-box;
+    background-color: var(--colors-grey200);
     border-right: 1px solid var(--colors-grey400);
     box-shadow: 1px 0 2px 0 rgb(0 0 0 / 0.03);
-    width: 260px;
     z-index: 5;
-}
-.accessory {
-    background-color: var(--colors-white);
-    overflow-x: visible;
-    transition: width 150ms linear;
-    display: flex;
-    position: relative;
-}
-.accessory.hidden,
-.accessory.transitioning {
-    pointer-events: none;
-    overflow-x: hidden;
-}
-.accessoryInner {
-    border-right: 1px solid var(--colors-grey400);
-    transform: translateX(0);
-    transition: transform 150ms linear, width 150ms linear;
-    flex-shrink: 0;
+    overflow-y: auto;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
-.accessory.padded .accessoryInner {
-    padding: var(--spacers-dp12) var(--spacers-dp8);
+
+.cardsContainer {
+    padding: 4px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
+
 .resizeHandle {
-    position: absolute;
-    height: 100%;
-    /* Interaction area extends 1px left and
-     * 8px right of the sidebar border */
-    width: 10px;
-    right: -8px;
+    width: 4px;
+    background-color: transparent;
     cursor: col-resize;
-}
-.resizeHandle::before {
-    content: '';
-    background-color: var(--colors-blue600);
     position: absolute;
     top: 0;
-    bottom: 0;
-    left: 0;
-    width: 3px;
-    pointer-events: none;
-    opacity: 0;
-    /* Hide immidiately */
-    transition: opacity 150ms 0ms;
+    right: 0;
+    height: 100%;
+    z-index: 6;
+    transition: background-color 150ms ease;
 }
-.resizeHandle:hover::before {
-    opacity: 1;
-    /* Show with a 200ms delay */
-    transition: opacity 150ms 200ms;
+
+.resizeHandle:hover {
+    background-color: var(--colors-blue500);
 }
-.container.resizing .accessory,
-.container.resizing .accessoryInner {
-    /* Disable transitions to prevent visual glitches while resizing */
-    transition: none;
+
+.placeholderCard {
+    border-radius: 5px;
+    margin-bottom: 4px;
+    min-height: 120px;
+    position: relative;
+    z-index: 0;
+    padding: var(--spacers-dp16);
+    text-align: center;
+    color: var(--colors-grey600);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
 }
-.container.resizing .resizeHandle::before,
-.container .resizeHandle:focus-visible::before {
-    /* Prevent line from fading while resizing and when focussed */
-    opacity: 1;
+
+.placeholderCard p {
+    margin: var(--spacers-dp4);
 }

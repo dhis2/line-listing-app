@@ -1,6 +1,7 @@
 /*eslint no-unused-vars: ["error", { "ignoreRestSiblings": true }]*/
 import {
     DIMENSION_ID_ORGUNIT,
+    DIMENSION_TYPE_ORGANISATION_UNIT,
     USER_ORG_UNIT,
     VIS_TYPE_LINE_LIST,
 } from '@dhis2/analytics'
@@ -14,6 +15,8 @@ import {
     DIMENSION_ID_SCHEDULED_DATE,
     DIMENSION_ID_EVENT_STATUS,
     DIMENSION_ID_PROGRAM_STATUS,
+    DIMENSION_ID_CREATED,
+    DIMENSION_TYPE_STATUS,
 } from '../modules/dimensionConstants.js'
 import {
     formatDimensionId,
@@ -55,8 +58,11 @@ export const CLEAR_UI = 'CLEAR_UI'
 export const SET_UI_DETAILS_PANEL_OPEN = 'SET_UI_DETAILS_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_OPEN = 'SET_UI_ACCESSORY_PANEL_OPEN'
 export const SET_UI_ACCESSORY_PANEL_WIDTH = 'SET_UI_ACCESSORY_PANEL_WIDTH'
+export const SET_UI_MAIN_SIDEBAR_WIDTH = 'SET_UI_MAIN_SIDEBAR_WIDTH'
 export const SET_UI_ACCESSORY_PANEL_ACTIVE_TAB =
     'SET_UI_ACCESSORY_PANEL_ACTIVE_TAB'
+export const SET_UI_EXPANDED_CARDS = 'SET_UI_EXPANDED_CARDS'
+export const TOGGLE_UI_SPLIT_DATA_CARDS = 'TOGGLE_UI_SPLIT_DATA_CARDS'
 export const SET_UI_EXPANDED_LAYOUT_PANEL = 'SET_UI_EXPANDED_LAYOUT_PANEL'
 export const TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS =
     'TOGGLE_UI_EXPANDED_VISUALIZATION_CANVAS'
@@ -94,10 +100,13 @@ const EMPTY_UI = {
     },
     itemsByDimension: {},
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     options: {},
     parentGraphMap: {},
     repetitionByDimension: {},
     conditions: DEFAULT_CONDITIONS,
+    expandedCards: [],
+    splitDataCards: true,
 }
 
 export const DEFAULT_UI = {
@@ -121,7 +130,16 @@ export const DEFAULT_UI = {
     options: getOptionsForUi(),
     showAccessoryPanel: true,
     accessoryPanelActiveTab: 'INPUT',
+    expandedCards: [
+        'PROGRAM',
+        'TRACKED_ENTITY',
+        'MAIN_DIMENSIONS',
+        'YOUR',
+        'PROGRAM_DIMENSIONS',
+    ],
+    splitDataCards: true,
     accessoryPanelWidth: getUserSidebarWidth(),
+    mainSidebarWidth: 400,
     showDetailsPanel: false,
     showExpandedLayoutPanel: false,
     hideMainSideBar: false,
@@ -310,10 +328,28 @@ export default (state = EMPTY_UI, action) => {
                 accessoryPanelWidth: action.value,
             }
         }
+        case SET_UI_MAIN_SIDEBAR_WIDTH: {
+            return {
+                ...state,
+                mainSidebarWidth: action.value,
+            }
+        }
         case SET_UI_ACCESSORY_PANEL_ACTIVE_TAB: {
             return {
                 ...state,
                 accessoryPanelActiveTab: action.value,
+            }
+        }
+        case SET_UI_EXPANDED_CARDS: {
+            return {
+                ...state,
+                expandedCards: action.value,
+            }
+        }
+        case TOGGLE_UI_SPLIT_DATA_CARDS: {
+            return {
+                ...state,
+                splitDataCards: !state.splitDataCards,
             }
         }
         case TOGGLE_UI_SIDEBAR_HIDDEN: {
@@ -448,8 +484,11 @@ export const sGetUiShowAccessoryPanel = (state) =>
     sGetUi(state).showAccessoryPanel
 export const sGetUiAccessoryPanelActiveTab = (state) =>
     sGetUi(state).accessoryPanelActiveTab
+export const sGetUiExpandedCards = (state) => sGetUi(state).expandedCards
+export const sGetUiSplitDataCards = (state) => sGetUi(state).splitDataCards
 export const sGetUiAccessoryPanelWidth = (state) =>
     sGetUi(state).accessoryPanelWidth
+export const sGetUiMainSidebarWidth = (state) => sGetUi(state).mainSidebarWidth
 export const sGetUiShowExpandedLayoutPanel = (state) =>
     sGetUi(state).showExpandedLayoutPanel
 export const sGetUiSidebarHidden = (state) =>
@@ -534,6 +573,14 @@ export const useProgramDimensions = () => {
         sGetMetadataById(state, getId(DIMENSION_ID_SCHEDULED_DATE))
     )
 
+    // For tracked entity, get registration org unit and date from metadata
+    const registrationOrgUnitDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_ORGUNIT)
+    )
+    const registrationDateDim = useSelector((state) =>
+        sGetMetadataById(state, DIMENSION_ID_CREATED)
+    )
+
     return useMemo(() => {
         const { metadata } = store.getState()
         const program = metadata[programId]
@@ -559,20 +606,69 @@ export const useProgramDimensions = () => {
             return !hiddenTimeDimensions.includes(dimensionId)
         })
 
-        const programDimensions = Object.values(
-            getProgramDimensions(
-                inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
-            )
-        ).filter(
-            (dimension) =>
-                !getIsProgramDimensionDisabled({
-                    dimensionId: dimension.id,
-                    inputType,
-                    programType: program?.programType,
-                })
-        )
+        // For tracked entity without program, only show registration dimensions
+        let allOrgUnitDimensions = []
+        let allTimeDimensions = []
+        let statusDimensions = []
 
-        return programDimensions.concat(timeDimensions)
+        if (inputType === OUTPUT_TYPE_TRACKED_ENTITY && !programId) {
+            // Only registration dimensions when no program selected
+            if (registrationOrgUnitDim) {
+                allOrgUnitDimensions = [registrationOrgUnitDim]
+            }
+            if (registrationDateDim) {
+                allTimeDimensions = [registrationDateDim]
+            }
+        } else {
+            // Include program dimensions when program is selected or for other input types
+            const programDimensions = Object.values(
+                getProgramDimensions(
+                    inputType === OUTPUT_TYPE_TRACKED_ENTITY && programId
+                )
+            ).filter(
+                (dimension) =>
+                    !getIsProgramDimensionDisabled({
+                        dimensionId: dimension.id,
+                        inputType,
+                        programType: program?.programType,
+                    })
+            )
+
+            // Separate org units from status dimensions
+            const orgUnitDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_ORGANISATION_UNIT
+            )
+            statusDimensions = programDimensions.filter(
+                (dim) => dim.dimensionType === DIMENSION_TYPE_STATUS
+            )
+
+            // For tracked entity input type, prepend registration dimensions
+            if (inputType === OUTPUT_TYPE_TRACKED_ENTITY) {
+                // Add registration org unit at the beginning
+                if (registrationOrgUnitDim) {
+                    allOrgUnitDimensions = [
+                        registrationOrgUnitDim,
+                        ...orgUnitDimensions,
+                    ]
+                } else {
+                    allOrgUnitDimensions = orgUnitDimensions
+                }
+                // Add registration date at the beginning of time dimensions
+                if (registrationDateDim) {
+                    allTimeDimensions = [registrationDateDim, ...timeDimensions]
+                } else {
+                    allTimeDimensions = timeDimensions
+                }
+            } else {
+                allOrgUnitDimensions = orgUnitDimensions
+                allTimeDimensions = timeDimensions
+            }
+        }
+
+        // Order: org units, then periods (time dimensions), then statuses
+        return allOrgUnitDimensions
+            .concat(allTimeDimensions)
+            .concat(statusDimensions)
     }, [
         inputType,
         programId,
@@ -581,5 +677,7 @@ export const useProgramDimensions = () => {
         enrollmentDateDim,
         incidentDateDim,
         scheduledDateDim,
+        registrationOrgUnitDim,
+        registrationDateDim,
     ])
 }
