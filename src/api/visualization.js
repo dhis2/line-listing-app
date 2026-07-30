@@ -1,6 +1,6 @@
 import { getDimensionMetadataFields } from '../modules/visualization.js'
 
-const dimensionFields = () =>
+const dimensionFields =
     'dimension,dimensionType,filter,program[id],programStage[id],optionSet[id],valueType,legendSet[id],repetition,items[dimensionItem~rename(id)]'
 
 export const VISUALIZATION_QUERY = {
