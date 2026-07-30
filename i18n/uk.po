@@ -1,20 +1,20 @@
-# 
 # Translators:
 # Nadiia <semchuk@aph.org.ua>, 2022
 # Wanda <wanda@frontlineaids.org>, 2023
 # Philip Larsen Donnelly, 2024
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Éva Tamási, 2024
+# Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2024-02-13T14:56:50.029Z\n"
+"POT-Creation-Date: 2025-10-28T16:09:33.958Z\n"
 "PO-Revision-Date: 2022-08-23 11:50+0000\n"
-"Last-Translator: Éva Tamási, 2024\n"
+"Last-Translator: Mykhailo Siusko <m.siusko@redcross.org.ua>, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/hisp-uio/teams/100509/uk/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
@@ -76,6 +76,14 @@ msgid "No preset option sets for this data item"
 msgstr ""
 
 msgid "Choose options"
+msgstr ""
+
+msgid "Previous selection was cleared"
+msgstr ""
+
+msgid ""
+"Fetching details for the previously selected organisation unit failed. The "
+"selected item has been cleared so that a new selection can be made."
 msgstr ""
 
 msgid ""
@@ -290,13 +298,13 @@ msgid ""
 msgstr ""
 
 msgid "Choose a program"
-msgstr ""
+msgstr "Оберіть програму"
 
 msgid "No programs found"
 msgstr ""
 
 msgid "Stage"
-msgstr ""
+msgstr "Етап"
 
 msgid "All"
 msgstr "Усі"
@@ -357,15 +365,15 @@ msgstr ""
 msgid "Rename successful"
 msgstr "Перейменування успішно виконано"
 
-msgid "Untitled {{visualizationType}} visualization, {{date}}"
-msgstr "Візуалізація без назви {{visualizationType}}, {{date}}"
-
 msgid ""
 "This visualization can't be deleted because it is used on one or more "
 "dashboards"
 msgstr ""
 "Цю візуалізацію неможливо видалити, оскільки вона використовується на одній "
 "або декількох інформаційних панелях"
+
+msgid "Rename failed"
+msgstr ""
 
 msgid "Show layout"
 msgstr ""
@@ -387,6 +395,9 @@ msgstr "Показати інтерпретації та подробиці"
 
 msgid "View"
 msgstr "Переглянути"
+
+msgid "Reset sidebar width"
+msgstr ""
 
 msgid "Update"
 msgstr "Оновити"
@@ -423,7 +434,7 @@ msgid "No event"
 msgstr ""
 
 msgid "Rows per page"
-msgstr ""
+msgstr "Рядків на сторінку"
 
 msgid "Page {{page}}, row {{firstItem}}-{{lastItem}}"
 msgstr ""
