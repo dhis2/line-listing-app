@@ -225,7 +225,7 @@ msgid "Event"
 msgstr ""
 
 msgid "Enrollment"
-msgstr ""
+msgstr "ការចុះឈ្មោះ"
 
 msgid "Tracked entity"
 msgstr ""
@@ -783,7 +783,7 @@ msgid "Scheduled date"
 msgstr ""
 
 msgid "Active"
-msgstr ""
+msgstr "កំពុងដំណើរការ"
 
 msgid "Cancelled"
 msgstr "បានលុបចោល"
