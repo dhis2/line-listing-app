@@ -385,7 +385,9 @@ describe('Options - Legend', () => {
         expectRouteToBeEmpty()
     })
 
-    it(['>=41'], 'apples legend correctly (TE)', () => {
+    // Note: Saving a TE line list fails on 2.41.10 and 2.42.6 with
+    // "Missing required property `program`" (E4000), so only run on >=43
+    it(['>=43'], 'apples legend correctly (TE)', () => {
         const TEST_LEGEND_AGE = {
             name: 'Age 10y interval',
             cells: [{ value: 46, color: 'rgb(173, 221, 142)' }],

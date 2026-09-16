@@ -95,7 +95,9 @@ describe('options', () => {
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
-        cy.contains('Small').click()
+        cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
+            .contains('Small')
+            .click()
         clickOptionsModalUpdateButton()
 
         //assert small font size
@@ -110,7 +112,9 @@ describe('options', () => {
         cy.getBySel('font-size-select-content')
             .findBySel('dhis2-uicore-select-input')
             .click()
-        cy.contains('Large').click()
+        cy.getBySel('dhis2-uicore-select-menu-menuwrapper')
+            .contains('Large')
+            .click()
         clickOptionsModalUpdateButton()
 
         // assert large font size

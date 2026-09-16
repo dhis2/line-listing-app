@@ -227,7 +227,18 @@ const extractHeaders = (analyticsResponse, outputType) => {
         return formattedDimensionId
     })
 
-    const metadata = { ...analyticsResponse.metaData.items, ...defaultMetadata }
+    // Since 2.43 the analytics response includes metaData items for the time
+    // dimensions used as period (e.g. `eventdate: { name: 'Event date' }`).
+    // Those generic names must not override the program/stage specific
+    // labels returned in `header.column`, so they are excluded here.
+    const timeDimensionHeaderNames = Object.values(headersMap)
+    const metaDataItems = Object.fromEntries(
+        Object.entries(analyticsResponse.metaData.items).filter(
+            ([key]) => !timeDimensionHeaderNames.includes(key)
+        )
+    )
+
+    const metadata = { ...metaDataItems, ...defaultMetadata }
 
     const dimensionsWithSuffix = getDimensionsWithSuffix({
         dimensionIds,
