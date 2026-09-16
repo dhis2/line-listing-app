@@ -1,3 +1,10 @@
+## [102.4.1](https://github.com/dhis2/line-listing-app/compare/v102.4.0...v102.4.1) (2026-09-16)
+
+
+### Bug Fixes
+
+* avoid arrow function in fields ([#746](https://github.com/dhis2/line-listing-app/issues/746)) ([cbd3e33](https://github.com/dhis2/line-listing-app/commit/cbd3e330286a7a2d1596ec2d7d681ee1f744ed73))
+
 # [102.4.0](https://github.com/dhis2/line-listing-app/compare/v102.3.0...v102.4.0) (2026-03-17)
 
 
