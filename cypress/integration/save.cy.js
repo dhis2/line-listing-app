@@ -159,7 +159,9 @@ describe('save', () => {
         cy.get('@secondSavedUid').then(deleteVisualizationWithUid)
     })
 
-    it(['>=41'], 'new AO with name saves correctly (TE)', () => {
+    // Note: Saving a TE line list fails on 2.41.10 and 2.42.6 with
+    // "Missing required property `program`" (E4000), so only run on >=43
+    it(['>=43'], 'new AO with name saves correctly (TE)', () => {
         const AO_NAME = `SAVE-${Date.now()}-TE`
         const UPDATED_AO_NAME = AO_NAME + '-superduper'
 

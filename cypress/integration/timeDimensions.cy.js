@@ -66,10 +66,18 @@ describe('time dimensions', () => {
     })
 
     // Note: The rowsLengths needs to be updated when events are changed or added to the database
+    // Note: In 2.43 the events query filtered on incident date only returns
+    // the events that also have an event date within the period (7 instead of 13)
+    const instanceVersion = parseInt(
+        String(Cypress.env('dhis2InstanceVersion')).replace('2.', '')
+    )
     const timeDimensions = [
         { id: DIMENSION_ID_EVENT_DATE, rowsLength: 7 },
         { id: DIMENSION_ID_ENROLLMENT_DATE, rowsLength: 13 },
-        { id: DIMENSION_ID_INCIDENT_DATE, rowsLength: 13 },
+        {
+            id: DIMENSION_ID_INCIDENT_DATE,
+            rowsLength: instanceVersion >= 43 ? 7 : 13,
+        },
         { id: DIMENSION_ID_LAST_UPDATED, rowsLength: 11 },
         { id: DIMENSION_ID_SCHEDULED_DATE, rowsLength: 7 },
     ]
