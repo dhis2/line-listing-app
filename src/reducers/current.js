@@ -1,4 +1,5 @@
 import { getDefaultFromUi } from '../modules/current.js'
+import { sGetMetadata } from './metadata.js'
 
 export const SET_CURRENT = 'SET_CURRENT'
 export const SET_CURRENT_FROM_UI = 'SET_CURRENT_FROM_UI'
@@ -32,10 +33,11 @@ export const sGetCurrentId = (state) => state.current?.id
 
 export const sGetCurrentFromUi = (state) => {
     const ui = state.ui
+    const metadata = sGetMetadata(state)
 
     switch (ui.type) {
         default: {
-            return getDefaultFromUi(state.current, ui)
+            return getDefaultFromUi(state.current, ui, metadata)
         }
     }
 }

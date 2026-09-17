@@ -1,32 +1,95 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import { IconFilter16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState } from 'react'
+import styles from './ProgramDimensionsFilter.module.css'
 
 const STAGE_ALL = 'STAGE_ALL'
 
 const StageFilter = ({ stages, selected, setSelected }) => {
-    const onChange = ({ selected: stageId }) => {
+    const [showDropdown, setShowDropdown] = useState(false)
+
+    const handleFilterClick = () => {
+        setShowDropdown(!showDropdown)
+    }
+
+    const handleStageSelect = (stageId) => {
         if (stageId === STAGE_ALL) {
             setSelected()
         } else {
             setSelected(stageId)
         }
+        setShowDropdown(false)
     }
 
+    const handleRemoveFilter = (e) => {
+        e.stopPropagation()
+        setSelected()
+        setShowDropdown(false)
+    }
+
+    const getSelectedStageName = () => {
+        if (!selected) return null
+        const stage = stages.find((s) => s.id === selected)
+        return stage?.name
+    }
+
+    const isFilterActive = !!selected && selected !== STAGE_ALL
+
     return (
-        <SingleSelect
-            prefix={i18n.t('Stage')}
-            dense
-            selected={selected || STAGE_ALL}
-            onChange={onChange}
-            dataTest="stage-select"
-        >
-            <SingleSelectOption label={i18n.t('All')} value={STAGE_ALL} />
-            {stages.map(({ id, name }) => (
-                <SingleSelectOption label={name} key={id} value={id} />
-            ))}
-        </SingleSelect>
+        <div className={styles.filterWrapper}>
+            <div className={styles.filterButtonContainer}>
+                <button
+                    className={`${styles.filterButton} ${
+                        isFilterActive ? styles.filterButtonActive : ''
+                    }`}
+                    onClick={handleFilterClick}
+                    data-test="stage-filter-button"
+                >
+                    <span className={styles.filterIcon}>
+                        <IconFilter16 />
+                    </span>
+                    {isFilterActive ? (
+                        <>
+                            <span className={styles.filterLabel}>
+                                {getSelectedStageName()}
+                            </span>
+                            <button
+                                className={styles.removeButton}
+                                onClick={handleRemoveFilter}
+                                aria-label={i18n.t('Remove filter')}
+                            >
+                                ×
+                            </button>
+                        </>
+                    ) : (
+                        <span className={styles.filterLabel}>
+                            {i18n.t('Filter by stage')}
+                        </span>
+                    )}
+                </button>
+
+                {showDropdown && (
+                    <div className={styles.filterDropdown}>
+                        <button
+                            className={styles.filterOption}
+                            onClick={() => handleStageSelect(STAGE_ALL)}
+                        >
+                            {i18n.t('All stages')}
+                        </button>
+                        {stages.map(({ id, name }) => (
+                            <button
+                                key={id}
+                                className={styles.filterOption}
+                                onClick={() => handleStageSelect(id)}
+                            >
+                                {name}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
     )
 }
 

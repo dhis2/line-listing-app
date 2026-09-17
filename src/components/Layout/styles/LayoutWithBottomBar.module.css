@@ -1,0 +1,220 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 8px);
+    margin: 4px;
+    border-radius: 5px;
+    border: 1px solid var(--colors-grey400);
+    overflow: hidden;
+    background: var(--colors-white);
+}
+
+/* Content area wrapper */
+.contentArea {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.layoutContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Remove the margin and border-radius from the Layout component inside */
+.layoutContainer > div {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    flex: 1;
+}
+
+/* Remove margin-block-end from the inner layout container */
+.layoutContainer > div > div {
+    margin-block-end: 0 !important;
+}
+
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 4px;
+    background-color: var(--colors-white);
+    border-bottom: 1px solid var(--colors-grey300);
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Visualization type selector (Line List / Pivot Table) */
+.visualizationTypeSelect {
+    /* Add your custom styles here */
+    background-color: var(--colors-white);
+    border-radius: 5px;
+    color: var(--colors-grey800);
+}
+
+/* Options buttons container */
+.optionsButtons {
+    /* Animation handled by parent .topBar */
+}
+
+/* Spacer to push utilities button to right edge */
+.topBarSpacer {
+    flex: 1;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.bottomBar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 6px 6px;
+    background-color: var(--colors-white);
+    border-top: 1px solid var(--colors-grey300);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0px 8px;
+    min-height: 28px;
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
+    color: var(--colors-grey700);
+
+    border-radius: 3px;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.button:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.button:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400;
+    border-color: var(--colors-grey300);
+}
+
+.buttonUpdate {
+    border: 1px solid #c8e4f9;
+    color: var(--colors-blue800);
+    background-color: var(--colors-blue100);
+    box-shadow: 0 1px 2px 0 rgba(33, 41, 52, 0.04);
+}
+
+.buttonUpdate:hover:not(:disabled) {
+    background-color: #daedfb;
+    border-color: #c8e4f9;
+    color: var(--colors-blue900);
+}
+
+.buttonUpdate:active:not(:disabled) {
+    background-color: #d1e8fa;
+    border-color: #c8e4f9;
+    transform: translateY(1px);
+}
+
+.buttonAlt {
+    background-color: var(--colors-grey050);
+    border: 1px solid var(--colors-grey300);
+    color: var(--colors-grey700);
+    font-weight: 400;
+    box-shadow: none;
+}
+
+.buttonAlt:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.buttonAlt:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.buttonAlt:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400 !important;
+}
+
+.buttonCreate {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey800);
+    font-weight: 400 !important;
+}
+
+.buttonCreate:hover:not(:disabled) {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+    border-color: var(--colors-grey400);
+}
+
+.buttonCreate:active:not(:disabled) {
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+}
+
+.buttonCreate:disabled {
+    background-color: transparent;
+    color: var(--colors-grey500);
+    cursor: not-allowed;
+    font-weight: 400 !important;
+}
+
+/* Empty layout area - shown when no visualization type is selected */
+.emptyLayoutArea {
+    display: flex;
+    background-color: var(--colors-white);
+    min-height: 200px;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Fade out animation for empty state */
+.fadeOut {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+.slideIn {
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.slideInBottom {
+    animation: fadeIn 0.3s ease-out forwards;
+}

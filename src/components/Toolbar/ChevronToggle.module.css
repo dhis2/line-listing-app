@@ -1,0 +1,32 @@
+.chevronToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    background: none;
+    border: none !important;
+    cursor: pointer;
+    color: var(--colors-grey700);
+    fill: var(--colors-grey700);
+    border-radius: 4px;
+}
+
+.chevronToggle:hover:not(:disabled) {
+    color: var(--colors-grey900);
+    background-color: var(--colors-grey200);
+}
+
+.chevronToggle:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.chevron {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+}

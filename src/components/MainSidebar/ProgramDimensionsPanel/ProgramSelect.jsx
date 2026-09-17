@@ -1,7 +1,12 @@
 import { useCachedDataQuery } from '@dhis2/analytics'
 import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, SingleSelect } from '@dhis2/ui'
+import {
+    NoticeBox,
+    SingleSelect,
+    IconDimensionEventDataItem16,
+} from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +40,7 @@ const query = {
                 'enrollmentDateLabel',
                 'incidentDateLabel',
                 'programType',
-                'programStages[id,displayName~rename(name),displayExecutionDateLabel,hideDueDate,displayDueDateLabel,repeatable]',
+                'programStages[id,displayName~rename(name),executionDateLabel,displayExecutionDateLabel,hideDueDate,dueDateLabel,displayDueDateLabel,repeatable]',
                 'displayIncidentDate',
                 'displayIncidentDateLabel',
                 'displayEnrollmentDateLabel',
@@ -54,7 +59,7 @@ const query = {
     },
 }
 
-const ProgramSelect = ({ prefix }) => {
+const ProgramSelect = ({ prefix, noBorders = false }) => {
     const { currentUser } = useCachedDataQuery()
     const dispatch = useDispatch()
     const selectedEntityTypeId = useSelector(sGetUiEntityTypeId)
@@ -128,50 +133,60 @@ const ProgramSelect = ({ prefix }) => {
         <div className={styles.rows}>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
-                    <SingleSelect
-                        dense
-                        selected={selectedProgram?.id || ''}
-                        onChange={({ selected }) =>
-                            setSelectedProgramId(selected)
-                        }
-                        placeholder={i18n.t('Choose a program')}
-                        maxHeight="max(60vh, 460px)"
-                        dataTest="program-dimensions-program-select"
-                        filterable
-                        noMatchText={i18n.t('No programs found')}
-                        prefix={selectedProgram?.id ? prefix : ''}
-                        empty={i18n.t('No programs found')}
-                        loading={fetching}
+                    <div
+                        className={cx(styles.dropdownWrapper, {
+                            [styles.noBorders]: noBorders,
+                        })}
                     >
-                        {(fetching || !programs) && selectedProgram?.id && (
-                            <SingleSelectOptionWithSuffix
-                                key={selectedProgram?.id}
-                                label={selectedProgram?.name}
-                                suffix={
-                                    (selectedEntityTypeId &&
-                                        selectedProgram?.id &&
-                                        programDimensionsMap[
-                                            selectedProgram.id
-                                        ]) ||
-                                    null
-                                }
-                                value={selectedProgram?.id}
-                            />
-                        )}
-                        {!fetching &&
-                            programs?.map(({ id, name }) => (
+                        <SingleSelect
+                            dense
+                            selected={selectedProgram?.id || undefined}
+                            onChange={({ selected }) =>
+                                setSelectedProgramId(selected)
+                            }
+                            placeholder={i18n.t('Choose a program')}
+                            maxHeight="max(60vh, 460px)"
+                            dataTest="program-dimensions-program-select"
+                            filterable
+                            noMatchText={i18n.t('No programs found')}
+                            prefix={
+                                selectedProgram?.id
+                                    ? prefix || <IconDimensionEventDataItem16 />
+                                    : undefined
+                            }
+                            empty={i18n.t('No programs found')}
+                            loading={fetching}
+                        >
+                            {(fetching || !programs) && selectedProgram?.id && (
                                 <SingleSelectOptionWithSuffix
-                                    key={id}
-                                    label={name}
-                                    value={id}
+                                    key={selectedProgram?.id}
+                                    label={selectedProgram?.name}
                                     suffix={
                                         (selectedEntityTypeId &&
-                                            programDimensionsMap[id]) ||
+                                            selectedProgram?.id &&
+                                            programDimensionsMap[
+                                                selectedProgram.id
+                                            ]) ||
                                         null
                                     }
+                                    value={selectedProgram?.id}
                                 />
-                            ))}
-                    </SingleSelect>
+                            )}
+                            {!fetching &&
+                                programs?.map(({ id, name }) => (
+                                    <SingleSelectOptionWithSuffix
+                                        key={id}
+                                        label={name}
+                                        value={id}
+                                        suffix={
+                                            (selectedEntityTypeId &&
+                                                programDimensionsMap[id]) ||
+                                            null
+                                        }
+                                    />
+                                ))}
+                        </SingleSelect>
+                    </div>
                 </div>
             </div>
             {showStageSelect && (
@@ -183,6 +198,7 @@ const ProgramSelect = ({ prefix }) => {
 
 ProgramSelect.propTypes = {
     prefix: PropTypes.string,
+    noBorders: PropTypes.bool,
 }
 
 export { ProgramSelect }

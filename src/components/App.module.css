@@ -35,7 +35,7 @@
 }
 
 .flexGrow1 {
-    flex-grow: 1;
+    flex-grow: 2222;
 }
 .minWidth0 {
     min-width: 0;
@@ -46,7 +46,6 @@
 }
 
 /* Toolbar */
-
 .sectionToolbar {
     height: 39px;
     border-bottom: 1px solid var(--colors-grey400);
@@ -55,6 +54,11 @@
 /* Main */
 .sectionMain {
     overflow: hidden;
+}
+
+/* Sidebar position right - moves sidebar to end of flex row */
+.sidebarRight {
+    order: 2;
 }
 
 .mainRight {
@@ -73,6 +77,25 @@
 }
 /* Main canvas */
 
+.mainCenterLayout {
+    /* No margin needed now that Toolbar is full width */
+}
+
+.standaloneTitleBar {
+    background-color: white;
+    border-bottom: 1px solid var(--colors-grey400);
+}
+
+/* Override TitleBar styles when standalone */
+.standaloneTitleBar :global([data-test='titlebar']) {
+    margin: 0;
+    border-left: none;
+}
+
+.quickStartWrapper {
+    margin: 0 var(--spacers-dp4);
+}
+
 .mainCenterCanvas {
     display: flex;
     gap: var(--spacers-dp4);
@@ -89,5 +112,5 @@
     left: 0;
     top: 0;
     z-index: 100;
-    background: #ffffffab;
+    background: rgba(255, 255, 255, 0.67);
 }

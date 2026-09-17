@@ -9,6 +9,7 @@ import {
     acRemoveUiLayoutDimensions,
     acSetUiOpenDimensionModal,
 } from '../../../actions/ui.js'
+import { useMultiSelection } from '../MultiSelectionContext.jsx'
 import { DimensionItemBase } from './DimensionItemBase.jsx'
 import { DimensionItemButton } from './DimensionItemButton.jsx'
 
@@ -39,6 +40,10 @@ export const DimensionItem = ({
     selected,
 }) => {
     const dispatch = useDispatch()
+    const { toggleSelection, clearSelection, isMultiSelected } =
+        useMultiSelection()
+    const multiSelected = isMultiSelected(id)
+
     const dimensionMetadata = {
         [id]: {
             id,
@@ -51,7 +56,31 @@ export const DimensionItem = ({
 
     const onClick = disabled
         ? undefined
-        : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+        : (e) => {
+              if (e?.shiftKey && !selected) {
+                  // Shift+click to toggle multi-selection (only for non-selected items)
+                  e.preventDefault()
+                  toggleSelection(id, dimensionMetadata[id])
+              } else if (e?.altKey) {
+                  // Alt+click to directly add/remove from layout (same as IconAdd16/IconSubtract16 buttons)
+                  if (!selected) {
+                      dispatch(
+                          acAddUiLayoutDimensions(
+                              { [id]: { axisId: 'columns' } },
+                              dimensionMetadata
+                          )
+                      )
+                  } else {
+                      dispatch(acRemoveUiLayoutDimensions(id))
+                  }
+              } else {
+                  // Normal click opens the dimension modal and clears multi-selection
+                  if (multiSelected) {
+                      clearSelection()
+                  }
+                  dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+              }
+          }
 
     const {
         attributes,
@@ -63,7 +92,10 @@ export const DimensionItem = ({
     } = useSortable({
         id: draggableId || id,
         disabled: disabled || selected,
-        data: dimensionMetadata[id],
+        data: {
+            ...dimensionMetadata[id],
+            isMultiSelected: multiSelected,
+        },
     })
 
     const style = transform
@@ -87,6 +119,7 @@ export const DimensionItem = ({
                 dimensionType={dimensionType}
                 disabled={disabled}
                 selected={selected}
+                multiSelected={multiSelected}
                 stageName={stageName}
                 onClick={onClick}
                 dataTest={`dimension-item-${id}`}
