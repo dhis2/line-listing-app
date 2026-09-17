@@ -1,0 +1,35 @@
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.description {
+    margin: 0 0 var(--spacers-dp16) 0;
+    color: var(--colors-grey700);
+    font-size: 14px;
+}
+
+.listContainer {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 200px;
+    max-height: 400px;
+    border: 1px solid var(--colors-grey500);
+    border-radius: 3px;
+}
+
+.listLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
+    height: 100%;
+    min-height: 200px;
+    color: var(--colors-grey700);
+    font-size: 14px;
+}
+
+.aggregationSelect {
+    margin-top: var(--spacers-dp16);
+}

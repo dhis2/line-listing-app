@@ -240,7 +240,7 @@ describe('getDimensionsWithSuffix for data elements', () => {
         expect(output[2].suffix).toBeUndefined()
     })
 
-    it('returns correct result for: TE, with duplicates per program -> program suffix', () => {
+    it('returns correct result for: TE, with duplicates per program -> stage suffix', () => {
         const id1 = 'p1.p1s1.d1',
             id2 = 'p2.p2s1.d1',
             id3 = 'p1.p1s2.d2' // no duplicate, just reference
@@ -256,14 +256,14 @@ describe('getDimensionsWithSuffix for data elements', () => {
         expect(output[0].dimensionType).toEqual(DIMENSION_TYPE_DATA_ELEMENT)
         expect(output[0].optionSet).toEqual('OptionSet1')
         expect(output[0].valueType).toEqual(VALUE_TYPE_TEXT)
-        expect(output[0].suffix).toEqual('Program1')
+        expect(output[0].suffix).toEqual('P1 Stage1')
 
         expect(output[1].id).toEqual(id2)
         expect(output[1].name).toEqual('Dimension1')
         expect(output[1].dimensionType).toEqual(DIMENSION_TYPE_DATA_ELEMENT)
         expect(output[1].optionSet).toEqual('OptionSet1')
         expect(output[1].valueType).toEqual(VALUE_TYPE_TEXT)
-        expect(output[1].suffix).toEqual('Program2')
+        expect(output[1].suffix).toEqual('P2 Stage1')
 
         expect(output[2].id).toEqual(id3)
         expect(output[2].name).toEqual('Dimension2')

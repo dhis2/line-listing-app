@@ -1,5 +1,122 @@
 .container {
     display: flex;
     flex-direction: column;
+    padding: var(--spacers-dp4);
+    background-color: var(--colors-white);
+    border-bottom: 1px solid #dfe6ec;
+    border-radius: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    /* gap: var(--spacers-dp12); */
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    /* gap: var(--spacers-dp8); */
+}
+
+.row:first-of-type {
+    display: flex;
+    width: 100%;
+}
+
+.dropdownWrapper {
+    flex: 1;
+    margin: 0;
+}
+
+/* Override dropdown styles to remove borders */
+.dropdownWrapper :global(*) {
+    border: none !important;
+    background-color: var(--colors-white) !important;
+    box-shadow: none !important;
+    outline: none !important;
+    font-size: 13px !important;
+    font-weight: 500;
+    border-radius: 5px;
+    line-height: 1;
+    overflow: hidden;
+}
+
+/* Override trigger padding */
+.dropdownWrapper :global(*[class*='trigger']) {
+    padding-inline-end: 4px !important;
+    padding-block-start: 23px !important;
+}
+
+.dropdownWrapper :global(*[data-test*='dhis2-uicore-select-input']) {
+    height: 28px !important;
+    min-height: 28px !important;
+    border-radius: 5px !important;
+}
+
+.dropdownWrapper :global(*[data-test*='data-source-select-placeholder']) {
+    font-weight: 400 !important;
+}
+
+.dropdownWrapper:hover :global(*[data-test*='dhis2-uicore-select-input']) {
+    /* background-color: var(--colors-red300) !important; */
+}
+.dropdownWrapper :global(*:focus) {
+    /* border: none !important; */
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.dropdownWrapper:hover :global(*) {
+    border: none !important;
+    background-color: var(--colors-grey200) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-red500);
+    margin: 0;
+}
+
+.recentSection {
+    display: flex;
+    flex-direction: column;
     gap: var(--spacers-dp8);
+    padding: 20px var(--spacers-dp12) var(--spacers-dp16);
+}
+
+.recentHeader {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--colors-grey600);
+    margin: 0;
+}
+
+.recentButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.recentButton {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--colors-grey700);
+    text-align: left;
+    cursor: pointer;
+    margin: 0 0 0 -4px;
+}
+
+.recentButton:hover {
+    background: var(--colors-grey300);
+    border-color: var(--colors-grey400);
+}
+
+.recentButton:active {
+    background: var(--colors-grey300);
+    transform: translateY(1px);
 }

@@ -38,7 +38,7 @@ export const acSetCurrentFromUi = (value) => ({
 })
 
 export const tSetCurrentFromUi =
-    ({ validateOnly } = {}) =>
+    ({ validateOnly, skipLoadingState } = {}) =>
     (dispatch, getState) => {
         const state = getState()
         const currentFromUi = sGetCurrentFromUi(state)
@@ -64,7 +64,10 @@ export const tSetCurrentFromUi =
             validateLayout(current)
             if (!validateOnly) {
                 dispatch(acClearLoadError())
-                dispatch(acSetVisualizationLoading(true))
+                // Skip loading state for lightweight updates like output type changes
+                if (!skipLoadingState) {
+                    dispatch(acSetVisualizationLoading(true))
+                }
             }
         } catch (error) {
             dispatch(acSetLoadError(error || genericClientError()))

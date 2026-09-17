@@ -1,0 +1,51 @@
+.scrollbox {
+    overflow-y: auto;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.programItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--colors-grey900);
+    transition: background-color 0.15s ease;
+}
+
+.programItem:hover {
+    background-color: var(--colors-grey200);
+}
+
+.programItem:active {
+    background-color: var(--colors-grey300);
+}
+
+.errorWrap {
+    padding: var(--spacers-dp8) var(--spacers-dp8) var(--spacers-dp4);
+}
+
+.noResults {
+    padding: 0 var(--spacers-dp8) 0 var(--spacers-dp8);
+    color: var(--colors-grey600);
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.loaderWrap {
+    display: flex;
+    justify-content: center;
+    padding-top: var(--spacers-dp16);
+}
