@@ -5,9 +5,12 @@ import {
 import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { PROGRAM_TYPE_WITH_REGISTRATION } from '../../../modules/programTypes.js'
+import {
+    PROGRAM_TYPE_WITH_REGISTRATION,
+    PROGRAM_TYPE_WITHOUT_REGISTRATION,
+} from '../../../modules/programTypes.js'
 import { useDebounce } from '../../../modules/utils.js'
 import {
     OUTPUT_TYPE_EVENT,
@@ -17,18 +20,36 @@ import {
 import { sGetMetadataById } from '../../../reducers/metadata.js'
 import {
     sGetUiEntityTypeId,
-    sGetUiInputType,
+    sGetUiDataSourceType,
     sGetUiProgramId,
     sGetUiProgramStageId,
 } from '../../../reducers/ui.js'
+import { useProgramDimensions } from '../../../reducers/ui.js'
 import { ProgramDataDimensionsList } from './ProgramDataDimensionsList.jsx'
 import { ProgramDimensions } from './ProgramDimensions.jsx'
 import { ProgramDimensionsFilter } from './ProgramDimensionsFilter.jsx'
 import styles from './ProgramDimensionsPanel.module.css'
 import { ProgramSelect } from './ProgramSelect.jsx'
+import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
-const ProgramDimensionsPanel = ({ visible }) => {
-    const inputType = useSelector(sGetUiInputType)
+const ProgramDimensionsPanel = ({
+    visible,
+    searchTerm: externalSearchTerm,
+}) => {
+    // Use data source type to determine what dimensions to show
+    const dataSourceType = useSelector(sGetUiDataSourceType)
+
+    // Derive the inputType from data source for API compatibility
+    const inputType = useMemo(() => {
+        if (dataSourceType === 'TRACKED_ENTITY_TYPE') {
+            return OUTPUT_TYPE_TRACKED_ENTITY
+        } else if (dataSourceType === 'PROGRAM') {
+            // For programs, default to EVENT for fetching all dimensions
+            return OUTPUT_TYPE_EVENT
+        }
+        return OUTPUT_TYPE_EVENT
+    }, [dataSourceType])
+
     const selectedProgramId = useSelector(sGetUiProgramId)
     const selectedTrackedEntityTypeId = useSelector(sGetUiEntityTypeId)
     const selectedProgram = useSelector((state) =>
@@ -36,12 +57,64 @@ const ProgramDimensionsPanel = ({ visible }) => {
     )
     const selectedStageId = useSelector(sGetUiProgramStageId)
 
-    const [searchTerm, setSearchTerm] = useState('')
     const [stageFilter, setStageFilter] = useState()
     const [dimensionType, setDimensionType] = useState(DIMENSION_TYPE_ALL)
-    const debouncedSearchTerm = useDebounce(searchTerm)
+    const debouncedSearchTerm = useDebounce(externalSearchTerm || '')
+
+    // Get program dimensions to check if they have results
+    const programDimensions = useProgramDimensions()
+
+    // Check if ProgramDimensions has results
+    const hasProgramDimensions = React.useMemo(() => {
+        if (!programDimensions) return false
+        if (!externalSearchTerm) return programDimensions.length > 0
+        return programDimensions.some((dimension) =>
+            dimension.name
+                .toLowerCase()
+                .includes(externalSearchTerm.toLowerCase())
+        )
+    }, [programDimensions, externalSearchTerm])
+
+    // Get program data dimensions to check if they have results
+    const {
+        dimensions: programDataDimensions,
+        loading: programDataLoading,
+        fetching: programDataFetching,
+        error: programDataError,
+        hasMore: programDataHasMore,
+        loadMore: programDataLoadMore,
+    } = useProgramDataDimensions({
+        inputType,
+        trackedEntityTypeId: selectedTrackedEntityTypeId,
+        program: selectedProgram,
+        stageId:
+            inputType === OUTPUT_TYPE_EVENT
+                ? selectedStageId
+                : [OUTPUT_TYPE_ENROLLMENT, OUTPUT_TYPE_TRACKED_ENTITY].includes(
+                      inputType
+                  ) && dimensionType === DIMENSION_TYPE_DATA_ELEMENT
+                ? stageFilter
+                : undefined,
+        searchTerm: debouncedSearchTerm,
+        dimensionType,
+    })
+
+    // Check if ProgramDataDimensionsList has results
+    const hasProgramDataDimensions =
+        programDataDimensions && programDataDimensions.length > 0
+
+    // Show divider only if both sections have results
+    const showDivider = hasProgramDimensions && hasProgramDataDimensions
     const isProgramSelectionComplete = () => {
         if (inputType === OUTPUT_TYPE_EVENT) {
+            // Programs without registration don't have stages
+            if (
+                selectedProgram?.programType ===
+                PROGRAM_TYPE_WITHOUT_REGISTRATION
+            ) {
+                return !!selectedProgram
+            }
+            // Programs with registration need both program and stage
             return selectedProgram && selectedStageId
         } else if (inputType === OUTPUT_TYPE_ENROLLMENT) {
             return !!selectedProgram
@@ -51,10 +124,9 @@ const ProgramDimensionsPanel = ({ visible }) => {
     }
 
     useEffect(() => {
-        setSearchTerm('')
         setDimensionType(DIMENSION_TYPE_ALL)
         setStageFilter()
-    }, [inputType, selectedProgramId, selectedStageId])
+    }, [dataSourceType, selectedProgramId, selectedStageId])
 
     if (!visible) {
         return null
@@ -75,13 +147,16 @@ const ProgramDimensionsPanel = ({ visible }) => {
                 {isProgramSelectionComplete() ? (
                     <>
                         <div>
-                            <ProgramDimensions />
+                            <ProgramDimensions
+                                searchTerm={externalSearchTerm}
+                            />
                         </div>
-                        <div className={styles.section}>
+                        {showDivider && <div className={styles.divider}></div>}
+                        <div>
                             <ProgramDimensionsFilter
                                 program={selectedProgram}
-                                searchTerm={searchTerm}
-                                setSearchTerm={setSearchTerm}
+                                searchTerm={externalSearchTerm || ''}
+                                setSearchTerm={() => {}}
                                 dimensionType={dimensionType}
                                 setDimensionType={setDimensionType}
                                 stageFilter={stageFilter}
@@ -90,15 +165,21 @@ const ProgramDimensionsPanel = ({ visible }) => {
                                     selectedProgram.programType ===
                                     PROGRAM_TYPE_WITH_REGISTRATION
                                 }
+                                hasProgramDataDimensions={
+                                    hasProgramDataDimensions
+                                }
                             />
                         </div>
 
                         <ProgramDataDimensionsList
-                            inputType={inputType}
+                            dimensions={programDataDimensions}
+                            loading={programDataLoading}
+                            fetching={programDataFetching}
+                            error={programDataError}
+                            hasMore={programDataHasMore}
+                            onLoadMore={programDataLoadMore}
                             program={selectedProgram}
-                            dimensionType={dimensionType}
                             searchTerm={debouncedSearchTerm}
-                            stageId={stageId}
                         />
                     </>
                 ) : (
@@ -115,40 +196,47 @@ const ProgramDimensionsPanel = ({ visible }) => {
             <div className={styles.container}>
                 {isProgramSelectionComplete() ? (
                     <>
-                        <div className={cx(styles.section, styles.bordered)}>
+                        <div>
                             <ProgramSelect prefix={i18n.t('Program')} />
                         </div>
                         {selectedProgram && (
                             <>
                                 <div>
-                                    <ProgramDimensions />
+                                    <ProgramDimensions
+                                        searchTerm={externalSearchTerm}
+                                    />
                                 </div>
+                                {showDivider && (
+                                    <div className={styles.divider}></div>
+                                )}
                                 <div className={styles.section}>
                                     <ProgramDimensionsFilter
                                         program={selectedProgram}
-                                        searchTerm={searchTerm}
-                                        setSearchTerm={setSearchTerm}
+                                        searchTerm={externalSearchTerm || ''}
+                                        setSearchTerm={() => {}}
                                         dimensionType={dimensionType}
                                         setDimensionType={setDimensionType}
                                         stageFilter={stageFilter}
                                         setStageFilter={setStageFilter}
+                                        showProgramAttribute={
+                                            selectedProgram.programType ===
+                                            PROGRAM_TYPE_WITH_REGISTRATION
+                                        }
+                                        hasProgramDataDimensions={
+                                            hasProgramDataDimensions
+                                        }
                                     />
                                 </div>
 
                                 <ProgramDataDimensionsList
-                                    inputType={inputType}
+                                    dimensions={programDataDimensions}
+                                    loading={programDataLoading}
+                                    fetching={programDataFetching}
+                                    error={programDataError}
+                                    hasMore={programDataHasMore}
+                                    onLoadMore={programDataLoadMore}
                                     program={selectedProgram}
-                                    dimensionType={dimensionType}
                                     searchTerm={debouncedSearchTerm}
-                                    stageId={
-                                        dimensionType ===
-                                        DIMENSION_TYPE_DATA_ELEMENT
-                                            ? stageFilter
-                                            : undefined
-                                    }
-                                    trackedEntityTypeId={
-                                        selectedTrackedEntityTypeId
-                                    }
                                 />
                             </>
                         )}
@@ -167,6 +255,7 @@ const ProgramDimensionsPanel = ({ visible }) => {
 
 ProgramDimensionsPanel.propTypes = {
     visible: PropTypes.bool.isRequired,
+    searchTerm: PropTypes.string,
 }
 
 export { ProgramDimensionsPanel }

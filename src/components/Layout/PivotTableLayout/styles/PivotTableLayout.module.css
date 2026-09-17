@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+}
+
+.leftPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.rightPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+    border-left: 1px solid var(--colors-grey400);
+    padding-left: 8px;
+}
+
+.rowsAxis {
+    border-top: 1px solid var(--colors-grey400);
+    padding-top: 8px;
+}

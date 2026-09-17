@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.leftPanel {
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.divider {
+    width: 2px;
+    cursor: ew-resize;
+    background-color: var(--colors-grey300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    align-self: stretch;
+    transition: background-color 0.2s ease;
+    transition: outline 0.2s ease;
+}
+
+.divider:hover {
+    background-color: var(--colors-blue500);
+    outline: 1px solid var(--colors-blue500);
+}
+
+.divider:active {
+    background-color: var(--colors-blue500);
+    outline: 1px solid var(--colors-blue500);
+}
+
+.rightPanel {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

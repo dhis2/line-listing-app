@@ -1,26 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { DimensionsList } from '../DimensionsList/index.js'
-import { useProgramDataDimensions } from './useProgramDataDimensions.js'
 
 const ProgramDataDimensionsList = ({
-    inputType,
-    trackedEntityTypeId,
+    dimensions = [],
+    loading = false,
+    fetching = false,
+    error = null,
+    hasMore = false,
+    onLoadMore = () => {},
     program,
-    stageId,
     searchTerm,
-    dimensionType,
 }) => {
-    const { dimensions, loading, fetching, error, setIsListEndVisible } =
-        useProgramDataDimensions({
-            inputType,
-            trackedEntityTypeId,
-            program,
-            stageId,
-            searchTerm,
-            dimensionType,
-        })
-
     const draggableDimensions = dimensions.map((dimension) => ({
         draggableId: `program-${dimension.id}`,
         ...dimension,
@@ -28,12 +19,13 @@ const ProgramDataDimensionsList = ({
 
     return (
         <DimensionsList
-            setIsListEndVisible={setIsListEndVisible}
+            onLoadMore={onLoadMore}
+            hasMore={hasMore}
             dimensions={draggableDimensions}
             error={error}
             fetching={fetching}
             loading={loading}
-            programName={program.name}
+            programName={program?.name}
             searchTerm={searchTerm}
             dataTest="program-dimensions-list"
         />
@@ -41,12 +33,14 @@ const ProgramDataDimensionsList = ({
 }
 
 ProgramDataDimensionsList.propTypes = {
-    inputType: PropTypes.string.isRequired,
-    program: PropTypes.object.isRequired,
-    dimensionType: PropTypes.string,
+    dimensions: PropTypes.array,
+    error: PropTypes.object,
+    fetching: PropTypes.bool,
+    hasMore: PropTypes.bool,
+    loading: PropTypes.bool,
+    onLoadMore: PropTypes.func,
+    program: PropTypes.object,
     searchTerm: PropTypes.string,
-    stageId: PropTypes.string,
-    trackedEntityTypeId: PropTypes.string,
 }
 
 export { ProgramDataDimensionsList }

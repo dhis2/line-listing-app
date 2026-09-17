@@ -1,7 +1,6 @@
 .dimensionItem {
     background-color: var(--colors-white);
-    color: var(--colors-grey900);
-    fill: var(--colors-grey800);
+    color: #8a949f;
     display: flex;
     justify-content: space-between;
     padding: 0 0 0 var(--spacers-dp4);
@@ -30,7 +29,7 @@
 .dimensionItem.selected {
     background-color: var(--colors-teal100);
     border: 1px solid var(--colors-teal200);
-    fill: var(--colors-teal800);
+    color: var(--colors-teal800);
     font-weight: 400;
 }
 
@@ -42,6 +41,23 @@
 
 .dimensionItem.selected:not(.disabled):active {
     background-color: #bbe2e0;
+}
+
+.dimensionItem.multiSelected {
+    background-color: #e3f2fd;
+    border: 1px solid #90caf9;
+    color: var(--colors-grey800);
+    font-weight: 400;
+}
+
+.dimensionItem.multiSelected:not(.disabled):hover {
+    background: #bbdefb;
+    border-color: #64b5f6;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.dimensionItem.multiSelected:not(.disabled):active {
+    background-color: #90caf9;
 }
 
 .dimensionItem.disabled {
@@ -62,6 +78,7 @@
     font-size: 13px;
     line-height: 15px;
     padding: 2px 0;
+    color: var(--colors-grey900);
 }
 
 .label .primary {
@@ -82,6 +99,11 @@
     line-height: 15px;
     color: var(--colors-grey600);
     overflow-wrap: anywhere;
+}
+
+.dimensionItem.selected .label,
+.dimensionItem.multiSelected .label {
+    color: var(--colors-grey900);
 }
 
 .dimensionItem.selected .label .secondary {

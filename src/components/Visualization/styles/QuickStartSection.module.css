@@ -1,0 +1,78 @@
+.container {
+    /* background-color: rgba(232, 237, 242, 0.5); */
+    padding: 8px var(--spacers-dp12);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0 0 var(--spacers-dp8) 0;
+    line-height: 12px;
+    color: #7c5095;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.titleIcon {
+    color: #7c5095;
+}
+
+.buttonsWrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: var(--spacers-dp4);
+    column-gap: var(--spacers-dp4);
+}
+
+.quickStartButton {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--colors-grey800);
+    background-color: var(--colors-white);
+    border-radius: 5px;
+    padding: 6px var(--spacers-dp8);
+    border: 1px solid var(--colors-grey400);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.quickStartButton:hover {
+    background-color: var(--colors-white);
+    border-color: var(--colors-grey500);
+    color: var(--colors-grey900);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.quickStartButton:active {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+}
+
+.buttonContent {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+}
+
+.iconGroup {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--colors-grey600);
+}
+
+.quickStartButton:hover .iconGroup {
+    color: var(--colors-teal600);
+}
+
+.buttonText {
+    flex: 1;
+}

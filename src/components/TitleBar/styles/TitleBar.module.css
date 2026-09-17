@@ -1,8 +1,12 @@
 .titleBar {
     display: flex;
-    justify-content: flex-start;
+    margin: 0;
+    padding: 0 var(--spacers-dp4);
     /* Same amount of whitespace as fullscreen button */
-    padding-inline-end: 28px;
+    /* border-bottom: 1px solid var(--colors-grey400);
+     */
+    border-left: 1px solid var(--colors-grey400);
+    background: white;
 }
 
 .titleBar > .buttonContainer {
@@ -14,31 +18,42 @@
 .titleBar > .titleContainer {
     display: flex;
     flex-grow: 1;
-    justify-content: center;
+    align-items: center;
 }
 
 .cell {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     background-color: var(--colors-white);
-    padding: 6px;
+    padding: 4px;
     border-radius: 5px;
     margin: 4px;
 }
 
 .title {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--colors-grey800);
+    font-weight: 400;
 }
 
 .suffix {
-    padding-left: 4px;
+    margin-left: 4px;
 }
 
 .titleUnsaved {
     color: var(--colors-grey500);
     font-style: italic;
+    font-weight: 400;
 }
 
 .titleDirty {
-    color: var(--colors-grey700);
+    color: var(--colors-grey800);
+    padding: 2px 4px;
+    border-radius: 3px;
+    background-color: var(--colors-grey200);
+    margin-top: -1px;
+    font-size: 11px;
+    letter-spacing: -0.2px;
+    font-family: monospace;
 }

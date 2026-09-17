@@ -159,6 +159,38 @@
     line-height: 0;
 }
 
+/* invalid state */
+
+.invalid {
+    opacity: 0.7;
+    background-color: var(--colors-grey100);
+    border-color: var(--colors-grey400);
+    color: var(--colors-grey900);
+}
+
+.invalid:hover {
+    background-color: var(--colors-grey200);
+    border-color: var(--colors-grey400);
+}
+
+.invalid .chipBase {
+    color: var(--colors-grey900);
+}
+
+.invalid .secondary {
+    color: var(--colors-grey600);
+}
+
+.invalid .suffix {
+    background: #eff1f3;
+    color: var(--colors-grey900);
+}
+
+.invalid .items {
+    background: #eff1f3;
+    color: var(--colors-grey900);
+}
+
 /* dnd */
 
 .active {
