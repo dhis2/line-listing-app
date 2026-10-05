@@ -25,6 +25,6 @@
     },
     "clearVisualization": {
         "strategy": "navigateToUrl",
-        "steps": [{ "goto": "{{appUrl}}/#/new" }]
+        "steps": [{ "goto": "{{appUrl}}/#/" }]
     }
 }
