@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { SingleSelect, SingleSelectOption } from '@dhis2/ui'
+import { SingleSelect, SingleSelectOption, IconCopy16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -25,16 +25,18 @@ const StageSelect = ({ stages }) => {
 
     return (
         <div className={cx(styles.rows, styles.stage)}>
-            <span className={styles.label}>{i18n.t('Stage')}</span>
             <div className={styles.columns}>
                 <div className={styles.stretch}>
-                    <SingleSelect
+                    <div className={styles.dropdownWrapper}>
+                        <SingleSelect
                         dense
                         selected={selectedStageId}
                         onChange={onChange}
                         dataTest="stage-select"
                         filterable
                         noMatchText={i18n.t('No stages found')}
+                        placeholder={i18n.t('Choose a stage')}
+                        prefix={<IconCopy16 />}
                     >
                         {stages.map(({ id, name }) => (
                             <SingleSelectOption
@@ -43,7 +45,8 @@ const StageSelect = ({ stages }) => {
                                 value={id}
                             />
                         ))}
-                    </SingleSelect>
+                        </SingleSelect>
+                    </div>
                 </div>
             </div>
         </div>

@@ -19,12 +19,6 @@ export const getCreatedDimension = () => ({
 })
 
 export const getMainDimensions = (inputType) => ({
-    ...(inputType === OUTPUT_TYPE_TRACKED_ENTITY
-        ? {
-              ...getDefaultOuMetadata(inputType),
-              ...getCreatedDimension(),
-          }
-        : {}),
     [DIMENSION_ID_LAST_UPDATED]: {
         id: DIMENSION_ID_LAST_UPDATED,
         dimensionType: DIMENSION_TYPE_PERIOD,

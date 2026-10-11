@@ -13,3 +13,9 @@
     line-height: 19px;
     text-align: center;
 }
+
+.divider {
+    height: 1px;
+    background-color: var(--colors-grey300);
+    margin: var(--spacers-dp8) 0 2px 0;
+}

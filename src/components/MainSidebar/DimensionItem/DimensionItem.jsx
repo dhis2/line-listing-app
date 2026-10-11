@@ -51,7 +51,24 @@ export const DimensionItem = ({
 
     const onClick = disabled
         ? undefined
-        : () => dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+        : (e) => {
+              if (e?.altKey) {
+                  // Alt+click to directly add/remove from layout (same as IconAdd16/IconSubtract16 buttons)
+                  if (!selected) {
+                      dispatch(
+                          acAddUiLayoutDimensions(
+                              { [id]: { axisId: 'columns' } },
+                              dimensionMetadata
+                          )
+                      )
+                  } else {
+                      dispatch(acRemoveUiLayoutDimensions(id))
+                  }
+              } else {
+                  // Normal click opens the dimension modal
+                  dispatch(acSetUiOpenDimensionModal(id, dimensionMetadata))
+              }
+          }
 
     const {
         attributes,

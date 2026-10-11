@@ -1,0 +1,47 @@
+.toolbarActions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    margin-left: auto;
+    padding: 0 var(--spacers-dp4);
+}
+
+.toolbarActions button {
+    border-color: transparent !important;
+    cursor: pointer;
+}
+
+.toolbarActions button:hover {
+    /* border: 1px solid var(--colors-grey400) !important; */
+    background-color: var(--colors-grey200) !important;
+}
+.divider {
+    width: 1px;
+    height: 66%;
+    background-color: var(--colors-grey300);
+}
+
+/* Override analytics library button styles (Update, File, View, Options) */
+:global([data-test='dhis2-analytics-toolbar']) button {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+}
+
+:global([data-test='dhis2-analytics-toolbar']) button span {
+    font-size: 13px !important;
+}
+
+:global([data-test='dhis2-analytics-hovermenubar']) button {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+}
+
+:global([data-test='dhis2-analytics-hovermenuDropdown']) {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+}
+
+:global([data-test='dhis2-analytics-toolbar-update-button']) {
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+}

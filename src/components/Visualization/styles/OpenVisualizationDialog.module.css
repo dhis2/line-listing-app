@@ -1,0 +1,63 @@
+.dataTableWrapper {
+    min-height: 405px;
+}
+
+.dataTableBody {
+    min-height: 465px;
+}
+
+.paginationControls {
+    width: 100%;
+    margin-top: var(--spacers-dp12);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacers-dp12);
+}
+
+.pageInfo {
+    font-size: 14px;
+    color: var(--colors-grey700);
+}
+
+.searchAndFilterBar {
+    display: flex;
+    gap: var(--spacers-dp4);
+    align-items: center;
+    margin-bottom: var(--spacers-dp8);
+}
+
+.searchFieldContainer {
+    min-width: 220px;
+}
+
+.createdByFieldContainer {
+    min-width: 180px;
+}
+
+.infoCell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacers-dp8);
+    margin: var(--spacers-dp32) 0;
+}
+
+.infoContainer {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoText {
+    text-align: center;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--colors-grey700);
+}
+
+.infoButton {
+    margin-top: var(--spacers-dp12);
+}
