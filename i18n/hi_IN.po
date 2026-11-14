@@ -765,7 +765,7 @@ msgid "Enrollment date"
 msgstr ""
 
 msgid "Incident date"
-msgstr ""
+msgstr "घटना की तारीख़"
 
 msgid "Scheduled date"
 msgstr ""
